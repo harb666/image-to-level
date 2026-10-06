@@ -13,7 +13,11 @@ Or ask Claude: "make a level from inputs/<file>".
      (path to a Lyra checkout's `Lyra-2/`, installed per its INSTALL.md + checkpoints) is set and `nvidia-smi` exists.
      Runs `lyra_2._src.inference.lyra2_zoomgs_inference` (image + caption → zoom-in/out exploration video), then
      `vipe_da3_gs_recon` (video → `reconstructed_scene.ply` 3D Gaussians). Needs H100/A100, ≥43GB VRAM, ~10 min
-     (`LYRA_FAST=1` → `--use_dmd`, ~1 min). **Untested end-to-end here** (no GPU in cloud sessions).
+     (`LYRA_FAST=1` → `--use_dmd`, ~1 min). Verified against Lyra source (args, output paths `zoomgs/videos/00.mp4`,
+     `gs/reconstructed_scene.ply`, PLY fields x,y,z,f_dc_*,opacity) and converter tested on a synthetic Lyra-format PLY;
+     **not yet run on a GPU**. Output goes to `levels/<name>-lyra/` so the CPU level stays for comparison.
+     **One command on a rented GPU box:** `gpu_run.sh` (installs Lyra per INSTALL.md, downloads checkpoints, runs, pushes back).
+     Caption for Lyra: arg 3, else `inputs/<name>.txt`. Lyra PLY assumed OpenCV frame with first camera ≈ origin.
      Upstream: github.com/harb666/lyra (fork of nv-tlabs/lyra). Lyra-1 = GEN3C-based, older; we use Lyra-2.
    - **CPU fallback** — `pipeline/image_to_points.py`: MiDaS-small monocular depth (weights from GitHub releases;
      HuggingFace is blocked in cloud sessions) → back-projected point cloud, 60° FOV, depth mapped to 1.5–200 m,
