@@ -18,19 +18,27 @@ boundary, blue dot = spawn), `depth.png`, `reference.*`, `index.html` (three.js 
    scale, grid rotated to the main floor direction, 0.5 m cells: floor / solid / overhang masks, heights, colours,
    play area connected to the camera, spawn). Then:
    - facades extruded up to 6 m away from the floor into building mass;
-   - solid cells → greedy rectangle cover → **Building_NN** (group: `_Body` box + `_Roof` gable) if h > 3 m,
+   - solid cells → greedy rectangle cover → **Building_NN** (group: `_Body`, `_Trim`, `_Roof` gable, `_Chimney`
+     if big, `_Door` + up to 8 `_Window_NN` panels on the face that looks at the most walkable floor) if h > 3 m;
+     **Tower_NN** (same but `_Spire` pyramid) if > 10 m, ≥ 1.6× footprint and near-square;
      **Wall_NN** if thin/low, **Platform_NN** if ≤ 1.6 m, **Prop_NN** cylinder if small, else **Block_NN**;
+   - landmarks: compact raised point blobs on open floor (>1.5 m from buildings) → **Fountain_NN** (Basin, Water,
+     Column, Bowl cylinders) if wide & < 3.5 m, else **Pillar_NN** cylinder;
    - **Overhang_NN** slabs (roofs/bridges over walkable floor, ≥ 1.5 m wide);
    - **Path_NN** thin slabs where floor material differs from the ground;
-   - **Ground** flat slab over the play rectangle; **Terrain** heightfield (2 m cells): flat inside, rock hills
-     rising outside as the visible boundary; **Boundary_N/S/E/W** invisible collider walls;
+   - **Ground** flat slab over the play rectangle; **Terrain** heightfield (2 m cells): flat inside, cliff band
+     (2–5 m) then fbm rolling hills outside; builder splits it: steep faces → `Terrain` (rock, flat-shaded),
+     flat faces → `Terrain_Top` (`top_material`, grass, smooth); **Boundary_N/S/E/W** invisible collider walls;
    - material per object from colour (hue/sat/value → grass, sand, soil, cobblestone, concrete, plaster,
      stone_brick, wood, painted_wood, metal, rock, roof_tiles).
 3. `pipeline/build_level.py` — level.json → glb. One node per object (children under parent groups), one shared
-   PBR material per material type with a 128 px procedural tileable texture × colour; UVs in world metres / `tile_m`
-   (no stretching when resized). Writes `build_stats` (tris, objects, KB) into level.json, draws topdown.png.
+   PBR material per material type with a 256 px stylised procedural texture × colour, stored as JPEG; UVs in world
+   metres / `tile_m` (no stretching when resized). Identical parts (same type+size+material, e.g. windows/doors)
+   share one mesh (glTF instancing). Texture kinds: cobblestone, stone_brick, plaster, wood, painted_wood,
+   trim_wood, door_wood, window, roof_tiles, roof_slate, metal, grass, rock, water, sand, soil, concrete. Writes `build_stats` (tris, objects, KB) into level.json, draws topdown.png.
    Supported object `type`s: `group`, `box`, `cylinder`, `roof` (gable along longer side), `ramp` (rises to +z),
-   `stairs` (climbs to +z, 0.25 m steps), `terrain` (`heights` rows, `cell`), `boundary` (invisible).
+   `stairs` (climbs to +z, 0.25 m steps), `panel` (flat quad facing +z, texture once —
+   windows/doors/signs), `spire` (4-sided pyramid), `terrain` (+ optional `top_material`) (`heights` rows, `cell`), `boundary` (invisible).
 
 ## level.json schema (edit this to change the level)
 - `objects[]`: `name`, `type`, `parent` (optional; position is then relative to parent), `position` = centre of the
@@ -41,7 +49,7 @@ boundary, blue dot = spawn), `depth.png`, `reference.*`, `index.html` (three.js 
 - Units: metres, y-up, -z = forward from spawn. Player eye 1.7 m.
 
 ## Mobile notes
-Town square test: 42 objects, ~2k tris, 5–6 materials/textures, ~200 KB glb. Engines: mark static & batch
+Town square test: 129 objects, ~2.5k tris, 11 materials, ~255 KB glb. Engines: mark static & batch
 (draw calls ≈ materials). Colliders: use Body/Wall/Platform/Ground boxes; Boundary_* are invisible (alpha 0).
 
 ## Lyra 2.0 (kept, not current priority)
@@ -50,5 +58,5 @@ untested). `make_level.sh` uses it when `LYRA_DIR` is set and `nvidia-smi` exist
 the same way (output `levels/<name>-lyra/`). `points_to_level.py` main() = old blocky voxel export (legacy).
 
 ## Known limits
-Depth scale is a guess; buildings are boxes + gable roofs (no windows/detail); small features (fountains, props
-< 1 m²) are often lost; anything not connected to the walkable area is dropped; material guess is colour-only.
+Depth scale is a guess; building detail is a fixed recipe (door/windows/trim), not read from the image; small props
+< 1 m² are lost; arches/bridges not specially detected; anything not connected to the walkable area is dropped; material guess is colour-only.

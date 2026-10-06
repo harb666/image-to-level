@@ -36,6 +36,7 @@ const orbit=new OrbitControls(cam,r.domElement);orbit.enabled=false;
 let walk=true,yaw=0,pitch=0,vy=0;const pos=new THREE.Vector3();
 const spawn=()=>{pos.set(...meta.spawn);pos.y+=meta.eye_height;const f=meta.spawn_facing||[0,0,-1];yaw=Math.atan2(-f[0],-f[2]);pitch=0;};spawn();
 document.getElementById('reset').onclick=spawn;
+window.view=(x,z,yd,pd=0)=>{pos.set(x,meta.eye_height,z);yaw=yd*Math.PI/180;pitch=pd*Math.PI/180;}; // for scripted screenshots
 document.getElementById('mode').onclick=e=>{walk=!walk;orbit.enabled=!walk;e.target.textContent='Mode: '+(walk?'walk':'orbit');
   if(!walk){const c=meta.bounds_min.map((v,i)=>(v+meta.bounds_max[i])/2);const e=Math.max(meta.bounds_max[0]-meta.bounds_min[0],meta.bounds_max[2]-meta.bounds_min[2]);orbit.target.set(c[0],0,c[2]);cam.position.set(c[0]+e*.4,e*.6,c[2]+e*.6);}};
 document.getElementById('info').textContent=meta.triangles+' tris';

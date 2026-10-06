@@ -71,14 +71,26 @@ def main():
     nxt, nzt = int(np.ceil((x1 - x0) / tc)) + 1, int(np.ceil((z1 - z0) / tc)) + 1
     rng = np.random.default_rng(1); heights = []
     gx0, gz0, gx1, gz1 = x0 + margin, z0 + margin, x1 - margin, z1 - margin  # play-area rectangle
+    def fbm(shape, cells, oct=3):  # smooth value noise, 0..1
+        out = np.zeros(shape)
+        for o in range(oct):
+            c = cells * 2 ** o
+            out += ndimage.zoom(rng.random((c + 2, c + 2)), (shape[0] / (c + 2), shape[1] / (c + 2)), order=3)[:shape[0], :shape[1]] / 2 ** o
+        return (out - out.min()) / (np.ptp(out) + 1e-6)
+    ridge, bumps = fbm((nzt, nxt), 3), fbm((nzt, nxt), 6)
     for r in range(nzt):
         row = []
         for c in range(nxt):
             x, z = x0 + c * tc, z0 + r * tc
             d = np.hypot(max(gx0 - x, 0, x - gx1), max(gz0 - z, 0, z - gz1))  # distance outside the play rectangle
-            row.append(round(-0.1 if d < 1 else min(0.8 * d, 9.0) + rng.uniform(0, 1.5), 2))
+            if d < 1: hgt = -0.1
+            else:  # cliff band (steep 2-5 m step), then rolling hills
+                cliff = (2 + 3 * ridge[r, c]) * min(d / 3, 1)
+                hgt = cliff + max(d - 3, 0) * (0.3 + 0.5 * ridge[r, c]) + 2.5 * bumps[r, c]
+            row.append(round(min(hgt, 14), 2))
         heights.append(row)
-    add(name="Terrain", type="terrain", material=mat("rock", [0.42, 0.4, 0.36]), position=[x0, 0, z0], cell=tc, heights=heights)
+    add(name="Terrain", type="terrain", material=mat("rock", [0.5, 0.47, 0.42]), top_material=mat("grass", [0.36, 0.5, 0.22]),
+        position=[x0, 0, z0], cell=tc, heights=heights)
 
     # facades only show their front: extrude solid cells up to 6 m away from the walkable area into building mass
     away = ndimage.distance_transform_edt(~walk) * cell
@@ -94,6 +106,42 @@ def main():
     # --- ground: one flat editable slab over the play area (change its material/size freely)
     (gx0, gz0), (gx1, gz1) = W(bbj[0], bbj[1]), W(bbi[0], bbi[1])
     add(name="Ground", type="box", material=tmat, position=[(gx0 + gx1) / 2, -0.2, (gz0 + gz1) / 2], size=[gx1 - gx0 + 2, 0.2, gz1 - gz0 + 2])
+    def facing(j0, i0, j1, i1, k=4):
+        """Side of a rect that faces the most walkable floor: 0=-z, 1=+x, 2=+z, 3=-x."""
+        sides = [walk[max(j0 - k, 0):j0, i0:i1], walk[j0:j1, i1:i1 + k], walk[j1:j1 + k, i0:i1], walk[j0:j1, max(i0 - k, 0):i0]]
+        return int(np.argmax([x.sum() for x in sides]))
+
+    def building(bn, c, w, h, d, rgb, front, tower):
+        """Group: Body, Trim, Roof (gable) or Spire, Door + Windows on the front face, optional Chimney."""
+        kind = classify(rgb, False); h = round(h, 1)
+        add(name=bn, type="group", position=c)
+        add(name=bn + "_Body", parent=bn, type="box", material=mat(kind, rgb), position=[0, 0, 0], size=[w, h, d])
+        add(name=bn + "_Trim", parent=bn, type="box", material=mat("trim_wood", [0.32, 0.22, 0.15]), position=[0, h - 0.35, 0], size=[w + 0.2, 0.35, d + 0.2])
+        if tower:
+            add(name=bn + "_Spire", parent=bn, type="spire", material=mat("roof_slate", [0.3, 0.32, 0.36]), position=[0, h, 0],
+                size=[w + 0.4, round(max(w, d) * 1.6, 1), d + 0.4])
+        else:
+            add(name=bn + "_Roof", parent=bn, type="roof", material=mat("roof_tiles", [0.55, 0.27, 0.18]), position=[0, h, 0],
+                size=[w + 0.6, round(min(w, d) * 0.45, 1), d + 0.6])
+            if w * d > 20 and h > 5:
+                add(name=bn + "_Chimney", parent=bn, type="box", material=mat("stone_brick", [0.45, 0.42, 0.4]),
+                    position=[round(w / 4, 2), h, round(d / 4, 2)], size=[0.7, round(min(w, d) * 0.45 + 0.8, 1), 0.7])
+        # front face frame: u = along facade, out = outward normal
+        fw = w if front in (0, 2) else d; half = (d if front in (0, 2) else w) / 2 + 0.03
+        yaw = [180, 90, 0, 270][front]
+        def at(u, y):
+            return {0: [-u, y, -half], 1: [half, y, -u], 2: [u, y, half], 3: [-half, y, u]}[front]
+        add(name=bn + "_Door", parent=bn, type="panel", material=mat("door_wood", [0.4, 0.26, 0.16]), position=at(0, 0), rotation=[0, yaw, 0], size=[1.4, 2.3, 0])
+        floors = min(4, max(1, int((h - 1) / 3))); per = int(np.clip(fw // 2.6, 1, 4)); k = 0
+        for f in range(floors):
+            for q in range(per):
+                u = (q - (per - 1) / 2) * fw / per
+                if f == 0 and abs(u) < 1.4: continue  # door
+                if k >= 8: break
+                k += 1
+                add(name=f"{bn}_Window_{k:02d}", parent=bn, type="panel", material=mat("window", [0.75, 0.8, 0.85]),
+                    position=at(round(u, 2), round(1.1 + f * 3 + (0.6 if tower else 0), 2)), rotation=[0, yaw, 0], size=[1.0, 1.3, 0])
+
     # --- structures: rectangle cover of solid cells -> buildings / walls / platforms / props
     lab, n = ndimage.label(solid, K3)
     for comp in range(1, n + 1):
@@ -101,16 +149,14 @@ def main():
         for (j0, i0, j1, i1) in rects(cm, max(2, int(1 / cell ** 2)), max_n=6):
             w, d = (i1 - i0) * cell, (j1 - j0) * cell
             h = float(np.median(top[j0:j1, i0:i1][cm[j0:j1, i0:i1]]))
-            rgb = np.median(scol[j0:j1, i0:i1][cm[j0:j1, i0:i1]], 0)
+            rgb = np.percentile(scol[j0:j1, i0:i1][cm[j0:j1, i0:i1]], 75, axis=0)
             (xa, za), (xb, zb) = W(j0, i0), W(j1, i1)
             c = [round((xa + xb) / 2, 2), 0, round((za + zb) / 2, 2)]
             thin = min(w, d) <= 1.0
             if h > 3.0 and not thin:
-                bn = name("Building"); kind = classify(rgb, False)
-                add(name=bn, type="group", position=c)
-                add(name=bn + "_Body", parent=bn, type="box", material=mat(kind, rgb), position=[0, 0, 0], size=[w, round(h, 1), d])
-                add(name=bn + "_Roof", parent=bn, type="roof", material=mat("roof_tiles", [0.35, 0.22, 0.18]),
-                    position=[0, round(h, 1), 0], size=[w + 0.6, round(min(w, d) * 0.4, 1), d + 0.6])
+                front = facing(j0, i0, j1, i1)
+                tower = h > 10 and h >= 1.6 * max(w, d) and min(w, d) >= 3 and max(w, d) <= 1.6 * min(w, d)
+                building(name("Tower" if tower else "Building"), c, w, h, d, rgb, front, tower)
             elif thin or h <= 1.5 and min(w, d) < 2:
                 add(name=name("Wall"), type="box", material=mat(classify(rgb, False), rgb), position=c, size=[w, round(max(h, 1.0), 1), d])
             elif h <= 1.6:
@@ -119,6 +165,29 @@ def main():
                 add(name=name("Prop"), type="cylinder", material=mat(classify(rgb, False), rgb), position=c, size=[w, round(h, 1), d])
             else:
                 add(name=name("Block"), type="box", material=mat(classify(rgb, False), rgb), position=c, size=[w, round(h, 1), d])
+    # landmarks: compact raised blobs standing on the walkable floor, away from buildings
+    pts = g["p"]; ci_ = ((pts[:, 0] - ox) / cell).astype(int); cj_ = ((pts[:, 2] - oz) / cell).astype(int)
+    hmax = np.zeros(walk.shape); cnt = np.zeros(walk.shape)
+    sel = (pts[:, 1] > 0.3) & (pts[:, 1] < 8)
+    np.maximum.at(hmax, (cj_[sel], ci_[sel]), pts[sel, 1]); np.add.at(cnt, (cj_[sel], ci_[sel]), 1)
+    free = walk & (ndimage.distance_transform_edt(~solid) * cell > 1.5)
+    blob = ndimage.binary_opening((cnt >= 3) & (hmax > 0.4) & free, K3)
+    lab2, n2 = ndimage.label(blob, K3)
+    for comp in range(1, n2 + 1):
+        jj, ii = np.nonzero(lab2 == comp); area = len(jj) * cell ** 2
+        if not 1.0 <= area <= 60: continue
+        w, d = (np.ptp(ii) + 1) * cell, (np.ptp(jj) + 1) * cell; hgt = float(np.percentile(hmax[jj, ii], 90))
+        (xa, za) = W(jj.min(), ii.min()); c = [round(xa + w / 2, 2), 0, round(za + d / 2, 2)]
+        stone = mat("stone_brick", [0.62, 0.6, 0.56])
+        if min(w, d) >= 2.0 and hgt < 3.5:
+            fn = name("Fountain"); r = round(min(max(w, d) * 1.5, 6), 1)
+            add(name=fn, type="group", position=c)
+            add(name=fn + "_Basin", parent=fn, type="cylinder", material=stone, position=[0, 0, 0], size=[r, 0.6, r])
+            add(name=fn + "_Water", parent=fn, type="cylinder", material=mat("water", [0.3, 0.5, 0.6]), position=[0, 0.45, 0], size=[r - 0.4, 0.1, r - 0.4])
+            add(name=fn + "_Column", parent=fn, type="cylinder", material=stone, position=[0, 0, 0], size=[0.5, round(max(hgt, 1.8), 1), 0.5])
+            add(name=fn + "_Bowl", parent=fn, type="cylinder", material=stone, position=[0, round(max(hgt, 1.8) * 0.6, 1), 0], size=[round(r * 0.4, 1), 0.3, round(r * 0.4, 1)])
+        elif hgt >= 1.5:
+            add(name=name("Pillar"), type="cylinder", material=stone, position=c, size=[min(w, 1.2), round(hgt, 1), min(d, 1.2)])
     # overhangs (roofs/canopies/bridges above walkable floor)
     for (j0, i0, j1, i1) in rects(over, max(4, int(2 / cell ** 2)), max_n=8):
         sub = over[j0:j1, i0:i1]; b = float(np.median(bot[j0:j1, i0:i1][sub])); rgb = np.median(scol[j0:j1, i0:i1][sub], 0)

@@ -5,7 +5,7 @@ import io, json, os, sys, numpy as np, trimesh
 from PIL import Image, ImageDraw
 from trimesh.transformations import euler_matrix, translation_matrix
 
-TEX = 128  # px; mobile-friendly
+TEX = 256  # px; mobile-friendly (jpeg-compressed in the glb)
 
 
 def _noise(rng, cells, octaves=3):
@@ -24,38 +24,69 @@ def _cells(rng, n):
     s = np.sort(d, 0); return d.argmin(0), np.clip((s[1] - s[0]) / 4, 0, 1)
 
 
+def _bevel(e, w=0.35):
+    """Edge closeness 0..1 -> raised-tile shading (dark grout, lit top-left bevel)."""
+    return np.clip(e / w, 0, 1) ** 0.6
+
+
 def texture(kind):
-    rng = np.random.default_rng(abs(hash(kind)) % 2 ** 32); y, x = np.mgrid[:TEX, :TEX] / TEX; n = _noise(rng, 4)
+    """Stylised tileable texture: RGB multiplier around 1.0 (times the material colour)."""
+    rng = np.random.default_rng(sum(map(ord, kind))); y, x = np.mgrid[:TEX, :TEX] / TEX
+    n = _noise(rng, 4); fine = _noise(rng, 32, 2); tint = np.ones((TEX, TEX, 3))
     if kind == "cobblestone":
-        cid, e = _cells(rng, 28); shade = rng.uniform(0.75, 1.1, 28)[cid]; t = shade * (0.55 + 0.45 * e) * (0.9 + 0.2 * n)
+        cid, e = _cells(rng, 34); shade = rng.uniform(0.75, 1.15, 34)[cid]
+        t = shade * (0.35 + 0.65 * _bevel(e, 0.5)) * (0.85 + 0.25 * fine)
+        tint *= rng.uniform(0.97, 1.03, (34, 3))[cid]
     elif kind in ("stone_brick", "concrete_block"):
-        row = (y * 8).astype(int); off = (row % 2) * 0.125; col = ((x + off) * 4).astype(int)
-        mort = (np.minimum((y * 8) % 1, 1 - (y * 8) % 1) < 0.07) | (np.minimum(((x + off) * 4) % 1, 1 - ((x + off) * 4) % 1) < 0.035)
-        t = rng.uniform(0.8, 1.05, (8, 5))[row, col % 5] * (0.9 + 0.2 * n); t[mort] = 0.55
-    elif kind in ("wood", "painted_wood"):
-        board = (x * 4).astype(int); t = 0.85 + 0.1 * np.sin(y * 40 + n * 6 + board * 2) * (0.5 if kind == "painted_wood" else 1)
-        t *= rng.uniform(0.85, 1.05, 4)[board]; t[(x * 4) % 1 < 0.04] = 0.5
-    elif kind == "roof_tiles":
-        r = (y * 8) % 1; t = 0.7 + 0.35 * r - 0.25 * (np.abs(((x * 8 + (y * 8).astype(int) % 2 * 0.5) % 1) - 0.5) > 0.45)
+        rows = 8; row = (y * rows).astype(int); off = (row % 2) * 0.125; col = ((x + off) * 4).astype(int) % 4
+        ey = np.minimum((y * rows) % 1, 1 - (y * rows) % 1) * 4; ex = np.minimum(((x + off) * 4) % 1, 1 - ((x + off) * 4) % 1) * 8
+        shade = rng.uniform(0.78, 1.1, (rows, 4))[row, col]; t = shade * (0.35 + 0.65 * _bevel(np.minimum(ex, ey), 0.4)) * (0.85 + 0.3 * fine)
+        tint *= rng.uniform(0.97, 1.03, (rows, 4, 3))[row, col]
+    elif kind in ("wood", "door_wood", "trim_wood", "painted_wood"):
+        boards = 4 if kind != "trim_wood" else 2; board = (x * boards).astype(int)
+        grain = np.sin((y * 3 + rng.random(boards)[board]) * 60 + 8 * _noise(rng, 6)) * 0.5 + 0.5
+        t = (0.8 + 0.2 * grain * (0.4 if kind == "painted_wood" else 1)) * rng.uniform(0.85, 1.1, boards)[board]
+        t *= 0.4 + 0.6 * _bevel(np.minimum((x * boards) % 1, 1 - (x * boards) % 1) * 10, 0.5)
+        if kind == "door_wood":  # frame + handle
+            fr = (x < 0.08) | (x > 0.92) | (y < 0.06); t[fr] *= 0.6; t[(abs(x - 0.8) < 0.03) & (abs(y - 0.55) < 0.03)] = 1.6
+    elif kind == "window":  # dark glass, light frame, 2x2 mullions
+        glass = 0.35 + 0.25 * (y < 0.5 - 0.4 * x)  # sky reflection streak
+        frame = (np.minimum(x, 1 - x) < 0.09) | (np.minimum(y, 1 - y) < 0.07) | (abs(x - 0.5) < 0.03) | (abs(y - 0.5) < 0.03)
+        t = np.where(frame, 1.15, glass); tint[~frame] = [0.6, 0.8, 1.2]
+    elif kind in ("roof_tiles", "roof_slate"):
+        rows = 10 if kind == "roof_tiles" else 14; r = (y * rows) % 1; cols = 8 if kind == "roof_tiles" else 6
+        u = (x * cols + (y * rows).astype(int) % 2 * 0.5) % 1
+        t = (0.55 + 0.55 * r) * (1 - 0.35 * (np.abs(u - 0.5) > 0.44)) * rng.uniform(0.85, 1.1, (rows, cols + 1))[(y * rows).astype(int), (x * cols + 0.5).astype(int)]
     elif kind == "metal":
-        t = 0.85 + 0.08 * _noise(rng, 32, 1)[:, :1].repeat(TEX, 1) + 0.05 * n; t[(np.minimum(y % 0.5, x % 0.5) < 0.01)] = 0.55
+        t = 0.85 + 0.1 * _noise(rng, 64, 1)[:, :1].repeat(TEX, 1) + 0.06 * n
+        seam = np.minimum(y % 0.5, x % 0.5) < 0.012; t[seam] = 0.5
+        riv = (np.hypot((x % 0.5) - 0.04, (y % 0.5) - 0.04) < 0.012) | (np.hypot((x % 0.5) - 0.46, (y % 0.5) - 0.04) < 0.012); t[riv] = 1.25
     elif kind == "grass":
-        t = 0.7 + 0.45 * _noise(rng, 16, 2) * (0.6 + 0.4 * n)
+        blades = _noise(rng, 64, 1); t = 0.65 + 0.35 * n + 0.25 * (blades > 0.7) - 0.15 * (blades < 0.25)
+        tint[..., 0] *= 0.85 + 0.3 * _noise(rng, 3, 2); tint[..., 2] *= 0.8 + 0.2 * n
     elif kind == "rock":
-        t = 0.6 + 0.5 * _noise(rng, 3, 4)
-    else:  # plaster, sand, soil, concrete
-        t = 0.88 + 0.18 * _noise(rng, 8, 3)
-    return np.clip(t, 0, 1.3)
+        cid, e = _cells(rng, 9); t = rng.uniform(0.8, 1.1, 9)[cid] * (0.5 + 0.5 * _bevel(e, 0.9)) * (0.75 + 0.4 * _noise(rng, 6, 4))
+        t[(np.abs(_noise(rng, 5, 2) - 0.5) < 0.015)] *= 0.6  # cracks
+    elif kind == "water":
+        t = 0.85 + 0.3 * np.sin((x + 0.3 * n) * 25) ** 8; tint *= [0.9, 1.0, 1.1]
+    elif kind == "plaster":
+        t = 0.93 + 0.1 * fine - 0.12 * np.clip(_noise(rng, 3, 2) - 0.6, 0, 1) * 3 * (1 - y)  # stains near the bottom
+    elif kind in ("sand", "soil"):
+        t = 0.82 + 0.25 * _noise(rng, 6, 3) + 0.12 * (fine > 0.75)
+    else:  # concrete
+        t = 0.88 + 0.15 * fine + 0.05 * n; t[(x % 0.5 < 0.006) | (y % 0.5 < 0.006)] *= 0.75
+    return np.clip(t[..., None] * tint, 0, 1.4)
 
 
 def material(name, m):
     if name == "_invisible":
         return trimesh.visual.material.PBRMaterial(name="Collider_invisible", baseColorFactor=[1, 0, 0, 0], alphaMode="BLEND")
-    t = texture(m["type"])[..., None] * np.array(m["color"])[None, None] * 1.1
-    img = Image.fromarray((np.clip(t, 0, 1) * 255).astype(np.uint8))
-    rough = 0.45 if m["type"] == "metal" else 0.9
-    return trimesh.visual.material.PBRMaterial(name=name, baseColorTexture=img, metallicFactor=0.6 if m["type"] == "metal" else 0.0,
-                                               roughnessFactor=rough)
+    t = texture(m["type"]) * np.array(m["color"])[None, None] * 1.1
+    buf = io.BytesIO(); Image.fromarray((np.clip(t, 0, 1) * 255).astype(np.uint8)).save(buf, "JPEG", quality=82)
+    img = Image.open(io.BytesIO(buf.getvalue()))  # JPEG-backed -> embedded as jpeg (smaller glb)
+    metal = m["type"] == "metal"
+    return trimesh.visual.material.PBRMaterial(name=name, baseColorTexture=img, metallicFactor=0.6 if metal else 0.0,
+                                               roughnessFactor=0.45 if metal or m["type"] in ("window", "water") else 0.9)
 
 
 def shape(o):
@@ -72,6 +103,10 @@ def shape(o):
     if t == "cylinder":
         m = trimesh.creation.cylinder(radius=min(w, d) / 2, height=h, sections=12)
         m.apply_transform(euler_matrix(-np.pi / 2, 0, 0)); m.apply_translation([0, h / 2, 0]); return m
+    if t == "panel":  # flat quad facing +z (windows, doors, signs); base at y=0
+        return trimesh.Trimesh([[-w/2, 0, 0], [w/2, 0, 0], [w/2, h, 0], [-w/2, h, 0]], [[0, 1, 2], [0, 2, 3]])
+    if t == "spire":  # 4-sided pyramid
+        return trimesh.convex.convex_hull([[-w/2, 0, -d/2], [w/2, 0, -d/2], [w/2, 0, d/2], [-w/2, 0, d/2], [0, h, 0]])
     if t == "roof":  # gable along the longer side
         if w >= d: pts = [[-w/2, 0, -d/2], [w/2, 0, -d/2], [w/2, 0, d/2], [-w/2, 0, d/2], [-w/2, h, 0], [w/2, h, 0]]
         else: pts = [[-w/2, 0, -d/2], [w/2, 0, -d/2], [w/2, 0, d/2], [-w/2, 0, d/2], [0, h, -d/2], [0, h, d/2]]
@@ -101,9 +136,11 @@ def node_matrix(o):
 
 def build(level_dir):
     L = json.load(open(os.path.join(level_dir, "level.json")))
-    mats = {k: material(k, m) for k, m in L["materials"].items()}; mats["_invisible"] = material("_invisible", None)
+    mats = {k: material(k, m) for k, m in L["materials"].items()}
+    L.setdefault("draw_hint", "one material per surface type; mark static + batch in engine"); mats["_invisible"] = material("_invisible", None)
     scene = trimesh.Scene(); base = scene.graph.base_frame; tris = 0
     world = {}  # name -> world matrix (for topdown)
+    geoms = {}  # (type, size, material) -> shared geometry name
     for o in L["objects"]:
         parent = o.get("parent") or base; T = node_matrix(o)
         world[o["name"]] = (world.get(parent, np.eye(4)) if parent != base else np.eye(4)) @ T
@@ -111,10 +148,28 @@ def build(level_dir):
             scene.graph.update(frame_from=parent, frame_to=o["name"], matrix=T); continue
         mk = "_invisible" if o["type"] == "boundary" else o["material"]
         tile = L["materials"].get(mk, {}).get("tile_m", 2.0)
+        if o["type"] == "terrain":  # smooth-shaded; split into rock (steep) + top material (flat)
+            m = shape(o); uv = m.vertices[:, [0, 2]] / 4.0
+            flat = m.face_normals[:, 1] > 0.85
+            for suffix, sel, mm in (("", ~flat, mk), ("_Top", flat, o.get("top_material", mk))):
+                if not sel.any(): continue
+                sub = trimesh.Trimesh(m.vertices, m.faces[sel], process=False)
+                if suffix: sub.visual = trimesh.visual.TextureVisuals(uv=uv, material=mats[mm]); sub.remove_unreferenced_vertices()
+                else: sub, suv = uv_world(sub, 4.0); sub.visual = trimesh.visual.TextureVisuals(uv=suv, material=mats[mm])  # cliffs: no stretching
+                tris += len(sub.faces)
+                scene.add_geometry(sub, node_name=o["name"] + suffix, geom_name=o["name"] + suffix, parent_node_name=parent, transform=T)
+            continue
+        key = (o["type"], tuple(o["size"]), mk)
+        if key in geoms:  # identical part (window/door/...) -> reuse the same mesh (glTF instancing)
+            scene.graph.update(frame_from=parent, frame_to=o["name"], matrix=T, geometry=geoms[key])
+            tris += len(scene.geometry[geoms[key]].faces); continue
         m, uv = uv_world(shape(o), tile)
+        if o["type"] == "panel": uv = (m.vertices[:, :2] - [-o["size"][0] / 2, 0]) / o["size"][:2]  # whole texture once
         m.visual = trimesh.visual.TextureVisuals(uv=uv, material=mats[mk])
         if o["type"] != "boundary": tris += len(m.faces)
-        scene.add_geometry(m, node_name=o["name"], geom_name=o["name"], parent_node_name=parent, transform=T)
+        gname = o["name"] if o["type"] not in ("panel", "cylinder") else f"{o['type']}_{mk}_{len(geoms)}"
+        geoms[key] = gname
+        scene.add_geometry(m, node_name=o["name"], geom_name=gname, parent_node_name=parent, transform=T)
     sp = L["spawn"]
     scene.graph.update(frame_from=base, frame_to="PlayerSpawn",
                        matrix=translation_matrix(sp["position"]) @ euler_matrix(0, np.radians(sp["yaw_deg"]), 0))
