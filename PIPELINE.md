@@ -57,6 +57,10 @@ Extra texture kinds: floor_plate, pipe_metal, toxic, red_panel.
 - `spawn` {position, yaw_deg}, `bounds`, `walkable[]` rects {min[x,z], max[x,z], y}, `sky_color`, `build_stats`.
 - Units: metres, y-up, -z = forward from spawn. Player eye 1.7 m.
 
+## Shareable preview
+`python3 pipeline/make_preview.py levels/<name> "Title" out.html` → one self-contained page (glb + textures as data: URIs;
+sandboxed pages block the blob: URLs GLTFLoader uses for .glb textures, which renders everything black).
+
 ## Mobile notes
 Town square test: 129 objects, ~2.5k tris, 11 materials, ~255 KB glb. Engines: mark static & batch
 (draw calls ≈ materials). Colliders: use Body/Wall/Platform/Ground boxes; Boundary_* are invisible (alpha 0).

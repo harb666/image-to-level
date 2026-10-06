@@ -29,7 +29,12 @@ scene.add(new THREE.HemisphereLight(0xffffff,0x555555,2.2));
 const sun=new THREE.DirectionalLight(0xffffff,1.2);sun.position.set(20,40,10);scene.add(sun);
 const cam=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,0.1,500);
 const gltf=await new GLTFLoader().loadAsync(base+'/level.glb');
-gltf.scene.traverse(o=>{if(o.isMesh){if(!o.material.map)o.material=new THREE.MeshLambertMaterial({vertexColors:true,flatShading:true});if(o.name.startsWith('Spawn'))o.visible=false;if(o.name.startsWith('Boundary'))o.material.visible=false;}});
+// Embedded previews pass textures as data: URIs (window.TEX, by material name): the artifact sandbox blocks the
+// blob: URLs GLTFLoader uses for textures inside a .glb, which otherwise leaves every textured surface black.
+if(window.TEX){const tl=new THREE.TextureLoader(),cache={};gltf.scene.traverse(o=>{const m=o.material;if(!o.isMesh||!TEX[m.name])return;
+  const t=cache[m.name]||(cache[m.name]=tl.load(TEX[m.name]));t.flipY=false;t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;
+  m.map=t;if(m.emissive&&m.emissive.getHex())m.emissiveMap=t;m.needsUpdate=true;});}
+gltf.scene.traverse(o=>{if(o.isMesh){if(!o.material.map&&o.geometry.attributes.color)o.material=new THREE.MeshLambertMaterial({vertexColors:true,flatShading:true});if(o.name.startsWith('Spawn'))o.visible=false;if(o.name.startsWith('Boundary'))o.material.visible=false;}});
 scene.add(gltf.scene);
 const solids=[];gltf.scene.traverse(o=>{if(o.isMesh&&o.visible)solids.push(o)});
 const orbit=new OrbitControls(cam,r.domElement);orbit.enabled=false;
