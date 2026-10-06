@@ -47,7 +47,7 @@ When a concept sheet has a TOP DOWN LAYOUT/side view, don't run it through MiDaS
 Platform_<dir>_01 groups (_Base/_Floor/_Trim/_Light/_Cover), Bridge_*, Ramp_*, Stairs_*, Walkway_*, OuterWall_*,
 Pipe_* + _Fall, PipeRun_*, Banner_*, Background_Block_*). Materials may set `"emissive": [r,g,b]` (glow);
 cylinders may set `"sections"` (8 = octagon). level.json `hazards[]` lists kill volumes (viewer respawns on contact).
-Extra texture kinds: floor_plate, pipe_metal, toxic, red_panel.
+Extra texture kinds: floor_plate, industrial_wall, platform_side, grate, pipe_metal, toxic, glow, red_panel (banner).
 
 ## level.json schema (edit this to change the level)
 - `objects[]`: `name`, `type`, `parent` (optional; position is then relative to parent), `position` = centre of the

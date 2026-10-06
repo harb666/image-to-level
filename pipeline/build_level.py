@@ -69,19 +69,50 @@ def texture(kind):
         t[(np.abs(_noise(rng, 5, 2) - 0.5) < 0.015)] *= 0.6  # cracks
     elif kind == "water":
         t = 0.85 + 0.3 * np.sin((x + 0.3 * n) * 25) ** 8; tint *= [0.9, 1.0, 1.1]
-    elif kind == "floor_plate":  # worn industrial floor: big plates, seams, octagon inlay, scuffs
-        e = np.minimum(np.minimum(x % 0.5, 0.5 - x % 0.5), np.minimum(y % 0.5, 0.5 - y % 0.5)) * 20
-        t = (0.45 + 0.55 * _bevel(e, 0.3)) * (0.85 + 0.2 * fine + 0.1 * n)
-        oc = np.maximum(np.abs(x % 0.5 - 0.25), np.abs(y % 0.5 - 0.25)) + 0.5 * np.minimum(np.abs(x % 0.5 - 0.25), np.abs(y % 0.5 - 0.25))
-        t[np.abs(oc - 0.17) < 0.006] *= 0.7; tint[np.abs(oc - 0.17) < 0.006] = [1.25, 1.05, 0.6]  # faint yellow inlay
-    elif kind == "pipe_metal":  # bands/flanges along the pipe
-        t = 0.75 + 0.15 * n + 0.1 * fine; band = (y * 4) % 1 < 0.08; t[band] = 1.15
-    elif kind == "toxic":  # bright swirling fluid
+    elif kind == "floor_plate":  # worn tan deck plates: 2x2 plates, bevelled seams, octagon inlay, scuffs, edge wear
+        px, py = (x * 2) % 1, (y * 2) % 1; e = np.minimum(np.minimum(px, 1 - px), np.minimum(py, 1 - py)) * 14
+        t = (0.42 + 0.58 * _bevel(e, 0.35)) * (0.86 + 0.16 * fine + 0.1 * n) * rng.uniform(0.9, 1.06, (2, 2))[(y * 2).astype(int), (x * 2).astype(int)]
+        oc = np.maximum(np.abs(px - 0.5), np.abs(py - 0.5)) + 0.45 * np.minimum(np.abs(px - 0.5), np.abs(py - 0.5))
+        inl = np.abs(oc - 0.33) < 0.012; t[inl] *= 0.75; tint[inl] = [1.3, 1.1, 0.55]
+        bolt = np.hypot(np.minimum(px, 1 - px) - 0.06, np.minimum(py, 1 - py) - 0.06) < 0.018; t[bolt] = 0.55
+        t *= 1 - 0.25 * np.clip(_noise(rng, 5, 3) - 0.6, 0, 1) * 2.5  # dark scuffs / grime
+        tint *= [1.04, 1.0, 0.94]
+    elif kind == "industrial_wall":  # dark worn metal: vertical panels, seams, rivet rows, horizontal straps, grime
+        cols = 4; cx = (x * cols) % 1; band = (y * 2) % 1
+        e = np.minimum(cx, 1 - cx) * 18; pnl = rng.uniform(0.85, 1.12, cols)[(x * cols).astype(int)]
+        t = (0.5 + 0.5 * _bevel(e, 0.4)) * pnl * (0.85 + 0.15 * fine + 0.12 * n)
+        strap = np.abs(band - 0.5) < 0.05; t[strap] *= 1.25; t[np.abs(band - 0.5) - 0.05 < 0.01] *= 0.7
+        riv = (np.abs(band - 0.5) < 0.05) & (np.hypot(((x * cols * 3) % 1) - 0.5, (band - 0.5) * 6) < 0.12); t[riv] = 1.35
+        t *= 1 - 0.35 * np.clip(_noise(rng, 6, 3) - 0.55, 0, 1) * 2.2 * (0.6 + 0.4 * y)  # grime, heavier lower
+        lamp = (np.abs(cx - 0.5) < 0.05) & (np.abs(band - 0.2) < 0.012); t[lamp] = 1.6; tint[lamp] = [1.6, 1.0, 0.3]  # tiny amber lights
+    elif kind == "platform_side":  # chunky block sides: big recessed panels, thick frames, vertical drip grime
+        cx, cy = (x * 2) % 1, (y * 2) % 1; e = np.minimum(np.minimum(cx, 1 - cx), np.minimum(cy, 1 - cy))
+        frame = e < 0.09; inset = (e > 0.13)
+        t = np.where(frame, 1.12, np.where(inset, 0.82, 0.55)) * (0.85 + 0.18 * fine + 0.1 * n)
+        t *= 1 - 0.3 * np.clip(_noise(rng, 12, 1)[:1, :].repeat(TEX, 0) - 0.55, 0, 1) * 2.2 * y  # vertical streaks
+        tint *= [0.95, 1.02, 0.97]
+    elif kind == "grate":  # metal walkway grating: bars over dark gaps, side rails
+        bar = (y * 16) % 1 < 0.55; rail = np.minimum(x, 1 - x) < 0.06
+        t = np.where(bar | rail, 0.95 + 0.1 * fine, 0.3); t *= 0.9 + 0.15 * n
+    elif kind == "pipe_metal":  # dark pipe: segment rings/flanges + bolts, lengthwise sheen, grime
+        v = (y * 2) % 1; ring = np.abs(v - 0.5) < 0.06
+        sheen = 0.8 + 0.25 * np.sin(x * np.pi * 2) ** 2
+        t = sheen * (0.82 + 0.12 * n + 0.08 * fine); t[ring] = 1.25 * sheen[ring]; t[np.abs(np.abs(v - 0.5) - 0.07) < 0.01] *= 0.55
+        bolt = ring & (((x * 12) % 1) < 0.2) & (np.abs(v - 0.5) < 0.03); t[bolt] = 1.5
+        t *= 1 - 0.3 * np.clip(_noise(rng, 4, 3) - 0.6, 0, 1) * 2.5
+    elif kind == "toxic":  # bright neon fluid: swirls + light foam caustics
         sw = np.sin((x + 0.35 * _noise(rng, 3, 2)) * 18) * np.sin((y + 0.35 * _noise(rng, 3, 2)) * 14)
-        t = 0.75 + 0.3 * sw ** 2 + 0.15 * n
-    elif kind == "red_panel":  # emissive red banner/light with dark frame + emblem ring
-        frame = (np.minimum(x, 1 - x) < 0.1) | (np.minimum(y, 1 - y) < 0.06); r = np.hypot(x - 0.5, y - 0.6)
-        t = np.where(frame, 0.25, 0.9 + 0.1 * n); t[np.abs(r - 0.15) < 0.025] = 1.3
+        cid, e = _cells(rng, 30); foam = np.clip(1 - e * 3, 0, 1) ** 3
+        t = 0.8 + 0.2 * sw ** 2 + 0.12 * n + 0.35 * foam; tint[..., 0] += 0.4 * foam; tint[..., 2] += 0.3 * foam
+    elif kind == "glow":  # emissive tube: hot core, soft falloff to the edges
+        t = 0.55 + 0.9 * np.exp(-((x - 0.5) / 0.22) ** 2) + 0.05 * n; tint[..., 0] += 0.3 * np.exp(-((x - 0.5) / 0.12) ** 2)
+    elif kind == "red_panel":  # banner: dark frame, red cloth with pennant V-cut, ring+cross emblem, stitched border
+        frame = (np.minimum(x, 1 - x) < 0.07) | (y < 0.05)
+        vcut = y > 0.86 + 0.14 * np.abs(x - 0.5) * 2  # dark notch at the bottom
+        r = np.hypot(x - 0.5, (y - 0.42) * 1.2); emb = (np.abs(r - 0.17) < 0.022) | ((r < 0.25) & ((np.abs(x - 0.5) < 0.012) | (np.abs(y - 0.42) < 0.012)))
+        cloth = 0.85 + 0.12 * np.sin(x * 40 + 4 * n) * 0.3 + 0.1 * fine - 0.25 * y
+        t = np.where(frame | vcut, 0.18, cloth); t[emb & ~frame] = 1.45; tint[emb & ~frame] = [1.0, 0.75, 0.4]
+        t[(np.abs(np.minimum(x, 1 - x) - 0.1) < 0.008) & ~vcut & (y > 0.05)] = 1.2
     elif kind == "plaster":
         t = 0.93 + 0.1 * fine - 0.12 * np.clip(_noise(rng, 3, 2) - 0.6, 0, 1) * 3 * (1 - y)  # stains near the bottom
     elif kind in ("sand", "soil"):

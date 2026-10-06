@@ -106,21 +106,21 @@ objs = [o for o in objs if o]
 for o in objs:
     for k in ("position", "size", "rotation"):
         if k in o: o[k] = [round(float(v), 2) for v in o[k]]
-mats = {
-    "metal_dark": {"type": "metal", "color": [0.24, 0.26, 0.25], "tile_m": 3.0},
-    "metal_grate": {"type": "metal", "color": [0.36, 0.36, 0.33], "tile_m": 1.5},
-    "concrete_dark": {"type": "concrete", "color": [0.34, 0.34, 0.31], "tile_m": 3.0},
-    "floor_plate": {"type": "floor_plate", "color": [0.55, 0.52, 0.46], "tile_m": 4.0},
-    "pipe": {"type": "pipe_metal", "color": [0.2, 0.23, 0.22], "tile_m": 2.0},
-    "toxic": {"type": "toxic", "color": [0.45, 1.0, 0.12], "tile_m": 6.0, "emissive": [0.45, 0.95, 0.1]},
-    "glow_strip": {"type": "toxic", "color": [0.5, 1.0, 0.2], "tile_m": 2.0, "emissive": [0.5, 1.0, 0.2]},
-    "red_panel": {"type": "red_panel", "color": [0.75, 0.1, 0.08], "tile_m": 2.0, "emissive": [0.6, 0.08, 0.05]},
+mats = {  # visual pass: concept-style industrial look (textures are procedural kinds in build_level.py)
+    "metal_dark": {"type": "industrial_wall", "color": [0.19, 0.21, 0.19], "tile_m": 4.0},
+    "metal_grate": {"type": "grate", "color": [0.3, 0.31, 0.28], "tile_m": 2.0},
+    "concrete_dark": {"type": "platform_side", "color": [0.22, 0.24, 0.21], "tile_m": 4.0},
+    "floor_plate": {"type": "floor_plate", "color": [0.52, 0.49, 0.43], "tile_m": 4.0},
+    "pipe": {"type": "pipe_metal", "color": [0.19, 0.22, 0.21], "tile_m": 2.5},
+    "toxic": {"type": "toxic", "color": [0.5, 1.0, 0.1], "tile_m": 6.0, "emissive": [0.55, 1.0, 0.12]},
+    "glow_strip": {"type": "glow", "color": [0.55, 1.0, 0.2], "tile_m": 2.0, "emissive": [0.6, 1.0, 0.25]},
+    "red_panel": {"type": "red_panel", "color": [0.8, 0.1, 0.08], "tile_m": 2.0, "emissive": [0.75, 0.12, 0.08]},
 }
 walk = [dict(min=[x - w / 2, z - d / 2], max=[x + w / 2, z + d / 2], y=y) for x, z, w, d, y in
         [(0, 0, 22, 22, DECK)] + [(sx * MID, sz * MID, 12, 12, DECK) for sx, sz in ((0, -1), (0, 1), (-1, 0), (1, 0))] +
         [(sx * D, sz * D, 10, 10, LOW) for sx, sz in ((1, -1), (-1, -1), (1, 1), (-1, 1))]]
 L = dict(version=1, units="metres, y-up; position = centre of object's base, in parent space; rotation = degrees XYZ",
-         source="toxic_arena_concept.png (hand-authored from TOP DOWN LAYOUT + SIDE VIEW)", sky_color=[0.1, 0.13, 0.12],
+         source="toxic_arena_concept.png (hand-authored from TOP DOWN LAYOUT + SIDE VIEW)", sky_color=[0.07, 0.1, 0.08],
          spawn=dict(position=[0, DECK, MID], yaw_deg=0), hazards=["HazardFluid"],
          bounds=dict(min=[-A - 4, 0, -A - 4], max=[A + 4, 20, A + 4]), walkable=walk, materials=mats, objects=objs)
 os.makedirs(OUT, exist_ok=True)
