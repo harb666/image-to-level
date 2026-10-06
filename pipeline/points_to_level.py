@@ -5,7 +5,8 @@ Method (2.5D, block-out style): fit ground plane -> scale so camera = player eye
 bin points into a grid -> per cell: walkable floor tile, solid column (wall/building) or
 overhang slab (roof/eaves) -> merge runs of cells -> vertex-coloured boxes.
 """
-import argparse, json, os, numpy as np, trimesh
+import argparse, json, os, warnings, numpy as np, trimesh
+warnings.filterwarnings("ignore", "All-NaN")
 from PIL import Image
 
 EYE = 1.7  # metres; player eye height used to set world scale
@@ -56,29 +57,33 @@ def box(x0, x1, y0, y1, z0, z1, rgb):
 
 
 def merge_runs(mask, h0, h1, col, cell, ox, oz, hq=0.5):
-    """Greedy merge along x of cells with equal quantised heights -> list of boxes."""
-    out = []
+    """Greedy merge: runs along x of equal quantised height+colour, then identical runs stacked along z -> boxes."""
     nz, nx = mask.shape
-    for j in range(nz):
+    key = lambda j, i: (round(h0[j, i] / hq), round(h1[j, i] / hq), tuple(np.round(col[j, i], 2)))
+    open_, out = {}, []
+    def emit(r, j0, j1):
+        i, k, (b0, b1, c) = r
+        out.append(box(ox + i * cell, ox + k * cell, b0 * hq, max(b1 * hq, b0 * hq + hq),
+                       oz + j0 * cell, oz + j1 * cell, np.array(c)))
+    for j in range(nz + 1):
+        runs = set()
         i = 0
-        while i < nx:
+        while j < nz and i < nx:
             if not mask[j, i]: i += 1; continue
-            k = i + 1
-            key = (round(h0[j, i] / hq), round(h1[j, i] / hq))
-            while k < nx and mask[j, k] and (round(h0[j, k] / hq), round(h1[j, k] / hq)) == key \
-                    and np.abs(col[j, k] - col[j, i]).max() < 0.15:
-                k += 1
-            c = col[j, i:k].mean(0)
-            out.append(box(ox + i * cell, ox + k * cell, key[0] * hq, max(key[1] * hq, key[0] * hq + hq),
-                           oz + j * cell, oz + (j + 1) * cell, c))
-            i = k
+            kk, k = key(j, i), i + 1
+            while k < nx and mask[j, k] and key(j, k) == kk: k += 1
+            runs.add((i, k, kk)); i = k
+        for r in list(open_):
+            if r not in runs: emit(r, open_.pop(r), j)
+        for r in runs:
+            open_.setdefault(r, j)
     return out
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("points"); ap.add_argument("outdir")
-    ap.add_argument("--cell", type=float, default=1.0, help="grid cell size in metres")
+    ap.add_argument("--cell", type=float, default=0.5, help="grid cell size in metres")
     ap.add_argument("--max-extent", type=float, default=80.0)
     ap.add_argument("--max-height", type=float, default=30.0)
     a = ap.parse_args()
@@ -119,42 +124,81 @@ def main():
                 over[j, i] = True; bot[j, i] = np.percentile(ys, 5)
             else:
                 solid[j, i] = True
-    # fill small holes in the walkable floor (occluded patches), give them neighbour colour
     from scipy import ndimage
-    walk = ndimage.binary_closing(floor | solid, iterations=2) | floor
+    from scipy.cluster.vq import kmeans2
+    k3 = np.ones((3, 3), bool)
+    # structures: drop specks (<1 m^2), median-smooth tops so walls/roofs are flat
+    def denoise(m, min_cells):
+        lab, n = ndimage.label(m, k3); sz = ndimage.sum(m, lab, range(1, n + 1))
+        return np.isin(lab, 1 + np.flatnonzero(sz >= min_cells))
+    mc = max(2, int(round(1 / cell ** 2)))
+    solid, over = denoise(solid, mc), denoise(over & ~solid, mc)
+    for m in (solid, over):
+        t = ndimage.generic_filter(np.where(m, top, np.nan), np.nanmedian, 3, mode="constant", cval=np.nan)
+        top = np.where(m, np.nan_to_num(t, nan=top.max()), top)
+    bot = np.where(over, ndimage.generic_filter(np.where(over, bot, np.nan), np.nanmedian, 3, mode="constant", cval=np.nan), bot)
+    # walkable floor: close occlusion holes, keep the connected area nearest the camera (rejects clouds/backdrop)
+    walk = ndimage.binary_closing(floor | solid, k3, iterations=2) | floor
+    walk = ndimage.binary_opening(walk, k3) | (floor & walk)
+    lab, n = ndimage.label(walk & ~solid)
+    cj, ci = -oz / cell, -ox / cell
+    w = np.argwhere(lab > 0)
+    main = lab == lab[tuple(w[np.argmin(np.hypot(w[:, 0] - cj, w[:, 1] - ci))])]
+    near = ndimage.binary_dilation(main, k3, iterations=2)
+    walk = main | (walk & near & solid)
+    solid &= near; over &= ndimage.binary_dilation(walk, k3)
+    lab, n = ndimage.label(solid, k3)  # keep whole buildings that touch the play area
+    solid = np.isin(lab, np.unique(lab[solid & near]))
     idx = ndimage.distance_transform_edt(~floor, return_distances=False, return_indices=True)
     fcol = np.where(floor[..., None], fcol, fcol[idx[0], idx[1]])
+    fcol = np.where(walk[..., None], ndimage.median_filter(fcol, size=(3, 3, 1)), fcol)
+    # palette: 8 colours -> cleaner merges, fewer boxes, easy to re-material later
+    used = np.r_[fcol[walk], scol[solid | over]]
+    pal, _ = kmeans2(used.astype(float), 8, seed=0, minit="++")
+    q = lambda c: pal[np.argmin(((c[..., None, :] - pal) ** 2).sum(-1), -1)]
+    fcol, scol = q(fcol), q(scol)
+    # boundary: invisible 3 m walls on open edges of the play area
+    edge = ndimage.binary_dilation(walk | solid, k3) & ~(walk | solid)
 
     parts = {
         "Floor": merge_runs(walk, np.full_like(top, -0.5), np.zeros_like(top), fcol, cell, ox, oz),
         "Structures": merge_runs(solid, np.zeros_like(top), top, scol, cell, ox, oz),
         "Overhangs": merge_runs(over, bot, top, scol, cell, ox, oz),
+        "Boundary_collider": merge_runs(edge, np.zeros_like(top), np.full_like(top, 3.0), np.zeros_like(fcol), cell, ox, oz),
     }
     scene = trimesh.Scene()
     tris = 0
     for name, boxes in parts.items():
         if not boxes: continue
-        m = trimesh.util.concatenate(boxes); m.merge_vertices(); tris += len(m.faces)
+        m = trimesh.util.concatenate(boxes); m.merge_vertices(); tris += len(m.faces) if name != "Boundary_collider" else 0
         scene.add_geometry(m, node_name=name, geom_name=name)
-    w = np.argwhere(walk)  # spawn = walkable cell nearest the original camera position
-    jj, ii = w[np.argmin(np.hypot(w[:, 0] + oz / cell, w[:, 1] + ox / cell))]
+    # spawn: open walkable cell (>=1 m from walls/edges) nearest the original camera, facing the play area
+    clear = ndimage.distance_transform_edt(walk & ~over) * cell
+    w = np.argwhere(clear >= min(1.0, clear.max()))
+    jj, ii = w[np.argmin(np.hypot(w[:, 0] - cj, w[:, 1] - ci))]
     spawn = [float(ox + (ii + .5) * cell), 0.0, float(oz + (jj + .5) * cell)]
+    cz, cx = np.argwhere(walk).mean(0)
+    fd = np.array([cx - ii, cz - jj], float); fd /= max(np.linalg.norm(fd), 1e-6)
     sp = trimesh.creation.cone(0.3, 0.6); sp.apply_translation([spawn[0], 0.05, spawn[2]])
     scene.add_geometry(sp, node_name="Spawn_marker", geom_name="Spawn_marker")
     scene.export(os.path.join(a.outdir, "level.glb"))
 
-    meta = dict(units="metres, y-up, player faces -Z at spawn", spawn=spawn, eye_height=EYE,
-                spawn_facing=[0, 0, -1], cell_size=cell, sky_rgb=[float(x) for x in sky],
-                bounds_min=[float(ox), 0, float(oz)], bounds_max=[float(ox + nx * cell), float(top.max()), float(oz + nz * cell)],
-                triangles=int(tris), boxes={k: len(v) for k, v in parts.items()})
+    bb = np.argwhere(walk | solid)
+    meta = dict(units="metres, y-up, player faces spawn_facing", spawn=spawn, eye_height=EYE,
+                spawn_facing=[float(fd[0]), 0, float(fd[1])], cell_size=cell, sky_rgb=[float(x) for x in sky],
+                bounds_min=[float(ox + bb[:, 1].min() * cell), 0, float(oz + bb[:, 0].min() * cell)],
+                bounds_max=[float(ox + (bb[:, 1].max() + 1) * cell), float(top[solid | over].max()), float(oz + (bb[:, 0].max() + 1) * cell)],
+                triangles=int(tris), palette=[[round(float(v), 3) for v in c] for c in pal], boxes={k: len(v) for k, v in parts.items()})
     json.dump(meta, open(os.path.join(a.outdir, "level.json"), "w"), indent=1)
 
     # top-down preview: colour = floor/structure colour, brightness = height
     img = np.where(walk[..., None], fcol, 0.08)
     hs = np.clip(top / max(top.max(), 1), 0, 1)[..., None]
     img = np.where((solid | over)[..., None], scol * (0.5 + 0.5 * hs), img)
-    img = (np.clip(img, 0, 1) * 255).astype(np.uint8)  # forward (-z) at top
-    Image.fromarray(img).resize((nx * 8, nz * 8), Image.NEAREST).save(os.path.join(a.outdir, "topdown.png"))
+    img = np.where(edge[..., None], [0.9, 0.2, 0.2], img)  # red = invisible boundary
+    j0, i0 = np.maximum(bb.min(0) - 2, 0); j1, i1 = bb.max(0) + 3
+    img = (np.clip(img[j0:j1, i0:i1], 0, 1) * 255).astype(np.uint8)  # forward (-z) at top
+    Image.fromarray(img).resize((img.shape[1] * 8, img.shape[0] * 8), Image.NEAREST).save(os.path.join(a.outdir, "topdown.png"))
     print(json.dumps(meta))
 
 

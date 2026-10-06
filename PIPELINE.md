@@ -21,24 +21,27 @@ Or ask Claude: "make a level from inputs/<file>".
      Upstream: github.com/harb666/lyra (fork of nv-tlabs/lyra). Lyra-1 = GEN3C-based, older; we use Lyra-2.
    - **CPU fallback** — `pipeline/image_to_points.py`: MiDaS-small monocular depth (weights from GitHub releases;
      HuggingFace is blocked in cloud sessions) → back-projected point cloud, 60° FOV, depth mapped to 1.5–200 m,
-     farthest 15% = sky (dropped). Only sees what's in the photo (no behind-occluder content).
+     far pixels connected to the image top = sky (dropped); pixels on sharp depth edges ("flying pixels") dropped. Only sees what's in the photo (no behind-occluder content).
 2. **Level conversion** — `pipeline/points_to_level.py` (shared by both paths):
-   RANSAC ground plane → rotate to y-up → scale so camera height = 1.7 m (player eye) → 1 m grid →
+   RANSAC ground plane → rotate to y-up → scale so camera height = 1.7 m (player eye) → 0.5 m grid →
    per cell: floor tile (points <0.5 m), solid column (wall/building, 95th pct height), or overhang slab
    (structure points all >2.2 m above a seen floor, e.g. roofs) → points below ground dropped (void: cliffs/clouds)
-   → floor holes closed → runs along x merged into vertex-coloured boxes → `level.glb`.
-3. **Outputs** in `levels/<name>/`: `level.glb` (nodes Floor / Structures / Overhangs / Spawn_marker),
+   → floor holes closed → **only the walkable area connected to the camera is kept** (+ buildings touching it;
+   rejects clouds/backdrop) → specks <1 m² removed, heights median-smoothed → colours snapped to an 8-colour palette
+   (in level.json) → 2D greedy box merge → invisible 3 m `Boundary_collider` walls round open edges →
+   spawn = open cell (≥1 m clearance) nearest the camera, facing the play area → `level.glb`.
+3. **Outputs** in `levels/<name>/`: `level.glb` (nodes Floor / Structures / Overhangs / Boundary_collider / Spawn_marker),
    `level.json` (spawn, facing −Z, sky colour, bounds, tri count), `topdown.png`, `depth.png`, `index.html`
    (three.js walk viewer: `?level=<dir>`; touch stick + drag look; orbit mode).
 
 ## Tuning knobs
-`points_to_level.py --cell 1.0 --max-extent 80 --max-height 30`; `image_to_points.py --fov 60 --near 1.5 --far 200`.
-Mobile budget: ~5–15k tris per level as generated.
+`points_to_level.py --cell 0.5 --max-extent 80 --max-height 30`; `image_to_points.py --fov 60 --near 1.5 --far 200`.
+Mobile budget: pagoda = 6.6k tris, 141 KB.
 
 ## Using in an engine
 glb is metres, y-up. Unity/Godot/Unreal import directly; use mesh colliders on Floor+Structures.
 Vertex colours only (no textures) — assign real materials per node when dressing.
 
 ## Known limits
-Monocular depth scale is a guess; distant scenery (clouds, sea) can become blocks; thin things (railings, poles)
-become chunky blocks; no geometry behind occluders; open sides have no invisible walls.
+Monocular depth scale is a guess; anything not connected to the walkable area is dropped (distant islands/backdrop);
+thin things become 0.5 m blocks; no geometry behind occluders.

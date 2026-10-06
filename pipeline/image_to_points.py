@@ -29,11 +29,18 @@ def main():
     f = (W / 2) / np.tan(np.radians(a.fov) / 2)
     u, v = np.meshgrid(np.arange(W) - W / 2 + 0.5, np.arange(H) - H / 2 + 0.5)
     pts = np.stack([u / f * depth, -v / f * depth, depth], -1).reshape(-1, 3)
-    sky = (depth > a.far * 0.85).reshape(-1)  # very far = sky / background
-    np.savez_compressed(a.out, xyz=pts[~sky].astype(np.float32), rgb=x.reshape(-1, 3)[~sky].astype(np.float32),
+    sky = depth > a.far * 0.85
+    # sky = far pixels connected to the top border (keeps far ground/buildings that aren't sky-connected)
+    from scipy import ndimage
+    lab, _ = ndimage.label(sky); sky = np.isin(lab, np.unique(lab[0][lab[0] > 0]))
+    # drop "flying pixels" smeared across depth edges
+    ld = np.log(depth); g = np.hypot(*np.gradient(ld))
+    edge = ndimage.maximum_filter(g, 3) > 0.08
+    sky = sky.reshape(-1); drop = sky | edge.reshape(-1)  # very far = sky / background
+    np.savez_compressed(a.out, xyz=pts[~drop].astype(np.float32), rgb=x.reshape(-1, 3)[~drop].astype(np.float32),
                         sky_rgb=x.reshape(-1, 3)[sky].mean(0) if sky.any() else x[: H // 8].reshape(-1, 3).mean(0))
     Image.fromarray((inv * 255).astype(np.uint8)).save(os.path.splitext(a.out)[0] + "_depth.png")
-    print(f"points: {(~sky).sum()}  sky: {sky.sum()}")
+    print(f"points: {(~drop).sum()}  sky: {sky.sum()}  edge: {edge.sum()}")
 
 if __name__ == "__main__":
     main()
