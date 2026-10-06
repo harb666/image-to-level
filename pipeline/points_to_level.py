@@ -80,15 +80,10 @@ def merge_runs(mask, h0, h1, col, cell, ox, oz, hq=0.5):
     return out
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("points"); ap.add_argument("outdir")
-    ap.add_argument("--cell", type=float, default=0.5, help="grid cell size in metres")
-    ap.add_argument("--max-extent", type=float, default=80.0)
-    ap.add_argument("--max-height", type=float, default=30.0)
-    a = ap.parse_args()
-    os.makedirs(a.outdir, exist_ok=True)
-
+def analyse(points, cell=0.5, max_extent=80.0, max_height=30.0, align=False):
+    """Depth points -> 2.5D grids (floor/solid/overhang masks, heights, colours, spawn). Returns locals()."""
+    class A: pass
+    a = A(); a.points, a.cell, a.max_extent, a.max_height = points, cell, max_extent, max_height
     xyz, rgb, sky = load_points(a.points)
     n, d = fit_ground(xyz)
     R = rot_to_up(n)
@@ -98,6 +93,13 @@ def main():
     keep = (p[:, 1] > -0.5) & (p[:, 1] < a.max_height)  # below-ground = void (e.g. clouds, drops)
     keep &= (np.abs(p[:, 0]) < a.max_extent) & (np.abs(p[:, 2]) < a.max_extent)
     p, c = p[keep], rgb[keep]
+    yaw = 0.0
+    if align:  # rotate about y so the main floor direction lines up with the grid (cleaner rectangles)
+        f = p[p[:, 1] < 0.5][:, [0, 2]]; f = f - f.mean(0)
+        ev = np.linalg.eigh(f.T @ f)[1][:, -1]; yaw = np.arctan2(ev[0], ev[1]) % (np.pi / 2)
+        yaw = yaw - np.pi / 2 if yaw > np.pi / 4 else yaw
+        cy, sy = np.cos(yaw), np.sin(yaw)
+        p[:, 0], p[:, 2] = cy * p[:, 0] - sy * p[:, 2], sy * p[:, 0] + cy * p[:, 2]
 
     cell = a.cell
     ox, oz = np.floor(p[:, 0].min()), np.floor(p[:, 2].min())
@@ -107,14 +109,14 @@ def main():
     order = np.argsort(flat); flat, pp, cc = flat[order], p[order], c[order]
     starts = np.r_[0, np.flatnonzero(np.diff(flat)) + 1, len(flat)]
 
-    floor = np.zeros((nz, nx), bool); fcol = np.zeros((nz, nx, 3))
+    floor = np.zeros((nz, nx), bool); fcol = np.zeros((nz, nx, 3)); fh = np.zeros((nz, nx))
     solid = np.zeros((nz, nx), bool); over = np.zeros((nz, nx), bool)
     top = np.zeros((nz, nx)); bot = np.zeros((nz, nx)); scol = np.zeros((nz, nx, 3))
     for a0, a1 in zip(starts[:-1], starts[1:]):
         if a1 - a0 < 3: continue
         j, i = divmod(flat[a0], nx); y = pp[a0:a1, 1]; col = cc[a0:a1]
         g = y < 0.5
-        if g.sum() >= 2: floor[j, i] = True; fcol[j, i] = col[g].mean(0)
+        if g.sum() >= 2: floor[j, i] = True; fcol[j, i] = col[g].mean(0); fh[j, i] = np.median(y[g])
         st = y > 0.6
         if st.sum() >= 3:
             ys = y[st]; t = np.percentile(ys, 95)
@@ -160,6 +162,29 @@ def main():
     # boundary: invisible 3 m walls on open edges of the play area
     edge = ndimage.binary_dilation(walk | solid, k3) & ~(walk | solid)
 
+    # spawn: open walkable cell (>=1 m from walls/edges) nearest the original camera, facing the play area
+    clear = ndimage.distance_transform_edt(walk & ~over) * cell
+    w = np.argwhere(clear >= min(1.0, clear.max()))
+    jj, ii = w[np.argmin(np.hypot(w[:, 0] - cj, w[:, 1] - ci))]
+    spawn = [float(ox + (ii + .5) * cell), 0.0, float(oz + (jj + .5) * cell)]
+    cz, cx = np.argwhere(walk).mean(0)
+    fd = np.array([cx - ii, cz - jj], float); fd /= max(np.linalg.norm(fd), 1e-6)
+    bb = np.argwhere(walk | solid)
+    return locals()
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("points"); ap.add_argument("outdir")
+    ap.add_argument("--cell", type=float, default=0.5, help="grid cell size in metres")
+    ap.add_argument("--max-extent", type=float, default=80.0)
+    ap.add_argument("--max-height", type=float, default=30.0)
+    a = ap.parse_args()
+    os.makedirs(a.outdir, exist_ok=True)
+    os.makedirs(a.outdir, exist_ok=True)
+    g = analyse(a.points, a.cell, a.max_extent, a.max_height)
+    (walk, solid, over, edge, top, bot, fcol, scol, cell, ox, oz, pal, spawn, fd, bb, sky, nx, nz) = (g[k] for k in
+        "walk solid over edge top bot fcol scol cell ox oz pal spawn fd bb sky nx nz".split())
     parts = {
         "Floor": merge_runs(walk, np.full_like(top, -0.5), np.zeros_like(top), fcol, cell, ox, oz),
         "Structures": merge_runs(solid, np.zeros_like(top), top, scol, cell, ox, oz),
@@ -172,18 +197,10 @@ def main():
         if not boxes: continue
         m = trimesh.util.concatenate(boxes); m.merge_vertices(); tris += len(m.faces) if name != "Boundary_collider" else 0
         scene.add_geometry(m, node_name=name, geom_name=name)
-    # spawn: open walkable cell (>=1 m from walls/edges) nearest the original camera, facing the play area
-    clear = ndimage.distance_transform_edt(walk & ~over) * cell
-    w = np.argwhere(clear >= min(1.0, clear.max()))
-    jj, ii = w[np.argmin(np.hypot(w[:, 0] - cj, w[:, 1] - ci))]
-    spawn = [float(ox + (ii + .5) * cell), 0.0, float(oz + (jj + .5) * cell)]
-    cz, cx = np.argwhere(walk).mean(0)
-    fd = np.array([cx - ii, cz - jj], float); fd /= max(np.linalg.norm(fd), 1e-6)
     sp = trimesh.creation.cone(0.3, 0.6); sp.apply_translation([spawn[0], 0.05, spawn[2]])
     scene.add_geometry(sp, node_name="Spawn_marker", geom_name="Spawn_marker")
     scene.export(os.path.join(a.outdir, "level.glb"))
 
-    bb = np.argwhere(walk | solid)
     meta = dict(units="metres, y-up, player faces spawn_facing", spawn=spawn, eye_height=EYE,
                 spawn_facing=[float(fd[0]), 0, float(fd[1])], cell_size=cell, sky_rgb=[float(x) for x in sky],
                 bounds_min=[float(ox + bb[:, 1].min() * cell), 0, float(oz + bb[:, 0].min() * cell)],

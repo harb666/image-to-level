@@ -19,6 +19,8 @@ import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 const q=new URLSearchParams(location.search), base=q.get('level')||'.';
 const meta=await (await fetch(base+'/level.json')).json();
+if(meta.objects){const sp=meta.spawn,y=sp.yaw_deg*Math.PI/180;Object.assign(meta,{sky_rgb:meta.sky_color,spawn:sp.position,eye_height:1.7,
+ spawn_facing:[-Math.sin(y),0,-Math.cos(y)],bounds_min:meta.bounds.min,bounds_max:meta.bounds.max,triangles:meta.build_stats.triangles});}
 const r=new THREE.WebGLRenderer({antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));
 r.setSize(innerWidth,innerHeight);document.body.prepend(r.domElement);
 const scene=new THREE.Scene();scene.background=new THREE.Color(...meta.sky_rgb);
@@ -27,7 +29,7 @@ scene.add(new THREE.HemisphereLight(0xffffff,0x555555,2.2));
 const sun=new THREE.DirectionalLight(0xffffff,1.2);sun.position.set(20,40,10);scene.add(sun);
 const cam=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,0.1,500);
 const gltf=await new GLTFLoader().loadAsync(base+'/level.glb');
-gltf.scene.traverse(o=>{if(o.isMesh){o.material=new THREE.MeshLambertMaterial({vertexColors:true,flatShading:true});if(o.name.startsWith('Spawn'))o.visible=false;if(o.name.startsWith('Boundary'))o.material.visible=false;}});
+gltf.scene.traverse(o=>{if(o.isMesh){if(!o.material.map)o.material=new THREE.MeshLambertMaterial({vertexColors:true,flatShading:true});if(o.name.startsWith('Spawn'))o.visible=false;if(o.name.startsWith('Boundary'))o.material.visible=false;}});
 scene.add(gltf.scene);
 const solids=[];gltf.scene.traverse(o=>{if(o.isMesh&&o.visible)solids.push(o)});
 const orbit=new OrbitControls(cam,r.domElement);orbit.enabled=false;

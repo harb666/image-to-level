@@ -1,23 +1,27 @@
 #!/usr/bin/env bash
 # Usage: ./make_level.sh <image> [name] [caption]
-# Image -> levels/<name>/ (level.glb, level.json, topdown.png, index.html viewer).
-# Uses Lyra 2.0 when LYRA_DIR is set and a CUDA GPU is present, else the CPU depth fallback.
+# Image -> levels/<name>/ : level.json (editable scene), level.glb, topdown.png, depth.png, index.html viewer.
+# After editing level.json:  python3 pipeline/build_level.py levels/<name>   (rebuilds glb in ~1 s, no re-analysis)
+# Uses Lyra 2.0 for the 3D guidance when LYRA_DIR is set and a CUDA GPU is present, else CPU depth (MiDaS).
 set -e
 cd "$(dirname "$0")"
-IMG="$1"; NAME="${2:-$(basename "${IMG%.*}")}"; CAPTION="${3:-$(cat "${IMG%.*}.txt" 2>/dev/null)}"  # caption: arg 3, else inputs/<name>.txt
+IMG="$1"; NAME="${2:-$(basename "${IMG%.*}")}"
+CAPTION="${3:-$(cat "${IMG%.*}.txt" 2>/dev/null || true)}"  # caption: arg 3, else inputs/<name>.txt
 [ -f "$IMG" ] || { echo "usage: $0 <image> [name] [caption]"; exit 1; }
 OUT="levels/$NAME"; mkdir -p "$OUT"
 [ -d .cache/MiDaS ] || pipeline/setup.sh
 cp "$IMG" "$OUT/reference.${IMG##*.}"
 if [ -n "$LYRA_DIR" ] && command -v nvidia-smi >/dev/null; then
   OUT="$OUT-lyra"; mkdir -p "$OUT"; cp "$IMG" "$OUT/reference.${IMG##*.}"  # keep CPU result for comparison
-  PLY=$(pipeline/lyra_stage.sh "$IMG" "$OUT/lyra" "$CAPTION" | tail -1)
-  python3 pipeline/points_to_level.py "$PLY" "$OUT"
+  PTS=$(pipeline/lyra_stage.sh "$IMG" "$OUT/lyra" "$CAPTION" | tail -1)
   cp "$OUT/lyra/zoomgs/videos/00.mp4" "$OUT/lyra_video.mp4" 2>/dev/null || true; rm -rf "$OUT/lyra/in"
 else
-  python3 pipeline/image_to_points.py "$IMG" "$OUT/points.npz" 2>/dev/null
-  python3 pipeline/points_to_level.py "$OUT/points.npz" "$OUT"
-  rm -f "$OUT/points.npz"; mv "$OUT/points_depth.png" "$OUT/depth.png"
+  PTS="$OUT/points.npz"
+  python3 pipeline/image_to_points.py "$IMG" "$PTS" 2>/dev/null
+  mv "$OUT/points_depth.png" "$OUT/depth.png"
 fi
+(cd pipeline && python3 image_to_scene.py "../$PTS" "../$OUT/level.json")
+rm -f "$OUT/points.npz"
+python3 pipeline/build_level.py "$OUT"
 cp pipeline/viewer.html "$OUT/index.html"
 echo "done: $OUT/level.glb"
