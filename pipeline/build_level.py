@@ -69,6 +69,19 @@ def texture(kind):
         t[(np.abs(_noise(rng, 5, 2) - 0.5) < 0.015)] *= 0.6  # cracks
     elif kind == "water":
         t = 0.85 + 0.3 * np.sin((x + 0.3 * n) * 25) ** 8; tint *= [0.9, 1.0, 1.1]
+    elif kind == "floor_plate":  # worn industrial floor: big plates, seams, octagon inlay, scuffs
+        e = np.minimum(np.minimum(x % 0.5, 0.5 - x % 0.5), np.minimum(y % 0.5, 0.5 - y % 0.5)) * 20
+        t = (0.45 + 0.55 * _bevel(e, 0.3)) * (0.85 + 0.2 * fine + 0.1 * n)
+        oc = np.maximum(np.abs(x % 0.5 - 0.25), np.abs(y % 0.5 - 0.25)) + 0.5 * np.minimum(np.abs(x % 0.5 - 0.25), np.abs(y % 0.5 - 0.25))
+        t[np.abs(oc - 0.17) < 0.006] *= 0.7; tint[np.abs(oc - 0.17) < 0.006] = [1.25, 1.05, 0.6]  # faint yellow inlay
+    elif kind == "pipe_metal":  # bands/flanges along the pipe
+        t = 0.75 + 0.15 * n + 0.1 * fine; band = (y * 4) % 1 < 0.08; t[band] = 1.15
+    elif kind == "toxic":  # bright swirling fluid
+        sw = np.sin((x + 0.35 * _noise(rng, 3, 2)) * 18) * np.sin((y + 0.35 * _noise(rng, 3, 2)) * 14)
+        t = 0.75 + 0.3 * sw ** 2 + 0.15 * n
+    elif kind == "red_panel":  # emissive red banner/light with dark frame + emblem ring
+        frame = (np.minimum(x, 1 - x) < 0.1) | (np.minimum(y, 1 - y) < 0.06); r = np.hypot(x - 0.5, y - 0.6)
+        t = np.where(frame, 0.25, 0.9 + 0.1 * n); t[np.abs(r - 0.15) < 0.025] = 1.3
     elif kind == "plaster":
         t = 0.93 + 0.1 * fine - 0.12 * np.clip(_noise(rng, 3, 2) - 0.6, 0, 1) * 3 * (1 - y)  # stains near the bottom
     elif kind in ("sand", "soil"):
@@ -84,7 +97,10 @@ def material(name, m):
     t = texture(m["type"]) * np.array(m["color"])[None, None] * 1.1
     buf = io.BytesIO(); Image.fromarray((np.clip(t, 0, 1) * 255).astype(np.uint8)).save(buf, "JPEG", quality=82)
     img = Image.open(io.BytesIO(buf.getvalue()))  # JPEG-backed -> embedded as jpeg (smaller glb)
-    metal = m["type"] == "metal"
+    metal = m["type"] in ("metal", "pipe_metal")
+    if m.get("emissive"):  # glowing (toxic fluid, lights): same texture drives emission
+        return trimesh.visual.material.PBRMaterial(name=name, baseColorTexture=img, emissiveTexture=img,
+                                                   emissiveFactor=m["emissive"], metallicFactor=0.0, roughnessFactor=0.3)
     return trimesh.visual.material.PBRMaterial(name=name, baseColorTexture=img, metallicFactor=0.6 if metal else 0.0,
                                                roughnessFactor=0.45 if metal or m["type"] in ("window", "water") else 0.9)
 
@@ -101,7 +117,7 @@ def shape(o):
     if t in ("box", "boundary"):
         m = trimesh.creation.box([w, h, d]); m.apply_translation([0, h / 2, 0]); return m
     if t == "cylinder":
-        m = trimesh.creation.cylinder(radius=min(w, d) / 2, height=h, sections=12)
+        m = trimesh.creation.cylinder(radius=min(w, d) / 2, height=h, sections=o.get("sections", 12))
         m.apply_transform(euler_matrix(-np.pi / 2, 0, 0)); m.apply_translation([0, h / 2, 0]); return m
     if t == "panel":  # flat quad facing +z (windows, doors, signs); base at y=0
         return trimesh.Trimesh([[-w/2, 0, 0], [w/2, 0, 0], [w/2, h, 0], [-w/2, h, 0]], [[0, 1, 2], [0, 2, 3]])
@@ -159,7 +175,7 @@ def build(level_dir):
                 tris += len(sub.faces)
                 scene.add_geometry(sub, node_name=o["name"] + suffix, geom_name=o["name"] + suffix, parent_node_name=parent, transform=T)
             continue
-        key = (o["type"], tuple(o["size"]), mk)
+        key = (o["type"], tuple(o["size"]), mk, o.get("sections"))
         if key in geoms:  # identical part (window/door/...) -> reuse the same mesh (glTF instancing)
             scene.graph.update(frame_from=parent, frame_to=o["name"], matrix=T, geometry=geoms[key])
             tris += len(scene.geometry[geoms[key]].faces); continue
@@ -185,7 +201,8 @@ def topdown(L, world, path, px=10):
     b0, b1 = np.array(L["bounds"]["min"]) - 4, np.array(L["bounds"]["max"]) + 4
     W, H = int((b1[0] - b0[0]) * px), int((b1[2] - b0[2]) * px)
     img = Image.new("RGB", (W, H), (40, 44, 40)); dr = ImageDraw.Draw(img)
-    tc = L["materials"][next(o for o in L["objects"] if o["type"] == "terrain")["material"]]["color"]
+    ter = next((o for o in L["objects"] if o["type"] == "terrain"), None)
+    tc = L["materials"][ter["material"]]["color"] if ter else [0.1, 0.1, 0.1]
     xy = lambda x, z: ((x - b0[0]) * px, (z - b0[2]) * px)
     dr.rectangle([xy(L["bounds"]["min"][0], L["bounds"]["min"][2]), xy(L["bounds"]["max"][0], L["bounds"]["max"][2])], fill=tuple(int(c * 255) for c in tc))
     order = sorted([o for o in L["objects"] if o["type"] not in ("terrain", "group")], key=lambda o: world[o["name"]][1, 3] + o["size"][1])

@@ -40,6 +40,15 @@ boundary, blue dot = spawn), `depth.png`, `reference.*`, `index.html` (three.js 
    `stairs` (climbs to +z, 0.25 m steps), `panel` (flat quad facing +z, texture once —
    windows/doors/signs), `spire` (4-sided pyramid), `terrain` (+ optional `top_material`) (`heights` rows, `cell`), `boundary` (invisible).
 
+## Hand-authored layouts (concept sheets with a top-down plan)
+When a concept sheet has a TOP DOWN LAYOUT/side view, don't run it through MiDaS: write a small layout script in
+`pipeline/layouts/<level>.py` that emits level.json directly (same schema), then `build_level.py`. Example:
+`pipeline/layouts/toxic_arena.py` → `levels/toxic_arena` (square arena shooter: HazardFluid, Central_Platform/Tower,
+Platform_<dir>_01 groups (_Base/_Floor/_Trim/_Light/_Cover), Bridge_*, Ramp_*, Stairs_*, Walkway_*, OuterWall_*,
+Pipe_* + _Fall, PipeRun_*, Banner_*, Background_Block_*). Materials may set `"emissive": [r,g,b]` (glow);
+cylinders may set `"sections"` (8 = octagon). level.json `hazards[]` lists kill volumes (viewer respawns on contact).
+Extra texture kinds: floor_plate, pipe_metal, toxic, red_panel.
+
 ## level.json schema (edit this to change the level)
 - `objects[]`: `name`, `type`, `parent` (optional; position is then relative to parent), `position` = centre of the
   object's BASE [x,y,z] m, `rotation` = degrees [x,y,z], `size` = [width x, height y, depth z], `material`.

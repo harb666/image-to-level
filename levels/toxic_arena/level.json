@@ -1,0 +1,3262 @@
+{
+ "version": 1,
+ "units": "metres, y-up; position = centre of object's base, in parent space; rotation = degrees XYZ",
+ "source": "toxic_arena_concept.png (hand-authored from TOP DOWN LAYOUT + SIDE VIEW)",
+ "sky_color": [
+  0.1,
+  0.13,
+  0.12
+ ],
+ "spawn": {
+  "position": [
+   0,
+   6.0,
+   26.0
+  ],
+  "yaw_deg": 0
+ },
+ "hazards": [
+  "HazardFluid"
+ ],
+ "bounds": {
+  "min": [
+   -40.0,
+   0,
+   -40.0
+  ],
+  "max": [
+   40.0,
+   20,
+   40.0
+  ]
+ },
+ "walkable": [
+  {
+   "min": [
+    -11.0,
+    -11.0
+   ],
+   "max": [
+    11.0,
+    11.0
+   ],
+   "y": 6.0
+  },
+  {
+   "min": [
+    -6.0,
+    -32.0
+   ],
+   "max": [
+    6.0,
+    -20.0
+   ],
+   "y": 6.0
+  },
+  {
+   "min": [
+    -6.0,
+    20.0
+   ],
+   "max": [
+    6.0,
+    32.0
+   ],
+   "y": 6.0
+  },
+  {
+   "min": [
+    -32.0,
+    -6.0
+   ],
+   "max": [
+    -20.0,
+    6.0
+   ],
+   "y": 6.0
+  },
+  {
+   "min": [
+    20.0,
+    -6.0
+   ],
+   "max": [
+    32.0,
+    6.0
+   ],
+   "y": 6.0
+  },
+  {
+   "min": [
+    12.0,
+    -22.0
+   ],
+   "max": [
+    22.0,
+    -12.0
+   ],
+   "y": 4.0
+  },
+  {
+   "min": [
+    -22.0,
+    -22.0
+   ],
+   "max": [
+    -12.0,
+    -12.0
+   ],
+   "y": 4.0
+  },
+  {
+   "min": [
+    12.0,
+    12.0
+   ],
+   "max": [
+    22.0,
+    22.0
+   ],
+   "y": 4.0
+  },
+  {
+   "min": [
+    -22.0,
+    12.0
+   ],
+   "max": [
+    -12.0,
+    22.0
+   ],
+   "y": 4.0
+  }
+ ],
+ "materials": {
+  "metal_dark": {
+   "type": "metal",
+   "color": [
+    0.24,
+    0.26,
+    0.25
+   ],
+   "tile_m": 3.0
+  },
+  "metal_grate": {
+   "type": "metal",
+   "color": [
+    0.36,
+    0.36,
+    0.33
+   ],
+   "tile_m": 1.5
+  },
+  "concrete_dark": {
+   "type": "concrete",
+   "color": [
+    0.34,
+    0.34,
+    0.31
+   ],
+   "tile_m": 3.0
+  },
+  "floor_plate": {
+   "type": "floor_plate",
+   "color": [
+    0.55,
+    0.52,
+    0.46
+   ],
+   "tile_m": 4.0
+  },
+  "pipe": {
+   "type": "pipe_metal",
+   "color": [
+    0.2,
+    0.23,
+    0.22
+   ],
+   "tile_m": 2.0
+  },
+  "toxic": {
+   "type": "toxic",
+   "color": [
+    0.45,
+    1.0,
+    0.12
+   ],
+   "tile_m": 6.0,
+   "emissive": [
+    0.45,
+    0.95,
+    0.1
+   ]
+  },
+  "glow_strip": {
+   "type": "toxic",
+   "color": [
+    0.5,
+    1.0,
+    0.2
+   ],
+   "tile_m": 2.0,
+   "emissive": [
+    0.5,
+    1.0,
+    0.2
+   ]
+  },
+  "red_panel": {
+   "type": "red_panel",
+   "color": [
+    0.75,
+    0.1,
+    0.08
+   ],
+   "tile_m": 2.0,
+   "emissive": [
+    0.6,
+    0.08,
+    0.05
+   ]
+  }
+ },
+ "objects": [
+  {
+   "name": "HazardFluid",
+   "type": "box",
+   "material": "toxic",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    72.0,
+    1.0,
+    72.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "OuterWall_North",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    0.0,
+    -38.0
+   ],
+   "size": [
+    80.0,
+    14.0,
+    4.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "OuterWall_South",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    0.0,
+    38.0
+   ],
+   "size": [
+    80.0,
+    14.0,
+    4.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "OuterWall_West",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    -38.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.0,
+    14.0,
+    72.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "OuterWall_East",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    38.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.0,
+    14.0,
+    72.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_North",
+   "type": "group",
+   "position": [
+    0.0,
+    0.0,
+    -34.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_North_Base",
+   "parent": "Walkway_North",
+   "type": "box",
+   "material": "concrete_dark",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    72.0,
+    5.7,
+    4.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_North_Floor",
+   "parent": "Walkway_North",
+   "type": "box",
+   "material": "floor_plate",
+   "position": [
+    0.0,
+    5.7,
+    0.0
+   ],
+   "size": [
+    72.3,
+    0.3,
+    4.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_North_Trim",
+   "parent": "Walkway_North",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    4.9,
+    0.0
+   ],
+   "size": [
+    72.5,
+    0.6,
+    4.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_South",
+   "type": "group",
+   "position": [
+    0.0,
+    0.0,
+    34.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_South_Base",
+   "parent": "Walkway_South",
+   "type": "box",
+   "material": "concrete_dark",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    72.0,
+    5.7,
+    4.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_South_Floor",
+   "parent": "Walkway_South",
+   "type": "box",
+   "material": "floor_plate",
+   "position": [
+    0.0,
+    5.7,
+    0.0
+   ],
+   "size": [
+    72.3,
+    0.3,
+    4.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_South_Trim",
+   "parent": "Walkway_South",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    4.9,
+    0.0
+   ],
+   "size": [
+    72.5,
+    0.6,
+    4.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_West",
+   "type": "group",
+   "position": [
+    -34.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_West_Base",
+   "parent": "Walkway_West",
+   "type": "box",
+   "material": "concrete_dark",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.0,
+    5.7,
+    64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_West_Floor",
+   "parent": "Walkway_West",
+   "type": "box",
+   "material": "floor_plate",
+   "position": [
+    0.0,
+    5.7,
+    0.0
+   ],
+   "size": [
+    4.3,
+    0.3,
+    64.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_West_Trim",
+   "parent": "Walkway_West",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    4.9,
+    0.0
+   ],
+   "size": [
+    4.5,
+    0.6,
+    64.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_East",
+   "type": "group",
+   "position": [
+    34.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_East_Base",
+   "parent": "Walkway_East",
+   "type": "box",
+   "material": "concrete_dark",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.0,
+    5.7,
+    64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_East_Floor",
+   "parent": "Walkway_East",
+   "type": "box",
+   "material": "floor_plate",
+   "position": [
+    0.0,
+    5.7,
+    0.0
+   ],
+   "size": [
+    4.3,
+    0.3,
+    64.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Walkway_East_Trim",
+   "parent": "Walkway_East",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    4.9,
+    0.0
+   ],
+   "size": [
+    4.5,
+    0.6,
+    64.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Banner_North_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    -12.0,
+    7.5,
+    -35.97
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.2,
+    5.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Banner_North_02",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    12.0,
+    7.5,
+    -35.97
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.2,
+    5.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Banner_South_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    -12.0,
+    7.5,
+    35.97
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    2.2,
+    5.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Banner_South_02",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    12.0,
+    7.5,
+    35.97
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    2.2,
+    5.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Banner_West_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    -35.97,
+    7.5,
+    -12.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    2.2,
+    5.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Banner_West_02",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    -35.97,
+    7.5,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    2.2,
+    5.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Banner_East_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    35.97,
+    7.5,
+    -12.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    2.2,
+    5.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Banner_East_02",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    35.97,
+    7.5,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    2.2,
+    5.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Platform",
+   "type": "group",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Platform_Base",
+   "parent": "Central_Platform",
+   "type": "cylinder",
+   "sections": 8,
+   "material": "concrete_dark",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    22.0,
+    5.7,
+    22.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Platform_Floor",
+   "parent": "Central_Platform",
+   "type": "cylinder",
+   "sections": 8,
+   "material": "floor_plate",
+   "position": [
+    0.0,
+    5.7,
+    0.0
+   ],
+   "size": [
+    22.4,
+    0.3,
+    22.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Tower",
+   "type": "group",
+   "position": [
+    0.0,
+    6.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Tower_Body",
+   "parent": "Central_Tower",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.0,
+    13.0,
+    7.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Tower_Cap",
+   "parent": "Central_Tower",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    13.0,
+    0.0
+   ],
+   "size": [
+    8.0,
+    1.2,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Tower_Banner_01",
+   "parent": "Central_Tower",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    0.0,
+    4.0,
+    3.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.6,
+    6.5,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Tower_Glow_01_L",
+   "parent": "Central_Tower",
+   "type": "panel",
+   "material": "glow_strip",
+   "position": [
+    -2.4,
+    1.0,
+    3.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    10.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Tower_Glow_01_R",
+   "parent": "Central_Tower",
+   "type": "panel",
+   "material": "glow_strip",
+   "position": [
+    2.4,
+    1.0,
+    3.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    10.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Tower_Banner_02",
+   "parent": "Central_Tower",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    3.53,
+    4.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    2.6,
+    6.5,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Tower_Glow_02_L",
+   "parent": "Central_Tower",
+   "type": "panel",
+   "material": "glow_strip",
+   "position": [
+    3.53,
+    1.0,
+    -2.4
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    10.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Tower_Glow_02_R",
+   "parent": "Central_Tower",
+   "type": "panel",
+   "material": "glow_strip",
+   "position": [
+    3.53,
+    1.0,
+    2.4
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    10.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Tower_Banner_03",
+   "parent": "Central_Tower",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    0.0,
+    4.0,
+    -3.53
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    2.6,
+    6.5,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Tower_Glow_03_L",
+   "parent": "Central_Tower",
+   "type": "panel",
+   "material": "glow_strip",
+   "position": [
+    -2.4,
+    1.0,
+    -3.53
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    10.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Tower_Glow_03_R",
+   "parent": "Central_Tower",
+   "type": "panel",
+   "material": "glow_strip",
+   "position": [
+    2.4,
+    1.0,
+    -3.53
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    10.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Tower_Banner_04",
+   "parent": "Central_Tower",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    -3.53,
+    4.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    2.6,
+    6.5,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Tower_Glow_04_L",
+   "parent": "Central_Tower",
+   "type": "panel",
+   "material": "glow_strip",
+   "position": [
+    -3.53,
+    1.0,
+    -2.4
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    10.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Tower_Glow_04_R",
+   "parent": "Central_Tower",
+   "type": "panel",
+   "material": "glow_strip",
+   "position": [
+    -3.53,
+    1.0,
+    2.4
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    10.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Cover_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    -6.0,
+    6.0,
+    -6.0
+   ],
+   "size": [
+    2.0,
+    1.2,
+    1.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Cover_02",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    6.0,
+    6.0,
+    6.0
+   ],
+   "size": [
+    2.0,
+    1.2,
+    1.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Cover_03",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    6.0,
+    6.0,
+    -6.0
+   ],
+   "size": [
+    2.0,
+    1.2,
+    2.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Central_Cover_04",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    -6.0,
+    6.0,
+    6.0
+   ],
+   "size": [
+    2.0,
+    1.2,
+    2.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_North_01",
+   "type": "group",
+   "position": [
+    0.0,
+    0.0,
+    -26.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_North_01_Base",
+   "parent": "Platform_North_01",
+   "type": "box",
+   "material": "concrete_dark",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    12.0,
+    5.7,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_North_01_Floor",
+   "parent": "Platform_North_01",
+   "type": "box",
+   "material": "floor_plate",
+   "position": [
+    0.0,
+    5.7,
+    0.0
+   ],
+   "size": [
+    12.3,
+    0.3,
+    12.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_North_01_Trim",
+   "parent": "Platform_North_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    4.9,
+    0.0
+   ],
+   "size": [
+    12.5,
+    0.6,
+    12.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_North_01_Light_01",
+   "parent": "Platform_North_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    0.0,
+    2.8,
+    6.03
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_North_01_Light_02",
+   "parent": "Platform_North_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    6.03,
+    2.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_North_01_Cover_01",
+   "parent": "Platform_North_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    -3.0,
+    6.0,
+    -3.0
+   ],
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_North_01_Cover_02",
+   "parent": "Platform_North_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    3.0,
+    6.0,
+    3.0
+   ],
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Bridge_North_01",
+   "type": "box",
+   "material": "metal_grate",
+   "position": [
+    0.0,
+    5.6,
+    -15.5
+   ],
+   "size": [
+    4.5,
+    0.4,
+    9.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_South_01",
+   "type": "group",
+   "position": [
+    0.0,
+    0.0,
+    26.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_South_01_Base",
+   "parent": "Platform_South_01",
+   "type": "box",
+   "material": "concrete_dark",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    12.0,
+    5.7,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_South_01_Floor",
+   "parent": "Platform_South_01",
+   "type": "box",
+   "material": "floor_plate",
+   "position": [
+    0.0,
+    5.7,
+    0.0
+   ],
+   "size": [
+    12.3,
+    0.3,
+    12.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_South_01_Trim",
+   "parent": "Platform_South_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    4.9,
+    0.0
+   ],
+   "size": [
+    12.5,
+    0.6,
+    12.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_South_01_Light_01",
+   "parent": "Platform_South_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    0.0,
+    2.8,
+    -6.03
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_South_01_Light_02",
+   "parent": "Platform_South_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    6.03,
+    2.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_South_01_Cover_01",
+   "parent": "Platform_South_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    -3.0,
+    6.0,
+    -3.0
+   ],
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_South_01_Cover_02",
+   "parent": "Platform_South_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    3.0,
+    6.0,
+    3.0
+   ],
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Bridge_South_01",
+   "type": "box",
+   "material": "metal_grate",
+   "position": [
+    0.0,
+    5.6,
+    15.5
+   ],
+   "size": [
+    4.5,
+    0.4,
+    9.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_West_01",
+   "type": "group",
+   "position": [
+    -26.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_West_01_Base",
+   "parent": "Platform_West_01",
+   "type": "box",
+   "material": "concrete_dark",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    12.0,
+    5.7,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_West_01_Floor",
+   "parent": "Platform_West_01",
+   "type": "box",
+   "material": "floor_plate",
+   "position": [
+    0.0,
+    5.7,
+    0.0
+   ],
+   "size": [
+    12.3,
+    0.3,
+    12.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_West_01_Trim",
+   "parent": "Platform_West_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    4.9,
+    0.0
+   ],
+   "size": [
+    12.5,
+    0.6,
+    12.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_West_01_Light_01",
+   "parent": "Platform_West_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    0.0,
+    2.8,
+    6.03
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_West_01_Light_02",
+   "parent": "Platform_West_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    6.03,
+    2.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_West_01_Cover_01",
+   "parent": "Platform_West_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    -3.0,
+    6.0,
+    -3.0
+   ],
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_West_01_Cover_02",
+   "parent": "Platform_West_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    3.0,
+    6.0,
+    3.0
+   ],
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Bridge_West_01",
+   "type": "box",
+   "material": "metal_grate",
+   "position": [
+    -15.5,
+    5.6,
+    0.0
+   ],
+   "size": [
+    9.0,
+    0.4,
+    4.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_East_01",
+   "type": "group",
+   "position": [
+    26.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_East_01_Base",
+   "parent": "Platform_East_01",
+   "type": "box",
+   "material": "concrete_dark",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    12.0,
+    5.7,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_East_01_Floor",
+   "parent": "Platform_East_01",
+   "type": "box",
+   "material": "floor_plate",
+   "position": [
+    0.0,
+    5.7,
+    0.0
+   ],
+   "size": [
+    12.3,
+    0.3,
+    12.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_East_01_Trim",
+   "parent": "Platform_East_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    4.9,
+    0.0
+   ],
+   "size": [
+    12.5,
+    0.6,
+    12.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_East_01_Light_01",
+   "parent": "Platform_East_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    0.0,
+    2.8,
+    6.03
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_East_01_Light_02",
+   "parent": "Platform_East_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    -6.03,
+    2.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_East_01_Cover_01",
+   "parent": "Platform_East_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    -3.0,
+    6.0,
+    -3.0
+   ],
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_East_01_Cover_02",
+   "parent": "Platform_East_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    3.0,
+    6.0,
+    3.0
+   ],
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Bridge_East_01",
+   "type": "box",
+   "material": "metal_grate",
+   "position": [
+    15.5,
+    5.6,
+    0.0
+   ],
+   "size": [
+    9.0,
+    0.4,
+    4.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_NE_01",
+   "type": "group",
+   "position": [
+    17.0,
+    0.0,
+    -17.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_NE_01_Base",
+   "parent": "Platform_NE_01",
+   "type": "box",
+   "material": "concrete_dark",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    10.0,
+    3.7,
+    10.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_NE_01_Floor",
+   "parent": "Platform_NE_01",
+   "type": "box",
+   "material": "floor_plate",
+   "position": [
+    0.0,
+    3.7,
+    0.0
+   ],
+   "size": [
+    10.3,
+    0.3,
+    10.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_NE_01_Trim",
+   "parent": "Platform_NE_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    2.9,
+    0.0
+   ],
+   "size": [
+    10.5,
+    0.6,
+    10.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_NE_01_Light_01",
+   "parent": "Platform_NE_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    0.0,
+    0.8,
+    5.03
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_NE_01_Light_02",
+   "parent": "Platform_NE_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    -5.03,
+    0.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_NE_01_Cover_01",
+   "parent": "Platform_NE_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    -2.5,
+    4.0,
+    -2.5
+   ],
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Ramp_NE_01",
+   "type": "ramp",
+   "material": "metal_grate",
+   "position": [
+    10.3,
+    4.0,
+    -10.3
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "size": [
+    4.0,
+    2.0,
+    7.5
+   ]
+  },
+  {
+   "name": "Stairs_NE_N",
+   "type": "stairs",
+   "material": "metal_grate",
+   "position": [
+    17.0,
+    4.0,
+    -26.0
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    3.0,
+    2.0,
+    8.0
+   ]
+  },
+  {
+   "name": "Platform_NW_01",
+   "type": "group",
+   "position": [
+    -17.0,
+    0.0,
+    -17.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_NW_01_Base",
+   "parent": "Platform_NW_01",
+   "type": "box",
+   "material": "concrete_dark",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    10.0,
+    3.7,
+    10.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_NW_01_Floor",
+   "parent": "Platform_NW_01",
+   "type": "box",
+   "material": "floor_plate",
+   "position": [
+    0.0,
+    3.7,
+    0.0
+   ],
+   "size": [
+    10.3,
+    0.3,
+    10.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_NW_01_Trim",
+   "parent": "Platform_NW_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    2.9,
+    0.0
+   ],
+   "size": [
+    10.5,
+    0.6,
+    10.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_NW_01_Light_01",
+   "parent": "Platform_NW_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    0.0,
+    0.8,
+    5.03
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_NW_01_Light_02",
+   "parent": "Platform_NW_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    5.03,
+    0.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_NW_01_Cover_01",
+   "parent": "Platform_NW_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    -2.5,
+    4.0,
+    -2.5
+   ],
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Ramp_NW_01",
+   "type": "ramp",
+   "material": "metal_grate",
+   "position": [
+    -10.3,
+    4.0,
+    -10.3
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    4.0,
+    2.0,
+    7.5
+   ]
+  },
+  {
+   "name": "Stairs_NW_N",
+   "type": "stairs",
+   "material": "metal_grate",
+   "position": [
+    -17.0,
+    4.0,
+    -26.0
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    3.0,
+    2.0,
+    8.0
+   ]
+  },
+  {
+   "name": "Platform_SE_01",
+   "type": "group",
+   "position": [
+    17.0,
+    0.0,
+    17.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_SE_01_Base",
+   "parent": "Platform_SE_01",
+   "type": "box",
+   "material": "concrete_dark",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    10.0,
+    3.7,
+    10.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_SE_01_Floor",
+   "parent": "Platform_SE_01",
+   "type": "box",
+   "material": "floor_plate",
+   "position": [
+    0.0,
+    3.7,
+    0.0
+   ],
+   "size": [
+    10.3,
+    0.3,
+    10.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_SE_01_Trim",
+   "parent": "Platform_SE_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    2.9,
+    0.0
+   ],
+   "size": [
+    10.5,
+    0.6,
+    10.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_SE_01_Light_01",
+   "parent": "Platform_SE_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    0.0,
+    0.8,
+    -5.03
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_SE_01_Light_02",
+   "parent": "Platform_SE_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    -5.03,
+    0.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_SE_01_Cover_01",
+   "parent": "Platform_SE_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    -2.5,
+    4.0,
+    -2.5
+   ],
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Ramp_SE_01",
+   "type": "ramp",
+   "material": "metal_grate",
+   "position": [
+    10.3,
+    4.0,
+    10.3
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "size": [
+    4.0,
+    2.0,
+    7.5
+   ]
+  },
+  {
+   "name": "Stairs_SE_N",
+   "type": "stairs",
+   "material": "metal_grate",
+   "position": [
+    17.0,
+    4.0,
+    26.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.0,
+    2.0,
+    8.0
+   ]
+  },
+  {
+   "name": "Platform_SW_01",
+   "type": "group",
+   "position": [
+    -17.0,
+    0.0,
+    17.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_SW_01_Base",
+   "parent": "Platform_SW_01",
+   "type": "box",
+   "material": "concrete_dark",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    10.0,
+    3.7,
+    10.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_SW_01_Floor",
+   "parent": "Platform_SW_01",
+   "type": "box",
+   "material": "floor_plate",
+   "position": [
+    0.0,
+    3.7,
+    0.0
+   ],
+   "size": [
+    10.3,
+    0.3,
+    10.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_SW_01_Trim",
+   "parent": "Platform_SW_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    2.9,
+    0.0
+   ],
+   "size": [
+    10.5,
+    0.6,
+    10.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_SW_01_Light_01",
+   "parent": "Platform_SW_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    0.0,
+    0.8,
+    -5.03
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_SW_01_Light_02",
+   "parent": "Platform_SW_01",
+   "type": "panel",
+   "material": "red_panel",
+   "position": [
+    5.03,
+    0.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ]
+  },
+  {
+   "name": "Platform_SW_01_Cover_01",
+   "parent": "Platform_SW_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    -2.5,
+    4.0,
+    -2.5
+   ],
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Ramp_SW_01",
+   "type": "ramp",
+   "material": "metal_grate",
+   "position": [
+    -10.3,
+    4.0,
+    10.3
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    4.0,
+    2.0,
+    7.5
+   ]
+  },
+  {
+   "name": "Stairs_SW_N",
+   "type": "stairs",
+   "material": "metal_grate",
+   "position": [
+    -17.0,
+    4.0,
+    26.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.0,
+    2.0,
+    8.0
+   ]
+  },
+  {
+   "name": "Pipe_NE_01",
+   "type": "cylinder",
+   "sections": 10,
+   "material": "pipe",
+   "position": [
+    35.0,
+    10.0,
+    -35.0
+   ],
+   "rotation": [
+    90.0,
+    -45.0,
+    0.0
+   ],
+   "size": [
+    3.0,
+    11.0,
+    3.0
+   ]
+  },
+  {
+   "name": "Pipe_NE_01_Fall",
+   "type": "box",
+   "material": "toxic",
+   "position": [
+    26.8,
+    1.0,
+    -26.8
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "size": [
+    2.4,
+    7.9,
+    1.0
+   ]
+  },
+  {
+   "name": "Pipe_NW_01",
+   "type": "cylinder",
+   "sections": 10,
+   "material": "pipe",
+   "position": [
+    -35.0,
+    10.0,
+    -35.0
+   ],
+   "rotation": [
+    90.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    3.0,
+    11.0,
+    3.0
+   ]
+  },
+  {
+   "name": "Pipe_NW_01_Fall",
+   "type": "box",
+   "material": "toxic",
+   "position": [
+    -26.8,
+    1.0,
+    -26.8
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    2.4,
+    7.9,
+    1.0
+   ]
+  },
+  {
+   "name": "Pipe_SE_01",
+   "type": "cylinder",
+   "sections": 10,
+   "material": "pipe",
+   "position": [
+    35.0,
+    10.0,
+    35.0
+   ],
+   "rotation": [
+    90.0,
+    -135.0,
+    0.0
+   ],
+   "size": [
+    3.0,
+    11.0,
+    3.0
+   ]
+  },
+  {
+   "name": "Pipe_SE_01_Fall",
+   "type": "box",
+   "material": "toxic",
+   "position": [
+    26.8,
+    1.0,
+    26.8
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "size": [
+    2.4,
+    7.9,
+    1.0
+   ]
+  },
+  {
+   "name": "Pipe_SW_01",
+   "type": "cylinder",
+   "sections": 10,
+   "material": "pipe",
+   "position": [
+    -35.0,
+    10.0,
+    35.0
+   ],
+   "rotation": [
+    90.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    3.0,
+    11.0,
+    3.0
+   ]
+  },
+  {
+   "name": "Pipe_SW_01_Fall",
+   "type": "box",
+   "material": "toxic",
+   "position": [
+    -26.8,
+    1.0,
+    26.8
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    2.4,
+    7.9,
+    1.0
+   ]
+  },
+  {
+   "name": "Pipe_West_01",
+   "type": "cylinder",
+   "sections": 10,
+   "material": "pipe",
+   "position": [
+    -36.0,
+    9.5,
+    12.0
+   ],
+   "rotation": [
+    90.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    2.4,
+    8.0,
+    2.4
+   ]
+  },
+  {
+   "name": "Pipe_West_01_Fall",
+   "type": "box",
+   "material": "toxic",
+   "position": [
+    -27.4,
+    1.0,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    1.92,
+    7.7,
+    1.0
+   ]
+  },
+  {
+   "name": "Pipe_East_01",
+   "type": "cylinder",
+   "sections": 10,
+   "material": "pipe",
+   "position": [
+    36.0,
+    9.5,
+    -12.0
+   ],
+   "rotation": [
+    90.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    2.4,
+    8.0,
+    2.4
+   ]
+  },
+  {
+   "name": "Pipe_East_01_Fall",
+   "type": "box",
+   "material": "toxic",
+   "position": [
+    27.4,
+    1.0,
+    -12.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    1.92,
+    7.7,
+    1.0
+   ]
+  },
+  {
+   "name": "Pipe_North_01",
+   "type": "cylinder",
+   "sections": 10,
+   "material": "pipe",
+   "position": [
+    12.0,
+    9.5,
+    -36.0
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.4,
+    8.0,
+    2.4
+   ]
+  },
+  {
+   "name": "Pipe_North_01_Fall",
+   "type": "box",
+   "material": "toxic",
+   "position": [
+    12.0,
+    1.0,
+    -27.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.92,
+    7.7,
+    1.0
+   ]
+  },
+  {
+   "name": "Pipe_South_01",
+   "type": "cylinder",
+   "sections": 10,
+   "material": "pipe",
+   "position": [
+    -12.0,
+    9.5,
+    36.0
+   ],
+   "rotation": [
+    90.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    2.4,
+    8.0,
+    2.4
+   ]
+  },
+  {
+   "name": "Pipe_South_01_Fall",
+   "type": "box",
+   "material": "toxic",
+   "position": [
+    -12.0,
+    1.0,
+    27.4
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    1.92,
+    7.7,
+    1.0
+   ]
+  },
+  {
+   "name": "PipeRun_North_01",
+   "type": "cylinder",
+   "sections": 8,
+   "material": "pipe",
+   "position": [
+    -32.0,
+    2.4,
+    -31.4
+   ],
+   "rotation": [
+    90.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    64.0,
+    1.4
+   ]
+  },
+  {
+   "name": "PipeRun_South_01",
+   "type": "cylinder",
+   "sections": 8,
+   "material": "pipe",
+   "position": [
+    -32.0,
+    2.4,
+    31.4
+   ],
+   "rotation": [
+    90.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    64.0,
+    1.4
+   ]
+  },
+  {
+   "name": "PipeRun_West_01",
+   "type": "cylinder",
+   "sections": 8,
+   "material": "pipe",
+   "position": [
+    -31.4,
+    2.4,
+    32.0
+   ],
+   "rotation": [
+    90.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    64.0,
+    1.4
+   ]
+  },
+  {
+   "name": "PipeRun_East_01",
+   "type": "cylinder",
+   "sections": 8,
+   "material": "pipe",
+   "position": [
+    31.4,
+    2.4,
+    32.0
+   ],
+   "rotation": [
+    90.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    64.0,
+    1.4
+   ]
+  },
+  {
+   "name": "Background_Block_01",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    -30.0,
+    0.0,
+    -50.0
+   ],
+   "size": [
+    10.0,
+    24.0,
+    10.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Background_Block_02",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    0.0,
+    0.0,
+    -52.0
+   ],
+   "size": [
+    14.0,
+    30.0,
+    14.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Background_Block_03",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    28.0,
+    0.0,
+    -48.0
+   ],
+   "size": [
+    9.0,
+    20.0,
+    9.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Background_Block_04",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    -50.0,
+    0.0,
+    -10.0
+   ],
+   "size": [
+    9.0,
+    22.0,
+    9.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Background_Block_05",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    50.0,
+    0.0,
+    12.0
+   ],
+   "size": [
+    10.0,
+    26.0,
+    10.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Background_Block_06",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    -48.0,
+    0.0,
+    30.0
+   ],
+   "size": [
+    8.0,
+    18.0,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Background_Block_07",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    30.0,
+    0.0,
+    50.0
+   ],
+   "size": [
+    12.0,
+    22.0,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "Background_Block_08",
+   "type": "box",
+   "material": "metal_dark",
+   "position": [
+    -10.0,
+    0.0,
+    50.0
+   ],
+   "size": [
+    9.0,
+    16.0,
+    9.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  }
+ ],
+ "draw_hint": "one material per surface type; mark static + batch in engine",
+ "build_stats": {
+  "triangles": 1948,
+  "objects": 151,
+  "materials": 8,
+  "glb_kb": 126
+ }
+}
