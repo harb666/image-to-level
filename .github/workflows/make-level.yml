@@ -1,0 +1,26 @@
+# Upload an image to inputs/ (e.g. from the GitHub iPhone app) -> this builds levels/<name>/ and commits it.
+name: make-level
+on:
+  push:
+    paths: ["inputs/**"]
+  workflow_dispatch:
+    inputs:
+      image: {description: "path to image, e.g. inputs/foo.jpg", required: true}
+permissions: {contents: write}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install -q --index-url https://download.pytorch.org/whl/cpu torch && pipeline/setup.sh
+      - name: build levels
+        run: |
+          if [ -n "${{ github.event.inputs.image }}" ]; then imgs="${{ github.event.inputs.image }}";
+          else imgs=$(git diff --name-only --diff-filter=AM HEAD~1 HEAD -- inputs | grep -iE '\.(png|jpe?g|webp)$' || true); fi
+          for i in $imgs; do ./make_level.sh "$i"; done
+      - run: |
+          git config user.name "level-bot"; git config user.email "level-bot@users.noreply.github.com"
+          git add levels && git commit -m "Generate level(s)" && git push || echo "nothing to commit"

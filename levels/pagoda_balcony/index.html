@@ -1,0 +1,61 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Level Viewer</title>
+<style>
+:root{--bg:#111;--fg:#eee}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--fg);font:13px system-ui;touch-action:none}
+#hud{position:fixed;top:8px;left:8px;right:8px;display:flex;gap:6px;flex-wrap:wrap}
+button{background:#0008;color:#fff;border:1px solid #fff4;border-radius:8px;padding:8px 10px;font:inherit}
+#stick{position:fixed;left:24px;bottom:32px;width:110px;height:110px;border-radius:50%;background:#fff2;border:1px solid #fff4}
+#info{position:fixed;bottom:8px;right:8px;opacity:.7}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head><body>
+<div id="hud"><button id="mode">Mode: walk</button><button id="reset">Respawn</button></div>
+<div id="stick"></div><div id="info"></div>
+<script type="module">
+import * as THREE from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+const q=new URLSearchParams(location.search), base=q.get('level')||'.';
+const meta=await (await fetch(base+'/level.json')).json();
+const r=new THREE.WebGLRenderer({antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));
+r.setSize(innerWidth,innerHeight);document.body.prepend(r.domElement);
+const scene=new THREE.Scene();scene.background=new THREE.Color(...meta.sky_rgb);
+scene.fog=new THREE.Fog(scene.background,40,140);
+scene.add(new THREE.HemisphereLight(0xffffff,0x555555,2.2));
+const sun=new THREE.DirectionalLight(0xffffff,1.2);sun.position.set(20,40,10);scene.add(sun);
+const cam=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,0.1,500);
+const gltf=await new GLTFLoader().loadAsync(base+'/level.glb');
+gltf.scene.traverse(o=>{if(o.isMesh){o.material=new THREE.MeshLambertMaterial({vertexColors:true,flatShading:true});if(o.name.startsWith('Spawn'))o.visible=false;}});
+scene.add(gltf.scene);
+const solids=[];gltf.scene.traverse(o=>{if(o.isMesh&&o.visible)solids.push(o)});
+const orbit=new OrbitControls(cam,r.domElement);orbit.enabled=false;
+let walk=true,yaw=0,pitch=0,vy=0;const pos=new THREE.Vector3();
+const spawn=()=>{pos.set(...meta.spawn);pos.y+=meta.eye_height;yaw=0;pitch=0;};spawn();
+document.getElementById('reset').onclick=spawn;
+document.getElementById('mode').onclick=e=>{walk=!walk;orbit.enabled=!walk;e.target.textContent='Mode: '+(walk?'walk':'orbit');
+  if(!walk){const c=meta.bounds_min.map((v,i)=>(v+meta.bounds_max[i])/2);orbit.target.set(c[0],0,c[2]);cam.position.set(c[0],60,c[2]+60);}};
+document.getElementById('info').textContent=meta.triangles+' tris';
+// input: left stick = move, drag elsewhere = look; WASD + mouse drag on desktop
+const keys={};onkeydown=e=>keys[e.code]=1;onkeyup=e=>keys[e.code]=0;
+const mv={x:0,y:0};const stick=document.getElementById('stick');let sid=null,lid=null,lx=0,ly=0;
+addEventListener('pointerdown',e=>{if(!walk)return;const b=stick.getBoundingClientRect();
+  if(e.clientX<b.right+20&&e.clientY>b.top-20&&sid===null)sid=e.pointerId;else{lid=e.pointerId;lx=e.clientX;ly=e.clientY;}});
+addEventListener('pointermove',e=>{if(e.pointerId===sid){const b=stick.getBoundingClientRect();
+  mv.x=Math.max(-1,Math.min(1,(e.clientX-b.left-b.width/2)/50));mv.y=Math.max(-1,Math.min(1,(e.clientY-b.top-b.height/2)/50));}
+  else if(e.pointerId===lid){yaw-=(e.clientX-lx)*0.005;pitch=Math.max(-1.4,Math.min(1.4,pitch-(e.clientY-ly)*0.005));lx=e.clientX;ly=e.clientY;}});
+addEventListener('pointerup',e=>{if(e.pointerId===sid){sid=null;mv.x=mv.y=0}if(e.pointerId===lid)lid=null;});
+const ray=new THREE.Raycaster(),down=new THREE.Vector3(0,-1,0);let last=performance.now();
+function blocked(dir,dist){ray.set(new THREE.Vector3(pos.x,pos.y-meta.eye_height+0.5,pos.z),dir);ray.far=dist+0.3;return ray.intersectObjects(solids).length>0;}
+r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,0.05);last=now;
+  if(walk){const f=(keys.KeyW?1:0)-(keys.KeyS?1:0)-mv.y,s=(keys.KeyD?1:0)-(keys.KeyA?1:0)+mv.x;
+    const d=new THREE.Vector3(s,0,-f);if(d.lengthSq()>0){d.normalize().applyAxisAngle(new THREE.Vector3(0,1,0),yaw);
+      const step=5*dt;if(!blocked(d,step))pos.addScaledVector(d,step);}
+    ray.set(new THREE.Vector3(pos.x,pos.y+0.5,pos.z),down);ray.far=100;const h=ray.intersectObjects(solids)[0];
+    const ground=h?h.point.y:-50;vy-=20*dt;pos.y+=vy*dt;
+    if(pos.y<ground+meta.eye_height){pos.y=ground+meta.eye_height;vy=0;}if(pos.y<-40)spawn();
+    cam.position.copy(pos);cam.rotation.set(pitch,yaw,0,'YXZ');}else orbit.update();
+  r.render(scene,cam);});
+onresize=()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();r.setSize(innerWidth,innerHeight);};
+</script></body></html>
