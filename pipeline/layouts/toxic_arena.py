@@ -124,6 +124,21 @@ walk = [dict(min=[x - w / 2, z - d / 2], max=[x + w / 2, z + d / 2], y=y) for x,
 L = dict(version=1, units="metres, y-up; position = centre of object's base, in parent space; rotation = degrees XYZ",
          source="toxic_arena_concept.png (hand-authored from TOP DOWN LAYOUT + SIDE VIEW)", sky_color=[0.07, 0.1, 0.08],
          spawn=dict(position=[0, DECK, MID], yaw_deg=0), hazards=["HazardFluid"],
+         environment=dict(  # Stage 2 demo: background only (playable geometry/collision untouched)
+             quality="balanced", horizon_distance=460,
+             sky=dict(preset="industrial_smog"),
+             atmosphere=dict(fog_start=60, height_fog=dict(height=2.5, density=0.15)),
+             background=[
+                 dict(id="Ground", type="ground", radius=[0, 470], flat_radius=60, rise=16, roughness=5),
+                 dict(id="Mountains_Far", type="mountain_ring", radius=430, depth=70, height=[70, 160], fade=0.55, seed=3),
+                 dict(id="Mountains_Near", type="mountain_ring", radius=290, depth=45, height=[18, 55], fade=0.3, seed=8, frequency=3.5, sharpness=2.2),
+                 dict(id="Spires", type="spires", radius=[95, 210], count=16, height=[22, 65], fade=0.15, seed=5),
+                 dict(id="Skyline_North", type="skyline", radius=250, azimuth_deg=[-55, 40], count=26, height=[18, 60], fade=0.35, glow=[0.45, 1.0, 0.25], lit=0.12),
+                 dict(id="Factory_NE", type="factory", azimuth_deg=48, distance=165, scale=1.1, seed=1, glow=[0.45, 1.0, 0.25], fade=0.12),
+                 dict(id="Factory_E", type="factory", azimuth_deg=105, distance=200, scale=0.9, seed=2, glow=[0.45, 1.0, 0.25], fade=0.18),
+                 dict(id="Factory_SW", type="factory", azimuth_deg=215, distance=175, scale=1.0, seed=3, glow=[1.0, 0.25, 0.12], fade=0.15),
+                 dict(id="Factory_W", type="factory", azimuth_deg=290, distance=190, scale=1.2, seed=4, glow=[0.45, 1.0, 0.25], fade=0.18),
+             ]),
          bounds=dict(min=[-A - 4, 0, -A - 4], max=[A + 4, 20, A + 4]), walkable=walk, materials=mats, objects=objs)
 os.makedirs(OUT, exist_ok=True)
 json.dump(L, open(os.path.join(OUT, "level.json"), "w"), indent=1)

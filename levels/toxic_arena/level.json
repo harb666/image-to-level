@@ -18,6 +18,151 @@
  "hazards": [
   "HazardFluid"
  ],
+ "environment": {
+  "quality": "balanced",
+  "horizon_distance": 460,
+  "sky": {
+   "preset": "industrial_smog"
+  },
+  "atmosphere": {
+   "fog_start": 60,
+   "height_fog": {
+    "height": 2.5,
+    "density": 0.15
+   }
+  },
+  "background": [
+   {
+    "id": "Ground",
+    "type": "ground",
+    "radius": [
+     0,
+     470
+    ],
+    "flat_radius": 60,
+    "rise": 16,
+    "roughness": 5
+   },
+   {
+    "id": "Mountains_Far",
+    "type": "mountain_ring",
+    "radius": 430,
+    "depth": 70,
+    "height": [
+     70,
+     160
+    ],
+    "fade": 0.55,
+    "seed": 3
+   },
+   {
+    "id": "Mountains_Near",
+    "type": "mountain_ring",
+    "radius": 290,
+    "depth": 45,
+    "height": [
+     18,
+     55
+    ],
+    "fade": 0.3,
+    "seed": 8,
+    "frequency": 3.5,
+    "sharpness": 2.2
+   },
+   {
+    "id": "Spires",
+    "type": "spires",
+    "radius": [
+     95,
+     210
+    ],
+    "count": 16,
+    "height": [
+     22,
+     65
+    ],
+    "fade": 0.15,
+    "seed": 5
+   },
+   {
+    "id": "Skyline_North",
+    "type": "skyline",
+    "radius": 250,
+    "azimuth_deg": [
+     -55,
+     40
+    ],
+    "count": 26,
+    "height": [
+     18,
+     60
+    ],
+    "fade": 0.35,
+    "glow": [
+     0.45,
+     1.0,
+     0.25
+    ],
+    "lit": 0.12
+   },
+   {
+    "id": "Factory_NE",
+    "type": "factory",
+    "azimuth_deg": 48,
+    "distance": 165,
+    "scale": 1.1,
+    "seed": 1,
+    "glow": [
+     0.45,
+     1.0,
+     0.25
+    ],
+    "fade": 0.12
+   },
+   {
+    "id": "Factory_E",
+    "type": "factory",
+    "azimuth_deg": 105,
+    "distance": 200,
+    "scale": 0.9,
+    "seed": 2,
+    "glow": [
+     0.45,
+     1.0,
+     0.25
+    ],
+    "fade": 0.18
+   },
+   {
+    "id": "Factory_SW",
+    "type": "factory",
+    "azimuth_deg": 215,
+    "distance": 175,
+    "scale": 1.0,
+    "seed": 3,
+    "glow": [
+     1.0,
+     0.25,
+     0.12
+    ],
+    "fade": 0.15
+   },
+   {
+    "id": "Factory_W",
+    "type": "factory",
+    "azimuth_deg": 290,
+    "distance": 190,
+    "scale": 1.2,
+    "seed": 4,
+    "glow": [
+     0.45,
+     1.0,
+     0.25
+    ],
+    "fade": 0.18
+   }
+  ]
+ },
  "bounds": {
   "min": [
    -40.0,

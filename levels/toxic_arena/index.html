@@ -11,67 +11,90 @@ button{background:#0008;color:#fff;border:1px solid #fff4;border-radius:8px;padd
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head><body>
-<div id="hud"><button id="mode">Mode: walk</button><button id="reset">Respawn</button></div>
+<div id="hud"><button id="mode">View: 3rd person</button><button id="reset">Respawn</button></div>
 <div id="stick"></div><div id="info"></div>
 <script type="module">
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+// Inputs: local files (?level=dir, default '.') or, in a self-contained preview, globals GLB/BGGLB (base64), TEXP/TEX (data: URIs), ENV, SKY.
 const q=new URLSearchParams(location.search), base=q.get('level')||'.';
 const meta=await (await fetch(base+'/level.json')).json();
 if(meta.objects){const sp=meta.spawn,y=sp.yaw_deg*Math.PI/180;Object.assign(meta,{sky_rgb:meta.sky_color,spawn:sp.position,eye_height:1.7,
  spawn_facing:[-Math.sin(y),0,-Math.cos(y)],bounds_min:meta.bounds.min,bounds_max:meta.bounds.max,triangles:meta.build_stats.triangles});}
+let env=window.ENV||null;if(!env&&!window.GLB){try{const rq=await fetch(base+'/environment.json');if(rq.ok)env=await rq.json();}catch(e){}}
 const r=new THREE.WebGLRenderer({antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));
 r.setSize(innerWidth,innerHeight);document.body.prepend(r.domElement);
-const scene=new THREE.Scene();scene.background=new THREE.Color(...meta.sky_rgb);
-scene.fog=new THREE.Fog(scene.background,40,140);
-// PBR lighting: soft image-based ambient (so metal isn't black) + hemisphere fill + one key light for normal-map relief
-scene.environment=new THREE.PMREMGenerator(r).fromScene(new RoomEnvironment(),0.04).texture;
-scene.add(new THREE.HemisphereLight(0xffffff,0x444444,1.3));
-const sun=new THREE.DirectionalLight(0xfff4e8,2.0);sun.position.set(20,40,10);scene.add(sun);
-const cam=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,0.1,500);
-const gltf=await new GLTFLoader().loadAsync(base+'/level.glb');
-// Embedded previews pass textures as data: URIs (window.TEX, by material name): the artifact sandbox blocks the
-// blob: URLs GLTFLoader uses for textures inside a .glb, which otherwise leaves every textured surface black.
-// TEX[name] = {base, normal, orm, emis} -> index into TEXP (data: URIs); old previews: TEX[name] = data URI string.
-if(window.TEX){const tl=new THREE.TextureLoader(),cache={},P=window.TEXP||[];
-  const ld=(k,srgb)=>{if(k==null)return null;const u=typeof k==='number'?P[k]:k;if(cache[u])return cache[u];const t=tl.load(u);t.flipY=false;
-    t.colorSpace=srgb?THREE.SRGBColorSpace:THREE.NoColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;return cache[u]=t;};
-  gltf.scene.traverse(o=>{const m=o.material;if(!o.isMesh||!TEX[m.name])return;let e=TEX[m.name];if(typeof e==='string')e={base:e,legacy:1};
+const scene=new THREE.Scene(),pm=new THREE.PMREMGenerator(r);
+const cam=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,0.1,env?env.camera.far:500);
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0)).buffer;
+if(env){ // Stage 2: panorama sky (background + image-based light), fog colour = sky horizon colour, sun + ambient from environment.json
+  const sky=await new THREE.TextureLoader().loadAsync(window.SKY||base+'/'+env.sky.image);
+  sky.mapping=THREE.EquirectangularReflectionMapping;sky.colorSpace=THREE.SRGBColorSpace;
+  scene.background=sky;scene.environment=pm.fromEquirectangular(sky).texture;
+  scene.fog=new THREE.Fog(new THREE.Color(...env.fog.color),env.fog.start,env.fog.end);
+  scene.add(new THREE.HemisphereLight(new THREE.Color(...env.ambient.sky_color).lerp(new THREE.Color(1,1,1),.5),new THREE.Color(...env.ambient.ground_color),1.2*env.ambient.energy));
+  const d=env.sun.direction_to_sun,sun=new THREE.DirectionalLight(new THREE.Color(...env.sun.color),1.25*env.sun.energy);
+  sun.position.set(d[0]*100,d[1]*100,d[2]*100);scene.add(sun);
+}else{ // older levels: flat colour sky + neutral studio reflections
+  scene.background=new THREE.Color(...meta.sky_rgb);scene.fog=new THREE.Fog(scene.background,40,140);
+  scene.environment=pm.fromScene(new RoomEnvironment(),0.04).texture;
+  scene.add(new THREE.HemisphereLight(0xffffff,0x444444,1.3));
+  const sun=new THREE.DirectionalLight(0xfff4e8,2.0);sun.position.set(20,40,10);scene.add(sun);
+}
+const loader=new GLTFLoader();
+const gltf=window.GLB?await loader.parseAsync(b64(GLB),''):await loader.loadAsync(base+'/level.glb');
+let bg=null;if(env&&env.files.background)bg=window.BGGLB?await loader.parseAsync(b64(BGGLB),''):await loader.loadAsync(base+'/background.glb');
+// TEX[name] = {base, normal, orm, emis} -> index into TEXP (data: URIs). Sandboxed pages block GLTFLoader's blob: texture URLs.
+const texCache={};
+function applyTex(root){if(!window.TEX)return;const tl=new THREE.TextureLoader(),P=window.TEXP||[];
+  const ld=(k,srgb)=>{if(k==null)return null;const u=typeof k==='number'?P[k]:k;if(texCache[u])return texCache[u];const t=tl.load(u);t.flipY=false;
+    t.colorSpace=srgb?THREE.SRGBColorSpace:THREE.NoColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;return texCache[u]=t;};
+  root.traverse(o=>{const m=o.material;if(!o.isMesh||!TEX[m.name])return;let e=TEX[m.name];if(typeof e==='string')e={base:e,legacy:1};
     m.map=ld(e.base,1);if(e.normal!=null)m.normalMap=ld(e.normal);if(e.orm!=null){const t=ld(e.orm);m.roughnessMap=m.metalnessMap=m.aoMap=t;}
     if(e.emis!=null)m.emissiveMap=ld(e.emis,1);else if(e.legacy&&m.emissive&&m.emissive.getHex())m.emissiveMap=m.map;m.needsUpdate=true;});}
-gltf.scene.traverse(o=>{if(o.isMesh&&o.material.isMeshStandardMaterial)o.material.envMapIntensity=0.45;});
-gltf.scene.traverse(o=>{if(o.isMesh){if(!o.material.map&&o.geometry.attributes.color)o.material=new THREE.MeshLambertMaterial({vertexColors:true,flatShading:true});if(o.name.startsWith('Spawn'))o.visible=false;if(o.name.startsWith('Boundary'))o.material.visible=false;}});
-scene.add(gltf.scene);
-const solids=[];gltf.scene.traverse(o=>{if(o.isMesh&&o.visible)solids.push(o)});
+for(const g of [gltf,bg]){if(!g)continue;applyTex(g.scene);
+  g.scene.traverse(o=>{if(o.isMesh&&o.material.isMeshStandardMaterial)o.material.envMapIntensity=env?0.9:0.45;});scene.add(g.scene);}
+gltf.scene.traverse(o=>{if(o.isMesh){if(!o.material.map&&o.geometry.attributes.color)o.material=new THREE.MeshLambertMaterial({vertexColors:true,flatShading:true});
+  if(o.name.startsWith('Spawn'))o.visible=false;if(o.name.startsWith('Boundary'))o.material.visible=false;}});
+const solids=[];gltf.scene.traverse(o=>{if(o.isMesh&&o.visible)solids.push(o)}); // background is never collidable
+const camSolids=solids.filter(o=>o.material.visible!==false); // camera ignores invisible colliders
+const avatar=new THREE.Mesh(new THREE.CapsuleGeometry(0.35,1.0,4,8),new THREE.MeshStandardMaterial({color:0x3a8dde,roughness:.5}));scene.add(avatar);
 const orbit=new OrbitControls(cam,r.domElement);orbit.enabled=false;
-let walk=true,yaw=0,pitch=0,vy=0;const pos=new THREE.Vector3();
-const spawn=()=>{pos.set(...meta.spawn);pos.y+=meta.eye_height;const f=meta.spawn_facing||[0,0,-1];yaw=Math.atan2(-f[0],-f[2]);pitch=0;};spawn();
+const MODES=['3rd person','1st person','orbit'];let mode=0,yaw=0,pitch=0,vy=0;const pos=new THREE.Vector3();
+const spawn=()=>{pos.set(...meta.spawn);pos.y+=meta.eye_height;const f=meta.spawn_facing||[0,0,-1];yaw=Math.atan2(-f[0],-f[2]);pitch=-0.15;};spawn();
 document.getElementById('reset').onclick=spawn;
-window.view=(x,z,yd,pd=0,y=0)=>{pos.set(x,meta.eye_height+y,z);vy=0;yaw=yd*Math.PI/180;pitch=pd*Math.PI/180;}; // for scripted screenshots
-document.getElementById('mode').onclick=e=>{walk=!walk;orbit.enabled=!walk;e.target.textContent='Mode: '+(walk?'walk':'orbit');
-  if(!walk){const c=meta.bounds_min.map((v,i)=>(v+meta.bounds_max[i])/2);const e=Math.max(meta.bounds_max[0]-meta.bounds_min[0],meta.bounds_max[2]-meta.bounds_min[2]);orbit.target.set(c[0],0,c[2]);cam.position.set(c[0]+e*.4,e*.6,c[2]+e*.6);}};
-document.getElementById('info').textContent=meta.triangles+' tris';
-// input: left stick = move, drag elsewhere = look; WASD + mouse drag on desktop
+window.view=(x,z,yd,pd=0,y=0)=>{pos.set(x,meta.eye_height+y,z);vy=0;yaw=yd*Math.PI/180;pitch=pd*Math.PI/180;}; // scripted screenshots
+function setMode(m){mode=m;orbit.enabled=MODES[m]==='orbit';document.getElementById('mode').textContent='View: '+MODES[m];
+  if(MODES[m]==='orbit'){const c=meta.bounds_min.map((v,i)=>(v+meta.bounds_max[i])/2);const e=Math.max(meta.bounds_max[0]-meta.bounds_min[0],meta.bounds_max[2]-meta.bounds_min[2]);
+    orbit.target.set(c[0],0,c[2]);cam.position.set(c[0]+e*.4,e*.6,c[2]+e*.6);}}
+window.setMode=setMode;document.getElementById('mode').onclick=()=>setMode((mode+1)%MODES.length);
+document.getElementById('info').textContent=meta.triangles+' tris'+(env?' · '+env.sky.preset+' · '+env.quality:'');
+// input: left stick = move (relative to camera), drag elsewhere = rotate camera; WASD + mouse drag on desktop
 const keys={};onkeydown=e=>keys[e.code]=1;onkeyup=e=>keys[e.code]=0;
 const mv={x:0,y:0};const stick=document.getElementById('stick');let sid=null,lid=null,lx=0,ly=0;
-addEventListener('pointerdown',e=>{if(!walk)return;const b=stick.getBoundingClientRect();
+addEventListener('pointerdown',e=>{if(MODES[mode]==='orbit'||e.target.tagName==='BUTTON')return;const b=stick.getBoundingClientRect();
   if(e.clientX<b.right+20&&e.clientY>b.top-20&&sid===null)sid=e.pointerId;else{lid=e.pointerId;lx=e.clientX;ly=e.clientY;}});
 addEventListener('pointermove',e=>{if(e.pointerId===sid){const b=stick.getBoundingClientRect();
   mv.x=Math.max(-1,Math.min(1,(e.clientX-b.left-b.width/2)/50));mv.y=Math.max(-1,Math.min(1,(e.clientY-b.top-b.height/2)/50));}
-  else if(e.pointerId===lid){yaw-=(e.clientX-lx)*0.005;pitch=Math.max(-1.4,Math.min(1.4,pitch-(e.clientY-ly)*0.005));lx=e.clientX;ly=e.clientY;}});
+  else if(e.pointerId===lid){yaw-=(e.clientX-lx)*0.005;pitch=Math.max(-1.3,Math.min(1.2,pitch-(e.clientY-ly)*0.005));lx=e.clientX;ly=e.clientY;}});
 addEventListener('pointerup',e=>{if(e.pointerId===sid){sid=null;mv.x=mv.y=0}if(e.pointerId===lid)lid=null;});
-const ray=new THREE.Raycaster(),down=new THREE.Vector3(0,-1,0);let last=performance.now();
+const ray=new THREE.Raycaster(),down=new THREE.Vector3(0,-1,0),UP=new THREE.Vector3(0,1,0);let last=performance.now();
 function blocked(dir,dist){ray.set(new THREE.Vector3(pos.x,pos.y-meta.eye_height+0.5,pos.z),dir);ray.far=dist+0.3;return ray.intersectObjects(solids).length>0;}
 r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,0.05);last=now;
-  if(walk){const f=(keys.KeyW?1:0)-(keys.KeyS?1:0)-mv.y,s=(keys.KeyD?1:0)-(keys.KeyA?1:0)+mv.x;
-    const d=new THREE.Vector3(s,0,-f);if(d.lengthSq()>0){d.normalize().applyAxisAngle(new THREE.Vector3(0,1,0),yaw);
-      const step=5*dt;if(!blocked(d,step))pos.addScaledVector(d,step);}
+  if(MODES[mode]!=='orbit'){const f=(keys.KeyW?1:0)-(keys.KeyS?1:0)-mv.y,s=(keys.KeyD?1:0)-(keys.KeyA?1:0)+mv.x;
+    const d=new THREE.Vector3(s,0,-f);if(d.lengthSq()>0){d.normalize().applyAxisAngle(UP,yaw);const step=5*dt;if(!blocked(d,step))pos.addScaledVector(d,step);}
     ray.set(new THREE.Vector3(pos.x,pos.y+0.5,pos.z),down);ray.far=100;const h=ray.intersectObjects(solids)[0];
     const ground=h?h.point.y:-50;if(h&&h.object.name.startsWith('Hazard')&&pos.y-meta.eye_height<h.point.y+0.3){spawn();}vy-=20*dt;pos.y+=vy*dt;
     if(pos.y<ground+meta.eye_height){pos.y=ground+meta.eye_height;vy=0;}if(pos.y<-40)spawn();
-    cam.position.copy(pos);cam.rotation.set(pitch,yaw,0,'YXZ');}else orbit.update();
+    avatar.position.set(pos.x,pos.y-meta.eye_height+0.85,pos.z);avatar.visible=MODES[mode]==='3rd person';
+    if(MODES[mode]==='1st person'){cam.position.copy(pos);cam.rotation.set(pitch,yaw,0,'YXZ');}
+    else{ // 3rd person: camera orbits 5 m from the player's head, pulled in when a wall is in the way
+      const head=new THREE.Vector3(pos.x,pos.y+0.2,pos.z),back=new THREE.Vector3(0,0,1).applyEuler(new THREE.Euler(pitch,yaw,0,'YXZ'));
+      let dist=5;ray.set(head,back);ray.far=dist;const hit=ray.intersectObjects(camSolids)[0];if(hit)dist=Math.max(0.6,hit.distance-0.3);
+      cam.position.copy(head).addScaledVector(back,dist);cam.lookAt(head);}
+  }else{avatar.visible=true;orbit.update();}
   r.render(scene,cam);});
 onresize=()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();r.setSize(innerWidth,innerHeight);};
 </script></body></html>

@@ -7,7 +7,7 @@ Every kind yields: base colour (sRGB jpeg), normal map (from a height field), OR
 G=roughness, B=metallic — glTF metallicRoughness + occlusion share it) and, if it glows, an emissive mask.
 All maps are tileable. Standard glTF 2.0 PBR, so Godot 4 imports them into StandardMaterial3D directly.
 PBR kinds: industrial_metal, painted_metal, damaged_metal, scifi_floor, grating, concrete, rock, sand, dirt, grass,
-  toxic, glow, machinery_panel, trim_light, pipe, banner.  Legacy (stylised, albedo-derived normals): cobblestone,
+  toxic, glow, machinery_panel, trim_light, pipe, banner, factory_facade (distant buildings, lit windows).  Legacy (stylised, albedo-derived normals): cobblestone,
   stone_brick, plaster, wood, painted_wood, trim_wood, door_wood, window, roof_tiles, roof_slate, metal, water, soil.
 """
 import io, numpy as np, trimesh
@@ -220,7 +220,7 @@ def k_scifi_floor(S, rng, c, m):
     alb = c[None, None] * (pv * (0.9 + 0.12 * fine) * (1 - 0.35 * grime) * (0.45 + 0.55 * seam) * (1 - 0.35 * diag)
                            * np.where(inset, 0.85, 1.0) * (1 + 0.3 * bolt))[..., None] + 0.06 * scratch[..., None]
     rough = np.clip(0.62 + 0.2 * grime + 0.06 * n - 0.3 * scratch, 0, 1)
-    return dict(alb=alb, h=h, rough=rough, metal=0.45 + 0.3 * scratch, nstr=0.9)
+    return dict(alb=alb, h=h, rough=rough, metal=0.2 + 0.4 * scratch, nstr=0.9)  # coated deck: mostly diffuse
 
 
 def k_grating(S, rng, c, m):
@@ -335,6 +335,20 @@ def k_banner(S, rng, c, m):
     frame = (np.minimum(x, 1 - x) < 0.07) | (y < 0.05) | (y > 0.86 + 0.14 * np.abs(x - 0.5) * 2)
     return dict(alb=alb, h=0.5 + 0.3 * emb - 0.3 * frame, rough=0.8, metal=np.where(frame, 0.7, 0.0),
                 emit=np.where(emb, 1.0, np.where(frame, 0.0, 0.3)), nstr=0.8)
+
+
+def k_factory_facade(S, rng, c, m):
+    """Distant factory/skyline walls: dark panels, floor bands, sparse grid of lit windows (emissive, accent colour)."""
+    x, y = _xy(S); fine = _noise(rng, 32, 2, S); n = _noise(rng, 4, 3, S)
+    fl, cols = 8, 10; fy, fx = (y * fl) % 1, (x * cols) % 1; cell = (y * fl).astype(int) * cols + (x * cols).astype(int)
+    win = (np.abs(fx - 0.5) < 0.16) & (np.abs(fy - 0.5) < 0.14)
+    lit = win & (rng.random(fl * cols) < m.get("lit", 0.3))[cell]
+    band = np.abs(fy - 0.05) < 0.04
+    acc = np.array(m.get("accent", [0.45, 1.0, 0.25]))
+    base = c[None, None] * ((0.8 + 0.2 * fine + 0.1 * n) * np.where(band, 1.3, 1.0))[..., None]
+    alb = np.where(lit[..., None], acc, np.where(win[..., None], base * 0.35, base))
+    return dict(alb=alb, h=0.6 - 0.4 * win + 0.2 * band, rough=np.where(win, 0.25, 0.7), metal=np.where(win, 0.0, 0.4),
+                emit=lit.astype(float), nstr=0.8)
 
 
 PBR = {k[2:]: f for k, f in globals().items() if k.startswith("k_")}

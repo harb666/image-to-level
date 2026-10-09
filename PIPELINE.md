@@ -57,6 +57,41 @@ re-compresses textures to GPU formats per its import settings; no KTX2 encoder i
 - `python3 pipeline/glb_stats.py level.glb` → size, tris, nodes, draw calls (unbatched / per-material min),
   images, texture memory (uncompressed RGBA8+mips vs ~1 B/px GPU-compressed). Estimates, not device benchmarks.
 
+## Sky & distant environment (Stage 2) — optional `environment` section in level.json
+Levels without it behave exactly as before. With it, `build_level.py` also writes (or run only
+`python3 pipeline/environment.py levels/<name>` — rebuilds sky/background/metadata in ~1 s, level.glb untouched):
+- `sky/panorama.jpg` — 2:1 equirect, procedural & seamless (`pipeline/sky.py`, every pixel from its view direction;
+  perspective cloud layers, horizon smog band, sun/moon glow, stars, alien planet, factory glows on the horizon).
+  Cached: only re-rendered when sky inputs change. External panorama: `"sky": {"image": "my_pano.jpg"}`.
+  Presets: industrial_smog, sunset, sunrise, night, overcast, alien, clear_day (override any field:
+  zenith/upper/horizon/below colours, clouds{coverage,scale,dark,lit,layers,wisps}, smog{strength,color,height_deg},
+  sun{azimuth_deg,elevation_deg,color,size_deg,glow}, stars, planet, light{sun_energy,sun_color,ambient_energy,exposure}).
+- `background.glb` — distant scenery (`pipeline/backdrop.py`), one node `BG_<id>` per layer under `Background`, no collision.
+  Layer types (each deterministic from its `id`+`seed`, editable independently):
+  `ground` (terrain skirt under the arena to the horizon, rim drops below ground), `mountain_ring` (closed 360° ridge:
+  radius, depth, height[min,max], frequency, sharpness), `spires` (radius[min,max], count, height, azimuth_deg range),
+  `skyline` (radius, azimuth_deg[from,to], count, height, glow, lit), `factory` (azimuth_deg, distance, scale, seed,
+  glow [r,g,b] → also adds a horizon glow to the sky). Common: `fade` 0..1 (atmospheric perspective baked into the colour),
+  `color`, `material_type`, `tile_m`, `res`. Azimuth: 0 = north (-z), 90 = east (+x).
+- `environment.json` — engine-neutral settings: sky file/projection, sun (direction, colour, energy, Godot rotation),
+  ambient (sky), fog (colour = sky horizon colour so geometry blends into the sky; start/end for linear fog, Godot
+  exponential density ≈ 3/end, height fog), tonemap, glow, adjustments, camera far, background layer list + stats.
+- `environment.tres` — Godot 4 Environment (Sky → PanoramaSkyMaterial, ambient/reflections from sky, filmic tonemap,
+  glow, fog, adjustments). Assumes the level folder is at `res://levels/<name>/`. Generated, NOT tested in Godot here;
+  the browser preview approximates it (no bloom/post-processing, linear fog). If the sky looks rotated against the
+  sun in Godot, adjust the Environment's sky rotation in 90° steps.
+- `"atmosphere"`: fog_start, fog_end, fog_color (default: sky horizon), sky_affect, height_fog{height,density},
+  tonemap, exposure, contrast, saturation, brightness, glow{enabled,intensity,bloom,hdr_threshold}; `"lighting"` overrides
+  the preset's light; `"horizon_distance"` (m).
+- `"quality"`: performance | balanced (default) | quality →
+  sky 1024/2048/4096 px, ring segments 48/96/160, background density ×0.6/1/1.4, factory detail 0/1/2,
+  background texture 64/128/256 px, camera far 600/800/1000.
+- Check: `python3 pipeline/check_background.py levels/<name>` → rays from spawn + every walkable area at third-person
+  and elevated camera heights, 5° steps, below the horizon must all hit geometry (no void); horizon silhouette coverage;
+  open edges above ground per background mesh. Writes `checks/background_check.json`.
+- Viewer: panorama sky as background + image-based lighting, fog in the horizon colour, background layer, and a
+  third-person camera (default; orbits 5 m from the player, pulls in at visible walls) / 1st person / orbit.
+
 ## Hand-authored layouts (concept sheets with a top-down plan)
 When a concept sheet has a TOP DOWN LAYOUT/side view, don't run it through MiDaS: write a small layout script in
 `pipeline/layouts/<level>.py` that emits level.json directly (same schema), then `build_level.py`. Example:
@@ -75,12 +110,13 @@ Materials: see Materials section (Toxic Arena uses industrial_metal, trim_light,
 - Units: metres, y-up, -z = forward from spawn. Player eye 1.7 m.
 
 ## Shareable preview
-`python3 pipeline/make_preview.py levels/<name> "Title" out.html` → one self-contained page (glb + every PBR map as data: URIs;
+`python3 pipeline/make_preview.py levels/<name> "Title" out.html` → one self-contained page (level + background glb, sky, environment, every PBR map as data: URIs;
 sandboxed pages block the blob: URLs GLTFLoader uses for .glb textures, which renders everything black).
 
 ## Mobile notes
-Toxic Arena after Stage 1: 1,948 tris, 347 KB glb, 10 materials / 34 images, 137 draw calls unbatched (10 min if
-batched by material), est. texture memory 3.9 MB GPU-compressed (15.6 MB uncompressed). Town square: 2.5k tris, 483 KB. Engines: mark static & batch
+Toxic Arena after Stage 2: playable level unchanged — 1,948 tris, 347 KB glb, 10 materials / 34 images, 137 draw calls unbatched (10 min if
+batched by material), est. texture memory 3.9 MB GPU-compressed (15.6 MB uncompressed); plus background.glb 413 KB,
+6.8k tris, 9 draw calls, ~0.35 MB textures; sky 56 KB jpeg (~2.7 MB GPU-compressed at 2048x1024). Town square: 2.5k tris, 483 KB. Engines: mark static & batch
 (draw calls ≈ materials). Colliders: use Body/Wall/Platform/Ground boxes; Boundary_* are invisible (alpha 0).
 
 ## Lyra 2.0 (kept, not current priority)

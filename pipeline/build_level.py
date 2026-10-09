@@ -107,6 +107,9 @@ def build(level_dir):
     json.dump(L, open(os.path.join(level_dir, "level.json"), "w"), indent=1)
     topdown(L, world, os.path.join(level_dir, "topdown.png"))
     print(json.dumps(L["build_stats"]))
+    if L.get("environment"):  # Stage 2: sky + distant scenery + Godot environment metadata
+        from environment import build_environment
+        build_environment(level_dir, L)
 
 
 def topdown(L, world, path, px=10):
