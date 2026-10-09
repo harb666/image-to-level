@@ -1658,9 +1658,17 @@
   }
  ],
  "build_stats": {
-  "triangles": 1826,
+  "triangles": 1850,
   "objects": 27,
   "materials": 5,
-  "glb_kb": 185
- }
+  "glb_kb": 285,
+  "nodes": 29,
+  "draw_calls_unbatched": 25,
+  "draw_calls_batched_min": 6,
+  "images": 15,
+  "tex_mem_gpu_compressed_mb": 2.0,
+  "tex_mem_uncompressed_mb": 8.0,
+  "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
+ },
+ "draw_hint": "one material per surface type; mark static + batch in engine"
 }

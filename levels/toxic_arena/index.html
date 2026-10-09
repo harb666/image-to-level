@@ -17,6 +17,7 @@ button{background:#0008;color:#fff;border:1px solid #fff4;border-radius:8px;padd
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 const q=new URLSearchParams(location.search), base=q.get('level')||'.';
 const meta=await (await fetch(base+'/level.json')).json();
 if(meta.objects){const sp=meta.spawn,y=sp.yaw_deg*Math.PI/180;Object.assign(meta,{sky_rgb:meta.sky_color,spawn:sp.position,eye_height:1.7,
@@ -25,15 +26,22 @@ const r=new THREE.WebGLRenderer({antialias:true});r.setPixelRatio(Math.min(devic
 r.setSize(innerWidth,innerHeight);document.body.prepend(r.domElement);
 const scene=new THREE.Scene();scene.background=new THREE.Color(...meta.sky_rgb);
 scene.fog=new THREE.Fog(scene.background,40,140);
-scene.add(new THREE.HemisphereLight(0xffffff,0x555555,2.2));
-const sun=new THREE.DirectionalLight(0xffffff,1.2);sun.position.set(20,40,10);scene.add(sun);
+// PBR lighting: soft image-based ambient (so metal isn't black) + hemisphere fill + one key light for normal-map relief
+scene.environment=new THREE.PMREMGenerator(r).fromScene(new RoomEnvironment(),0.04).texture;
+scene.add(new THREE.HemisphereLight(0xffffff,0x444444,1.3));
+const sun=new THREE.DirectionalLight(0xfff4e8,2.0);sun.position.set(20,40,10);scene.add(sun);
 const cam=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,0.1,500);
 const gltf=await new GLTFLoader().loadAsync(base+'/level.glb');
 // Embedded previews pass textures as data: URIs (window.TEX, by material name): the artifact sandbox blocks the
 // blob: URLs GLTFLoader uses for textures inside a .glb, which otherwise leaves every textured surface black.
-if(window.TEX){const tl=new THREE.TextureLoader(),cache={};gltf.scene.traverse(o=>{const m=o.material;if(!o.isMesh||!TEX[m.name])return;
-  const t=cache[m.name]||(cache[m.name]=tl.load(TEX[m.name]));t.flipY=false;t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;
-  m.map=t;if(m.emissive&&m.emissive.getHex())m.emissiveMap=t;m.needsUpdate=true;});}
+// TEX[name] = {base, normal, orm, emis} -> index into TEXP (data: URIs); old previews: TEX[name] = data URI string.
+if(window.TEX){const tl=new THREE.TextureLoader(),cache={},P=window.TEXP||[];
+  const ld=(k,srgb)=>{if(k==null)return null;const u=typeof k==='number'?P[k]:k;if(cache[u])return cache[u];const t=tl.load(u);t.flipY=false;
+    t.colorSpace=srgb?THREE.SRGBColorSpace:THREE.NoColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;return cache[u]=t;};
+  gltf.scene.traverse(o=>{const m=o.material;if(!o.isMesh||!TEX[m.name])return;let e=TEX[m.name];if(typeof e==='string')e={base:e,legacy:1};
+    m.map=ld(e.base,1);if(e.normal!=null)m.normalMap=ld(e.normal);if(e.orm!=null){const t=ld(e.orm);m.roughnessMap=m.metalnessMap=m.aoMap=t;}
+    if(e.emis!=null)m.emissiveMap=ld(e.emis,1);else if(e.legacy&&m.emissive&&m.emissive.getHex())m.emissiveMap=m.map;m.needsUpdate=true;});}
+gltf.scene.traverse(o=>{if(o.isMesh&&o.material.isMeshStandardMaterial)o.material.envMapIntensity=0.45;});
 gltf.scene.traverse(o=>{if(o.isMesh){if(!o.material.map&&o.geometry.attributes.color)o.material=new THREE.MeshLambertMaterial({vertexColors:true,flatShading:true});if(o.name.startsWith('Spawn'))o.visible=false;if(o.name.startsWith('Boundary'))o.material.visible=false;}});
 scene.add(gltf.scene);
 const solids=[];gltf.scene.traverse(o=>{if(o.isMesh&&o.visible)solids.push(o)});
