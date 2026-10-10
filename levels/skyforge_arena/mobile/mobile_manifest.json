@@ -1,0 +1,3382 @@
+{
+ "generated_by": "image-to-level Stage 5 (pipeline/export_mobile.py)",
+ "profile": "balanced",
+ "settings": {
+  "cell": 48,
+  "tex_max": 512,
+  "bg_tex_max": 128,
+  "prop_range": 70,
+  "small": 2.0
+ },
+ "files": {
+  "level": "level_mobile.glb",
+  "background": "background_mobile.glb",
+  "collision": "collision.glb",
+  "collision_data": "collision.json",
+  "effects": "effects_mobile.json",
+  "environment": "../environment.json"
+ },
+ "godot": {
+  "project_settings": {
+   "rendering/textures/vram_compression/import_etc2_astc": true,
+   "rendering/renderer/rendering_method.mobile": "mobile",
+   "rendering/lights_and_shadows/directional_shadow/size.mobile": 2048,
+   "rendering/anti_aliasing/quality/msaa_3d": "2x"
+  },
+  "import_level_glb": {
+   "meshes/generate_lods": true,
+   "meshes/light_baking": "Static Lightmaps (optional)",
+   "textures": "VRAM Compressed (Godot compresses embedded images to ASTC/ETC2 on import)"
+  },
+  "import_collision_glb": "nodes named *-convcolonly / *-colonly become StaticBody3D colliders; meshes are discarded",
+  "directional_light": {
+   "shadow_enabled": true,
+   "directional_shadow_mode": "PSSM 2 splits",
+   "directional_shadow_max_distance": 60
+  },
+  "note": "Settings are recommendations for Godot 4 mobile; not verified in Godot here. KTX2/Basis is not used: Godot re-compresses on import."
+ },
+ "metrics": {
+  "profile": "balanced",
+  "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
+  "dev": {
+   "level": {
+    "glb_kb": 3895,
+    "triangles": 60844,
+    "nodes": 525,
+    "mesh_nodes": 485,
+    "unique_meshes": 307,
+    "materials": 22,
+    "images": 54,
+    "draw_calls_unbatched": 485,
+    "draw_calls_batched_min": 22,
+    "tex_mem_uncompressed_mb": 27.25,
+    "tex_mem_gpu_compressed_mb": 6.81,
+    "texture_slots": {
+     "baseColorTexture": 20,
+     "metallicRoughnessTexture": 20,
+     "normalTexture": 19,
+     "occlusionTexture": 20,
+     "emissiveTexture": 6
+    },
+    "image_sizes": [
+     "128x128 jpeg",
+     "256x256 jpeg",
+     "512x128 jpeg",
+     "512x512 jpeg"
+    ]
+   },
+   "visible": {
+    "cameras": 96,
+    "visible_draw_calls_mean": 186.0,
+    "visible_draw_calls_max": 406,
+    "visible_triangles_mean": 28416,
+    "visible_triangles_max": 48100
+   }
+  },
+  "mobile": {
+   "level": {
+    "glb_kb": 4423,
+    "triangles": 69378,
+    "nodes": 252,
+    "mesh_nodes": 251,
+    "unique_meshes": 251,
+    "materials": 22,
+    "images": 54,
+    "draw_calls_unbatched": 251,
+    "draw_calls_batched_min": 22,
+    "tex_mem_uncompressed_mb": 27.25,
+    "tex_mem_gpu_compressed_mb": 6.81,
+    "texture_slots": {
+     "baseColorTexture": 20,
+     "metallicRoughnessTexture": 20,
+     "normalTexture": 19,
+     "occlusionTexture": 20,
+     "emissiveTexture": 6
+    },
+    "image_sizes": [
+     "128x128 jpeg",
+     "256x256 jpeg",
+     "512x128 jpeg",
+     "512x512 jpeg"
+    ]
+   },
+   "background": {
+    "glb_kb": 352,
+    "triangles": 4355,
+    "nodes": 6,
+    "mesh_nodes": 5,
+    "unique_meshes": 5,
+    "materials": 5,
+    "images": 13,
+    "draw_calls_unbatched": 5,
+    "draw_calls_batched_min": 5,
+    "tex_mem_uncompressed_mb": 1.08,
+    "tex_mem_gpu_compressed_mb": 0.27,
+    "texture_slots": {
+     "baseColorTexture": 5,
+     "metallicRoughnessTexture": 5,
+     "normalTexture": 5,
+     "occlusionTexture": 5,
+     "emissiveTexture": 2
+    },
+    "image_sizes": [
+     "128x128 jpeg"
+    ]
+   },
+   "collision": {
+    "colliders": 410,
+    "hazards": 0,
+    "glb_kb": 406
+   },
+   "visible": {
+    "cameras": 96,
+    "visible_draw_calls_mean": 67.0,
+    "visible_draw_calls_max": 105,
+    "visible_triangles_mean": 17186,
+    "visible_triangles_max": 23314
+   },
+   "hidden_faces_removed": 0,
+   "effects_extra_draw_calls": 7,
+   "effects_max_particles": 222
+  }
+ },
+ "nodes": [
+  {
+   "node": "M_structure_b_-1_-1_props",
+   "kind": "props",
+   "material": "structure_b",
+   "triangles": 220,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Hub_Crates_4_03",
+    "Hub_Crates_4_02",
+    "Hub_Crates_4_01",
+    "West_Post_Cover_01",
+    "NW_Bastion_Cover_01"
+   ]
+  },
+  {
+   "node": "M_wall_-1_-1_props",
+   "kind": "props",
+   "material": "wall",
+   "triangles": 44,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Hub_Pylon_2_Top"
+   ]
+  },
+  {
+   "node": "M_structure_b_-1_0_props",
+   "kind": "props",
+   "material": "structure_b",
+   "triangles": 220,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Hub_Crates_2_03",
+    "Hub_Crates_2_02",
+    "Hub_Crates_2_01",
+    "SW_Octagon_Cover_03",
+    "SW_Octagon_Cover_01"
+   ]
+  },
+  {
+   "node": "M_wall_-1_0_props",
+   "kind": "props",
+   "material": "wall",
+   "triangles": 88,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Hub_Pylon_4_Top",
+    "Hub_Pylon_3_Top"
+   ]
+  },
+  {
+   "node": "M_structure_b_-1_1_props",
+   "kind": "props",
+   "material": "structure_b",
+   "triangles": 44,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "South_Tower_Cover_01"
+   ]
+  },
+  {
+   "node": "M_structure_b_0_-1_props",
+   "kind": "props",
+   "material": "structure_b",
+   "triangles": 132,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "East_Deck_Cover_01",
+    "North_Turret_Cover_01",
+    "North_Hall_Cover_01"
+   ]
+  },
+  {
+   "node": "M_wall_v2_0_-1_props",
+   "kind": "props",
+   "material": "wall_v2",
+   "triangles": 44,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Hub_Pylon_1_Top"
+   ]
+  },
+  {
+   "node": "M_rail_0_0_props",
+   "kind": "props",
+   "material": "rail",
+   "triangles": 96,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Bridge_Hub_South_Rail_R",
+    "Bridge_Hub_South_Rail_L"
+   ]
+  },
+  {
+   "node": "M_structure_b_0_0_props",
+   "kind": "props",
+   "material": "structure_b",
+   "triangles": 220,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Hub_Crates_3_03",
+    "Hub_Crates_3_02",
+    "Hub_Crates_3_01",
+    "SE_Octagon_Cover_03",
+    "SE_Octagon_Cover_01"
+   ]
+  },
+  {
+   "node": "M_wall_0_0_props",
+   "kind": "props",
+   "material": "wall",
+   "triangles": 44,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Hub_Pylon_6_Top"
+   ]
+  },
+  {
+   "node": "M_wall_v2_0_0_props",
+   "kind": "props",
+   "material": "wall_v2",
+   "triangles": 44,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Hub_Pylon_5_Top"
+   ]
+  },
+  {
+   "node": "M_glow_-2_-1",
+   "kind": "static",
+   "material": "glow",
+   "triangles": 4,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "NW_Tower_Glow_04L",
+    "NW_Tower_Glow_03R"
+   ]
+  },
+  {
+   "node": "M_structure_b_-2_-1",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "NW_Tower_Rib_01"
+   ]
+  },
+  {
+   "node": "M_accent_-1_-1",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 16,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "NW_Tower_Banner_04",
+    "NW_Tower_Banner_03",
+    "NW_Tower_Banner_02",
+    "NW_Tower_Banner_01",
+    "North_Tower_W_Banner_04",
+    "North_Tower_W_Banner_03",
+    "North_Tower_W_Banner_02",
+    "North_Tower_W_Banner_01"
+   ]
+  },
+  {
+   "node": "M_deck_-1_-1",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "NW_Bastion_Floor"
+   ]
+  },
+  {
+   "node": "M_frame_-1_-1",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 372,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_Hub_West_Beam_R",
+    "Bridge_Hub_West_Beam_L",
+    "Link_North_NW_Support",
+    "Link_North_NW_Beam_R",
+    "Link_North_NW_Beam_L",
+    "Ramp_Hub_NW_Support",
+    "Ramp_Hub_NW_Beam_R",
+    "Ramp_Hub_NW_Beam_L",
+    "Bridge_Hub_North_Beam_R"
+   ]
+  },
+  {
+   "node": "M_glow_-1_-1",
+   "kind": "static",
+   "material": "glow",
+   "triangles": 46,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "West_Hall_Windows",
+    "NW_Tower_Glow_04R",
+    "NW_Tower_Glow_03L",
+    "NW_Tower_Glow_02R",
+    "NW_Tower_Glow_02L",
+    "NW_Tower_Glow_01R",
+    "NW_Tower_Glow_01L",
+    "North_Tower_W_Glow_04R",
+    "North_Tower_W_Glow_04L",
+    "North_Tower_W_Glow_03R",
+    "North_Tower_W_Glow_03L",
+    "North_Tower_W_Glow_02R",
+    "North_Tower_W_Glow_02L",
+    "North_Tower_W_Glow_01R",
+    "North_Tower_W_Glow_01L",
+    "Hub_Pylon_2_Glow_04R",
+    "Hub_Pylon_2_Glow_04L",
+    "Hub_Pylon_2_Glow_03R",
+    "Hub_Pylon_2_Glow_03L",
+    "Hub_Pylon_2_Glow_02R",
+    "Hub_Pylon_2_Glow_02L",
+    "Hub_Pylon_2_Glow_01R",
+    "Hub_Pylon_2_Glow_01L"
+   ]
+  },
+  {
+   "node": "M_grate_-1_-1",
+   "kind": "static",
+   "material": "grate",
+   "triangles": 72,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_Hub_West_Deck",
+    "Link_North_NW_Junction_Lo",
+    "Link_North_NW_Junction_Hi",
+    "Link_North_NW_Deck",
+    "Ramp_Hub_NW_Junction_Lo",
+    "Ramp_Hub_NW_Deck"
+   ]
+  },
+  {
+   "node": "M_machine_-1_-1",
+   "kind": "static",
+   "material": "machine",
+   "triangles": 216,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "West_Hall_RoofUnit"
+   ]
+  },
+  {
+   "node": "M_rail_-1_-1",
+   "kind": "static",
+   "material": "rail",
+   "triangles": 588,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_Hub_West_Rail_R",
+    "Bridge_Hub_West_Rail_L",
+    "Link_North_NW_Rail_R",
+    "Link_North_NW_Rail_L",
+    "Bridge_Hub_North_Rail_R"
+   ]
+  },
+  {
+   "node": "M_structure_b_-1_-1",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 718,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "West_Hall_Door",
+    "NW_Tower_Rib_04",
+    "NW_Tower_Rib_03",
+    "NW_Tower_Rib_02",
+    "NW_Tower_Cap",
+    "North_Tower_W_Rib_04",
+    "North_Tower_W_Rib_03",
+    "North_Tower_W_Rib_02",
+    "North_Tower_W_Rib_01",
+    "North_Tower_W_Cap",
+    "Hub_Pylon_2_Rib_04",
+    "Hub_Pylon_2_Rib_03",
+    "Hub_Pylon_2_Rib_02",
+    "Hub_Pylon_2_Rib_01",
+    "Hub_Pylon_2_Cap",
+    "NW_Bastion_Cover_02",
+    "NW_Bastion_Column",
+    "NW_Bastion_Underframe"
+   ]
+  },
+  {
+   "node": "M_structure_v2_-1_-1",
+   "kind": "static",
+   "material": "structure_v2",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "NW_Bastion_Body"
+   ]
+  },
+  {
+   "node": "M_trim_-1_-1",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "West_Hall_Parapet",
+    "NW_Bastion_Trim"
+   ]
+  },
+  {
+   "node": "M_wall_-1_-1",
+   "kind": "static",
+   "material": "wall",
+   "triangles": 220,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "NW_Tower_Top",
+    "NW_Tower_Body",
+    "North_Tower_W_Top",
+    "North_Tower_W_Body",
+    "Hub_Pylon_2_Body"
+   ]
+  },
+  {
+   "node": "M_wall_v2_-1_-1",
+   "kind": "static",
+   "material": "wall_v2",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "West_Hall_Body"
+   ]
+  },
+  {
+   "node": "M_accent_-1_0",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 8,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "SW_Tower_Banner_04",
+    "SW_Tower_Banner_03",
+    "SW_Tower_Banner_02",
+    "SW_Tower_Banner_01"
+   ]
+  },
+  {
+   "node": "M_deck_-1_0",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "SW_Octagon_Floor"
+   ]
+  },
+  {
+   "node": "M_frame_-1_0",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 132,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Ramp_Hub_SW_Support",
+    "Ramp_Hub_SW_Beam_R",
+    "Ramp_Hub_SW_Beam_L"
+   ]
+  },
+  {
+   "node": "M_glow_-1_0",
+   "kind": "static",
+   "material": "glow",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "SW_Tower_Glow_04R",
+    "SW_Tower_Glow_04L",
+    "SW_Tower_Glow_03R",
+    "SW_Tower_Glow_03L",
+    "SW_Tower_Glow_02R",
+    "SW_Tower_Glow_02L",
+    "SW_Tower_Glow_01R",
+    "SW_Tower_Glow_01L",
+    "Hub_Pylon_4_Glow_04R",
+    "Hub_Pylon_4_Glow_04L",
+    "Hub_Pylon_4_Glow_03R",
+    "Hub_Pylon_4_Glow_03L",
+    "Hub_Pylon_4_Glow_02R",
+    "Hub_Pylon_4_Glow_02L",
+    "Hub_Pylon_4_Glow_01R",
+    "Hub_Pylon_4_Glow_01L",
+    "Hub_Pylon_3_Glow_04R",
+    "Hub_Pylon_3_Glow_04L",
+    "Hub_Pylon_3_Glow_03R",
+    "Hub_Pylon_3_Glow_03L",
+    "Hub_Pylon_3_Glow_02R",
+    "Hub_Pylon_3_Glow_02L",
+    "Hub_Pylon_3_Glow_01R",
+    "Hub_Pylon_3_Glow_01L"
+   ]
+  },
+  {
+   "node": "M_grate_-1_0",
+   "kind": "static",
+   "material": "grate",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Ramp_Hub_SW_Deck"
+   ]
+  },
+  {
+   "node": "M_structure_-1_0",
+   "kind": "static",
+   "material": "structure",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "SW_Octagon_Body"
+   ]
+  },
+  {
+   "node": "M_structure_b_-1_0",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 764,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "SW_Tower_Rib_04",
+    "SW_Tower_Rib_03",
+    "SW_Tower_Rib_02",
+    "SW_Tower_Rib_01",
+    "SW_Tower_Cap",
+    "Hub_Pylon_4_Rib_04",
+    "Hub_Pylon_4_Rib_03",
+    "Hub_Pylon_4_Rib_02",
+    "Hub_Pylon_4_Rib_01",
+    "Hub_Pylon_4_Cap",
+    "Hub_Pylon_3_Rib_04",
+    "Hub_Pylon_3_Rib_03",
+    "Hub_Pylon_3_Rib_02",
+    "Hub_Pylon_3_Rib_01",
+    "Hub_Pylon_3_Cap",
+    "SW_Octagon_Cover_02",
+    "SW_Octagon_Column",
+    "SW_Octagon_Underframe"
+   ]
+  },
+  {
+   "node": "M_trim_-1_0",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "SW_Octagon_Trim"
+   ]
+  },
+  {
+   "node": "M_wall_-1_0",
+   "kind": "static",
+   "material": "wall",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Hub_Pylon_4_Body",
+    "Hub_Pylon_3_Body"
+   ]
+  },
+  {
+   "node": "M_wall_v2_-1_0",
+   "kind": "static",
+   "material": "wall_v2",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "SW_Tower_Top",
+    "SW_Tower_Body"
+   ]
+  },
+  {
+   "node": "M_accent_0_-1",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 10,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "East_Tower_Banner_01",
+    "North_Tower_E_Banner_04",
+    "North_Tower_E_Banner_03",
+    "North_Tower_E_Banner_02",
+    "North_Tower_E_Banner_01"
+   ]
+  },
+  {
+   "node": "M_deck_0_-1",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 56,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "East_Deck_Floor",
+    "North_Turret_Floor",
+    "North_Hall_Floor"
+   ]
+  },
+  {
+   "node": "M_frame_0_-1",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 108,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_Hub_East_Beam_R",
+    "Bridge_Hub_East_Beam_L",
+    "Bridge_Hub_North_Beam_L"
+   ]
+  },
+  {
+   "node": "M_glow_0_-1",
+   "kind": "static",
+   "material": "glow",
+   "triangles": 42,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "East_Tower_Glow_04R",
+    "East_Tower_Glow_02L",
+    "East_Tower_Glow_01R",
+    "East_Tower_Glow_01L",
+    "North_Tower_E_Glow_04R",
+    "North_Tower_E_Glow_04L",
+    "North_Tower_E_Glow_03R",
+    "North_Tower_E_Glow_03L",
+    "North_Tower_E_Glow_02R",
+    "North_Tower_E_Glow_02L",
+    "North_Tower_E_Glow_01R",
+    "North_Tower_E_Glow_01L",
+    "North_Hall_Block_Windows",
+    "Hub_Pylon_1_Glow_04R",
+    "Hub_Pylon_1_Glow_04L",
+    "Hub_Pylon_1_Glow_03R",
+    "Hub_Pylon_1_Glow_03L",
+    "Hub_Pylon_1_Glow_02R",
+    "Hub_Pylon_1_Glow_02L",
+    "Hub_Pylon_1_Glow_01R",
+    "Hub_Pylon_1_Glow_01L"
+   ]
+  },
+  {
+   "node": "M_grate_0_-1",
+   "kind": "static",
+   "material": "grate",
+   "triangles": 168,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_Hub_East_Deck",
+    "Steps_Turret",
+    "Bridge_Hub_North_Deck"
+   ]
+  },
+  {
+   "node": "M_machine_0_-1",
+   "kind": "static",
+   "material": "machine",
+   "triangles": 172,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "North_Hall_Block_RoofUnit"
+   ]
+  },
+  {
+   "node": "M_rail_0_-1",
+   "kind": "static",
+   "material": "rail",
+   "triangles": 252,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_Hub_East_Rail_R",
+    "Bridge_Hub_East_Rail_L",
+    "Bridge_Hub_North_Rail_L"
+   ]
+  },
+  {
+   "node": "M_structure_0_-1",
+   "kind": "static",
+   "material": "structure",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "North_Turret_Body"
+   ]
+  },
+  {
+   "node": "M_structure_b_0_-1",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 922,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "East_Tower_Rib_04",
+    "East_Tower_Rib_03",
+    "North_Tower_E_Rib_04",
+    "North_Tower_E_Rib_03",
+    "North_Tower_E_Rib_02",
+    "North_Tower_E_Rib_01",
+    "North_Tower_E_Cap",
+    "North_Hall_Block_Door",
+    "Hub_Crates_1_03",
+    "Hub_Crates_1_02",
+    "Hub_Crates_1_01",
+    "Hub_Pylon_1_Rib_04",
+    "Hub_Pylon_1_Rib_03",
+    "Hub_Pylon_1_Rib_02",
+    "Hub_Pylon_1_Rib_01",
+    "Hub_Pylon_1_Cap",
+    "East_Deck_Cover_02",
+    "East_Deck_Column",
+    "East_Deck_Underframe",
+    "North_Turret_Column",
+    "North_Turret_Underframe",
+    "North_Hall_Cover_02",
+    "North_Hall_Column",
+    "North_Hall_Underframe"
+   ]
+  },
+  {
+   "node": "M_structure_v2_0_-1",
+   "kind": "static",
+   "material": "structure_v2",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "East_Deck_Body",
+    "North_Hall_Body"
+   ]
+  },
+  {
+   "node": "M_trim_0_-1",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 164,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "North_Hall_Block_Parapet",
+    "East_Deck_Trim",
+    "North_Turret_Trim",
+    "North_Hall_Trim"
+   ]
+  },
+  {
+   "node": "M_wall_0_-1",
+   "kind": "static",
+   "material": "wall",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "North_Hall_Block_Body"
+   ]
+  },
+  {
+   "node": "M_wall_v2_0_-1",
+   "kind": "static",
+   "material": "wall_v2",
+   "triangles": 132,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "North_Tower_E_Top",
+    "North_Tower_E_Body",
+    "Hub_Pylon_1_Body"
+   ]
+  },
+  {
+   "node": "M_accent_0_0",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 104,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "SE_Tower_Banner_04",
+    "SE_Tower_Banner_03",
+    "SE_Tower_Banner_02",
+    "SE_Tower_Banner_01",
+    "Hub_Marking_Ring_1"
+   ]
+  },
+  {
+   "node": "M_deck_0_0",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 140,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "SE_Octagon_Floor",
+    "South_Gate_Floor",
+    "Hub_Floor"
+   ]
+  },
+  {
+   "node": "M_deck_v2_0_0",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Hub_Marking_Ring_2"
+   ]
+  },
+  {
+   "node": "M_frame_0_0",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 408,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Ramp_Hub_SE_Support",
+    "Ramp_Hub_SE_Beam_R",
+    "Ramp_Hub_SE_Beam_L",
+    "Link_Gate_SE_Support",
+    "Link_Gate_SE_Beam_R",
+    "Link_Gate_SE_Beam_L",
+    "Bridge_Gate_Tower_Beam_R",
+    "Bridge_Gate_Tower_Beam_L",
+    "Bridge_Hub_South_Beam_R",
+    "Bridge_Hub_South_Beam_L"
+   ]
+  },
+  {
+   "node": "M_glow_0_0",
+   "kind": "static",
+   "material": "glow",
+   "triangles": 240,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "SE_Tower_Glow_04R",
+    "SE_Tower_Glow_04L",
+    "SE_Tower_Glow_03R",
+    "SE_Tower_Glow_03L",
+    "SE_Tower_Glow_02R",
+    "SE_Tower_Glow_02L",
+    "SE_Tower_Glow_01R",
+    "SE_Tower_Glow_01L",
+    "Hub_Pylon_6_Glow_04R",
+    "Hub_Pylon_6_Glow_04L",
+    "Hub_Pylon_6_Glow_03R",
+    "Hub_Pylon_6_Glow_03L",
+    "Hub_Pylon_6_Glow_02R",
+    "Hub_Pylon_6_Glow_02L",
+    "Hub_Pylon_6_Glow_01R",
+    "Hub_Pylon_6_Glow_01L",
+    "Hub_Pylon_5_Glow_04R",
+    "Hub_Pylon_5_Glow_04L",
+    "Hub_Pylon_5_Glow_03R",
+    "Hub_Pylon_5_Glow_03L",
+    "Hub_Pylon_5_Glow_02R",
+    "Hub_Pylon_5_Glow_02L",
+    "Hub_Pylon_5_Glow_01R",
+    "Hub_Pylon_5_Glow_01L",
+    "Hub_Marking_Ring_4",
+    "Hub_Marking_Ring_3"
+   ]
+  },
+  {
+   "node": "M_grate_0_0",
+   "kind": "static",
+   "material": "grate",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Ramp_Hub_SE_Deck",
+    "Link_Gate_SE_Deck",
+    "Bridge_Gate_Tower_Deck",
+    "Bridge_Hub_South_Deck"
+   ]
+  },
+  {
+   "node": "M_rail_0_0",
+   "kind": "static",
+   "material": "rail",
+   "triangles": 528,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Link_Gate_SE_Rail_R",
+    "Link_Gate_SE_Rail_L",
+    "Bridge_Gate_Tower_Rail_R",
+    "Bridge_Gate_Tower_Rail_L"
+   ]
+  },
+  {
+   "node": "M_structure_0_0",
+   "kind": "static",
+   "material": "structure",
+   "triangles": 172,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "SE_Octagon_Body",
+    "South_Gate_Body",
+    "Hub_Body"
+   ]
+  },
+  {
+   "node": "M_structure_b_0_0",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 1008,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "SE_Tower_Rib_04",
+    "SE_Tower_Rib_03",
+    "SE_Tower_Rib_02",
+    "SE_Tower_Rib_01",
+    "SE_Tower_Cap",
+    "Hub_Pylon_6_Rib_04",
+    "Hub_Pylon_6_Rib_03",
+    "Hub_Pylon_6_Rib_02",
+    "Hub_Pylon_6_Rib_01",
+    "Hub_Pylon_6_Cap",
+    "Hub_Pylon_5_Rib_04",
+    "Hub_Pylon_5_Rib_03",
+    "Hub_Pylon_5_Rib_02",
+    "Hub_Pylon_5_Rib_01",
+    "Hub_Pylon_5_Cap",
+    "SE_Octagon_Cover_02",
+    "SE_Octagon_Column",
+    "SE_Octagon_Underframe",
+    "South_Gate_Column",
+    "South_Gate_Underframe",
+    "Hub_Column",
+    "Hub_Underframe"
+   ]
+  },
+  {
+   "node": "M_trim_0_0",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 172,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "SE_Octagon_Trim",
+    "South_Gate_Trim",
+    "Hub_Trim"
+   ]
+  },
+  {
+   "node": "M_wall_0_0",
+   "kind": "static",
+   "material": "wall",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Hub_Pylon_6_Body"
+   ]
+  },
+  {
+   "node": "M_wall_v2_0_0",
+   "kind": "static",
+   "material": "wall_v2",
+   "triangles": 132,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "SE_Tower_Top",
+    "SE_Tower_Body",
+    "Hub_Pylon_5_Body"
+   ]
+  },
+  {
+   "node": "M_accent_0_1",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 8,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "South_Spire_Banner_04",
+    "South_Spire_Banner_03",
+    "South_Spire_Banner_02",
+    "South_Spire_Banner_01"
+   ]
+  },
+  {
+   "node": "M_deck_0_1",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "South_Tower_Floor"
+   ]
+  },
+  {
+   "node": "M_glow_0_1",
+   "kind": "static",
+   "material": "glow",
+   "triangles": 16,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "South_Spire_Glow_04R",
+    "South_Spire_Glow_04L",
+    "South_Spire_Glow_03R",
+    "South_Spire_Glow_03L",
+    "South_Spire_Glow_02R",
+    "South_Spire_Glow_02L",
+    "South_Spire_Glow_01R",
+    "South_Spire_Glow_01L"
+   ]
+  },
+  {
+   "node": "M_structure_0_1",
+   "kind": "static",
+   "material": "structure",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "South_Tower_Body"
+   ]
+  },
+  {
+   "node": "M_structure_b_0_1",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 324,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "South_Spire_Rib_04",
+    "South_Spire_Rib_03",
+    "South_Spire_Rib_02",
+    "South_Spire_Rib_01",
+    "South_Spire_Cap",
+    "South_Tower_Cover_02",
+    "South_Tower_Column",
+    "South_Tower_Underframe"
+   ]
+  },
+  {
+   "node": "M_trim_0_1",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "South_Tower_Trim"
+   ]
+  },
+  {
+   "node": "M_wall_0_1",
+   "kind": "static",
+   "material": "wall",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "South_Spire_Top",
+    "South_Spire_Body"
+   ]
+  },
+  {
+   "node": "M_accent_1_-1",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 6,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "East_Tower_Banner_04",
+    "East_Tower_Banner_03",
+    "East_Tower_Banner_02"
+   ]
+  },
+  {
+   "node": "M_glow_1_-1",
+   "kind": "static",
+   "material": "glow",
+   "triangles": 8,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "East_Tower_Glow_04L",
+    "East_Tower_Glow_03R",
+    "East_Tower_Glow_03L",
+    "East_Tower_Glow_02R"
+   ]
+  },
+  {
+   "node": "M_structure_b_1_-1",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 132,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "East_Tower_Rib_02",
+    "East_Tower_Rib_01",
+    "East_Tower_Cap"
+   ]
+  },
+  {
+   "node": "M_wall_v2_1_-1",
+   "kind": "static",
+   "material": "wall_v2",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "East_Tower_Top",
+    "East_Tower_Body"
+   ]
+  },
+  {
+   "node": "FX_Pour_Flow",
+   "kind": "effect_target",
+   "material": "water",
+   "triangles": 320,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Falls_Island_W",
+    "Falls_NW",
+    "Falls_West_B",
+    "Falls_West_A"
+   ],
+   "reason": "merged targets of one shader effect"
+  },
+  {
+   "node": "TR_0_0_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 68,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 112,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 47,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 573,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 50,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 25,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 165,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_1_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 100,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 249,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 62,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 389,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 95,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 35,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 110,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_2_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 800,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_2"
+   ]
+  },
+  {
+   "node": "TR_0_2_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 240,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_2"
+   ]
+  },
+  {
+   "node": "TR_0_2_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_2"
+   ]
+  },
+  {
+   "node": "TR_0_3_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 800,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_3"
+   ]
+  },
+  {
+   "node": "TR_0_3_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 240,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_3"
+   ]
+  },
+  {
+   "node": "TR_0_3_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_3"
+   ]
+  },
+  {
+   "node": "TR_0_4_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 800,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_4"
+   ]
+  },
+  {
+   "node": "TR_0_4_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 240,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_4"
+   ]
+  },
+  {
+   "node": "TR_0_4_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_4"
+   ]
+  },
+  {
+   "node": "TR_1_0_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 67,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 255,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 77,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 401,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 86,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 45,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 109,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_1_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 11,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 45,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 40,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 704,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 18,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 24,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 198,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_2_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 800,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_2"
+   ]
+  },
+  {
+   "node": "TR_1_2_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 240,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_2"
+   ]
+  },
+  {
+   "node": "TR_1_2_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_2"
+   ]
+  },
+  {
+   "node": "TR_1_3_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 30,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_3_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 22,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_3_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 33,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_3_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 715,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_3_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 13,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_3_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 18,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_3_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 209,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_3_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_4_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 165,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_4"
+   ]
+  },
+  {
+   "node": "TR_1_4_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 321,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_4"
+   ]
+  },
+  {
+   "node": "TR_1_4_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 125,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_4"
+   ]
+  },
+  {
+   "node": "TR_1_4_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 189,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_4"
+   ]
+  },
+  {
+   "node": "TR_1_4_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 109,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_4"
+   ]
+  },
+  {
+   "node": "TR_1_4_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 86,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_4"
+   ]
+  },
+  {
+   "node": "TR_1_4_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 45,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_4"
+   ]
+  },
+  {
+   "node": "TR_1_4_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_4"
+   ]
+  },
+  {
+   "node": "TR_2_0_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 127,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 175,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 58,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 440,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 83,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 28,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 129,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_1_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 17,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_1_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 83,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_1_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 73,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_1_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 627,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_1_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 16,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_1_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 41,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_1_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 183,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_1_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_2_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 800,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_2"
+   ]
+  },
+  {
+   "node": "TR_2_2_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 240,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_2"
+   ]
+  },
+  {
+   "node": "TR_2_2_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_2"
+   ]
+  },
+  {
+   "node": "TR_2_3_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 27,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_3_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 8,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_3_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 36,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_3_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 729,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_3_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 9,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_3_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 15,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_3_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 216,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_3_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_4_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 4,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_4"
+   ]
+  },
+  {
+   "node": "TR_2_4_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 796,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_4"
+   ]
+  },
+  {
+   "node": "TR_2_4_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 4,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_4"
+   ]
+  },
+  {
+   "node": "TR_2_4_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 236,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_4"
+   ]
+  },
+  {
+   "node": "TR_2_4_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_4"
+   ]
+  },
+  {
+   "node": "TR_3_0_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 800,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_0"
+   ]
+  },
+  {
+   "node": "TR_3_0_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 240,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_0"
+   ]
+  },
+  {
+   "node": "TR_3_0_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_0"
+   ]
+  },
+  {
+   "node": "TR_3_1_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 29,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_1"
+   ]
+  },
+  {
+   "node": "TR_3_1_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 24,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_1"
+   ]
+  },
+  {
+   "node": "TR_3_1_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 747,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_1"
+   ]
+  },
+  {
+   "node": "TR_3_1_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 8,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_1"
+   ]
+  },
+  {
+   "node": "TR_3_1_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 10,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_1"
+   ]
+  },
+  {
+   "node": "TR_3_1_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 222,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_1"
+   ]
+  },
+  {
+   "node": "TR_3_1_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_1"
+   ]
+  },
+  {
+   "node": "TR_3_2_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 3,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_2"
+   ]
+  },
+  {
+   "node": "TR_3_2_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 16,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_2"
+   ]
+  },
+  {
+   "node": "TR_3_2_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 19,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_2"
+   ]
+  },
+  {
+   "node": "TR_3_2_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 762,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_2"
+   ]
+  },
+  {
+   "node": "TR_3_2_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 5,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_2"
+   ]
+  },
+  {
+   "node": "TR_3_2_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 10,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_2"
+   ]
+  },
+  {
+   "node": "TR_3_2_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 225,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_2"
+   ]
+  },
+  {
+   "node": "TR_3_2_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_2"
+   ]
+  },
+  {
+   "node": "TR_3_3_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 32,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_3"
+   ]
+  },
+  {
+   "node": "TR_3_3_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 15,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_3"
+   ]
+  },
+  {
+   "node": "TR_3_3_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 45,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_3"
+   ]
+  },
+  {
+   "node": "TR_3_3_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 708,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_3"
+   ]
+  },
+  {
+   "node": "TR_3_3_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 10,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_3"
+   ]
+  },
+  {
+   "node": "TR_3_3_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 20,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_3"
+   ]
+  },
+  {
+   "node": "TR_3_3_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 210,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_3"
+   ]
+  },
+  {
+   "node": "TR_3_3_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_3"
+   ]
+  },
+  {
+   "node": "TR_3_4_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 800,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_4"
+   ]
+  },
+  {
+   "node": "TR_3_4_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 240,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_4"
+   ]
+  },
+  {
+   "node": "TR_3_4_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_4"
+   ]
+  },
+  {
+   "node": "TR_4_0_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 800,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_4_0"
+   ]
+  },
+  {
+   "node": "TR_4_0_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 240,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_4_0"
+   ]
+  },
+  {
+   "node": "TR_4_0_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_4_0"
+   ]
+  },
+  {
+   "node": "TR_4_1_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 800,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_4_1"
+   ]
+  },
+  {
+   "node": "TR_4_1_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 240,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_4_1"
+   ]
+  },
+  {
+   "node": "TR_4_1_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_4_1"
+   ]
+  },
+  {
+   "node": "TR_4_2_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 52,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_4_2"
+   ]
+  },
+  {
+   "node": "TR_4_2_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 195,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_4_2"
+   ]
+  },
+  {
+   "node": "TR_4_2_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 45,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_4_2"
+   ]
+  },
+  {
+   "node": "TR_4_2_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 508,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_4_2"
+   ]
+  },
+  {
+   "node": "TR_4_2_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 65,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_4_2"
+   ]
+  },
+  {
+   "node": "TR_4_2_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 26,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_4_2"
+   ]
+  },
+  {
+   "node": "TR_4_2_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 149,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_4_2"
+   ]
+  },
+  {
+   "node": "TR_4_2_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_4_2"
+   ]
+  },
+  {
+   "node": "TR_4_3_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 93,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_4_3"
+   ]
+  },
+  {
+   "node": "TR_4_3_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 172,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_4_3"
+   ]
+  },
+  {
+   "node": "TR_4_3_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 53,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_4_3"
+   ]
+  },
+  {
+   "node": "TR_4_3_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 482,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_4_3"
+   ]
+  },
+  {
+   "node": "TR_4_3_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 72,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_4_3"
+   ]
+  },
+  {
+   "node": "TR_4_3_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 25,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_4_3"
+   ]
+  },
+  {
+   "node": "TR_4_3_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 143,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_4_3"
+   ]
+  },
+  {
+   "node": "TR_4_3_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_4_3"
+   ]
+  },
+  {
+   "node": "TR_4_4_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 800,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_4_4"
+   ]
+  },
+  {
+   "node": "TR_4_4_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 240,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_4_4"
+   ]
+  },
+  {
+   "node": "TR_4_4_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 110,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_4_4"
+   ]
+  },
+  {
+   "node": "SCN_Island_Trees__80_4_3",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 640,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Island_Trees__80_4_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Island_Trees__80_4_2",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 240,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Island_Trees__80_4_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Island_Trees__80_3_2",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 80,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Island_Trees__80_3_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Island_Trees__80_2_1",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 320,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Island_Trees__80_2_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Island_Trees__80_2_0",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 640,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Island_Trees__80_2_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Island_Trees__80_1_4",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 880,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Island_Trees__80_1_4"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Island_Trees__80_1_1",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 80,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Island_Trees__80_1_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Island_Trees__80_1_0",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 560,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Island_Trees__80_1_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Island_Trees__80_0_1",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 480,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Island_Trees__80_0_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Island_Trees__80_0_0",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 320,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Island_Trees__80_0_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Island_Trees__80_4_3",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 1242,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Island_Trees__80_4_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Island_Trees__80_4_2",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 4106,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Island_Trees__80_4_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Island_Trees__80_3_3",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 260,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Island_Trees__80_3_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Island_Trees__80_3_2",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 66,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Island_Trees__80_3_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Island_Trees__80_3_1",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 326,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Island_Trees__80_3_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Island_Trees__80_2_3",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 392,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Island_Trees__80_2_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Island_Trees__80_2_1",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 1630,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Island_Trees__80_2_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Island_Trees__80_2_0",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 2608,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Island_Trees__80_2_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Island_Trees__80_1_4",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 3520,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Island_Trees__80_1_4"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Island_Trees__80_1_3",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 780,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Island_Trees__80_1_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Island_Trees__80_1_1",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 392,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Island_Trees__80_1_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Island_Trees__80_1_0",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 2608,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Island_Trees__80_1_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Island_Trees__80_0_1",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 3652,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Island_Trees__80_0_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Island_Trees__80_0_0",
+   "kind": "scatter",
+   "material": "sc_atlas_island_trees",
+   "triangles": 1044,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Island_Trees__80_0_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "TW_Sea",
+   "kind": "water",
+   "material": "water",
+   "triangles": 128,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TW_Sea"
+   ],
+   "reason": "water surface"
+  },
+  {
+   "node": "TRM_7",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 297,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_7"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_6",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 296,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_6"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_5",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 292,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_5"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_4",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 290,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_4"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_3",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 297,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_3"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_2",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 296,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_2"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_1",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 292,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_1"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_0",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 290,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_0"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  }
+ ]
+}

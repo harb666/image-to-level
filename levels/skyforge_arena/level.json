@@ -1,0 +1,10740 @@
+{
+ "version": 1,
+ "units": "metres, y-up; position = centre of object's base, in parent space; rotation = degrees XYZ",
+ "source": "scene_spec.json - Skyforge Arena",
+ "generator": {
+  "tool": "pipeline/spec_to_level.py",
+  "spec_sha": "31db9ebbc593a146",
+  "theme": "scifi",
+  "detail": "medium",
+  "mode": "open"
+ },
+ "interpretation": {
+  "summary": "Sky platform complex: a round central hub with 8 arms (bridges / ramps) to outer decks and octagon bastions, floating high above a sea with rocky islands, waterfalls and a cloud layer; sunset sky with a planet, spire city, ring megastructure.",
+  "scale_basis": "top-down panel: hub diameter 390 px (2x crop) ~ 47 m (crates ~1.5 m in the perspective views); 0.12 m per 2x-crop pixel",
+  "visible": [
+   "round hub with concentric red target marking",
+   "8 arms: N hall, small NE turret, NW bastion, W post, SW octagon, S gate + S tower, SE octagon, E deck",
+   "bridges with red railings",
+   "tall towers with red banners",
+   "crates as cover on the hub",
+   "sea far below with rocky islands, green tops",
+   "waterfalls off cliffs",
+   "cloud layer under the decks",
+   "sunset sky, planet, spire city, ring megastructure, distant mountains"
+  ],
+  "inferred": [
+   "deck heights (hub 40 m above the sea, bastions 3 m lower, turret 3 m higher)",
+   "massive pylons under every deck down to the sea bed",
+   "exact island and cliff positions outside the top-down crop",
+   "invisible colliders round the complex above the void",
+   "fall below 25 m = respawn"
+  ],
+  "assumptions": [
+   "mode: structured deck complex inside an open world whose terrain is scenery only (terrain_playable false)",
+   "covered deck (panel 5) approximated by halls / towers - no interiors in the module library"
+  ],
+  "questions": []
+ },
+ "sky_color": [
+  1.0,
+  0.55,
+  0.28
+ ],
+ "spawn": {
+  "position": [
+   3.0,
+   40,
+   55.09
+  ],
+  "yaw_deg": 3.1
+ },
+ "spawns": [
+  {
+   "id": "enemy_north",
+   "position": [
+    2.5,
+    40,
+    -33.42
+   ],
+   "yaw_deg": 175.7,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_nw",
+   "position": [
+    -38.0,
+    37,
+    -32.0
+   ],
+   "yaw_deg": -130.1,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_east",
+   "position": [
+    42.0,
+    40,
+    -6.0
+   ],
+   "yaw_deg": 98.1,
+   "team": "enemy"
+  }
+ ],
+ "hazards": [],
+ "effects": [
+  {
+   "id": "Pour_Flow",
+   "type": "liquid_flow",
+   "targets_glob": [
+    "Falls_West_A",
+    "Falls_West_B",
+    "Falls_NW",
+    "Falls_Island_W"
+   ],
+   "speed": 3.0
+  },
+  {
+   "id": "Pour_Splash",
+   "type": "splash",
+   "at_targets_glob": [
+    "Falls_West_A",
+    "Falls_West_B",
+    "Falls_NW",
+    "Falls_Island_W"
+   ],
+   "anchor": "bottom"
+  },
+  {
+   "id": "Pour_Steam",
+   "type": "steam",
+   "at_targets_glob": [
+    "Falls_West_A",
+    "Falls_West_B",
+    "Falls_NW",
+    "Falls_Island_W"
+   ],
+   "anchor": "bottom"
+  },
+  {
+   "id": "Glow_Pulse",
+   "type": "pulse_light",
+   "target_material": "glow",
+   "speed": 0.9,
+   "amount": 0.4
+  },
+  {
+   "id": "Trim_Pulse",
+   "type": "pulse_light",
+   "target_material": "trim",
+   "speed": 0.35,
+   "amount": 0.35
+  },
+  {
+   "id": "Machinery_Flicker",
+   "type": "flicker",
+   "target_material": "structure",
+   "rate": 6,
+   "amount": 0.2
+  },
+  {
+   "id": "Sparks",
+   "type": "sparks",
+   "positions": [
+    [
+     14.7,
+     40.4,
+     -13.5
+    ],
+    [
+     -6.7,
+     40.4,
+     -17.3
+    ],
+    [
+     -17.7,
+     40.4,
+     7.9
+    ]
+   ]
+  },
+  {
+   "id": "Sky_Drift",
+   "type": "sky_drift",
+   "speed_deg_s": 0.25
+  },
+  {
+   "id": "Cloud_Sea_High",
+   "type": "fog_sheet",
+   "area": [
+    -200,
+    26,
+    -200,
+    200,
+    26,
+    200
+   ],
+   "height": 2.0,
+   "opacity": 0.28,
+   "color": [
+    1.0,
+    0.86,
+    0.8
+   ],
+   "scroll": [
+    0.004,
+    0.002
+   ]
+  }
+ ],
+ "environment": {
+  "quality": "balanced",
+  "horizon_distance": 1084,
+  "sky": {
+   "preset": "sunset",
+   "sun": {
+    "azimuth_deg": 5,
+    "elevation_deg": 7
+   },
+   "planet": {
+    "azimuth_deg": 338,
+    "elevation_deg": 24,
+    "size_deg": 16,
+    "color": [
+     0.78,
+     0.68,
+     0.86
+    ],
+    "ring": false
+   }
+  },
+  "atmosphere": {
+   "fog_start": 260,
+   "fog_end": 900
+  },
+  "background": [
+   {
+    "id": "Mountains_Far",
+    "type": "mountain_ring",
+    "radius": 720,
+    "depth": 90,
+    "height": [
+     90,
+     210
+    ],
+    "fade": 0.55,
+    "seed": 3,
+    "color": [
+     0.5,
+     0.33,
+     0.27
+    ]
+   },
+   {
+    "id": "Mountains_Near",
+    "type": "mountain_ring",
+    "radius": 500,
+    "depth": 60,
+    "height": [
+     35,
+     100
+    ],
+    "fade": 0.3,
+    "seed": 8,
+    "frequency": 3.5,
+    "sharpness": 2.2,
+    "color": [
+     0.52,
+     0.33,
+     0.24
+    ]
+   },
+   {
+    "id": "Spires",
+    "type": "spires",
+    "radius": [
+     320,
+     560
+    ],
+    "count": 18,
+    "height": [
+     60,
+     170
+    ],
+    "fade": 0.25,
+    "seed": 5
+   },
+   {
+    "id": "Skyline_North",
+    "type": "skyline",
+    "radius": 400,
+    "azimuth_deg": [
+     -45,
+     45
+    ],
+    "count": 30,
+    "height": [
+     40,
+     150
+    ],
+    "fade": 0.35,
+    "glow": [
+     1.0,
+     0.6,
+     0.3
+    ],
+    "lit": 0.15
+   },
+   {
+    "id": "Megastructure_Ring",
+    "type": "ring_structure",
+    "azimuth_deg": 345,
+    "distance": 430,
+    "radius": 70,
+    "tube": 3.5,
+    "elevation": 125,
+    "tilt_deg": 16,
+    "pylons": 3,
+    "fade": 0.3,
+    "seed": 4
+   }
+  ]
+ },
+ "bounds": {
+  "min": [
+   -79.0,
+   -15.75,
+   -71.3
+  ],
+  "max": [
+   85.0,
+   60.27,
+   81.3
+  ]
+ },
+ "walkable": [
+  {
+   "name": "Hub",
+   "min": [
+    -16.45,
+    -16.45
+   ],
+   "max": [
+    16.45,
+    16.45
+   ],
+   "y": 40
+  },
+  {
+   "name": "North_Hall",
+   "min": [
+    -6.5,
+    -49.0
+   ],
+   "max": [
+    11.5,
+    -27.0
+   ],
+   "y": 40
+  },
+  {
+   "name": "North_Turret",
+   "min": [
+    15.5,
+    -41.5
+   ],
+   "max": [
+    22.5,
+    -34.5
+   ],
+   "y": 43
+  },
+  {
+   "name": "NW_Bastion",
+   "min": [
+    -50.0,
+    -41.0
+   ],
+   "max": [
+    -26.0,
+    -23.0
+   ],
+   "y": 37
+  },
+  {
+   "name": "West_Post",
+   "min": [
+    -44.0,
+    -12.0
+   ],
+   "max": [
+    -28.0,
+    2.0
+   ],
+   "y": 40
+  },
+  {
+   "name": "SW_Octagon",
+   "min": [
+    -40.45,
+    26.55
+   ],
+   "max": [
+    -21.55,
+    45.45
+   ],
+   "y": 37
+  },
+  {
+   "name": "South_Gate",
+   "min": [
+    -2.5,
+    26.0
+   ],
+   "max": [
+    8.5,
+    40.0
+   ],
+   "y": 40
+  },
+  {
+   "name": "South_Tower",
+   "min": [
+    -3.6499999999999995,
+    50.35
+   ],
+   "max": [
+    9.649999999999999,
+    63.65
+   ],
+   "y": 40
+  },
+  {
+   "name": "SE_Octagon",
+   "min": [
+    27.9,
+    23.9
+   ],
+   "max": [
+    46.1,
+    42.1
+   ],
+   "y": 37
+  },
+  {
+   "name": "East_Deck",
+   "min": [
+    31.0,
+    -14.0
+   ],
+   "max": [
+    53.0,
+    2.0
+   ],
+   "y": 40
+  },
+  {
+   "name": "Bridge_Gate_Tower",
+   "min": [
+    1.0,
+    39.85000000000001
+   ],
+   "max": [
+    5.0,
+    48.38456251126608
+   ],
+   "y": 39.99
+  }
+ ],
+ "materials": {
+  "accent": {
+   "type": "banner",
+   "color": [
+    0.85,
+    0.18,
+    0.12
+   ],
+   "tile_m": 2.0,
+   "emissive": [
+    0.6,
+    0.15,
+    0.1
+   ]
+  },
+  "deck": {
+   "type": "scifi_floor",
+   "color": [
+    0.58,
+    0.53,
+    0.48
+   ],
+   "tile_m": 4.0,
+   "wear": 0.4
+  },
+  "deck_v2": {
+   "type": "scifi_floor",
+   "color": [
+    0.534,
+    0.503,
+    0.432
+   ],
+   "tile_m": 4.0,
+   "wear": 0.4
+  },
+  "frame": {
+   "type": "industrial_metal",
+   "color": [
+    0.2,
+    0.2,
+    0.2
+   ],
+   "tile_m": 3.0,
+   "bevel": 0.03
+  },
+  "glow": {
+   "type": "glow",
+   "color": [
+    1.0,
+    0.62,
+    0.3
+   ],
+   "tile_m": 2.0,
+   "emissive": [
+    1.0,
+    0.55,
+    0.25
+   ]
+  },
+  "grate": {
+   "type": "grating",
+   "color": [
+    0.3,
+    0.31,
+    0.3
+   ],
+   "tile_m": 2.0
+  },
+  "machine": {
+   "type": "machinery_panel",
+   "color": [
+    0.22,
+    0.23,
+    0.23
+   ],
+   "tile_m": 2.0,
+   "accent": [
+    1.0,
+    0.55,
+    0.1
+   ],
+   "emissive": [
+    1,
+    1,
+    1
+   ]
+  },
+  "rail": {
+   "type": "painted_metal",
+   "color": [
+    0.6,
+    0.18,
+    0.12
+   ],
+   "tile_m": 2.0,
+   "res": 256
+  },
+  "structure": {
+   "type": "machinery_panel",
+   "color": [
+    0.31,
+    0.29,
+    0.27
+   ],
+   "tile_m": 4.0,
+   "bevel": 0.1,
+   "accent": [
+    1.0,
+    0.25,
+    0.12
+   ],
+   "emissive": [
+    1,
+    1,
+    1
+   ]
+  },
+  "structure_b": {
+   "type": "industrial_metal",
+   "color": [
+    0.28,
+    0.26,
+    0.25
+   ],
+   "tile_m": 4.0,
+   "wear": 0.65,
+   "bevel": 0.06
+  },
+  "structure_v2": {
+   "type": "machinery_panel",
+   "color": [
+    0.285,
+    0.275,
+    0.243
+   ],
+   "tile_m": 4.0,
+   "bevel": 0.1,
+   "accent": [
+    1.0,
+    0.25,
+    0.12
+   ],
+   "emissive": [
+    1,
+    1,
+    1
+   ],
+   "wear": 0.7
+  },
+  "trim": {
+   "type": "trim_light",
+   "color": [
+    0.25,
+    0.22,
+    0.21
+   ],
+   "tile_m": 1.2,
+   "bevel": 0.05,
+   "accent": [
+    1.0,
+    0.2,
+    0.1
+   ],
+   "emissive": [
+    1,
+    1,
+    1
+   ]
+  },
+  "wall": {
+   "type": "industrial_metal",
+   "color": [
+    0.4,
+    0.36,
+    0.33
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12
+  },
+  "wall_v2": {
+   "type": "industrial_metal",
+   "color": [
+    0.368,
+    0.342,
+    0.297
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12
+  },
+  "water": {
+   "type": "water",
+   "color": [
+    0.75,
+    0.85,
+    0.9
+   ],
+   "tile_m": 3.0
+  },
+  "ter_road": {
+   "type": "gravel",
+   "color": [
+    0.48,
+    0.44,
+    0.39
+   ],
+   "tile_m": 3.0,
+   "res": 256
+  },
+  "ter_gravel": {
+   "type": "gravel",
+   "color": [
+    0.52,
+    0.49,
+    0.45
+   ],
+   "tile_m": 3.0,
+   "res": 256
+  },
+  "ter_rock": {
+   "type": "rock",
+   "color": [
+    0.56,
+    0.37,
+    0.26
+   ],
+   "tile_m": 10.0,
+   "res": 256
+  },
+  "ter_snow": {
+   "type": "snow",
+   "color": [
+    0.9,
+    0.92,
+    0.95
+   ],
+   "tile_m": 6.0,
+   "res": 256
+  },
+  "ter_sand": {
+   "type": "sand",
+   "color": [
+    0.72,
+    0.6,
+    0.45
+   ],
+   "tile_m": 5.0,
+   "res": 128
+  },
+  "ter_dirt": {
+   "type": "dirt",
+   "color": [
+    0.45,
+    0.37,
+    0.28
+   ],
+   "tile_m": 4.0,
+   "res": 256
+  },
+  "ter_grass": {
+   "type": "grass",
+   "color": [
+    0.3,
+    0.4,
+    0.18
+   ],
+   "tile_m": 5.0,
+   "res": 256
+  },
+  "sc_foliage": {
+   "type": "grass",
+   "color": [
+    0.2,
+    0.32,
+    0.15
+   ],
+   "tile_m": 2.0,
+   "res": 128
+  },
+  "sc_foliage_b": {
+   "type": "moss",
+   "color": [
+    0.32,
+    0.4,
+    0.18
+   ],
+   "tile_m": 2.0,
+   "res": 128
+  },
+  "sc_trunk": {
+   "type": "wood",
+   "color": [
+    0.3,
+    0.22,
+    0.15
+   ],
+   "tile_m": 2.0,
+   "res": 128
+  }
+ },
+ "objects": [
+  {
+   "name": "Boundary_01",
+   "type": "boundary",
+   "position": [
+    82.55,
+    -18.077,
+    19.3
+   ],
+   "rotation": [
+    0.0,
+    -91.8,
+    0.0
+   ],
+   "size": [
+    29.214,
+    71.077,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_02",
+   "type": "boundary",
+   "position": [
+    74.8,
+    -18.077,
+    45.3
+   ],
+   "rotation": [
+    0.0,
+    -121.96,
+    0.0
+   ],
+   "size": [
+    28.181,
+    71.077,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_03",
+   "type": "boundary",
+   "position": [
+    55.25,
+    -17.98,
+    64.6
+   ],
+   "rotation": [
+    0.0,
+    -148.18,
+    0.0
+   ],
+   "size": [
+    29.432,
+    70.98,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_04",
+   "type": "boundary",
+   "position": [
+    29.6,
+    -18.23,
+    75.75
+   ],
+   "rotation": [
+    0.0,
+    -165.16,
+    0.0
+   ],
+   "size": [
+    28.325,
+    71.23,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_05",
+   "type": "boundary",
+   "position": [
+    3.0,
+    -18.378,
+    79.3
+   ],
+   "rotation": [
+    0.0,
+    -180.0,
+    0.0
+   ],
+   "size": [
+    27.0,
+    71.378,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_06",
+   "type": "boundary",
+   "position": [
+    -23.6,
+    -18.378,
+    75.75
+   ],
+   "rotation": [
+    0.0,
+    -194.84,
+    0.0
+   ],
+   "size": [
+    28.325,
+    71.378,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_07",
+   "type": "boundary",
+   "position": [
+    -49.25,
+    -18.333,
+    64.6
+   ],
+   "rotation": [
+    0.0,
+    -211.82,
+    0.0
+   ],
+   "size": [
+    29.432,
+    71.333,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_08",
+   "type": "boundary",
+   "position": [
+    -68.8,
+    -18.333,
+    45.3
+   ],
+   "rotation": [
+    0.0,
+    -238.04,
+    0.0
+   ],
+   "size": [
+    28.181,
+    71.333,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_09",
+   "type": "boundary",
+   "position": [
+    -76.55,
+    -18.13,
+    19.3
+   ],
+   "rotation": [
+    0.0,
+    -268.2,
+    0.0
+   ],
+   "size": [
+    29.214,
+    71.13,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_10",
+   "type": "boundary",
+   "position": [
+    -72.65,
+    -18.026,
+    -9.3
+   ],
+   "rotation": [
+    0.0,
+    73.08,
+    0.0
+   ],
+   "size": [
+    30.494,
+    71.026,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_11",
+   "type": "boundary",
+   "position": [
+    -61.7,
+    -18.026,
+    -35.3
+   ],
+   "rotation": [
+    0.0,
+    60.57,
+    0.0
+   ],
+   "size": [
+    27.466,
+    71.026,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_12",
+   "type": "boundary",
+   "position": [
+    -46.05,
+    -17.977,
+    -54.6
+   ],
+   "rotation": [
+    0.0,
+    40.02,
+    0.0
+   ],
+   "size": [
+    24.236,
+    70.977,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_13",
+   "type": "boundary",
+   "position": [
+    -24.3,
+    -18.081,
+    -65.75
+   ],
+   "rotation": [
+    0.0,
+    15.62,
+    0.0
+   ],
+   "size": [
+    26.974,
+    71.081,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_14",
+   "type": "boundary",
+   "position": [
+    3.0,
+    -18.443,
+    -69.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    29.8,
+    71.443,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_15",
+   "type": "boundary",
+   "position": [
+    30.3,
+    -18.443,
+    -65.75
+   ],
+   "rotation": [
+    0.0,
+    -15.62,
+    0.0
+   ],
+   "size": [
+    26.974,
+    71.443,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_16",
+   "type": "boundary",
+   "position": [
+    52.05,
+    -18.143,
+    -54.6
+   ],
+   "rotation": [
+    0.0,
+    -40.02,
+    0.0
+   ],
+   "size": [
+    24.236,
+    72.157,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_17",
+   "type": "boundary",
+   "position": [
+    67.7,
+    -17.672,
+    -35.3
+   ],
+   "rotation": [
+    0.0,
+    -60.57,
+    0.0
+   ],
+   "size": [
+    27.466,
+    71.685,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_18",
+   "type": "boundary",
+   "position": [
+    78.65,
+    -17.829,
+    -9.3
+   ],
+   "rotation": [
+    0.0,
+    -73.08,
+    0.0
+   ],
+   "size": [
+    30.494,
+    70.829,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Hub",
+   "type": "group",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Hub",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Floor",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    39.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    7.5,
+    0.0
+   ],
+   "parent": "Hub",
+   "size": [
+    47.3,
+    0.3,
+    47.3
+   ],
+   "material": "deck",
+   "sections": 24,
+   "gen": "Hub",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Trim",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    39.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    7.5,
+    0.0
+   ],
+   "parent": "Hub",
+   "size": [
+    47.2,
+    0.7,
+    47.2
+   ],
+   "material": "trim",
+   "sections": 24,
+   "gen": "Hub",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Body",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    37.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    7.5,
+    0.0
+   ],
+   "parent": "Hub",
+   "size": [
+    47.0,
+    1.3,
+    47.0
+   ],
+   "material": "structure",
+   "sections": 24,
+   "gen": "Hub",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Underframe",
+   "type": "frustum",
+   "position": [
+    0.0,
+    29.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub",
+   "size": [
+    47.0,
+    8.01,
+    47.0
+   ],
+   "material": "structure_b",
+   "sections": 24,
+   "bottom_scale": 0.45,
+   "gen": "Hub",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Column",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    -14.83,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    7.5,
+    0.0
+   ],
+   "parent": "Hub",
+   "size": [
+    19.035,
+    44.55,
+    19.035
+   ],
+   "material": "structure_b",
+   "sections": 24,
+   "gen": "Hub",
+   "source": "visible"
+  },
+  {
+   "name": "North_Hall",
+   "type": "group",
+   "position": [
+    2.5,
+    0.0,
+    -38.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "North_Hall",
+   "source": "visible"
+  },
+  {
+   "name": "North_Hall_Floor",
+   "type": "box",
+   "position": [
+    0.0,
+    39.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Hall",
+   "size": [
+    18.3,
+    0.3,
+    22.3
+   ],
+   "material": "deck",
+   "gen": "North_Hall",
+   "source": "visible"
+  },
+  {
+   "name": "North_Hall_Trim",
+   "type": "box",
+   "position": [
+    0.0,
+    39.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Hall",
+   "size": [
+    18.2,
+    0.7,
+    22.2
+   ],
+   "material": "trim",
+   "gen": "North_Hall",
+   "source": "visible"
+  },
+  {
+   "name": "North_Hall_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    37.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Hall",
+   "size": [
+    18.0,
+    1.3,
+    22.0
+   ],
+   "material": "structure_v2",
+   "gen": "North_Hall",
+   "source": "visible"
+  },
+  {
+   "name": "North_Hall_Underframe",
+   "type": "frustum",
+   "position": [
+    0.0,
+    29.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Hall",
+   "size": [
+    18.0,
+    8.01,
+    22.0
+   ],
+   "material": "structure_b",
+   "sections": 0,
+   "bottom_scale": 0.45,
+   "gen": "North_Hall",
+   "source": "visible"
+  },
+  {
+   "name": "North_Hall_Column",
+   "type": "box",
+   "position": [
+    0.0,
+    -14.837,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Hall",
+   "size": [
+    7.29,
+    44.557,
+    8.91
+   ],
+   "material": "structure_b",
+   "gen": "North_Hall",
+   "source": "visible"
+  },
+  {
+   "name": "North_Turret",
+   "type": "group",
+   "position": [
+    19.0,
+    0.0,
+    -38.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "North_Turret",
+   "source": "visible"
+  },
+  {
+   "name": "North_Turret_Floor",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    42.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "North_Turret",
+   "size": [
+    10.3,
+    0.3,
+    10.3
+   ],
+   "material": "deck",
+   "sections": 8,
+   "gen": "North_Turret",
+   "source": "visible"
+  },
+  {
+   "name": "North_Turret_Trim",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    42.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "North_Turret",
+   "size": [
+    10.2,
+    0.7,
+    10.2
+   ],
+   "material": "trim",
+   "sections": 8,
+   "gen": "North_Turret",
+   "source": "visible"
+  },
+  {
+   "name": "North_Turret_Body",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    40.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "North_Turret",
+   "size": [
+    10.0,
+    1.3,
+    10.0
+   ],
+   "material": "structure",
+   "sections": 8,
+   "gen": "North_Turret",
+   "source": "visible"
+  },
+  {
+   "name": "North_Turret_Underframe",
+   "type": "frustum",
+   "position": [
+    0.0,
+    32.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Turret",
+   "size": [
+    10.0,
+    8.01,
+    10.0
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "bottom_scale": 0.45,
+   "gen": "North_Turret",
+   "source": "visible"
+  },
+  {
+   "name": "North_Turret_Column",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    -14.72,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "North_Turret",
+   "size": [
+    4.05,
+    47.44,
+    4.05
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "gen": "North_Turret",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Bastion",
+   "type": "group",
+   "position": [
+    -38.0,
+    0.0,
+    -32.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "NW_Bastion",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Bastion_Floor",
+   "type": "box",
+   "position": [
+    0.0,
+    36.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Bastion",
+   "size": [
+    24.3,
+    0.3,
+    18.3
+   ],
+   "material": "deck",
+   "gen": "NW_Bastion",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Bastion_Trim",
+   "type": "box",
+   "position": [
+    0.0,
+    36.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Bastion",
+   "size": [
+    24.2,
+    0.7,
+    18.2
+   ],
+   "material": "trim",
+   "gen": "NW_Bastion",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Bastion_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    34.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Bastion",
+   "size": [
+    24.0,
+    1.3,
+    18.0
+   ],
+   "material": "structure_v2",
+   "gen": "NW_Bastion",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Bastion_Underframe",
+   "type": "frustum",
+   "position": [
+    0.0,
+    26.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Bastion",
+   "size": [
+    24.0,
+    8.01,
+    18.0
+   ],
+   "material": "structure_b",
+   "sections": 0,
+   "bottom_scale": 0.45,
+   "gen": "NW_Bastion",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Bastion_Column",
+   "type": "box",
+   "position": [
+    0.0,
+    -14.701,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Bastion",
+   "size": [
+    9.72,
+    41.421,
+    7.29
+   ],
+   "material": "structure_b",
+   "gen": "NW_Bastion",
+   "source": "visible"
+  },
+  {
+   "name": "West_Post",
+   "type": "group",
+   "position": [
+    -36.0,
+    0.0,
+    -5.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "West_Post",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Octagon",
+   "type": "group",
+   "position": [
+    -31.0,
+    0.0,
+    36.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "SW_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Octagon_Floor",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    36.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "SW_Octagon",
+   "size": [
+    27.3,
+    0.3,
+    27.3
+   ],
+   "material": "deck",
+   "sections": 8,
+   "gen": "SW_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Octagon_Trim",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    36.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "SW_Octagon",
+   "size": [
+    27.2,
+    0.7,
+    27.2
+   ],
+   "material": "trim",
+   "sections": 8,
+   "gen": "SW_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Octagon_Body",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    34.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "SW_Octagon",
+   "size": [
+    27.0,
+    1.3,
+    27.0
+   ],
+   "material": "structure",
+   "sections": 8,
+   "gen": "SW_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Octagon_Underframe",
+   "type": "frustum",
+   "position": [
+    0.0,
+    26.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SW_Octagon",
+   "size": [
+    27.0,
+    8.01,
+    27.0
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "bottom_scale": 0.45,
+   "gen": "SW_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Octagon_Column",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    -15.322,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "SW_Octagon",
+   "size": [
+    10.935,
+    42.042,
+    10.935
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "gen": "SW_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "South_Gate",
+   "type": "group",
+   "position": [
+    3.0,
+    0.0,
+    33.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "South_Gate",
+   "source": "visible"
+  },
+  {
+   "name": "South_Gate_Floor",
+   "type": "box",
+   "position": [
+    0.0,
+    39.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Gate",
+   "size": [
+    11.3,
+    0.3,
+    14.3
+   ],
+   "material": "deck",
+   "gen": "South_Gate",
+   "source": "visible"
+  },
+  {
+   "name": "South_Gate_Trim",
+   "type": "box",
+   "position": [
+    0.0,
+    39.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Gate",
+   "size": [
+    11.2,
+    0.7,
+    14.2
+   ],
+   "material": "trim",
+   "gen": "South_Gate",
+   "source": "visible"
+  },
+  {
+   "name": "South_Gate_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    37.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Gate",
+   "size": [
+    11.0,
+    1.3,
+    14.0
+   ],
+   "material": "structure",
+   "gen": "South_Gate",
+   "source": "visible"
+  },
+  {
+   "name": "South_Gate_Underframe",
+   "type": "frustum",
+   "position": [
+    0.0,
+    29.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Gate",
+   "size": [
+    11.0,
+    8.01,
+    14.0
+   ],
+   "material": "structure_b",
+   "sections": 0,
+   "bottom_scale": 0.45,
+   "gen": "South_Gate",
+   "source": "visible"
+  },
+  {
+   "name": "South_Gate_Column",
+   "type": "box",
+   "position": [
+    0.0,
+    -15.282,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Gate",
+   "size": [
+    4.455,
+    45.002,
+    5.67
+   ],
+   "material": "structure_b",
+   "gen": "South_Gate",
+   "source": "visible"
+  },
+  {
+   "name": "South_Tower",
+   "type": "group",
+   "position": [
+    3.0,
+    0.0,
+    57.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "South_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "South_Tower_Floor",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    39.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "South_Tower",
+   "size": [
+    19.3,
+    0.3,
+    19.3
+   ],
+   "material": "deck",
+   "sections": 8,
+   "gen": "South_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "South_Tower_Trim",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    39.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "South_Tower",
+   "size": [
+    19.2,
+    0.7,
+    19.2
+   ],
+   "material": "trim",
+   "sections": 8,
+   "gen": "South_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "South_Tower_Body",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    37.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "South_Tower",
+   "size": [
+    19.0,
+    1.3,
+    19.0
+   ],
+   "material": "structure",
+   "sections": 8,
+   "gen": "South_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "South_Tower_Underframe",
+   "type": "frustum",
+   "position": [
+    0.0,
+    29.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Tower",
+   "size": [
+    19.0,
+    8.01,
+    19.0
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "bottom_scale": 0.45,
+   "gen": "South_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "South_Tower_Column",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    -15.227,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "South_Tower",
+   "size": [
+    7.695,
+    44.947,
+    7.695
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "gen": "South_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Octagon",
+   "type": "group",
+   "position": [
+    37.0,
+    0.0,
+    33.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "SE_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Octagon_Floor",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    36.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "SE_Octagon",
+   "size": [
+    26.3,
+    0.3,
+    26.3
+   ],
+   "material": "deck",
+   "sections": 8,
+   "gen": "SE_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Octagon_Trim",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    36.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "SE_Octagon",
+   "size": [
+    26.2,
+    0.7,
+    26.2
+   ],
+   "material": "trim",
+   "sections": 8,
+   "gen": "SE_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Octagon_Body",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    34.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "SE_Octagon",
+   "size": [
+    26.0,
+    1.3,
+    26.0
+   ],
+   "material": "structure",
+   "sections": 8,
+   "gen": "SE_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Octagon_Underframe",
+   "type": "frustum",
+   "position": [
+    0.0,
+    26.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SE_Octagon",
+   "size": [
+    26.0,
+    8.01,
+    26.0
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "bottom_scale": 0.45,
+   "gen": "SE_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Octagon_Column",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    -14.762,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "SE_Octagon",
+   "size": [
+    10.53,
+    41.482,
+    10.53
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "gen": "SE_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "East_Deck",
+   "type": "group",
+   "position": [
+    42.0,
+    0.0,
+    -6.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "East_Deck",
+   "source": "visible"
+  },
+  {
+   "name": "East_Deck_Floor",
+   "type": "box",
+   "position": [
+    0.0,
+    39.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Deck",
+   "size": [
+    22.3,
+    0.3,
+    16.3
+   ],
+   "material": "deck",
+   "gen": "East_Deck",
+   "source": "visible"
+  },
+  {
+   "name": "East_Deck_Trim",
+   "type": "box",
+   "position": [
+    0.0,
+    39.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Deck",
+   "size": [
+    22.2,
+    0.7,
+    16.2
+   ],
+   "material": "trim",
+   "gen": "East_Deck",
+   "source": "visible"
+  },
+  {
+   "name": "East_Deck_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    37.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Deck",
+   "size": [
+    22.0,
+    1.3,
+    16.0
+   ],
+   "material": "structure_v2",
+   "gen": "East_Deck",
+   "source": "visible"
+  },
+  {
+   "name": "East_Deck_Underframe",
+   "type": "frustum",
+   "position": [
+    0.0,
+    29.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Deck",
+   "size": [
+    22.0,
+    8.01,
+    16.0
+   ],
+   "material": "structure_b",
+   "sections": 0,
+   "bottom_scale": 0.45,
+   "gen": "East_Deck",
+   "source": "visible"
+  },
+  {
+   "name": "East_Deck_Column",
+   "type": "box",
+   "position": [
+    0.0,
+    -14.495,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Deck",
+   "size": [
+    8.91,
+    44.215,
+    6.48
+   ],
+   "material": "structure_b",
+   "gen": "East_Deck",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_North",
+   "type": "group",
+   "position": [
+    1.655,
+    0.0,
+    -25.149
+   ],
+   "rotation": [
+    0.0,
+    176.24,
+    0.0
+   ],
+   "gen": "Bridge_Hub_North",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_North_Deck",
+   "type": "box",
+   "position": [
+    0.0,
+    39.59,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_North",
+   "size": [
+    4.0,
+    0.4,
+    4.11
+   ],
+   "material": "grate",
+   "connector": true,
+   "axis": "z",
+   "gen": "Bridge_Hub_North",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_North_Beam_L",
+   "type": "ibeam",
+   "position": [
+    -1.7,
+    39.135,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_North",
+   "size": [
+    3.41,
+    0.45,
+    0.3
+   ],
+   "material": "frame",
+   "gen": "Bridge_Hub_North",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_North_Rail_L",
+   "type": "railing",
+   "position": [
+    -1.95,
+    39.99,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_North",
+   "size": [
+    2.81,
+    1.05,
+    0.06
+   ],
+   "material": "rail",
+   "gen": "Bridge_Hub_North",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_North_Beam_R",
+   "type": "ibeam",
+   "position": [
+    1.7,
+    39.135,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_North",
+   "size": [
+    3.41,
+    0.45,
+    0.3
+   ],
+   "material": "frame",
+   "gen": "Bridge_Hub_North",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_North_Rail_R",
+   "type": "railing",
+   "position": [
+    1.95,
+    39.99,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_North",
+   "size": [
+    2.81,
+    1.05,
+    0.06
+   ],
+   "material": "rail",
+   "gen": "Bridge_Hub_North",
+   "source": "visible"
+  },
+  {
+   "name": "Steps_Turret",
+   "type": "stairs",
+   "position": [
+    12.157,
+    40.0,
+    -38.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    4.0,
+    2.99,
+    4.27
+   ],
+   "material": "grate",
+   "connector": true,
+   "gen": "Steps_Turret",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_NW",
+   "type": "group",
+   "position": [
+    -22.663,
+    0.0,
+    -19.085
+   ],
+   "rotation": [
+    0.0,
+    49.9,
+    0.0
+   ],
+   "gen": "Ramp_Hub_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_NW_Deck",
+   "type": "box",
+   "position": [
+    0.0,
+    38.075,
+    0.097
+   ],
+   "rotation": [
+    -14.05,
+    0.0,
+    0.0
+   ],
+   "parent": "Ramp_Hub_NW",
+   "size": [
+    4.0,
+    0.4,
+    12.669
+   ],
+   "material": "grate",
+   "connector": true,
+   "axis": "z",
+   "gen": "Ramp_Hub_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_NW_Beam_L",
+   "type": "box",
+   "position": [
+    -1.7,
+    37.603,
+    0.0
+   ],
+   "rotation": [
+    -14.05,
+    0.0,
+    0.0
+   ],
+   "parent": "Ramp_Hub_NW",
+   "size": [
+    0.3,
+    0.45,
+    11.402
+   ],
+   "material": "frame",
+   "gen": "Ramp_Hub_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_NW_Beam_R",
+   "type": "box",
+   "position": [
+    1.7,
+    37.603,
+    0.0
+   ],
+   "rotation": [
+    -14.05,
+    0.0,
+    0.0
+   ],
+   "parent": "Ramp_Hub_NW",
+   "size": [
+    0.3,
+    0.45,
+    11.402
+   ],
+   "material": "frame",
+   "gen": "Ramp_Hub_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_NW_Support",
+   "type": "box",
+   "position": [
+    0.0,
+    -14.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Ramp_Hub_NW",
+   "size": [
+    1.6,
+    52.07,
+    0.6
+   ],
+   "material": "frame",
+   "gen": "Ramp_Hub_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_NW_Junction_Lo",
+   "type": "box",
+   "position": [
+    -28.11,
+    36.59,
+    -23.671
+   ],
+   "rotation": [
+    0.0,
+    49.9,
+    0.0
+   ],
+   "size": [
+    4.0,
+    0.4,
+    2.65
+   ],
+   "material": "grate",
+   "connector": false,
+   "gen": "Ramp_Hub_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Link_North_NW",
+   "type": "group",
+   "position": [
+    -16.374,
+    0.0,
+    -35.204
+   ],
+   "rotation": [
+    0.0,
+    98.43,
+    0.0
+   ],
+   "gen": "Link_North_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Link_North_NW_Deck",
+   "type": "box",
+   "position": [
+    0.0,
+    38.082,
+    0.061
+   ],
+   "rotation": [
+    -8.76,
+    0.0,
+    0.0
+   ],
+   "parent": "Link_North_NW",
+   "size": [
+    4.0,
+    0.4,
+    19.993
+   ],
+   "material": "grate",
+   "connector": true,
+   "axis": "z",
+   "gen": "Link_North_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Link_North_NW_Beam_L",
+   "type": "box",
+   "position": [
+    -1.7,
+    37.617,
+    0.0
+   ],
+   "rotation": [
+    -8.76,
+    0.0,
+    0.0
+   ],
+   "parent": "Link_North_NW",
+   "size": [
+    0.3,
+    0.45,
+    17.994
+   ],
+   "material": "frame",
+   "gen": "Link_North_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Link_North_NW_Rail_L",
+   "type": "railing",
+   "position": [
+    -1.95,
+    38.477,
+    0.0
+   ],
+   "rotation": [
+    -8.76,
+    90.0,
+    0.0
+   ],
+   "parent": "Link_North_NW",
+   "size": [
+    19.393,
+    1.05,
+    0.06
+   ],
+   "material": "rail",
+   "gen": "Link_North_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Link_North_NW_Beam_R",
+   "type": "box",
+   "position": [
+    1.7,
+    37.617,
+    0.0
+   ],
+   "rotation": [
+    -8.76,
+    0.0,
+    0.0
+   ],
+   "parent": "Link_North_NW",
+   "size": [
+    0.3,
+    0.45,
+    17.994
+   ],
+   "material": "frame",
+   "gen": "Link_North_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Link_North_NW_Rail_R",
+   "type": "railing",
+   "position": [
+    1.95,
+    38.477,
+    0.0
+   ],
+   "rotation": [
+    -8.76,
+    90.0,
+    0.0
+   ],
+   "parent": "Link_North_NW",
+   "size": [
+    19.393,
+    1.05,
+    0.06
+   ],
+   "material": "rail",
+   "gen": "Link_North_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Link_North_NW_Support",
+   "type": "box",
+   "position": [
+    0.0,
+    -14.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Link_North_NW",
+   "size": [
+    1.6,
+    52.092,
+    0.6
+   ],
+   "material": "frame",
+   "gen": "Link_North_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Link_North_NW_Junction_Hi",
+   "type": "box",
+   "position": [
+    -6.427,
+    39.59,
+    -36.677
+   ],
+   "rotation": [
+    0.0,
+    98.43,
+    0.0
+   ],
+   "size": [
+    4.0,
+    0.4,
+    0.45
+   ],
+   "material": "grate",
+   "connector": false,
+   "gen": "Link_North_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Link_North_NW_Junction_Lo",
+   "type": "box",
+   "position": [
+    -26.048,
+    36.59,
+    -33.771
+   ],
+   "rotation": [
+    0.0,
+    98.43,
+    0.0
+   ],
+   "size": [
+    4.0,
+    0.4,
+    0.5
+   ],
+   "material": "grate",
+   "connector": false,
+   "gen": "Link_North_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_West",
+   "type": "group",
+   "position": [
+    -25.652,
+    0.0,
+    -3.563
+   ],
+   "rotation": [
+    0.0,
+    -97.91,
+    0.0
+   ],
+   "gen": "Bridge_Hub_West",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_West_Deck",
+   "type": "box",
+   "position": [
+    0.0,
+    39.59,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_West",
+   "size": [
+    4.0,
+    0.4,
+    5.439
+   ],
+   "material": "grate",
+   "connector": true,
+   "axis": "z",
+   "gen": "Bridge_Hub_West",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_West_Beam_L",
+   "type": "ibeam",
+   "position": [
+    -1.7,
+    39.135,
+    -0.025
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_West",
+   "size": [
+    4.489,
+    0.45,
+    0.3
+   ],
+   "material": "frame",
+   "gen": "Bridge_Hub_West",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_West_Rail_L",
+   "type": "railing",
+   "position": [
+    -1.95,
+    39.99,
+    -0.025
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_West",
+   "size": [
+    3.889,
+    1.05,
+    0.06
+   ],
+   "material": "rail",
+   "gen": "Bridge_Hub_West",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_West_Beam_R",
+   "type": "ibeam",
+   "position": [
+    1.7,
+    39.135,
+    -0.025
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_West",
+   "size": [
+    4.489,
+    0.45,
+    0.3
+   ],
+   "material": "frame",
+   "gen": "Bridge_Hub_West",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_West_Rail_R",
+   "type": "railing",
+   "position": [
+    1.95,
+    39.99,
+    -0.025
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_West",
+   "size": [
+    3.889,
+    1.05,
+    0.06
+   ],
+   "material": "rail",
+   "gen": "Bridge_Hub_West",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_SW",
+   "type": "group",
+   "position": [
+    -19.127,
+    0.0,
+    22.212
+   ],
+   "rotation": [
+    0.0,
+    139.27,
+    0.0
+   ],
+   "gen": "Ramp_Hub_SW",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_SW_Deck",
+   "type": "box",
+   "position": [
+    0.0,
+    38.074,
+    0.102
+   ],
+   "rotation": [
+    -14.74,
+    0.0,
+    0.0
+   ],
+   "parent": "Ramp_Hub_SW",
+   "size": [
+    4.0,
+    0.4,
+    12.097
+   ],
+   "material": "grate",
+   "connector": true,
+   "axis": "z",
+   "gen": "Ramp_Hub_SW",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_SW_Beam_L",
+   "type": "box",
+   "position": [
+    -1.7,
+    37.601,
+    0.0
+   ],
+   "rotation": [
+    -14.74,
+    0.0,
+    0.0
+   ],
+   "parent": "Ramp_Hub_SW",
+   "size": [
+    0.3,
+    0.45,
+    10.888
+   ],
+   "material": "frame",
+   "gen": "Ramp_Hub_SW",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_SW_Beam_R",
+   "type": "box",
+   "position": [
+    1.7,
+    37.601,
+    0.0
+   ],
+   "rotation": [
+    -14.74,
+    0.0,
+    0.0
+   ],
+   "parent": "Ramp_Hub_SW",
+   "size": [
+    0.3,
+    0.45,
+    10.888
+   ],
+   "material": "frame",
+   "gen": "Ramp_Hub_SW",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_SW_Support",
+   "type": "box",
+   "position": [
+    0.0,
+    -14.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Ramp_Hub_SW",
+   "size": [
+    1.6,
+    52.067,
+    0.6
+   ],
+   "material": "frame",
+   "gen": "Ramp_Hub_SW",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_South",
+   "type": "group",
+   "position": [
+    2.241,
+    0.0,
+    24.649
+   ],
+   "rotation": [
+    0.0,
+    5.19,
+    0.0
+   ],
+   "gen": "Bridge_Hub_South",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_South_Deck",
+   "type": "box",
+   "position": [
+    0.0,
+    39.59,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_South",
+   "size": [
+    4.0,
+    0.4,
+    3.212
+   ],
+   "material": "grate",
+   "connector": true,
+   "axis": "z",
+   "gen": "Bridge_Hub_South",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_South_Beam_L",
+   "type": "ibeam",
+   "position": [
+    -1.7,
+    39.135,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_South",
+   "size": [
+    2.412,
+    0.45,
+    0.3
+   ],
+   "material": "frame",
+   "gen": "Bridge_Hub_South",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_South_Rail_L",
+   "type": "railing",
+   "position": [
+    -1.95,
+    39.99,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_South",
+   "size": [
+    1.812,
+    1.05,
+    0.06
+   ],
+   "material": "rail",
+   "gen": "Bridge_Hub_South",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_South_Beam_R",
+   "type": "ibeam",
+   "position": [
+    1.7,
+    39.135,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_South",
+   "size": [
+    2.412,
+    0.45,
+    0.3
+   ],
+   "material": "frame",
+   "gen": "Bridge_Hub_South",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_South_Rail_R",
+   "type": "railing",
+   "position": [
+    1.95,
+    39.99,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_South",
+   "size": [
+    1.812,
+    1.05,
+    0.06
+   ],
+   "material": "rail",
+   "gen": "Bridge_Hub_South",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Gate_Tower",
+   "type": "group",
+   "position": [
+    3.0,
+    0.0,
+    44.117
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Bridge_Gate_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Gate_Tower_Deck",
+   "type": "box",
+   "position": [
+    0.0,
+    39.59,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Bridge_Gate_Tower",
+   "size": [
+    4.0,
+    0.4,
+    8.535
+   ],
+   "material": "grate",
+   "connector": true,
+   "axis": "z",
+   "gen": "Bridge_Gate_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Gate_Tower_Beam_L",
+   "type": "ibeam",
+   "position": [
+    -1.7,
+    39.135,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Gate_Tower",
+   "size": [
+    7.935,
+    0.45,
+    0.3
+   ],
+   "material": "frame",
+   "gen": "Bridge_Gate_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Gate_Tower_Rail_L",
+   "type": "railing",
+   "position": [
+    -1.95,
+    39.99,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Gate_Tower",
+   "size": [
+    7.335,
+    1.05,
+    0.06
+   ],
+   "material": "rail",
+   "gen": "Bridge_Gate_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Gate_Tower_Beam_R",
+   "type": "ibeam",
+   "position": [
+    1.7,
+    39.135,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Gate_Tower",
+   "size": [
+    7.935,
+    0.45,
+    0.3
+   ],
+   "material": "frame",
+   "gen": "Bridge_Gate_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Gate_Tower_Rail_R",
+   "type": "railing",
+   "position": [
+    1.95,
+    39.99,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Gate_Tower",
+   "size": [
+    7.335,
+    1.05,
+    0.06
+   ],
+   "material": "rail",
+   "gen": "Bridge_Gate_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "Link_Gate_SE",
+   "type": "group",
+   "position": [
+    16.875,
+    0.0,
+    33.0
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "gen": "Link_Gate_SE",
+   "source": "visible"
+  },
+  {
+   "name": "Link_Gate_SE_Deck",
+   "type": "box",
+   "position": [
+    0.0,
+    38.079,
+    0.073
+   ],
+   "rotation": [
+    -10.46,
+    0.0,
+    0.0
+   ],
+   "parent": "Link_Gate_SE",
+   "size": [
+    4.0,
+    0.4,
+    16.831
+   ],
+   "material": "grate",
+   "connector": true,
+   "axis": "z",
+   "gen": "Link_Gate_SE",
+   "source": "visible"
+  },
+  {
+   "name": "Link_Gate_SE_Beam_L",
+   "type": "box",
+   "position": [
+    -1.7,
+    37.612,
+    0.0
+   ],
+   "rotation": [
+    -10.46,
+    0.0,
+    0.0
+   ],
+   "parent": "Link_Gate_SE",
+   "size": [
+    0.3,
+    0.45,
+    15.148
+   ],
+   "material": "frame",
+   "gen": "Link_Gate_SE",
+   "source": "visible"
+  },
+  {
+   "name": "Link_Gate_SE_Rail_L",
+   "type": "railing",
+   "position": [
+    -1.95,
+    38.472,
+    0.0
+   ],
+   "rotation": [
+    -10.46,
+    90.0,
+    0.0
+   ],
+   "parent": "Link_Gate_SE",
+   "size": [
+    16.231,
+    1.05,
+    0.06
+   ],
+   "material": "rail",
+   "gen": "Link_Gate_SE",
+   "source": "visible"
+  },
+  {
+   "name": "Link_Gate_SE_Beam_R",
+   "type": "box",
+   "position": [
+    1.7,
+    37.612,
+    0.0
+   ],
+   "rotation": [
+    -10.46,
+    0.0,
+    0.0
+   ],
+   "parent": "Link_Gate_SE",
+   "size": [
+    0.3,
+    0.45,
+    15.148
+   ],
+   "material": "frame",
+   "gen": "Link_Gate_SE",
+   "source": "visible"
+  },
+  {
+   "name": "Link_Gate_SE_Rail_R",
+   "type": "railing",
+   "position": [
+    1.95,
+    38.472,
+    0.0
+   ],
+   "rotation": [
+    -10.46,
+    90.0,
+    0.0
+   ],
+   "parent": "Link_Gate_SE",
+   "size": [
+    16.231,
+    1.05,
+    0.06
+   ],
+   "material": "rail",
+   "gen": "Link_Gate_SE",
+   "source": "visible"
+  },
+  {
+   "name": "Link_Gate_SE_Support",
+   "type": "box",
+   "position": [
+    0.0,
+    -14.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Link_Gate_SE",
+   "size": [
+    1.6,
+    52.086,
+    0.6
+   ],
+   "material": "frame",
+   "gen": "Link_Gate_SE",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_SE",
+   "type": "group",
+   "position": [
+    22.816,
+    0.0,
+    20.35
+   ],
+   "rotation": [
+    0.0,
+    -131.73,
+    0.0
+   ],
+   "gen": "Ramp_Hub_SE",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_SE_Deck",
+   "type": "box",
+   "position": [
+    0.0,
+    38.077,
+    0.084
+   ],
+   "rotation": [
+    -12.12,
+    0.0,
+    0.0
+   ],
+   "parent": "Ramp_Hub_SE",
+   "size": [
+    4.0,
+    0.4,
+    14.599
+   ],
+   "material": "grate",
+   "connector": true,
+   "axis": "z",
+   "gen": "Ramp_Hub_SE",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_SE_Beam_L",
+   "type": "box",
+   "position": [
+    -1.7,
+    37.608,
+    0.0
+   ],
+   "rotation": [
+    -12.12,
+    0.0,
+    0.0
+   ],
+   "parent": "Ramp_Hub_SE",
+   "size": [
+    0.3,
+    0.45,
+    13.139
+   ],
+   "material": "frame",
+   "gen": "Ramp_Hub_SE",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_SE_Beam_R",
+   "type": "box",
+   "position": [
+    1.7,
+    37.608,
+    0.0
+   ],
+   "rotation": [
+    -12.12,
+    0.0,
+    0.0
+   ],
+   "parent": "Ramp_Hub_SE",
+   "size": [
+    0.3,
+    0.45,
+    13.139
+   ],
+   "material": "frame",
+   "gen": "Ramp_Hub_SE",
+   "source": "visible"
+  },
+  {
+   "name": "Ramp_Hub_SE_Support",
+   "type": "box",
+   "position": [
+    0.0,
+    -14.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Ramp_Hub_SE",
+   "size": [
+    1.6,
+    52.079,
+    0.6
+   ],
+   "material": "frame",
+   "gen": "Ramp_Hub_SE",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_East",
+   "type": "group",
+   "position": [
+    27.14,
+    0.0,
+    -3.877
+   ],
+   "rotation": [
+    0.0,
+    98.13,
+    0.0
+   ],
+   "gen": "Bridge_Hub_East",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_East_Deck",
+   "type": "box",
+   "position": [
+    0.0,
+    39.59,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_East",
+   "size": [
+    4.0,
+    0.4,
+    8.496
+   ],
+   "material": "grate",
+   "connector": true,
+   "axis": "z",
+   "gen": "Bridge_Hub_East",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_East_Beam_L",
+   "type": "ibeam",
+   "position": [
+    -1.7,
+    39.135,
+    -0.025
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_East",
+   "size": [
+    7.546,
+    0.45,
+    0.3
+   ],
+   "material": "frame",
+   "gen": "Bridge_Hub_East",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_East_Rail_L",
+   "type": "railing",
+   "position": [
+    -1.95,
+    39.99,
+    -0.025
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_East",
+   "size": [
+    6.946,
+    1.05,
+    0.06
+   ],
+   "material": "rail",
+   "gen": "Bridge_Hub_East",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_East_Beam_R",
+   "type": "ibeam",
+   "position": [
+    1.7,
+    39.135,
+    -0.025
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_East",
+   "size": [
+    7.546,
+    0.45,
+    0.3
+   ],
+   "material": "frame",
+   "gen": "Bridge_Hub_East",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Hub_East_Rail_R",
+   "type": "railing",
+   "position": [
+    1.95,
+    39.99,
+    -0.025
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Bridge_Hub_East",
+   "size": [
+    6.946,
+    1.05,
+    0.06
+   ],
+   "material": "rail",
+   "gen": "Bridge_Hub_East",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Marking_Ring_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    40.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    14.0,
+    0.04,
+    14.0
+   ],
+   "material": "accent",
+   "sections": 24,
+   "gen": "Hub_Marking",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Marking_Ring_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    40.02,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    10.5,
+    0.04,
+    10.5
+   ],
+   "material": "deck_v2",
+   "sections": 24,
+   "gen": "Hub_Marking",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Marking_Ring_3",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    40.04,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.0,
+    0.04,
+    7.0
+   ],
+   "material": "glow",
+   "sections": 24,
+   "gen": "Hub_Marking",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Marking_Ring_4",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    40.06,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.5,
+    0.04,
+    3.5
+   ],
+   "material": "glow",
+   "sections": 24,
+   "gen": "Hub_Marking",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1",
+   "type": "group",
+   "position": [
+    13.6,
+    40.0,
+    -14.6
+   ],
+   "rotation": [
+    0.0,
+    -42.97,
+    0.0
+   ],
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    1.8,
+    4.5,
+    1.8
+   ],
+   "material": "wall_v2",
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Cap",
+   "type": "box",
+   "position": [
+    0.0,
+    4.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    2.8,
+    1.2,
+    2.8
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Top",
+   "type": "box",
+   "position": [
+    0.0,
+    5.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    0.99,
+    0.54,
+    0.99
+   ],
+   "material": "wall_v2",
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Rib_01",
+   "type": "box",
+   "position": [
+    -0.9,
+    0.0,
+    -0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Rib_02",
+   "type": "box",
+   "position": [
+    0.9,
+    0.0,
+    -0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Rib_03",
+   "type": "box",
+   "position": [
+    0.9,
+    0.0,
+    0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Rib_04",
+   "type": "box",
+   "position": [
+    -0.9,
+    0.0,
+    0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Glow_01L",
+   "type": "panel",
+   "position": [
+    -0.612,
+    0.36,
+    0.93
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Glow_01R",
+   "type": "panel",
+   "position": [
+    0.612,
+    0.36,
+    0.93
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Glow_02L",
+   "type": "panel",
+   "position": [
+    0.93,
+    0.36,
+    0.612
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Glow_02R",
+   "type": "panel",
+   "position": [
+    0.93,
+    0.36,
+    -0.612
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Glow_03L",
+   "type": "panel",
+   "position": [
+    0.612,
+    0.36,
+    -0.93
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Glow_03R",
+   "type": "panel",
+   "position": [
+    -0.612,
+    0.36,
+    -0.93
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Glow_04L",
+   "type": "panel",
+   "position": [
+    -0.93,
+    0.36,
+    -0.612
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Glow_04R",
+   "type": "panel",
+   "position": [
+    -0.93,
+    0.36,
+    0.612
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2",
+   "type": "group",
+   "position": [
+    -7.8,
+    40.0,
+    -18.4
+   ],
+   "rotation": [
+    0.0,
+    22.97,
+    0.0
+   ],
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_2",
+   "size": [
+    1.8,
+    4.5,
+    1.8
+   ],
+   "material": "wall",
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2_Cap",
+   "type": "box",
+   "position": [
+    0.0,
+    4.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_2",
+   "size": [
+    2.8,
+    1.2,
+    2.8
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2_Top",
+   "type": "box",
+   "position": [
+    0.0,
+    5.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_2",
+   "size": [
+    0.99,
+    0.54,
+    0.99
+   ],
+   "material": "wall",
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2_Rib_01",
+   "type": "box",
+   "position": [
+    -0.9,
+    0.0,
+    -0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_2",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2_Rib_02",
+   "type": "box",
+   "position": [
+    0.9,
+    0.0,
+    -0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_2",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2_Rib_03",
+   "type": "box",
+   "position": [
+    0.9,
+    0.0,
+    0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_2",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2_Rib_04",
+   "type": "box",
+   "position": [
+    -0.9,
+    0.0,
+    0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_2",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2_Glow_01L",
+   "type": "panel",
+   "position": [
+    -0.612,
+    0.36,
+    0.93
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_2",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2_Glow_01R",
+   "type": "panel",
+   "position": [
+    0.612,
+    0.36,
+    0.93
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_2",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2_Glow_02L",
+   "type": "panel",
+   "position": [
+    0.93,
+    0.36,
+    0.612
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_2",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2_Glow_02R",
+   "type": "panel",
+   "position": [
+    0.93,
+    0.36,
+    -0.612
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_2",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2_Glow_03L",
+   "type": "panel",
+   "position": [
+    0.612,
+    0.36,
+    -0.93
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_2",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2_Glow_03R",
+   "type": "panel",
+   "position": [
+    -0.612,
+    0.36,
+    -0.93
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_2",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2_Glow_04L",
+   "type": "panel",
+   "position": [
+    -0.93,
+    0.36,
+    -0.612
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_2",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_2_Glow_04R",
+   "type": "panel",
+   "position": [
+    -0.93,
+    0.36,
+    0.612
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_2",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3",
+   "type": "group",
+   "position": [
+    -18.8,
+    40.0,
+    6.8
+   ],
+   "rotation": [
+    0.0,
+    109.89,
+    0.0
+   ],
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_3",
+   "size": [
+    1.8,
+    4.5,
+    1.8
+   ],
+   "material": "wall",
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3_Cap",
+   "type": "box",
+   "position": [
+    0.0,
+    4.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_3",
+   "size": [
+    2.8,
+    1.2,
+    2.8
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3_Top",
+   "type": "box",
+   "position": [
+    0.0,
+    5.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_3",
+   "size": [
+    0.99,
+    0.54,
+    0.99
+   ],
+   "material": "wall",
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3_Rib_01",
+   "type": "box",
+   "position": [
+    -0.9,
+    0.0,
+    -0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_3",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3_Rib_02",
+   "type": "box",
+   "position": [
+    0.9,
+    0.0,
+    -0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_3",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3_Rib_03",
+   "type": "box",
+   "position": [
+    0.9,
+    0.0,
+    0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_3",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3_Rib_04",
+   "type": "box",
+   "position": [
+    -0.9,
+    0.0,
+    0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_3",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3_Glow_01L",
+   "type": "panel",
+   "position": [
+    -0.612,
+    0.36,
+    0.93
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_3",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3_Glow_01R",
+   "type": "panel",
+   "position": [
+    0.612,
+    0.36,
+    0.93
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_3",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3_Glow_02L",
+   "type": "panel",
+   "position": [
+    0.93,
+    0.36,
+    0.612
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_3",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3_Glow_02R",
+   "type": "panel",
+   "position": [
+    0.93,
+    0.36,
+    -0.612
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_3",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3_Glow_03L",
+   "type": "panel",
+   "position": [
+    0.612,
+    0.36,
+    -0.93
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_3",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3_Glow_03R",
+   "type": "panel",
+   "position": [
+    -0.612,
+    0.36,
+    -0.93
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_3",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3_Glow_04L",
+   "type": "panel",
+   "position": [
+    -0.93,
+    0.36,
+    -0.612
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_3",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_3_Glow_04R",
+   "type": "panel",
+   "position": [
+    -0.93,
+    0.36,
+    0.612
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_3",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4",
+   "type": "group",
+   "position": [
+    -6.2,
+    40.0,
+    19.0
+   ],
+   "rotation": [
+    0.0,
+    161.93,
+    0.0
+   ],
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_4",
+   "size": [
+    1.8,
+    4.5,
+    1.8
+   ],
+   "material": "wall",
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4_Cap",
+   "type": "box",
+   "position": [
+    0.0,
+    4.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_4",
+   "size": [
+    2.8,
+    1.2,
+    2.8
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4_Top",
+   "type": "box",
+   "position": [
+    0.0,
+    5.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_4",
+   "size": [
+    0.99,
+    0.54,
+    0.99
+   ],
+   "material": "wall",
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4_Rib_01",
+   "type": "box",
+   "position": [
+    -0.9,
+    0.0,
+    -0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_4",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4_Rib_02",
+   "type": "box",
+   "position": [
+    0.9,
+    0.0,
+    -0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_4",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4_Rib_03",
+   "type": "box",
+   "position": [
+    0.9,
+    0.0,
+    0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_4",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4_Rib_04",
+   "type": "box",
+   "position": [
+    -0.9,
+    0.0,
+    0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_4",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4_Glow_01L",
+   "type": "panel",
+   "position": [
+    -0.612,
+    0.36,
+    0.93
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_4",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4_Glow_01R",
+   "type": "panel",
+   "position": [
+    0.612,
+    0.36,
+    0.93
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_4",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4_Glow_02L",
+   "type": "panel",
+   "position": [
+    0.93,
+    0.36,
+    0.612
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_4",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4_Glow_02R",
+   "type": "panel",
+   "position": [
+    0.93,
+    0.36,
+    -0.612
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_4",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4_Glow_03L",
+   "type": "panel",
+   "position": [
+    0.612,
+    0.36,
+    -0.93
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_4",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4_Glow_03R",
+   "type": "panel",
+   "position": [
+    -0.612,
+    0.36,
+    -0.93
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_4",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4_Glow_04L",
+   "type": "panel",
+   "position": [
+    -0.93,
+    0.36,
+    -0.612
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_4",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_4_Glow_04R",
+   "type": "panel",
+   "position": [
+    -0.93,
+    0.36,
+    0.612
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_4",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5",
+   "type": "group",
+   "position": [
+    9.1,
+    40.0,
+    17.8
+   ],
+   "rotation": [
+    0.0,
+    -152.92,
+    0.0
+   ],
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    1.8,
+    4.5,
+    1.8
+   ],
+   "material": "wall_v2",
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Cap",
+   "type": "box",
+   "position": [
+    0.0,
+    4.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    2.8,
+    1.2,
+    2.8
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Top",
+   "type": "box",
+   "position": [
+    0.0,
+    5.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    0.99,
+    0.54,
+    0.99
+   ],
+   "material": "wall_v2",
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Rib_01",
+   "type": "box",
+   "position": [
+    -0.9,
+    0.0,
+    -0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Rib_02",
+   "type": "box",
+   "position": [
+    0.9,
+    0.0,
+    -0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Rib_03",
+   "type": "box",
+   "position": [
+    0.9,
+    0.0,
+    0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Rib_04",
+   "type": "box",
+   "position": [
+    -0.9,
+    0.0,
+    0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Glow_01L",
+   "type": "panel",
+   "position": [
+    -0.612,
+    0.36,
+    0.93
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Glow_01R",
+   "type": "panel",
+   "position": [
+    0.612,
+    0.36,
+    0.93
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Glow_02L",
+   "type": "panel",
+   "position": [
+    0.93,
+    0.36,
+    0.612
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Glow_02R",
+   "type": "panel",
+   "position": [
+    0.93,
+    0.36,
+    -0.612
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Glow_03L",
+   "type": "panel",
+   "position": [
+    0.612,
+    0.36,
+    -0.93
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Glow_03R",
+   "type": "panel",
+   "position": [
+    -0.612,
+    0.36,
+    -0.93
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Glow_04L",
+   "type": "panel",
+   "position": [
+    -0.93,
+    0.36,
+    -0.612
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Glow_04R",
+   "type": "panel",
+   "position": [
+    -0.93,
+    0.36,
+    0.612
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6",
+   "type": "group",
+   "position": [
+    19.2,
+    40.0,
+    5.5
+   ],
+   "rotation": [
+    0.0,
+    -105.98,
+    0.0
+   ],
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_6",
+   "size": [
+    1.8,
+    4.5,
+    1.8
+   ],
+   "material": "wall",
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6_Cap",
+   "type": "box",
+   "position": [
+    0.0,
+    4.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_6",
+   "size": [
+    2.8,
+    1.2,
+    2.8
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6_Top",
+   "type": "box",
+   "position": [
+    0.0,
+    5.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_6",
+   "size": [
+    0.99,
+    0.54,
+    0.99
+   ],
+   "material": "wall",
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6_Rib_01",
+   "type": "box",
+   "position": [
+    -0.9,
+    0.0,
+    -0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_6",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6_Rib_02",
+   "type": "box",
+   "position": [
+    0.9,
+    0.0,
+    -0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_6",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6_Rib_03",
+   "type": "box",
+   "position": [
+    0.9,
+    0.0,
+    0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_6",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6_Rib_04",
+   "type": "box",
+   "position": [
+    -0.9,
+    0.0,
+    0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_6",
+   "size": [
+    0.7,
+    4.5,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6_Glow_01L",
+   "type": "panel",
+   "position": [
+    -0.612,
+    0.36,
+    0.93
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_6",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6_Glow_01R",
+   "type": "panel",
+   "position": [
+    0.612,
+    0.36,
+    0.93
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_6",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6_Glow_02L",
+   "type": "panel",
+   "position": [
+    0.93,
+    0.36,
+    0.612
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_6",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6_Glow_02R",
+   "type": "panel",
+   "position": [
+    0.93,
+    0.36,
+    -0.612
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_6",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6_Glow_03L",
+   "type": "panel",
+   "position": [
+    0.612,
+    0.36,
+    -0.93
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_6",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6_Glow_03R",
+   "type": "panel",
+   "position": [
+    -0.612,
+    0.36,
+    -0.93
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_6",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6_Glow_04L",
+   "type": "panel",
+   "position": [
+    -0.93,
+    0.36,
+    -0.612
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_6",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_6_Glow_04R",
+   "type": "panel",
+   "position": [
+    -0.93,
+    0.36,
+    0.612
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_6",
+   "size": [
+    0.5,
+    3.51,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Hub_Pylon_6",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_1",
+   "type": "group",
+   "position": [
+    9.0,
+    40.0,
+    -7.0
+   ],
+   "rotation": [
+    0.0,
+    -52.13,
+    0.0
+   ],
+   "gen": "Hub_Crates_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_1_01",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Crates_1",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Crates_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_1_02",
+   "type": "box",
+   "position": [
+    1.7,
+    0.0,
+    0.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Crates_1",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Crates_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_1_03",
+   "type": "box",
+   "position": [
+    0.8,
+    1.2,
+    0.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Crates_1",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Crates_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_2",
+   "type": "group",
+   "position": [
+    -10.0,
+    40.0,
+    3.0
+   ],
+   "rotation": [
+    0.0,
+    106.7,
+    0.0
+   ],
+   "gen": "Hub_Crates_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_2_01",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Crates_2",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Crates_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_2_02",
+   "type": "box",
+   "position": [
+    1.7,
+    0.0,
+    0.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Crates_2",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Crates_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_2_03",
+   "type": "box",
+   "position": [
+    0.8,
+    1.2,
+    0.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Crates_2",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Crates_2",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_3",
+   "type": "group",
+   "position": [
+    2.0,
+    40.0,
+    11.0
+   ],
+   "rotation": [
+    0.0,
+    -169.7,
+    0.0
+   ],
+   "gen": "Hub_Crates_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_3_01",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Crates_3",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Crates_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_3_02",
+   "type": "box",
+   "position": [
+    1.7,
+    0.0,
+    0.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Crates_3",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Crates_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_3_03",
+   "type": "box",
+   "position": [
+    0.8,
+    1.2,
+    0.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Crates_3",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Crates_3",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_4",
+   "type": "group",
+   "position": [
+    -4.0,
+    40.0,
+    -11.0
+   ],
+   "rotation": [
+    0.0,
+    19.98,
+    0.0
+   ],
+   "gen": "Hub_Crates_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_4_01",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Crates_4",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Crates_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_4_02",
+   "type": "box",
+   "position": [
+    1.7,
+    0.0,
+    0.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Crates_4",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Crates_4",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Crates_4_03",
+   "type": "box",
+   "position": [
+    0.8,
+    1.2,
+    0.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Crates_4",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "structure_b",
+   "gen": "Hub_Crates_4",
+   "source": "visible"
+  },
+  {
+   "name": "North_Hall_Block",
+   "type": "group",
+   "position": [
+    2.5,
+    40.0,
+    -43.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "North_Hall_Block",
+   "source": "visible"
+  },
+  {
+   "name": "North_Hall_Block_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Hall_Block",
+   "size": [
+    12.0,
+    8.0,
+    9.0
+   ],
+   "material": "wall",
+   "gen": "North_Hall_Block",
+   "source": "visible"
+  },
+  {
+   "name": "North_Hall_Block_Parapet",
+   "type": "box",
+   "position": [
+    0.0,
+    8.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Hall_Block",
+   "size": [
+    12.4,
+    0.6,
+    9.4
+   ],
+   "material": "trim",
+   "gen": "North_Hall_Block",
+   "source": "visible"
+  },
+  {
+   "name": "North_Hall_Block_RoofUnit",
+   "type": "machinery",
+   "position": [
+    -2.4,
+    8.6,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Hall_Block",
+   "size": [
+    4.0,
+    2.2,
+    3.0
+   ],
+   "material": "machine",
+   "seed": 27,
+   "gen": "North_Hall_Block",
+   "source": "visible"
+  },
+  {
+   "name": "North_Hall_Block_Windows",
+   "type": "panel",
+   "position": [
+    0.0,
+    4.96,
+    4.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Hall_Block",
+   "size": [
+    9.6,
+    1.2,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Hall_Block",
+   "source": "visible"
+  },
+  {
+   "name": "North_Hall_Block_Door",
+   "type": "panel",
+   "position": [
+    0.0,
+    0.0,
+    4.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Hall_Block",
+   "size": [
+    3.6,
+    3.2,
+    0.0
+   ],
+   "material": "structure_b",
+   "gen": "North_Hall_Block",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W",
+   "type": "group",
+   "position": [
+    -4.5,
+    40.0,
+    -30.0
+   ],
+   "rotation": [
+    0.0,
+    8.53,
+    0.0
+   ],
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    3.5,
+    16.0,
+    3.5
+   ],
+   "material": "wall",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Cap",
+   "type": "box",
+   "position": [
+    0.0,
+    16.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    4.5,
+    1.2,
+    4.5
+   ],
+   "material": "structure_b",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Top",
+   "type": "box",
+   "position": [
+    0.0,
+    17.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    1.925,
+    1.92,
+    1.925
+   ],
+   "material": "wall",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Rib_01",
+   "type": "box",
+   "position": [
+    -1.75,
+    0.0,
+    -1.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    0.7,
+    16.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Rib_02",
+   "type": "box",
+   "position": [
+    1.75,
+    0.0,
+    -1.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    0.7,
+    16.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Rib_03",
+   "type": "box",
+   "position": [
+    1.75,
+    0.0,
+    1.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    0.7,
+    16.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Rib_04",
+   "type": "box",
+   "position": [
+    -1.75,
+    0.0,
+    1.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    0.7,
+    16.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Banner_01",
+   "type": "panel",
+   "position": [
+    0.0,
+    4.8,
+    1.78
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    1.4,
+    8.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Glow_01L",
+   "type": "panel",
+   "position": [
+    -1.19,
+    1.28,
+    1.78
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Glow_01R",
+   "type": "panel",
+   "position": [
+    1.19,
+    1.28,
+    1.78
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Banner_02",
+   "type": "panel",
+   "position": [
+    1.78,
+    4.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    1.4,
+    8.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Glow_02L",
+   "type": "panel",
+   "position": [
+    1.78,
+    1.28,
+    1.19
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Glow_02R",
+   "type": "panel",
+   "position": [
+    1.78,
+    1.28,
+    -1.19
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Banner_03",
+   "type": "panel",
+   "position": [
+    0.0,
+    4.8,
+    -1.78
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    1.4,
+    8.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Glow_03L",
+   "type": "panel",
+   "position": [
+    1.19,
+    1.28,
+    -1.78
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Glow_03R",
+   "type": "panel",
+   "position": [
+    -1.19,
+    1.28,
+    -1.78
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Banner_04",
+   "type": "panel",
+   "position": [
+    -1.78,
+    4.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    1.4,
+    8.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Glow_04L",
+   "type": "panel",
+   "position": [
+    -1.78,
+    1.28,
+    -1.19
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_W_Glow_04R",
+   "type": "panel",
+   "position": [
+    -1.78,
+    1.28,
+    1.19
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "North_Tower_W",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_W",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E",
+   "type": "group",
+   "position": [
+    9.5,
+    40.0,
+    -30.0
+   ],
+   "rotation": [
+    0.0,
+    -17.57,
+    0.0
+   ],
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    3.5,
+    16.0,
+    3.5
+   ],
+   "material": "wall_v2",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Cap",
+   "type": "box",
+   "position": [
+    0.0,
+    16.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    4.5,
+    1.2,
+    4.5
+   ],
+   "material": "structure_b",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Top",
+   "type": "box",
+   "position": [
+    0.0,
+    17.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    1.925,
+    1.92,
+    1.925
+   ],
+   "material": "wall_v2",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Rib_01",
+   "type": "box",
+   "position": [
+    -1.75,
+    0.0,
+    -1.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.7,
+    16.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Rib_02",
+   "type": "box",
+   "position": [
+    1.75,
+    0.0,
+    -1.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.7,
+    16.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Rib_03",
+   "type": "box",
+   "position": [
+    1.75,
+    0.0,
+    1.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.7,
+    16.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Rib_04",
+   "type": "box",
+   "position": [
+    -1.75,
+    0.0,
+    1.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.7,
+    16.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Banner_01",
+   "type": "panel",
+   "position": [
+    0.0,
+    4.8,
+    1.78
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    1.4,
+    8.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Glow_01L",
+   "type": "panel",
+   "position": [
+    -1.19,
+    1.28,
+    1.78
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Glow_01R",
+   "type": "panel",
+   "position": [
+    1.19,
+    1.28,
+    1.78
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Banner_02",
+   "type": "panel",
+   "position": [
+    1.78,
+    4.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    1.4,
+    8.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Glow_02L",
+   "type": "panel",
+   "position": [
+    1.78,
+    1.28,
+    1.19
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Glow_02R",
+   "type": "panel",
+   "position": [
+    1.78,
+    1.28,
+    -1.19
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Banner_03",
+   "type": "panel",
+   "position": [
+    0.0,
+    4.8,
+    -1.78
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    1.4,
+    8.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Glow_03L",
+   "type": "panel",
+   "position": [
+    1.19,
+    1.28,
+    -1.78
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Glow_03R",
+   "type": "panel",
+   "position": [
+    -1.19,
+    1.28,
+    -1.78
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Banner_04",
+   "type": "panel",
+   "position": [
+    -1.78,
+    4.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    1.4,
+    8.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Glow_04L",
+   "type": "panel",
+   "position": [
+    -1.78,
+    1.28,
+    -1.19
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Glow_04R",
+   "type": "panel",
+   "position": [
+    -1.78,
+    1.28,
+    1.19
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower",
+   "type": "group",
+   "position": [
+    -46.0,
+    37.0,
+    -36.0
+   ],
+   "rotation": [
+    0.0,
+    51.95,
+    0.0
+   ],
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    5.0,
+    22.0,
+    5.0
+   ],
+   "material": "wall",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Cap",
+   "type": "box",
+   "position": [
+    0.0,
+    22.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    6.0,
+    1.2,
+    6.0
+   ],
+   "material": "structure_b",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Top",
+   "type": "box",
+   "position": [
+    0.0,
+    23.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    2.75,
+    2.64,
+    2.75
+   ],
+   "material": "wall",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Rib_01",
+   "type": "box",
+   "position": [
+    -2.5,
+    0.0,
+    -2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    0.7,
+    22.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Rib_02",
+   "type": "box",
+   "position": [
+    2.5,
+    0.0,
+    -2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    0.7,
+    22.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Rib_03",
+   "type": "box",
+   "position": [
+    2.5,
+    0.0,
+    2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    0.7,
+    22.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Rib_04",
+   "type": "box",
+   "position": [
+    -2.5,
+    0.0,
+    2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    0.7,
+    22.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Banner_01",
+   "type": "panel",
+   "position": [
+    0.0,
+    6.6,
+    2.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    2.0,
+    11.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Glow_01L",
+   "type": "panel",
+   "position": [
+    -1.7,
+    1.76,
+    2.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    0.5,
+    17.16,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Glow_01R",
+   "type": "panel",
+   "position": [
+    1.7,
+    1.76,
+    2.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    0.5,
+    17.16,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Banner_02",
+   "type": "panel",
+   "position": [
+    2.53,
+    6.6,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    2.0,
+    11.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Glow_02L",
+   "type": "panel",
+   "position": [
+    2.53,
+    1.76,
+    1.7
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    0.5,
+    17.16,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Glow_02R",
+   "type": "panel",
+   "position": [
+    2.53,
+    1.76,
+    -1.7
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    0.5,
+    17.16,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Banner_03",
+   "type": "panel",
+   "position": [
+    0.0,
+    6.6,
+    -2.53
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    2.0,
+    11.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Glow_03L",
+   "type": "panel",
+   "position": [
+    1.7,
+    1.76,
+    -2.53
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    0.5,
+    17.16,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Glow_03R",
+   "type": "panel",
+   "position": [
+    -1.7,
+    1.76,
+    -2.53
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    0.5,
+    17.16,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Banner_04",
+   "type": "panel",
+   "position": [
+    -2.53,
+    6.6,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    2.0,
+    11.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Glow_04L",
+   "type": "panel",
+   "position": [
+    -2.53,
+    1.76,
+    -1.7
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    0.5,
+    17.16,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Glow_04R",
+   "type": "panel",
+   "position": [
+    -2.53,
+    1.76,
+    1.7
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    0.5,
+    17.16,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "West_Hall",
+   "type": "group",
+   "position": [
+    -39.0,
+    40.0,
+    -5.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "gen": "West_Hall",
+   "source": "visible"
+  },
+  {
+   "name": "West_Hall_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_Hall",
+   "size": [
+    8.0,
+    6.0,
+    9.0
+   ],
+   "material": "wall_v2",
+   "gen": "West_Hall",
+   "source": "visible"
+  },
+  {
+   "name": "West_Hall_Parapet",
+   "type": "box",
+   "position": [
+    0.0,
+    6.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_Hall",
+   "size": [
+    8.4,
+    0.6,
+    9.4
+   ],
+   "material": "trim",
+   "gen": "West_Hall",
+   "source": "visible"
+  },
+  {
+   "name": "West_Hall_RoofUnit",
+   "type": "machinery",
+   "position": [
+    -1.6,
+    6.6,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_Hall",
+   "size": [
+    3.2,
+    2.2,
+    3.0
+   ],
+   "material": "machine",
+   "seed": 0,
+   "gen": "West_Hall",
+   "source": "visible"
+  },
+  {
+   "name": "West_Hall_Windows",
+   "type": "panel",
+   "position": [
+    0.0,
+    3.72,
+    4.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_Hall",
+   "size": [
+    6.4,
+    0.9,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "West_Hall",
+   "source": "visible"
+  },
+  {
+   "name": "West_Hall_Door",
+   "type": "panel",
+   "position": [
+    0.0,
+    0.0,
+    4.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_Hall",
+   "size": [
+    2.4,
+    2.4,
+    0.0
+   ],
+   "material": "structure_b",
+   "gen": "West_Hall",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower",
+   "type": "group",
+   "position": [
+    -37.0,
+    37.0,
+    42.0
+   ],
+   "rotation": [
+    0.0,
+    138.62,
+    0.0
+   ],
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    5.0,
+    16.0,
+    5.0
+   ],
+   "material": "wall_v2",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Cap",
+   "type": "box",
+   "position": [
+    0.0,
+    16.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    6.0,
+    1.2,
+    6.0
+   ],
+   "material": "structure_b",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Top",
+   "type": "box",
+   "position": [
+    0.0,
+    17.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    2.75,
+    1.92,
+    2.75
+   ],
+   "material": "wall_v2",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Rib_01",
+   "type": "box",
+   "position": [
+    -2.5,
+    0.0,
+    -2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    0.7,
+    16.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Rib_02",
+   "type": "box",
+   "position": [
+    2.5,
+    0.0,
+    -2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    0.7,
+    16.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Rib_03",
+   "type": "box",
+   "position": [
+    2.5,
+    0.0,
+    2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    0.7,
+    16.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Rib_04",
+   "type": "box",
+   "position": [
+    -2.5,
+    0.0,
+    2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    0.7,
+    16.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Banner_01",
+   "type": "panel",
+   "position": [
+    0.0,
+    4.8,
+    2.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    2.0,
+    8.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Glow_01L",
+   "type": "panel",
+   "position": [
+    -1.7,
+    1.28,
+    2.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Glow_01R",
+   "type": "panel",
+   "position": [
+    1.7,
+    1.28,
+    2.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Banner_02",
+   "type": "panel",
+   "position": [
+    2.53,
+    4.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    2.0,
+    8.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Glow_02L",
+   "type": "panel",
+   "position": [
+    2.53,
+    1.28,
+    1.7
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Glow_02R",
+   "type": "panel",
+   "position": [
+    2.53,
+    1.28,
+    -1.7
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Banner_03",
+   "type": "panel",
+   "position": [
+    0.0,
+    4.8,
+    -2.53
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    2.0,
+    8.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Glow_03L",
+   "type": "panel",
+   "position": [
+    1.7,
+    1.28,
+    -2.53
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Glow_03R",
+   "type": "panel",
+   "position": [
+    -1.7,
+    1.28,
+    -2.53
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Banner_04",
+   "type": "panel",
+   "position": [
+    -2.53,
+    4.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    2.0,
+    8.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Glow_04L",
+   "type": "panel",
+   "position": [
+    -2.53,
+    1.28,
+    -1.7
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Glow_04R",
+   "type": "panel",
+   "position": [
+    -2.53,
+    1.28,
+    1.7
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    0.5,
+    12.48,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower",
+   "type": "group",
+   "position": [
+    43.0,
+    37.0,
+    39.0
+   ],
+   "rotation": [
+    0.0,
+    -132.21,
+    0.0
+   ],
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    5.0,
+    20.0,
+    5.0
+   ],
+   "material": "wall_v2",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Cap",
+   "type": "box",
+   "position": [
+    0.0,
+    20.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    6.0,
+    1.2,
+    6.0
+   ],
+   "material": "structure_b",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Top",
+   "type": "box",
+   "position": [
+    0.0,
+    21.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    2.75,
+    2.4,
+    2.75
+   ],
+   "material": "wall_v2",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Rib_01",
+   "type": "box",
+   "position": [
+    -2.5,
+    0.0,
+    -2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    0.7,
+    20.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Rib_02",
+   "type": "box",
+   "position": [
+    2.5,
+    0.0,
+    -2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    0.7,
+    20.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Rib_03",
+   "type": "box",
+   "position": [
+    2.5,
+    0.0,
+    2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    0.7,
+    20.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Rib_04",
+   "type": "box",
+   "position": [
+    -2.5,
+    0.0,
+    2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    0.7,
+    20.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Banner_01",
+   "type": "panel",
+   "position": [
+    0.0,
+    6.0,
+    2.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    2.0,
+    10.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Glow_01L",
+   "type": "panel",
+   "position": [
+    -1.7,
+    1.6,
+    2.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    0.5,
+    15.6,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Glow_01R",
+   "type": "panel",
+   "position": [
+    1.7,
+    1.6,
+    2.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    0.5,
+    15.6,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Banner_02",
+   "type": "panel",
+   "position": [
+    2.53,
+    6.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    2.0,
+    10.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Glow_02L",
+   "type": "panel",
+   "position": [
+    2.53,
+    1.6,
+    1.7
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    0.5,
+    15.6,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Glow_02R",
+   "type": "panel",
+   "position": [
+    2.53,
+    1.6,
+    -1.7
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    0.5,
+    15.6,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Banner_03",
+   "type": "panel",
+   "position": [
+    0.0,
+    6.0,
+    -2.53
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    2.0,
+    10.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Glow_03L",
+   "type": "panel",
+   "position": [
+    1.7,
+    1.6,
+    -2.53
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    0.5,
+    15.6,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Glow_03R",
+   "type": "panel",
+   "position": [
+    -1.7,
+    1.6,
+    -2.53
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    0.5,
+    15.6,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Banner_04",
+   "type": "panel",
+   "position": [
+    -2.53,
+    6.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    2.0,
+    10.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Glow_04L",
+   "type": "panel",
+   "position": [
+    -2.53,
+    1.6,
+    -1.7
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    0.5,
+    15.6,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Tower_Glow_04R",
+   "type": "panel",
+   "position": [
+    -2.53,
+    1.6,
+    1.7
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "SE_Tower",
+   "size": [
+    0.5,
+    15.6,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "SE_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower",
+   "type": "group",
+   "position": [
+    49.0,
+    40.0,
+    -9.0
+   ],
+   "rotation": [
+    0.0,
+    -79.59,
+    0.0
+   ],
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    6.0,
+    26.0,
+    6.0
+   ],
+   "material": "wall_v2",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Cap",
+   "type": "box",
+   "position": [
+    0.0,
+    26.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    7.0,
+    1.2,
+    7.0
+   ],
+   "material": "structure_b",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Top",
+   "type": "box",
+   "position": [
+    0.0,
+    27.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    3.3,
+    3.12,
+    3.3
+   ],
+   "material": "wall_v2",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Rib_01",
+   "type": "box",
+   "position": [
+    -3.0,
+    0.0,
+    -3.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    0.7,
+    26.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Rib_02",
+   "type": "box",
+   "position": [
+    3.0,
+    0.0,
+    -3.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    0.7,
+    26.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Rib_03",
+   "type": "box",
+   "position": [
+    3.0,
+    0.0,
+    3.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    0.7,
+    26.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Rib_04",
+   "type": "box",
+   "position": [
+    -3.0,
+    0.0,
+    3.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    0.7,
+    26.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Banner_01",
+   "type": "panel",
+   "position": [
+    0.0,
+    7.8,
+    3.03
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    2.4,
+    13.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Glow_01L",
+   "type": "panel",
+   "position": [
+    -2.04,
+    2.08,
+    3.03
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    0.5,
+    20.28,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Glow_01R",
+   "type": "panel",
+   "position": [
+    2.04,
+    2.08,
+    3.03
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    0.5,
+    20.28,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Banner_02",
+   "type": "panel",
+   "position": [
+    3.03,
+    7.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    2.4,
+    13.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Glow_02L",
+   "type": "panel",
+   "position": [
+    3.03,
+    2.08,
+    2.04
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    0.5,
+    20.28,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Glow_02R",
+   "type": "panel",
+   "position": [
+    3.03,
+    2.08,
+    -2.04
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    0.5,
+    20.28,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Banner_03",
+   "type": "panel",
+   "position": [
+    0.0,
+    7.8,
+    -3.03
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    2.4,
+    13.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Glow_03L",
+   "type": "panel",
+   "position": [
+    2.04,
+    2.08,
+    -3.03
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    0.5,
+    20.28,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Glow_03R",
+   "type": "panel",
+   "position": [
+    -2.04,
+    2.08,
+    -3.03
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    0.5,
+    20.28,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Banner_04",
+   "type": "panel",
+   "position": [
+    -3.03,
+    7.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    2.4,
+    13.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Glow_04L",
+   "type": "panel",
+   "position": [
+    -3.03,
+    2.08,
+    -2.04
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    0.5,
+    20.28,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Glow_04R",
+   "type": "panel",
+   "position": [
+    -3.03,
+    2.08,
+    2.04
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    0.5,
+    20.28,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire",
+   "type": "group",
+   "position": [
+    3.0,
+    40.0,
+    61.0
+   ],
+   "rotation": [
+    0.0,
+    -177.18,
+    0.0
+   ],
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    5.0,
+    14.0,
+    5.0
+   ],
+   "material": "wall",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Cap",
+   "type": "box",
+   "position": [
+    0.0,
+    14.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    6.0,
+    1.2,
+    6.0
+   ],
+   "material": "structure_b",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Top",
+   "type": "box",
+   "position": [
+    0.0,
+    15.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    2.75,
+    1.68,
+    2.75
+   ],
+   "material": "wall",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Rib_01",
+   "type": "box",
+   "position": [
+    -2.5,
+    0.0,
+    -2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    0.7,
+    14.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Rib_02",
+   "type": "box",
+   "position": [
+    2.5,
+    0.0,
+    -2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    0.7,
+    14.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Rib_03",
+   "type": "box",
+   "position": [
+    2.5,
+    0.0,
+    2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    0.7,
+    14.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Rib_04",
+   "type": "box",
+   "position": [
+    -2.5,
+    0.0,
+    2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    0.7,
+    14.0,
+    0.7
+   ],
+   "material": "structure_b",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Banner_01",
+   "type": "panel",
+   "position": [
+    0.0,
+    4.2,
+    2.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    2.0,
+    7.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Glow_01L",
+   "type": "panel",
+   "position": [
+    -1.7,
+    1.12,
+    2.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    0.5,
+    10.92,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Glow_01R",
+   "type": "panel",
+   "position": [
+    1.7,
+    1.12,
+    2.53
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    0.5,
+    10.92,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Banner_02",
+   "type": "panel",
+   "position": [
+    2.53,
+    4.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    2.0,
+    7.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Glow_02L",
+   "type": "panel",
+   "position": [
+    2.53,
+    1.12,
+    1.7
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    0.5,
+    10.92,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Glow_02R",
+   "type": "panel",
+   "position": [
+    2.53,
+    1.12,
+    -1.7
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    0.5,
+    10.92,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Banner_03",
+   "type": "panel",
+   "position": [
+    0.0,
+    4.2,
+    -2.53
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    2.0,
+    7.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Glow_03L",
+   "type": "panel",
+   "position": [
+    1.7,
+    1.12,
+    -2.53
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    0.5,
+    10.92,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Glow_03R",
+   "type": "panel",
+   "position": [
+    -1.7,
+    1.12,
+    -2.53
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    0.5,
+    10.92,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Banner_04",
+   "type": "panel",
+   "position": [
+    -2.53,
+    4.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    2.0,
+    7.0,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Glow_04L",
+   "type": "panel",
+   "position": [
+    -2.53,
+    1.12,
+    -1.7
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    0.5,
+    10.92,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Glow_04R",
+   "type": "panel",
+   "position": [
+    -2.53,
+    1.12,
+    1.7
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    0.5,
+    10.92,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "Falls_West_A",
+   "type": "stream",
+   "position": [
+    -105.239,
+    47.811,
+    -28.188
+   ],
+   "rotation": [
+    0.0,
+    75.0,
+    0.0
+   ],
+   "size": [
+    14.0,
+    48.61,
+    0.35
+   ],
+   "material": "water",
+   "section": "sheet",
+   "speed": 1.6,
+   "pitch": -10,
+   "inset": 0.6,
+   "gen": "Falls_West_A",
+   "source": "visible"
+  },
+  {
+   "name": "Falls_West_B",
+   "type": "stream",
+   "position": [
+    -118.996,
+    47.797,
+    -12.087
+   ],
+   "rotation": [
+    0.0,
+    85.0,
+    0.0
+   ],
+   "size": [
+    9.0,
+    48.6,
+    0.35
+   ],
+   "material": "water",
+   "section": "sheet",
+   "speed": 1.6,
+   "pitch": -10,
+   "inset": 0.6,
+   "gen": "Falls_West_B",
+   "source": "visible"
+  },
+  {
+   "name": "Falls_NW",
+   "type": "stream",
+   "position": [
+    -88.153,
+    43.951,
+    -121.636
+   ],
+   "rotation": [
+    0.0,
+    38.0,
+    0.0
+   ],
+   "size": [
+    12.0,
+    44.75,
+    0.35
+   ],
+   "material": "water",
+   "section": "sheet",
+   "speed": 1.6,
+   "pitch": -10,
+   "inset": 0.6,
+   "gen": "Falls_NW",
+   "source": "visible"
+  },
+  {
+   "name": "Falls_Island_W",
+   "type": "stream",
+   "position": [
+    -51.97,
+    21.999,
+    12.347
+   ],
+   "rotation": [
+    0.0,
+    100.0,
+    0.0
+   ],
+   "size": [
+    5.0,
+    22.8,
+    0.35
+   ],
+   "material": "water",
+   "section": "sheet",
+   "speed": 1.6,
+   "pitch": -10,
+   "inset": 0.6,
+   "gen": "Falls_Island_W",
+   "source": "inferred"
+  },
+  {
+   "name": "North_Hall_Cover_01",
+   "type": "box",
+   "position": [
+    5.49,
+    40.0,
+    2.78
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Hall",
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "material": "structure_b",
+   "gen": "North_Hall",
+   "source": "visible"
+  },
+  {
+   "name": "North_Hall_Cover_02",
+   "type": "box",
+   "position": [
+    -2.27,
+    40.0,
+    6.71
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Hall",
+   "size": [
+    2.0,
+    1.2,
+    1.2
+   ],
+   "material": "structure_b",
+   "gen": "North_Hall",
+   "source": "visible"
+  },
+  {
+   "name": "North_Turret_Cover_01",
+   "type": "box",
+   "position": [
+    2.5,
+    43.0,
+    2.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Turret",
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "material": "structure_b",
+   "gen": "North_Turret",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Bastion_Cover_01",
+   "type": "box",
+   "position": [
+    6.0,
+    37.0,
+    4.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Bastion",
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "material": "structure_b",
+   "gen": "NW_Bastion",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Bastion_Cover_02",
+   "type": "box",
+   "position": [
+    6.0,
+    37.0,
+    -4.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "NW_Bastion",
+   "size": [
+    2.0,
+    1.2,
+    1.2
+   ],
+   "material": "structure_b",
+   "gen": "NW_Bastion",
+   "source": "visible"
+  },
+  {
+   "name": "West_Post_Cover_01",
+   "type": "box",
+   "position": [
+    4.0,
+    40.0,
+    3.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_Post",
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "material": "structure_b",
+   "gen": "West_Post",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Octagon_Cover_01",
+   "type": "box",
+   "position": [
+    -6.75,
+    37.0,
+    -6.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SW_Octagon",
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "material": "structure_b",
+   "gen": "SW_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Octagon_Cover_02",
+   "type": "box",
+   "position": [
+    6.75,
+    37.0,
+    6.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SW_Octagon",
+   "size": [
+    2.0,
+    1.2,
+    1.2
+   ],
+   "material": "structure_b",
+   "gen": "SW_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Octagon_Cover_03",
+   "type": "box",
+   "position": [
+    0.0,
+    37.0,
+    -9.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SW_Octagon",
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "material": "structure_b",
+   "gen": "SW_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "South_Tower_Cover_01",
+   "type": "box",
+   "position": [
+    -4.75,
+    40.0,
+    -4.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Tower",
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "material": "structure_b",
+   "gen": "South_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "South_Tower_Cover_02",
+   "type": "box",
+   "position": [
+    4.75,
+    40.0,
+    4.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "South_Tower",
+   "size": [
+    2.0,
+    1.2,
+    1.2
+   ],
+   "material": "structure_b",
+   "gen": "South_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Octagon_Cover_01",
+   "type": "box",
+   "position": [
+    6.5,
+    37.0,
+    -6.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SE_Octagon",
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "material": "structure_b",
+   "gen": "SE_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Octagon_Cover_02",
+   "type": "box",
+   "position": [
+    -6.5,
+    37.0,
+    6.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SE_Octagon",
+   "size": [
+    2.0,
+    1.2,
+    1.2
+   ],
+   "material": "structure_b",
+   "gen": "SE_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "SE_Octagon_Cover_03",
+   "type": "box",
+   "position": [
+    0.0,
+    37.0,
+    -8.67
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SE_Octagon",
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "material": "structure_b",
+   "gen": "SE_Octagon",
+   "source": "visible"
+  },
+  {
+   "name": "East_Deck_Cover_01",
+   "type": "box",
+   "position": [
+    -5.5,
+    40.0,
+    -4.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Deck",
+   "size": [
+    1.6,
+    1.2,
+    1.6
+   ],
+   "material": "structure_b",
+   "gen": "East_Deck",
+   "source": "visible"
+  },
+  {
+   "name": "East_Deck_Cover_02",
+   "type": "box",
+   "position": [
+    5.5,
+    40.0,
+    4.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_Deck",
+   "size": [
+    2.0,
+    1.2,
+    1.2
+   ],
+   "material": "structure_b",
+   "gen": "East_Deck",
+   "source": "visible"
+  }
+ ],
+ "mobile": {
+  "profile": "balanced"
+ },
+ "validation": {
+  "ignore_objects": []
+ },
+ "generator_notes": [
+  "Steps_Turret: stairs run 4.3 m > gap 2.6 m - extends 1.6 m onto North_Hall",
+  "Ramp_Hub_NW: 2.55 m junction plate where it meets NW_Bastion's corner",
+  "Link_North_NW: 0.35 m junction plate where it meets North_Hall's angled edge",
+  "Link_North_NW: 0.40 m junction plate where it meets NW_Bastion's angled edge",
+  "party walls: 5 hidden side decorations removed between touching buildings"
+ ],
+ "relations": [
+  {
+   "type": "walkable_connection",
+   "a": "Bridge_Hub_North_Deck",
+   "b": "Hub_Floor",
+   "a_anchor": "end_a"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Bridge_Hub_North_Deck",
+   "b": "North_Hall_Floor",
+   "a_anchor": "end_b"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Steps_Turret",
+   "b": "North_Turret_Floor",
+   "a_anchor": "high"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Steps_Turret",
+   "b": "North_Hall_Floor",
+   "a_anchor": "low"
+  },
+  {
+   "type": "supported_by",
+   "a": "Ramp_Hub_NW_Deck",
+   "b": "Ramp_Hub_NW_Support"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Ramp_Hub_NW_Deck",
+   "b": "Hub_Floor",
+   "a_anchor": "end_b"
+  },
+  {
+   "type": "supported_by",
+   "a": "Ramp_Hub_NW_Junction_Lo",
+   "b": "NW_Bastion_Floor"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Ramp_Hub_NW_Deck",
+   "b": "Ramp_Hub_NW_Junction_Lo",
+   "a_anchor": "end_a"
+  },
+  {
+   "type": "supported_by",
+   "a": "Link_North_NW_Deck",
+   "b": "Link_North_NW_Support"
+  },
+  {
+   "type": "supported_by",
+   "a": "Link_North_NW_Junction_Hi",
+   "b": "North_Hall_Floor"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Link_North_NW_Deck",
+   "b": "Link_North_NW_Junction_Hi",
+   "a_anchor": "end_b"
+  },
+  {
+   "type": "supported_by",
+   "a": "Link_North_NW_Junction_Lo",
+   "b": "NW_Bastion_Floor"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Link_North_NW_Deck",
+   "b": "Link_North_NW_Junction_Lo",
+   "a_anchor": "end_a"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Bridge_Hub_West_Deck",
+   "b": "Hub_Floor",
+   "a_anchor": "end_a"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Bridge_Hub_West_Deck",
+   "b": "West_Post_Floor",
+   "a_anchor": "end_b"
+  },
+  {
+   "type": "supported_by",
+   "a": "Ramp_Hub_SW_Deck",
+   "b": "Ramp_Hub_SW_Support"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Ramp_Hub_SW_Deck",
+   "b": "Hub_Floor",
+   "a_anchor": "end_b"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Ramp_Hub_SW_Deck",
+   "b": "SW_Octagon_Floor",
+   "a_anchor": "end_a"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Bridge_Hub_South_Deck",
+   "b": "Hub_Floor",
+   "a_anchor": "end_a"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Bridge_Hub_South_Deck",
+   "b": "South_Gate_Floor",
+   "a_anchor": "end_b"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Bridge_Gate_Tower_Deck",
+   "b": "South_Gate_Floor",
+   "a_anchor": "end_a"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Bridge_Gate_Tower_Deck",
+   "b": "South_Tower_Floor",
+   "a_anchor": "end_b"
+  },
+  {
+   "type": "supported_by",
+   "a": "Link_Gate_SE_Deck",
+   "b": "Link_Gate_SE_Support"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Link_Gate_SE_Deck",
+   "b": "South_Gate_Floor",
+   "a_anchor": "end_b"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Link_Gate_SE_Deck",
+   "b": "SE_Octagon_Floor",
+   "a_anchor": "end_a"
+  },
+  {
+   "type": "supported_by",
+   "a": "Ramp_Hub_SE_Deck",
+   "b": "Ramp_Hub_SE_Support"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Ramp_Hub_SE_Deck",
+   "b": "Hub_Floor",
+   "a_anchor": "end_b"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Ramp_Hub_SE_Deck",
+   "b": "SE_Octagon_Floor",
+   "a_anchor": "end_a"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Bridge_Hub_East_Deck",
+   "b": "Hub_Floor",
+   "a_anchor": "end_a"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Bridge_Hub_East_Deck",
+   "b": "East_Deck_Floor",
+   "a_anchor": "end_b"
+  }
+ ],
+ "gameplay": {
+  "nav": {
+   "cell": 0.5
+  },
+  "design": {
+   "kill_y": 25
+  }
+ },
+ "terrain": {
+  "seed": 77,
+  "extent": [
+   -200.0,
+   -200.0,
+   200.0,
+   200.0
+  ],
+  "cell": 4.0,
+  "chunk": 20,
+  "base_y": -14,
+  "biome": "rocky",
+  "noise": {
+   "amplitude": 1.6,
+   "scale": 80,
+   "ridged": 0.15
+  },
+  "style": "realistic",
+  "boundary": {
+   "points": [
+    [
+     83.0,
+     5.0
+    ],
+    [
+     82.1,
+     33.6
+    ],
+    [
+     67.5,
+     57.0
+    ],
+    [
+     43.0,
+     72.2
+    ],
+    [
+     16.2,
+     79.3
+    ],
+    [
+     -10.2,
+     79.3
+    ],
+    [
+     -37.0,
+     72.2
+    ],
+    [
+     -61.5,
+     57.0
+    ],
+    [
+     -76.1,
+     33.6
+    ],
+    [
+     -77.0,
+     5.0
+    ],
+    [
+     -68.3,
+     -23.6
+    ],
+    [
+     -55.1,
+     -47.0
+    ],
+    [
+     -37.0,
+     -62.2
+    ],
+    [
+     -11.6,
+     -69.3
+    ],
+    [
+     17.6,
+     -69.3
+    ],
+    [
+     43.0,
+     -62.2
+    ],
+    [
+     61.1,
+     -47.0
+    ],
+    [
+     74.3,
+     -23.6
+    ]
+   ],
+   "barrier": "none"
+  },
+  "zones": {
+   "middle": {
+    "rise": 8,
+    "radius": 482
+   },
+   "far": {
+    "note": "Stage 2 background layers (environment.background)"
+   }
+  },
+  "lod": {
+   "ranges": [
+    60,
+    120
+   ]
+  },
+  "terrain_playable": false,
+  "water": {
+   "level": 0
+  },
+  "materials": {
+   "rock": {
+    "type": "rock",
+    "color": [
+     0.56,
+     0.37,
+     0.26
+    ],
+    "tile_m": 10.0,
+    "res": 256
+   },
+   "grass": {
+    "type": "grass",
+    "color": [
+     0.3,
+     0.4,
+     0.18
+    ],
+    "tile_m": 5.0,
+    "res": 256
+   },
+   "sand": {
+    "type": "sand",
+    "color": [
+     0.72,
+     0.6,
+     0.45
+    ],
+    "tile_m": 5.0,
+    "res": 128
+   }
+  },
+  "scatter": [
+   {
+    "id": "Island_Trees",
+    "kinds": [
+     "conifer",
+     "broadleaf",
+     {
+      "kind": "bush",
+      "weight": 0.8
+     }
+    ],
+    "area": "extent",
+    "density": 2.5,
+    "cluster": 0.3,
+    "slope_max": 24,
+    "height": [
+     10,
+     80
+    ],
+    "layers": [
+     "grass"
+    ],
+    "source": "visible"
+   }
+  ],
+  "features": [
+   {
+    "id": "Island_NE",
+    "type": "mesa",
+    "center": [
+     62,
+     -42
+    ],
+    "radius": 18,
+    "height": 38,
+    "source": "visible"
+   },
+   {
+    "id": "Island_W",
+    "type": "mesa",
+    "center": [
+     -64,
+     14
+    ],
+    "radius": 16,
+    "height": 36,
+    "source": "visible"
+   },
+   {
+    "id": "Island_SW",
+    "type": "mesa",
+    "center": [
+     -42,
+     74
+    ],
+    "radius": 14,
+    "height": 33,
+    "source": "visible"
+   },
+   {
+    "id": "Island_SE",
+    "type": "mesa",
+    "center": [
+     70,
+     68
+    ],
+    "radius": 14,
+    "height": 33,
+    "source": "visible"
+   },
+   {
+    "id": "Cliffs_West",
+    "type": "mesa",
+    "center": [
+     -150,
+     -40
+    ],
+    "radius": 45,
+    "height": 62,
+    "source": "visible"
+   },
+   {
+    "id": "Cliffs_NW",
+    "type": "mesa",
+    "center": [
+     -110,
+     -150
+    ],
+    "radius": 40,
+    "height": 58,
+    "source": "visible"
+   },
+   {
+    "id": "Cliffs_East",
+    "type": "mesa",
+    "center": [
+     160,
+     -80
+    ],
+    "radius": 38,
+    "height": 52,
+    "source": "inferred"
+   },
+   {
+    "id": "Cliffs_South",
+    "type": "mesa",
+    "center": [
+     40,
+     165
+    ],
+    "radius": 40,
+    "height": 48,
+    "source": "inferred"
+   }
+  ]
+ },
+ "spawn_regions": [],
+ "draw_hint": "one material per surface type; mark static + batch in engine",
+ "build_stats": {
+  "triangles": 60628,
+  "objects": 424,
+  "materials": 25,
+  "glb_kb": 3895,
+  "nodes": 525,
+  "draw_calls_unbatched": 485,
+  "draw_calls_batched_min": 22,
+  "images": 54,
+  "tex_mem_gpu_compressed_mb": 6.81,
+  "tex_mem_uncompressed_mb": 27.25,
+  "note": "GPU numbers are estimates (pipeline/glb_stats.py)",
+  "terrain_triangles_lod0": 20000
+ }
+}
