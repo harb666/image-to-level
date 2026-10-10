@@ -15,7 +15,7 @@ Commands:
   duplicate <name> <new_name> dx dy dz  deep copy incl. children (child names get new prefix)
   rename <old> <new>                  renames everywhere (children prefixes, parents, effects, hazards, validation)
   add '<json object>'                 add one object (name must be new)
-  prefab <type> '<json kwargs>'       catwalk | railing_along | pipe_run | rock_cluster | gate | machinery_bank
+  prefab <type> '<json kwargs>'       catwalk | railing_along | railing_path | pipe_run | rock_cluster | gate | machinery_bank
   env <path>=<value> ...              environment: sky.preset=alien  atmosphere.fog_end=500  quality=performance
                                       background layers by id/glob: background.Mountains_Far.height=[120,240]
                                       background.Factory_*.detail=3  (env alone: list layers + current sky)

@@ -319,6 +319,19 @@ def sky_pylon(ctx, p, base_y, centre):
 PLATFORM_STYLES = dict(industrial_pillar=industrial_pillar, stone_plinth=stone_plinth, plain=plain, sky_pylon=sky_pylon)
 
 
+def _rails(ctx, cid, g, width, z0, z1, y_at, inset=0.05, height=1.05, zs=None, spacing=1.6):
+    """Both side railings of a connector as rail_run objects in its local frame (+z along it): post bases are ON the
+    walking surface y_at(z), so they follow slopes; flat->slope->flat changes become polyline vertices (corner posts).
+    zs: explicit post stations (stairs: tread centres, so no post stands on a riser edge); then posts only there."""
+    zs = [z for z in (zs or [z0, z1]) if z0 - 1e-6 <= z <= z1 + 1e-6]
+    if len(zs) < 2 or zs[-1] - zs[0] < 0.4: return
+    ys = [y_at(z) for z in zs]
+    for s, side in ((-1, "L"), (1, "R")):
+        x = s * (width / 2 - inset); pts = [[round(x, 3), round(float(y), 3), round(float(z), 3)] for y, z in zip(ys, zs)]
+        ctx.add(f"{cid}_Rail_{side}", "rail_run", [0, 0, 0], [round(math.hypot(zs[-1] - zs[0], ys[-1] - ys[0]), 3), height, 0.07], "rail", g,
+                points=pts, post_spacing=spacing if len(zs) == 2 else 99.0)
+
+
 # ------------------------------------------------------------------ connections
 def connection(ctx, c, A, B, floor_y):
     """Bridge / ramp / stairs between the facing edges of platforms A and B (any angle). Stage 8 construction rules:
@@ -349,8 +362,8 @@ def connection(ctx, c, A, B, floor_y):
         deck = ctx.add(c["id"] + "_Deck", "box", [0, y - 0.4, 0], [width, 0.4, span], "grate", g, connector=True, axis="z")
         for s, side in ((-1, "L"), (1, "R")):
             ctx.add(f"{c['id']}_Beam_{side}", "ibeam", [s * (width / 2 - 0.3), y - 0.855, (oa - ob) / 2], [max(0.5, span - oa - ob), 0.45, 0.3], "frame", g, [0, 90, 0])
-            if c.get("rails", kind == "catwalk"):
-                ctx.add(f"{c['id']}_Rail_{side}", "railing", [s * (width / 2 - 0.05), y, (oa - ob) / 2], [max(0.5, span - oa - ob - 0.6), 1.05, 0.06], "rail", g, [0, 90, 0])
+        if c.get("rails", kind == "catwalk"):
+            _rails(ctx, c["id"], g, width, -span / 2 + oa + 0.3, span / 2 - ob - 0.3, lambda z: y)
         if span > 10 and y - floor_y > 1.5:
             n = max(1, int(span / 9))
             for i in range(n):
@@ -380,7 +393,8 @@ def connection(ctx, c, A, B, floor_y):
         deck = ctx.add(c["id"] + "_Deck", "box", [0, ym - t * math.cos(math.radians(pitch)), t * math.sin(math.radians(pitch))], [width, t, Ls], "grate", g, [-pitch, 0, 0], connector=True, axis="z")
         for s, side in ((-1, "L"), (1, "R")):
             ctx.add(f"{c['id']}_Beam_{side}", "box", [s * (width / 2 - 0.3), ym - 0.86, 0], [0.3, 0.45, Ls * 0.9], "frame", g, [-pitch, 0, 0])
-            if c.get("rails"): ctx.add(f"{c['id']}_Rail_{side}", "railing", [s * (width / 2 - 0.05), ym, 0], [Ls - 0.6, 1.05, 0.06], "rail", g, [-pitch, 90, 0])
+        if c.get("rails"):  # posts on the sloped deck top (it passes through (-Lh/2, y0) and (+Lh/2, hi top)), from where it leaves the lower floor
+            _rails(ctx, c["id"], g, width, -Lh / 2 + ext + 0.3, Lh / 2 - 0.3, lambda z, y0=y0, Lh=Lh, yh=hi["top"]: y0 + (z + Lh / 2) / Lh * (yh - y0))
         if ym - floor_y > 1.5:
             sup = ctx.add(c["id"] + "_Support", "box", [0, floor_y, 0], [width * 0.4, ym - t / math.cos(math.radians(pitch)) + 0.02 - floor_y, 0.6], "frame", g); ctx.rel("supported_by", deck, sup)
         ends = {"lo": (deck, "end_a"), "hi": (deck, "end_b")}
@@ -393,6 +407,14 @@ def connection(ctx, c, A, B, floor_y):
         if base - floor_y > 0.05 and run <= gap2 + 1e-6:  # raised over a gap: a plinth underneath (no floating solid / open underside)
             gc = ((lo_pt[0] + hi_pt[0]) / 2, (lo_pt[1] + hi_pt[1]) / 2)
             sup = ctx.add(c["id"] + "_Support", "box", [gc[0], floor_y, gc[1]], [width * 0.9, base - floor_y + 0.02, max(0.5, gap2 - 0.2)], "structure_b", rot=[0, yaw, 0]); ctx.rel("supported_by", o, sup)
+        if c.get("rails"):  # along the slope line of the treads / ramp surface, from the lower floor up to the upper edge
+            gr = ctx.add(c["id"] + "_Rails", "group", [ctr[0], 0, ctr[1]], rot=[0, yaw, 0]); Lr = run + lead
+            if kind == "stairs":  # posts on tread centres (every 2nd tread), rails parallel to the nosing line
+                n_ = max(2, int(round(h_ / 0.25))); zt = [-Lr / 2 + Lr / n_ * (k + 0.5) for k in range(n_)]
+                yt = {round(z, 4): base + h_ * (k + 1) / n_ for k, z in enumerate(zt)}; pick = [z for z in zt if z >= -Lr / 2 + lead + 0.2][::2]
+                _rails(ctx, c["id"], gr, width, -Lr / 2, Lr / 2, lambda z: yt[round(z, 4)], zs=pick)
+            else:
+                _rails(ctx, c["id"], gr, width, -Lr / 2 + lead + 0.3, Lr / 2 - 0.3, lambda z, Lr=Lr: base + (z + Lr / 2) / Lr * h_)
         ends = {"lo": (o, "low"), "hi": (o, "high")}
     for key, pl, pt, t, fl_, yy in (("hi", hi, hi_pt, toward, fhi, hi["top"]), ("lo", lo, lo_pt, (-toward[0], -toward[1]), flo, lo["top"])):
         jd = support_depth(pl, pt, t, width); target = fl_

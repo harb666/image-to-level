@@ -26,6 +26,7 @@ All return trimesh.Trimesh; every solid is closed (no open backs). Sizes are o["
   overhang              rock shelf with a lip jutting forward (+z) over a recess (Stage 9)
   frustum               tapered block, full footprint on top, "bottom_scale" at the base; rect or n-gon (Stage 9)
 """
+import math
 import numpy as np, trimesh
 from trimesh.transformations import rotation_matrix
 
@@ -60,6 +61,40 @@ def railing(w, h, d, o):
     parts = [_box(t, h, t, -w / 2 + i * w / (n - 1) * (1 - 1e-3) + t / 2 * (1 if i == 0 else -1 if i == n - 1 else 0)) for i in range(n)]
     parts += [_box(w, t * 1.2, t * 1.4, y=h - t * 1.2), _box(w, t * 0.8, t, y=h * 0.5)]
     return trimesh.util.concatenate(parts)
+
+
+def rail_posts(points, spacing=1.6):
+    """Post base points along a railing polyline (local coords, each ON its supporting surface): every vertex
+    (corners, slope changes) plus evenly spaced posts between them (<= spacing apart, measured in plan)."""
+    P = np.asarray(points, float); out = [P[0]]
+    for a, b in zip(P[:-1], P[1:]):
+        n = max(1, int(math.ceil(math.hypot(b[0] - a[0], b[2] - a[2]) / spacing - 1e-6)))
+        out += [a + (b - a) * k / n for k in range(1, n + 1)]
+    return np.array(out)
+
+
+def _beam(a, b, t, h):
+    """Box of cross-section t (wide) x h (tall) from point a to point b, kept upright (no roll) on slopes."""
+    a, b = np.asarray(a, float), np.asarray(b, float); v = b - a; L = np.linalg.norm(v)
+    if L < 1e-6: return None
+    m = trimesh.creation.box([t, h, L]); f = v / L; s = np.cross([0, 1, 0], f)
+    s = s / np.linalg.norm(s) if np.linalg.norm(s) > 1e-6 else np.array([1.0, 0, 0]); u = np.cross(f, s)
+    T = np.eye(4); T[:3, 0], T[:3, 1], T[:3, 2], T[:3, 3] = s, u, f, (a + b) / 2; m.apply_transform(T); return m
+
+
+def rail_run(w, h, d, o):
+    """Engineered safety railing along a polyline that follows the walking surface (flat, sloped, cornered).
+    o["points"]: base points in the object's local frame, each ON the supporting surface. Posts stay vertical and
+    are sunk 2 cm into the floor; top rail, mid rail and kick plate follow the slope continuously and meet at the
+    corner posts (extended by half a post: closed joints). size = [length, height, post thickness]."""
+    P = np.asarray(o["points"], float); t = max(d, 0.05); posts = rail_posts(P, o.get("post_spacing", 1.6)); parts = []
+    for p in posts: parts.append(_box(t, h + 0.02, t, p[0], p[1] - 0.02, p[2]))
+    for a, b in zip(P[:-1], P[1:]):
+        f = (b - a) / max(np.linalg.norm(b - a), 1e-6) * t / 2  # half-post overlap at each end: no gaps at corners
+        for dy, th, tw in ((h - 0.045, 0.09, t * 1.3), (h * 0.5, 0.06, t * 0.8)):
+            parts.append(_beam(a - f + [0, dy, 0], b + f + [0, dy, 0], tw, th))
+        if o.get("kick", True): parts.append(_beam(a + [0, 0.11, 0], b + [0, 0.11, 0], t * 0.45, 0.14))
+    return trimesh.util.concatenate([p for p in parts if p is not None])
 
 
 def ibeam(w, h, d, o):
@@ -347,7 +382,7 @@ def frustum(w, h, d, o):
     return trimesh.convex.convex_hull(np.vstack([top, bot]))
 
 
-SHAPES = dict(railing=railing, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
+SHAPES = dict(railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
               stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum)
 

@@ -71,6 +71,13 @@ def colliders(L, level_dir=None):
             m = render_shape(o); v = (np.c_[m.vertices, np.ones(len(m.vertices))] @ M.T)[:, :3]
             out.append(dict(name=o["name"], source=o["name"], shape="mesh", vertices=v.round(3).tolist(), faces=m.faces.tolist())); continue
         w, h, d = o["size"]
+        if t == "rail_run":  # one thin convex wall per polyline segment, following the slope (a hull of the whole run would fill corners)
+            P = np.asarray(o["points"], float)
+            for k, (a, b) in enumerate(zip(P[:-1], P[1:])):
+                f = b - a; f[1] = 0; f /= max(np.linalg.norm(f), 1e-6); s = np.array([-f[2], 0, f[0]]) * max(d, 0.05) / 2
+                pts = [a + s, a - s, b + s, b - s]; pts += [p + [0, h, 0] for p in pts]
+                out.append(dict(name=f"{o['name']}_{k + 1:02d}", source=o["name"], shape="convex", points=(np.c_[np.array(pts), np.ones(8)] @ M.T)[:, :3].round(3).tolist()))
+            continue
         if t in ("box", "boundary", "railing", "ibeam"):
             box(o["name"], w, h, d)
         elif t == "cylinder":

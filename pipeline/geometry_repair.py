@@ -16,6 +16,7 @@ Actions
   extend_inlet       pipe hanging in front of a wall: lengthen it backwards into the wall (outlet stays put)
   nudge              z-fighting coplanar faces: move the connector / smaller object 1 cm behind the other surface
   drop               small prop hovering a few cm: lower it onto what is below
+  snap_rail          railing posts floating / sunk / over the void: rail_run re-based on the measured surface
   extend_foundation  (Stage 9) ground below a foundation: lower the foundation's bottom, top unchanged
   terrain_lower      (Stage 9) terrain poking through a floor: add a "lower"-only pad under it (never raises ground)
   terrain_add        (Stage 9) boundary at open ground: add a low ridge OUTSIDE the playable boundary
@@ -104,6 +105,14 @@ def act_drop(L, W, o, f):
     _move(L, W, o, [0, -float(f["repair"]["distance"]), 0]); return f"lowered {f['repair']['distance']:.2f} m onto its support"
 
 
+def act_snap_rail(L, W, o, f):
+    """Railing posts floating / sunk / over the void: re-base it as a rail_run whose polyline vertices are measured on
+    the supporting surface (vertical posts, rails parallel to the slope). Legacy tilted 'railing' boxes are converted."""
+    rp = f["repair"]; o["type"] = "rail_run"; o["points"] = rp["points"]; o["rotation"] = rp["rotation"]
+    o["size"] = [rp["length"], o["size"][1], max(o["size"][2], 0.07)]; o.setdefault("post_spacing", 1.6)
+    return f"posts re-based on the surface ({len(rp['points'])} vertices)"
+
+
 def act_extend_foundation(L, W, o, f):
     """Foundation bottom above the ground somewhere: lower its bottom (top stays) to below the lowest ground."""
     top = o["position"][1] + o["size"][1]; to = min(f["repair"]["to_y"], o["position"][1])
@@ -156,6 +165,7 @@ def repair(d, dry=False, max_passes=2, verbose=True):
                     normals[tuple(sorted(f["objects"][:2]))] = np.array(f["normal"]); msg = act_nudge(L, W, o, f, normals)
                 elif a == "drop": msg = act_drop(L, W, o, f)
                 elif a == "extend_foundation": msg = act_extend_foundation(L, W, o, f)
+                elif a == "snap_rail": msg = act_snap_rail(L, W, o, f)
                 else: continue
             except Exception as e:
                 log.append(dict(finding=f["message"], action=a, object=o["name"], result=f"skipped: {e}")); continue

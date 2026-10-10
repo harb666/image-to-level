@@ -8,6 +8,7 @@ purpose: relation "intentional": true, "intentional_gap", object "intentional": 
 Checks
   connection     each connector end (bridge / walkway deck / ramp / stairs) meets a walkable surface: gap, partial
                  support (overhang), elevation mismatch, wrong target, railing blocking the entrance
+  railing        every railing post stands ON a walkable surface (not floating, sunk or over the void); repair snap_rail
   stairs_ramps   step rise <= player step_height, tread, slope <= max_slope, width >= player
   support        every structure touches / rests on / is attached to something (floating, small hovers)
   overlap        coplanar overlapping faces of different materials (z-fighting flicker)
@@ -222,8 +223,54 @@ def check_connections(g, L, rel, W, out):
             hit = ridx[np.all(g.hi[ridx] >= lo_b, 1) & np.all(g.lo[ridx] <= hi_b, 1)]
             hit = sorted({g.obj[i] for i in hit} - g.family(r["a"]))
             if hit:
-                kind = "railing " if g.by.get(hit[0], {}).get("type") == "railing" else ""
+                kind = "railing " if g.by.get(hit[0], {}).get("type") in ("railing", "rail_run") else ""
                 out.append(F("connection", "ERROR" if kind else "WARNING", [r["a"]] + hit[:2], f"{kind}{hit[0]} stands in the landing of {r['a']}.{r.get('a_anchor')} (blocks the route)", a["pos"], ambiguous=True))
+
+
+def _rail_frame(W, o):
+    """World matrix of a railing with any pitch / roll removed (posts must be vertical): keeps position and yaw."""
+    from trimesh.transformations import euler_matrix
+    r = np.radians(o.get("rotation", [0, 0, 0])); M = np.asarray(W[o["name"]], float)
+    return M @ np.linalg.inv(euler_matrix(*r, "sxyz")) @ euler_matrix(0, r[1], 0, "sxyz"), [0.0, round(float(o.get("rotation", [0, 0, 0])[1]), 2), 0.0]
+
+
+def check_railings(g, L, W, out, tol=0.05):
+    """Every railing post must stand ON a walkable surface: not floating above it, not sunk into it, not over the void.
+    rail_run: post bases from its polyline; legacy 'railing': its (possibly tilted) post feet. Repair: snap_rail."""
+    import shapes
+    for o in L["objects"]:
+        if o["type"] not in ("railing", "rail_run") or o["name"] not in W: continue
+        M = np.asarray(W[o["name"]], float); fam = g.family(o["name"])
+        if o["type"] == "rail_run":
+            loc = shapes.rail_posts(o["points"], o.get("post_spacing", 1.6)); line = np.asarray(o["points"], float)
+        else:
+            w = o["size"][0]; n = max(2, int(round(w / o.get("post_spacing", 1.5))) + 1)
+            loc = np.array([[-w / 2 + i * w / (n - 1), 0, 0] for i in range(n)]); line = loc[[0, -1]]
+        P = (np.c_[loc, np.ones(len(loc))] @ M.T)[:, :3]
+        fl, sunk, void = [], [], 0
+        for p in P:
+            h = g.surface(p, 0.8, fam)
+            if h is None: void += 1
+            elif h[0] < -tol: fl.append(-h[0])
+            elif h[0] > tol: sunk.append(h[0])
+        if not (fl or sunk or void): continue
+        # repair: measure the surface along the run (every 0.4 m) in a yaw-only frame; keep the slope changes as vertices
+        Mf, rot = _rail_frame(W, o) if o["type"] == "railing" else (M, o.get("rotation", [0, 0, 0]))
+        Lw = (np.c_[line, np.ones(len(line))] @ M.T)[:, :3]; S = []
+        for a, b in zip(Lw[:-1], Lw[1:]):
+            n = max(1, int(math.ceil(math.hypot(*(b - a)[[0, 2]]) / 0.4)))
+            S += [a + (b - a) * k / n for k in range(n + (1 if b is Lw[-1] else 0))]
+        S = np.array(S); ok = []
+        for k, p in enumerate(S):
+            h = g.surface(p, 2.5, fam)
+            if h is not None: S[k, 1] = p[1] + h[0]; ok.append(k)
+        keep = [0] + [k for k in range(1, len(S) - 1) if abs((S[k + 1, 1] - S[k, 1]) - (S[k, 1] - S[k - 1, 1])) > 0.01] + [len(S) - 1]
+        keep = [k for k in keep if k in ok] if len(ok) >= 2 else []
+        Li = np.linalg.inv(Mf); pts = [[round(float(v), 3) for v in (Li @ [*S[k], 1])[:3]] for k in keep]
+        rep = dict(action="snap_rail", obj=o["name"], points=pts, rotation=rot, length=round(float(sum(np.linalg.norm(S[b] - S[a]) for a, b in zip(keep[:-1], keep[1:]))), 3)) if len(pts) >= 2 and len(ok) == len(S) else None
+        bits = ([f"{len(fl)} post(s) floating up to {max(fl):.2f} m"] if fl else []) + ([f"{len(sunk)} sunk up to {max(sunk):.2f} m into the floor"] if sunk else []) + ([f"{void} over the void (disconnected)"] if void else [])
+        out.append(F("railing", "ERROR", [o["name"]], f"{o['name']}: " + ", ".join(bits) + f" of {len(P)} posts", P[0], dict(floating=len(fl), sunk=len(sunk), void=void,
+                     max_float=round(max(fl), 3) if fl else 0, max_sunk=round(max(sunk), 3) if sunk else 0), rep, ambiguous=rep is None))
 
 
 def check_stairs_ramps(g, L, out):
@@ -506,7 +553,7 @@ def run(d, verbose=True, write=True):
     L = json.load(open(os.path.join(d, "level.json"))); G = load_gameplay(d, L); out = []
     for e in validate_relations(L): out.append(F("relations", "ERROR", [], e))
     rel = infer_relations(L); W, _ = world_matrices(L); g = Geo(d, L, G)
-    check_connections(g, L, rel, W, out); check_stairs_ramps(g, L, out); check_support(g, L, rel, out); check_overlap(g, L, out)
+    check_connections(g, L, rel, W, out); check_railings(g, L, W, out); check_stairs_ramps(g, L, out); check_support(g, L, rel, out); check_overlap(g, L, out)
     check_mesh(g, L, out); check_liquids(g, L, rel, W, out); check_openings(g, L, W, out); check_terrain(g, L, W, out); check_collision(d, L, out)
     N = None
     try:

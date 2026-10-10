@@ -32,7 +32,8 @@ def catwalk(name, start, end, width=2.2, rails=True, supports=True, ground_y=0.0
          _o(name=name + "_Deck", parent=name, type="box", material=deck, position=[0, y - 0.15, 0], size=[L, 0.15, width])]
     for s, side in ((1, "L"), (-1, "R")):
         o.append(_o(name=f"{name}_Beam_{side}", parent=name, type="ibeam", material=frame, position=[0, y - 0.55, s * (width / 2 - 0.12)], size=[L, 0.4, 0.24]))
-        if rails: o.append(_o(name=f"{name}_Rail_{side}", parent=name, type="railing", material=rail, position=[0, y, s * (width / 2 - 0.04)], size=[L, 1.05, 0.06]))
+        if rails: o.append(_o(name=f"{name}_Rail_{side}", parent=name, type="rail_run", material=rail, position=[0, 0, 0], size=[L, 1.05, 0.07],
+                              points=[[round(-L / 2 + 0.2, 3), y, s * (width / 2 - 0.04)], [round(L / 2 - 0.2, 3), y, s * (width / 2 - 0.04)]], post_spacing=1.6))
     if supports and y - ground_y > 1.0:
         n = max(2, int(L / spacing) + 1)
         for i in range(n):
@@ -42,10 +43,17 @@ def catwalk(name, start, end, width=2.2, rails=True, supports=True, ground_y=0.0
 
 
 def railing_along(name, start, end, height=1.05, material="pf_rail"):
-    """Free-standing railing between two points (e.g. along a platform edge)."""
-    dx, dz = end[0] - start[0], end[2] - start[2]; L = math.hypot(dx, dz); yaw = math.degrees(math.atan2(-dz, dx))
-    return [_o(name=name, type="railing", material=material, position=[(start[0] + end[0]) / 2, start[1], (start[2] + end[2]) / 2],
-               rotation=[0, round(yaw, 2), 0], size=[round(L, 2), height, 0.06])]
+    """Free-standing railing between two points (e.g. along a platform edge). Points are the post bases ON the floor;
+    different heights give a sloped run (vertical posts, rails parallel to the slope)."""
+    return railing_path(name, [start, end], height, material)
+
+
+def railing_path(name, points, height=1.05, material="pf_rail", spacing=1.6):
+    """Railing along a polyline of floor points [[x, y, z], ...] (corners and flat/slope transitions are vertices).
+    A rail_run in world coordinates; geometry_check verifies every post stands on a surface (snap_rail repairs it)."""
+    P = [[round(float(v), 3) for v in p] for p in points]
+    L = sum(math.dist(a, b) for a, b in zip(P[:-1], P[1:]))
+    return [_o(name=name, type="rail_run", material=material, position=[0, 0, 0], size=[round(max(L, 0.1), 2), height, 0.07], points=P, post_spacing=spacing)]
 
 
 def pipe_run(name, points, radius=0.5, material="pf_pipe", junction="pf_metal"):
@@ -91,7 +99,7 @@ def machinery_bank(name, position, yaw=0, seed=1, material="pf_machine", tank_ma
             _o(name=name + "_Vent", parent=name, type="vent", material=material, position=[-3.2, 0, 0], size=[1.8, 1.6, 0.6])]
 
 
-PREFABS = dict(catwalk=catwalk, railing_along=railing_along, pipe_run=pipe_run, rock_cluster=rock_cluster, gate=gate, machinery_bank=machinery_bank)
+PREFABS = dict(catwalk=catwalk, railing_along=railing_along, railing_path=railing_path, pipe_run=pipe_run, rock_cluster=rock_cluster, gate=gate, machinery_bank=machinery_bank)
 
 
 def add_to_level(level_dir, prefab, kwargs):
