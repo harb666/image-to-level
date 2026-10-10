@@ -1,7 +1,7 @@
 {
  "level": "test_urban",
  "counts": {
-  "ERROR": 1,
+  "ERROR": 0,
   "WARNING": 0,
   "INTENTIONAL": 19
  },
@@ -9,46 +9,8 @@
   "explicit": 19,
   "inferred": 0
  },
- "repairable": 1,
+ "repairable": 0,
  "findings": [
-  {
-   "check": "terrain_floor",
-   "cls": "ERROR",
-   "objects": [
-    "Bridge_West_Lane_Road_Canal_Deck"
-   ],
-   "message": "terrain pokes 0.11 m through Bridge_West_Lane_Road_Canal_Deck",
-   "pos": [
-    -68.0,
-    0.22,
-    68.79
-   ],
-   "measured": {
-    "depth_m": 0.11
-   },
-   "repair": {
-    "action": "terrain_lower",
-    "obj": "Bridge_West_Lane_Road_Canal_Deck",
-    "feature": {
-     "id": "Lower_Bridge_West_Lane_Road_Canal_Deck",
-     "type": "pad",
-     "mode": "lower",
-     "center": [
-      -62.0,
-      59.0
-     ],
-     "size": [
-      13.2,
-      20.78
-     ],
-     "y": -0.36,
-     "margin": 3.0,
-     "gen": "repair"
-    }
-   },
-   "ambiguous": false,
-   "id": "terrain_floor:000"
-  },
   {
    "check": "boundary",
    "cls": "INTENTIONAL",
@@ -64,7 +26,7 @@
    "measured": {},
    "repair": null,
    "ambiguous": false,
-   "id": "boundary:001"
+   "id": "boundary:000"
   },
   {
    "check": "boundary",
@@ -81,7 +43,7 @@
    "measured": {},
    "repair": null,
    "ambiguous": false,
-   "id": "boundary:002"
+   "id": "boundary:001"
   },
   {
    "check": "boundary",
@@ -92,13 +54,13 @@
    "message": "playable boundary edge 11: West_Lane_Road leaves the area through a gap in the barrier (invisible collider there)",
    "pos": [
     -60.1,
-    0.29,
+    0.2,
     71.61
    ],
    "measured": {},
    "repair": null,
    "ambiguous": false,
-   "id": "boundary:003"
+   "id": "boundary:002"
   },
   {
    "check": "boundary",
@@ -115,7 +77,7 @@
    "measured": {},
    "repair": null,
    "ambiguous": false,
-   "id": "boundary:004"
+   "id": "boundary:003"
   },
   {
    "check": "boundary",
@@ -132,7 +94,7 @@
    "measured": {},
    "repair": null,
    "ambiguous": false,
-   "id": "boundary:005"
+   "id": "boundary:004"
   },
   {
    "check": "boundary",
@@ -149,7 +111,7 @@
    "measured": {},
    "repair": null,
    "ambiguous": false,
-   "id": "boundary:006"
+   "id": "boundary:005"
   },
   {
    "check": "boundary",
@@ -166,7 +128,7 @@
    "measured": {},
    "repair": null,
    "ambiguous": false,
-   "id": "boundary:007"
+   "id": "boundary:006"
   },
   {
    "check": "boundary",
@@ -183,7 +145,7 @@
    "measured": {},
    "repair": null,
    "ambiguous": false,
-   "id": "boundary:008"
+   "id": "boundary:007"
   },
   {
    "check": "boundary",
@@ -200,7 +162,7 @@
    "measured": {},
    "repair": null,
    "ambiguous": false,
-   "id": "boundary:009"
+   "id": "boundary:008"
   },
   {
    "check": "boundary",
@@ -217,7 +179,7 @@
    "measured": {},
    "repair": null,
    "ambiguous": false,
-   "id": "boundary:010"
+   "id": "boundary:009"
   },
   {
    "check": "boundary",
@@ -234,7 +196,7 @@
    "measured": {},
    "repair": null,
    "ambiguous": false,
-   "id": "boundary:011"
+   "id": "boundary:010"
   },
   {
    "check": "boundary",
@@ -251,7 +213,7 @@
    "measured": {},
    "repair": null,
    "ambiguous": false,
-   "id": "boundary:012"
+   "id": "boundary:011"
   },
   {
    "check": "unreachable",
@@ -273,7 +235,7 @@
    },
    "repair": null,
    "ambiguous": false,
-   "id": "unreachable:013"
+   "id": "unreachable:012"
   },
   {
    "check": "unreachable",
@@ -295,7 +257,7 @@
    },
    "repair": null,
    "ambiguous": false,
-   "id": "unreachable:014"
+   "id": "unreachable:013"
   },
   {
    "check": "unreachable",
@@ -317,7 +279,7 @@
    },
    "repair": null,
    "ambiguous": false,
-   "id": "unreachable:015"
+   "id": "unreachable:014"
   },
   {
    "check": "unreachable",
@@ -339,7 +301,7 @@
    },
    "repair": null,
    "ambiguous": false,
-   "id": "unreachable:016"
+   "id": "unreachable:015"
   },
   {
    "check": "unreachable",
@@ -361,7 +323,7 @@
    },
    "repair": null,
    "ambiguous": false,
-   "id": "unreachable:017"
+   "id": "unreachable:016"
   },
   {
    "check": "unreachable",
@@ -383,7 +345,7 @@
    },
    "repair": null,
    "ambiguous": false,
-   "id": "unreachable:018"
+   "id": "unreachable:017"
   },
   {
    "check": "unreachable",
@@ -405,8 +367,8 @@
    },
    "repair": null,
    "ambiguous": false,
-   "id": "unreachable:019"
+   "id": "unreachable:018"
   }
  ],
- "passed": false
+ "passed": true
 }
