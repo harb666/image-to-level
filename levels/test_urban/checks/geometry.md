@@ -1,8 +1,8 @@
 # Geometry: test_urban - NOT PASSED
 
-{'ERROR': 1, 'WARNING': 0, 'INTENTIONAL': 19} · relations {'explicit': 25, 'inferred': 0} · auto-repairable 1
+{'ERROR': 1, 'WARNING': 0, 'INTENTIONAL': 19} · relations {'explicit': 19, 'inferred': 0} · auto-repairable 1
 
-- **ERROR** [terrain_floor] terrain pokes 0.14 m through Bridge_West_Lane_Road_Canal_Deck (repair: terrain_lower)
+- **ERROR** [terrain_floor] terrain pokes 0.11 m through Bridge_West_Lane_Road_Canal_Deck (repair: terrain_lower)
 - **INTENTIONAL** [boundary] playable boundary edge 7: Avenue_Road leaves the area through a gap in the barrier (invisible collider there)
 - **INTENTIONAL** [boundary] playable boundary edge 8: Avenue_Road leaves the area through a gap in the barrier (invisible collider there)
 - **INTENTIONAL** [boundary] playable boundary edge 11: West_Lane_Road leaves the area through a gap in the barrier (invisible collider there)

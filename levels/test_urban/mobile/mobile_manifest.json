@@ -41,22 +41,22 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 1665,
-    "triangles": 24936,
-    "nodes": 778,
-    "mesh_nodes": 729,
+    "glb_kb": 1747,
+    "triangles": 25256,
+    "nodes": 772,
+    "mesh_nodes": 723,
     "unique_meshes": 216,
-    "materials": 25,
-    "images": 59,
-    "draw_calls_unbatched": 729,
-    "draw_calls_batched_min": 25,
-    "tex_mem_uncompressed_mb": 23.17,
-    "tex_mem_gpu_compressed_mb": 5.79,
+    "materials": 26,
+    "images": 62,
+    "draw_calls_unbatched": 723,
+    "draw_calls_batched_min": 26,
+    "tex_mem_uncompressed_mb": 24.17,
+    "tex_mem_gpu_compressed_mb": 6.04,
     "texture_slots": {
-     "baseColorTexture": 23,
-     "metallicRoughnessTexture": 23,
-     "normalTexture": 22,
-     "occlusionTexture": 23,
+     "baseColorTexture": 24,
+     "metallicRoughnessTexture": 24,
+     "normalTexture": 23,
+     "occlusionTexture": 24,
      "emissiveTexture": 7
     },
     "image_sizes": [
@@ -68,30 +68,30 @@
    },
    "visible": {
     "cameras": 104,
-    "visible_draw_calls_mean": 241.9,
-    "visible_draw_calls_max": 655,
-    "visible_triangles_mean": 13068,
-    "visible_triangles_max": 24496
+    "visible_draw_calls_mean": 240.1,
+    "visible_draw_calls_max": 649,
+    "visible_triangles_mean": 13187,
+    "visible_triangles_max": 24816
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 1910,
-    "triangles": 27096,
-    "nodes": 184,
-    "mesh_nodes": 183,
-    "unique_meshes": 183,
-    "materials": 25,
-    "images": 59,
-    "draw_calls_unbatched": 183,
-    "draw_calls_batched_min": 25,
-    "tex_mem_uncompressed_mb": 23.17,
-    "tex_mem_gpu_compressed_mb": 5.79,
+    "glb_kb": 1965,
+    "triangles": 27416,
+    "nodes": 186,
+    "mesh_nodes": 185,
+    "unique_meshes": 185,
+    "materials": 26,
+    "images": 62,
+    "draw_calls_unbatched": 185,
+    "draw_calls_batched_min": 26,
+    "tex_mem_uncompressed_mb": 24.17,
+    "tex_mem_gpu_compressed_mb": 6.04,
     "texture_slots": {
-     "baseColorTexture": 23,
-     "metallicRoughnessTexture": 23,
-     "normalTexture": 22,
-     "occlusionTexture": 23,
+     "baseColorTexture": 24,
+     "metallicRoughnessTexture": 24,
+     "normalTexture": 23,
+     "occlusionTexture": 24,
      "emissiveTexture": 7
     },
     "image_sizes": [
@@ -125,16 +125,16 @@
     ]
    },
    "collision": {
-    "colliders": 512,
+    "colliders": 506,
     "hazards": 0,
-    "glb_kb": 360
+    "glb_kb": 355
    },
    "visible": {
     "cameras": 104,
-    "visible_draw_calls_mean": 64.8,
-    "visible_draw_calls_max": 131,
-    "visible_triangles_mean": 11663,
-    "visible_triangles_max": 20016
+    "visible_draw_calls_mean": 65.5,
+    "visible_draw_calls_max": 134,
+    "visible_triangles_mean": 11720,
+    "visible_triangles_max": 20338
    },
    "hidden_faces_removed": 0,
    "effects_extra_draw_calls": 0,
@@ -1142,19 +1142,26 @@
    "node": "M_frame_-1_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 300,
+   "triangles": 168,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Billboard_PostR",
     "Billboard_PostL",
-    "Skywalk_Column_02R",
-    "Skywalk_Column_02L",
-    "Skywalk_Column_01R",
     "Skywalk_Column_01L",
-    "Skywalk_Girder_L",
     "Cross_Street_Lamp_06_Post",
     "Avenue_Lamp_08_Post"
+   ]
+  },
+  {
+   "node": "M_grate_-1_0",
+   "kind": "static",
+   "material": "grate",
+   "triangles": 348,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Skywalk_Stairs_From"
    ]
   },
   {
@@ -1172,7 +1179,7 @@
    "node": "M_rail_-1_0",
    "kind": "static",
    "material": "rail",
-   "triangles": 408,
+   "triangles": 72,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -1181,15 +1188,14 @@
     "Fence_Park_Rail_13b",
     "Fence_Park_Rail_13a",
     "Fence_Park_Rail_12b",
-    "Fence_Park_Rail_12a",
-    "Skywalk_Rail_L"
+    "Fence_Park_Rail_12a"
    ]
   },
   {
    "node": "M_structure_b_-1_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 266,
+   "triangles": 178,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -1197,8 +1203,6 @@
     "Wreck_2_Cabin",
     "Wreck_2_Body",
     "Skywalk_Abutment_A",
-    "Skywalk_Pier_02",
-    "Skywalk_Pier_01",
     "Block_1_Door"
    ]
   },
@@ -1495,15 +1499,13 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 236,
+   "triangles": 176,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Skywalk_Column_04R",
-    "Skywalk_Column_04L",
-    "Skywalk_Column_03R",
-    "Skywalk_Column_03L",
+    "Skywalk_Column_01R",
     "Skywalk_Girder_R",
+    "Skywalk_Girder_L",
     "Tower_A_Antenna",
     "Cross_Street_Lamp_08_Post",
     "Avenue_Lamp_09_Post"
@@ -1553,27 +1555,38 @@
    ]
   },
   {
-   "node": "M_rail_0_0",
+   "node": "M_grate_0_0",
    "kind": "static",
-   "material": "rail",
-   "triangles": 336,
+   "material": "grate",
+   "triangles": 348,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Skywalk_Rail_R"
+    "Skywalk_Stairs_To"
+   ]
+  },
+  {
+   "node": "M_rail_0_0",
+   "kind": "static",
+   "material": "rail",
+   "triangles": 576,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Skywalk_Rail_R",
+    "Skywalk_Rail_L"
    ]
   },
   {
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 132,
+   "triangles": 88,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Skywalk_Abutment_B",
-    "Skywalk_Pier_04",
-    "Skywalk_Pier_03"
+    "Skywalk_Pier_01"
    ]
   },
   {
@@ -1692,10 +1705,11 @@
    "node": "M_structure_b_0_1",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 2,
+   "triangles": 46,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Bridge_Avenue_Road_Canal_Pier_01",
     "Block_6_Door"
    ]
   },
