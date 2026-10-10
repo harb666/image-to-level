@@ -1,0 +1,100 @@
+"""Stage 9 natural modules: rock_arch, cave, overhang, cliff_face, rock_spire, ruins, crystal_cluster, boulder_field.
+Custom closed meshes (shapes.py) instead of heightfield tricks for what a heightfield cannot do (vertical walls, holes,
+overhangs). All use the 'rock' role (theme palette) unless "material" is given; collision is the real mesh where a
+convex hull would fill an opening (arch, cave, overhang)."""
+import math
+import numpy as np
+import architecture as A
+from modules import structure
+
+
+def _seed(s):
+    return A._h(s["id"]) % 9973
+
+
+@structure("rock_arch", pad=False, needs_size=True, natural=True)
+def rock_arch(ctx, s, x, y, z, yaw):
+    """Natural stone arch spanning size[0] along local x, top at size[1] (walk under it)."""
+    w, h, d = s["size"]; ctx.add(s["id"], "rock_arch", [x, y - 0.3, z], [w, h, d], s.get("material", "rock"), rot=[0, yaw, 0], seed=_seed(s), collision_mesh=True)
+
+
+def _cave_terrain(s, TR0):
+    x, z = s["position"][0], s["position"][-1]; w, h, d = s["size"]; y = TR0.height_at(x, z) if len(s["position"]) == 2 else s["position"][1]
+    return [dict(id=s["id"] + "_Floor", type="pad", center=[x, z], size=[w * 0.9, d * 0.9], yaw=s.get("yaw", 0), y=round(y, 2), margin=4.0, surface="pad")]
+
+
+@structure("cave", pad=False, needs_size=True, natural=True, terrain=_cave_terrain)
+def cave(ctx, s, x, y, z, yaw):
+    """Rock outcrop with a walk-in cave on its front (+z after yaw); the ground under it is flattened to the cave floor."""
+    w, h, d = s["size"]; y0 = ctx.TR.height_at(x, z) if getattr(ctx, "TR", None) is not None else y
+    ctx.add(s["id"], "cave", [x, y0, z], [w, h, d], s.get("material", "rock"), rot=[0, yaw, 0], seed=_seed(s), opening=s.get("opening", 0.5), collision_mesh=True)
+    ctx.walkable.append(dict(name=s["id"], min=[x - 1, z - 1], max=[x + 1, z + 1], y=y0))
+
+
+@structure("overhang", pad=False, needs_size=True, natural=True)
+def overhang(ctx, s, x, y, z, yaw):
+    """Rock shelf whose lip juts over a recess (cover from above); front = +z after yaw."""
+    w, h, d = s["size"]; ctx.add(s["id"], "overhang", [x, y - 0.2, z], [w, h, d], s.get("material", "rock"), rot=[0, yaw, 0], seed=_seed(s), collision_mesh=True)
+
+
+@structure("cliff_face", pad=False, natural=True)
+def cliff_face(ctx, s, x, y, z, yaw):
+    """Vertical rock wall along 'from' -> 'to' (segments of ~10 m), face towards the lower side, base below the lower ground."""
+    (ax, az), (bx, bz) = s["from"], s["to"]; L = math.hypot(bx - ax, bz - az); n = max(1, int(round(L / s.get("segment", 10.0))))
+    ux, uz = (bx - ax) / L, (bz - az) / L; nx, nz = uz, -ux; TR = getattr(ctx, "TR", None); d = s.get("depth", 4.0)
+    for i in range(n):
+        cx, cz = ax + ux * L * (i + 0.5) / n, az + uz * L * (i + 0.5) / n
+        if TR is not None:
+            hp, hm = TR.height_at(cx + nx * 6, cz + nz * 6), TR.height_at(cx - nx * 6, cz - nz * 6); sg = 1 if hp < hm else -1
+            lo, hi = min(hp, hm), max(hp, hm)
+        else: sg, lo, hi = 1, y, y + s.get("height", 8)
+        fx, fz = nx * sg, nz * sg  # face direction (towards the low side)
+        hh = (s.get("height") or (hi - lo)) + 1.5
+        ctx.add(f"{s['id']}_{i + 1:02d}", "cliff", [cx - fx * 0.6, lo - 1.0, cz - fz * 0.6], [L / n + 1.2, hh + 1.0, d], s.get("material", "rock"),
+                rot=[0, A.yaw_to(fx, fz), 0], seed=_seed(s) + i)
+
+
+@structure("rock_spire", pad=False, natural=True)
+def rock_spire(ctx, s, x, y, z, yaw):
+    """Hoodoo / sea stack: stacked weathered rock blocks narrowing upwards (+ a cap rock)."""
+    w, h, d = s.get("size", [5, 14, 5]); n = s["id"]; g = ctx.add(n, "group", [x, y - 0.6, z], rot=[0, yaw, 0]); k = 4; yy = 0.0
+    for i in range(k):
+        f = 1 - 0.18 * i; hh = h / k * (1.15 if i == 0 else 1.0)
+        ctx.add(f"{n}_{i + 1:02d}", "rock", [0, yy, 0], [w * f, hh, d * f], s.get("material", "rock"), g, seed=_seed(s) + i, convex=True); yy += hh * 0.86
+    ctx.add(n + "_Cap", "rock", [0, yy, 0], [w * 0.9, h * 0.12, d * 0.9], s.get("material", "rock"), g, seed=_seed(s) + 9, convex=True)
+
+
+@structure("ruins", pad=True, needs_size=True)
+def ruins(ctx, s, x, y, z, yaw):
+    """Broken masonry: jagged wall stubs round the footprint (gaps for routes), fallen blocks, broken columns."""
+    w, h, d = s["size"]; n = s["id"]; g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); rng = np.random.default_rng(_seed(s)); mat = s.get("material", "stone")
+    sides = [((-w / 2, -d / 2), (w / 2, -d / 2)), ((w / 2, -d / 2), (w / 2, d / 2)), ((w / 2, d / 2), (-w / 2, d / 2)), ((-w / 2, d / 2), (-w / 2, -d / 2))]
+    k = 0
+    for i, ((x0, z0), (x1, z1)) in enumerate(sides):
+        L = math.hypot(x1 - x0, z1 - z0); ux, uz = (x1 - x0) / L, (z1 - z0) / L; t = 0.0
+        while t < L - 1.5:
+            seg = rng.uniform(2.5, 5.0); gap = rng.uniform(1.6, 3.5) if rng.random() < 0.45 else 0.0; seg = min(seg, L - t)
+            if seg > 1.2:
+                cx, cz = x0 + ux * (t + seg / 2), z0 + uz * (t + seg / 2); k += 1
+                ctx.add(f"{n}_Wall_{k:02d}", "cliff", [cx, -0.3, cz], [seg, h * rng.uniform(0.35, 1.0), 0.9], mat, g, [0, math.degrees(math.atan2(ux, uz)) - 90, 0], seed=_seed(s) + k, step=1.2)
+            t += seg + gap
+    for j in range(int(s.get("count", 4))):
+        bx, bz = rng.uniform(-w / 2.5, w / 2.5), rng.uniform(-d / 2.5, d / 2.5)
+        if rng.random() < 0.5: ctx.add(f"{n}_Column_{j + 1:02d}", "cylinder", [bx, -0.2, bz], [0.9, rng.uniform(1.0, h * 0.8), 0.9], mat, g, sections=8)
+        else: ctx.add(f"{n}_Block_{j + 1:02d}", "box", [bx, -0.3, bz], [rng.uniform(1.0, 1.8), rng.uniform(0.8, 1.3), rng.uniform(0.9, 1.4)], mat, g, [0, rng.uniform(0, 90), 0])
+
+
+@structure("crystal_cluster", pad=False, natural=True)
+def crystal_cluster(ctx, s, x, y, z, yaw):
+    """Large glowing crystal formation (alien / fantasy); seeded hex prisms."""
+    w, h, d = s.get("size", [4, 5, 4]); ctx.add(s["id"], "crystals", [x, y - 0.3, z], [w, h, d], s.get("material", "glow"), rot=[0, yaw, 0], seed=_seed(s))
+
+
+@structure("boulder_field", pad=False, natural=True)
+def boulder_field(ctx, s, x, y, z, yaw):
+    """Cluster of large boulders (cover) over a radius, each grounded on the terrain."""
+    rng = np.random.default_rng(_seed(s)); R = s.get("radius", 8.0); n = s["id"]
+    for i in range(int(s.get("count", 6))):
+        a, r = rng.uniform(0, 2 * np.pi), R * math.sqrt(rng.uniform(0.05, 1)); bx, bz = x + r * math.cos(a), z + r * math.sin(a); sz = rng.uniform(1.4, 3.2)
+        gy = A.ground_height(ctx, bx, bz, y, sz * 0.3)
+        ctx.add(f"{n}_{i + 1:02d}", "rock", [bx, gy - sz * 0.25, bz], [sz * rng.uniform(1, 1.4), sz, sz * rng.uniform(0.9, 1.3)], s.get("material", "rock"), rot=[0, rng.uniform(0, 360), 0], seed=_seed(s) + i)

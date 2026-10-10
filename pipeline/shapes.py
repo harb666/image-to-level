@@ -20,6 +20,10 @@ All return trimesh.Trimesh; every solid is closed (no open backs). Sizes are o["
                         width (diameter), size[2] = section depth; "speed" m/s, "pitch" deg (-90 = vertical drain),
                         "inset" m started inside the opening (covers the mouth). Closed, few triangles.      (Stage 8)
   channel               open U trough along local z (rectangular drain / spillway lip): floor + two side walls (Stage 8)
+  berm                  earth cover over a tunnel: top from "heights" grid ("xs", "zs"), flat base (Stage 9)
+  rock_arch             natural stone arch along x (span w, top h, depth d), flared buried legs (Stage 9)
+  cave                  rock mass with a walk-in cave on its +z face, flat floor at y=0, closed back (Stage 9)
+  overhang              rock shelf with a lip jutting forward (+z) over a recess (Stage 9)
 """
 import numpy as np, trimesh
 from trimesh.transformations import rotation_matrix
@@ -232,9 +236,109 @@ def channel(w, h, d, o):
     return trimesh.util.concatenate([_box(w, t, d), _box(t, h, d, -w / 2 + t / 2), _box(t, h, d, w / 2 - t / 2)])
 
 
+def berm(w, h, d, o):
+    """Earth/rock cover over a tunnel (Stage 9): top surface from o["heights"] (rows along z, cols along x at o["xs"],
+    o["zs"]), flat base at y=0, closed sides."""
+    H = np.asarray(o.get("heights", np.full((3, 3), h)), float); nl, nw = H.shape  # flat cover of height h by default
+    xs = np.asarray(o.get("xs", np.linspace(-w / 2, w / 2, nw)), float); zs = np.asarray(o.get("zs", np.linspace(-d / 2, d / 2, nl)), float)
+    X, Z = np.meshgrid(xs, zs); top = np.c_[X.ravel(), H.ravel(), Z.ravel()]; bot = top.copy(); bot[:, 1] = 0.0
+    V = np.vstack([top, bot]); idx = np.arange(nl * nw).reshape(nl, nw); F = []
+    for i in range(nl - 1):
+        for j in range(nw - 1):
+            a, b, c, d_ = idx[i, j], idx[i, j + 1], idx[i + 1, j + 1], idx[i + 1, j]
+            F += [[a, d_, c], [a, c, b], [a + nl * nw, c + nl * nw, d_ + nl * nw], [a + nl * nw, b + nl * nw, c + nl * nw]]
+    ring = list(idx[0, :]) + list(idx[1:, -1]) + list(idx[-1, -2::-1]) + list(idx[-2:0:-1, 0])
+    for k in range(len(ring)):
+        a, b = ring[k], ring[(k + 1) % len(ring)]; F += [[a, b + nl * nw, b], [a, a + nl * nw, b + nl * nw]]
+    m = trimesh.Trimesh(V, F, process=True); m.fix_normals(); return m
+
+
+def _ring_sweep(rings, cap_start=True, cap_end=True):
+    """Closed tube through a list of (n,3) rings (same n); fan caps at both ends."""
+    R = len(rings); n = len(rings[0]); V = np.vstack(rings); F = []
+    for r in range(R - 1):
+        for k in range(n):
+            a, b, c, d_ = r * n + k, r * n + (k + 1) % n, (r + 1) * n + (k + 1) % n, (r + 1) * n + k; F += [[a, b, c], [a, c, d_]]
+    V = list(V)
+    for r, on in ((0, cap_start), (R - 1, cap_end)):
+        if not on: continue
+        ci = len(V); V.append(np.mean(rings[r], 0))
+        for k in range(n): F.append([ci, r * n + (k + 1) % n, r * n + k])
+    m = trimesh.Trimesh(np.array(V), F, process=True); m.fix_normals(); return m
+
+
+def rock_arch(w, h, d, o):
+    """Natural stone arch along x: span w, top at h, depth d; legs flare, buried 1 m; seeded noise."""
+    rng = np.random.default_rng(int(o.get("seed", 3))); t = o.get("thickness", max(1.2, h * 0.2)); nr, ns = 16, 8; rings = []
+    for i in range(nr):
+        u = i / (nr - 1); ang = np.pi * (1 - u)  # left foot -> top -> right foot
+        cx, cy = (w / 2 - t * 0.7) * np.cos(ang), (h - t / 2) * np.sin(ang) - (1.0 if i in (0, nr - 1) else 0.0)
+        tan = np.array([-np.sin(ang) * (w / 2), np.cos(ang) * h, 0]); tan /= np.linalg.norm(tan); nrm = np.array([-tan[1], tan[0], 0])
+        flare = 1 + 0.6 * (1 - np.sin(ang)) ** 2; jit = rng.uniform(0.85, 1.15, ns)
+        a = np.linspace(0, 2 * np.pi, ns, endpoint=False)
+        ring = np.array([[cx, cy, 0]]) + (np.cos(a) * t / 2 * flare * jit)[:, None] * nrm + (np.sin(a) * d / 2 * flare * jit)[:, None] * np.array([0, 0, 1])
+        rings.append(ring)
+    return _ring_sweep(rings)
+
+
+def cave(w, h, d, o):
+    """Rock mass with a cave opening on its +z face going back (-z) to a closed end: annular extrusion (outer rock
+    shell + inner tunnel with a flat floor at y=0); width w, height h, depth d; "opening" = inner width fraction."""
+    from terrain import stitch
+    rng = np.random.default_rng(int(o.get("seed", 5))); op = o.get("opening", 0.5); n = 14; rows = 7; a = np.linspace(0, np.pi, n); O, I = [], []
+    for i in range(rows):
+        z = d / 2 - d * i / (rows - 1); f = 1 - 0.35 * i / (rows - 1); jo = rng.uniform(0.9, 1.1, n); ji = rng.uniform(0.93, 1.07, n)
+        arc = np.c_[w / 2 * np.cos(a) * jo, h * np.sin(a) * jo * (0.85 + 0.15 * f), np.full(n, z)]          # +x foot -> top -> -x foot
+        O.append(np.vstack([[[w / 2, -1.0, z]], arc[1:-1], [[-w / 2, -1.0, z]]]))                       # closes along the buried base
+        I.append(np.c_[w / 2 * op * f * np.cos(a) * ji, 0.02 + h * 0.62 * f * np.sin(a) * ji, np.full(n, z)])  # closes along the floor
+    no, ni = len(O[0]), len(I[0]); st = no + ni; V = [p for r in range(rows) for p in list(O[r]) + list(I[r])]; F = []
+    oi = lambda r, k: r * st + k; ii = lambda r, k: r * st + no + k
+    for r in range(rows - 1):
+        for k in range(no):
+            k2 = (k + 1) % no; F += [[oi(r, k), oi(r, k2), oi(r + 1, k2)], [oi(r, k), oi(r + 1, k2), oi(r + 1, k)]]
+        for k in range(ni):
+            k2 = (k + 1) % ni; F += [[ii(r, k), ii(r + 1, k2), ii(r, k2)], [ii(r, k), ii(r + 1, k), ii(r + 1, k2)]]
+    F += stitch([oi(0, k) for k in range(no)], np.linspace(0, 1, no, endpoint=False), [ii(0, k) for k in range(ni)], np.linspace(0, 1, ni, endpoint=False))
+    cb = len(V); V.append(O[-1].mean(0)); ci = len(V); V.append(I[-1].mean(0))  # closed back
+    for k in range(no): F.append([cb, oi(rows - 1, (k + 1) % no), oi(rows - 1, k)])
+    for k in range(ni): F.append([ci, ii(rows - 1, k), ii(rows - 1, (k + 1) % ni)])
+    m = trimesh.Trimesh(np.array(V), F, process=True); m.fix_normals(); return m
+
+
+def overhang(w, h, d, o):
+    """Rock shelf along x whose top lip juts forward (+z) over its base: buried base, closed, seeded."""
+    rng = np.random.default_rng(int(o.get("seed", 4))); n = max(4, int(w / 2.5)); xs = np.linspace(-w / 2, w / 2, n + 1); j = lambda a, b: rng.uniform(a, b, n + 1)
+    lip = d / 2 * o.get("lip", 1.0)
+    rows = [np.c_[xs, np.full(n + 1, -1.0), np.full(n + 1, d * 0.05) * j(0.8, 1.2)],      # front base (set back)
+            np.c_[xs, h * 0.45 * j(0.85, 1.1), d * 0.1 * j(0.5, 1.5)],                     # recess
+            np.c_[xs, h * 0.72 * j(0.9, 1.05), lip * j(0.8, 1.05)],                         # lip underside
+            np.c_[xs, h * j(0.9, 1.0), lip * 0.8 * j(0.85, 1.0)],                           # lip top
+            np.c_[xs, h * j(0.95, 1.05), np.full(n + 1, -d / 2)],                           # back top
+            np.c_[xs, np.full(n + 1, -1.0), np.full(n + 1, -d / 2)]]                         # back base
+    P = np.array(rows); R = len(rows); idx = np.arange(R * (n + 1)).reshape(R, n + 1); f = []
+    for r in range(R):
+        r2 = (r + 1) % R
+        for c in range(n):
+            a, b_, cc, dd = idx[r, c], idx[r, c + 1], idx[r2, c + 1], idx[r2, c]; f += [[a, cc, b_], [a, dd, cc]]
+    for k, e in enumerate([idx[:, 0], idx[:, -1]]):
+        for i in range(1, R - 1): f.append([e[0], e[i], e[i + 1]] if k else [e[0], e[i + 1], e[i]])
+    m = trimesh.Trimesh(P.reshape(-1, 3), np.array(f), process=True); m.fix_normals(); return m
+
+
+def crystals(w, h, d, o):
+    """Cluster of hexagonal crystals with pointed tips inside w x h x d (seeded), bases buried 0.3 m."""
+    rng = np.random.default_rng(int(o.get("seed", 6))); parts = []
+    for k in range(int(o.get("count", 7))):
+        hh = h * rng.uniform(0.35, 1.0); r = min(w, d) * rng.uniform(0.07, 0.15); a = np.linspace(0, 2 * np.pi, 6, endpoint=False)
+        pts = np.r_[np.c_[r * np.cos(a), np.full(6, -0.3), r * np.sin(a)], np.c_[r * np.cos(a), np.full(6, hh * 0.8), r * np.sin(a)], [[0, hh, 0]]]
+        c = trimesh.convex.convex_hull(pts); c.apply_transform(rotation_matrix(rng.uniform(-0.4, 0.4), [rng.uniform(-1, 1), 0, rng.uniform(-1, 1)]))
+        c.apply_translation([rng.uniform(-w / 3, w / 3), 0, rng.uniform(-d / 3, d / 3)]); parts.append(c)
+    return trimesh.util.concatenate(parts)
+
+
 SHAPES = dict(railing=railing, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
-              stream=stream, channel=channel)
+              stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals)
 
 
 def make(o, bevel=0.0):

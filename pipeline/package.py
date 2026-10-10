@@ -27,7 +27,10 @@ PURPOSE = {"level.json": "editable master (source of truth for edits)", "level.g
            "mobile/mobile_manifest.json": "per-node visibility/shadows + Godot import settings + metrics", "mobile/apply_mobile.gd": "Godot starter: visibility ranges, shadows, hazard Area3Ds",
            "gameplay/spawns.json": "player spawns (position, yaw)", "gameplay/hazards.json": "hazard volumes (kill / damage areas)",
            "gameplay/navigation.json": "reachability summary from the gameplay config (not a navmesh)", "IMPORT_GODOT.md": "how to import into Construct Error",
-           "checks/report.md": "validation report", "scene_spec.json": "Claude's interpretation of the reference images (regenerate input)"}
+           "checks/report.md": "validation report", "scene_spec.json": "Claude's interpretation of the reference images (regenerate input)",
+           "terrain.json": "Stage 9 terrain metadata: chunks + hashes, LOD ranges, features, layers, water, scatter instances (derived)",
+           "props/props.glb": "Stage 9 scatter variant meshes (unit transforms) for optional MultiMesh instancing",
+           "mobile/apply_scatter_multimesh.gd": "OPTIONAL Godot script: MultiMesh scatter from terrain.json (UNTESTED in Godot here)"}
 
 
 def sha1(p): return hashlib.sha1(open(p, "rb").read()).hexdigest()
@@ -37,7 +40,7 @@ def build(level_dir, out_root=None, make_zip=False, verbose=True):
     L = json.load(open(os.path.join(level_dir, "level.json"))); name = os.path.basename(os.path.normpath(level_dir))
     out_root = out_root or os.path.join(ROOT, "dist", name, "package"); dst = os.path.join(out_root, "levels", name)
     shutil.rmtree(out_root, ignore_errors=True); os.makedirs(dst)
-    files = ["level.json", "level.glb", "background.glb", "environment.json", "environment.tres", "effects.json", "scene_spec.json"]
+    files = ["level.json", "level.glb", "background.glb", "environment.json", "environment.tres", "effects.json", "scene_spec.json", "terrain.json", "props/props.glb"]
     files += [os.path.join("sky", f) for f in ("panorama.jpg",) if os.path.exists(os.path.join(level_dir, "sky", f))]
     files += [os.path.join("mobile", f) for f in sorted(os.listdir(os.path.join(level_dir, "mobile")))] if os.path.isdir(os.path.join(level_dir, "mobile")) else []
     if os.path.isdir(os.path.join(level_dir, "fx")):
@@ -50,7 +53,9 @@ def build(level_dir, out_root=None, make_zip=False, verbose=True):
     if os.path.exists(tres): open(tres, "w").write(re.sub(r"res://levels/[^/]+/", f"res://levels/{name}/", open(tres).read()))
     gp = os.path.join(dst, "gameplay"); os.makedirs(gp)
     spawns = [dict(id="spawn", **L["spawn"])] + L.get("spawns", [])
-    json.dump(dict(note="Positions in metres (Godot: y up, -z forward). yaw_deg rotates the player about +y.", spawns=spawns), open(os.path.join(gp, "spawns.json"), "w"), indent=1)
+    json.dump(dict(note="Positions in metres (Godot: y up, -z forward). yaw_deg rotates the player about +y. Stage 9: 'team' player / enemy; "
+                        "spawn_regions = the regions the points were chosen in (safe, flat, dry, clear).", spawns=spawns,
+                   spawn_regions=L.get("spawn_regions", [])), open(os.path.join(gp, "spawns.json"), "w"), indent=1)
     col = json.load(open(os.path.join(level_dir, "mobile", "collision.json"))) if os.path.exists(os.path.join(level_dir, "mobile", "collision.json")) else {}
     json.dump(dict(note="Hazard volumes: box areas in world space (Area3D). The game decides damage / kill / respawn.", hazards=col.get("hazards", []), names=L.get("hazards", [])),
               open(os.path.join(gp, "hazards.json"), "w"), indent=1)

@@ -33,6 +33,18 @@ below and replies with a preview link plus a short report.
 
 Follow `SCENE_SPEC.md`.
 
+**Stage 9 - choose the generation mode first** (Claude's judgement, recorded in `interpretation.assumptions`):
+- *structured* (`arena` only): enclosed arenas, interiors, walled compounds.
+- *open* (`world` only): landscapes and cities. Read the image for: relief (`flat` … `mountainous`), the biome / ground
+  materials, named landforms (each hill, ridge, river, road, cliff, lake as a `features[]` entry with an `id`), where
+  the playable area ends and what conceals it (ridge, cliffs, water, buildings), vegetation and rock density
+  (`scatter[]`), and where players / enemies start (`spawn_regions[]`).
+- *hybrid* (`arena` + `world`): a structured compound inside a landscape.
+Don't force a square boundary, symmetry or a centre platform: use `boundary.points` when the image shows the shape.
+For layout taken from an image, a grayscale `heightmap` or a `mask` feature can carry it (paint/derive the image,
+put it in the level folder). Footprint buildings get pads and foundations automatically; roads crossing rivers get
+bridges; rivers/roads leaving the area continue to the horizon.
+
 1. **Scale.** Pick a scale basis and write it down in `interpretation.scale_basis`. Platforms of at least 8–12 m give
    third-person combat room. Bridges must be at least `design.min_bridge_width`.
 2. **Gameplay spaces.**
@@ -58,6 +70,15 @@ This runs spec → `level.json` → build (glb, PBR textures, sky, background, e
 refine loop (`checks.py`, safe automatic fixes, rebuild; at most `refine.max_passes`). After that it renders headless
 views, writes the final report, the previews (`dist/<name>/preview.html` and `preview_mobile.html`) and the package
 (`dist/<name>/<name>.zip`), and finally `levels/<name>/checks/summary.md`.
+
+## 3a. Worlds (Stage 9, automatic inside the same command)
+
+The build adds the terrain chunks (+ LODs in the mobile export), the middle-zone ring, water, scatter and
+`terrain.json`; the checks add the world family (`terrain_check.py`: holes / LOD seams, roads + bridges, foundations,
+ground through floors, boundary concealment, water edges, unreachable areas, density, background gaps from boundary /
+hilltop / spawn cameras). Safe repairs edit only `level.json["terrain"]` features outside the playable area or under a
+floor ("lower"-only), or extend a foundation. The renders add boundary views looking OUT in each compass direction, the
+highest playable point and a zones overview. Look at those: a valid world can still look wrong.
 
 ## 3b. Geometry (Stage 8, automatic inside refine)
 `checks/geometry.md` lists construction findings (ERROR / WARNING / INTENTIONAL); the safe ones are already repaired

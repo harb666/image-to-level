@@ -20,6 +20,8 @@ Checks
   terrain        cracks between terrain pieces (rocks / cliffs grounded via "support")
   collision      collision.json present + newer than level.json, every hazard has a hazard area
   spawn          spawn safety (from gameplay.py)
+  world          Stage 9 terrain worlds: terrain_surface, terrain_lod, roads, foundations, terrain_floor, boundary,
+                 water, unreachable, density, background (terrain_check.py)
 Each finding may carry a deterministic "repair" (geometry_repair.py applies the unambiguous ones).
 """
 import json, math, os, sys
@@ -33,7 +35,7 @@ class Geo:
 
     def __init__(self, d, L, G):
         from validate_level import load_tris, closed_mask
-        self.L, self.G = L, G
+        self.L, self.G, self.d = L, G, d
         T, names, objs = load_tris(os.path.join(d, "level.glb"), skip_invisible=False)
         self.T = T; self.node = names; self.obj = np.array([n[:-4] if n.endswith("_Top") else n for n in names])
         self.mat = np.array([objs[n][2] for n in names])
@@ -47,11 +49,12 @@ class Geo:
         self.body = closed_mask(names, objs)
         wi = np.flatnonzero(self.walk)
         if len(wi):
-            from validate_level import inside_solid
-            cm = self.body >= 0; P = T[wi].mean(1) + [0, 0.03, 0]; bur = np.zeros(len(wi), bool)
-            for k in range(0, len(wi), 512): bur[k:k + 512] = inside_solid(P[k:k + 512], T[cm], self.body[cm])
+            from validate_level import inside_solid_bodies
+            P = T[wi].mean(1) + [0, 0.03, 0]; bur = inside_solid_bodies(P, T, self.body)
             self.walk[wi[bur]] = False
-        ter = np.array([by.get(o, {}).get("type") == "terrain" for o in self.obj])  # terrain skirts reach below the world floor
+        from terrain import is_terrain_node
+        ter = np.array([by.get(o, {}).get("type") == "terrain" or is_terrain_node(o) for o in self.obj])  # terrain skirts reach below the world floor
+        self.is_ter = np.array([is_terrain_node(o) for o in self.obj])
         self.ground_y = float(T[~ter][:, :, 1].min()) if (~ter).any() else (float(T[:, :, 1].min()) if len(T) else 0.0)
         # base level: lowest LARGE up-facing surface (ground, deck or liquid) - nothing below it is ever seen by the camera
         up = (self.n[:, 1] > 0.9) & ~ter & ~bnd
@@ -150,7 +153,11 @@ def check_connections(g, L, rel, W, out):
         f = sum(h is not None for h in hits) / len(hits); tag = f"{o['name']}.{r.get('a_anchor')}"
         intent = _intentional(L, [o["name"]], "gap")
         targets = {h[1] for h in hits if h}
-        if r.get("b") and targets and not any(t in g.family(r["b"]) for t in targets):
+        ok_t = set(g.family(r["b"])) if r.get("b") else set()
+        if r.get("b") and "_Junction" in r["b"]:  # a junction plate continues onto the floor it rests on
+            for r2 in rel:
+                if r2.get("a") == r["b"] and r2["type"] in ("supported_by", "walkable_connection") and r2.get("b"): ok_t |= set(g.family(r2["b"]))
+        if r.get("b") and targets and not any(t in ok_t for t in targets):
             out.append(F("connection", "WARNING", [o["name"], r["b"]], f"{tag} meets {sorted(str(t) for t in targets)} instead of {r['b']}", E))
         buried = g.surface(E + [0, 0.205, 0], 0.2, fam)  # a floor ABOVE the end (within 0.4 m): the end is tucked under it
         if buried and f > 0: continue  # end tucked UNDER a floor plate (dip-under junction): hidden, no lip
@@ -297,6 +304,12 @@ def check_overlap(g, L, out):
     """Coplanar overlapping faces of different materials -> z-fighting."""
     keys = {}
     hidden = ((g.n[:, 1] < -0.9) & (g.T[:, :, 1].max(1) <= g.base_level + 0.01)) | (g.T[:, :, 1].max(1) <= g.ground_y + 0.01) | g.boundary  # under the base floor / invisible: never seen
+    if isinstance(L.get("terrain"), dict):  # Stage 9: faces buried under the terrain surface are never seen either
+        from terrain import Terrain
+        TRh = Terrain(L["terrain"], g.d)
+        c = g.T.mean(1); th = TRh.height(c[:, 0], c[:, 2])
+        hidden |= ~g.is_ter & (g.T[:, :, 1].max(1) < th - 0.02)  # buried
+        hidden |= ~g.is_ter & (g.n[:, 1] < -0.9) & (c[:, 1] - th < 0.15)  # down-facing face resting on / just above the ground
     for i in np.flatnonzero((g.area > 1e-3) & ~hidden):
         nn = np.round(g.n[i], 2); dd = float(np.dot(g.n[i], g.T[i, 0]))
         keys.setdefault((tuple(nn), round(dd / 0.004)), []).append(i)
@@ -311,10 +324,11 @@ def check_overlap(g, L, out):
             for b_ in range(a_ + 1, len(idx)):
                 i, j = idx[a_], idx[b_]
                 if g.obj[i] == g.obj[j] or g.mat[i].split("__")[0] == g.mat[j].split("__")[0]: continue
+                if g.is_ter[i] and g.is_ter[j]: continue  # one global terrain grid: chunks / layers only share edges
                 A, B = P2[i], P2[j]
                 if (A.max(0) < B.min(0) + 0.02).any() or (B.max(0) < A.min(0) + 0.02).any(): continue
-                ov = np.prod(np.minimum(A.max(0), B.max(0)) - np.maximum(A.min(0), B.min(0)))
-                if ov > 1e-3 and (_in_tri(A.mean(0), B) or _in_tri(B.mean(0), A) or ov > 0.05):
+                ov = _overlap_area(A, B)  # true polygon overlap (rotated parts no longer count their bounding boxes)
+                if ov > 1e-3:
                     key = tuple(sorted((g.obj[i], g.obj[j]))); pairs[key] = pairs.get(key, 0) + min(ov, g.area[i], g.area[j])
                     c2 = (np.maximum(A.min(0), B.min(0)) + np.minimum(A.max(0), B.max(0))) / 2  # centre of the overlap, in plane coords
                     p3 = n * np.dot(n, g.T[i, 0]) + e1 * c2[0] + e2 * c2[1]
@@ -326,11 +340,31 @@ def check_overlap(g, L, out):
         nb = g.near(P.min(0) - 0.1, P.max(0) + 0.1, g.family(a) | g.family(b))
         if len(nb) and g.inside(P, nb).all(): continue
         oa, ob = g.by.get(a, {}), g.by.get(b, {})
-        mover = a if is_connector(oa) else b if is_connector(ob) else (a if (np.prod(oa.get("size", [1, 1, 1])) <= np.prod(ob.get("size", [1, 1, 1]))) else b)
+        from terrain import is_terrain_node
+        if is_terrain_node(a) or is_terrain_node(b): mover = b if is_terrain_node(a) else a  # never move the terrain
+        else: mover = a if is_connector(oa) else b if is_connector(ob) else (a if (np.prod(oa.get("size", [1, 1, 1])) <= np.prod(ob.get("size", [1, 1, 1]))) else b)
         cls = "INTENTIONAL" if _intentional(L, [a, b], "overlap") else "WARNING"
         i = np.flatnonzero(g.obj == mover)
         out.append(F("overlap", cls, [a, b], f"{a} and {b} share coplanar faces ({area:.2f} m², different materials): z-fighting flicker",
                      g.T[i].reshape(-1, 3).mean(0) if len(i) else None, dict(area_m2=round(area, 3)), dict(action="nudge", obj=mover, other=a if mover == b else b, distance=0.01)))
+
+
+def _overlap_area(A, B):
+    """Area of the intersection of two 2D triangles (Sutherland-Hodgman clipping)."""
+    def ccw(P): return P if (P[1, 0] - P[0, 0]) * (P[2, 1] - P[0, 1]) - (P[1, 1] - P[0, 1]) * (P[2, 0] - P[0, 0]) >= 0 else P[::-1]
+    poly = list(ccw(np.asarray(A, float))); C = ccw(np.asarray(B, float))
+    for k in range(3):
+        a, b = C[k], C[(k + 1) % 3]; inside = lambda p: (b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0]) >= -1e-12
+        out, n = [], len(poly)
+        for m in range(n):
+            p, q = poly[m], poly[(m + 1) % n]; ip, iq = inside(p), inside(q)
+            if ip: out.append(p)
+            if ip != iq:
+                d1 = (b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0]); d2 = (b[0] - a[0]) * (q[1] - a[1]) - (b[1] - a[1]) * (q[0] - a[0])
+                t = d1 / (d1 - d2) if d1 != d2 else 0.0; out.append(p + (q - p) * t)
+        poly = out
+        if len(poly) < 3: return 0.0
+    P = np.array(poly); return 0.5 * abs(np.dot(P[:, 0], np.roll(P[:, 1], -1)) - np.dot(P[:, 1], np.roll(P[:, 0], -1)))
 
 
 def _in_tri(p, T):
@@ -468,11 +502,15 @@ def run(d, verbose=True, write=True):
     rel = infer_relations(L); W, _ = world_matrices(L); g = Geo(d, L, G)
     check_connections(g, L, rel, W, out); check_stairs_ramps(g, L, out); check_support(g, L, rel, out); check_overlap(g, L, out)
     check_mesh(g, L, out); check_liquids(g, L, rel, W, out); check_openings(g, L, W, out); check_terrain(g, L, W, out); check_collision(d, L, out)
+    N = None
     try:
         N = analyse(d, G, write=False, verbose=False)
         for i in N["issues"]:
             if i["kind"].startswith("spawn_"): out.append(F("spawn", "ERROR" if i["severity"] == "error" else "WARNING", [i.get("object", "spawn")], i["message"], i.get("pos")))
     except Exception as e: out.append(F("spawn", "WARNING", [], f"navigation unavailable: {e}"))
+    if isinstance(L.get("terrain"), dict):  # Stage 9 world checks (terrain_check.py)
+        from terrain_check import check_world
+        check_world(d, L, G, out, N)
     order = {"ERROR": 0, "WARNING": 1, "INTENTIONAL": 2}; out.sort(key=lambda f: (order[f["cls"]], f["check"]))
     for k, f in enumerate(out): f["id"] = f"{f['check']}:{k:03d}"
     R = dict(level=os.path.basename(os.path.normpath(d)), counts={c: sum(f["cls"] == c for f in out) for c in order},

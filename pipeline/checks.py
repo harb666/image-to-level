@@ -130,10 +130,11 @@ def complexity(d, L, G, I, wp):
     for node in s.graph.nodes_geometry:
         g = s.graph[node][1]; per[node] = per.get(node, 0) + len(s.geometry[g].faces)
     for n, t in sorted(per.items(), key=lambda x: -x[1]):
+        if n.startswith(("TR_", "TRM_", "TW_", "SC_", "SCN_")): continue  # Stage 9 terrain chunks / merged scatter cells: judged per chunk (geometry density)
         if t > B["max_object_triangles"]:
             I.append(dict(kind="heavy_object", severity="warning", object=n, pos=wp.get(n), message=f"{n}: {t} triangles (> {B['max_object_triangles']} per object)"))
     tot = sum(per.values())
-    if tot > B["triangles"]: I.append(dict(kind="triangle_budget", severity="warning", message=f"{tot} triangles (> budget {B['triangles']})"))
+    if tot > B["triangles"] and not isinstance(L.get("terrain"), dict): I.append(dict(kind="triangle_budget", severity="warning", message=f"{tot} triangles (> budget {B['triangles']})"))
     return dict(triangles=tot, nodes=len(per), materials=len(L.get("materials", {})), heaviest=sorted(per.items(), key=lambda x: -x[1])[:5])
 
 
@@ -147,8 +148,14 @@ def performance(d, L, G, I):
                                                                              visible_draw_calls_max_est=m["visible"].get("visible_draw_calls_max"), tex_mem_gpu_mb_est=m["level"].get("tex_mem_gpu_compressed_mb"),
                                                                              materials=m["level"].get("materials"), nodes=m["level"].get("nodes"), colliders=m.get("collision"),
                                                                              background_kb=m.get("background", {}).get("glb_kb") if isinstance(m.get("background"), dict) else None)
+        world = isinstance(L.get("terrain"), dict)
+        if world:  # Stage 9: LODs + view distances -> budgets on what the camera sees (estimates), plus the file size
+            WB = dict(B, **{k: v for k, v in G.get("world_budgets", {}).items() if k != "note"}); B = WB
+            P["mobile"]["visible_triangles_est"] = m["visible"].get("visible_triangles_mean"); P["mobile"]["visible_triangles_max_est"] = m["visible"].get("visible_triangles_max")
+            if m["visible"].get("visible_triangles_max", 0) > B["visible_triangles"]:
+                I.append(dict(kind="mobile_visible_triangles", severity="warning", message=f"up to ~{m['visible']['visible_triangles_max']} visible triangles (estimate, > {B['visible_triangles']})"))
         if m["level"]["glb_kb"] > B["mobile_glb_kb"]: I.append(dict(kind="mobile_size", severity="warning", message=f"mobile GLB {m['level']['glb_kb']} KB (> {B['mobile_glb_kb']})"))
-        if m["level"]["draw_calls_unbatched"] > B["mobile_draw_calls"]: I.append(dict(kind="mobile_draw_calls", severity="warning", message=f"mobile draw calls {m['level']['draw_calls_unbatched']} (> {B['mobile_draw_calls']})"))
+        if m["level"]["draw_calls_unbatched"] > B["mobile_draw_calls"] and not world: I.append(dict(kind="mobile_draw_calls", severity="warning", message=f"mobile draw calls {m['level']['draw_calls_unbatched']} (> {B['mobile_draw_calls']})"))
         if m["visible"]["visible_draw_calls_mean"] > B["mobile_visible_draw_calls"]: I.append(dict(kind="mobile_visible_draw_calls", severity="warning", message=f"~{m['visible']['visible_draw_calls_mean']:.0f} visible draw calls (estimate, > {B['mobile_visible_draw_calls']})"))
         tm = m["level"].get("tex_mem_gpu_compressed_mb") or 0
         if tm > B["texture_mem_compressed_mb"]: I.append(dict(kind="texture_memory", severity="warning", message=f"~{tm} MB GPU texture memory (estimate, > {B['texture_mem_compressed_mb']})"))

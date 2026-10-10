@@ -16,6 +16,7 @@ Every regeneration snapshots the previous level.json into .history/ (edit_level.
 """
 import copy, hashlib, json, math, os, sys
 import architecture as A
+import world as WM
 from scene_spec import validate
 from gameplay import load_gameplay
 
@@ -23,26 +24,48 @@ H = lambda v: hashlib.sha1(json.dumps(v, sort_keys=True).encode()).hexdigest()[:
 UNITS = "metres, y-up; position = centre of object's base, in parent space; rotation = degrees XYZ"
 
 
-def generate(spec, G):
-    ctx = A.Ctx(spec, G); ar = spec["arena"]; fy = ar["floor"]["y"]; centre = tuple(ar.get("center", [0, 0]))
-    A.arena(ctx, ar, fy)
+def mode_of(spec):
+    return "hybrid" if spec.get("world") and spec.get("arena") else "open" if spec.get("world") else "structured"
+
+
+def generate(spec, G, level_dir=None):
+    spec = copy.deepcopy(spec); ctx = A.Ctx(spec, G); ctx.level_dir = level_dir; ctx.TR = None
+    ar, W = spec.get("arena"), spec.get("world"); auto = []
+    fy = ar["floor"]["y"] if ar else float(W.get("base_y", 0.0))
+    centre = tuple(ar.get("center", [0, 0])) if ar else tuple(W.get("center") or [(a + b) / 2 for a, b in zip(WM.extent_of(W)[:2], WM.extent_of(W)[2:])])
+    if W: _, auto = WM.build_world(ctx, spec, W, fy, centre)  # Stage 9: terrain definition, pads, foundations, boundary, auto bridges
+    if ar: A.arena(ctx, ar, fy)
     for t in spec.get("terrain", []):
         ctx.element = (t["id"], t.get("source", "visible")); A.terrain(ctx, t, fy)
-    base_y = 0.0 if ar["floor"]["kind"] == "hazard" else fy
+    base_y = 0.0 if ar and ar["floor"]["kind"] == "hazard" else fy
     plats = {}
     for p in spec.get("platforms", []):
-        ctx.element = (p["id"], p.get("source", "visible")); A.platform(ctx, p, base_y, centre); plats[p["id"]] = p
+        ctx.element = (p["id"], p.get("source", "visible")); pb = base_y
+        if ctx.TR is not None and not (ar and _in_arena(ar, p["center"])):  # on open terrain: supports reach below the lowest ground under it
+            pb = A.ground_height(ctx, p["center"][0], p["center"][1], fy, max(p["size"]) / 2) - 0.6
+        A.platform(ctx, p, pb, centre); plats[p["id"]] = p
     for c in spec.get("connections", []):
         ctx.element = (c["id"], c.get("source", "visible")); A.connection(ctx, c, plats[c["from"]], plats[c["to"]], fy)
     blocks = {}
-    for s in spec.get("structures", []):
-        ctx.element = (s["id"], s.get("source", "visible")); x, y, z, yaw = A._place(ctx, s, plats, fy, centre)
+    for s in spec.get("structures", []) + auto:
+        ctx.element = (s["id"], s.get("source", "visible"))
+        if s.get("from") and s.get("to") and not s.get("position") and not s.get("on"):  # line modules: wall, bridge, street, walkway, tunnel
+            (ax, az), (bx, bz) = s["from"], s["to"]; x, z = (ax + bx) / 2, (az + bz) / 2; yaw = A.yaw_to(bx - ax, bz - az) if (ax, az) != (bx, bz) else 0.0
+            y = s.get("y", A.ground_height(ctx, x, z, fy) if ctx.TR is not None else fy) if s["kind"] != "wall" else s.get("y", fy)
+            if s["kind"] in ("bridge", "walkway") and "y" not in s and ctx.TR is not None:  # decks land on the banks at both ends, never on the bed
+                import numpy as np
+                t_ = np.linspace(0, 1, 41); L_ = math.hypot(bx - ax, bz - az) or 1; nx_, nz_ = -(bz - az) / L_, (bx - ax) / L_; hw_ = s.get("width", 5.0) / 2
+                H_ = np.max([ctx.TR.height(ax + (bx - ax) * t_ + nx_ * o_, az + (bz - az) * t_ + nz_ * o_) for o_ in (-hw_, 0.0, hw_)], axis=0)  # across the deck width
+                ya, yb = s.get("y_from", float(H_[:3].max()) + 0.1), s.get("y_to", float(H_[-3:].max()) + 0.1)
+                lift = max(0.0, float((H_ + 0.12 - (ya + (yb - ya) * t_)).max()))  # the whole deck clears the ground under it
+                s = dict(s, y_from=round(ya + lift, 2), y_to=round(yb + lift, 2)); y = (s["y_from"] + s["y_to"]) / 2
+        else: x, y, z, yaw = A._place(ctx, s, plats, fy, centre)
         A.STRUCTURES[s["kind"]](ctx, s, x, y, z, yaw)
         if s.get("on"):
             blocks.setdefault(s["on"], []).append((x, z, max(s.get("size", [2, 2, 2])[0], s.get("size", [2, 2, 2])[-1]) / 2 + 0.8))
             ctx.platform_blocks = getattr(ctx, "platform_blocks", []) + [blocks[s["on"]][-1]]  # cover keeps clear of it
     for p in spec.get("pipes", []):
-        ctx.element = (p["id"], p.get("source", "visible")); A.pipe(ctx, p, fy, ar)
+        ctx.element = (p["id"], p.get("source", "visible")); A.pipe(ctx, p, fy, ar or {"center": list(centre), "size": [0, 0]})
     A.party_walls(ctx)
     A.place_covers(ctx)  # after connections: cover never stands in a landing (Stage 8)
     for h in spec.get("hazards", []):
@@ -57,9 +80,27 @@ def generate(spec, G):
             m = dict(m, **over[base])
             if r != base and "color" in over[base]: m["color"] = [round(min(1, c * f), 3) for c, f in zip(over[base]["color"], (0.92, 0.95, 0.9))]
         mats[r] = m
-    spawn, spawns = _spawns(spec, plats, blocks, centre, ctx, G)
+    regions = None
+    if W and not spec.get("spawns"):  # Stage 9: player / enemy spawn regions on open terrain
+        blocked = [(o["position"][0], o["position"][2], max(o["size"][0], o["size"][2]) / 2) for o in ctx.objects
+                   if not o.get("parent") and o.get("size") and o["type"] not in ("boundary", "group")]
+        blocked += [(s["position"][0], s["position"][-1], max(s.get("size", [3, 3, 3])[0], s.get("size", [3, 3, 3])[-1]) / 2 + 1.0)
+                    for s in spec.get("structures", []) + auto if s.get("position") and not s.get("on")]
+        blocked += [((s["from"][0] + s["to"][0]) / 2, (s["from"][1] + s["to"][1]) / 2, math.hypot(s["to"][0] - s["from"][0], s["to"][1] - s["from"][1]) / 2)
+                    for s in spec.get("structures", []) + auto if s.get("from") and s.get("to") and s["kind"] in ("bridge", "walkway", "tunnel")]
+        blocked += [(p["center"][0], p["center"][1], max(p["size"]) / 2) for p in spec.get("platforms", [])]
+        if ar: blocked.append((ar.get("center", [0, 0])[0], ar.get("center", [0, 0])[1], max(ar["size"]) / 2 + 3))
+        regions = WM.spawn_regions(ctx, spec, W, G, blocked)
+        pl = next((r for r in regions if r["team"] == "player" and r["points"]), None)
+        if pl is None: raise SystemExit("world: no safe player spawn point found in any player spawn region")
+        spawn = dict(position=pl["points"][0], yaw_deg=pl["yaw_deg"]); spawns = [dict(id=f"{r['id']}_{k + 1}", position=p, yaw_deg=r["yaw_deg"], team=r["team"])
+                                                                                 for r in regions for k, p in enumerate(r["points"]) if p is not pl["points"][0]]
+        ctx.walkable += [dict(name=r["id"], min=[r["points"][0][0] - 1.5, r["points"][0][2] - 1.5], max=[r["points"][0][0] + 1.5, r["points"][0][2] + 1.5],
+                              y=r["points"][0][1]) for r in regions if r["points"]]
+    else: spawn, spawns = _spawns(spec, plats, blocks, centre, ctx, G)
+    if ctx.TR is not None: ctx.walkable += WM.walk_samples(ctx)
     env, glow = _environment(spec, ctx)
-    b = _bounds(spec, ctx)
+    b = _bounds(spec, ctx) if ctx.TR is None else WM.world_bounds(ctx, max([p["top"] for p in spec.get("platforms", [])] + [0]))
     from sky import PRESETS
     L = dict(version=1, units=UNITS, source=f"scene_spec.json - {spec.get('title', spec['name'])}",
              generator=dict(tool="pipeline/spec_to_level.py", spec_sha=H(spec), theme=theme, detail=spec.get("detail", "medium")),
@@ -68,7 +109,18 @@ def generate(spec, G):
              bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced")),
              validation=dict(ignore_objects=[]), generator_notes=ctx.notes, relations=ctx.relations)
     if spec.get("gameplay"): L["gameplay"] = spec["gameplay"]
+    if W: L["gameplay"] = dict({"nav": {"cell": 1.0}}, **L.get("gameplay", {}))  # open worlds: 1 m nav cells (large areas)
+    L["generator"]["mode"] = mode_of(spec)
+    if ctx.TR is not None:
+        L["terrain"] = ctx.terrain_def; L["spawn_regions"] = regions or []
+        L["materials"].update({k: v for k, v in ctx.TR.materials().items() if k not in L["materials"]})
+        for k in list(L["materials"]):  # spec material overrides for terrain layers ("ter_grass": {...})
+            if k in spec.get("materials", {}).get("roles", {}) and k.startswith("ter_"): L["materials"][k] = dict(L["materials"][k], **spec["materials"]["roles"][k])
     return L
+
+
+def _in_arena(ar, p):
+    (cx, cz), (w, d) = ar.get("center", [0, 0]), ar["size"]; return abs(p[0] - cx) <= w / 2 and abs(p[1] - cz) <= d / 2
 
 
 def _spawns(spec, plats, blocks, centre, ctx, G):
@@ -88,7 +140,7 @@ def _spawns(spec, plats, blocks, centre, ctx, G):
                     if best is None or score > best[0]: best = (score, gx, gz)
             x, z = best[1], best[2]
         else:
-            fy = spec["arena"]["floor"]["y"]; x, y, z = centre[0], fy, centre[1] + spec["arena"]["size"][1] * 0.35
+            fy = spec["arena"]["floor"]["y"]; x, y, z = centre[0], fy, centre[1] + spec["arena"]["size"][1] * 0.35  # (world levels use spawn regions)
         yaw = s.get("yaw", math.degrees(math.atan2(-(centre[0] - x), -(centre[1] - z))) if math.hypot(centre[0] - x, centre[1] - z) > 1 else 0.0)
         out.append(dict(id=s.get("id", "spawn" if i == 0 else f"spawn_{i + 1}"), position=[round(x, 2), round(y, 2), round(z, 2)], yaw_deg=round(yaw, 1)))
     first = dict(position=out[0]["position"], yaw_deg=out[0]["yaw_deg"])
@@ -97,14 +149,16 @@ def _spawns(spec, plats, blocks, centre, ctx, G):
 
 def _environment(spec, ctx):
     at, bg, th = spec.get("atmosphere", {}), spec.get("background", {}), ctx.theme
-    ar = spec["arena"]; R = math.hypot(*ar["size"]) / 2; f = max(1.0, R / 51.0)
+    if ctx.TR is not None:  # world: the detailed terrain + its middle ring replace the flat ground skirt
+        e = ctx.TR; R = math.hypot(e.x1 - e.x0, e.z1 - e.z0) / 2; f = max(1.0, R / 120.0)
+    else: ar = spec["arena"]; R = math.hypot(*ar["size"]) / 2; f = max(1.0, R / 51.0)
     glow = at.get("glow_color") or A.role_material(spec.get("theme", "industrial"), "glow").get("emissive", [0.5, 1.0, 0.3])
     sky = dict(preset=at.get("sky", th["sky"]), **at.get("sky_overrides", {}))
-    atm = {k: at[k] for k in ("fog_start", "fog_end", "height_fog") if k in at}; atm.setdefault("fog_start", round(60 * f))
+    atm = {k: at[k] for k in ("fog_start", "fog_end", "height_fog") if k in at}; atm.setdefault("fog_start", round(60 * f) if ctx.TR is None else round(R * 0.9))
     if "layers" in bg: layers = bg["layers"]
     else:
         d = dict(th["background"], **{k: v for k, v in bg.items() if k != "source"}); mh = d.get("mountain_height", [70, 160])
-        layers = [dict(id="Ground", type="ground", radius=[0, round(470 * f)], flat_radius=round(R + 12), rise=16, roughness=5,
+        layers = [] if ctx.TR is not None else [dict(id="Ground", type="ground", radius=[0, round(470 * f)], flat_radius=round(R + 12), rise=16, roughness=5,
                        **({"material_type": d["ground_type"], "color": d.get("ground_color", [0.3, 0.3, 0.25])} if d.get("ground_type") else {}))]
         if d.get("town"):  # distant houses (walls + matching roofs) so the town continues beyond the playable square
             tr = [round(R + 6), round(R * 2.5 + 70)]
@@ -118,6 +172,11 @@ def _environment(spec, ctx):
         for i, az in enumerate([48, 105, 215, 290, 160, 340][:d.get("factories", 0)]):
             layers.append(dict(id=f"Factory_{i + 1:02d}", type="factory", azimuth_deg=az, distance=round((165 + 12 * i) * f), scale=round(0.9 + 0.1 * (i % 3), 2), seed=i + 1, glow=glow, fade=0.15))
     env = dict(quality=spec.get("profile", "balanced"), horizon_distance=round(460 * f), sky=sky, atmosphere=atm, background=layers)
+    if ctx.TR is not None and "radius" not in ctx.terrain_def["zones"]["middle"]:  # middle zone runs into the far mountains (no gap)
+        mr = [l for l in layers if l.get("type") == "mountain_ring"]
+        if mr:
+            m = min(mr, key=lambda l: l["radius"]); ctx.terrain_def["zones"]["middle"]["radius"] = round(m["radius"] - 0.3 * m.get("depth", 60))
+        else: ctx.terrain_def["zones"]["middle"]["radius"] = round(min(env["horizon_distance"] * 0.85, max(R * 2.6, 380)))
     return env, glow
 
 
@@ -128,7 +187,10 @@ def _effects(spec, ctx, plats, env, glow):
     cfg = E if isinstance(E, dict) else {"auto": True}; out = []
     toxic = A.role_material(spec.get("theme", "industrial"), "hazard")["type"] == "toxic"
     if cfg.get("auto", True):
-        ar = spec["arena"]; (cx, cz), (w, d) = ar.get("center", [0, 0]), ar["size"]; fy = ar["floor"]["y"]
+        if spec.get("arena"): ar = spec["arena"]; (cx, cz), (w, d) = ar.get("center", [0, 0]), ar["size"]; fy = ar["floor"]["y"]
+        else:
+            P = ctx.boundary; xs, zs = [p[0] for p in P], [p[1] for p in P]; cx, cz, w, d = (min(xs) + max(xs)) / 2, (min(zs) + max(zs)) / 2, max(xs) - min(xs), max(zs) - min(zs)
+            fy = float(ctx.TR.height_at(cx, cz))
         for i, hz in enumerate(ctx.hazards):
             sfx = "" if i == 0 else f"_{i + 1}"
             out += [dict(id="Hazard_Surface" + sfx, type="liquid_surface", target=hz, scroll=[0.03, 0.015], swirl=0.03, pulse_speed=0.2, pulse_amount=0.18)]
@@ -187,7 +249,7 @@ def _merge(new, cur, state, key, rep, label):
     return out
 
 
-TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation")
+TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions")
 
 
 def merge(Lnew, Lcur, state):
@@ -207,6 +269,11 @@ def merge(Lnew, Lcur, state):
     env = _merge({k: v for k, v in env_new.items() if k != "background"}, {k: v for k, v in env_cur.items() if k != "background"}, state.get("environment", {}), None, rep, "environment")
     env["background"] = list(_merge({l["id"]: l for l in env_new.get("background", [])}, {l["id"]: l for l in env_cur.get("background", [])}, state.get("background", {}), None, rep, "background").values())
     L["environment"] = env
+    if isinstance(Lnew.get("terrain"), dict):  # Stage 9: terrain settings + features merged by id (edited features survive regeneration)
+        tn, tc = Lnew["terrain"], Lcur.get("terrain") if isinstance(Lcur.get("terrain"), dict) else {}; st = state.get("terrain", {})
+        T = _merge({k: v for k, v in tn.items() if k != "features"}, {k: v for k, v in tc.items() if k != "features"}, st.get("keys", {}), None, rep, "terrain")
+        T["features"] = list(_merge({f["id"]: f for f in tn["features"]}, {f["id"]: f for f in tc.get("features", [])}, st.get("features", {}), None, rep, "terrain_feature").values())
+        L["terrain"] = T
     for k in TOP_KEYS:
         if k in Lcur and k in state.get("top", {}) and H(Lcur[k]) != state["top"][k]: L[k] = Lcur[k]; rep["kept_edited"].append(f"top:{k}")
     names = {o["name"] for o in L["objects"]}
@@ -222,7 +289,9 @@ def merge(Lnew, Lcur, state):
 def state_of(L):
     return dict(objects={o["name"]: H(o) for o in L["objects"]}, materials={k: H(v) for k, v in L["materials"].items()},
                 effects={e["id"]: H(e) for e in L["effects"]}, environment={k: H(v) for k, v in L["environment"].items() if k != "background"},
-                background={l["id"]: H(l) for l in L["environment"].get("background", [])}, top={k: H(L[k]) for k in TOP_KEYS if k in L})
+                background={l["id"]: H(l) for l in L["environment"].get("background", [])}, top={k: H(L[k]) for k in TOP_KEYS if k in L},
+                **({"terrain": dict(keys={k: H(v) for k, v in L["terrain"].items() if k != "features"}, features={f["id"]: H(f) for f in L["terrain"]["features"]})}
+                   if isinstance(L.get("terrain"), dict) else {}))
 
 
 def run(spec_path, level_dir=None, force=False, dry=False, verbose=True):
@@ -231,7 +300,7 @@ def run(spec_path, level_dir=None, force=False, dry=False, verbose=True):
     if E: raise SystemExit("scene spec invalid:\n  " + "\n  ".join(E))
     level_dir = level_dir or os.path.dirname(os.path.abspath(spec_path)); lp = os.path.join(level_dir, "level.json"); sp = os.path.join(level_dir, "gen_state.json")
     G = load_gameplay(level_dir, {"gameplay": spec.get("gameplay")} if spec.get("gameplay") else None)
-    Lnew = generate(spec, G); rep = dict(kept_edited=[], kept_manual=[], kept_deleted=[])
+    Lnew = generate(spec, G, level_dir); rep = dict(kept_edited=[], kept_manual=[], kept_deleted=[])
     if os.path.exists(lp):
         Lcur = json.load(open(lp))
         if not os.path.exists(sp) and not force: raise SystemExit(f"{lp} exists and was not made by spec_to_level.py (no gen_state.json): use --force to replace it")

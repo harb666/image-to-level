@@ -75,6 +75,11 @@ def node_matrix(o):
 
 def build(level_dir):
     L = json.load(open(os.path.join(level_dir, "level.json")))
+    TERR = isinstance(L.get("terrain"), dict)  # Stage 9 world terrain (terrain.py): definition in level.json, meshes derived
+    if TERR:
+        from terrain import Terrain, BIOMES
+        for k, v in Terrain(L["terrain"], level_dir).materials().items(): L["materials"].setdefault(k, v)
+        L["materials"].setdefault(L["terrain"].get("water_material", "water"), {"type": "water", "color": [0.25, 0.42, 0.48], "tile_m": 6.0})
     mats = {k: material(k, m) for k, m in L["materials"].items()}
     L.setdefault("draw_hint", "one material per surface type; mark static + batch in engine"); mats["_invisible"] = material("_invisible", None)
     scene = trimesh.Scene(); base = scene.graph.base_frame; tris = 0
@@ -114,18 +119,31 @@ def build(level_dir):
         gname = o["name"] if o["type"] not in ("panel", "cylinder") else f"{o['type']}_{mk}_{len(geoms)}"
         geoms[key] = gname
         scene.add_geometry(m, node_name=o["name"], geom_name=gname, parent_node_name=parent, transform=T)
+    tinfo = None
+    if TERR:
+        import terrain as TM
+        ttris, TR, tinfo = TM.build_into(scene, L, mats, level_dir, material); tris += ttris
+        from scatter import build_scatter  # Stage 9 instanced vegetation / rocks (shared meshes, merged per chunk)
+        tris += build_scatter(scene, L, TR, mats, material, level_dir, world, tinfo)
     sp = L["spawn"]
     scene.graph.update(frame_from=base, frame_to="PlayerSpawn",
                        matrix=translation_matrix(sp["position"]) @ euler_matrix(0, np.radians(sp["yaw_deg"]), 0))
     glb = os.path.join(level_dir, "level.glb"); scene.export(glb); dedupe_images(glb)
+    if TERR:
+        from glb_tools import far_material
+        far_material(glb)
     from glb_stats import stats
     st = stats(glb)
     L["build_stats"] = dict(triangles=tris, objects=len(L["objects"]), materials=len(L["materials"]), glb_kb=st["glb_kb"],
                             nodes=st["nodes"], draw_calls_unbatched=st["draw_calls_unbatched"], draw_calls_batched_min=st["draw_calls_batched_min"],
                             images=st["images"], tex_mem_gpu_compressed_mb=st["tex_mem_gpu_compressed_mb"],
                             tex_mem_uncompressed_mb=st["tex_mem_uncompressed_mb"], note="GPU numbers are estimates (pipeline/glb_stats.py)")
+    if tinfo is not None:
+        L["build_stats"]["terrain_triangles_lod0"] = sum(c["triangles_lod0"] for c in tinfo["chunks"])
+        TM.write_info(level_dir, L, TR, tinfo)
+    elif os.path.exists(os.path.join(level_dir, "terrain.json")): os.remove(os.path.join(level_dir, "terrain.json"))
     json.dump(L, open(os.path.join(level_dir, "level.json"), "w"), indent=1)
-    topdown(L, world, os.path.join(level_dir, "topdown.png"))
+    topdown(L, world, os.path.join(level_dir, "topdown.png"), TR if TERR else None)
     print(json.dumps(L["build_stats"]))
     if L.get("environment"):  # Stage 2: sky + distant scenery + Godot environment metadata
         from environment import build_environment
@@ -141,14 +159,19 @@ def build(level_dir):
         export(level_dir)
 
 
-def topdown(L, world, path, px=10):
+def topdown(L, world, path, TR=None, px=10):
     b0, b1 = np.array(L["bounds"]["min"]) - 4, np.array(L["bounds"]["max"]) + 4
+    if TR is not None:  # whole detailed terrain, coloured by material layer + hill shading
+        b0, b1 = np.array([TR.x0, 0, TR.z0]), np.array([TR.x1, 0, TR.z1]); px = max(2, min(10, int(2400 / max(b1[0] - b0[0], b1[2] - b0[2]))))
     W, H = int((b1[0] - b0[0]) * px), int((b1[2] - b0[2]) * px)
     img = Image.new("RGB", (W, H), (40, 44, 40)); dr = ImageDraw.Draw(img)
     ter = next((o for o in L["objects"] if o["type"] == "terrain"), None)
     tc = L["materials"][ter["material"]]["color"] if ter else [0.1, 0.1, 0.1]
     xy = lambda x, z: ((x - b0[0]) * px, (z - b0[2]) * px)
-    dr.rectangle([xy(L["bounds"]["min"][0], L["bounds"]["min"][2]), xy(L["bounds"]["max"][0], L["bounds"]["max"][2])], fill=tuple(int(c * 255) for c in tc))
+    if TR is not None:
+        img = Image.fromarray(TR.map_image(L)).resize((W, H), Image.BILINEAR); dr = ImageDraw.Draw(img)
+    else:
+        dr.rectangle([xy(L["bounds"]["min"][0], L["bounds"]["min"][2]), xy(L["bounds"]["max"][0], L["bounds"]["max"][2])], fill=tuple(int(c * 255) for c in tc))
     order = sorted([o for o in L["objects"] if o["type"] not in ("terrain", "group")], key=lambda o: world[o["name"]][1, 3] + o["size"][1])
     for o in order:
         w, _, d = o["size"]; M = world[o["name"]]

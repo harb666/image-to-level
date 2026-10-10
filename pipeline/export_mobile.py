@@ -45,7 +45,7 @@ def quat_xyzw(M):
     w, x, y, z = quaternion_from_matrix(M); return [round(float(v), 5) for v in (x, y, z, w)]
 
 
-def colliders(L):
+def colliders(L, level_dir=None):
     """Lightweight collision primitives in world space from level.json (not from render meshes)."""
     import shapes
     from build_level import shape as render_shape
@@ -67,6 +67,9 @@ def colliders(L):
         if t == "terrain":
             out.append(dict(name=o["name"], source=o["name"], shape="heightmap", origin=M[:3, 3].round(3).tolist(), cell=o["cell"], heights=o["heights"]))
             continue
+        if o.get("collision_mesh"):  # concave on purpose (cave, arch, overhang, tunnel berm): a hull would fill the opening
+            m = render_shape(o); v = (np.c_[m.vertices, np.ones(len(m.vertices))] @ M.T)[:, :3]
+            out.append(dict(name=o["name"], source=o["name"], shape="mesh", vertices=v.round(3).tolist(), faces=m.faces.tolist())); continue
         w, h, d = o["size"]
         if t in ("box", "boundary", "railing", "ibeam"):
             box(o["name"], w, h, d)
@@ -84,6 +87,14 @@ def colliders(L):
             hull = render_shape(o).convex_hull; v = hull.vertices
             if len(v) > 32: v = trimesh.convex.convex_hull(v[np.linspace(0, len(v) - 1, 32).astype(int)]).vertices  # cap point count
             out.append(dict(name=o["name"], source=o["name"], shape="convex", points=(np.c_[v, np.ones(len(v))] @ M.T)[:, :3].round(3).tolist()))
+    if isinstance(L.get("terrain"), dict):  # Stage 9: one HeightMapShape3D per terrain chunk + scatter trunks / boulders
+        from terrain import Terrain
+        TR = Terrain(L["terrain"], level_dir)
+        for i, j in TR.chunk_ids(): out.append(dict(name=f"TR_{i}_{j}", source="terrain", **TR.collider(i, j)))
+        tj = os.path.join(level_dir or ".", "terrain.json")
+        if level_dir and os.path.exists(tj):
+            from scatter import colliders as sc_col
+            out += sc_col(L, json.load(open(tj)))
     return out, haz
 
 
@@ -97,6 +108,8 @@ def collider_mesh(c):
         T = trimesh.transformations.quaternion_matrix([w, x, y, z]); T[:3, 3] = c["center"]; m.apply_transform(T); return m
     if c["shape"] == "convex":
         return trimesh.convex.convex_hull(np.array(c["points"]))
+    if c["shape"] == "mesh":
+        return trimesh.Trimesh(np.array(c["vertices"]), np.array(c["faces"]), process=False)
     if c["shape"] == "heightmap":
         h = np.array(c["heights"], float); nz, nx = h.shape; zz, xx = np.mgrid[:nz, :nx] * c["cell"]
         v = np.c_[xx.ravel(), h.ravel(), zz.ravel()] + c["origin"]; i = np.arange(nz * nx).reshape(nz, nx)
@@ -122,27 +135,63 @@ def visible(boxes, planes):
 
 
 def node_list(glb, ranges=None):
+    """[(node, aabb, triangles, (range_begin, range_end))]; ranges: node -> end or (begin, end)."""
     s = trimesh.load(glb, force="scene"); out = []
     for node in s.graph.nodes_geometry:
         M, g = s.graph[node]; m = s.geometry[g]; b = m.bounds
         c = np.array([[x, y, z, 1] for x in b[:, 0] for y in b[:, 1] for z in b[:, 2]]) @ M.T
-        out.append((node, np.array([c[:, :3].min(0), c[:, :3].max(0)]), len(m.faces), (ranges or {}).get(node, 0)))
+        r = (ranges or {}).get(node, 0); r = r if isinstance(r, tuple) else (0, r)
+        out.append((node, np.array([c[:, :3].min(0), c[:, :3].max(0)]), len(m.faces), r))
     return out
 
 
 def estimate(L, nodes, far=800):
     pts = [L["spawn"]["position"]] + [[(w["min"][0] + w["max"][0]) / 2, w["y"], (w["min"][1] + w["max"][1]) / 2] for w in L.get("walkable", [])]
-    B = np.array([n[1] for n in nodes]); T = np.array([n[2] for n in nodes]); R = np.array([n[3] for n in nodes], float)
+    B = np.array([n[1] for n in nodes]); T = np.array([n[2] for n in nodes]); R = np.array([n[3][1] for n in nodes], float); R0 = np.array([n[3][0] for n in nodes], float)
     C = (B[:, 0] + B[:, 1]) / 2; draws, tris = [], []
     for p in pts:
         head = np.array(p, float) + [0, 1.9, 0]
         for yaw in np.radians(np.arange(0, 360, 45)):
             cam = head + 5 * np.array([math.sin(yaw), 0.35, math.cos(yaw)]) / np.linalg.norm([1, 0.35])  # behind & above
             vis = visible(B, frustum_planes(cam, yaw, math.radians(-12), far=far))
-            vis &= (R <= 0) | (np.linalg.norm(C - cam, axis=1) <= R)  # visibility_range_end
+            dist = np.linalg.norm(C - cam, axis=1); vis &= ((R <= 0) | (dist <= R)) & (dist >= R0)  # visibility_range_begin / end
             draws.append(int(vis.sum())); tris.append(int(T[vis].sum()))
     return dict(cameras=len(draws), visible_draw_calls_mean=round(float(np.mean(draws)), 1), visible_draw_calls_max=int(max(draws)),
                 visible_triangles_mean=int(np.mean(tris)), visible_triangles_max=int(max(tris)))
+
+
+def _terrain_mobile(L, level_dir, src, nodes, scene, manifest_nodes, ranges, extras, glow):
+    """Stage 9: terrain chunks as LOD0/1/2 nodes with complementary visibility ranges (borders full-res: crack-free at
+    any LOD mix), middle ring + water as plain nodes, scatter nodes with their view distance (vegetation stops there)."""
+    from terrain import Terrain, textured, lod_settings, shifted
+    from materials import make_material
+    TR = Terrain(L["terrain"], level_dir); r0, r1 = lod_settings(L["terrain"])["ranges"]; mobj = {}
+    for node, M, g in nodes: mobj[src.geometry[g].visual.material.name] = src.geometry[g].visual.material
+    tj = os.path.join(level_dir, "terrain.json"); inst = json.load(open(tj)).get("instances", {}) if os.path.exists(tj) else {}
+    margin = 4.0
+    for i, j in TR.chunk_ids():
+        b = TR.chunk_bounds(i, j); G = TR.grid(); C = TR.C
+        c = np.array([(b[0] + b[2]) / 2, float(G["H"][i * C:(i + 1) * C + 1, j * C:(j + 1) * C + 1].mean()), (b[1] + b[3]) / 2])
+        for lod, (rb, re) in enumerate(((0, r0 + margin), (r0, r1 + margin), (r1, 0))):
+            for mname, m in sorted(TR.chunk_mesh(i, j, lod, broad=lod > 0, far=lod == 2, L=L).items()):
+                if mname not in mobj and mname != "ter_far": mobj[mname] = make_material(mname, L["materials"][mname])[0]
+                m = shifted(m, -c); textured(m, mobj.get(mname)); node = f"TR_{i}_{j}_{mname[4:]}_L{lod}"
+                if mname == "ter_far": node = f"TR_{i}_{j}_L2_far"
+                scene.add_geometry(m, node_name=node, geom_name=node, transform=trimesh.transformations.translation_matrix(c)); ranges[node] = (rb, re)
+                info = dict(node=node, kind=f"terrain_lod{lod}", material=mname, triangles=int(len(m.faces)), visibility_range_begin=rb, visibility_range_end=re,
+                            cast_shadow=lod == 0, source_objects=[f"terrain chunk TR_{i}_{j}"])
+                manifest_nodes.append(info); extras[node] = dict(kind=info["kind"], chunk=f"TR_{i}_{j}", lod=lod, visibility_range_begin=rb, visibility_range_end=re,
+                                                               visibility_range_margin=margin, cast_shadow=lod == 0)
+    for node, M, g in nodes:
+        if node.startswith("TR_"): continue
+        m = src.geometry[g]; mat = m.visual.material.name; rng = 0; kind = {"TRM": "terrain_middle", "TW": "water"}.get(node.split("_")[0], "scatter")
+        if kind == "scatter":
+            sid = node.split("_", 1)[1].split("__")[0]; rng = inst.get(sid, {}).get("nodes", {}).get(node, 160)
+        scene.add_geometry(m, node_name=node, geom_name=node, transform=M); ranges[node] = (0, rng)
+        manifest_nodes.append(dict(node=node, kind=kind, material=mat, triangles=int(len(m.faces)), visibility_range_end=rng,
+                                   cast_shadow=kind == "scatter" and node.startswith("SC_"), source_objects=[node],
+                                   reason={"terrain_middle": "middle zone (no collision, not playable)", "water": "water surface", "scatter": "instanced scatter (merged per cell)"}[kind]))
+        extras[node] = dict(kind=kind, visibility_range_end=rng, cast_shadow=manifest_nodes[-1]["cast_shadow"])
 
 
 # ---------------------------------------------------------------- export
@@ -163,10 +212,11 @@ def export(level_dir, profile=None):
     if cull_y is None and L.get("hazards"):
         cull_y = max(o["position"][1] + o["size"][1] for o in L["objects"] if o["name"] in L["hazards"] and o.get("size"))
     src = trimesh.load(os.path.join(level_dir, "level.glb"), force="scene")
-    scene = trimesh.Scene(); groups, removed = {}, 0; separate = []
+    scene = trimesh.Scene(); groups, removed = {}, 0; separate = []; terrain_nodes = []
     for node in src.graph.nodes_geometry:
         M, g = src.graph[node]; m0 = src.geometry[g]; mat = getattr(getattr(m0.visual, "material", None), "name", "")
         if node.startswith("Boundary") or mat == "Collider_invisible": continue  # invisible walls live in collision only
+        if node.startswith(("TR_", "TRM_", "TW_", "SC_", "SCN_")): terrain_nodes.append((node, M, g)); continue  # Stage 9: handled below
         if node in keep or by.get(node, {}).get("mobile", {}).get("merge") is False:
             separate.append((node, M, g)); continue
         m = m0.copy(); m.apply_transform(M)
@@ -207,10 +257,14 @@ def export(level_dir, profile=None):
         manifest_nodes.append(dict(node=node, kind="separate", material=mat, triangles=int(len(src.geometry[g].faces)), visibility_range_end=0,
                                    cast_shadow=mat.split("__")[0] not in glow, source_objects=[node],
                                    reason="hazard" if node in L.get("hazards", []) else "animated by an effect / merge disabled"))
+    if terrain_nodes: _terrain_mobile(L, level_dir, src, terrain_nodes, scene, manifest_nodes, ranges, extras, glow)
     sp = L["spawn"]; scene.graph.update(frame_from=scene.graph.base_frame, frame_to="PlayerSpawn",
                                         matrix=trimesh.transformations.translation_matrix(sp["position"]) @ trimesh.transformations.euler_matrix(0, math.radians(sp["yaw_deg"]), 0))
     lg = os.path.join(out_dir, "level_mobile.glb"); scene.export(lg); restore_images(lg, os.path.join(level_dir, "level.glb")); dedupe_images(lg)
     downscale_images(lg, P["tex_max"]); set_node_extras(lg, extras)
+    if terrain_nodes:
+        from glb_tools import far_material
+        far_material(lg)
     if FX["effects"]:  # effects.json for the mobile scene: shader targets renamed to their merged FX node
         FXm = json.loads(json.dumps(FX)); src2node = {s_: mn["node"] for mn in manifest_nodes for s_ in mn.get("source_objects", [])}
         for e in FXm["effects"]:
@@ -221,7 +275,7 @@ def export(level_dir, profile=None):
     bg_src = os.path.join(level_dir, "background.glb"); bg = None
     if os.path.exists(bg_src):
         bg = os.path.join(out_dir, "background_mobile.glb"); shutil.copy(bg_src, bg); downscale_images(bg, P["bg_tex_max"])
-    cols, haz = colliders(L)
+    cols, haz = colliders(L, level_dir)
     json.dump(dict(note="World-space colliders generated from level.json shapes. Godot: BoxShape3D / CylinderShape3D / ConvexPolygonShape3D / "
                         "HeightMapShape3D (cell size = 'cell'). Hazards are areas (Area3D), not solid.", colliders=cols, hazards=haz),
               open(os.path.join(out_dir, "collision.json"), "w"), indent=1)
@@ -231,6 +285,8 @@ def export(level_dir, profile=None):
         cs.add_geometry(m, node_name=c["name"] + suffix, geom_name=c["name"] + suffix)
     cg = os.path.join(out_dir, "collision.glb"); cs.export(cg)
     shutil.copy(os.path.join(HERE, "godot_fx", "apply_mobile.gd"), out_dir)
+    if isinstance(L.get("terrain"), dict): shutil.copy(os.path.join(HERE, "godot_fx", "apply_scatter_multimesh.gd"), out_dir)
+    elif os.path.exists(os.path.join(out_dir, "apply_scatter_multimesh.gd")): os.remove(os.path.join(out_dir, "apply_scatter_multimesh.gd"))
     # ---- metrics: dev vs mobile (file + estimated visible draw calls from sampled third-person cameras)
     dev_glb = os.path.join(level_dir, "level.glb"); far = 800
     dev_nodes = [n for n in node_list(dev_glb) if not n[0].startswith("Boundary")]

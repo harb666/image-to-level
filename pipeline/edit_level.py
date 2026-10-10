@@ -26,6 +26,9 @@ Commands:
                                       connects_to, supported_by, attached_to, emits_from, flows_into, aligned_with, intentional_gap
   unrelate <type> <a> [b]             remove relations
   apply '<json list>' | ops.json      several structured edits in one go (schema-checked, see OPS below), one rebuild
+  terrain [list | set <id|glob> k=v .. | move <id> dx dz | add '<json>' | remove <id> | global k=v .. | scatter <id> k=v ..]
+                                      Stage 9 world terrain by feature id: terrain set West_Peak height=34; terrain move River 0 6;
+                                      terrain global noise.amplitude=4; terrain scatter Pines density=0.6 (only touched chunks change)
   undo                                restore the state before the last edit (snapshots in levels/<name>/.history/)
   history                             list recent edits
 Every edit is checked (checks.schema: names, parents, transforms, materials, references) before it is saved; an edit
@@ -231,6 +234,41 @@ def edit(d, cmd, args):
         msg.append(f"removed {n0 - len(L['relations'])} relation(s)")
     elif cmd == "connect":
         msg += connect(L, args[0], args[1], args[2] if len(args) > 2 else "auto", float(args[3]) if len(args) > 3 else None)
+    elif cmd == "terrain":  # Stage 9: edit the terrain definition by feature id (only the chunks it touches change)
+        T = L.get("terrain")
+        if not isinstance(T, dict): raise SystemExit("terrain: this level has no world terrain")
+        sub = args[0] if args else "list"; F = T.setdefault("features", [])
+        if sub == "list":
+            for f in F: print(f'{f["id"]:28s} {f["type"]:9s} ' + " ".join(f"{k}={json.dumps(v)}" for k, v in f.items() if k not in ("id", "type", "points", "gen", "source")) + (f' points={len(f["points"])}' if "points" in f else ""))
+            print("scatter:", [x["id"] for x in T.get("scatter", [])], " biome:", T.get("biome"), " seed:", T.get("seed")); return None
+        if sub == "set":
+            hit = [f for f in F if fnmatch.fnmatchcase(f["id"], args[1])]
+            if not hit: raise SystemExit(f"terrain: no feature '{args[1]}' (have {[f['id'] for f in F]})")
+            for f in hit:
+                for kv in args[2:]:
+                    k, v = kv.split("=", 1); setpath(f, k, json.loads(v)); msg.append(f"{f['id']}.{k}")
+        elif sub == "move":
+            dx, dz = float(args[2]), float(args[3])
+            for f in [f for f in F if fnmatch.fnmatchcase(f["id"], args[1])]:
+                if "center" in f: f["center"] = [round(f["center"][0] + dx, 2), round(f["center"][1] + dz, 2)]
+                if "points" in f: f["points"] = [[round(p[0] + dx, 2), round(p[1] + dz, 2)] for p in f["points"]]
+                if "area" in f: f["area"] = [f["area"][0] + dx, f["area"][1] + dz, f["area"][2] + dx, f["area"][3] + dz]
+                msg.append(f"moved {f['id']}")
+        elif sub == "add":
+            f = json.loads(args[1])
+            if any(x["id"] == f["id"] for x in F): raise SystemExit(f"terrain: feature '{f['id']}' exists")
+            F.append(f); msg.append(f"added {f['id']} ({f['type']})")
+        elif sub == "remove":
+            n0 = len(F); T["features"] = [f for f in F if not fnmatch.fnmatchcase(f["id"], args[1])]; msg.append(f"removed {n0 - len(T['features'])} feature(s)")
+        elif sub == "global":  # e.g. noise.amplitude=3  biome="desert"  zones.middle.rise=40  lod.ranges=[50,110]
+            for kv in args[1:]: k, v = kv.split("=", 1); setpath(T, k, json.loads(v)); msg.append(k)
+        elif sub == "scatter":  # terrain scatter <id> density=2 kinds=["conifer"]
+            sc = next((x for x in T.get("scatter", []) if x["id"] == args[1]), None)
+            if sc is None: raise SystemExit(f"terrain: no scatter '{args[1]}' (have {[x['id'] for x in T.get('scatter', [])]})")
+            for kv in args[2:]: k, v = kv.split("=", 1); setpath(sc, k, json.loads(v)); msg.append(f"scatter {sc['id']}.{k}")
+        else: raise SystemExit("terrain list | set <id> k=v | move <id> dx dz | add '<json>' | remove <id> | global k=v | scatter <id> k=v")
+        bad = _terrain_errors(L)
+        if bad: raise SystemExit("edit refused (terrain would be invalid):\n  " + "\n  ".join(bad[:8]))
     else:
         raise SystemExit(__doc__)
     problems = [i["message"] for i in _schema_errors(L)]
@@ -239,6 +277,18 @@ def edit(d, cmd, args):
     print("changed:", ", ".join(msg[:12]) + (f" (+{len(msg) - 12} more)" if len(msg) > 12 else ""))
     scope = "env" if cmd == "env" else "fx" if cmd.startswith("fx") else "full"
     return (scope, before, L)
+
+
+def _terrain_errors(L):
+    from scene_spec import FEATURE, NEEDS, _check
+    from terrain import FEATURE_TYPES, BIOMES
+    E, W = [], []; T = L.get("terrain", {})
+    if T.get("biome", "temperate") not in BIOMES: E.append(f"terrain.biome '{T.get('biome')}' not one of {sorted(BIOMES)}")
+    for i, f in enumerate(T.get("features", [])):
+        if f.get("type") not in FEATURE_TYPES: E.append(f"features[{i}] ({f.get('id')}): type '{f.get('type')}' not one of {FEATURE_TYPES}"); continue
+        _check({k: v for k, v in f.items() if k in FEATURE}, FEATURE, f"features[{i}]", E, W)
+        E += [f"features[{i}] ({f['id']}): needs '{k}'" for k in NEEDS.get(f["type"], ()) if k not in f]
+    return E
 
 
 def _schema_errors(L):
@@ -279,7 +329,9 @@ def connect(L, a, b, kind="auto", width=None):
     return [o["name"] for o in ctx.objects] + ctx.notes
 
 
-OPS = {"set": (["target", "values"], lambda o: [o["target"]] + [f"{k}={json.dumps(v)}" for k, v in o["values"].items()]),
+OPS = {"terrain": (["action"], lambda o: [o["action"]] + ([o["id"]] if "id" in o else []) + ([json.dumps(o["feature"])] if "feature" in o else []) +
+                   [str(v) for v in o.get("delta", [])] + [f"{k}={json.dumps(v)}" for k, v in o.get("values", {}).items()]),
+       "set": (["target", "values"], lambda o: [o["target"]] + [f"{k}={json.dumps(v)}" for k, v in o["values"].items()]),
        "move": (["target", "delta"], lambda o: [o["target"]] + [str(v) for v in o["delta"]]),
        "resize": (["target", "scale"], lambda o: [o["target"]] + [str(v) for v in o["scale"]]),
        "material": (["target", "material"], lambda o: [o["target"], o["material"]]),

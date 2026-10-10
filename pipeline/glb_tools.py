@@ -106,3 +106,21 @@ def restore_images(path, ref_glb):
         if k in orig: new[im["bufferView"]] = orig[k][0]; im["mimeType"] = orig[k][1]
     if new: _write(path, g, _repack(g, binary, new))
     return len(new)
+
+
+FAR_MATERIAL = dict(name="ter_far", pbrMetallicRoughness=dict(baseColorFactor=[1, 1, 1, 1], metallicFactor=0.0, roughnessFactor=0.95),
+                    extras=dict(note="Stage 9 distant terrain: albedo = vertex colour (COLOR_0, linear). Godot import enables vertex_color_use_as_albedo."))
+
+
+def far_material(path, prefixes=("TRM_",), suffixes=("_far",)):
+    """Primitives of vertex-coloured distant terrain meshes (no material from trimesh) get one shared matte material
+    (the glTF default would be fully metallic). Returns the number of primitives patched."""
+    g, binary = _read(path); names = {}
+    for n in g.get("nodes", []):
+        if "mesh" in n and (n.get("name", "").startswith(prefixes) or n.get("name", "").endswith(suffixes)): names[n["mesh"]] = True
+    if not names: return 0
+    g.setdefault("materials", []).append(dict(FAR_MATERIAL)); mi = len(g["materials"]) - 1; k = 0
+    for i in names:
+        for pr in g["meshes"][i]["primitives"]:
+            if "material" not in pr and "COLOR_0" in pr["attributes"]: pr["material"] = mi; k += 1
+    _write(path, g, binary); return k

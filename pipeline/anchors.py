@@ -44,8 +44,8 @@ def world_matrices(L):
 
 def is_connector(o):
     if o.get("connector") is not None: return bool(o["connector"])
-    if o["type"] in ("ramp", "stairs"): return True
-    if o["type"] != "box" or not o.get("size"): return False
+    if o.get("type") in ("ramp", "stairs"): return True
+    if o.get("type") != "box" or not o.get("size"): return False
     w, h, d = o["size"]
     return h <= 0.8 and max(w, d) >= 2.0 * min(w, d) and max(w, d) >= 2.5 and any(fnmatch.fnmatch(o["name"], p) for p in CONNECTOR_NAMES)
 

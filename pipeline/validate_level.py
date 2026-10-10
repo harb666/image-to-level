@@ -19,13 +19,17 @@ import json, os, subprocess, sys, numpy as np, trimesh
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
-def load_tris(path, skip_invisible=True):
+NONPLAYABLE = ("TRM_", "SCN_", "TW_")  # Stage 9: middle zone, non-colliding scatter (grass, pebbles), water sheets (rivers are wadeable: the bed carries)
+
+
+def load_tris(path, skip_invisible=True, skip_nonplayable=True):
     """World-space triangles + owning node name per triangle (+ per-object meshes for edge checks)."""
     s = trimesh.load(path, force="scene"); T, names, objs = [], [], {}
     for node in s.graph.nodes_geometry:
         M, g = s.graph[node]; m = s.geometry[g]
         mat = getattr(getattr(m.visual, "material", None), "name", "") or ""
         if skip_invisible and (node.startswith("Boundary") or mat == "Collider_invisible"): continue
+        if skip_nonplayable and node.startswith(NONPLAYABLE): continue
         tri = trimesh.transform_points(m.triangles.reshape(-1, 3), M).reshape(-1, 3, 3)
         T.append(tri); names += [node] * len(tri); objs[node] = (m, M, mat)
     return (np.concatenate(T) if T else np.zeros((0, 3, 3))), np.array(names), objs
@@ -86,6 +90,17 @@ def inside_solid(P, T, obj):
     return (votes >= 2).any(1)
 
 
+def inside_solid_bodies(P, T, body, pad=0.01):
+    """inside_solid with a per-body AABB prefilter (Stage 9 worlds: tens of thousands of terrain points vs many
+    small closed props) - same answer, each point only tested against the bodies whose box contains it."""
+    P = np.asarray(P, float); out = np.zeros(len(P), bool); ids = np.unique(body[body >= 0])
+    for b in ids:
+        tb = T[body == b]; lo, hi = tb.reshape(-1, 3).min(0) - pad, tb.reshape(-1, 3).max(0) + pad
+        m = np.all((P >= lo) & (P <= hi), 1) & ~out
+        if m.any(): out[np.flatnonzero(m)] = inside_solid(P[m], tb, np.zeros(len(tb), int))
+    return out
+
+
 def orbit_dirs(yaw, pitch):
     """Viewer convention: back vector of Euler(pitch, yaw, 'YXZ') applied to +z."""
     return np.array([np.sin(yaw) * np.cos(pitch), -np.sin(pitch), np.cos(yaw) * np.cos(pitch)])
@@ -124,6 +139,8 @@ def validate(level_dir, step=6.0, verbose=True, mobile=False):
     near = np.zeros(len(heads), bool)
     for d in ring: near |= cast(heads, np.tile(d, (len(heads), 1)), T, Pl["radius"] + 0.05)[1] >= 0
     blocked_players = int((ins | near).sum()); heads = heads[~(ins | near)]  # inside a solid / hugging a wall
+    if isinstance(L.get("terrain"), dict):  # Stage 9 worlds: local camera check (gaps to the horizon: terrain_check.background)
+        return _validate_local(level_dir, L, G, V, spec, ignore, heads, blocked_players, T, names, objs, TC, NC, mobile, verbose)
     cams = []
     for h in heads:
         for yaw in np.radians(np.arange(0, 360, 45)):
@@ -180,6 +197,54 @@ def validate(level_dir, step=6.0, verbose=True, mobile=False):
              back_face=dict(sorted(issues["back_face"].items(), key=lambda x: -x[1])), open_mesh=open_mesh,
              camera_inside=issues["camera_inside"], visible_objects=len(visible),
              passed=issues["void"] == 0 and not issues["back_face"] and not open_mesh)
+    os.makedirs(os.path.join(level_dir, "checks"), exist_ok=True)
+    json.dump(R, open(os.path.join(level_dir, "checks", "validation_mobile.json" if mobile else "validation.json"), "w"), indent=1)
+    if verbose: print(json.dumps({k: v for k, v in R.items() if k != "void_examples"}))
+    return R
+
+
+def _validate_local(level_dir, L, G, V, spec, ignore, heads, blocked_players, T, names, objs, TC, NC, mobile, verbose, R_local=40.0):
+    """Same spring-arm cameras + back-face / open-mesh rules, but each player only against triangles within R_local m
+    (a world has tens of thousands of triangles). Rays that see nothing within R_local are not void here: distant
+    completeness is checked from the horizon by terrain_check.check_background."""
+    Pl, Cm = G["player"], G["camera"]; arm, pr, mg = Cm["arm_length"], Cm["probe_radius"], Cm["margin"]
+    lo, hi = T.min(1), T.max(1); clo, chi = TC.min(1), TC.max(1)
+    issues = dict(back_face={}, camera_inside=0); visible = set(); ncams = nrays = 0
+    for h in heads:
+        sel = np.all((hi >= h - R_local) & (lo <= h + R_local), 1); Tl, nl = T[sel], names[sel]
+        cs = np.all((chi >= h - arm - 1) & (clo <= h + arm + 1), 1)
+        B = np.array([orbit_dirs(yaw, pitch) for yaw in np.radians(np.arange(0, 360, 45)) for pitch in np.radians(Cm["pitch_deg"])]); O = np.repeat(h[None], len(B), 0)
+        perp = np.cross(B, [0.0, 1.0, 0.0]); perp[np.linalg.norm(perp, axis=1) < 1e-6] = [1.0, 0, 0]; perp /= np.linalg.norm(perp, axis=1, keepdims=True)
+        up2 = np.cross(perp, B); t = cast(O, B, Tl, arm)[0]
+        for off in (perp, -perp, up2, -up2): t = np.minimum(t, cast(O + off * pr, B, Tl, arm)[0])
+        dist = np.where(np.isfinite(t), np.where(t > 2 * mg, t - mg, t * 0.5), arm); C = O + B * dist[:, None]
+        inside = inside_solid(C, TC[cs], NC[cs]) if cs.any() else np.zeros(len(C), bool); issues["camera_inside"] += int(inside.sum()); ncams += len(C)
+        for k, (c, fwd) in enumerate(zip(C, -B)):
+            if inside[k]: continue
+            D = frustum(fwd); Oc = np.repeat(c[None], len(D), 0); nrays += len(D)
+            tt, ii, fc = cast(Oc, D, Tl, R_local); hit = ii >= 0; back = hit & (fc > 0)
+            for nm in nl[ii[hit & ~back]]: visible.add(nm)
+            if back.any():
+                jb = np.flatnonzero(back); conf = np.ones(len(jb), bool)
+                for off in ([0.004, 0.003, -0.002], [-0.003, -0.002, 0.004]):
+                    Dp = D[jb] + off; Dp /= np.linalg.norm(Dp, axis=1, keepdims=True)
+                    _, i2, f2 = cast(Oc[jb], Dp, Tl, R_local); conf &= (i2 >= 0) & (f2 > 0) & (nl[np.maximum(i2, 0)] == nl[ii[jb]])
+                for nm in nl[ii[jb[conf]]]:
+                    if nm in ignore or spec.get(nm, {}).get("double_sided") or spec.get(nm, {}).get("type") == "panel" or objs[nm][2].endswith("__2s"): continue
+                    issues["back_face"][nm] = issues["back_face"].get(nm, 0) + 1
+    open_mesh = {}
+    for nm in visible:
+        if nm in ignore or nm not in objs or nm.startswith(("TR_", "TRM_", "TW_", "SC")): continue
+        typ = spec.get(nm, spec.get(nm.rsplit("_Top", 1)[0], {})).get("type")
+        if typ in ("panel", None) or spec.get(nm, {}).get("double_sided"): continue
+        m = objs[nm][0].copy(); m.merge_vertices(merge_tex=True, merge_norm=True)
+        u, cnt = np.unique(m.edges_sorted, axis=0, return_counts=True); b = u[cnt == 1]
+        if len(b):
+            ymin = m.vertices[:, 1].min(); above = int((m.vertices[b].min(1)[:, 1] > ymin + 0.05).sum())
+            if above and typ != "terrain": open_mesh[nm] = above
+    R = dict(players=len(heads), players_skipped_inside_or_against_walls=blocked_players, cameras=ncams, rays=nrays, void_rays=0, void_examples=[],
+             back_face=dict(sorted(issues["back_face"].items(), key=lambda x: -x[1])), open_mesh=open_mesh, camera_inside=issues["camera_inside"],
+             visible_objects=len(visible), mode=f"local ({R_local:.0f} m) - world gaps: checks/geometry.json background", passed=not issues["back_face"] and not open_mesh)
     os.makedirs(os.path.join(level_dir, "checks"), exist_ok=True)
     json.dump(R, open(os.path.join(level_dir, "checks", "validation_mobile.json" if mobile else "validation.json"), "w"), indent=1)
     if verbose: print(json.dumps({k: v for k, v in R.items() if k != "void_examples"}))

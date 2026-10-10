@@ -20,8 +20,10 @@ func _ready() -> void:
 		if gi == null:
 			continue
 		gi.visibility_range_end = float(n["visibility_range_end"])
-		if gi.visibility_range_end > 0.0:
+		gi.visibility_range_begin = float(n.get("visibility_range_begin", 0.0))  # Stage 9 terrain LOD1/LOD2 start further out
+		if gi.visibility_range_end > 0.0 or gi.visibility_range_begin > 0.0:
 			gi.visibility_range_end_margin = 5.0
+			gi.visibility_range_begin_margin = 5.0
 			gi.visibility_range_fade_mode = GeometryInstance3D.VISIBILITY_RANGE_FADE_DISABLED
 		gi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON if n["cast_shadow"] else GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var col = JSON.parse_string(FileAccess.get_file_as_string(manifest_path.get_base_dir() + "/collision.json"))

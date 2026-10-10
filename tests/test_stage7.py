@@ -23,7 +23,7 @@ class Spec(unittest.TestCase):
         self.assertIn("spec.platforms[0].top: expected number", txt)
         E, _ = validate(dict(small_spec(), connections=[{"id": "X", "from": "A", "to": "Nope"}])); self.assertTrue(any("unknown platform 'Nope'" in e for e in E))
         E, _ = validate(dict(small_spec(), structures=[{"id": "Y", "kind": "spaceship", "position": [0, 0]}])); self.assertTrue(any("spaceship" in e for e in E))
-        s = small_spec(); del s["arena"]; self.assertTrue(any("missing required 'arena'" in e for e in validate(s)[0]))
+        s = small_spec(); del s["arena"]; self.assertTrue(any("needs an 'arena'" in e and "'world'" in e for e in validate(s)[0]))  # Stage 9: arena OR world
         _, W = validate(dict(small_spec(), heigth=3)); self.assertTrue(any("heigth" in w for w in W))
 
 

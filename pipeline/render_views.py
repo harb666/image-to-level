@@ -41,6 +41,26 @@ def viewpoints(L, G):
     tall = max(cand, key=lambda o: o["size"][1])
     tp = _world_pos(L, tall); h = tall["size"][1]
     V.append(dict(name="16_detail_" + tall["name"], eye=[tp[0] + 9, tp[1] + h * 0.6, tp[2] + 11], target=[tp[0], tp[1] + h * 0.45, tp[2]], fov=60))
+    if isinstance(L.get("terrain"), dict): V += world_viewpoints(L, G)
+    return V
+
+
+def world_viewpoints(L, G):
+    """Stage 9: third-person cameras at the playable boundary looking OUT in each compass direction (world limits must
+    stay hidden), the highest playable point, and a high overview of the near / middle / far zones."""
+    import numpy as np
+    from terrain import Terrain
+    TR = Terrain(L["terrain"]); B = np.asarray((L["terrain"].get("boundary") or {}).get("points") or [[TR.x0, TR.z0], [TR.x1, TR.z0], [TR.x1, TR.z1], [TR.x0, TR.z1]], float)
+    c = B.mean(0); eye = G["player"]["eye_height"]; arm = G["camera"]["arm_length"]; V = []
+    for k, (nm, d) in enumerate((("north", (0, -1)), ("east", (1, 0)), ("south", (0, 1)), ("west", (-1, 0)))):
+        p = B[np.argmax((B - c) @ np.array(d))]; p = p + (c - p) / np.linalg.norm(c - p) * 8; y = TR.height_at(*p)
+        V.append(dict(name=f"{17 + k:02d}_edge_{nm}_3rd", eye=[float(p[0] - d[0] * arm), y + eye + 1.4, float(p[1] - d[1] * arm)], target=[float(p[0] + d[0] * 60), y + eye - 1, float(p[1] + d[1] * 60)], fov=70))
+    G_ = TR.grid(); from terrain import inside_poly
+    ins = inside_poly(B, G_["X"], G_["Z"]); i, j = np.unravel_index(np.argmax(np.where(ins, G_["H"], -1e9)), G_["H"].shape)
+    hp = [float(G_["X"][i, j]), float(G_["H"][i, j]), float(G_["Z"][i, j])]
+    V.append(dict(name="21_hilltop_view", eye=[hp[0], hp[1] + eye + 1.2, hp[2]], target=[float(c[0]), hp[1] - 6, float(c[1])], fov=75))
+    R = float(np.linalg.norm(B - c, axis=1).max())
+    V.append(dict(name="22_zones_overview", eye=[float(c[0]) + R * 1.3, R * 0.9, float(c[1]) + R * 1.6], target=[float(c[0]), 0, float(c[1])], fov=60))
     return V
 
 

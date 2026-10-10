@@ -16,6 +16,10 @@ Actions
   extend_inlet       pipe hanging in front of a wall: lengthen it backwards into the wall (outlet stays put)
   nudge              z-fighting coplanar faces: move the connector / smaller object 1 cm behind the other surface
   drop               small prop hovering a few cm: lower it onto what is below
+  extend_foundation  (Stage 9) ground below a foundation: lower the foundation's bottom, top unchanged
+  terrain_lower      (Stage 9) terrain poking through a floor: add a "lower"-only pad under it (never raises ground)
+  terrain_add        (Stage 9) boundary at open ground: add a low ridge OUTSIDE the playable boundary
+  middle_extend      (Stage 9) gap in the distant scenery: widen + raise the middle zone (never playable)
 Ambiguous cases (a connector leading nowhere, big hovers, blocked openings, crates in a landing) are left for Claude.
 After repairs the level is rebuilt and re-checked (bounded passes).
 """
@@ -100,6 +104,26 @@ def act_drop(L, W, o, f):
     _move(L, W, o, [0, -float(f["repair"]["distance"]), 0]); return f"lowered {f['repair']['distance']:.2f} m onto its support"
 
 
+def act_extend_foundation(L, W, o, f):
+    """Foundation bottom above the ground somewhere: lower its bottom (top stays) to below the lowest ground."""
+    top = o["position"][1] + o["size"][1]; to = min(f["repair"]["to_y"], o["position"][1])
+    o["position"][1] = round(to, 3); o["size"][1] = round(top - to, 3); return f"bottom lowered to {to:.2f} (top unchanged)"
+
+
+def _terrain_add(L, f):
+    feat = dict(f["repair"]["feature"]); fs = L["terrain"].setdefault("features", [])
+    if any(x["id"] == feat["id"] for x in fs): return "already present"
+    fs.append(feat); return f"terrain feature {feat['id']} ({feat['type']}{', ' + feat['mode'] if feat.get('mode') else ''}) added"
+
+
+def _middle_extend(L, f):
+    z = L["terrain"].setdefault("zones", {}).setdefault("middle", {}); r = z.get("radius", 380); z["radius"] = round(r * 1.15)
+    z["rise"] = z.get("rise", 32.0) + 8.0; return f"middle zone radius {r} -> {z['radius']} m, rise {z['rise']} m"
+
+
+TERRAIN_ACTIONS = dict(terrain_lower=_terrain_add, terrain_add=_terrain_add, middle_extend=_middle_extend)
+
+
 def repair(d, dry=False, max_passes=2, verbose=True):
     import geometry_check as GC
     from anchors import world_matrices, infer_relations
@@ -110,6 +134,12 @@ def repair(d, dry=False, max_passes=2, verbose=True):
         seen, applied = set(), []
         normals = {}
         for f in todo:  # one repair per object per pass (re-measured next pass)
+            a = f["repair"]["action"]
+            if a in TERRAIN_ACTIONS:  # Stage 9: edits of level.json["terrain"] (features / zones), never of objects
+                key = (f["check"], a, json.dumps(f["repair"].get("feature", {}).get("id")))
+                if key in done_ids or not isinstance(L.get("terrain"), dict): continue
+                b = copy.deepcopy(L["terrain"]); msg = TERRAIN_ACTIONS[a](L, f); done_ids.add(key)
+                applied.append(dict(pass_=k + 1, finding=f["message"], action=a, object="terrain", result=msg, before=None, after=None)); continue
             o = by.get(f["repair"]["obj"])
             if o is None or o["name"] in seen: continue
             key = (f["check"], o["name"], f["repair"]["action"], json.dumps(f["repair"].get("anchor")))
@@ -125,6 +155,7 @@ def repair(d, dry=False, max_passes=2, verbose=True):
                     if "normal" not in f: f["normal"] = _overlap_normal(d, L, f)
                     normals[tuple(sorted(f["objects"][:2]))] = np.array(f["normal"]); msg = act_nudge(L, W, o, f, normals)
                 elif a == "drop": msg = act_drop(L, W, o, f)
+                elif a == "extend_foundation": msg = act_extend_foundation(L, W, o, f)
                 else: continue
             except Exception as e:
                 log.append(dict(finding=f["message"], action=a, object=o["name"], result=f"skipped: {e}")); continue

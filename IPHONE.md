@@ -28,6 +28,12 @@ Tap any object. A sheet shows:
 
 In the mobile preview, merged meshes still show the original object name.
 
+**Open worlds (Stage 9):** tap the ground to see the terrain region: zone (playable near terrain / middle-zone scenery /
+water / scatter), chunk + LOD, slope against the walkable limit, which named features cover that spot (e.g. "River
+(river), Valley (valley)"), biome and seed - "Copy for Claude" then lets you say "make the hill here steeper" by name.
+In **top-down** and **free cam** the playable boundary is drawn red and spawn regions blue (players) / orange (enemies).
+The mobile preview switches terrain LODs and hides scatter beyond its view distance like Godot's visibility ranges.
+
 Tap **Copy for Claude**, then paste into the chat and finish the sentence:
 > In Toxic Arena: object "OuterWall_North" (box, metal_dark, …). Please change: make it industrial metal with pipes
 

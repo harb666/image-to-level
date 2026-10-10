@@ -7,7 +7,8 @@ Every kind yields: base colour (sRGB jpeg), normal map (from a height field), OR
 G=roughness, B=metallic — glTF metallicRoughness + occlusion share it) and, if it glows, an emissive mask.
 All maps are tileable. Standard glTF 2.0 PBR, so Godot 4 imports them into StandardMaterial3D directly.
 PBR kinds: industrial_metal, painted_metal, damaged_metal, scifi_floor, grating, concrete, rock, sand, dirt, grass,
-  toxic, glow, machinery_panel, trim_light, pipe, banner, factory_facade (distant buildings, lit windows).  Legacy (stylised, albedo-derived normals): cobblestone,
+  toxic, glow, machinery_panel, trim_light, pipe, banner, factory_facade (distant buildings, lit windows),
+  snow, mud, asphalt ("lines": true = lane line), gravel, moss (Stage 9 terrain layers).  Legacy (stylised, albedo-derived normals): cobblestone,
   stone_brick, plaster, wood, painted_wood, trim_wood, door_wood, window, roof_tiles, roof_slate, metal, water, soil.
 """
 import io, numpy as np, trimesh
@@ -351,6 +352,54 @@ def k_factory_facade(S, rng, c, m):
                 emit=lit.astype(float), nstr=0.8)
 
 
+def k_snow(S, rng, c, m):
+    """Wind-packed snow: soft drifts, sparkle-free (mobile), slightly blue in the hollows."""
+    x, y = _xy(S); n = _noise(rng, 3, 4, S); fine = _noise(rng, 48, 1, S)
+    h = 0.7 * n + 0.15 * fine
+    alb = c[None, None] * (0.9 + 0.1 * n)[..., None] * np.array([1.0, 1.0, 1.0]) + np.array([-0.03, -0.01, 0.02]) * (1 - n)[..., None]
+    return dict(alb=alb, h=h, rough=0.75 + 0.1 * fine, metal=0.0, nstr=0.4)
+
+
+def k_mud(S, rng, c, m):
+    """Wet mud: dark puddles (smooth, shiny) between drier lumps."""
+    x, y = _xy(S); n = _noise(rng, 5, 4, S); fine = _noise(rng, 40, 2, S)
+    wet = np.clip((0.45 - n) * 5, 0, 1)
+    h = (1 - wet) * (0.6 * n + 0.3 * fine)
+    alb = c[None, None] * ((0.85 + 0.25 * fine) * (1 - 0.35 * wet))[..., None]
+    return dict(alb=alb, h=h, rough=0.9 - 0.6 * wet, metal=0.0, nstr=0.9)
+
+
+def k_asphalt(S, rng, c, m):
+    """Road surface: fine aggregate, darker tyre tracks, cracks, faded lane line at u=0.5 if "lines": true."""
+    x, y = _xy(S); fine = _noise(rng, 96, 1, S); n = _noise(rng, 4, 3, S); wear = m.get("wear", 0.4)
+    crack = (np.abs(_noise(rng, 6, 3, S) - 0.5) < 0.004 * (0.5 + wear)).astype(float)
+    tracks = np.exp(-((x - 0.28) / 0.07) ** 2) + np.exp(-((x - 0.72) / 0.07) ** 2)
+    h = 0.2 * fine + 0.1 * n - 0.5 * crack
+    alb = c[None, None] * ((0.88 + 0.2 * fine) * (1 - 0.12 * tracks) * (1 - 0.4 * crack) * (0.92 + 0.12 * n))[..., None]
+    if m.get("lines"):
+        line = (np.abs(x - 0.5) < 0.012) & ((y * 4) % 1 < 0.6); alb = np.where(line[..., None], np.array([0.75, 0.7, 0.55]) * (0.7 + 0.3 * n[..., None]), alb)
+    return dict(alb=alb, h=h, rough=0.85 - 0.1 * tracks, metal=0.0, nstr=0.45)
+
+
+def k_gravel(S, rng, c, m):
+    """Loose gravel / path: many small stones of varied tint over dirt."""
+    x, y = _xy(S); cid, e = _cells(rng, 140, S); n = _noise(rng, 6, 3, S)
+    stone = (rng.random(140) > 0.25)[cid] * np.clip(e * 3, 0, 1) ** 0.6
+    tint = rng.uniform(0.8, 1.15, 140)[cid]
+    h = 0.75 * stone + 0.25 * n
+    alb = c[None, None] * (np.where(stone > 0.05, tint * (0.75 + 0.35 * stone), 0.6 + 0.2 * n))[..., None]
+    return dict(alb=alb, h=h, rough=0.92, metal=0.0, nstr=1.4)
+
+
+def k_moss(S, rng, c, m):
+    """Mossy forest floor / fantasy turf: clumps with darker gaps."""
+    x, y = _xy(S); cid, e = _cells(rng, 40, S); fine = _noise(rng, 64, 1, S); n = _noise(rng, 4, 3, S)
+    clump = np.clip(e * 2.5, 0, 1) ** 0.5
+    h = 0.6 * clump + 0.3 * fine
+    alb = c[None, None] * ((0.55 + 0.5 * clump) * (0.85 + 0.25 * fine) * rng.uniform(0.9, 1.1, 40)[cid])[..., None]
+    return dict(alb=alb, h=h, rough=0.95, metal=0.0, nstr=1.0)
+
+
 PBR = {k[2:]: f for k, f in globals().items() if k.startswith("k_")}
 
 
@@ -412,3 +461,31 @@ def make_material(name, m):
     if d["emit"] is not None:
         kw["emissiveTexture"] = _img(alb * d["emit"][..., None], 85); kw["emissiveFactor"] = m.get("emissive", [1.0, 1.0, 1.0]); px.append(d["S"] ** 2)
     return trimesh.visual.material.PBRMaterial(**kw), px
+
+
+_AVG = {}
+
+
+def avg_linear_color(m):
+    """Mean albedo of a material's texture x colour, in LINEAR space (for vertex-coloured distant terrain)."""
+    key = repr(sorted(m.items()))
+    if key not in _AVG:
+        d = maps(dict(m, res=64)); a = np.clip(d["alb"], 0, 1).reshape(-1, 3).mean(0); _AVG[key] = (a ** 2.2).tolist()
+    return _AVG[key]
+
+
+def atlas_material(name, defs, cell=128, cols=4):
+    """One material for many small props (Stage 9 scatter): each def's maps in its own atlas cell -> one draw call per
+    merged mesh. Returns (material, pixel counts, {index: (u0, v0, u1, v1)} with a 3 px inset against bleeding)."""
+    rows = (len(defs) + cols - 1) // cols; W, H = cols * cell, rows * cell
+    alb = np.zeros((H, W, 3)); h = np.zeros((H, W)); rough = np.ones((H, W)); metal = np.zeros((H, W)); emit = np.zeros((H, W)); rects = {}; anyemit = False
+    for k, m in enumerate(defs):
+        d = maps(dict(m, res=cell)); r, c = divmod(k, cols); ys, xs = slice(r * cell, (r + 1) * cell), slice(c * cell, (c + 1) * cell)
+        alb[ys, xs] = np.clip(d["alb"], 0, 1); h[ys, xs] = d["h"] * d["nstr"] / 1.5; rough[ys, xs] = d["rough"]; metal[ys, xs] = d["metal"]
+        if m.get("emissive"): emit[ys, xs] = 1.0; anyemit = True
+        p = 3 / cell; rects[k] = (c / cols + p / cols, r / rows + p / rows, (c + 1) / cols - p / cols, (r + 1) / rows - p / rows)
+    orm = np.stack([_ao(h), np.clip(rough, 0.04, 1), np.clip(metal, 0, 1)], -1); ormi = _img(orm, 88)
+    kw = dict(name=name, baseColorTexture=_img(alb, 85), metallicFactor=1.0, roughnessFactor=1.0, metallicRoughnessTexture=ormi, occlusionTexture=ormi,
+              normalTexture=_img(_normal(h, 1.0), 92))
+    if anyemit: kw["emissiveTexture"] = _img(alb * emit[..., None], 85); kw["emissiveFactor"] = [1.0, 1.0, 1.0]
+    return trimesh.visual.material.PBRMaterial(**kw), [W * H] * (4 if anyemit else 3), rects

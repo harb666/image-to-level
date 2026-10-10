@@ -80,8 +80,53 @@ THEMES = {
     "ruins": dict(roles=dict(_TOWN, ground={"type": "dirt", "color": [0.42, 0.38, 0.32], "tile_m": 4.0}), platform_style="stone_plinth", wall_style="stone",
                   sky="overcast", ambient="dust", background=dict(mountains="both", factories=0, skyline=False, spires=True)),
 }
+def _with(base, **over):
+    r = {k: dict(v) for k, v in base.items()}
+    for k, v in over.items(): r[k] = dict(r.get(k, {}), **v)
+    return r
+
+
+# Stage 9 art directions (biome = terrain layer preset, style = scatter / natural prop look)
+THEMES.update({
+    "futuristic_city": dict(roles=_with(_IND, wall={"type": "concrete", "color": [0.52, 0.54, 0.57], "tile_m": 6.0},
+                                        structure={"type": "machinery_panel", "color": [0.26, 0.28, 0.32], "accent": [0.2, 0.8, 1.0]},
+                                        trim={"type": "trim_light", "color": [0.2, 0.22, 0.25], "accent": [0.2, 0.85, 1.0]},
+                                        glow={"type": "glow", "color": [0.4, 0.85, 1.0], "emissive": [0.35, 0.8, 1.0]},
+                                        accent={"type": "banner", "color": [0.15, 0.45, 0.85], "emissive": [0.3, 0.6, 1.0]},
+                                        window={"type": "glow", "color": [0.55, 0.75, 0.9], "emissive": [0.4, 0.6, 0.8]},
+                                        deck={"type": "concrete", "color": [0.5, 0.5, 0.5], "tile_m": 4.0}, ground={"type": "concrete", "color": [0.42, 0.42, 0.42]},
+                                        hazard={"type": "water", "color": [0.2, 0.3, 0.4], "tile_m": 6.0}, water={"type": "water", "color": [0.25, 0.35, 0.42]}),
+                            platform_style="industrial_pillar", wall_style="industrial", sky="sunset", ambient="none", biome="urban", style="stylised_scifi",
+                            background=dict(mountains="far", factories=0, skyline=True, spires=False)),
+    "desert": dict(roles=_with(_TOWN, wall={"type": "stone_brick", "color": [0.78, 0.64, 0.46]}, structure={"type": "stone_brick", "color": [0.7, 0.56, 0.4]},
+                               stone={"type": "stone_brick", "color": [0.8, 0.66, 0.48]}, rock={"type": "rock", "color": [0.66, 0.45, 0.3], "tile_m": 8.0},
+                               ground={"type": "sand", "color": [0.82, 0.67, 0.45], "tile_m": 5.0}, foliage={"type": "grass", "color": [0.5, 0.48, 0.28]}),
+                   platform_style="stone_plinth", wall_style="stone", sky="clear_day", ambient="dust", biome="desert", style="realistic",
+                   background=dict(mountains="both", factories=0, skyline=False, spires=True)),
+    "alpine": dict(roles=_with(_TOWN, rock={"type": "rock", "color": [0.47, 0.47, 0.5], "tile_m": 8.0}), platform_style="stone_plinth", wall_style="stone",
+                   sky="overcast", ambient="snow", biome="alpine", style="realistic", background=dict(mountains="both", factories=0, skyline=False, spires=False)),
+    "fantasy_forest": dict(roles=_with(_TOWN, foliage={"type": "moss", "color": [0.28, 0.48, 0.22]}, rock={"type": "rock", "color": [0.46, 0.44, 0.5], "tile_m": 8.0},
+                                       glow={"type": "glow", "color": [0.7, 0.5, 1.0], "emissive": [0.6, 0.4, 1.0]}),
+                           platform_style="stone_plinth", wall_style="stone", sky="sunrise", ambient="spores", biome="fantasy", style="fantasy",
+                           background=dict(mountains="both", factories=0, skyline=False, spires=True)),
+    "alien": dict(roles=_with(_IND, rock={"type": "rock", "color": [0.33, 0.28, 0.4], "tile_m": 8.0}, glow={"type": "glow", "color": [0.3, 0.95, 1.0], "emissive": [0.25, 0.9, 1.0]},
+                              hazard={"type": "toxic", "color": [0.3, 0.9, 0.9], "emissive": [0.25, 0.85, 0.9]}),
+                  platform_style="industrial_pillar", wall_style="industrial", sky="alien", ambient="spores", biome="alien", style="stylised_scifi",
+                  background=dict(mountains="both", factories=0, skyline=False, spires=True)),
+    "post_apocalyptic": dict(roles=_with(_IND, wall={"type": "damaged_metal", "color": [0.3, 0.27, 0.24], "wear": 0.9}, structure={"type": "damaged_metal", "color": [0.28, 0.25, 0.22]},
+                                         deck={"type": "concrete", "color": [0.38, 0.37, 0.35], "wear": 0.8}, ground={"type": "dirt", "color": [0.4, 0.35, 0.28]}),
+                             platform_style="industrial_pillar", wall_style="industrial", sky="overcast", ambient="dust", biome="wasteland", style="post_apocalyptic",
+                             background=dict(mountains="both", factories=2, skyline=True, spires=False)),
+    "cartoon": dict(roles=_with(_TOWN, wall={"type": "plaster", "color": [0.95, 0.85, 0.65]}, roof={"type": "roof_tiles", "color": [0.85, 0.3, 0.25]},
+                                rock={"type": "rock", "color": [0.6, 0.56, 0.52], "res": 128}, foliage={"type": "grass", "color": [0.35, 0.65, 0.2], "res": 128}),
+                    platform_style="stone_plinth", wall_style="stone", sky="clear_day", ambient="none", biome="cartoon", style="cartoon",
+                    background=dict(mountains="both", factories=0, skyline=False, spires=False)),
+})
+for _k, _b, _s in (("industrial", "industrial", "realistic"), ("toxic_industrial", "industrial", "post_apocalyptic"), ("scifi", "industrial", "stylised_scifi"),
+                   ("medieval_town", "temperate", "realistic"), ("ruins", "wasteland", "realistic")):
+    THEMES[_k].setdefault("biome", _b); THEMES[_k].setdefault("style", _s)
 VARIANT_ROLES = ("wall", "structure", "deck", "plaster")
-FALLBACK = {"timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
+FALLBACK = {"foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
             "window": "glow", "foliage": "rock", "water": "hazard", "machine": "structure_b", "backdrop": "wall", "structure_b": "structure",
             "frame": "structure_b", "rail": "frame", "grate": "deck", "trim": "structure_b", "accent": "trim", "glow": "accent", "pipe": "frame",
             "hazard": "water", "ground": "deck", "deck": "ground", "wall": "structure", "structure": "wall", "rock": "structure"}
@@ -389,7 +434,8 @@ def arena(ctx, a, floor_y):
     else:
         ctx.element = ("arena.floor", fl.get("source", "visible"))
         mat = fl.get("material", "ground" if fl["kind"] == "ground" else "deck")
-        ctx.add(fl.get("name", "Ground"), "box", [cx, fl["y"] - 0.5, cz], [big[0] + 1, 0.5, big[2] + 1], mat)
+        ex = 2.4 if getattr(ctx, "TR", None) is not None else 1  # on world terrain: the slab reaches past the wall pilasters into the pad
+        ctx.add(fl.get("name", "Ground"), "box", [cx, fl["y"] - 0.5, cz], [big[0] + ex, 0.5, big[2] + ex], mat)
         ctx.walkable.append(dict(name=fl.get("name", "Ground"), min=[cx - w / 2 + 1, cz - d / 2 + 1], max=[cx + w / 2 - 1, cz + d / 2 - 1], y=fl["y"]))
     W = a.get("walls")
     if W and W.get("style", "auto") != "none":
@@ -452,6 +498,10 @@ def terrain(ctx, t, floor_y):
 
 def ground_height(ctx, x, z, floor_y, half=0.0):
     """Lowest terrain height under a footprint (centre +- half) - objects sink into slopes instead of floating."""
+    if getattr(ctx, "TR", None) is not None:  # Stage 9 world terrain
+        import numpy as np
+        pts = np.array([(x, z), (x - half, z - half), (x + half, z - half), (x - half, z + half), (x + half, z + half)])
+        return float(ctx.TR.height(pts[:, 0], pts[:, 1]).min())
     best = None
     for x0, z0, c, H in getattr(ctx, "terrains", []):
         nz, nx = H.shape
@@ -471,11 +521,16 @@ def _place(ctx, s, plats, floor_y, centre):
     else:
         pos = s["position"]; x, z = pos[0], pos[-1]
         half = max(s.get("size", [1, 1, 1])[0], s.get("size", [1, 1, 1])[-1]) / 2 if s["kind"] not in ("rocks", "tree", "lamp", "pillar") else 0.3  # thin bases: ground at the centre
-        y = pos[1] if len(pos) == 3 else ground_height(ctx, x, z, floor_y, half) - (0.25 if getattr(ctx, "terrains", None) and s["kind"] in ("rocks", "tree") else 0.0)
+        y = pos[1] if len(pos) == 3 else ground_height(ctx, x, z, floor_y, half) - (0.25 if (getattr(ctx, "terrains", None) or getattr(ctx, "TR", None) is not None) and s["kind"] in ("rocks", "tree") else 0.0)
+        if s.get("_pad_y") is not None: y = s["_pad_y"] + s.get("_found", 0.0)  # Stage 9: on its terrain pad, above the foundation
+    return x, y, z, structure_yaw(s, x, z, centre)
+
+
+def structure_yaw(s, x, z, centre):
     if "yaw" in s: yaw = s["yaw"]
     elif s.get("facing", "center") == "center": yaw = yaw_to(centre[0] - x, centre[1] - z) if math.hypot(centre[0] - x, centre[1] - z) > 0.5 else 0.0
     else: yaw = {"north": 180, "south": 0, "east": 90, "west": 270}.get(s["facing"], 0)
-    return x, y, z, yaw
+    return yaw
 
 
 def tower(ctx, s, x, y, z, yaw):
@@ -717,3 +772,8 @@ def pipe(ctx, p, floor_y, arena_spec):
         ctx.rel("emits_from", st, src, b_anchor=anchor)
         if pool: ctx.rel("flows_into", st, pool)
         ctx.pours.append(st)
+
+
+# ------------------------------------------------------------------ Stage 9: pluggable modules (pipeline/modules/*.py register more kinds)
+from modules import load_all as _load_modules
+_load_modules()

@@ -251,6 +251,7 @@ def analyse(level_dir, G=None, write=True, verbose=True):
     narrow = []
     reach_nodes = np.array([comp[i] in fwd for i in range(N)]) if home is not None else ok
     for o in np.unique(top_obj[nodes]):
+        if str(onames[o]).startswith(("TR_", "TRM_", "SC_", "SCN_", "TW_")): continue  # terrain material strips / scatter are not connectors
         idx = np.flatnonzero((top_obj[nodes] == o) & reach_nodes)
         if len(idx) * cell * cell < 2: continue
         ext = nxz[idx].max(0) - nxz[idx].min(0) + cell; width = (2 * dist[idx].max() + 1) * cell

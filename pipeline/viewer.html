@@ -72,9 +72,14 @@ function applyTex(root){if(!window.TEX)return;const tl=new THREE.TextureLoader()
     if(e.emis!=null)m.emissiveMap=ld(e.emis,1);else if(e.legacy&&m.emissive&&m.emissive.getHex())m.emissiveMap=m.map;m.needsUpdate=true;});}
 for(const g of [gltf,bg]){if(!g)continue;applyTex(g.scene);
   g.scene.traverse(o=>{if(o.isMesh&&o.material.isMeshStandardMaterial)o.material.envMapIntensity=env?0.9:0.45;});scene.add(g.scene);}
-gltf.scene.traverse(o=>{if(o.isMesh){if(!o.material.map&&o.geometry.attributes.color)o.material=new THREE.MeshLambertMaterial({vertexColors:true,flatShading:true});
+const isTer=n=>/^(TR_|TRM_)/.test(n||'');
+gltf.scene.traverse(o=>{if(o.isMesh){if(!o.material.map&&o.geometry.attributes.color&&!isTer(o.name))o.material=new THREE.MeshLambertMaterial({vertexColors:true,flatShading:true});
   if(o.name.startsWith('Spawn'))o.visible=false;if(o.name.startsWith('Boundary'))o.material.visible=false;}});
-const solids=[];gltf.scene.traverse(o=>{if(o.isMesh&&o.visible)solids.push(o)}); // background is never collidable
+// Stage 9: Godot-style visibility ranges from node extras (terrain LODs, scatter view distance) - distance to the node's box centre
+const ranged=[];gltf.scene.traverse(o=>{const u=o.userData||{};if(o.isMesh&&(u.visibility_range_end>0||u.visibility_range_begin>0)){
+  const c=new THREE.Box3().setFromObject(o).getCenter(new THREE.Vector3());ranged.push([o,c,u.visibility_range_begin||0,u.visibility_range_end||0]);}});
+function applyRanges(p){for(const [o,c,b,e] of ranged){const d=p.distanceTo(c);o.visible=d>=b&&(!(e>0)||d<=e);}}
+const solids=[];gltf.scene.traverse(o=>{if(o.isMesh&&o.visible&&!/^(TRM_|SCN_|TW_)/.test(o.name)&&!/_L[12](_far)?$/.test(o.name))solids.push(o)}); // background, middle zone, grass never collide
 const camSolids=solids.filter(o=>o.material.visible!==false); // camera ignores invisible colliders
 // ---- Stage 4 effects PREVIEW: approximates effects.json in three.js (Godot uses fx/godot/apply_effects.gd; not identical)
 let FXD=window.FX||null;if(!FXD&&!window.GLB){try{const rq=await fetch(base+'/effects.json');if(rq.ok)FXD=await rq.json();}catch(e){}}
@@ -194,6 +199,7 @@ function pick(cx,cy){const nd=new THREE.Vector2(cx/innerWidth*2-1,-(cy/innerHeig
   const rows=[];const add=(k,v)=>{if(v!==undefined&&v!==null&&v!=='')rows.push(`<div><span class="k">${k}</span> ${v}</div>`);};
   if(sp){add('type',sp.type);add('parent',sp.parent);add('position',fmt(sp.position));add('size',fmt(sp.size));if(sp.rotation&&sp.rotation.some(v=>v))add('rotation',fmt(sp.rotation));}
   else if(bgl){add('background layer',bgl.id+' ('+bgl.type+')');add('triangles',bgl.triangles);}
+  else if(isTer(name)||/^(SC|SCN|TW)_/.test(name))terrainInfo(name,h,add);
   if(merged)add('merged into',merged+' (mobile build)');
   const col=md.color?`<span class="sw" style="background:rgb(${md.color.map(c=>Math.round(c*255)).join(',')})"></span> `:'';
   add('material',col+(m.name||'?')+(md.type?' · '+md.type:'')+(md.tile_m?' · tile '+md.tile_m+' m':'')+(md.emissive?' · glows':'')+(md.bevel?' · bevel '+md.bevel:''));
@@ -206,6 +212,24 @@ function pick(cx,cy){const nd=new THREE.Vector2(cx/innerWidth*2-1,-(cy/innerHeig
     navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(hint).then(done,()=>fallback()):fallback();
     function fallback(){const t=document.createElement('textarea');t.value=hint;el.appendChild(t);t.select();try{document.execCommand('copy');done();}catch(e){$('copyb').textContent='Select & copy below';}}};}
 window.pickAt=pick;
+// Stage 9: terrain region selection - chunk / zone, slope, height, which named features (level.json terrain) cover the point
+function terrainInfo(name,h,add){const T=meta.terrain||{},p=h.point,n=h.face?h.face.normal.clone().transformDirection(h.object.matrixWorld):null;
+  const zone=name.startsWith('TRM_')?'middle zone (scenery, not playable)':name.startsWith('TW_')?'water surface':name.startsWith('SC')?'scatter (instanced props)':'near terrain (playable)';
+  add('zone',zone);const m=name.match(/^TR_(\d+)_(\d+)/);if(m)add('chunk',`TR_${m[1]}_${m[2]}`+(/_L(\d)/.test(name)?' · LOD '+name.match(/_L(\d)/)[1]:''));
+  if(n)add('slope',Math.round(Math.acos(Math.min(1,Math.abs(n.y)))*180/Math.PI)+'° (walkable ≤ '+GP.player.max_slope_deg+'°)');
+  const inBox=(f,pad)=>{if(f.center){const r=(f.radius||Math.max(...(f.size||[8,8]))/2)*Math.max(...(f.stretch||[1,1]))+pad;return Math.hypot(p.x-f.center[0],p.z-f.center[1])<=r;}
+    if(f.points){let best=1e9;for(let i=0;i<f.points.length-1;i++){const a=f.points[i],b=f.points[i+1],dx=b[0]-a[0],dz=b[1]-a[1],L2=dx*dx+dz*dz||1;
+      const t=Math.max(0,Math.min(1,((p.x-a[0])*dx+(p.z-a[1])*dz)/L2));best=Math.min(best,Math.hypot(p.x-a[0]-t*dx,p.z-a[1]-t*dz));}return best<=(f.width||20)/2+pad;}
+    if(f.area)return p.x>=f.area[0]&&p.x<=f.area[2]&&p.z>=f.area[1]&&p.z<=f.area[3];return false;};
+  const fs=(T.features||[]).filter(f=>f.type!=='barrier'&&inBox(f,2)).map(f=>f.id+' ('+f.type+')');add('features here',fs.join(', ')||'base terrain (noise)');
+  if(T.biome)add('biome',T.biome);if(T.seed!==undefined)add('seed',T.seed);}
+// top-down map overlay: playable boundary (red), player (blue) / enemy (orange) spawn regions
+let mapG=null;{const T=meta.terrain||{},B=(T.boundary||{}).points,R=meta.spawn_regions||[];
+  if(B||R.length){mapG=new THREE.Group();const ray2=new THREE.Raycaster(),hy=(x,z)=>{ray2.set(new THREE.Vector3(x,500,z),new THREE.Vector3(0,-1,0));const q=ray2.intersectObjects(solids)[0];return q?q.point.y+0.6:0;};
+    const loop=(pts,col)=>{const g=new THREE.BufferGeometry().setFromPoints(pts.map(([x,z])=>new THREE.Vector3(x,hy(x,z),z)));const l=new THREE.LineLoop(g,new THREE.LineBasicMaterial({color:col,depthTest:false}));l.renderOrder=5;mapG.add(l);};
+    if(B){const dense=[];for(let i=0;i<B.length;i++){const a=B[i],b=B[(i+1)%B.length];for(let k=0;k<6;k++)dense.push([a[0]+(b[0]-a[0])*k/6,a[1]+(b[1]-a[1])*k/6]);}loop(dense,0xff3333);}
+    for(const r of R){const c=[];for(let k=0;k<24;k++){const a=k/24*Math.PI*2;c.push([r.center[0]+Math.cos(a)*r.radius,r.center[1]+Math.sin(a)*r.radius]);}loop(c,r.team==='enemy'?0xff9922:0x3399ff);}
+    mapG.visible=false;scene.add(mapG);}}
 // Stage 7: validation issues (window.ISSUES from checks/report.json): markers in the scene + a list; tap an item to look at it
 const ISS=window.ISSUES||[];let issG=null;
 if(ISS.length){const b=$('issb');b.hidden=false;b.textContent='⚠ '+ISS.length;
@@ -236,7 +260,7 @@ const ray=new THREE.Raycaster(),down=new THREE.Vector3(0,-1,0),UP=new THREE.Vect
 function blocked(dir,dist){ray.set(new THREE.Vector3(pos.x,pos.y-meta.eye_height+0.5,pos.z),dir);ray.far=dist+0.3;return ray.intersectObjects(solids).length>0;}
 setMode(0);
 r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,0.05);fpsS=fpsS*0.95+(1/Math.max((now-last)/1000,1e-3))*0.05;last=now;
-  const M=MODES[mode];
+  const M=MODES[mode];if(ranged.length)applyRanges(cam.position);if(mapG)mapG.visible=M==='top-down'||M==='free cam';
   if(fixedCam){avatar.visible=false;cam.position.copy(fixedCam.p);cam.lookAt(fixedCam.t);}
   else if(walking()){const f=(keys.KeyW?1:0)-(keys.KeyS?1:0)-mv.y,s=(keys.KeyD?1:0)-(keys.KeyA?1:0)+mv.x;
     const d=new THREE.Vector3(s,0,-f);if(d.lengthSq()>0){d.normalize().applyAxisAngle(UP,yaw);const step=GP.player.walk_speed*dt;if(!blocked(d,step))pos.addScaledVector(d,step);}

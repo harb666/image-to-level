@@ -13,6 +13,7 @@ committed, then paused for approval.
 | 5 Mobile performance ✅ | dev vs mobile export: merge static meshes by material (names kept in node extras/level.json), LOD for big objects, collision proxies, texture atlas for small emissive/decals, KTX2 if a free encoder is available (else rely on Godot VRAM compression) | fewer draw calls, measured budgets |
 | 6 iPhone editing & preview ✅ | third-person + free camera + top-down, tap-to-identify object (name/material), screenshot button, quality toggle, edit-by-name helper | full phone workflow |
 | 7 Image → level generation & autonomous refinement ✅ | references.py (panels/plan/grid) → Claude writes scene_spec.json → generate.py: spec_to_level (architecture modules, role materials, auto environment/effects/spawns, edit-preserving regeneration) → build → refine loop (checks.py + navigation + camera, safe fixes, bounded) → headless renders → previews → Godot package | one command from interpretation to validated, packaged level |
+| 9 Universal terrain & environment generation ✅ | structured / open / hybrid modes; deterministic feature terrain (terrain.py) in crack-free chunks with LODs, biome material layers, rivers/roads/pads/water; natural + urban + connector modules in a pluggable registry; instanced scatter in 5 styles; near/middle/far continuity with an organic boundary + natural barrier; spawn regions; mobile LOD/collision export; world validation + safe repairs; viewer terrain inspection | any environment type from one spec, editable by feature id |
 | 8 Intelligent geometry, connections & environment validation ✅ | anchors + relations scene graph, connection-aware construction rules (junction plates, flush ramps/stairs, no coplanar overlaps, cover clear of landings, party walls, grounded terrain props), liquid streams from real outlets (5 outlet types), geometry validator (ERROR/WARNING/INTENTIONAL), safe deterministic repair, inspection close-ups | physically coherent levels in any theme |
 
 Not possible on free CPU infra: real device GPU benchmarks (numbers are estimates), neural texture/sky generation at
@@ -101,3 +102,19 @@ quality (procedural fallback instead).
   ramp, liquid over a floor, terrain crack, bad relations), construction rules on the synthetic yard, arena regression.
 - Legacy levels still build unchanged; the validator reports real findings there (test yard demo props float, MiDaS
   pagoda overhangs float, town_square spawn) - left for review, not auto-changed.
+
+### Stage 9 milestones (implemented in order)
+1. Terrain core (`terrain.py`): feature heightfield (22 feature types, per-feature seeds + influence boxes), global grid
+   chunks, LOD1/2 with full-res stitched borders, layer materials (biome presets, new PBR kinds), water surfaces.
+2. World mode in the spec (`world.py`, `scene_spec.py`, `spec_to_level.py`): open / hybrid, organic boundary + barrier,
+   pads + foundations, automatic road/river bridges, line modules, terrain-aware platforms, edit-preserving merge.
+3. Modules: registry (`pipeline/modules/`), natural (arch, cave, overhang, cliff face, spire, ruins, crystals, boulders),
+   connectors (bridge, walkway, tunnel), urban/futuristic (street, towers, blocks, factory, cover props); 7 new themes;
+   instanced scatter (`scatter.py`, 15 kinds x 5 styles, atlas material per rule, props.glb + instances).
+4. Middle zone ring + far layers coupling, river/road continuation, fog for worlds.
+5. Mobile export: terrain LOD nodes with visibility ranges, vertex-colour far LOD, per-chunk heightmap + concave +
+   scatter colliders, world budgets, Godot scripts (visibility begin/end, optional MultiMesh scatter).
+6. Validation (`terrain_check.py`) + repairs + exact overlap areas / buried-face rules, viewer (ranges, terrain info,
+   boundary/spawn overlay), render views at the boundary / hilltop, terrain edit commands.
+7. Three synthetic engineering worlds (A valley, B city, C hybrid), tests (`tests/test_stage9.py`), docs.
+

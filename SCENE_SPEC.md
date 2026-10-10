@@ -22,12 +22,13 @@ letters, digits and `_` only.
 | `spec_version` | yes | `1` |
 | `name` | yes | the level folder name |
 | `title` | no | used in previews |
-| `theme` | no | `industrial`, `toxic_industrial`, `scifi`, `medieval_town` or `ruins`. Sets the material palette, platform and wall style, sky, ambient particles and background. |
+| `theme` | no | `industrial`, `toxic_industrial`, `scifi`, `medieval_town`, `ruins`, and (Stage 9) `futuristic_city`, `desert`, `alpine`, `fantasy_forest`, `alien`, `post_apocalyptic`, `cartoon`. Sets the material palette, platform and wall style, sky, ambient particles, background, terrain biome and prop style. |
 | `detail` | no | `low`, `medium` or `high`. Controls ribs, glow strips, vents, wall pipes, timber framing and pinnacles. |
 | `profile` | no | `performance`, `balanced` (the default) or `quality`. Used for the mobile export and the sky/background quality. |
 | `references[]` | no | `{file, kind, panels[{id, bbox_px, view: top_down / elevation / perspective / detail / text, use[], notes}], notes}` |
 | `interpretation` | no | `{summary, scale_basis, visible[], inferred[], assumptions[], questions[]}`. Records what was seen and what was guessed. |
-| `arena` | yes | See [Arena](#arena). |
+| `arena` | one of the two | See [Arena](#arena). Structured levels. |
+| `world` | one of the two | Stage 9 open terrain. See [World](#world-stage-9). `arena` + `world` = hybrid. |
 | `platforms[]` | no | See [Platforms](#platforms-connections-structures-pipes). |
 | `connections[]` | no | See [Platforms](#platforms-connections-structures-pipes). |
 | `structures[]` | no | See [Platforms](#platforms-connections-structures-pipes). |
@@ -37,9 +38,103 @@ letters, digits and `_` only.
 | `atmosphere` | no | `{sky: <preset>, sky_overrides{}, fog_start, fog_end, height_fog{}, glow_color, ambient: spores / dust / embers / snow / none}` |
 | `background` | no | Compact form: `{mountains: both / far / near / none, mountain_height: [lo, hi], factories: n, skyline, spires}`. Explicit form: `{layers: [...]}` using the Stage 2 layer format. |
 | `effects` | no | `"auto"` (the default), `"none"`, a list of Stage 4 effects, or `{auto, extra: [...], disable: [ids]}` |
-| `spawns[]` | no | `{id, on: <platform>}` or `{id, position: [x, y, z]}`, plus an optional `yaw`. The first entry is the main spawn. |
+| `spawns[]` | no | `{id, on: <platform>}` or `{id, position: [x, y, z]}`, plus an optional `yaw` and `team` (player / enemy). The first entry is the main spawn. Open worlds normally use `world.spawn_regions` instead. |
 | `gameplay` | no | Overrides `config/gameplay.json` for this level. |
 | `refine` | no | `{max_passes: 3}` |
+
+## Generation mode (Stage 9)
+
+Claude picks the mode from the concept image; nothing assumes a square boundary, symmetry or a central platform.
+
+| mode | spec | use for |
+|---|---|---|
+| structured | `arena` only | closed arenas, interiors, compounds with walls |
+| open | `world` only | valleys, deserts, coasts, forests, cities, any landscape |
+| hybrid | `arena` + `world` | a compound / arena on a terrain pad inside a landscape (platforms, bridges, roads around it) |
+
+## World (Stage 9)
+
+```json
+"world": {"size": [256, 256], "center": [0, 0], "seed": 21, "relief": "hilly", "biome": "rocky", "style": "realistic",
+          "cell": 2.0, "chunk": 32, "base_y": 0,
+          "boundary": {"shape": "organic", "margin": 24, "barrier": "ridge", "height": 16},
+          "features": [{"id": "River", "type": "river", "points": [[-118, -4], [0, 8], [118, 10]], "width": 9, "depth": 1.4}],
+          "scatter": [{"id": "Pines", "kinds": ["conifer", {"kind": "dead_tree", "weight": 0.15}], "density": 1.1, "layers": ["grass"]}],
+          "spawn_regions": [{"id": "Player_Start", "team": "player", "center": [-40, 42], "radius": 14, "count": 4},
+                            {"id": "Enemy_East", "team": "enemy", "center": [60, 20], "radius": 16, "count": 5}],
+          "water": {"level": -2.0}, "middle": {"radius": 450, "rise": 32}, "lod_ranges": [60, 120]}
+```
+
+| key | meaning |
+|---|---|
+| `size` / `extent` | Detailed (NEAR) terrain: `[w, d]` around `center`, or `[x0, z0, x1, z1]`. Playable area + room for the barrier. |
+| `relief` | `flat`, `gentle`, `hilly`, `rugged`, `mountainous`: amplitude / scale / ridges of the base noise (domain-warped, non-repeating). `noise{}` overrides. |
+| `biome` | Terrain material layers: `temperate`, `rocky`, `desert`, `alpine`, `urban`, `industrial`, `alien`, `wasteland`, `fantasy`, `cartoon` (default from the theme). |
+| `style` | Prop look for scatter: `realistic`, `stylised_scifi`, `fantasy`, `cartoon`, `post_apocalyptic` (default from the theme). |
+| `cell`, `chunk` | Grid spacing (m) and chunk size in cells (multiple of 4). 2 m / 32 = 64 m chunks; flat cities can use 4 m. |
+| `boundary` | Playable polygon: `points` (Claude's) or `shape: organic / rounded` inside the extent minus `margin`. `barrier: ridge` adds a natural ridge just outside it (`height`, `offset`, `width`); `none` = no barrier (validated as intentional). Invisible colliders follow the polygon. |
+| `features[]` | Named, individually editable terrain shapes (below). |
+| `scatter[]` | Instanced props (below). |
+| `spawn_regions[]` | `{id, team: player / enemy, center, radius, count, spacing, facing}` → safe points (flat ≤ 12°, dry, inside the boundary, clear of structures). |
+| `water.level` | Sea level (with a `coast` feature). |
+| `middle` | MIDDLE zone ring: `radius` (default: runs into the near mountain ring), `rise`, `enabled`. |
+| `layers`, `materials` | Replace the biome's layer rules / material definitions (`ter_<material>` in level.json). |
+
+### Terrain features
+
+Every feature has an `id` (stable, edit it later), a `type`, and its own seed (from the terrain seed + id). Order of
+application: shapes (hill … field) → carves (valley, canyon, river, lake, coast, trench) → barrier → flattening (pads,
+then roads). Rivers and roads that reach the edge continue out to the horizon (gently meandering) unless `extend: false`.
+
+| type | keys | effect |
+|---|---|---|
+| `hill`, `mountain` | `center`, `radius`, `height`, `stretch`, `yaw`, `irregular` | rounded hill / ridged peak, irregular outline |
+| `ridge` | `points`, `width`, `height` | mountain chain along a line |
+| `plateau`, `mesa` | `center`, `radius`, `height` or `y`, `edge` | flat top; mesa = stepped steep walls |
+| `crater` | `center`, `radius`, `depth`, `rim` | bowl with a rim |
+| `cliff` | `points`, `height`, `side`, `reach`, `transition` | raised shelf with a steep step (add `cliff_face` structures for vertical rock) |
+| `dunes` | `center`, `radius`, `height`, `wavelength`, `direction` | wind ripples |
+| `field` | `center`, `radius`, `strength`, `surface` | smooths to an open field (`surface: "park"` → grass in a paved city) |
+| `valley`, `canyon` | `points`, `width`, `depth`, `floor` | soft valley / steep-walled canyon |
+| `river` | `points`, `width`, `depth`, `bank`, `bank_slope`, `flow` | carved channel, water surface never above either bank, never flows uphill (`flow: false` for canals) |
+| `lake` | `center`, `radius`, `depth`, `level` | bowl + water disc (level from the rim by default) |
+| `coast` | `points`, `side`, `width`, `depth` | lowers the ground under `water.level` |
+| `road`, `street`, `path` | `points`, `width`, `shoulder`, `max_grade`, `smooth` | flattened, grade-limited ribbon (road / path material layer); leaves rivers open → bridge |
+| `pad` | `center`, `size` or `radius`, `y`, `yaw`, `margin`, `surface`, `mode: "lower"` | flat area (buildings get one automatically) |
+| `trench` | `points`, `width`, `y` | flat cut (tunnels add one automatically) |
+| `heightmap` | `image`, `area`, `height`, `mode: add / replace / max`, `feather` | heights from a grayscale image (layout from a concept image) |
+| `mask` | `image`, `area`, `name` | named mask from an image, usable by layer rules / scatter `avoid` |
+
+### Scatter
+
+```json
+{"id": "Rocks", "kinds": ["rock_small", {"kind": "boulder", "weight": 0.35, "scale": [0.8, 1.4]}], "area": "playable",
+ "density": 1.6, "cluster": 0.4, "slope_max": 34, "layers": ["grass"], "avoid": ["road", "river", "pad", "objects", "spawns"]}
+```
+
+Kinds: `conifer`, `broadleaf`, `dead_tree`, `palm`, `bush`, `grass_tuft`, `rock_small`, `boulder`, `cactus`, `crystal`,
+`alien_plant`, `debris`, `stump`, `log`, `flowers` (3 low-poly variants each, closed meshes). `area`: `"playable"`,
+`"extent"`, `[x0, z0, x1, z1]` or a polygon. `density` = instances per 100 m²; `cluster` 0..1 clumps them. Trees and
+boulders get colliders; grass, bushes and pebbles don't. Scatter stops at its view distance (grass 35 m, trees 160 m).
+
+### Natural and urban structure kinds (Stage 9 modules, `pipeline/modules/`)
+
+| kind | keys | what it builds |
+|---|---|---|
+| `rock_arch` | `position`, `size`, `yaw` | natural stone arch (walk under it; concave collision) |
+| `cave` | `position`, `size`, `yaw`, `opening` | rock outcrop with a walk-in cave (ground flattened to its floor) |
+| `overhang` | `position`, `size`, `yaw` | rock shelf jutting over a recess |
+| `cliff_face` | `from`, `to`, `height`, `depth` | vertical rock wall segments facing the lower side |
+| `rock_spire`, `boulder_field`, `crystal_cluster`, `ruins` | `position`, `size` / `radius`, `count` | hoodoo / boulders / glowing crystals / broken masonry |
+| `bridge` | `from`, `to`, `width`, `style: steel / stone`, `y` or `y_from` / `y_to` | deck following the grade, rails/parapets, piers to the ground or bed, abutments |
+| `walkway` | `from`, `to`, `y`, `width` | elevated grated catwalk with columns |
+| `tunnel` | `from`, `to`, `width`, `height`, `y` | trench + concrete tube + portals + the original hill restored over the roof |
+| `street` | `from`, `to`, `width`, `sidewalk`, `lamps` | flattened asphalt roadway, kerbed sidewalks following the grade (cut at intersections), street lamps |
+| `futuristic_tower`, `office_block`, `factory` | `position`, `size`, `floors`, `count`, `lit` | setback sci-fi tower / window-grid block / sawtooth hall with chimneys |
+| `container`, `barrier_line`, `wreck`, `billboard`, `antenna`, `fence` | `position` or `from`/`to` | cover and street furniture |
+
+Footprint modules (towers, blocks, factories, houses, ruins, …) get a terrain pad + a 20 cm foundation plinth on open
+ground. Add a kind by dropping a file into `pipeline/modules/` with `@structure("kind", pad=True)` - no generator edits.
 
 ## Arena
 
@@ -100,11 +195,11 @@ All sizes are `[w, h, d]`. For buildings, `w` is the frontage. `facing` takes `c
 | `wall` | Free-standing wall: `from` [x, z], `to` [x, z], `height`, `thickness`, `style`, `inner` [x, z]. |
 | `machinery`, `tank`, `pillar`, `lamp`, `crates` (cover), `rocks`, `tree`, `banner` | Props and decor. |
 
-To support a shape that isn't listed (for example a dome or a crane), add a module to `pipeline/architecture.py`.
-Register it in `STRUCTURES`, keep the mesh closed, name its parts, and document it here. Don't swap in an unrelated
-shape.
+To support a shape that isn't listed (for example a dome or a crane), add a file to `pipeline/modules/` that registers
+it with `@structure("kind")` (Stage 9; or a function in `architecture.py` registered in `STRUCTURES`). Keep the mesh
+closed, name its parts, and document it here. Don't swap in an unrelated shape.
 
-### Terrain (Stage 8)
+### Terrain patches (Stage 8; open worlds use `world` instead)
 
 ```json
 "terrain": [{"id": "Island", "area": [-30, 6, -12, 20], "height": [0, 4], "cell": 2.0, "seed": 3, "material": "rock", "top_material": "foliage"}]
@@ -169,6 +264,9 @@ object. Override any role with Stage 1 material keys in `materials.roles`:
 - Generator notes, for example a stair run that extends onto a platform.
 
 ## Regenerating keeps manual edits
+
+Stage 9: `level.json["terrain"]` settings and every terrain feature (by `id`) follow the same rule, so an edited hill
+or a moved river survives regeneration.
 
 `gen_state.json` stores hashes of what was generated last time. When you run the generator again:
 

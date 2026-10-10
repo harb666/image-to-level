@@ -13,6 +13,7 @@ iPhone workflow + plain-English edit recipes: **IPHONE.md**.
 **Stage 7 (recommended route for concept art):** Claude reads the image(s) -> `levels/<name>/scene_spec.json` -> 
 `python3 pipeline/generate.py levels/<name>/scene_spec.json` (build + bounded refine + renders + previews + package).
 Runbook: **GENERATE.md** · spec format: **SCENE_SPEC.md** · Godot import: **GODOT_IMPORT.md** · tests: `python3 tests/run_all.py`.
+**Stage 9:** open / hybrid worlds via the spec's `world` section (terrain features, biome, scatter, spawn regions) - same command.
 Outputs: `level.json` (THE source of truth — edit this), `level.glb`, `topdown.png` (footprints, red = invisible
 boundary, blue dot = spawn), `depth.png`, `reference.*`, `index.html` (three.js walk viewer; touch stick + drag).
 
@@ -265,6 +266,65 @@ pipe opening and lands in its pool, nothing floats or flickers - checked and rep
 - Fixtures: `levels/test_connections` (synthetic: junction, deliberate gap, ramp, stairs, 5 outlet types, terrain).
   Tests: `tests/test_stage8.py` (construction rules, 5 detect+repair cases, generic rules, Toxic Arena regression).
 
+## Universal terrain & environment generation (Stage 9)
+Goal: any environment type from a concept image - open landscapes, cities, hybrids - with seamless terrain, natural and
+architectural modules, a continuous near / middle / far world and mobile-friendly exports, all deterministic and editable.
+- **Modes** (`spec_to_level.py` + `world.py`): structured (`arena`), open (`world`), hybrid (both: the arena sits on a
+  terrain pad). No square boundary, symmetry or centre platform is assumed. `level.json["generator"]["mode"]`.
+- **Terrain** (`terrain.py`; definition = `level.json["terrain"]`, meshes derived): domain-warped fbm + ridged noise
+  (relief preset) + named FEATURES with their own seeds and influence boxes (hill, mountain, ridge, plateau, mesa,
+  crater, cliff, dunes, field, valley, canyon, river, lake, coast, trench, road/street/path, pad, heightmap image, mask
+  image). Rivers: profile from the smoothed bed, water never above either bank, never uphill; roads: grade-limited
+  profile (interpolated across rivers), drawn after pads, leave rivers open -> automatic bridges.
+- **Seamless chunks**: one global vertex grid sliced into chunks (shared border vertices, normals from the global
+  height field -> no cracks, no lighting seams). LOD1/LOD2 sample every 2nd/4th vertex inside but keep FULL-RES borders
+  stitched inwards, so any LOD pairing is crack-free (tested for every pairing). Chunk hashes only depend on the
+  features touching the chunk -> editing one feature changes only those chunks (`terrain.json` lists the rebuilt ones).
+- **Materials**: per-triangle layer rules (biome presets: temperate, rocky, desert, alpine, urban, industrial, alien,
+  wasteland, fantasy, cartoon) by mask (road, path, river bed, pad, plaza, park, custom image masks), slope, height,
+  height above water and noise patches with jittered thresholds; shared materials `ter_<kind>` (new PBR kinds snow, mud,
+  asphalt, gravel, moss). Steep layers use per-face planar UVs (no stretching). Distant LOD2 + middle zone: ONE matte
+  material with vertex colours = each layer's average albedo (1 draw call per chunk / sector).
+- **Connections**: building pads + 20 cm foundation plinths (1.4 m into the ground), platform supports to the lowest
+  ground under them, bridges (auto at road x river, or `bridge` from/to) whose deck follows the road grade and clears the
+  ground across its width, piers to the bed, abutments; tunnels (trench + tube + portals + the original hill restored
+  over the roof as a berm); caves flatten their floor; streets flatten under the kerbs, sidewalks cut at intersections,
+  skip rivers (the bridge carries them) and stop at the playable boundary.
+- **Modules** (`pipeline/modules/*.py`, `@structure("kind", pad=...)` registry, auto-loaded): natural (rock_arch, cave,
+  overhang, cliff_face, rock_spire, ruins, crystal_cluster, boulder_field), connectors (bridge, walkway, tunnel), urban /
+  futuristic (street, futuristic_tower, office_block, factory, container, barrier_line, wreck, billboard, antenna,
+  fence). New shapes: berm, rock_arch, cave, overhang, crystals. Themes added: futuristic_city, desert, alpine,
+  fantasy_forest, alien, post_apocalyptic, cartoon (each with biome + prop style).
+- **Scatter** (`scatter.py`): 15 prop kinds x 5 styles, 3 closed low-poly variants each, deterministic placement
+  (jittered grid, clumping noise, slope / height / layer / mask / object / spawn filters); dev GLB merges per cell into ONE
+  atlas material per scatter rule; `terrain.json["instances"]` keeps every transform + `props/props.glb` the variants for
+  an optional Godot MultiMesh path (`apply_scatter_multimesh.gd`, untested in Godot). View distance per kind (grass 35 m,
+  trees 160 m): distant vegetation is never individual geometry.
+- **NEAR / MIDDLE / FAR**: near = detailed chunks; middle = ring stitched to the near grid's outer vertices (same
+  normals), coarser outwards, rectangle -> circle, rising (rivers / roads keep their valleys), running into the near
+  mountain ring, skirted down, no collision (`TRM_*`); far = Stage 2 background layers (ground skirt omitted in worlds).
+  Organic playable boundary + a natural barrier ridge outside it (applied after carving; rivers / roads pass through
+  gaps) + invisible colliders on the polygon.
+- **Gameplay**: spawn regions (player / enemy) -> safe points; terrain walk samples for camera estimates; 1 m nav cells
+  in worlds; rivers are wadeable (the bed is the walking surface); slopes over `max_slope_deg` and cliffs block.
+- **Mobile export**: per chunk LOD0 (full layers) / LOD1 (broad layers) / LOD2 (vertex colour) nodes with complementary
+  visibility ranges (default 60 / 120 m, Godot visibility_range begin/end, `apply_mobile.gd` sets them), per-chunk
+  HeightMapShape colliders, concave colliders for caves / arches / overhangs / berms, trunk cylinders + boulder hulls
+  from the instances, middle zone without collision; budgets judged on estimated VISIBLE triangles / draw calls.
+- **Validation** (`terrain_check.py`, inside geometry_check): terrain_surface (holes/cracks across near + middle),
+  terrain_lod (every LOD pairing + normal seams), roads (grade vs player max slope / design grade; river crossings
+  without a deck), foundations (gap below / buried base), terrain_floor (ground poking through floors, decks,
+  sidewalks), boundary (open walkable ground at the edge; river / road exits are intentional), water (edge above the
+  bank), unreachable (flat areas inside the boundary not reachable; mesas, roofs = intentional), density (tris per
+  chunk), background (rays below the horizon from boundary / hilltop / spawn / platform cameras that escape or hit
+  back faces). Safe repairs: extend_foundation, terrain_lower ("lower"-only pad), terrain_add (ridge OUTSIDE the
+  boundary), middle_extend. Existing Stage 8 checks gained exact triangle-overlap areas and buried-face rules.
+- **Viewer**: visibility ranges (LOD switching like Godot), tap on terrain -> zone, chunk + LOD, slope vs the walkable
+  limit, features covering the point, biome/seed; top-down / free cam show the playable boundary (red) and player
+  (blue) / enemy (orange) spawn regions.
+- Engineering test worlds (synthetic, no concept image): `levels/test_valley` (A, open rocky valley), `test_urban`
+  (B, futuristic city), `test_hybrid` (C, walled industrial compound in hilly terrain). Tests: `tests/test_stage9.py`.
+
 ## Hand-authored layouts (concept sheets with a top-down plan)
 When a concept sheet has a TOP DOWN LAYOUT/side view, don't run it through MiDaS: write a small layout script in
 `pipeline/layouts/<level>.py` that emits level.json directly (same schema), then `build_level.py`. Example:
@@ -300,6 +360,12 @@ untested). `make_level.sh` uses it when `LYRA_DIR` is set and `nvidia-smi` exist
 the same way (output `levels/<name>-lyra/`). `points_to_level.py` main() = old blocky voxel export (legacy).
 
 ## Known limits
+Stage 9: heightfield terrain cannot hold true overhangs / holes - caves, arches, overhangs and vertical cliffs are
+separate meshes placed on it (a cave dug INTO a high hill is approximated by a rock outcrop with a flattened floor);
+layer borders follow 2 m triangles (no per-pixel splat blending in standard glTF materials); street intersections on
+steep ground can show small steps (each street has its own profile); middle-zone triangles are large (fog hides them);
+the MultiMesh scatter path, LOD visibility ranges and heightmap colliders are generated for Godot but NOT tested in
+Godot here; all performance numbers are estimates from sampled cameras, not a device benchmark.
 Stage 8: liquids are shader-animated meshes + particles (no fluid simulation); contact/coplanar tests are sampled
 (tiny contacts < ~5 cm can be missed); overlap repair nudges 1 cm; legacy MiDaS levels still show real findings
 (floating overhangs) that need Claude's judgement.
