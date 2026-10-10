@@ -1,0 +1,53 @@
+{
+ "level": "skyforge_arena",
+ "counts": {
+  "ERROR": 0,
+  "WARNING": 0,
+  "INTENTIONAL": 2
+ },
+ "relations": {
+  "explicit": 35,
+  "inferred": 0
+ },
+ "repairable": 0,
+ "findings": [
+  {
+   "check": "boundary",
+   "cls": "INTENTIONAL",
+   "objects": [
+    "terrain"
+   ],
+   "message": "terrain is scenery (terrain_playable: false): the playable edge is the decks' fall edge, colliders above the void",
+   "pos": null,
+   "measured": {},
+   "repair": null,
+   "ambiguous": false,
+   "id": "boundary:000"
+  },
+  {
+   "check": "unreachable",
+   "cls": "INTENTIONAL",
+   "objects": [
+    "Island_W"
+   ],
+   "message": "470 m\u00b2 standable area at [-64.2, 14.0] not reachable from the spawn (on Island_W: inaccessible by design)",
+   "pos": [
+    -64.2,
+    22.0,
+    14.0
+   ],
+   "measured": {
+    "area_m2": 469.5,
+    "objects": [
+     "TR_2_1_grass",
+     "TR_2_1_dirt",
+     "Falls_Island_W"
+    ]
+   },
+   "repair": null,
+   "ambiguous": false,
+   "id": "unreachable:001"
+  }
+ ],
+ "passed": true
+}

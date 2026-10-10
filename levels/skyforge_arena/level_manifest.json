@@ -1,0 +1,107 @@
+{
+ "format": "image-to-level package v1",
+ "level": "skyforge_arena",
+ "title": "scene_spec.json - Skyforge Arena",
+ "generated": "2026-10-10 15:05:19",
+ "godot_root": "res://levels/skyforge_arena/",
+ "use_in_game": "mobile/level_mobile.glb (+ mobile/background_mobile.glb, mobile/collision.glb)",
+ "profile": "balanced",
+ "spawns": [
+  {
+   "id": "spawn",
+   "position": [
+    3.0,
+    40,
+    55.09
+   ],
+   "yaw_deg": 3.1
+  },
+  {
+   "id": "enemy_north",
+   "position": [
+    2.5,
+    40,
+    -33.42
+   ],
+   "yaw_deg": 175.7,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_nw",
+   "position": [
+    -38.0,
+    37,
+    -32.0
+   ],
+   "yaw_deg": -130.1,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_east",
+   "position": [
+    42.0,
+    40,
+    -6.0
+   ],
+   "yaw_deg": 98.1,
+   "team": "enemy"
+  }
+ ],
+ "hazards": [],
+ "generator": {
+  "tool": "pipeline/spec_to_level.py",
+  "spec_sha": "bb445e948d05d4ff",
+  "theme": "scifi",
+  "detail": "medium",
+  "mode": "open"
+ },
+ "metrics": {
+  "dev": {
+   "glb_kb": 3910,
+   "triangles": 60756,
+   "draw_calls": 493,
+   "tex_mem_gpu_mb_est": 6.81
+  },
+  "mobile": {
+   "profile": "balanced",
+   "glb_kb": 4429,
+   "triangles": 69506,
+   "draw_calls": 252,
+   "visible_draw_calls_est": 67.6,
+   "visible_draw_calls_max_est": 104,
+   "tex_mem_gpu_mb_est": 6.81,
+   "materials": 22,
+   "nodes": 253,
+   "colliders": {
+    "colliders": 418,
+    "hazards": 0,
+    "glb_kb": 411
+   },
+   "background_kb": 352,
+   "visible_triangles_est": 17412,
+   "visible_triangles_max_est": 24014
+  },
+  "effects": {
+   "max_particles": 222,
+   "emitters": 11,
+   "extra_draw_calls": 6,
+   "transparent_area_m2": 160000
+  },
+  "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
+ },
+ "validation": {
+  "passed": true,
+  "counts": {
+   "error": 0,
+   "warning": 1,
+   "info": 1
+  }
+ },
+ "gameplay_config_status": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer.",
+ "notes": [
+  "GLB carries static geometry/materials only; effects, environment and hazards are recreated in Godot from the JSON/tres + scripts.",
+  "Scripts and .tres are UNTESTED in Godot from this environment.",
+  "Performance numbers are estimates, not device benchmarks."
+ ],
+ "files": 34
+}

@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 3895,
-    "triangles": 60844,
-    "nodes": 525,
-    "mesh_nodes": 485,
-    "unique_meshes": 307,
+    "glb_kb": 3910,
+    "triangles": 60972,
+    "nodes": 533,
+    "mesh_nodes": 493,
+    "unique_meshes": 313,
     "materials": 22,
     "images": 54,
-    "draw_calls_unbatched": 485,
+    "draw_calls_unbatched": 493,
     "draw_calls_batched_min": 22,
     "tex_mem_uncompressed_mb": 27.25,
     "tex_mem_gpu_compressed_mb": 6.81,
@@ -68,22 +68,22 @@
    },
    "visible": {
     "cameras": 96,
-    "visible_draw_calls_mean": 186.0,
-    "visible_draw_calls_max": 406,
-    "visible_triangles_mean": 28416,
-    "visible_triangles_max": 48100
+    "visible_draw_calls_mean": 189.5,
+    "visible_draw_calls_max": 414,
+    "visible_triangles_mean": 28558,
+    "visible_triangles_max": 48228
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 4423,
-    "triangles": 69378,
-    "nodes": 252,
-    "mesh_nodes": 251,
-    "unique_meshes": 251,
+    "glb_kb": 4429,
+    "triangles": 69506,
+    "nodes": 253,
+    "mesh_nodes": 252,
+    "unique_meshes": 252,
     "materials": 22,
     "images": 54,
-    "draw_calls_unbatched": 251,
+    "draw_calls_unbatched": 252,
     "draw_calls_batched_min": 22,
     "tex_mem_uncompressed_mb": 27.25,
     "tex_mem_gpu_compressed_mb": 6.81,
@@ -125,19 +125,19 @@
     ]
    },
    "collision": {
-    "colliders": 410,
+    "colliders": 418,
     "hazards": 0,
-    "glb_kb": 406
+    "glb_kb": 411
    },
    "visible": {
     "cameras": 96,
-    "visible_draw_calls_mean": 67.0,
-    "visible_draw_calls_max": 105,
-    "visible_triangles_mean": 17186,
-    "visible_triangles_max": 23314
+    "visible_draw_calls_mean": 67.6,
+    "visible_draw_calls_max": 104,
+    "visible_triangles_mean": 17412,
+    "visible_triangles_max": 24014
    },
    "hidden_faces_removed": 0,
-   "effects_extra_draw_calls": 7,
+   "effects_extra_draw_calls": 6,
    "effects_max_particles": 222
   }
  },
@@ -166,6 +166,17 @@
    "cast_shadow": false,
    "source_objects": [
     "Hub_Pylon_2_Top"
+   ]
+  },
+  {
+   "node": "M_rail_-1_0_props",
+   "kind": "props",
+   "material": "rail",
+   "triangles": 48,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Bridge_Hub_South_Rail_L"
    ]
   },
   {
@@ -210,13 +221,12 @@
    "node": "M_structure_b_0_-1_props",
    "kind": "props",
    "material": "structure_b",
-   "triangles": 132,
+   "triangles": 88,
    "visibility_range_end": 70,
    "cast_shadow": false,
    "source_objects": [
     "East_Deck_Cover_01",
-    "North_Turret_Cover_01",
-    "North_Hall_Cover_01"
+    "North_Turret_Cover_01"
    ]
   },
   {
@@ -234,12 +244,11 @@
    "node": "M_rail_0_0_props",
    "kind": "props",
    "material": "rail",
-   "triangles": 96,
+   "triangles": 48,
    "visibility_range_end": 70,
    "cast_shadow": false,
    "source_objects": [
-    "Bridge_Hub_South_Rail_R",
-    "Bridge_Hub_South_Rail_L"
+    "Bridge_Hub_South_Rail_R"
    ]
   },
   {
@@ -324,10 +333,11 @@
    "node": "M_deck_-1_-1",
    "kind": "static",
    "material": "deck",
-   "triangles": 12,
+   "triangles": 24,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "West_Post_Floor",
     "NW_Bastion_Floor"
    ]
   },
@@ -387,7 +397,7 @@
    "node": "M_grate_-1_-1",
    "kind": "static",
    "material": "grate",
-   "triangles": 72,
+   "triangles": 84,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -396,6 +406,7 @@
     "Link_North_NW_Junction_Hi",
     "Link_North_NW_Deck",
     "Ramp_Hub_NW_Junction_Lo",
+    "Ramp_Hub_NW_Junction_Hi",
     "Ramp_Hub_NW_Deck"
    ]
   },
@@ -429,7 +440,7 @@
    "node": "M_structure_b_-1_-1",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 718,
+   "triangles": 774,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -448,6 +459,8 @@
     "Hub_Pylon_2_Rib_02",
     "Hub_Pylon_2_Rib_01",
     "Hub_Pylon_2_Cap",
+    "West_Post_Column",
+    "West_Post_Underframe",
     "NW_Bastion_Cover_02",
     "NW_Bastion_Column",
     "NW_Bastion_Underframe"
@@ -457,10 +470,11 @@
    "node": "M_structure_v2_-1_-1",
    "kind": "static",
    "material": "structure_v2",
-   "triangles": 44,
+   "triangles": 88,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "West_Post_Body",
     "NW_Bastion_Body"
    ]
   },
@@ -468,11 +482,12 @@
    "node": "M_trim_-1_-1",
    "kind": "static",
    "material": "trim",
-   "triangles": 88,
+   "triangles": 132,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
     "West_Hall_Parapet",
+    "West_Post_Trim",
     "NW_Bastion_Trim"
    ]
   },
@@ -531,10 +546,11 @@
    "node": "M_frame_-1_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 132,
+   "triangles": 168,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Bridge_Hub_South_Beam_L",
     "Ramp_Hub_SW_Support",
     "Ramp_Hub_SW_Beam_R",
     "Ramp_Hub_SW_Beam_L"
@@ -578,10 +594,12 @@
    "node": "M_grate_-1_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 12,
+   "triangles": 36,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Ramp_Hub_SW_Junction_Lo",
+    "Ramp_Hub_SW_Junction_Hi",
     "Ramp_Hub_SW_Deck"
    ]
   },
@@ -759,12 +777,11 @@
    "node": "M_rail_0_-1",
    "kind": "static",
    "material": "rail",
-   "triangles": 252,
+   "triangles": 156,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Bridge_Hub_East_Rail_R",
-    "Bridge_Hub_East_Rail_L",
     "Bridge_Hub_North_Rail_L"
    ]
   },
@@ -783,7 +800,7 @@
    "node": "M_structure_b_0_-1",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 922,
+   "triangles": 878,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -808,7 +825,6 @@
     "East_Deck_Underframe",
     "North_Turret_Column",
     "North_Turret_Underframe",
-    "North_Hall_Cover_02",
     "North_Hall_Column",
     "North_Hall_Underframe"
    ]
@@ -906,7 +922,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 408,
+   "triangles": 372,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -918,8 +934,7 @@
     "Link_Gate_SE_Beam_L",
     "Bridge_Gate_Tower_Beam_R",
     "Bridge_Gate_Tower_Beam_L",
-    "Bridge_Hub_South_Beam_R",
-    "Bridge_Hub_South_Beam_L"
+    "Bridge_Hub_South_Beam_R"
    ]
   },
   {
@@ -962,10 +977,12 @@
    "node": "M_grate_0_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 48,
+   "triangles": 72,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Ramp_Hub_SE_Junction_Lo",
+    "Ramp_Hub_SE_Junction_Hi",
     "Ramp_Hub_SE_Deck",
     "Link_Gate_SE_Deck",
     "Bridge_Gate_Tower_Deck",
@@ -976,10 +993,11 @@
    "node": "M_rail_0_0",
    "kind": "static",
    "material": "rail",
-   "triangles": 528,
+   "triangles": 624,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Bridge_Hub_East_Rail_L",
     "Link_Gate_SE_Rail_R",
     "Link_Gate_SE_Rail_L",
     "Bridge_Gate_Tower_Rail_R",
