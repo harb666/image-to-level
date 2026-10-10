@@ -7,7 +7,9 @@ Not a photo scan: the depth estimate is only spatial guidance for placing clean,
 ```
 ./make_level.sh inputs/<image>.png [name]        # full run -> levels/<name>/   (~10 s, CPU)
 python3 pipeline/build_level.py levels/<name>    # rebuild glb after editing level.json (~1 s)
+python3 pipeline/edit_level.py levels/<name> <command> ...   # targeted, undoable edit by object name + minimal rebuild
 ```
+iPhone workflow + plain-English edit recipes: **IPHONE.md**.
 Outputs: `level.json` (THE source of truth — edit this), `level.glb`, `topdown.png` (footprints, red = invisible
 boundary, blue dot = spawn), `depth.png`, `reference.*`, `index.html` (three.js walk viewer; touch stick + drag).
 
@@ -157,6 +159,26 @@ level.json stays the editable master; `level.glb` stays the dev export (one node
 - `validate_level.py levels/<name> --mobile` checks the mobile build; `make_preview.py ... --mobile` previews it.
 - KTX2/Basis not used (Godot re-compresses on import; the sandboxed preview can't fetch a transcoder).
 
+## iPhone editing & preview (Stage 6)
+**Editing** — `pipeline/edit_level.py levels/<name> <command>` (full list: run it without arguments). level.json stays the
+master; objects are addressed by their stable `name` (or a glob); only the touched fields change; every edit snapshots
+the previous level.json to `levels/<name>/.history/` (last 30, git-ignored) → `undo`, `history`. Commands: list, info,
+set (dotted keys `size.0=12`), move, resize (groups scale children's offsets + sizes), material, mat (create/edit a
+material; type checked), remove (with children; effects targeting it disabled, hazards cleaned), duplicate (deep copy;
+the clone joins its source's glob effects, e.g. a duplicated toxic fall flows + splashes), rename (children, parents,
+effects, hazards, validation updated), add (JSON object), prefab (Stage 3 prefabs), env (sky/atmosphere/quality;
+background layers by id: `background.Mountains_Far.height=[110,240]`), fx / fx-add / fx-remove, undo, history.
+Minimal rebuild: env edits → environment + effects + mobile (~6 s; a NEW sky preset renders the panorama once: ~25 s for that edit, was ~60 s
+at 2048 px, then cached); fx edits → effects + mobile (~5 s); geometry/material → full build (~6 s for Toxic Arena, incl.
+mobile export). `--no-build` to batch several edits, `--validate` to run the camera validator after. Effect globs
+(`targets_glob`, `at_targets_glob`) may be a list.
+**Viewer** (`index.html` / previews; three.js, NOT Godot): view modes 3rd person (spring arm) / 1st person / orbit /
+free cam (stick + drag look + ▲▼) / top-down (one-finger pan, pinch zoom); tap an object → bottom sheet with name, type,
+parent, position/size/rotation, material (swatch, type, tile, glow, texture thumbnail), triangles, "merged into" for
+mobile-merged nodes (resolved to the source object via node extras `source_bounds`), highlight box, **Copy for Claude**
+(one-line reference to paste into chat); 📷 screenshot (shown full screen: long-press → Save to Photos); quality
+low/med/high (pixel ratio + FX density, remembered); stats (draw calls/tris/fps of the BROWSER renderer).
+
 ## Hand-authored layouts (concept sheets with a top-down plan)
 When a concept sheet has a TOP DOWN LAYOUT/side view, don't run it through MiDaS: write a small layout script in
 `pipeline/layouts/<level>.py` that emits level.json directly (same schema), then `build_level.py`. Example:
@@ -179,7 +201,7 @@ Materials: see Materials section (Toxic Arena uses industrial_metal, trim_light,
 sandboxed pages block the blob: URLs GLTFLoader uses for .glb textures, which renders everything black).
 
 ## Mobile notes
-Toxic Arena MOBILE (balanced): 411 KB, 3,364 tris, 51 nodes, 50 draw calls (est. ~39 visible per frame incl. background,
+Toxic Arena MOBILE (balanced): 429 KB (incl. 17 KB tap-to-identify extras), 3,364 tris, 51 nodes, 50 draw calls (est. ~39 visible per frame incl. background,
 vs ~69 dev), 92 colliders + 9 hazard areas (52 KB), +10 effect draw calls / ~911 particles.
 Toxic Arena dev export: 3,676 tris, 390 KB glb, 10 materials / 34 images, 137 draw calls unbatched (10 min if
 batched by material), est. texture memory 3.9 MB GPU-compressed (15.6 MB uncompressed); plus background.glb 413 KB,

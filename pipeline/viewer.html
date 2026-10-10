@@ -3,16 +3,28 @@
 <title>Level Viewer</title>
 <style>
 :root{--bg:#111;--fg:#eee}
+[hidden]{display:none!important}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--fg);font:13px system-ui;touch-action:none}
 #hud{position:fixed;top:8px;left:8px;right:8px;display:flex;gap:6px;flex-wrap:wrap}
 button{background:#0008;color:#fff;border:1px solid #fff4;border-radius:8px;padding:8px 10px;font:inherit}
 #stick{position:fixed;left:24px;bottom:32px;width:110px;height:110px;border-radius:50%;background:#fff2;border:1px solid #fff4}
-#info{position:fixed;bottom:8px;right:8px;opacity:.7}
+#info{position:fixed;bottom:8px;right:8px;opacity:.7;text-shadow:0 1px 2px #000}
+#stats{position:fixed;top:96px;left:8px;background:#000a;padding:6px 8px;border-radius:8px;font:12px ui-monospace,monospace;white-space:pre;pointer-events:none}
+#vert{position:fixed;right:16px;bottom:40px;display:flex;flex-direction:column;gap:10px}
+#vert button{width:56px;height:56px;font-size:20px}
+#sel{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));max-height:46%;overflow:auto;background:#101418ee;border:1px solid #fff3;border-radius:12px;padding:10px 12px;font:13px system-ui;line-height:1.45}
+#sel h3{margin:0 0 4px;font:600 15px system-ui;word-break:break-all}#sel .row{display:flex;gap:10px;align-items:flex-start}#sel .k{opacity:.6}
+#sel canvas{width:64px;height:64px;border-radius:6px;flex:none;border:1px solid #fff3}#sel .btns{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+#sel .sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;border:1px solid #fff5}
+#shot{position:fixed;inset:0;background:#000d;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px}
+#shot img{max-width:100%;max-height:78%;border:1px solid #fff4;border-radius:8px}#shot p{margin:0;opacity:.8;text-align:center}
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head><body>
-<div id="hud"><button id="mode">View: 3rd person</button><button id="reset">Respawn</button><button id="fx" hidden>FX</button></div>
-<div id="stick"></div><div id="info"></div>
+<div id="hud"><button id="mode">View: 3rd person</button><button id="q">Quality: med</button><button id="fx" hidden>FX</button><button id="statsb">Stats</button><button id="shotb">📷</button><button id="reset">Respawn</button></div>
+<div id="stick"></div><div id="info"></div><div id="stats" hidden></div>
+<div id="vert" hidden><button id="upb">▲</button><button id="dnb">▼</button></div>
+<div id="sel" hidden></div><div id="shot" hidden><img id="shotimg" alt="Screenshot of the current view"><p>Press and hold the image to save or share it.</p><button id="shotclose">Close</button></div>
 <script type="module">
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
@@ -126,35 +138,90 @@ window.fxInfo=()=>({quality:FXQ[fxq],objects:fxObjs.length,animated:fxUpd.length
   alive:fxObjs.filter(o=>o.isPoints).map(o=>{const a=o.geometry.attributes.aAlpha.array,P=o.geometry.attributes.position.array;let n=0,y=0;for(let i=0;i<a.length;i++)if(a[i]>0){n++;y+=P[i*3+1];}return [n,a.length,+(y/Math.max(n,1)).toFixed(1)];})});
 
 const avatar=new THREE.Mesh(new THREE.CapsuleGeometry(0.35,1.0,4,8),new THREE.MeshStandardMaterial({color:0x3a8dde,roughness:.5}));scene.add(avatar);
+// ---- Stage 6: camera modes, tap-to-identify, screenshot, quality, stats
+const $=id=>document.getElementById(id);
 const orbit=new OrbitControls(cam,r.domElement);orbit.enabled=false;
-const MODES=['3rd person','1st person','orbit'];let mode=0,yaw=0,pitch=0,vy=0;const pos=new THREE.Vector3();
+const MODES=['3rd person','1st person','orbit','free cam','top-down'];let mode=0,yaw=0,pitch=0,vy=0;const pos=new THREE.Vector3(),fpos=new THREE.Vector3();
 const spawn=()=>{pos.set(...meta.spawn);pos.y+=meta.eye_height;const f=meta.spawn_facing||[0,0,-1];yaw=Math.atan2(-f[0],-f[2]);pitch=-0.15;};spawn();
-document.getElementById('reset').onclick=spawn;
+$('reset').onclick=spawn;
 window.view=(x,z,yd,pd=0,y=0)=>{pos.set(x,meta.eye_height+y,z);vy=0;yaw=yd*Math.PI/180;pitch=pd*Math.PI/180;}; // scripted screenshots
-function setMode(m){mode=m;orbit.enabled=MODES[m]==='orbit';document.getElementById('mode').textContent='View: '+MODES[m];
-  if(MODES[m]==='orbit'){const c=meta.bounds_min.map((v,i)=>(v+meta.bounds_max[i])/2);const e=Math.max(meta.bounds_max[0]-meta.bounds_min[0],meta.bounds_max[2]-meta.bounds_min[2]);
-    orbit.target.set(c[0],0,c[2]);cam.position.set(c[0]+e*.4,e*.6,c[2]+e*.6);}}
-window.setMode=setMode;document.getElementById('mode').onclick=()=>setMode((mode+1)%MODES.length);
-document.getElementById('info').textContent=meta.triangles+' tris'+(env?' · '+env.sky.preset+' · '+env.quality:'');
-// input: left stick = move (relative to camera), drag elsewhere = rotate camera; WASD + mouse drag on desktop
+const ctr=meta.bounds_min.map((v,i)=>(v+meta.bounds_max[i])/2),ext=Math.max(meta.bounds_max[0]-meta.bounds_min[0],meta.bounds_max[2]-meta.bounds_min[2]);
+const walking=()=>MODES[mode]==='3rd person'||MODES[mode]==='1st person';
+function setMode(m){mode=m;const M=MODES[m];$('mode').textContent='View: '+M;orbit.enabled=M==='orbit'||M==='top-down';
+  $('stick').hidden=!(walking()||M==='free cam');$('vert').hidden=M!=='free cam';
+  if(M==='orbit'){orbit.enableRotate=true;orbit.screenSpacePanning=true;orbit.touches={ONE:THREE.TOUCH.ROTATE,TWO:THREE.TOUCH.DOLLY_PAN};orbit.mouseButtons={LEFT:THREE.MOUSE.ROTATE,MIDDLE:THREE.MOUSE.DOLLY,RIGHT:THREE.MOUSE.PAN};
+    orbit.target.set(ctr[0],0,ctr[2]);cam.position.set(ctr[0]+ext*.4,ext*.6,ctr[2]+ext*.6);}
+  if(M==='top-down'){orbit.enableRotate=false;orbit.screenSpacePanning=true;orbit.touches={ONE:THREE.TOUCH.PAN,TWO:THREE.TOUCH.DOLLY_PAN};orbit.mouseButtons={LEFT:THREE.MOUSE.PAN,MIDDLE:THREE.MOUSE.DOLLY,RIGHT:THREE.MOUSE.PAN};
+    orbit.target.set(ctr[0],0,ctr[2]);cam.position.set(ctr[0],ext*1.15,ctr[2]+0.01);}
+  if(M==='free cam'){fpos.copy(cam.position);}}
+window.setMode=setMode;$('mode').onclick=()=>setMode((mode+1)%MODES.length);
+$('info').textContent=meta.triangles+' tris'+(env?' · '+env.sky.preset+' · '+env.quality:'');
+// quality: render resolution (+ effects level when the level has effects); remembered per device
+const QL=[['low',1,'performance'],['med',1.5,'balanced'],['high',2,'quality']];let ql=1;try{ql=+(localStorage.getItem('lvq')??1);}catch(e){}
+function setQuality(i){ql=i;const [n,dpr,fxn]=QL[i];r.setPixelRatio(Math.min(devicePixelRatio,dpr));r.setSize(innerWidth,innerHeight);$('q').textContent='Quality: '+n;
+  if(FXD&&FXQ[fxq]!=='off'&&window.setFX)window.setFX(fxn);try{localStorage.setItem('lvq',i);}catch(e){}}
+$('q').onclick=()=>setQuality((ql+1)%3);setQuality(ql);
+// stats (measured in THIS browser via three.js - not a Godot/device benchmark)
+let fpsS=60,showStats=false;$('statsb').onclick=()=>{showStats=!showStats;$('stats').hidden=!showStats;};
+// screenshot: the page can't start downloads, so show the image to long-press -> Save to Photos / Share
+$('shotb').onclick=()=>{r.render(scene,cam);$('shotimg').src=r.domElement.toDataURL('image/jpeg',0.9);$('shot').hidden=false;};
+$('shotclose').onclick=()=>{$('shot').hidden=true;};
+// tap to identify: name, type, size, position, material (+ texture), for the dev AND merged mobile builds
+const pickRoots=[gltf.scene].concat(bg?[bg.scene]:[]);const objSpec={};for(const o of meta.objects||[])objSpec[o.name]=o;
+const selBox=new THREE.Box3Helper(new THREE.Box3(),0xffdd33);selBox.visible=false;scene.add(selBox);
+const fmt=v=>Array.isArray(v)?'['+v.map(x=>+(+x).toFixed(2)).join(', ')+']':v;
+function texThumb(m){const c=document.createElement('canvas');c.width=c.height=64;const img=m&&m.map&&m.map.image;
+  try{if(img)c.getContext('2d').drawImage(img,0,0,64,64);else{const g=c.getContext('2d');g.fillStyle=m&&m.color?'#'+m.color.getHexString():'#555';g.fillRect(0,0,64,64);}}catch(e){}return c;}
+function pick(cx,cy){const nd=new THREE.Vector2(cx/innerWidth*2-1,-(cy/innerHeight)*2+1),rc=new THREE.Raycaster();rc.setFromCamera(nd,cam);
+  const hits=rc.intersectObjects(pickRoots,true).filter(h=>h.object.visible&&h.object.material&&h.object.material.visible!==false&&!(h.object.name||'').startsWith('Spawn'));
+  if(!hits.length){$('sel').hidden=true;selBox.visible=false;return;}
+  const h=hits[0],o=h.object,ud=o.userData||{};let name=o.name,merged=null,box=new THREE.Box3().setFromObject(o);
+  if(ud.source_objects&&ud.source_objects.length>1){merged=o.name;name=ud.source_objects[0];let best=1e9;           // merged mobile node: which source object was hit?
+    for(const [n,b] of Object.entries(ud.source_bounds||{})){const bb=new THREE.Box3(new THREE.Vector3(b[0],b[1],b[2]),new THREE.Vector3(b[3],b[4],b[5]));
+      const d=bb.distanceToPoint(h.point);if(d<best){best=d;name=n;box=bb;}}}
+  const base=name.replace(/_Top$/,''),sp=objSpec[base],bgl=env&&(env.background.layers||[]).find(l=>l.node===name);
+  const m=o.material,md=(meta.materials||{})[(sp&&sp.material)||(m.name||'').replace(/__2s$/,'')]||{};
+  selBox.box.copy(box);selBox.visible=true;
+  const rows=[];const add=(k,v)=>{if(v!==undefined&&v!==null&&v!=='')rows.push(`<div><span class="k">${k}</span> ${v}</div>`);};
+  if(sp){add('type',sp.type);add('parent',sp.parent);add('position',fmt(sp.position));add('size',fmt(sp.size));if(sp.rotation&&sp.rotation.some(v=>v))add('rotation',fmt(sp.rotation));}
+  else if(bgl){add('background layer',bgl.id+' ('+bgl.type+')');add('triangles',bgl.triangles);}
+  if(merged)add('merged into',merged+' (mobile build)');
+  const col=md.color?`<span class="sw" style="background:rgb(${md.color.map(c=>Math.round(c*255)).join(',')})"></span> `:'';
+  add('material',col+(m.name||'?')+(md.type?' · '+md.type:'')+(md.tile_m?' · tile '+md.tile_m+' m':'')+(md.emissive?' · glows':'')+(md.bevel?' · bevel '+md.bevel:''));
+  add('hit at',fmt(h.point.toArray()));add('triangles in mesh',o.geometry.index?o.geometry.index.count/3:o.geometry.attributes.position.count/3);
+  const hint=`In ${document.title}: object "${base}"`+(sp?` (${sp.type}, material ${sp.material}, position ${fmt(sp.position)}, size ${fmt(sp.size)})`:bgl?` (background layer ${bgl.id}, ${bgl.type})`:'')+'. Please change: ';
+  const el=$('sel');el.innerHTML=`<h3>${base}</h3><div class="row"><div></div><div>${rows.join('')}</div></div><div class="btns"><button id="copyb">Copy for Claude</button><button id="selclose">Close</button></div>`;
+  el.querySelector('.row').replaceChild(texThumb(m),el.querySelector('.row div'));el.hidden=false;
+  $('selclose').onclick=()=>{el.hidden=true;selBox.visible=false;};
+  $('copyb').onclick=()=>{const done=()=>{$('copyb').textContent='Copied';};
+    navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(hint).then(done,()=>fallback()):fallback();
+    function fallback(){const t=document.createElement('textarea');t.value=hint;el.appendChild(t);t.select();try{document.execCommand('copy');done();}catch(e){$('copyb').textContent='Select & copy below';}}};}
+window.pickAt=pick;
+// input: stick = move (walk / fly), drag = look, tap = identify; WASD + mouse on desktop
 const keys={};onkeydown=e=>keys[e.code]=1;onkeyup=e=>keys[e.code]=0;
-const mv={x:0,y:0};const stick=document.getElementById('stick');let sid=null,lid=null,lx=0,ly=0;
-addEventListener('pointerdown',e=>{if(MODES[mode]==='orbit'||e.target.tagName==='BUTTON')return;const b=stick.getBoundingClientRect();
-  if(e.clientX<b.right+20&&e.clientY>b.top-20&&sid===null)sid=e.pointerId;else{lid=e.pointerId;lx=e.clientX;ly=e.clientY;}});
+const mv={x:0,y:0},stick=$('stick');let sid=null,lid=null,lx=0,ly=0,tap=null,vert=0;
+const onUI=e=>e.target.closest&&e.target.closest('button,#sel,#shot');
+$('upb').onpointerdown=()=>vert=1;$('dnb').onpointerdown=()=>vert=-1;$('upb').onpointerup=$('dnb').onpointerup=$('upb').onpointerleave=$('dnb').onpointerleave=()=>vert=0;
+addEventListener('pointerdown',e=>{if(onUI(e))return;tap={x:e.clientX,y:e.clientY,t:performance.now(),id:e.pointerId};
+  if(orbit.enabled)return;const b=stick.getBoundingClientRect();
+  if(!stick.hidden&&e.clientX<b.right+20&&e.clientY>b.top-20&&sid===null)sid=e.pointerId;else{lid=e.pointerId;lx=e.clientX;ly=e.clientY;}});
 addEventListener('pointermove',e=>{if(e.pointerId===sid){const b=stick.getBoundingClientRect();
   mv.x=Math.max(-1,Math.min(1,(e.clientX-b.left-b.width/2)/50));mv.y=Math.max(-1,Math.min(1,(e.clientY-b.top-b.height/2)/50));}
   else if(e.pointerId===lid){yaw-=(e.clientX-lx)*0.005;pitch=Math.max(-1.3,Math.min(1.2,pitch-(e.clientY-ly)*0.005));lx=e.clientX;ly=e.clientY;}});
-addEventListener('pointerup',e=>{if(e.pointerId===sid){sid=null;mv.x=mv.y=0}if(e.pointerId===lid)lid=null;});
+addEventListener('pointerup',e=>{if(e.pointerId===sid){sid=null;mv.x=mv.y=0}if(e.pointerId===lid)lid=null;
+  if(tap&&tap.id===e.pointerId&&e.pointerId!==sid&&Math.hypot(e.clientX-tap.x,e.clientY-tap.y)<8&&performance.now()-tap.t<350&&!onUI(e))pick(e.clientX,e.clientY);tap=null;});
 const ray=new THREE.Raycaster(),down=new THREE.Vector3(0,-1,0),UP=new THREE.Vector3(0,1,0);let last=performance.now();
 function blocked(dir,dist){ray.set(new THREE.Vector3(pos.x,pos.y-meta.eye_height+0.5,pos.z),dir);ray.far=dist+0.3;return ray.intersectObjects(solids).length>0;}
-r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,0.05);last=now;
-  if(MODES[mode]!=='orbit'){const f=(keys.KeyW?1:0)-(keys.KeyS?1:0)-mv.y,s=(keys.KeyD?1:0)-(keys.KeyA?1:0)+mv.x;
+setMode(0);
+r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,0.05);fpsS=fpsS*0.95+(1/Math.max((now-last)/1000,1e-3))*0.05;last=now;
+  const M=MODES[mode];
+  if(walking()){const f=(keys.KeyW?1:0)-(keys.KeyS?1:0)-mv.y,s=(keys.KeyD?1:0)-(keys.KeyA?1:0)+mv.x;
     const d=new THREE.Vector3(s,0,-f);if(d.lengthSq()>0){d.normalize().applyAxisAngle(UP,yaw);const step=5*dt;if(!blocked(d,step))pos.addScaledVector(d,step);}
     ray.set(new THREE.Vector3(pos.x,pos.y+0.5,pos.z),down);ray.far=100;const h=ray.intersectObjects(solids)[0];
     const ground=h?h.point.y:-50;if(h&&h.object.name.startsWith('Hazard')&&pos.y-meta.eye_height<h.point.y+0.3){spawn();}vy-=20*dt;pos.y+=vy*dt;
     if(pos.y<ground+meta.eye_height){pos.y=ground+meta.eye_height;vy=0;}if(pos.y<-40)spawn();
-    avatar.position.set(pos.x,pos.y-meta.eye_height+0.85,pos.z);avatar.visible=MODES[mode]==='3rd person';
-    if(MODES[mode]==='1st person'){cam.position.copy(pos);cam.rotation.set(pitch,yaw,0,'YXZ');}
+    avatar.position.set(pos.x,pos.y-meta.eye_height+0.85,pos.z);avatar.visible=M==='3rd person';
+    if(M==='1st person'){cam.position.copy(pos);cam.rotation.set(pitch,yaw,0,'YXZ');}
     else{ // 3rd person: camera orbits 5 m from the player's head, pulled in when a wall is in the way
       const head=new THREE.Vector3(pos.x,pos.y+0.2,pos.z),back=new THREE.Vector3(0,0,1).applyEuler(new THREE.Euler(pitch,yaw,0,'YXZ'));
       let dist=5;const side=new THREE.Vector3().crossVectors(back,UP).normalize(),up2=new THREE.Vector3().crossVectors(side,back);
@@ -162,8 +229,12 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
         ray.set(head.clone().addScaledVector(side,o[0]).addScaledVector(up2,o[1]),back);ray.far=5;const hit=ray.intersectObjects(camSolids)[0];
         if(hit)dist=Math.min(dist,hit.distance>0.6?hit.distance-0.3:hit.distance*0.5);}
       cam.position.copy(head).addScaledVector(back,dist);cam.lookAt(head);}
+  }else if(M==='free cam'){avatar.visible=true;const q=new THREE.Quaternion().setFromEuler(new THREE.Euler(pitch,yaw,0,'YXZ'));
+    const f=(keys.KeyW?1:0)-(keys.KeyS?1:0)-mv.y,s=(keys.KeyD?1:0)-(keys.KeyA?1:0)+mv.x,u=vert+(keys.KeyE?1:0)-(keys.KeyQ?1:0);
+    fpos.addScaledVector(new THREE.Vector3(s,0,-f).applyQuaternion(q),12*dt).addScaledVector(UP,8*u*dt);cam.position.copy(fpos);cam.quaternion.copy(q);
   }else{avatar.visible=true;orbit.update();}
   for(const f of fxUpd)f.u&&f.u(now/1000,dt);
-  r.render(scene,cam);});
+  r.render(scene,cam);
+  if(showStats){const i=r.info;$('stats').textContent=`browser preview (three.js) - not Godot\nfps ${fpsS.toFixed(0)}  draw calls ${i.render.calls}\ntriangles ${i.render.triangles}\ntextures ${i.memory.textures}  geometries ${i.memory.geometries}\npixel ratio ${r.getPixelRatio().toFixed(2)}  ${M}`;}});
 onresize=()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();r.setSize(innerWidth,innerHeight);};
 </script></body></html>

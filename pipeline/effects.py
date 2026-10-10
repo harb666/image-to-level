@@ -3,9 +3,9 @@
   python3 pipeline/effects.py levels/<name>      # rebuild ONLY effects (seconds); build_level.py also calls it
 
 level.json "effects": [ {id, type, ...placement, ...params} ]  (optional; levels without it are unaffected)
-Placement (pick one): "target": node | "targets_glob": "Pipe_*_Fall" (shader/material effects on those nodes)
+Placement (pick one): "target": node | "targets_glob": "Pipe_*_Fall" or a list of globs (shader/material effects on those nodes)
   "target_material": name (every node using it) | "area_from": node (its top surface/box) | "area": [x0,y0,z0,x1,y1,z1]
-  "at_targets_glob" + "anchor": bottom|top|center (one emitter per matching node) | "positions": [[x,y,z],...]
+  "at_targets_glob" (glob or list) + "anchor": bottom|top|center (one emitter per matching node) | "positions": [[x,y,z],...]
   "at_background": "factory_chimneys" (chimney tops from environment.json)
 Every type has defaults (TYPES below); any default can be overridden per effect; "enabled": false disables it.
 
@@ -57,6 +57,11 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
 PARTICLE_TEXTURES = ("puff", "mote", "spark", "bubble")
 
 
+
+def globmatch(name, g):
+    """g: one glob or a list of globs (edit_level.py duplicate appends clone names to a list)."""
+    return any(fnmatch.fnmatch(name, x) for x in ([g] if isinstance(g, str) else g))
+
 def _sprites(out_dir):
     """Tiny white-on-alpha particle sprites (tinted at runtime). 64/32 px PNGs."""
     os.makedirs(out_dir, exist_ok=True); rng = np.random.default_rng(4)
@@ -101,7 +106,7 @@ def resolve(level_dir, L=None):
         R = dict(id=e["id"], type=e["type"], category=t["category"], glb_contains=t["glb"], godot_runtime=t["godot"])
         # placement
         tg = [e["target"]] if e.get("target") else []
-        if e.get("targets_glob"): tg = sorted(n for n in boxes if fnmatch.fnmatch(n, e["targets_glob"]))
+        if e.get("targets_glob"): tg = sorted(n for n in boxes if globmatch(n, e["targets_glob"]))
         if e.get("target_material"): tg = _mat_nodes(scene, e["target_material"]); R["target_material"] = e["target_material"]
         if tg: R["targets"] = tg
         if tg and t["category"] == "surface_shader":  # UV speed needs the material's tile size (UVs are metres / tile_m)
@@ -109,7 +114,7 @@ def resolve(level_dir, L=None):
             R["material_tile_m"] = L["materials"].get(mat, {}).get("tile_m", 2.0)
         em = []
         if e.get("at_targets_glob"):
-            for n in sorted(n for n in boxes if fnmatch.fnmatch(n, e["at_targets_glob"])):
+            for n in sorted(n for n in boxes if globmatch(n, e["at_targets_glob"])):
                 b = boxes[n]; c = (b[0] + b[1]) / 2; a = e.get("anchor", "center")
                 rad = round(float(np.hypot(*(b[1] - b[0])[[0, 2]]) / 2 + e.get("margin", 0.6)), 2)  # spawn AROUND the node, not inside it
                 em.append(dict(pos=[round(float(c[0]), 2), round(float(b[0][1] if a == "bottom" else b[1][1] if a == "top" else c[1]), 2), round(float(c[2]), 2)], radius=rad, of=n))

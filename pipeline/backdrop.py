@@ -110,8 +110,9 @@ def _cyl(r, h, x=0, y=0, z=0, sections=8):
 
 
 def factory(L, q):
-    """Modular factory in local space (front faces the arena = +z after the node's yaw). Detail by quality."""
-    rng = np.random.default_rng(_seed(L)); k = L.get("scale", 1.0); det = q["factory_detail"]
+    """Modular factory in local space (front faces the arena = +z after the node's yaw). Detail by quality, or per layer
+    "detail" (0..3; overrides the quality's level)."""
+    rng = np.random.default_rng(_seed(L)); k = L.get("scale", 1.0); det = int(L.get("detail", q["factory_detail"]))
     hw, hh, hd = rng.uniform(34, 48) * k, rng.uniform(14, 22) * k, rng.uniform(20, 28) * k
     parts = [_box(hw, hh + 4, hd, y=-4)]
     nt = 1 + det + (rng.random() > 0.5)

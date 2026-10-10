@@ -188,6 +188,7 @@ def export(level_dir, profile=None):
         info = dict(node=name, kind="props" if kind == "P" else "static", material=mat, triangles=int(len(m.faces)),
                     visibility_range_end=rng, cast_shadow=not (mat.split("__")[0] in glow or kind == "P"), source_objects=[i[0] for i in items])
         manifest_nodes.append(info); extras[name] = {k: info[k] for k in ("kind", "source_objects", "visibility_range_end", "cast_shadow")}
+        extras[name]["source_bounds"] = {n: [round(float(v), 2) for v in mm.bounds.ravel()] for n, mm in items}  # tap-to-identify in merged meshes
     fx_groups = {}
     for node, M, g in [x for x in separate if x[0] in fx_merge]:
         m = src.geometry[g].copy(); m.apply_transform(M); fx_groups.setdefault(fx_merge[node], []).append((node, m))
@@ -196,7 +197,8 @@ def export(level_dir, profile=None):
         scene.add_geometry(m, node_name=name, geom_name=name); mat = m.visual.material.name
         manifest_nodes.append(dict(node=name, kind="effect_target", material=mat, triangles=int(len(m.faces)), visibility_range_end=0,
                                    cast_shadow=mat.split("__")[0] not in glow, source_objects=[i[0] for i in items], reason="merged targets of one shader effect"))
-        extras[name] = dict(kind="effect_target", source_objects=[i[0] for i in items])
+        extras[name] = dict(kind="effect_target", source_objects=[i[0] for i in items],
+                            source_bounds={n: [round(float(v), 2) for v in mm.bounds.ravel()] for n, mm in items})
     separate = [x for x in separate if x[0] not in fx_merge]
     for node, M, g in separate:
         scene.add_geometry(src.geometry[g], node_name=node, geom_name=g, transform=M)

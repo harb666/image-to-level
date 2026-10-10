@@ -1,0 +1,189 @@
+{
+ "generated_by": "image-to-level Stage 5 (pipeline/export_mobile.py)",
+ "profile": "balanced",
+ "settings": {
+  "cell": 48,
+  "tex_max": 512,
+  "bg_tex_max": 128,
+  "prop_range": 70,
+  "small": 2.0
+ },
+ "files": {
+  "level": "level_mobile.glb",
+  "background": null,
+  "collision": "collision.glb",
+  "collision_data": "collision.json",
+  "effects": null,
+  "environment": "../environment.json"
+ },
+ "godot": {
+  "project_settings": {
+   "rendering/textures/vram_compression/import_etc2_astc": true,
+   "rendering/renderer/rendering_method.mobile": "mobile",
+   "rendering/lights_and_shadows/directional_shadow/size.mobile": 2048,
+   "rendering/anti_aliasing/quality/msaa_3d": "2x"
+  },
+  "import_level_glb": {
+   "meshes/generate_lods": true,
+   "meshes/light_baking": "Static Lightmaps (optional)",
+   "textures": "VRAM Compressed (Godot compresses embedded images to ASTC/ETC2 on import)"
+  },
+  "import_collision_glb": "nodes named *-convcolonly / *-colonly become StaticBody3D colliders; meshes are discarded",
+  "directional_light": {
+   "shadow_enabled": true,
+   "directional_shadow_mode": "PSSM 2 splits",
+   "directional_shadow_max_distance": 60
+  },
+  "note": "Settings are recommendations for Godot 4 mobile; not verified in Godot here. KTX2/Basis is not used: Godot re-compresses on import."
+ },
+ "metrics": {
+  "profile": "balanced",
+  "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
+  "dev": {
+   "level": {
+    "glb_kb": 301,
+    "triangles": 2106,
+    "nodes": 29,
+    "mesh_nodes": 25,
+    "unique_meshes": 22,
+    "materials": 6,
+    "images": 15,
+    "draw_calls_unbatched": 25,
+    "draw_calls_batched_min": 6,
+    "tex_mem_uncompressed_mb": 8.0,
+    "tex_mem_gpu_compressed_mb": 2.0,
+    "texture_slots": {
+     "baseColorTexture": 5,
+     "metallicRoughnessTexture": 5,
+     "normalTexture": 5,
+     "occlusionTexture": 5
+    },
+    "image_sizes": [
+     "256x256 jpeg",
+     "512x512 jpeg"
+    ]
+   },
+   "visible": {
+    "cameras": 96,
+    "visible_draw_calls_mean": 13.2,
+    "visible_draw_calls_max": 21,
+    "visible_triangles_mean": 1970,
+    "visible_triangles_max": 2058
+   }
+  },
+  "mobile": {
+   "level": {
+    "glb_kb": 245,
+    "triangles": 2058,
+    "nodes": 6,
+    "mesh_nodes": 5,
+    "unique_meshes": 5,
+    "materials": 5,
+    "images": 15,
+    "draw_calls_unbatched": 5,
+    "draw_calls_batched_min": 5,
+    "tex_mem_uncompressed_mb": 8.0,
+    "tex_mem_gpu_compressed_mb": 2.0,
+    "texture_slots": {
+     "baseColorTexture": 5,
+     "metallicRoughnessTexture": 5,
+     "normalTexture": 5,
+     "occlusionTexture": 5
+    },
+    "image_sizes": [
+     "256x256 jpeg",
+     "512x512 jpeg"
+    ]
+   },
+   "background": null,
+   "collision": {
+    "colliders": 24,
+    "hazards": 0,
+    "glb_kb": 41
+   },
+   "visible": {
+    "cameras": 96,
+    "visible_draw_calls_mean": 4.6,
+    "visible_draw_calls_max": 5,
+    "visible_triangles_mean": 2049,
+    "visible_triangles_max": 2058
+   },
+   "hidden_faces_removed": 0,
+   "effects_extra_draw_calls": 0,
+   "effects_max_particles": 0
+  }
+ },
+ "nodes": [
+  {
+   "node": "M_cobblestone_-1_-1",
+   "kind": "static",
+   "material": "cobblestone",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Ground"
+   ]
+  },
+  {
+   "node": "M_painted_wood_-1_-1",
+   "kind": "static",
+   "material": "painted_wood",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Overhang_03",
+    "Overhang_02",
+    "Overhang_01",
+    "Wall_01",
+    "Building_03_Body",
+    "Building_02_Body",
+    "Building_01_Body",
+    "Platform_01",
+    "Block_06",
+    "Block_05",
+    "Block_04",
+    "Block_02",
+    "Block_01"
+   ]
+  },
+  {
+   "node": "M_rock_-1_-1",
+   "kind": "static",
+   "material": "rock",
+   "triangles": 1842,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Terrain_Top",
+    "Terrain"
+   ]
+  },
+  {
+   "node": "M_roof_tiles_-1_-1",
+   "kind": "static",
+   "material": "roof_tiles",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Building_03_Roof",
+    "Building_02_Roof",
+    "Building_01_Roof"
+   ]
+  },
+  {
+   "node": "M_stone_brick_-1_-1",
+   "kind": "static",
+   "material": "stone_brick",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Block_07",
+    "Block_03"
+   ]
+  }
+ ]
+}

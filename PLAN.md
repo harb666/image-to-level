@@ -11,7 +11,7 @@ committed, then paused for approval.
 | 3 Geometry & camera completeness ✅ | bevelled/modular primitives (railings, catwalk, machinery, rocks), `validate_level.py`: sample camera-reachable viewpoints (3rd-person orbit), raycast for exposed backs/void/gaps, auto-fill with perimeter/skirt geometry, report | no exposed edges from any reachable camera |
 | 4 Effects metadata ✅ | `effects[]` in level.json (toxic flow, bubbles, steam, sparks, pulsing lights, fog) + viewer preview; export sidecar `effects.json` for Godot (GLB carries only static emissive) | Godot-recreatable VFX |
 | 5 Mobile performance ✅ | dev vs mobile export: merge static meshes by material (names kept in node extras/level.json), LOD for big objects, collision proxies, texture atlas for small emissive/decals, KTX2 if a free encoder is available (else rely on Godot VRAM compression) | fewer draw calls, measured budgets |
-| 6 iPhone editing & preview | third-person + free camera + top-down, tap-to-identify object (name/material), screenshot button, quality toggle, edit-by-name helper | full phone workflow |
+| 6 iPhone editing & preview ✅ | third-person + free camera + top-down, tap-to-identify object (name/material), screenshot button, quality toggle, edit-by-name helper | full phone workflow |
 
 Not possible on free CPU infra: real device GPU benchmarks (numbers are estimates), neural texture/sky generation at
 quality (procedural fallback instead).
@@ -36,3 +36,10 @@ quality (procedural fallback instead).
   collision.json/.glb (primitive colliders, stairs→ramps, hazard areas), mobile_manifest.json + apply_mobile.gd, metrics
   incl. estimated visible draw calls. Toxic Arena balanced: draw calls 137 → 50, est. visible ~69 → ~39, 92 colliders;
   validated (0 issues) and visually identical in preview (mean pixel diff 0.05/255). Town square 117 → 29 draw calls.
+- Stage 6 ✅ edit_level.py (targeted, undoable edits by stable name; minimal rebuild scopes), viewer: 3rd/1st person,
+  orbit, free cam, top-down, tap-to-identify (incl. merged mobile nodes) + material inspector + "Copy for Claude",
+  screenshot overlay, quality + stats; IPHONE.md recipes. Tested on a scratch copy of Toxic Arena (committed arena
+  unchanged): wider central platform, alien sky, taller mountains, metal-grate north wall, new rusted material,
+  duplicated pipe + toxic fall (joined flow/splash/steam effects), north-wall pipe run, rename, remove; validation
+  passed (0 issues); undo chain restored the original level.json exactly. Rebuild ~5–7 s per edit (a new sky preset
+  ~25 s once, was ~60 s: sky render 2–3× faster, identical output). Mobile GLB +17 KB for tap-to-identify bounds.

@@ -120,26 +120,27 @@ def render(cfg, width=2048, glows=(), seed=7):
     # haze / smog band around the horizon, varying with azimuth
     sm = p.get("smog", {})
     if sm.get("strength", 0) > 0:
-        band = np.exp(-(np.degrees(E) / sm.get("height_deg", 8)) ** 2)
-        var = 0.55 + 0.45 * fbm3(dx * 2.5, dy * 6, dz * 2.5, seed + 3, 4)
-        img = _mix(img, np.array(sm["color"]), np.clip(band * var * sm["strength"], 0, 1))
+        band = np.exp(-(np.degrees(E) / sm.get("height_deg", 8)) ** 2); R = band[:, 0] > 1e-4  # noise only where visible
+        var = 0.55 + 0.45 * fbm3(dx[R] * 2.5, dy[R] * 6, dz[R] * 2.5, seed + 3, 4)
+        img[R] = _mix(img[R], np.array(sm["color"]), np.clip(band[R] * var * sm["strength"], 0, 1))
     # sun / moon (+ glow)
     sun = p["sun"]; sd = _dir(sun["azimuth_deg"], sun["elevation_deg"])
     ang = np.degrees(np.arccos(np.clip(dx * sd[0] + dy * sd[1] + dz * sd[2], -1, 1)))
     # clouds: perspective-projected cloud plane layers, lit from the sun side
     cl = p["clouds"]; cover = np.zeros((H, W))
     if cl.get("coverage", 0) > 0:
-        t = 1.0 / np.maximum(s, 0.12)  # cap the perspective squeeze near the horizon (no aliasing band)
+        R = s[:, 0] > 0.03  # clouds only above the horizon fade (rows below stay cloud-free) - halves the noise work
+        sR = s[R]; t = 1.0 / np.maximum(sR, 0.12)  # cap the perspective squeeze near the horizon (no aliasing band)
         for layer in range(int(cl.get("layers", 2))):
             sc = cl.get("scale", 1.0) * (1.6 if layer else 0.9)
-            px, pz = dx * t * sc, dz * t * sc
+            px, pz = dx[R] * t * sc, dz[R] * t * sc
             n = fbm3(px * 0.9, pz * 0.9 * (1 + layer * 1.5), layer * 7.3, seed + 11 + layer, 5)
             thr = 1 - cl["coverage"] * (0.95 if layer == 0 else cl.get("wisps", 0.4))
-            c = _smooth(thr - 0.02, thr + 0.22, n) * _smooth(0.03, 0.22, s)  # fade into haze at the horizon
+            c = _smooth(thr - 0.02, thr + 0.22, n) * _smooth(0.03, 0.22, sR)  # fade into haze at the horizon
             n2 = fbm3((px + sd[0] * 0.25) * 0.9, (pz + sd[2] * 0.25) * 0.9 * (1 + layer * 1.5), layer * 7.3, seed + 11 + layer, 5)
-            light = np.clip(0.55 + (n - n2) * 4, 0, 1) * (0.7 + 0.3 * np.exp(-ang / 40))
+            light = np.clip(0.55 + (n - n2) * 4, 0, 1) * (0.7 + 0.3 * np.exp(-ang[R] / 40))
             ccol = _mix(np.array(cl["dark"]), np.array(cl["lit"]), light)
-            img = _mix(img, ccol, c * (0.95 if layer == 0 else 0.6)); cover = np.maximum(cover, c)
+            img[R] = _mix(img[R], ccol, c * (0.95 if layer == 0 else 0.6)); cover[R] = np.maximum(cover[R], c)
     if p.get("stars", 0):
         st = (_hash3(np.floor(A * 900).astype(np.int64), np.floor(E * 900).astype(np.int64), 3, seed) > 0.9985) * _smooth(0.02, 0.2, s)
         img = img + (st * p["stars"] * (1 - cover))[..., None]
@@ -160,7 +161,8 @@ def render(cfg, width=2048, glows=(), seed=7):
     for g in list(p.get("glows", [])) + list(glows):
         gd = np.degrees(np.angle(np.exp(1j * (np.arctan2(dx, -dz) - np.radians(g["azimuth_deg"])))))
         k = g.get("strength", 0.5) * np.exp(-(gd / g.get("width_deg", 12)) ** 2 - (np.degrees(E) / g.get("height_deg", 7)) ** 2)
-        img = img + np.array(g["color"])[None, None] * (k * (0.7 + 0.3 * fbm3(dx * 4, dy * 9, dz * 4, seed + 5, 3)))[..., None]
+        R = k.max(1) > 1e-5
+        img[R] = img[R] + np.array(g["color"]) * (k[R] * (0.7 + 0.3 * fbm3(dx[R] * 4, dy[R] * 9, dz[R] * 4, seed + 5, 3)))[..., None]
     img = np.clip(img + (np.random.default_rng(seed).random((H, W, 1)) - 0.5) / 255, 0, 1)  # dither: no banding
     rows = lambda e0, e1: img[(np.degrees(el) >= e0) & (np.degrees(el) < e1)].reshape(-1, 3).mean(0)
     info = dict(horizon_rgb=rows(-1.5, 2.5).round(3).tolist(), upper_rgb=rows(20, 90).round(3).tolist(),
