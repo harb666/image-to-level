@@ -56,7 +56,14 @@ def auto_fix(d, R):
         ok = [a["name"] for a in nav["intended_areas"] if a["reachable_fraction"] >= 0.5]
         for name in unreach[:3]:
             try:
-                pa = E._area(L, name); best = min(ok, key=lambda n: _gap(pa, E._area(L, n))) if ok else None
+                pa = E._area(L, name); wk = {w.get("name"): w for w in L.get("walkable", [])}
+                def usable(n):  # a floor that CONTAINS the platform, or a terrain sample / spawn region, has no facing edge to bridge from
+                    w = wk.get(n, {})
+                    if w.get("terrain") or n in {r["id"] for r in L.get("spawn_regions", [])}: return False
+                    a = E._area(L, n); return not (abs(pa["center"][0] - a["center"][0]) < a["size"][0] / 2 and abs(pa["center"][1] - a["center"][1]) < a["size"][1] / 2)
+                cand = [n for n in ok if n != name and usable(n)]
+                best = min(cand, key=lambda n: _gap(pa, E._area(L, n))) if cand else None
+                if not best: log.append(f"could not connect {name}: no separate reachable platform to bridge from (Claude: add a ramp / stairs in the spec)"); continue
                 if best:
                     added = E.connect(L, best, name); log.append(f"connected {best} -> {name}: {added[:4]}"); ok.append(name)
             except SystemExit as e: log.append(f"could not connect {name}: {e}")

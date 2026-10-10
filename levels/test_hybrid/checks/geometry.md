@@ -1,18 +1,67 @@
 # Geometry: test_hybrid - NOT PASSED
 
-{'ERROR': 7, 'WARNING': 4, 'INTENTIONAL': 9} · relations {'explicit': 44, 'inferred': 0} · auto-repairable 1
+{'ERROR': 47, 'WARNING': 13, 'INTENTIONAL': 9} · relations {'explicit': 89, 'inferred': 0} · auto-repairable 0
 
 - **ERROR** [connection] Link_Ground_Gantry_A.low leads nowhere (no floor within 4 m at step height)
 - **ERROR** [connection] Link_Ground_Gantry_B.low leads nowhere (no floor within 4 m at step height)
 - **ERROR** [connection] Link_Ground_Tower_Top.low leads nowhere (no floor within 4 m at step height)
+- **ERROR** [connection] Link_Ground_Gantry_A_2.low leads nowhere (no floor within 4 m at step height)
+- **ERROR** [connection] Link_Ground_Gantry_B_2.low leads nowhere (no floor within 4 m at step height)
+- **ERROR** [connection] Link_Ground_Tower_Top_2.low leads nowhere (no floor within 4 m at step height)
+- **ERROR** [connection] Link_Ground_Gantry_A_2.low leads nowhere (no floor within 4 m at step height)
+- **ERROR** [connection] Link_Ground_Gantry_B_2.low leads nowhere (no floor within 4 m at step height)
+- **ERROR** [connection] Link_Ground_Tower_Top_2.low leads nowhere (no floor within 4 m at step height)
 - **ERROR** [connection] railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A.high (blocks the route)
 - **ERROR** [connection] railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B.high (blocks the route)
+- **ERROR** [connection] railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A_2.high (blocks the route)
+- **ERROR** [connection] railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B_2.high (blocks the route)
+- **ERROR** [connection] railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A_2.high (blocks the route)
+- **ERROR** [connection] railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B_2.high (blocks the route)
+- **ERROR** [relations] relations[59] (supported_by): object 'Link_Ground_Gantry_A_3' does not exist
+- **ERROR** [relations] relations[59] (supported_by): object 'Link_Ground_Gantry_A_Support_3' does not exist
+- **ERROR** [relations] relations[60] (supported_by): object 'Link_Ground_Gantry_A_Junction_Hi_3' does not exist
+- **ERROR** [relations] relations[61] (walkable_connection): object 'Link_Ground_Gantry_A_3' does not exist
+- **ERROR** [relations] relations[61] (walkable_connection): object 'Link_Ground_Gantry_A_Junction_Hi_3' does not exist
+- **ERROR** [relations] relations[62] (supported_by): object 'Link_Ground_Gantry_A_Junction_Lo_3' does not exist
+- **ERROR** [relations] relations[63] (walkable_connection): object 'Link_Ground_Gantry_A_3' does not exist
+- **ERROR** [relations] relations[63] (walkable_connection): object 'Link_Ground_Gantry_A_Junction_Lo_3' does not exist
+- **ERROR** [relations] relations[64] (supported_by): object 'Link_Ground_Gantry_B_3' does not exist
+- **ERROR** [relations] relations[64] (supported_by): object 'Link_Ground_Gantry_B_Support_3' does not exist
+- **ERROR** [relations] relations[65] (supported_by): object 'Link_Ground_Gantry_B_Junction_Hi_3' does not exist
+- **ERROR** [relations] relations[66] (walkable_connection): object 'Link_Ground_Gantry_B_3' does not exist
+- **ERROR** [relations] relations[66] (walkable_connection): object 'Link_Ground_Gantry_B_Junction_Hi_3' does not exist
+- **ERROR** [relations] relations[67] (supported_by): object 'Link_Ground_Gantry_B_Junction_Lo_3' does not exist
+- **ERROR** [relations] relations[68] (walkable_connection): object 'Link_Ground_Gantry_B_3' does not exist
+- **ERROR** [relations] relations[68] (walkable_connection): object 'Link_Ground_Gantry_B_Junction_Lo_3' does not exist
+- **ERROR** [relations] relations[69] (supported_by): object 'Link_Ground_Tower_Top_3' does not exist
+- **ERROR** [relations] relations[69] (supported_by): object 'Link_Ground_Tower_Top_Support_3' does not exist
+- **ERROR** [relations] relations[70] (supported_by): object 'Link_Ground_Tower_Top_Junction_Hi_3' does not exist
+- **ERROR** [relations] relations[71] (walkable_connection): object 'Link_Ground_Tower_Top_3' does not exist
+- **ERROR** [relations] relations[71] (walkable_connection): object 'Link_Ground_Tower_Top_Junction_Hi_3' does not exist
+- **ERROR** [relations] relations[72] (supported_by): object 'Link_Ground_Tower_Top_Junction_Lo_3' does not exist
+- **ERROR** [relations] relations[73] (walkable_connection): object 'Link_Ground_Tower_Top_3' does not exist
+- **ERROR** [relations] relations[73] (walkable_connection): object 'Link_Ground_Tower_Top_Junction_Lo_3' does not exist
 - **ERROR** [support] Link_Ground_Gantry_A is declared supported_by Link_Ground_Gantry_A_Support but does not touch it
 - **ERROR** [support] Link_Ground_Gantry_B is declared supported_by Link_Ground_Gantry_B_Support but does not touch it
+- **ERROR** [support] Link_Ground_Gantry_A_2 is declared supported_by Link_Ground_Gantry_A_Support_2 but does not touch it
+- **ERROR** [support] Link_Ground_Gantry_B_2 is declared supported_by Link_Ground_Gantry_B_Support_2 but does not touch it
+- **ERROR** [support] Link_Ground_Tower_Top_2 is declared supported_by Link_Ground_Tower_Top_Support_2 but does not touch it
+- **ERROR** [support] Link_Ground_Gantry_A_2 is declared supported_by Link_Ground_Gantry_A_Support_2 but does not touch it
+- **ERROR** [support] Link_Ground_Gantry_B_2 is declared supported_by Link_Ground_Gantry_B_Support_2 but does not touch it
+- **ERROR** [support] Link_Ground_Tower_Top_2 is declared supported_by Link_Ground_Tower_Top_Support_2 but does not touch it
+- **WARNING** [connection] Link_Ground_Gantry_A.high meets ['Link_Ground_Gantry_A_Junction_Hi_2'] instead of Link_Ground_Gantry_A_Junction_Hi
+- **WARNING** [connection] Link_Ground_Gantry_B.high meets ['Link_Ground_Gantry_B_Junction_Hi_2'] instead of Link_Ground_Gantry_B_Junction_Hi
+- **WARNING** [connection] Link_Ground_Tower_Top.high meets ['Link_Ground_Tower_Top_Junction_Hi_2'] instead of Link_Ground_Tower_Top_Junction_Hi
 - **WARNING** [connection] Tower_Stairs_Beam_R stands in the landing of Dock_Stairs.high (blocks the route)
+- **WARNING** [connection] Link_Ground_Gantry_A_2 stands in the landing of Link_Ground_Gantry_A.low (blocks the route)
 - **WARNING** [connection] Dock_Stairs stands in the landing of Link_Ground_Gantry_B.low (blocks the route)
 - **WARNING** [connection] Link_Ground_Gantry_A stands in the landing of Link_Ground_Tower_Top.low (blocks the route)
-- **WARNING** [overlap] Loading_Dock_Base and Loading_Dock_Floor share coplanar faces (83.98 m², different materials): z-fighting flicker (repair: nudge)
+- **WARNING** [connection] Link_Ground_Gantry_A stands in the landing of Link_Ground_Gantry_A_2.low (blocks the route)
+- **WARNING** [connection] Dock_Stairs stands in the landing of Link_Ground_Gantry_B_2.low (blocks the route)
+- **WARNING** [connection] Link_Ground_Gantry_A stands in the landing of Link_Ground_Tower_Top_2.low (blocks the route)
+- **WARNING** [connection] Link_Ground_Gantry_A stands in the landing of Link_Ground_Gantry_A_2.low (blocks the route)
+- **WARNING** [connection] Dock_Stairs stands in the landing of Link_Ground_Gantry_B_2.low (blocks the route)
+- **WARNING** [connection] Link_Ground_Gantry_A stands in the landing of Link_Ground_Tower_Top_2.low (blocks the route)
 - **INTENTIONAL** [boundary] playable boundary edge 1: Haul_Road leaves the area through a gap in the barrier (invisible collider there)
 - **INTENTIONAL** [boundary] playable boundary edge 3: River leaves the area through a gap in the barrier (invisible collider there)
 - **INTENTIONAL** [boundary] playable boundary edge 8: South_Road leaves the area through a gap in the barrier (invisible collider there)

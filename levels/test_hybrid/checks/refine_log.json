@@ -2,72 +2,80 @@
  "passes": [
   {
    "n": 1,
-   "errors": 6,
-   "warnings": 1,
+   "errors": 12,
+   "warnings": 5,
    "top_errors": [
-    "Gantry_A: not reachable from the spawn (walk/drop/jump with the gameplay config)",
-    "Gantry_B: not reachable from the spawn (walk/drop/jump with the gameplay config)",
-    "Tower_Top: not reachable from the spawn (walk/drop/jump with the gameplay config)",
-    "Silo_Deck: not reachable from the spawn (walk/drop/jump with the gameplay config)",
-    "Ridge_Post: not reachable from the spawn (walk/drop/jump with the gameplay config)",
-    "Gantry_Bridge: not reachable from the spawn (walk/drop/jump with the gameplay config)"
+    "Link_Ground_Gantry_A.low leads nowhere (no floor within 4 m at step height)",
+    "Link_Ground_Gantry_B.low leads nowhere (no floor within 4 m at step height)",
+    "Link_Ground_Tower_Top.low leads nowhere (no floor within 4 m at step height)",
+    "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A.high (blocks the route)",
+    "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B.high (blocks the route)",
+    "Link_Ground_Gantry_A is declared supported_by Link_Ground_Gantry_A_Support but does not touch it",
+    "Link_Ground_Gantry_B is declared supported_by Link_Ground_Gantry_B_Support but does not touch it",
+    "Gantry_A: not reachable from the spawn (walk/drop/jump with the gameplay config)"
    ],
    "fixes": [
-    "connected Ground -> Gantry_A: ['Link_Ground_Gantry_A', 'Link_Ground_Gantry_A_Support', 'Link_Ground_Gantry_A_Junction_Hi', 'Link_Ground_Gantry_A_Junction_Lo']",
-    "connected Ground -> Gantry_B: ['Link_Ground_Gantry_B', 'Link_Ground_Gantry_B_Support', 'Link_Ground_Gantry_B_Junction_Hi', 'Link_Ground_Gantry_B_Junction_Lo']",
-    "connected Ground -> Tower_Top: ['Link_Ground_Tower_Top', 'Link_Ground_Tower_Top_Support', 'Link_Ground_Tower_Top_Junction_Hi', 'Link_Ground_Tower_Top_Junction_Lo']"
+    "geometry: Loading_Dock_Base: moved 10 mm behind Loading_Dock_Floor",
+    "geometry: Dock_Stairs_Junction_Lo: moved 10 mm behind Loading_Dock_Base",
+    "connected Ground -> Gantry_A: ['Link_Ground_Gantry_A_2', 'Link_Ground_Gantry_A_Support_2', 'Link_Ground_Gantry_A_Junction_Hi_2', 'Link_Ground_Gantry_A_Junction_Lo_2']",
+    "connected Ground -> Gantry_B: ['Link_Ground_Gantry_B_2', 'Link_Ground_Gantry_B_Support_2', 'Link_Ground_Gantry_B_Junction_Hi_2', 'Link_Ground_Gantry_B_Junction_Lo_2']",
+    "connected Ground -> Tower_Top: ['Link_Ground_Tower_Top_2', 'Link_Ground_Tower_Top_Support_2', 'Link_Ground_Tower_Top_Junction_Hi_2', 'Link_Ground_Tower_Top_Junction_Lo_2']"
    ]
   },
   {
    "n": 2,
-   "errors": 8,
-   "warnings": 7,
+   "errors": 20,
+   "warnings": 23,
    "top_errors": [
     "Link_Ground_Gantry_A.low leads nowhere (no floor within 4 m at step height)",
     "Link_Ground_Gantry_B.low leads nowhere (no floor within 4 m at step height)",
     "Link_Ground_Tower_Top.low leads nowhere (no floor within 4 m at step height)",
+    "Link_Ground_Gantry_A_2.low leads nowhere (no floor within 4 m at step height)",
+    "Link_Ground_Gantry_B_2.low leads nowhere (no floor within 4 m at step height)",
+    "Link_Ground_Tower_Top_2.low leads nowhere (no floor within 4 m at step height)",
     "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A.high (blocks the route)",
-    "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B.high (blocks the route)",
-    "Link_Ground_Gantry_A is declared supported_by Link_Ground_Gantry_A_Support but does not touch it",
-    "Link_Ground_Gantry_B is declared supported_by Link_Ground_Gantry_B_Support but does not touch it",
-    "Ridge_Post: not reachable from the spawn (walk/drop/jump with the gameplay config)"
+    "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B.high (blocks the route)"
    ],
    "fixes": [
-    "connected Terrain_06 -> Ridge_Post: ['Link_Terrain_06_Ridge_Post', 'Link_Terrain_06_Ridge_Post_Junction_Hi', \"Link_Terrain_06_Ridge_Post: 1.40 m junction plate where it meets Ridge_Post's corner\", 'Link_Terrain_06_Ridge_Post: stairs run 8.7 m > gap 1.5 m - extends 7.2 m onto Terrain_06']",
-    "connection refused by schema check"
+    "connected Ground -> Gantry_A: ['Link_Ground_Gantry_A_3', 'Link_Ground_Gantry_A_Support_3', 'Link_Ground_Gantry_A_Junction_Hi_3', 'Link_Ground_Gantry_A_Junction_Lo_3']",
+    "connected Ground -> Gantry_B: ['Link_Ground_Gantry_B_3', 'Link_Ground_Gantry_B_Support_3', 'Link_Ground_Gantry_B_Junction_Hi_3', 'Link_Ground_Gantry_B_Junction_Lo_3']",
+    "connected Ground -> Tower_Top: ['Link_Ground_Tower_Top_3', 'Link_Ground_Tower_Top_Support_3', 'Link_Ground_Tower_Top_Junction_Hi_3', 'Link_Ground_Tower_Top_Junction_Lo_3']",
+    "removed duplicates ['Link_Ground_Gantry_A_2', 'Link_Ground_Gantry_A_Support_2', 'Link_Ground_Gantry_A_Junction_Hi_2', 'Link_Ground_Gantry_A_Junction_Lo_2', 'Link_Ground_Gantry_B_2', 'Link_Ground_Gantry_B_Support_2']"
    ]
   },
   {
    "n": 3,
-   "errors": 8,
-   "warnings": 7,
+   "errors": 68,
+   "warnings": 23,
    "top_errors": [
     "Link_Ground_Gantry_A.low leads nowhere (no floor within 4 m at step height)",
     "Link_Ground_Gantry_B.low leads nowhere (no floor within 4 m at step height)",
     "Link_Ground_Tower_Top.low leads nowhere (no floor within 4 m at step height)",
+    "Link_Ground_Gantry_A_3.low leads nowhere (no floor within 4 m at step height)",
+    "Link_Ground_Gantry_B_3.low leads nowhere (no floor within 4 m at step height)",
+    "Link_Ground_Tower_Top_3.low leads nowhere (no floor within 4 m at step height)",
     "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A.high (blocks the route)",
-    "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B.high (blocks the route)",
-    "Link_Ground_Gantry_A is declared supported_by Link_Ground_Gantry_A_Support but does not touch it",
-    "Link_Ground_Gantry_B is declared supported_by Link_Ground_Gantry_B_Support but does not touch it",
-    "Ridge_Post: not reachable from the spawn (walk/drop/jump with the gameplay config)"
+    "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B.high (blocks the route)"
    ],
    "fixes": [
-    "connected Terrain_06 -> Ridge_Post: ['Link_Terrain_06_Ridge_Post', 'Link_Terrain_06_Ridge_Post_Junction_Hi', \"Link_Terrain_06_Ridge_Post: 1.40 m junction plate where it meets Ridge_Post's corner\", 'Link_Terrain_06_Ridge_Post: stairs run 8.7 m > gap 1.5 m - extends 7.2 m onto Terrain_06']",
-    "connection refused by schema check"
+    "connected Ground -> Gantry_A: ['Link_Ground_Gantry_A_2', 'Link_Ground_Gantry_A_Support_2', 'Link_Ground_Gantry_A_Junction_Hi_2', 'Link_Ground_Gantry_A_Junction_Lo_2']",
+    "connected Ground -> Gantry_B: ['Link_Ground_Gantry_B_2', 'Link_Ground_Gantry_B_Support_2', 'Link_Ground_Gantry_B_Junction_Hi_2', 'Link_Ground_Gantry_B_Junction_Lo_2']",
+    "connected Ground -> Tower_Top: ['Link_Ground_Tower_Top_2', 'Link_Ground_Tower_Top_Support_2', 'Link_Ground_Tower_Top_Junction_Hi_2', 'Link_Ground_Tower_Top_Junction_Lo_2']",
+    "removed duplicates ['Link_Ground_Gantry_A_3', 'Link_Ground_Gantry_A_Support_3', 'Link_Ground_Gantry_A_Junction_Hi_3', 'Link_Ground_Gantry_A_Junction_Lo_3', 'Link_Ground_Gantry_B_3', 'Link_Ground_Gantry_B_Support_3']"
    ]
   },
   {
    "n": "final",
-   "errors": 8,
-   "warnings": 7
+   "errors": 76,
+   "warnings": 26
   }
  ],
  "max_passes": 3,
- "seconds": 940.1,
+ "seconds": 1086.2,
  "passed": false,
  "counts": {
-  "error": 8,
-  "warning": 7,
+  "error": 76,
+  "warning": 26,
   "info": 1
  },
  "needs_claude": [
@@ -88,6 +96,36 @@
   },
   {
    "severity": "error",
+   "message": "Link_Ground_Gantry_A_2.low leads nowhere (no floor within 4 m at step height)",
+   "object": "Link_Ground_Gantry_A_2"
+  },
+  {
+   "severity": "error",
+   "message": "Link_Ground_Gantry_B_2.low leads nowhere (no floor within 4 m at step height)",
+   "object": "Link_Ground_Gantry_B_2"
+  },
+  {
+   "severity": "error",
+   "message": "Link_Ground_Tower_Top_2.low leads nowhere (no floor within 4 m at step height)",
+   "object": "Link_Ground_Tower_Top_2"
+  },
+  {
+   "severity": "error",
+   "message": "Link_Ground_Gantry_A_2.low leads nowhere (no floor within 4 m at step height)",
+   "object": "Link_Ground_Gantry_A_2"
+  },
+  {
+   "severity": "error",
+   "message": "Link_Ground_Gantry_B_2.low leads nowhere (no floor within 4 m at step height)",
+   "object": "Link_Ground_Gantry_B_2"
+  },
+  {
+   "severity": "error",
+   "message": "Link_Ground_Tower_Top_2.low leads nowhere (no floor within 4 m at step height)",
+   "object": "Link_Ground_Tower_Top_2"
+  },
+  {
+   "severity": "error",
    "message": "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A.high (blocks the route)",
    "object": "Link_Ground_Gantry_A"
   },
@@ -98,53 +136,98 @@
   },
   {
    "severity": "error",
-   "message": "Link_Ground_Gantry_A is declared supported_by Link_Ground_Gantry_A_Support but does not touch it",
-   "object": "Link_Ground_Gantry_A"
+   "message": "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A_2.high (blocks the route)",
+   "object": "Link_Ground_Gantry_A_2"
   },
   {
    "severity": "error",
-   "message": "Link_Ground_Gantry_B is declared supported_by Link_Ground_Gantry_B_Support but does not touch it",
-   "object": "Link_Ground_Gantry_B"
+   "message": "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B_2.high (blocks the route)",
+   "object": "Link_Ground_Gantry_B_2"
   },
   {
    "severity": "error",
-   "message": "Ridge_Post: not reachable from the spawn (walk/drop/jump with the gameplay config)",
-   "object": "Ridge_Post"
+   "message": "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A_2.high (blocks the route)",
+   "object": "Link_Ground_Gantry_A_2"
   },
   {
-   "severity": "warning",
-   "message": "Link_Ground_Tower stands in the landing of Link_Ground_Gantry_B.low (blocks the route)",
-   "object": "Link_Ground_Gantry_B"
+   "severity": "error",
+   "message": "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B_2.high (blocks the route)",
+   "object": "Link_Ground_Gantry_B_2"
   },
   {
-   "severity": "warning",
-   "message": "Link_Ground_Gantry_A stands in the landing of Link_Ground_Tower_Top.low (blocks the route)",
-   "object": "Link_Ground_Tower_Top"
-  },
-  {
-   "severity": "warning",
-   "message": "~74 visible draw calls (estimate, > 60)",
+   "severity": "error",
+   "message": "relations[59] (supported_by): object 'Link_Ground_Gantry_A_3' does not exist",
    "object": null
   },
   {
-   "severity": "warning",
-   "message": "Gantry_A_Trim: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Gantry_A_Trim"
+   "severity": "error",
+   "message": "relations[59] (supported_by): object 'Link_Ground_Gantry_A_Support_3' does not exist",
+   "object": null
   },
   {
-   "severity": "warning",
-   "message": "Gantry_B_Trim: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Gantry_B_Trim"
+   "severity": "error",
+   "message": "relations[60] (supported_by): object 'Link_Ground_Gantry_A_Junction_Hi_3' does not exist",
+   "object": null
   },
   {
-   "severity": "warning",
-   "message": "Gantry_Bridge_Deck: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Gantry_Bridge_Deck"
+   "severity": "error",
+   "message": "relations[61] (walkable_connection): object 'Link_Ground_Gantry_A_3' does not exist",
+   "object": null
   },
   {
-   "severity": "warning",
-   "message": "Tower_Top_Trim: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Tower_Top_Trim"
+   "severity": "error",
+   "message": "relations[61] (walkable_connection): object 'Link_Ground_Gantry_A_Junction_Hi_3' does not exist",
+   "object": null
+  },
+  {
+   "severity": "error",
+   "message": "relations[62] (supported_by): object 'Link_Ground_Gantry_A_Junction_Lo_3' does not exist",
+   "object": null
+  },
+  {
+   "severity": "error",
+   "message": "relations[63] (walkable_connection): object 'Link_Ground_Gantry_A_3' does not exist",
+   "object": null
+  },
+  {
+   "severity": "error",
+   "message": "relations[63] (walkable_connection): object 'Link_Ground_Gantry_A_Junction_Lo_3' does not exist",
+   "object": null
+  },
+  {
+   "severity": "error",
+   "message": "relations[64] (supported_by): object 'Link_Ground_Gantry_B_3' does not exist",
+   "object": null
+  },
+  {
+   "severity": "error",
+   "message": "relations[64] (supported_by): object 'Link_Ground_Gantry_B_Support_3' does not exist",
+   "object": null
+  },
+  {
+   "severity": "error",
+   "message": "relations[65] (supported_by): object 'Link_Ground_Gantry_B_Junction_Hi_3' does not exist",
+   "object": null
+  },
+  {
+   "severity": "error",
+   "message": "relations[66] (walkable_connection): object 'Link_Ground_Gantry_B_3' does not exist",
+   "object": null
+  },
+  {
+   "severity": "error",
+   "message": "relations[66] (walkable_connection): object 'Link_Ground_Gantry_B_Junction_Hi_3' does not exist",
+   "object": null
+  },
+  {
+   "severity": "error",
+   "message": "relations[67] (supported_by): object 'Link_Ground_Gantry_B_Junction_Lo_3' does not exist",
+   "object": null
+  },
+  {
+   "severity": "error",
+   "message": "relations[68] (walkable_connection): object 'Link_Ground_Gantry_B_3' does not exist",
+   "object": null
   }
  ],
  "visual_review": "checks/views/contact_sheet.jpg + checks/inspect/contact_sheet.jpg must be LOOKED AT by Claude and compared with the reference before calling the level done"

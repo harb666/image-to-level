@@ -1,35 +1,59 @@
 # Checks: test_hybrid - NOT PASSED
 
-errors 8 · warnings 7 · info 1
+errors 76 · warnings 26 · info 1
 
 | metric | dev | mobile |
 |---|---|---|
-| file KB | 4302 | 5020 |
-| triangles | 55450 | 68250 |
-| draw calls (measured) | 368 | 279 |
-| visible draw calls (estimate) | - | 73.6 |
+| file KB | 4309 | 5032 |
+| triangles | 56502 | 69302 |
+| draw calls (measured) | 371 | 270 |
+| visible draw calls (estimate) | - | 71.7 |
 | GPU texture MB (estimate) | 9.33 | 9.83 |
 
-Navigation: reachable 29121.0 of 41261.0 m² standable; components 1004.
-Camera: 960 cameras, void rays 0, back faces 0.
-Geometry: {'ERROR': 7, 'WARNING': 2, 'INTENTIONAL': 8} (checks/geometry.md)
+Navigation: reachable 27686.0 of 41266.0 m² standable; components 1028.
+Camera: 888 cameras, void rays 0, back faces 0.
+Geometry: {'ERROR': 47, 'WARNING': 13, 'INTENTIONAL': 9} (checks/geometry.md)
 
 ## Issues (highest impact first)
 - **error** Link_Ground_Gantry_A.low leads nowhere (no floor within 4 m at step height)
 - **error** Link_Ground_Gantry_B.low leads nowhere (no floor within 4 m at step height)
 - **error** Link_Ground_Tower_Top.low leads nowhere (no floor within 4 m at step height)
+- **error** Link_Ground_Gantry_A_2.low leads nowhere (no floor within 4 m at step height)
+- **error** Link_Ground_Gantry_B_2.low leads nowhere (no floor within 4 m at step height)
+- **error** Link_Ground_Tower_Top_2.low leads nowhere (no floor within 4 m at step height)
+- **error** Link_Ground_Gantry_A_2.low leads nowhere (no floor within 4 m at step height)
+- **error** Link_Ground_Gantry_B_2.low leads nowhere (no floor within 4 m at step height)
+- **error** Link_Ground_Tower_Top_2.low leads nowhere (no floor within 4 m at step height)
 - **error** railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A.high (blocks the route)
 - **error** railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B.high (blocks the route)
+- **error** railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A_2.high (blocks the route)
+- **error** railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B_2.high (blocks the route)
+- **error** railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A_2.high (blocks the route)
+- **error** railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B_2.high (blocks the route)
+- **error** relations[59] (supported_by): object 'Link_Ground_Gantry_A_3' does not exist
+- **error** relations[59] (supported_by): object 'Link_Ground_Gantry_A_Support_3' does not exist
+- **error** relations[60] (supported_by): object 'Link_Ground_Gantry_A_Junction_Hi_3' does not exist
+- **error** relations[61] (walkable_connection): object 'Link_Ground_Gantry_A_3' does not exist
+- **error** relations[61] (walkable_connection): object 'Link_Ground_Gantry_A_Junction_Hi_3' does not exist
+- **error** relations[62] (supported_by): object 'Link_Ground_Gantry_A_Junction_Lo_3' does not exist
+- **error** relations[63] (walkable_connection): object 'Link_Ground_Gantry_A_3' does not exist
+- **error** relations[63] (walkable_connection): object 'Link_Ground_Gantry_A_Junction_Lo_3' does not exist
+- **error** relations[64] (supported_by): object 'Link_Ground_Gantry_B_3' does not exist
+- **error** relations[64] (supported_by): object 'Link_Ground_Gantry_B_Support_3' does not exist
+- **error** relations[65] (supported_by): object 'Link_Ground_Gantry_B_Junction_Hi_3' does not exist
+- **error** relations[66] (walkable_connection): object 'Link_Ground_Gantry_B_3' does not exist
+- **error** relations[66] (walkable_connection): object 'Link_Ground_Gantry_B_Junction_Hi_3' does not exist
+- **error** relations[67] (supported_by): object 'Link_Ground_Gantry_B_Junction_Lo_3' does not exist
+- **error** relations[68] (walkable_connection): object 'Link_Ground_Gantry_B_3' does not exist
+- **error** relations[68] (walkable_connection): object 'Link_Ground_Gantry_B_Junction_Lo_3' does not exist
+- **error** relations[69] (supported_by): object 'Link_Ground_Tower_Top_3' does not exist
+- **error** relations[69] (supported_by): object 'Link_Ground_Tower_Top_Support_3' does not exist
+- **error** relations[70] (supported_by): object 'Link_Ground_Tower_Top_Junction_Hi_3' does not exist
+- **error** relations[71] (walkable_connection): object 'Link_Ground_Tower_Top_3' does not exist
+- **error** relations[71] (walkable_connection): object 'Link_Ground_Tower_Top_Junction_Hi_3' does not exist
+- **error** relations[72] (supported_by): object 'Link_Ground_Tower_Top_Junction_Lo_3' does not exist
+- **error** relations[73] (walkable_connection): object 'Link_Ground_Tower_Top_3' does not exist
+- **error** relations[73] (walkable_connection): object 'Link_Ground_Tower_Top_Junction_Lo_3' does not exist
 - **error** Link_Ground_Gantry_A is declared supported_by Link_Ground_Gantry_A_Support but does not touch it
-- **error** Link_Ground_Gantry_B is declared supported_by Link_Ground_Gantry_B_Support but does not touch it
-- **error** Ridge_Post: not reachable from the spawn (walk/drop/jump with the gameplay config)
-- **warning** Link_Ground_Tower stands in the landing of Link_Ground_Gantry_B.low (blocks the route)
-- **warning** Link_Ground_Gantry_A stands in the landing of Link_Ground_Tower_Top.low (blocks the route)
-- **warning** ~74 visible draw calls (estimate, > 60)
-- **warning** Gantry_A_Trim: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
-- **warning** Gantry_B_Trim: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
-- **warning** Gantry_Bridge_Deck: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
-- **warning** Tower_Top_Trim: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
-- **info** 160 m² reachable floor has < 3.2 m headroom (cramped camera): TR_0_1_dirt, TR_1_0_dirt, TR_1_1_dirt, TR_1_2_dirt, TR_1_2_grass, TR_1_3_dirt, TR_2_1_dirt, TR_2_1_mud
 
 Estimates are not device benchmarks; renders are the browser preview, not Godot.

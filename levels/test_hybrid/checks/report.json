@@ -1,16 +1,16 @@
 {
  "level": "test_hybrid",
  "assets_kb": {
-  "level.glb": 4302,
-  "mobile/level_mobile.glb": 5020,
-  "mobile/collision.json": 350,
+  "level.glb": 4309,
+  "mobile/level_mobile.glb": 5032,
+  "mobile/collision.json": 354,
   "environment.json": 4,
   "background.glb": 227,
   "effects.json": 10
  },
  "complexity": {
-  "triangles": 55810,
-  "nodes": 368,
+  "triangles": 56862,
+  "nodes": 371,
   "materials": 30,
   "heaviest": [
    [
@@ -37,29 +37,29 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 4302,
-   "triangles": 55450,
-   "draw_calls": 368,
+   "glb_kb": 4309,
+   "triangles": 56502,
+   "draw_calls": 371,
    "tex_mem_gpu_mb_est": 9.33
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 5020,
-   "triangles": 68250,
-   "draw_calls": 279,
-   "visible_draw_calls_est": 73.6,
-   "visible_draw_calls_max_est": 130,
+   "glb_kb": 5032,
+   "triangles": 69302,
+   "draw_calls": 270,
+   "visible_draw_calls_est": 71.7,
+   "visible_draw_calls_max_est": 124,
    "tex_mem_gpu_mb_est": 9.83,
    "materials": 31,
-   "nodes": 280,
+   "nodes": 271,
    "colliders": {
-    "colliders": 272,
+    "colliders": 285,
     "hazards": 0,
-    "glb_kb": 421
+    "glb_kb": 425
    },
    "background_kb": 227,
-   "visible_triangles_est": 19193,
-   "visible_triangles_max_est": 29305
+   "visible_triangles_est": 20084,
+   "visible_triangles_max_est": 30345
   },
   "effects": {
    "max_particles": 250,
@@ -71,21 +71,21 @@
  },
  "geometry": {
   "counts": {
-   "ERROR": 7,
-   "WARNING": 2,
-   "INTENTIONAL": 8
+   "ERROR": 47,
+   "WARNING": 13,
+   "INTENTIONAL": 9
   },
   "relations": {
-   "explicit": 39,
+   "explicit": 89,
    "inferred": 0
   },
   "repairable": 0,
   "passed": false
  },
  "navigation": {
-  "standable_area_m2": 41261.0,
-  "reachable_area_m2": 29121.0,
-  "components": 1004,
+  "standable_area_m2": 41266.0,
+  "reachable_area_m2": 27686.0,
+  "components": 1028,
   "spawns": [
    {
     "id": "spawn",
@@ -95,9 +95,9 @@
      -20.0
     ],
     "standable": true,
-    "clearance_m": 16.5,
+    "clearance_m": 10.5,
     "headroom_m": 99.0,
-    "component": 420
+    "component": 428
    },
    {
     "id": "Player_Start_2",
@@ -107,9 +107,9 @@
      -24.0
     ],
     "standable": true,
-    "clearance_m": 12.5,
+    "clearance_m": 6.5,
     "headroom_m": 99.0,
-    "component": 420
+    "component": 428
    },
    {
     "id": "Player_Start_3",
@@ -119,9 +119,9 @@
      -16.0
     ],
     "standable": true,
-    "clearance_m": 16.5,
+    "clearance_m": 14.5,
     "headroom_m": 99.0,
-    "component": 420
+    "component": 428
    },
    {
     "id": "Player_Start_4",
@@ -131,9 +131,9 @@
      -20.0
     ],
     "standable": true,
-    "clearance_m": 13.5,
+    "clearance_m": 6.5,
     "headroom_m": 99.0,
-    "component": 420
+    "component": 428
    },
    {
     "id": "Enemy_East_1",
@@ -143,9 +143,9 @@
      -10.0
     ],
     "standable": true,
-    "clearance_m": 8.5,
+    "clearance_m": 9.5,
     "headroom_m": 99.0,
-    "component": 420
+    "component": 428
    },
    {
     "id": "Enemy_East_2",
@@ -157,7 +157,7 @@
     "standable": true,
     "clearance_m": 11.5,
     "headroom_m": 99.0,
-    "component": 420
+    "component": 428
    },
    {
     "id": "Enemy_East_3",
@@ -167,9 +167,9 @@
      -6.0
     ],
     "standable": true,
-    "clearance_m": 4.5,
+    "clearance_m": 6.5,
     "headroom_m": 99.0,
-    "component": 420
+    "component": 428
    },
    {
     "id": "Enemy_East_4",
@@ -179,52 +179,52 @@
      -10.0
     ],
     "standable": true,
-    "clearance_m": 12.5,
+    "clearance_m": 5.5,
     "headroom_m": 99.0,
-    "component": 420
+    "component": 428
    }
   ],
   "intended_areas": [
    {
     "name": "Ground",
-    "standable_m2": 1701.0,
+    "standable_m2": 1639.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
    {
     "name": "Gantry_A",
     "standable_m2": 69.0,
-    "reachable_fraction": 1.0,
+    "reachable_fraction": 0.0,
     "one_way": false
    },
    {
     "name": "Gantry_B",
     "standable_m2": 74.0,
-    "reachable_fraction": 1.0,
+    "reachable_fraction": 0.0,
     "one_way": false
    },
    {
     "name": "Tower_Top",
     "standable_m2": 58.0,
-    "reachable_fraction": 1.0,
+    "reachable_fraction": 0.0,
     "one_way": false
    },
    {
     "name": "Silo_Deck",
     "standable_m2": 66.0,
-    "reachable_fraction": 1.0,
+    "reachable_fraction": 0.0,
     "one_way": false
    },
    {
-    "name": "Ridge_Post",
-    "standable_m2": 50.0,
-    "reachable_fraction": 0.0,
+    "name": "Loading_Dock",
+    "standable_m2": 75.0,
+    "reachable_fraction": 1.0,
     "one_way": false
    },
    {
     "name": "Gantry_Bridge",
     "standable_m2": 40.0,
-    "reachable_fraction": 1.0,
+    "reachable_fraction": 0.0,
     "one_way": false
    },
    {
@@ -294,37 +294,20 @@
     "one_way": false
    }
   ],
-  "narrow_connectors": [
-   {
-    "object": "Gantry_A_Trim",
-    "width_m": 1.0
-   },
-   {
-    "object": "Gantry_B_Trim",
-    "width_m": 1.0
-   },
-   {
-    "object": "Gantry_Bridge_Deck",
-    "width_m": 1.0
-   },
-   {
-    "object": "Tower_Top_Trim",
-    "width_m": 1.0
-   }
-  ],
+  "narrow_connectors": [],
   "passed": false
  },
  "camera": {
-  "players": 40,
-  "players_skipped_inside_or_against_walls": 8,
-  "cameras": 960,
-  "rays": 84480,
+  "players": 37,
+  "players_skipped_inside_or_against_walls": 11,
+  "cameras": 888,
+  "rays": 78056,
   "void_rays": 0,
   "void_examples": [],
   "back_face": {},
   "open_mesh": {},
-  "camera_inside": 0,
-  "visible_objects": 186,
+  "camera_inside": 1,
+  "visible_objects": 189,
   "mode": "local (40 m) - world gaps: checks/geometry.json background",
   "passed": true,
   "stale_note": "from the last full run (--fast skipped it)"
@@ -332,7 +315,7 @@
  "render": {
   "views": 22,
   "errors": [],
-  "load_seconds": 6.9,
+  "load_seconds": 6.018,
   "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
   "contact_sheet": "checks/views/contact_sheet.jpg",
   "note": "browser preview renders (three.js, SwiftShader) - not Godot"
@@ -374,6 +357,72 @@
   {
    "kind": "geo_connection",
    "severity": "error",
+   "object": "Link_Ground_Gantry_A_2",
+   "pos": [
+    -14.83,
+    1.92,
+    13.23
+   ],
+   "message": "Link_Ground_Gantry_A_2.low leads nowhere (no floor within 4 m at step height)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "error",
+   "object": "Link_Ground_Gantry_B_2",
+   "pos": [
+    -29.16,
+    1.93,
+    16.55
+   ],
+   "message": "Link_Ground_Gantry_B_2.low leads nowhere (no floor within 4 m at step height)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "error",
+   "object": "Link_Ground_Tower_Top_2",
+   "pos": [
+    -18.86,
+    1.84,
+    8.86
+   ],
+   "message": "Link_Ground_Tower_Top_2.low leads nowhere (no floor within 4 m at step height)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "error",
+   "object": "Link_Ground_Gantry_A_2",
+   "pos": [
+    -14.83,
+    1.92,
+    13.23
+   ],
+   "message": "Link_Ground_Gantry_A_2.low leads nowhere (no floor within 4 m at step height)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "error",
+   "object": "Link_Ground_Gantry_B_2",
+   "pos": [
+    -29.16,
+    1.93,
+    16.55
+   ],
+   "message": "Link_Ground_Gantry_B_2.low leads nowhere (no floor within 4 m at step height)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "error",
+   "object": "Link_Ground_Tower_Top_2",
+   "pos": [
+    -18.86,
+    1.84,
+    8.86
+   ],
+   "message": "Link_Ground_Tower_Top_2.low leads nowhere (no floor within 4 m at step height)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "error",
    "object": "Link_Ground_Gantry_A",
    "pos": [
     -31.04,
@@ -392,6 +441,218 @@
     3.54
    ],
    "message": "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B.high (blocks the route)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "error",
+   "object": "Link_Ground_Gantry_A_2",
+   "pos": [
+    -31.04,
+    6.99,
+    3.1
+   ],
+   "message": "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A_2.high (blocks the route)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "error",
+   "object": "Link_Ground_Gantry_B_2",
+   "pos": [
+    -10.96,
+    6.99,
+    3.54
+   ],
+   "message": "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B_2.high (blocks the route)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "error",
+   "object": "Link_Ground_Gantry_A_2",
+   "pos": [
+    -31.04,
+    6.99,
+    3.1
+   ],
+   "message": "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A_2.high (blocks the route)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "error",
+   "object": "Link_Ground_Gantry_B_2",
+   "pos": [
+    -10.96,
+    6.99,
+    3.54
+   ],
+   "message": "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B_2.high (blocks the route)"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[59] (supported_by): object 'Link_Ground_Gantry_A_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[59] (supported_by): object 'Link_Ground_Gantry_A_Support_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[60] (supported_by): object 'Link_Ground_Gantry_A_Junction_Hi_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[61] (walkable_connection): object 'Link_Ground_Gantry_A_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[61] (walkable_connection): object 'Link_Ground_Gantry_A_Junction_Hi_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[62] (supported_by): object 'Link_Ground_Gantry_A_Junction_Lo_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[63] (walkable_connection): object 'Link_Ground_Gantry_A_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[63] (walkable_connection): object 'Link_Ground_Gantry_A_Junction_Lo_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[64] (supported_by): object 'Link_Ground_Gantry_B_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[64] (supported_by): object 'Link_Ground_Gantry_B_Support_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[65] (supported_by): object 'Link_Ground_Gantry_B_Junction_Hi_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[66] (walkable_connection): object 'Link_Ground_Gantry_B_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[66] (walkable_connection): object 'Link_Ground_Gantry_B_Junction_Hi_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[67] (supported_by): object 'Link_Ground_Gantry_B_Junction_Lo_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[68] (walkable_connection): object 'Link_Ground_Gantry_B_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[68] (walkable_connection): object 'Link_Ground_Gantry_B_Junction_Lo_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[69] (supported_by): object 'Link_Ground_Tower_Top_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[69] (supported_by): object 'Link_Ground_Tower_Top_Support_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[70] (supported_by): object 'Link_Ground_Tower_Top_Junction_Hi_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[71] (walkable_connection): object 'Link_Ground_Tower_Top_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[71] (walkable_connection): object 'Link_Ground_Tower_Top_Junction_Hi_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[72] (supported_by): object 'Link_Ground_Tower_Top_Junction_Lo_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[73] (walkable_connection): object 'Link_Ground_Tower_Top_3' does not exist"
+  },
+  {
+   "kind": "geo_relations",
+   "severity": "error",
+   "object": null,
+   "pos": null,
+   "message": "relations[73] (walkable_connection): object 'Link_Ground_Tower_Top_Junction_Lo_3' does not exist"
   },
   {
    "kind": "geo_support",
@@ -416,15 +677,432 @@
    "message": "Link_Ground_Gantry_B is declared supported_by Link_Ground_Gantry_B_Support but does not touch it"
   },
   {
+   "kind": "geo_support",
+   "severity": "error",
+   "object": "Link_Ground_Gantry_A_2",
+   "pos": [
+    -22.94,
+    3.25,
+    8.17
+   ],
+   "message": "Link_Ground_Gantry_A_2 is declared supported_by Link_Ground_Gantry_A_Support_2 but does not touch it"
+  },
+  {
+   "kind": "geo_support",
+   "severity": "error",
+   "object": "Link_Ground_Gantry_B_2",
+   "pos": [
+    -20.06,
+    3.26,
+    10.04
+   ],
+   "message": "Link_Ground_Gantry_B_2 is declared supported_by Link_Ground_Gantry_B_Support_2 but does not touch it"
+  },
+  {
+   "kind": "geo_support",
+   "severity": "error",
+   "object": "Link_Ground_Tower_Top_2",
+   "pos": [
+    -24.45,
+    3.94,
+    14.45
+   ],
+   "message": "Link_Ground_Tower_Top_2 is declared supported_by Link_Ground_Tower_Top_Support_2 but does not touch it"
+  },
+  {
+   "kind": "geo_support",
+   "severity": "error",
+   "object": "Link_Ground_Gantry_A_2",
+   "pos": [
+    -22.94,
+    3.25,
+    8.17
+   ],
+   "message": "Link_Ground_Gantry_A_2 is declared supported_by Link_Ground_Gantry_A_Support_2 but does not touch it"
+  },
+  {
+   "kind": "geo_support",
+   "severity": "error",
+   "object": "Link_Ground_Gantry_B_2",
+   "pos": [
+    -20.06,
+    3.26,
+    10.04
+   ],
+   "message": "Link_Ground_Gantry_B_2 is declared supported_by Link_Ground_Gantry_B_Support_2 but does not touch it"
+  },
+  {
+   "kind": "geo_support",
+   "severity": "error",
+   "object": "Link_Ground_Tower_Top_2",
+   "pos": [
+    -24.45,
+    3.94,
+    14.45
+   ],
+   "message": "Link_Ground_Tower_Top_2 is declared supported_by Link_Ground_Tower_Top_Support_2 but does not touch it"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[59] (supported_by): object 'Link_Ground_Gantry_A_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[59] (supported_by): object 'Link_Ground_Gantry_A_Support_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[60] (supported_by): object 'Link_Ground_Gantry_A_Junction_Hi_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[61] (walkable_connection): object 'Link_Ground_Gantry_A_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[61] (walkable_connection): object 'Link_Ground_Gantry_A_Junction_Hi_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[62] (supported_by): object 'Link_Ground_Gantry_A_Junction_Lo_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[63] (walkable_connection): object 'Link_Ground_Gantry_A_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[63] (walkable_connection): object 'Link_Ground_Gantry_A_Junction_Lo_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[64] (supported_by): object 'Link_Ground_Gantry_B_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[64] (supported_by): object 'Link_Ground_Gantry_B_Support_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[65] (supported_by): object 'Link_Ground_Gantry_B_Junction_Hi_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[66] (walkable_connection): object 'Link_Ground_Gantry_B_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[66] (walkable_connection): object 'Link_Ground_Gantry_B_Junction_Hi_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[67] (supported_by): object 'Link_Ground_Gantry_B_Junction_Lo_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[68] (walkable_connection): object 'Link_Ground_Gantry_B_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[68] (walkable_connection): object 'Link_Ground_Gantry_B_Junction_Lo_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[69] (supported_by): object 'Link_Ground_Tower_Top_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[69] (supported_by): object 'Link_Ground_Tower_Top_Support_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[70] (supported_by): object 'Link_Ground_Tower_Top_Junction_Hi_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[71] (walkable_connection): object 'Link_Ground_Tower_Top_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[71] (walkable_connection): object 'Link_Ground_Tower_Top_Junction_Hi_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[72] (supported_by): object 'Link_Ground_Tower_Top_Junction_Lo_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[73] (walkable_connection): object 'Link_Ground_Tower_Top_3' does not exist"
+  },
+  {
+   "kind": "relation",
+   "severity": "error",
+   "message": "relations[73] (walkable_connection): object 'Link_Ground_Tower_Top_Junction_Lo_3' does not exist"
+  },
+  {
    "kind": "unreachable_platform",
    "severity": "error",
-   "object": "Ridge_Post",
+   "object": "Gantry_A",
    "pos": [
-    40.0,
-    6.0,
-    -62.0
+    -36.0,
+    7.0,
+    0.0
    ],
-   "message": "Ridge_Post: not reachable from the spawn (walk/drop/jump with the gameplay config)"
+   "message": "Gantry_A: not reachable from the spawn (walk/drop/jump with the gameplay config)"
+  },
+  {
+   "kind": "unreachable_platform",
+   "severity": "error",
+   "object": "Gantry_B",
+   "pos": [
+    -6.0,
+    7.0,
+    0.0
+   ],
+   "message": "Gantry_B: not reachable from the spawn (walk/drop/jump with the gameplay config)"
+  },
+  {
+   "kind": "unreachable_platform",
+   "severity": "error",
+   "object": "Tower_Top",
+   "pos": [
+    -34.0,
+    10.0,
+    24.0
+   ],
+   "message": "Tower_Top: not reachable from the spawn (walk/drop/jump with the gameplay config)"
+  },
+  {
+   "kind": "unreachable_platform",
+   "severity": "error",
+   "object": "Silo_Deck",
+   "pos": [
+    24.0,
+    8.0,
+    -6.0
+   ],
+   "message": "Silo_Deck: not reachable from the spawn (walk/drop/jump with the gameplay config)"
+  },
+  {
+   "kind": "unreachable_platform",
+   "severity": "error",
+   "object": "Gantry_Bridge",
+   "pos": [
+    -21.0,
+    6.99,
+    0.0
+   ],
+   "message": "Gantry_Bridge: not reachable from the spawn (walk/drop/jump with the gameplay config)"
+  },
+  {
+   "kind": "duplicate_object",
+   "severity": "warning",
+   "object": "Link_Ground_Gantry_A_2",
+   "pos": [
+    -22.94,
+    1.92,
+    8.16
+   ],
+   "message": "Link_Ground_Gantry_A_2: exact duplicate of Link_Ground_Gantry_A (z-fighting)"
+  },
+  {
+   "kind": "duplicate_object",
+   "severity": "warning",
+   "object": "Link_Ground_Gantry_A_Support_2",
+   "pos": [
+    -39.02,
+    0.0,
+    -1.89
+   ],
+   "message": "Link_Ground_Gantry_A_Support_2: exact duplicate of Link_Ground_Gantry_A_Support (z-fighting)"
+  },
+  {
+   "kind": "duplicate_object",
+   "severity": "warning",
+   "object": "Link_Ground_Gantry_A_Junction_Hi_2",
+   "pos": [
+    -31.76,
+    6.59,
+    2.65
+   ],
+   "message": "Link_Ground_Gantry_A_Junction_Hi_2: exact duplicate of Link_Ground_Gantry_A_Junction_Hi (z-fighting)"
+  },
+  {
+   "kind": "duplicate_object",
+   "severity": "warning",
+   "object": "Link_Ground_Gantry_A_Junction_Lo_2",
+   "pos": [
+    -46.41,
+    1.59,
+    -6.5
+   ],
+   "message": "Link_Ground_Gantry_A_Junction_Lo_2: exact duplicate of Link_Ground_Gantry_A_Junction_Lo (z-fighting)"
+  },
+  {
+   "kind": "duplicate_object",
+   "severity": "warning",
+   "object": "Link_Ground_Gantry_B_2",
+   "pos": [
+    -20.06,
+    1.93,
+    10.04
+   ],
+   "message": "Link_Ground_Gantry_B_2: exact duplicate of Link_Ground_Gantry_B (z-fighting)"
+  },
+  {
+   "kind": "duplicate_object",
+   "severity": "warning",
+   "object": "Link_Ground_Gantry_B_Support_2",
+   "pos": [
+    -1.98,
+    0.0,
+    -2.87
+   ],
+   "message": "Link_Ground_Gantry_B_Support_2: exact duplicate of Link_Ground_Gantry_B_Support (z-fighting)"
+  },
+  {
+   "kind": "duplicate_object",
+   "severity": "warning",
+   "object": "Link_Ground_Gantry_B_Junction_Hi_2",
+   "pos": [
+    -10.06,
+    6.59,
+    2.9
+   ],
+   "message": "Link_Ground_Gantry_B_Junction_Hi_2: exact duplicate of Link_Ground_Gantry_B_Junction_Hi (z-fighting)"
+  },
+  {
+   "kind": "duplicate_object",
+   "severity": "warning",
+   "object": "Link_Ground_Gantry_B_Junction_Lo_2",
+   "pos": [
+    6.35,
+    1.59,
+    -8.82
+   ],
+   "message": "Link_Ground_Gantry_B_Junction_Lo_2: exact duplicate of Link_Ground_Gantry_B_Junction_Lo (z-fighting)"
+  },
+  {
+   "kind": "duplicate_object",
+   "severity": "warning",
+   "object": "Link_Ground_Tower_Top_2",
+   "pos": [
+    -24.45,
+    1.84,
+    14.45
+   ],
+   "message": "Link_Ground_Tower_Top_2: exact duplicate of Link_Ground_Tower_Top (z-fighting)"
+  },
+  {
+   "kind": "duplicate_object",
+   "severity": "warning",
+   "object": "Link_Ground_Tower_Top_Support_2",
+   "pos": [
+    -35.52,
+    0.0,
+    25.52
+   ],
+   "message": "Link_Ground_Tower_Top_Support_2: exact duplicate of Link_Ground_Tower_Top_Support (z-fighting)"
+  },
+  {
+   "kind": "duplicate_object",
+   "severity": "warning",
+   "object": "Link_Ground_Tower_Top_Junction_Hi_2",
+   "pos": [
+    -30.78,
+    9.59,
+    20.78
+   ],
+   "message": "Link_Ground_Tower_Top_Junction_Hi_2: exact duplicate of Link_Ground_Tower_Top_Junction_Hi (z-fighting)"
+  },
+  {
+   "kind": "duplicate_object",
+   "severity": "warning",
+   "object": "Link_Ground_Tower_Top_Junction_Lo_2",
+   "pos": [
+    -40.24,
+    1.59,
+    30.24
+   ],
+   "message": "Link_Ground_Tower_Top_Junction_Lo_2: exact duplicate of Link_Ground_Tower_Top_Junction_Lo (z-fighting)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "warning",
+   "object": "Link_Ground_Gantry_A",
+   "pos": [
+    -31.04,
+    6.99,
+    3.1
+   ],
+   "message": "Link_Ground_Gantry_A.high meets ['Link_Ground_Gantry_A_Junction_Hi_2'] instead of Link_Ground_Gantry_A_Junction_Hi"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "warning",
+   "object": "Link_Ground_Gantry_B",
+   "pos": [
+    -10.96,
+    6.99,
+    3.54
+   ],
+   "message": "Link_Ground_Gantry_B.high meets ['Link_Ground_Gantry_B_Junction_Hi_2'] instead of Link_Ground_Gantry_B_Junction_Hi"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "warning",
+   "object": "Link_Ground_Tower_Top",
+   "pos": [
+    -30.04,
+    9.99,
+    20.04
+   ],
+   "message": "Link_Ground_Tower_Top.high meets ['Link_Ground_Tower_Top_Junction_Hi_2'] instead of Link_Ground_Tower_Top_Junction_Hi"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "warning",
+   "object": "Dock_Stairs",
+   "pos": [
+    -33.26,
+    6.99,
+    4.11
+   ],
+   "message": "Tower_Stairs_Beam_R stands in the landing of Dock_Stairs.high (blocks the route)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "warning",
+   "object": "Link_Ground_Gantry_A",
+   "pos": [
+    -14.83,
+    1.92,
+    13.23
+   ],
+   "message": "Link_Ground_Gantry_A_2 stands in the landing of Link_Ground_Gantry_A.low (blocks the route)"
   },
   {
    "kind": "geo_connection",
@@ -435,7 +1113,7 @@
     1.93,
     16.55
    ],
-   "message": "Link_Ground_Tower stands in the landing of Link_Ground_Gantry_B.low (blocks the route)"
+   "message": "Dock_Stairs stands in the landing of Link_Ground_Gantry_B.low (blocks the route)"
   },
   {
    "kind": "geo_connection",
@@ -449,69 +1127,91 @@
    "message": "Link_Ground_Gantry_A stands in the landing of Link_Ground_Tower_Top.low (blocks the route)"
   },
   {
+   "kind": "geo_connection",
+   "severity": "warning",
+   "object": "Link_Ground_Gantry_A_2",
+   "pos": [
+    -14.83,
+    1.92,
+    13.23
+   ],
+   "message": "Link_Ground_Gantry_A stands in the landing of Link_Ground_Gantry_A_2.low (blocks the route)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "warning",
+   "object": "Link_Ground_Gantry_B_2",
+   "pos": [
+    -29.16,
+    1.93,
+    16.55
+   ],
+   "message": "Dock_Stairs stands in the landing of Link_Ground_Gantry_B_2.low (blocks the route)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "warning",
+   "object": "Link_Ground_Tower_Top_2",
+   "pos": [
+    -18.86,
+    1.84,
+    8.86
+   ],
+   "message": "Link_Ground_Gantry_A stands in the landing of Link_Ground_Tower_Top_2.low (blocks the route)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "warning",
+   "object": "Link_Ground_Gantry_A_2",
+   "pos": [
+    -14.83,
+    1.92,
+    13.23
+   ],
+   "message": "Link_Ground_Gantry_A stands in the landing of Link_Ground_Gantry_A_2.low (blocks the route)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "warning",
+   "object": "Link_Ground_Gantry_B_2",
+   "pos": [
+    -29.16,
+    1.93,
+    16.55
+   ],
+   "message": "Dock_Stairs stands in the landing of Link_Ground_Gantry_B_2.low (blocks the route)"
+  },
+  {
+   "kind": "geo_connection",
+   "severity": "warning",
+   "object": "Link_Ground_Tower_Top_2",
+   "pos": [
+    -18.86,
+    1.84,
+    8.86
+   ],
+   "message": "Link_Ground_Gantry_A stands in the landing of Link_Ground_Tower_Top_2.low (blocks the route)"
+  },
+  {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~74 visible draw calls (estimate, > 60)"
-  },
-  {
-   "kind": "narrow_connector",
-   "severity": "warning",
-   "object": "Gantry_A_Trim",
-   "pos": [
-    -30.2,
-    6.5,
-    -3.9
-   ],
-   "message": "Gantry_A_Trim: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
-  },
-  {
-   "kind": "narrow_connector",
-   "severity": "warning",
-   "object": "Gantry_B_Trim",
-   "pos": [
-    -0.2,
-    6.5,
-    1.6
-   ],
-   "message": "Gantry_B_Trim: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
-  },
-  {
-   "kind": "narrow_connector",
-   "severity": "warning",
-   "object": "Gantry_Bridge_Deck",
-   "pos": [
-    -21.2,
-    7.0,
-    0.1
-   ],
-   "message": "Gantry_Bridge_Deck: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
-  },
-  {
-   "kind": "narrow_connector",
-   "severity": "warning",
-   "object": "Tower_Top_Trim",
-   "pos": [
-    -29.2,
-    9.5,
-    26.1
-   ],
-   "message": "Tower_Top_Trim: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+   "message": "~72 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "low_ceiling",
    "severity": "info",
    "object": "TR_0_1_dirt",
    "pos": [
-    -2.2,
-    2.31,
-    -94.4
+    -15.2,
+    0.83,
+    -92.4
    ],
-   "message": "160 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): TR_0_1_dirt, TR_1_0_dirt, TR_1_1_dirt, TR_1_2_dirt, TR_1_2_grass, TR_1_3_dirt, TR_2_1_dirt, TR_2_1_mud"
+   "message": "160 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): TR_0_1_dirt, TR_1_0_dirt, TR_1_1_dirt, TR_2_1_dirt, TR_2_1_mud, TR_2_1_road, TR_2_2_dirt, TR_2_2_gravel"
   }
  ],
  "counts": {
-  "error": 8,
-  "warning": 7,
+  "error": 76,
+  "warning": 26,
   "info": 1
  },
  "passed": false,

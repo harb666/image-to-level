@@ -1,0 +1,144 @@
+{
+ "repairs": [
+  {
+   "pass_": 1,
+   "finding": "Loading_Dock_Base and Loading_Dock_Floor share coplanar faces (83.98 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "Loading_Dock_Base",
+   "result": "moved 10 mm behind Loading_Dock_Floor"
+  },
+  {
+   "pass_": 2,
+   "finding": "Dock_Stairs_Junction_Lo and Loading_Dock_Base share coplanar faces (4.57 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "Dock_Stairs_Junction_Lo",
+   "result": "moved 10 mm behind Loading_Dock_Base"
+  }
+ ],
+ "details": [
+  {
+   "pass_": 1,
+   "finding": "Loading_Dock_Base and Loading_Dock_Floor share coplanar faces (83.98 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "Loading_Dock_Base",
+   "result": "moved 10 mm behind Loading_Dock_Floor",
+   "before": {
+    "name": "Loading_Dock_Base",
+    "type": "box",
+    "position": [
+     0.0,
+     2.0,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "parent": "Loading_Dock",
+    "size": [
+     12.0,
+     0.3,
+     7.0
+    ],
+    "material": "structure",
+    "gen": "Loading_Dock",
+    "source": "inferred"
+   },
+   "after": {
+    "name": "Loading_Dock_Base",
+    "type": "box",
+    "position": [
+     0.0,
+     1.99,
+     0.0
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "parent": "Loading_Dock",
+    "size": [
+     12.0,
+     0.3,
+     7.0
+    ],
+    "material": "structure",
+    "gen": "Loading_Dock",
+    "source": "inferred"
+   }
+  },
+  {
+   "pass_": 2,
+   "finding": "Dock_Stairs_Junction_Lo and Loading_Dock_Base share coplanar faces (4.57 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "Dock_Stairs_Junction_Lo",
+   "result": "moved 10 mm behind Loading_Dock_Base",
+   "before": {
+    "name": "Dock_Stairs_Junction_Lo",
+    "type": "box",
+    "position": [
+     -22.017,
+     1.89,
+     20.974
+    ],
+    "rotation": [
+     0.0,
+     -146.31,
+     0.0
+    ],
+    "size": [
+     4.0,
+     0.4,
+     1.6
+    ],
+    "material": "grate",
+    "connector": false,
+    "gen": "Dock_Stairs",
+    "source": "visible"
+   },
+   "after": {
+    "name": "Dock_Stairs_Junction_Lo",
+    "type": "box",
+    "position": [
+     -22.017,
+     1.88,
+     20.974
+    ],
+    "rotation": [
+     0.0,
+     -146.31,
+     0.0
+    ],
+    "size": [
+     4.0,
+     0.4,
+     1.6
+    ],
+    "material": "grate",
+    "connector": false,
+    "gen": "Dock_Stairs",
+    "source": "visible"
+   }
+  }
+ ],
+ "remaining": {
+  "ERROR": 7,
+  "WARNING": 3,
+  "INTENTIONAL": 9
+ },
+ "needs_review": [
+  "Link_Ground_Gantry_A.low leads nowhere (no floor within 4 m at step height)",
+  "Link_Ground_Gantry_B.low leads nowhere (no floor within 4 m at step height)",
+  "Link_Ground_Tower_Top.low leads nowhere (no floor within 4 m at step height)",
+  "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A.high (blocks the route)",
+  "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B.high (blocks the route)",
+  "Link_Ground_Gantry_A is declared supported_by Link_Ground_Gantry_A_Support but does not touch it",
+  "Link_Ground_Gantry_B is declared supported_by Link_Ground_Gantry_B_Support but does not touch it",
+  "Tower_Stairs_Beam_R stands in the landing of Dock_Stairs.high (blocks the route)",
+  "Dock_Stairs stands in the landing of Link_Ground_Gantry_B.low (blocks the route)",
+  "Link_Ground_Gantry_A stands in the landing of Link_Ground_Tower_Top.low (blocks the route)"
+ ],
+ "note": "Each repair touched only the named object; undo with: python3 pipeline/edit_level.py <level> undo"
+}
