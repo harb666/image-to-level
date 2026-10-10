@@ -119,13 +119,15 @@ def factory(L, q):
         tx = (i - (nt - 1) / 2) * hw / max(nt, 1); th = rng.uniform(28, 55) * k; tw = rng.uniform(7, 11) * k
         parts.append(_box(tw, th + 4, tw, tx, -4, -hd * 0.15))
         if det >= 1: parts.append(_box(tw * 0.6, th * 0.18, tw * 0.6, tx, th, -hd * 0.15))  # setback top
-    nc = 2 + det
+    nc = 2 + det; tops = []
     for i in range(nc):
         cx = rng.uniform(-hw / 2, hw / 2); cz = -hd * rng.uniform(0.3, 0.5); ch = rng.uniform(40, 72) * k; cr = rng.uniform(1.6, 2.8) * k
         parts += [_cyl(cr, ch + 4, cx, -4, cz), _cyl(cr * 1.35, 2.2 * k, cx, ch - 2 * k, cz)]
+        tops.append([cx, ch + 0.3 * k, cz, cr])
     if det >= 1 and nt > 1:
         parts.append(_box(hw * 0.8, 2.2 * k, 2.2 * k, 0, hh * 1.5, -hd * 0.15))  # pipe bridge between towers
-    return trimesh.util.concatenate(parts)
+    m = trimesh.util.concatenate(parts); m.metadata["chimney_tops"] = tops  # local [x, y, z, radius] (Stage 4 smoke)
+    return m
 
 
 def skyline(L, q):

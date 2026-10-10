@@ -18,6 +18,121 @@
  "hazards": [
   "HazardFluid"
  ],
+ "effects": [
+  {
+   "id": "Toxic_Surface",
+   "type": "liquid_surface",
+   "target": "HazardFluid",
+   "scroll": [
+    0.03,
+    0.015
+   ],
+   "swirl": 0.03,
+   "pulse_speed": 0.2,
+   "pulse_amount": 0.18
+  },
+  {
+   "id": "Toxic_Falls",
+   "type": "liquid_flow",
+   "targets_glob": "Pipe_*_01_Fall",
+   "speed": 3.0
+  },
+  {
+   "id": "Toxic_Bubbles",
+   "type": "bubbles",
+   "area_from": "HazardFluid",
+   "rate": 45
+  },
+  {
+   "id": "Fall_Splash",
+   "type": "splash",
+   "at_targets_glob": "Pipe_*_01_Fall",
+   "anchor": "bottom"
+  },
+  {
+   "id": "Fall_Steam",
+   "type": "steam",
+   "at_targets_glob": "Pipe_*_01_Fall",
+   "anchor": "bottom"
+  },
+  {
+   "id": "Trim_Pulse",
+   "type": "pulse_light",
+   "target_material": "edge_trim",
+   "speed": 0.35,
+   "amount": 0.35
+  },
+  {
+   "id": "Tower_Glow_Pulse",
+   "type": "pulse_light",
+   "target_material": "glow_strip",
+   "speed": 0.9,
+   "amount": 0.45
+  },
+  {
+   "id": "Machinery_Flicker",
+   "type": "flicker",
+   "target_material": "concrete_dark",
+   "rate": 6,
+   "amount": 0.2
+  },
+  {
+   "id": "Tower_Sparks",
+   "type": "sparks",
+   "positions": [
+    [
+     3.7,
+     6.4,
+     3.7
+    ],
+    [
+     -3.7,
+     6.4,
+     -3.7
+    ],
+    [
+     -35.0,
+     9.5,
+     12
+    ],
+    [
+     35.0,
+     9.5,
+     -12
+    ]
+   ]
+  },
+  {
+   "id": "Toxic_Spores",
+   "type": "ambient_particles",
+   "area": [
+    -36.0,
+    1.0,
+    -36.0,
+    36.0,
+    16,
+    36.0
+   ],
+   "count": 260
+  },
+  {
+   "id": "Toxic_Mist",
+   "type": "fog_sheet",
+   "area_from": "HazardFluid",
+   "height": 0.5,
+   "opacity": 0.32
+  },
+  {
+   "id": "Factory_Smoke",
+   "type": "smoke",
+   "at_background": "factory_chimneys"
+  },
+  {
+   "id": "Sky_Drift",
+   "type": "sky_drift",
+   "speed_deg_s": 0.25
+  }
+ ],
  "environment": {
   "quality": "balanced",
   "horizon_distance": 460,

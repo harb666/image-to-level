@@ -134,6 +134,8 @@ def build(level_dir):
         for f in ("background.glb", "environment.json", "environment.tres"):
             if os.path.exists(os.path.join(level_dir, f)): os.remove(os.path.join(level_dir, f))
         import shutil; shutil.rmtree(os.path.join(level_dir, "sky"), ignore_errors=True)
+    from effects import build_effects  # Stage 4: effects.json + fx/ (removes stale outputs when the level has no effects)
+    build_effects(level_dir, L)
 
 
 def topdown(L, world, path, px=10):

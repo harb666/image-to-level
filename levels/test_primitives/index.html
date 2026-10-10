@@ -11,7 +11,7 @@ button{background:#0008;color:#fff;border:1px solid #fff4;border-radius:8px;padd
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head><body>
-<div id="hud"><button id="mode">View: 3rd person</button><button id="reset">Respawn</button></div>
+<div id="hud"><button id="mode">View: 3rd person</button><button id="reset">Respawn</button><button id="fx" hidden>FX</button></div>
 <div id="stick"></div><div id="info"></div>
 <script type="module">
 import * as THREE from 'three';
@@ -60,6 +60,71 @@ gltf.scene.traverse(o=>{if(o.isMesh){if(!o.material.map&&o.geometry.attributes.c
   if(o.name.startsWith('Spawn'))o.visible=false;if(o.name.startsWith('Boundary'))o.material.visible=false;}});
 const solids=[];gltf.scene.traverse(o=>{if(o.isMesh&&o.visible)solids.push(o)}); // background is never collidable
 const camSolids=solids.filter(o=>o.material.visible!==false); // camera ignores invisible colliders
+// ---- Stage 4 effects PREVIEW: approximates effects.json in three.js (Godot uses fx/godot/apply_effects.gd; not identical)
+let FXD=window.FX||null;if(!FXD&&!window.GLB){try{const rq=await fetch(base+'/effects.json');if(rq.ok)FXD=await rq.json();}catch(e){}}
+const FXQ=['off','performance','balanced','quality'];let fxq=FXD?FXQ.indexOf(FXD.default_quality):0;
+const fxTex={};if(FXD)for(const k in FXD.textures)fxTex[k]=new THREE.TextureLoader().load(window.FXTEX?FXTEX[k]:base+'/'+FXD.textures[k]);
+const byName={};gltf.scene.traverse(o=>{if(o.isMesh)byName[o.name]=o;});
+let fxObjs=[],fxUpd=[];
+const PV=`attribute float aSize;attribute float aAlpha;varying float vA;varying float vF;uniform float uScale,uFogN,uFogF;
+void main(){vec4 mv=modelViewMatrix*vec4(position,1.);gl_PointSize=min(aSize*uScale/max(.1,-mv.z),1024.);gl_Position=projectionMatrix*mv;vA=aAlpha;vF=smoothstep(uFogN,uFogF,-mv.z);}`;
+const PF=`uniform sampler2D uMap;uniform vec3 uColor,uFogColor;uniform float uAdd;varying float vA;varying float vF;
+void main(){vec4 t=texture2D(uMap,gl_PointCoord);vec3 c=mix(uColor,uFogColor,vF*(1.-uAdd));gl_FragColor=vec4(c*t.rgb,t.a*vA*(1.-vF*uAdd));}`;
+function uvAnim(mat){ // clone the material and add a UV offset uniform to every map lookup (textures stay shared)
+  const m=mat.clone();m.userData.off={value:new THREE.Vector2()};
+  m.onBeforeCompile=sh=>{sh.uniforms.uFxOff=m.userData.off;sh.vertexShader='uniform vec2 uFxOff;\n'+sh.vertexShader.replace('#include <uv_vertex>',
+    '#include <uv_vertex>\n#ifdef USE_MAP\nvMapUv+=uFxOff;\n#endif\n#ifdef USE_EMISSIVEMAP\nvEmissiveMapUv+=uFxOff;\n#endif\n#ifdef USE_NORMALMAP\nvNormalMapUv+=uFxOff;\n#endif\n#ifdef USE_ROUGHNESSMAP\nvRoughnessMapUv+=uFxOff;\n#endif\n#ifdef USE_METALNESSMAP\nvMetalnessMapUv+=uFxOff;\n#endif');};
+  m.customProgramCacheKey=()=>'fxuv';return m;}
+function makeParticles(fx,p){const spots=fx.emitters||(fx.area?[{area:fx.area}]:[]);const isBurst='burst' in p,isCount='count' in p;
+  const per=isCount?p.count:isBurst?p.burst:Math.ceil(p.rate*p.lifetime);const N=per*spots.length;if(!N)return;
+  const pos=new Float32Array(N*3),size=new Float32Array(N),alpha=new Float32Array(N),vel=new Float32Array(N*3),age=new Float32Array(N).fill(1e9),life=new Float32Array(N).fill(1),own=new Int32Array(N),y0=new Float32Array(N);
+  for(let i=0;i<N;i++)own[i]=Math.floor(i/per);
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('aSize',new THREE.BufferAttribute(size,1));g.setAttribute('aAlpha',new THREE.BufferAttribute(alpha,1));
+  const add=p.blend==='add',fc=scene.fog?scene.fog.color:new THREE.Color(0,0,0);
+  const mat=new THREE.ShaderMaterial({vertexShader:PV,fragmentShader:PF,transparent:true,depthWrite:false,blending:add?THREE.AdditiveBlending:THREE.NormalBlending,
+    uniforms:{uMap:{value:fxTex[p.texture]},uColor:{value:new THREE.Color(...p.color)},uFogColor:{value:fc},uAdd:{value:add?1:0},uScale:{value:1},uFogN:{value:scene.fog?scene.fog.near:1e4},uFogF:{value:scene.fog?scene.fog.far:2e4}}});
+  const pts=new THREE.Points(g,mat);pts.frustumCulled=false;pts.renderOrder=3;scene.add(pts);fxObjs.push(pts);
+  const sp=(p.spread||0)*Math.PI/180,wind=p.wind||[0,0,0];let acc=0,cur=0;const timers=spots.map(()=>Math.random()*2);
+  function spawn(i){const s=spots[own[i]];let x,y,z;
+    if(s.area){const a=s.area;x=a[0]+Math.random()*(a[3]-a[0]);z=a[2]+Math.random()*(a[5]-a[2]);y=isCount?a[1]+Math.random()*(a[4]-a[1]):a[1];}
+    else{const r=(s.radius||p.radius||0)*Math.sqrt(Math.random()),q=Math.random()*6.2831;x=s.pos[0]+Math.cos(q)*r;y=s.pos[1];z=s.pos[2]+Math.sin(q)*r;} // disc
+    const th=Math.random()*6.2831,ph=Math.acos(1-Math.random()*(1-Math.cos(sp))),v=p.speed[0]+Math.random()*(p.speed[1]-p.speed[0]);
+    pos.set([x,y,z],i*3);y0[i]=y;vel.set([Math.sin(ph)*Math.cos(th)*v,Math.cos(ph)*v,Math.sin(ph)*Math.sin(th)*v],i*3);age[i]=0;life[i]=p.lifetime*(.7+.6*Math.random());}
+  if(isCount)for(let i=0;i<N;i++){spawn(i);age[i]=Math.random()*life[i];}
+  fxUpd.push({u(t,dt){
+    if(isBurst){for(let s=0;s<spots.length;s++){timers[s]-=dt;if(timers[s]<=0){timers[s]=p.interval[0]+Math.random()*(p.interval[1]-p.interval[0]);for(let i=s*per;i<(s+1)*per;i++)spawn(i);}}}
+    else if(!isCount){acc+=p.rate*spots.length*dt;while(acc>=1){spawn(cur);cur=(cur+1)%N;acc-=1;}}
+    for(let i=0;i<N;i++){if(age[i]>=life[i]){if(isCount)spawn(i);else{alpha[i]=0;continue;}}
+      age[i]+=dt;const k=Math.min(age[i]/life[i],1);vel[i*3]+=wind[0]*dt;vel[i*3+1]+=p.gravity*dt;vel[i*3+2]+=wind[2]*dt;
+      pos[i*3]+=vel[i*3]*dt;pos[i*3+1]+=vel[i*3+1]*dt;pos[i*3+2]+=vel[i*3+2]*dt;
+      if(p.kill_below_spawn&&pos[i*3+1]<y0[i]-0.05){age[i]=life[i];alpha[i]=0;continue;} // droplet fell back into the liquid
+      size[i]=p.size[0]+(p.size[1]-p.size[0])*k;alpha[i]=p.alpha*(add&&!isCount?(1-k):Math.sin(Math.PI*k));}
+    g.attributes.position.needsUpdate=g.attributes.aSize.needsUpdate=g.attributes.aAlpha.needsUpdate=true;
+    mat.uniforms.uScale.value=r.domElement.height/(2*Math.tan(cam.fov*Math.PI/360));}});}
+function makeFog(fx,p){const a=fx.area;for(let l=0;l<(p.layers||1);l++){const geo=new THREE.PlaneGeometry(a[3]-a[0],a[5]-a[2]);geo.rotateX(-Math.PI/2);
+  const m=new THREE.ShaderMaterial({transparent:true,depthWrite:false,side:THREE.DoubleSide,uniforms:{uC:{value:new THREE.Color(...p.color)},uO:{value:p.opacity/(1+l)},uS:{value:new THREE.Vector2(...p.scroll).multiplyScalar(1+.5*l)},uT:{value:0}},
+    vertexShader:'varying vec3 vW;void main(){vec4 w=modelMatrix*vec4(position,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}',
+    fragmentShader:`uniform vec3 uC;uniform float uO,uT;uniform vec2 uS;varying vec3 vW;float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+    float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+    void main(){vec2 p=vW.xz*.08;float v=n(p+uS*uT*10.)*.6+n(p*2.3-uS*17.*uT)*.4;gl_FragColor=vec4(uC,uO*smoothstep(.25,.85,v));}`});
+  const me=new THREE.Mesh(geo,m);me.position.set((a[0]+a[3])/2,a[1]+p.height+.6*l,(a[2]+a[5])/2);me.renderOrder=2;scene.add(me);fxObjs.push(me);fxUpd.push({u(t){m.uniforms.uT.value=t;}});}}
+function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry.dispose();}for(const f of fxUpd)f.reset&&f.reset();fxObjs=[];fxUpd=[];
+  const qn=FXQ[fxq];document.getElementById('fx').textContent='FX: '+qn;if(!FXD||qn==='off')return;
+  for(const fx of FXD.effects){const Q=fx.quality[qn];if(!Q||!Q.enabled)continue;const p=Q.params;
+    if(fx.category==='surface_shader'){const tg=(fx.targets||[]).map(n=>byName[n]).filter(Boolean);if(!tg.length)continue;
+      const orig=tg.map(o=>o.material),m=uvAnim(tg[0].material),b=m.emissiveIntensity,tile=fx.material_tile_m||2;tg.forEach(o=>o.material=m);
+      fxUpd.push({reset(){tg.forEach((o,i)=>o.material=orig[i]);},u(t){if(fx.type==='liquid_surface'){m.userData.off.value.set(p.scroll[0]*t+p.swirl*Math.sin(t*.7),p.scroll[1]*t+p.swirl*Math.cos(t*.5));
+        m.emissiveIntensity=b*(1+p.pulse_amount*Math.sin(t*p.pulse_speed*6.2831));}else m.userData.off.value.set(Math.sin(t*3)*p.wobble,t*p.speed/tile);}});}
+    else if(fx.category==='material_animation'){const mats=[...new Set((fx.targets||[]).map(n=>byName[n]&&byName[n].material).filter(Boolean))],b=mats.map(m=>m.emissiveIntensity);let nx=0;
+      fxUpd.push({reset(){mats.forEach((m,i)=>m.emissiveIntensity=b[i]);},u(t,dt){if(fx.type==='pulse_light')mats.forEach((m,i)=>m.emissiveIntensity=b[i]*(1+p.amount*Math.sin(6.2831*p.speed*t+p.phase)));
+        else{nx-=dt;if(nx<=0){nx=1/p.rate;mats.forEach((m,i)=>m.emissiveIntensity=b[i]*(1-p.amount*Math.random()));}}}});}
+    else if(fx.category==='particles')makeParticles(fx,p);
+    else if(fx.category==='transparent_mesh'&&fx.area)makeFog(fx,p);}} // sky_drift: Godot only (Environment.sky_rotation)
+if(FXD){const b=document.getElementById('fx');b.hidden=false;b.onclick=()=>{fxq=(fxq+1)%FXQ.length;buildFX();};buildFX();}
+window.setFX=q=>{fxq=FXQ.indexOf(q);buildFX();};
+window.fxInfo=()=>({quality:FXQ[fxq],objects:fxObjs.length,animated:fxUpd.length,
+  alive:fxObjs.filter(o=>o.isPoints).map(o=>{const a=o.geometry.attributes.aAlpha.array,P=o.geometry.attributes.position.array;let n=0,y=0;for(let i=0;i<a.length;i++)if(a[i]>0){n++;y+=P[i*3+1];}return [n,a.length,+(y/Math.max(n,1)).toFixed(1)];})});
+
 const avatar=new THREE.Mesh(new THREE.CapsuleGeometry(0.35,1.0,4,8),new THREE.MeshStandardMaterial({color:0x3a8dde,roughness:.5}));scene.add(avatar);
 const orbit=new OrbitControls(cam,r.domElement);orbit.enabled=false;
 const MODES=['3rd person','1st person','orbit'];let mode=0,yaw=0,pitch=0,vy=0;const pos=new THREE.Vector3();
@@ -98,6 +163,7 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
         if(hit)dist=Math.min(dist,hit.distance>0.6?hit.distance-0.3:hit.distance*0.5);}
       cam.position.copy(head).addScaledVector(back,dist);cam.lookAt(head);}
   }else{avatar.visible=true;orbit.update();}
+  for(const f of fxUpd)f.u&&f.u(now/1000,dt);
   r.render(scene,cam);});
 onresize=()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();r.setSize(innerWidth,innerHeight);};
 </script></body></html>

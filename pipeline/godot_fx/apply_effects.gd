@@ -1,0 +1,212 @@
+extends Node3D
+## image-to-level Stage 4 runtime starter for Godot 4 (UNTESTED in Godot here - treat as a starting point).
+## Recreates effects.json on an imported level: liquid shaders, emission pulses/flicker, particles, mist sheets, sky drift.
+## Setup: put the level folder at res://levels/<name>/, instance level.glb (and background.glb), add a Node3D at the
+## world origin with this script, assign level_root (the instanced level.glb) and optionally environment.
+## Particles use CPUParticles3D so they work in the Mobile and Compatibility renderers.
+## kill_below_spawn (splash): droplets falling back are simply hidden by the opaque liquid surface here.
+
+@export_file("*.json") var effects_path: String = "res://levels/toxic_arena/effects.json"
+@export_enum("off", "performance", "balanced", "quality") var quality: String = "balanced"
+@export var level_root: Node3D
+@export var environment: WorldEnvironment
+
+var _base_dir: String = ""
+var _anims: Array = []    # [material, base_energy, params, kind, next_change]
+var _bursts: Array = []   # [CPUParticles3D, time_left, interval_min, interval_max]
+var _sky_speed: float = 0.0
+var _t: float = 0.0
+
+
+func _ready() -> void:
+	if quality == "off":
+		return
+	_base_dir = effects_path.get_base_dir()
+	var data = JSON.parse_string(FileAccess.get_file_as_string(effects_path))
+	if data == null:
+		push_error("effects.json missing or invalid: " + effects_path)
+		return
+	for fx in data["effects"]:
+		var q: Dictionary = fx["quality"][quality]
+		if not q["enabled"]:
+			continue
+		var p: Dictionary = q["params"]
+		match fx["category"]:
+			"surface_shader":
+				_surface(fx, p)
+			"material_animation":
+				_material_anim(fx, p)
+			"particles":
+				_particles(fx, p)
+			"transparent_mesh":
+				_fog_sheet(fx, p)
+			"environment":
+				_sky_speed = deg_to_rad(float(p.get("speed_deg_s", 0.0)))
+
+
+func _mesh(node_name: String) -> MeshInstance3D:
+	if level_root == null:
+		return null
+	return level_root.find_child(node_name, true, false) as MeshInstance3D
+
+
+func _surface(fx: Dictionary, p: Dictionary) -> void:
+	var file := "liquid_surface.gdshader" if fx["type"] == "liquid_surface" else "liquid_flow.gdshader"
+	var shader: Shader = load(_base_dir + "/fx/godot/" + file)
+	for n in fx.get("targets", []):
+		var mi := _mesh(n)
+		if mi == null:
+			continue
+		var src := mi.get_active_material(0) as BaseMaterial3D
+		var sm := ShaderMaterial.new()
+		sm.shader = shader
+		if src:
+			sm.set_shader_parameter("albedo_tex", src.albedo_texture)
+		if fx["type"] == "liquid_surface":
+			sm.set_shader_parameter("scroll", Vector2(p["scroll"][0], p["scroll"][1]))
+			sm.set_shader_parameter("swirl", p["swirl"])
+			sm.set_shader_parameter("pulse_speed", p["pulse_speed"])
+			sm.set_shader_parameter("pulse_amount", p["pulse_amount"])
+		else:
+			sm.set_shader_parameter("uv_speed", float(p["speed"]) / float(fx.get("material_tile_m", 2.0)))
+			sm.set_shader_parameter("wobble", p["wobble"])
+		sm.set_shader_parameter("glow_energy", p["glow_energy"])
+		mi.material_override = sm
+
+
+func _material_anim(fx: Dictionary, p: Dictionary) -> void:
+	var seen := {}
+	for n in fx.get("targets", []):
+		var mi := _mesh(n)
+		if mi == null:
+			continue
+		var m := mi.get_active_material(0) as BaseMaterial3D
+		if m == null or seen.has(m):
+			continue
+		seen[m] = true
+		m.emission_enabled = true
+		_anims.append([m, m.emission_energy_multiplier, p, fx["type"], 0.0])
+
+
+func _gradient(c: Array, a: float) -> Gradient:
+	var g := Gradient.new()
+	g.set_color(0, Color(c[0], c[1], c[2], 0.0))
+	g.set_color(1, Color(c[0], c[1], c[2], 0.0))
+	g.add_point(0.15, Color(c[0], c[1], c[2], a))
+	return g
+
+
+func _particles(fx: Dictionary, p: Dictionary) -> void:
+	var tex: Texture2D = load(_base_dir + "/fx/" + str(p["texture"]) + ".png")
+	var mat := StandardMaterial3D.new()
+	mat.billboard_mode = BaseMaterial3D.BILLBOARD_PARTICLES
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.vertex_color_use_as_albedo = true
+	mat.albedo_texture = tex
+	if p.get("blend", "alpha") == "add":
+		mat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	var quad := QuadMesh.new()
+	quad.material = mat
+	var spots: Array = []
+	if fx.has("emitters"):
+		for e in fx["emitters"]:
+			spots.append(e)
+	elif fx.has("area"):
+		spots.append({"area": fx["area"]})
+	if fx.get("merge_emitters", false) and spots.size() > 1:
+		# one draw call for the whole effect: a single system emitting from every point
+		var pts := PackedVector3Array()
+		for e in spots:
+			pts.append(Vector3(e["pos"][0], e["pos"][1], e["pos"][2]))
+		spots = [{"points": pts}]
+	for e in spots:
+		var cp := CPUParticles3D.new()
+		cp.mesh = quad
+		cp.lifetime = float(p["lifetime"])
+		if p.has("count"):
+			cp.amount = int(p["count"])
+			cp.preprocess = cp.lifetime
+		elif p.has("burst"):
+			cp.amount = int(p["burst"])
+			cp.one_shot = true
+			cp.explosiveness = 1.0
+			cp.emitting = false
+			_bursts.append([cp, randf_range(p["interval"][0], p["interval"][1]), p["interval"][0], p["interval"][1]])
+		else:
+			cp.amount = max(1, int(ceil(float(p["rate"]) * cp.lifetime))) * (e["points"].size() if e.has("points") else 1)
+		if e.has("points"):
+			cp.emission_shape = CPUParticles3D.EMISSION_SHAPE_POINTS
+			cp.emission_points = e["points"]
+		elif e.has("area"):
+			var a: Array = e["area"]
+			var top: bool = p.has("rate") and not p.has("count")
+			var y0: float = a[1] if top else (a[1] + a[4]) * 0.5
+			cp.position = Vector3((a[0] + a[3]) * 0.5, y0, (a[2] + a[5]) * 0.5)
+			cp.emission_shape = CPUParticles3D.EMISSION_SHAPE_BOX
+			cp.emission_box_extents = Vector3((a[3] - a[0]) * 0.5, 0.05 if top else (a[4] - a[1]) * 0.5, (a[5] - a[2]) * 0.5)
+		else:
+			cp.position = Vector3(e["pos"][0], e["pos"][1], e["pos"][2])
+			var r: float = float(e.get("radius", p.get("radius", 0.0)))
+			if r > 0.0:
+				cp.emission_shape = CPUParticles3D.EMISSION_SHAPE_SPHERE
+				cp.emission_sphere_radius = r
+		cp.direction = Vector3(0, 1, 0)
+		cp.spread = float(p.get("spread", 15))
+		cp.initial_velocity_min = float(p["speed"][0])
+		cp.initial_velocity_max = float(p["speed"][1])
+		var wind: Array = p.get("wind", [0, 0, 0])
+		cp.gravity = Vector3(wind[0], float(p.get("gravity", 0.0)), wind[2])
+		var s0: float = float(p["size"][0])
+		var s1: float = float(p["size"][1])
+		var smax: float = max(s0, s1)
+		cp.scale_amount_min = smax
+		cp.scale_amount_max = smax
+		var cv := Curve.new()
+		cv.add_point(Vector2(0.0, s0 / smax))
+		cv.add_point(Vector2(1.0, s1 / smax))
+		cp.scale_amount_curve = cv
+		cp.color_ramp = _gradient(p["color"], float(p["alpha"]))
+		add_child(cp)
+
+
+func _fog_sheet(fx: Dictionary, p: Dictionary) -> void:
+	if not fx.has("area"):
+		return
+	var a: Array = fx["area"]
+	var shader: Shader = load(_base_dir + "/fx/godot/fog_sheet.gdshader")
+	for i in range(int(p.get("layers", 1))):
+		var mi := MeshInstance3D.new()
+		var plane := PlaneMesh.new()
+		plane.size = Vector2(a[3] - a[0], a[5] - a[2])
+		mi.mesh = plane
+		var sm := ShaderMaterial.new()
+		sm.shader = shader
+		sm.set_shader_parameter("color", Color(p["color"][0], p["color"][1], p["color"][2]))
+		sm.set_shader_parameter("opacity", float(p["opacity"]) / (1.0 + i))
+		sm.set_shader_parameter("scroll", Vector2(p["scroll"][0], p["scroll"][1]) * (1.0 + 0.5 * i))
+		mi.material_override = sm
+		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		mi.position = Vector3((a[0] + a[3]) * 0.5, a[1] + float(p["height"]) + 0.6 * i, (a[2] + a[5]) * 0.5)
+		add_child(mi)
+
+
+func _process(delta: float) -> void:
+	_t += delta
+	for an in _anims:
+		var m: BaseMaterial3D = an[0]
+		var p: Dictionary = an[2]
+		if an[3] == "pulse_light":
+			m.emission_energy_multiplier = an[1] * (1.0 + float(p["amount"]) * sin(TAU * float(p["speed"]) * _t + float(p["phase"])))
+		else:
+			an[4] -= delta
+			if an[4] <= 0.0:
+				an[4] = 1.0 / float(p["rate"])
+				m.emission_energy_multiplier = an[1] * (1.0 - float(p["amount"]) * randf())
+	for b in _bursts:
+		b[1] -= delta
+		if b[1] <= 0.0:
+			(b[0] as CPUParticles3D).restart()
+			b[1] = randf_range(b[2], b[3])
+	if _sky_speed != 0.0 and environment and environment.environment:
+		environment.environment.sky_rotation.y += _sky_speed * delta

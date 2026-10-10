@@ -117,6 +117,25 @@ Levels without it behave exactly as before. With it, `build_level.py` also write
 - Test fixture: `pipeline/layouts/test_primitives.py` → `levels/test_primitives` (every primitive/prefab; ships in its
   auto-fixed state; regenerate it to see the two deliberate faults).
 
+## Environmental effects (Stage 4) — optional `effects` list in level.json
+GLB = static appearance only (textures/emissive "frame 0"); NO animation, particles or fog survive in a GLB.
+`build_level.py` (or `python3 pipeline/effects.py levels/<name>`, seconds) writes:
+- `effects.json` — engine-neutral, authoritative: per effect id/type/category, resolved world-space `targets` (node
+  names) / `emitters` (points with radius) / `area`, `material_tile_m` for UV-scroll speeds, per-quality
+  (performance/balanced/quality) `enabled` + params + cost estimate (particles alive, emitters, extra draw calls,
+  transparent overdraw m²), `merge_emitters` (continuous multi-point effects = ONE particle system), totals.
+- `fx/*.png` — 4 tiny white-alpha sprites (puff, mote, spark, bubble), tinted at runtime.
+- `fx/godot/` — Godot 4 starter kit (UNTESTED in Godot here): `liquid_surface.gdshader`, `liquid_flow.gdshader`,
+  `fog_sheet.gdshader`, `apply_effects.gd` (CPUParticles3D, ShaderMaterial overrides, emission pulses, sky drift), README.
+Effect types (defaults in `pipeline/effects.py` TYPES; override any param per effect, `"enabled": false` to disable):
+  surface shaders `liquid_surface` (scroll, swirl, pulse), `liquid_flow` (speed m/s, wobble);
+  material animation `pulse_light` (speed Hz, amount, phase), `flicker` (rate, amount);
+  particles `bubbles`, `splash` (kill_below_spawn), `steam`, `smoke`, `sparks` (burst + interval), `ambient_particles` (count);
+  `fog_sheet` (low mist plane; volumetric fog isn't available in Godot Mobile/Compatibility); `sky_drift` (Godot only).
+Placement: `target`, `targets_glob`, `target_material`, `area_from` (node's top surface), `area`, `at_targets_glob` +
+`anchor` bottom/top/center (spawns on a disc around the node), `positions`, `at_background: "factory_chimneys"`
+(chimney tops from environment.json). Viewer: "FX" button cycles off/performance/balanced/quality (approximation).
+
 ## Hand-authored layouts (concept sheets with a top-down plan)
 When a concept sheet has a TOP DOWN LAYOUT/side view, don't run it through MiDaS: write a small layout script in
 `pipeline/layouts/<level>.py` that emits level.json directly (same schema), then `build_level.py`. Example:
@@ -135,7 +154,7 @@ Materials: see Materials section (Toxic Arena uses industrial_metal, trim_light,
 - Units: metres, y-up, -z = forward from spawn. Player eye 1.7 m.
 
 ## Shareable preview
-`python3 pipeline/make_preview.py levels/<name> "Title" out.html` → one self-contained page (level + background glb, sky, environment, every PBR map as data: URIs;
+`python3 pipeline/make_preview.py levels/<name> "Title" out.html` → one self-contained page (level + background glb, sky, environment, effects + sprites, every PBR map as data: URIs;
 sandboxed pages block the blob: URLs GLTFLoader uses for .glb textures, which renders everything black).
 
 ## Mobile notes

@@ -37,9 +37,13 @@ if os.path.exists(envp):
     glob["SKY"] = "data:image/jpeg;base64," + b64(os.path.join(lvl, env["sky"]["image"]))
     if env["files"].get("background"):
         glob["BGGLB"] = b64(os.path.join(lvl, "background.glb")); add_glb_textures(os.path.join(lvl, "background.glb"))
+fxp = os.path.join(lvl, "effects.json")
+if os.path.exists(fxp):  # Stage 4: effects metadata + particle sprites
+    fx = json.load(open(fxp)); glob["FX"] = fx
+    glob["FXTEX"] = {k: "data:image/png;base64," + b64(os.path.join(lvl, v)) for k, v in fx["textures"].items()}
 glob.update(TEXP=pool, TEX=tex)
 s = s.replace("const meta=await (await fetch(base+'/level.json')).json();", "const meta=" + open(os.path.join(lvl, "level.json")).read() + ";")
 s = s.replace('<script type="module">', "<script>" + "".join(f"window.{k}={json.dumps(v)};" for k, v in glob.items()) + "</script>\n<script type=\"module\">", 1)
 assert "window.GLB=" in s and "const meta={" in s and "<html" not in s
 open(out, "w").write(s)
-print(f"{out}: {len(s) // 1024} KB, {len(tex)} materials, {len(pool)} images, env={'ENV' in glob}")
+print(f"{out}: {len(s) // 1024} KB, {len(tex)} materials, {len(pool)} images, env={'ENV' in glob}, fx={'FX' in glob}")

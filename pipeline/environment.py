@@ -71,6 +71,7 @@ def build_environment(level_dir, L=None, log=print):
         T = np.eye(4)
         if typ == "factory":  # local mesh, node placed by azimuth/distance, front turned to the arena
             T = translation_matrix(polar(lay.get("azimuth_deg", 0), lay.get("distance", 180))) @ euler_matrix(0, np.radians(-lay.get("azimuth_deg", 0)), 0)
+        chim = [[round(float(c), 2) for c in (T @ [x, y, z, 1])[:3]] + [round(r, 2)] for x, y, z, r in m.metadata.get("chimney_tops", [])]
         # world-scaled planar UVs (same scheme as the playable level)
         from build_level import uv_world
         if typ == "ground":  # smooth & welded (6x fewer vertices than faceted), top-down UVs
@@ -82,6 +83,7 @@ def build_environment(level_dir, L=None, log=print):
         scene.add_geometry(m, node_name=node, geom_name=node, parent_node_name="Background", transform=T)
         meta_layers.append(dict(id=lay["id"], node=node, type=typ, triangles=int(len(m.faces)), material=mname,
                                 collision=False, cast_shadows=False, visibility_range_end=round(q["far"] * 1.05)))
+        if chim: meta_layers[-1]["chimney_tops"] = chim  # world [x, y, z, radius]: smoke emitters for Stage 4 effects
     bg = os.path.join(level_dir, "background.glb")
     if layers:
         scene.export(bg); dedupe_images(bg); bst = stats(bg)
