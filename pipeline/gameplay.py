@@ -248,10 +248,12 @@ def analyse(level_dir, G=None, write=True, verbose=True):
             if all(math.hypot(p_[0] - c_[0], p_[2] - c_[2]) > 8 for c_ in cand): cand.append(p_)
             if len(cand) >= 6: break
     # narrow connectors: elongated walkable objects whose walkable width < min_bridge_width (camera + strafing room)
-    narrow = []
+    narrow = []; objsz = {o["name"]: o["size"] for o in L["objects"] if o.get("size")}
     reach_nodes = np.array([comp[i] in fwd for i in range(N)]) if home is not None else ok
     for o in np.unique(top_obj[nodes]):
         if str(onames[o]).startswith(("TR_", "TRM_", "SC_", "SCN_", "TW_")): continue  # terrain material strips / scatter are not connectors
+        so = objsz.get(str(onames[o]))
+        if so and min(so[0], so[2]) < 0.5: continue  # posts, rails, kerb-thin tops: nobody walks along them
         idx = np.flatnonzero((top_obj[nodes] == o) & reach_nodes)
         if len(idx) * cell * cell < 2: continue
         ext = nxz[idx].max(0) - nxz[idx].min(0) + cell; width = (2 * dist[idx].max() + 1) * cell

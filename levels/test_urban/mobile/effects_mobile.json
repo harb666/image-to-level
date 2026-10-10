@@ -1,0 +1,251 @@
+{
+ "generated_by": "image-to-level Stage 4 (pipeline/effects.py)",
+ "default_quality": "balanced",
+ "fluid_attachments": [],
+ "note": "Mobile copy of ../effects.json: targets renamed to merged nodes of level_mobile.glb. GLB holds only static appearance. Recreate these at runtime (fx/godot/apply_effects.gd is an untested starter). Costs are estimates: particles alive, emitters, extra draw calls, transparent overdraw area.",
+ "textures": {
+  "puff": "fx/puff.png",
+  "mote": "fx/mote.png",
+  "spark": "fx/spark.png",
+  "bubble": "fx/bubble.png"
+ },
+ "totals": {
+  "performance": {
+   "max_particles": 0,
+   "emitters": 0,
+   "extra_draw_calls": 0,
+   "transparent_area_m2": 0
+  },
+  "balanced": {
+   "max_particles": 0,
+   "emitters": 0,
+   "extra_draw_calls": 0,
+   "transparent_area_m2": 0
+  },
+  "quality": {
+   "max_particles": 0,
+   "emitters": 0,
+   "extra_draw_calls": 0,
+   "transparent_area_m2": 0
+  }
+ },
+ "effects": [
+  {
+   "id": "Glow_Pulse",
+   "type": "pulse_light",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
+   "target_material": "glow",
+   "targets": [
+    "M_glow_-1_-1_props",
+    "M_glow_-1_-2",
+    "M_glow_-1_-2_props",
+    "M_glow_-1_0_props",
+    "M_glow_-2_-1_props",
+    "M_glow_-2_-2_props",
+    "M_glow_-2_0_props",
+    "M_glow_0_-1_props",
+    "M_glow_0_-2_props",
+    "M_glow_0_0",
+    "M_glow_0_0_props",
+    "M_glow_0_1_props",
+    "M_glow_1_-1_props",
+    "M_glow_1_-2",
+    "M_glow_1_0_props"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 0.9,
+      "amount": 0.4,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 0.9,
+      "amount": 0.4,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 0.9,
+      "amount": 0.4,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Trim_Pulse",
+   "type": "pulse_light",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
+   "target_material": "trim",
+   "targets": [
+    "M_trim_-1_-1",
+    "M_trim_-1_-2",
+    "M_trim_-1_0",
+    "M_trim_-2_-1",
+    "M_trim_0_0",
+    "M_trim_0_1",
+    "M_trim_1_-1",
+    "M_trim_1_-2",
+    "M_trim_1_0"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 0.35,
+      "amount": 0.35,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 0.35,
+      "amount": 0.35,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 0.35,
+      "amount": 0.35,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Machinery_Flicker",
+   "type": "flicker",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier random flicker (rate Hz)",
+   "target_material": "structure",
+   "targets": [
+    "M_structure_-1_-1"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 6,
+      "amount": 0.2
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 6,
+      "amount": 0.2
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 6,
+      "amount": 0.2
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Sky_Drift",
+   "type": "sky_drift",
+   "category": "environment",
+   "glb_contains": "nothing",
+   "godot_runtime": "script: Environment.sky_rotation.y += speed (rad/s) - slow cloud drift",
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed_deg_s": 0.25
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed_deg_s": 0.25
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed_deg_s": 0.25
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  }
+ ]
+}

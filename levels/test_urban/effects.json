@@ -1,0 +1,387 @@
+{
+ "generated_by": "image-to-level Stage 4 (pipeline/effects.py)",
+ "default_quality": "balanced",
+ "fluid_attachments": [],
+ "note": "GLB holds only static appearance. Recreate these at runtime (fx/godot/apply_effects.gd is an untested starter). Costs are estimates: particles alive, emitters, extra draw calls, transparent overdraw area.",
+ "textures": {
+  "puff": "fx/puff.png",
+  "mote": "fx/mote.png",
+  "spark": "fx/spark.png",
+  "bubble": "fx/bubble.png"
+ },
+ "totals": {
+  "performance": {
+   "max_particles": 0,
+   "emitters": 0,
+   "extra_draw_calls": 0,
+   "transparent_area_m2": 0
+  },
+  "balanced": {
+   "max_particles": 0,
+   "emitters": 0,
+   "extra_draw_calls": 0,
+   "transparent_area_m2": 0
+  },
+  "quality": {
+   "max_particles": 0,
+   "emitters": 0,
+   "extra_draw_calls": 0,
+   "transparent_area_m2": 0
+  }
+ },
+ "effects": [
+  {
+   "id": "Glow_Pulse",
+   "type": "pulse_light",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
+   "target_material": "glow",
+   "targets": [
+    "Antenna_Light",
+    "Tower_C_Door",
+    "Tower_C_T4_Win_402",
+    "Tower_C_T4_Win_401",
+    "Tower_C_T4_Win_302",
+    "Tower_C_T4_Win_301",
+    "Tower_C_T4_Win_202",
+    "Tower_C_T4_Win_201",
+    "Tower_C_T4_Win_102",
+    "Tower_C_T4_Win_101",
+    "Tower_C_T3_Win_402",
+    "Tower_C_T3_Win_401",
+    "Tower_C_T3_Win_302",
+    "Tower_C_T3_Win_301",
+    "Tower_C_T3_Win_202",
+    "Tower_C_T3_Win_201",
+    "Tower_C_T3_Win_102",
+    "Tower_C_T3_Win_101",
+    "Tower_C_T2_Win_402",
+    "Tower_C_T2_Win_401",
+    "Tower_C_T2_Win_302",
+    "Tower_C_T2_Win_301",
+    "Tower_C_T2_Win_202",
+    "Tower_C_T2_Win_201",
+    "Tower_C_T2_Win_102",
+    "Tower_C_T2_Win_101",
+    "Tower_C_T1_Win_405",
+    "Tower_C_T1_Win_404",
+    "Tower_C_T1_Win_403",
+    "Tower_C_T1_Win_402",
+    "Tower_C_T1_Win_401",
+    "Tower_C_T1_Win_305",
+    "Tower_C_T1_Win_304",
+    "Tower_C_T1_Win_303",
+    "Tower_C_T1_Win_302",
+    "Tower_C_T1_Win_301",
+    "Tower_C_T1_Win_205",
+    "Tower_C_T1_Win_204",
+    "Tower_C_T1_Win_203",
+    "Tower_C_T1_Win_202",
+    "Tower_C_T1_Win_201",
+    "Tower_C_T1_Win_105",
+    "Tower_C_T1_Win_104",
+    "Tower_C_T1_Win_103",
+    "Tower_C_T1_Win_102",
+    "Tower_C_T1_Win_101",
+    "Tower_B_Door",
+    "Tower_B_T2_Win_404",
+    "Tower_B_T2_Win_403",
+    "Tower_B_T2_Win_402",
+    "Tower_B_T2_Win_401",
+    "Tower_B_T2_Win_304",
+    "Tower_B_T2_Win_303",
+    "Tower_B_T2_Win_302",
+    "Tower_B_T2_Win_301",
+    "Tower_B_T2_Win_204",
+    "Tower_B_T2_Win_203",
+    "Tower_B_T2_Win_202",
+    "Tower_B_T2_Win_201",
+    "Tower_B_T2_Win_104",
+    "Tower_B_T2_Win_103",
+    "Tower_B_T2_Win_102",
+    "Tower_B_T2_Win_101",
+    "Tower_B_T1_Win_403",
+    "Tower_B_T1_Win_402",
+    "Tower_B_T1_Win_401",
+    "Tower_B_T1_Win_303",
+    "Tower_B_T1_Win_302",
+    "Tower_B_T1_Win_301",
+    "Tower_B_T1_Win_203",
+    "Tower_B_T1_Win_202",
+    "Tower_B_T1_Win_201",
+    "Tower_B_T1_Win_103",
+    "Tower_B_T1_Win_102",
+    "Tower_B_T1_Win_101",
+    "Tower_A_Door",
+    "Tower_A_T3_Win_402",
+    "Tower_A_T3_Win_401",
+    "Tower_A_T3_Win_302",
+    "Tower_A_T3_Win_301",
+    "Tower_A_T3_Win_202",
+    "Tower_A_T3_Win_201",
+    "Tower_A_T3_Win_102",
+    "Tower_A_T3_Win_101",
+    "Tower_A_T2_Win_402",
+    "Tower_A_T2_Win_401",
+    "Tower_A_T2_Win_302",
+    "Tower_A_T2_Win_301",
+    "Tower_A_T2_Win_202",
+    "Tower_A_T2_Win_201",
+    "Tower_A_T2_Win_102",
+    "Tower_A_T2_Win_101",
+    "Tower_A_T1_Win_404",
+    "Tower_A_T1_Win_403",
+    "Tower_A_T1_Win_402",
+    "Tower_A_T1_Win_401",
+    "Tower_A_T1_Win_304",
+    "Tower_A_T1_Win_303",
+    "Tower_A_T1_Win_302",
+    "Tower_A_T1_Win_301",
+    "Tower_A_T1_Win_204",
+    "Tower_A_T1_Win_203",
+    "Tower_A_T1_Win_202",
+    "Tower_A_T1_Win_201",
+    "Tower_A_T1_Win_104",
+    "Tower_A_T1_Win_103",
+    "Tower_A_T1_Win_102",
+    "Tower_A_T1_Win_101",
+    "West_Lane_Lamp_09_Light",
+    "West_Lane_Lamp_08_Light",
+    "West_Lane_Lamp_07_Light",
+    "West_Lane_Lamp_05_Light",
+    "West_Lane_Lamp_03_Light",
+    "South_Street_Lamp_10_Light",
+    "South_Street_Lamp_09_Light",
+    "South_Street_Lamp_08_Light",
+    "South_Street_Lamp_06_Light",
+    "South_Street_Lamp_05_Light",
+    "South_Street_Lamp_04_Light",
+    "Cross_Street_Lamp_11_Light",
+    "Cross_Street_Lamp_10_Light",
+    "Cross_Street_Lamp_09_Light",
+    "Cross_Street_Lamp_08_Light",
+    "Cross_Street_Lamp_06_Light",
+    "Cross_Street_Lamp_05_Light",
+    "Cross_Street_Lamp_04_Light",
+    "Cross_Street_Lamp_02_Light",
+    "Avenue_Lamp_11_Light",
+    "Avenue_Lamp_09_Light",
+    "Avenue_Lamp_08_Light",
+    "Avenue_Lamp_06_Light",
+    "Avenue_Lamp_05_Light",
+    "Avenue_Lamp_03_Light",
+    "Avenue_Lamp_02_Light"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 0.9,
+      "amount": 0.4,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 0.9,
+      "amount": 0.4,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 0.9,
+      "amount": 0.4,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Trim_Pulse",
+   "type": "pulse_light",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
+   "target_material": "trim",
+   "targets": [
+    "Block_6_Canopy",
+    "Block_6_Roof",
+    "Block_5_Canopy",
+    "Block_5_Roof",
+    "Block_4_Canopy",
+    "Block_4_Roof",
+    "Block_3_Canopy",
+    "Block_3_Roof",
+    "Block_2_Canopy",
+    "Block_2_Roof",
+    "Block_1_Canopy",
+    "Block_1_Roof",
+    "Tower_C_Canopy",
+    "Tower_C_T4_Ledge",
+    "Tower_C_T3_Ledge",
+    "Tower_C_T2_Ledge",
+    "Tower_C_T1_Ledge",
+    "Tower_B_Canopy",
+    "Tower_B_T2_Ledge",
+    "Tower_B_T1_Ledge",
+    "Tower_A_Canopy",
+    "Tower_A_T3_Ledge",
+    "Tower_A_T2_Ledge",
+    "Tower_A_T1_Ledge"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 0.35,
+      "amount": 0.35,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 0.35,
+      "amount": 0.35,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 0.35,
+      "amount": 0.35,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Machinery_Flicker",
+   "type": "flicker",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier random flicker (rate Hz)",
+   "target_material": "structure",
+   "targets": [
+    "Barricade_1_03",
+    "Barricade_1_02",
+    "Barricade_1_01"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 6,
+      "amount": 0.2
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 6,
+      "amount": 0.2
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 6,
+      "amount": 0.2
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Sky_Drift",
+   "type": "sky_drift",
+   "category": "environment",
+   "glb_contains": "nothing",
+   "godot_runtime": "script: Environment.sky_rotation.y += speed (rad/s) - slow cloud drift",
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed_deg_s": 0.25
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed_deg_s": 0.25
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed_deg_s": 0.25
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  }
+ ]
+}

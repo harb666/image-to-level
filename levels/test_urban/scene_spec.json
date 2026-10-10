@@ -1,0 +1,488 @@
+{
+ "spec_version": 1,
+ "name": "test_urban",
+ "title": "Engineering test B - futuristic urban combat district (synthetic, no concept image)",
+ "theme": "futuristic_city",
+ "detail": "medium",
+ "seed": 7,
+ "profile": "balanced",
+ "interpretation": {
+  "summary": "Synthetic Stage 9 test: flat futuristic city blocks, street grid, canal with bridges, plaza, park, elevated walkway.",
+  "visible": [
+   "synthetic test - nothing seen"
+  ],
+  "inferred": [
+   "all elements chosen to exercise urban modules on open terrain"
+  ]
+ },
+ "world": {
+  "size": [
+   224,
+   224
+  ],
+  "center": [
+   0,
+   0
+  ],
+  "seed": 7,
+  "biome": "urban",
+  "relief": "flat",
+  "cell": 4.0,
+  "chunk": 28,
+  "boundary": {
+   "shape": "rounded",
+   "margin": 18,
+   "barrier": "ridge",
+   "height": 10,
+   "offset": 10
+  },
+  "features": [
+   {
+    "id": "Canal",
+    "type": "river",
+    "points": [
+     [
+      -112,
+      62
+     ],
+     [
+      -40,
+      58
+     ],
+     [
+      30,
+      64
+     ],
+     [
+      112,
+      58
+     ]
+    ],
+    "width": 11,
+    "depth": 2.0,
+    "bank": 1.6,
+    "bank_slope": 0.9,
+    "flow": false
+   },
+   {
+    "id": "Central_Plaza",
+    "type": "pad",
+    "center": [
+     22,
+     -22
+    ],
+    "size": [
+     26,
+     22
+    ],
+    "margin": 3,
+    "surface": "plaza"
+   },
+   {
+    "id": "Park",
+    "type": "field",
+    "center": [
+     -58,
+     26
+    ],
+    "radius": 20,
+    "surface": "park"
+   }
+  ],
+  "scatter": [
+   {
+    "id": "Park_Trees",
+    "kinds": [
+     "broadleaf",
+     {
+      "kind": "bush",
+      "weight": 0.6
+     }
+    ],
+    "area": [
+     [
+      -78,
+      8
+     ],
+     [
+      -38,
+      8
+     ],
+     [
+      -38,
+      44
+     ],
+     [
+      -78,
+      44
+     ]
+    ],
+    "density": 2.2,
+    "cluster": 0.3,
+    "slope_max": 15,
+    "layers": [
+     "grass"
+    ]
+   },
+   {
+    "id": "Litter",
+    "kinds": [
+     "debris"
+    ],
+    "density": 0.25,
+    "cluster": 0.7,
+    "slope_max": 10
+   }
+  ],
+  "spawn_regions": [
+   {
+    "id": "Player_Start",
+    "team": "player",
+    "center": [
+     -60,
+     -60
+    ],
+    "radius": 10,
+    "count": 4
+   },
+   {
+    "id": "Enemy_Plaza",
+    "team": "enemy",
+    "center": [
+     22,
+     -22
+    ],
+    "radius": 10,
+    "count": 4
+   },
+   {
+    "id": "Enemy_North",
+    "team": "enemy",
+    "center": [
+     40,
+     88
+    ],
+    "radius": 10,
+    "count": 3
+   }
+  ]
+ },
+ "structures": [
+  {
+   "id": "Avenue",
+   "kind": "street",
+   "from": [
+    0,
+    -105
+   ],
+   "to": [
+    0,
+    105
+   ],
+   "width": 10,
+   "sidewalk": 3
+  },
+  {
+   "id": "Cross_Street",
+   "kind": "street",
+   "from": [
+    -105,
+    0
+   ],
+   "to": [
+    105,
+    0
+   ],
+   "width": 9,
+   "sidewalk": 3
+  },
+  {
+   "id": "South_Street",
+   "kind": "street",
+   "from": [
+    -105,
+    -45
+   ],
+   "to": [
+    105,
+    -45
+   ],
+   "width": 8,
+   "sidewalk": 2.5
+  },
+  {
+   "id": "West_Lane",
+   "kind": "street",
+   "from": [
+    -62,
+    -100
+   ],
+   "to": [
+    -62,
+    100
+   ],
+   "width": 7,
+   "sidewalk": 2.5
+  },
+  {
+   "id": "Tower_A",
+   "kind": "futuristic_tower",
+   "position": [
+    28,
+    24
+   ],
+   "size": [
+    18,
+    46,
+    18
+   ],
+   "floors": 3,
+   "facing": "west"
+  },
+  {
+   "id": "Tower_B",
+   "kind": "futuristic_tower",
+   "position": [
+    -30,
+    -72
+   ],
+   "size": [
+    16,
+    36,
+    14
+   ],
+   "floors": 2,
+   "facing": "north"
+  },
+  {
+   "id": "Tower_C",
+   "kind": "futuristic_tower",
+   "position": [
+    62,
+    -72
+   ],
+   "size": [
+    20,
+    54,
+    18
+   ],
+   "floors": 4,
+   "facing": "north"
+  },
+  {
+   "id": "Block_1",
+   "kind": "office_block",
+   "position": [
+    -30,
+    22
+   ],
+   "size": [
+    22,
+    16,
+    16
+   ],
+   "facing": "east"
+  },
+  {
+   "id": "Block_2",
+   "kind": "office_block",
+   "position": [
+    -30,
+    -22
+   ],
+   "size": [
+    20,
+    20,
+    18
+   ],
+   "facing": "east"
+  },
+  {
+   "id": "Block_3",
+   "kind": "office_block",
+   "position": [
+    66,
+    22
+   ],
+   "size": [
+    24,
+    14,
+    18
+   ],
+   "facing": "west"
+  },
+  {
+   "id": "Block_4",
+   "kind": "office_block",
+   "position": [
+    66,
+    -22
+   ],
+   "size": [
+    18,
+    24,
+    18
+   ],
+   "facing": "west"
+  },
+  {
+   "id": "Block_5",
+   "kind": "office_block",
+   "position": [
+    -88,
+    -22
+   ],
+   "size": [
+    14,
+    12,
+    18
+   ],
+   "facing": "east"
+  },
+  {
+   "id": "Block_6",
+   "kind": "office_block",
+   "position": [
+    30,
+    86
+   ],
+   "size": [
+    26,
+    18,
+    14
+   ],
+   "facing": "south"
+  },
+  {
+   "id": "Skywalk",
+   "kind": "walkway",
+   "from": [
+    -16,
+    36
+   ],
+   "to": [
+    16,
+    36
+   ],
+   "y": 7.0,
+   "width": 3,
+   "pier_spacing": 16,
+   "stairs": "both"
+  },
+  {
+   "id": "Containers_1",
+   "kind": "container",
+   "position": [
+    9,
+    -14
+   ],
+   "count": 3,
+   "yaw": 90
+  },
+  {
+   "id": "Containers_2",
+   "kind": "container",
+   "position": [
+    -48,
+    -5
+   ],
+   "count": 2,
+   "yaw": 10
+  },
+  {
+   "id": "Barricade_1",
+   "kind": "barrier_line",
+   "from": [
+    -14,
+    -36
+   ],
+   "to": [
+    -4,
+    -36
+   ]
+  },
+  {
+   "id": "Barricade_2",
+   "kind": "barrier_line",
+   "from": [
+    6,
+    8
+   ],
+   "to": [
+    14,
+    14
+   ]
+  },
+  {
+   "id": "Wreck_1",
+   "kind": "wreck",
+   "position": [
+    2,
+    -60
+   ],
+   "yaw": 25
+  },
+  {
+   "id": "Wreck_2",
+   "kind": "wreck",
+   "position": [
+    -30,
+    3
+   ],
+   "yaw": 100
+  },
+  {
+   "id": "Wreck_3",
+   "kind": "wreck",
+   "position": [
+    48,
+    -3
+   ],
+   "yaw": -15
+  },
+  {
+   "id": "Billboard",
+   "kind": "billboard",
+   "position": [
+    -14,
+    44
+   ],
+   "size": [
+    10,
+    10,
+    0.5
+   ],
+   "facing": "south"
+  },
+  {
+   "id": "Antenna",
+   "kind": "antenna",
+   "position": [
+    86,
+    34
+   ],
+   "size": [
+    4,
+    22,
+    4
+   ]
+  },
+  {
+   "id": "Fence_Park",
+   "kind": "fence",
+   "from": [
+    -80,
+    46
+   ],
+   "to": [
+    -38,
+    46
+   ]
+  }
+ ],
+ "atmosphere": {
+  "sky": "sunset",
+  "ambient": "none"
+ },
+ "effects": "auto"
+}

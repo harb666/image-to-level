@@ -1,0 +1,2744 @@
+{
+ "generated_by": "image-to-level Stage 5 (pipeline/export_mobile.py)",
+ "profile": "balanced",
+ "settings": {
+  "cell": 48,
+  "tex_max": 512,
+  "bg_tex_max": 128,
+  "prop_range": 70,
+  "small": 2.0
+ },
+ "files": {
+  "level": "level_mobile.glb",
+  "background": "background_mobile.glb",
+  "collision": "collision.glb",
+  "collision_data": "collision.json",
+  "effects": "effects_mobile.json",
+  "environment": "../environment.json"
+ },
+ "godot": {
+  "project_settings": {
+   "rendering/textures/vram_compression/import_etc2_astc": true,
+   "rendering/renderer/rendering_method.mobile": "mobile",
+   "rendering/lights_and_shadows/directional_shadow/size.mobile": 2048,
+   "rendering/anti_aliasing/quality/msaa_3d": "2x"
+  },
+  "import_level_glb": {
+   "meshes/generate_lods": true,
+   "meshes/light_baking": "Static Lightmaps (optional)",
+   "textures": "VRAM Compressed (Godot compresses embedded images to ASTC/ETC2 on import)"
+  },
+  "import_collision_glb": "nodes named *-convcolonly / *-colonly become StaticBody3D colliders; meshes are discarded",
+  "directional_light": {
+   "shadow_enabled": true,
+   "directional_shadow_mode": "PSSM 2 splits",
+   "directional_shadow_max_distance": 60
+  },
+  "note": "Settings are recommendations for Godot 4 mobile; not verified in Godot here. KTX2/Basis is not used: Godot re-compresses on import."
+ },
+ "metrics": {
+  "profile": "balanced",
+  "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
+  "dev": {
+   "level": {
+    "glb_kb": 1665,
+    "triangles": 24936,
+    "nodes": 778,
+    "mesh_nodes": 729,
+    "unique_meshes": 216,
+    "materials": 25,
+    "images": 59,
+    "draw_calls_unbatched": 729,
+    "draw_calls_batched_min": 25,
+    "tex_mem_uncompressed_mb": 23.17,
+    "tex_mem_gpu_compressed_mb": 5.79,
+    "texture_slots": {
+     "baseColorTexture": 23,
+     "metallicRoughnessTexture": 23,
+     "normalTexture": 22,
+     "occlusionTexture": 23,
+     "emissiveTexture": 7
+    },
+    "image_sizes": [
+     "128x128 jpeg",
+     "256x256 jpeg",
+     "512x128 jpeg",
+     "512x512 jpeg"
+    ]
+   },
+   "visible": {
+    "cameras": 104,
+    "visible_draw_calls_mean": 241.9,
+    "visible_draw_calls_max": 655,
+    "visible_triangles_mean": 13068,
+    "visible_triangles_max": 24496
+   }
+  },
+  "mobile": {
+   "level": {
+    "glb_kb": 1910,
+    "triangles": 27096,
+    "nodes": 184,
+    "mesh_nodes": 183,
+    "unique_meshes": 183,
+    "materials": 25,
+    "images": 59,
+    "draw_calls_unbatched": 183,
+    "draw_calls_batched_min": 25,
+    "tex_mem_uncompressed_mb": 23.17,
+    "tex_mem_gpu_compressed_mb": 5.79,
+    "texture_slots": {
+     "baseColorTexture": 23,
+     "metallicRoughnessTexture": 23,
+     "normalTexture": 22,
+     "occlusionTexture": 23,
+     "emissiveTexture": 7
+    },
+    "image_sizes": [
+     "128x128 jpeg",
+     "256x256 jpeg",
+     "512x128 jpeg",
+     "512x512 jpeg"
+    ]
+   },
+   "background": {
+    "glb_kb": 130,
+    "triangles": 1368,
+    "nodes": 3,
+    "mesh_nodes": 2,
+    "unique_meshes": 2,
+    "materials": 2,
+    "images": 7,
+    "draw_calls_unbatched": 2,
+    "draw_calls_batched_min": 2,
+    "tex_mem_uncompressed_mb": 0.58,
+    "tex_mem_gpu_compressed_mb": 0.15,
+    "texture_slots": {
+     "baseColorTexture": 2,
+     "metallicRoughnessTexture": 2,
+     "normalTexture": 2,
+     "occlusionTexture": 2,
+     "emissiveTexture": 1
+    },
+    "image_sizes": [
+     "128x128 jpeg"
+    ]
+   },
+   "collision": {
+    "colliders": 512,
+    "hazards": 0,
+    "glb_kb": 360
+   },
+   "visible": {
+    "cameras": 104,
+    "visible_draw_calls_mean": 64.8,
+    "visible_draw_calls_max": 131,
+    "visible_triangles_mean": 11663,
+    "visible_triangles_max": 20016
+   },
+   "hidden_faces_removed": 0,
+   "effects_extra_draw_calls": 0,
+   "effects_max_particles": 0
+  }
+ },
+ "nodes": [
+  {
+   "node": "M_frame_-2_-2_props",
+   "kind": "props",
+   "material": "frame",
+   "triangles": 44,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "West_Lane_Lamp_03_Arm"
+   ]
+  },
+  {
+   "node": "M_glow_-2_-2_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 12,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "West_Lane_Lamp_03_Light"
+   ]
+  },
+  {
+   "node": "M_frame_-2_-1_props",
+   "kind": "props",
+   "material": "frame",
+   "triangles": 88,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "West_Lane_Lamp_05_Arm",
+    "South_Street_Lamp_04_Arm"
+   ]
+  },
+  {
+   "node": "M_glow_-2_-1_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 24,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "West_Lane_Lamp_05_Light",
+    "South_Street_Lamp_04_Light"
+   ]
+  },
+  {
+   "node": "M_frame_-2_0_props",
+   "kind": "props",
+   "material": "frame",
+   "triangles": 220,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "West_Lane_Lamp_09_Arm",
+    "West_Lane_Lamp_08_Arm",
+    "West_Lane_Lamp_07_Arm",
+    "Cross_Street_Lamp_04_Arm",
+    "Cross_Street_Lamp_02_Arm"
+   ]
+  },
+  {
+   "node": "M_glow_-2_0_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 60,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "West_Lane_Lamp_09_Light",
+    "West_Lane_Lamp_08_Light",
+    "West_Lane_Lamp_07_Light",
+    "Cross_Street_Lamp_04_Light",
+    "Cross_Street_Lamp_02_Light"
+   ]
+  },
+  {
+   "node": "M_rail_-2_0_props",
+   "kind": "props",
+   "material": "rail",
+   "triangles": 132,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Fence_Park_Post_11",
+    "Fence_Park_Post_10",
+    "Fence_Park_Post_09",
+    "Fence_Park_Post_08",
+    "Fence_Park_Post_07",
+    "Fence_Park_Post_06",
+    "Fence_Park_Post_05",
+    "Fence_Park_Post_04",
+    "Fence_Park_Post_03",
+    "Fence_Park_Post_02",
+    "Fence_Park_Post_01"
+   ]
+  },
+  {
+   "node": "M_frame_-1_-2_props",
+   "kind": "props",
+   "material": "frame",
+   "triangles": 88,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "South_Street_Lamp_05_Arm",
+    "Avenue_Lamp_02_Arm"
+   ]
+  },
+  {
+   "node": "M_glow_-1_-2_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 24,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "South_Street_Lamp_05_Light",
+    "Avenue_Lamp_02_Light"
+   ]
+  },
+  {
+   "node": "M_frame_-1_-1_props",
+   "kind": "props",
+   "material": "frame",
+   "triangles": 132,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "South_Street_Lamp_06_Arm",
+    "Cross_Street_Lamp_05_Arm",
+    "Avenue_Lamp_06_Arm"
+   ]
+  },
+  {
+   "node": "M_glow_-1_-1_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 36,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "South_Street_Lamp_06_Light",
+    "Cross_Street_Lamp_05_Light",
+    "Avenue_Lamp_06_Light"
+   ]
+  },
+  {
+   "node": "M_frame_-1_0_props",
+   "kind": "props",
+   "material": "frame",
+   "triangles": 216,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Wreck_2_Wheel_4",
+    "Wreck_2_Wheel_3",
+    "Wreck_2_Wheel_2",
+    "Wreck_2_Wheel_1",
+    "Cross_Street_Lamp_06_Arm",
+    "Avenue_Lamp_08_Arm"
+   ]
+  },
+  {
+   "node": "M_glow_-1_0_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 24,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Cross_Street_Lamp_06_Light",
+    "Avenue_Lamp_08_Light"
+   ]
+  },
+  {
+   "node": "M_rail_-1_0_props",
+   "kind": "props",
+   "material": "rail",
+   "triangles": 48,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Fence_Park_Post_15",
+    "Fence_Park_Post_14",
+    "Fence_Park_Post_13",
+    "Fence_Park_Post_12"
+   ]
+  },
+  {
+   "node": "M_frame_0_-2_props",
+   "kind": "props",
+   "material": "frame",
+   "triangles": 216,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Wreck_1_Wheel_4",
+    "Wreck_1_Wheel_3",
+    "Wreck_1_Wheel_2",
+    "Wreck_1_Wheel_1",
+    "South_Street_Lamp_09_Arm",
+    "Avenue_Lamp_03_Arm"
+   ]
+  },
+  {
+   "node": "M_glow_0_-2_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 24,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "South_Street_Lamp_09_Light",
+    "Avenue_Lamp_03_Light"
+   ]
+  },
+  {
+   "node": "M_frame_0_-1_props",
+   "kind": "props",
+   "material": "frame",
+   "triangles": 196,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Wreck_3_Wheel_3",
+    "Wreck_3_Wheel_1",
+    "South_Street_Lamp_08_Arm",
+    "Cross_Street_Lamp_09_Arm",
+    "Avenue_Lamp_05_Arm"
+   ]
+  },
+  {
+   "node": "M_glow_0_-1_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 36,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "South_Street_Lamp_08_Light",
+    "Cross_Street_Lamp_09_Light",
+    "Avenue_Lamp_05_Light"
+   ]
+  },
+  {
+   "node": "M_frame_0_0_props",
+   "kind": "props",
+   "material": "frame",
+   "triangles": 88,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Cross_Street_Lamp_08_Arm",
+    "Avenue_Lamp_09_Arm"
+   ]
+  },
+  {
+   "node": "M_glow_0_0_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 24,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Cross_Street_Lamp_08_Light",
+    "Avenue_Lamp_09_Light"
+   ]
+  },
+  {
+   "node": "M_frame_0_1_props",
+   "kind": "props",
+   "material": "frame",
+   "triangles": 44,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Avenue_Lamp_11_Arm"
+   ]
+  },
+  {
+   "node": "M_glow_0_1_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 12,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Avenue_Lamp_11_Light"
+   ]
+  },
+  {
+   "node": "M_frame_1_-1_props",
+   "kind": "props",
+   "material": "frame",
+   "triangles": 152,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Wreck_3_Wheel_4",
+    "Wreck_3_Wheel_2",
+    "South_Street_Lamp_10_Arm",
+    "Cross_Street_Lamp_11_Arm"
+   ]
+  },
+  {
+   "node": "M_glow_1_-1_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 24,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "South_Street_Lamp_10_Light",
+    "Cross_Street_Lamp_11_Light"
+   ]
+  },
+  {
+   "node": "M_frame_1_0_props",
+   "kind": "props",
+   "material": "frame",
+   "triangles": 44,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Cross_Street_Lamp_10_Arm"
+   ]
+  },
+  {
+   "node": "M_glow_1_0_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 24,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Antenna_Light",
+    "Cross_Street_Lamp_10_Light"
+   ]
+  },
+  {
+   "node": "M_window_-3_-1",
+   "kind": "static",
+   "material": "window",
+   "triangles": 4,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_5_Win_302",
+    "Block_5_Win_301"
+   ]
+  },
+  {
+   "node": "M_deck_-2_-2",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "South_Street_Sidewalk_R14",
+    "South_Street_Sidewalk_R09"
+   ]
+  },
+  {
+   "node": "M_deck_v2_-2_-2",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "West_Lane_Sidewalk_R11",
+    "West_Lane_Sidewalk_R10",
+    "West_Lane_Sidewalk_R09",
+    "West_Lane_Sidewalk_L11"
+   ]
+  },
+  {
+   "node": "M_frame_-2_-2",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "West_Lane_Lamp_03_Post"
+   ]
+  },
+  {
+   "node": "M_deck_-2_-1",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "South_Street_Sidewalk_L14",
+    "South_Street_Sidewalk_L09",
+    "South_Street_Sidewalk_L08",
+    "South_Street_Sidewalk_L07"
+   ]
+  },
+  {
+   "node": "M_deck_v2_-2_-1",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 216,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "West_Lane_Sidewalk_R22",
+    "West_Lane_Sidewalk_R21",
+    "West_Lane_Sidewalk_R20",
+    "West_Lane_Sidewalk_R19",
+    "West_Lane_Sidewalk_R18",
+    "West_Lane_Sidewalk_R17",
+    "West_Lane_Sidewalk_L22",
+    "West_Lane_Sidewalk_L21",
+    "West_Lane_Sidewalk_L20",
+    "West_Lane_Sidewalk_L19",
+    "West_Lane_Sidewalk_L18",
+    "West_Lane_Sidewalk_L17",
+    "Cross_Street_Sidewalk_R14",
+    "Cross_Street_Sidewalk_R09",
+    "Cross_Street_Sidewalk_R08",
+    "Cross_Street_Sidewalk_R07",
+    "Cross_Street_Sidewalk_R06",
+    "Cross_Street_Sidewalk_R05"
+   ]
+  },
+  {
+   "node": "M_foundation_-2_-1",
+   "kind": "static",
+   "material": "foundation",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Block_5_Foundation"
+   ]
+  },
+  {
+   "node": "M_frame_-2_-1",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "West_Lane_Lamp_05_Post",
+    "South_Street_Lamp_04_Post"
+   ]
+  },
+  {
+   "node": "M_machine_-2_-1",
+   "kind": "static",
+   "material": "machine",
+   "triangles": 216,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_5_RoofUnit"
+   ]
+  },
+  {
+   "node": "M_structure_b_-2_-1",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 2,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Block_5_Door"
+   ]
+  },
+  {
+   "node": "M_trim_-2_-1",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_5_Canopy",
+    "Block_5_Roof"
+   ]
+  },
+  {
+   "node": "M_wall_-2_-1",
+   "kind": "static",
+   "material": "wall",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Block_5_Body"
+   ]
+  },
+  {
+   "node": "M_window_-2_-1",
+   "kind": "static",
+   "material": "window",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_5_Win_402",
+    "Block_5_Win_401",
+    "Block_5_Win_202",
+    "Block_5_Win_201",
+    "Block_5_Win_102",
+    "Block_5_Win_101"
+   ]
+  },
+  {
+   "node": "M_deck_v2_-2_0",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 288,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "West_Lane_Sidewalk_R37",
+    "West_Lane_Sidewalk_R36",
+    "West_Lane_Sidewalk_R35",
+    "West_Lane_Sidewalk_R34",
+    "West_Lane_Sidewalk_R33",
+    "West_Lane_Sidewalk_R32",
+    "West_Lane_Sidewalk_R31",
+    "West_Lane_Sidewalk_R30",
+    "West_Lane_Sidewalk_R29",
+    "West_Lane_Sidewalk_L37",
+    "West_Lane_Sidewalk_L36",
+    "West_Lane_Sidewalk_L35",
+    "West_Lane_Sidewalk_L34",
+    "West_Lane_Sidewalk_L33",
+    "West_Lane_Sidewalk_L32",
+    "West_Lane_Sidewalk_L31",
+    "West_Lane_Sidewalk_L30",
+    "West_Lane_Sidewalk_L29",
+    "Cross_Street_Sidewalk_L14",
+    "Cross_Street_Sidewalk_L09",
+    "Cross_Street_Sidewalk_L08",
+    "Cross_Street_Sidewalk_L07",
+    "Cross_Street_Sidewalk_L06",
+    "Cross_Street_Sidewalk_L05"
+   ]
+  },
+  {
+   "node": "M_frame_-2_0",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "West_Lane_Lamp_09_Post",
+    "West_Lane_Lamp_08_Post",
+    "West_Lane_Lamp_07_Post",
+    "Cross_Street_Lamp_04_Post",
+    "Cross_Street_Lamp_02_Post"
+   ]
+  },
+  {
+   "node": "M_rail_-2_0",
+   "kind": "static",
+   "material": "rail",
+   "triangles": 264,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Fence_Park_Rail_11b",
+    "Fence_Park_Rail_11a",
+    "Fence_Park_Rail_10b",
+    "Fence_Park_Rail_10a",
+    "Fence_Park_Rail_09b",
+    "Fence_Park_Rail_09a",
+    "Fence_Park_Rail_08b",
+    "Fence_Park_Rail_08a",
+    "Fence_Park_Rail_07b",
+    "Fence_Park_Rail_07a",
+    "Fence_Park_Rail_06b",
+    "Fence_Park_Rail_06a",
+    "Fence_Park_Rail_05b",
+    "Fence_Park_Rail_05a",
+    "Fence_Park_Rail_04b",
+    "Fence_Park_Rail_04a",
+    "Fence_Park_Rail_03b",
+    "Fence_Park_Rail_03a",
+    "Fence_Park_Rail_02b",
+    "Fence_Park_Rail_02a",
+    "Fence_Park_Rail_01b",
+    "Fence_Park_Rail_01a"
+   ]
+  },
+  {
+   "node": "M_deck_v2_-2_1",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_West_Lane_Road_Canal_Deck",
+    "West_Lane_Sidewalk_L38"
+   ]
+  },
+  {
+   "node": "M_frame_-2_1",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 136,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_West_Lane_Road_Canal_Column_01R",
+    "Bridge_West_Lane_Road_Canal_Column_01L",
+    "Bridge_West_Lane_Road_Canal_Girder_R",
+    "Bridge_West_Lane_Road_Canal_Girder_L"
+   ]
+  },
+  {
+   "node": "M_rail_-2_1",
+   "kind": "static",
+   "material": "rail",
+   "triangles": 384,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_West_Lane_Road_Canal_Rail_R",
+    "Bridge_West_Lane_Road_Canal_Rail_L"
+   ]
+  },
+  {
+   "node": "M_structure_b_-2_1",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_West_Lane_Road_Canal_Pier_01"
+   ]
+  },
+  {
+   "node": "M_accent_-1_-2",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Tower_B_Crown"
+   ]
+  },
+  {
+   "node": "M_deck_-1_-2",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 108,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "South_Street_Sidewalk_R23",
+    "South_Street_Sidewalk_R22",
+    "South_Street_Sidewalk_R21",
+    "South_Street_Sidewalk_R20",
+    "South_Street_Sidewalk_R19",
+    "South_Street_Sidewalk_R18",
+    "South_Street_Sidewalk_R17",
+    "South_Street_Sidewalk_R16",
+    "South_Street_Sidewalk_R15"
+   ]
+  },
+  {
+   "node": "M_deck_v2_-1_-2",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 108,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Avenue_Sidewalk_L13",
+    "Avenue_Sidewalk_L12",
+    "Avenue_Sidewalk_L11",
+    "Avenue_Sidewalk_L10",
+    "Avenue_Sidewalk_L09",
+    "Avenue_Sidewalk_L08",
+    "Avenue_Sidewalk_L07",
+    "Avenue_Sidewalk_L06",
+    "Avenue_Sidewalk_L05"
+   ]
+  },
+  {
+   "node": "M_foundation_-1_-2",
+   "kind": "static",
+   "material": "foundation",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_B_Foundation"
+   ]
+  },
+  {
+   "node": "M_frame_-1_-2",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 72,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_B_Antenna",
+    "South_Street_Lamp_05_Post",
+    "Avenue_Lamp_02_Post"
+   ]
+  },
+  {
+   "node": "M_glow_-1_-2",
+   "kind": "static",
+   "material": "glow",
+   "triangles": 58,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Tower_B_Door",
+    "Tower_B_T2_Win_404",
+    "Tower_B_T2_Win_403",
+    "Tower_B_T2_Win_402",
+    "Tower_B_T2_Win_401",
+    "Tower_B_T2_Win_304",
+    "Tower_B_T2_Win_303",
+    "Tower_B_T2_Win_302",
+    "Tower_B_T2_Win_301",
+    "Tower_B_T2_Win_204",
+    "Tower_B_T2_Win_203",
+    "Tower_B_T2_Win_202",
+    "Tower_B_T2_Win_201",
+    "Tower_B_T2_Win_104",
+    "Tower_B_T2_Win_103",
+    "Tower_B_T2_Win_102",
+    "Tower_B_T2_Win_101",
+    "Tower_B_T1_Win_403",
+    "Tower_B_T1_Win_402",
+    "Tower_B_T1_Win_401",
+    "Tower_B_T1_Win_303",
+    "Tower_B_T1_Win_302",
+    "Tower_B_T1_Win_301",
+    "Tower_B_T1_Win_203",
+    "Tower_B_T1_Win_202",
+    "Tower_B_T1_Win_201",
+    "Tower_B_T1_Win_103",
+    "Tower_B_T1_Win_102",
+    "Tower_B_T1_Win_101"
+   ]
+  },
+  {
+   "node": "M_trim_-1_-2",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 132,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Tower_B_Canopy",
+    "Tower_B_T2_Ledge",
+    "Tower_B_T1_Ledge"
+   ]
+  },
+  {
+   "node": "M_wall_v2_-1_-2",
+   "kind": "static",
+   "material": "wall_v2",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_B_Tier_2",
+    "Tower_B_Tier_1"
+   ]
+  },
+  {
+   "node": "M_accent_-1_-1",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Containers_2_02"
+   ]
+  },
+  {
+   "node": "M_deck_-1_-1",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 108,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "South_Street_Sidewalk_L23",
+    "South_Street_Sidewalk_L22",
+    "South_Street_Sidewalk_L21",
+    "South_Street_Sidewalk_L20",
+    "South_Street_Sidewalk_L19",
+    "South_Street_Sidewalk_L18",
+    "South_Street_Sidewalk_L17",
+    "South_Street_Sidewalk_L16",
+    "South_Street_Sidewalk_L15"
+   ]
+  },
+  {
+   "node": "M_deck_v2_-1_-1",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 180,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Cross_Street_Sidewalk_R23",
+    "Cross_Street_Sidewalk_R22",
+    "Cross_Street_Sidewalk_R21",
+    "Cross_Street_Sidewalk_R20",
+    "Cross_Street_Sidewalk_R19",
+    "Cross_Street_Sidewalk_R18",
+    "Cross_Street_Sidewalk_R17",
+    "Cross_Street_Sidewalk_R16",
+    "Cross_Street_Sidewalk_R15",
+    "Avenue_Sidewalk_L23",
+    "Avenue_Sidewalk_L22",
+    "Avenue_Sidewalk_L21",
+    "Avenue_Sidewalk_L20",
+    "Avenue_Sidewalk_L19",
+    "Avenue_Sidewalk_L18"
+   ]
+  },
+  {
+   "node": "M_foundation_-1_-1",
+   "kind": "static",
+   "material": "foundation",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Block_2_Foundation"
+   ]
+  },
+  {
+   "node": "M_frame_-1_-1",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 72,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "South_Street_Lamp_06_Post",
+    "Cross_Street_Lamp_05_Post",
+    "Avenue_Lamp_06_Post"
+   ]
+  },
+  {
+   "node": "M_machine_-1_-1",
+   "kind": "static",
+   "material": "machine",
+   "triangles": 172,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_2_RoofUnit"
+   ]
+  },
+  {
+   "node": "M_structure_-1_-1",
+   "kind": "static",
+   "material": "structure",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Barricade_1_03",
+    "Barricade_1_02",
+    "Barricade_1_01"
+   ]
+  },
+  {
+   "node": "M_structure_b_-1_-1",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 46,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Containers_2_01",
+    "Block_2_Door"
+   ]
+  },
+  {
+   "node": "M_trim_-1_-1",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_2_Canopy",
+    "Block_2_Roof"
+   ]
+  },
+  {
+   "node": "M_wall_-1_-1",
+   "kind": "static",
+   "material": "wall",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Block_2_Body"
+   ]
+  },
+  {
+   "node": "M_window_-1_-1",
+   "kind": "static",
+   "material": "window",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_2_Win_404",
+    "Block_2_Win_403",
+    "Block_2_Win_402",
+    "Block_2_Win_401",
+    "Block_2_Win_304",
+    "Block_2_Win_303",
+    "Block_2_Win_302",
+    "Block_2_Win_301",
+    "Block_2_Win_204",
+    "Block_2_Win_203",
+    "Block_2_Win_202",
+    "Block_2_Win_201",
+    "Block_2_Win_104",
+    "Block_2_Win_103",
+    "Block_2_Win_102",
+    "Block_2_Win_101"
+   ]
+  },
+  {
+   "node": "M_accent_-1_0",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 2,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Billboard_Sign"
+   ]
+  },
+  {
+   "node": "M_deck_v2_-1_0",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 216,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Cross_Street_Sidewalk_L23",
+    "Cross_Street_Sidewalk_L22",
+    "Cross_Street_Sidewalk_L21",
+    "Cross_Street_Sidewalk_L20",
+    "Cross_Street_Sidewalk_L19",
+    "Cross_Street_Sidewalk_L18",
+    "Cross_Street_Sidewalk_L17",
+    "Cross_Street_Sidewalk_L16",
+    "Cross_Street_Sidewalk_L15",
+    "Avenue_Sidewalk_L38",
+    "Avenue_Sidewalk_L37",
+    "Avenue_Sidewalk_L36",
+    "Avenue_Sidewalk_L35",
+    "Avenue_Sidewalk_L34",
+    "Avenue_Sidewalk_L33",
+    "Avenue_Sidewalk_L32",
+    "Avenue_Sidewalk_L31",
+    "Avenue_Sidewalk_L30"
+   ]
+  },
+  {
+   "node": "M_foundation_-1_0",
+   "kind": "static",
+   "material": "foundation",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Block_1_Foundation"
+   ]
+  },
+  {
+   "node": "M_frame_-1_0",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 300,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Billboard_PostR",
+    "Billboard_PostL",
+    "Skywalk_Column_02R",
+    "Skywalk_Column_02L",
+    "Skywalk_Column_01R",
+    "Skywalk_Column_01L",
+    "Skywalk_Girder_L",
+    "Cross_Street_Lamp_06_Post",
+    "Avenue_Lamp_08_Post"
+   ]
+  },
+  {
+   "node": "M_machine_-1_0",
+   "kind": "static",
+   "material": "machine",
+   "triangles": 216,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_1_RoofUnit"
+   ]
+  },
+  {
+   "node": "M_rail_-1_0",
+   "kind": "static",
+   "material": "rail",
+   "triangles": 408,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Fence_Park_Rail_14b",
+    "Fence_Park_Rail_14a",
+    "Fence_Park_Rail_13b",
+    "Fence_Park_Rail_13a",
+    "Fence_Park_Rail_12b",
+    "Fence_Park_Rail_12a",
+    "Skywalk_Rail_L"
+   ]
+  },
+  {
+   "node": "M_structure_b_-1_0",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 266,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Billboard_Board",
+    "Wreck_2_Cabin",
+    "Wreck_2_Body",
+    "Skywalk_Abutment_A",
+    "Skywalk_Pier_02",
+    "Skywalk_Pier_01",
+    "Block_1_Door"
+   ]
+  },
+  {
+   "node": "M_trim_-1_0",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_1_Canopy",
+    "Block_1_Roof"
+   ]
+  },
+  {
+   "node": "M_wall_v2_-1_0",
+   "kind": "static",
+   "material": "wall_v2",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Block_1_Body"
+   ]
+  },
+  {
+   "node": "M_window_-1_0",
+   "kind": "static",
+   "material": "window",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_1_Win_403",
+    "Block_1_Win_402",
+    "Block_1_Win_401",
+    "Block_1_Win_303",
+    "Block_1_Win_302",
+    "Block_1_Win_301",
+    "Block_1_Win_203",
+    "Block_1_Win_202",
+    "Block_1_Win_201",
+    "Block_1_Win_103",
+    "Block_1_Win_102",
+    "Block_1_Win_101"
+   ]
+  },
+  {
+   "node": "M_deck_v2_-1_1",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 72,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Avenue_Sidewalk_L48",
+    "Avenue_Sidewalk_L47",
+    "Avenue_Sidewalk_L46",
+    "Avenue_Sidewalk_L45",
+    "Avenue_Sidewalk_L44",
+    "Avenue_Sidewalk_L39"
+   ]
+  },
+  {
+   "node": "M_frame_-1_1",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 68,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_Avenue_Road_Canal_Column_01L",
+    "Bridge_Avenue_Road_Canal_Girder_L"
+   ]
+  },
+  {
+   "node": "M_rail_-1_1",
+   "kind": "static",
+   "material": "rail",
+   "triangles": 192,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_Avenue_Road_Canal_Rail_L"
+   ]
+  },
+  {
+   "node": "M_deck_0_-2",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 108,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "South_Street_Sidewalk_R38",
+    "South_Street_Sidewalk_R37",
+    "South_Street_Sidewalk_R36",
+    "South_Street_Sidewalk_R35",
+    "South_Street_Sidewalk_R34",
+    "South_Street_Sidewalk_R33",
+    "South_Street_Sidewalk_R32",
+    "South_Street_Sidewalk_R31",
+    "South_Street_Sidewalk_R30"
+   ]
+  },
+  {
+   "node": "M_deck_v2_0_-2",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 108,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Avenue_Sidewalk_R13",
+    "Avenue_Sidewalk_R12",
+    "Avenue_Sidewalk_R11",
+    "Avenue_Sidewalk_R10",
+    "Avenue_Sidewalk_R09",
+    "Avenue_Sidewalk_R08",
+    "Avenue_Sidewalk_R07",
+    "Avenue_Sidewalk_R06",
+    "Avenue_Sidewalk_R05"
+   ]
+  },
+  {
+   "node": "M_frame_0_-2",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "South_Street_Lamp_09_Post",
+    "Avenue_Lamp_03_Post"
+   ]
+  },
+  {
+   "node": "M_structure_b_0_-2",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Wreck_1_Cabin",
+    "Wreck_1_Body"
+   ]
+  },
+  {
+   "node": "M_accent_0_-1",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Containers_1_02"
+   ]
+  },
+  {
+   "node": "M_deck_0_-1",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 108,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "South_Street_Sidewalk_L38",
+    "South_Street_Sidewalk_L37",
+    "South_Street_Sidewalk_L36",
+    "South_Street_Sidewalk_L35",
+    "South_Street_Sidewalk_L34",
+    "South_Street_Sidewalk_L33",
+    "South_Street_Sidewalk_L32",
+    "South_Street_Sidewalk_L31",
+    "South_Street_Sidewalk_L30"
+   ]
+  },
+  {
+   "node": "M_deck_v2_0_-1",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 180,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Cross_Street_Sidewalk_R38",
+    "Cross_Street_Sidewalk_R37",
+    "Cross_Street_Sidewalk_R36",
+    "Cross_Street_Sidewalk_R35",
+    "Cross_Street_Sidewalk_R34",
+    "Cross_Street_Sidewalk_R33",
+    "Cross_Street_Sidewalk_R32",
+    "Cross_Street_Sidewalk_R31",
+    "Cross_Street_Sidewalk_R30",
+    "Avenue_Sidewalk_R23",
+    "Avenue_Sidewalk_R22",
+    "Avenue_Sidewalk_R21",
+    "Avenue_Sidewalk_R20",
+    "Avenue_Sidewalk_R19",
+    "Avenue_Sidewalk_R18"
+   ]
+  },
+  {
+   "node": "M_frame_0_-1",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 72,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "South_Street_Lamp_08_Post",
+    "Cross_Street_Lamp_09_Post",
+    "Avenue_Lamp_05_Post"
+   ]
+  },
+  {
+   "node": "M_structure_b_0_-1",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 176,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Wreck_3_Cabin",
+    "Wreck_3_Body",
+    "Containers_1_03",
+    "Containers_1_01"
+   ]
+  },
+  {
+   "node": "M_accent_0_0",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Tower_A_Crown"
+   ]
+  },
+  {
+   "node": "M_deck_0_0",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Skywalk_Deck"
+   ]
+  },
+  {
+   "node": "M_deck_v2_0_0",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 216,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Cross_Street_Sidewalk_L38",
+    "Cross_Street_Sidewalk_L37",
+    "Cross_Street_Sidewalk_L36",
+    "Cross_Street_Sidewalk_L35",
+    "Cross_Street_Sidewalk_L34",
+    "Cross_Street_Sidewalk_L33",
+    "Cross_Street_Sidewalk_L32",
+    "Cross_Street_Sidewalk_L31",
+    "Cross_Street_Sidewalk_L30",
+    "Avenue_Sidewalk_R38",
+    "Avenue_Sidewalk_R37",
+    "Avenue_Sidewalk_R36",
+    "Avenue_Sidewalk_R35",
+    "Avenue_Sidewalk_R34",
+    "Avenue_Sidewalk_R33",
+    "Avenue_Sidewalk_R32",
+    "Avenue_Sidewalk_R31",
+    "Avenue_Sidewalk_R30"
+   ]
+  },
+  {
+   "node": "M_foundation_0_0",
+   "kind": "static",
+   "material": "foundation",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_A_Foundation"
+   ]
+  },
+  {
+   "node": "M_frame_0_0",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 236,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Skywalk_Column_04R",
+    "Skywalk_Column_04L",
+    "Skywalk_Column_03R",
+    "Skywalk_Column_03L",
+    "Skywalk_Girder_R",
+    "Tower_A_Antenna",
+    "Cross_Street_Lamp_08_Post",
+    "Avenue_Lamp_09_Post"
+   ]
+  },
+  {
+   "node": "M_glow_0_0",
+   "kind": "static",
+   "material": "glow",
+   "triangles": 66,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Tower_A_Door",
+    "Tower_A_T3_Win_402",
+    "Tower_A_T3_Win_401",
+    "Tower_A_T3_Win_302",
+    "Tower_A_T3_Win_301",
+    "Tower_A_T3_Win_202",
+    "Tower_A_T3_Win_201",
+    "Tower_A_T3_Win_102",
+    "Tower_A_T3_Win_101",
+    "Tower_A_T2_Win_402",
+    "Tower_A_T2_Win_401",
+    "Tower_A_T2_Win_302",
+    "Tower_A_T2_Win_301",
+    "Tower_A_T2_Win_202",
+    "Tower_A_T2_Win_201",
+    "Tower_A_T2_Win_102",
+    "Tower_A_T2_Win_101",
+    "Tower_A_T1_Win_404",
+    "Tower_A_T1_Win_403",
+    "Tower_A_T1_Win_402",
+    "Tower_A_T1_Win_401",
+    "Tower_A_T1_Win_304",
+    "Tower_A_T1_Win_303",
+    "Tower_A_T1_Win_302",
+    "Tower_A_T1_Win_301",
+    "Tower_A_T1_Win_204",
+    "Tower_A_T1_Win_203",
+    "Tower_A_T1_Win_202",
+    "Tower_A_T1_Win_201",
+    "Tower_A_T1_Win_104",
+    "Tower_A_T1_Win_103",
+    "Tower_A_T1_Win_102",
+    "Tower_A_T1_Win_101"
+   ]
+  },
+  {
+   "node": "M_rail_0_0",
+   "kind": "static",
+   "material": "rail",
+   "triangles": 336,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Skywalk_Rail_R"
+   ]
+  },
+  {
+   "node": "M_structure_b_0_0",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 132,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Skywalk_Abutment_B",
+    "Skywalk_Pier_04",
+    "Skywalk_Pier_03"
+   ]
+  },
+  {
+   "node": "M_structure_v2_0_0",
+   "kind": "static",
+   "material": "structure_v2",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Barricade_2_03",
+    "Barricade_2_02",
+    "Barricade_2_01"
+   ]
+  },
+  {
+   "node": "M_trim_0_0",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 176,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Tower_A_Canopy",
+    "Tower_A_T3_Ledge",
+    "Tower_A_T2_Ledge",
+    "Tower_A_T1_Ledge"
+   ]
+  },
+  {
+   "node": "M_wall_v2_0_0",
+   "kind": "static",
+   "material": "wall_v2",
+   "triangles": 132,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_A_Tier_3",
+    "Tower_A_Tier_2",
+    "Tower_A_Tier_1"
+   ]
+  },
+  {
+   "node": "M_deck_0_1",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_Avenue_Road_Canal_Deck"
+   ]
+  },
+  {
+   "node": "M_deck_v2_0_1",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 60,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Avenue_Sidewalk_R48",
+    "Avenue_Sidewalk_R47",
+    "Avenue_Sidewalk_R46",
+    "Avenue_Sidewalk_R45",
+    "Avenue_Sidewalk_R39"
+   ]
+  },
+  {
+   "node": "M_foundation_0_1",
+   "kind": "static",
+   "material": "foundation",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Block_6_Foundation"
+   ]
+  },
+  {
+   "node": "M_frame_0_1",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 92,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_Avenue_Road_Canal_Column_01R",
+    "Bridge_Avenue_Road_Canal_Girder_R",
+    "Avenue_Lamp_11_Post"
+   ]
+  },
+  {
+   "node": "M_machine_0_1",
+   "kind": "static",
+   "material": "machine",
+   "triangles": 216,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_6_RoofUnit"
+   ]
+  },
+  {
+   "node": "M_rail_0_1",
+   "kind": "static",
+   "material": "rail",
+   "triangles": 192,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_Avenue_Road_Canal_Rail_R"
+   ]
+  },
+  {
+   "node": "M_structure_b_0_1",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 2,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Block_6_Door"
+   ]
+  },
+  {
+   "node": "M_trim_0_1",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_6_Canopy",
+    "Block_6_Roof"
+   ]
+  },
+  {
+   "node": "M_wall_v2_0_1",
+   "kind": "static",
+   "material": "wall_v2",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Block_6_Body"
+   ]
+  },
+  {
+   "node": "M_window_0_1",
+   "kind": "static",
+   "material": "window",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_6_Win_404",
+    "Block_6_Win_403",
+    "Block_6_Win_402",
+    "Block_6_Win_401",
+    "Block_6_Win_304",
+    "Block_6_Win_303",
+    "Block_6_Win_302",
+    "Block_6_Win_301",
+    "Block_6_Win_204",
+    "Block_6_Win_203",
+    "Block_6_Win_202",
+    "Block_6_Win_201",
+    "Block_6_Win_104",
+    "Block_6_Win_103",
+    "Block_6_Win_102",
+    "Block_6_Win_101"
+   ]
+  },
+  {
+   "node": "M_accent_1_-2",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Tower_C_Crown"
+   ]
+  },
+  {
+   "node": "M_deck_1_-2",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 72,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "South_Street_Sidewalk_R44",
+    "South_Street_Sidewalk_R43",
+    "South_Street_Sidewalk_R42",
+    "South_Street_Sidewalk_R41",
+    "South_Street_Sidewalk_R40",
+    "South_Street_Sidewalk_R39"
+   ]
+  },
+  {
+   "node": "M_foundation_1_-2",
+   "kind": "static",
+   "material": "foundation",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_C_Foundation"
+   ]
+  },
+  {
+   "node": "M_frame_1_-2",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_C_Antenna"
+   ]
+  },
+  {
+   "node": "M_glow_1_-2",
+   "kind": "static",
+   "material": "glow",
+   "triangles": 90,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Tower_C_Door",
+    "Tower_C_T4_Win_402",
+    "Tower_C_T4_Win_401",
+    "Tower_C_T4_Win_302",
+    "Tower_C_T4_Win_301",
+    "Tower_C_T4_Win_202",
+    "Tower_C_T4_Win_201",
+    "Tower_C_T4_Win_102",
+    "Tower_C_T4_Win_101",
+    "Tower_C_T3_Win_402",
+    "Tower_C_T3_Win_401",
+    "Tower_C_T3_Win_302",
+    "Tower_C_T3_Win_301",
+    "Tower_C_T3_Win_202",
+    "Tower_C_T3_Win_201",
+    "Tower_C_T3_Win_102",
+    "Tower_C_T3_Win_101",
+    "Tower_C_T2_Win_402",
+    "Tower_C_T2_Win_401",
+    "Tower_C_T2_Win_302",
+    "Tower_C_T2_Win_301",
+    "Tower_C_T2_Win_202",
+    "Tower_C_T2_Win_201",
+    "Tower_C_T2_Win_102",
+    "Tower_C_T2_Win_101",
+    "Tower_C_T1_Win_405",
+    "Tower_C_T1_Win_404",
+    "Tower_C_T1_Win_403",
+    "Tower_C_T1_Win_402",
+    "Tower_C_T1_Win_401",
+    "Tower_C_T1_Win_305",
+    "Tower_C_T1_Win_304",
+    "Tower_C_T1_Win_303",
+    "Tower_C_T1_Win_302",
+    "Tower_C_T1_Win_301",
+    "Tower_C_T1_Win_205",
+    "Tower_C_T1_Win_204",
+    "Tower_C_T1_Win_203",
+    "Tower_C_T1_Win_202",
+    "Tower_C_T1_Win_201",
+    "Tower_C_T1_Win_105",
+    "Tower_C_T1_Win_104",
+    "Tower_C_T1_Win_103",
+    "Tower_C_T1_Win_102",
+    "Tower_C_T1_Win_101"
+   ]
+  },
+  {
+   "node": "M_trim_1_-2",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 220,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Tower_C_Canopy",
+    "Tower_C_T4_Ledge",
+    "Tower_C_T3_Ledge",
+    "Tower_C_T2_Ledge",
+    "Tower_C_T1_Ledge"
+   ]
+  },
+  {
+   "node": "M_wall_v2_1_-2",
+   "kind": "static",
+   "material": "wall_v2",
+   "triangles": 176,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_C_Tier_4",
+    "Tower_C_Tier_3",
+    "Tower_C_Tier_2",
+    "Tower_C_Tier_1"
+   ]
+  },
+  {
+   "node": "M_deck_1_-1",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "South_Street_Sidewalk_L46",
+    "South_Street_Sidewalk_L45",
+    "South_Street_Sidewalk_L44",
+    "South_Street_Sidewalk_L43",
+    "South_Street_Sidewalk_L42",
+    "South_Street_Sidewalk_L41",
+    "South_Street_Sidewalk_L40",
+    "South_Street_Sidewalk_L39"
+   ]
+  },
+  {
+   "node": "M_deck_v2_1_-1",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Cross_Street_Sidewalk_R48",
+    "Cross_Street_Sidewalk_R47",
+    "Cross_Street_Sidewalk_R46",
+    "Cross_Street_Sidewalk_R45",
+    "Cross_Street_Sidewalk_R44",
+    "Cross_Street_Sidewalk_R43",
+    "Cross_Street_Sidewalk_R42",
+    "Cross_Street_Sidewalk_R41",
+    "Cross_Street_Sidewalk_R40",
+    "Cross_Street_Sidewalk_R39"
+   ]
+  },
+  {
+   "node": "M_foundation_1_-1",
+   "kind": "static",
+   "material": "foundation",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Block_4_Foundation"
+   ]
+  },
+  {
+   "node": "M_frame_1_-1",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "South_Street_Lamp_10_Post",
+    "Cross_Street_Lamp_11_Post"
+   ]
+  },
+  {
+   "node": "M_machine_1_-1",
+   "kind": "static",
+   "material": "machine",
+   "triangles": 216,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_4_RoofUnit"
+   ]
+  },
+  {
+   "node": "M_structure_b_1_-1",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 2,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Block_4_Door"
+   ]
+  },
+  {
+   "node": "M_trim_1_-1",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_4_Canopy",
+    "Block_4_Roof"
+   ]
+  },
+  {
+   "node": "M_wall_1_-1",
+   "kind": "static",
+   "material": "wall",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Block_4_Body"
+   ]
+  },
+  {
+   "node": "M_window_1_-1",
+   "kind": "static",
+   "material": "window",
+   "triangles": 40,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_4_Win_405",
+    "Block_4_Win_404",
+    "Block_4_Win_403",
+    "Block_4_Win_402",
+    "Block_4_Win_401",
+    "Block_4_Win_305",
+    "Block_4_Win_304",
+    "Block_4_Win_303",
+    "Block_4_Win_302",
+    "Block_4_Win_301",
+    "Block_4_Win_205",
+    "Block_4_Win_204",
+    "Block_4_Win_203",
+    "Block_4_Win_202",
+    "Block_4_Win_201",
+    "Block_4_Win_105",
+    "Block_4_Win_104",
+    "Block_4_Win_103",
+    "Block_4_Win_102",
+    "Block_4_Win_101"
+   ]
+  },
+  {
+   "node": "M_deck_v2_1_0",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Cross_Street_Sidewalk_L48",
+    "Cross_Street_Sidewalk_L47",
+    "Cross_Street_Sidewalk_L46",
+    "Cross_Street_Sidewalk_L45",
+    "Cross_Street_Sidewalk_L44",
+    "Cross_Street_Sidewalk_L43",
+    "Cross_Street_Sidewalk_L42",
+    "Cross_Street_Sidewalk_L41",
+    "Cross_Street_Sidewalk_L40",
+    "Cross_Street_Sidewalk_L39"
+   ]
+  },
+  {
+   "node": "M_foundation_1_0",
+   "kind": "static",
+   "material": "foundation",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Antenna_Foundation",
+    "Block_3_Foundation"
+   ]
+  },
+  {
+   "node": "M_frame_1_0",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Antenna_Mast",
+    "Cross_Street_Lamp_10_Post"
+   ]
+  },
+  {
+   "node": "M_machine_1_0",
+   "kind": "static",
+   "material": "machine",
+   "triangles": 216,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_3_RoofUnit"
+   ]
+  },
+  {
+   "node": "M_structure_b_1_0",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 50,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Antenna_Dish",
+    "Block_3_Door"
+   ]
+  },
+  {
+   "node": "M_structure_v2_1_0",
+   "kind": "static",
+   "material": "structure_v2",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Antenna_Base"
+   ]
+  },
+  {
+   "node": "M_trim_1_0",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_3_Canopy",
+    "Block_3_Roof"
+   ]
+  },
+  {
+   "node": "M_wall_v2_1_0",
+   "kind": "static",
+   "material": "wall_v2",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Block_3_Body"
+   ]
+  },
+  {
+   "node": "M_window_1_0",
+   "kind": "static",
+   "material": "window",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Block_3_Win_403",
+    "Block_3_Win_402",
+    "Block_3_Win_401",
+    "Block_3_Win_303",
+    "Block_3_Win_302",
+    "Block_3_Win_301",
+    "Block_3_Win_203",
+    "Block_3_Win_202",
+    "Block_3_Win_201",
+    "Block_3_Win_103",
+    "Block_3_Win_102",
+    "Block_3_Win_101"
+   ]
+  },
+  {
+   "node": "TR_0_0_concrete_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_concrete",
+   "triangles": 1180,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_road_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_road",
+   "triangles": 350,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 38,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_concrete_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_concrete",
+   "triangles": 336,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_road_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_road",
+   "triangles": 104,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 8,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 182,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_1_concrete_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_concrete",
+   "triangles": 1263,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_road_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_road",
+   "triangles": 260,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 45,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_concrete_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_concrete",
+   "triangles": 352,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_road_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_road",
+   "triangles": 80,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 16,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 182,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_1_0_concrete_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_concrete",
+   "triangles": 980,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 120,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_mud_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_mud",
+   "triangles": 138,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_road_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_road",
+   "triangles": 254,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 76,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_concrete_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_concrete",
+   "triangles": 277,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 31,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_mud_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_mud",
+   "triangles": 52,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_road_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_road",
+   "triangles": 78,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 10,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 182,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_1_concrete_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_concrete",
+   "triangles": 1190,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_mud_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_mud",
+   "triangles": 160,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_road_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_road",
+   "triangles": 158,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 60,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_concrete_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_concrete",
+   "triangles": 344,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_mud_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_mud",
+   "triangles": 42,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_road_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_road",
+   "triangles": 54,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 8,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 182,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "SCN_Litter__60_2_2",
+   "kind": "scatter",
+   "material": "sc_atlas_litter",
+   "triangles": 72,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Litter__60_2_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Litter__60_2_1",
+   "kind": "scatter",
+   "material": "sc_atlas_litter",
+   "triangles": 60,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Litter__60_2_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Litter__60_1_1",
+   "kind": "scatter",
+   "material": "sc_atlas_litter",
+   "triangles": 36,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Litter__60_1_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Litter__60_1_0",
+   "kind": "scatter",
+   "material": "sc_atlas_litter",
+   "triangles": 48,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Litter__60_1_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Litter__60_0_2",
+   "kind": "scatter",
+   "material": "sc_atlas_litter",
+   "triangles": 36,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Litter__60_0_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Park_Trees__80_1_0",
+   "kind": "scatter",
+   "material": "sc_atlas_park_trees",
+   "triangles": 320,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Park_Trees__80_1_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Park_Trees__112_1_0",
+   "kind": "scatter",
+   "material": "sc_atlas_park_trees",
+   "triangles": 2080,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Park_Trees__112_1_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "TW_Canal",
+   "kind": "water",
+   "material": "water",
+   "triangles": 1188,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TW_Canal"
+   ],
+   "reason": "water surface"
+  },
+  {
+   "node": "TRM_7",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 217,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_7"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_6",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 217,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_6"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_5",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 217,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_5"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_4",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 217,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_4"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_3",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 217,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_3"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_2",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 217,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_2"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_1",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 217,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_1"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_0",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 217,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_0"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  }
+ ]
+}

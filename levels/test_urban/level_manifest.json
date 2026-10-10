@@ -1,0 +1,157 @@
+{
+ "format": "image-to-level package v1",
+ "level": "test_urban",
+ "title": "scene_spec.json - Engineering test B - futuristic urban combat district (synthetic, no concept image)",
+ "generated": "2026-10-10 12:16:44",
+ "godot_root": "res://levels/test_urban/",
+ "use_in_game": "mobile/level_mobile.glb (+ mobile/background_mobile.glb, mobile/collision.glb)",
+ "profile": "balanced",
+ "spawns": [
+  {
+   "id": "spawn",
+   "position": [
+    -61.67,
+    -0.03,
+    -60.0
+   ],
+   "yaw_deg": -135.0
+  },
+  {
+   "id": "Player_Start_2",
+   "position": [
+    -60.0,
+    -0.03,
+    -55.0
+   ],
+   "yaw_deg": -135.0,
+   "team": "player"
+  },
+  {
+   "id": "Player_Start_3",
+   "position": [
+    -61.67,
+    -0.04,
+    -65.0
+   ],
+   "yaw_deg": -135.0,
+   "team": "player"
+  },
+  {
+   "id": "Player_Start_4",
+   "position": [
+    -53.33,
+    -0.02,
+    -60.0
+   ],
+   "yaw_deg": -135.0,
+   "team": "player"
+  },
+  {
+   "id": "Enemy_Plaza_1",
+   "position": [
+    22.0,
+    0.03,
+    -22.0
+   ],
+   "yaw_deg": 135.0,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_Plaza_2",
+   "position": [
+    18.67,
+    0.03,
+    -25.33
+   ],
+   "yaw_deg": 135.0,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_Plaza_3",
+   "position": [
+    25.33,
+    0.03,
+    -25.33
+   ],
+   "yaw_deg": 135.0,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_Plaza_4",
+   "position": [
+    18.67,
+    0.03,
+    -18.67
+   ],
+   "yaw_deg": 135.0,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_North_1",
+   "position": [
+    45.0,
+    0.09,
+    79.67
+   ],
+   "yaw_deg": 24.4,
+   "team": "enemy"
+  }
+ ],
+ "hazards": [],
+ "generator": {
+  "tool": "pipeline/spec_to_level.py",
+  "spec_sha": "67e1d98bc2bb89d8",
+  "theme": "futuristic_city",
+  "detail": "medium",
+  "mode": "open"
+ },
+ "metrics": {
+  "dev": {
+   "glb_kb": 1665,
+   "triangles": 24576,
+   "draw_calls": 729,
+   "tex_mem_gpu_mb_est": 5.79
+  },
+  "mobile": {
+   "profile": "balanced",
+   "glb_kb": 1910,
+   "triangles": 27096,
+   "draw_calls": 183,
+   "visible_draw_calls_est": 64.8,
+   "visible_draw_calls_max_est": 131,
+   "tex_mem_gpu_mb_est": 5.79,
+   "materials": 25,
+   "nodes": 184,
+   "colliders": {
+    "colliders": 512,
+    "hazards": 0,
+    "glb_kb": 360
+   },
+   "background_kb": 130,
+   "visible_triangles_est": 11663,
+   "visible_triangles_max_est": 20016
+  },
+  "effects": {
+   "max_particles": 0,
+   "emitters": 0,
+   "extra_draw_calls": 0,
+   "transparent_area_m2": 0
+  },
+  "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
+ },
+ "validation": {
+  "passed": false,
+  "counts": {
+   "error": 2,
+   "warning": 32,
+   "info": 1
+  }
+ },
+ "gameplay_config_status": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer.",
+ "notes": [
+  "GLB carries static geometry/materials only; effects, environment and hazards are recreated in Godot from the JSON/tres + scripts.",
+  "Scripts and .tres are UNTESTED in Godot from this environment.",
+  "Performance numbers are estimates, not device benchmarks."
+ ],
+ "files": 34
+}

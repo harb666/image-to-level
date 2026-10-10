@@ -143,6 +143,9 @@ def auto_bridges(TR, T):
             half = (hw + 3.0) / max(0.35, math.sin(math.radians(max(ang, 20))))  # skewed crossings need a longer deck
             ya = float(np.interp(s[k] - half, prof["s"], prof["y"])) + 0.1; yb = float(np.interp(s[k] + half, prof["s"], prof["y"])) + 0.1
             a, b = P[k] - dirv * half, P[k] + dirv * half
+            t_ = np.linspace(0, 1, 41); nrm = np.array([-dirv[1], dirv[0]]); hw_ = r.get("deck_width", r.get("width", 6) + 1.0) / 2
+            Hs = np.max([TR.height(a[0] + (b[0] - a[0]) * t_ + nrm[0] * o_, a[1] + (b[1] - a[1]) * t_ + nrm[1] * o_) for o_ in (-hw_, 0.0, hw_)], axis=0)
+            lift = max(0.0, float((Hs + 0.12 - (ya + (yb - ya) * t_)).max())); ya += lift; yb += lift  # the deck clears the road profile everywhere
             out.append(dict(id=f"Bridge_{r['id']}_{v['id']}", kind="bridge", **{"from": [round(float(a[0]), 2), round(float(a[1]), 2)]},
                             to=[round(float(b[0]), 2), round(float(b[1]), 2)], y=round((ya + yb) / 2, 2), y_from=round(ya, 2), y_to=round(yb, 2),
                             width=r.get("deck_width", r.get("width", 6) + 1.0), source="inferred", _road=r["id"], _river=v["id"]))

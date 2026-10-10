@@ -1,0 +1,812 @@
+{
+ "level": "test_urban",
+ "assets_kb": {
+  "level.glb": 1665,
+  "mobile/level_mobile.glb": 1910,
+  "mobile/collision.json": 184,
+  "environment.json": 3,
+  "background.glb": 130,
+  "effects.json": 9
+ },
+ "complexity": {
+  "triangles": 24936,
+  "nodes": 729,
+  "materials": 25,
+  "heaviest": [
+   [
+    "SC_Park_Trees__112_1_0",
+    2080
+   ],
+   [
+    "TR_0_1_concrete",
+    1263
+   ],
+   [
+    "TR_1_1_concrete",
+    1190
+   ],
+   [
+    "TW_Canal",
+    1188
+   ],
+   [
+    "TR_0_0_concrete",
+    1180
+   ]
+  ]
+ },
+ "performance": {
+  "dev": {
+   "glb_kb": 1665,
+   "triangles": 24576,
+   "draw_calls": 729,
+   "tex_mem_gpu_mb_est": 5.79
+  },
+  "mobile": {
+   "profile": "balanced",
+   "glb_kb": 1910,
+   "triangles": 27096,
+   "draw_calls": 183,
+   "visible_draw_calls_est": 64.8,
+   "visible_draw_calls_max_est": 131,
+   "tex_mem_gpu_mb_est": 5.79,
+   "materials": 25,
+   "nodes": 184,
+   "colliders": {
+    "colliders": 512,
+    "hazards": 0,
+    "glb_kb": 360
+   },
+   "background_kb": 130,
+   "visible_triangles_est": 11663,
+   "visible_triangles_max_est": 20016
+  },
+  "effects": {
+   "max_particles": 0,
+   "emitters": 0,
+   "extra_draw_calls": 0,
+   "transparent_area_m2": 0
+  },
+  "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
+ },
+ "geometry": {
+  "counts": {
+   "ERROR": 1,
+   "WARNING": 0,
+   "INTENTIONAL": 19
+  },
+  "relations": {
+   "explicit": 25,
+   "inferred": 0
+  },
+  "repairable": 1,
+  "passed": false
+ },
+ "navigation": {
+  "standable_area_m2": 40371.0,
+  "reachable_area_m2": 24160.0,
+  "components": 422,
+  "spawns": [
+   {
+    "id": "spawn",
+    "position": [
+     -61.67,
+     -0.03,
+     -60.0
+    ],
+    "standable": true,
+    "clearance_m": 5.5,
+    "headroom_m": 99.0,
+    "component": 61
+   },
+   {
+    "id": "Player_Start_2",
+    "position": [
+     -60.0,
+     -0.03,
+     -55.0
+    ],
+    "standable": true,
+    "clearance_m": 9.5,
+    "headroom_m": 99.0,
+    "component": 61
+   },
+   {
+    "id": "Player_Start_3",
+    "position": [
+     -61.67,
+     -0.04,
+     -65.0
+    ],
+    "standable": true,
+    "clearance_m": 4.5,
+    "headroom_m": 99.0,
+    "component": 61
+   },
+   {
+    "id": "Player_Start_4",
+    "position": [
+     -53.33,
+     -0.02,
+     -60.0
+    ],
+    "standable": true,
+    "clearance_m": 3.5,
+    "headroom_m": 99.0,
+    "component": 61
+   },
+   {
+    "id": "Enemy_Plaza_1",
+    "position": [
+     22.0,
+     0.03,
+     -22.0
+    ],
+    "standable": true,
+    "clearance_m": 13.5,
+    "headroom_m": 99.0,
+    "component": 61
+   },
+   {
+    "id": "Enemy_Plaza_2",
+    "position": [
+     18.67,
+     0.03,
+     -25.33
+    ],
+    "standable": true,
+    "clearance_m": 13.5,
+    "headroom_m": 99.0,
+    "component": 61
+   },
+   {
+    "id": "Enemy_Plaza_3",
+    "position": [
+     25.33,
+     0.03,
+     -25.33
+    ],
+    "standable": true,
+    "clearance_m": 15.5,
+    "headroom_m": 99.0,
+    "component": 61
+   },
+   {
+    "id": "Enemy_Plaza_4",
+    "position": [
+     18.67,
+     0.03,
+     -18.67
+    ],
+    "standable": true,
+    "clearance_m": 6.5,
+    "headroom_m": 99.0,
+    "component": 61
+   },
+   {
+    "id": "Enemy_North_1",
+    "position": [
+     45.0,
+     0.09,
+     79.67
+    ],
+    "standable": true,
+    "clearance_m": 1.5,
+    "headroom_m": 99.0,
+    "component": 61
+   }
+  ],
+  "intended_areas": [
+   {
+    "name": "Skywalk",
+    "standable_m2": 4.0,
+    "reachable_fraction": 0.0,
+    "one_way": false
+   },
+   {
+    "name": "Bridge_Avenue_Road_Canal",
+    "standable_m2": 4.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Bridge_West_Lane_Road_Canal",
+    "standable_m2": 4.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Player_Start",
+    "standable_m2": 9.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Enemy_Plaza",
+    "standable_m2": 9.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Enemy_North",
+    "standable_m2": 9.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Terrain_01",
+    "standable_m2": 9.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Terrain_02",
+    "standable_m2": 9.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Terrain_03",
+    "standable_m2": 9.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Terrain_04",
+    "standable_m2": 4.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Terrain_05",
+    "standable_m2": 9.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Terrain_06",
+    "standable_m2": 9.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   }
+  ],
+  "narrow_connectors": [
+   {
+    "object": "Block_6_Foundation",
+    "width_m": 1.0
+   },
+   {
+    "object": "Cross_Street_Sidewalk_R15",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Post_01",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Post_02",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Post_03",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Post_04",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Post_05",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Post_06",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Post_07",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Post_08",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Post_10",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Post_11",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Post_12",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Post_13",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Post_14",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Post_15",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Rail_01b",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Rail_02b",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Rail_03b",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Rail_04b",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Rail_05b",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Rail_06b",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Rail_07b",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Rail_08b",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Rail_09b",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Rail_10b",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Rail_11b",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Rail_12b",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Rail_13b",
+    "width_m": 1.0
+   },
+   {
+    "object": "Fence_Park_Rail_14b",
+    "width_m": 1.0
+   },
+   {
+    "object": "Tower_C_Foundation",
+    "width_m": 1.0
+   }
+  ],
+  "passed": false
+ },
+ "camera": {
+  "players": 13,
+  "players_skipped_inside_or_against_walls": 0,
+  "cameras": 312,
+  "rays": 27456,
+  "void_rays": 0,
+  "void_examples": [],
+  "back_face": {},
+  "open_mesh": {},
+  "camera_inside": 0,
+  "visible_objects": 310,
+  "mode": "local (40 m) - world gaps: checks/geometry.json background",
+  "passed": true,
+  "stale_note": "from the last full run (--fast skipped it)"
+ },
+ "render": {
+  "views": 22,
+  "errors": [],
+  "load_seconds": 4.505,
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "contact_sheet": "checks/views/contact_sheet.jpg",
+  "note": "browser preview renders (three.js, SwiftShader) - not Godot"
+ },
+ "issues": [
+  {
+   "kind": "geo_terrain_floor",
+   "severity": "error",
+   "object": "Bridge_West_Lane_Road_Canal_Deck",
+   "pos": [
+    -68.0,
+    0.22,
+    68.79
+   ],
+   "message": "terrain pokes 0.14 m through Bridge_West_Lane_Road_Canal_Deck [auto-repairable]"
+  },
+  {
+   "kind": "unreachable_platform",
+   "severity": "error",
+   "object": "Skywalk",
+   "pos": [
+    0.0,
+    8.0,
+    23.0
+   ],
+   "message": "Skywalk: not reachable from the spawn (walk/drop/jump with the gameplay config)"
+  },
+  {
+   "kind": "mobile_visible_draw_calls",
+   "severity": "warning",
+   "message": "~65 visible draw calls (estimate, > 60)"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Block_6_Foundation",
+   "pos": [
+    43.7,
+    0.1,
+    80.1
+   ],
+   "message": "Block_6_Foundation: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Cross_Street_Sidewalk_R15",
+   "pos": [
+    -46.8,
+    0.0,
+    -7.4
+   ],
+   "message": "Cross_Street_Sidewalk_R15: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Post_01",
+   "pos": [
+    -80.3,
+    1.3,
+    46.1
+   ],
+   "message": "Fence_Park_Post_01: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Post_02",
+   "pos": [
+    -77.3,
+    1.3,
+    46.1
+   ],
+   "message": "Fence_Park_Post_02: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Post_03",
+   "pos": [
+    -74.3,
+    1.3,
+    46.1
+   ],
+   "message": "Fence_Park_Post_03: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Post_04",
+   "pos": [
+    -71.3,
+    1.2,
+    46.1
+   ],
+   "message": "Fence_Park_Post_04: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Post_05",
+   "pos": [
+    -68.3,
+    1.1,
+    46.1
+   ],
+   "message": "Fence_Park_Post_05: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Post_06",
+   "pos": [
+    -65.3,
+    1.1,
+    46.1
+   ],
+   "message": "Fence_Park_Post_06: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Post_07",
+   "pos": [
+    -62.3,
+    1.1,
+    46.1
+   ],
+   "message": "Fence_Park_Post_07: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Post_08",
+   "pos": [
+    -59.3,
+    1.1,
+    46.1
+   ],
+   "message": "Fence_Park_Post_08: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Post_10",
+   "pos": [
+    -53.3,
+    1.1,
+    46.1
+   ],
+   "message": "Fence_Park_Post_10: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Post_11",
+   "pos": [
+    -50.3,
+    1.1,
+    46.1
+   ],
+   "message": "Fence_Park_Post_11: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Post_12",
+   "pos": [
+    -47.3,
+    1.1,
+    46.1
+   ],
+   "message": "Fence_Park_Post_12: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Post_13",
+   "pos": [
+    -44.3,
+    1.1,
+    46.1
+   ],
+   "message": "Fence_Park_Post_13: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Post_14",
+   "pos": [
+    -41.3,
+    1.1,
+    46.1
+   ],
+   "message": "Fence_Park_Post_14: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Post_15",
+   "pos": [
+    -38.3,
+    1.0,
+    46.1
+   ],
+   "message": "Fence_Park_Post_15: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Rail_01b",
+   "pos": [
+    -78.8,
+    1.2,
+    45.6
+   ],
+   "message": "Fence_Park_Rail_01b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Rail_02b",
+   "pos": [
+    -75.8,
+    1.2,
+    45.6
+   ],
+   "message": "Fence_Park_Rail_02b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Rail_03b",
+   "pos": [
+    -72.8,
+    1.1,
+    45.6
+   ],
+   "message": "Fence_Park_Rail_03b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Rail_04b",
+   "pos": [
+    -69.8,
+    1.0,
+    45.6
+   ],
+   "message": "Fence_Park_Rail_04b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Rail_05b",
+   "pos": [
+    -66.8,
+    1.0,
+    45.6
+   ],
+   "message": "Fence_Park_Rail_05b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Rail_06b",
+   "pos": [
+    -63.8,
+    1.0,
+    45.6
+   ],
+   "message": "Fence_Park_Rail_06b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Rail_07b",
+   "pos": [
+    -60.8,
+    1.0,
+    45.6
+   ],
+   "message": "Fence_Park_Rail_07b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Rail_08b",
+   "pos": [
+    -57.8,
+    1.0,
+    45.6
+   ],
+   "message": "Fence_Park_Rail_08b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Rail_09b",
+   "pos": [
+    -54.8,
+    1.0,
+    45.6
+   ],
+   "message": "Fence_Park_Rail_09b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Rail_10b",
+   "pos": [
+    -51.8,
+    1.0,
+    45.6
+   ],
+   "message": "Fence_Park_Rail_10b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Rail_11b",
+   "pos": [
+    -48.8,
+    1.0,
+    45.6
+   ],
+   "message": "Fence_Park_Rail_11b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Rail_12b",
+   "pos": [
+    -45.8,
+    1.0,
+    45.6
+   ],
+   "message": "Fence_Park_Rail_12b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Rail_13b",
+   "pos": [
+    -42.8,
+    1.0,
+    45.6
+   ],
+   "message": "Fence_Park_Rail_13b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Fence_Park_Rail_14b",
+   "pos": [
+    -39.8,
+    1.0,
+    45.6
+   ],
+   "message": "Fence_Park_Rail_14b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Tower_C_Foundation",
+   "pos": [
+    60.2,
+    0.3,
+    -62.4
+   ],
+   "message": "Tower_C_Foundation: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "low_ceiling",
+   "severity": "info",
+   "object": "TR_1_0_concrete",
+   "pos": [
+    -70.3,
+    -0.04,
+    14.6
+   ],
+   "message": "409 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): TR_1_0_concrete, TR_1_0_grass, TR_1_0_mud, TR_1_0_road, TR_1_1_mud, TR_1_1_road, West_Lane_Sidewalk_L30, West_Lane_Sidewalk_L32"
+  }
+ ],
+ "counts": {
+  "error": 2,
+  "warning": 32,
+  "info": 1
+ },
+ "passed": false,
+ "gameplay_config": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer."
+}

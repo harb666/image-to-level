@@ -1,0 +1,750 @@
+{
+ "generated_by": "image-to-level Stage 9 (pipeline/terrain.py)",
+ "note": "Derived from level.json['terrain'] - edit that, not this file.",
+ "extent": [
+  -112.0,
+  -112.0,
+  112.0,
+  112.0
+ ],
+ "cell": 4.0,
+ "chunk_cells": 28,
+ "chunk_m": 112.0,
+ "grid": [
+  2,
+  2
+ ],
+ "lod": {
+  "ranges": [
+   60,
+   120
+  ],
+  "levels": 3,
+  "note": "LOD k samples every 2^k vertices inside a chunk; borders stay full-res (crack-free)"
+ },
+ "features": [
+  {
+   "id": "Park",
+   "type": "field",
+   "bbox": [
+    -91.0,
+    -7.0,
+    -25.0,
+    59.0
+   ]
+  },
+  {
+   "id": "Barrier_Fix_10",
+   "type": "ridge",
+   "bbox": [
+    -79.35,
+    67.25,
+    -18.79,
+    117.25
+   ]
+  },
+  {
+   "id": "Canal",
+   "type": "river",
+   "bbox": [
+    -547.85,
+    8.370000000000001,
+    547.2,
+    101.93
+   ]
+  },
+  {
+   "id": "Boundary_Barrier",
+   "type": "barrier",
+   "bbox": null
+  },
+  {
+   "id": "Central_Plaza",
+   "type": "pad",
+   "bbox": [
+    0.15000000000000213,
+    -43.849999999999994,
+    43.849999999999994,
+    -0.15000000000000213
+   ]
+  },
+  {
+   "id": "Pad_Tower_A",
+   "type": "pad",
+   "bbox": [
+    8.21,
+    4.210000000000001,
+    47.79,
+    43.79
+   ]
+  },
+  {
+   "id": "Pad_Tower_B",
+   "type": "pad",
+   "bbox": [
+    -48.339999999999996,
+    -90.34,
+    -11.660000000000004,
+    -53.660000000000004
+   ]
+  },
+  {
+   "id": "Pad_Tower_C",
+   "type": "pad",
+   "bbox": [
+    40.760000000000005,
+    -93.24,
+    83.24,
+    -50.760000000000005
+   ]
+  },
+  {
+   "id": "Pad_Block_1",
+   "type": "pad",
+   "bbox": [
+    -52.69,
+    -0.6899999999999977,
+    -7.310000000000002,
+    44.69
+   ]
+  },
+  {
+   "id": "Pad_Block_2",
+   "type": "pad",
+   "bbox": [
+    -51.239999999999995,
+    -43.239999999999995,
+    -8.760000000000002,
+    -0.7600000000000016
+   ]
+  },
+  {
+   "id": "Pad_Block_3",
+   "type": "pad",
+   "bbox": [
+    41.86,
+    -2.139999999999997,
+    90.14,
+    46.14
+   ]
+  },
+  {
+   "id": "Pad_Block_4",
+   "type": "pad",
+   "bbox": [
+    46.21,
+    -41.79,
+    85.78999999999999,
+    -2.210000000000001
+   ]
+  },
+  {
+   "id": "Pad_Block_5",
+   "type": "pad",
+   "bbox": [
+    -107.78999999999999,
+    -41.79,
+    -68.21000000000001,
+    -2.210000000000001
+   ]
+  },
+  {
+   "id": "Pad_Block_6",
+   "type": "pad",
+   "bbox": [
+    4.41,
+    60.41,
+    55.59,
+    111.59
+   ]
+  },
+  {
+   "id": "Pad_Antenna",
+   "type": "pad",
+   "bbox": [
+    76.36,
+    24.36,
+    95.64,
+    43.64
+   ]
+  },
+  {
+   "id": "Lower_Bridge_West_Lane_Road_Canal_Deck",
+   "type": "pad",
+   "bbox": [
+    -80.0655,
+    40.9345,
+    -43.9345,
+    77.0655
+   ]
+  },
+  {
+   "id": "Avenue_Road",
+   "type": "street",
+   "bbox": [
+    -18.5,
+    -123.5,
+    18.5,
+    123.5
+   ]
+  },
+  {
+   "id": "Cross_Street_Road",
+   "type": "street",
+   "bbox": [
+    -123.0,
+    -18.0,
+    123.0,
+    18.0
+   ]
+  },
+  {
+   "id": "South_Street_Road",
+   "type": "street",
+   "bbox": [
+    -122.0,
+    -62.0,
+    122.0,
+    -28.0
+   ]
+  },
+  {
+   "id": "West_Lane_Road",
+   "type": "street",
+   "bbox": [
+    -78.5,
+    -116.5,
+    -45.5,
+    116.5
+   ]
+  }
+ ],
+ "layers": [
+  {
+   "id": "road",
+   "material": "ter_road"
+  },
+  {
+   "id": "path",
+   "material": "ter_concrete"
+  },
+  {
+   "id": "pad",
+   "material": "ter_concrete"
+  },
+  {
+   "id": "riverbed",
+   "material": "ter_mud"
+  },
+  {
+   "id": "cliff",
+   "material": "ter_rock"
+  },
+  {
+   "id": "plaza",
+   "material": "ter_concrete"
+  },
+  {
+   "id": "park",
+   "material": "ter_grass"
+  },
+  {
+   "id": "grass_patch",
+   "material": "ter_grass"
+  },
+  {
+   "id": "concrete",
+   "material": "ter_concrete"
+  }
+ ],
+ "boundary": {
+  "points": [
+   [
+    93.77,
+    6.57
+   ],
+   [
+    90.35,
+    25.93
+   ],
+   [
+    82.99,
+    44.15
+   ],
+   [
+    72.0,
+    60.44
+   ],
+   [
+    57.86,
+    74.08
+   ],
+   [
+    41.19,
+    84.49
+   ],
+   [
+    22.72,
+    91.21
+   ],
+   [
+    3.26,
+    93.94
+   ],
+   [
+    -16.34,
+    92.57
+   ],
+   [
+    -35.23,
+    87.15
+   ],
+   [
+    -52.58,
+    77.92
+   ],
+   [
+    -67.63,
+    65.29
+   ],
+   [
+    -79.73,
+    49.8
+   ],
+   [
+    -88.34,
+    32.13
+   ],
+   [
+    -93.09,
+    13.06
+   ],
+   [
+    -93.77,
+    -6.57
+   ],
+   [
+    -90.35,
+    -25.93
+   ],
+   [
+    -82.99,
+    -44.15
+   ],
+   [
+    -72.0,
+    -60.44
+   ],
+   [
+    -57.86,
+    -74.08
+   ],
+   [
+    -41.19,
+    -84.49
+   ],
+   [
+    -22.72,
+    -91.21
+   ],
+   [
+    -3.26,
+    -93.94
+   ],
+   [
+    16.34,
+    -92.57
+   ],
+   [
+    35.23,
+    -87.15
+   ],
+   [
+    52.58,
+    -77.92
+   ],
+   [
+    67.63,
+    -65.29
+   ],
+   [
+    79.73,
+    -49.8
+   ],
+   [
+    88.34,
+    -32.13
+   ],
+   [
+    93.09,
+    -13.06
+   ]
+  ],
+  "barrier": "ridge"
+ },
+ "chunks_rebuilt_since_last_build": [],
+ "chunks": [
+  {
+   "id": "TR_0_0",
+   "ij": [
+    0,
+    0
+   ],
+   "bounds": [
+    -112.0,
+    -112.0,
+    0.0,
+    0.0
+   ],
+   "hash": "49acdb5e2055",
+   "materials": [
+    "ter_concrete",
+    "ter_road",
+    "ter_rock"
+   ],
+   "triangles_lod0": 1568
+  },
+  {
+   "id": "TR_0_1",
+   "ij": [
+    0,
+    1
+   ],
+   "bounds": [
+    0.0,
+    -112.0,
+    112.0,
+    0.0
+   ],
+   "hash": "27c047b9441a",
+   "materials": [
+    "ter_concrete",
+    "ter_road",
+    "ter_rock"
+   ],
+   "triangles_lod0": 1568
+  },
+  {
+   "id": "TR_1_0",
+   "ij": [
+    1,
+    0
+   ],
+   "bounds": [
+    -112.0,
+    0.0,
+    0.0,
+    112.0
+   ],
+   "hash": "c700a7f29e08",
+   "materials": [
+    "ter_concrete",
+    "ter_grass",
+    "ter_mud",
+    "ter_road",
+    "ter_rock"
+   ],
+   "triangles_lod0": 1568
+  },
+  {
+   "id": "TR_1_1",
+   "ij": [
+    1,
+    1
+   ],
+   "bounds": [
+    0.0,
+    0.0,
+    112.0,
+    112.0
+   ],
+   "hash": "d1b82bb1618d",
+   "materials": [
+    "ter_concrete",
+    "ter_mud",
+    "ter_road",
+    "ter_rock"
+   ],
+   "triangles_lod0": 1568
+  }
+ ],
+ "water": [
+  {
+   "node": "TW_Canal",
+   "feature": "Canal",
+   "y": -1.435,
+   "bounds": [
+    -532.18,
+    18.2,
+    530.75,
+    92.05
+   ]
+  }
+ ],
+ "middle": {
+  "radius": 547.0,
+  "near_half_diagonal": 158.4,
+  "loops": 11,
+  "triangles": 1736,
+  "shading": "vertex colour (ter_far)",
+  "nodes": [
+   "TRM_0",
+   "TRM_1",
+   "TRM_2",
+   "TRM_3",
+   "TRM_4",
+   "TRM_5",
+   "TRM_6",
+   "TRM_7"
+  ],
+  "note": "MIDDLE zone: no collision, not playable, fogged"
+ },
+ "instances": {
+  "Park_Trees": {
+   "style": "stylised_scifi",
+   "count": 12,
+   "collision_kinds": [
+    "broadleaf"
+   ],
+   "view_distance": {
+    "broadleaf": 160,
+    "bush": 80
+   },
+   "nodes": {
+    "SC_Park_Trees__112_1_0": 160,
+    "SCN_Park_Trees__80_1_0": 80
+   },
+   "kinds": {
+    "broadleaf": {
+     "count": 8,
+     "variants": [
+      "broadleaf_stylised_scifi_0",
+      "broadleaf_stylised_scifi_1",
+      "broadleaf_stylised_scifi_2"
+     ],
+     "tris_per_instance": [
+      260,
+      260,
+      260
+     ],
+     "collider": [
+      "cylinder",
+      0.2716364002163342,
+      3.8786370037858475
+     ],
+     "transforms_xyz_yaw_scale_variant": [
+      [
+       -70.382,
+       -0.23,
+       17.581,
+       287.9,
+       0.915,
+       0
+      ],
+      [
+       -75.868,
+       -0.188,
+       22.002,
+       348.2,
+       1.046,
+       1
+      ],
+      [
+       -69.712,
+       -0.207,
+       27.951,
+       33.5,
+       0.85,
+       1
+      ],
+      [
+       -48.172,
+       -0.132,
+       25.377,
+       26.0,
+       0.983,
+       0
+      ],
+      [
+       -46.799,
+       -0.204,
+       29.661,
+       135.1,
+       1.238,
+       1
+      ],
+      [
+       -73.988,
+       -0.193,
+       35.979,
+       268.7,
+       1.091,
+       0
+      ],
+      [
+       -42.109,
+       -0.329,
+       33.743,
+       338.3,
+       1.086,
+       2
+      ],
+      [
+       -70.265,
+       -0.322,
+       39.244,
+       57.7,
+       1.091,
+       0
+      ]
+     ]
+    },
+    "bush": {
+     "count": 4,
+     "variants": [
+      "bush_stylised_scifi_0",
+      "bush_stylised_scifi_1",
+      "bush_stylised_scifi_2"
+     ],
+     "tris_per_instance": [
+      80,
+      80,
+      80
+     ],
+     "collider": null,
+     "transforms_xyz_yaw_scale_variant": [
+      [
+       -50.207,
+       -0.238,
+       13.219,
+       119.5,
+       0.852,
+       2
+      ],
+      [
+       -45.64,
+       -0.32,
+       12.541,
+       1.4,
+       1.065,
+       1
+      ],
+      [
+       -53.066,
+       -0.326,
+       34.627,
+       309.7,
+       0.915,
+       1
+      ],
+      [
+       -54.744,
+       -0.396,
+       40.551,
+       228.7,
+       0.929,
+       1
+      ]
+     ]
+    }
+   }
+  },
+  "Litter": {
+   "style": "stylised_scifi",
+   "count": 8,
+   "collision_kinds": [],
+   "view_distance": {
+    "debris": 60
+   },
+   "nodes": {
+    "SCN_Litter__60_0_2": 60,
+    "SCN_Litter__60_1_0": 60,
+    "SCN_Litter__60_1_1": 60,
+    "SCN_Litter__60_2_1": 60,
+    "SCN_Litter__60_2_2": 60
+   },
+   "kinds": {
+    "debris": {
+     "count": 8,
+     "variants": [
+      "debris_stylised_scifi_0",
+      "debris_stylised_scifi_1",
+      "debris_stylised_scifi_2"
+     ],
+     "tris_per_instance": [
+      24,
+      36,
+      36
+     ],
+     "collider": null,
+     "transforms_xyz_yaw_scale_variant": [
+      [
+       13.347,
+       -0.129,
+       -91.663,
+       252.5,
+       0.937,
+       2
+      ],
+      [
+       -76.103,
+       -0.222,
+       -33.857,
+       354.1,
+       1.055,
+       0
+      ],
+      [
+       -35.293,
+       0.045,
+       -37.406,
+       124.4,
+       1.096,
+       2
+      ],
+      [
+       -92.1,
+       -0.19,
+       7.559,
+       151.2,
+       1.132,
+       0
+      ],
+      [
+       -51.592,
+       -0.133,
+       30.0,
+       324.3,
+       1.184,
+       1
+      ],
+      [
+       -17.943,
+       -0.223,
+       51.052,
+       128.7,
+       1.078,
+       0
+      ],
+      [
+       34.505,
+       -0.122,
+       46.966,
+       290.0,
+       1.113,
+       1
+      ],
+      [
+       52.057,
+       -0.167,
+       37.865,
+       3.8,
+       0.808,
+       1
+      ]
+     ]
+    }
+   }
+  }
+ }
+}

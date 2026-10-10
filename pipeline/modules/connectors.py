@@ -55,8 +55,21 @@ def bridge(ctx, s, x, y, z, yaw):
 
 @structure("walkway", pad=False)
 def walkway(ctx, s, x, y, z, yaw):
-    """Elevated grated catwalk at height 'y' between two points (rails both sides, slim columns to the ground)."""
+    """Elevated grated catwalk at height 'y' between two points (rails both sides, slim columns to the ground);
+    "stairs": "from" | "to" | "both" | "none" (default both) adds stair flights down to the ground along its axis."""
     s = dict(s, style="steel", rails=True, width=s.get("width", 3.0), pier_spacing=s.get("pier_spacing", 7.0)); bridge(ctx, s, x, y, z, yaw)
+    n = s["id"]; L = _span(s); w = s["width"]; dx, dz = math.sin(math.radians(yaw)), math.cos(math.radians(yaw)); smax = math.radians(min(ctx.G["player"]["max_slope_deg"], 35))
+    deck = n + "_Deck"; ends = {"from": -1, "to": 1}; want = s.get("stairs", "both")
+    for e, sg in ends.items():
+        if want not in (e, "both"): continue
+        ex, ez = x + dx * sg * L / 2, z + dz * sg * L / 2; ye = s.get("y_from" if sg < 0 else "y_to", y)
+        run = 0.0; gy = _ground(ctx, ex, ez, ye)
+        for _ in range(3):  # ground under the stair foot (slopes): iterate the run length
+            rise = ye - gy; run = max(1.0, rise / math.tan(smax)); gy = _ground(ctx, ex + dx * sg * run, ez + dz * sg * run, ye)
+        if rise < 0.6: continue
+        st = ctx.add(f"{n}_Stairs_{e.capitalize()}", "stairs", [ex + dx * sg * (run / 2), gy - 0.02, ez + dz * sg * (run / 2)], [w, rise + 0.01, run], "grate",
+                     rot=[0, (yaw + (180 if sg > 0 else 0)) % 360, 0])  # climbs towards the deck
+        ctx.rel("walkable_connection", st, deck, a_anchor="high"); ctx.landings.append((ex + dx * sg * run, ez + dz * sg * run, w / 2 + 0.5))
 
 
 def _tunnel_terrain(s, TR0):
