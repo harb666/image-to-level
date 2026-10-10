@@ -401,7 +401,8 @@ def connection(ctx, c, A, B, floor_y):
             target = ctx.add(f"{c['id']}_Junction_{'Hi' if pl is hi else 'Lo'}", "box", [jc[0], yy - 0.41, jc[1]], [width, 0.4, jd + 0.1], "grate", rot=[0, yaw, 0], connector=False)
             ctx.rel("supported_by", target, fl_); ctx.notes.append(f"{c['id']}: {jd:.2f} m junction plate where it meets {pl['id']}'s {'corner' if jd > width / 3 else 'angled edge'}")
         ctx.rel("walkable_connection", ends[key][0], target, a_anchor=ends[key][1])
-    ctx.landings += [(lo_pt[0] - toward[0] * 1.0, lo_pt[1] - toward[1] * 1.0, width / 2), (hi_pt[0] + toward[0] * 1.0, hi_pt[1] + toward[1] * 1.0, width / 2)]
+    foot = p0 if run > gap2 + 0.05 else lo_pt  # a run longer than the gap lands ON the lower platform: keep its real foot clear
+    ctx.landings += [(foot[0] - toward[0] * 1.0, foot[1] - toward[1] * 1.0, width / 2), (hi_pt[0] + toward[0] * 1.0, hi_pt[1] + toward[1] * 1.0, width / 2)]
     if run > gap2 + 0.5: ctx.notes.append(f"{c['id']}: {kind} run {run:.1f} m > gap {gap2:.1f} m - extends {run - gap2:.1f} m onto {lo['id']}")
 
 
@@ -655,10 +656,12 @@ def party_walls(ctx):
 
     def inside(px, pz, b):
         _, cx, cz, yw, hw, hd = b; lx, lz = local(px - cx, pz - cz, -yw); return abs(lx) <= hw and abs(lz) <= hd
-    drop = set()
+    drop = set(); bnames = {b[0] for b in boxes}
     for o in ctx.objects:
         p = o.get("parent")
-        if not p or not any(t in o["name"] for t in ("_Post_", "_Rail_", "_Mid_", "_Win_")): continue
+        if not p or p not in bnames: continue  # only decoration of buildings, matched on the part name after the group's own name
+        part = o["name"][len(p):] if o["name"].startswith(p) else ""
+        if not any(part.startswith(t) for t in ("_Post_", "_Rail_", "_Mid_", "_Win_")): continue
         g = by[p]; ox, oz = local(o["position"][0], o["position"][2], g["rotation"][1]); wx, wz = g["position"][0] + ox, g["position"][2] + oz
         if any(inside(wx, wz, b) for b in boxes if b[0] != p): drop.add(o["name"])
     if drop:
