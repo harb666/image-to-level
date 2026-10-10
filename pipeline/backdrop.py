@@ -7,6 +7,7 @@ others. Level azimuth convention: 0° = north (-z), 90° = east (+x). Layer type
   spires        scattered rock spires (tapered, jittered prisms, closed caps)
   skyline       band of industrial blocks + chimneys along an azimuth range
   factory       one modular factory complex (hall, towers, chimneys, pipe bridge) at azimuth/distance
+  ring_structure  sci-fi megastructure ring on pylons at azimuth/distance (Stage 9)
 """
 import numpy as np, trimesh
 from sky import fbm3
@@ -162,9 +163,32 @@ def townscape(L, q):
     return trimesh.util.concatenate(parts)
 
 
-GENERATORS = dict(ground=ground, mountain_ring=mountain_ring, spires=spires, skyline=skyline, factory=factory, townscape=townscape)
+def ring_structure(L, q):
+    """Distant sci-fi megastructure: a tilted ring (closed torus) held by tapered pylons from the ground, at
+    azimuth/distance. Keys: radius, tube, elevation (ring centre height), tilt_deg, pylons, seed. Local mesh (placed by
+    environment.py like a factory), closed parts only."""
+    rng = np.random.default_rng(_seed(L)); R = L.get("radius", 60.0); r = L.get("tube", 3.0); yc = L.get("elevation", 90.0)
+    tilt = np.radians(L.get("tilt_deg", 12)); nu, nv = max(24, int(48 * q["density"])), 8
+    u, v = np.meshgrid(np.linspace(0, 2 * np.pi, nu, endpoint=False), np.linspace(0, 2 * np.pi, nv, endpoint=False), indexing="ij")
+    x = (R + r * np.cos(v)) * np.cos(u); y = r * np.sin(v); z = (R + r * np.cos(v)) * np.sin(u)
+    P = np.stack([x, y, z], -1).reshape(-1, 3); ct, st = np.cos(tilt), np.sin(tilt)
+    P = np.c_[P[:, 0], P[:, 1] * ct - P[:, 2] * st, P[:, 1] * st + P[:, 2] * ct] + [0, yc, 0]
+    idx = np.arange(nu * nv).reshape(nu, nv); F = []
+    for a in range(nu):
+        for b in range(nv):
+            p0, p1, p2, p3 = idx[a, b], idx[(a + 1) % nu, b], idx[(a + 1) % nu, (b + 1) % nv], idx[a, (b + 1) % nv]; F += [[p0, p1, p2], [p0, p2, p3]]
+    ring = trimesh.Trimesh(P, F, process=True); ring.fix_normals(); parts = [ring]
+    for k in range(int(L.get("pylons", 3))):  # pylons from below the horizon up to the ring
+        a = 2 * np.pi * (k + 0.5) / L.get("pylons", 3) + rng.uniform(-0.2, 0.2); px, pz = R * 0.9 * np.cos(a), R * 0.9 * np.sin(a)
+        top = yc + (-pz * st) * 1.0 - r; m = _spire(rng, top + 12, max(4.0, R * 0.08)); m.apply_translation([px, -12, pz * ct]); parts.append(m)
+    hub = trimesh.creation.icosphere(subdivisions=1, radius=r * 2.2); hub.apply_translation([0, yc, 0]); parts.append(hub)
+    return trimesh.util.concatenate(parts)
+
+
+GENERATORS = dict(ground=ground, mountain_ring=mountain_ring, spires=spires, skyline=skyline, factory=factory, townscape=townscape, ring_structure=ring_structure)
 DEFAULTS = {  # material kind, colour, tile size per layer type (overridable per layer: material_type/color/tile_m)
     "ground": ("dirt", [0.16, 0.17, 0.14], 14.0), "mountain_ring": ("rock", [0.2, 0.21, 0.19], 40.0),
     "spires": ("rock", [0.17, 0.18, 0.16], 14.0), "skyline": ("factory_facade", [0.16, 0.17, 0.17], 12.0),
     "factory": ("factory_facade", [0.17, 0.18, 0.18], 10.0), "townscape": ("plaster", [0.72, 0.67, 0.58], 6.0),
+    "ring_structure": ("machinery_panel", [0.3, 0.3, 0.32], 16.0),
 }

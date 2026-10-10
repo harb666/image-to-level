@@ -1,0 +1,1250 @@
+{
+ "spec_version": 1,
+ "name": "skyforge_arena",
+ "title": "Skyforge Arena",
+ "theme": "scifi",
+ "detail": "medium",
+ "seed": 77,
+ "profile": "balanced",
+ "references": [
+  {
+   "file": "inputs/skyforge_concept.png",
+   "kind": "concept_sheet",
+   "panels": [
+    {
+     "id": "p1",
+     "bbox_px": [
+      0,
+      0,
+      1536,
+      567
+     ],
+     "view": "perspective",
+     "use": [
+      "architecture",
+      "materials",
+      "sky",
+      "background"
+     ],
+     "notes": "main view across the hub toward the sunset"
+    },
+    {
+     "id": "p2",
+     "bbox_px": [
+      0,
+      570,
+      604,
+      1024
+     ],
+     "view": "perspective",
+     "use": [
+      "hub floor",
+      "cover",
+      "ring megastructure"
+     ]
+    },
+    {
+     "id": "p3",
+     "bbox_px": [
+      606,
+      570,
+      1122,
+      1024
+     ],
+     "view": "top_down",
+     "use": [
+      "layout",
+      "connectivity",
+      "sizes"
+     ],
+     "notes": "north = top"
+    },
+    {
+     "id": "p4",
+     "bbox_px": [
+      1125,
+      570,
+      1536,
+      789
+     ],
+     "view": "perspective",
+     "use": [
+      "walkway rails",
+      "lamps"
+     ]
+    },
+    {
+     "id": "p5",
+     "bbox_px": [
+      1125,
+      794,
+      1536,
+      1024
+     ],
+     "view": "perspective",
+     "use": [
+      "covered deck"
+     ]
+    }
+   ]
+  }
+ ],
+ "interpretation": {
+  "summary": "Sky platform complex: a round central hub with 8 arms (bridges / ramps) to outer decks and octagon bastions, floating high above a sea with rocky islands, waterfalls and a cloud layer; sunset sky with a planet, spire city, ring megastructure.",
+  "scale_basis": "top-down panel: hub diameter 390 px (2x crop) ~ 47 m (crates ~1.5 m in the perspective views); 0.12 m per 2x-crop pixel",
+  "visible": [
+   "round hub with concentric red target marking",
+   "8 arms: N hall, small NE turret, NW bastion, W post, SW octagon, S gate + S tower, SE octagon, E deck",
+   "bridges with red railings",
+   "tall towers with red banners",
+   "crates as cover on the hub",
+   "sea far below with rocky islands, green tops",
+   "waterfalls off cliffs",
+   "cloud layer under the decks",
+   "sunset sky, planet, spire city, ring megastructure, distant mountains"
+  ],
+  "inferred": [
+   "deck heights (hub 40 m above the sea, bastions 3 m lower, turret 3 m higher)",
+   "massive pylons under every deck down to the sea bed",
+   "exact island and cliff positions outside the top-down crop",
+   "invisible colliders round the complex above the void",
+   "fall below 25 m = respawn"
+  ],
+  "assumptions": [
+   "mode: structured deck complex inside an open world whose terrain is scenery only (terrain_playable false)",
+   "covered deck (panel 5) approximated by halls / towers - no interiors in the module library"
+  ],
+  "questions": []
+ },
+ "world": {
+  "size": [
+   400,
+   400
+  ],
+  "center": [
+   0,
+   0
+  ],
+  "seed": 77,
+  "relief": "gentle",
+  "biome": "rocky",
+  "style": "realistic",
+  "cell": 4.0,
+  "chunk": 20,
+  "base_y": -14,
+  "terrain_playable": false,
+  "water": {
+   "level": 0
+  },
+  "middle": {
+   "rise": 8
+  },
+  "boundary": {
+   "points": [
+    [
+     83.0,
+     5.0
+    ],
+    [
+     82.1,
+     33.6
+    ],
+    [
+     67.5,
+     57.0
+    ],
+    [
+     43.0,
+     72.2
+    ],
+    [
+     16.2,
+     79.3
+    ],
+    [
+     -10.2,
+     79.3
+    ],
+    [
+     -37.0,
+     72.2
+    ],
+    [
+     -61.5,
+     57.0
+    ],
+    [
+     -76.1,
+     33.6
+    ],
+    [
+     -77.0,
+     5.0
+    ],
+    [
+     -68.3,
+     -23.6
+    ],
+    [
+     -55.1,
+     -47.0
+    ],
+    [
+     -37.0,
+     -62.2
+    ],
+    [
+     -11.6,
+     -69.3
+    ],
+    [
+     17.6,
+     -69.3
+    ],
+    [
+     43.0,
+     -62.2
+    ],
+    [
+     61.1,
+     -47.0
+    ],
+    [
+     74.3,
+     -23.6
+    ]
+   ],
+   "barrier": "none",
+   "source": "inferred"
+  },
+  "materials": {
+   "rock": {
+    "type": "rock",
+    "color": [
+     0.56,
+     0.37,
+     0.26
+    ],
+    "tile_m": 10.0,
+    "res": 256
+   },
+   "grass": {
+    "type": "grass",
+    "color": [
+     0.3,
+     0.4,
+     0.18
+    ],
+    "tile_m": 5.0,
+    "res": 256
+   },
+   "sand": {
+    "type": "sand",
+    "color": [
+     0.72,
+     0.6,
+     0.45
+    ],
+    "tile_m": 5.0,
+    "res": 128
+   }
+  },
+  "features": [
+   {
+    "id": "Island_NE",
+    "type": "mesa",
+    "center": [
+     62,
+     -42
+    ],
+    "radius": 18,
+    "height": 38,
+    "source": "visible"
+   },
+   {
+    "id": "Island_W",
+    "type": "mesa",
+    "center": [
+     -64,
+     14
+    ],
+    "radius": 16,
+    "height": 36,
+    "source": "visible"
+   },
+   {
+    "id": "Island_SW",
+    "type": "mesa",
+    "center": [
+     -42,
+     74
+    ],
+    "radius": 14,
+    "height": 33,
+    "source": "visible"
+   },
+   {
+    "id": "Island_SE",
+    "type": "mesa",
+    "center": [
+     70,
+     68
+    ],
+    "radius": 14,
+    "height": 33,
+    "source": "visible"
+   },
+   {
+    "id": "Cliffs_West",
+    "type": "mesa",
+    "center": [
+     -150,
+     -40
+    ],
+    "radius": 45,
+    "height": 62,
+    "source": "visible"
+   },
+   {
+    "id": "Cliffs_NW",
+    "type": "mesa",
+    "center": [
+     -110,
+     -150
+    ],
+    "radius": 40,
+    "height": 58,
+    "source": "visible"
+   },
+   {
+    "id": "Cliffs_East",
+    "type": "mesa",
+    "center": [
+     160,
+     -80
+    ],
+    "radius": 38,
+    "height": 52,
+    "source": "inferred"
+   },
+   {
+    "id": "Cliffs_South",
+    "type": "mesa",
+    "center": [
+     40,
+     165
+    ],
+    "radius": 40,
+    "height": 48,
+    "source": "inferred"
+   }
+  ],
+  "scatter": [
+   {
+    "id": "Island_Trees",
+    "kinds": [
+     "conifer",
+     "broadleaf",
+     {
+      "kind": "bush",
+      "weight": 0.8
+     }
+    ],
+    "area": "extent",
+    "density": 2.5,
+    "cluster": 0.3,
+    "slope_max": 24,
+    "height": [
+     10,
+     80
+    ],
+    "layers": [
+     "grass"
+    ],
+    "source": "visible"
+   }
+  ]
+ },
+ "platforms": [
+  {
+   "id": "Hub",
+   "shape": "circle",
+   "center": [
+    0,
+    0
+   ],
+   "size": [
+    47,
+    47
+   ],
+   "top": 40,
+   "cover": 0,
+   "source": "visible",
+   "style": "sky_pylon"
+  },
+  {
+   "id": "North_Hall",
+   "center": [
+    2.5,
+    -38
+   ],
+   "size": [
+    18,
+    22
+   ],
+   "top": 40,
+   "cover": 2,
+   "source": "visible",
+   "style": "sky_pylon"
+  },
+  {
+   "id": "North_Turret",
+   "shape": "octagon",
+   "center": [
+    19,
+    -38
+   ],
+   "size": [
+    10,
+    10
+   ],
+   "top": 43,
+   "cover": 1,
+   "source": "visible",
+   "style": "sky_pylon"
+  },
+  {
+   "id": "NW_Bastion",
+   "center": [
+    -38,
+    -32
+   ],
+   "size": [
+    24,
+    18
+   ],
+   "top": 37,
+   "cover": 2,
+   "source": "visible",
+   "style": "sky_pylon"
+  },
+  {
+   "id": "West_Post",
+   "center": [
+    -36,
+    -5
+   ],
+   "size": [
+    16,
+    14
+   ],
+   "top": 40,
+   "cover": 1,
+   "source": "visible",
+   "style": "sky_pylon"
+  },
+  {
+   "id": "SW_Octagon",
+   "shape": "octagon",
+   "center": [
+    -31,
+    36
+   ],
+   "size": [
+    27,
+    27
+   ],
+   "top": 37,
+   "cover": 3,
+   "source": "visible",
+   "style": "sky_pylon"
+  },
+  {
+   "id": "South_Gate",
+   "center": [
+    3,
+    33
+   ],
+   "size": [
+    11,
+    14
+   ],
+   "top": 40,
+   "cover": 0,
+   "source": "visible",
+   "style": "sky_pylon"
+  },
+  {
+   "id": "South_Tower",
+   "shape": "octagon",
+   "center": [
+    3,
+    57
+   ],
+   "size": [
+    19,
+    19
+   ],
+   "top": 40,
+   "cover": 2,
+   "source": "visible",
+   "style": "sky_pylon"
+  },
+  {
+   "id": "SE_Octagon",
+   "shape": "octagon",
+   "center": [
+    37,
+    33
+   ],
+   "size": [
+    26,
+    26
+   ],
+   "top": 37,
+   "cover": 3,
+   "source": "visible",
+   "style": "sky_pylon"
+  },
+  {
+   "id": "East_Deck",
+   "center": [
+    42,
+    -6
+   ],
+   "size": [
+    22,
+    16
+   ],
+   "top": 40,
+   "cover": 2,
+   "source": "visible",
+   "style": "sky_pylon"
+  }
+ ],
+ "connections": [
+  {
+   "id": "Bridge_Hub_North",
+   "from": "Hub",
+   "to": "North_Hall",
+   "kind": "bridge",
+   "rails": true,
+   "source": "visible"
+  },
+  {
+   "id": "Steps_Turret",
+   "from": "North_Hall",
+   "to": "North_Turret",
+   "kind": "auto",
+   "source": "visible"
+  },
+  {
+   "id": "Ramp_Hub_NW",
+   "from": "Hub",
+   "to": "NW_Bastion",
+   "kind": "auto",
+   "source": "visible"
+  },
+  {
+   "id": "Link_North_NW",
+   "from": "North_Hall",
+   "to": "NW_Bastion",
+   "kind": "auto",
+   "rails": true,
+   "source": "visible"
+  },
+  {
+   "id": "Bridge_Hub_West",
+   "from": "Hub",
+   "to": "West_Post",
+   "kind": "bridge",
+   "rails": true,
+   "source": "visible"
+  },
+  {
+   "id": "Ramp_Hub_SW",
+   "from": "Hub",
+   "to": "SW_Octagon",
+   "kind": "auto",
+   "source": "visible"
+  },
+  {
+   "id": "Bridge_Hub_South",
+   "from": "Hub",
+   "to": "South_Gate",
+   "kind": "bridge",
+   "rails": true,
+   "source": "visible"
+  },
+  {
+   "id": "Bridge_Gate_Tower",
+   "from": "South_Gate",
+   "to": "South_Tower",
+   "kind": "bridge",
+   "rails": true,
+   "source": "visible"
+  },
+  {
+   "id": "Link_Gate_SE",
+   "from": "South_Gate",
+   "to": "SE_Octagon",
+   "kind": "auto",
+   "rails": true,
+   "source": "visible"
+  },
+  {
+   "id": "Ramp_Hub_SE",
+   "from": "Hub",
+   "to": "SE_Octagon",
+   "kind": "auto",
+   "source": "visible"
+  },
+  {
+   "id": "Bridge_Hub_East",
+   "from": "Hub",
+   "to": "East_Deck",
+   "kind": "bridge",
+   "rails": true,
+   "source": "visible"
+  }
+ ],
+ "structures": [
+  {
+   "id": "Hub_Marking",
+   "kind": "floor_marking",
+   "on": "Hub",
+   "size": [
+    14,
+    0.1,
+    14
+   ],
+   "count": 4,
+   "source": "visible"
+  },
+  {
+   "id": "Hub_Pylon_1",
+   "kind": "tower",
+   "on": "Hub",
+   "offset": [
+    13.6,
+    -14.6
+   ],
+   "size": [
+    1.8,
+    4.5,
+    1.8
+   ],
+   "decor": [
+    "glow_strips"
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Hub_Pylon_2",
+   "kind": "tower",
+   "on": "Hub",
+   "offset": [
+    -7.8,
+    -18.4
+   ],
+   "size": [
+    1.8,
+    4.5,
+    1.8
+   ],
+   "decor": [
+    "glow_strips"
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Hub_Pylon_3",
+   "kind": "tower",
+   "on": "Hub",
+   "offset": [
+    -18.8,
+    6.8
+   ],
+   "size": [
+    1.8,
+    4.5,
+    1.8
+   ],
+   "decor": [
+    "glow_strips"
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Hub_Pylon_4",
+   "kind": "tower",
+   "on": "Hub",
+   "offset": [
+    -6.2,
+    19.0
+   ],
+   "size": [
+    1.8,
+    4.5,
+    1.8
+   ],
+   "decor": [
+    "glow_strips"
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Hub_Pylon_5",
+   "kind": "tower",
+   "on": "Hub",
+   "offset": [
+    9.1,
+    17.8
+   ],
+   "size": [
+    1.8,
+    4.5,
+    1.8
+   ],
+   "decor": [
+    "glow_strips"
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Hub_Pylon_6",
+   "kind": "tower",
+   "on": "Hub",
+   "offset": [
+    19.2,
+    5.5
+   ],
+   "size": [
+    1.8,
+    4.5,
+    1.8
+   ],
+   "decor": [
+    "glow_strips"
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Hub_Crates_1",
+   "kind": "crates",
+   "on": "Hub",
+   "offset": [
+    9,
+    -7
+   ],
+   "count": 3,
+   "source": "visible"
+  },
+  {
+   "id": "Hub_Crates_2",
+   "kind": "crates",
+   "on": "Hub",
+   "offset": [
+    -10,
+    3
+   ],
+   "count": 3,
+   "source": "visible"
+  },
+  {
+   "id": "Hub_Crates_3",
+   "kind": "crates",
+   "on": "Hub",
+   "offset": [
+    2,
+    11
+   ],
+   "count": 3,
+   "source": "visible"
+  },
+  {
+   "id": "Hub_Crates_4",
+   "kind": "crates",
+   "on": "Hub",
+   "offset": [
+    -4,
+    -11
+   ],
+   "count": 3,
+   "source": "visible"
+  },
+  {
+   "id": "North_Hall_Block",
+   "kind": "building",
+   "on": "North_Hall",
+   "offset": [
+    0,
+    -5
+   ],
+   "size": [
+    12,
+    8,
+    9
+   ],
+   "facing": "south",
+   "source": "visible"
+  },
+  {
+   "id": "North_Tower_W",
+   "kind": "tower",
+   "on": "North_Hall",
+   "offset": [
+    -7,
+    8
+   ],
+   "size": [
+    3.5,
+    16,
+    3.5
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "North_Tower_E",
+   "kind": "tower",
+   "on": "North_Hall",
+   "offset": [
+    7,
+    8
+   ],
+   "size": [
+    3.5,
+    16,
+    3.5
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "NW_Tower",
+   "kind": "tower",
+   "on": "NW_Bastion",
+   "offset": [
+    -8,
+    -4
+   ],
+   "size": [
+    5,
+    22,
+    5
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "West_Hall",
+   "kind": "building",
+   "on": "West_Post",
+   "offset": [
+    -3,
+    0
+   ],
+   "size": [
+    8,
+    6,
+    9
+   ],
+   "facing": "east",
+   "source": "visible"
+  },
+  {
+   "id": "SW_Tower",
+   "kind": "tower",
+   "on": "SW_Octagon",
+   "offset": [
+    -6,
+    6
+   ],
+   "size": [
+    5,
+    16,
+    5
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "SE_Tower",
+   "kind": "tower",
+   "on": "SE_Octagon",
+   "offset": [
+    6,
+    6
+   ],
+   "size": [
+    5,
+    20,
+    5
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "East_Tower",
+   "kind": "tower",
+   "on": "East_Deck",
+   "offset": [
+    7,
+    -3
+   ],
+   "size": [
+    6,
+    26,
+    6
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "South_Spire",
+   "kind": "tower",
+   "on": "South_Tower",
+   "offset": [
+    0,
+    4
+   ],
+   "size": [
+    5,
+    14,
+    5
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Falls_West_A",
+   "kind": "waterfall",
+   "position": [
+    -112,
+    -30
+   ],
+   "yaw": 75,
+   "source": "visible",
+   "width": 14
+  },
+  {
+   "id": "Falls_West_B",
+   "kind": "waterfall",
+   "position": [
+    -118,
+    -12
+   ],
+   "yaw": 85,
+   "source": "visible",
+   "width": 9
+  },
+  {
+   "id": "Falls_NW",
+   "kind": "waterfall",
+   "position": [
+    -90,
+    -124
+   ],
+   "yaw": 38,
+   "source": "visible",
+   "width": 12
+  },
+  {
+   "id": "Falls_Island_W",
+   "kind": "waterfall",
+   "position": [
+    -50,
+    12
+   ],
+   "yaw": 100,
+   "source": "inferred",
+   "width": 5
+  }
+ ],
+ "materials": {
+  "variation": true,
+  "roles": {
+   "deck": {
+    "type": "scifi_floor",
+    "color": [
+     0.58,
+     0.53,
+     0.48
+    ],
+    "tile_m": 4.0,
+    "wear": 0.4
+   },
+   "structure": {
+    "type": "machinery_panel",
+    "color": [
+     0.31,
+     0.29,
+     0.27
+    ],
+    "tile_m": 4.0,
+    "accent": [
+     1.0,
+     0.25,
+     0.12
+    ],
+    "emissive": [
+     1,
+     1,
+     1
+    ]
+   },
+   "wall": {
+    "type": "industrial_metal",
+    "color": [
+     0.4,
+     0.36,
+     0.33
+    ],
+    "tile_m": 4.0,
+    "wear": 0.5
+   },
+   "structure_b": {
+    "type": "industrial_metal",
+    "color": [
+     0.28,
+     0.26,
+     0.25
+    ],
+    "tile_m": 4.0
+   },
+   "trim": {
+    "type": "trim_light",
+    "color": [
+     0.25,
+     0.22,
+     0.21
+    ],
+    "tile_m": 1.2,
+    "accent": [
+     1.0,
+     0.2,
+     0.1
+    ],
+    "emissive": [
+     1,
+     1,
+     1
+    ]
+   },
+   "glow": {
+    "type": "glow",
+    "color": [
+     1.0,
+     0.62,
+     0.3
+    ],
+    "tile_m": 2.0,
+    "emissive": [
+     1.0,
+     0.55,
+     0.25
+    ]
+   },
+   "accent": {
+    "type": "banner",
+    "color": [
+     0.85,
+     0.18,
+     0.12
+    ],
+    "tile_m": 2.0,
+    "emissive": [
+     0.6,
+     0.15,
+     0.1
+    ]
+   },
+   "rail": {
+    "type": "painted_metal",
+    "color": [
+     0.6,
+     0.18,
+     0.12
+    ],
+    "tile_m": 2.0
+   },
+   "water": {
+    "type": "water",
+    "color": [
+     0.75,
+     0.85,
+     0.9
+    ],
+    "tile_m": 3.0
+   }
+  }
+ },
+ "atmosphere": {
+  "sky": "sunset",
+  "ambient": "none",
+  "fog_start": 260,
+  "fog_end": 900,
+  "source": "visible",
+  "sky_overrides": {
+   "sun": {
+    "azimuth_deg": 5,
+    "elevation_deg": 7
+   },
+   "planet": {
+    "azimuth_deg": 338,
+    "elevation_deg": 24,
+    "size_deg": 16,
+    "color": [
+     0.78,
+     0.68,
+     0.86
+    ],
+    "ring": false
+   }
+  }
+ },
+ "background": {
+  "source": "visible",
+  "layers": [
+   {
+    "id": "Mountains_Far",
+    "type": "mountain_ring",
+    "radius": 720,
+    "depth": 90,
+    "height": [
+     90,
+     210
+    ],
+    "fade": 0.55,
+    "seed": 3,
+    "color": [
+     0.5,
+     0.33,
+     0.27
+    ]
+   },
+   {
+    "id": "Mountains_Near",
+    "type": "mountain_ring",
+    "radius": 500,
+    "depth": 60,
+    "height": [
+     35,
+     100
+    ],
+    "fade": 0.3,
+    "seed": 8,
+    "frequency": 3.5,
+    "sharpness": 2.2,
+    "color": [
+     0.52,
+     0.33,
+     0.24
+    ]
+   },
+   {
+    "id": "Spires",
+    "type": "spires",
+    "radius": [
+     320,
+     560
+    ],
+    "count": 18,
+    "height": [
+     60,
+     170
+    ],
+    "fade": 0.25,
+    "seed": 5
+   },
+   {
+    "id": "Skyline_North",
+    "type": "skyline",
+    "radius": 400,
+    "azimuth_deg": [
+     -45,
+     45
+    ],
+    "count": 30,
+    "height": [
+     40,
+     150
+    ],
+    "fade": 0.35,
+    "glow": [
+     1.0,
+     0.6,
+     0.3
+    ],
+    "lit": 0.15
+   },
+   {
+    "id": "Megastructure_Ring",
+    "type": "ring_structure",
+    "azimuth_deg": 345,
+    "distance": 430,
+    "radius": 70,
+    "tube": 3.5,
+    "elevation": 125,
+    "tilt_deg": 16,
+    "pylons": 3,
+    "fade": 0.3,
+    "seed": 4
+   }
+  ]
+ },
+ "effects": {
+  "auto": true,
+  "extra": [
+   {
+    "id": "Cloud_Sea_High",
+    "type": "fog_sheet",
+    "area": [
+     -200,
+     26,
+     -200,
+     200,
+     26,
+     200
+    ],
+    "height": 2.0,
+    "opacity": 0.28,
+    "color": [
+     1.0,
+     0.86,
+     0.8
+    ],
+    "scroll": [
+     0.004,
+     0.002
+    ]
+   }
+  ]
+ },
+ "spawns": [
+  {
+   "id": "player",
+   "on": "South_Tower"
+  },
+  {
+   "id": "enemy_north",
+   "on": "North_Hall",
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_nw",
+   "on": "NW_Bastion",
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_east",
+   "on": "East_Deck",
+   "team": "enemy"
+  }
+ ],
+ "gameplay": {
+  "design": {
+   "kill_y": 25
+  },
+  "nav": {
+   "cell": 0.5
+  }
+ },
+ "refine": {
+  "max_passes": 3
+ }
+}

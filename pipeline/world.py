@@ -74,6 +74,7 @@ def terrain_def(spec, W, ext, bpts, theme):
              boundary=dict(points=bpts, barrier=B.get("barrier", "ridge")),
              zones=dict(middle=dict(W.get("middle", {})), far=dict(note="Stage 2 background layers (environment.background)")),
              lod=dict(ranges=W.get("lod_ranges", [60, 120])))
+    T["terrain_playable"] = W.get("terrain_playable", True)  # False: terrain is scenery under / around a deck complex (sky platforms)
     for k in ("water", "layers", "materials", "scatter", "water_material", "style"):
         if k in W: T[k] = W[k]
     return T
@@ -121,7 +122,8 @@ def build_world(ctx, spec, W, fy, centre):
     for i, (p0, p1) in enumerate(zip(bpts, bpts[1:] + bpts[:1])):  # invisible safety colliders along the playable polygon
         L = math.hypot(p1[0] - p0[0], p1[1] - p0[1]); yaw = A.yaw_to((p1[0] - p0[0]) / L, (p1[1] - p0[1]) / L) - 90
         h = TR.height(np.array([p0[0], p1[0]]), np.array([p0[1], p1[1]]))
-        ctx.add(f"Boundary_{i + 1:02d}", "boundary", [(p0[0] + p1[0]) / 2, float(h.min()) - 4, (p0[1] + p1[1]) / 2], [L + 0.6, float(h.max() - h.min()) + 34, 0.5], rot=[0, yaw, 0])
+        top = max([float(h.max()) + 30] + [p["top"] + 10 for p in spec.get("platforms", [])])  # above the highest deck too
+        ctx.add(f"Boundary_{i + 1:02d}", "boundary", [(p0[0] + p1[0]) / 2, float(h.min()) - 4, (p0[1] + p1[1]) / 2], [L + 0.6, top - float(h.min()) + 4, 0.5], rot=[0, yaw, 0])
     ctx.element = None
     return TR, auto
 

@@ -69,7 +69,7 @@ def build_environment(level_dir, L=None, log=print):
         mat, px = make_material(mname, mdef); mats[mname] = mdef; tex_px += sum(px)
         m = GENERATORS[typ](lay, q)
         T = np.eye(4)
-        if typ == "factory":  # local mesh, node placed by azimuth/distance, front turned to the arena
+        if typ in ("factory", "ring_structure"):  # local mesh, node placed by azimuth/distance, front turned to the arena
             T = translation_matrix(polar(lay.get("azimuth_deg", 0), lay.get("distance", 180))) @ euler_matrix(0, np.radians(-lay.get("azimuth_deg", 0)), 0)
         chim = [[round(float(c), 2) for c in (T @ [x, y, z, 1])[:3]] + [round(r, 2)] for x, y, z, r in m.metadata.get("chimney_tops", [])]
         # world-scaled planar UVs (same scheme as the playable level)

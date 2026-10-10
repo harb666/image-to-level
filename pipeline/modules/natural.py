@@ -98,3 +98,26 @@ def boulder_field(ctx, s, x, y, z, yaw):
         a, r = rng.uniform(0, 2 * np.pi), R * math.sqrt(rng.uniform(0.05, 1)); bx, bz = x + r * math.cos(a), z + r * math.sin(a); sz = rng.uniform(1.4, 3.2)
         gy = A.ground_height(ctx, bx, bz, y, sz * 0.3)
         ctx.add(f"{n}_{i + 1:02d}", "rock", [bx, gy - sz * 0.25, bz], [sz * rng.uniform(1, 1.4), sz, sz * rng.uniform(0.9, 1.3)], s.get("material", "rock"), rot=[0, rng.uniform(0, 360), 0], seed=_seed(s) + i)
+
+
+@structure("waterfall", pad=False, natural=True)
+def waterfall(ctx, s, x, y, z, yaw):
+    """Waterfall over a cliff edge: a falling water sheet from the lip at 'position' (top = highest ground within 3 m,
+    or "y") down to the water surface / ground below, facing 'yaw' (or away from the cliff). "width" (m)."""
+    w = s.get("width", s.get("size", [6, 1, 1])[0]); TR = getattr(ctx, "TR", None); n = s["id"]
+    if TR is not None:
+        if "yaw" not in s:  # face down the steepest descent
+            e = 6.0; hx = TR.height_at(x + e, z) - TR.height_at(x - e, z); hz = TR.height_at(x, z + e) - TR.height_at(x, z - e); yaw = A.yaw_to(-hx, -hz)
+        dx, dz = math.sin(math.radians(yaw)), math.cos(math.radians(yaw))
+        t = np.arange(-30, 30.5, 1.0); H = TR.height(x + dx * t, z + dz * t); drop = H[:-4] - H[4:]  # find the lip: biggest 4 m drop along the facing line
+        k = int(np.argmax(drop))
+        if drop[k] > 3: x, z = x + dx * t[k], z + dz * t[k]
+        g = np.linspace(-1.5, 1.5, 4); X, Z = np.meshgrid(x + g, z + g); top = float(TR.height(X.ravel(), Z.ravel()).max())
+        fx, fz = x + dx * 6, z + dz * 6
+        wy = TR.water_y(np.array([fx]), np.array([fz]))[0]; bottom = max(float(TR.height_at(fx, fz)), float(wy) if np.isfinite(wy) else -1e9)
+    else: top, bottom = s.get("y", y + 10), y
+    top = s.get("y", top) - 0.15; drop = top - bottom + 0.8
+    if drop < 2: ctx.notes.append(f"{n}: no drop at this position - waterfall skipped"); return
+    st = ctx.add(n, "stream", [x, top, z], [round(w, 2), round(drop, 2), 0.35], s.get("material", "water"), rot=[0, yaw, 0],
+                 section="sheet", speed=s.get("speed", 1.6), pitch=-10, inset=0.6)
+    ctx.pours.append(st)

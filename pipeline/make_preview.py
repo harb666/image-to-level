@@ -50,7 +50,7 @@ glob["BUILD_ID"] = "build " + time.strftime("%m-%d %H:%M") + " " + hashlib.sha1(
 if MOB and os.path.exists(os.path.join(lvl, "mobile", "mobile_manifest.json")):
     glob["TRIS_LABEL"] = f"{json.load(open(os.path.join(lvl, 'mobile', 'mobile_manifest.json')))['metrics']['mobile']['level']['triangles']} tris (mobile)"
 from gameplay import load_gameplay  # Stage 7: player/camera numbers + validation issues for the overlay
-glob["GAMEPLAY"] = {k: v for k, v in load_gameplay(lvl).items() if k in ("player", "camera")}
+glob["GAMEPLAY"] = {k: v for k, v in load_gameplay(lvl).items() if k in ("player", "camera", "design")}
 rp = os.path.join(lvl, "checks", "report.json")
 if os.path.exists(rp) and "--no-issues" not in sys.argv:
     glob["ISSUES"] = [i for i in json.load(open(rp)).get("issues", []) if i.get("pos")][:80]

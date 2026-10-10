@@ -24,6 +24,7 @@ All return trimesh.Trimesh; every solid is closed (no open backs). Sizes are o["
   rock_arch             natural stone arch along x (span w, top h, depth d), flared buried legs (Stage 9)
   cave                  rock mass with a walk-in cave on its +z face, flat floor at y=0, closed back (Stage 9)
   overhang              rock shelf with a lip jutting forward (+z) over a recess (Stage 9)
+  frustum               tapered block, full footprint on top, "bottom_scale" at the base; rect or n-gon (Stage 9)
 """
 import numpy as np, trimesh
 from trimesh.transformations import rotation_matrix
@@ -336,9 +337,19 @@ def crystals(w, h, d, o):
     return trimesh.util.concatenate(parts)
 
 
+def frustum(w, h, d, o):
+    """Tapered block: full w x d footprint at the top (y=h), "bottom_scale" x at the base (y=0). "sections" 0 = rectangular,
+    n = regular n-gon (flats facing the axes, like the rotated platform cylinders). Closed (Stage 9 sky-pylon underframes)."""
+    k = o.get("bottom_scale", 0.5); n = int(o.get("sections", 0) or 0)
+    if n: a = np.linspace(0, 2 * np.pi, n, endpoint=False) + np.pi / n; ring = np.c_[w / 2 * np.cos(a), d / 2 * np.sin(a)]
+    else: ring = np.array([[-w / 2, -d / 2], [w / 2, -d / 2], [w / 2, d / 2], [-w / 2, d / 2]])
+    top = np.c_[ring[:, 0], np.full(len(ring), h), ring[:, 1]]; bot = np.c_[ring[:, 0] * k, np.zeros(len(ring)), ring[:, 1] * k]
+    return trimesh.convex.convex_hull(np.vstack([top, bot]))
+
+
 SHAPES = dict(railing=railing, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
-              stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals)
+              stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum)
 
 
 def make(o, bevel=0.0):

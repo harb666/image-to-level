@@ -54,10 +54,15 @@ def world_viewpoints(L, G):
     c = B.mean(0); eye = G["player"]["eye_height"]; arm = G["camera"]["arm_length"]; V = []
     for k, (nm, d) in enumerate((("north", (0, -1)), ("east", (1, 0)), ("south", (0, 1)), ("west", (-1, 0)))):
         p = B[np.argmax((B - c) @ np.array(d))]; p = p + (c - p) / np.linalg.norm(c - p) * 8; y = TR.height_at(*p)
+        if not L["terrain"].get("terrain_playable", True) and L.get("walkable"):  # decks over scenery: stand on the nearest deck edge
+            w = min(L["walkable"], key=lambda w: math.hypot((w["min"][0] + w["max"][0]) / 2 - p[0], (w["min"][1] + w["max"][1]) / 2 - p[1]))
+            p = np.array([min(max(p[0], w["min"][0]), w["max"][0]), min(max(p[1], w["min"][1]), w["max"][1])]); y = w["y"]
         V.append(dict(name=f"{17 + k:02d}_edge_{nm}_3rd", eye=[float(p[0] - d[0] * arm), y + eye + 1.4, float(p[1] - d[1] * arm)], target=[float(p[0] + d[0] * 60), y + eye - 1, float(p[1] + d[1] * 60)], fov=70))
     G_ = TR.grid(); from terrain import inside_poly
     ins = inside_poly(B, G_["X"], G_["Z"]); i, j = np.unravel_index(np.argmax(np.where(ins, G_["H"], -1e9)), G_["H"].shape)
     hp = [float(G_["X"][i, j]), float(G_["H"][i, j]), float(G_["Z"][i, j])]
+    if not L["terrain"].get("terrain_playable", True) and L.get("walkable"):
+        w = max(L["walkable"], key=lambda w: w["y"]); hp = [(w["min"][0] + w["max"][0]) / 2, w["y"], (w["min"][1] + w["max"][1]) / 2]
     V.append(dict(name="21_hilltop_view", eye=[hp[0], hp[1] + eye + 1.2, hp[2]], target=[float(c[0]), hp[1] - 6, float(c[1])], fov=75))
     R = float(np.linalg.norm(B - c, axis=1).max())
     V.append(dict(name="22_zones_overview", eye=[float(c[0]) + R * 1.3, R * 0.9, float(c[1]) + R * 1.6], target=[float(c[0]), 0, float(c[1])], fov=60))

@@ -164,3 +164,13 @@ def fence(ctx, s, x, y, z, yaw):
         pitch = -math.degrees(math.atan2(g1 - g0, L / k))
         for r, hh in enumerate((0.45, 1.0)):
             ctx.add(f"{n}_Rail_{i + 1:02d}{'ab'[r]}", "box", [px, (g0 + g1) / 2 + hh, pz], [0.06, 0.08, L / k], "rail", rot=[pitch, A.yaw_to(ux, uz), 0])
+
+
+@structure("floor_marking", pad=False)
+def floor_marking(ctx, s, x, y, z, yaw):
+    """Concentric floor rings (helipad / target / arena centre): thin discs 2 cm apart in height, alternating
+    'accent' / 'glow' / deck roles, outer radius size[0] / 2, 'count' rings."""
+    R = s.get("size", [10, 0, 10])[0] / 2; k = int(s.get("count", 4)); n = s["id"]
+    for i in range(k):
+        r = R * (1 - i / k); mat = ("accent", "deck", "glow", "deck")[i % 4] if i < k - 1 else "glow"
+        ctx.add(f"{n}_Ring_{i + 1}", "cylinder", [x, y - 0.02 + 0.02 * (i + 1), z], [2 * r, 0.04, 2 * r], mat, sections=24)

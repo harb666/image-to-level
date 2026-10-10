@@ -98,7 +98,7 @@ def generate(spec, G, level_dir=None):
         ctx.walkable += [dict(name=r["id"], min=[r["points"][0][0] - 1.5, r["points"][0][2] - 1.5], max=[r["points"][0][0] + 1.5, r["points"][0][2] + 1.5],
                               y=r["points"][0][1]) for r in regions if r["points"]]
     else: spawn, spawns = _spawns(spec, plats, blocks, centre, ctx, G)
-    if ctx.TR is not None: ctx.walkable += WM.walk_samples(ctx)
+    if ctx.TR is not None and W.get("terrain_playable", True): ctx.walkable += WM.walk_samples(ctx)
     env, glow = _environment(spec, ctx)
     b = _bounds(spec, ctx) if ctx.TR is None else WM.world_bounds(ctx, max([p["top"] for p in spec.get("platforms", [])] + [0]))
     from sky import PRESETS
@@ -142,7 +142,8 @@ def _spawns(spec, plats, blocks, centre, ctx, G):
         else:
             fy = spec["arena"]["floor"]["y"]; x, y, z = centre[0], fy, centre[1] + spec["arena"]["size"][1] * 0.35  # (world levels use spawn regions)
         yaw = s.get("yaw", math.degrees(math.atan2(-(centre[0] - x), -(centre[1] - z))) if math.hypot(centre[0] - x, centre[1] - z) > 1 else 0.0)
-        out.append(dict(id=s.get("id", "spawn" if i == 0 else f"spawn_{i + 1}"), position=[round(x, 2), round(y, 2), round(z, 2)], yaw_deg=round(yaw, 1)))
+        out.append(dict(id=s.get("id", "spawn" if i == 0 else f"spawn_{i + 1}"), position=[round(x, 2), round(y, 2), round(z, 2)], yaw_deg=round(yaw, 1),
+                        **({"team": s["team"]} if s.get("team") else {})))
     first = dict(position=out[0]["position"], yaw_deg=out[0]["yaw_deg"])
     return first, out[1:]
 

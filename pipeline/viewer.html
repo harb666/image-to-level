@@ -266,7 +266,7 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
     const d=new THREE.Vector3(s,0,-f);if(d.lengthSq()>0){d.normalize().applyAxisAngle(UP,yaw);const step=GP.player.walk_speed*dt;if(!blocked(d,step))pos.addScaledVector(d,step);}
     ray.set(new THREE.Vector3(pos.x,pos.y+0.5,pos.z),down);ray.far=100;const h=ray.intersectObjects(solids)[0];
     const ground=h?h.point.y:-50;if(h&&h.object.name.startsWith('Hazard')&&pos.y-meta.eye_height<h.point.y+0.3){spawn();}if(jumpReq&&pos.y<=ground+meta.eye_height+0.05)vy=Math.sqrt(2*GP.player.gravity*GP.player.jump_height);jumpReq=false;vy-=GP.player.gravity*dt;pos.y+=vy*dt;
-    if(pos.y<ground+meta.eye_height){pos.y=ground+meta.eye_height;vy=0;}if(pos.y<-40)spawn();
+    if(pos.y<ground+meta.eye_height){pos.y=ground+meta.eye_height;vy=0;}if(pos.y<((GP.design||{}).kill_y??-40))spawn();
     avatar.position.set(pos.x,pos.y-meta.eye_height+GP.player.height/2,pos.z);avatar.visible=M==='3rd person';
     if(M==='1st person'){cam.position.copy(pos);cam.rotation.set(pitch,yaw,0,'YXZ');}
     else{ // 3rd person: camera orbits 5 m from the player's head, pulled in when a wall is in the way

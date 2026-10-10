@@ -176,6 +176,9 @@ def check_floors(d, L, TR, G, out):
 def check_boundary(d, L, TR, G, out):
     B = (L["terrain"].get("boundary") or {}).get("points")
     if not B: return
+    if not L["terrain"].get("terrain_playable", True):  # decks over scenery terrain: the edge is a drop, not open ground
+        out.append(F("boundary", "INTENTIONAL", ["terrain"], "terrain is scenery (terrain_playable: false): the playable edge is the decks' fall edge, colliders above the void"))
+        return
     P = np.asarray(B, float); area = 0.5 * np.sum(P[:, 0] * np.roll(P[:, 1], -1) - np.roll(P[:, 0], -1) * P[:, 1]); sgn = 1 if area > 0 else -1
     weak = []
     for k in range(len(P)):
@@ -232,9 +235,13 @@ def check_density(d, L, TR, G, out):
 
 def check_unreachable(L, TR, nav, out):
     INTENT = ("mesa", "plateau", "mountain", "cliff", "ridge", "barrier", "crater")
+    scenery = not L["terrain"].get("terrain_playable", True)
     for c in nav.get("component_list", []):
         if c["reachable"] or c["area_m2"] < 150: continue
         x, y, z = c["centre"]; b = c.get("bbox") or [x, z, x, z]
+        wy = TR.water_y(np.array([x]), np.array([z]))[0]
+        if np.isfinite(wy) and wy - y > 1.8: continue  # sea / lake bed under deep water: not a standable area
+        if scenery and all(o.startswith(("TR_", "SC", "TW_")) for o in c.get("objects", [])): continue  # terrain is scenery here
         cx_, cz_ = np.array([x, b[0], b[2], b[0], b[2]]), np.array([z, b[1], b[1], b[3], b[3]])
         if _inside_boundary(L, cx_, cz_).sum() < 4: continue  # pockets on the barrier slopes / outside the playable polygon
         why = [f["id"] for f in TR.features if f["type"] in INTENT and TR.bbox(f) is not None and (TR.bbox(f)[0] <= x <= TR.bbox(f)[2] and TR.bbox(f)[1] <= z <= TR.bbox(f)[3])]
@@ -250,13 +257,18 @@ def check_unreachable(L, TR, nav, out):
 def camera_points(L, TR, G, n_boundary=12):
     """Third-person cameras at boundary edges (looking out), hilltops, spawns, platform edges + 8 compass directions."""
     P_, C_ = G["player"], G["camera"]; eye = P_["eye_height"]; pts = []
-    B = (L["terrain"].get("boundary") or {}).get("points")
+    B = (L["terrain"].get("boundary") or {}).get("points"); scenery = not L["terrain"].get("terrain_playable", True)
+    W_ = [w for w in L.get("walkable", []) if not w.get("terrain")]
+    def surf(p):  # where a player can stand near p: the terrain, or (scenery terrain) the nearest deck
+        if scenery and W_:
+            w = min(W_, key=lambda w: math.hypot((w["min"][0] + w["max"][0]) / 2 - p[0], (w["min"][1] + w["max"][1]) / 2 - p[1])); return w["y"]
+        return TR.height_at(*p)
     if B:
         Pb = np.asarray(B, float); c = Pb.mean(0)
         for k in np.linspace(0, len(Pb), n_boundary, endpoint=False).astype(int):
-            p = Pb[k] + (c - Pb[k]) / np.linalg.norm(c - Pb[k]) * 4; pts.append(("boundary", np.array([p[0], TR.height_at(*p) + eye + 1.2, p[1]])))
+            p = Pb[k] + (c - Pb[k]) / np.linalg.norm(c - Pb[k]) * 4; pts.append(("boundary", np.array([p[0], surf(p) + eye + 1.2, p[1]])))
     G_ = TR.grid(); H = G_["H"]; ins = _inside_boundary(L, G_["X"], G_["Z"]); Hm = np.where(ins, H, -1e9)
-    for k in np.argsort(Hm.ravel())[::-1][:200:40]:  # a few of the highest standable points
+    for k in ([] if scenery else np.argsort(Hm.ravel())[::-1][:200:40]):  # a few of the highest standable points
         i, j = divmod(int(k), H.shape[1]); pts.append(("hilltop", np.array([G_["X"][i, j] + 0.13, H[i, j] + eye + 1.2, G_["Z"][i, j] + 0.07])))
     for s in [L["spawn"]] + L.get("spawns", [])[:6]: p = s["position"]; pts.append(("spawn", np.array([p[0], p[1] + eye + 1.2, p[2]])))
     for w in [w for w in L.get("walkable", []) if not w.get("terrain")][:6]: pts.append(("platform", np.array([w["max"][0], w["y"] + eye + 1.2, w["max"][1]])))

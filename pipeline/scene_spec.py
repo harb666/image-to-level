@@ -29,7 +29,7 @@ SCHEMA = {
                            "walkway": (DICT, False, {"width": (NUM, False), "y": (NUM, True), "style": (STR, False), "source": (STR, False)}),
                            "boundary": (STR, False, ("walls", "invisible"))}),
     "platforms": (LIST, False, dict(ELEMENT, id=(STR, True), shape=(STR, False, ("rect", "octagon", "circle")), center=(V2, True), size=(V2, True),
-                                    top=(NUM, True), style=(STR, False, ("industrial_pillar", "stone_plinth", "plain")), cover=(INT, False), lights=(BOOL, False),
+                                    top=(NUM, True), style=(STR, False, ("industrial_pillar", "stone_plinth", "plain", "sky_pylon")), cover=(INT, False), lights=(BOOL, False),
                                     material=(STR, False), unreachable_ok=(BOOL, False), notes=(STR, False))),
     "connections": (LIST, False, dict(ELEMENT, id=(STR, True), **{"from": (STR, True)}, to=(STR, True), kind=(STR, False, ("auto", "bridge", "catwalk", "ramp", "stairs", "jump")),
                                       width=(NUM, False), rails=(BOOL, False), notes=(STR, False))),
@@ -68,7 +68,7 @@ FEATURE = dict(ELEMENT, id=(STR, True), type=(STR, True, None), center=(V2, Fals
                bank_slope=(NUM, False), flow=(BOOL, False), level=(NUM, False), margin=(NUM, False), surface=(STR, False), image=(STR, False),
                area=(("vec", 4), False), mode=(STR, False, ("add", "replace", "max", "lower")), feather=(NUM, False), name=(STR, False), floor=(NUM, False),
                seed=(INT, False), notes=(STR, False), gen=(STR, False))
-SCATTER = dict(ELEMENT, id=(STR, True), kinds=(LIST, True), area=(LIST, False), density=(NUM, False), spacing=(NUM, False), slope_max=(NUM, False),
+SCATTER = dict(ELEMENT, id=(STR, True), kinds=(LIST, True), area=((STR, LIST), False), density=(NUM, False), spacing=(NUM, False), slope_max=(NUM, False),
                height=(V2, False), layers=(LIST, False), avoid=(LIST, False), seed=(INT, False), style=(STR, False), scale=(V2, False),
                zone=(STR, False, ("near", "middle")), cluster=(NUM, False), notes=(STR, False))
 WORLD = {"mode": (STR, False, ("open", "hybrid")), "extent": (("vec", 4), False), "size": (V2, False), "center": (V2, False), "seed": (INT, False),
@@ -76,7 +76,7 @@ WORLD = {"mode": (STR, False, ("open", "hybrid")), "extent": (("vec", 4), False)
          "features": (LIST, False, FEATURE), "scatter": (LIST, False, SCATTER), "water": (DICT, False, {"level": (NUM, True)}), "water_material": (STR, False),
          "boundary": (DICT, False, {"points": (LIST, False), "shape": (STR, False, ("organic", "rounded")), "margin": (NUM, False), "vertices": (INT, False),
                                     "barrier": (STR, False, ("ridge", "none")), "height": (NUM, False), "offset": (NUM, False), "width": (NUM, False), "source": (STR, False)}),
-         "middle": (DICT, False), "lod_ranges": (V2, False), "style": (STR, False), "layers": (LIST, False), "materials": (DICT, False), "source": (STR, False), "notes": (STR, False),
+         "middle": (DICT, False), "lod_ranges": (V2, False), "style": (STR, False), "terrain_playable": (BOOL, False), "layers": (LIST, False), "materials": (DICT, False), "source": (STR, False), "notes": (STR, False),
          "spawn_regions": (LIST, False, {"id": (STR, True), "team": (STR, False, ("player", "enemy")), "center": (V2, True), "radius": (NUM, False),
                                          "count": (INT, False), "spacing": (NUM, False), "facing": (V2, False), "source": (STR, False)})}
 NEEDS = {"hill": ("center", "radius", "height"), "mountain": ("center", "radius", "height"), "crater": ("center", "radius"), "plateau": ("center", "radius"),

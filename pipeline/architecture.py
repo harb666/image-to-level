@@ -300,7 +300,23 @@ def _walk_rect(p, top):
     return dict(name=p["id"], min=[cx - w * k / 2, cz - d * k / 2], max=[cx + w * k / 2, cz + d * k / 2], y=p["top"])
 
 
-PLATFORM_STYLES = dict(industrial_pillar=industrial_pillar, stone_plinth=stone_plinth, plain=plain)
+def sky_pylon(ctx, p, base_y, centre):
+    """Raised / floating deck (Stage 9): floor plate, lit trim band, deck body, a tapered underframe and a slimmer
+    support column down to base_y (ground, sea bed). Reads as a platform held up by machinery, not a solid tower."""
+    n, (cx, cz), (w, d), top, shape = p["id"], p["center"], p["size"], p["top"], p.get("shape", "rect")
+    g = ctx.add(n, "group", [cx, 0, cz]); sec = {"octagon": 8, "circle": 24}.get(shape, 0)
+    ctx.floor_of[n] = _solid(ctx, n + "_Floor", g, shape, w, 0.3, d, top - 0.3, "deck", 0.3, vkey=f"floor@{top:.2f}"); p["_plate"] = 0.3
+    _solid(ctx, n + "_Trim", g, shape, w, 0.7, d, top - 1.0, "trim", 0.2)
+    _solid(ctx, n + "_Body", g, shape, w, 1.3, d, top - 2.3, "structure")
+    fh = min(8.0, max(2.0, (top - 2.3 - base_y) * 0.4)); k = p.get("taper", 0.45)
+    ctx.add(n + "_Underframe", "frustum", [0, top - 2.3 - fh, 0], [w, fh + 0.01, d], "structure_b", g, sections=sec, bottom_scale=k)
+    ch = top - 2.3 - fh - base_y
+    if ch > 0.3: _solid(ctx, n + "_Column", g, shape, w * k * 0.9, ch + 0.02, d * k * 0.9, base_y, "structure_b")
+    _cover(ctx, p, g, top, "structure_b")
+    ctx.walkable.append(_walk_rect(p, top))
+
+
+PLATFORM_STYLES = dict(industrial_pillar=industrial_pillar, stone_plinth=stone_plinth, plain=plain, sky_pylon=sky_pylon)
 
 
 # ------------------------------------------------------------------ connections
