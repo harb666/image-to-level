@@ -204,7 +204,8 @@ def _terrain_mobile(L, level_dir, src, nodes, scene, manifest_nodes, ranges, ext
 # ---------------------------------------------------------------- export
 def export(level_dir, profile=None):
     L = json.load(open(os.path.join(level_dir, "level.json"))); mob = L.get("mobile", {})
-    profile = profile or mob.get("profile") or L.get("environment", {}).get("quality", "balanced"); P = PROFILES[profile]
+    profile = profile or mob.get("profile") or L.get("environment", {}).get("quality", "balanced")
+    P = dict(PROFILES[profile], **{k: v for k, v in mob.items() if k in PROFILES[profile]})  # per-level overrides (e.g. "cell": 64)
     out_dir = os.path.join(level_dir, "mobile"); os.makedirs(out_dir, exist_ok=True)
     fxp = os.path.join(level_dir, "effects.json"); FX = json.load(open(fxp)) if os.path.exists(fxp) else {"effects": []}
     keep = set(L.get("hazards", [])) | {o["name"] for o in L["objects"] if o.get("mobile", {}).get("merge") is False}

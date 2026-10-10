@@ -139,7 +139,13 @@ def skyline(L, q):
     for i in range(n):
         az = a0 + (a1 - a0) * (i + rng.uniform(0.1, 0.9)) / n; w, d, h = rng.uniform(8, 22), rng.uniform(8, 22), rng.uniform(h0, h1)
         m = _box(w, h + 5, d, y=-5)
-        if rng.random() < 0.35: m = trimesh.util.concatenate([m, _cyl(rng.uniform(1, 2), h * 1.4 + 5, w * 0.25, -5, 0, 6)])
+        if L.get("setbacks"):  # stepped high-rise: 1-2 narrower tiers on top (silhouette reads at distance)
+            y_, ww, dd = h, w, d
+            for _ in range(int(rng.integers(0, 3))):
+                ww, dd = ww * rng.uniform(0.55, 0.8), dd * rng.uniform(0.55, 0.8); th = h * rng.uniform(0.15, 0.35)
+                m = trimesh.util.concatenate([m, _box(ww, th, dd, y=y_ - 0.5)]); y_ += th - 0.5
+            if rng.random() < L.get("masts", 0.0): m = trimesh.util.concatenate([m, _cyl(0.5, h * rng.uniform(0.15, 0.3), 0, y_ - 0.5, 0, 5)])
+        elif rng.random() < 0.35: m = trimesh.util.concatenate([m, _cyl(rng.uniform(1, 2), h * 1.4 + 5, w * 0.25, -5, 0, 6)])
         m.apply_transform(trimesh.transformations.rotation_matrix(np.radians(-az), [0, 1, 0]))
         m.apply_translation(polar(az, r + rng.uniform(-25, 25))); parts.append(m)
     return trimesh.util.concatenate(parts)

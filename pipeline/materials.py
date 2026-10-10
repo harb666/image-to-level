@@ -8,6 +8,7 @@ G=roughness, B=metallic — glTF metallicRoughness + occlusion share it) and, if
 All maps are tileable. Standard glTF 2.0 PBR, so Godot 4 imports them into StandardMaterial3D directly.
 PBR kinds: industrial_metal, painted_metal, damaged_metal, scifi_floor, grating, concrete, rock, sand, dirt, grass,
   toxic, glow, machinery_panel, trim_light, pipe, banner, factory_facade (distant buildings, lit windows),
+  hull_plating (worn tower/wall plates: straps, vents, rain streaks), chevron (hazard stripes),
   snow, mud, asphalt ("lines": true = lane line), gravel, moss (Stage 9 terrain layers).  Legacy (stylised, albedo-derived normals): cobblestone,
   stone_brick, plaster, wood, painted_wood, trim_wood, door_wood, window, roof_tiles, roof_slate, metal, water, soil.
 """
@@ -134,7 +135,7 @@ def legacy_texture(kind):
 # ---------------------------------------------------------------- PBR kinds
 ALIASES = {"industrial_wall": "industrial_metal", "platform_side": "machinery_panel", "floor_plate": "scifi_floor",
            "grate": "grating", "pipe_metal": "pipe", "red_panel": "banner", "cliff": "rock"}
-DEFAULT_RES = {"industrial_metal": 512, "scifi_floor": 512, "rock": 512, "painted_metal": 512, "damaged_metal": 512,
+DEFAULT_RES = {"hull_plating": 512, "industrial_metal": 512, "scifi_floor": 512, "rock": 512, "painted_metal": 512, "damaged_metal": 512,
                "concrete": 256, "glow": 128}
 
 
@@ -220,8 +221,45 @@ def k_scifi_floor(S, rng, c, m):
     h = 0.6 * seam - 0.12 * inset + 0.12 * inset * np.clip(inset_e * 40, 0, 1) - 0.15 * diag + 0.25 * bolt + 0.03 * fine
     alb = c[None, None] * (pv * (0.9 + 0.12 * fine) * (1 - 0.35 * grime) * (0.45 + 0.55 * seam) * (1 - 0.35 * diag)
                            * np.where(inset, 0.85, 1.0) * (1 + 0.3 * bolt))[..., None] + 0.06 * scratch[..., None]
-    rough = np.clip(0.62 + 0.2 * grime + 0.06 * n - 0.3 * scratch, 0, 1)
-    return dict(alb=alb, h=h, rough=rough, metal=0.2 + 0.4 * scratch, nstr=0.9)  # coated deck: mostly diffuse
+    gl = m.get("gloss", 0.0)  # 0 = matt coated deck (default); >0 = polished, reflective plates (sunset reflections)
+    rough = np.clip(0.62 - 0.3 * gl + 0.2 * grime + 0.06 * n - 0.3 * scratch + 0.15 * gl * np.clip(grime, 0, 1), 0, 1)
+    return dict(alb=alb, h=h, rough=rough, metal=np.clip(m.get("metallic", 0.2) + 0.4 * scratch - 0.15 * grime, 0, 1), nstr=0.9)  # coated deck: mostly diffuse
+
+
+def k_hull_plating(S, rng, c, m):
+    """Heavy sci-fi hull plating for towers / walls: tall plates with bevelled seams, riveted horizontal straps, louvred
+    vent grilles in some plates, rain streaks running down from seams and rivets, scuffed bare-metal edges, roughness
+    breakup (wet streaks glossier). Dark, worn, NOT uniformly glossy."""
+    x, y = _xy(S); fine = _noise(rng, 32, 2, S); n = _noise(rng, 4, 3, S); wear = m.get("wear", 0.55)
+    cols, rows = 2, 2; px, py = (x * cols) % 1, (y * rows) % 1; e = _edge(px, py); seam = np.clip(e * 42, 0, 1) ** 0.7
+    pid = (y * rows).astype(int) * cols + (x * cols).astype(int); pv = rng.uniform(0.8, 1.1, cols * rows)[pid]
+    strap = (np.abs(py - 0.18) < 0.03); riv = _rivets(px, np.clip((py - 0.18) * 6 + 0.5, 0, 1), 8, 0.5, 0.05) * (np.abs(py - 0.18) < 0.06)
+    vent = (pid == 2) & (np.abs(px - 0.5) < 0.3) & (np.abs(py - 0.62) < 0.18); louv = vent & (((py * 40) % 1) < 0.45)
+    # streaks: dirt washed down from seams / straps (v grows downwards in the image = down the wall)
+    src = np.clip(1 - seam, 0, 1) * 0.6 + strap * 0.8 + _noise(rng, 24, 1, S) * 0.15
+    k = np.zeros_like(src); acc = np.zeros(S)
+    for r in range(S): acc = acc * 0.985 + src[r]; k[r] = acc
+    streak = np.clip(k / 18 * (0.4 + 0.6 * _noise(rng, 48, 1, S)), 0, 1) * np.clip((_noise(rng, 40, 1, S) - 0.35) * 3, 0, 1)
+    grime = np.clip(_grime(rng, S, y, wear) + 0.6 * streak, 0, 1.5)
+    edgewear = np.clip(1 - e * 28, 0, 1) * (seam > 0.6) * (_noise(rng, 16, 2, S) > 0.42)
+    scratch = (np.abs(_noise(rng, 22, 1, S) - 0.5) < 0.006) * np.clip((_noise(rng, 3, 2, S) - 0.5) * 4, 0, 1)
+    h = 0.55 * seam + 0.18 * strap + 0.3 * riv - 0.25 * vent + 0.15 * louv + 0.04 * fine
+    alb = c[None, None] * (pv * (0.85 + 0.15 * fine) * (1 - 0.45 * grime) * (0.42 + 0.58 * seam) * np.where(vent, 0.45 + 0.6 * louv, 1.0)
+                           * (1 + 0.15 * strap) * (1 + 0.3 * riv))[..., None]
+    bare = np.clip(c * 1.8 + 0.1, 0, 1); alb = alb + (bare - alb) * (0.6 * edgewear + 0.35 * scratch)[..., None]
+    rough = np.clip(0.5 + 0.22 * grime + 0.1 * n - 0.18 * streak - 0.2 * edgewear, 0.18, 1)
+    metal = np.clip(0.45 + 0.45 * edgewear + 0.3 * scratch - 0.3 * np.clip(grime, 0, 1), 0, 1)
+    return dict(alb=alb, h=h, rough=rough, metal=metal, nstr=1.1)
+
+
+def k_chevron(S, rng, c, m):
+    """Worn hazard chevrons (accent colour + near-black), chipped paint showing bare metal, dirt in the lower half."""
+    x, y = _xy(S); fine = _noise(rng, 32, 2, S); grime = _grime(rng, S, y, m.get("wear", 0.6))
+    band = ((x * 4 + np.abs(y - 0.5) * 2) % 1) < 0.5; dark = np.array(m.get("dark", [0.06, 0.06, 0.06]))
+    chip = _noise(rng, 20, 2, S) > 0.9 - 0.12 * m.get("wear", 0.6); edge = (y < 0.06) | (y > 0.94)
+    alb = np.where(band[..., None], c[None, None], dark[None, None]) * ((0.85 + 0.15 * fine) * (1 - 0.45 * grime))[..., None]
+    alb = np.where((chip | edge)[..., None], np.full(3, 0.42) * (0.8 + 0.2 * fine[..., None]), alb)
+    return dict(alb=alb, h=0.6 - 0.1 * chip - 0.3 * edge + 0.03 * fine, rough=np.where(chip, 0.4, 0.62 + 0.25 * grime), metal=np.where(chip | edge, 0.85, 0.05), nstr=0.8)
 
 
 def k_grating(S, rng, c, m):

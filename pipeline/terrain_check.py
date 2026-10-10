@@ -223,7 +223,8 @@ def check_water(d, L, TR, G, out):
 
 
 def check_density(d, L, TR, G, out):
-    budget = G.get("budgets", {}).get("chunk_triangles", 14000)
+    budget = G.get("budgets", {}).get("chunk_triangles", 14000)  # per default 64 m chunk (32 cells x 2 m): a DENSITY budget,
+    budget = int(budget * max(1.0, (TR.C * TR.cell / 64.0) ** 2))      # so bigger chunks get proportionally more
     s = trimesh.load(os.path.join(d, "level.glb"), force="scene"); per = {}
     for node in s.graph.nodes_geometry:
         if node.startswith(("TRM_", "Boundary")): continue

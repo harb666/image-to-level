@@ -130,7 +130,7 @@
   "biome": "rocky",
   "style": "realistic",
   "cell": 4.0,
-  "chunk": 20,
+  "chunk": 40,
   "base_y": -14,
   "terrain_playable": false,
   "water": {
@@ -351,7 +351,7 @@
      }
     ],
     "area": "extent",
-    "density": 2.5,
+    "density": 3.5,
     "cluster": 0.3,
     "slope_max": 24,
     "height": [
@@ -361,7 +361,8 @@
     "layers": [
      "grass"
     ],
-    "source": "visible"
+    "source": "visible",
+    "seed": 3
    }
   ]
  },
@@ -812,7 +813,17 @@
     16,
     3.5
    ],
-   "source": "visible"
+   "source": "visible",
+   "decor": [
+    "banners",
+    "glow_strips",
+    "vents",
+    "bands",
+    "pipes",
+    "boxes",
+    "hazard",
+    "antenna"
+   ]
   },
   {
    "id": "North_Tower_E",
@@ -827,7 +838,17 @@
     16,
     3.5
    ],
-   "source": "visible"
+   "source": "visible",
+   "decor": [
+    "banners",
+    "glow_strips",
+    "vents",
+    "bands",
+    "pipes",
+    "boxes",
+    "hazard",
+    "antenna"
+   ]
   },
   {
    "id": "NW_Tower",
@@ -842,7 +863,17 @@
     22,
     5
    ],
-   "source": "visible"
+   "source": "visible",
+   "decor": [
+    "banners",
+    "glow_strips",
+    "vents",
+    "bands",
+    "pipes",
+    "boxes",
+    "hazard",
+    "antenna"
+   ]
   },
   {
    "id": "West_Hall",
@@ -873,7 +904,17 @@
     16,
     5
    ],
-   "source": "visible"
+   "source": "visible",
+   "decor": [
+    "banners",
+    "glow_strips",
+    "vents",
+    "bands",
+    "pipes",
+    "boxes",
+    "hazard",
+    "antenna"
+   ]
   },
   {
    "id": "SE_Tower",
@@ -888,7 +929,17 @@
     20,
     5
    ],
-   "source": "visible"
+   "source": "visible",
+   "decor": [
+    "banners",
+    "glow_strips",
+    "vents",
+    "bands",
+    "pipes",
+    "boxes",
+    "hazard",
+    "antenna"
+   ]
   },
   {
    "id": "East_Tower",
@@ -903,7 +954,17 @@
     26,
     6
    ],
-   "source": "visible"
+   "source": "visible",
+   "decor": [
+    "banners",
+    "glow_strips",
+    "vents",
+    "bands",
+    "pipes",
+    "boxes",
+    "hazard",
+    "antenna"
+   ]
   },
   {
    "id": "South_Spire",
@@ -918,7 +979,17 @@
     14,
     5
    ],
-   "source": "visible"
+   "source": "visible",
+   "decor": [
+    "banners",
+    "glow_strips",
+    "vents",
+    "bands",
+    "pipes",
+    "boxes",
+    "hazard",
+    "antenna"
+   ]
   },
   {
    "id": "Falls_West_A",
@@ -966,7 +1037,7 @@
   }
  ],
  "materials": {
-  "variation": true,
+  "variation": false,
   "roles": {
    "deck": {
     "type": "scifi_floor",
@@ -976,7 +1047,9 @@
      0.48
     ],
     "tile_m": 4.0,
-    "wear": 0.4
+    "wear": 0.4,
+    "gloss": 0.45,
+    "metallic": 0.4
    },
    "structure": {
     "type": "machinery_panel",
@@ -998,23 +1071,24 @@
     ]
    },
    "wall": {
-    "type": "industrial_metal",
+    "type": "hull_plating",
     "color": [
-     0.4,
-     0.36,
-     0.33
+     0.33,
+     0.3,
+     0.28
     ],
     "tile_m": 4.0,
-    "wear": 0.5
+    "wear": 0.55
    },
    "structure_b": {
-    "type": "industrial_metal",
+    "type": "hull_plating",
     "color": [
-     0.28,
-     0.26,
-     0.25
+     0.27,
+     0.25,
+     0.24
     ],
-    "tile_m": 4.0
+    "tile_m": 4.0,
+    "wear": 0.6
    },
    "trim": {
     "type": "trim_light",
@@ -1080,6 +1154,16 @@
      0.9
     ],
     "tile_m": 3.0
+   },
+   "stripe": {
+    "type": "chevron",
+    "color": [
+     0.92,
+     0.66,
+     0.12
+    ],
+    "tile_m": 1.5,
+    "res": 256
    }
   }
  },
@@ -1196,12 +1280,12 @@
      90,
      210
     ],
-    "fade": 0.55,
+    "fade": 0.72,
     "seed": 3,
     "color": [
      0.5,
-     0.33,
-     0.27
+     0.38,
+     0.42
     ]
    },
    {
@@ -1213,14 +1297,14 @@
      35,
      100
     ],
-    "fade": 0.3,
+    "fade": 0.5,
     "seed": 8,
     "frequency": 3.5,
     "sharpness": 2.2,
     "color": [
-     0.52,
-     0.33,
-     0.24
+     0.46,
+     0.32,
+     0.33
     ]
    },
    {
@@ -1235,7 +1319,7 @@
      60,
      170
     ],
-    "fade": 0.25,
+    "fade": 0.35,
     "seed": 5
    },
    {
@@ -1246,18 +1330,26 @@
      -45,
      45
     ],
-    "count": 30,
+    "count": 34,
     "height": [
-     40,
-     150
+     45,
+     165
     ],
-    "fade": 0.35,
+    "fade": 0.22,
     "glow": [
      1.0,
      0.6,
      0.3
     ],
-    "lit": 0.15
+    "lit": 0.38,
+    "tile_m": 28.0,
+    "color": [
+     0.12,
+     0.11,
+     0.13
+    ],
+    "setbacks": true,
+    "masts": 0.5
    },
    {
     "id": "Megastructure_Ring",
@@ -1309,5 +1401,8 @@
  },
  "refine": {
   "max_passes": 3
+ },
+ "mobile": {
+  "cell": 64
  }
 }

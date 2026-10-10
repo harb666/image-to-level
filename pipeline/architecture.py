@@ -34,6 +34,7 @@ _IND = {
     "glow": {"type": "glow", "color": [0.55, 1.0, 0.2], "tile_m": 2.0, "emissive": [0.6, 1.0, 0.25]},
     "accent": {"type": "banner", "color": [0.8, 0.1, 0.08], "tile_m": 2.0, "emissive": [1.0, 0.3, 0.25]},
     "machine": {"type": "machinery_panel", "color": [0.22, 0.23, 0.23], "tile_m": 2.0, "accent": [1.0, 0.55, 0.1], "emissive": [1, 1, 1]},
+    "stripe": {"type": "chevron", "color": [0.92, 0.68, 0.1], "tile_m": 1.5, "res": 256},
     "ground": {"type": "concrete", "color": [0.3, 0.3, 0.29], "tile_m": 4.0},
     "rock": {"type": "rock", "color": [0.3, 0.29, 0.27], "tile_m": 6.0, "res": 256},
     "foliage": {"type": "grass", "color": [0.25, 0.35, 0.18], "tile_m": 3.0, "res": 128},
@@ -129,7 +130,7 @@ VARIANT_ROLES = ("wall", "structure", "deck", "plaster")
 FALLBACK = {"foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
             "window": "glow", "foliage": "rock", "water": "hazard", "machine": "structure_b", "backdrop": "wall", "structure_b": "structure",
             "frame": "structure_b", "rail": "frame", "grate": "deck", "trim": "structure_b", "accent": "trim", "glow": "accent", "pipe": "frame",
-            "hazard": "water", "ground": "deck", "deck": "ground", "wall": "structure", "structure": "wall", "rock": "structure"}
+            "hazard": "water", "stripe": "trim", "ground": "deck", "deck": "ground", "wall": "structure", "structure": "wall", "rock": "structure"}
 
 
 def role_material(theme, role):
@@ -312,6 +313,15 @@ def sky_pylon(ctx, p, base_y, centre):
     ctx.add(n + "_Underframe", "frustum", [0, top - 2.3 - fh, 0], [w, fh + 0.01, d], "structure_b", g, sections=sec, bottom_scale=k)
     ch = top - 2.3 - fh - base_y
     if ch > 0.3: _solid(ctx, n + "_Column", g, shape, w * k * 0.9, ch + 0.02, d * k * 0.9, base_y, "structure_b")
+    if p.get("underside", True) and ctx.detail >= 1:  # radial ribs under the deck body + collar bands on the column (shared materials)
+        nr = {"octagon": 8, "circle": 8}.get(shape, 4); rw, rd = (w, d) if not sec else (w * 0.92, d * 0.92)
+        for i in range(nr):
+            a = 2 * math.pi * i / nr + (math.pi / nr if sec else 0); ca, sa = math.cos(a), math.sin(a)
+            reach = (rw / 2 * abs(ca) + rd / 2 * abs(sa)) if not sec else rw / 2  # out to the body edge (rect: along the axis)
+            L_ = max(0.5, reach * (1 - k) + 0.3); r0 = reach - L_ / 2 - 0.15
+            ctx.add(f"{n}_Rib_{i + 1:02d}", "box", [ca * r0, top - 2.3 - fh * 0.55, sa * r0], [0.45, fh * 0.55 + 0.02, L_], "frame", g, [0, math.degrees(math.atan2(ca, sa)), 0])
+        for j, f in enumerate((0.3, 0.75)):
+            if ch > 12: _solid(ctx, f"{n}_Collar_{j + 1}", g, shape, w * k * 0.9 + 0.6, 0.8, d * k * 0.9 + 0.6, base_y + ch * f, "frame")
     _cover(ctx, p, g, top, "structure_b")
     ctx.walkable.append(_walk_rect(p, top))
 
@@ -364,6 +374,10 @@ def connection(ctx, c, A, B, floor_y):
             ctx.add(f"{c['id']}_Beam_{side}", "ibeam", [s * (width / 2 - 0.3), y - 0.855, (oa - ob) / 2], [max(0.5, span - oa - ob), 0.45, 0.3], "frame", g, [0, 90, 0])
         if c.get("rails", kind == "catwalk"):
             _rails(ctx, c["id"], g, width, -span / 2 + oa + 0.3, span / 2 - ob - 0.3, lambda z: y)
+        if ctx.detail >= 1 and span > 3:  # transverse beams under the deck between the side I-beams (bridge underside)
+            for i in range(max(1, int(span / 2.5))):
+                z = -span / 2 + oa + (span - oa - ob) * (i + 0.5) / max(1, int(span / 2.5))
+                ctx.add(f"{c['id']}_Cross_{i + 1:02d}", "box", [0, y - 0.7, z], [width - 0.6, 0.3, 0.25], "frame", g)
         if span > 10 and y - floor_y > 1.5:
             n = max(1, int(span / 9))
             for i in range(n):
@@ -590,6 +604,25 @@ def tower(ctx, s, x, y, z, yaw):
                 ctx.add(f"{n}_Glow_{k + 1:02d}{'LR'[sd > 0]}", "panel", [px + nx + ox, h * 0.08, pz + nz + oz], [0.5, h * 0.78, 0], "glow", g, [0, fy, 0])
         if "vents" in dec and ctx.detail >= 2:
             ctx.add(f"{n}_Vent_{k + 1:02d}", "vent", [px + nx * 6, h * 0.86, pz + nz * 6], [fw * 0.4, 0.9, 0.3], "machine", g, [0, fy, 0])
+        if "boxes" in dec and h > 6 and k % 2 == 1:  # machinery junction boxes with indicator lights on two faces (shared material)
+            ox, oz = local(0, 0.22, fy); ctx.add(f"{n}_Box_{k + 1:02d}", "box", [px + ox, h * 0.12, pz + oz], [min(1.6, fw * 0.45), min(2.2, h * 0.14), 0.45], "machine", g, [0, fy, 0])
+        if "pipes" in dec and h > 6 and k in (1, 3):  # vertical conduits up the side faces, standing on the floor
+            for sd in (-1, 1):
+                ox, oz = local(sd * fw * 0.18, 0.2, fy)
+                ctx.add(f"{n}_Pipe_{k + 1:02d}{'LR'[sd > 0]}", "cylinder", [px + ox, 0, pz + oz], [0.32, h * 0.92, 0.32], "frame", g, sections=8)
+    hz = max(0.6, min(1.2, h * 0.06))
+    if "bands" in dec and h > 6:  # structural straps: break the silhouette, read at gameplay distance
+        for i, f in enumerate((0.42, 0.7)):
+            ctx.add(f"{n}_Band_{i + 1}", "box", [0, h * f, 0], [w + 0.36, 0.45, d + 0.36], "structure_b", g)
+    if "hazard" in dec and h > 4:  # reinforced plinth with worn hazard chevrons on every face
+        ctx.add(n + "_Plinth", "box", [0, 0, 0], [w + 0.7, hz, d + 0.7], "structure_b", g)
+        for k, (px, pz, fy, fw) in enumerate(((0, d / 2, 0, w), (w / 2, 0, 90, d), (0, -d / 2, 180, w), (-w / 2, 0, 270, d))):
+            ox, oz = local(0, 0.37, fy); ctx.add(f"{n}_Chevron_{k + 1:02d}", "panel", [px + ox, hz * 0.18, pz + oz], [fw + 0.5, hz * 0.62, 0], "stripe", g, [0, fy, 0])
+    if "antenna" in dec and h > 10:  # masts with red beacons on the roof
+        top = h + 1.2 + (h * 0.12 if ctx.detail >= 1 else 0)
+        for i, (ax, az, hh) in enumerate(((w * 0.12, d * 0.1, h * 0.28), (-w * 0.15, -d * 0.12, h * 0.18))):
+            ctx.add(f"{n}_Mast_{i + 1}", "cylinder", [ax, top, az], [0.18, hh, 0.18], "frame", g, sections=6)
+            ctx.add(f"{n}_Beacon_{i + 1}", "box", [ax, top + hh, az], [0.32, 0.32, 0.32], "trim", g)
     ctx.platform_blocks = getattr(ctx, "platform_blocks", []) + [(x, z, max(w, d) / 2 + 0.6)]
 
 
