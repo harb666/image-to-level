@@ -92,7 +92,10 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
     if(MODES[mode]==='1st person'){cam.position.copy(pos);cam.rotation.set(pitch,yaw,0,'YXZ');}
     else{ // 3rd person: camera orbits 5 m from the player's head, pulled in when a wall is in the way
       const head=new THREE.Vector3(pos.x,pos.y+0.2,pos.z),back=new THREE.Vector3(0,0,1).applyEuler(new THREE.Euler(pitch,yaw,0,'YXZ'));
-      let dist=5;ray.set(head,back);ray.far=dist;const hit=ray.intersectObjects(camSolids)[0];if(hit)dist=Math.max(0.6,hit.distance-0.3);
+      let dist=5;const side=new THREE.Vector3().crossVectors(back,UP).normalize(),up2=new THREE.Vector3().crossVectors(side,back);
+      for(const o of [[0,0],[.25,0],[-.25,0],[0,.25],[0,-.25]]){ // 0.25 m spring arm (5 rays): never past or grazing a wall
+        ray.set(head.clone().addScaledVector(side,o[0]).addScaledVector(up2,o[1]),back);ray.far=5;const hit=ray.intersectObjects(camSolids)[0];
+        if(hit)dist=Math.min(dist,hit.distance>0.6?hit.distance-0.3:hit.distance*0.5);}
       cam.position.copy(head).addScaledVector(back,dist);cam.lookAt(head);}
   }else{avatar.visible=true;orbit.update();}
   r.render(scene,cam);});

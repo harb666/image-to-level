@@ -92,6 +92,31 @@ Levels without it behave exactly as before. With it, `build_level.py` also write
 - Viewer: panorama sky as background + image-based lighting, fog in the horizon colour, background layer, and a
   third-person camera (default; orbits 5 m from the player, pulls in at visible walls) / 1st person / orbit.
 
+## Geometry & camera completeness (Stage 3)
+- **New object types** (`pipeline/shapes.py`, all closed meshes, base at y=0, `size` = [w, h, d]):
+  `railing` (posts + 2 rails along x), `ibeam` (girder along x), `rock` (+`seed`), `cliff` (jagged rock wall along x,
+  +`seed`), `arch` (gate/tunnel along z; `opening`, `opening_h` fractions; passable), `pipe_elbow` (90° bend, w = pipe
+  diameter, h = bend radius), `vent` (louvred box), `tank` (domed cylinder), `machinery` (+`seed` cluster).
+  `box` + `"bevel": m` = chamfered edges. `bevel` can be set on a MATERIAL (applies to every box using it) or per object.
+  Per object `"double_sided": true` (material variant with glTF doubleSided). Terrain heightfields get a vertical
+  `skirt` (default 6 m; `"skirt": 0` disables) so their edges/undersides are never exposed.
+- **Prefabs** (`pipeline/prefabs.py`) expand into named, editable children:
+  `catwalk(name, start, end, width, rails, supports)`, `railing_along(name, start, end)`, `pipe_run(name, points, radius)`,
+  `rock_cluster(name, center, radius, count, seed)`, `gate(name, position, yaw, width, height, depth)`, `machinery_bank(...)`.
+  CLI: `python3 pipeline/prefabs.py levels/<name> add catwalk '{"name":"Catwalk_02","start":[x,y,z],"end":[x,y,z]}'`
+  (adds missing `pf_*` default materials), then build + validate. `... list` shows prefabs.
+- **Validator** `python3 pipeline/validate_level.py levels/<name> [--fix]` (~45 s for Toxic Arena):
+  player samples over every walkable area (skips points inside solids or < 0.4 m from walls), third-person camera at
+  5 m (8 yaws × 3 heights) with a 0.25 m spring arm (5 rays, stops 0.3 m before geometry, half-distance when very close —
+  same rule as the viewer), ~88-ray frustum per camera. Reports `void_rays` (below-horizon rays hitting nothing, incl.
+  background.glb), `back_face` (back of a single-sided surface visible; wall-mounted panels are exempt; hits confirmed
+  with perturbed rays, front face wins ties), `open_mesh` (visible holes), `camera_inside`. Writes `checks/validation.json`.
+  `--fix` (safe only, never inside walkable space): `double_sided` on objects whose back shows; void → adds/extends
+  environment `AutoFix_Ground` skirt + `AutoFix_Horizon` mountain ring; rebuilds and re-validates. Fixed objects get an
+  `"autofix"` reason. Intentional openings: `"validation": {"ignore_objects": [...], "allow_void": true}`.
+- Test fixture: `pipeline/layouts/test_primitives.py` → `levels/test_primitives` (every primitive/prefab; ships in its
+  auto-fixed state; regenerate it to see the two deliberate faults).
+
 ## Hand-authored layouts (concept sheets with a top-down plan)
 When a concept sheet has a TOP DOWN LAYOUT/side view, don't run it through MiDaS: write a small layout script in
 `pipeline/layouts/<level>.py` that emits level.json directly (same schema), then `build_level.py`. Example:
@@ -114,7 +139,7 @@ Materials: see Materials section (Toxic Arena uses industrial_metal, trim_light,
 sandboxed pages block the blob: URLs GLTFLoader uses for .glb textures, which renders everything black).
 
 ## Mobile notes
-Toxic Arena after Stage 2: playable level unchanged — 1,948 tris, 347 KB glb, 10 materials / 34 images, 137 draw calls unbatched (10 min if
+Toxic Arena after Stage 3 (bevels): 3,676 tris, 390 KB glb, 10 materials / 34 images, 137 draw calls unbatched (10 min if
 batched by material), est. texture memory 3.9 MB GPU-compressed (15.6 MB uncompressed); plus background.glb 413 KB,
 6.8k tris, 9 draw calls, ~0.35 MB textures; sky 56 KB jpeg (~2.7 MB GPU-compressed at 2048x1024). Town square: 2.5k tris, 483 KB. Engines: mark static & batch
 (draw calls ≈ materials). Colliders: use Body/Wall/Platform/Ground boxes; Boundary_* are invisible (alpha 0).

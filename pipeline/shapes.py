@@ -1,0 +1,149 @@
+"""Stage 3 primitive library: closed, low-poly, game-ready meshes (local space, base at y=0, centred on x/z).
+All return trimesh.Trimesh; every solid is closed (no open backs). Sizes are o["size"] = [w (x), h (y), d (z)].
+
+  box + "bevel": m      chamfered box (edges catch light, silhouette less "primitive")
+  railing               posts every ~1.5 m + top & mid rail along x (w = length, h = height, d = thickness)
+  ibeam                 I-section girder along x
+  rock                  seeded jittered boulder filling the size box ("seed")
+  cliff                 jagged rock wall along x, thick base, closed
+  arch                  gateway/tunnel along z: two piers + lintel, opening = "opening" fraction of w (passable)
+  pipe_elbow            90° bend of radius w/2 tube (h = bend radius), capped ends
+  vent                  box with horizontal louvre slats on the +z face
+  tank                  vertical cylinder with domed top
+  machinery             seeded cluster of boxes/cylinders filling the size box ("seed")
+"""
+import numpy as np, trimesh
+from trimesh.transformations import rotation_matrix
+
+
+def bevel_box(w, h, d, b):
+    """Chamfered box: convex hull of each corner pushed in by b along its three axes (44 triangles)."""
+    b = max(0.0, min(b, 0.4 * min(w, h, d)))
+    if b <= 1e-4:
+        m = trimesh.creation.box([w, h, d]); m.apply_translation([0, h / 2, 0]); return m
+    pts = []
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            for sz in (-1, 1):
+                cx, cy, cz = sx * w / 2, sy * h / 2, sz * d / 2
+                pts += [[cx - sx * b, cy, cz], [cx, cy - sy * b, cz], [cx, cy, cz - sz * b]]
+    m = trimesh.convex.convex_hull(np.array(pts)); m.apply_translation([0, h / 2, 0]); return m
+
+
+def _box(w, h, d, x=0, y=0, z=0, b=0):
+    m = bevel_box(w, h, d, b); m.apply_translation([x, y, z]); return m
+
+
+def _cyl(r, h, x=0, y=0, z=0, sections=10, axis="y"):
+    c = trimesh.creation.cylinder(radius=r, height=h, sections=sections)
+    if axis == "y": c.apply_transform(rotation_matrix(-np.pi / 2, [1, 0, 0])); c.apply_translation([x, y + h / 2, z])
+    elif axis == "x": c.apply_transform(rotation_matrix(np.pi / 2, [0, 1, 0])); c.apply_translation([x, y, z])
+    return c
+
+
+def railing(w, h, d, o):
+    n = max(2, int(round(w / o.get("post_spacing", 1.5))) + 1); t = max(d, 0.05)
+    parts = [_box(t, h, t, -w / 2 + i * w / (n - 1) * (1 - 1e-3) + t / 2 * (1 if i == 0 else -1 if i == n - 1 else 0)) for i in range(n)]
+    parts += [_box(w, t * 1.2, t * 1.4, y=h - t * 1.2), _box(w, t * 0.8, t, y=h * 0.5)]
+    return trimesh.util.concatenate(parts)
+
+
+def ibeam(w, h, d, o):
+    f = max(h * 0.12, 0.04); web = max(d * 0.18, 0.03)
+    return trimesh.util.concatenate([_box(w, f, d), _box(w, f, d, y=h - f), _box(w, h - 2 * f, web, y=f)])
+
+
+def rock(w, h, d, o):
+    rng = np.random.default_rng(int(o.get("seed", 1)))
+    m = trimesh.creation.icosphere(subdivisions=1, radius=1.0)
+    v = m.vertices * rng.uniform(0.72, 1.12, (len(m.vertices), 1))
+    v[:, 1] = np.where(v[:, 1] < -0.3, -0.3 + (v[:, 1] + 0.3) * 0.2, v[:, 1])  # flatter buried base (order kept: no folds)
+    v = (v - v.min(0)) / np.ptp(v, 0) * [w, h * 1.08, d] - [w / 2, h * 0.08, d / 2]
+    return trimesh.convex.convex_hull(v) if o.get("convex", False) else trimesh.Trimesh(v, m.faces, process=True)
+
+
+def cliff(w, h, d, o):
+    """Rock wall along x: jagged top profile and front face, flat buried base/back, closed."""
+    rng = np.random.default_rng(int(o.get("seed", 2))); n = max(4, int(w / o.get("step", 3.0)))
+    xs = np.linspace(-w / 2, w / 2, n + 1); top = h * rng.uniform(0.7, 1.0, n + 1); top[[0, -1]] *= 0.85
+    fz = d / 2 * rng.uniform(0.75, 1.0, n + 1); mz = d * rng.uniform(0.05, 0.25, n + 1)  # front & mid-front depth
+    rows = [np.c_[xs, np.full(n + 1, -1.0), fz],                      # front base (buried)
+            np.c_[xs, top * rng.uniform(0.4, 0.6, n + 1), fz * 0.9],  # front ledge
+            np.c_[xs, top, mz],                                        # ridge
+            np.c_[xs, top * 0.95, np.full(n + 1, -d / 2)],             # back top
+            np.c_[xs, np.full(n + 1, -1.0), np.full(n + 1, -d / 2)]]   # back base
+    P = np.array(rows); R = len(rows); idx = np.arange(R * (n + 1)).reshape(R, n + 1); f = []
+    for r in range(R):  # ring closes back to the front base (bottom face)
+        r2 = (r + 1) % R
+        for c in range(n):
+            a, b_, cc, dd = idx[r, c], idx[r, c + 1], idx[r2, c + 1], idx[r2, c]; f += [[a, cc, b_], [a, dd, cc]]
+    ends = [idx[:, 0], idx[:, -1]]
+    for k, e in enumerate(ends):  # cap both ends with fans
+        for i in range(1, R - 1): f.append([e[0], e[i], e[i + 1]] if k else [e[0], e[i + 1], e[i]])
+    m = trimesh.Trimesh(P.reshape(-1, 3), np.array(f), process=True); m.fix_normals(); return m
+
+
+def arch(w, h, d, o):
+    """Gate/tunnel along z. Opening width = opening*w, height = opening_h*h; piers + lintel (+ optional floor)."""
+    ow = w * o.get("opening", 0.6); oh = h * o.get("opening_h", 0.75); pw = (w - ow) / 2
+    parts = [_box(pw, h, d, -(ow + pw) / 2, b=o.get("bevel", 0)), _box(pw, h, d, (ow + pw) / 2, b=o.get("bevel", 0)),
+             _box(ow + 0.02, h - oh, d, y=oh, b=o.get("bevel", 0))]
+    return trimesh.util.concatenate(parts)
+
+
+def pipe_elbow(w, h, d, o):
+    """Quarter torus: tube radius w/2, bend radius h; starts along +z at origin, turns to +x. Capped."""
+    r, R, seg, sides = w / 2, max(h, w), int(o.get("segments", 6)), int(o.get("sections", 10))
+    ang = np.linspace(0, np.pi / 2, seg + 1); phi = np.linspace(0, 2 * np.pi, sides, endpoint=False); V = []
+    for a in ang:
+        cx, cz = R - R * np.cos(a), R * np.sin(a); tx, tz = np.sin(a), np.cos(a)  # centre & tangent
+        nx, nz = tz, -tx
+        for p in phi: V.append([cx + r * np.cos(p) * nx, r * np.sin(p) + r, cz + r * np.cos(p) * nz])
+    V = np.array(V); f = []
+    for i in range(seg):
+        for j in range(sides):
+            a, b_, c, dd = i * sides + j, i * sides + (j + 1) % sides, (i + 1) * sides + (j + 1) % sides, (i + 1) * sides + j
+            f += [[a, b_, c], [a, c, dd]]
+    c0 = len(V); c1 = c0 + 1; V = np.vstack([V, V[:sides].mean(0), V[-sides:].mean(0)])
+    for j in range(sides):
+        f += [[c0, (j + 1) % sides, j], [c1, seg * sides + j, seg * sides + (j + 1) % sides]]
+    m = trimesh.Trimesh(V, np.array(f), process=True); m.fix_normals(); return m
+
+
+def vent(w, h, d, o):
+    n = max(3, int(h / 0.18)); parts = [_box(w, h, d * 0.7, z=-d * 0.15)]
+    frame = 0.08 * min(w, h)
+    parts += [_box(w, frame, d, y=0), _box(w, frame, d, y=h - frame), _box(frame, h, d, -w / 2 + frame / 2), _box(frame, h, d, w / 2 - frame / 2)]
+    for i in range(n):
+        y = frame + (h - 2 * frame) * (i + 0.5) / n
+        s = _box(w - 2 * frame, 0.035, d * 0.35); s.apply_transform(rotation_matrix(np.radians(-30), [1, 0, 0])); s.apply_translation([0, y, d * 0.2])
+        parts.append(s)
+    return trimesh.util.concatenate(parts)
+
+
+def tank(w, h, d, o):
+    r = min(w, d) / 2; body = _cyl(r, h - r * 0.5, sections=int(o.get("sections", 12)))
+    dome = trimesh.creation.icosphere(subdivisions=1, radius=r); dome.vertices[:, 1] = np.maximum(dome.vertices[:, 1], 0) * 0.5
+    dome.apply_translation([0, h - r * 0.5, 0])
+    ring = _cyl(r * 1.05, 0.15 * r, y=h * 0.3, sections=int(o.get("sections", 12)))
+    return trimesh.util.concatenate([body, trimesh.convex.convex_hull(dome.vertices), ring])
+
+
+def machinery(w, h, d, o):
+    rng = np.random.default_rng(int(o.get("seed", 3))); parts = [_box(w, h * 0.45, d, b=0.05 * min(w, d))]
+    for i in range(int(rng.integers(2, 4))):
+        bw, bd = w * rng.uniform(0.25, 0.45), d * rng.uniform(0.3, 0.6); bh = h * rng.uniform(0.3, 0.55)
+        parts.append(_box(bw, bh, bd, rng.uniform(-1, 1) * (w - bw) / 2, h * 0.45, rng.uniform(-1, 1) * (d - bd) / 2, b=0.04 * bw))
+    r = min(w, d) * 0.12; parts.append(_cyl(r, h * 0.55, rng.uniform(-0.3, 0.3) * w, h * 0.45, rng.uniform(-0.3, 0.3) * d))
+    return trimesh.util.concatenate(parts)
+
+
+SHAPES = dict(railing=railing, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery)
+
+
+def make(o, bevel=0.0):
+    """Builder entry for Stage 3 types; returns None if the type isn't handled here."""
+    t = o["type"]; w, h, d = o["size"]
+    if t == "box" and (o.get("bevel", bevel) or 0) > 0: return bevel_box(w, h, d, o.get("bevel", bevel))
+    if t in SHAPES: return SHAPES[t](w, h, d, o)
+    return None

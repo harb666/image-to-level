@@ -6,6 +6,7 @@ from PIL import Image, ImageDraw
 from trimesh.transformations import euler_matrix, translation_matrix
 from materials import make_material
 from glb_tools import dedupe_images
+import shapes
 
 
 
@@ -13,14 +14,28 @@ def material(name, m):
     return make_material(name, m)[0]
 
 
-def shape(o):
+def shape(o, bevel=0.0):
     t = o["type"]
     if t == "terrain":
         h = np.array(o["heights"], float); c = o["cell"]; nz, nx = h.shape
         zz, xx = np.mgrid[:nz, :nx] * c
         v = np.c_[xx.ravel(), h.ravel(), zz.ravel()]; i = np.arange(nz * nx).reshape(nz, nx)
         a, b, cc, d = i[:-1, :-1].ravel(), i[:-1, 1:].ravel(), i[1:, 1:].ravel(), i[1:, :-1].ravel()
-        return trimesh.Trimesh(v, np.r_[np.c_[a, d, cc], np.c_[a, cc, b]])
+        f = np.r_[np.c_[a, d, cc], np.c_[a, cc, b]]
+        sk = o.get("skirt", 6.0)  # Stage 3: vertical skirt round the edge so the camera never sees under/behind the heightfield
+        if sk:
+            ring = np.r_[i[0, :], i[1:, -1], i[-1, -2::-1], i[-2:0:-1, 0]]; bot = len(v) + np.arange(len(ring))
+            low = v[ring].copy(); low[:, 1] = h.min() - sk; v = np.vstack([v, low])
+            n2 = np.roll(np.arange(len(ring)), -1)
+            f = np.vstack([f, np.c_[ring, bot, bot[n2]], np.c_[ring, bot[n2], ring[n2]]])
+        m = trimesh.Trimesh(v, f, process=False)
+        if sk:  # orient skirt faces outward (away from the terrain centre)
+            cen = v[:nz * nx].mean(0); sk_f = np.arange(len(f) - 2 * len(ring), len(f))
+            out = np.einsum("ij,ij->i", m.face_normals[sk_f], m.triangles_center[sk_f] - cen) < 0
+            f[sk_f[out]] = f[sk_f[out]][:, ::-1]; m = trimesh.Trimesh(v, f, process=False)
+        return m
+    m = shapes.make(o, bevel)  # Stage 3 primitives (bevelled boxes, railings, rocks, cliffs, arches, ...)
+    if m is not None: return m
     w, h, d = o["size"]
     if t in ("box", "boundary"):
         m = trimesh.creation.box([w, h, d]); m.apply_translation([0, h / 2, 0]); return m
@@ -83,11 +98,16 @@ def build(level_dir):
                 tris += len(sub.faces)
                 scene.add_geometry(sub, node_name=o["name"] + suffix, geom_name=o["name"] + suffix, parent_node_name=parent, transform=T)
             continue
-        key = (o["type"], tuple(o["size"]), mk, o.get("sections"))
+        if o.get("double_sided") and mk != "_invisible":  # visible from behind (panels, thin shells): doubleSided variant
+            if mk + "__2s" not in mats:
+                mats[mk + "__2s"] = material(mk + "__2s", L["materials"][mk]); mats[mk + "__2s"].doubleSided = True
+            mk = mk + "__2s"
+        bevel = L["materials"].get(o.get("material"), {}).get("bevel", 0.0)
+        key = json.dumps([{k: v for k, v in o.items() if k not in ("name", "position", "rotation", "parent")}, mk, bevel], sort_keys=True)
         if key in geoms:  # identical part (window/door/...) -> reuse the same mesh (glTF instancing)
             scene.graph.update(frame_from=parent, frame_to=o["name"], matrix=T, geometry=geoms[key])
             tris += len(scene.geometry[geoms[key]].faces); continue
-        m, uv = uv_world(shape(o), tile)
+        m, uv = uv_world(shape(o, bevel), tile)
         if o["type"] == "panel": uv = (m.vertices[:, :2] - [-o["size"][0] / 2, 0]) / o["size"][:2]  # whole texture once
         m.visual = trimesh.visual.TextureVisuals(uv=uv, material=mats[mk])
         if o["type"] != "boundary": tris += len(m.faces)
@@ -110,6 +130,10 @@ def build(level_dir):
     if L.get("environment"):  # Stage 2: sky + distant scenery + Godot environment metadata
         from environment import build_environment
         build_environment(level_dir, L)
+    else:  # no environment section: remove stale outputs from an earlier build
+        for f in ("background.glb", "environment.json", "environment.tres"):
+            if os.path.exists(os.path.join(level_dir, f)): os.remove(os.path.join(level_dir, f))
+        import shutil; shutil.rmtree(os.path.join(level_dir, "sky"), ignore_errors=True)
 
 
 def topdown(L, world, path, px=10):

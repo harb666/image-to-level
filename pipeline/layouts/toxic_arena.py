@@ -107,16 +107,16 @@ for o in objs:
     for k in ("position", "size", "rotation"):
         if k in o: o[k] = [round(float(v), 2) for v in o[k]]
 mats = {  # Stage 1 PBR library (pipeline/materials.py); art direction from the concept: charcoal metal, grey decks, red/white lights
-    "metal_dark": {"type": "industrial_metal", "color": [0.24, 0.25, 0.25], "tile_m": 4.0, "wear": 0.5},
-    "edge_trim": {"type": "trim_light", "color": [0.19, 0.2, 0.2], "tile_m": 1.2, "accent": [1.0, 0.1, 0.06], "emissive": [1.0, 1.0, 1.0]},
+    "metal_dark": {"type": "industrial_metal", "color": [0.24, 0.25, 0.25], "tile_m": 4.0, "wear": 0.5, "bevel": 0.12},
+    "edge_trim": {"type": "trim_light", "color": [0.19, 0.2, 0.2], "tile_m": 1.2, "bevel": 0.05, "accent": [1.0, 0.1, 0.06], "emissive": [1.0, 1.0, 1.0]},
     "metal_grate": {"type": "grating", "color": [0.3, 0.31, 0.3], "tile_m": 2.0},
-    "concrete_dark": {"type": "machinery_panel", "color": [0.23, 0.24, 0.24], "tile_m": 4.0, "accent": [1.0, 0.12, 0.08], "emissive": [1.0, 1.0, 1.0]},
+    "concrete_dark": {"type": "machinery_panel", "color": [0.23, 0.24, 0.24], "tile_m": 4.0, "bevel": 0.1, "accent": [1.0, 0.12, 0.08], "emissive": [1.0, 1.0, 1.0]},
     "floor_plate": {"type": "scifi_floor", "color": [0.42, 0.41, 0.39], "tile_m": 4.0, "wear": 0.5},
     "pipe": {"type": "pipe", "color": [0.24, 0.27, 0.26], "tile_m": 2.5},
     "toxic": {"type": "toxic", "color": [0.5, 1.0, 0.1], "tile_m": 6.0, "emissive": [0.55, 1.0, 0.12]},
     "glow_strip": {"type": "glow", "color": [0.55, 1.0, 0.2], "tile_m": 2.0, "emissive": [0.6, 1.0, 0.25]},
     "red_panel": {"type": "banner", "color": [0.8, 0.1, 0.08], "tile_m": 2.0, "emissive": [1.0, 0.3, 0.25]},
-    "backdrop_metal": {"type": "industrial_metal", "color": [0.18, 0.2, 0.19], "tile_m": 8.0, "res": 128},  # distant: low res
+    "backdrop_metal": {"type": "industrial_metal", "color": [0.18, 0.2, 0.19], "tile_m": 8.0, "res": 128, "bevel": 0.3},  # distant: low res
 }
 walk = [dict(min=[x - w / 2, z - d / 2], max=[x + w / 2, z + d / 2], y=y) for x, z, w, d, y in
         [(0, 0, 22, 22, DECK)] + [(sx * MID, sz * MID, 12, 12, DECK) for sx, sz in ((0, -1), (0, 1), (-1, 0), (1, 0))] +
