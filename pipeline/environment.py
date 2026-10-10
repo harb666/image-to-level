@@ -63,14 +63,15 @@ def build_environment(level_dir, L=None, log=print):
         typ = lay["type"]; kind, col, tile = DEFAULTS[typ]
         fade = lay.get("fade", 0.0)  # atmospheric perspective baked into the colour (plus runtime fog)
         mname = "bg_" + lay["id"].lower()
-        mdef = dict(type=lay.get("material_type", kind), color=_lerp(lay.get("color", col), fog_color, fade), tile_m=lay.get("tile_m", tile),
-                    res=lay.get("res", q["tex_res"]))
+        mdef = dict(type=lay.get("material_type", kind), color=_lerp(lay.get("color", col), lay.get("fade_color", fog_color), fade), tile_m=lay.get("tile_m", tile),
+                    res=lay.get("res", q["tex_res"]))  # fade_color: haze towards the sky colour instead of the fog (sky objects)
         if lay.get("toon"): mdef["toon"] = True
+        if lay.get("emissive"): mdef["emissive"] = lay["emissive"]
         if lay.get("glow"): mdef.update(accent=lay["glow"], emissive=_lerp([0.7, 0.7, 0.7], [0.25, 0.25, 0.25], fade), lit=lay.get("lit", 0.15))
         mat, px = make_material(mname, mdef); mats[mname] = mdef; tex_px += sum(px)
         m = GENERATORS[typ](lay, q)
         T = np.eye(4)
-        if typ in ("factory", "ring_structure"):  # local mesh, node placed by azimuth/distance, front turned to the arena
+        if typ in ("factory", "ring_structure", "mothership"):  # local mesh, node placed by azimuth/distance, front turned to the arena
             T = translation_matrix(polar(lay.get("azimuth_deg", 0), lay.get("distance", 180))) @ euler_matrix(0, np.radians(-lay.get("azimuth_deg", 0)), 0)
         chim = [[round(float(c), 2) for c in (T @ [x, y, z, 1])[:3]] + [round(r, 2)] for x, y, z, r in m.metadata.get("chimney_tops", [])]
         # world-scaled planar UVs (same scheme as the playable level)

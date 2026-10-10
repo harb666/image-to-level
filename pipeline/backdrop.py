@@ -215,11 +215,55 @@ def hover_satellites(L, q):
     return trimesh.util.concatenate(parts)
 
 
-GENERATORS = dict(ground=ground, mountain_ring=mountain_ring, spires=spires, skyline=skyline, factory=factory, townscape=townscape, ring_structure=ring_structure, hover_satellites=hover_satellites)
+def _hull_x(sections):
+    """Convex hull through cross-sections [(x, half_width, half_height_top, half_height_bottom)] along x."""
+    pts = []
+    for x, w, ht, hb in sections:
+        pts += [[x, ht, -w * 0.55], [x, ht, w * 0.55], [x, ht * 0.25, -w], [x, ht * 0.25, w], [x, -hb, -w * 0.6], [x, -hb, w * 0.6]]
+    return trimesh.convex.convex_hull(np.array(pts))
+
+
+def mothership(L, q):
+    """Alien capital ship hovering in the distance (side-on silhouette): long angular hull with a pointed bow (+x),
+    stepped under-decks and hanging gear, a raised spine deck, a tall tilted fin with an emblem plate, turret towers
+    with antennae. part = "hull" (dark body) | "lights" (emissive strips, windows, emblem, beacons) - same seed, so the
+    two layers line up (two materials, two draw calls). Local mesh, placed by azimuth/distance like a factory;
+    length (m), elevation (m above the arena), heading_deg (turn about y), local +z faces the arena."""
+    rng = np.random.default_rng(_seed(dict(L, id=L.get("ship_id", "mothership")))); Ln = L.get("length", 170.0); y0 = L.get("elevation", 240.0)
+    W, H = Ln * 0.11, Ln * 0.045; part = L.get("part", "hull"); hull, lights = [], []
+    hull.append(_hull_x([(-Ln * 0.5, W * 0.55, H * 0.8, H * 0.6), (-Ln * 0.3, W, H, H * 0.8), (Ln * 0.15, W * 0.85, H * 0.8, H * 0.7), (Ln * 0.5, W * 0.06, H * 0.1, H * 0.08)]))
+    for k, (x0, x1, dy, sc) in enumerate(((-0.42, 0.18, -1.0, 0.75), (-0.33, 0.02, -1.7, 0.55), (-0.2, -0.05, -2.3, 0.35))):  # stepped under-decks
+        b = _hull_x([(Ln * x0, W * sc, H * 0.4, H * 0.4), (Ln * x1, W * sc * 0.9, H * 0.4, H * 0.4), (Ln * x1 + Ln * 0.06, W * sc * 0.2, H * 0.1, H * 0.1)]); b.apply_translation([0, H * dy, 0]); hull.append(b)
+    for k in range(int(rng.integers(4, 8))):  # hanging gear / antennas under the hull
+        x = rng.uniform(-0.4, 0.2) * Ln; c = _cyl(rng.uniform(0.6, 1.4), H * rng.uniform(0.8, 1.8), x, -H * 2.2 - H * 1.6, rng.uniform(-W, W) * 0.4, 5); hull.append(c)
+    hull.append(_box(Ln * 0.5, H * 0.45, W * 0.9, -Ln * 0.08, H * 0.75, 0))  # spine deck
+    fx = -Ln * rng.uniform(0.12, 0.2); fh = Ln * 0.3; fl = Ln * 0.16; lean = Ln * 0.08  # tilted fin (leans back)
+    fin = trimesh.convex.convex_hull(np.array([[fx - fl / 2, H, -1.2], [fx + fl / 2, H, -1.2], [fx - fl / 2, H, 1.2], [fx + fl / 2, H, 1.2],
+                                               [fx - fl * 0.55 - lean, H + fh, -1.0], [fx + fl * 0.3 - lean, H + fh, -1.0], [fx - fl * 0.55 - lean, H + fh, 1.0], [fx + fl * 0.3 - lean, H + fh, 1.0]]))
+    hull.append(fin); cap = _box(fl * 1.05, fh * 0.05, 3.4, fx - lean - fl * 0.12, H + fh, 0); hull.append(cap)
+    for k in range(int(rng.integers(3, 5))):  # turret towers with antennae + beacons
+        x = rng.uniform(-0.05, 0.3) * Ln if k else -Ln * 0.38; r = rng.uniform(2.0, 3.5); h1 = rng.uniform(4, 9)
+        hull += [_cyl(r, h1, x, H, 0, 6), _cyl(r * 1.6, 1.0, x, H + h1, 0, 6), _cyl(0.3, rng.uniform(5, 10), x, H + h1 + 1.0, 0, 4)]
+        lights.append(_box(1.0, 1.0, 1.0, x, H + h1 + 9.5, 0))
+    lights.append(_box(1.4, 1.4, 1.4, fx - lean - fl * 0.1, H + fh + fh * 0.05, 0))
+    for side in (-1, 1):  # light strips + window dashes along the hull, emblem plate on the fin
+        for yy, x0, x1 in ((H * 0.1, -0.45, 0.3), (-H * 0.35, -0.4, 0.1)):
+            for k in range(int(rng.integers(3, 6))):
+                a = rng.uniform(x0, x1) * Ln; ln = rng.uniform(4, 14); lights.append(_box(ln, 0.7, 0.4, a, yy, side * W * 0.93))
+        e = trimesh.convex.convex_hull(np.array([[fx - lean * 0.5 - fl * 0.18, H + fh * 0.7, 0], [fx - lean * 0.5 + fl * 0.18, H + fh * 0.7, 0], [fx - lean * 0.35, H + fh * 0.25, 0],
+                                                 [fx - lean * 0.5 - fl * 0.18, H + fh * 0.7, side * 0.4], [fx - lean * 0.5 + fl * 0.18, H + fh * 0.7, side * 0.4], [fx - lean * 0.35, H + fh * 0.25, side * 0.4]]))
+        e.apply_translation([0, 0, side * 1.2]); lights.append(e)
+    m = trimesh.util.concatenate(hull if part == "hull" else lights)
+    m.apply_transform(trimesh.transformations.rotation_matrix(np.radians(L.get("heading_deg", 0)), [0, 1, 0]) @ trimesh.transformations.rotation_matrix(np.radians(L.get("roll_deg", -3)), [1, 0, 0]))
+    m.apply_translation([0, y0, 0]); return m
+
+
+GENERATORS = dict(ground=ground, mountain_ring=mountain_ring, spires=spires, skyline=skyline, factory=factory, townscape=townscape, ring_structure=ring_structure, hover_satellites=hover_satellites, mothership=mothership)
 DEFAULTS = {  # material kind, colour, tile size per layer type (overridable per layer: material_type/color/tile_m)
     "ground": ("dirt", [0.16, 0.17, 0.14], 14.0), "mountain_ring": ("rock", [0.2, 0.21, 0.19], 40.0),
     "spires": ("rock", [0.17, 0.18, 0.16], 14.0), "skyline": ("factory_facade", [0.16, 0.17, 0.17], 12.0),
     "factory": ("factory_facade", [0.17, 0.18, 0.18], 10.0), "townscape": ("plaster", [0.72, 0.67, 0.58], 6.0),
     "ring_structure": ("machinery_panel", [0.3, 0.3, 0.32], 16.0),
     "hover_satellites": ("hull_plating", [0.12, 0.1, 0.16], 12.0),
+    "mothership": ("hull_plating", [0.16, 0.1, 0.2], 14.0),
 }

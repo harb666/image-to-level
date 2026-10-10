@@ -57,6 +57,24 @@ class Pieces(unittest.TestCase):
         self.assertGreater(float(np.ptp(col[:, 1])), 0.08, "stripes must stay visible")
 
 
+class SkyTraffic(unittest.TestCase):
+    def test_mothership_parts_line_up_and_hover(self):
+        import backdrop
+        L = dict(id="M", length=150, elevation=300, heading_deg=10, ship_id="Ship")
+        h = backdrop.mothership(dict(L, part="hull"), backdrop.QUALITY["balanced"]); l = backdrop.mothership(dict(L, part="lights"), backdrop.QUALITY["balanced"])
+        self.assertLess(len(h.faces) + len(l.faces), 1500); self.assertGreater(h.bounds[0][1], 200)
+        c = lambda m: m.bounds.mean(0); self.assertLess(float(np.linalg.norm(c(h)[[0, 2]] - c(l)[[0, 2]])), 40)  # same seed -> lights sit on the hull
+
+    def test_flyby_routes_are_deterministic_and_periodic(self):
+        import effects
+        D = effects.TYPES["flyby_ships"]["defaults"]; a = effects.flyby_paths("F", D, 4); b = effects.flyby_paths("F", D, 4)
+        self.assertEqual(a, b)
+        for sh in a:
+            self.assertTrue(D["radius"][0] <= sh["r"] <= D["radius"][1]); self.assertGreater(sh["gap"], 0)  # hidden between passes
+        M = effects.ship_meshes(); self.assertEqual(set(M), set(effects.SHIP_DESIGNS))
+        for k, g in M.items(): self.assertEqual(len(g["v"]), len(g["glow"])); self.assertLess(len(g["f"]), 80)
+
+
 @unittest.skipUnless(FULL, "QUICK=1")
 class Build(unittest.TestCase):
     def test_outlines_do_not_change_gameplay(self):

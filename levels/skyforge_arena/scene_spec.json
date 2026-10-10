@@ -1129,12 +1129,90 @@
     "tilt_deg": 16,
     "pylons": 3,
     "seed": 4
+   },
+   {
+    "type": "mothership",
+    "azimuth_deg": 352,
+    "distance": 560,
+    "length": 150,
+    "elevation": 301,
+    "heading_deg": 10,
+    "ship_id": "Mothership",
+    "toon": true,
+    "id": "Mothership",
+    "part": "hull",
+    "color": [
+     0.2,
+     0.1,
+     0.25
+    ],
+    "fade": 0.35,
+    "fade_color": [
+     0.55,
+     0.12,
+     0.42
+    ]
+   },
+   {
+    "type": "mothership",
+    "azimuth_deg": 352,
+    "distance": 560,
+    "length": 150,
+    "elevation": 301,
+    "heading_deg": 10,
+    "ship_id": "Mothership",
+    "toon": true,
+    "id": "Mothership_Lights",
+    "part": "lights",
+    "material_type": "glow",
+    "color": [
+     1.0,
+     0.3,
+     0.6
+    ],
+    "emissive": [
+     1.0,
+     0.3,
+     0.6
+    ],
+    "fade": 0.15,
+    "fade_color": [
+     0.55,
+     0.12,
+     0.42
+    ]
    }
   ]
  },
  "effects": {
   "auto": true,
-  "extra": []
+  "extra": [
+   {
+    "id": "Flyby_Ships",
+    "type": "flyby_ships",
+    "count": 4,
+    "radius": [
+     440,
+     540
+    ],
+    "height": [
+     90,
+     190
+    ],
+    "azimuth_deg": [
+     -60,
+     60
+    ],
+    "gap": [
+     10,
+     26
+    ],
+    "size": [
+     10,
+     20
+    ]
+   }
+  ]
  },
  "spawns": [
   {

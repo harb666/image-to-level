@@ -190,6 +190,18 @@ function makeCloudPuffs(fx,p,qn){const ix=(fx.emitters_by_quality||{})[qn]||(fx.
   const me=new THREE.Mesh(g,m);me.frustumCulled=false;me.renderOrder=2;scene.add(me);fxObjs.push(me);let acc=0;const tmp=new THREE.Vector3();
   fxUpd.push({u(t,dt){m.uniforms.uT.value=t;acc+=dt||0;if(acc<.25)return;acc=0; // back-to-front every 0.25 s (alpha blending order)
     const cp=cam.position,d=E.map(e=>(e.pos[0]-cp.x)**2+(e.pos[1]-cp.y)**2+(e.pos[2]-cp.z)**2);ord=[...Array(N).keys()].sort((a,b2)=>d[b2]-d[a]);fill();}});}
+function makeFlyby(fx,p){ // flyby_ships: one InstancedMesh per design; same route formula as effects.flyby_paths / apply_effects.gd
+  const byD={};for(const sh of p.ships)(byD[sh.design]=byD[sh.design]||[]).push(sh);
+  const hc=lin(p.color),gc=lin(p.glow),M=new THREE.Matrix4(),Q=new THREE.Quaternion(),E=new THREE.Euler(),P=new THREE.Vector3(),S=new THREE.Vector3(),D=Math.PI/180;
+  for(const d in byD){const g=fx.meshes[d],geo=new THREE.BufferGeometry(),col=[];
+    for(const f of g.glow){const c=f?gc:hc;col.push(c.r,c.g,c.b);}
+    geo.setAttribute('position',new THREE.Float32BufferAttribute(g.v.flat(),3));geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));geo.setIndex(g.f.flat());
+    const im=new THREE.InstancedMesh(geo,new THREE.MeshBasicMaterial({vertexColors:true,fog:true}),byD[d].length);im.frustumCulled=false;scene.add(im);fxObjs.push(im);
+    const L=byD[d],up={u(t){L.forEach((sh,i)=>{const cyc=sh.travel+sh.gap,k=((t+sh.phase)%cyc)/sh.travel;
+      if(k>=1){M.makeScale(0,0,0);im.setMatrixAt(i,M);return;}
+      const az=(sh.a0+(sh.a1-sh.a0)*k)*D,dir=Math.sign(sh.a1-sh.a0);P.set(sh.r*Math.sin(az),sh.y+sh.bob*Math.sin(t*0.7+sh.phase),-sh.r*Math.cos(az));
+      const tx=Math.cos(az)*dir,tz=Math.sin(az)*dir;E.set(0,Math.atan2(-tx,-tz),0.12*dir);Q.setFromEuler(E);S.setScalar(sh.size);M.compose(P,Q,S);im.setMatrixAt(i,M);});
+      im.instanceMatrix.needsUpdate=true;}};fxUpd.push(up);up.u(performance.now()/1000);}}  // placed immediately (not only on the next frame)
 function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry.dispose();}for(const f of fxUpd)f.reset&&f.reset();fxObjs=[];fxUpd=[];
   const qn=FXQ[fxq];document.getElementById('fx').textContent='FX: '+qn;if(!FXD||qn==='off')return;
   for(const fx of FXD.effects){const Q=fx.quality[qn];if(!Q||!Q.enabled)continue;const p=Q.params;
@@ -203,10 +215,12 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry.dispose();}
     else if(fx.category==='particles')makeParticles(fx,p);
     else if(fx.category==='transparent_mesh'&&fx.area)makeFog(fx,p);
     else if(fx.category==='cloud_layer')makeCloudLayer(fx,p);
-    else if(fx.category==='billboards')makeCloudPuffs(fx,p,qn);}} // sky_drift: Godot only (Environment.sky_rotation)
+    else if(fx.category==='billboards')makeCloudPuffs(fx,p,qn);
+    else if(fx.category==='flyby')makeFlyby(fx,p);}} // sky_drift: Godot only (Environment.sky_rotation)
 if(FXD){const b=document.getElementById('fx');b.hidden=false;b.onclick=()=>{fxq=(fxq+1)%FXQ.length;buildFX();};buildFX();}
 window.setFX=q=>{fxq=FXQ.indexOf(q);buildFX();};
 window.fxInfo=()=>({quality:FXQ[fxq],objects:fxObjs.length,animated:fxUpd.length,
+  instanced:fxObjs.filter(o=>o.isInstancedMesh).map(o=>{const m=new THREE.Matrix4(),v=new THREE.Vector3();return [...Array(o.count).keys()].map(i=>{o.getMatrixAt(i,m);v.setFromMatrixPosition(m);return [+v.x.toFixed(0),+v.y.toFixed(0),+v.z.toFixed(0),+m.getMaxScaleOnAxis().toFixed(1)];});}),
   alive:fxObjs.filter(o=>o.isPoints).map(o=>{const a=o.geometry.attributes.aAlpha.array,P=o.geometry.attributes.position.array;let n=0,y=0;for(let i=0;i<a.length;i++)if(a[i]>0){n++;y+=P[i*3+1];}return [n,a.length,+(y/Math.max(n,1)).toFixed(1)];})});
 
 const avatar=new THREE.Mesh(new THREE.CapsuleGeometry(GP.player.radius,Math.max(.1,GP.player.height-2*GP.player.radius),4,8),new THREE.MeshStandardMaterial({color:0x3a8dde,roughness:.5}));scene.add(avatar);

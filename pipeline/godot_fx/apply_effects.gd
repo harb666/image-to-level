@@ -44,6 +44,8 @@ func _ready() -> void:
 				_cloud_layer(fx, p)
 			"billboards":
 				_cloud_puffs(fx, p)
+			"flyby":
+				_flyby(fx, p)
 			"environment":
 				_sky_speed = deg_to_rad(float(p.get("speed_deg_s", 0.0)))
 
@@ -287,8 +289,52 @@ func _cloud_puffs(fx: Dictionary, p: Dictionary) -> void:
 	add_child(mmi)
 
 
+var _flyers: Array = []   # [MultiMesh, ships Array]
+
+
+func _flyby(fx: Dictionary, p: Dictionary) -> void:
+	## background ships on deterministic arcs (effects.json "ships"), one MultiMesh per design, unshaded vertex colours
+	var by := {}
+	for sh in p["ships"]:
+		if not by.has(sh["design"]):
+			by[sh["design"]] = []
+		by[sh["design"]].append(sh)
+	var hc := Color(p["color"][0], p["color"][1], p["color"][2])
+	var gc := Color(p["glow"][0], p["glow"][1], p["glow"][2])
+	for d in by.keys():
+		var g: Dictionary = fx["meshes"][d]
+		var verts := PackedVector3Array(); var cols := PackedColorArray(); var idx := PackedInt32Array()
+		for i in range(g["v"].size()):
+			verts.append(Vector3(g["v"][i][0], g["v"][i][1], g["v"][i][2])); cols.append(gc if int(g["glow"][i]) == 1 else hc)
+		for f in g["f"]:
+			idx.append(int(f[0])); idx.append(int(f[2])); idx.append(int(f[1]))  # Godot front faces are clockwise
+		var arr := []; arr.resize(Mesh.ARRAY_MAX); arr[Mesh.ARRAY_VERTEX] = verts; arr[Mesh.ARRAY_COLOR] = cols; arr[Mesh.ARRAY_INDEX] = idx
+		var mesh := ArrayMesh.new(); mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arr)
+		var mat := StandardMaterial3D.new(); mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED; mat.vertex_color_use_as_albedo = true
+		mesh.surface_set_material(0, mat)
+		var mm := MultiMesh.new(); mm.transform_format = MultiMesh.TRANSFORM_3D; mm.mesh = mesh; mm.instance_count = by[d].size()
+		var mmi := MultiMeshInstance3D.new(); mmi.multimesh = mm; mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		add_child(mmi); _flyers.append([mm, by[d]])
+
+
+func _update_flyers() -> void:
+	for f in _flyers:
+		var mm: MultiMesh = f[0]
+		for i in range(f[1].size()):
+			var sh: Dictionary = f[1][i]
+			var cyc: float = sh["travel"] + sh["gap"]
+			var k: float = fmod(_t + sh["phase"], cyc) / sh["travel"]
+			if k >= 1.0:
+				mm.set_instance_transform(i, Transform3D(Basis().scaled(Vector3.ZERO), Vector3.ZERO)); continue
+			var az: float = deg_to_rad(sh["a0"] + (sh["a1"] - sh["a0"]) * k); var dir: float = sign(sh["a1"] - sh["a0"])
+			var pos := Vector3(sh["r"] * sin(az), sh["y"] + sh["bob"] * sin(_t * 0.7 + sh["phase"]), -sh["r"] * cos(az))
+			var b := Basis.from_euler(Vector3(0.0, atan2(-cos(az) * dir, -sin(az) * dir), 0.12 * dir)).scaled(Vector3.ONE * float(sh["size"]))
+			mm.set_instance_transform(i, Transform3D(b, pos))
+
+
 func _process(delta: float) -> void:
 	_t += delta
+	_update_flyers()
 	for an in _anims:
 		var m: BaseMaterial3D = an[0]
 		var p: Dictionary = an[2]

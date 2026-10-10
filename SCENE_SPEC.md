@@ -335,3 +335,11 @@ Building blocks usable without the preset:
 - scatter kinds `sat_dish`, `sat_pod`, `sat_spire`; background types `hover_satellites`, skyline `spikes`.
 - Godot: `fx/godot/apply_style.gd` sets StandardMaterial3D diffuse_mode TOON + specular off (Mobile renderer OK).
   The preview approximates toon with banded direct sunlight (three.js); not identical to Godot.
+
+- background type `mothership` (part `hull` | `lights`, same `ship_id` so both layers line up): side-on alien capital
+  ship hovering at `distance` / `azimuth_deg`, `length`, `elevation`, `heading_deg`. Background layers also take
+  `fade_color` (haze towards the sky instead of the fog colour) and `emissive`.
+- effect `flyby_ships`: small alien ships crossing the sky behind the background buildings now and then
+  (`count, radius, height, azimuth_deg, arc_deg, speed, gap, size, color, glow`). Deterministic routes + ship meshes
+  live in effects.json; the preview and `fx/godot/apply_effects.gd` (MultiMesh, untested in Godot) animate them with
+  the same formula. Cost: one draw call per ship design, a few dozen triangles per ship.

@@ -61,6 +61,11 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                         defaults=dict(count=12, size=[8.0, 16.0], opacity=0.85, color=[1.0, 0.88, 0.8], shade=[0.6, 0.48, 0.55],
                                       glow=[1.0, 0.6, 0.32], drift=0.6, texture="cloud", squash=0.55),
                         quality={"performance": dict(count_mult=0.5), "quality": dict(count_mult=1.3)}),
+    "flyby_ships": dict(category="flyby", godot="one MultiMeshInstance3D per ship design (ArrayMesh from effects.json, unshaded vertex colours); "
+                        "apply_effects.gd moves them along their arcs (same formula as the preview)", glb="nothing",
+                        defaults=dict(count=4, radius=[440.0, 540.0], height=[40.0, 130.0], azimuth_deg=[-70.0, 70.0], arc_deg=[45.0, 90.0],
+                                      speed=[30.0, 55.0], gap=[10.0, 28.0], size=[7.0, 14.0], color=[0.12, 0.07, 0.16], glow=[1.0, 0.3, 0.62]),
+                        quality={"performance": dict(count_mult=0.5), "quality": dict(count_mult=1.5)}),
     "sky_drift": dict(category="environment", godot="script: Environment.sky_rotation.y += speed (rad/s) - slow cloud drift", glb="nothing",
                       defaults=dict(speed_deg_s=0.25)),
 }
@@ -113,6 +118,49 @@ def _mat_nodes(scene, mat):
         g = scene.geometry[scene.graph[node][1]]; m = getattr(getattr(g.visual, "material", None), "name", "")
         if m == mat or m == mat + "__2s": res.append(node)
     return res
+
+
+SHIP_DESIGNS = ("dart", "saucer", "hauler")
+
+
+def ship_meshes():
+    """Tiny alien ship designs for flyby_ships, unit length, nose towards -z, as raw arrays (vertices, faces, glow flag
+    per vertex) so the preview and Godot build identical meshes without another asset file. ~20-60 triangles each."""
+    out = {}
+    def add(parts):
+        V, F, G = [], [], []
+        for m, glow in parts:
+            F += (m.faces + len(V)).tolist(); V += m.vertices.round(4).tolist(); G += [glow] * len(m.vertices)
+        return dict(v=V, f=F, glow=G)
+    def hull(pts): return trimesh.convex.convex_hull(np.array(pts, float))
+    out["dart"] = add([(hull([[0, 0, -0.5], [-0.32, 0, 0.4], [0.32, 0, 0.4], [0, 0.09, 0.35], [0, -0.05, 0.35]]), 0),
+                       (hull([[0, 0.05, 0.1], [0, 0.22, 0.45], [0, 0.05, 0.42], [0.02, 0.05, 0.3]]), 0),
+                       (trimesh.creation.box([0.18, 0.06, 0.04]).apply_translation([0, 0.02, 0.43]), 1)])
+    a = np.linspace(0, 2 * np.pi, 7, endpoint=False)
+    out["saucer"] = add([(hull(np.r_[np.c_[0.42 * np.cos(a), np.zeros(7), 0.42 * np.sin(a)], [[0, 0.12, 0], [0, -0.08, 0]]]), 0),
+                         (hull([[0, 0.1, -0.08], [-0.1, 0.1, 0.1], [0.1, 0.1, 0.1], [0, 0.22, 0.05]]), 1),
+                         (hull([[0, -0.06, 0], [0.05, -0.06, 0.05], [-0.05, -0.06, 0.05], [0, -0.3, 0.02]]), 0)])
+    out["hauler"] = add([(hull([[-0.12, -0.08, -0.5], [0.12, -0.08, -0.5], [-0.16, 0.1, -0.35], [0.16, 0.1, -0.35], [-0.16, -0.1, 0.45], [0.16, -0.1, 0.45], [-0.16, 0.12, 0.45], [0.16, 0.12, 0.45]]), 0),
+                         (hull([[0, 0.12, 0.0], [0, 0.32, 0.4], [0, 0.12, 0.42], [0.02, 0.12, 0.2]]), 0),
+                         (trimesh.creation.box([0.26, 0.16, 0.03]).apply_translation([0, 0.01, 0.46]), 1),
+                         (trimesh.creation.box([0.5, 0.02, 0.12]).apply_translation([0, 0.0, 0.15]), 0)])
+    return out
+
+
+def flyby_paths(eid, p, n):
+    """Deterministic ship routes: arc at radius r / height y from azimuth a0 to a1 (deg, level convention: 0 = north,
+    90 = east), speed m/s, then hidden for `gap` s, repeating; phase staggers them. Runtime (preview + Godot):
+      cycle = travel + gap, travel = |a1 - a0| * pi/180 * r / speed, u = ((t + phase) mod cycle) / travel
+      visible while u < 1: az = a0 + (a1 - a0) * u, pos = (r sin az, y + bob sin(t * 0.7 + phase), -r cos az)."""
+    import zlib
+    rng = np.random.default_rng(zlib.crc32(eid.encode())); out = []
+    for i in range(n):
+        r = rng.uniform(*p["radius"]); arc = rng.uniform(*p["arc_deg"]) * rng.choice([-1, 1]); c = rng.uniform(*p["azimuth_deg"])
+        a0, a1 = c - arc / 2, c + arc / 2; sp = rng.uniform(*p["speed"]); travel = abs(arc) * np.pi / 180 * r / sp; gap = rng.uniform(*p["gap"])
+        out.append(dict(design=SHIP_DESIGNS[i % len(SHIP_DESIGNS)], r=round(float(r), 1), y=round(float(rng.uniform(*p["height"])), 1), a0=round(float(a0), 2),
+                        a1=round(float(a1), 2), travel=round(float(travel), 2), gap=round(float(gap), 2), phase=round(float(rng.uniform(0, travel + gap)), 2),
+                        size=round(float(rng.uniform(*p["size"])), 2), bob=round(float(rng.uniform(0.5, 2.5)), 2)))
+    return out
 
 
 def _puff_rings(e, boxes, D):
@@ -171,6 +219,7 @@ def resolve(level_dir, L=None):
                 em.append(dict(pos=[round(float(c[0]), 2), round(float(b[0][1] if a == "bottom" else b[1][1] if a == "top" else c[1]), 2), round(float(c[2]), 2)], radius=rad, of=n))
         for p in e.get("positions", []): em.append(dict(pos=p))
         if e["type"] == "cloud_puffs": em += _puff_rings(e, boxes, t["defaults"])
+        if e["type"] == "flyby_ships": R["meshes"] = ship_meshes()
         if e.get("at_background") == "factory_chimneys" and env:
             for l in env["background"]["layers"]:
                 for c in l.get("chimney_tops", []): em.append(dict(pos=c[:3], radius=c[3], of=l["node"]))
@@ -196,6 +245,9 @@ def resolve(level_dir, L=None):
             elif t["category"] == "cloud_layer":
                 n_l = max(1, int(round(p.get("layers", 1) * p.pop("layers_mult", 1.0)))); p["layers"] = n_l
                 cost = dict(max_particles=0, emitters=0, extra_draw_calls=n_l, transparent_area_m2=round(math.pi * p["radius"] ** 2 * n_l))
+            elif t["category"] == "flyby":
+                n_s = max(1, int(round(p["count"] * mult * p.pop("count_mult", 1.0)))); p["ships"] = flyby_paths(e["id"], p, n_s)
+                cost = dict(max_particles=0, emitters=0, extra_draw_calls=len({s_["design"] for s_ in p["ships"]}), transparent_area_m2=0)
             elif t["category"] == "billboards":
                 k = mult * p.pop("count_mult", 1.0); keep = em[::max(1, int(round(1 / k)))] if k < 1 else em
                 if k > 1 and len(em): keep = em  # quality: all of them (rings already generated at full density)
