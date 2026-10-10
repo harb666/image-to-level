@@ -1,0 +1,3020 @@
+{
+ "generated_by": "image-to-level Stage 5 (pipeline/export_mobile.py)",
+ "profile": "balanced",
+ "settings": {
+  "cell": 48,
+  "tex_max": 512,
+  "bg_tex_max": 128,
+  "prop_range": 70,
+  "small": 2.0
+ },
+ "files": {
+  "level": "level_mobile.glb",
+  "background": "background_mobile.glb",
+  "collision": "collision.glb",
+  "collision_data": "collision.json",
+  "effects": "effects_mobile.json",
+  "environment": "../environment.json"
+ },
+ "godot": {
+  "project_settings": {
+   "rendering/textures/vram_compression/import_etc2_astc": true,
+   "rendering/renderer/rendering_method.mobile": "mobile",
+   "rendering/lights_and_shadows/directional_shadow/size.mobile": 2048,
+   "rendering/anti_aliasing/quality/msaa_3d": "2x"
+  },
+  "import_level_glb": {
+   "meshes/generate_lods": true,
+   "meshes/light_baking": "Static Lightmaps (optional)",
+   "textures": "VRAM Compressed (Godot compresses embedded images to ASTC/ETC2 on import)"
+  },
+  "import_collision_glb": "nodes named *-convcolonly / *-colonly become StaticBody3D colliders; meshes are discarded",
+  "directional_light": {
+   "shadow_enabled": true,
+   "directional_shadow_mode": "PSSM 2 splits",
+   "directional_shadow_max_distance": 60
+  },
+  "note": "Settings are recommendations for Godot 4 mobile; not verified in Godot here. KTX2/Basis is not used: Godot re-compresses on import."
+ },
+ "metrics": {
+  "profile": "balanced",
+  "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
+  "dev": {
+   "level": {
+    "glb_kb": 5569,
+    "triangles": 71450,
+    "nodes": 251,
+    "mesh_nodes": 245,
+    "unique_meshes": 235,
+    "materials": 17,
+    "images": 41,
+    "draw_calls_unbatched": 245,
+    "draw_calls_batched_min": 17,
+    "tex_mem_uncompressed_mb": 13.67,
+    "tex_mem_gpu_compressed_mb": 3.42,
+    "texture_slots": {
+     "baseColorTexture": 15,
+     "metallicRoughnessTexture": 15,
+     "normalTexture": 13,
+     "occlusionTexture": 15
+    },
+    "image_sizes": [
+     "256x256 jpeg",
+     "512x128 jpeg"
+    ]
+   },
+   "visible": {
+    "cameras": 96,
+    "visible_draw_calls_mean": 97.3,
+    "visible_draw_calls_max": 202,
+    "visible_triangles_mean": 37894,
+    "visible_triangles_max": 67516
+   }
+  },
+  "mobile": {
+   "level": {
+    "glb_kb": 6343,
+    "triangles": 83890,
+    "nodes": 239,
+    "mesh_nodes": 238,
+    "unique_meshes": 238,
+    "materials": 17,
+    "images": 43,
+    "draw_calls_unbatched": 238,
+    "draw_calls_batched_min": 17,
+    "tex_mem_uncompressed_mb": 14.33,
+    "tex_mem_gpu_compressed_mb": 3.58,
+    "texture_slots": {
+     "baseColorTexture": 15,
+     "metallicRoughnessTexture": 15,
+     "normalTexture": 13,
+     "occlusionTexture": 15
+    },
+    "image_sizes": [
+     "256x256 jpeg",
+     "512x128 jpeg"
+    ]
+   },
+   "background": {
+    "glb_kb": 116,
+    "triangles": 1536,
+    "nodes": 3,
+    "mesh_nodes": 2,
+    "unique_meshes": 2,
+    "materials": 2,
+    "images": 4,
+    "draw_calls_unbatched": 2,
+    "draw_calls_batched_min": 2,
+    "tex_mem_uncompressed_mb": 0.33,
+    "tex_mem_gpu_compressed_mb": 0.08,
+    "texture_slots": {
+     "baseColorTexture": 2,
+     "metallicRoughnessTexture": 2,
+     "normalTexture": 2,
+     "occlusionTexture": 2
+    },
+    "image_sizes": [
+     "128x128 jpeg"
+    ]
+   },
+   "collision": {
+    "colliders": 251,
+    "hazards": 0,
+    "glb_kb": 466
+   },
+   "visible": {
+    "cameras": 96,
+    "visible_draw_calls_mean": 53.4,
+    "visible_draw_calls_max": 80,
+    "visible_triangles_mean": 22177,
+    "visible_triangles_max": 30824
+   },
+   "hidden_faces_removed": 0,
+   "effects_extra_draw_calls": 0,
+   "effects_max_particles": 0
+  }
+ },
+ "nodes": [
+  {
+   "node": "M_stone_-1_1_props",
+   "kind": "props",
+   "material": "stone",
+   "triangles": 76,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Ruins_Block_05",
+    "Ruins_Column_04",
+    "Ruins_Column_01"
+   ]
+  },
+  {
+   "node": "M_rock_-2_-1",
+   "kind": "static",
+   "material": "rock",
+   "triangles": 392,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Cave"
+   ]
+  },
+  {
+   "node": "M_rock_-2_0",
+   "kind": "static",
+   "material": "rock",
+   "triangles": 320,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Boulders_W_06",
+    "Boulders_W_05",
+    "Boulders_W_03",
+    "Boulders_W_02"
+   ]
+  },
+  {
+   "node": "M_stone_-1_-1",
+   "kind": "static",
+   "material": "stone",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_Trail_River_Abutment_B"
+   ]
+  },
+  {
+   "node": "M_rock_-1_0",
+   "kind": "static",
+   "material": "rock",
+   "triangles": 160,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Boulders_W_04",
+    "Boulders_W_01"
+   ]
+  },
+  {
+   "node": "M_stone_-1_0",
+   "kind": "static",
+   "material": "stone",
+   "triangles": 60,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_Trail_River_Abutment_A",
+    "Bridge_Trail_River_Pier_01",
+    "Bridge_Trail_River_Parapet_R",
+    "Bridge_Trail_River_Parapet_L",
+    "Bridge_Trail_River_Deck"
+   ]
+  },
+  {
+   "node": "M_foundation_-1_1",
+   "kind": "static",
+   "material": "foundation",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Ruins_Foundation"
+   ]
+  },
+  {
+   "node": "M_stone_-1_1",
+   "kind": "static",
+   "material": "stone",
+   "triangles": 458,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Ruins_Column_03",
+    "Ruins_Block_02",
+    "Ruins_Wall_09",
+    "Ruins_Wall_08",
+    "Ruins_Wall_07",
+    "Ruins_Wall_06",
+    "Ruins_Wall_05",
+    "Ruins_Wall_04",
+    "Ruins_Wall_03",
+    "Ruins_Wall_02",
+    "Ruins_Wall_01"
+   ]
+  },
+  {
+   "node": "M_rock_0_-1",
+   "kind": "static",
+   "material": "rock",
+   "triangles": 256,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Stone_Arch"
+   ]
+  },
+  {
+   "node": "M_rock_0_0",
+   "kind": "static",
+   "material": "rock",
+   "triangles": 468,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Boulders_E_05",
+    "Boulders_E_04",
+    "Boulders_E_03",
+    "Boulders_E_02",
+    "Boulders_E_01",
+    "Overhang"
+   ]
+  },
+  {
+   "node": "M_foundation_0_1",
+   "kind": "static",
+   "material": "foundation",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Watchtower_Foundation"
+   ]
+  },
+  {
+   "node": "M_stone_0_1",
+   "kind": "static",
+   "material": "stone",
+   "triangles": 204,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Watchtower_Battlements",
+    "Watchtower_Body"
+   ]
+  },
+  {
+   "node": "M_structure_0_1",
+   "kind": "static",
+   "material": "structure",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Watchtower_Buttress_04",
+    "Watchtower_Buttress_03",
+    "Watchtower_Buttress_02",
+    "Watchtower_Buttress_01"
+   ]
+  },
+  {
+   "node": "M_trim_0_1",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Watchtower_Pinnacle_04",
+    "Watchtower_Pinnacle_03",
+    "Watchtower_Pinnacle_02",
+    "Watchtower_Pinnacle_01",
+    "Watchtower_Corbel",
+    "Watchtower_Course_01"
+   ]
+  },
+  {
+   "node": "M_window_0_1",
+   "kind": "static",
+   "material": "window",
+   "triangles": 8,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Watchtower_Window_401",
+    "Watchtower_Window_301",
+    "Watchtower_Window_201",
+    "Watchtower_Window_101"
+   ]
+  },
+  {
+   "node": "M_rock_1_0",
+   "kind": "static",
+   "material": "rock",
+   "triangles": 302,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Spire_Cap",
+    "Spire_04",
+    "Spire_03",
+    "Spire_02",
+    "Spire_01"
+   ]
+  },
+  {
+   "node": "TR_0_0_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 325,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 675,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 334,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 714,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 390,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 186,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_0_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_0"
+   ]
+  },
+  {
+   "node": "TR_0_1_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 200,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 519,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 487,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 842,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 363,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 213,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_1_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_1"
+   ]
+  },
+  {
+   "node": "TR_0_2_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 218,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_2"
+   ]
+  },
+  {
+   "node": "TR_0_2_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 379,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_2"
+   ]
+  },
+  {
+   "node": "TR_0_2_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 476,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_2"
+   ]
+  },
+  {
+   "node": "TR_0_2_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 975,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_2"
+   ]
+  },
+  {
+   "node": "TR_0_2_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 310,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_2"
+   ]
+  },
+  {
+   "node": "TR_0_2_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 266,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_2"
+   ]
+  },
+  {
+   "node": "TR_0_2_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_2"
+   ]
+  },
+  {
+   "node": "TR_0_3_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 337,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_3"
+   ]
+  },
+  {
+   "node": "TR_0_3_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 456,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_3"
+   ]
+  },
+  {
+   "node": "TR_0_3_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 414,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_3"
+   ]
+  },
+  {
+   "node": "TR_0_3_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 841,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_0_3"
+   ]
+  },
+  {
+   "node": "TR_0_3_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 365,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_3"
+   ]
+  },
+  {
+   "node": "TR_0_3_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 211,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_3"
+   ]
+  },
+  {
+   "node": "TR_0_3_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_0_3"
+   ]
+  },
+  {
+   "node": "TR_1_0_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 209,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 652,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 652,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 534,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 1,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 291,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_gravel_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_gravel",
+   "triangles": 101,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 147,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 37,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_0_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_0"
+   ]
+  },
+  {
+   "node": "TR_1_1_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 498,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 1194,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 313,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 16,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 27,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 479,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_gravel_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_gravel",
+   "triangles": 61,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 4,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 32,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_1_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_1"
+   ]
+  },
+  {
+   "node": "TR_1_2_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 452,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_2"
+   ]
+  },
+  {
+   "node": "TR_1_2_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 1021,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_2"
+   ]
+  },
+  {
+   "node": "TR_1_2_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 468,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_2"
+   ]
+  },
+  {
+   "node": "TR_1_2_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 106,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_2"
+   ]
+  },
+  {
+   "node": "TR_1_2_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 1,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_2"
+   ]
+  },
+  {
+   "node": "TR_1_2_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 488,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_2"
+   ]
+  },
+  {
+   "node": "TR_1_2_gravel_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_gravel",
+   "triangles": 56,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_2"
+   ]
+  },
+  {
+   "node": "TR_1_2_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 13,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_2"
+   ]
+  },
+  {
+   "node": "TR_1_2_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 19,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_2"
+   ]
+  },
+  {
+   "node": "TR_1_2_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_2"
+   ]
+  },
+  {
+   "node": "TR_1_3_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 348,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_3_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 810,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_3_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 282,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_3_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 608,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_3_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 373,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_3_gravel_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_gravel",
+   "triangles": 16,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_3_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 173,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_3_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 14,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_1_3_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_1_3"
+   ]
+  },
+  {
+   "node": "TR_2_0_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 207,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 387,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 638,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 797,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 19,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 339,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_gravel_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_gravel",
+   "triangles": 15,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 210,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 12,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_0_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_0"
+   ]
+  },
+  {
+   "node": "TR_2_1_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 275,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_1_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 1009,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_1_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 591,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_1_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 173,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_1_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 447,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_1_gravel_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_gravel",
+   "triangles": 62,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_1_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 48,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_1_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 19,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_1_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_1"
+   ]
+  },
+  {
+   "node": "TR_2_2_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 449,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_2"
+   ]
+  },
+  {
+   "node": "TR_2_2_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 1027,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_2"
+   ]
+  },
+  {
+   "node": "TR_2_2_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 517,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_2"
+   ]
+  },
+  {
+   "node": "TR_2_2_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 54,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_2"
+   ]
+  },
+  {
+   "node": "TR_2_2_sand_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_sand",
+   "triangles": 1,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_2"
+   ]
+  },
+  {
+   "node": "TR_2_2_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 451,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_2"
+   ]
+  },
+  {
+   "node": "TR_2_2_gravel_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_gravel",
+   "triangles": 81,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_2"
+   ]
+  },
+  {
+   "node": "TR_2_2_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 26,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_2"
+   ]
+  },
+  {
+   "node": "TR_2_2_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 18,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_2"
+   ]
+  },
+  {
+   "node": "TR_2_2_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_2"
+   ]
+  },
+  {
+   "node": "TR_2_3_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 168,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_3_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 612,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_3_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 941,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_3_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 327,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_3_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 353,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_3_gravel_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_gravel",
+   "triangles": 102,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_3_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 86,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_3_sand_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_sand",
+   "triangles": 35,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_2_3_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_2_3"
+   ]
+  },
+  {
+   "node": "TR_3_0_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 407,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_0"
+   ]
+  },
+  {
+   "node": "TR_3_0_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 960,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_0"
+   ]
+  },
+  {
+   "node": "TR_3_0_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 370,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_0"
+   ]
+  },
+  {
+   "node": "TR_3_0_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 311,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_0"
+   ]
+  },
+  {
+   "node": "TR_3_0_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 496,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_0"
+   ]
+  },
+  {
+   "node": "TR_3_0_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 80,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_0"
+   ]
+  },
+  {
+   "node": "TR_3_0_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_0"
+   ]
+  },
+  {
+   "node": "TR_3_1_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 336,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_1"
+   ]
+  },
+  {
+   "node": "TR_3_1_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 1061,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_1"
+   ]
+  },
+  {
+   "node": "TR_3_1_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 215,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_1"
+   ]
+  },
+  {
+   "node": "TR_3_1_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 436,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_1"
+   ]
+  },
+  {
+   "node": "TR_3_1_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 451,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_1"
+   ]
+  },
+  {
+   "node": "TR_3_1_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 125,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_1"
+   ]
+  },
+  {
+   "node": "TR_3_1_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_1"
+   ]
+  },
+  {
+   "node": "TR_3_2_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 427,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_2"
+   ]
+  },
+  {
+   "node": "TR_3_2_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 1020,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_2"
+   ]
+  },
+  {
+   "node": "TR_3_2_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 166,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_2"
+   ]
+  },
+  {
+   "node": "TR_3_2_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 435,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_2"
+   ]
+  },
+  {
+   "node": "TR_3_2_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 451,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_2"
+   ]
+  },
+  {
+   "node": "TR_3_2_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 125,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_2"
+   ]
+  },
+  {
+   "node": "TR_3_2_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_2"
+   ]
+  },
+  {
+   "node": "TR_3_3_dirt_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_dirt",
+   "triangles": 427,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_3"
+   ]
+  },
+  {
+   "node": "TR_3_3_grass_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_grass",
+   "triangles": 1048,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_3"
+   ]
+  },
+  {
+   "node": "TR_3_3_gravel_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_gravel",
+   "triangles": 347,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_3"
+   ]
+  },
+  {
+   "node": "TR_3_3_rock_L0",
+   "kind": "terrain_lod0",
+   "material": "ter_rock",
+   "triangles": 226,
+   "visibility_range_begin": 0,
+   "visibility_range_end": 64.0,
+   "cast_shadow": true,
+   "source_objects": [
+    "terrain chunk TR_3_3"
+   ]
+  },
+  {
+   "node": "TR_3_3_grass_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_grass",
+   "triangles": 523,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_3"
+   ]
+  },
+  {
+   "node": "TR_3_3_rock_L1",
+   "kind": "terrain_lod1",
+   "material": "ter_rock",
+   "triangles": 53,
+   "visibility_range_begin": 60,
+   "visibility_range_end": 124.0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_3"
+   ]
+  },
+  {
+   "node": "TR_3_3_L2_far",
+   "kind": "terrain_lod2",
+   "material": "ter_far",
+   "triangles": 224,
+   "visibility_range_begin": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "terrain chunk TR_3_3"
+   ]
+  },
+  {
+   "node": "SCN_Grass__64_3_3",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 80,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__64_3_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__64_3_2",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 320,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__64_3_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__64_3_1",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 480,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__64_3_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__64_2_3",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 160,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__64_2_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__64_2_2",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 720,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__64_2_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__64_2_1",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 560,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__64_2_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__64_1_3",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 240,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__64_1_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__64_1_2",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 1040,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__64_1_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__64_1_1",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 960,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__64_1_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__64_1_0",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 80,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__64_1_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__64_0_1",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 80,
+   "visibility_range_end": 80,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__64_0_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_6_5",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 60,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_6_5"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_6_4",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 220,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_6_4"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_6_3",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 180,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_6_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_6_2",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 140,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_6_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_5_5",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 200,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_5_5"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_5_4",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 180,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_5_4"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_5_3",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 360,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_5_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_5_2",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 260,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_5_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_4_6",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 60,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_4_6"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_4_5",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 80,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_4_5"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_4_4",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 360,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_4_4"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_4_3",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 180,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_4_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_4_2",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 220,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_4_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_4_1",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 20,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_4_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_3_6",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 40,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_3_6"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_3_5",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 140,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_3_5"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_3_4",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 100,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_3_4"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_3_3",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 240,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_3_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_3_2",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 180,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_3_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_3_1",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 80,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_3_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_2_6",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 60,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_2_6"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_2_5",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 420,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_2_5"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_2_4",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 200,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_2_4"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_2_3",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 280,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_2_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_2_2",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 340,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_2_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_2_1",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 220,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_2_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_1_5",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 80,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_1_5"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_1_4",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 140,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_1_4"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_1_3",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 60,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_1_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_1_2",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 140,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_1_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Grass__35_1_1",
+   "kind": "scatter",
+   "material": "sc_atlas_grass",
+   "triangles": 20,
+   "visibility_range_end": 35,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Grass__35_1_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Rocks__60_3_3",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 400,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Rocks__60_3_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Rocks__60_3_2",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 1520,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Rocks__60_3_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Rocks__60_3_1",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 400,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Rocks__60_3_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Rocks__60_2_3",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 480,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Rocks__60_2_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Rocks__60_2_2",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 800,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Rocks__60_2_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Rocks__60_2_1",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 1040,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Rocks__60_2_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Rocks__60_2_0",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 640,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Rocks__60_2_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Rocks__60_1_3",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 1120,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Rocks__60_1_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Rocks__60_1_2",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 960,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Rocks__60_1_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Rocks__60_1_1",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 1840,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Rocks__60_1_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Rocks__60_1_0",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 320,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Rocks__60_1_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Rocks__60_0_3",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 80,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Rocks__60_0_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Rocks__60_0_2",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 480,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Rocks__60_0_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SCN_Rocks__60_0_1",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 240,
+   "visibility_range_end": 60,
+   "cast_shadow": false,
+   "source_objects": [
+    "SCN_Rocks__60_0_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Rocks__64_3_2",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 320,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Rocks__64_3_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Rocks__64_3_1",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 560,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Rocks__64_3_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Rocks__64_2_3",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 240,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Rocks__64_2_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Rocks__64_2_2",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 800,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Rocks__64_2_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Rocks__64_2_1",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 480,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Rocks__64_2_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Rocks__64_2_0",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 400,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Rocks__64_2_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Rocks__64_1_3",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 240,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Rocks__64_1_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Rocks__64_1_2",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 720,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Rocks__64_1_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Rocks__64_1_1",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 880,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Rocks__64_1_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Rocks__64_1_0",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 320,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Rocks__64_1_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Rocks__64_0_2",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 80,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Rocks__64_0_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Rocks__64_0_1",
+   "kind": "scatter",
+   "material": "sc_atlas_rocks",
+   "triangles": 400,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Rocks__64_0_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Pines__64_3_2",
+   "kind": "scatter",
+   "material": "sc_atlas_pines",
+   "triangles": 552,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Pines__64_3_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Pines__64_3_1",
+   "kind": "scatter",
+   "material": "sc_atlas_pines",
+   "triangles": 910,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Pines__64_3_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Pines__64_2_3",
+   "kind": "scatter",
+   "material": "sc_atlas_pines",
+   "triangles": 198,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Pines__64_2_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Pines__64_2_2",
+   "kind": "scatter",
+   "material": "sc_atlas_pines",
+   "triangles": 712,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Pines__64_2_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Pines__64_2_1",
+   "kind": "scatter",
+   "material": "sc_atlas_pines",
+   "triangles": 382,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Pines__64_2_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Pines__64_2_0",
+   "kind": "scatter",
+   "material": "sc_atlas_pines",
+   "triangles": 132,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Pines__64_2_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Pines__64_1_3",
+   "kind": "scatter",
+   "material": "sc_atlas_pines",
+   "triangles": 462,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Pines__64_1_3"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Pines__64_1_2",
+   "kind": "scatter",
+   "material": "sc_atlas_pines",
+   "triangles": 486,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Pines__64_1_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Pines__64_1_1",
+   "kind": "scatter",
+   "material": "sc_atlas_pines",
+   "triangles": 1028,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Pines__64_1_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Pines__64_1_0",
+   "kind": "scatter",
+   "material": "sc_atlas_pines",
+   "triangles": 132,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Pines__64_1_0"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Pines__64_0_2",
+   "kind": "scatter",
+   "material": "sc_atlas_pines",
+   "triangles": 250,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Pines__64_0_2"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "SC_Pines__64_0_1",
+   "kind": "scatter",
+   "material": "sc_atlas_pines",
+   "triangles": 118,
+   "visibility_range_end": 160,
+   "cast_shadow": true,
+   "source_objects": [
+    "SC_Pines__64_0_1"
+   ],
+   "reason": "instanced scatter (merged per cell)"
+  },
+  {
+   "node": "TW_River",
+   "kind": "water",
+   "material": "water",
+   "triangles": 1276,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TW_River"
+   ],
+   "reason": "water surface"
+  },
+  {
+   "node": "TRM_7",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 382,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_7"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_6",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 389,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_6"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_5",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 388,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_5"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_4",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 395,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_4"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_3",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 389,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_3"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_2",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 388,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_2"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_1",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 388,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_1"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  },
+  {
+   "node": "TRM_0",
+   "kind": "terrain_middle",
+   "material": "ter_far",
+   "triangles": 389,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TRM_0"
+   ],
+   "reason": "middle zone (no collision, not playable)"
+  }
+ ]
+}

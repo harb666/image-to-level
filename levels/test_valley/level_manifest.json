@@ -1,0 +1,187 @@
+{
+ "format": "image-to-level package v1",
+ "level": "test_valley",
+ "title": "scene_spec.json - Engineering test A - open rocky valley arena (synthetic, no concept image)",
+ "generated": "2026-10-10 12:06:47",
+ "godot_root": "res://levels/test_valley/",
+ "use_in_game": "mobile/level_mobile.glb (+ mobile/background_mobile.glb, mobile/collision.glb)",
+ "profile": "balanced",
+ "spawns": [
+  {
+   "id": "spawn",
+   "position": [
+    -40.0,
+    1.41,
+    42.0
+   ],
+   "yaw_deg": -43.8
+  },
+  {
+   "id": "Player_Start_2",
+   "position": [
+    -40.0,
+    1.37,
+    37.33
+   ],
+   "yaw_deg": -43.8,
+   "team": "player"
+  },
+  {
+   "id": "Player_Start_3",
+   "position": [
+    -44.67,
+    1.51,
+    42.0
+   ],
+   "yaw_deg": -43.8,
+   "team": "player"
+  },
+  {
+   "id": "Player_Start_4",
+   "position": [
+    -40.0,
+    1.37,
+    46.67
+   ],
+   "yaw_deg": -43.8,
+   "team": "player"
+  },
+  {
+   "id": "Enemy_East_1",
+   "position": [
+    60.0,
+    4.02,
+    33.33
+   ],
+   "yaw_deg": 71.5,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_East_2",
+   "position": [
+    52.0,
+    1.46,
+    30.67
+   ],
+   "yaw_deg": 71.5,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_East_3",
+   "position": [
+    65.33,
+    3.93,
+    33.33
+   ],
+   "yaw_deg": 71.5,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_East_4",
+   "position": [
+    46.67,
+    0.34,
+    28.0
+   ],
+   "yaw_deg": 71.5,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_North_1",
+   "position": [
+    -5.0,
+    0.71,
+    -50.0
+   ],
+   "yaw_deg": -174.0,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_North_2",
+   "position": [
+    -5.0,
+    0.36,
+    -54.67
+   ],
+   "yaw_deg": -174.0,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_North_3",
+   "position": [
+    -9.67,
+    1.02,
+    -50.0
+   ],
+   "yaw_deg": -174.0,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_North_4",
+   "position": [
+    -0.33,
+    0.26,
+    -50.0
+   ],
+   "yaw_deg": -174.0,
+   "team": "enemy"
+  }
+ ],
+ "hazards": [],
+ "generator": {
+  "tool": "pipeline/spec_to_level.py",
+  "spec_sha": "cec73bba20195798",
+  "theme": "alpine",
+  "detail": "medium",
+  "mode": "open"
+ },
+ "metrics": {
+  "dev": {
+   "glb_kb": 5569,
+   "triangles": 71090,
+   "draw_calls": 245,
+   "tex_mem_gpu_mb_est": 3.42
+  },
+  "mobile": {
+   "profile": "balanced",
+   "glb_kb": 6343,
+   "triangles": 83890,
+   "draw_calls": 238,
+   "visible_draw_calls_est": 53.4,
+   "visible_draw_calls_max_est": 80,
+   "tex_mem_gpu_mb_est": 3.58,
+   "materials": 17,
+   "nodes": 239,
+   "colliders": {
+    "colliders": 251,
+    "hazards": 0,
+    "glb_kb": 466
+   },
+   "background_kb": 116,
+   "visible_triangles_est": 22177,
+   "visible_triangles_max_est": 30824
+  },
+  "effects": {
+   "max_particles": 0,
+   "emitters": 0,
+   "extra_draw_calls": 0,
+   "transparent_area_m2": 0
+  },
+  "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
+ },
+ "validation": {
+  "passed": true,
+  "counts": {
+   "error": 0,
+   "warning": 0,
+   "info": 1
+  }
+ },
+ "gameplay_config_status": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer.",
+ "notes": [
+  "GLB carries static geometry/materials only; effects, environment and hazards are recreated in Godot from the JSON/tres + scripts.",
+  "Scripts and .tres are UNTESTED in Godot from this environment.",
+  "Performance numbers are estimates, not device benchmarks."
+ ],
+ "files": 34
+}

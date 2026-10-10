@@ -1,0 +1,58 @@
+{
+ "level": "test_valley",
+ "counts": {
+  "ERROR": 0,
+  "WARNING": 0,
+  "INTENTIONAL": 2
+ },
+ "relations": {
+  "explicit": 3,
+  "inferred": 0
+ },
+ "repairable": 0,
+ "findings": [
+  {
+   "check": "boundary",
+   "cls": "INTENTIONAL",
+   "objects": [
+    "River"
+   ],
+   "message": "playable boundary edge 15: River leaves the area through a gap in the barrier (invisible collider there)",
+   "pos": [
+    -97.12,
+    -4.48,
+    3.45
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": false,
+   "id": "boundary:000"
+  },
+  {
+   "check": "unreachable",
+   "cls": "INTENTIONAL",
+   "objects": [
+    "South_Mesa"
+   ],
+   "message": "555 m\u00b2 standable area at [10.2, 79.0] not reachable from the spawn (on South_Mesa: inaccessible by design)",
+   "pos": [
+    10.2,
+    8.98,
+    79.0
+   ],
+   "measured": {
+    "area_m2": 555.0,
+    "objects": [
+     "TR_3_2_grass",
+     "TR_3_2_dirt",
+     "TR_3_1_grass",
+     "TR_3_2_rock"
+    ]
+   },
+   "repair": null,
+   "ambiguous": false,
+   "id": "unreachable:001"
+  }
+ ],
+ "passed": true
+}

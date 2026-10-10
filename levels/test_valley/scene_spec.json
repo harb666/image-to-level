@@ -1,0 +1,405 @@
+{
+ "spec_version": 1,
+ "name": "test_valley",
+ "title": "Engineering test A - open rocky valley arena (synthetic, no concept image)",
+ "theme": "alpine",
+ "detail": "medium",
+ "seed": 21,
+ "profile": "balanced",
+ "interpretation": {
+  "summary": "Synthetic Stage 9 test: open rocky valley with a river, ridges, cliffs, natural arch, cave, ruins.",
+  "visible": [
+   "synthetic test - nothing seen"
+  ],
+  "inferred": [
+   "all elements chosen to exercise the open-terrain generator"
+  ]
+ },
+ "world": {
+  "size": [
+   256,
+   256
+  ],
+  "center": [
+   0,
+   0
+  ],
+  "seed": 21,
+  "biome": "rocky",
+  "relief": "hilly",
+  "cell": 2.0,
+  "chunk": 32,
+  "boundary": {
+   "shape": "organic",
+   "margin": 26,
+   "barrier": "ridge",
+   "height": 18
+  },
+  "features": [
+   {
+    "id": "North_Ridge",
+    "type": "ridge",
+    "points": [
+     [
+      -110,
+      -70
+     ],
+     [
+      -40,
+      -88
+     ],
+     [
+      30,
+      -80
+     ],
+     [
+      100,
+      -95
+     ]
+    ],
+    "width": 46,
+    "height": 20,
+    "source": "inferred"
+   },
+   {
+    "id": "West_Peak",
+    "type": "mountain",
+    "center": [
+     -80,
+     40
+    ],
+    "radius": 36,
+    "height": 26
+   },
+   {
+    "id": "East_Hill",
+    "type": "hill",
+    "center": [
+     70,
+     50
+    ],
+    "radius": 30,
+    "height": 9
+   },
+   {
+    "id": "South_Mesa",
+    "type": "mesa",
+    "center": [
+     10,
+     78
+    ],
+    "radius": 16,
+    "height": 9
+   },
+   {
+    "id": "Crater",
+    "type": "crater",
+    "center": [
+     55,
+     -30
+    ],
+    "radius": 13,
+    "depth": 3.5,
+    "rim": 1.8
+   },
+   {
+    "id": "Valley",
+    "type": "valley",
+    "points": [
+     [
+      -120,
+      0
+     ],
+     [
+      -50,
+      -8
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      60,
+      -6
+     ],
+     [
+      120,
+      6
+     ]
+    ],
+    "width": 70,
+    "depth": 5
+   },
+   {
+    "id": "River",
+    "type": "river",
+    "points": [
+     [
+      -118,
+      -4
+     ],
+     [
+      -60,
+      -10
+     ],
+     [
+      -10,
+      8
+     ],
+     [
+      40,
+      -2
+     ],
+     [
+      118,
+      10
+     ]
+    ],
+    "width": 9,
+    "depth": 1.4
+   },
+   {
+    "id": "East_Cliff",
+    "type": "cliff",
+    "points": [
+     [
+      78,
+      -60
+     ],
+     [
+      104,
+      -30
+     ]
+    ],
+    "height": 9,
+    "reach": 26,
+    "side": "right"
+   },
+   {
+    "id": "Trail",
+    "type": "path",
+    "points": [
+     [
+      -30,
+      70
+     ],
+     [
+      -20,
+      30
+     ],
+     [
+      -12,
+      4
+     ],
+     [
+      0,
+      -30
+     ],
+     [
+      20,
+      -60
+     ]
+    ],
+    "width": 3.5
+   },
+   {
+    "id": "Camp_Field",
+    "type": "field",
+    "center": [
+     -30,
+     40
+    ],
+    "radius": 18
+   }
+  ],
+  "scatter": [
+   {
+    "id": "Pines",
+    "kinds": [
+     "conifer",
+     {
+      "kind": "dead_tree",
+      "weight": 0.15
+     }
+    ],
+    "density": 1.1,
+    "cluster": 0.6,
+    "slope_max": 26,
+    "layers": [
+     "grass",
+     "dirt"
+    ]
+   },
+   {
+    "id": "Rocks",
+    "kinds": [
+     "rock_small",
+     {
+      "kind": "boulder",
+      "weight": 0.35
+     }
+    ],
+    "density": 1.6,
+    "cluster": 0.4,
+    "slope_max": 34
+   },
+   {
+    "id": "Grass",
+    "kinds": [
+     "grass_tuft",
+     {
+      "kind": "bush",
+      "weight": 0.2
+     }
+    ],
+    "density": 5,
+    "cluster": 0.5,
+    "slope_max": 24,
+    "layers": [
+     "grass"
+    ]
+   }
+  ],
+  "spawn_regions": [
+   {
+    "id": "Player_Start",
+    "team": "player",
+    "center": [
+     -40,
+     42
+    ],
+    "radius": 14,
+    "count": 4
+   },
+   {
+    "id": "Enemy_East",
+    "team": "enemy",
+    "center": [
+     60,
+     20
+    ],
+    "radius": 16,
+    "count": 5
+   },
+   {
+    "id": "Enemy_North",
+    "team": "enemy",
+    "center": [
+     -5,
+     -50
+    ],
+    "radius": 14,
+    "count": 4
+   }
+  ]
+ },
+ "structures": [
+  {
+   "id": "Stone_Arch",
+   "kind": "rock_arch",
+   "position": [
+    20,
+    -40
+   ],
+   "size": [
+    13,
+    9,
+    4
+   ],
+   "yaw": 25
+  },
+  {
+   "id": "Cave",
+   "kind": "cave",
+   "position": [
+    -75,
+    -45
+   ],
+   "size": [
+    14,
+    9,
+    16
+   ],
+   "yaw": 160
+  },
+  {
+   "id": "Overhang",
+   "kind": "overhang",
+   "position": [
+    35,
+    45
+   ],
+   "size": [
+    14,
+    6,
+    6
+   ],
+   "yaw": 200
+  },
+  {
+   "id": "Ruins",
+   "kind": "ruins",
+   "position": [
+    -20,
+    55
+   ],
+   "size": [
+    14,
+    4,
+    10
+   ],
+   "count": 5
+  },
+  {
+   "id": "Watchtower",
+   "kind": "stone_tower",
+   "position": [
+    8,
+    62
+   ],
+   "size": [
+    6,
+    12,
+    6
+   ]
+  },
+  {
+   "id": "Boulders_W",
+   "kind": "boulder_field",
+   "position": [
+    -50,
+    10
+   ],
+   "radius": 9,
+   "count": 6
+  },
+  {
+   "id": "Boulders_E",
+   "kind": "boulder_field",
+   "position": [
+    40,
+    15
+   ],
+   "radius": 8,
+   "count": 5
+  },
+  {
+   "id": "Spire",
+   "kind": "rock_spire",
+   "position": [
+    85,
+    25
+   ],
+   "size": [
+    6,
+    16,
+    6
+   ]
+  }
+ ],
+ "atmosphere": {
+  "sky": "clear_day",
+  "ambient": "none"
+ },
+ "effects": "auto"
+}

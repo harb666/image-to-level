@@ -1,0 +1,3358 @@
+{
+ "version": 1,
+ "units": "metres, y-up; position = centre of object's base, in parent space; rotation = degrees XYZ",
+ "source": "scene_spec.json - Engineering test A - open rocky valley arena (synthetic, no concept image)",
+ "generator": {
+  "tool": "pipeline/spec_to_level.py",
+  "spec_sha": "cec73bba20195798",
+  "theme": "alpine",
+  "detail": "medium",
+  "mode": "open"
+ },
+ "interpretation": {
+  "summary": "Synthetic Stage 9 test: open rocky valley with a river, ridges, cliffs, natural arch, cave, ruins.",
+  "visible": [
+   "synthetic test - nothing seen"
+  ],
+  "inferred": [
+   "all elements chosen to exercise the open-terrain generator"
+  ]
+ },
+ "sky_color": [
+  0.75,
+  0.85,
+  0.95
+ ],
+ "spawn": {
+  "position": [
+   -40.0,
+   1.41,
+   42.0
+  ],
+  "yaw_deg": -43.8
+ },
+ "spawns": [
+  {
+   "id": "Player_Start_2",
+   "position": [
+    -40.0,
+    1.37,
+    37.33
+   ],
+   "yaw_deg": -43.8,
+   "team": "player"
+  },
+  {
+   "id": "Player_Start_3",
+   "position": [
+    -44.67,
+    1.51,
+    42.0
+   ],
+   "yaw_deg": -43.8,
+   "team": "player"
+  },
+  {
+   "id": "Player_Start_4",
+   "position": [
+    -40.0,
+    1.37,
+    46.67
+   ],
+   "yaw_deg": -43.8,
+   "team": "player"
+  },
+  {
+   "id": "Enemy_East_1",
+   "position": [
+    60.0,
+    4.02,
+    33.33
+   ],
+   "yaw_deg": 71.5,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_East_2",
+   "position": [
+    52.0,
+    1.46,
+    30.67
+   ],
+   "yaw_deg": 71.5,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_East_3",
+   "position": [
+    65.33,
+    3.93,
+    33.33
+   ],
+   "yaw_deg": 71.5,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_East_4",
+   "position": [
+    46.67,
+    0.34,
+    28.0
+   ],
+   "yaw_deg": 71.5,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_North_1",
+   "position": [
+    -5.0,
+    0.71,
+    -50.0
+   ],
+   "yaw_deg": -174.0,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_North_2",
+   "position": [
+    -5.0,
+    0.36,
+    -54.67
+   ],
+   "yaw_deg": -174.0,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_North_3",
+   "position": [
+    -9.67,
+    1.02,
+    -50.0
+   ],
+   "yaw_deg": -174.0,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_North_4",
+   "position": [
+    -0.33,
+    0.26,
+    -50.0
+   ],
+   "yaw_deg": -174.0,
+   "team": "enemy"
+  }
+ ],
+ "hazards": [],
+ "effects": [
+  {
+   "id": "Sky_Drift",
+   "type": "sky_drift",
+   "speed_deg_s": 0.25
+  }
+ ],
+ "environment": {
+  "quality": "balanced",
+  "horizon_distance": 694,
+  "sky": {
+   "preset": "clear_day"
+  },
+  "atmosphere": {
+   "fog_start": 163
+  },
+  "background": [
+   {
+    "id": "Mountains_Far",
+    "type": "mountain_ring",
+    "radius": 649,
+    "depth": 70,
+    "height": [
+     70,
+     160
+    ],
+    "fade": 0.55,
+    "seed": 3
+   },
+   {
+    "id": "Mountains_Near",
+    "type": "mountain_ring",
+    "radius": 437,
+    "depth": 45,
+    "height": [
+     18,
+     56
+    ],
+    "fade": 0.3,
+    "seed": 8,
+    "frequency": 3.5,
+    "sharpness": 2.2
+   }
+  ]
+ },
+ "bounds": {
+  "min": [
+   -100.04,
+   -9.35,
+   -103.94
+  ],
+  "max": [
+   103.75,
+   42.88,
+   103.75
+  ]
+ },
+ "walkable": [
+  {
+   "name": "Cave",
+   "min": [
+    -76,
+    -46
+   ],
+   "max": [
+    -74,
+    -44
+   ],
+   "y": -0.24
+  },
+  {
+   "name": "Bridge_Trail_River",
+   "min": [
+    -13.780000000000001,
+    5.53
+   ],
+   "max": [
+    -11.780000000000001,
+    7.53
+   ],
+   "y": -3.135
+  },
+  {
+   "name": "Player_Start",
+   "min": [
+    -41.5,
+    40.5
+   ],
+   "max": [
+    -38.5,
+    43.5
+   ],
+   "y": 1.41
+  },
+  {
+   "name": "Enemy_East",
+   "min": [
+    58.5,
+    31.83
+   ],
+   "max": [
+    61.5,
+    34.83
+   ],
+   "y": 4.02
+  },
+  {
+   "name": "Enemy_North",
+   "min": [
+    -6.5,
+    -51.5
+   ],
+   "max": [
+    -3.5,
+    -48.5
+   ],
+   "y": 0.71
+  },
+  {
+   "name": "Terrain_01",
+   "min": [
+    46.59,
+    14.42
+   ],
+   "max": [
+    49.59,
+    17.42
+   ],
+   "y": -2.28,
+   "terrain": true,
+   "unreachable_ok": true
+  },
+  {
+   "name": "Terrain_02",
+   "min": [
+    23.21,
+    48.92
+   ],
+   "max": [
+    26.21,
+    51.92
+   ],
+   "y": 0.36,
+   "terrain": true,
+   "unreachable_ok": true
+  },
+  {
+   "name": "Terrain_03",
+   "min": [
+    -32.75,
+    45.0
+   ],
+   "max": [
+    -29.75,
+    48.0
+   ],
+   "y": 1.55,
+   "terrain": true,
+   "unreachable_ok": true
+  },
+  {
+   "name": "Terrain_04",
+   "min": [
+    -51.29,
+    -16.98
+   ],
+   "max": [
+    -48.29,
+    -13.98
+   ],
+   "y": -5.36,
+   "terrain": true,
+   "unreachable_ok": true
+  },
+  {
+   "name": "Terrain_05",
+   "min": [
+    -29.96,
+    -51.93
+   ],
+   "max": [
+    -26.96,
+    -48.93
+   ],
+   "y": 0.5,
+   "terrain": true,
+   "unreachable_ok": true
+  },
+  {
+   "name": "Terrain_06",
+   "min": [
+    34.01,
+    -52.01
+   ],
+   "max": [
+    37.01,
+    -49.01
+   ],
+   "y": -0.18,
+   "terrain": true,
+   "unreachable_ok": true
+  }
+ ],
+ "materials": {
+  "foundation": {
+   "type": "stone_brick",
+   "color": [
+    0.48,
+    0.46,
+    0.42
+   ],
+   "tile_m": 3.0
+  },
+  "rock": {
+   "type": "rock",
+   "color": [
+    0.47,
+    0.47,
+    0.5
+   ],
+   "tile_m": 8.0,
+   "res": 256
+  },
+  "stone": {
+   "type": "stone_brick",
+   "color": [
+    0.72,
+    0.68,
+    0.6
+   ],
+   "tile_m": 3.0
+  },
+  "structure": {
+   "type": "stone_brick",
+   "color": [
+    0.55,
+    0.53,
+    0.48
+   ],
+   "tile_m": 3.0
+  },
+  "trim": {
+   "type": "stone_brick",
+   "color": [
+    0.5,
+    0.48,
+    0.44
+   ],
+   "tile_m": 2.0
+  },
+  "window": {
+   "type": "window",
+   "color": [
+    0.75,
+    0.75,
+    0.7
+   ],
+   "tile_m": 1.0
+  },
+  "ter_road": {
+   "type": "gravel",
+   "color": [
+    0.48,
+    0.44,
+    0.39
+   ],
+   "tile_m": 3.0,
+   "res": 256
+  },
+  "ter_gravel": {
+   "type": "gravel",
+   "color": [
+    0.52,
+    0.49,
+    0.45
+   ],
+   "tile_m": 3.0,
+   "res": 256
+  },
+  "ter_rock": {
+   "type": "rock",
+   "color": [
+    0.46,
+    0.42,
+    0.38
+   ],
+   "tile_m": 8.0,
+   "res": 256
+  },
+  "ter_snow": {
+   "type": "snow",
+   "color": [
+    0.9,
+    0.92,
+    0.95
+   ],
+   "tile_m": 6.0,
+   "res": 256
+  },
+  "ter_sand": {
+   "type": "sand",
+   "color": [
+    0.66,
+    0.58,
+    0.44
+   ],
+   "tile_m": 4.0,
+   "res": 256
+  },
+  "ter_dirt": {
+   "type": "dirt",
+   "color": [
+    0.45,
+    0.37,
+    0.28
+   ],
+   "tile_m": 4.0,
+   "res": 256
+  },
+  "ter_grass": {
+   "type": "grass",
+   "color": [
+    0.34,
+    0.4,
+    0.22
+   ],
+   "tile_m": 4.0,
+   "res": 256
+  },
+  "water": {
+   "type": "water",
+   "color": [
+    0.25,
+    0.42,
+    0.48
+   ],
+   "tile_m": 6.0
+  },
+  "sc_foliage": {
+   "type": "grass",
+   "color": [
+    0.2,
+    0.32,
+    0.15
+   ],
+   "tile_m": 2.0,
+   "res": 128
+  },
+  "sc_trunk": {
+   "type": "wood",
+   "color": [
+    0.3,
+    0.22,
+    0.15
+   ],
+   "tile_m": 2.0,
+   "res": 128
+  },
+  "sc_rock": {
+   "type": "rock",
+   "color": [
+    0.45,
+    0.43,
+    0.4
+   ],
+   "tile_m": 4.0,
+   "res": 128
+  },
+  "sc_foliage_b": {
+   "type": "moss",
+   "color": [
+    0.32,
+    0.4,
+    0.18
+   ],
+   "tile_m": 2.0,
+   "res": 128
+  }
+ },
+ "objects": [
+  {
+   "name": "Ruins_Foundation",
+   "type": "box",
+   "position": [
+    -20.0,
+    -0.63,
+    55.0
+   ],
+   "rotation": [
+    0.0,
+    160.02,
+    0.0
+   ],
+   "size": [
+    14.5,
+    1.61,
+    10.5
+   ],
+   "material": "foundation",
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Foundation",
+   "type": "box",
+   "position": [
+    8.0,
+    4.63,
+    62.0
+   ],
+   "rotation": [
+    0.0,
+    -172.65,
+    0.0
+   ],
+   "size": [
+    6.5,
+    1.61,
+    6.5
+   ],
+   "material": "foundation",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Boundary_01",
+   "type": "boundary",
+   "position": [
+    99.895,
+    -12.227,
+    17.63
+   ],
+   "rotation": [
+    0.0,
+    -100.02,
+    0.0
+   ],
+   "size": [
+    21.925,
+    41.272,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_02",
+   "type": "boundary",
+   "position": [
+    94.045,
+    -4.955,
+    38.015
+   ],
+   "rotation": [
+    0.0,
+    -112.01,
+    0.0
+   ],
+   "size": [
+    21.924,
+    36.789,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_03",
+   "type": "boundary",
+   "position": [
+    84.085,
+    -2.166,
+    56.74
+   ],
+   "rotation": [
+    0.0,
+    -124.01,
+    0.0
+   ],
+   "size": [
+    21.929,
+    35.156,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_04",
+   "type": "boundary",
+   "position": [
+    70.45,
+    -3.76,
+    72.985
+   ],
+   "rotation": [
+    0.0,
+    -136.01,
+    0.0
+   ],
+   "size": [
+    21.923,
+    36.749,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_05",
+   "type": "boundary",
+   "position": [
+    53.74,
+    -3.76,
+    86.04
+   ],
+   "rotation": [
+    0.0,
+    -147.99,
+    0.0
+   ],
+   "size": [
+    21.921,
+    34.354,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_06",
+   "type": "boundary",
+   "position": [
+    34.68,
+    -4.087,
+    95.33
+   ],
+   "rotation": [
+    0.0,
+    -160.04,
+    0.0
+   ],
+   "size": [
+    21.921,
+    34.681,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_07",
+   "type": "boundary",
+   "position": [
+    14.095,
+    -4.94,
+    100.36
+   ],
+   "rotation": [
+    0.0,
+    -172.5,
+    0.0
+   ],
+   "size": [
+    21.912,
+    34.853,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_08",
+   "type": "boundary",
+   "position": [
+    -7.1,
+    -5.053,
+    101.1
+   ],
+   "rotation": [
+    0.0,
+    -183.5,
+    0.0
+   ],
+   "size": [
+    21.9,
+    34.114,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_09",
+   "type": "boundary",
+   "position": [
+    -27.98,
+    -5.053,
+    97.51
+   ],
+   "rotation": [
+    0.0,
+    -196.0,
+    0.0
+   ],
+   "size": [
+    21.927,
+    34.886,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_10",
+   "type": "boundary",
+   "position": [
+    -47.64,
+    -4.167,
+    89.56
+   ],
+   "rotation": [
+    0.0,
+    -208.03,
+    0.0
+   ],
+   "size": [
+    21.921,
+    34.567,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_11",
+   "type": "boundary",
+   "position": [
+    -65.22,
+    -3.6,
+    77.695
+   ],
+   "rotation": [
+    0.0,
+    -220.0,
+    0.0
+   ],
+   "size": [
+    21.93,
+    34.175,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_12",
+   "type": "boundary",
+   "position": [
+    -79.95,
+    -3.425,
+    62.44
+   ],
+   "rotation": [
+    0.0,
+    -232.01,
+    0.0
+   ],
+   "size": [
+    21.916,
+    47.008,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_13",
+   "type": "boundary",
+   "position": [
+    -91.185,
+    7.749,
+    44.455
+   ],
+   "rotation": [
+    0.0,
+    -244.0,
+    0.0
+   ],
+   "size": [
+    21.929,
+    35.835,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_14",
+   "type": "boundary",
+   "position": [
+    -96.71,
+    -6.863,
+    24.28
+   ],
+   "rotation": [
+    0.0,
+    -265.41,
+    0.0
+   ],
+   "size": [
+    21.848,
+    48.612,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_15",
+   "type": "boundary",
+   "position": [
+    -97.115,
+    -10.388,
+    3.455
+   ],
+   "rotation": [
+    0.0,
+    87.51,
+    0.0
+   ],
+   "size": [
+    21.089,
+    37.525,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_16",
+   "type": "boundary",
+   "position": [
+    -97.355,
+    -10.388,
+    -17.455
+   ],
+   "rotation": [
+    0.0,
+    -266.33,
+    0.0
+   ],
+   "size": [
+    21.994,
+    39.609,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_17",
+   "type": "boundary",
+   "position": [
+    -94.045,
+    -4.779,
+    -38.015
+   ],
+   "rotation": [
+    0.0,
+    67.99,
+    0.0
+   ],
+   "size": [
+    21.924,
+    34.972,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_18",
+   "type": "boundary",
+   "position": [
+    -84.085,
+    -3.806,
+    -56.74
+   ],
+   "rotation": [
+    0.0,
+    55.99,
+    0.0
+   ],
+   "size": [
+    21.929,
+    40.156,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_19",
+   "type": "boundary",
+   "position": [
+    -70.45,
+    2.35,
+    -72.985
+   ],
+   "rotation": [
+    0.0,
+    43.99,
+    0.0
+   ],
+   "size": [
+    21.923,
+    42.634,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_20",
+   "type": "boundary",
+   "position": [
+    -53.74,
+    6.104,
+    -86.04
+   ],
+   "rotation": [
+    0.0,
+    32.01,
+    0.0
+   ],
+   "size": [
+    21.921,
+    38.88,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_21",
+   "type": "boundary",
+   "position": [
+    -34.68,
+    0.48,
+    -95.33
+   ],
+   "rotation": [
+    0.0,
+    19.96,
+    0.0
+   ],
+   "size": [
+    21.921,
+    39.624,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_22",
+   "type": "boundary",
+   "position": [
+    -14.1,
+    -2.616,
+    -100.455
+   ],
+   "rotation": [
+    0.0,
+    8.0,
+    0.0
+   ],
+   "size": [
+    21.928,
+    37.096,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_23",
+   "type": "boundary",
+   "position": [
+    7.095,
+    -3.273,
+    -101.195
+   ],
+   "rotation": [
+    0.0,
+    -4.01,
+    0.0
+   ],
+   "size": [
+    21.922,
+    34.657,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_24",
+   "type": "boundary",
+   "position": [
+    27.98,
+    -3.273,
+    -97.51
+   ],
+   "rotation": [
+    0.0,
+    -16.0,
+    0.0
+   ],
+   "size": [
+    21.927,
+    37.853,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_25",
+   "type": "boundary",
+   "position": [
+    47.64,
+    0.58,
+    -89.56
+   ],
+   "rotation": [
+    0.0,
+    -28.03,
+    0.0
+   ],
+   "size": [
+    21.921,
+    41.715,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_26",
+   "type": "boundary",
+   "position": [
+    65.22,
+    -1.873,
+    -77.695
+   ],
+   "rotation": [
+    0.0,
+    -40.0,
+    0.0
+   ],
+   "size": [
+    21.93,
+    44.168,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_27",
+   "type": "boundary",
+   "position": [
+    79.95,
+    -1.873,
+    -62.44
+   ],
+   "rotation": [
+    0.0,
+    -52.01,
+    0.0
+   ],
+   "size": [
+    21.916,
+    40.139,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_28",
+   "type": "boundary",
+   "position": [
+    91.185,
+    -4.802,
+    -44.455
+   ],
+   "rotation": [
+    0.0,
+    -64.0,
+    0.0
+   ],
+   "size": [
+    21.929,
+    43.068,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_29",
+   "type": "boundary",
+   "position": [
+    98.435,
+    -7.426,
+    -24.525
+   ],
+   "rotation": [
+    0.0,
+    -76.02,
+    0.0
+   ],
+   "size": [
+    21.921,
+    36.624,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Boundary_30",
+   "type": "boundary",
+   "position": [
+    101.38,
+    -12.227,
+    -3.525
+   ],
+   "rotation": [
+    0.0,
+    -88.01,
+    0.0
+   ],
+   "size": [
+    21.923,
+    38.802,
+    0.5
+   ],
+   "gen": "world.boundary",
+   "source": "inferred"
+  },
+  {
+   "name": "Stone_Arch",
+   "type": "rock_arch",
+   "position": [
+    20.0,
+    -0.462,
+    -40.0
+   ],
+   "rotation": [
+    0.0,
+    25.0,
+    0.0
+   ],
+   "size": [
+    13.0,
+    9.0,
+    4.0
+   ],
+   "material": "rock",
+   "seed": 3494,
+   "collision_mesh": true,
+   "gen": "Stone_Arch",
+   "source": "visible"
+  },
+  {
+   "name": "Cave",
+   "type": "cave",
+   "position": [
+    -75.0,
+    -0.24,
+    -45.0
+   ],
+   "rotation": [
+    0.0,
+    160.0,
+    0.0
+   ],
+   "size": [
+    14.0,
+    9.0,
+    16.0
+   ],
+   "material": "rock",
+   "seed": 209,
+   "opening": 0.5,
+   "collision_mesh": true,
+   "gen": "Cave",
+   "source": "visible"
+  },
+  {
+   "name": "Overhang",
+   "type": "overhang",
+   "position": [
+    35.0,
+    0.251,
+    45.0
+   ],
+   "rotation": [
+    0.0,
+    200.0,
+    0.0
+   ],
+   "size": [
+    14.0,
+    6.0,
+    6.0
+   ],
+   "material": "rock",
+   "seed": 7613,
+   "collision_mesh": true,
+   "gen": "Overhang",
+   "source": "visible"
+  },
+  {
+   "name": "Ruins",
+   "type": "group",
+   "position": [
+    -20.0,
+    0.97,
+    55.0
+   ],
+   "rotation": [
+    0.0,
+    160.02,
+    0.0
+   ],
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Ruins_Wall_01",
+   "type": "cliff",
+   "position": [
+    -4.795,
+    -0.3,
+    -5.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Ruins",
+   "size": [
+    4.409,
+    2.468,
+    0.9
+   ],
+   "material": "stone",
+   "seed": 9869,
+   "step": 1.2,
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Ruins_Wall_02",
+   "type": "cliff",
+   "position": [
+    -1.204,
+    -0.3,
+    -5.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Ruins",
+   "size": [
+    2.774,
+    3.158,
+    0.9
+   ],
+   "material": "stone",
+   "seed": 9870,
+   "step": 1.2,
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Ruins_Wall_03",
+   "type": "cliff",
+   "position": [
+    5.125,
+    -0.3,
+    -5.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Ruins",
+   "size": [
+    3.669,
+    3.342,
+    0.9
+   ],
+   "material": "stone",
+   "seed": 9871,
+   "step": 1.2,
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Ruins_Wall_04",
+   "type": "cliff",
+   "position": [
+    7.0,
+    -0.3,
+    -3.489
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "parent": "Ruins",
+   "size": [
+    3.022,
+    2.804,
+    0.9
+   ],
+   "material": "stone",
+   "seed": 9872,
+   "step": 1.2,
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Ruins_Wall_05",
+   "type": "cliff",
+   "position": [
+    7.0,
+    -0.3,
+    2.258
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "parent": "Ruins",
+   "size": [
+    2.738,
+    3.653,
+    0.9
+   ],
+   "material": "stone",
+   "seed": 9873,
+   "step": 1.2,
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Ruins_Wall_06",
+   "type": "cliff",
+   "position": [
+    4.517,
+    -0.3,
+    5.0
+   ],
+   "rotation": [
+    0.0,
+    -180.0,
+    0.0
+   ],
+   "parent": "Ruins",
+   "size": [
+    4.966,
+    1.516,
+    0.9
+   ],
+   "material": "stone",
+   "seed": 9874,
+   "step": 1.2,
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Ruins_Wall_07",
+   "type": "cliff",
+   "position": [
+    -1.892,
+    -0.3,
+    5.0
+   ],
+   "rotation": [
+    0.0,
+    -180.0,
+    0.0
+   ],
+   "parent": "Ruins",
+   "size": [
+    4.354,
+    3.843,
+    0.9
+   ],
+   "material": "stone",
+   "seed": 9875,
+   "step": 1.2,
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Ruins_Wall_08",
+   "type": "cliff",
+   "position": [
+    -7.0,
+    -0.3,
+    2.98
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Ruins",
+   "size": [
+    4.041,
+    3.089,
+    0.9
+   ],
+   "material": "stone",
+   "seed": 9876,
+   "step": 1.2,
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Ruins_Wall_09",
+   "type": "cliff",
+   "position": [
+    -7.0,
+    -0.3,
+    -3.375
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Ruins",
+   "size": [
+    3.25,
+    2.556,
+    0.9
+   ],
+   "material": "stone",
+   "seed": 9877,
+   "step": 1.2,
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Ruins_Column_01",
+   "type": "cylinder",
+   "position": [
+    -4.795,
+    -0.2,
+    -1.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Ruins",
+   "size": [
+    0.9,
+    1.359,
+    0.9
+   ],
+   "material": "stone",
+   "sections": 8,
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Ruins_Block_02",
+   "type": "box",
+   "position": [
+    5.419,
+    -0.3,
+    -2.795
+   ],
+   "rotation": [
+    0.0,
+    52.51,
+    0.0
+   ],
+   "parent": "Ruins",
+   "size": [
+    1.678,
+    0.961,
+    1.39
+   ],
+   "material": "stone",
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Ruins_Column_03",
+   "type": "cylinder",
+   "position": [
+    0.587,
+    -0.2,
+    0.949
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Ruins",
+   "size": [
+    0.9,
+    3.037,
+    0.9
+   ],
+   "material": "stone",
+   "sections": 8,
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Ruins_Column_04",
+   "type": "cylinder",
+   "position": [
+    -4.714,
+    -0.2,
+    -3.135
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Ruins",
+   "size": [
+    0.9,
+    1.311,
+    0.9
+   ],
+   "material": "stone",
+   "sections": 8,
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Ruins_Block_05",
+   "type": "box",
+   "position": [
+    4.008,
+    -0.3,
+    -2.135
+   ],
+   "rotation": [
+    0.0,
+    9.77,
+    0.0
+   ],
+   "parent": "Ruins",
+   "size": [
+    1.471,
+    0.902,
+    1.138
+   ],
+   "material": "stone",
+   "gen": "Ruins",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower",
+   "type": "group",
+   "position": [
+    8.0,
+    6.23,
+    62.0
+   ],
+   "rotation": [
+    0.0,
+    -172.65,
+    0.0
+   ],
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    6.0,
+    12.0,
+    6.0
+   ],
+   "material": "stone",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Course_01",
+   "type": "box",
+   "position": [
+    0.0,
+    6.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    6.3,
+    0.35,
+    6.3
+   ],
+   "material": "trim",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Corbel",
+   "type": "box",
+   "position": [
+    0.0,
+    12.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    6.8,
+    0.6,
+    6.8
+   ],
+   "material": "trim",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Buttress_01",
+   "type": "box",
+   "position": [
+    -3.0,
+    0.0,
+    -3.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    1.0,
+    10.2,
+    1.0
+   ],
+   "material": "structure",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Buttress_02",
+   "type": "box",
+   "position": [
+    3.0,
+    0.0,
+    -3.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    1.0,
+    10.2,
+    1.0
+   ],
+   "material": "structure",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Buttress_03",
+   "type": "box",
+   "position": [
+    3.0,
+    0.0,
+    3.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    1.0,
+    10.2,
+    1.0
+   ],
+   "material": "structure",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Buttress_04",
+   "type": "box",
+   "position": [
+    -3.0,
+    0.0,
+    3.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    1.0,
+    10.2,
+    1.0
+   ],
+   "material": "structure",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Window_101",
+   "type": "panel",
+   "position": [
+    0.0,
+    3.4,
+    3.04
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    1.2,
+    2.0,
+    0.0
+   ],
+   "material": "window",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Window_201",
+   "type": "panel",
+   "position": [
+    3.04,
+    3.4,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    1.2,
+    2.0,
+    0.0
+   ],
+   "material": "window",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Window_301",
+   "type": "panel",
+   "position": [
+    0.0,
+    3.4,
+    -3.04
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    1.2,
+    2.0,
+    0.0
+   ],
+   "material": "window",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Window_401",
+   "type": "panel",
+   "position": [
+    -3.04,
+    3.4,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    1.2,
+    2.0,
+    0.0
+   ],
+   "material": "window",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Battlements",
+   "type": "battlement",
+   "position": [
+    0.0,
+    12.6,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    6.8,
+    1.2,
+    6.8
+   ],
+   "material": "stone",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Pinnacle_01",
+   "type": "spire",
+   "position": [
+    -3.2,
+    12.6,
+    -3.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    1.1,
+    3.0,
+    1.1
+   ],
+   "material": "trim",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Pinnacle_02",
+   "type": "spire",
+   "position": [
+    3.2,
+    12.6,
+    -3.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    1.1,
+    3.0,
+    1.1
+   ],
+   "material": "trim",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Pinnacle_03",
+   "type": "spire",
+   "position": [
+    3.2,
+    12.6,
+    3.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    1.1,
+    3.0,
+    1.1
+   ],
+   "material": "trim",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Watchtower_Pinnacle_04",
+   "type": "spire",
+   "position": [
+    -3.2,
+    12.6,
+    3.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Watchtower",
+   "size": [
+    1.1,
+    3.0,
+    1.1
+   ],
+   "material": "trim",
+   "gen": "Watchtower",
+   "source": "visible"
+  },
+  {
+   "name": "Boulders_W_01",
+   "type": "rock",
+   "position": [
+    -42.518,
+    -2.073,
+    12.756
+   ],
+   "rotation": [
+    0.0,
+    300.12,
+    0.0
+   ],
+   "size": [
+    2.039,
+    1.608,
+    1.82
+   ],
+   "material": "rock",
+   "seed": 1267,
+   "gen": "Boulders_W",
+   "source": "visible"
+  },
+  {
+   "name": "Boulders_W_02",
+   "type": "rock",
+   "position": [
+    -58.927,
+    -3.023,
+    9.23
+   ],
+   "rotation": [
+    0.0,
+    137.49,
+    0.0
+   ],
+   "size": [
+    3.674,
+    2.744,
+    2.864
+   ],
+   "material": "rock",
+   "seed": 1268,
+   "gen": "Boulders_W",
+   "source": "visible"
+  },
+  {
+   "name": "Boulders_W_03",
+   "type": "rock",
+   "position": [
+    -51.27,
+    -1.923,
+    12.06
+   ],
+   "rotation": [
+    0.0,
+    103.32,
+    0.0
+   ],
+   "size": [
+    3.041,
+    2.421,
+    2.778
+   ],
+   "material": "rock",
+   "seed": 1269,
+   "gen": "Boulders_W",
+   "source": "visible"
+  },
+  {
+   "name": "Boulders_W_04",
+   "type": "rock",
+   "position": [
+    -46.032,
+    -1.857,
+    15.436
+   ],
+   "rotation": [
+    0.0,
+    193.67,
+    0.0
+   ],
+   "size": [
+    2.91,
+    2.8,
+    3.17
+   ],
+   "material": "rock",
+   "seed": 1270,
+   "gen": "Boulders_W",
+   "source": "visible"
+  },
+  {
+   "name": "Boulders_W_05",
+   "type": "rock",
+   "position": [
+    -55.319,
+    -2.127,
+    12.047
+   ],
+   "rotation": [
+    0.0,
+    251.86,
+    0.0
+   ],
+   "size": [
+    3.476,
+    2.523,
+    3.083
+   ],
+   "material": "rock",
+   "seed": 1271,
+   "gen": "Boulders_W",
+   "source": "visible"
+  },
+  {
+   "name": "Boulders_W_06",
+   "type": "rock",
+   "position": [
+    -52.676,
+    -2.13,
+    10.856
+   ],
+   "rotation": [
+    0.0,
+    265.16,
+    0.0
+   ],
+   "size": [
+    2.899,
+    2.254,
+    2.032
+   ],
+   "material": "rock",
+   "seed": 1272,
+   "gen": "Boulders_W",
+   "source": "visible"
+  },
+  {
+   "name": "Boulders_E_01",
+   "type": "rock",
+   "position": [
+    32.082,
+    -3.76,
+    14.476
+   ],
+   "rotation": [
+    0.0,
+    302.22,
+    0.0
+   ],
+   "size": [
+    2.779,
+    2.083,
+    2.267
+   ],
+   "material": "rock",
+   "seed": 4989,
+   "gen": "Boulders_E",
+   "source": "visible"
+  },
+  {
+   "name": "Boulders_E_02",
+   "type": "rock",
+   "position": [
+    39.042,
+    -5.698,
+    8.839
+   ],
+   "rotation": [
+    0.0,
+    297.17,
+    0.0
+   ],
+   "size": [
+    3.009,
+    2.634,
+    3.072
+   ],
+   "material": "rock",
+   "seed": 4990,
+   "gen": "Boulders_E",
+   "source": "visible"
+  },
+  {
+   "name": "Boulders_E_03",
+   "type": "rock",
+   "position": [
+    43.285,
+    -5.883,
+    9.086
+   ],
+   "rotation": [
+    0.0,
+    323.34,
+    0.0
+   ],
+   "size": [
+    3.347,
+    2.918,
+    3.427
+   ],
+   "material": "rock",
+   "seed": 4991,
+   "gen": "Boulders_E",
+   "source": "visible"
+  },
+  {
+   "name": "Boulders_E_04",
+   "type": "rock",
+   "position": [
+    42.642,
+    -4.003,
+    11.925
+   ],
+   "rotation": [
+    0.0,
+    112.05,
+    0.0
+   ],
+   "size": [
+    2.335,
+    2.035,
+    2.135
+   ],
+   "material": "rock",
+   "seed": 4992,
+   "gen": "Boulders_E",
+   "source": "visible"
+  },
+  {
+   "name": "Boulders_E_05",
+   "type": "rock",
+   "position": [
+    42.684,
+    -2.241,
+    20.841
+   ],
+   "rotation": [
+    0.0,
+    313.97,
+    0.0
+   ],
+   "size": [
+    4.241,
+    3.053,
+    2.906
+   ],
+   "material": "rock",
+   "seed": 4993,
+   "gen": "Boulders_E",
+   "source": "visible"
+  },
+  {
+   "name": "Spire",
+   "type": "group",
+   "position": [
+    85.0,
+    -2.252,
+    25.0
+   ],
+   "rotation": [
+    0.0,
+    -106.39,
+    0.0
+   ],
+   "gen": "Spire",
+   "source": "visible"
+  },
+  {
+   "name": "Spire_01",
+   "type": "rock",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Spire",
+   "size": [
+    6.0,
+    4.6,
+    6.0
+   ],
+   "material": "rock",
+   "seed": 1525,
+   "convex": true,
+   "gen": "Spire",
+   "source": "visible"
+  },
+  {
+   "name": "Spire_02",
+   "type": "rock",
+   "position": [
+    0.0,
+    3.956,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Spire",
+   "size": [
+    4.92,
+    4.0,
+    4.92
+   ],
+   "material": "rock",
+   "seed": 1526,
+   "convex": true,
+   "gen": "Spire",
+   "source": "visible"
+  },
+  {
+   "name": "Spire_03",
+   "type": "rock",
+   "position": [
+    0.0,
+    7.396,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Spire",
+   "size": [
+    3.84,
+    4.0,
+    3.84
+   ],
+   "material": "rock",
+   "seed": 1527,
+   "convex": true,
+   "gen": "Spire",
+   "source": "visible"
+  },
+  {
+   "name": "Spire_04",
+   "type": "rock",
+   "position": [
+    0.0,
+    10.836,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Spire",
+   "size": [
+    2.76,
+    4.0,
+    2.76
+   ],
+   "material": "rock",
+   "seed": 1528,
+   "convex": true,
+   "gen": "Spire",
+   "source": "visible"
+  },
+  {
+   "name": "Spire_Cap",
+   "type": "rock",
+   "position": [
+    0.0,
+    14.276,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Spire",
+   "size": [
+    5.4,
+    1.92,
+    5.4
+   ],
+   "material": "rock",
+   "seed": 1534,
+   "convex": true,
+   "gen": "Spire",
+   "source": "visible"
+  },
+  {
+   "name": "Bridge_Trail_River",
+   "type": "group",
+   "position": [
+    -12.78,
+    -3.135,
+    6.53
+   ],
+   "rotation": [
+    0.0,
+    162.89,
+    0.0
+   ],
+   "gen": "Bridge_Trail_River",
+   "source": "inferred"
+  },
+  {
+   "name": "Bridge_Trail_River_Span",
+   "type": "group",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    2.33,
+    0.0,
+    0.0
+   ],
+   "parent": "Bridge_Trail_River",
+   "gen": "Bridge_Trail_River",
+   "source": "inferred"
+  },
+  {
+   "name": "Bridge_Trail_River_Deck",
+   "type": "box",
+   "position": [
+    0.0,
+    -0.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Bridge_Trail_River_Span",
+   "size": [
+    4.5,
+    0.5,
+    19.921
+   ],
+   "material": "stone",
+   "connector": true,
+   "axis": "z",
+   "gen": "Bridge_Trail_River",
+   "source": "inferred"
+  },
+  {
+   "name": "Bridge_Trail_River_Parapet_L",
+   "type": "box",
+   "position": [
+    -2.05,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Bridge_Trail_River_Span",
+   "size": [
+    0.4,
+    0.95,
+    19.521
+   ],
+   "material": "stone",
+   "gen": "Bridge_Trail_River",
+   "source": "inferred"
+  },
+  {
+   "name": "Bridge_Trail_River_Parapet_R",
+   "type": "box",
+   "position": [
+    2.05,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Bridge_Trail_River_Span",
+   "size": [
+    0.4,
+    0.95,
+    19.521
+   ],
+   "material": "stone",
+   "gen": "Bridge_Trail_River",
+   "source": "inferred"
+  },
+  {
+   "name": "Bridge_Trail_River_Pier_01",
+   "type": "box",
+   "position": [
+    0.0,
+    -5.236,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Bridge_Trail_River",
+   "size": [
+    3.15,
+    4.736,
+    1.4
+   ],
+   "material": "stone",
+   "connector": false,
+   "gen": "Bridge_Trail_River",
+   "source": "inferred"
+  },
+  {
+   "name": "Bridge_Trail_River_Abutment_A",
+   "type": "box",
+   "position": [
+    0.0,
+    -0.762,
+    -9.061
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Bridge_Trail_River",
+   "size": [
+    4.9,
+    0.631,
+    1.8
+   ],
+   "material": "stone",
+   "connector": false,
+   "gen": "Bridge_Trail_River",
+   "source": "inferred"
+  },
+  {
+   "name": "Bridge_Trail_River_Abutment_B",
+   "type": "box",
+   "position": [
+    0.0,
+    -1.51,
+    9.061
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Bridge_Trail_River",
+   "size": [
+    4.9,
+    0.641,
+    1.8
+   ],
+   "material": "stone",
+   "connector": false,
+   "gen": "Bridge_Trail_River",
+   "source": "inferred"
+  }
+ ],
+ "mobile": {
+  "profile": "balanced"
+ },
+ "validation": {
+  "ignore_objects": []
+ },
+ "generator_notes": [
+  "Bridge_Trail_River: bridge added where road Trail crosses river River"
+ ],
+ "relations": [
+  {
+   "type": "supported_by",
+   "a": "Bridge_Trail_River_Deck",
+   "b": "Bridge_Trail_River_Pier_01"
+  },
+  {
+   "type": "supported_by",
+   "a": "Bridge_Trail_River_Deck",
+   "b": "Bridge_Trail_River_Abutment_A"
+  },
+  {
+   "type": "supported_by",
+   "a": "Bridge_Trail_River_Deck",
+   "b": "Bridge_Trail_River_Abutment_B"
+  }
+ ],
+ "gameplay": {
+  "nav": {
+   "cell": 1.0
+  }
+ },
+ "terrain": {
+  "seed": 21,
+  "extent": [
+   -128.0,
+   -128.0,
+   128.0,
+   128.0
+  ],
+  "cell": 2.0,
+  "chunk": 32,
+  "base_y": 0.0,
+  "biome": "rocky",
+  "noise": {
+   "amplitude": 3.5,
+   "scale": 70,
+   "ridged": 0.3
+  },
+  "style": "realistic",
+  "boundary": {
+   "points": [
+    [
+     101.75,
+     7.13
+    ],
+    [
+     98.04,
+     28.13
+    ],
+    [
+     90.05,
+     47.9
+    ],
+    [
+     78.12,
+     65.58
+    ],
+    [
+     62.78,
+     80.39
+    ],
+    [
+     44.7,
+     91.69
+    ],
+    [
+     24.66,
+     98.97
+    ],
+    [
+     3.53,
+     101.75
+    ],
+    [
+     -17.73,
+     100.45
+    ],
+    [
+     -38.23,
+     94.57
+    ],
+    [
+     -57.05,
+     84.55
+    ],
+    [
+     -73.39,
+     70.84
+    ],
+    [
+     -86.51,
+     54.04
+    ],
+    [
+     -95.86,
+     34.87
+    ],
+    [
+     -97.56,
+     13.69
+    ],
+    [
+     -96.67,
+     -6.78
+    ],
+    [
+     -98.04,
+     -28.13
+    ],
+    [
+     -90.05,
+     -47.9
+    ],
+    [
+     -78.12,
+     -65.58
+    ],
+    [
+     -62.78,
+     -80.39
+    ],
+    [
+     -44.7,
+     -91.69
+    ],
+    [
+     -24.66,
+     -98.97
+    ],
+    [
+     -3.54,
+     -101.94
+    ],
+    [
+     17.73,
+     -100.45
+    ],
+    [
+     38.23,
+     -94.57
+    ],
+    [
+     57.05,
+     -84.55
+    ],
+    [
+     73.39,
+     -70.84
+    ],
+    [
+     86.51,
+     -54.04
+    ],
+    [
+     95.86,
+     -34.87
+    ],
+    [
+     101.01,
+     -14.18
+    ]
+   ],
+   "barrier": "ridge"
+  },
+  "zones": {
+   "middle": {
+    "radius": 424
+   },
+   "far": {
+    "note": "Stage 2 background layers (environment.background)"
+   }
+  },
+  "lod": {
+   "ranges": [
+    60,
+    120
+   ]
+  },
+  "scatter": [
+   {
+    "id": "Pines",
+    "kinds": [
+     "conifer",
+     {
+      "kind": "dead_tree",
+      "weight": 0.15
+     }
+    ],
+    "density": 1.1,
+    "cluster": 0.6,
+    "slope_max": 26,
+    "layers": [
+     "grass",
+     "dirt"
+    ]
+   },
+   {
+    "id": "Rocks",
+    "kinds": [
+     "rock_small",
+     {
+      "kind": "boulder",
+      "weight": 0.35
+     }
+    ],
+    "density": 1.6,
+    "cluster": 0.4,
+    "slope_max": 34
+   },
+   {
+    "id": "Grass",
+    "kinds": [
+     "grass_tuft",
+     {
+      "kind": "bush",
+      "weight": 0.2
+     }
+    ],
+    "density": 5,
+    "cluster": 0.5,
+    "slope_max": 24,
+    "layers": [
+     "grass"
+    ]
+   }
+  ],
+  "features": [
+   {
+    "id": "North_Ridge",
+    "type": "ridge",
+    "points": [
+     [
+      -110,
+      -70
+     ],
+     [
+      -40,
+      -88
+     ],
+     [
+      30,
+      -80
+     ],
+     [
+      100,
+      -95
+     ]
+    ],
+    "width": 46,
+    "height": 20,
+    "source": "inferred"
+   },
+   {
+    "id": "West_Peak",
+    "type": "mountain",
+    "center": [
+     -80,
+     40
+    ],
+    "radius": 36,
+    "height": 26
+   },
+   {
+    "id": "East_Hill",
+    "type": "hill",
+    "center": [
+     70,
+     50
+    ],
+    "radius": 30,
+    "height": 9
+   },
+   {
+    "id": "South_Mesa",
+    "type": "mesa",
+    "center": [
+     10,
+     78
+    ],
+    "radius": 16,
+    "height": 9
+   },
+   {
+    "id": "Crater",
+    "type": "crater",
+    "center": [
+     55,
+     -30
+    ],
+    "radius": 13,
+    "depth": 3.5,
+    "rim": 1.8
+   },
+   {
+    "id": "Valley",
+    "type": "valley",
+    "points": [
+     [
+      -120,
+      0
+     ],
+     [
+      -50,
+      -8
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      60,
+      -6
+     ],
+     [
+      120,
+      6
+     ]
+    ],
+    "width": 70,
+    "depth": 5
+   },
+   {
+    "id": "River",
+    "type": "river",
+    "points": [
+     [
+      -535.85,
+      38.48
+     ],
+     [
+      -475.77,
+      36.15
+     ],
+     [
+      -416.71,
+      23.92
+     ],
+     [
+      -356.35,
+      24.35
+     ],
+     [
+      -297.18,
+      13.2
+     ],
+     [
+      -236.9,
+      12.84
+     ],
+     [
+      -177.5,
+      3.92
+     ],
+     [
+      -118.0,
+      -4.0
+     ],
+     [
+      -60.0,
+      -10.0
+     ],
+     [
+      -10.0,
+      8.0
+     ],
+     [
+      40.0,
+      -2.0
+     ],
+     [
+      118.0,
+      10.0
+     ],
+     [
+      176.99,
+      21.12
+     ],
+     [
+      234.97,
+      38.88
+     ],
+     [
+      295.71,
+      38.65
+     ],
+     [
+      355.72,
+      43.17
+     ],
+     [
+      415.04,
+      52.19
+     ],
+     [
+      473.5,
+      66.77
+     ],
+     [
+      532.79,
+      75.96
+     ]
+    ],
+    "width": 9,
+    "depth": 1.4,
+    "extended": true
+   },
+   {
+    "id": "East_Cliff",
+    "type": "cliff",
+    "points": [
+     [
+      78,
+      -60
+     ],
+     [
+      104,
+      -30
+     ]
+    ],
+    "height": 9,
+    "reach": 26,
+    "side": "right"
+   },
+   {
+    "id": "Trail",
+    "type": "path",
+    "points": [
+     [
+      -30,
+      70
+     ],
+     [
+      -20,
+      30
+     ],
+     [
+      -12,
+      4
+     ],
+     [
+      0,
+      -30
+     ],
+     [
+      20,
+      -60
+     ]
+    ],
+    "width": 3.5
+   },
+   {
+    "id": "Camp_Field",
+    "type": "field",
+    "center": [
+     -30,
+     40
+    ],
+    "radius": 18
+   },
+   {
+    "id": "Boundary_Barrier",
+    "type": "barrier",
+    "points": [
+     [
+      101.75,
+      7.13
+     ],
+     [
+      98.04,
+      28.13
+     ],
+     [
+      90.05,
+      47.9
+     ],
+     [
+      78.12,
+      65.58
+     ],
+     [
+      62.78,
+      80.39
+     ],
+     [
+      44.7,
+      91.69
+     ],
+     [
+      24.66,
+      98.97
+     ],
+     [
+      3.53,
+      101.75
+     ],
+     [
+      -17.73,
+      100.45
+     ],
+     [
+      -38.23,
+      94.57
+     ],
+     [
+      -57.05,
+      84.55
+     ],
+     [
+      -73.39,
+      70.84
+     ],
+     [
+      -86.51,
+      54.04
+     ],
+     [
+      -95.86,
+      34.87
+     ],
+     [
+      -97.56,
+      13.69
+     ],
+     [
+      -96.67,
+      -6.78
+     ],
+     [
+      -98.04,
+      -28.13
+     ],
+     [
+      -90.05,
+      -47.9
+     ],
+     [
+      -78.12,
+      -65.58
+     ],
+     [
+      -62.78,
+      -80.39
+     ],
+     [
+      -44.7,
+      -91.69
+     ],
+     [
+      -24.66,
+      -98.97
+     ],
+     [
+      -3.54,
+      -101.94
+     ],
+     [
+      17.73,
+      -100.45
+     ],
+     [
+      38.23,
+      -94.57
+     ],
+     [
+      57.05,
+      -84.55
+     ],
+     [
+      73.39,
+      -70.84
+     ],
+     [
+      86.51,
+      -54.04
+     ],
+     [
+      95.86,
+      -34.87
+     ],
+     [
+      101.01,
+      -14.18
+     ]
+    ],
+    "offset": 16.0,
+    "width": 45.0,
+    "height": 18,
+    "falloff": 0.3,
+    "gen": "world.boundary",
+    "source": "inferred"
+   },
+   {
+    "id": "Cave_Floor",
+    "type": "pad",
+    "center": [
+     -75,
+     -45
+    ],
+    "size": [
+     12.6,
+     14.4
+    ],
+    "yaw": 160,
+    "y": -0.24,
+    "margin": 4.0,
+    "surface": "pad",
+    "gen": "Cave"
+   },
+   {
+    "id": "Pad_Ruins",
+    "type": "pad",
+    "center": [
+     -20,
+     55
+    ],
+    "size": [
+     16.4,
+     12.4
+    ],
+    "yaw": 160.01689347810003,
+    "y": 0.77,
+    "margin": 5.0,
+    "surface": "pad",
+    "gen": "Ruins"
+   },
+   {
+    "id": "Pad_Watchtower",
+    "type": "pad",
+    "center": [
+     8,
+     62
+    ],
+    "size": [
+     8.4,
+     8.4
+    ],
+    "yaw": -172.64762064010765,
+    "y": 6.03,
+    "margin": 5.0,
+    "surface": "pad",
+    "gen": "Watchtower"
+   }
+  ]
+ },
+ "spawn_regions": [
+  {
+   "id": "Player_Start",
+   "team": "player",
+   "center": [
+    -40,
+    42
+   ],
+   "radius": 14,
+   "points": [
+    [
+     -40.0,
+     1.41,
+     42.0
+    ],
+    [
+     -40.0,
+     1.37,
+     37.33
+    ],
+    [
+     -44.67,
+     1.51,
+     42.0
+    ],
+    [
+     -40.0,
+     1.37,
+     46.67
+    ]
+   ],
+   "yaw_deg": -43.8,
+   "note": null
+  },
+  {
+   "id": "Enemy_East",
+   "team": "enemy",
+   "center": [
+    60,
+    20
+   ],
+   "radius": 16,
+   "points": [
+    [
+     60.0,
+     4.02,
+     33.33
+    ],
+    [
+     52.0,
+     1.46,
+     30.67
+    ],
+    [
+     65.33,
+     3.93,
+     33.33
+    ],
+    [
+     46.67,
+     0.34,
+     28.0
+    ]
+   ],
+   "yaw_deg": 71.5,
+   "note": "only 4 of 5 safe points found"
+  },
+  {
+   "id": "Enemy_North",
+   "team": "enemy",
+   "center": [
+    -5,
+    -50
+   ],
+   "radius": 14,
+   "points": [
+    [
+     -5.0,
+     0.71,
+     -50.0
+    ],
+    [
+     -5.0,
+     0.36,
+     -54.67
+    ],
+    [
+     -9.67,
+     1.02,
+     -50.0
+    ],
+    [
+     -0.33,
+     0.26,
+     -50.0
+    ]
+   ],
+   "yaw_deg": -174.0,
+   "note": null
+  }
+ ],
+ "draw_hint": "one material per surface type; mark static + batch in engine",
+ "build_stats": {
+  "triangles": 71090,
+  "objects": 92,
+  "materials": 18,
+  "glb_kb": 5569,
+  "nodes": 251,
+  "draw_calls_unbatched": 245,
+  "draw_calls_batched_min": 17,
+  "images": 41,
+  "tex_mem_gpu_compressed_mb": 3.42,
+  "tex_mem_uncompressed_mb": 13.67,
+  "note": "GPU numbers are estimates (pipeline/glb_stats.py)",
+  "terrain_triangles_lod0": 32768
+ }
+}
