@@ -50,7 +50,13 @@ class Geo:
         wi = np.flatnonzero(self.walk)
         if len(wi):
             from validate_level import inside_solid_bodies
-            P = T[wi].mean(1) + [0, 0.03, 0]; bur = inside_solid_bodies(P, T, self.body)
+            # buried only if the centroid AND all three inset corners are inside a solid: a big deck triangle whose
+            # centroid happens to fall under a building is still walkable elsewhere
+            C = T[wi].mean(1); bur = inside_solid_bodies(C + [0, 0.03, 0], T, self.body)
+            for k in range(3):
+                b = np.flatnonzero(bur)
+                if not len(b): break
+                Pk = T[wi[b], k] * 0.9 + C[b] * 0.1 + [0, 0.03, 0]; bur[b] = inside_solid_bodies(Pk, T, self.body)
             self.walk[wi[bur]] = False
         from terrain import is_terrain_node
         ter = np.array([by.get(o, {}).get("type") == "terrain" or is_terrain_node(o) for o in self.obj])  # terrain skirts reach below the world floor

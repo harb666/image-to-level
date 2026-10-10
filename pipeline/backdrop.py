@@ -89,7 +89,7 @@ def _spire(rng, h, rb, sides=7):
     P = np.array(P); m = _grid_mesh(P); top = len(m.vertices)
     v = np.vstack([m.vertices, [[lean[0], h + 1.5, lean[1]]]]); last = np.arange((len(fr) - 1) * sides, len(fr) * sides)
     f = np.vstack([m.faces, [[last[i], last[(i + 1) % sides], top] for i in range(sides)]])
-    return trimesh.Trimesh(v, f, process=False)
+    return trimesh.Trimesh(v, f[:, ::-1], process=False)  # grid winds inward (open base: _orient cannot tell) -> flip outward
 
 
 def spires(L, q):

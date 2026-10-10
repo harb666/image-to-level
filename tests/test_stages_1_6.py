@@ -34,6 +34,9 @@ class Stage2Sky(unittest.TestCase):
         for t, L in (("ground", dict(radius=[0, 300], flat_radius=40)), ("mountain_ring", dict(radius=300, depth=50, height=[30, 80])),
                      ("spires", dict(radius=[90, 200], count=6, height=[20, 50])), ("skyline", dict(radius=200, count=8)), ("factory", dict(azimuth_deg=40, distance=150))):
             m = GENERATORS[t](dict(L, id=t, type=t), q); self.assertGreater(len(m.faces), 10, t)
+        from backdrop import _spire  # open-based spires must face outward (culled in Godot otherwise)
+        m = _spire(np.random.default_rng(2), 40, 6); c = m.triangles_center; ax = c * [0, 1, 0]
+        self.assertGreater((np.einsum("ij,ij->i", m.face_normals, c - ax) > 0).mean(), 0.75)
 
 
 class Stage3Shapes(unittest.TestCase):
