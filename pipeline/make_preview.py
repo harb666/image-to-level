@@ -45,6 +45,11 @@ if os.path.exists(fxp):  # Stage 4: effects metadata + particle sprites
     fx = json.load(open(fxp)); glob["FX"] = fx
     glob["FXTEX"] = {k: "data:image/png;base64," + b64(os.path.join(lvl, v)) for k, v in fx["textures"].items()}
 glob.update(TEXP=pool, TEX=tex)
+from gameplay import load_gameplay  # Stage 7: player/camera numbers + validation issues for the overlay
+glob["GAMEPLAY"] = {k: v for k, v in load_gameplay(lvl).items() if k in ("player", "camera")}
+rp = os.path.join(lvl, "checks", "report.json")
+if os.path.exists(rp) and "--no-issues" not in sys.argv:
+    glob["ISSUES"] = [i for i in json.load(open(rp)).get("issues", []) if i.get("pos")][:80]
 s = s.replace("const meta=await (await fetch(base+'/level.json')).json();", "const meta=" + open(os.path.join(lvl, "level.json")).read() + ";")
 s = s.replace('<script type="module">', "<script>" + "".join(f"window.{k}={json.dumps(v)};" for k, v in glob.items()) + "</script>\n<script type=\"module\">", 1)
 assert "window.GLB=" in s and "const meta={" in s and "<html" not in s

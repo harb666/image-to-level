@@ -1,0 +1,176 @@
+{
+ "level": "toxic_arena",
+ "assets_kb": {
+  "level.glb": 390,
+  "mobile/level_mobile.glb": 419,
+  "mobile/collision.json": 26,
+  "environment.json": 6,
+  "background.glb": 414,
+  "effects.json": 24
+ },
+ "complexity": {
+  "triangles": 3676,
+  "nodes": 137,
+  "materials": 10,
+  "heaviest": [
+   [
+    "Stairs_SW_N",
+    96
+   ],
+   [
+    "Stairs_SE_N",
+    96
+   ],
+   [
+    "Stairs_NW_N",
+    96
+   ],
+   [
+    "Stairs_NE_N",
+    96
+   ],
+   [
+    "Background_Block_08",
+    44
+   ]
+  ]
+ },
+ "performance": {
+  "dev": {
+   "glb_kb": 390,
+   "triangles": 3676,
+   "draw_calls": 137,
+   "tex_mem_gpu_mb_est": 3.9
+  },
+  "mobile": {
+   "profile": "balanced",
+   "glb_kb": 419,
+   "triangles": 3364,
+   "draw_calls": 50,
+   "visible_draw_calls_est": 38.8,
+   "visible_draw_calls_max_est": 54,
+   "tex_mem_gpu_mb_est": null,
+   "effects": null,
+   "colliders": null
+  },
+  "effects": {
+   "max_particles": 911,
+   "emitters": 34,
+   "extra_draw_calls": 10,
+   "transparent_area_m2": 5184
+  },
+  "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
+ },
+ "navigation": {
+  "standable_area_m2": 3542.3,
+  "reachable_area_m2": 2224.8,
+  "components": 50,
+  "spawns": [
+   {
+    "id": "spawn",
+    "position": [
+     0,
+     6.0,
+     26.0
+    ],
+    "standable": true,
+    "clearance_m": 3.75,
+    "headroom_m": 99.0,
+    "component": 708,
+    "hazard_distance_m": 6.37
+   }
+  ],
+  "intended_areas": [
+   {
+    "name": "walkable@[-11.0, -11.0]",
+    "standable_m2": 265.8,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "walkable@[-6.0, -32.0]",
+    "standable_m2": 128.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "walkable@[-6.0, 20.0]",
+    "standable_m2": 128.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "walkable@[-32.0, -6.0]",
+    "standable_m2": 128.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "walkable@[20.0, -6.0]",
+    "standable_m2": 128.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "walkable@[12.0, -22.0]",
+    "standable_m2": 92.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "walkable@[-22.0, -22.0]",
+    "standable_m2": 92.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "walkable@[12.0, 12.0]",
+    "standable_m2": 92.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "walkable@[-22.0, 12.0]",
+    "standable_m2": 92.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   }
+  ],
+  "narrow_connectors": [],
+  "passed": true
+ },
+ "camera": {
+  "players": 45,
+  "players_skipped_inside_or_against_walls": 4,
+  "cameras": 1080,
+  "rays": 95040,
+  "void_rays": 0,
+  "void_examples": [],
+  "back_face": {},
+  "open_mesh": {},
+  "camera_inside": 0,
+  "visible_objects": 137,
+  "passed": true,
+  "stale_note": "from the last full run (--fast skipped it)"
+ },
+ "issues": [
+  {
+   "kind": "low_ceiling",
+   "severity": "info",
+   "object": "Walkway_East_Floor",
+   "pos": [
+    -33.8,
+    6.0,
+    -34.8
+   ],
+   "message": "36 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): Walkway_East_Floor, Walkway_North_Floor, Walkway_South_Floor, Walkway_West_Floor"
+  }
+ ],
+ "counts": {
+  "error": 0,
+  "warning": 0,
+  "info": 1
+ },
+ "passed": true,
+ "gameplay_config": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer."
+}

@@ -144,9 +144,27 @@ def skyline(L, q):
     return trimesh.util.concatenate(parts)
 
 
-GENERATORS = dict(ground=ground, mountain_ring=mountain_ring, spires=spires, skyline=skyline, factory=factory)
+def townscape(L, q):
+    """Stage 7: rings of distant town houses (walls OR gable roofs: "part" = walls | roofs, same seed -> they line up)
+    so a town square continues into a town instead of an empty plain. radius [r0, r1], height [lo, hi], count per ring."""
+    rng = np.random.default_rng(int(L.get("seed", 1)) * 7919 + 17)  # seed only (not the id): walls + roofs layers line up
+    r0, r1 = L.get("radius", [60, 160]); h0, h1 = L.get("height", [8, 16]); part = L.get("part", "walls")
+    a0, a1 = L.get("azimuth_deg", [0, 360]); parts = []; ring = 0; r = r0
+    while r < r1:
+        n = max(6, int(round(L.get("count", 40) * q["density"] * r / r0 * (a1 - a0) / 360)))
+        for i in range(n):
+            az = a0 + (a1 - a0) * (i + rng.uniform(0.15, 0.85)) / n; w, d = rng.uniform(8, 14), rng.uniform(8, 12); h = rng.uniform(h0, h1) * (1 + 0.15 * ring)
+            rh = min(w, d) * rng.uniform(0.45, 0.7); rr = r + rng.uniform(-3, 3)
+            if part == "walls": m = _box(w, h + 5, d, y=-5)
+            else: m = trimesh.convex.convex_hull(np.array([[-w / 2 - .3, h, -d / 2 - .3], [w / 2 + .3, h, -d / 2 - .3], [w / 2 + .3, h, d / 2 + .3], [-w / 2 - .3, h, d / 2 + .3], [-w / 2 - .3, h + rh, 0], [w / 2 + .3, h + rh, 0]]))
+            m.apply_transform(trimesh.transformations.rotation_matrix(np.radians(-az), [0, 1, 0])); m.apply_translation(polar(az, rr)); parts.append(m)
+        r += 14 + 4 * ring; ring += 1
+    return trimesh.util.concatenate(parts)
+
+
+GENERATORS = dict(ground=ground, mountain_ring=mountain_ring, spires=spires, skyline=skyline, factory=factory, townscape=townscape)
 DEFAULTS = {  # material kind, colour, tile size per layer type (overridable per layer: material_type/color/tile_m)
     "ground": ("dirt", [0.16, 0.17, 0.14], 14.0), "mountain_ring": ("rock", [0.2, 0.21, 0.19], 40.0),
     "spires": ("rock", [0.17, 0.18, 0.16], 14.0), "skyline": ("factory_facade", [0.16, 0.17, 0.17], 12.0),
-    "factory": ("factory_facade", [0.17, 0.18, 0.18], 10.0),
+    "factory": ("factory_facade", [0.17, 0.18, 0.18], 10.0), "townscape": ("plaster", [0.72, 0.67, 0.58], 6.0),
 }

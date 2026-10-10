@@ -101,6 +101,8 @@ def frustum(fwd, hfov=100, vfov=70, nh=11, nv=8):
 
 def validate(level_dir, step=6.0, verbose=True, mobile=False):
     L = json.load(open(os.path.join(level_dir, "level.json"))); V = L.get("validation", {})
+    from gameplay import load_gameplay  # Stage 7: camera/player numbers from config/gameplay.json (defaults = the Stage 3 values)
+    G = load_gameplay(level_dir, L); Pl, Cm = G["player"], G["camera"]; arm, pr, mg = Cm["arm_length"], Cm["probe_radius"], Cm["margin"]
     ignore = set(V.get("ignore_objects", []))
     T, names, objs = load_tris(os.path.join(level_dir, "mobile", "level_mobile.glb") if mobile else os.path.join(level_dir, "level.glb"))
     bgp = os.path.join(level_dir, "mobile", "background_mobile.glb") if mobile else os.path.join(level_dir, "background.glb")
@@ -112,26 +114,28 @@ def validate(level_dir, step=6.0, verbose=True, mobile=False):
         xs = np.arange(w["min"][0] + 1.37, w["max"][0] - 0.99, step) if w["max"][0] - w["min"][0] > 2 else [(w["min"][0] + w["max"][0]) / 2]
         zs = np.arange(w["min"][1] + 1.23, w["max"][1] - 0.99, step) if w["max"][1] - w["min"][1] > 2 else [(w["min"][1] + w["max"][1]) / 2]
         pts += [[x, w["y"], z] for x in xs for z in zs]
-    heads = np.array(pts, float) + [0, 1.9, 0]
+    mx = int(Cm.get("validation_max_players", 48))
+    if len(pts) > mx: pts = [pts[0]] + [pts[i] for i in np.linspace(1, len(pts) - 1, mx - 1).round().astype(int)]  # spawn + evenly spread samples
+    heads = np.array(pts, float) + [0, Pl["eye_height"] + Cm["pivot_above_eye"], 0]
     body = closed_mask(names, objs); cm = body >= 0; TC, NC = T[cm], body[cm]
     ins = inside_solid(np.array(pts, float) + [0, 0.5, 0], TC, NC)
     # player capsule (r 0.35 m) can't stand closer than ~0.4 m to geometry: drop such samples
     ring = np.array([[np.cos(a), 0, np.sin(a)] for a in np.radians(np.arange(0, 360, 45))])
     near = np.zeros(len(heads), bool)
-    for d in ring: near |= cast(heads, np.tile(d, (len(heads), 1)), T, 0.4)[1] >= 0
+    for d in ring: near |= cast(heads, np.tile(d, (len(heads), 1)), T, Pl["radius"] + 0.05)[1] >= 0
     blocked_players = int((ins | near).sum()); heads = heads[~(ins | near)]  # inside a solid / hugging a wall
     cams = []
     for h in heads:
         for yaw in np.radians(np.arange(0, 360, 45)):
-            for pitch in np.radians([-35, -10, 15]):
+            for pitch in np.radians(Cm["pitch_deg"]):
                 cams.append((h, orbit_dirs(yaw, pitch)))
     O = np.array([c[0] for c in cams]); B = np.array([c[1] for c in cams])
     # camera collision as a 0.25 m sphere-ish spring arm (5 parallel rays, like Godot SpringArm3D with a shape)
     perp = np.cross(B, [0.0, 1.0, 0.0]); perp[np.linalg.norm(perp, axis=1) < 1e-6] = [1.0, 0, 0]; perp /= np.linalg.norm(perp, axis=1, keepdims=True)
-    up2 = np.cross(perp, B); t = cast(O, B, T, 5.0)[0]
+    up2 = np.cross(perp, B); t = cast(O, B, T, arm)[0]
     for off in (perp, -perp, up2, -up2):
-        t = np.minimum(t, cast(O + off * 0.25, B, T, 5.0)[0])
-    dist = np.where(np.isfinite(t), np.where(t > 0.6, t - 0.3, t * 0.5), 5.0); C = O + B * dist[:, None]  # same rule as the viewer: never past a surface
+        t = np.minimum(t, cast(O + off * pr, B, T, arm)[0])
+    dist = np.where(np.isfinite(t), np.where(t > 2 * mg, t - mg, t * 0.5), arm); C = O + B * dist[:, None]  # same rule as the viewer: never past a surface
     inside = inside_solid(C, TC, NC)  # camera ended inside a solid: a clipping issue, not a missing face
     issues = dict(void=0, back_face={}, camera_inside=int(inside.sum())); void_examples = []; visible = set(); nrays = 0
     for k, (c, fwd) in enumerate(zip(C, -B)):

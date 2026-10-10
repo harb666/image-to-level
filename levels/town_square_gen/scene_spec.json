@@ -1,0 +1,687 @@
+{
+ "spec_version": 1,
+ "name": "town_square_gen",
+ "title": "Town Square (generated from one perspective image)",
+ "theme": "medieval_town",
+ "detail": "medium",
+ "profile": "balanced",
+ "references": [
+  {
+   "file": "references/town_square.png",
+   "kind": "perspective",
+   "notes": "single eye-level perspective; references.py split -> 1 panel; grid overlay used to read proportions",
+   "panels": [
+    {
+     "id": "p01",
+     "bbox_px": [
+      0,
+      0,
+      1280,
+      800
+     ],
+     "view": "perspective",
+     "use": [
+      "layout",
+      "appearance",
+      "materials",
+      "heights"
+     ],
+     "notes": "camera at the south end of the square looking north; fountain centre-front; timber-framed houses both sides; gabled houses at the back-left; street on the back-right through a stone arch; tall gothic tower and spires beyond"
+    }
+   ]
+  }
+ ],
+ "interpretation": {
+  "summary": "Medieval cobblestone square enclosed by 3-4 storey timber-framed and stone houses, a tiered stone fountain in the middle, a street leaving the back-right corner through a round stone arch, a crenellated gothic tower and spires on the skyline.",
+  "scale_basis": "Doors ~2.4 m, storeys ~3.3 m -> houses 10-13 m to the eaves, fountain ~9 m across, square ~32 m wide. Depth of the square read from perspective (~45 m to the back row); single view, so depth is the least certain dimension.",
+  "visible": [
+   "cobblestone ground",
+   "tiered fountain",
+   "timber-framed houses with jettied upper floors (west + back-left)",
+   "stone ground floors with arched doors (east)",
+   "gable and steep tiled roofs, chimneys",
+   "street lamps",
+   "round stone arch over the back-right street",
+   "crenellated gothic tower + smaller spires beyond",
+   "cumulus clouds, blue sky"
+  ],
+  "inferred": [
+   "the south side of the square (behind the camera) - closed with houses so the third-person camera never sees a void",
+   "house depths and rear facades",
+   "cover for gameplay (market crates) - the image has tables/chairs only",
+   "distant hills beyond the town",
+   "invisible boundary across the arch street",
+   "corner houses closing the gaps between the house rows (found in the first render review)",
+   "distant townscape (rings of houses) beyond the square - the image shows the town continuing"
+  ],
+  "assumptions": [
+   "flat square (no stairs/terraces besides door steps)",
+   "the tower stands outside the playable area as a landmark"
+  ]
+ },
+ "arena": {
+  "shape": "rect",
+  "size": [
+   40,
+   72
+  ],
+  "center": [
+   0,
+   -6
+  ],
+  "floor": {
+   "kind": "ground",
+   "y": 0,
+   "name": "Square_Ground",
+   "source": "visible"
+  },
+  "boundary": "invisible"
+ },
+ "structures": [
+  {
+   "id": "Fountain",
+   "kind": "fountain",
+   "position": [
+    0,
+    8
+   ],
+   "size": [
+    9,
+    4,
+    9
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "House_W1",
+   "kind": "house",
+   "position": [
+    -18.5,
+    19
+   ],
+   "facing": "east",
+   "size": [
+    11,
+    12,
+    9
+   ],
+   "style": "timber",
+   "floors": 3,
+   "roof": "gable",
+   "source": "visible"
+  },
+  {
+   "id": "House_W2",
+   "kind": "house",
+   "position": [
+    -18.5,
+    8
+   ],
+   "facing": "east",
+   "size": [
+    10,
+    10.5,
+    9
+   ],
+   "style": "timber",
+   "floors": 3,
+   "roof": "gable",
+   "source": "visible"
+  },
+  {
+   "id": "House_W3",
+   "kind": "house",
+   "position": [
+    -18.5,
+    -2
+   ],
+   "facing": "east",
+   "size": [
+    10,
+    11,
+    9
+   ],
+   "style": "timber",
+   "floors": 3,
+   "roof": "hip",
+   "source": "visible"
+  },
+  {
+   "id": "House_W4",
+   "kind": "house",
+   "position": [
+    -18.5,
+    -12
+   ],
+   "facing": "east",
+   "size": [
+    9,
+    10,
+    9
+   ],
+   "style": "plaster",
+   "floors": 3,
+   "roof": "gable",
+   "source": "visible"
+  },
+  {
+   "id": "House_B1",
+   "kind": "house",
+   "position": [
+    -10.5,
+    -24.5
+   ],
+   "facing": "south",
+   "size": [
+    9,
+    10,
+    9
+   ],
+   "style": "timber",
+   "floors": 3,
+   "roof": "gable",
+   "source": "visible"
+  },
+  {
+   "id": "House_B2",
+   "kind": "house",
+   "position": [
+    -2.5,
+    -24.5
+   ],
+   "facing": "south",
+   "size": [
+    7,
+    9,
+    9
+   ],
+   "style": "timber",
+   "floors": 3,
+   "roof": "gable",
+   "source": "visible"
+  },
+  {
+   "id": "House_SL",
+   "kind": "house",
+   "position": [
+    -3.5,
+    -34
+   ],
+   "facing": "east",
+   "size": [
+    9,
+    11,
+    8
+   ],
+   "style": "plaster",
+   "floors": 3,
+   "roof": "gable",
+   "source": "inferred"
+  },
+  {
+   "id": "House_E1",
+   "kind": "house",
+   "position": [
+    16.5,
+    19
+   ],
+   "facing": "west",
+   "size": [
+    11,
+    13,
+    9
+   ],
+   "style": "stone",
+   "floors": 3,
+   "roof": "gable",
+   "source": "visible"
+  },
+  {
+   "id": "House_E2",
+   "kind": "house",
+   "position": [
+    16.5,
+    8
+   ],
+   "facing": "west",
+   "size": [
+    10,
+    12,
+    9
+   ],
+   "style": "stone",
+   "floors": 3,
+   "roof": "gable",
+   "source": "visible"
+  },
+  {
+   "id": "House_E3",
+   "kind": "house",
+   "position": [
+    16.5,
+    -2
+   ],
+   "facing": "west",
+   "size": [
+    10,
+    11,
+    9
+   ],
+   "style": "timber",
+   "floors": 3,
+   "roof": "gable",
+   "source": "visible"
+  },
+  {
+   "id": "House_E4",
+   "kind": "house",
+   "position": [
+    16.5,
+    -12
+   ],
+   "facing": "west",
+   "size": [
+    9,
+    12,
+    9
+   ],
+   "style": "timber",
+   "floors": 3,
+   "roof": "hip",
+   "source": "visible"
+  },
+  {
+   "id": "House_E5",
+   "kind": "house",
+   "position": [
+    15.5,
+    -23
+   ],
+   "facing": "west",
+   "size": [
+    9,
+    11,
+    9
+   ],
+   "style": "timber",
+   "floors": 3,
+   "roof": "gable",
+   "source": "visible"
+  },
+  {
+   "id": "House_E6",
+   "kind": "house",
+   "position": [
+    15.5,
+    -33
+   ],
+   "facing": "west",
+   "size": [
+    10,
+    12,
+    9
+   ],
+   "style": "plaster",
+   "floors": 3,
+   "roof": "gable",
+   "source": "visible"
+  },
+  {
+   "id": "House_S1",
+   "kind": "house",
+   "position": [
+    -10,
+    34.5
+   ],
+   "facing": "north",
+   "size": [
+    14,
+    11,
+    9
+   ],
+   "style": "timber",
+   "floors": 3,
+   "roof": "gable",
+   "source": "inferred"
+  },
+  {
+   "id": "House_S2",
+   "kind": "house",
+   "position": [
+    6,
+    34.5
+   ],
+   "facing": "north",
+   "size": [
+    14,
+    12,
+    9
+   ],
+   "style": "stone",
+   "floors": 3,
+   "roof": "gable",
+   "source": "inferred"
+  },
+  {
+   "id": "House_SW",
+   "kind": "house",
+   "position": [
+    -19,
+    29
+   ],
+   "facing": "east",
+   "size": [
+    8,
+    11,
+    8
+   ],
+   "style": "plaster",
+   "floors": 3,
+   "roof": "hip",
+   "source": "inferred"
+  },
+  {
+   "id": "House_SE",
+   "kind": "house",
+   "position": [
+    17,
+    29.5
+   ],
+   "facing": "west",
+   "size": [
+    10,
+    12,
+    9
+   ],
+   "style": "timber",
+   "floors": 3,
+   "roof": "gable",
+   "source": "inferred"
+  },
+  {
+   "id": "House_NW",
+   "kind": "house",
+   "position": [
+    -19,
+    -21
+   ],
+   "facing": "east",
+   "size": [
+    8,
+    10,
+    8
+   ],
+   "style": "timber",
+   "floors": 3,
+   "roof": "gable",
+   "source": "inferred"
+  },
+  {
+   "id": "Street_Arch",
+   "kind": "gate",
+   "position": [
+    5.5,
+    -38
+   ],
+   "yaw": 0,
+   "size": [
+    12,
+    9,
+    4
+   ],
+   "round": true,
+   "opening": 0.55,
+   "source": "visible"
+  },
+  {
+   "id": "Great_Tower",
+   "kind": "stone_tower",
+   "position": [
+    6,
+    -78
+   ],
+   "size": [
+    13,
+    44,
+    13
+   ],
+   "roof": "crenellated",
+   "source": "visible"
+  },
+  {
+   "id": "Spire_1",
+   "kind": "stone_tower",
+   "position": [
+    17,
+    -90
+   ],
+   "size": [
+    5,
+    28,
+    5
+   ],
+   "roof": "spire",
+   "source": "visible"
+  },
+  {
+   "id": "Spire_2",
+   "kind": "stone_tower",
+   "position": [
+    25,
+    -98
+   ],
+   "size": [
+    4,
+    24,
+    4
+   ],
+   "roof": "spire",
+   "source": "visible"
+  },
+  {
+   "id": "Spire_3",
+   "kind": "stone_tower",
+   "position": [
+    -7,
+    -96
+   ],
+   "size": [
+    6,
+    20,
+    6
+   ],
+   "roof": "spire",
+   "source": "inferred"
+  },
+  {
+   "id": "Market_1",
+   "kind": "crates",
+   "position": [
+    -8,
+    -8
+   ],
+   "yaw": 20,
+   "source": "inferred"
+  },
+  {
+   "id": "Market_2",
+   "kind": "crates",
+   "position": [
+    8,
+    -6
+   ],
+   "yaw": -15,
+   "source": "inferred"
+  },
+  {
+   "id": "Market_3",
+   "kind": "crates",
+   "position": [
+    -8.5,
+    16
+   ],
+   "yaw": 70,
+   "source": "inferred"
+  },
+  {
+   "id": "Market_4",
+   "kind": "crates",
+   "position": [
+    8,
+    17
+   ],
+   "yaw": 110,
+   "source": "inferred"
+  },
+  {
+   "id": "Lamp_1",
+   "kind": "lamp",
+   "position": [
+    -13,
+    8
+   ],
+   "size": [
+    0.3,
+    4.2,
+    0.3
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Lamp_2",
+   "kind": "lamp",
+   "position": [
+    -13,
+    -7
+   ],
+   "size": [
+    0.3,
+    4.2,
+    0.3
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Lamp_3",
+   "kind": "lamp",
+   "position": [
+    11,
+    -7
+   ],
+   "size": [
+    0.3,
+    4.2,
+    0.3
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Lamp_4",
+   "kind": "lamp",
+   "position": [
+    11,
+    12
+   ],
+   "size": [
+    0.3,
+    4.2,
+    0.3
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Tree_1",
+   "kind": "tree",
+   "position": [
+    10.5,
+    -17
+   ],
+   "size": [
+    4,
+    7,
+    4
+   ],
+   "source": "visible"
+  }
+ ],
+ "materials": {
+  "variation": true,
+  "roles": {
+   "plaster": {
+    "type": "plaster",
+    "color": [
+     0.9,
+     0.83,
+     0.66
+    ],
+    "tile_m": 2.0
+   }
+  }
+ },
+ "atmosphere": {
+  "sky": "clear_day",
+  "sky_overrides": {
+   "clouds": {
+    "coverage": 0.55
+   }
+  },
+  "fog_start": 90,
+  "ambient": "dust",
+  "source": "visible"
+ },
+ "background": {
+  "mountains": "far",
+  "mountain_height": [
+   30,
+   75
+  ],
+  "factories": 0,
+  "skyline": false,
+  "spires": false,
+  "town": true,
+  "source": "inferred"
+ },
+ "effects": {
+  "auto": true,
+  "disable": [
+   "Glow_Pulse"
+  ],
+  "extra": [
+   {
+    "id": "Fountain_Spray",
+    "type": "splash",
+    "positions": [
+     [
+      0,
+      3.9,
+      8
+     ]
+    ],
+    "rate": 20,
+    "color": [
+     0.85,
+     0.93,
+     1.0
+    ],
+    "speed": [
+     1.0,
+     2.2
+    ]
+   }
+  ]
+ },
+ "spawns": [
+  {
+   "id": "spawn",
+   "position": [
+    0,
+    0,
+    24
+   ],
+   "yaw": 0
+  }
+ ],
+ "refine": {
+  "max_passes": 3
+ }
+}

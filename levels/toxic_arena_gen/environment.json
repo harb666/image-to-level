@@ -1,0 +1,319 @@
+{
+ "generated_by": "image-to-level Stage 2 (pipeline/environment.py)",
+ "quality": "balanced",
+ "note": "Browser preview approximates this; Godot settings are generated but not tested in Godot here.",
+ "files": {
+  "level": "level.glb",
+  "background": "background.glb",
+  "sky_panorama": "sky/panorama.jpg",
+  "godot_environment": "environment.tres"
+ },
+ "sky": {
+  "type": "panorama",
+  "image": "sky/panorama.jpg",
+  "size": [
+   2048,
+   1024
+  ],
+  "projection": "equirectangular",
+  "preset": "industrial_smog",
+  "external": false,
+  "azimuth_convention": "image column u -> atan2(dir.z, dir.x) (three.js); level azimuth 0=north(-z) 90=east(+x). If the Godot sky looks rotated vs the sun, adjust Environment sky_rotation.y in 90\u00b0 steps.",
+  "horizon_rgb": [
+   0.453,
+   0.601,
+   0.245
+  ],
+  "upper_rgb": [
+   0.125,
+   0.166,
+   0.096
+  ]
+ },
+ "sun": {
+  "azimuth_deg": 215,
+  "elevation_deg": 9,
+  "direction_to_sun": [
+   -0.5665,
+   0.1564,
+   0.8091
+  ],
+  "color": [
+   0.95,
+   1.0,
+   0.85
+  ],
+  "energy": 2.2,
+  "godot_rotation_degrees": [
+   -9,
+   -35,
+   0
+  ],
+  "shadows": {
+   "enabled": true,
+   "mode": "PSSM 2 splits",
+   "max_distance": 70,
+   "note": "keep shadows to the playable area on mobile"
+  }
+ },
+ "ambient": {
+  "source": "sky",
+  "sky_color": [
+   0.125,
+   0.166,
+   0.096
+  ],
+  "ground_color": [
+   0.165,
+   0.221,
+   0.11
+  ],
+  "energy": 1.5
+ },
+ "fog": {
+  "enabled": true,
+  "color": [
+   0.453,
+   0.601,
+   0.245
+  ],
+  "start": 60,
+  "end": 437,
+  "godot_density": 0.00686,
+  "sky_affect": 0.55,
+  "height": 2.0,
+  "height_density": 0.12
+ },
+ "tonemap": {
+  "mode": "filmic",
+  "exposure": 1.0
+ },
+ "glow": {
+  "enabled": true,
+  "intensity": 0.7,
+  "bloom": 0.08,
+  "hdr_threshold": 0.9
+ },
+ "adjustments": {
+  "brightness": 1.0,
+  "contrast": 1.05,
+  "saturation": 1.05
+ },
+ "camera": {
+  "far": 800,
+  "horizon_distance": 460
+ },
+ "background": {
+  "layers": [
+   {
+    "id": "Ground",
+    "node": "BG_Ground",
+    "type": "ground",
+    "triangles": 2592,
+    "material": "bg_ground",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840
+   },
+   {
+    "id": "Mountains_Far",
+    "node": "BG_Mountains_Far",
+    "type": "mountain_ring",
+    "triangles": 768,
+    "material": "bg_mountains_far",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840
+   },
+   {
+    "id": "Mountains_Near",
+    "node": "BG_Mountains_Near",
+    "type": "mountain_ring",
+    "triangles": 768,
+    "material": "bg_mountains_near",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840
+   },
+   {
+    "id": "Spires",
+    "node": "BG_Spires",
+    "type": "spires",
+    "triangles": 1008,
+    "material": "bg_spires",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840
+   },
+   {
+    "id": "Skyline_North",
+    "node": "BG_Skyline_North",
+    "type": "skyline",
+    "triangles": 600,
+    "material": "bg_skyline_north",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840
+   },
+   {
+    "id": "Factory_01",
+    "node": "BG_Factory_01",
+    "type": "factory",
+    "triangles": 288,
+    "material": "bg_factory_01",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840,
+    "chimney_tops": [
+     [
+      140.41,
+      57.49,
+      -103.87,
+      2.22
+     ],
+     [
+      134.28,
+      58.03,
+      -113.0,
+      2.26
+     ],
+     [
+      128.83,
+      54.67,
+      -113.74,
+      2.42
+     ]
+    ]
+   },
+   {
+    "id": "Factory_02",
+    "node": "BG_Factory_02",
+    "type": "factory",
+    "triangles": 288,
+    "material": "bg_factory_02",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840,
+    "chimney_tops": [
+     [
+      180.57,
+      45.41,
+      44.23,
+      2.64
+     ],
+     [
+      180.25,
+      51.22,
+      42.69,
+      1.68
+     ],
+     [
+      181.47,
+      71.61,
+      43.52,
+      2.17
+     ]
+    ]
+   },
+   {
+    "id": "Factory_03",
+    "node": "BG_Factory_03",
+    "type": "factory",
+    "triangles": 264,
+    "material": "bg_factory_03",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840,
+    "chimney_tops": [
+     [
+      -114.03,
+      44.83,
+      165.84,
+      2.69
+     ],
+     [
+      -131.79,
+      47.59,
+      154.6,
+      2.62
+     ],
+     [
+      -105.7,
+      75.48,
+      172.96,
+      1.91
+     ]
+    ]
+   },
+   {
+    "id": "Factory_04",
+    "node": "BG_Factory_04",
+    "type": "factory",
+    "triangles": 264,
+    "material": "bg_factory_04",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840,
+    "chimney_tops": [
+     [
+      -192.88,
+      63.46,
+      -79.53,
+      1.6
+     ],
+     [
+      -192.23,
+      54.69,
+      -85.54,
+      1.59
+     ],
+     [
+      -195.01,
+      54.02,
+      -72.75,
+      1.82
+     ]
+    ]
+   }
+  ],
+  "materials": [
+   "bg_ground",
+   "bg_mountains_far",
+   "bg_mountains_near",
+   "bg_spires",
+   "bg_skyline_north",
+   "bg_factory_01",
+   "bg_factory_02",
+   "bg_factory_03",
+   "bg_factory_04"
+  ],
+  "stats": {
+   "glb_kb": 403,
+   "triangles": 6840,
+   "nodes": 10,
+   "mesh_nodes": 9,
+   "unique_meshes": 9,
+   "materials": 9,
+   "images": 14,
+   "draw_calls_unbatched": 9,
+   "draw_calls_batched_min": 9,
+   "tex_mem_uncompressed_mb": 1.17,
+   "tex_mem_gpu_compressed_mb": 0.29,
+   "texture_slots": {
+    "baseColorTexture": 9,
+    "metallicRoughnessTexture": 9,
+    "normalTexture": 9,
+    "occlusionTexture": 9,
+    "emissiveTexture": 5
+   },
+   "image_sizes": [
+    "128x128 jpeg"
+   ]
+  },
+  "tex_mem_gpu_compressed_mb": 0.67
+ },
+ "sky_asset": {
+  "kb": 56,
+  "tex_mem_gpu_compressed_mb": 2.67
+ }
+}

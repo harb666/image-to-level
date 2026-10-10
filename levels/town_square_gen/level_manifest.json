@@ -1,0 +1,74 @@
+{
+ "format": "image-to-level package v1",
+ "level": "town_square_gen",
+ "title": "scene_spec.json - Town Square (generated from one perspective image)",
+ "generated": "2026-10-10 09:05:56",
+ "godot_root": "res://levels/town_square_gen/",
+ "use_in_game": "mobile/level_mobile.glb (+ mobile/background_mobile.glb, mobile/collision.glb)",
+ "profile": "balanced",
+ "spawns": [
+  {
+   "id": "spawn",
+   "position": [
+    0,
+    0,
+    24
+   ],
+   "yaw_deg": 0
+  }
+ ],
+ "hazards": [],
+ "generator": {
+  "tool": "pipeline/spec_to_level.py",
+  "spec_sha": "b84407387c044b65",
+  "theme": "medieval_town",
+  "detail": "medium"
+ },
+ "metrics": {
+  "dev": {
+   "glb_kb": 778,
+   "triangles": 10498,
+   "draw_calls": 1013,
+   "tex_mem_gpu_mb_est": 4.4
+  },
+  "mobile": {
+   "profile": "balanced",
+   "glb_kb": 1041,
+   "triangles": 10474,
+   "draw_calls": 61,
+   "visible_draw_calls_est": 35.8,
+   "visible_draw_calls_max_est": 63,
+   "tex_mem_gpu_mb_est": 4.4,
+   "materials": 17,
+   "nodes": 62,
+   "colliders": {
+    "colliders": 774,
+    "hazards": 0,
+    "glb_kb": 418
+   },
+   "background_kb": 738
+  },
+  "effects": {
+   "max_particles": 176,
+   "emitters": 2,
+   "extra_draw_calls": 2,
+   "transparent_area_m2": 0
+  },
+  "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
+ },
+ "validation": {
+  "passed": true,
+  "counts": {
+   "error": 0,
+   "warning": 0,
+   "info": 0
+  }
+ },
+ "gameplay_config_status": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer.",
+ "notes": [
+  "GLB carries static geometry/materials only; effects, environment and hazards are recreated in Godot from the JSON/tres + scripts.",
+  "Scripts and .tres are UNTESTED in Godot from this environment.",
+  "Performance numbers are estimates, not device benchmarks."
+ ],
+ "files": 30
+}

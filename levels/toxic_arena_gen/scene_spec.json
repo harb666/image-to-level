@@ -1,0 +1,75 @@
+{
+ "spec_version": 1,
+ "name": "toxic_arena_gen",
+ "title": "Toxic Arena (generated from the concept sheet)",
+ "theme": "toxic_industrial",
+ "detail": "medium",
+ "profile": "balanced",
+ "references": [
+  {"file": "references/toxic_arena_concept.png", "kind": "concept_sheet", "notes": "split with references.py split -> references/panels/",
+   "panels": [
+    {"id": "p01", "bbox_px": [0, 0, 1064, 678], "view": "perspective", "use": ["appearance", "materials", "heights"], "notes": "main bird's-eye perspective: pillar platforms in green fluid, bridges, central tower with red banners and green glow strips"},
+    {"id": "p02", "bbox_px": [1075, 0, 1536, 469], "view": "top_down", "use": ["layout", "connectivity"], "notes": "TOP DOWN LAYOUT - measured with references.py plan (arena square = 80 m incl. walls)"},
+    {"id": "p03", "bbox_px": [1075, 492, 1536, 678], "view": "elevation", "use": ["heights"], "notes": "SIDE VIEW - relative heights: central deck above outer decks, tower ~13 m above its deck, wall pipes high"},
+    {"id": "p04", "bbox_px": [0, 686, 384, 1024], "view": "detail", "use": ["effects", "materials"], "notes": "GREEN FLUID RIVERS: large wall pipe pouring fluid"},
+    {"id": "p05", "bbox_px": [393, 686, 765, 1024], "view": "detail", "use": ["appearance"], "notes": "ELEVATED PLATFORMS: square pillar platforms + flat bridges"},
+    {"id": "p06", "bbox_px": [773, 686, 1145, 1024], "view": "detail", "use": ["appearance"], "notes": "CENTRAL PLATFORM: octagonal deck, tower, banners, glow strips"},
+    {"id": "p07", "bbox_px": [1154, 686, 1536, 1024], "view": "detail", "use": ["materials", "effects"], "notes": "ENVIRONMENT DETAILS: pipe outlet with flange, console with red light, railings"}
+   ]}
+ ],
+ "interpretation": {
+  "summary": "Square industrial arena flooded with glowing toxic fluid. Octagonal central deck with a tower, four flat bridges to deck platforms against the middle of each wall, four lower square platforms on the diagonals, pipes pouring fluid from the corners and walls, perimeter walls with a walkway.",
+  "scale_basis": "No dimensions given. Arena square read as 80 m incl. walls so the 11 m edge platforms and 22 m central deck give third-person combat room; heights from the elevation ratio (fluid -> outer deck ~6 m, central deck ~+1 m, tower ~13 m).",
+  "visible": ["square boundary walls", "toxic fluid floor", "octagonal central deck + tower with red banners and green strips", "4 edge platforms + cross bridges (plan)", "4 diagonal square platforms (plan)", "corner and wall pipes pouring fluid", "red light panels on platform sides", "industrial skyline behind the walls"],
+  "inferred": ["exact metres (scale basis above)", "walkway ring height/width along the walls", "ramps between decks of different heights", "cover crate positions", "background mountains + factories (sheet shows only dark industrial silhouettes)"],
+  "assumptions": ["diagonal platforms are lower (elevation shows lower blocks) and reached by ramps from the central deck", "edge platforms connect to the walkway ring at the same height"]
+ },
+ "arena": {
+  "shape": "rect", "size": [72, 72], "center": [0, 0],
+  "floor": {"kind": "hazard", "y": 1.0, "name": "HazardFluid", "source": "visible"},
+  "walls": {"height": 14, "thickness": 4, "style": "industrial", "source": "visible"},
+  "walkway": {"width": 4, "y": 7.0, "source": "inferred"}
+ },
+ "platforms": [
+  {"id": "Central", "shape": "octagon", "center": [0, 0], "size": [22, 22], "top": 8.0, "cover": 4, "source": "visible"},
+  {"id": "Platform_North", "center": [0, -29.5], "size": [11, 9], "top": 7.0, "cover": 2, "source": "visible"},
+  {"id": "Platform_South", "center": [0, 29.5], "size": [11, 9], "top": 7.0, "cover": 2, "source": "visible"},
+  {"id": "Platform_East", "center": [29.5, 0], "size": [9, 11], "top": 7.0, "cover": 2, "source": "visible"},
+  {"id": "Platform_West", "center": [-29.5, 0], "size": [9, 11], "top": 7.0, "cover": 2, "source": "visible"},
+  {"id": "Platform_NE", "center": [16.6, -16.6], "size": [8, 8], "top": 5.0, "cover": 1, "source": "visible"},
+  {"id": "Platform_NW", "center": [-16.6, -16.6], "size": [8, 8], "top": 5.0, "cover": 1, "source": "visible"},
+  {"id": "Platform_SE", "center": [16.6, 16.6], "size": [8, 8], "top": 5.0, "cover": 1, "source": "visible"},
+  {"id": "Platform_SW", "center": [-16.6, 16.6], "size": [8, 8], "top": 5.0, "cover": 1, "source": "visible"}
+ ],
+ "connections": [
+  {"id": "Bridge_North", "from": "Central", "to": "Platform_North", "width": 4.5, "source": "visible"},
+  {"id": "Bridge_South", "from": "Central", "to": "Platform_South", "width": 4.5, "source": "visible"},
+  {"id": "Bridge_East", "from": "Central", "to": "Platform_East", "width": 4.5, "source": "visible"},
+  {"id": "Bridge_West", "from": "Central", "to": "Platform_West", "width": 4.5, "source": "visible"},
+  {"id": "Ramp_NE", "from": "Central", "to": "Platform_NE", "width": 4, "source": "inferred"},
+  {"id": "Ramp_NW", "from": "Central", "to": "Platform_NW", "width": 4, "source": "inferred"},
+  {"id": "Ramp_SE", "from": "Central", "to": "Platform_SE", "width": 4, "source": "inferred"},
+  {"id": "Ramp_SW", "from": "Central", "to": "Platform_SW", "width": 4, "source": "inferred"}
+ ],
+ "structures": [
+  {"id": "Central_Tower", "kind": "tower", "on": "Central", "size": [7, 13, 7], "decor": ["banners", "glow_strips", "vents"], "source": "visible"},
+  {"id": "Tank_North", "kind": "tank", "on": "Platform_North", "offset": [4.0, -3.0], "size": [2.2, 3.5, 2.2], "source": "inferred"},
+  {"id": "Tank_South", "kind": "tank", "on": "Platform_South", "offset": [-4.0, 3.0], "size": [2.2, 3.5, 2.2], "source": "inferred"}
+ ],
+ "pipes": [
+  {"id": "Pipe_NE", "wall": "ne", "y": 10, "radius": 1.5, "length": 11, "pour": true, "source": "visible"},
+  {"id": "Pipe_NW", "wall": "nw", "y": 10, "radius": 1.5, "length": 11, "pour": true, "source": "visible"},
+  {"id": "Pipe_SE", "wall": "se", "y": 10, "radius": 1.5, "length": 11, "pour": true, "source": "visible"},
+  {"id": "Pipe_SW", "wall": "sw", "y": 10, "radius": 1.5, "length": 11, "pour": true, "source": "visible"},
+  {"id": "Pipe_North", "wall": "north", "at": 13, "y": 10.5, "radius": 1.2, "length": 6, "pour": true, "source": "visible"},
+  {"id": "Pipe_South", "wall": "south", "at": -13, "y": 10.5, "radius": 1.2, "length": 6, "pour": true, "source": "visible"},
+  {"id": "Pipe_East", "wall": "east", "at": -13, "y": 10.5, "radius": 1.2, "length": 6, "pour": true, "source": "visible"},
+  {"id": "Pipe_West", "wall": "west", "at": 13, "y": 10.5, "radius": 1.2, "length": 6, "pour": true, "source": "visible"}
+ ],
+ "materials": {"variation": true},
+ "atmosphere": {"sky": "industrial_smog", "ambient": "spores", "source": "visible"},
+ "background": {"mountains": "both", "factories": 4, "skyline": true, "spires": true, "source": "inferred"},
+ "effects": "auto",
+ "spawns": [{"id": "spawn", "on": "Platform_South"}, {"id": "spawn_north", "on": "Platform_North"}],
+ "refine": {"max_passes": 3}
+}

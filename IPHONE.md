@@ -1,5 +1,12 @@
 # iPhone workflow (Construct Error levels)
 
+## 0. Make a new level from concept art (Stage 7)
+Send Claude one or more images (concept sheet, top-down plan, side view, perspective shot, detail close-ups) with one
+line like "Make this a Construct Error level called foundry_arena". Optional: what matters most (layout, look, scale)
+or anything the images don't show. Claude splits/measures the images, writes the scene spec, runs the one-command
+generator (~3–4 min), looks at the renders, fixes the biggest problems, and replies with a preview link, what it saw vs
+guessed, measured vs estimated numbers and anything still open. You never handle JSON, Python or GitHub folders.
+
 ## 1. Look at the level
 Open the level's preview link in Safari.
 - **Mode** button cycles through these views:
@@ -23,6 +30,9 @@ In the mobile preview, merged meshes still show the original object name.
 
 Tap **Copy for Claude**, then paste into the chat and finish the sentence:
 > In Toxic Arena: object "OuterWall_North" (box, metal_dark, …). Please change: make it industrial metal with pipes
+
+In previews with validation results, the **⚠ n** button shows problem markers in the scene and a list (Look = fly to
+it; Copy for Claude = paste the list into chat). **Jump** tests gaps with the gameplay config's jump height.
 
 ## 3. Show what you mean
 Tap 📷 to take a screenshot. It opens full screen. Long-press it, choose **Save to Photos**, then attach it to the chat.

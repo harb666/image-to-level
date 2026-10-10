@@ -10,6 +10,9 @@ python3 pipeline/build_level.py levels/<name>    # rebuild glb after editing lev
 python3 pipeline/edit_level.py levels/<name> <command> ...   # targeted, undoable edit by object name + minimal rebuild
 ```
 iPhone workflow + plain-English edit recipes: **IPHONE.md**.
+**Stage 7 (recommended route for concept art):** Claude reads the image(s) -> `levels/<name>/scene_spec.json` -> 
+`python3 pipeline/generate.py levels/<name>/scene_spec.json` (build + bounded refine + renders + previews + package).
+Runbook: **GENERATE.md** · spec format: **SCENE_SPEC.md** · Godot import: **GODOT_IMPORT.md** · tests: `python3 tests/run_all.py`.
 Outputs: `level.json` (THE source of truth — edit this), `level.glb`, `topdown.png` (footprints, red = invisible
 boundary, blue dot = spawn), `depth.png`, `reference.*`, `index.html` (three.js walk viewer; touch stick + drag).
 
@@ -179,6 +182,46 @@ mobile-merged nodes (resolved to the source object via node extras `source_bound
 (one-line reference to paste into chat); 📷 screenshot (shown full screen: long-press → Save to Photos); quality
 low/med/high (pixel ratio + FX density, remembered); stats (draw calls/tris/fps of the BROWSER renderer).
 
+## Image -> level generation & autonomous refinement (Stage 7)
+Split of responsibilities: **Claude** interprets the references (with measuring helpers) and writes a structured
+`scene_spec.json` (layout, heights, structures, materials, atmosphere, each element tagged visible/inferred); the
+**CPU pipeline** turns it into a validated, previewed, packaged level deterministically. No vision model, no paid API.
+- `references.py` split (concept sheets -> panels via XY-cut on gutters), plan (top-down colour regions -> metres),
+  grid (measurement overlays). Measures only; Claude decides meanings.
+- `scene_spec.py` schema + cross-reference validation (readable errors with JSON paths; unknown keys = warnings).
+- `architecture.py` reusable modules: arena (hazard/ground/deck floor, walls with openings, walkway ring, invisible
+  boundary), platforms (industrial_pillar / stone_plinth / plain; rect/octagon/circle), connections (bridge, catwalk,
+  ramp, sloped elevated bridge, stairs + support, jump), structures (industrial tower/building, town house with timber
+  framing + jetties + gable/hip roof, stone tower with battlements/pinnacles/spire, fountain, round/square gate, wall,
+  machinery, tank, pillar, lamp, crates, rocks, tree, banner), pipe outlets with pours + pipe runs. Material ROLES ->
+  theme palettes (industrial, toxic_industrial, scifi, medieval_town, ruins) + per-role overrides + shared `_v2`
+  variants. New Stage 3 shapes: hip_roof, round_arch, battlement, wedge.
+- `spec_to_level.py` assembly + environment/background scaled to the arena + auto effects + spawns + walkable areas;
+  regeneration MERGES with manual edits via `gen_state.json` hashes (edited/deleted/added kept; undoable).
+- `gameplay.py` + `config/gameplay.json` (PLACEHOLDER player/camera numbers, budgets): Recast-like span heightfield
+  from level.glb -> walk components (step/slope/headroom/radius erosion) + drop/jump links -> reachability from the spawn,
+  one-way traps, unreachable intended areas, spawn safety, narrow connectors, low ceilings; `checks/navigation.png`.
+  The camera validator, viewer and renders read the same config.
+- `checks.py` one report (schema/transforms/materials/references, assets parse, triangles per object, measured
+  sizes/draw calls + ESTIMATED visible draw calls/GPU memory vs budgets, navigation, camera completeness, render errors)
+  -> `checks/report.json/.md`, issues sorted by impact with world positions (viewer overlay).
+- `render_views.py` real headless renders (Chromium + SwiftShader, three.js from pipeline/render/node_modules):
+  bird's-eye, overviews, third-person spawn, 4 compass views at player height, main platforms, 4 background-facing,
+  tallest structure -> `checks/views/contact_sheet.jpg`. Fails loudly if no browser - never fabricated.
+- `refine.py` bounded loop (max passes): checks -> safe automatic fixes (double-sided/ground skirt, spawn relocation to
+  navigation candidates, connect unreachable platforms, remove duplicates, rebuild) -> rebuild; remaining issues go to
+  `needs_claude`. Claude then reviews renders and applies targeted edits.
+- `edit_level.py` + `connect` (bridge/ramp/stairs between areas) + `apply` (schema-checked batch ops); every edit is
+  schema-validated before saving.
+- `package.py` Construct Error / Godot 4 package mirroring `res://levels/<name>/` (level.json, glbs, mobile, collision,
+  sky/background/environment.tres, effects + Godot kit, gameplay/spawns.json + hazards.json + navigation.json,
+  level_manifest.json with sha1s, IMPORT_GODOT.md) + `--check` validation; `dist/<name>/<name>.zip`.
+- Viewer: jump button, gameplay-config camera/player, scripted inspection camera, issues overlay (markers + list + "Copy
+  for Claude"). `make_preview.py` embeds GAMEPLAY + ISSUES.
+- Tests: `tests/` (unittest; Stages 1-6 regression + Stage 7; `QUICK=1` skips slow ones).
+Real-image runs: `levels/toxic_arena_gen` (multi-panel concept sheet: plan + elevation + perspective + details) and
+`levels/town_square_gen` (single perspective image). Both specs, renders and reports are committed.
+
 ## Hand-authored layouts (concept sheets with a top-down plan)
 When a concept sheet has a TOP DOWN LAYOUT/side view, don't run it through MiDaS: write a small layout script in
 `pipeline/layouts/<level>.py` that emits level.json directly (same schema), then `build_level.py`. Example:
@@ -214,5 +257,9 @@ untested). `make_level.sh` uses it when `LYRA_DIR` is set and `nvidia-smi` exist
 the same way (output `levels/<name>-lyra/`). `points_to_level.py` main() = old blocky voxel export (legacy).
 
 ## Known limits
+Stage 7: the scene spec is Claude's interpretation - single perspective images leave depth uncertain; arbitrary
+architecture is approximated with the module library (extend architecture.py for new forms); jump arcs are approximated;
+renders are the three.js preview (SwiftShader), not Godot; Godot scripts/.tres untested here; gameplay numbers are
+placeholders until Construct Error's are supplied.
 Depth scale is a guess; building detail is a fixed recipe (door/windows/trim), not read from the image; small props
 < 1 m² are lost; arches/bridges not specially detected; anything not connected to the walkable area is dropped; material guess is colour-only.

@@ -1,0 +1,129 @@
+{
+ "level": "town_square_gen",
+ "assets_kb": {
+  "level.glb": 778,
+  "mobile/level_mobile.glb": 1041,
+  "mobile/collision.json": 200,
+  "environment.json": 3,
+  "background.glb": 738,
+  "effects.json": 7
+ },
+ "complexity": {
+  "triangles": 10522,
+  "nodes": 1013,
+  "materials": 17,
+  "heaviest": [
+   [
+    "Great_Tower_Battlements",
+    408
+   ],
+   [
+    "Street_Arch_Arch",
+    120
+   ],
+   [
+    "Tree_1_Crown",
+    80
+   ],
+   [
+    "Fountain_Water",
+    64
+   ],
+   [
+    "Fountain_Basin",
+    64
+   ]
+  ]
+ },
+ "performance": {
+  "dev": {
+   "glb_kb": 778,
+   "triangles": 10498,
+   "draw_calls": 1013,
+   "tex_mem_gpu_mb_est": 4.4
+  },
+  "mobile": {
+   "profile": "balanced",
+   "glb_kb": 1041,
+   "triangles": 10474,
+   "draw_calls": 61,
+   "visible_draw_calls_est": 35.8,
+   "visible_draw_calls_max_est": 63,
+   "tex_mem_gpu_mb_est": 4.4,
+   "materials": 17,
+   "nodes": 62,
+   "colliders": {
+    "colliders": 774,
+    "hazards": 0,
+    "glb_kb": 418
+   },
+   "background_kb": 738
+  },
+  "effects": {
+   "max_particles": 176,
+   "emitters": 2,
+   "extra_draw_calls": 2,
+   "transparent_area_m2": 0
+  },
+  "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
+ },
+ "navigation": {
+  "standable_area_m2": 1570.9,
+  "reachable_area_m2": 1105.5,
+  "components": 29,
+  "spawns": [
+   {
+    "id": "spawn",
+    "position": [
+     0,
+     0,
+     24
+    ],
+    "standable": true,
+    "clearance_m": 5.75,
+    "headroom_m": 99.0,
+    "component": 1114
+   }
+  ],
+  "intended_areas": [
+   {
+    "name": "Square_Ground",
+    "standable_m2": 1225.8,
+    "reachable_fraction": 0.87,
+    "one_way": false
+   }
+  ],
+  "narrow_connectors": [],
+  "passed": true
+ },
+ "camera": {
+  "players": 29,
+  "players_skipped_inside_or_against_walls": 19,
+  "cameras": 696,
+  "rays": 61248,
+  "void_rays": 0,
+  "void_examples": [],
+  "back_face": {},
+  "open_mesh": {},
+  "camera_inside": 0,
+  "visible_objects": 599,
+  "passed": true,
+  "stale_note": "from the last full run (--fast skipped it)"
+ },
+ "render": {
+  "views": 14,
+  "errors": [],
+  "load_seconds": 5.825,
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "contact_sheet": "checks/views/contact_sheet.jpg",
+  "note": "browser preview renders (three.js, SwiftShader) - not Godot"
+ },
+ "issues": [],
+ "counts": {
+  "error": 0,
+  "warning": 0,
+  "info": 0
+ },
+ "passed": true,
+ "gameplay_config": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer."
+}

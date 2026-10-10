@@ -12,6 +12,8 @@ button{background:#0008;color:#fff;border:1px solid #fff4;border-radius:8px;padd
 #stats{position:fixed;top:96px;left:8px;background:#000a;padding:6px 8px;border-radius:8px;font:12px ui-monospace,monospace;white-space:pre;pointer-events:none}
 #vert{position:fixed;right:16px;bottom:40px;display:flex;flex-direction:column;gap:10px}
 #vert button{width:56px;height:56px;font-size:20px}
+#jumpb{position:fixed;right:20px;bottom:44px;width:72px;height:72px;border-radius:50%}
+#sel li{margin:4px 0;list-style:none}#sel ul{padding:0;margin:6px 0}#sel .sev-error{color:#ff7a6a}#sel .sev-warning{color:#ffc04d}#sel .sev-info{color:#8fc3ff}
 #sel{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));max-height:46%;overflow:auto;background:#101418ee;border:1px solid #fff3;border-radius:12px;padding:10px 12px;font:13px system-ui;line-height:1.45}
 #sel h3{margin:0 0 4px;font:600 15px system-ui;word-break:break-all}#sel .row{display:flex;gap:10px;align-items:flex-start}#sel .k{opacity:.6}
 #sel canvas{width:64px;height:64px;border-radius:6px;flex:none;border:1px solid #fff3}#sel .btns{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
@@ -21,9 +23,9 @@ button{background:#0008;color:#fff;border:1px solid #fff4;border-radius:8px;padd
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head><body>
-<div id="hud"><button id="mode">View: 3rd person</button><button id="q">Quality: med</button><button id="fx" hidden>FX</button><button id="statsb">Stats</button><button id="shotb">📷</button><button id="reset">Respawn</button></div>
+<div id="hud"><button id="mode">View: 3rd person</button><button id="q">Quality: med</button><button id="fx" hidden>FX</button><button id="statsb">Stats</button><button id="shotb">📷</button><button id="reset">Respawn</button><button id="issb" hidden>⚠</button></div>
 <div id="stick"></div><div id="info"></div><div id="stats" hidden></div>
-<div id="vert" hidden><button id="upb">▲</button><button id="dnb">▼</button></div>
+<div id="vert" hidden><button id="upb">▲</button><button id="dnb">▼</button></div><button id="jumpb" hidden>Jump</button>
 <div id="sel" hidden></div><div id="shot" hidden><img id="shotimg" alt="Screenshot of the current view"><p>Press and hold the image to save or share it.</p><button id="shotclose">Close</button></div>
 <script type="module">
 import * as THREE from 'three';
@@ -33,7 +35,9 @@ import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 // Inputs: local files (?level=dir, default '.') or, in a self-contained preview, globals GLB/BGGLB (base64), TEXP/TEX (data: URIs), ENV, SKY.
 const q=new URLSearchParams(location.search), base=q.get('level')||'.';
 const meta=await (await fetch(base+'/level.json')).json();
-if(meta.objects){const sp=meta.spawn,y=sp.yaw_deg*Math.PI/180;Object.assign(meta,{sky_rgb:meta.sky_color,spawn:sp.position,eye_height:1.7,
+// Stage 7: player/camera numbers from config/gameplay.json (embedded by make_preview.py; PLACEHOLDERS until Construct Error's values are set)
+const GP=window.GAMEPLAY||{player:{radius:.35,height:1.8,eye_height:1.7,walk_speed:5,jump_height:1.2,gravity:20},camera:{arm_length:5,pivot_above_eye:.2,probe_radius:.25,margin:.3}};
+if(meta.objects){const sp=meta.spawn,y=sp.yaw_deg*Math.PI/180;Object.assign(meta,{sky_rgb:meta.sky_color,spawn:sp.position,eye_height:GP.player.eye_height,
  spawn_facing:[-Math.sin(y),0,-Math.cos(y)],bounds_min:meta.bounds.min,bounds_max:meta.bounds.max,triangles:meta.build_stats.triangles});}
 let env=window.ENV||null;if(!env&&!window.GLB){try{const rq=await fetch(base+'/environment.json');if(rq.ok)env=await rq.json();}catch(e){}}
 const r=new THREE.WebGLRenderer({antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));
@@ -137,24 +141,29 @@ window.setFX=q=>{fxq=FXQ.indexOf(q);buildFX();};
 window.fxInfo=()=>({quality:FXQ[fxq],objects:fxObjs.length,animated:fxUpd.length,
   alive:fxObjs.filter(o=>o.isPoints).map(o=>{const a=o.geometry.attributes.aAlpha.array,P=o.geometry.attributes.position.array;let n=0,y=0;for(let i=0;i<a.length;i++)if(a[i]>0){n++;y+=P[i*3+1];}return [n,a.length,+(y/Math.max(n,1)).toFixed(1)];})});
 
-const avatar=new THREE.Mesh(new THREE.CapsuleGeometry(0.35,1.0,4,8),new THREE.MeshStandardMaterial({color:0x3a8dde,roughness:.5}));scene.add(avatar);
+const avatar=new THREE.Mesh(new THREE.CapsuleGeometry(GP.player.radius,Math.max(.1,GP.player.height-2*GP.player.radius),4,8),new THREE.MeshStandardMaterial({color:0x3a8dde,roughness:.5}));scene.add(avatar);
 // ---- Stage 6: camera modes, tap-to-identify, screenshot, quality, stats
 const $=id=>document.getElementById(id);
 const orbit=new OrbitControls(cam,r.domElement);orbit.enabled=false;
 const MODES=['3rd person','1st person','orbit','free cam','top-down'];let mode=0,yaw=0,pitch=0,vy=0;const pos=new THREE.Vector3(),fpos=new THREE.Vector3();
 const spawn=()=>{pos.set(...meta.spawn);pos.y+=meta.eye_height;const f=meta.spawn_facing||[0,0,-1];yaw=Math.atan2(-f[0],-f[2]);pitch=-0.15;};spawn();
-$('reset').onclick=spawn;
+$('reset').onclick=()=>{setMode(mode);spawn();};
 window.view=(x,z,yd,pd=0,y=0)=>{pos.set(x,meta.eye_height+y,z);vy=0;yaw=yd*Math.PI/180;pitch=pd*Math.PI/180;}; // scripted screenshots
 const ctr=meta.bounds_min.map((v,i)=>(v+meta.bounds_max[i])/2),ext=Math.max(meta.bounds_max[0]-meta.bounds_min[0],meta.bounds_max[2]-meta.bounds_min[2]);
 const walking=()=>MODES[mode]==='3rd person'||MODES[mode]==='1st person';
-function setMode(m){mode=m;const M=MODES[m];$('mode').textContent='View: '+M;orbit.enabled=M==='orbit'||M==='top-down';
-  $('stick').hidden=!(walking()||M==='free cam');$('vert').hidden=M!=='free cam';
+let fixedCam=null,jumpReq=false;
+function setMode(m){mode=m;fixedCam=null;const M=MODES[m];$('mode').textContent='View: '+M;orbit.enabled=M==='orbit'||M==='top-down';
+  $('stick').hidden=!(walking()||M==='free cam');$('vert').hidden=M!=='free cam';$('jumpb').hidden=!walking();
   if(M==='orbit'){orbit.enableRotate=true;orbit.screenSpacePanning=true;orbit.touches={ONE:THREE.TOUCH.ROTATE,TWO:THREE.TOUCH.DOLLY_PAN};orbit.mouseButtons={LEFT:THREE.MOUSE.ROTATE,MIDDLE:THREE.MOUSE.DOLLY,RIGHT:THREE.MOUSE.PAN};
     orbit.target.set(ctr[0],0,ctr[2]);cam.position.set(ctr[0]+ext*.4,ext*.6,ctr[2]+ext*.6);}
   if(M==='top-down'){orbit.enableRotate=false;orbit.screenSpacePanning=true;orbit.touches={ONE:THREE.TOUCH.PAN,TWO:THREE.TOUCH.DOLLY_PAN};orbit.mouseButtons={LEFT:THREE.MOUSE.PAN,MIDDLE:THREE.MOUSE.DOLLY,RIGHT:THREE.MOUSE.PAN};
     orbit.target.set(ctr[0],0,ctr[2]);cam.position.set(ctr[0],ext*1.15,ctr[2]+0.01);}
   if(M==='free cam'){fpos.copy(cam.position);}}
-window.setMode=setMode;$('mode').onclick=()=>setMode((mode+1)%MODES.length);
+window.setMode=setMode;
+// scripted/inspection camera (render_views.py, issue list): eye -> target, no player
+window.lookFrom=(px,py,pz,tx,ty,tz,fov=60)=>{orbit.enabled=false;fixedCam={p:new THREE.Vector3(px,py,pz),t:new THREE.Vector3(tx,ty,tz)};cam.fov=fov;cam.updateProjectionMatrix();
+  $('stick').hidden=true;$('vert').hidden=true;$('jumpb').hidden=true;$('mode').textContent='View: inspect';};
+$('jumpb').onpointerdown=()=>{jumpReq=true;};addEventListener('keydown',e=>{if(e.code==='Space')jumpReq=true;});$('mode').onclick=()=>setMode((mode+1)%MODES.length);
 $('info').textContent=meta.triangles+' tris'+(env?' · '+env.sky.preset+' · '+env.quality:'');
 // quality: render resolution (+ effects level when the level has effects); remembered per device
 const QL=[['low',1,'performance'],['med',1.5,'balanced'],['high',2,'quality']];let ql=1;try{ql=+(localStorage.getItem('lvq')??1);}catch(e){}
@@ -197,10 +206,23 @@ function pick(cx,cy){const nd=new THREE.Vector2(cx/innerWidth*2-1,-(cy/innerHeig
     navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(hint).then(done,()=>fallback()):fallback();
     function fallback(){const t=document.createElement('textarea');t.value=hint;el.appendChild(t);t.select();try{document.execCommand('copy');done();}catch(e){$('copyb').textContent='Select & copy below';}}};}
 window.pickAt=pick;
+// Stage 7: validation issues (window.ISSUES from checks/report.json): markers in the scene + a list; tap an item to look at it
+const ISS=window.ISSUES||[];let issG=null;
+if(ISS.length){const b=$('issb');b.hidden=false;b.textContent='⚠ '+ISS.length;
+  b.onclick=()=>{if(issG){scene.remove(issG);issG=null;$('sel').hidden=true;return;}issG=new THREE.Group();
+    const col={error:0xff4433,warning:0xffaa22,info:0x55aaff};
+    ISS.forEach(it=>{if(!it.pos)return;const m=new THREE.Mesh(new THREE.SphereGeometry(.6,10,8),new THREE.MeshBasicMaterial({color:col[it.severity]||0xffffff,depthTest:false,transparent:true,opacity:.85}));
+      m.position.set(...it.pos);m.position.y+=1.2;m.renderOrder=9;issG.add(m);
+      const g=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(...it.pos),m.position.clone()]);const l=new THREE.Line(g,new THREE.LineBasicMaterial({color:col[it.severity]||0xffffff,depthTest:false}));l.renderOrder=9;issG.add(l);});
+    scene.add(issG);const el=$('sel');
+    el.innerHTML='<h3>Validation issues</h3><ul>'+ISS.map((it,i)=>`<li class="sev-${it.severity}"><button data-i="${i}">Look</button> ${it.severity}: ${it.message}</li>`).join('')+'</ul><div class="btns"><button id="isscopy">Copy for Claude</button><button id="issclose">Close</button></div>';
+    el.hidden=false;el.querySelectorAll('button[data-i]').forEach(bt=>bt.onclick=()=>{const it=ISS[+bt.dataset.i];if(!it.pos)return;const p=it.pos;window.lookFrom(p[0]+9,p[1]+8,p[2]+9,p[0],p[1],p[2]);});
+    $('issclose').onclick=()=>{el.hidden=true;};
+    $('isscopy').onclick=()=>{const t=`In ${document.title}: please fix these validation issues: `+ISS.map(i=>i.message).join(' | ');try{navigator.clipboard.writeText(t).then(()=>$('isscopy').textContent='Copied');}catch(e){}};};}
 // input: stick = move (walk / fly), drag = look, tap = identify; WASD + mouse on desktop
 const keys={};onkeydown=e=>keys[e.code]=1;onkeyup=e=>keys[e.code]=0;
 const mv={x:0,y:0},stick=$('stick');let sid=null,lid=null,lx=0,ly=0,tap=null,vert=0;
-const onUI=e=>e.target.closest&&e.target.closest('button,#sel,#shot');
+const onUI=e=>e.target.closest&&e.target.closest('button,#sel,#shot');window.render1=()=>r.render(scene,cam);
 $('upb').onpointerdown=()=>vert=1;$('dnb').onpointerdown=()=>vert=-1;$('upb').onpointerup=$('dnb').onpointerup=$('upb').onpointerleave=$('dnb').onpointerleave=()=>vert=0;
 addEventListener('pointerdown',e=>{if(onUI(e))return;tap={x:e.clientX,y:e.clientY,t:performance.now(),id:e.pointerId};
   if(orbit.enabled)return;const b=stick.getBoundingClientRect();
@@ -215,19 +237,20 @@ function blocked(dir,dist){ray.set(new THREE.Vector3(pos.x,pos.y-meta.eye_height
 setMode(0);
 r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,0.05);fpsS=fpsS*0.95+(1/Math.max((now-last)/1000,1e-3))*0.05;last=now;
   const M=MODES[mode];
-  if(walking()){const f=(keys.KeyW?1:0)-(keys.KeyS?1:0)-mv.y,s=(keys.KeyD?1:0)-(keys.KeyA?1:0)+mv.x;
-    const d=new THREE.Vector3(s,0,-f);if(d.lengthSq()>0){d.normalize().applyAxisAngle(UP,yaw);const step=5*dt;if(!blocked(d,step))pos.addScaledVector(d,step);}
+  if(fixedCam){avatar.visible=false;cam.position.copy(fixedCam.p);cam.lookAt(fixedCam.t);}
+  else if(walking()){const f=(keys.KeyW?1:0)-(keys.KeyS?1:0)-mv.y,s=(keys.KeyD?1:0)-(keys.KeyA?1:0)+mv.x;
+    const d=new THREE.Vector3(s,0,-f);if(d.lengthSq()>0){d.normalize().applyAxisAngle(UP,yaw);const step=GP.player.walk_speed*dt;if(!blocked(d,step))pos.addScaledVector(d,step);}
     ray.set(new THREE.Vector3(pos.x,pos.y+0.5,pos.z),down);ray.far=100;const h=ray.intersectObjects(solids)[0];
-    const ground=h?h.point.y:-50;if(h&&h.object.name.startsWith('Hazard')&&pos.y-meta.eye_height<h.point.y+0.3){spawn();}vy-=20*dt;pos.y+=vy*dt;
+    const ground=h?h.point.y:-50;if(h&&h.object.name.startsWith('Hazard')&&pos.y-meta.eye_height<h.point.y+0.3){spawn();}if(jumpReq&&pos.y<=ground+meta.eye_height+0.05)vy=Math.sqrt(2*GP.player.gravity*GP.player.jump_height);jumpReq=false;vy-=GP.player.gravity*dt;pos.y+=vy*dt;
     if(pos.y<ground+meta.eye_height){pos.y=ground+meta.eye_height;vy=0;}if(pos.y<-40)spawn();
-    avatar.position.set(pos.x,pos.y-meta.eye_height+0.85,pos.z);avatar.visible=M==='3rd person';
+    avatar.position.set(pos.x,pos.y-meta.eye_height+GP.player.height/2,pos.z);avatar.visible=M==='3rd person';
     if(M==='1st person'){cam.position.copy(pos);cam.rotation.set(pitch,yaw,0,'YXZ');}
     else{ // 3rd person: camera orbits 5 m from the player's head, pulled in when a wall is in the way
-      const head=new THREE.Vector3(pos.x,pos.y+0.2,pos.z),back=new THREE.Vector3(0,0,1).applyEuler(new THREE.Euler(pitch,yaw,0,'YXZ'));
-      let dist=5;const side=new THREE.Vector3().crossVectors(back,UP).normalize(),up2=new THREE.Vector3().crossVectors(side,back);
-      for(const o of [[0,0],[.25,0],[-.25,0],[0,.25],[0,-.25]]){ // 0.25 m spring arm (5 rays): never past or grazing a wall
-        ray.set(head.clone().addScaledVector(side,o[0]).addScaledVector(up2,o[1]),back);ray.far=5;const hit=ray.intersectObjects(camSolids)[0];
-        if(hit)dist=Math.min(dist,hit.distance>0.6?hit.distance-0.3:hit.distance*0.5);}
+      const C=GP.camera,pr=C.probe_radius,head=new THREE.Vector3(pos.x,pos.y+C.pivot_above_eye,pos.z),back=new THREE.Vector3(0,0,1).applyEuler(new THREE.Euler(pitch,yaw,0,'YXZ'));
+      let dist=C.arm_length;const side=new THREE.Vector3().crossVectors(back,UP).normalize(),up2=new THREE.Vector3().crossVectors(side,back);
+      for(const o of [[0,0],[pr,0],[-pr,0],[0,pr],[0,-pr]]){ // spring arm with a probe radius (5 rays): never past or grazing a wall
+        ray.set(head.clone().addScaledVector(side,o[0]).addScaledVector(up2,o[1]),back);ray.far=C.arm_length;const hit=ray.intersectObjects(camSolids)[0];
+        if(hit)dist=Math.min(dist,hit.distance>2*C.margin?hit.distance-C.margin:hit.distance*0.5);}
       cam.position.copy(head).addScaledVector(back,dist);cam.lookAt(head);}
   }else if(M==='free cam'){avatar.visible=true;const q=new THREE.Quaternion().setFromEuler(new THREE.Euler(pitch,yaw,0,'YXZ'));
     const f=(keys.KeyW?1:0)-(keys.KeyS?1:0)-mv.y,s=(keys.KeyD?1:0)-(keys.KeyA?1:0)+mv.x,u=vert+(keys.KeyE?1:0)-(keys.KeyQ?1:0);

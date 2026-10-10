@@ -1,0 +1,48 @@
+{
+ "status": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer.",
+ "player": {
+  "radius": 0.35,
+  "height": 1.8,
+  "eye_height": 1.7,
+  "step_height": 0.4,
+  "max_slope_deg": 40,
+  "walk_speed": 5.0,
+  "jump_height": 1.2,
+  "jump_distance": 4.0,
+  "safe_drop": 6.0,
+  "gravity": 20.0
+ },
+ "camera": {
+  "arm_length": 5.0,
+  "pivot_above_eye": 0.2,
+  "probe_radius": 0.25,
+  "margin": 0.3,
+  "pitch_deg": [
+   -35,
+   -10,
+   15
+  ],
+  "validation_max_players": 48
+ },
+ "design": {
+  "min_bridge_width": 3.0,
+  "min_headroom": 3.2,
+  "spawn_clearance": 1.5,
+  "spawn_hazard_distance": 3.0,
+  "cover_height": 1.2,
+  "min_platform_area_m2": 6.0
+ },
+ "budgets": {
+  "triangles": 40000,
+  "mobile_draw_calls": 80,
+  "mobile_visible_draw_calls": 60,
+  "texture_mem_compressed_mb": 48,
+  "glb_kb": 6000,
+  "mobile_glb_kb": 4000,
+  "max_object_triangles": 6000,
+  "particles": 1500
+ },
+ "nav": {
+  "cell": 0.5
+ }
+}

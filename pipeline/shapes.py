@@ -11,6 +11,10 @@ All return trimesh.Trimesh; every solid is closed (no open backs). Sizes are o["
   vent                  box with horizontal louvre slats on the +z face
   tank                  vertical cylinder with domed top
   machinery             seeded cluster of boxes/cylinders filling the size box ("seed")
+  hip_roof              four-sided roof (hips at "pitch", default 45°); "overhang" m beyond the size box   (Stage 7)
+  round_arch            gateway along z with a semicircular opening ("opening" fraction of w); passable    (Stage 7)
+  battlement            ring of merlons round a w x d top (h = merlon height, "thickness")                  (Stage 7)
+  wedge                 buttress / sloped block: full height at -z, 0 at +z                                  (Stage 7)
 """
 import numpy as np, trimesh
 from trimesh.transformations import rotation_matrix
@@ -138,7 +142,52 @@ def machinery(w, h, d, o):
     return trimesh.util.concatenate(parts)
 
 
-SHAPES = dict(railing=railing, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery)
+def hip_roof(w, h, d, o):
+    """Hip roof over w x d (+ overhang): ridge along the longer side, 4 sloped faces. Closed (flat underside)."""
+    ov = o.get("overhang", 0.0); w2, d2 = w / 2 + ov, d / 2 + ov
+    if w >= d: r = max(0.0, w2 - d2 * o.get("hip", 1.0)); ridge = [[-r, h, 0], [r, h, 0]]
+    else: r = max(0.0, d2 - w2 * o.get("hip", 1.0)); ridge = [[0, h, -r], [0, h, r]]
+    return trimesh.convex.convex_hull(np.array([[-w2, 0, -d2], [w2, 0, -d2], [w2, 0, d2], [-w2, 0, d2]] + ridge))
+
+
+def round_arch(w, h, d, o):
+    """Gate along z with a round-topped opening: two piers + an arch ring of convex segments (each closed)."""
+    ow = w * o.get("opening", 0.55); r = ow / 2; spring = max(0.0, min(h * o.get("opening_h", 0.75) - r, h - r - 0.3))
+    pw = (w - ow) / 2; parts = [_box(pw, h, d, -(ow + pw) / 2), _box(pw, h, d, (ow + pw) / 2)]
+    n = int(o.get("segments", 8)); top = h
+
+    def outer(a):  # ray from the arch centre at angle a hits the rectangle [-ow/2, ow/2] x [spring, top]
+        dx, dy = np.cos(a), np.sin(a); ts = []
+        if abs(dx) > 1e-9: ts.append((np.sign(dx) * ow / 2) / dx)
+        if dy > 1e-9: ts.append((top - spring) / dy)
+        t = min(t for t in ts if t > 0); return [dx * t, spring + dy * t]
+    corners = [[ow / 2, top], [-ow / 2, top]]
+    for i in range(n):
+        a0, a1 = np.pi * i / n, np.pi * (i + 1) / n
+        pts = [[r * np.cos(a0), spring + r * np.sin(a0)], [r * np.cos(a1), spring + r * np.sin(a1)], outer(a0), outer(a1)]
+        pts += [c for c in corners if np.arctan2(c[1] - spring, c[0]) > a0 + 1e-6 and np.arctan2(c[1] - spring, c[0]) < a1 - 1e-6]
+        P = np.array([[x, y, z] for x, y in pts for z in (-d / 2, d / 2)])
+        parts.append(trimesh.convex.convex_hull(P))
+    return trimesh.util.concatenate(parts)
+
+
+def battlement(w, h, d, o):
+    """Merlons round the top edge of a w x d footprint (outer faces flush with the footprint)."""
+    t = o.get("thickness", 0.5); mw = o.get("merlon", 0.8); parts = []
+    for L, along_x, off in ((w, True, d / 2 - t / 2), (w, True, -d / 2 + t / 2), (d - 2 * t, False, w / 2 - t / 2), (d - 2 * t, False, -w / 2 + t / 2)):
+        n = max(2, int(round(L / (2 * mw))))
+        for i in range(n):
+            c = -L / 2 + (i + 0.5) * L / n
+            parts.append(_box(mw, h, t, c, 0, off) if along_x else _box(t, h, mw, off, 0, c))
+    return trimesh.util.concatenate(parts)
+
+
+def wedge(w, h, d, o):
+    return trimesh.convex.convex_hull(np.array([[-w / 2, 0, -d / 2], [w / 2, 0, -d / 2], [-w / 2, 0, d / 2], [w / 2, 0, d / 2], [-w / 2, h, -d / 2], [w / 2, h, -d / 2]]))
+
+
+SHAPES = dict(railing=railing, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
+              hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge)
 
 
 def make(o, bevel=0.0):

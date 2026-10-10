@@ -20,8 +20,18 @@ Commands:
                                       background layers by id/glob: background.Mountains_Far.height=[120,240]
                                       background.Factory_*.detail=3  (env alone: list layers + current sky)
   fx <id> key=value ...               edit an effect;  fx-add '<json>';  fx-remove <id>
+  connect <A> <B> [kind] [width]      bridge / ramp / stairs between two walkable areas or platforms (Stage 7; kind auto|bridge|
+                                      catwalk|ramp|stairs), placed between their facing edges, slope from config/gameplay.json
+  apply '<json list>' | ops.json      several structured edits in one go (schema-checked, see OPS below), one rebuild
   undo                                restore the state before the last edit (snapshots in levels/<name>/.history/)
   history                             list recent edits
+Every edit is checked (checks.schema: names, parents, transforms, materials, references) before it is saved; an edit
+that would break the level is refused with the reasons and nothing changes.
+OPS (apply): {"op":"resize","target":"Platform_North","scale":[2,1,1]}  {"op":"move","target":..,"delta":[x,y,z]}
+  {"op":"set","target":..,"values":{"size.0":12}}  {"op":"material","target":..,"material":..}  {"op":"mat","name":..,"values":{..}}
+  {"op":"remove","target":..}  {"op":"duplicate","source":..,"name":..,"offset":[x,y,z]}  {"op":"rename","old":..,"new":..}
+  {"op":"add","object":{..}}  {"op":"prefab","prefab":..,"args":{..}}  {"op":"env","values":{"sky.preset":"alien"}}
+  {"op":"fx","id":..,"values":{..}}  {"op":"fx-add","effect":{..}}  {"op":"fx-remove","id":..}  {"op":"connect","from":..,"to":..,"kind":"auto","width":4}
 Rebuild: environment-only edits -> environment + effects + mobile; effects-only -> effects + mobile; otherwise the full
 build (level.glb, environment, effects, mobile). --no-build skips it, --validate runs the camera validator afterwards.
 """
@@ -202,12 +212,86 @@ def edit(d, cmd, args):
             if e is None: raise SystemExit(f"no effect '{args[0]}': {[x['id'] for x in fx]}")
             for kv in args[1:]: k, v = kv.split("=", 1); setpath(e, k, val(v))
         msg.append("effects " + " ".join(args[:1]))
+    elif cmd == "connect":
+        msg += connect(L, args[0], args[1], args[2] if len(args) > 2 else "auto", float(args[3]) if len(args) > 3 else None)
     else:
         raise SystemExit(__doc__)
+    problems = [i["message"] for i in _schema_errors(L)]
+    if problems: raise SystemExit("edit refused (level would be invalid):\n  " + "\n  ".join(problems[:12]))
     snapshot(d, before, cmd + " " + " ".join(args)); save(d, L)
     print("changed:", ", ".join(msg[:12]) + (f" (+{len(msg) - 12} more)" if len(msg) > 12 else ""))
     scope = "env" if cmd == "env" else "fx" if cmd.startswith("fx") else "full"
     return (scope, before, L)
+
+
+def _schema_errors(L):
+    from checks import schema
+    I = []; schema(L, I); return [i for i in I if i["severity"] == "error"]
+
+
+def _area(L, name):
+    """Walkable area (generator rect) or an object's footprint -> pseudo platform {id, center, size, top, shape}."""
+    w = next((w for w in L.get("walkable", []) if w.get("name") == name), None)
+    if w: return dict(id=name, center=[(w["min"][0] + w["max"][0]) / 2, (w["min"][1] + w["max"][1]) / 2], size=[w["max"][0] - w["min"][0], w["max"][1] - w["min"][1]], top=w["y"], shape="rect")
+    from checks import world_positions
+    by = {o["name"]: o for o in L["objects"]}
+    if name not in by: raise SystemExit(f"connect: no walkable area or object '{name}' (areas: {[w.get('name') for w in L.get('walkable', [])][:20]})")
+    o = by[name]; kids = [k for k in by.values() if k.get("parent") == name and k.get("size")] if o["type"] == "group" else [o]
+    wp = world_positions(L); xs, zs, ys, ws, ds = [], [], [], [], []
+    for k in kids:
+        p = wp[k["name"]]; xs.append(p[0]); zs.append(p[2]); ys.append(p[1] + k["size"][1]); ws.append(k["size"][0]); ds.append(k["size"][2])
+    return dict(id=name, center=[sum(xs) / len(xs), sum(zs) / len(zs)], size=[max(ws), max(ds)], top=max(ys), shape="rect")
+
+
+def connect(L, a, b, kind="auto", width=None):
+    """Adds a connection (architecture.connection) between two areas; missing role materials are added from the theme."""
+    import architecture as A
+    from gameplay import load_gameplay
+    pa, pb = _area(L, a), _area(L, b); G = load_gameplay(None, L)
+    theme = L.get("generator", {}).get("theme", "industrial"); spec = dict(theme=theme, detail=L.get("generator", {}).get("detail", "medium"), materials={"variation": False})
+    ctx = A.Ctx(spec, G); ctx.names = {o["name"] for o in L["objects"]}; cid = f"Link_{a}_{b}"
+    ctx.element = (cid, "inferred")
+    fy = min([o["size"][1] for o in L["objects"] if o["name"] in L.get("hazards", [])] or [0.0])
+    c = dict(id=cid, kind=kind, **({"width": width} if width else {}))
+    A.connection(ctx, c, pa, pb, fy)
+    if not ctx.objects: raise SystemExit(f"connect: nothing to add ({'; '.join(ctx.notes) or 'areas touch'})")
+    for r in ctx.roles:
+        if r not in L["materials"]: L["materials"][r] = A.role_material(theme if theme in A.THEMES else "industrial", r)
+    L["objects"] += ctx.objects; L.setdefault("walkable", []).extend(w for w in ctx.walkable)
+    return [o["name"] for o in ctx.objects] + ctx.notes
+
+
+OPS = {"set": (["target", "values"], lambda o: [o["target"]] + [f"{k}={json.dumps(v)}" for k, v in o["values"].items()]),
+       "move": (["target", "delta"], lambda o: [o["target"]] + [str(v) for v in o["delta"]]),
+       "resize": (["target", "scale"], lambda o: [o["target"]] + [str(v) for v in o["scale"]]),
+       "material": (["target", "material"], lambda o: [o["target"], o["material"]]),
+       "mat": (["name", "values"], lambda o: [o["name"]] + [f"{k}={json.dumps(v)}" for k, v in o["values"].items()]),
+       "remove": (["target"], lambda o: [o["target"]]),
+       "duplicate": (["source", "name"], lambda o: [o["source"], o["name"]] + [str(v) for v in o.get("offset", [0, 0, 0])]),
+       "rename": (["old", "new"], lambda o: [o["old"], o["new"]]),
+       "add": (["object"], lambda o: [json.dumps(o["object"])]),
+       "prefab": (["prefab", "args"], lambda o: [o["prefab"], json.dumps(o["args"])]),
+       "env": (["values"], lambda o: [f"{k}={json.dumps(v)}" for k, v in o["values"].items()]),
+       "fx": (["id", "values"], lambda o: [o["id"]] + [f"{k}={json.dumps(v)}" for k, v in o["values"].items()]),
+       "fx-add": (["effect"], lambda o: [json.dumps(o["effect"])]),
+       "fx-remove": (["id"], lambda o: [o["id"]]),
+       "connect": (["from", "to"], lambda o: [o["from"], o["to"], o.get("kind", "auto")] + ([str(o["width"])] if o.get("width") else []))}
+
+
+def apply_ops(d, ops):
+    """Validate every op first (nothing changes if one is malformed), then apply in order; returns the rebuild scope."""
+    errs = []
+    if not isinstance(ops, list): raise SystemExit("apply: expected a JSON list of ops")
+    for i, o in enumerate(ops):
+        if not isinstance(o, dict) or o.get("op") not in OPS: errs.append(f"ops[{i}]: unknown op {o.get('op') if isinstance(o, dict) else o!r}; known: {sorted(OPS)}"); continue
+        miss = [k for k in OPS[o["op"]][0] if k not in o]
+        if miss: errs.append(f"ops[{i}] ({o['op']}): missing {miss}")
+    if errs: raise SystemExit("apply refused:\n  " + "\n  ".join(errs))
+    scopes = []
+    for o in ops:
+        r = edit(d, o["op"], OPS[o["op"]][1](o))
+        if r: scopes.append(r[0])
+    return "full" if "full" in scopes else "env" if "env" in scopes else "fx" if scopes else None
 
 
 def rebuild(d, scope):
@@ -225,7 +309,10 @@ def rebuild(d, scope):
 if __name__ == "__main__":
     a = [x for x in sys.argv[1:] if not x.startswith("--")]
     if len(a) < 2: raise SystemExit(__doc__)
-    r = edit(a[0], a[1], a[2:])
-    if r and "--no-build" not in sys.argv:
+    if a[1] == "apply":
+        src = a[2]; ops = json.load(open(src)) if os.path.exists(src) else json.loads(src)
+        sc = apply_ops(a[0], ops); r = (sc,) if sc else None
+    else: r = edit(a[0], a[1], a[2:])
+    if r and r[0] and "--no-build" not in sys.argv:
         rebuild(a[0], r[0])
         if "--validate" in sys.argv: subprocess.run([sys.executable, os.path.join(HERE, "validate_level.py"), a[0]])
