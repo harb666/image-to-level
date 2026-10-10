@@ -39,7 +39,10 @@ SCHEMA = {
                                      to=(V2, False), inner=(V2, False), notes=(STR, False), **{"from": (V2, False)})),
     "pipes": (LIST, False, dict(ELEMENT, id=(STR, True), kind=(STR, False, ("outlet", "run")), wall=(STR, False, ("north", "south", "east", "west", "ne", "nw", "se", "sw")),
                                 at=(NUM, False), position=(LIST, False), yaw=(NUM, False), y=(NUM, False), radius=(NUM, False), length=(NUM, False), pour=(BOOL, False),
-                                pour_material=(STR, False), points=(LIST, False), notes=(STR, False))),
+                                pour_material=(STR, False), points=(LIST, False), notes=(STR, False), width=(NUM, False),
+                                outlet=(STR, False, ("circle", "drain", "spillway", "vertical", "broken")))),
+    "terrain": (LIST, False, dict(ELEMENT, id=(STR, True), area=(("vec", 4), True), height=(V2, False), cell=(NUM, False), seed=(INT, False),
+                                  material=(STR, False), top_material=(STR, False), walkable=(BOOL, False), notes=(STR, False))),
     "hazards": (LIST, False, dict(ELEMENT, id=(STR, True), area=(("vec", 4), True), y=(NUM, True), material=(STR, False))),
     "materials": (DICT, False, {"variation": (BOOL, False), "roles": (DICT, False)}),
     "atmosphere": (DICT, False, {"sky": (STR, False), "sky_overrides": (DICT, False), "fog_start": (NUM, False), "fog_end": (NUM, False), "height_fog": (DICT, False),
@@ -100,7 +103,7 @@ def validate(spec):
     if E: return E, W
     if spec.get("theme", "industrial") not in THEMES: E.append(f"spec.theme: '{spec['theme']}' not one of {list(THEMES)}")
     ids = {}
-    for sec in ("platforms", "connections", "structures", "pipes", "hazards"):
+    for sec in ("platforms", "connections", "structures", "pipes", "hazards", "terrain"):
         for i, it in enumerate(spec.get(sec, [])):
             if it["id"] in ids: E.append(f"spec.{sec}[{i}].id: '{it['id']}' already used by {ids[it['id']]}")
             ids[it["id"]] = f"{sec}[{i}]"

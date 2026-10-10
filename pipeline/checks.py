@@ -18,8 +18,9 @@ import json, math, os, sys
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-TYPES = {"group", "box", "cylinder", "panel", "spire", "roof", "ramp", "stairs", "terrain", "boundary", "railing", "ibeam", "rock", "cliff",
-         "arch", "pipe_elbow", "vent", "tank", "machinery", "hip_roof", "round_arch", "battlement", "wedge"}
+sys.path.insert(0, HERE)
+import shapes as _shapes
+TYPES = {"group", "box", "cylinder", "panel", "spire", "roof", "ramp", "stairs", "terrain", "boundary"} | set(_shapes.SHAPES)  # every builder type
 SEV = {"error": 0, "warning": 1, "info": 2}
 
 
@@ -84,6 +85,8 @@ def schema(L, I):
             if gl and not any(fnmatch.fnmatch(n, g) for n in by for g in ([gl] if isinstance(gl, str) else gl)):
                 I.append(dict(kind="missing_reference", severity="warning", object=e["id"], message=f"effect {e['id']}: {k} matches no object"))
         if e.get("target_material") and e["target_material"] not in L.get("materials", {}): I.append(dict(kind="missing_reference", severity="warning", object=e["id"], message=f"effect {e['id']}: material '{e['target_material']}' not defined"))
+    from anchors import validate_relations  # Stage 8 scene graph: types, objects and anchors must exist
+    for e in validate_relations(L): I.append(dict(kind="relation", severity="error", message=e))
     if not L.get("spawn") or len(L["spawn"].get("position", [])) != 3: I.append(dict(kind="missing_spawn", severity="error", message="level.json has no valid spawn"))
     seen = {}
     for n, o in by.items():  # exact duplicates (same type/size/material at the same world spot): z-fighting + wasted triangles
@@ -166,6 +169,12 @@ def run(d, fast=False, verbose=True):
     if not any(i["kind"] in ("missing_asset", "broken_asset") and i["object"] == "level.glb" for i in I):
         R["complexity"] = complexity(d, L, G, I, wp); R["performance"] = performance(d, L, G, I)
         N = analyse(d, G, verbose=False); I += N["issues"]
+        import geometry_check  # Stage 8: physical coherence (connections, supports, outlets, liquids, overlaps, openings, collision)
+        GR = geometry_check.run(d, verbose=False); R["geometry"] = dict(counts=GR["counts"], relations=GR["relations"], repairable=GR["repairable"], passed=GR["passed"])
+        for f in GR["findings"]:
+            if f["cls"] == "INTENTIONAL" or f["check"] == "spawn": continue
+            I.append(dict(kind="geo_" + f["check"], severity="error" if f["cls"] == "ERROR" else "warning", object=(f["objects"] or [None])[0], pos=f["pos"],
+                          message=f["message"] + (" [auto-repairable]" if f["repair"] and not f["ambiguous"] else "")))
         R["navigation"] = {k: N[k] for k in ("standable_area_m2", "reachable_area_m2", "components", "spawns", "intended_areas", "narrow_connectors", "passed")}
         if not fast:
             from validate_level import validate
@@ -202,7 +211,8 @@ def markdown(R):
            f"| draw calls (measured) | {dv.get('draw_calls')} | {m.get('draw_calls')} |", f"| visible draw calls (estimate) | - | {m.get('visible_draw_calls_est')} |",
            f"| GPU texture MB (estimate) | {dv.get('tex_mem_gpu_mb_est')} | {m.get('tex_mem_gpu_mb_est')} |", "",
            f"Navigation: reachable {n.get('reachable_area_m2')} of {n.get('standable_area_m2')} m² standable; components {n.get('components')}.",
-           f"Camera: {c.get('cameras', '-')} cameras, void rays {c.get('void_rays', '-')}, back faces {len(c.get('back_face', {})) if c else '-'}.", "", "## Issues (highest impact first)"]
+           f"Camera: {c.get('cameras', '-')} cameras, void rays {c.get('void_rays', '-')}, back faces {len(c.get('back_face', {})) if c else '-'}.",
+           f"Geometry: {R.get('geometry', {}).get('counts')} (checks/geometry.md)", "", "## Issues (highest impact first)"]
     out += [f"- **{i['severity']}** {i['message']}" for i in R["issues"][:40]] or ["- none"]
     out += ["", "Estimates are not device benchmarks; renders are the browser preview, not Godot."]
     return "\n".join(out) + "\n"

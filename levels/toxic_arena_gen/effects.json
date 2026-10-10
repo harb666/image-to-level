@@ -1,6 +1,208 @@
 {
  "generated_by": "image-to-level Stage 4 (pipeline/effects.py)",
  "default_quality": "balanced",
+ "fluid_attachments": [
+  {
+   "stream": "Pipe_NE_Fall",
+   "source_object": "Pipe_NE",
+   "outlet_pos": [
+    28.222,
+    10.0,
+    -28.222
+   ],
+   "outlet_dir": [
+    -0.707,
+    0.0,
+    0.707
+   ],
+   "outlet_diameter": 3.0,
+   "section": "circle",
+   "stream_width": 2.58,
+   "initial_speed": 1.95,
+   "impact_pos": [
+    26.323,
+    0.7,
+    -26.323
+   ],
+   "receiving": "HazardFluid",
+   "hazard": true
+  },
+  {
+   "stream": "Pipe_NW_Fall",
+   "source_object": "Pipe_NW",
+   "outlet_pos": [
+    -28.222,
+    10.0,
+    -28.222
+   ],
+   "outlet_dir": [
+    0.707,
+    0.0,
+    0.707
+   ],
+   "outlet_diameter": 3.0,
+   "section": "circle",
+   "stream_width": 2.58,
+   "initial_speed": 1.95,
+   "impact_pos": [
+    -26.323,
+    0.7,
+    -26.323
+   ],
+   "receiving": "HazardFluid",
+   "hazard": true
+  },
+  {
+   "stream": "Pipe_SE_Fall",
+   "source_object": "Pipe_SE",
+   "outlet_pos": [
+    28.222,
+    10.0,
+    28.222
+   ],
+   "outlet_dir": [
+    -0.707,
+    0.0,
+    -0.707
+   ],
+   "outlet_diameter": 3.0,
+   "section": "circle",
+   "stream_width": 2.58,
+   "initial_speed": 1.95,
+   "impact_pos": [
+    26.323,
+    0.7,
+    26.323
+   ],
+   "receiving": "HazardFluid",
+   "hazard": true
+  },
+  {
+   "stream": "Pipe_SW_Fall",
+   "source_object": "Pipe_SW",
+   "outlet_pos": [
+    -28.222,
+    10.0,
+    28.222
+   ],
+   "outlet_dir": [
+    0.707,
+    0.0,
+    -0.707
+   ],
+   "outlet_diameter": 3.0,
+   "section": "circle",
+   "stream_width": 2.58,
+   "initial_speed": 1.95,
+   "impact_pos": [
+    -26.323,
+    0.7,
+    26.323
+   ],
+   "receiving": "HazardFluid",
+   "hazard": true
+  },
+  {
+   "stream": "Pipe_North_Fall",
+   "source_object": "Pipe_North",
+   "outlet_pos": [
+    13.0,
+    10.5,
+    -30.0
+   ],
+   "outlet_dir": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "outlet_diameter": 2.4,
+   "section": "circle",
+   "stream_width": 2.064,
+   "initial_speed": 1.8,
+   "impact_pos": [
+    13.0,
+    0.7,
+    -27.456
+   ],
+   "receiving": "HazardFluid",
+   "hazard": true
+  },
+  {
+   "stream": "Pipe_South_Fall",
+   "source_object": "Pipe_South",
+   "outlet_pos": [
+    -13.0,
+    10.5,
+    30.0
+   ],
+   "outlet_dir": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "outlet_diameter": 2.4,
+   "section": "circle",
+   "stream_width": 2.064,
+   "initial_speed": 1.8,
+   "impact_pos": [
+    -13.0,
+    0.7,
+    27.456
+   ],
+   "receiving": "HazardFluid",
+   "hazard": true
+  },
+  {
+   "stream": "Pipe_East_Fall",
+   "source_object": "Pipe_East",
+   "outlet_pos": [
+    30.0,
+    10.5,
+    -13.0
+   ],
+   "outlet_dir": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "outlet_diameter": 2.4,
+   "section": "circle",
+   "stream_width": 2.064,
+   "initial_speed": 1.8,
+   "impact_pos": [
+    27.456,
+    0.7,
+    -13.0
+   ],
+   "receiving": "HazardFluid",
+   "hazard": true
+  },
+  {
+   "stream": "Pipe_West_Fall",
+   "source_object": "Pipe_West",
+   "outlet_pos": [
+    -30.0,
+    10.5,
+    13.0
+   ],
+   "outlet_dir": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "outlet_diameter": 2.4,
+   "section": "circle",
+   "stream_width": 2.064,
+   "initial_speed": 1.8,
+   "impact_pos": [
+    -27.456,
+    0.7,
+    13.0
+   ],
+   "receiving": "HazardFluid",
+   "hazard": true
+  }
+ ],
  "note": "GLB holds only static appearance. Recreate these at runtime (fx/godot/apply_effects.gd is an untested starter). Costs are estimates: particles alive, emitters, extra draw calls, transparent overdraw area.",
  "textures": {
   "puff": "fx/puff.png",
@@ -357,74 +559,74 @@
    "emitters": [
     {
      "pos": [
-      29.4,
+      27.46,
       1.0,
       -13.0
      ],
-     "radius": 1.68,
+     "radius": 1.63,
      "of": "Pipe_East_Fall"
     },
     {
      "pos": [
-      26.8,
+      26.32,
       1.0,
-      -26.8
+      -26.32
      ],
-     "radius": 2.3,
+     "radius": 1.89,
      "of": "Pipe_NE_Fall"
     },
     {
      "pos": [
-      -26.8,
+      -26.32,
       1.0,
-      -26.8
+      -26.32
      ],
-     "radius": 2.3,
+     "radius": 1.89,
      "of": "Pipe_NW_Fall"
     },
     {
      "pos": [
       13.0,
       1.0,
-      -29.4
+      -27.46
      ],
-     "radius": 1.68,
+     "radius": 1.63,
      "of": "Pipe_North_Fall"
     },
     {
      "pos": [
-      26.8,
+      26.32,
       1.0,
-      26.8
+      26.32
      ],
-     "radius": 2.3,
+     "radius": 1.89,
      "of": "Pipe_SE_Fall"
     },
     {
      "pos": [
-      -26.8,
+      -26.32,
       1.0,
-      26.8
+      26.32
      ],
-     "radius": 2.3,
+     "radius": 1.89,
      "of": "Pipe_SW_Fall"
     },
     {
      "pos": [
       -13.0,
       1.0,
-      29.4
+      27.46
      ],
-     "radius": 1.68,
+     "radius": 1.63,
      "of": "Pipe_South_Fall"
     },
     {
      "pos": [
-      -29.4,
+      -27.46,
       1.0,
       13.0
      ],
-     "radius": 1.68,
+     "radius": 1.63,
      "of": "Pipe_West_Fall"
     }
    ],
@@ -534,74 +736,74 @@
    "emitters": [
     {
      "pos": [
-      29.4,
+      27.46,
       1.0,
       -13.0
      ],
-     "radius": 1.68,
+     "radius": 1.63,
      "of": "Pipe_East_Fall"
     },
     {
      "pos": [
-      26.8,
+      26.32,
       1.0,
-      -26.8
+      -26.32
      ],
-     "radius": 2.3,
+     "radius": 1.89,
      "of": "Pipe_NE_Fall"
     },
     {
      "pos": [
-      -26.8,
+      -26.32,
       1.0,
-      -26.8
+      -26.32
      ],
-     "radius": 2.3,
+     "radius": 1.89,
      "of": "Pipe_NW_Fall"
     },
     {
      "pos": [
       13.0,
       1.0,
-      -29.4
+      -27.46
      ],
-     "radius": 1.68,
+     "radius": 1.63,
      "of": "Pipe_North_Fall"
     },
     {
      "pos": [
-      26.8,
+      26.32,
       1.0,
-      26.8
+      26.32
      ],
-     "radius": 2.3,
+     "radius": 1.89,
      "of": "Pipe_SE_Fall"
     },
     {
      "pos": [
-      -26.8,
+      -26.32,
       1.0,
-      26.8
+      26.32
      ],
-     "radius": 2.3,
+     "radius": 1.89,
      "of": "Pipe_SW_Fall"
     },
     {
      "pos": [
       -13.0,
       1.0,
-      29.4
+      27.46
      ],
-     "radius": 1.68,
+     "radius": 1.63,
      "of": "Pipe_South_Fall"
     },
     {
      "pos": [
-      -29.4,
+      -27.46,
       1.0,
       13.0
      ],
-     "radius": 1.68,
+     "radius": 1.63,
      "of": "Pipe_West_Fall"
     }
    ],

@@ -1,0 +1,223 @@
+{
+ "level": "test_primitives",
+ "counts": {
+  "ERROR": 3,
+  "WARNING": 6,
+  "INTENTIONAL": 0
+ },
+ "relations": {
+  "explicit": 0,
+  "inferred": 4
+ },
+ "repairable": 6,
+ "findings": [
+  {
+   "check": "support",
+   "cls": "ERROR",
+   "objects": [
+    "Pipe_South"
+   ],
+   "message": "Pipe_South is not supported or attached (0.43 m above Yard_Floor)",
+   "pos": [
+    -1.0,
+    3.35,
+    19.0
+   ],
+   "measured": {
+    "hover": 0.43099999403953543
+   },
+   "repair": null,
+   "ambiguous": true,
+   "id": "support:000"
+  },
+  {
+   "check": "support",
+   "cls": "ERROR",
+   "objects": [
+    "Beam_Overhead"
+   ],
+   "message": "Beam_Overhead is not supported or attached (7.50 m above Yard_Floor)",
+   "pos": [
+    0.0,
+    7.85,
+    2.0
+   ],
+   "measured": {
+    "hover": 7.500999994039535
+   },
+   "repair": null,
+   "ambiguous": true,
+   "id": "support:001"
+  },
+  {
+   "check": "support",
+   "cls": "ERROR",
+   "objects": [
+    "Sign_01"
+   ],
+   "message": "Sign_01 is not supported or attached (1.00 m above Yard_Floor)",
+   "pos": [
+    4.0,
+    2.0,
+    2.0
+   ],
+   "measured": {
+    "hover": 1.0009999940395355
+   },
+   "repair": null,
+   "ambiguous": true,
+   "id": "support:002"
+  },
+  {
+   "check": "overlap",
+   "cls": "WARNING",
+   "objects": [
+    "Pipe_South_Flange_02a",
+    "Pipe_South_Seg_02"
+   ],
+   "message": "Pipe_South_Flange_02a and Pipe_South_Seg_02 share coplanar faces (2.88 m\u00b2, different materials): z-fighting flicker",
+   "pos": [
+    6.0,
+    1.32,
+    19.0
+   ],
+   "measured": {
+    "area_m2": 2.883
+   },
+   "repair": {
+    "action": "nudge",
+    "obj": "Pipe_South_Flange_02a",
+    "other": "Pipe_South_Seg_02",
+    "distance": 0.01
+   },
+   "ambiguous": false,
+   "id": "overlap:003"
+  },
+  {
+   "check": "overlap",
+   "cls": "WARNING",
+   "objects": [
+    "Pipe_South_Flange_03b",
+    "Pipe_South_Seg_03"
+   ],
+   "message": "Pipe_South_Flange_03b and Pipe_South_Seg_03 share coplanar faces (2.88 m\u00b2, different materials): z-fighting flicker",
+   "pos": [
+    15.88,
+    5.5,
+    19.0
+   ],
+   "measured": {
+    "area_m2": 2.883
+   },
+   "repair": {
+    "action": "nudge",
+    "obj": "Pipe_South_Flange_03b",
+    "other": "Pipe_South_Seg_03",
+    "distance": 0.01
+   },
+   "ambiguous": false,
+   "id": "overlap:004"
+  },
+  {
+   "check": "overlap",
+   "cls": "WARNING",
+   "objects": [
+    "Pipe_South_Flange_03a",
+    "Pipe_South_Seg_03"
+   ],
+   "message": "Pipe_South_Flange_03a and Pipe_South_Seg_03 share coplanar faces (2.88 m\u00b2, different materials): z-fighting flicker",
+   "pos": [
+    6.12,
+    5.5,
+    19.0
+   ],
+   "measured": {
+    "area_m2": 2.883
+   },
+   "repair": {
+    "action": "nudge",
+    "obj": "Pipe_South_Flange_03a",
+    "other": "Pipe_South_Seg_03",
+    "distance": 0.01
+   },
+   "ambiguous": false,
+   "id": "overlap:005"
+  },
+  {
+   "check": "overlap",
+   "cls": "WARNING",
+   "objects": [
+    "Pipe_South_Flange_02b",
+    "Pipe_South_Seg_02"
+   ],
+   "message": "Pipe_South_Flange_02b and Pipe_South_Seg_02 share coplanar faces (2.88 m\u00b2, different materials): z-fighting flicker",
+   "pos": [
+    6.0,
+    5.38,
+    19.0
+   ],
+   "measured": {
+    "area_m2": 2.883
+   },
+   "repair": {
+    "action": "nudge",
+    "obj": "Pipe_South_Flange_02b",
+    "other": "Pipe_South_Seg_02",
+    "distance": 0.01
+   },
+   "ambiguous": false,
+   "id": "overlap:006"
+  },
+  {
+   "check": "overlap",
+   "cls": "WARNING",
+   "objects": [
+    "Pipe_South_Flange_01b",
+    "Pipe_South_Seg_01"
+   ],
+   "message": "Pipe_South_Flange_01b and Pipe_South_Seg_01 share coplanar faces (2.88 m\u00b2, different materials): z-fighting flicker",
+   "pos": [
+    5.88,
+    1.2,
+    19.0
+   ],
+   "measured": {
+    "area_m2": 2.883
+   },
+   "repair": {
+    "action": "nudge",
+    "obj": "Pipe_South_Flange_01b",
+    "other": "Pipe_South_Seg_01",
+    "distance": 0.01
+   },
+   "ambiguous": false,
+   "id": "overlap:007"
+  },
+  {
+   "check": "overlap",
+   "cls": "WARNING",
+   "objects": [
+    "Pipe_South_Flange_01a",
+    "Pipe_South_Seg_01"
+   ],
+   "message": "Pipe_South_Flange_01a and Pipe_South_Seg_01 share coplanar faces (2.88 m\u00b2, different materials): z-fighting flicker",
+   "pos": [
+    -17.88,
+    1.2,
+    19.0
+   ],
+   "measured": {
+    "area_m2": 2.883
+   },
+   "repair": {
+    "action": "nudge",
+    "obj": "Pipe_South_Flange_01a",
+    "other": "Pipe_South_Seg_01",
+    "distance": 0.01
+   },
+   "ambiguous": false,
+   "id": "overlap:008"
+  }
+ ],
+ "passed": false
+}

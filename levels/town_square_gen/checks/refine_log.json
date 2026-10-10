@@ -3,18 +3,24 @@
   {
    "n": 1,
    "errors": 0,
-   "warnings": 0,
+   "warnings": 1,
    "top_errors": []
   }
  ],
  "max_passes": 3,
- "seconds": 198.5,
+ "seconds": 229.7,
  "passed": true,
  "counts": {
   "error": 0,
-  "warning": 0,
+  "warning": 1,
   "info": 0
  },
- "needs_claude": [],
- "visual_review": "checks/views/contact_sheet.jpg must be LOOKED AT by Claude and compared with the reference before calling the level done"
+ "needs_claude": [
+  {
+   "severity": "warning",
+   "message": "House_B1_Rail_20 and House_NW_Floor_2 share coplanar faces (0.22 m\u00b2, different materials): z-fighting flicker [auto-repairable]",
+   "object": "House_B1_Rail_20"
+  }
+ ],
+ "visual_review": "checks/views/contact_sheet.jpg + checks/inspect/contact_sheet.jpg must be LOOKED AT by Claude and compared with the reference before calling the level done"
 }

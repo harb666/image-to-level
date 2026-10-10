@@ -58,8 +58,8 @@ def pipe_run(name, points, radius=0.5, material="pf_pipe", junction="pf_metal"):
         rot = [round(90 - pitch, 2), round(yaw, 2), 0]  # cylinder (+y) rotated onto the segment direction
         o.append(_o(name=f"{name}_Seg_{i + 1:02d}", parent=name, type="cylinder", sections=10, material=material, position=list(a), rotation=rot, size=[2 * radius, round(L, 2), 2 * radius]))
         for j, p in enumerate((a, b)):
-            ft = 0.25; off = 0.0 if j == 0 else L - ft
-            fp = [p[k] + (d[k] / L) * (0 if j == 0 else -ft) for k in range(3)]
+            ft = 0.25  # flanges sit 1 cm inside the segment ends: no coplanar end discs (Stage 8)
+            fp = [p[k] + (d[k] / L) * (0.01 if j == 0 else -ft - 0.01) for k in range(3)]
             o.append(_o(name=f"{name}_Flange_{i + 1:02d}{'ab'[j]}", parent=name, type="cylinder", sections=10, material=junction, position=[round(v, 3) for v in fp], rotation=rot, size=[2 * radius * 1.3, ft, 2 * radius * 1.3]))
     for i, p in enumerate(points[1:-1]):
         o.append(_o(name=f"{name}_Junction_{i + 1:02d}", parent=name, type="box", material=junction, position=[p[0], p[1] - radius * 1.4, p[2]], size=[radius * 2.8] * 3))

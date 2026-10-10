@@ -59,6 +59,13 @@ refine loop (`checks.py`, safe automatic fixes, rebuild; at most `refine.max_pas
 views, writes the final report, the previews (`dist/<name>/preview.html` and `preview_mobile.html`) and the package
 (`dist/<name>/<name>.zip`), and finally `levels/<name>/checks/summary.md`.
 
+## 3b. Geometry (Stage 8, automatic inside refine)
+`checks/geometry.md` lists construction findings (ERROR / WARNING / INTENTIONAL); the safe ones are already repaired
+(`checks/repairs.json`, undoable). Look at `checks/inspect/contact_sheet.jpg` (junction / outlet / third-person
+close-ups) - a passing geometric test is not proof that it looks right. Ambiguous findings (a connector leading nowhere,
+cover in a landing, a big hover) are your call: fix with targeted edits or declare them intentional
+(`edit_level.py relate intentional_gap A B`).
+
 ## 4. Refine (Claude, bounded)
 
 1. **Look** at `levels/<name>/checks/views/contact_sheet.jpg`, plus individual views and `checks/navigation.png`

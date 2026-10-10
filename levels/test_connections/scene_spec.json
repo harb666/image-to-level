@@ -1,0 +1,264 @@
+{
+ "spec_version": 1,
+ "name": "test_connections",
+ "title": "Connection & outlet test yard (synthetic Stage 8 fixture)",
+ "theme": "industrial",
+ "detail": "medium",
+ "profile": "balanced",
+ "interpretation": {
+  "summary": "SYNTHETIC fixture (no reference image): one example of every Stage 8 construction rule - bridge junction, deliberate jump gap, elevated ramp, stairs to an octagon, round / drain / spillway / vertical / broken outlets into a pool, terrain island with grounded rocks and a tree.",
+  "visible": [
+   "n/a - synthetic"
+  ],
+  "inferred": [
+   "everything (test layout)"
+  ]
+ },
+ "arena": {
+  "shape": "rect",
+  "size": [
+   60,
+   40
+  ],
+  "center": [
+   0,
+   0
+  ],
+  "floor": {
+   "kind": "hazard",
+   "y": 0.5,
+   "name": "Pool"
+  },
+  "walls": {
+   "height": 10,
+   "thickness": 2,
+   "style": "industrial"
+  }
+ },
+ "terrain": [
+  {
+   "id": "Island",
+   "area": [
+    -30,
+    6,
+    -12,
+    20
+   ],
+   "height": [
+    0,
+    4
+   ],
+   "cell": 2.0,
+   "seed": 3,
+   "material": "rock",
+   "top_material": "foliage",
+   "walkable": false,
+   "notes": "scenery island in this fixture (a drop-down only area would be a one-way trap)"
+  }
+ ],
+ "platforms": [
+  {
+   "id": "P1_Start",
+   "center": [
+    -20,
+    0
+   ],
+   "size": [
+    8,
+    8
+   ],
+   "top": 4,
+   "cover": 1
+  },
+  {
+   "id": "P2_Bridged",
+   "center": [
+    -8,
+    0
+   ],
+   "size": [
+    8,
+    8
+   ],
+   "top": 4,
+   "cover": 1
+  },
+  {
+   "id": "P3_JumpTarget",
+   "center": [
+    3,
+    0
+   ],
+   "size": [
+    8,
+    8
+   ],
+   "top": 4,
+   "cover": 1
+  },
+  {
+   "id": "P4_RampTop",
+   "center": [
+    3,
+    -12.5
+   ],
+   "size": [
+    8,
+    5
+   ],
+   "top": 6.5
+  },
+  {
+   "id": "P5_Octagon",
+   "center": [
+    17,
+    0
+   ],
+   "shape": "octagon",
+   "size": [
+    10,
+    10
+   ],
+   "top": 7,
+   "cover": 2
+  }
+ ],
+ "connections": [
+  {
+   "id": "Bridge_P1_P2",
+   "from": "P1_Start",
+   "to": "P2_Bridged",
+   "kind": "bridge",
+   "width": 4
+  },
+  {
+   "id": "Gap_P2_P3",
+   "from": "P2_Bridged",
+   "to": "P3_JumpTarget",
+   "kind": "jump",
+   "notes": "deliberate 3 m jump challenge - must stay open"
+  },
+  {
+   "id": "Ramp_P3_P4",
+   "from": "P3_JumpTarget",
+   "to": "P4_RampTop",
+   "kind": "ramp",
+   "width": 4
+  },
+  {
+   "id": "Stairs_P3_P5",
+   "from": "P3_JumpTarget",
+   "to": "P5_Octagon",
+   "kind": "stairs",
+   "width": 3.5
+  }
+ ],
+ "structures": [
+  {
+   "id": "Rocks_A",
+   "kind": "rocks",
+   "position": [
+    -21,
+    13
+   ],
+   "radius": 3,
+   "count": 4
+  },
+  {
+   "id": "Tree_A",
+   "kind": "tree",
+   "position": [
+    -25,
+    16
+   ],
+   "size": [
+    4,
+    7,
+    4
+   ]
+  },
+  {
+   "id": "Tank_A",
+   "kind": "tank",
+   "position": [
+    -16,
+    15
+   ],
+   "size": [
+    2.4,
+    4,
+    2.4
+   ]
+  }
+ ],
+ "pipes": [
+  {
+   "id": "Out_Round",
+   "wall": "north",
+   "at": -20,
+   "y": 7,
+   "radius": 0.8,
+   "length": 4,
+   "outlet": "circle"
+  },
+  {
+   "id": "Out_Drain",
+   "wall": "north",
+   "at": -8,
+   "y": 3,
+   "radius": 0.8,
+   "length": 2,
+   "outlet": "drain",
+   "width": 1.6
+  },
+  {
+   "id": "Out_Spill",
+   "wall": "north",
+   "at": 14,
+   "y": 2.5,
+   "length": 2,
+   "outlet": "spillway",
+   "width": 5
+  },
+  {
+   "id": "Out_Vertical",
+   "position": [
+    29.5,
+    9,
+    12
+   ],
+   "radius": 0.5,
+   "length": 5,
+   "outlet": "vertical"
+  },
+  {
+   "id": "Out_Broken",
+   "wall": "south",
+   "at": 10,
+   "y": 5,
+   "radius": 0.7,
+   "length": 3,
+   "outlet": "broken"
+  }
+ ],
+ "atmosphere": {
+  "sky": "overcast",
+  "ambient": "none"
+ },
+ "background": {
+  "mountains": "far",
+  "factories": 0,
+  "skyline": false,
+  "spires": false
+ },
+ "effects": "auto",
+ "spawns": [
+  {
+   "id": "spawn",
+   "on": "P1_Start"
+  }
+ ],
+ "refine": {
+  "max_passes": 2
+ }
+}

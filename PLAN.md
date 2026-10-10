@@ -11,8 +11,9 @@ committed, then paused for approval.
 | 3 Geometry & camera completeness ✅ | bevelled/modular primitives (railings, catwalk, machinery, rocks), `validate_level.py`: sample camera-reachable viewpoints (3rd-person orbit), raycast for exposed backs/void/gaps, auto-fill with perimeter/skirt geometry, report | no exposed edges from any reachable camera |
 | 4 Effects metadata ✅ | `effects[]` in level.json (toxic flow, bubbles, steam, sparks, pulsing lights, fog) + viewer preview; export sidecar `effects.json` for Godot (GLB carries only static emissive) | Godot-recreatable VFX |
 | 5 Mobile performance ✅ | dev vs mobile export: merge static meshes by material (names kept in node extras/level.json), LOD for big objects, collision proxies, texture atlas for small emissive/decals, KTX2 if a free encoder is available (else rely on Godot VRAM compression) | fewer draw calls, measured budgets |
-| 7 Image → level generation & autonomous refinement ✅ | references.py (panels/plan/grid) → Claude writes scene_spec.json → generate.py: spec_to_level (architecture modules, role materials, auto environment/effects/spawns, edit-preserving regeneration) → build → refine loop (checks.py + navigation + camera, safe fixes, bounded) → headless renders → previews → Godot package | one command from interpretation to validated, packaged level |
 | 6 iPhone editing & preview ✅ | third-person + free camera + top-down, tap-to-identify object (name/material), screenshot button, quality toggle, edit-by-name helper | full phone workflow |
+| 7 Image → level generation & autonomous refinement ✅ | references.py (panels/plan/grid) → Claude writes scene_spec.json → generate.py: spec_to_level (architecture modules, role materials, auto environment/effects/spawns, edit-preserving regeneration) → build → refine loop (checks.py + navigation + camera, safe fixes, bounded) → headless renders → previews → Godot package | one command from interpretation to validated, packaged level |
+| 8 Intelligent geometry, connections & environment validation ✅ | anchors + relations scene graph, connection-aware construction rules (junction plates, flush ramps/stairs, no coplanar overlaps, cover clear of landings, party walls, grounded terrain props), liquid streams from real outlets (5 outlet types), geometry validator (ERROR/WARNING/INTENTIONAL), safe deterministic repair, inspection close-ups | physically coherent levels in any theme |
 
 Not possible on free CPU infra: real device GPU benchmarks (numbers are estimates), neural texture/sky generation at
 quality (procedural fallback instead).
@@ -72,3 +73,31 @@ quality (procedural fallback instead).
   generator now mounts pipe brackets on the wall.
 - Not verified here: Godot import (scripts/.tres untested), device performance (estimates only), Construct Error's real
   gameplay numbers (config placeholders).
+
+### Stage 8 milestones (implemented in order)
+1. Stream + channel shapes (liquid leaving an opening along a gravity arc; rectangular drain trough).
+2. Anchors + relations scene graph (`anchors.py`; explicit in generated levels, inferred for hand-made ones).
+3. Geometry validator (`geometry_check.py`): 11 check families, ERROR / WARNING / INTENTIONAL.
+4. Deterministic repair (`geometry_repair.py`), wired into refine.py and checks.py.
+5. Inspection close-ups (junctions per connector kind, outlets, third-person at junctions).
+6. Construction rules in the generator (junction plates, flush ramps/stairs, 1 cm under-floor overlaps, supports,
+   cover clear of landings, party walls, outlet types, embedded pipes, terrain + grounding).
+7. Synthetic fixture `levels/test_connections`, tests (`tests/test_stage8.py`), Toxic Arena regression repair, docs.
+
+## Stage 8 status
+- Toxic Arena (hand-made, regression): validator found 16 errors + 25 warnings (bridges meeting octagon CORNERS with
+  80% of the deck end unsupported, all 4 stair flights 1.7 m short of the walkway, 8 rectangular liquid blocks under
+  round pipes, ramp tops on corners, bridge/floor z-fighting, cover crates standing in ramp landings). 24 automatic
+  repairs (extend 4 bridges + 4 stairs + 4 ramps, 8 streams from the real pipe openings, 4 z-fight nudges) + 5 cover
+  crates moved off the landings by review -> 0 errors / 0 warnings; camera validation passed (void 0, back faces 0);
+  every walkable area reachable; hazards unchanged (HazardFluid + 8 fall hazard areas); layout unchanged otherwise.
+  Dev 390 -> 415 KB, 3,676 -> 5,180 tris; mobile 419 -> 460 KB, 3,364 -> 4,868 tris, 50 draw calls (unchanged),
+  est. ~39 visible (unchanged), ~3.9 MB GPU textures (unchanged), 92 colliders, 9 hazard areas.
+- Generated levels after the generator rules: toxic_arena_gen 0/0 (mobile 723 KB, 8.7k tris, 58 draws, est. ~44
+  visible), town_square_gen 0/0 after 1 nudge (175 hidden party-wall decorations removed; mobile 929 KB, 8.5k tris,
+  61 draws), test_connections 0 errors / 0 warnings / 1 INTENTIONAL (the deliberate 2.7 m jump, measured jumpable).
+- Tests: full suite 46 tests passing (Stages 1-8). Stage 8: 5 detect+repair cases (short bridge, stairs missing the landing, stream offset from its pipe, rectangular block
+  under a round pipe, hovering crate + undo), 7 generic rule cases (z-fight, blocked arch, railing in a landing, steep
+  ramp, liquid over a floor, terrain crack, bad relations), construction rules on the synthetic yard, arena regression.
+- Legacy levels still build unchanged; the validator reports real findings there (test yard demo props float, MiDaS
+  pagoda overhangs float, town_square spawn) - left for review, not auto-changed.

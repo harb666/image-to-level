@@ -110,18 +110,22 @@ class Ctx:
         self.objects, self.names, self.roles = [], set(), set(); self.walkable, self.hazards, self.pours = [], [], []
         self.detail = {"low": 0, "medium": 1, "high": 2}[spec.get("detail", "medium")]
         self.variation = spec.get("materials", {}).get("variation", True); self.notes = []; self.platforms = {}; self.element = None
+        self.relations, self.floor_of, self.landings, self.pending_covers = [], {}, [], []  # Stage 8: scene graph + deferred cover
 
     def role(self, r, key=None):
         if self.variation and r in VARIANT_ROLES and key and _h(key) % 2: r = r + "_v2"
         self.roles.add(r); return r
 
-    def add(self, name, typ, pos=(0, 0, 0), size=None, mat=None, parent=None, rot=(0, 0, 0), **kw):
+    def rel(self, type_, a, b, **kw):
+        self.relations.append(dict(type=type_, a=a, b=b, **kw))
+
+    def add(self, name, typ, pos=(0, 0, 0), size=None, mat=None, parent=None, rot=(0, 0, 0), vkey=None, **kw):
         base, k = name, 2
         while name in self.names: name = f"{base}_{k}"; k += 1
         o = dict(name=name, type=typ, position=[round(float(v), 3) for v in pos], rotation=[round(float(v), 2) for v in rot])
         if parent: o["parent"] = parent
         if size is not None: o["size"] = [round(max(float(v), 0.0), 3) for v in size]
-        if mat: o["material"] = self.role(mat, self.element[0] if self.element else name)
+        if mat: o["material"] = self.role(mat, vkey or (self.element[0] if self.element else name))
         o.update(kw)
         if self.element: o["gen"], o["source"] = self.element[0], self.element[1]
         self.names.add(name); self.objects.append(o); return name
@@ -139,28 +143,56 @@ def local(x, z, yaw):
 
 # ------------------------------------------------------------------ platforms
 def footprint_edge(p, dx, dz):
-    """Distance from a platform centre to its edge in direction (dx, dz) (unit)."""
-    w, d = p["size"]
-    if p.get("shape") == "circle": return min(w, d) / 2
-    if p.get("shape") == "octagon": a = min(w, d) / 2; return a / max(abs(dx), abs(dz), (abs(dx) + abs(dz)) / math.sqrt(2))
+    """Distance from a platform centre to the edge of its WALKING SURFACE (floor plate incl. overhang) in direction (dx, dz)."""
+    w, d = p["size"]; x = p.get("_plate", 0.0); w, d = w + x, d + x; R = min(w, d) / 2
+    if p.get("shape") in ("octagon", "circle"):  # regular polygon, circumradius R, flats facing the axes (rotated in _solid)
+        n = 8 if p.get("shape") == "octagon" else 24; k = math.pi / n; phi = math.atan2(dz, dx)
+        a = ((phi + k) % (2 * k)) - k; return R * math.cos(k) / math.cos(a)
     return min(w / 2 / max(abs(dx), 1e-9), d / 2 / max(abs(dz), 1e-9))
+
+
+def footprint_poly(p, inset=0.0):
+    """2D outline (world x, z) of a platform top, matching the built mesh (rect / octagon / circle rotated flats-to-axes)."""
+    (cx, cz), (w, d) = p["center"], p["size"]; x = p.get("_plate", 0.0); w, d = w + x, d + x
+    if p.get("shape") in ("octagon", "circle"):
+        n = 8 if p.get("shape") == "octagon" else 24; R = min(w, d) / 2 - inset / math.cos(math.pi / n)
+        return [(cx + R * math.cos(2 * math.pi * k / n + math.pi / n), cz + R * math.sin(2 * math.pi * k / n + math.pi / n)) for k in range(n)]
+    return [(cx - w / 2 + inset, cz - d / 2 + inset), (cx + w / 2 - inset, cz - d / 2 + inset), (cx + w / 2 - inset, cz + d / 2 - inset), (cx - w / 2 + inset, cz + d / 2 - inset)]
+
+
+def _inside(poly, x, z):
+    c = False
+    for (x1, z1), (x2, z2) in zip(poly, poly[1:] + poly[:1]):
+        if (z1 > z) != (z2 > z) and x < x1 + (z - z1) * (x2 - x1) / (z2 - z1): c = not c
+    return c
+
+
+def support_depth(p, e, t, width):
+    """How far a connector end at point e (heading into platform p along unit t) must reach so its whole width rests on
+    the platform: 0 for a flat edge, ~width/2 at a 45° corner. None if it never does within 2*width."""
+    poly = footprint_poly(p, 0.1); v = (-t[1], t[0])
+    for k in range(0, int(width * 40) + 1):
+        x = k * 0.05
+        if all(_inside(poly, e[0] + v[0] * s + t[0] * x, e[1] + v[1] * s + t[1] * x) for s in (-width / 2, 0, width / 2)): return x
+    return None
 
 
 def platform(ctx, p, base_y, centre):
     style = p.get("style") or ctx.theme["platform_style"]; return PLATFORM_STYLES[style](ctx, p, base_y, centre)
 
 
-def _solid(ctx, name, parent, shape, w, h, d, y, mat, extra=0.0):
+def _solid(ctx, name, parent, shape, w, h, d, y, mat, extra=0.0, vkey=None):
     if shape in ("octagon", "circle"):
-        return ctx.add(name, "cylinder", [0, y, 0], [w + extra, h, d + extra], mat, parent, sections=8 if shape == "octagon" else 24)
-    return ctx.add(name, "box", [0, y, 0], [w + extra, h, d + extra], mat, parent)
+        n = 8 if shape == "octagon" else 24  # rotated half a segment so flat faces (not corners) face the axes / bridges
+        return ctx.add(name, "cylinder", [0, y, 0], [w + extra, h, d + extra], mat, parent, rot=[0, 180 / n, 0], vkey=vkey, sections=n)
+    return ctx.add(name, "box", [0, y, 0], [w + extra, h, d + extra], mat, parent, vkey=vkey)
 
 
 def industrial_pillar(ctx, p, base_y, centre):
     n, (cx, cz), (w, d), top, shape = p["id"], p["center"], p["size"], p["top"], p.get("shape", "rect")
     g = ctx.add(n, "group", [cx, 0, cz]); h = max(0.3, top - 0.3 - base_y)
     _solid(ctx, n + "_Base", g, shape, w, h, d, base_y, "structure")
-    _solid(ctx, n + "_Floor", g, shape, w, 0.3, d, top - 0.3, "deck", 0.3)
+    ctx.floor_of[n] = _solid(ctx, n + "_Floor", g, shape, w, 0.3, d, top - 0.3, "deck", 0.3, vkey=f"floor@{top:.2f}"); p["_plate"] = 0.3
     if h > 1.6: _solid(ctx, n + "_Trim", g, shape, w, 0.6, d, top - 1.1, "trim", 0.5)
     tx, tz = centre[0] - cx, centre[1] - cz; L = math.hypot(tx, tz) or 1.0
     if shape == "rect" and ctx.detail >= 1 and h > 3:  # corner ribs break up the box silhouette
@@ -186,7 +218,7 @@ def stone_plinth(ctx, p, base_y, centre):
     n, (cx, cz), (w, d), top, shape = p["id"], p["center"], p["size"], p["top"], p.get("shape", "rect")
     g = ctx.add(n, "group", [cx, 0, cz]); h = max(0.3, top - 0.4 - base_y)
     _solid(ctx, n + "_Base", g, shape, w, h, d, base_y, "structure")
-    _solid(ctx, n + "_Cap", g, shape, w, 0.4, d, top - 0.4, "deck", 0.3)
+    ctx.floor_of[n] = _solid(ctx, n + "_Cap", g, shape, w, 0.4, d, top - 0.4, "deck", 0.3, vkey=f"floor@{top:.2f}"); p["_plate"] = 0.3
     if h > 1.5 and ctx.detail >= 1: _solid(ctx, n + "_Plinth", g, shape, w, 0.5, d, base_y, "trim", 0.4)
     _cover(ctx, p, g, top, "structure")
     ctx.walkable.append(_walk_rect(p, top))
@@ -194,16 +226,28 @@ def stone_plinth(ctx, p, base_y, centre):
 
 def plain(ctx, p, base_y, centre):
     n, (cx, cz), (w, d), top, shape = p["id"], p["center"], p["size"], p["top"], p.get("shape", "rect")
-    g = ctx.add(n, "group", [cx, 0, cz]); _solid(ctx, n + "_Base", g, shape, w, max(0.3, top - base_y), d, base_y, p.get("material", "deck"))
+    g = ctx.add(n, "group", [cx, 0, cz]); ctx.floor_of[n] = _solid(ctx, n + "_Base", g, shape, w, max(0.3, top - base_y), d, base_y, p.get("material", "deck"))
     _cover(ctx, p, g, top, "structure_b"); ctx.walkable.append(_walk_rect(p, top))
 
 
 def _cover(ctx, p, g, top, mat):
-    w, d = p["size"]; ch = ctx.G["design"]["cover_height"]
-    spots = [(-w / 4, -d / 4), (w / 4, d / 4), (w / 4, -d / 4), (-w / 4, d / 4)]
-    for k in range(min(int(p.get("cover", 0)), 4)):
-        cx, cz = spots[k]; s = 1.6 if k % 2 == 0 else 2.0
-        ctx.add(f"{p['id']}_Cover_{k + 1:02d}", "box", [round(cx, 2), top, round(cz, 2)], [s, ch, 1.2 if k % 2 else 1.6], mat, g)
+    ctx.pending_covers.append((p, g, top, mat, ctx.element))  # placed after connections so cover never blocks a landing
+
+
+def place_covers(ctx):
+    """Cover crates on platforms, avoiding connection landings, structures and edges (Stage 8)."""
+    for p, g, top, mat, el in ctx.pending_covers:
+        ctx.element = el; w, d = p["size"]; (pcx, pcz) = p["center"]; ch = ctx.G["design"]["cover_height"]; want = min(int(p.get("cover", 0)), 4)
+        spots = [(-w / 4, -d / 4), (w / 4, d / 4), (w / 4, -d / 4), (-w / 4, d / 4), (0, -d / 3), (0, d / 3), (-w / 3, 0), (w / 3, 0)]
+        spots += [(w * 0.33 * math.cos(math.radians(a)), d * 0.33 * math.sin(math.radians(a))) for a in (22.5, 202.5, 112.5, 292.5, 67.5, 247.5, 157.5, 337.5)]
+        k = 0
+        for sx, sz in spots:
+            if k >= want: break
+            wx, wz = pcx + sx, pcz + sz; s = 1.6 if k % 2 == 0 else 2.0
+            if any(math.hypot(wx - x, wz - z) < r + s / 2 + 0.4 for x, z, r in ctx.landings + getattr(ctx, "platform_blocks", [])): continue
+            if p.get("shape") in ("octagon", "circle") and math.hypot(sx, sz) > min(w, d) / 2 * 0.8: continue
+            ctx.add(f"{p['id']}_Cover_{k + 1:02d}", "box", [round(sx, 2), top, round(sz, 2)], [s, ch, 1.2 if k % 2 else 1.6], mat, g); k += 1
+        if k < want: ctx.notes.append(f"{p['id']}: {want - k} cover crate(s) dropped - no free spot clear of landings")
 
 
 def _walk_rect(p, top):
@@ -216,54 +260,88 @@ PLATFORM_STYLES = dict(industrial_pillar=industrial_pillar, stone_plinth=stone_p
 
 # ------------------------------------------------------------------ connections
 def connection(ctx, c, A, B, floor_y):
-    """Bridge / ramp / stairs between the facing edges of platforms A and B (any angle)."""
+    """Bridge / ramp / stairs between the facing edges of platforms A and B (any angle). Stage 8 construction rules:
+    exact polygon edges (octagon/circle flats), bridge decks 1 cm under the floors they overlap (no z-fighting),
+    ramps/stairs meet the upper floor flush AT its edge and start on / dip under the lower floor, elevated pieces get
+    supports, every end is recorded as a walkable_connection relation + landing (kept clear of cover)."""
     ax, az = A["center"]; bx, bz = B["center"]; dx, dz = bx - ax, bz - az; L = math.hypot(dx, dz) or 1.0; ux, uz = dx / L, dz / L
     ea, eb = footprint_edge(A, ux, uz), footprint_edge(B, -ux, -uz); gap = L - ea - eb
     lo, hi = (A, B) if A["top"] <= B["top"] else (B, A); dy = hi["top"] - lo["top"]
     P = ctx.G["player"]; kind = c.get("kind", "auto"); width = c.get("width", max(ctx.G["design"]["min_bridge_width"] + 0.5, 4.0))
+    smax = min(P["max_slope_deg"], 35)
     if kind == "auto":
-        kind = "bridge" if dy <= P["step_height"] else "ramp" if gap > 0 and math.degrees(math.atan2(dy, gap)) <= min(P["max_slope_deg"], 35) else "stairs"
+        kind = "bridge" if dy <= P["step_height"] else "ramp" if gap > 0 and math.degrees(math.atan2(dy, gap)) <= smax else "stairs"
+    fa, fb = ctx.floor_of.get(A["id"], A["id"]), ctx.floor_of.get(B["id"], B["id"])
     if kind == "jump":
+        ctx.rel("intentional_gap", A["id"], B["id"], note=f"jump link (gap {gap:.1f} m, dy {dy:.1f} m)", intentional=True)
         ctx.notes.append(f"{c['id']}: jump link {A['id']}->{B['id']} (gap {gap:.1f} m, dy {dy:.1f} m) - no geometry"); return
     if gap < 0.2 and kind in ("bridge", "catwalk"): return  # platforms touch
-    pa = (ax + ux * (ea - 0.3), az + uz * (ea - 0.3)); pb = (bx - ux * (eb - 0.3), bz - uz * (eb - 0.3)); span = math.hypot(pb[0] - pa[0], pb[1] - pa[1])
+    ov = 0.3; width_ = width
+    oa = max(ov, (support_depth(A, (ax + ux * ea, az + uz * ea), (-ux, -uz), width_) or 0) + 0.1)  # junction depth at corners / angled edges
+    ob = max(ov, (support_depth(B, (bx - ux * eb, bz - uz * eb), (ux, uz), width_) or 0) + 0.1)
+    pa = (ax + ux * (ea - oa), az + uz * (ea - oa)); pb = (bx - ux * (eb - ob), bz - uz * (eb - ob)); span = math.hypot(pb[0] - pa[0], pb[1] - pa[1])
     mid = ((pa[0] + pb[0]) / 2, (pa[1] + pb[1]) / 2)
+    edge = lambda p, t, e: (p["center"][0] + t[0] * e, p["center"][1] + t[1] * e)
     if kind in ("bridge", "catwalk"):
-        y = (A["top"] + B["top"]) / 2; yaw = yaw_to(ux, uz)
-        g = ctx.add(c["id"], "group", [mid[0], 0, mid[1]], rot=[0, yaw, 0])  # local +z along the bridge
-        ctx.add(c["id"] + "_Deck", "box", [0, y - 0.4, 0], [width, 0.4, span], "grate", g)
+        y = min(A["top"], B["top"]) - 0.01; yaw = yaw_to(ux, uz)  # 1 cm under the floors it overlaps: no coplanar flicker
+        g = ctx.add(c["id"], "group", [mid[0], 0, mid[1]], rot=[0, yaw, 0])  # local +z along the bridge (A -> B)
+        deck = ctx.add(c["id"] + "_Deck", "box", [0, y - 0.4, 0], [width, 0.4, span], "grate", g, connector=True, axis="z")
         for s, side in ((-1, "L"), (1, "R")):
-            ctx.add(f"{c['id']}_Beam_{side}", "ibeam", [s * (width / 2 - 0.15), y - 0.85, 0], [span, 0.45, 0.3], "frame", g, [0, 90, 0])
+            ctx.add(f"{c['id']}_Beam_{side}", "ibeam", [s * (width / 2 - 0.3), y - 0.855, (oa - ob) / 2], [max(0.5, span - oa - ob), 0.45, 0.3], "frame", g, [0, 90, 0])
             if c.get("rails", kind == "catwalk"):
-                ctx.add(f"{c['id']}_Rail_{side}", "railing", [s * (width / 2 - 0.05), y, 0], [span - 0.6, 1.05, 0.06], "rail", g, [0, 90, 0])
+                ctx.add(f"{c['id']}_Rail_{side}", "railing", [s * (width / 2 - 0.05), y, (oa - ob) / 2], [max(0.5, span - oa - ob - 0.6), 1.05, 0.06], "rail", g, [0, 90, 0])
         if span > 10 and y - floor_y > 1.5:
             n = max(1, int(span / 9))
             for i in range(n):
                 z = -span / 2 + span * (i + 1) / (n + 1)
-                ctx.add(f"{c['id']}_Support_{i + 1:02d}", "box", [0, floor_y, z], [width * 0.5, y - 0.85 - floor_y, 0.6], "frame", g)
+                sup = ctx.add(f"{c['id']}_Support_{i + 1:02d}", "box", [0, floor_y, z], [width * 0.4, y - 0.39 - floor_y, 0.6], "frame", g); ctx.rel("supported_by", deck, sup)
+        ctx.rel("walkable_connection", deck, fa, a_anchor="end_a"); ctx.rel("walkable_connection", deck, fb, a_anchor="end_b")
+        for p_, t in ((A, (ux, uz)), (B, (-ux, -uz))):
+            e = footprint_edge(p_, *t); ctx.landings.append((p_["center"][0] + t[0] * (e - 1.0), p_["center"][1] + t[1] * (e - 1.0), width / 2))
         if abs(ux) < 0.05 or abs(uz) < 0.05:
             hw, hl = (width / 2, span / 2) if abs(ux) < 0.05 else (span / 2, width / 2)
             ctx.walkable.append(dict(name=c["id"], min=[mid[0] - hw, mid[1] - hl], max=[mid[0] + hw, mid[1] + hl], y=y))
         return
-    # ramp / stairs: base at the lower platform's edge, rising towards the higher one
+    # ramp / stairs: the high end meets the upper floor exactly at its edge; the low end starts on (or dips under) the lower floor
     toward = (ux, uz) if lo is A else (-ux, -uz); yaw = yaw_to(*toward)
-    run = max(gap, dy / math.tan(math.radians(min(P["max_slope_deg"], 35))))  # ramps and stairs <= 35° (walkable with step_height)
-    hi_edge = pb if hi is B else pa; start = (hi_edge[0] - toward[0] * (run + 0.3), hi_edge[1] - toward[1] * (run + 0.3))
-    ctr = ((start[0] + hi_edge[0]) / 2, (start[1] + hi_edge[1]) / 2)
-    if lo["top"] - floor_y > 1.5 and kind == "ramp":  # elevated: sloped bridge (tilted grated deck + beams + supports), not a solid wedge
-        Ls = math.hypot(run + 0.3, dy); pitch = math.degrees(math.atan2(dy, run + 0.3)); ym = (lo["top"] + hi["top"]) / 2
+    e_hi = footprint_edge(hi, -toward[0], -toward[1]); e_lo = footprint_edge(lo, *toward)
+    hi_pt = edge(hi, (-toward[0], -toward[1]), e_hi - 0.05); lo_pt = edge(lo, toward, e_lo)
+    dy = dy - 0.01  # top meets the upper floor 1 cm under its surface: overlap without coplanar flicker
+    gap2 = math.hypot(hi_pt[0] - lo_pt[0], hi_pt[1] - lo_pt[1]); run = max(gap2, dy / math.tan(math.radians(smax)))
+    flo, fhi = ctx.floor_of.get(lo["id"], lo["id"]), ctx.floor_of.get(hi["id"], hi["id"])
+    if lo["top"] - floor_y > 1.5 and kind == "ramp":  # elevated: sloped bridge (tilted deck + beams + support), not a floating wedge
+        slope = dy / run; ext = ov if run <= gap2 + 1e-6 else 0.0  # dip under the lower floor plate when spanning the gap exactly
+        p0 = (hi_pt[0] - toward[0] * (run + ext), hi_pt[1] - toward[1] * (run + ext)); y0 = lo["top"] - ext * slope
+        Lh = run + ext; Ls = math.hypot(Lh, hi["top"] - y0); pitch = math.degrees(math.atan2(hi["top"] - y0, Lh))
+        ctr = ((p0[0] + hi_pt[0]) / 2, (p0[1] + hi_pt[1]) / 2); ym = (y0 + hi["top"]) / 2; t = 0.4
         g = ctx.add(c["id"], "group", [ctr[0], 0, ctr[1]], rot=[0, yaw, 0])
-        ctx.add(c["id"] + "_Deck", "box", [0, ym - 0.4, 0], [width, 0.4, Ls], "grate", g, [-pitch, 0, 0])
+        # box base-centred; rotating about its base centre: lift by t*cos so the TOP surface passes through the end points
+        deck = ctx.add(c["id"] + "_Deck", "box", [0, ym - t * math.cos(math.radians(pitch)), t * math.sin(math.radians(pitch))], [width, t, Ls], "grate", g, [-pitch, 0, 0], connector=True, axis="z")
         for s, side in ((-1, "L"), (1, "R")):
-            ctx.add(f"{c['id']}_Beam_{side}", "box", [s * (width / 2 - 0.15), ym - 0.85, 0], [0.3, 0.45, Ls], "frame", g, [-pitch, 0, 0])
+            ctx.add(f"{c['id']}_Beam_{side}", "box", [s * (width / 2 - 0.3), ym - 0.86, 0], [0.3, 0.45, Ls * 0.9], "frame", g, [-pitch, 0, 0])
             if c.get("rails"): ctx.add(f"{c['id']}_Rail_{side}", "railing", [s * (width / 2 - 0.05), ym, 0], [Ls - 0.6, 1.05, 0.06], "rail", g, [-pitch, 90, 0])
         if ym - floor_y > 1.5:
-            ctx.add(c["id"] + "_Support", "box", [0, floor_y, 0], [width * 0.5, ym - 0.9 - floor_y, 0.6], "frame", g)
-    else:
-        ctx.add(c["id"], kind if kind == "ramp" else "stairs", [ctr[0], lo["top"], ctr[1]], [width, dy, run + 0.3], "grate", rot=[0, yaw, 0])
-        if lo["top"] - floor_y > 1.5:  # elevated stairs: a support block underneath (no floating solid)
-            ctx.add(c["id"] + "_Support", "box", [ctr[0], floor_y, ctr[1]], [width * 0.6, lo["top"] - floor_y, (run + 0.3) * 0.5], "structure_b", rot=[0, yaw, 0])
-    if run > gap + 0.5: ctx.notes.append(f"{c['id']}: {kind} run {run:.1f} m > gap {gap:.1f} m - extends {run - gap:.1f} m onto {lo['id']}")
+            sup = ctx.add(c["id"] + "_Support", "box", [0, floor_y, 0], [width * 0.4, ym - t / math.cos(math.radians(pitch)) + 0.02 - floor_y, 0.6], "frame", g); ctx.rel("supported_by", deck, sup)
+        ends = {"lo": (deck, "end_a"), "hi": (deck, "end_b")}
+    else:  # solid ramp / stairs standing on the lower floor (+ a plinth down to the ground when raised)
+        lead = 0.3 if run <= gap2 + 1e-6 else 0.0
+        p0 = (hi_pt[0] - toward[0] * (run + lead), hi_pt[1] - toward[1] * (run + lead)); ctr = ((p0[0] + hi_pt[0]) / 2, (p0[1] + hi_pt[1]) / 2)
+        h_ = dy * (run + lead) / run  # keep the slope; the 0.3 m lead-in dips under the lower floor plate (hidden)
+        base = lo["top"] - (h_ - dy)
+        o = ctx.add(c["id"], kind if kind == "ramp" else "stairs", [ctr[0], base, ctr[1]], [width, h_, run + lead], "grate", rot=[0, yaw, 0], connector=True)
+        if base - floor_y > 0.05 and run <= gap2 + 1e-6:  # raised over a gap: a plinth underneath (no floating solid / open underside)
+            gc = ((lo_pt[0] + hi_pt[0]) / 2, (lo_pt[1] + hi_pt[1]) / 2)
+            sup = ctx.add(c["id"] + "_Support", "box", [gc[0], floor_y, gc[1]], [width * 0.9, base - floor_y + 0.02, max(0.5, gap2 - 0.2)], "structure_b", rot=[0, yaw, 0]); ctx.rel("supported_by", o, sup)
+        ends = {"lo": (o, "low"), "hi": (o, "high")}
+    for key, pl, pt, t, fl_, yy in (("hi", hi, hi_pt, toward, fhi, hi["top"]), ("lo", lo, lo_pt, (-toward[0], -toward[1]), flo, lo["top"])):
+        jd = support_depth(pl, pt, t, width); target = fl_
+        if jd and jd - 0.1 > 0.15:  # junction plate (support_depth includes the 0.1 m inset): flat piece at the floor height (1 cm under it) filling the corner gaps
+            jc = (pt[0] + t[0] * jd / 2, pt[1] + t[1] * jd / 2)
+            target = ctx.add(f"{c['id']}_Junction_{'Hi' if pl is hi else 'Lo'}", "box", [jc[0], yy - 0.41, jc[1]], [width, 0.4, jd + 0.1], "grate", rot=[0, yaw, 0], connector=False)
+            ctx.rel("supported_by", target, fl_); ctx.notes.append(f"{c['id']}: {jd:.2f} m junction plate where it meets {pl['id']}'s {'corner' if jd > width / 3 else 'angled edge'}")
+        ctx.rel("walkable_connection", ends[key][0], target, a_anchor=ends[key][1])
+    ctx.landings += [(lo_pt[0] - toward[0] * 1.0, lo_pt[1] - toward[1] * 1.0, width / 2), (hi_pt[0] + toward[0] * 1.0, hi_pt[1] + toward[1] * 1.0, width / 2)]
+    if run > gap2 + 0.5: ctx.notes.append(f"{c['id']}: {kind} run {run:.1f} m > gap {gap2:.1f} m - extends {run - gap2:.1f} m onto {lo['id']}")
 
 
 # ------------------------------------------------------------------ walls / arena
@@ -352,12 +430,48 @@ def arena(ctx, a, floor_y):
 
 
 # ------------------------------------------------------------------ structures
+def terrain(ctx, t, floor_y):
+    """Natural terrain patch (Stage 8): heightfield over area [x0, z0, x1, z1] rising from the floor (edges stay at floor
+    level so it meets the arena floor without cracks), fbm-like hills up to height[1]; skirts close it underneath.
+    Registers itself for ground_height() so rocks / buildings placed on it are grounded."""
+    import numpy as np
+    x0, z0, x1, z1 = t["area"]; c = t.get("cell", 2.0); nx, nz = int(round((x1 - x0) / c)) + 1, int(round((z1 - z0) / c)) + 1
+    rng = np.random.default_rng(t.get("seed", 1)); X, Z = np.meshgrid(np.linspace(0, 1, nx), np.linspace(0, 1, nz))
+    h = np.zeros_like(X)
+    for k in range(4):
+        f = 2 ** k * 1.5; h += (0.5 ** k) * np.sin(X * f * 6.28 + rng.uniform(0, 6.28)) * np.cos(Z * f * 5.1 + rng.uniform(0, 6.28))
+    h = (h - h.min()) / (np.ptp(h) or 1); edge = np.clip(np.minimum.reduce([X, 1 - X, Z, 1 - Z]) * 4, 0, 1)  # 0 at the border
+    lo_, hi_ = t.get("height", [0, 5]); sink = t.get("shore_depth", 0.3)  # border tucked under the floor / liquid: no coplanar seam
+    H = floor_y - sink + (lo_ + sink + (hi_ - lo_) * h) * edge
+    name = ctx.add(t["id"], "terrain", [x0, 0, z0], None, t.get("material", "rock"), heights=np.round(H, 3).tolist(), cell=c,
+                   top_material=ctx.role(t.get("top_material", "foliage")), skirt=3.0)
+    ctx.terrains = getattr(ctx, "terrains", []) + [(x0, z0, c, H)]
+    if t.get("walkable", True): ctx.walkable.append(dict(name=t["id"], min=[x0 + c, z0 + c], max=[x1 - c, z1 - c], y=float(H.max())))
+    return name
+
+
+def ground_height(ctx, x, z, floor_y, half=0.0):
+    """Lowest terrain height under a footprint (centre +- half) - objects sink into slopes instead of floating."""
+    best = None
+    for x0, z0, c, H in getattr(ctx, "terrains", []):
+        nz, nx = H.shape
+        for px, pz in ((x, z), (x - half, z - half), (x + half, z - half), (x - half, z + half), (x + half, z + half)):
+            fx, fz = (px - x0) / c, (pz - z0) / c
+            if 0 <= fx <= nx - 1 and 0 <= fz <= nz - 1:
+                i, j = min(int(fz), nz - 2), min(int(fx), nx - 2); u, v = fx - j, fz - i
+                hh = (H[i, j] * (1 - u) + H[i, j + 1] * u) * (1 - v) + (H[i + 1, j] * (1 - u) + H[i + 1, j + 1] * u) * v
+                best = hh if best is None else min(best, hh)
+    return floor_y if best is None else float(best)
+
+
 def _place(ctx, s, plats, floor_y, centre):
     """World base position + yaw for a structure (on a platform, at x/z on the floor, or explicit x/y/z)."""
     if s.get("on"):
         p = plats[s["on"]]; off = s.get("offset", [0, 0]); x, z, y = p["center"][0] + off[0], p["center"][1] + off[1], p["top"]
     else:
-        pos = s["position"]; x, z = pos[0], pos[-1]; y = pos[1] if len(pos) == 3 else floor_y
+        pos = s["position"]; x, z = pos[0], pos[-1]
+        half = max(s.get("size", [1, 1, 1])[0], s.get("size", [1, 1, 1])[-1]) / 2 if s["kind"] not in ("rocks", "tree", "lamp", "pillar") else 0.3  # thin bases: ground at the centre
+        y = pos[1] if len(pos) == 3 else ground_height(ctx, x, z, floor_y, half) - (0.25 if getattr(ctx, "terrains", None) and s["kind"] in ("rocks", "tree") else 0.0)
     if "yaw" in s: yaw = s["yaw"]
     elif s.get("facing", "center") == "center": yaw = yaw_to(centre[0] - x, centre[1] - z) if math.hypot(centre[0] - x, centre[1] - z) > 0.5 else 0.0
     else: yaw = {"north": 180, "south": 0, "east": 90, "west": 270}.get(s["facing"], 0)
@@ -457,6 +571,30 @@ def stone_tower(ctx, s, x, y, z, yaw):
     elif top == "hip": ctx.add(n + "_Roof", "hip_roof", [0, h + 0.6, 0], [w, min(w, d) * 0.6, d], "roof", g, overhang=0.4)
 
 
+def party_walls(ctx):
+    """Buildings standing wall-to-wall: side decoration (timber posts / rails / windows) that would sit flat against the
+    neighbour's wall is removed (it could never be seen and would z-fight). Generic: any group with a _Body / _Ground."""
+    by = {o["name"]: o for o in ctx.objects}; boxes = []
+    for o in ctx.objects:
+        if o["type"] != "group" or o.get("parent"): continue
+        body = by.get(o["name"] + "_Ground") or by.get(o["name"] + "_Body")
+        if not body: continue
+        w, h, d = body["size"]; extra = max([k["size"][2] for k in ctx.objects if k.get("parent") == o["name"] and "_Floor_" in k["name"]] or [d])
+        boxes.append((o["name"], o["position"][0], o["position"][2], o["rotation"][1], w / 2 + 0.3, max(d, extra) / 2 + 0.3))
+
+    def inside(px, pz, b):
+        _, cx, cz, yw, hw, hd = b; lx, lz = local(px - cx, pz - cz, -yw); return abs(lx) <= hw and abs(lz) <= hd
+    drop = set()
+    for o in ctx.objects:
+        p = o.get("parent")
+        if not p or not any(t in o["name"] for t in ("_Post_", "_Rail_", "_Mid_", "_Win_")): continue
+        g = by[p]; ox, oz = local(o["position"][0], o["position"][2], g["rotation"][1]); wx, wz = g["position"][0] + ox, g["position"][2] + oz
+        if any(inside(wx, wz, b) for b in boxes if b[0] != p): drop.add(o["name"])
+    if drop:
+        ctx.objects[:] = [o for o in ctx.objects if o["name"] not in drop]; ctx.names -= drop
+        ctx.notes.append(f"party walls: {len(drop)} hidden side decorations removed between touching buildings")
+
+
 def fountain(ctx, s, x, y, z, yaw):
     n = s["id"]; w = s.get("size", [8, 3, 8])[0]; g = ctx.add(n, "group", [x, y, z])
     ctx.add(n + "_Step", "cylinder", [0, 0, 0], [w + 1.2, 0.3, w + 1.2], "stone", g, sections=16)
@@ -534,24 +672,48 @@ STRUCTURES = dict(tower=tower, building=building, house=house, stone_tower=stone
 
 # ------------------------------------------------------------------ pipes
 def pipe(ctx, p, floor_y, arena_spec):
+    """Pipes and liquid outlets (Stage 8). The liquid is a "stream" that starts INSIDE the real opening (same direction,
+    cross-section matched to the opening), follows a gravity arc and ends submerged in the receiving pool; relations
+    emits_from / flows_into record the attachment (anchors: pipe.outlet -> stream.source, stream.sink -> pool).
+    outlet: "circle" (round pipe, default) | "drain" (rectangular channel through the wall) | "spillway" (wide open
+    channel, sheet of liquid) | "vertical" (pipe pointing down, straight column) | "broken" (round pipe, weak tilted gush)."""
     if p.get("kind", "outlet") == "run":
         for o in prefabs.pipe_run(p["id"], p["points"], radius=p.get("radius", 0.5), material="pipe", junction="frame"): _adopt(ctx, o)
         return
-    r = p.get("radius", 1.2); L = p.get("length", 8.0); y = p.get("y", 9.0)
-    if "position" in p: x, z = p["position"][0], p["position"][-1]; yaw = p.get("yaw", 0)
-    else:  # on the inner face of an arena wall: side + offset along it, pointing inwards
+    out_t = p.get("outlet", "circle"); r = p.get("radius", 1.2); L = p.get("length", 8.0); y = p.get("y", 9.0); embed = 0.0
+    if "position" in p: x, z = p["position"][0], p["position"][-1]; yaw = p.get("yaw", 0); y = p["position"][1] if len(p["position"]) == 3 else y
+    else:  # on the inner face of an arena wall: side + offset along it, pointing inwards; base embedded in the wall
         (cx, cz), (w, d) = arena_spec.get("center", [0, 0]), arena_spec["size"]; side = p["wall"].lower(); at = p.get("at", 0)
         corners = {"ne": (1, -1), "nw": (-1, -1), "se": (1, 1), "sw": (-1, 1)}
-        if side in corners:
-            sx, sz = corners[side]; x, z = cx + sx * (w / 2 - 1), cz + sz * (d / 2 - 1); yaw = yaw_to(-sx, -sz)
+        if side in corners:  # corner pipe: start inside the wall corner so the whole cap is buried (no gap behind it)
+            sx, sz = corners[side]; embed = r * 1.1 + 0.3; x, z = cx + sx * (w / 2 + embed / math.sqrt(2)), cz + sz * (d / 2 + embed / math.sqrt(2)); yaw = yaw_to(-sx, -sz)
         else:
-            sx, sz = SIDES[side]; x = cx + sx * w / 2 + (at if sz else 0); z = cz + sz * d / 2 + (at if sx else 0); yaw = yaw_to(-sx, -sz)
-    dx, dz = math.sin(math.radians(yaw)), math.cos(math.radians(yaw))
-    n = ctx.add(p["id"], "cylinder", [x, y, z], [2 * r, L, 2 * r], "pipe", rot=[90, yaw, 0], sections=10)
-    if ctx.detail >= 1:
-        ctx.add(n + "_Flange", "cylinder", [x + dx * (L - 0.4), y, z + dz * (L - 0.4)], [2 * r * 1.25, 0.45, 2 * r * 1.25], "frame", rot=[90, yaw, 0], sections=10)
-        ctx.add(n + "_Mount", "box", [x + dx * 0.3, y - r * 1.3, z + dz * 0.3], [r * 2.6, r * 2.6, 0.6], "frame", rot=[0, yaw, 0])  # wall plate: never blocks a floor
-    if p.get("pour", False):
-        ex, ez = x + dx * (L + 0.6), z + dz * (L + 0.6)
-        f = ctx.add(n + "_Fall", "box", [ex, floor_y, ez], [2 * r * 0.8, y - floor_y - r / 2 + 0.4, 1.0], p.get("pour_material", "hazard"), rot=[0, yaw, 0])
-        ctx.pours.append(f)
+            sx, sz = SIDES[side]; embed = 0.4; x = cx + sx * (w / 2 + embed) + (at if sz else 0); z = cz + sz * (d / 2 + embed) + (at if sx else 0); yaw = yaw_to(-sx, -sz)
+    L += embed; dx, dz = math.sin(math.radians(yaw)), math.cos(math.radians(yaw)); n = p["id"]; ox, oz = x + dx * L, z + dz * L
+    pool = (ctx.hazards or [None])[0]; mat = p.get("pour_material", "hazard")
+    if out_t in ("circle", "broken", "vertical"):
+        if out_t == "vertical":  # pipe hanging down from (x, y, z): outlet at the bottom
+            src = ctx.add(n, "cylinder", [x, y, z], [2 * r, L, 2 * r], "pipe", rot=[180, 0, 0], sections=10); oy = y - L; ox, oz = x, z
+        else:
+            src = ctx.add(n, "cylinder", [x, y, z], [2 * r, L, 2 * r], "pipe", rot=[90, yaw, 0], sections=10); oy = y
+        if ctx.detail >= 1 and out_t != "broken":
+            fl = L - 0.47  # flange ends 2 cm behind the mouth: no coplanar end discs
+            if out_t == "vertical": ctx.add(n + "_Flange", "cylinder", [x, y - fl, z], [2 * r * 1.25, 0.45, 2 * r * 1.25], "frame", rot=[180, 0, 0], sections=10)
+            else: ctx.add(n + "_Flange", "cylinder", [x + dx * fl, y, z + dz * fl], [2 * r * 1.25, 0.45, 2 * r * 1.25], "frame", rot=[90, yaw, 0], sections=10)
+        if ctx.detail >= 1 and out_t != "vertical" and embed == 0.0:  # free-standing pipe: wall plate (arena pipes are embedded in the wall)
+            ctx.add(n + "_Mount", "box", [x + dx * 0.3, y - r * 1.3, z + dz * 0.3], [r * 2.6, r * 2.6, 0.6], "frame", rot=[0, yaw, 0])
+        sec, sw, sd, anchor = "circle", 2 * r * 0.86, 2 * r * 0.86, "outlet"
+        pitch = -90 if out_t == "vertical" else (-20 if out_t == "broken" else 0); speed = 0 if out_t == "vertical" else (0.8 if out_t == "broken" else round(1.2 + 0.5 * r, 2))
+    else:  # drain / spillway: open rectangular channel through the wall
+        cw = p.get("width", 2 * r if out_t == "drain" else 6.0); chh = 0.7 if out_t == "drain" else 0.5
+        src = ctx.add(n, "channel", [x + dx * L / 2, y - 0.2, z + dz * L / 2], [cw, chh, L], "structure_b", rot=[0, yaw, 0], wall=0.2)
+        ctx.add(n + "_Liquid", "box", [x + dx * (L / 2 - 0.1), y, z + dz * (L / 2 - 0.1)], [cw - 0.42, 0.12, L - 0.2], mat, rot=[0, yaw, 0])
+        sec, sw, sd, anchor = ("rect", cw - 0.4, 0.3, "outlet") if out_t == "drain" else ("rect", cw - 0.4, 0.18, "outlet")  # spillway: thin sheet
+        pitch, speed, oy = 0, 1.0, y; ox, oz = x + dx * L, z + dz * L
+    if p.get("pour", True):
+        drop = oy - floor_y + 0.3
+        st = ctx.add(n + "_Fall", "stream", [ox, oy, oz], [round(sw, 3), round(drop, 3), round(sd, 3)], mat, rot=[0, yaw if out_t != "vertical" else 0, 0],
+                     section=sec, speed=speed, pitch=pitch, inset=0.25 if out_t != "vertical" else 0.3)
+        ctx.rel("emits_from", st, src, b_anchor=anchor)
+        if pool: ctx.rel("flows_into", st, pool)
+        ctx.pours.append(st)

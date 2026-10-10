@@ -67,7 +67,7 @@ letters, digits and `_` only.
 {"id": "Bridge_North", "from": "Central", "to": "Platform_North", "kind": "auto|bridge|catwalk|ramp|stairs|jump", "width": 4.5, "rails": false}
 {"id": "Central_Tower", "kind": "tower", "on": "Central", "offset": [0, 0], "size": [7, 13, 7], "decor": ["banners", "glow_strips", "vents"]}
 {"id": "House_W1", "kind": "house", "position": [-18.5, 19], "facing": "east", "size": [11, 12, 9], "style": "timber", "floors": 3, "roof": "gable"}
-{"id": "Pipe_NE", "wall": "ne", "y": 10, "radius": 1.5, "length": 11, "pour": true}
+{"id": "Pipe_NE", "wall": "ne", "y": 10, "radius": 1.5, "length": 11, "pour": true, "outlet": "circle|drain|spillway|vertical|broken", "width": 2}
 {"id": "Pipe_Run_1", "kind": "run", "points": [[-30, 3, -35], [30, 3, -35]], "radius": 0.6}
 ```
 
@@ -103,6 +103,36 @@ All sizes are `[w, h, d]`. For buildings, `w` is the frontage. `facing` takes `c
 To support a shape that isn't listed (for example a dome or a crane), add a module to `pipeline/architecture.py`.
 Register it in `STRUCTURES`, keep the mesh closed, name its parts, and document it here. Don't swap in an unrelated
 shape.
+
+### Terrain (Stage 8)
+
+```json
+"terrain": [{"id": "Island", "area": [-30, 6, -12, 20], "height": [0, 4], "cell": 2.0, "seed": 3, "material": "rock", "top_material": "foliage"}]
+```
+
+Builds a heightfield that rises from the floor. Its border is tucked under the floor or liquid, so no seam shows.
+Structures placed by `position` on terrain are grounded: thin things (rocks, trees, lamps, pillars) at the centre
+height, buildings at the lowest point under their footprint.
+
+### Liquid outlets (Stage 8)
+
+Every pipe pours a `stream` that leaves its real opening. The opening is the anchor `outlet`. The stream's
+cross-section matches the opening, it follows a gravity arc, and it ends submerged in the arena's hazard pool. The
+generator records `emits_from` and `flows_into` relations.
+
+| `outlet` | What you get |
+|---|---|
+| `circle` | Round pipe. |
+| `drain` | Rectangular channel with a liquid strip and a rectangular stream. |
+| `spillway` | Wide channel pouring a thin sheet. |
+| `vertical` | Pipe pointing down, with a straight column. |
+| `broken` | Weak gush, tilted downward. |
+
+### Relations
+
+The generator writes `level.json["relations"]` for connections, supports, outlets and jumps. Add your own with
+`edit_level.py relate`. Declare deliberate gaps with `intentional_gap`, or with a connection of `kind: "jump"`.
+These are validated as INTENTIONAL and the repair system never fills them.
 
 ## Material roles
 

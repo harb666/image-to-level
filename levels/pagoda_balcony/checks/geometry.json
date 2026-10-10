@@ -1,0 +1,90 @@
+{
+ "level": "pagoda_balcony",
+ "counts": {
+  "ERROR": 3,
+  "WARNING": 1,
+  "INTENTIONAL": 0
+ },
+ "relations": {
+  "explicit": 0,
+  "inferred": 0
+ },
+ "repairable": 0,
+ "findings": [
+  {
+   "check": "support",
+   "cls": "ERROR",
+   "objects": [
+    "Overhang_01"
+   ],
+   "message": "Overhang_01 is not supported or attached (3.60 m above Ground)",
+   "pos": [
+    -8.25,
+    3.8,
+    -18.25
+   ],
+   "measured": {
+    "hover": 3.600999997019768
+   },
+   "repair": null,
+   "ambiguous": true,
+   "id": "support:000"
+  },
+  {
+   "check": "support",
+   "cls": "ERROR",
+   "objects": [
+    "Overhang_02"
+   ],
+   "message": "Overhang_02 is not supported or attached (5.10 m above Ground)",
+   "pos": [
+    -8.75,
+    5.3,
+    -23.0
+   ],
+   "measured": {
+    "hover": 5.100999997019768
+   },
+   "repair": null,
+   "ambiguous": true,
+   "id": "support:001"
+  },
+  {
+   "check": "support",
+   "cls": "ERROR",
+   "objects": [
+    "Overhang_03"
+   ],
+   "message": "Overhang_03 is not supported or attached (3.50 m above Ground)",
+   "pos": [
+    -6.75,
+    3.7,
+    -14.5
+   ],
+   "measured": {
+    "hover": 3.500999997019768
+   },
+   "repair": null,
+   "ambiguous": true,
+   "id": "support:002"
+  },
+  {
+   "check": "spawn",
+   "cls": "WARNING",
+   "objects": [
+    "spawn"
+   ],
+   "message": "spawn: only 0.75 m to a wall/edge (< 1.5 m)",
+   "pos": [
+    -0.75,
+    0.0,
+    -4.25
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": false,
+   "id": "spawn:003"
+  }
+ ],
+ "passed": false
+}

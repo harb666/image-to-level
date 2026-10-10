@@ -222,6 +222,49 @@ Split of responsibilities: **Claude** interprets the references (with measuring 
 Real-image runs: `levels/toxic_arena_gen` (multi-panel concept sheet: plan + elevation + perspective + details) and
 `levels/town_square_gen` (single perspective image). Both specs, renders and reports are committed.
 
+## Connection-aware construction, geometry validation & repair (Stage 8)
+Goal: physically coherent levels in ANY theme - floors meet, connectors reach their landings, liquid leaves the real
+pipe opening and lands in its pool, nothing floats or flickers - checked and repaired by reusable rules, not per-map fixes.
+- **Anchors** (`anchors.py`): named points in an object's LOCAL frame (pos, outward dir, kind, width/diameter, section),
+  transformed through the parent chain like the builder. Derived per type (ramp/stairs low+high, connector decks
+  end_a/end_b along "axis", box/cylinder edges + top, cylinder outlet/inlet, stream source/sink, channel outlet, panel
+  back, base) + optional explicit `"anchors"` per object.
+- **Relations** (level.json `"relations"`, backwards compatible): walkable_connection, connects_to, supported_by,
+  attached_to, emits_from, flows_into, aligned_with, intentional_gap; `"intentional": true` marks deliberate gaps /
+  offsets. The generator writes them; for hand-made levels they are INFERRED (connector names/types, `X_Fall` <- pipe
+  `X`, liquids -> hazard pool). Edit with `edit_level.py relate/unrelate`; rename/remove keep them consistent.
+- **Construction rules** (`architecture.py`): exact walking-surface outlines (floor plate incl. overhang; octagon/circle
+  flats rotated to face the axes); bridge decks overlap both floors 1 cm UNDER them (no z-fighting), overlap = support
+  depth so a deck meeting a corner/angled edge still rests on it; ramps/stairs meet the upper floor flush at its edge
+  (1 cm under), start on or dip under the lower floor, <= 35°, plinth/support under raised pieces; **junction plates**
+  fill corner/angled-edge gaps (sized from the real footprint polygon); supports reach the deck; beams inset; cover is
+  placed after connections, clear of every landing and structure; buildings wall-to-wall drop hidden side decoration
+  (party walls); terrain shoreline tucked under the floor/liquid; rocks/trees/buildings grounded on terrain.
+- **Liquid outlets**: new shapes `stream` (gravity arc from the outlet, circle/rect/sheet section, starts inside the
+  opening, ends submerged) and `channel` (open U trough). Outlet types in the spec: circle (round pipe), drain
+  (rectangular channel), spillway (wide sheet), vertical (pipe pointing down), broken (weak tilted gush). Pipes are
+  embedded in the wall (corner pipes too). effects.json gains `fluid_attachments` (outlet pos/dir/diameter/section,
+  impact point, receiving pool, speed) for runtime fluids; splash/steam emit at the real impact point; streams are
+  hazard AREAS, never solid colliders.
+- **Validator** (`geometry_check.py` -> checks/geometry.json/.md; also inside checks.py): connection (gap, overhang
+  with support fraction, elevation mismatch, wrong target, landing blocked by railing/crate, declared jump gaps measured
+  against the jump ability), stairs_ramps (rise/tread/slope/width vs player config), support (floating / hovering /
+  declared supports that don't touch - dense contact sampling incl. embedded & background ground), overlap (coplanar
+  different-material faces that are actually visible -> z-fighting), mesh (NaN/degenerate/open), outlet (position,
+  direction, cross-section, rectangular block under a round pipe, emerging inside solids), flow (stream reaches/enters
+  its pool, lands on walkable, passes through walls, liquid covering walkable floors), openings (arch/gate clear),
+  terrain (cracks), collision (present, fresh, every hazard has an area), spawn. Classes ERROR / WARNING / INTENTIONAL.
+- **Repair** (`geometry_repair.py` -> checks/repairs.json; runs inside refine.py): extend connector at the failing end,
+  elevate ramp/stairs end, stream_from_outlet (re-emits liquid from the real opening, keeps name/material/hazard),
+  lengthen_stream, extend_inlet (pipe back into the wall), nudge (1 cm behind the other surface), drop (small hover).
+  Only the named object changes; ambiguous findings (dead ends, big hovers, blocked openings, cover in landings) go
+  to Claude; snapshot first (`edit_level.py undo`); bounded passes; schema-checked.
+- **Inspection renders** (`render_views.py --inspect`, also in refine): close-ups of junctions (one per connector
+  kind), pipe outlets/streams and third-person views standing at junctions -> checks/inspect/contact_sheet.jpg.
+  Geometry passing never replaces looking at them.
+- Fixtures: `levels/test_connections` (synthetic: junction, deliberate gap, ramp, stairs, 5 outlet types, terrain).
+  Tests: `tests/test_stage8.py` (construction rules, 5 detect+repair cases, generic rules, Toxic Arena regression).
+
 ## Hand-authored layouts (concept sheets with a top-down plan)
 When a concept sheet has a TOP DOWN LAYOUT/side view, don't run it through MiDaS: write a small layout script in
 `pipeline/layouts/<level>.py` that emits level.json directly (same schema), then `build_level.py`. Example:
@@ -257,6 +300,9 @@ untested). `make_level.sh` uses it when `LYRA_DIR` is set and `nvidia-smi` exist
 the same way (output `levels/<name>-lyra/`). `points_to_level.py` main() = old blocky voxel export (legacy).
 
 ## Known limits
+Stage 8: liquids are shader-animated meshes + particles (no fluid simulation); contact/coplanar tests are sampled
+(tiny contacts < ~5 cm can be missed); overlap repair nudges 1 cm; legacy MiDaS levels still show real findings
+(floating overhangs) that need Claude's judgement.
 Stage 7: the scene spec is Claude's interpretation - single perspective images leave depth uncertain; arbitrary
 architecture is approximated with the module library (extend architecture.py for new forms); jump arcs are approximated;
 renders are the three.js preview (SwiftShader), not Godot; Godot scripts/.tres untested here; gameplay numbers are

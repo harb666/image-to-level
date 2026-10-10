@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 548,
-    "triangles": 8474,
-    "nodes": 283,
-    "mesh_nodes": 256,
-    "unique_meshes": 139,
+    "glb_kb": 567,
+    "triangles": 9674,
+    "nodes": 279,
+    "mesh_nodes": 252,
+    "unique_meshes": 135,
     "materials": 14,
     "images": 40,
-    "draw_calls_unbatched": 256,
+    "draw_calls_unbatched": 252,
     "draw_calls_batched_min": 14,
     "tex_mem_uncompressed_mb": 25.33,
     "tex_mem_gpu_compressed_mb": 6.33,
@@ -67,22 +67,22 @@
    },
    "visible": {
     "cameras": 112,
-    "visible_draw_calls_mean": 113.3,
-    "visible_draw_calls_max": 230,
-    "visible_triangles_mean": 9495,
-    "visible_triangles_max": 13624
+    "visible_draw_calls_mean": 112.6,
+    "visible_draw_calls_max": 229,
+    "visible_triangles_mean": 9966,
+    "visible_triangles_max": 14580
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 694,
-    "triangles": 7520,
-    "nodes": 61,
-    "mesh_nodes": 60,
-    "unique_meshes": 60,
+    "glb_kb": 723,
+    "triangles": 8720,
+    "nodes": 59,
+    "mesh_nodes": 58,
+    "unique_meshes": 58,
     "materials": 14,
     "images": 40,
-    "draw_calls_unbatched": 60,
+    "draw_calls_unbatched": 58,
     "draw_calls_batched_min": 14,
     "tex_mem_uncompressed_mb": 25.33,
     "tex_mem_gpu_compressed_mb": 6.33,
@@ -123,16 +123,16 @@
     ]
    },
    "collision": {
-    "colliders": 200,
+    "colliders": 196,
     "hazards": 9,
-    "glb_kb": 112
+    "glb_kb": 110
    },
    "visible": {
     "cameras": 112,
-    "visible_draw_calls_mean": 45.2,
-    "visible_draw_calls_max": 66,
-    "visible_triangles_mean": 11854,
-    "visible_triangles_max": 13792
+    "visible_draw_calls_mean": 44.1,
+    "visible_draw_calls_max": 64,
+    "visible_triangles_mean": 13115,
+    "visible_triangles_max": 14992
    },
    "hidden_faces_removed": 954,
    "effects_extra_draw_calls": 7,
@@ -168,14 +168,13 @@
    "node": "M_structure_b_-1_-1_props",
    "kind": "props",
    "material": "structure_b",
-   "triangles": 176,
+   "triangles": 132,
    "visibility_range_end": 70,
    "cast_shadow": false,
    "source_objects": [
     "Platform_NW_Cover_01",
     "Platform_West_Cover_01",
-    "Platform_North_Cover_01",
-    "Central_Cover_01"
+    "Platform_North_Cover_01"
    ]
   },
   {
@@ -212,7 +211,7 @@
    "cast_shadow": false,
    "source_objects": [
     "Platform_SW_Cover_01",
-    "Platform_South_Cover_01"
+    "Central_Cover_03"
    ]
   },
   {
@@ -244,13 +243,11 @@
    "node": "M_structure_b_0_-1_props",
    "kind": "props",
    "material": "structure_b",
-   "triangles": 132,
+   "triangles": 44,
    "visibility_range_end": 70,
    "cast_shadow": false,
    "source_objects": [
-    "Platform_NE_Cover_01",
-    "Platform_East_Cover_01",
-    "Central_Cover_03"
+    "Platform_NE_Cover_01"
    ]
   },
   {
@@ -284,11 +281,14 @@
    "node": "M_structure_b_0_0_props",
    "kind": "props",
    "material": "structure_b",
-   "triangles": 44,
+   "triangles": 176,
    "visibility_range_end": 70,
    "cast_shadow": false,
    "source_objects": [
-    "Platform_SE_Cover_01"
+    "Platform_SE_Cover_01",
+    "Platform_East_Cover_01",
+    "Platform_South_Cover_01",
+    "Central_Cover_01"
    ]
   },
   {
@@ -305,9 +305,9 @@
    ]
   },
   {
-   "node": "M_deck_-1_-1",
+   "node": "M_deck_v2_-1_-1",
    "kind": "static",
-   "material": "deck",
+   "material": "deck_v2",
    "triangles": 12,
    "visibility_range_end": 0,
    "cast_shadow": true,
@@ -319,11 +319,10 @@
    "node": "M_frame_-1_-1",
    "kind": "static",
    "material": "frame",
-   "triangles": 304,
+   "triangles": 260,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Pipe_NW_Mount",
     "Pipe_NW_Flange",
     "Ramp_NW_Support",
     "Ramp_NW_Beam_R",
@@ -348,10 +347,11 @@
    "node": "M_grate_-1_-1",
    "kind": "static",
    "material": "grate",
-   "triangles": 12,
+   "triangles": 24,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Ramp_NW_Junction_Lo",
     "Ramp_NW_Deck"
    ]
   },
@@ -381,7 +381,7 @@
    "node": "M_structure_b_-1_-1",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 656,
+   "triangles": 700,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -394,6 +394,7 @@
     "Platform_West_Rib_01",
     "Platform_North_Rib_04",
     "Platform_North_Rib_01",
+    "Central_Cover_02",
     "Walkway_West_Rib_02",
     "Walkway_West_Rib_01",
     "Walkway_North_Rib_04",
@@ -431,41 +432,28 @@
    ]
   },
   {
-   "node": "M_deck_-1_0",
-   "kind": "static",
-   "material": "deck",
-   "triangles": 12,
-   "visibility_range_end": 0,
-   "cast_shadow": true,
-   "source_objects": [
-    "Walkway_West_Floor"
-   ]
-  },
-  {
    "node": "M_deck_v2_-1_0",
    "kind": "static",
    "material": "deck_v2",
-   "triangles": 24,
+   "triangles": 36,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Platform_SW_Floor",
-    "Platform_West_Floor"
+    "Platform_West_Floor",
+    "Walkway_West_Floor"
    ]
   },
   {
    "node": "M_frame_-1_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 516,
+   "triangles": 384,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Pipe_West_Mount",
     "Pipe_West_Flange",
-    "Pipe_South_Mount",
     "Pipe_South_Flange",
-    "Pipe_SW_Mount",
     "Pipe_SW_Flange",
     "Ramp_SW_Support",
     "Ramp_SW_Beam_R",
@@ -492,10 +480,11 @@
    "node": "M_grate_-1_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 24,
+   "triangles": 36,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Ramp_SW_Junction_Lo",
     "Ramp_SW_Deck",
     "Bridge_West_Deck"
    ]
@@ -529,7 +518,7 @@
    "node": "M_structure_b_-1_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 788,
+   "triangles": 744,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -543,7 +532,6 @@
     "Platform_West_Rib_03",
     "Platform_South_Rib_04",
     "Platform_South_Rib_01",
-    "Central_Cover_04",
     "Walkway_West_Rib_04",
     "Walkway_West_Rib_03",
     "Walkway_South_Rib_04",
@@ -608,41 +596,28 @@
    ]
   },
   {
-   "node": "M_deck_0_-1",
+   "node": "M_deck_v2_0_-1",
    "kind": "static",
-   "material": "deck",
-   "triangles": 24,
+   "material": "deck_v2",
+   "triangles": 36,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Platform_NE_Floor",
+    "Platform_North_Floor",
     "Walkway_North_Floor"
-   ]
-  },
-  {
-   "node": "M_deck_v2_0_-1",
-   "kind": "static",
-   "material": "deck_v2",
-   "triangles": 12,
-   "visibility_range_end": 0,
-   "cast_shadow": true,
-   "source_objects": [
-    "Platform_North_Floor"
    ]
   },
   {
    "node": "M_frame_0_-1",
    "kind": "static",
    "material": "frame",
-   "triangles": 516,
+   "triangles": 384,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Pipe_East_Mount",
     "Pipe_East_Flange",
-    "Pipe_North_Mount",
     "Pipe_North_Flange",
-    "Pipe_NE_Mount",
     "Pipe_NE_Flange",
     "Ramp_NE_Support",
     "Ramp_NE_Beam_R",
@@ -668,10 +643,11 @@
    "node": "M_grate_0_-1",
    "kind": "static",
    "material": "grate",
-   "triangles": 24,
+   "triangles": 36,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Ramp_NE_Junction_Lo",
     "Ramp_NE_Deck",
     "Bridge_North_Deck"
    ]
@@ -706,7 +682,7 @@
    "node": "M_structure_b_0_-1",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 744,
+   "triangles": 832,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -715,11 +691,13 @@
     "Platform_NE_Rib_03",
     "Platform_NE_Rib_02",
     "Platform_NE_Rib_01",
+    "Platform_East_Cover_02",
     "Platform_East_Rib_02",
     "Platform_East_Rib_01",
     "Platform_North_Cover_02",
     "Platform_North_Rib_03",
     "Platform_North_Rib_02",
+    "Central_Cover_04",
     "Walkway_East_Rib_02",
     "Walkway_East_Rib_01",
     "Walkway_North_Rib_03",
@@ -788,37 +766,36 @@
    "node": "M_deck_0_0",
    "kind": "static",
    "material": "deck",
-   "triangles": 36,
+   "triangles": 32,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Platform_East_Floor",
-    "Walkway_East_Floor",
-    "Walkway_South_Floor"
+    "Central_Floor"
    ]
   },
   {
    "node": "M_deck_v2_0_0",
    "kind": "static",
    "material": "deck_v2",
-   "triangles": 56,
+   "triangles": 60,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Platform_SE_Floor",
+    "Platform_East_Floor",
     "Platform_South_Floor",
-    "Central_Floor"
+    "Walkway_East_Floor",
+    "Walkway_South_Floor"
    ]
   },
   {
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 392,
+   "triangles": 348,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Pipe_SE_Mount",
     "Pipe_SE_Flange",
     "Ramp_SE_Support",
     "Ramp_SE_Beam_R",
@@ -846,10 +823,11 @@
    "node": "M_grate_0_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 36,
+   "triangles": 48,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Ramp_SE_Junction_Lo",
     "Ramp_SE_Deck",
     "Bridge_East_Deck",
     "Bridge_South_Deck"
@@ -883,7 +861,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 920,
+   "triangles": 832,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -893,13 +871,11 @@
     "Platform_SE_Rib_03",
     "Platform_SE_Rib_02",
     "Platform_SE_Rib_01",
-    "Platform_East_Cover_02",
     "Platform_East_Rib_04",
     "Platform_East_Rib_03",
     "Platform_South_Cover_02",
     "Platform_South_Rib_03",
     "Platform_South_Rib_02",
-    "Central_Cover_02",
     "Walkway_East_Rib_04",
     "Walkway_East_Rib_03",
     "Walkway_South_Rib_03",
@@ -971,7 +947,7 @@
    "node": "FX_Pour_Flow",
    "kind": "effect_target",
    "material": "hazard",
-   "triangles": 96,
+   "triangles": 1600,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [

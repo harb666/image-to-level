@@ -1,57 +1,63 @@
 {
  "level": "toxic_arena",
  "assets_kb": {
-  "level.glb": 390,
-  "mobile/level_mobile.glb": 419,
+  "level.glb": 415,
+  "mobile/level_mobile.glb": 460,
   "mobile/collision.json": 26,
   "environment.json": 6,
   "background.glb": 414,
-  "effects.json": 24
+  "effects.json": 27
  },
  "complexity": {
-  "triangles": 3676,
+  "triangles": 5180,
   "nodes": 137,
   "materials": 10,
   "heaviest": [
    [
-    "Stairs_SW_N",
-    96
+    "Pipe_South_01_Fall",
+    200
    ],
    [
-    "Stairs_SE_N",
-    96
+    "Pipe_North_01_Fall",
+    200
    ],
    [
-    "Stairs_NW_N",
-    96
+    "Pipe_East_01_Fall",
+    200
    ],
    [
-    "Stairs_NE_N",
-    96
+    "Pipe_West_01_Fall",
+    200
    ],
    [
-    "Background_Block_08",
-    44
+    "Pipe_SW_01_Fall",
+    200
    ]
   ]
  },
  "performance": {
   "dev": {
-   "glb_kb": 390,
-   "triangles": 3676,
+   "glb_kb": 415,
+   "triangles": 5180,
    "draw_calls": 137,
    "tex_mem_gpu_mb_est": 3.9
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 419,
-   "triangles": 3364,
+   "glb_kb": 460,
+   "triangles": 4868,
    "draw_calls": 50,
    "visible_draw_calls_est": 38.8,
    "visible_draw_calls_max_est": 54,
-   "tex_mem_gpu_mb_est": null,
-   "effects": null,
-   "colliders": null
+   "tex_mem_gpu_mb_est": 3.9,
+   "materials": 10,
+   "nodes": 51,
+   "colliders": {
+    "colliders": 92,
+    "hazards": 9,
+    "glb_kb": 52
+   },
+   "background_kb": 414
   },
   "effects": {
    "max_particles": 911,
@@ -61,10 +67,23 @@
   },
   "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
  },
+ "geometry": {
+  "counts": {
+   "ERROR": 0,
+   "WARNING": 0,
+   "INTENTIONAL": 0
+  },
+  "relations": {
+   "explicit": 16,
+   "inferred": 24
+  },
+  "repairable": 0,
+  "passed": true
+ },
  "navigation": {
-  "standable_area_m2": 3542.3,
-  "reachable_area_m2": 2224.8,
-  "components": 50,
+  "standable_area_m2": 3716.0,
+  "reachable_area_m2": 2388.3,
+  "components": 40,
   "spawns": [
    {
     "id": "spawn",
@@ -76,14 +95,14 @@
     "standable": true,
     "clearance_m": 3.75,
     "headroom_m": 99.0,
-    "component": 708,
-    "hazard_distance_m": 6.37
+    "component": 635,
+    "hazard_distance_m": 6.25
    }
   ],
   "intended_areas": [
    {
     "name": "walkable@[-11.0, -11.0]",
-    "standable_m2": 265.8,
+    "standable_m2": 272.8,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -136,14 +155,23 @@
     "one_way": false
    }
   ],
-  "narrow_connectors": [],
+  "narrow_connectors": [
+   {
+    "object": "PipeRun_East_01",
+    "width_m": 1.5
+   },
+   {
+    "object": "PipeRun_South_01",
+    "width_m": 1.5
+   }
+  ],
   "passed": true
  },
  "camera": {
-  "players": 45,
-  "players_skipped_inside_or_against_walls": 4,
-  "cameras": 1080,
-  "rays": 95040,
+  "players": 43,
+  "players_skipped_inside_or_against_walls": 5,
+  "cameras": 1032,
+  "rays": 90816,
   "void_rays": 0,
   "void_examples": [],
   "back_face": {},
@@ -155,20 +183,42 @@
  },
  "issues": [
   {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "PipeRun_East_01",
+   "pos": [
+    31.2,
+    3.0,
+    -0.1
+   ],
+   "message": "PipeRun_East_01: walkable width ~1.5 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "PipeRun_South_01",
+   "pos": [
+    11.6,
+    3.0,
+    31.2
+   ],
+   "message": "PipeRun_South_01: walkable width ~1.5 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
    "kind": "low_ceiling",
    "severity": "info",
    "object": "Walkway_East_Floor",
    "pos": [
-    -33.8,
-    6.0,
+    -34.8,
+    5.73,
     -34.8
    ],
-   "message": "36 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): Walkway_East_Floor, Walkway_North_Floor, Walkway_South_Floor, Walkway_West_Floor"
+   "message": "70 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): Walkway_East_Floor, Walkway_North_Floor, Walkway_South_Floor, Walkway_West_Floor"
   }
  ],
  "counts": {
   "error": 0,
-  "warning": 0,
+  "warning": 2,
   "info": 1
  },
  "passed": true,

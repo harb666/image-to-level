@@ -44,6 +44,55 @@ def viewpoints(L, G):
     return V
 
 
+def inspection_viewpoints(L, max_views=16):
+    """Stage 8: close-ups of junctions (connector ends), stair/ramp landings, pipe outlets and liquid impacts, plus a
+    third-person view at the first junctions. Derived from anchors/relations, so they work for any level."""
+    import numpy as np
+    from anchors import world_matrices, world_anchor, infer_relations
+    W, by = world_matrices(L); rel = infer_relations(L); V, seen = [], set()
+    for r in rel:
+        if r["type"] != "walkable_connection" or r["a"] not in by: continue
+        a = world_anchor(W, by[r["a"]], r.get("a_anchor"))
+        if a is None: continue
+        E = a["pos"]; key = tuple(np.round(E, 0))
+        if key in seen: continue
+        seen.add(key); u = a["dir"].copy(); u[1] = 0; u /= (np.linalg.norm(u) or 1); v = np.array([-u[2], 0, u[0]])
+        eye = E + v * 5.5 - u * 2.0 + [0, 3.2, 0]
+        V.append(dict(name=f"j_{r['a']}_{r.get('a_anchor')}", eye=eye.round(2).tolist(), target=(E + [0, -0.3, 0]).round(2).tolist(), fov=55))
+    for r in rel:
+        if r["type"] != "emits_from" or r["b"] not in by: continue
+        a = world_anchor(W, by[r["b"]], r.get("b_anchor") or "outlet")
+        if a is None: continue
+        O, D = a["pos"], a["dir"]; side = np.cross(D, [0, 1, 0]); side = side / (np.linalg.norm(side) or 1)
+        V.append(dict(name=f"o_{r['b']}", eye=(O + side * 6 + D * 4 + [0, 0.5, 0]).round(2).tolist(), target=(O + D * 1.2 + [0, -2.5, 0]).round(2).tolist(), fov=60))
+    # third-person camera at junctions: player standing on the connector end, camera behind at arm length
+    from gameplay import load_gameplay
+    G = load_gameplay(None, L); tp = []
+    for r in [r for r in rel if r["type"] == "walkable_connection" and r["a"] in by][:12:3]:
+        a = world_anchor(W, by[r["a"]], r.get("a_anchor"))
+        if a is None: continue
+        u = a["dir"].copy(); u[1] = 0; u /= (np.linalg.norm(u) or 1); head = a["pos"] - u * 1.0 + [0, G["player"]["eye_height"] + G["camera"]["pivot_above_eye"], 0]
+        tp.append(dict(name=f"t_{r['a']}_{r.get('a_anchor')}", eye=(head - u * G["camera"]["arm_length"] + [0, 1.0, 0]).round(2).tolist(), target=(head + u * 6 - [0, 1.2, 0]).round(2).tolist(), fov=70))
+    kinds = {}  # variety: one of each connector kind first (bridge / ramp / stairs / deck), then outlets, then third-person
+    for v in V:
+        if v["name"].startswith("j_"):
+            k = next((t for t in ("Bridge", "Ramp", "Stairs", "Deck", "Link") if t in v["name"]), "other"); kinds.setdefault(k, []).append(v)
+    js = []
+    while len(js) < 6 and any(kinds.values()):
+        for k in list(kinds):
+            if kinds[k] and len(js) < 6: js.append(kinds[k].pop(0))
+    os_ = [v for v in V if v["name"].startswith("o_")][:6]
+    out = js + os_ + tp[:4] + [v for v in V if v not in js and v not in os_]
+    return out[:max_views]
+
+
+def inspect(level_dir, views_file=None, out_name="inspect", mobile=False, size=(640, 360)):
+    """Render inspection close-ups (same cameras when views_file is given -> before/after comparisons)."""
+    L = json.load(open(os.path.join(level_dir, "level.json")))
+    V = json.load(open(views_file)) if views_file else inspection_viewpoints(L)
+    return render(level_dir, mobile, size, V, out_name)
+
+
 def _world_pos(L, o):
     by = {x["name"]: x for x in L["objects"]}; p = list(o["position"]); par = o.get("parent")
     while par:  # rotation of parents ignored for this camera aim (good enough to frame it)
@@ -51,10 +100,10 @@ def _world_pos(L, o):
     return p
 
 
-def render(level_dir, mobile=False, size=(640, 360), views=None):
+def render(level_dir, mobile=False, size=(640, 360), views=None, out_name="views"):
     from gameplay import load_gameplay
     L = json.load(open(os.path.join(level_dir, "level.json"))); G = load_gameplay(level_dir, L)
-    out = os.path.join(level_dir, "checks", "views"); shutil.rmtree(out, ignore_errors=True); os.makedirs(out)
+    out = os.path.join(level_dir, "checks", out_name); shutil.rmtree(out, ignore_errors=True); os.makedirs(out)
     html = os.path.join(out, "_preview.html")
     subprocess.run([sys.executable, os.path.join(HERE, "make_preview.py"), level_dir, "render", html, "--no-issues"] + (["--mobile"] if mobile else []), check=True, stdout=subprocess.DEVNULL)
     V = views or viewpoints(L, G); vf = os.path.join(out, "_views.json"); json.dump(V, open(vf, "w"), indent=1)
@@ -71,11 +120,15 @@ def render(level_dir, mobile=False, size=(640, 360), views=None):
     sheet.save(os.path.join(out, "contact_sheet.jpg"), quality=85)
     res = dict(views=len(files), errors=log["errors"], load_seconds=log.get("load_seconds"), renderer=log.get("renderer"),
                contact_sheet=os.path.relpath(os.path.join(out, "contact_sheet.jpg"), level_dir), note="browser preview renders (three.js, SwiftShader) - not Godot")
-    json.dump(res, open(os.path.join(level_dir, "checks", "render.json"), "w"), indent=1); print(json.dumps(res)); return res
+    json.dump(res, open(os.path.join(level_dir, "checks", "render.json" if out_name == "views" else f"render_{out_name}.json"), "w"), indent=1); print(json.dumps(res)); return res
 
 
 if __name__ == "__main__":
     a = [x for x in sys.argv[1:] if not x.startswith("--")]
     sz = tuple(int(v) for v in sys.argv[sys.argv.index("--size") + 1].split("x")) if "--size" in sys.argv else (640, 360)
     if "--size" in sys.argv: a = [x for x in a if x != sys.argv[sys.argv.index("--size") + 1]]
-    render(a[0], "--mobile" in sys.argv, sz)
+    if "--inspect" in sys.argv:
+        vf = sys.argv[sys.argv.index("--views") + 1] if "--views" in sys.argv else None
+        if vf: a = [x for x in a if x != vf]
+        inspect(a[0], vf, sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv else "inspect", "--mobile" in sys.argv, sz)
+    else: render(a[0], "--mobile" in sys.argv, sz)

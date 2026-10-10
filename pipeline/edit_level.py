@@ -22,6 +22,9 @@ Commands:
   fx <id> key=value ...               edit an effect;  fx-add '<json>';  fx-remove <id>
   connect <A> <B> [kind] [width]      bridge / ramp / stairs between two walkable areas or platforms (Stage 7; kind auto|bridge|
                                       catwalk|ramp|stairs), placed between their facing edges, slope from config/gameplay.json
+  relate <type> <a> <b> [a_anchor] [b_anchor] [intentional]   add a scene-graph relation (Stage 8): walkable_connection,
+                                      connects_to, supported_by, attached_to, emits_from, flows_into, aligned_with, intentional_gap
+  unrelate <type> <a> [b]             remove relations
   apply '<json list>' | ops.json      several structured edits in one go (schema-checked, see OPS below), one rebuild
   undo                                restore the state before the last edit (snapshots in levels/<name>/.history/)
   history                             list recent edits
@@ -143,6 +146,7 @@ def edit(d, cmd, args):
         for n in match(L, args[0]): gone |= {n, *children(L, n)}
         L["objects"] = [o for o in L["objects"] if o["name"] not in gone]
         L["hazards"] = [h for h in L.get("hazards", []) if h not in gone]
+        L["relations"] = [r for r in L.get("relations", []) if r.get("a") not in gone and r.get("b") not in gone]
         for e in L.get("effects", []):
             for k in ("target",):
                 if e.get(k) in gone: e["enabled"] = False
@@ -173,6 +177,9 @@ def edit(d, cmd, args):
             o["name"] = ren.get(o["name"], o["name"])
             if o.get("parent"): o["parent"] = ren.get(o["parent"], o["parent"])
         L["hazards"] = [ren.get(h, h) for h in L.get("hazards", [])]
+        for r in L.get("relations", []):
+            for k in ("a", "b"):
+                if r.get(k): r[k] = ren.get(r[k], r[k])
         for e in L.get("effects", []):
             if e.get("target"): e["target"] = ren.get(e["target"], e["target"])
             if e.get("area_from"): e["area_from"] = ren.get(e["area_from"], e["area_from"])
@@ -212,6 +219,16 @@ def edit(d, cmd, args):
             if e is None: raise SystemExit(f"no effect '{args[0]}': {[x['id'] for x in fx]}")
             for kv in args[1:]: k, v = kv.split("=", 1); setpath(e, k, val(v))
         msg.append("effects " + " ".join(args[:1]))
+    elif cmd == "relate":
+        t, a, b = args[0], args[1], (None if args[2] in ("none", "-") else args[2]); r = dict(type=t, a=a, b=b, manual=True)
+        rest = [x for x in args[3:] if x != "intentional"]
+        if rest: r["a_anchor"] = rest[0]
+        if len(rest) > 1: r["b_anchor"] = rest[1]
+        if "intentional" in args[3:] or t == "intentional_gap": r["intentional"] = True
+        L.setdefault("relations", []).append(r); msg.append(f"relation {t} {a} -> {b}")
+    elif cmd == "unrelate":
+        n0 = len(L.get("relations", [])); L["relations"] = [r for r in L.get("relations", []) if not (r["type"] == args[0] and r["a"] == args[1] and (len(args) < 3 or r.get("b") == args[2]))]
+        msg.append(f"removed {n0 - len(L['relations'])} relation(s)")
     elif cmd == "connect":
         msg += connect(L, args[0], args[1], args[2] if len(args) > 2 else "auto", float(args[3]) if len(args) > 3 else None)
     else:
@@ -258,6 +275,7 @@ def connect(L, a, b, kind="auto", width=None):
     for r in ctx.roles:
         if r not in L["materials"]: L["materials"][r] = A.role_material(theme if theme in A.THEMES else "industrial", r)
     L["objects"] += ctx.objects; L.setdefault("walkable", []).extend(w for w in ctx.walkable)
+    L.setdefault("relations", []).extend(dict(r, manual=True) for r in ctx.relations)  # Stage 8: the new pieces join the scene graph
     return [o["name"] for o in ctx.objects] + ctx.notes
 
 
@@ -275,6 +293,7 @@ OPS = {"set": (["target", "values"], lambda o: [o["target"]] + [f"{k}={json.dump
        "fx": (["id", "values"], lambda o: [o["id"]] + [f"{k}={json.dumps(v)}" for k, v in o["values"].items()]),
        "fx-add": (["effect"], lambda o: [json.dumps(o["effect"])]),
        "fx-remove": (["id"], lambda o: [o["id"]]),
+       "relate": (["type", "a", "b"], lambda o: [o["type"], o["a"], o["b"] or "none"] + [o[k] for k in ("a_anchor", "b_anchor") if o.get(k)] + (["intentional"] if o.get("intentional") else [])),
        "connect": (["from", "to"], lambda o: [o["from"], o["to"], o.get("kind", "auto")] + ([str(o["width"])] if o.get("width") else []))}
 
 

@@ -26,6 +26,8 @@ UNITS = "metres, y-up; position = centre of object's base, in parent space; rota
 def generate(spec, G):
     ctx = A.Ctx(spec, G); ar = spec["arena"]; fy = ar["floor"]["y"]; centre = tuple(ar.get("center", [0, 0]))
     A.arena(ctx, ar, fy)
+    for t in spec.get("terrain", []):
+        ctx.element = (t["id"], t.get("source", "visible")); A.terrain(ctx, t, fy)
     base_y = 0.0 if ar["floor"]["kind"] == "hazard" else fy
     plats = {}
     for p in spec.get("platforms", []):
@@ -36,9 +38,13 @@ def generate(spec, G):
     for s in spec.get("structures", []):
         ctx.element = (s["id"], s.get("source", "visible")); x, y, z, yaw = A._place(ctx, s, plats, fy, centre)
         A.STRUCTURES[s["kind"]](ctx, s, x, y, z, yaw)
-        if s.get("on"): blocks.setdefault(s["on"], []).append((x, z, max(s.get("size", [2, 2, 2])[0], s.get("size", [2, 2, 2])[-1]) / 2 + 0.8))
+        if s.get("on"):
+            blocks.setdefault(s["on"], []).append((x, z, max(s.get("size", [2, 2, 2])[0], s.get("size", [2, 2, 2])[-1]) / 2 + 0.8))
+            ctx.platform_blocks = getattr(ctx, "platform_blocks", []) + [blocks[s["on"]][-1]]  # cover keeps clear of it
     for p in spec.get("pipes", []):
         ctx.element = (p["id"], p.get("source", "visible")); A.pipe(ctx, p, fy, ar)
+    A.party_walls(ctx)
+    A.place_covers(ctx)  # after connections: cover never stands in a landing (Stage 8)
     for h in spec.get("hazards", []):
         ctx.element = (h["id"], h.get("source", "visible")); x0, z0, x1, z1 = h["area"]
         ctx.hazards.append(ctx.add(h["id"], "box", [(x0 + x1) / 2, 0, (z0 + z1) / 2], [abs(x1 - x0), h["y"], abs(z1 - z0)], h.get("material", "hazard")))
@@ -60,7 +66,7 @@ def generate(spec, G):
              interpretation=spec.get("interpretation", {}), sky_color=PRESETS[env["sky"]["preset"]]["horizon"],
              spawn=spawn, spawns=spawns, hazards=ctx.hazards, effects=_effects(spec, ctx, plats, env, glow), environment=env,
              bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced")),
-             validation=dict(ignore_objects=[]), generator_notes=ctx.notes)
+             validation=dict(ignore_objects=[]), generator_notes=ctx.notes, relations=ctx.relations)
     if spec.get("gameplay"): L["gameplay"] = spec["gameplay"]
     return L
 
@@ -204,6 +210,8 @@ def merge(Lnew, Lcur, state):
     for k in TOP_KEYS:
         if k in Lcur and k in state.get("top", {}) and H(Lcur[k]) != state["top"][k]: L[k] = Lcur[k]; rep["kept_edited"].append(f"top:{k}")
     names = {o["name"] for o in L["objects"]}
+    key = lambda r: (r["type"], r["a"], r.get("a_anchor"), r.get("b"))
+    L["relations"] = [r for r in Lnew.get("relations", []) if r["a"] in names] + [r for r in Lcur.get("relations", []) if r.get("manual") and key(r) not in {key(x) for x in Lnew.get("relations", [])}]
     L["hazards"] = [h for h in dict.fromkeys(Lnew["hazards"] + Lcur.get("hazards", [])) if h in names]
     L["walkable"] = Lnew["walkable"] + [w for w in Lcur.get("walkable", []) if w.get("name") not in {x.get("name") for x in Lnew["walkable"]} and w.get("manual")]
     missing = sorted({o["parent"] for o in L["objects"] if o.get("parent") and o["parent"] not in names})

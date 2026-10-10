@@ -1,0 +1,76 @@
+{
+ "format": "image-to-level package v1",
+ "level": "test_connections",
+ "title": "scene_spec.json - Connection & outlet test yard (synthetic Stage 8 fixture)",
+ "generated": "2026-10-10 10:05:16",
+ "godot_root": "res://levels/test_connections/",
+ "use_in_game": "mobile/level_mobile.glb (+ mobile/background_mobile.glb, mobile/collision.glb)",
+ "profile": "balanced",
+ "spawns": [
+  {
+   "id": "spawn",
+   "position": [
+    -19.46,
+    4,
+    0.54
+   ],
+   "yaw_deg": -88.4
+  }
+ ],
+ "hazards": [
+  "Pool"
+ ],
+ "generator": {
+  "tool": "pipeline/spec_to_level.py",
+  "spec_sha": "5bf95e0c2d86e6de",
+  "theme": "industrial",
+  "detail": "medium"
+ },
+ "metrics": {
+  "dev": {
+   "glb_kb": 604,
+   "triangles": 4680,
+   "draw_calls": 115,
+   "tex_mem_gpu_mb_est": 6.15
+  },
+  "mobile": {
+   "profile": "balanced",
+   "glb_kb": 571,
+   "triangles": 4176,
+   "draw_calls": 47,
+   "visible_draw_calls_est": 31.3,
+   "visible_draw_calls_max_est": 46,
+   "tex_mem_gpu_mb_est": 6.15,
+   "materials": 15,
+   "nodes": 48,
+   "colliders": {
+    "colliders": 84,
+    "hazards": 8,
+    "glb_kb": 55
+   },
+   "background_kb": 133
+  },
+  "effects": {
+   "max_particles": 273,
+   "emitters": 11,
+   "extra_draw_calls": 4,
+   "transparent_area_m2": 2400
+  },
+  "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
+ },
+ "validation": {
+  "passed": true,
+  "counts": {
+   "error": 0,
+   "warning": 0,
+   "info": 0
+  }
+ },
+ "gameplay_config_status": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer.",
+ "notes": [
+  "GLB carries static geometry/materials only; effects, environment and hazards are recreated in Godot from the JSON/tres + scripts.",
+  "Scripts and .tres are UNTESTED in Godot from this environment.",
+  "Performance numbers are estimates, not device benchmarks."
+ ],
+ "files": 30
+}

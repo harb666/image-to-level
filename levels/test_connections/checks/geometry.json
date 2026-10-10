@@ -1,0 +1,38 @@
+{
+ "level": "test_connections",
+ "counts": {
+  "ERROR": 0,
+  "WARNING": 0,
+  "INTENTIONAL": 1
+ },
+ "relations": {
+  "explicit": 19,
+  "inferred": 0
+ },
+ "repairable": 0,
+ "findings": [
+  {
+   "check": "connection",
+   "cls": "INTENTIONAL",
+   "objects": [
+    "P2_Bridged",
+    "P3_JumpTarget"
+   ],
+   "message": "deliberate gap P2_Bridged -> P3_JumpTarget: 2.70 m, dy +0.00 m - jumpable with the gameplay config, left open",
+   "pos": [
+    -2.5,
+    4.0,
+    -4.15
+   ],
+   "measured": {
+    "gap": 2.6999998092651367,
+    "dy": 0.0,
+    "jumpable": true
+   },
+   "repair": null,
+   "ambiguous": false,
+   "id": "connection:000"
+  }
+ ],
+ "passed": true
+}

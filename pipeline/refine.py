@@ -11,6 +11,8 @@ Automatic fixes (each is an ordinary level.json edit, undoable with edit_level.p
   unreachable_platform      connect it to the nearest reachable walkable area (edit_level.connect: bridge/ramp/stairs)
   duplicate_object          remove the exact duplicate
   missing / broken asset    rebuild
+  geometry (Stage 8)        geometry_repair.py: extend short/overhanging connectors, fix ramp/stair elevations, liquid
+                            from the real pipe opening, streams into pools, pipes back into walls, z-fight nudges
 Everything else (art direction, narrow bridges, budgets, visual accuracy against the reference) is listed under
 "needs_claude" in checks/refine_log.json: those need judgement and the rendered views, not a blind rule.
 """
@@ -26,7 +28,11 @@ def _build(d):
 def auto_fix(d, R):
     import edit_level as E
     from validate_level import fix as vfix
-    lp = os.path.join(d, "level.json"); L = json.load(open(lp)); before = json.loads(json.dumps(L)); log = []
+    log0 = []
+    if any(i["kind"].startswith("geo_") and "[auto-repairable]" in i["message"] for i in R["issues"]):  # Stage 8 geometry repairs first
+        import geometry_repair
+        rep = geometry_repair.repair(d, max_passes=3, verbose=False); log0 = [f"geometry: {x['object']}: {x['result']}" for x in rep["repairs"] if x.get("object")]
+    lp = os.path.join(d, "level.json"); L = json.load(open(lp)); before = json.loads(json.dumps(L)); log = list(log0)
     kinds = {i["kind"] for i in R["issues"] if i["severity"] == "error"} | {i["kind"] for i in R["issues"] if i["kind"].startswith("spawn_")}
     cam = R.get("camera") or {}
     if ("back_face" in kinds or "void" in kinds) and cam:
@@ -60,7 +66,7 @@ def auto_fix(d, R):
     if dups:
         L = json.load(open(lp)); L["objects"] = [o for o in L["objects"] if o["name"] not in set(dups)]; json.dump(L, open(lp, "w"), indent=1); log.append(f"removed duplicates {dups[:6]}")
     if any(i["kind"] in ("missing_asset", "broken_asset") for i in R["issues"]): log.append("rebuild (missing/broken asset)")
-    if log: E.snapshot(d, before, "refine: " + "; ".join(log)[:200])
+    if len(log) > len(log0): E.snapshot(d, before, "refine: " + "; ".join(log[len(log0):])[:200])
     return log
 
 
@@ -79,7 +85,8 @@ def refine(d, max_passes=None, render=True, verbose=True):
         R = checks.run(d, verbose=False); top = [i["message"] for i in R["issues"] if i["severity"] == "error"][:8]
         p = dict(n=k, errors=R["counts"]["error"], warnings=R["counts"]["warning"], top_errors=top)
         if verbose: print(f"pass {k}: {R['counts']}  " + (" | ".join(top[:3]) if top else "no errors"))
-        if R["counts"]["error"] == 0 and not any(i["kind"].startswith("spawn_") for i in R["issues"]): passes.append(p); break
+        fixable = any(i["kind"].startswith("geo_") and "[auto-repairable]" in i["message"] for i in R["issues"])
+        if R["counts"]["error"] == 0 and not fixable and not any(i["kind"].startswith("spawn_") for i in R["issues"]): passes.append(p); break
         fixes = auto_fix(d, R); p["fixes"] = fixes; passes.append(p)
         if not fixes: p["stopped"] = "no automatic fix applies - remaining issues need Claude"; break
         if verbose: print("  fixes:", fixes)
@@ -88,11 +95,13 @@ def refine(d, max_passes=None, render=True, verbose=True):
     if render:
         try:
             from render_views import render as rv
-            rv(d); R = checks.run(d, fast=True, verbose=False)  # fold page errors from the renders into the report
+            rv(d)
+            from render_views import inspect as rinspect  # Stage 8: close-ups of junctions, outlets, liquid impacts, third-person at junctions
+            rinspect(d); R = checks.run(d, fast=True, verbose=False)  # fold page errors from the renders into the report
         except SystemExit as e: passes.append(dict(render_unavailable=str(e)))
     needs = [dict(severity=i["severity"], message=i["message"], object=i.get("object")) for i in R["issues"] if i["severity"] in ("error", "warning")][:30]
     log = dict(passes=passes, max_passes=max_passes, seconds=round(time.time() - t0, 1), passed=R["passed"], counts=R["counts"], needs_claude=needs,
-               visual_review="checks/views/contact_sheet.jpg must be LOOKED AT by Claude and compared with the reference before calling the level done" if render else "renders skipped")
+               visual_review="checks/views/contact_sheet.jpg + checks/inspect/contact_sheet.jpg must be LOOKED AT by Claude and compared with the reference before calling the level done" if render else "renders skipped")
     json.dump(log, open(os.path.join(d, "checks", "refine_log.json"), "w"), indent=1)
     if verbose: print(json.dumps(dict(passed=log["passed"], counts=log["counts"], passes=len(passes), seconds=log["seconds"])))
     return log

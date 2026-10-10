@@ -101,6 +101,8 @@ def resolve(level_dir, L=None):
     boxes, scene = _node_boxes(os.path.join(level_dir, "level.glb"))
     envp = os.path.join(level_dir, "environment.json"); env = json.load(open(envp)) if os.path.exists(envp) else None
     out, totals = [], {q: dict(max_particles=0, emitters=0, extra_draw_calls=0, transparent_area_m2=0) for q in QUALITY}
+    from anchors import world_matrices, world_anchor
+    W, by = world_matrices(L)
     for e in spec:
         t = TYPES[e["type"]]; prm = dict(t["defaults"]); prm.update({k: v for k, v in e.items() if k in t["defaults"]})
         R = dict(id=e["id"], type=e["type"], category=t["category"], glb_contains=t["glb"], godot_runtime=t["godot"])
@@ -116,6 +118,9 @@ def resolve(level_dir, L=None):
         if e.get("at_targets_glob"):
             for n in sorted(n for n in boxes if globmatch(n, e["at_targets_glob"])):
                 b = boxes[n]; c = (b[0] + b[1]) / 2; a = e.get("anchor", "center")
+                if a == "bottom" and by.get(n, {}).get("type") == "stream":  # Stage 8: emit at the real impact point of the stream
+                    k = world_anchor(W, by[n], "sink"); sub = 0.3; w_ = by[n]["size"][0]
+                    em.append(dict(pos=[round(float(k["pos"][0]), 2), round(float(k["pos"][1] + sub), 2), round(float(k["pos"][2]), 2)], radius=round(w_ / 2 + e.get("margin", 0.6), 2), of=n)); continue
                 rad = round(float(np.hypot(*(b[1] - b[0])[[0, 2]]) / 2 + e.get("margin", 0.6)), 2)  # spawn AROUND the node, not inside it
                 em.append(dict(pos=[round(float(c[0]), 2), round(float(b[0][1] if a == "bottom" else b[1][1] if a == "top" else c[1]), 2), round(float(c[2]), 2)], radius=rad, of=n))
         for p in e.get("positions", []): em.append(dict(pos=p))
@@ -148,7 +153,18 @@ def resolve(level_dir, L=None):
             if on:
                 for k2 in totals[q]: totals[q][k2] += cost.get(k2, 0)
         out.append(R)
-    return dict(generated_by="image-to-level Stage 4 (pipeline/effects.py)", default_quality="balanced",
+    att = []  # Stage 8: fluid attachment metadata (outlet -> stream -> pool) so the game can render enhanced fluids
+    from anchors import infer_relations
+    rel = infer_relations(L)
+    for o in L["objects"]:
+        if o["type"] != "stream": continue
+        src = next((r for r in rel if r["type"] == "emits_from" and r["a"] == o["name"]), None); pool = next((r["b"] for r in rel if r["type"] == "flows_into" and r["a"] == o["name"]), None)
+        S, K = world_anchor(W, o, "source"), world_anchor(W, o, "sink"); O = world_anchor(W, by[src["b"]], src.get("b_anchor") or "outlet") if src and src["b"] in by else None
+        rnd = lambda v: [round(float(x), 3) for x in v]
+        att.append(dict(stream=o["name"], source_object=src["b"] if src else None, outlet_pos=rnd(O["pos"]) if O else rnd(S["pos"]), outlet_dir=rnd(O["dir"]) if O else rnd(S["dir"]),
+                        outlet_diameter=round(float(O["width"] if O else o["size"][0]), 3), section=o.get("section", "circle"), stream_width=o["size"][0],
+                        initial_speed=o.get("speed", 2.5), impact_pos=rnd(K["pos"]), receiving=pool, hazard=o["name"] in set(L.get("hazards", [])) or o.get("material") in {by[h].get("material") for h in L.get("hazards", []) if h in by}))
+    return dict(generated_by="image-to-level Stage 4 (pipeline/effects.py)", default_quality="balanced", fluid_attachments=att,
                 note="GLB holds only static appearance. Recreate these at runtime (fx/godot/apply_effects.gd is an untested starter). "
                      "Costs are estimates: particles alive, emitters, extra draw calls, transparent overdraw area.",
                 textures={k: f"fx/{k}.png" for k in PARTICLE_TEXTURES}, totals=totals, effects=out)

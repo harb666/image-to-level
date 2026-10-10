@@ -23,6 +23,7 @@ Use the mobile files for the game, and the dev files for editing and inspection.
 | Visibility, shadows and hazards | `mobile/apply_mobile.gd` | Add a Node3D at the origin with this script. Set `manifest_path` to `res://levels/<name>/mobile/mobile_manifest.json` and `level_root` to the level_mobile instance. |
 | Effects | `fx/godot/apply_effects.gd` | Add a Node3D with this script. Set `effects_path` to `res://levels/<name>/mobile/effects_mobile.json` (its targets match the merged mobile nodes), `level_root`, `quality`, and `environment`. |
 | Sky, fog and light | `environment.tres` | Assign it to a WorldEnvironment. Add a DirectionalLight3D using `environment.json` → `sun.godot_rotation_degrees`, colour and energy. |
+| Fluids (Stage 8) | `effects.json` → `fluid_attachments` | One entry per liquid stream: outlet position / direction / diameter / section, impact point, receiving pool, initial speed. The GLB already contains a stream mesh leaving the real opening (animated by `liquid_flow`). Use these anchors if Construct Error renders richer fluids at runtime. |
 | Spawns | `gameplay/spawns.json` | The `PlayerSpawn` node in the GLB is the first spawn. Extra team or respawn points are listed in the JSON (position, yaw_deg). |
 | Hazards | `gameplay/hazards.json` | Box Area3Ds in world space. Construct Error decides whether they kill, damage or respawn. `apply_mobile.gd` creates them in the group `hazard`. |
 

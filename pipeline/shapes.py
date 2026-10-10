@@ -15,6 +15,11 @@ All return trimesh.Trimesh; every solid is closed (no open backs). Sizes are o["
   round_arch            gateway along z with a semicircular opening ("opening" fraction of w); passable    (Stage 7)
   battlement            ring of merlons round a w x d top (h = merlon height, "thickness")                  (Stage 7)
   wedge                 buttress / sloped block: full height at -z, 0 at +z                                  (Stage 7)
+  stream                liquid leaving an outlet: origin = outlet centre, local +z = outlet direction; gravity arc
+                        down to y = -size[1] (drop incl. submersion); "section" circle | rect | sheet, size[0] = outlet
+                        width (diameter), size[2] = section depth; "speed" m/s, "pitch" deg (-90 = vertical drain),
+                        "inset" m started inside the opening (covers the mouth). Closed, few triangles.      (Stage 8)
+  channel               open U trough along local z (rectangular drain / spillway lip): floor + two side walls (Stage 8)
 """
 import numpy as np, trimesh
 from trimesh.transformations import rotation_matrix
@@ -186,8 +191,50 @@ def wedge(w, h, d, o):
     return trimesh.convex.convex_hull(np.array([[-w / 2, 0, -d / 2], [w / 2, 0, -d / 2], [-w / 2, 0, d / 2], [w / 2, 0, d / 2], [-w / 2, h, -d / 2], [w / 2, h, -d / 2]]))
 
 
+def stream_path(h, o, n=None):
+    """Centre-line of a stream (outlet at the origin, local +z forward): list of (point, tangent, fraction 0..1)."""
+    sp = float(o.get("speed", 2.5)); p = np.radians(float(o.get("pitch", 0.0))); g = 9.81; vz, vy = sp * np.cos(p), sp * np.sin(p)
+    if abs(vz) < 1e-3:  # vertical: straight column
+        t_end = 1.0; pos = lambda t: np.array([0.0, -h * t, 0.0]); tan = lambda t: np.array([0.0, -1.0, 0.0])
+    else:
+        t_end = (vy + np.sqrt(vy * vy + 2 * g * h)) / g  # y(t) = vy t - g t^2 / 2 = -h
+        pos = lambda t: np.array([0.0, vy * t - 0.5 * g * t * t, vz * t]); tan = lambda t: (lambda v: v / np.linalg.norm(v))(np.array([0.0, vy - g * t, vz]))
+    n = n or (3 if abs(vz) < 1e-3 else int(o.get("segments", 8)))
+    ts = t_end * (np.linspace(0, 1, n + 1) ** 1.3); out = []
+    inset = float(o.get("inset", 0.2)); d0 = tan(0.0)
+    out.append((-d0 * inset, d0, 0.0))
+    for t in ts: out.append((pos(t), tan(t), t / t_end))
+    return out
+
+
+def stream(w, h, d, o):
+    sec = o.get("section", "circle"); sides = int(o.get("sides", 10)) if sec == "circle" else 4
+    widen, thin = float(o.get("widen", 0.2)), float(o.get("thin", 0.35)); V, rings = [], []
+    for P, T, f in stream_path(h, o):
+        S = np.array([1.0, 0.0, 0.0]); N = np.cross(T, S); N /= np.linalg.norm(N) or 1
+        a, b = (w / 2) * (1 + widen * f), (d / 2) * (1 - thin * f)
+        if sec == "circle": ang = np.linspace(0, 2 * np.pi, sides, endpoint=False); pts = [P + S * a * np.cos(q) + N * b * np.sin(q) for q in ang]
+        else: pts = [P + S * sx * a + N * sy * b for sx, sy in ((-1, -1), (1, -1), (1, 1), (-1, 1))]
+        rings.append(len(V)); V += pts
+    f = []; k = sides
+    for i in range(len(rings) - 1):
+        for j in range(k):
+            a0, a1, b0, b1 = rings[i] + j, rings[i] + (j + 1) % k, rings[i + 1] + j, rings[i + 1] + (j + 1) % k
+            f += [[a0, b0, b1], [a0, b1, a1]]
+    c0 = len(V); V.append(np.mean(V[rings[0]:rings[0] + k], 0)); c1 = len(V); V.append(np.mean(V[rings[-1]:rings[-1] + k], 0))
+    for j in range(k):
+        f += [[c0, rings[0] + (j + 1) % k, rings[0] + j], [c1, rings[-1] + j, rings[-1] + (j + 1) % k]]
+    m = trimesh.Trimesh(np.array(V), np.array(f), process=True); m.fix_normals(); return m
+
+
+def channel(w, h, d, o):
+    t = float(o.get("wall", 0.2))
+    return trimesh.util.concatenate([_box(w, t, d), _box(t, h, d, -w / 2 + t / 2), _box(t, h, d, w / 2 - t / 2)])
+
+
 SHAPES = dict(railing=railing, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
-              hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge)
+              hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
+              stream=stream, channel=channel)
 
 
 def make(o, bevel=0.0):

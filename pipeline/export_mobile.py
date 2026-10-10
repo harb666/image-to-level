@@ -55,6 +55,7 @@ def colliders(L):
     for o in L["objects"]:
         t = o["type"]; M = W[o["name"]]
         if t in NO_COLLISION or o.get("collision") is False: continue
+        if t == "stream" and o["name"] not in hazards: continue  # Stage 8: liquid is never a solid collider
         if o["name"] in hazards:
             b = render_shape(o).bounds; c = np.array([[x, y, z, 1] for x in b[:, 0] for y in b[:, 1] for z in b[:, 2]]) @ M.T
             haz.append(dict(name=o["name"], shape="box_area", center=((c[:, :3].min(0) + c[:, :3].max(0)) / 2).round(3).tolist(),

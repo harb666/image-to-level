@@ -1,0 +1,730 @@
+{
+ "generated_by": "image-to-level Stage 5 (pipeline/export_mobile.py)",
+ "profile": "balanced",
+ "settings": {
+  "cell": 48,
+  "tex_max": 512,
+  "bg_tex_max": 128,
+  "prop_range": 70,
+  "small": 2.0
+ },
+ "files": {
+  "level": "level_mobile.glb",
+  "background": "background_mobile.glb",
+  "collision": "collision.glb",
+  "collision_data": "collision.json",
+  "effects": "effects_mobile.json",
+  "environment": "../environment.json"
+ },
+ "godot": {
+  "project_settings": {
+   "rendering/textures/vram_compression/import_etc2_astc": true,
+   "rendering/renderer/rendering_method.mobile": "mobile",
+   "rendering/lights_and_shadows/directional_shadow/size.mobile": 2048,
+   "rendering/anti_aliasing/quality/msaa_3d": "2x"
+  },
+  "import_level_glb": {
+   "meshes/generate_lods": true,
+   "meshes/light_baking": "Static Lightmaps (optional)",
+   "textures": "VRAM Compressed (Godot compresses embedded images to ASTC/ETC2 on import)"
+  },
+  "import_collision_glb": "nodes named *-convcolonly / *-colonly become StaticBody3D colliders; meshes are discarded",
+  "directional_light": {
+   "shadow_enabled": true,
+   "directional_shadow_mode": "PSSM 2 splits",
+   "directional_shadow_max_distance": 60
+  },
+  "note": "Settings are recommendations for Godot 4 mobile; not verified in Godot here. KTX2/Basis is not used: Godot re-compresses on import."
+ },
+ "metrics": {
+  "profile": "balanced",
+  "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
+  "dev": {
+   "level": {
+    "glb_kb": 604,
+    "triangles": 4680,
+    "nodes": 129,
+    "mesh_nodes": 115,
+    "unique_meshes": 68,
+    "materials": 15,
+    "images": 43,
+    "draw_calls_unbatched": 115,
+    "draw_calls_batched_min": 15,
+    "tex_mem_uncompressed_mb": 24.58,
+    "tex_mem_gpu_compressed_mb": 6.15,
+    "texture_slots": {
+     "baseColorTexture": 15,
+     "metallicRoughnessTexture": 15,
+     "normalTexture": 15,
+     "occlusionTexture": 15,
+     "emissiveTexture": 5
+    },
+    "image_sizes": [
+     "128x128 jpeg",
+     "256x256 jpeg",
+     "512x512 jpeg"
+    ]
+   },
+   "visible": {
+    "cameras": 56,
+    "visible_draw_calls_mean": 56.0,
+    "visible_draw_calls_max": 99,
+    "visible_triangles_mean": 5561,
+    "visible_triangles_max": 7408
+   }
+  },
+  "mobile": {
+   "level": {
+    "glb_kb": 571,
+    "triangles": 4176,
+    "nodes": 48,
+    "mesh_nodes": 47,
+    "unique_meshes": 47,
+    "materials": 15,
+    "images": 43,
+    "draw_calls_unbatched": 47,
+    "draw_calls_batched_min": 15,
+    "tex_mem_uncompressed_mb": 24.58,
+    "tex_mem_gpu_compressed_mb": 6.15,
+    "texture_slots": {
+     "baseColorTexture": 15,
+     "metallicRoughnessTexture": 15,
+     "normalTexture": 15,
+     "occlusionTexture": 15,
+     "emissiveTexture": 5
+    },
+    "image_sizes": [
+     "128x128 jpeg",
+     "256x256 jpeg",
+     "512x512 jpeg"
+    ]
+   },
+   "background": {
+    "glb_kb": 133,
+    "triangles": 3360,
+    "nodes": 3,
+    "mesh_nodes": 2,
+    "unique_meshes": 2,
+    "materials": 2,
+    "images": 6,
+    "draw_calls_unbatched": 2,
+    "draw_calls_batched_min": 2,
+    "tex_mem_uncompressed_mb": 0.5,
+    "tex_mem_gpu_compressed_mb": 0.12,
+    "texture_slots": {
+     "baseColorTexture": 2,
+     "metallicRoughnessTexture": 2,
+     "normalTexture": 2,
+     "occlusionTexture": 2
+    },
+    "image_sizes": [
+     "128x128 jpeg"
+    ]
+   },
+   "collision": {
+    "colliders": 84,
+    "hazards": 8,
+    "glb_kb": 55
+   },
+   "visible": {
+    "cameras": 56,
+    "visible_draw_calls_mean": 31.3,
+    "visible_draw_calls_max": 46,
+    "visible_triangles_mean": 6687,
+    "visible_triangles_max": 7480
+   },
+   "hidden_faces_removed": 504,
+   "effects_extra_draw_calls": 4,
+   "effects_max_particles": 273
+  }
+ },
+ "nodes": [
+  {
+   "node": "M_accent_-1_-1_props",
+   "kind": "props",
+   "material": "accent",
+   "triangles": 2,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "P4_RampTop_Light_01"
+   ]
+  },
+  {
+   "node": "M_glow_-1_-1_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 4,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "P4_RampTop_Glow_01R",
+    "P4_RampTop_Glow_01L"
+   ]
+  },
+  {
+   "node": "M_structure_b_-1_-1_props",
+   "kind": "props",
+   "material": "structure_b",
+   "triangles": 44,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "P1_Start_Cover_01"
+   ]
+  },
+  {
+   "node": "M_accent_-1_0_props",
+   "kind": "props",
+   "material": "accent",
+   "triangles": 6,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "P3_JumpTarget_Light_01",
+    "P2_Bridged_Light_01",
+    "P1_Start_Light_01"
+   ]
+  },
+  {
+   "node": "M_structure_b_-1_0_props",
+   "kind": "props",
+   "material": "structure_b",
+   "triangles": 44,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "P2_Bridged_Cover_01"
+   ]
+  },
+  {
+   "node": "M_accent_0_-1_props",
+   "kind": "props",
+   "material": "accent",
+   "triangles": 2,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "P4_RampTop_Light_02"
+   ]
+  },
+  {
+   "node": "M_glow_0_-1_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 6,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "P5_Octagon_Glow_01L",
+    "P4_RampTop_Glow_02R",
+    "P4_RampTop_Glow_02L"
+   ]
+  },
+  {
+   "node": "M_accent_0_0_props",
+   "kind": "props",
+   "material": "accent",
+   "triangles": 2,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "P5_Octagon_Light_01"
+   ]
+  },
+  {
+   "node": "M_frame_0_0_props",
+   "kind": "props",
+   "material": "frame",
+   "triangles": 40,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Out_Vertical_Flange"
+   ]
+  },
+  {
+   "node": "M_glow_0_0_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 2,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "P5_Octagon_Glow_01R"
+   ]
+  },
+  {
+   "node": "M_structure_b_0_0_props",
+   "kind": "props",
+   "material": "structure_b",
+   "triangles": 88,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "P5_Octagon_Cover_01",
+    "P3_JumpTarget_Cover_01"
+   ]
+  },
+  {
+   "node": "M_accent_-1_-1",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 6,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "OuterWall_West_Banner_01",
+    "OuterWall_North_Banner_03",
+    "OuterWall_North_Banner_02"
+   ]
+  },
+  {
+   "node": "M_frame_-1_-1",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 76,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Out_Round_Flange",
+    "Bridge_P1_P2_Beam_R"
+   ]
+  },
+  {
+   "node": "M_hazard_-1_-1",
+   "kind": "static",
+   "material": "hazard",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Out_Drain_Liquid"
+   ]
+  },
+  {
+   "node": "M_pipe_-1_-1",
+   "kind": "static",
+   "material": "pipe",
+   "triangles": 40,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Out_Round"
+   ]
+  },
+  {
+   "node": "M_structure_b_-1_-1",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 410,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Out_Drain",
+    "P4_RampTop_Rib_04",
+    "P4_RampTop_Rib_01",
+    "P3_JumpTarget_Rib_01",
+    "P2_Bridged_Rib_02",
+    "P2_Bridged_Rib_01",
+    "P1_Start_Rib_02",
+    "P1_Start_Rib_01",
+    "OuterWall_West_Pilaster_02",
+    "OuterWall_West_Pilaster_01",
+    "OuterWall_North_Pilaster_05",
+    "OuterWall_North_Pilaster_04"
+   ]
+  },
+  {
+   "node": "M_accent_-1_0",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 4,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "OuterWall_West_Banner_02",
+    "OuterWall_South_Banner_01"
+   ]
+  },
+  {
+   "node": "M_deck_v2_-1_0",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "P2_Bridged_Floor",
+    "P1_Start_Floor"
+   ]
+  },
+  {
+   "node": "M_foliage_-1_0",
+   "kind": "static",
+   "material": "foliage",
+   "triangles": 139,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tree_A_Crown",
+    "Island_Top"
+   ]
+  },
+  {
+   "node": "M_frame_-1_0",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_P1_P2_Beam_L"
+   ]
+  },
+  {
+   "node": "M_grate_-1_0",
+   "kind": "static",
+   "material": "grate",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Bridge_P1_P2_Deck"
+   ]
+  },
+  {
+   "node": "M_pipe_-1_0",
+   "kind": "static",
+   "material": "pipe",
+   "triangles": 150,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tank_A"
+   ]
+  },
+  {
+   "node": "M_rock_-1_0",
+   "kind": "static",
+   "material": "rock",
+   "triangles": 384,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Rocks_A_Rock_04",
+    "Rocks_A_Rock_03",
+    "Rocks_A_Rock_02",
+    "Rocks_A_Rock_01",
+    "Island"
+   ]
+  },
+  {
+   "node": "M_structure_-1_0",
+   "kind": "static",
+   "material": "structure",
+   "triangles": 62,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "P2_Bridged_Base",
+    "P1_Start_Base"
+   ]
+  },
+  {
+   "node": "M_structure_b_-1_0",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 316,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "P3_JumpTarget_Rib_04",
+    "P2_Bridged_Rib_04",
+    "P2_Bridged_Rib_03",
+    "P1_Start_Rib_04",
+    "P1_Start_Rib_03",
+    "OuterWall_West_Pilaster_03",
+    "OuterWall_West_Cap",
+    "OuterWall_South_Pilaster_02",
+    "OuterWall_South_Pilaster_01"
+   ]
+  },
+  {
+   "node": "M_timber_-1_0",
+   "kind": "static",
+   "material": "timber",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tree_A_Trunk"
+   ]
+  },
+  {
+   "node": "M_trim_-1_0",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "P2_Bridged_Trim",
+    "P1_Start_Trim"
+   ]
+  },
+  {
+   "node": "M_wall_v2_-1_0",
+   "kind": "static",
+   "material": "wall_v2",
+   "triangles": 30,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "OuterWall_West_Body"
+   ]
+  },
+  {
+   "node": "M_accent_0_-1",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 4,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "OuterWall_East_Banner_02",
+    "OuterWall_North_Banner_01"
+   ]
+  },
+  {
+   "node": "M_deck_0_-1",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "P4_RampTop_Floor"
+   ]
+  },
+  {
+   "node": "M_frame_0_-1",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 132,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Ramp_P3_P4_Support",
+    "Ramp_P3_P4_Beam_R",
+    "Ramp_P3_P4_Beam_L"
+   ]
+  },
+  {
+   "node": "M_grate_0_-1",
+   "kind": "static",
+   "material": "grate",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Ramp_P3_P4_Deck"
+   ]
+  },
+  {
+   "node": "M_hazard_0_-1",
+   "kind": "static",
+   "material": "hazard",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Out_Spill_Liquid"
+   ]
+  },
+  {
+   "node": "M_structure_0_-1",
+   "kind": "static",
+   "material": "structure",
+   "triangles": 30,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "P4_RampTop_Base"
+   ]
+  },
+  {
+   "node": "M_structure_b_0_-1",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 362,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Out_Spill",
+    "P5_Octagon_Cover_02",
+    "P4_RampTop_Rib_03",
+    "P4_RampTop_Rib_02",
+    "P3_JumpTarget_Rib_02",
+    "OuterWall_East_Pilaster_03",
+    "OuterWall_North_Pilaster_03",
+    "OuterWall_North_Pilaster_02",
+    "OuterWall_North_Pilaster_01",
+    "OuterWall_North_Cap"
+   ]
+  },
+  {
+   "node": "M_trim_0_-1",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "P4_RampTop_Trim"
+   ]
+  },
+  {
+   "node": "M_wall_v2_0_-1",
+   "kind": "static",
+   "material": "wall_v2",
+   "triangles": 30,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "OuterWall_North_Body"
+   ]
+  },
+  {
+   "node": "M_accent_0_0",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 6,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "OuterWall_South_Banner_03",
+    "OuterWall_South_Banner_02",
+    "OuterWall_East_Banner_01"
+   ]
+  },
+  {
+   "node": "M_deck_v2_0_0",
+   "kind": "static",
+   "material": "deck_v2",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "P5_Octagon_Floor",
+    "P3_JumpTarget_Floor"
+   ]
+  },
+  {
+   "node": "M_grate_0_0",
+   "kind": "static",
+   "material": "grate",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Stairs_P3_P5"
+   ]
+  },
+  {
+   "node": "M_pipe_0_0",
+   "kind": "static",
+   "material": "pipe",
+   "triangles": 80,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Out_Broken",
+    "Out_Vertical"
+   ]
+  },
+  {
+   "node": "M_structure_0_0",
+   "kind": "static",
+   "material": "structure",
+   "triangles": 55,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "P5_Octagon_Base",
+    "P3_JumpTarget_Base"
+   ]
+  },
+  {
+   "node": "M_structure_b_0_0",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 336,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Stairs_P3_P5_Support",
+    "P3_JumpTarget_Rib_03",
+    "OuterWall_South_Pilaster_05",
+    "OuterWall_South_Pilaster_04",
+    "OuterWall_South_Pilaster_03",
+    "OuterWall_South_Cap",
+    "OuterWall_East_Pilaster_02",
+    "OuterWall_East_Pilaster_01",
+    "OuterWall_East_Cap"
+   ]
+  },
+  {
+   "node": "M_trim_0_0",
+   "kind": "static",
+   "material": "trim",
+   "triangles": 76,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "P5_Octagon_Trim",
+    "P3_JumpTarget_Trim"
+   ]
+  },
+  {
+   "node": "M_wall_v2_0_0",
+   "kind": "static",
+   "material": "wall_v2",
+   "triangles": 60,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "OuterWall_South_Body",
+    "OuterWall_East_Body"
+   ]
+  },
+  {
+   "node": "FX_Pour_Flow",
+   "kind": "effect_target",
+   "material": "hazard",
+   "triangles": 660,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Out_Broken_Fall",
+    "Out_Vertical_Fall",
+    "Out_Spill_Fall",
+    "Out_Drain_Fall",
+    "Out_Round_Fall"
+   ],
+   "reason": "merged targets of one shader effect"
+  },
+  {
+   "node": "Pool",
+   "kind": "separate",
+   "material": "hazard",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pool"
+   ],
+   "reason": "hazard"
+  }
+ ]
+}

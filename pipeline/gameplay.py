@@ -63,6 +63,12 @@ def _sample(T, spacing):
     return np.concatenate(P), np.concatenate(I)
 
 
+def _bodies(level_dir):
+    from validate_level import load_tris, closed_mask
+    _, names, objs = load_tris(os.path.join(level_dir, "level.glb"), skip_invisible=False)
+    return closed_mask(names, objs)
+
+
 def analyse(level_dir, G=None, write=True, verbose=True):
     from validate_level import load_tris
     from scipy.sparse import coo_matrix
@@ -81,8 +87,9 @@ def analyse(level_dir, G=None, write=True, verbose=True):
     ix, iz = np.floor((P[:, 0] - b0[0]) / cell).astype(int), np.floor((P[:, 2] - b0[2]) / cell).astype(int)
     keep = (ix >= 0) & (ix < nx) & (iz >= 0) & (iz < nz); P, I, ix, iz = P[keep], I[keep], ix[keep], iz[keep]
     c = iz * nx + ix; order = np.lexsort((P[:, 1], c)); c, y, I = c[order], P[order, 1], I[order]
-    # spans: same cell, vertical gap <= 0.15 m
-    new = np.r_[True, (c[1:] != c[:-1]) | (y[1:] - y[:-1] > 0.15)]; sid = np.cumsum(new) - 1; ns = sid[-1] + 1
+    # spans: same cell, vertical gaps below a step merge
+    mg = max(0.15, min(P_["step_height"], 0.4))  # gaps smaller than a step can't hold a player: one walking surface (stair treads)
+    new = np.r_[True, (c[1:] != c[:-1]) | (y[1:] - y[:-1] > mg)]; sid = np.cumsum(new) - 1; ns = sid[-1] + 1
     s_first = np.flatnonzero(new); s_last = np.r_[s_first[1:] - 1, len(y) - 1]
     s_cell, s_lo, s_top = c[s_first], y[s_first], y[s_last]
     # top surface of the span: highest sample; walkable if that triangle is (ties: any walkable sample within 2 cm of the top)
@@ -93,20 +100,33 @@ def analyse(level_dir, G=None, write=True, verbose=True):
     same_next = np.r_[s_cell[1:] == s_cell[:-1], False]
     s_ceil = np.where(same_next, np.r_[s_lo[1:], np.inf], np.inf)
     clear = s_ceil - s_top
-    # inside a closed solid? per object, an odd number of its surfaces above the span top (e.g. fluid under a platform base)
-    pairs = np.unique(np.c_[sid, oid[I]], axis=0); p_start = np.searchsorted(pairs[:, 0], np.arange(ns)); p_end = np.searchsorted(pairs[:, 0], np.arange(ns), side="right")
-    cell_end_s = np.r_[np.flatnonzero(s_cell[1:] != s_cell[:-1]), ns - 1]; last_of = cell_end_s[np.searchsorted(cell_end_s, np.arange(ns))]
-
-    def buried(si):
-        objs = pairs[p_start[si + 1]:p_end[last_of[si]], 1] if si < last_of[si] else []
-        return len(objs) and (np.bincount(objs) % 2).any()
+    # buried? a top surface just inside another CLOSED solid (e.g. fluid under a platform base, a base top inside its
+    # floor plate) is neither floor nor hazard. Proper point-in-solid test, only where something lies above in the cell.
+    from validate_level import closed_mask, inside_solid
     hazard_top = top_walk & s_hz & (clear >= 0.5)
-    for si in np.flatnonzero(hazard_top | (top_walk & ~s_hz & (clear >= P_["height"]))):
-        if buried(si): hazard_top[si] = False; top_walk[si] = False  # buried surface: neither a hazard nor floor
+    cand = np.flatnonzero((hazard_top | (top_walk & ~s_hz & (clear >= P_["height"]))) & same_next)
+    if len(cand):
+        body = _bodies(level_dir)
+        cm = body >= 0
+        if cm.any():
+            pts = np.c_[b0[0] + (s_cell[cand] % nx + 0.5) * cell, s_top[cand] + 0.05, b0[2] + (s_cell[cand] // nx + 0.5) * cell]
+            bur = np.zeros(len(cand), bool); bid = np.unique(body[cm]); tb = body
+            blo = np.array([T[tb == b].reshape(-1, 3).min(0) for b in bid]); bhi = np.array([T[tb == b].reshape(-1, 3).max(0) for b in bid])
+            order = np.lexsort((pts[:, 0], np.floor(pts[:, 2] / 8), np.floor(pts[:, 0] / 8)))  # spatial chunks: only nearby bodies
+            for k in range(0, len(cand), 256):
+                ii = order[k:k + 256]; lo_, hi_ = pts[ii].min(0), pts[ii].max(0)
+                near = bid[np.all(bhi >= lo_ - 0.01, 1) & np.all(blo <= hi_ + 0.01, 1)]
+                if not len(near): continue
+                sel = np.isin(tb, near); bur[ii] = inside_solid(pts[ii], T[sel], tb[sel])
+            hazard_top[cand[bur]] = False; top_walk[cand[bur]] = False
     stand = top_walk & ~s_hz & (clear >= P_["height"])
     cell_start = np.searchsorted(s_cell, np.arange(nx * nz)); cell_end = np.searchsorted(s_cell, np.arange(nx * nz), side="right")
     nodes = np.flatnonzero(stand); nid = -np.ones(ns, int); nid[nodes] = np.arange(len(nodes)); N = len(nodes)
-    ncell, ntop, nceil = s_cell[nodes], s_top[nodes], s_ceil[nodes]
+    # walking height of a cell = mean height of its walkable top samples (stairs treads shorter than a cell average out
+    # to the stair slope instead of jumping by two risers); clearance still uses the true top
+    wtop = walk_tri[I] & (y >= s_top[sid] - 0.55); ssum = np.zeros(ns); scnt = np.zeros(ns)
+    np.add.at(ssum, sid[wtop], y[wtop]); np.add.at(scnt, sid[wtop], 1); s_walk = np.where(scnt > 0, ssum / np.maximum(scnt, 1), s_top)
+    ncell, ntop, nceil = s_cell[nodes], s_walk[nodes], s_ceil[nodes]
     nxz = np.c_[b0[0] + (ncell % nx + 0.5) * cell, b0[2] + (ncell // nx + 0.5) * cell]
     # walk connections (4-neighbourhood)
     ea, eb = [], []; deg = np.zeros(N, int)

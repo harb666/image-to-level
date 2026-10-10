@@ -1,0 +1,73 @@
+{
+ "repairs": [
+  {
+   "pass_": 1,
+   "finding": "House_B1_Rail_20 and House_NW_Floor_2 share coplanar faces (0.22 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "House_B1_Rail_20",
+   "result": "moved 10 mm behind House_NW_Floor_2"
+  }
+ ],
+ "details": [
+  {
+   "pass_": 1,
+   "finding": "House_B1_Rail_20 and House_NW_Floor_2 share coplanar faces (0.22 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "House_B1_Rail_20",
+   "result": "moved 10 mm behind House_NW_Floor_2",
+   "before": {
+    "name": "House_B1_Rail_20",
+    "type": "box",
+    "position": [
+     0.0,
+     3.333,
+     4.91
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "parent": "House_B1",
+    "size": [
+     9.1,
+     0.2,
+     0.14
+    ],
+    "material": "timber",
+    "gen": "House_B1",
+    "source": "visible"
+   },
+   "after": {
+    "name": "House_B1_Rail_20",
+    "type": "box",
+    "position": [
+     0.0,
+     3.343,
+     4.91
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "parent": "House_B1",
+    "size": [
+     9.1,
+     0.2,
+     0.14
+    ],
+    "material": "timber",
+    "gen": "House_B1",
+    "source": "visible"
+   }
+  }
+ ],
+ "remaining": {
+  "ERROR": 0,
+  "WARNING": 0,
+  "INTENTIONAL": 0
+ },
+ "needs_review": [],
+ "note": "Each repair touched only the named object; undo with: python3 pipeline/edit_level.py <level> undo"
+}
