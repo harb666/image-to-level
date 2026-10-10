@@ -310,3 +310,28 @@ Ground-level kit parts are visual-only (`collision: false`, inside the player ra
 breakup) and `chevron` (hazard stripes, role `stripe`); `scifi_floor` takes `gloss` and `metallic` (polished deck).
 
 **Skyline** - background `skyline` layers take `setbacks: true` (stepped high-rises) and `masts: 0..1` (antennas).
+
+
+## Art style presets (Stage 11)
+`"art_style": "alien_cartoon"` applies a reusable preset (`pipeline/styles.py`). It is merged UNDER the spec: anything
+the spec sets explicitly wins, so a level can tweak one colour without losing the rest. Levels without `art_style`
+are unchanged (existing themes / styles keep working). `python3 pipeline/styles.py` lists presets.
+
+`alien_cartoon` controls: material palette (purple-black inked structures, red rails / banners / lights, toxic green
+fluid), toon shading, outline shells, magenta sky with angular posterised clouds, the striped pink planet (kept, drawn
+over clouds), green height fog + green cloud abyss, green emissive waterfalls / sea, trees -> alien satellites
+(`sat_dish`, `sat_pod`, `sat_spire`), distant hovering satellites (`hover_satellites` background layer), spiky
+alien skyline, tower antennas.
+
+Building blocks usable without the preset:
+- material `"toon": true` (any kind): flat posterised colour, ink on height-map edges, matte, non-metallic
+  (`toon_levels`, `toon_flatten`, `ink`, `ink_threshold`, `ink_color`).
+- level.json `"style": {"toon": {"steps", "floor", "ambient"}, "outline": {"color", "width": [min, max], "rel",
+  "min_size", "skip_materials", "skip_types"}}`: outline = inverted-hull shells baked into level.glb (`<name>__ol`,
+  material `ink`) - real geometry, works in Godot / any engine without shaders; checks, navigation and colliders
+  ignore them; mobile export merges them into a few coarse `M_ink_*` nodes. Per object `"outline": false` opts out.
+- sky: `planet.stripes {strength, frequency, color}`, `planet.over_clouds`, `clouds.posterize`, `clouds.angular`,
+  `clouds.stretch`.
+- scatter kinds `sat_dish`, `sat_pod`, `sat_spire`; background types `hover_satellites`, skyline `spikes`.
+- Godot: `fx/godot/apply_style.gd` sets StandardMaterial3D diffuse_mode TOON + specular off (Mobile renderer OK).
+  The preview approximates toon with banded direct sunlight (three.js); not identical to Godot.

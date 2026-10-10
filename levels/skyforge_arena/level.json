@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Skyforge Arena",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "dc40f8efb47538e3",
+  "spec_sha": "99a9707b865867e4",
   "theme": "scifi",
   "detail": "medium",
   "mode": "open"
@@ -171,19 +171,19 @@
     0
    ],
    "color": [
+    0.6,
     1.0,
-    0.9,
-    0.84
+    0.32
    ],
    "shade": [
-    0.5,
-    0.42,
-    0.56
+    0.12,
+    0.34,
+    0.12
    ],
    "glow": [
+    0.85,
     1.0,
-    0.58,
-    0.3
+    0.45
    ],
    "y": 12,
    "radius": 760,
@@ -201,19 +201,19 @@
     0
    ],
    "color": [
+    0.6,
     1.0,
-    0.9,
-    0.84
+    0.32
    ],
    "shade": [
-    0.5,
-    0.42,
-    0.56
+    0.12,
+    0.34,
+    0.12
    ],
    "glow": [
+    0.85,
     1.0,
-    0.58,
-    0.3
+    0.45
    ],
    "y": 27,
    "radius": 360,
@@ -236,19 +236,19 @@
     18
    ],
    "color": [
+    0.6,
     1.0,
-    0.9,
-    0.84
+    0.32
    ],
    "shade": [
-    0.5,
-    0.42,
-    0.56
+    0.12,
+    0.34,
+    0.12
    ],
    "glow": [
+    0.85,
     1.0,
-    0.58,
-    0.3
+    0.45
    ]
   },
   {
@@ -259,19 +259,19 @@
     24.0
    ],
    "color": [
+    0.6,
     1.0,
-    0.9,
-    0.84
+    0.32
    ],
    "shade": [
-    0.5,
-    0.42,
-    0.56
+    0.12,
+    0.34,
+    0.12
    ],
    "glow": [
+    0.85,
     1.0,
-    0.58,
-    0.3
+    0.45
    ],
    "around_points": [
     [
@@ -313,19 +313,19 @@
    ],
    "opacity": 0.85,
    "color": [
+    0.6,
     1.0,
-    0.9,
-    0.84
+    0.32
    ],
    "shade": [
-    0.5,
-    0.42,
-    0.56
+    0.12,
+    0.34,
+    0.12
    ],
    "glow": [
+    0.85,
     1.0,
-    0.58,
-    0.3
+    0.45
    ],
    "around_points": [
     [
@@ -380,90 +380,126 @@
   "horizon_distance": 1301,
   "sky": {
    "preset": "sunset",
-   "sun": {
-    "azimuth_deg": 5,
-    "elevation_deg": 7,
-    "glow": 1.3
-   },
-   "planet": {
-    "azimuth_deg": 12,
-    "elevation_deg": 17,
-    "size_deg": 18,
-    "color": [
-     0.78,
-     0.68,
-     0.86
-    ],
-    "ring": false
-   },
    "zenith": [
-    0.16,
-    0.12,
-    0.32
+    0.2,
+    0.03,
+    0.22
    ],
    "upper": [
     0.62,
-    0.32,
+    0.08,
     0.42
    ],
    "horizon": [
     1.0,
-    0.56,
-    0.24
+    0.42,
+    0.42
+   ],
+   "below": [
+    0.18,
+    0.3,
+    0.12
    ],
    "clouds": {
-    "coverage": 0.6,
+    "coverage": 0.5,
+    "scale": 2.2,
+    "stretch": 3.0,
     "lit": [
      1.0,
-     0.56,
-     0.28
+     0.3,
+     0.6
     ],
     "dark": [
      0.36,
-     0.18,
-     0.26
+     0.06,
+     0.3
     ],
     "layers": 2,
-    "wisps": 0.6
+    "wisps": 0.6,
+    "posterize": 3,
+    "angular": 0.75
    },
    "smog": {
-    "strength": 0.3,
+    "strength": 0.55,
+    "color": [
+     0.6,
+     1.0,
+     0.35
+    ],
+    "height_deg": 5
+   },
+   "planet": {
+    "color": [
+     1.0,
+     0.32,
+     0.6
+    ],
+    "stripes": {
+     "strength": 0.6,
+     "frequency": 300,
+     "color": [
+      1.0,
+      0.78,
+      0.9
+     ]
+    },
+    "ring": false,
+    "over_clouds": true,
+    "azimuth_deg": 12,
+    "elevation_deg": 17,
+    "size_deg": 18
+   },
+   "sun": {
     "color": [
      1.0,
      0.55,
-     0.32
+     0.65
     ],
-    "height_deg": 7
+    "glow": 0.5,
+    "azimuth_deg": 5,
+    "elevation_deg": 7
    }
   },
   "atmosphere": {
-   "fog_start": 260,
-   "fog_end": 900,
+   "fog_start": 380,
+   "fog_end": 1400,
    "height_fog": {
-    "height": 20,
-    "density": 0.045
+    "height": 24,
+    "density": 0.05
    },
-   "contrast": 1.12,
-   "saturation": 1.12,
+   "fog_color": [
+    0.62,
+    0.95,
+    0.4
+   ],
+   "contrast": 1.15,
+   "saturation": 1.2,
    "glow": {
     "enabled": true,
-    "intensity": 0.9,
-    "bloom": 0.12,
-    "hdr_threshold": 0.85
+    "intensity": 1.0,
+    "bloom": 0.1,
+    "hdr_threshold": 0.8
    }
   },
   "lighting": {
-   "sun_energy": 2.6,
+   "sun_energy": 2.2,
    "sun_color": [
     1.0,
-    0.68,
-    0.42
+    0.62,
+    0.8
    ],
-   "ambient_energy": 1.0,
-   "exposure": 1.05
+   "ambient_energy": 1.35,
+   "exposure": 1.0
   },
   "background": [
    {
+    "toon": true,
+    "color": [
+     0.24,
+     0.16,
+     0.32
+    ],
+    "fade": 0.0,
     "id": "Mountains_Far",
     "type": "mountain_ring",
     "radius": 720,
@@ -472,15 +508,16 @@
      90,
      210
     ],
-    "fade": 0.72,
-    "seed": 3,
-    "color": [
-     0.5,
-     0.38,
-     0.42
-    ]
+    "seed": 3
    },
    {
+    "toon": true,
+    "color": [
+     0.24,
+     0.16,
+     0.32
+    ],
+    "fade": 0.0,
     "id": "Mountains_Near",
     "type": "mountain_ring",
     "radius": 500,
@@ -489,17 +526,18 @@
      35,
      100
     ],
-    "fade": 0.5,
     "seed": 8,
     "frequency": 3.5,
-    "sharpness": 2.2,
-    "color": [
-     0.46,
-     0.32,
-     0.33
-    ]
+    "sharpness": 2.2
    },
    {
+    "toon": true,
+    "color": [
+     0.08,
+     0.06,
+     0.12
+    ],
+    "fade": 0.0,
     "id": "Spires",
     "type": "spires",
     "radius": [
@@ -511,10 +549,26 @@
      60,
      170
     ],
-    "fade": 0.35,
     "seed": 5
    },
    {
+    "toon": true,
+    "color": [
+     0.12,
+     0.09,
+     0.16
+    ],
+    "fade": 0.05,
+    "glow": [
+     0.55,
+     1.0,
+     0.25
+    ],
+    "lit": 0.22,
+    "setbacks": true,
+    "masts": 0.7,
+    "spikes": 0.6,
+    "tile_m": 26.0,
     "id": "Skyline_North",
     "type": "skyline",
     "radius": 400,
@@ -526,24 +580,21 @@
     "height": [
      45,
      165
-    ],
-    "fade": 0.22,
-    "glow": [
-     1.0,
-     0.6,
-     0.3
-    ],
-    "lit": 0.38,
-    "tile_m": 28.0,
-    "color": [
-     0.12,
-     0.11,
-     0.13
-    ],
-    "setbacks": true,
-    "masts": 0.5
+    ]
    },
    {
+    "toon": true,
+    "color": [
+     0.16,
+     0.12,
+     0.22
+    ],
+    "fade": 0.05,
+    "glow": [
+     1.0,
+     0.25,
+     0.7
+    ],
     "id": "Megastructure_Ring",
     "type": "ring_structure",
     "azimuth_deg": 345,
@@ -553,8 +604,37 @@
     "elevation": 135,
     "tilt_deg": 16,
     "pylons": 3,
-    "fade": 0.3,
     "seed": 4
+   },
+   {
+    "id": "Hover_Satellites",
+    "type": "hover_satellites",
+    "radius": [
+     190,
+     520
+    ],
+    "count": 16,
+    "elevation": [
+     55,
+     150
+    ],
+    "size": [
+     10,
+     26
+    ],
+    "color": [
+     0.1,
+     0.08,
+     0.14
+    ],
+    "toon": true,
+    "glow": [
+     1.0,
+     0.15,
+     0.25
+    ],
+    "fade": 0.05,
+    "seed": 21
    }
   ]
  },
@@ -708,171 +788,193 @@
   "accent": {
    "type": "banner",
    "color": [
-    0.85,
-    0.18,
+    0.82,
+    0.06,
     0.12
    ],
    "tile_m": 2.0,
    "emissive": [
-    0.6,
-    0.15,
+    0.55,
+    0.04,
     0.1
-   ]
+   ],
+   "toon": true
   },
   "deck": {
    "type": "scifi_floor",
    "color": [
-    0.58,
-    0.53,
-    0.48
+    0.25,
+    0.21,
+    0.32
    ],
    "tile_m": 4.0,
-   "wear": 0.4,
-   "gloss": 0.45,
-   "metallic": 0.4
+   "wear": 0.0,
+   "toon": true,
+   "toon_flatten": 0.05
   },
   "frame": {
    "type": "industrial_metal",
    "color": [
     0.2,
-    0.2,
-    0.2
+    0.15,
+    0.26
    ],
    "tile_m": 3.0,
-   "bevel": 0.03
+   "bevel": 0.03,
+   "toon": true
   },
   "glow": {
    "type": "glow",
    "color": [
     1.0,
-    0.62,
+    0.16,
     0.3
    ],
    "tile_m": 2.0,
    "emissive": [
     1.0,
-    0.55,
+    0.12,
     0.25
    ]
   },
   "grate": {
    "type": "grating",
    "color": [
-    0.3,
-    0.31,
-    0.3
+    0.27,
+    0.22,
+    0.35
    ],
-   "tile_m": 2.0
+   "tile_m": 2.0,
+   "toon": true
   },
   "machine": {
    "type": "machinery_panel",
    "color": [
-    0.22,
-    0.23,
-    0.23
+    0.3,
+    0.24,
+    0.38
    ],
    "tile_m": 2.0,
    "accent": [
+    0.45,
     1.0,
-    0.55,
-    0.1
+    0.2
    ],
    "emissive": [
     1,
     1,
     1
-   ]
+   ],
+   "toon": true
   },
   "rail": {
    "type": "painted_metal",
    "color": [
-    0.6,
-    0.18,
-    0.12
+    0.85,
+    0.08,
+    0.1
    ],
    "tile_m": 2.0,
-   "res": 256
+   "res": 128,
+   "wear": 0.02,
+   "toon": true
   },
   "stripe": {
    "type": "chevron",
    "color": [
-    0.92,
-    0.66,
-    0.12
+    0.95,
+    0.12,
+    0.25
    ],
    "tile_m": 1.5,
-   "res": 256
+   "res": 128,
+   "dark": [
+    0.08,
+    0.05,
+    0.1
+   ],
+   "wear": 0.1,
+   "toon": true
   },
   "structure": {
    "type": "machinery_panel",
    "color": [
-    0.31,
-    0.29,
-    0.27
+    0.25,
+    0.19,
+    0.32
    ],
    "tile_m": 4.0,
    "bevel": 0.1,
    "accent": [
     1.0,
-    0.25,
-    0.12
+    0.1,
+    0.18
    ],
    "emissive": [
     1,
     1,
     1
-   ]
+   ],
+   "toon": true
   },
   "structure_b": {
    "type": "hull_plating",
    "color": [
-    0.27,
-    0.25,
-    0.24
+    0.22,
+    0.17,
+    0.3
    ],
    "tile_m": 4.0,
-   "wear": 0.6,
-   "bevel": 0.06
+   "wear": 0.2,
+   "bevel": 0.06,
+   "toon": true
   },
   "trim": {
    "type": "trim_light",
    "color": [
-    0.25,
     0.22,
-    0.21
+    0.17,
+    0.28
    ],
    "tile_m": 1.2,
    "bevel": 0.05,
    "accent": [
     1.0,
-    0.2,
-    0.1
+    0.08,
+    0.2
    ],
    "emissive": [
     1,
     1,
     1
-   ]
+   ],
+   "toon": true
   },
   "wall": {
    "type": "hull_plating",
    "color": [
-    0.33,
-    0.3,
-    0.28
+    0.27,
+    0.21,
+    0.35
    ],
    "tile_m": 4.0,
-   "wear": 0.55,
-   "bevel": 0.12
+   "wear": 0.2,
+   "bevel": 0.12,
+   "toon": true
   },
   "water": {
-   "type": "water",
+   "type": "toxic",
    "color": [
-    0.75,
-    0.85,
-    0.9
+    0.45,
+    1.0,
+    0.2
    ],
-   "tile_m": 3.0
+   "tile_m": 3.0,
+   "emissive": [
+    0.42,
+    1.0,
+    0.15
+   ]
   },
   "ter_road": {
    "type": "gravel",
@@ -897,12 +999,13 @@
   "ter_rock": {
    "type": "rock",
    "color": [
-    0.56,
-    0.37,
-    0.26
+    0.22,
+    0.17,
+    0.29
    ],
    "tile_m": 10.0,
-   "res": 256
+   "res": 128,
+   "toon": true
   },
   "ter_snow": {
    "type": "snow",
@@ -915,14 +1018,19 @@
    "res": 256
   },
   "ter_sand": {
-   "type": "sand",
+   "type": "toxic",
    "color": [
-    0.72,
-    0.6,
-    0.45
+    0.4,
+    0.95,
+    0.2
    ],
-   "tile_m": 5.0,
-   "res": 128
+   "tile_m": 6.0,
+   "res": 128,
+   "emissive": [
+    0.3,
+    0.8,
+    0.12
+   ]
   },
   "ter_dirt": {
    "type": "dirt",
@@ -935,14 +1043,15 @@
    "res": 256
   },
   "ter_grass": {
-   "type": "grass",
+   "type": "moss",
    "color": [
-    0.3,
-    0.4,
-    0.18
+    0.2,
+    0.16,
+    0.27
    ],
    "tile_m": 5.0,
-   "res": 256
+   "res": 128,
+   "toon": true
   },
   "sc_foliage": {
    "type": "grass",
@@ -973,6 +1082,58 @@
    ],
    "tile_m": 2.0,
    "res": 128
+  },
+  "sc_frame": {
+   "type": "industrial_metal",
+   "color": [
+    0.08,
+    0.06,
+    0.11
+   ],
+   "tile_m": 2.0,
+   "res": 128,
+   "toon": true
+  },
+  "sc_hull": {
+   "type": "hull_plating",
+   "color": [
+    0.15,
+    0.12,
+    0.2
+   ],
+   "tile_m": 3.0,
+   "res": 128,
+   "toon": true
+  },
+  "sc_light": {
+   "type": "glow",
+   "color": [
+    1.0,
+    0.12,
+    0.2
+   ],
+   "tile_m": 1.0,
+   "res": 128,
+   "emissive": [
+    0.8,
+    0.096,
+    0.16000000000000003
+   ]
+  },
+  "sc_light_b": {
+   "type": "glow",
+   "color": [
+    0.5,
+    1.0,
+    0.2
+   ],
+   "tile_m": 1.0,
+   "res": 128,
+   "emissive": [
+    0.4,
+    0.8,
+    0.16000000000000003
+   ]
   }
  },
  "objects": [
@@ -15772,6 +15933,43 @@
   "profile": "balanced",
   "cell": 64
  },
+ "style": {
+  "name": "alien_cartoon",
+  "toon": {
+   "steps": 3,
+   "floor": 0.55,
+   "ambient": 0.85,
+   "godot": {
+    "diffuse_mode": "toon",
+    "specular_mode": "disabled",
+    "metallic": 0.0
+   }
+  },
+  "outline": {
+   "color": [
+    0.03,
+    0.01,
+    0.05
+   ],
+   "width": [
+    0.1,
+    0.32
+   ],
+   "rel": 0.022,
+   "min_size": 0.25,
+   "skip_materials": [
+    "glow",
+    "water",
+    "accent"
+   ],
+   "skip_types": [
+    "panel",
+    "terrain",
+    "boundary",
+    "stream"
+   ]
+  }
+ },
  "validation": {
   "ignore_objects": []
  },
@@ -16112,47 +16310,54 @@
    "rock": {
     "type": "rock",
     "color": [
-     0.56,
-     0.37,
-     0.26
+     0.22,
+     0.17,
+     0.29
     ],
     "tile_m": 10.0,
-    "res": 256
+    "res": 128,
+    "toon": true
    },
    "grass": {
-    "type": "grass",
+    "type": "moss",
     "color": [
-     0.3,
-     0.4,
-     0.18
+     0.2,
+     0.16,
+     0.27
     ],
     "tile_m": 5.0,
-    "res": 256
+    "res": 128,
+    "toon": true
    },
    "sand": {
-    "type": "sand",
+    "type": "toxic",
     "color": [
-     0.72,
-     0.6,
-     0.45
+     0.4,
+     0.95,
+     0.2
     ],
-    "tile_m": 5.0,
-    "res": 128
+    "tile_m": 6.0,
+    "res": 128,
+    "emissive": [
+     0.3,
+     0.8,
+     0.12
+    ]
    }
   },
   "scatter": [
    {
     "id": "Island_Trees",
     "kinds": [
-     "conifer",
-     "broadleaf",
+     "sat_spire",
+     "sat_dish",
      {
-      "kind": "bush",
+      "kind": "sat_pod",
       "weight": 0.8
      }
     ],
     "area": "extent",
-    "density": 3.5,
+    "density": 1.75,
     "cluster": 0.3,
     "slope_max": 24,
     "height": [
@@ -16163,7 +16368,12 @@
      "grass"
     ],
     "source": "visible",
-    "seed": 3
+    "seed": 3,
+    "scale": [
+     1.4,
+     2.1
+    ],
+    "style": "alien_cartoon"
    }
   ],
   "features": [
@@ -16260,16 +16470,16 @@
  "spawn_regions": [],
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 88492,
+  "triangles": 70804,
   "objects": 641,
-  "materials": 23,
-  "glb_kb": 5284,
-  "nodes": 698,
-  "draw_calls_unbatched": 658,
-  "draw_calls_batched_min": 20,
-  "images": 55,
-  "tex_mem_gpu_compressed_mb": 6.9,
-  "tex_mem_uncompressed_mb": 27.58,
+  "materials": 27,
+  "glb_kb": 4323,
+  "nodes": 935,
+  "draw_calls_unbatched": 895,
+  "draw_calls_batched_min": 21,
+  "images": 56,
+  "tex_mem_gpu_compressed_mb": 5.98,
+  "tex_mem_uncompressed_mb": 23.92,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)",
   "terrain_triangles_lod0": 28800
  }

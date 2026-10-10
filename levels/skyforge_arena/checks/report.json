@@ -1,65 +1,65 @@
 {
  "level": "skyforge_arena",
  "assets_kb": {
-  "level.glb": 5284,
-  "mobile/level_mobile.glb": 5807,
-  "mobile/collision.json": 369,
-  "environment.json": 4,
-  "background.glb": 383,
+  "level.glb": 4323,
+  "mobile/level_mobile.glb": 4955,
+  "mobile/collision.json": 349,
+  "environment.json": 5,
+  "background.glb": 444,
   "effects.json": 54
  },
  "complexity": {
-  "triangles": 88708,
-  "nodes": 658,
-  "materials": 23,
+  "triangles": 82008,
+  "nodes": 895,
+  "materials": 27,
   "heaviest": [
    [
     "SC_Island_Trees__160_0_0",
-    11542
+    8074
    ],
    [
     "SC_Island_Trees__160_2_1",
-    6842
+    4248
    ],
    [
     "SC_Island_Trees__160_1_0",
-    6128
-   ],
-   [
-    "SC_Island_Trees__160_0_2",
-    6062
+    3974
    ],
    [
     "TR_2_2_sand",
+    3200
+   ],
+   [
+    "TR_2_0_sand",
     3200
    ]
   ]
  },
  "performance": {
   "dev": {
-   "glb_kb": 5284,
-   "triangles": 88492,
-   "draw_calls": 658,
-   "tex_mem_gpu_mb_est": 6.9
+   "glb_kb": 4323,
+   "triangles": 70804,
+   "draw_calls": 895,
+   "tex_mem_gpu_mb_est": 5.98
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 5807,
-   "triangles": 99292,
-   "draw_calls": 150,
-   "visible_draw_calls_est": 56.6,
-   "visible_draw_calls_max_est": 79,
-   "tex_mem_gpu_mb_est": 6.9,
-   "materials": 20,
-   "nodes": 151,
+   "glb_kb": 4955,
+   "triangles": 92592,
+   "draw_calls": 138,
+   "visible_draw_calls_est": 58.5,
+   "visible_draw_calls_max_est": 83,
+   "tex_mem_gpu_mb_est": 5.98,
+   "materials": 21,
+   "nodes": 139,
    "colliders": {
-    "colliders": 590,
+    "colliders": 514,
     "hazards": 0,
-    "glb_kb": 609
+    "glb_kb": 547
    },
-   "background_kb": 383,
-   "visible_triangles_est": 29455,
-   "visible_triangles_max_est": 45150
+   "background_kb": 444,
+   "visible_triangles_est": 43016,
+   "visible_triangles_max_est": 56973
   },
   "effects": {
    "max_particles": 403,
@@ -83,9 +83,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 29297.5,
+  "standable_area_m2": 29483.5,
   "reachable_area_m2": 4246.8,
-  "components": 106,
+  "components": 125,
   "spawns": [
    {
     "id": "spawn",
@@ -97,7 +97,7 @@
     "standable": true,
     "clearance_m": 3.25,
     "headroom_m": 99.0,
-    "component": 1087
+    "component": 1369
    },
    {
     "id": "enemy_north",
@@ -109,7 +109,7 @@
     "standable": true,
     "clearance_m": 4.75,
     "headroom_m": 99.0,
-    "component": 1087
+    "component": 1369
    },
    {
     "id": "enemy_nw",
@@ -121,7 +121,7 @@
     "standable": true,
     "clearance_m": 6.75,
     "headroom_m": 99.0,
-    "component": 1087
+    "component": 1369
    },
    {
     "id": "enemy_east",
@@ -133,7 +133,7 @@
     "standable": true,
     "clearance_m": 4.25,
     "headroom_m": 99.0,
-    "component": 1087
+    "component": 1369
    }
   ],
   "intended_areas": [
@@ -225,7 +225,7 @@
  "render": {
   "views": 22,
   "errors": [],
-  "load_seconds": 8.599,
+  "load_seconds": 8.629,
   "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
   "contact_sheet": "checks/views/contact_sheet.jpg",
   "note": "browser preview renders (three.js, SwiftShader) - not Godot"

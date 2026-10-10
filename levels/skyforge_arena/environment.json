@@ -20,14 +20,14 @@
   "external": false,
   "azimuth_convention": "image column u -> atan2(dir.z, dir.x) (three.js); level azimuth 0=north(-z) 90=east(+x). If the Godot sky looks rotated vs the sun, adjust Environment sky_rotation.y in 90\u00b0 steps.",
   "horizon_rgb": [
-   0.999,
-   0.622,
-   0.298
+   0.87,
+   0.67,
+   0.415
   ],
   "upper_rgb": [
-   0.456,
-   0.267,
-   0.336
+   0.608,
+   0.155,
+   0.418
   ]
  },
  "sun": {
@@ -40,10 +40,10 @@
   ],
   "color": [
    1.0,
-   0.68,
-   0.42
+   0.62,
+   0.8
   ],
-  "energy": 2.6,
+  "energy": 2.2,
   "godot_rotation_degrees": [
    -7,
    175,
@@ -59,45 +59,45 @@
  "ambient": {
   "source": "sky",
   "sky_color": [
-   0.456,
-   0.267,
-   0.336
+   0.608,
+   0.155,
+   0.418
   ],
   "ground_color": [
-   0.383,
-   0.243,
-   0.189
+   0.269,
+   0.321,
+   0.154
   ],
-  "energy": 1.0
+  "energy": 1.35
  },
  "fog": {
   "enabled": true,
   "color": [
-   0.999,
-   0.622,
-   0.298
+   0.62,
+   0.95,
+   0.4
   ],
-  "start": 260,
-  "end": 900,
-  "godot_density": 0.00333,
+  "start": 380,
+  "end": 1400,
+  "godot_density": 0.00214,
   "sky_affect": 0.55,
-  "height": 20,
-  "height_density": 0.045
+  "height": 24,
+  "height_density": 0.05
  },
  "tonemap": {
   "mode": "filmic",
-  "exposure": 1.05
+  "exposure": 1.0
  },
  "glow": {
   "enabled": true,
-  "intensity": 0.9,
-  "bloom": 0.12,
-  "hdr_threshold": 0.85
+  "intensity": 1.0,
+  "bloom": 0.1,
+  "hdr_threshold": 0.8
  },
  "adjustments": {
   "brightness": 1.0,
-  "contrast": 1.12,
-  "saturation": 1.12
+  "contrast": 1.15,
+  "saturation": 1.2
  },
  "camera": {
   "far": 800,
@@ -139,7 +139,7 @@
     "id": "Skyline_North",
     "node": "BG_Skyline_North",
     "type": "skyline",
-    "triangles": 1072,
+    "triangles": 1296,
     "material": "bg_skyline_north",
     "collision": false,
     "cast_shadows": false,
@@ -154,6 +154,16 @@
     "collision": false,
     "cast_shadows": false,
     "visibility_range_end": 840
+   },
+   {
+    "id": "Hover_Satellites",
+    "node": "BG_Hover_Satellites",
+    "type": "hover_satellites",
+    "triangles": 772,
+    "material": "bg_hover_satellites",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840
    }
   ],
   "materials": [
@@ -161,35 +171,73 @@
    "bg_mountains_near",
    "bg_spires",
    "bg_skyline_north",
-   "bg_megastructure_ring"
+   "bg_megastructure_ring",
+   "bg_hover_satellites"
   ],
   "stats": {
-   "glb_kb": 383,
-   "triangles": 4779,
-   "nodes": 6,
-   "mesh_nodes": 5,
-   "unique_meshes": 5,
-   "materials": 5,
-   "images": 13,
-   "draw_calls_unbatched": 5,
-   "draw_calls_batched_min": 5,
-   "tex_mem_uncompressed_mb": 1.08,
-   "tex_mem_gpu_compressed_mb": 0.27,
+   "glb_kb": 444,
+   "triangles": 5775,
+   "nodes": 7,
+   "mesh_nodes": 6,
+   "unique_meshes": 6,
+   "materials": 6,
+   "images": 15,
+   "draw_calls_unbatched": 6,
+   "draw_calls_batched_min": 6,
+   "tex_mem_uncompressed_mb": 1.25,
+   "tex_mem_gpu_compressed_mb": 0.31,
    "texture_slots": {
-    "baseColorTexture": 5,
-    "metallicRoughnessTexture": 5,
-    "normalTexture": 5,
-    "occlusionTexture": 5,
+    "baseColorTexture": 6,
+    "metallicRoughnessTexture": 6,
+    "normalTexture": 6,
+    "occlusionTexture": 6,
     "emissiveTexture": 2
    },
    "image_sizes": [
     "128x128 jpeg"
    ]
   },
-  "tex_mem_gpu_compressed_mb": 0.35
+  "tex_mem_gpu_compressed_mb": 0.42
+ },
+ "style": {
+  "name": "alien_cartoon",
+  "toon": {
+   "steps": 3,
+   "floor": 0.55,
+   "ambient": 0.85,
+   "godot": {
+    "diffuse_mode": "toon",
+    "specular_mode": "disabled",
+    "metallic": 0.0
+   }
+  },
+  "outline": {
+   "color": [
+    0.03,
+    0.01,
+    0.05
+   ],
+   "width": [
+    0.1,
+    0.32
+   ],
+   "rel": 0.022,
+   "min_size": 0.25,
+   "skip_materials": [
+    "glow",
+    "water",
+    "accent"
+   ],
+   "skip_types": [
+    "panel",
+    "terrain",
+    "boundary",
+    "stream"
+   ]
+  }
  },
  "sky_asset": {
-  "kb": 74,
+  "kb": 129,
   "tex_mem_gpu_compressed_mb": 2.67
  }
 }

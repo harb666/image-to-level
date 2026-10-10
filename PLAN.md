@@ -167,3 +167,11 @@ New reusable systems: rail_run railings + post validation + snap_rail repair; cl
 height fog; hull_plating / chevron materials, glossy deck option; tower decor kit; sky_pylon underside; bridge
 cross-beams; skyline setbacks / masts; per-level mobile overrides; navigation mirrors game colliders.
 Fixed on the way: inverted background spires, centroid-only burial test, duplicate check ignoring shape fields.
+
+
+## Stage 11 status (Skyforge Arena -> alien_cartoon, Invader-Zim-inspired)
+Layout preserved exactly: walkable areas, spawns, gameplay config, every object's geometry (only materials changed),
+all 394 structural colliders identical, every intended area 100% reachable, reachable area unchanged (4246.8 m2).
+Scenery-only change: island trees (196 scatter colliders) -> alien satellites (120), islands are not playable.
+New reusable systems: styles.py presets, toon material flag, outline shells (GLB), cel-banded preview lighting,
+Godot apply_style.gd, alien satellite props + hover satellites + spiky skyline, striped planet / stylised cloud options.

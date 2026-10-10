@@ -246,7 +246,7 @@ PROPS = dict(conifer=conifer, broadleaf=broadleaf, dead_tree=dead_tree, palm=pal
              sat_dish=sat_dish, sat_pod=sat_pod, sat_spire=sat_spire)
 SINK = dict(conifer=0.2, broadleaf=0.2, dead_tree=0.2, palm=0.2, bush=0.25, grass_tuft=0.05, rock_small=0.15, boulder=0.45, cactus=0.15, crystal=0.12,
             alien_plant=0.15, debris=0.1, stump=0.1, log=0.12, flowers=0.0, sat_dish=0.3, sat_pod=0.3, sat_spire=0.3)
-DEFAULT_VIEW = dict(sat_dish=400, sat_pod=400, sat_spire=400, grass_tuft=35, flowers=30, rock_small=60, debris=60, bush=80, crystal=90, alien_plant=80)  # m; trees / boulders: 160
+DEFAULT_VIEW = dict(sat_dish=260, sat_pod=260, sat_spire=260, grass_tuft=35, flowers=30, rock_small=60, debris=60, bush=80, crystal=90, alien_plant=80)  # m; trees / boulders: 160
 
 
 def variants(kind, style, n=3, seed=0):
