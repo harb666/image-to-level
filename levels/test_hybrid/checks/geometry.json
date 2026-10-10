@@ -2,14 +2,14 @@
  "level": "test_hybrid",
  "counts": {
   "ERROR": 7,
-  "WARNING": 2,
-  "INTENTIONAL": 8
+  "WARNING": 4,
+  "INTENTIONAL": 9
  },
  "relations": {
-  "explicit": 39,
+  "explicit": 44,
   "inferred": 0
  },
- "repairable": 0,
+ "repairable": 1,
  "findings": [
   {
    "check": "connection",
@@ -139,10 +139,30 @@
    "check": "connection",
    "cls": "WARNING",
    "objects": [
+    "Dock_Stairs",
+    "Tower_Stairs_Beam_R",
+    "Tower_Stairs_Deck"
+   ],
+   "message": "Tower_Stairs_Beam_R stands in the landing of Dock_Stairs.high (blocks the route)",
+   "pos": [
+    -33.26,
+    6.99,
+    4.11
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": true,
+   "id": "connection:007"
+  },
+  {
+   "check": "connection",
+   "cls": "WARNING",
+   "objects": [
     "Link_Ground_Gantry_B",
+    "Dock_Stairs",
     "Link_Ground_Tower"
    ],
-   "message": "Link_Ground_Tower stands in the landing of Link_Ground_Gantry_B.low (blocks the route)",
+   "message": "Dock_Stairs stands in the landing of Link_Ground_Gantry_B.low (blocks the route)",
    "pos": [
     -29.16,
     1.93,
@@ -151,7 +171,7 @@
    "measured": {},
    "repair": null,
    "ambiguous": true,
-   "id": "connection:007"
+   "id": "connection:008"
   },
   {
    "check": "connection",
@@ -170,7 +190,32 @@
    "measured": {},
    "repair": null,
    "ambiguous": true,
-   "id": "connection:008"
+   "id": "connection:009"
+  },
+  {
+   "check": "overlap",
+   "cls": "WARNING",
+   "objects": [
+    "Loading_Dock_Base",
+    "Loading_Dock_Floor"
+   ],
+   "message": "Loading_Dock_Base and Loading_Dock_Floor share coplanar faces (83.98 m\u00b2, different materials): z-fighting flicker",
+   "pos": [
+    -19.82,
+    2.15,
+    24.11
+   ],
+   "measured": {
+    "area_m2": 83.98
+   },
+   "repair": {
+    "action": "nudge",
+    "obj": "Loading_Dock_Base",
+    "other": "Loading_Dock_Floor",
+    "distance": 0.01
+   },
+   "ambiguous": false,
+   "id": "overlap:010"
   },
   {
    "check": "boundary",
@@ -187,7 +232,7 @@
    "measured": {},
    "repair": null,
    "ambiguous": false,
-   "id": "boundary:009"
+   "id": "boundary:011"
   },
   {
    "check": "boundary",
@@ -204,7 +249,7 @@
    "measured": {},
    "repair": null,
    "ambiguous": false,
-   "id": "boundary:010"
+   "id": "boundary:012"
   },
   {
    "check": "boundary",
@@ -221,7 +266,32 @@
    "measured": {},
    "repair": null,
    "ambiguous": false,
-   "id": "boundary:011"
+   "id": "boundary:013"
+  },
+  {
+   "check": "unreachable",
+   "cls": "INTENTIONAL",
+   "objects": [
+    "OuterWall (roof / top, no access)"
+   ],
+   "message": "1325 m\u00b2 standable area at [-20.7, 4.6] not reachable from the spawn (on OuterWall (roof / top, no access): inaccessible by design)",
+   "pos": [
+    -20.7,
+    7.32,
+    4.6
+   ],
+   "measured": {
+    "area_m2": 1325.0,
+    "objects": [
+     "OuterWall_North_Cap",
+     "OuterWall_West_Cap",
+     "Gantry_B_Floor",
+     "OuterWall_South_02_Cap"
+    ]
+   },
+   "repair": null,
+   "ambiguous": false,
+   "id": "unreachable:014"
   },
   {
    "check": "unreachable",
@@ -245,7 +315,7 @@
    },
    "repair": null,
    "ambiguous": false,
-   "id": "unreachable:012"
+   "id": "unreachable:015"
   },
   {
    "check": "unreachable",
@@ -269,7 +339,7 @@
    },
    "repair": null,
    "ambiguous": false,
-   "id": "unreachable:013"
+   "id": "unreachable:016"
   },
   {
    "check": "unreachable",
@@ -291,7 +361,7 @@
    },
    "repair": null,
    "ambiguous": false,
-   "id": "unreachable:014"
+   "id": "unreachable:017"
   },
   {
    "check": "unreachable",
@@ -313,7 +383,7 @@
    },
    "repair": null,
    "ambiguous": false,
-   "id": "unreachable:015"
+   "id": "unreachable:018"
   },
   {
    "check": "unreachable",
@@ -335,7 +405,7 @@
    },
    "repair": null,
    "ambiguous": false,
-   "id": "unreachable:016"
+   "id": "unreachable:019"
   }
  ],
  "passed": false

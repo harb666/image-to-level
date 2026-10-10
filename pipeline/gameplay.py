@@ -254,6 +254,8 @@ def analyse(level_dir, G=None, write=True, verbose=True):
         if str(onames[o]).startswith(("TR_", "TRM_", "SC_", "SCN_", "TW_")): continue  # terrain material strips / scatter are not connectors
         so = objsz.get(str(onames[o]))
         if so and min(so[0], so[2]) < 0.5: continue  # posts, rails, kerb-thin tops: nobody walks along them
+        if so and min(so[0], so[2]) >= D_["min_bridge_width"]: continue  # wide enough by construction (coarse nav cells under-measure)
+        if str(onames[o]).endswith("_Foundation"): continue  # the 20 cm plinth rim round a building is not a route
         idx = np.flatnonzero((top_obj[nodes] == o) & reach_nodes)
         if len(idx) * cell * cell < 2: continue
         ext = nxz[idx].max(0) - nxz[idx].min(0) + cell; width = (2 * dist[idx].max() + 1) * cell

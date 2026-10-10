@@ -300,6 +300,11 @@ def run(spec_path, level_dir=None, force=False, dry=False, verbose=True):
     if E: raise SystemExit("scene spec invalid:\n  " + "\n  ".join(E))
     level_dir = level_dir or os.path.dirname(os.path.abspath(spec_path)); lp = os.path.join(level_dir, "level.json"); sp = os.path.join(level_dir, "gen_state.json")
     G = load_gameplay(level_dir, {"gameplay": spec.get("gameplay")} if spec.get("gameplay") else None)
+    if spec.get("world") and os.path.exists(lp) and os.path.exists(sp):  # Stage 9: kept terrain features (repairs / manual) shape the generation too
+        Lc, st = json.load(open(lp)), json.load(open(sp)); gen_ids = set(st.get("terrain", {}).get("features", {}))
+        own = {f["id"] for f in spec["world"].get("features", [])}
+        extra = [f for f in (Lc.get("terrain") or {}).get("features", []) if f["id"] not in own and (f.get("gen") == "repair" or f["id"] not in gen_ids)]
+        if extra: spec = copy.deepcopy(spec); spec["world"]["features"] = list(spec["world"].get("features", [])) + extra
     Lnew = generate(spec, G, level_dir); rep = dict(kept_edited=[], kept_manual=[], kept_deleted=[])
     if os.path.exists(lp):
         Lcur = json.load(open(lp))

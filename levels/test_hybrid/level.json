@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Engineering test C - hybrid industrial compound in open terrain (synthetic, no concept image)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "1235a7db6fe66aa5",
+  "spec_sha": "e312b400a1ef3474",
   "theme": "post_apocalyptic",
   "detail": "medium",
   "mode": "hybrid"
@@ -318,16 +318,16 @@
    "y": 8.0
   },
   {
-   "name": "Ridge_Post",
+   "name": "Loading_Dock",
    "min": [
-    36.0,
-    -65.5
+    -26.0,
+    20.5
    ],
    "max": [
-    44.0,
-    -58.5
+    -14.0,
+    27.5
    ],
-   "y": 6.0
+   "y": 2.3
   },
   {
    "name": "Gantry_Bridge",
@@ -375,7 +375,7 @@
     -13.280000000000001,
     72.49
    ],
-   "y": -0.58
+   "y": -0.515
   },
   {
    "name": "Player_Start",
@@ -3349,27 +3349,27 @@
    "source": "visible"
   },
   {
-   "name": "Ridge_Post",
+   "name": "Loading_Dock",
    "type": "group",
    "position": [
-    40.0,
+    -20.0,
     0.0,
-    -62.0
+    24.0
    ],
    "rotation": [
     0.0,
     0.0,
     0.0
    ],
-   "gen": "Ridge_Post",
-   "source": "visible"
+   "gen": "Loading_Dock",
+   "source": "inferred"
   },
   {
-   "name": "Ridge_Post_Base",
+   "name": "Loading_Dock_Base",
    "type": "box",
    "position": [
     0.0,
-    -0.736,
+    2.0,
     0.0
    ],
    "rotation": [
@@ -3377,22 +3377,22 @@
     0.0,
     0.0
    ],
-   "parent": "Ridge_Post",
+   "parent": "Loading_Dock",
    "size": [
-    8.0,
-    6.436,
+    12.0,
+    0.3,
     7.0
    ],
    "material": "structure",
-   "gen": "Ridge_Post",
-   "source": "visible"
+   "gen": "Loading_Dock",
+   "source": "inferred"
   },
   {
-   "name": "Ridge_Post_Floor",
+   "name": "Loading_Dock_Floor",
    "type": "box",
    "position": [
     0.0,
-    5.7,
+    2.0,
     0.0
    ],
    "rotation": [
@@ -3400,268 +3400,15 @@
     0.0,
     0.0
    ],
-   "parent": "Ridge_Post",
+   "parent": "Loading_Dock",
    "size": [
-    8.3,
+    12.3,
     0.3,
     7.3
    ],
-   "material": "deck",
-   "gen": "Ridge_Post",
-   "source": "visible"
-  },
-  {
-   "name": "Ridge_Post_Trim",
-   "type": "box",
-   "position": [
-    0.0,
-    4.9,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Ridge_Post",
-   "size": [
-    8.5,
-    0.6,
-    7.5
-   ],
-   "material": "trim",
-   "gen": "Ridge_Post",
-   "source": "visible"
-  },
-  {
-   "name": "Ridge_Post_Rib_01",
-   "type": "box",
-   "position": [
-    -3.85,
-    -0.736,
-    -3.35
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Ridge_Post",
-   "size": [
-    0.8,
-    5.036,
-    0.8
-   ],
-   "material": "structure_b",
-   "gen": "Ridge_Post",
-   "source": "visible"
-  },
-  {
-   "name": "Ridge_Post_Rib_02",
-   "type": "box",
-   "position": [
-    3.85,
-    -0.736,
-    -3.35
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Ridge_Post",
-   "size": [
-    0.8,
-    5.036,
-    0.8
-   ],
-   "material": "structure_b",
-   "gen": "Ridge_Post",
-   "source": "visible"
-  },
-  {
-   "name": "Ridge_Post_Rib_03",
-   "type": "box",
-   "position": [
-    3.85,
-    -0.736,
-    3.35
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Ridge_Post",
-   "size": [
-    0.8,
-    5.036,
-    0.8
-   ],
-   "material": "structure_b",
-   "gen": "Ridge_Post",
-   "source": "visible"
-  },
-  {
-   "name": "Ridge_Post_Rib_04",
-   "type": "box",
-   "position": [
-    -3.85,
-    -0.736,
-    3.35
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Ridge_Post",
-   "size": [
-    0.8,
-    5.036,
-    0.8
-   ],
-   "material": "structure_b",
-   "gen": "Ridge_Post",
-   "source": "visible"
-  },
-  {
-   "name": "Ridge_Post_Light_01",
-   "type": "panel",
-   "position": [
-    -4.18,
-    2.8,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    270.0,
-    0.0
-   ],
-   "parent": "Ridge_Post",
-   "size": [
-    1.4,
-    1.8,
-    0.0
-   ],
-   "material": "accent",
-   "gen": "Ridge_Post",
-   "source": "visible"
-  },
-  {
-   "name": "Ridge_Post_Glow_01L",
-   "type": "panel",
-   "position": [
-    -4.18,
-    0.264,
-    -1.3
-   ],
-   "rotation": [
-    0.0,
-    270.0,
-    0.0
-   ],
-   "parent": "Ridge_Post",
-   "size": [
-    0.3,
-    1.0,
-    0.0
-   ],
-   "material": "glow",
-   "gen": "Ridge_Post",
-   "source": "visible"
-  },
-  {
-   "name": "Ridge_Post_Glow_01R",
-   "type": "panel",
-   "position": [
-    -4.18,
-    0.264,
-    1.3
-   ],
-   "rotation": [
-    0.0,
-    270.0,
-    0.0
-   ],
-   "parent": "Ridge_Post",
-   "size": [
-    0.3,
-    1.0,
-    0.0
-   ],
-   "material": "glow",
-   "gen": "Ridge_Post",
-   "source": "visible"
-  },
-  {
-   "name": "Ridge_Post_Light_02",
-   "type": "panel",
-   "position": [
-    0.0,
-    2.8,
-    3.68
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Ridge_Post",
-   "size": [
-    1.4,
-    1.8,
-    0.0
-   ],
-   "material": "accent",
-   "gen": "Ridge_Post",
-   "source": "visible"
-  },
-  {
-   "name": "Ridge_Post_Glow_02L",
-   "type": "panel",
-   "position": [
-    -1.3,
-    0.264,
-    3.68
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Ridge_Post",
-   "size": [
-    0.3,
-    1.0,
-    0.0
-   ],
-   "material": "glow",
-   "gen": "Ridge_Post",
-   "source": "visible"
-  },
-  {
-   "name": "Ridge_Post_Glow_02R",
-   "type": "panel",
-   "position": [
-    1.3,
-    0.264,
-    3.68
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Ridge_Post",
-   "size": [
-    0.3,
-    1.0,
-    0.0
-   ],
-   "material": "glow",
-   "gen": "Ridge_Post",
-   "source": "visible"
+   "material": "deck_v2",
+   "gen": "Loading_Dock",
+   "source": "inferred"
   },
   {
    "name": "Gantry_Bridge",
@@ -4129,6 +3876,97 @@
    "material": "grate",
    "connector": false,
    "gen": "Yard_Catwalk",
+   "source": "visible"
+  },
+  {
+   "name": "Dock_Stairs",
+   "type": "ramp",
+   "position": [
+    -27.764,
+    2.228,
+    12.354
+   ],
+   "rotation": [
+    0.0,
+    -146.31,
+    0.0
+   ],
+   "size": [
+    4.0,
+    4.762,
+    19.82
+   ],
+   "material": "grate",
+   "connector": true,
+   "gen": "Dock_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Dock_Stairs_Support",
+   "type": "box",
+   "position": [
+    -27.847,
+    2.0,
+    12.229
+   ],
+   "rotation": [
+    0.0,
+    -146.31,
+    0.0
+   ],
+   "size": [
+    3.6,
+    0.248,
+    19.32
+   ],
+   "material": "structure_b",
+   "gen": "Dock_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Dock_Stairs_Junction_Hi",
+   "type": "box",
+   "position": [
+    -33.663,
+    6.59,
+    3.505
+   ],
+   "rotation": [
+    0.0,
+    -146.31,
+    0.0
+   ],
+   "size": [
+    4.0,
+    0.4,
+    1.55
+   ],
+   "material": "grate",
+   "connector": false,
+   "gen": "Dock_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Dock_Stairs_Junction_Lo",
+   "type": "box",
+   "position": [
+    -22.017,
+    1.89,
+    20.974
+   ],
+   "rotation": [
+    0.0,
+    -146.31,
+    0.0
+   ],
+   "size": [
+    4.0,
+    0.4,
+    1.6
+   ],
+   "material": "grate",
+   "connector": false,
+   "gen": "Dock_Stairs",
    "source": "visible"
   },
   {
@@ -6089,7 +5927,7 @@
    "type": "group",
    "position": [
     -14.28,
-    -0.58,
+    -0.515,
     71.49
    ],
    "rotation": [
@@ -6109,7 +5947,7 @@
     0.0
    ],
    "rotation": [
-    0.85,
+    0.88,
     0.0,
     0.0
    ],
@@ -6239,7 +6077,7 @@
    "type": "cylinder",
    "position": [
     -3.05,
-    -3.385,
+    -3.45,
     0.0
    ],
    "rotation": [
@@ -6250,7 +6088,7 @@
    "parent": "Bridge_South_Road_River",
    "size": [
     0.6,
-    2.235,
+    2.3,
     0.6
    ],
    "material": "frame",
@@ -6263,7 +6101,7 @@
    "type": "cylinder",
    "position": [
     3.05,
-    -3.385,
+    -3.45,
     0.0
    ],
    "rotation": [
@@ -6274,7 +6112,7 @@
    "parent": "Bridge_South_Road_River",
    "size": [
     0.6,
-    2.235,
+    2.3,
     0.6
    ],
    "material": "frame",
@@ -6421,27 +6259,27 @@
    "source": "visible"
   },
   {
-   "name": "Ridge_Post_Cover_01",
+   "name": "Loading_Dock_Cover_01",
    "type": "box",
    "position": [
-    -2.0,
-    6.0,
-    -1.75
+    3.0,
+    2.3,
+    1.75
    ],
    "rotation": [
     0.0,
     0.0,
     0.0
    ],
-   "parent": "Ridge_Post",
+   "parent": "Loading_Dock",
    "size": [
     1.6,
     1.2,
     1.6
    ],
    "material": "structure_b",
-   "gen": "Ridge_Post",
-   "source": "visible"
+   "gen": "Loading_Dock",
+   "source": "inferred"
   },
   {
    "name": "Link_Ground_Gantry_A",
@@ -6728,6 +6566,8 @@
   "Tower_Stairs: 0.30 m junction plate where it meets Gantry_A's angled edge",
   "Yard_Catwalk: 0.50 m junction plate where it meets Silo_Deck's angled edge",
   "Yard_Catwalk: 0.55 m junction plate where it meets Gantry_B's angled edge",
+  "Dock_Stairs: 1.45 m junction plate where it meets Gantry_A's corner",
+  "Dock_Stairs: 1.50 m junction plate where it meets Loading_Dock's corner",
   "party walls: 2 hidden side decorations removed between touching buildings"
  ],
  "relations": [
@@ -6801,6 +6641,33 @@
    "a": "Yard_Catwalk_Deck",
    "b": "Yard_Catwalk_Junction_Lo",
    "a_anchor": "end_a"
+  },
+  {
+   "type": "supported_by",
+   "a": "Dock_Stairs",
+   "b": "Dock_Stairs_Support"
+  },
+  {
+   "type": "supported_by",
+   "a": "Dock_Stairs_Junction_Hi",
+   "b": "Gantry_A_Floor"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Dock_Stairs",
+   "b": "Dock_Stairs_Junction_Hi",
+   "a_anchor": "high"
+  },
+  {
+   "type": "supported_by",
+   "a": "Dock_Stairs_Junction_Lo",
+   "b": "Loading_Dock_Floor"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Dock_Stairs",
+   "b": "Dock_Stairs_Junction_Lo",
+   "a_anchor": "low"
   },
   {
    "type": "supported_by",
@@ -7738,12 +7605,12 @@
  ],
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 55450,
-  "objects": 254,
+  "triangles": 55422,
+  "objects": 247,
   "materials": 30,
-  "glb_kb": 4302,
-  "nodes": 394,
-  "draw_calls_unbatched": 368,
+  "glb_kb": 4307,
+  "nodes": 385,
+  "draw_calls_unbatched": 359,
   "draw_calls_batched_min": 31,
   "images": 76,
   "tex_mem_gpu_compressed_mb": 9.33,

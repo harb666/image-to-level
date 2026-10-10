@@ -196,11 +196,11 @@ def check_boundary(d, L, TR, G, out):
             out.append(F("boundary", "INTENTIONAL", [pk[k]], f"playable boundary edge {k + 1}: {pk[k]} leaves the area through a gap in the barrier (invisible collider there)", [m[0], TR.height_at(*m), m[1]]))
             continue
         cls = "INTENTIONAL" if (L["terrain"].get("boundary") or {}).get("barrier") == "none" else "WARNING"
-        a, b = P[k], P[(k + 1) % len(P)]; a2, b2 = a + (a - b) * 0.15 + n * 11, b + (b - a) * 0.15 + n * 11  # a low ridge 11 m outside that edge
+        a, b = P[k], P[(k + 1) % len(P)]; a2, b2 = a + (a - b) * 0.15 + n * 15, b + (b - a) * 0.15 + n * 15  # a low ridge 15 m outside: never touches playable ground
         out.append(F("boundary", cls, ["terrain"], f"playable boundary edge {k + 1} at open ground (terrain rises only {rise:.1f} m outside): the invisible wall would be noticeable",
                      [m[0], TR.height_at(*m), m[1]], dict(rise_m=round(float(rise), 2)),
                      dict(action="terrain_add", obj="terrain", feature=dict(id=f"Barrier_Fix_{k + 1:02d}", type="ridge", points=[np.round(a2, 2).tolist(), np.round(b2, 2).tolist()],
-                                                                        width=16.0, height=7.0, gen="repair"))))
+                                                                        width=12.0, height=7.0, gen="repair"))))
 
 
 def check_water(d, L, TR, G, out):

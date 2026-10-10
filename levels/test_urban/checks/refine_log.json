@@ -3,73 +3,59 @@
   {
    "n": 1,
    "errors": 1,
-   "warnings": 33,
+   "warnings": 6,
    "top_errors": [
-    "Skywalk: not reachable from the spawn (walk/drop/jump with the gameplay config)"
+    "terrain pokes 0.11 m through Bridge_West_Lane_Road_Canal_Deck [auto-repairable]"
    ],
    "fixes": [
-    "geometry: terrain: terrain feature Barrier_Fix_10 (ridge) added",
-    "geometry: terrain: terrain feature Lower_Bridge_West_Lane_Road_Canal_Deck (pad, lower) added",
-    "connected Terrain_02 -> Skywalk: ['Link_Terrain_02_Skywalk']",
-    "connection refused by schema check"
+    "geometry: terrain: already present"
    ]
   },
   {
    "n": 2,
-   "errors": 2,
-   "warnings": 32,
+   "errors": 1,
+   "warnings": 6,
    "top_errors": [
-    "terrain pokes 0.14 m through Bridge_West_Lane_Road_Canal_Deck [auto-repairable]",
-    "Skywalk: not reachable from the spawn (walk/drop/jump with the gameplay config)"
+    "terrain pokes 0.11 m through Bridge_West_Lane_Road_Canal_Deck [auto-repairable]"
    ],
    "fixes": [
-    "geometry: terrain: already present",
-    "connected Terrain_02 -> Skywalk: ['Link_Terrain_02_Skywalk']",
-    "connection refused by schema check"
+    "geometry: terrain: already present"
    ]
   },
   {
    "n": 3,
-   "errors": 2,
-   "warnings": 32,
+   "errors": 1,
+   "warnings": 6,
    "top_errors": [
-    "terrain pokes 0.14 m through Bridge_West_Lane_Road_Canal_Deck [auto-repairable]",
-    "Skywalk: not reachable from the spawn (walk/drop/jump with the gameplay config)"
+    "terrain pokes 0.11 m through Bridge_West_Lane_Road_Canal_Deck [auto-repairable]"
    ],
    "fixes": [
-    "geometry: terrain: already present",
-    "connected Terrain_02 -> Skywalk: ['Link_Terrain_02_Skywalk']",
-    "connection refused by schema check"
+    "geometry: terrain: already present"
    ]
   },
   {
    "n": "final",
-   "errors": 2,
-   "warnings": 32
+   "errors": 1,
+   "warnings": 6
   }
  ],
  "max_passes": 3,
- "seconds": 574.5,
+ "seconds": 512.3,
  "passed": false,
  "counts": {
-  "error": 2,
-  "warning": 32,
+  "error": 1,
+  "warning": 6,
   "info": 1
  },
  "needs_claude": [
   {
    "severity": "error",
-   "message": "terrain pokes 0.14 m through Bridge_West_Lane_Road_Canal_Deck [auto-repairable]",
+   "message": "terrain pokes 0.11 m through Bridge_West_Lane_Road_Canal_Deck [auto-repairable]",
    "object": "Bridge_West_Lane_Road_Canal_Deck"
   },
   {
-   "severity": "error",
-   "message": "Skywalk: not reachable from the spawn (walk/drop/jump with the gameplay config)",
-   "object": "Skywalk"
-  },
-  {
    "severity": "warning",
-   "message": "~65 visible draw calls (estimate, > 60)",
+   "message": "~66 visible draw calls (estimate, > 60)",
    "object": null
   },
   {
@@ -84,128 +70,18 @@
   },
   {
    "severity": "warning",
-   "message": "Fence_Park_Post_01: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Post_01"
+   "message": "Skywalk_Stairs_From: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
+   "object": "Skywalk_Stairs_From"
   },
   {
    "severity": "warning",
-   "message": "Fence_Park_Post_02: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Post_02"
+   "message": "Skywalk_Stairs_To: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
+   "object": "Skywalk_Stairs_To"
   },
   {
    "severity": "warning",
-   "message": "Fence_Park_Post_03: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Post_03"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Post_04: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Post_04"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Post_05: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Post_05"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Post_06: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Post_06"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Post_07: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Post_07"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Post_08: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Post_08"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Post_10: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Post_10"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Post_11: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Post_11"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Post_12: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Post_12"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Post_13: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Post_13"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Post_14: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Post_14"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Post_15: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Post_15"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Rail_01b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Rail_01b"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Rail_02b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Rail_02b"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Rail_03b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Rail_03b"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Rail_04b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Rail_04b"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Rail_05b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Rail_05b"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Rail_06b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Rail_06b"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Rail_07b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Rail_07b"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Rail_08b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Rail_08b"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Rail_09b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Rail_09b"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Rail_10b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Rail_10b"
-  },
-  {
-   "severity": "warning",
-   "message": "Fence_Park_Rail_11b: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Fence_Park_Rail_11b"
+   "message": "Tower_C_Foundation: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
+   "object": "Tower_C_Foundation"
   }
  ],
  "visual_review": "checks/views/contact_sheet.jpg + checks/inspect/contact_sheet.jpg must be LOOKED AT by Claude and compared with the reference before calling the level done"

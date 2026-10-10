@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 4302,
-    "triangles": 55810,
-    "nodes": 394,
-    "mesh_nodes": 368,
-    "unique_meshes": 298,
+    "glb_kb": 4307,
+    "triangles": 55782,
+    "nodes": 385,
+    "mesh_nodes": 359,
+    "unique_meshes": 296,
     "materials": 31,
     "images": 76,
-    "draw_calls_unbatched": 368,
+    "draw_calls_unbatched": 359,
     "draw_calls_batched_min": 31,
     "tex_mem_uncompressed_mb": 37.33,
     "tex_mem_gpu_compressed_mb": 9.33,
@@ -68,22 +68,22 @@
    },
    "visible": {
     "cameras": 152,
-    "visible_draw_calls_mean": 143.9,
-    "visible_draw_calls_max": 322,
-    "visible_triangles_mean": 29742,
-    "visible_triangles_max": 54239
+    "visible_draw_calls_mean": 141.7,
+    "visible_draw_calls_max": 314,
+    "visible_triangles_mean": 29813,
+    "visible_triangles_max": 54339
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 5020,
-    "triangles": 68250,
-    "nodes": 280,
-    "mesh_nodes": 279,
-    "unique_meshes": 279,
+    "glb_kb": 5018,
+    "triangles": 68222,
+    "nodes": 271,
+    "mesh_nodes": 270,
+    "unique_meshes": 270,
     "materials": 31,
     "images": 82,
-    "draw_calls_unbatched": 279,
+    "draw_calls_unbatched": 270,
     "draw_calls_batched_min": 31,
     "tex_mem_uncompressed_mb": 39.33,
     "tex_mem_gpu_compressed_mb": 9.83,
@@ -125,16 +125,16 @@
     ]
    },
    "collision": {
-    "colliders": 272,
+    "colliders": 273,
     "hazards": 0,
-    "glb_kb": 421
+    "glb_kb": 422
    },
    "visible": {
     "cameras": 152,
-    "visible_draw_calls_mean": 73.6,
-    "visible_draw_calls_max": 130,
-    "visible_triangles_mean": 19193,
-    "visible_triangles_max": 29305
+    "visible_draw_calls_mean": 71.7,
+    "visible_draw_calls_max": 124,
+    "visible_triangles_mean": 19388,
+    "visible_triangles_max": 29265
    },
    "hidden_faces_removed": 0,
    "effects_extra_draw_calls": 2,
@@ -207,49 +207,13 @@
    "node": "M_structure_b_-1_0_props",
    "kind": "props",
    "material": "structure_b",
-   "triangles": 88,
+   "triangles": 132,
    "visibility_range_end": 70,
    "cast_shadow": false,
    "source_objects": [
+    "Loading_Dock_Cover_01",
     "Tower_Top_Cover_01",
     "Gantry_B_Cover_01"
-   ]
-  },
-  {
-   "node": "M_accent_0_-2_props",
-   "kind": "props",
-   "material": "accent",
-   "triangles": 4,
-   "visibility_range_end": 70,
-   "cast_shadow": false,
-   "source_objects": [
-    "Ridge_Post_Light_02",
-    "Ridge_Post_Light_01"
-   ]
-  },
-  {
-   "node": "M_glow_0_-2_props",
-   "kind": "props",
-   "material": "glow",
-   "triangles": 8,
-   "visibility_range_end": 70,
-   "cast_shadow": false,
-   "source_objects": [
-    "Ridge_Post_Glow_02R",
-    "Ridge_Post_Glow_02L",
-    "Ridge_Post_Glow_01R",
-    "Ridge_Post_Glow_01L"
-   ]
-  },
-  {
-   "node": "M_structure_b_0_-2_props",
-   "kind": "props",
-   "material": "structure_b",
-   "triangles": 44,
-   "visibility_range_end": 70,
-   "cast_shadow": false,
-   "source_objects": [
-    "Ridge_Post_Cover_01"
    ]
   },
   {
@@ -601,10 +565,11 @@
    "node": "M_deck_v2_-1_0",
    "kind": "static",
    "material": "deck_v2",
-   "triangles": 24,
+   "triangles": 36,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Loading_Dock_Floor",
     "Gantry_B_Floor",
     "Gantry_A_Floor"
    ]
@@ -653,7 +618,7 @@
    "node": "M_grate_-1_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 960,
+   "triangles": 992,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -664,6 +629,9 @@
     "Link_Ground_Gantry_B",
     "Link_Ground_Gantry_A_Junction_Hi",
     "Link_Ground_Gantry_A",
+    "Dock_Stairs_Junction_Lo",
+    "Dock_Stairs_Junction_Hi",
+    "Dock_Stairs",
     "Tower_Stairs_Junction_Lo",
     "Tower_Stairs_Deck",
     "Gantry_Bridge_Deck"
@@ -706,10 +674,11 @@
    "node": "M_structure_-1_0",
    "kind": "static",
    "material": "structure",
-   "triangles": 88,
+   "triangles": 132,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Loading_Dock_Base",
     "Tower_Top_Base",
     "Gantry_A_Base"
    ]
@@ -718,11 +687,12 @@
    "node": "M_structure_b_-1_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 616,
+   "triangles": 660,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Link_Ground_Tower_Top_Support",
+    "Dock_Stairs_Support",
     "Tower_Top_Rib_04",
     "Tower_Top_Rib_03",
     "Tower_Top_Rib_02",
@@ -809,53 +779,6 @@
    "source_objects": [
     "Bridge_South_Road_River_Rail_R",
     "Bridge_South_Road_River_Rail_L"
-   ]
-  },
-  {
-   "node": "M_deck_0_-2",
-   "kind": "static",
-   "material": "deck",
-   "triangles": 12,
-   "visibility_range_end": 0,
-   "cast_shadow": true,
-   "source_objects": [
-    "Ridge_Post_Floor"
-   ]
-  },
-  {
-   "node": "M_structure_0_-2",
-   "kind": "static",
-   "material": "structure",
-   "triangles": 44,
-   "visibility_range_end": 0,
-   "cast_shadow": false,
-   "source_objects": [
-    "Ridge_Post_Base"
-   ]
-  },
-  {
-   "node": "M_structure_b_0_-2",
-   "kind": "static",
-   "material": "structure_b",
-   "triangles": 176,
-   "visibility_range_end": 0,
-   "cast_shadow": true,
-   "source_objects": [
-    "Ridge_Post_Rib_04",
-    "Ridge_Post_Rib_03",
-    "Ridge_Post_Rib_02",
-    "Ridge_Post_Rib_01"
-   ]
-  },
-  {
-   "node": "M_trim_0_-2",
-   "kind": "static",
-   "material": "trim",
-   "triangles": 44,
-   "visibility_range_end": 0,
-   "cast_shadow": false,
-   "source_objects": [
-    "Ridge_Post_Trim"
    ]
   },
   {
@@ -3067,7 +2990,7 @@
    "node": "SCN_Rubble__60_2_3",
    "kind": "scatter",
    "material": "sc_atlas_rubble",
-   "triangles": 616,
+   "triangles": 560,
    "visibility_range_end": 60,
    "cast_shadow": false,
    "source_objects": [
@@ -3079,7 +3002,7 @@
    "node": "SCN_Rubble__60_2_2",
    "kind": "scatter",
    "material": "sc_atlas_rubble",
-   "triangles": 736,
+   "triangles": 656,
    "visibility_range_end": 60,
    "cast_shadow": false,
    "source_objects": [
@@ -3091,7 +3014,7 @@
    "node": "SCN_Rubble__60_2_1",
    "kind": "scatter",
    "material": "sc_atlas_rubble",
-   "triangles": 440,
+   "triangles": 544,
    "visibility_range_end": 60,
    "cast_shadow": false,
    "source_objects": [
@@ -3103,7 +3026,7 @@
    "node": "SCN_Rubble__60_2_0",
    "kind": "scatter",
    "material": "sc_atlas_rubble",
-   "triangles": 416,
+   "triangles": 336,
    "visibility_range_end": 60,
    "cast_shadow": false,
    "source_objects": [
@@ -3115,7 +3038,7 @@
    "node": "SCN_Rubble__60_1_3",
    "kind": "scatter",
    "material": "sc_atlas_rubble",
-   "triangles": 520,
+   "triangles": 576,
    "visibility_range_end": 60,
    "cast_shadow": false,
    "source_objects": [
@@ -3127,7 +3050,7 @@
    "node": "SCN_Rubble__60_1_2",
    "kind": "scatter",
    "material": "sc_atlas_rubble",
-   "triangles": 696,
+   "triangles": 584,
    "visibility_range_end": 60,
    "cast_shadow": false,
    "source_objects": [
@@ -3139,7 +3062,7 @@
    "node": "SCN_Rubble__60_1_1",
    "kind": "scatter",
    "material": "sc_atlas_rubble",
-   "triangles": 728,
+   "triangles": 864,
    "visibility_range_end": 60,
    "cast_shadow": false,
    "source_objects": [
@@ -3151,7 +3074,7 @@
    "node": "SCN_Rubble__60_1_0",
    "kind": "scatter",
    "material": "sc_atlas_rubble",
-   "triangles": 304,
+   "triangles": 336,
    "visibility_range_end": 60,
    "cast_shadow": false,
    "source_objects": [
@@ -3175,7 +3098,7 @@
    "node": "SCN_Rubble__60_0_2",
    "kind": "scatter",
    "material": "sc_atlas_rubble",
-   "triangles": 360,
+   "triangles": 384,
    "visibility_range_end": 60,
    "cast_shadow": false,
    "source_objects": [
@@ -3208,22 +3131,10 @@
    "reason": "instanced scatter (merged per cell)"
   },
   {
-   "node": "SC_Rubble__64_2_3",
-   "kind": "scatter",
-   "material": "sc_atlas_rubble",
-   "triangles": 80,
-   "visibility_range_end": 160,
-   "cast_shadow": true,
-   "source_objects": [
-    "SC_Rubble__64_2_3"
-   ],
-   "reason": "instanced scatter (merged per cell)"
-  },
-  {
    "node": "SC_Rubble__64_2_2",
    "kind": "scatter",
    "material": "sc_atlas_rubble",
-   "triangles": 80,
+   "triangles": 240,
    "visibility_range_end": 160,
    "cast_shadow": true,
    "source_objects": [
@@ -3235,7 +3146,7 @@
    "node": "SC_Rubble__64_2_1",
    "kind": "scatter",
    "material": "sc_atlas_rubble",
-   "triangles": 160,
+   "triangles": 80,
    "visibility_range_end": 160,
    "cast_shadow": true,
    "source_objects": [
@@ -3256,22 +3167,10 @@
    "reason": "instanced scatter (merged per cell)"
   },
   {
-   "node": "SC_Rubble__64_1_1",
-   "kind": "scatter",
-   "material": "sc_atlas_rubble",
-   "triangles": 80,
-   "visibility_range_end": 160,
-   "cast_shadow": true,
-   "source_objects": [
-    "SC_Rubble__64_1_1"
-   ],
-   "reason": "instanced scatter (merged per cell)"
-  },
-  {
    "node": "SC_Rubble__64_1_0",
    "kind": "scatter",
    "material": "sc_atlas_rubble",
-   "triangles": 80,
+   "triangles": 160,
    "visibility_range_end": 160,
    "cast_shadow": true,
    "source_objects": [
@@ -3283,7 +3182,7 @@
    "node": "SC_Dead_Trees__64_3_2",
    "kind": "scatter",
    "material": "sc_atlas_dead_trees",
-   "triangles": 28,
+   "triangles": 52,
    "visibility_range_end": 160,
    "cast_shadow": true,
    "source_objects": [
@@ -3307,7 +3206,7 @@
    "node": "SC_Dead_Trees__64_2_3",
    "kind": "scatter",
    "material": "sc_atlas_dead_trees",
-   "triangles": 104,
+   "triangles": 56,
    "visibility_range_end": 160,
    "cast_shadow": true,
    "source_objects": [
@@ -3331,7 +3230,7 @@
    "node": "SC_Dead_Trees__64_2_1",
    "kind": "scatter",
    "material": "sc_atlas_dead_trees",
-   "triangles": 164,
+   "triangles": 236,
    "visibility_range_end": 160,
    "cast_shadow": true,
    "source_objects": [
@@ -3343,7 +3242,7 @@
    "node": "SC_Dead_Trees__64_2_0",
    "kind": "scatter",
    "material": "sc_atlas_dead_trees",
-   "triangles": 104,
+   "triangles": 80,
    "visibility_range_end": 160,
    "cast_shadow": true,
    "source_objects": [
@@ -3355,7 +3254,7 @@
    "node": "SC_Dead_Trees__64_1_3",
    "kind": "scatter",
    "material": "sc_atlas_dead_trees",
-   "triangles": 156,
+   "triangles": 84,
    "visibility_range_end": 160,
    "cast_shadow": true,
    "source_objects": [
@@ -3367,7 +3266,7 @@
    "node": "SC_Dead_Trees__64_1_2",
    "kind": "scatter",
    "material": "sc_atlas_dead_trees",
-   "triangles": 392,
+   "triangles": 416,
    "visibility_range_end": 160,
    "cast_shadow": true,
    "source_objects": [
@@ -3391,7 +3290,7 @@
    "node": "SC_Dead_Trees__64_1_0",
    "kind": "scatter",
    "material": "sc_atlas_dead_trees",
-   "triangles": 184,
+   "triangles": 208,
    "visibility_range_end": 160,
    "cast_shadow": true,
    "source_objects": [
@@ -3403,7 +3302,7 @@
    "node": "SC_Dead_Trees__64_0_2",
    "kind": "scatter",
    "material": "sc_atlas_dead_trees",
-   "triangles": 80,
+   "triangles": 184,
    "visibility_range_end": 160,
    "cast_shadow": true,
    "source_objects": [
