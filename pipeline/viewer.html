@@ -50,6 +50,12 @@ if(env){ // Stage 2: panorama sky (background + image-based light), fog colour =
   sky.mapping=THREE.EquirectangularReflectionMapping;sky.colorSpace=THREE.SRGBColorSpace;
   scene.background=sky;scene.environment=pm.fromEquirectangular(sky).texture;
   scene.fog=new THREE.Fog(new THREE.Color(...env.fog.color),env.fog.start,env.fog.end);
+  if(Math.abs(env.fog.height_density||0)>1e-4){ // height fog = Godot's formula: max(distance fog, 1-exp(min(0,(y-fog_height)*fog_height_density)))
+    window.HFOG=[+env.fog.height,+env.fog.height_density];const H=HFOG[0].toFixed(3),D=HFOG[1].toFixed(5);
+    THREE.ShaderChunk.fog_pars_vertex+='\nvarying float vFogWY;';THREE.ShaderChunk.fog_pars_fragment+='\nvarying float vFogWY;';
+    THREE.ShaderChunk.fog_vertex+='\nvFogWY=((mvPosition.xyz-viewMatrix[3].xyz)*mat3(viewMatrix)).y;';
+    THREE.ShaderChunk.fog_fragment='#ifdef USE_FOG\n#ifdef FOG_EXP2\nfloat fogFactor=1.0-exp(-fogDensity*fogDensity*vFogDepth*vFogDepth);\n#else\nfloat fogFactor=smoothstep(fogNear,fogFar,vFogDepth);\n#endif\n'+
+      'fogFactor=max(fogFactor,1.0-exp(min(0.0,(vFogWY-('+H+'))*'+D+')));\ngl_FragColor.rgb=mix(gl_FragColor.rgb,fogColor,fogFactor);\n#endif';}
   scene.add(new THREE.HemisphereLight(new THREE.Color(...env.ambient.sky_color).lerp(new THREE.Color(1,1,1),.5),new THREE.Color(...env.ambient.ground_color),1.2*env.ambient.energy));
   const d=env.sun.direction_to_sun,sun=new THREE.DirectionalLight(new THREE.Color(...env.sun.color),1.25*env.sun.energy);
   sun.position.set(d[0]*100,d[1]*100,d[2]*100);scene.add(sun);
@@ -123,12 +129,59 @@ function makeParticles(fx,p){const spots=fx.emitters||(fx.area?[{area:fx.area}]:
     g.attributes.position.needsUpdate=g.attributes.aSize.needsUpdate=g.attributes.aAlpha.needsUpdate=true;
     mat.uniforms.uScale.value=r.domElement.height/(2*Math.tan(cam.fov*Math.PI/360));}});}
 function makeFog(fx,p){const a=fx.area;for(let l=0;l<(p.layers||1);l++){const geo=new THREE.PlaneGeometry(a[3]-a[0],a[5]-a[2]);geo.rotateX(-Math.PI/2);
-  const m=new THREE.ShaderMaterial({transparent:true,depthWrite:false,side:THREE.DoubleSide,uniforms:{uC:{value:new THREE.Color(...p.color)},uO:{value:p.opacity/(1+l)},uS:{value:new THREE.Vector2(...p.scroll).multiplyScalar(1+.5*l)},uT:{value:0}},
+  const m=new THREE.ShaderMaterial({transparent:true,depthWrite:false,side:THREE.DoubleSide,uniforms:{uC:{value:new THREE.Color(...p.color)},uO:{value:p.opacity/(1+l)},uS:{value:new THREE.Vector2(...p.scroll).multiplyScalar(1+.5*l)},uT:{value:0},
+      uA:{value:new THREE.Vector4(a[0],a[2],a[3],a[5])},uE:{value:Math.max(.5,.15*Math.min(a[3]-a[0],a[5]-a[2]))}},
     vertexShader:'varying vec3 vW;void main(){vec4 w=modelMatrix*vec4(position,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}',
-    fragmentShader:`uniform vec3 uC;uniform float uO,uT;uniform vec2 uS;varying vec3 vW;float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+    fragmentShader:`uniform vec3 uC;uniform float uO,uT,uE;uniform vec2 uS;uniform vec4 uA;varying vec3 vW;float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
     float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
-    void main(){vec2 p=vW.xz*.08;float v=n(p+uS*uT*10.)*.6+n(p*2.3-uS*17.*uT)*.4;gl_FragColor=vec4(uC,uO*smoothstep(.25,.85,v));}`});
+    void main(){vec2 p=vW.xz*.08;float v=n(p+uS*uT*10.)*.6+n(p*2.3-uS*17.*uT)*.4;
+      float e=min(min(vW.x-uA.x,uA.z-vW.x),min(vW.z-uA.y,uA.w-vW.z)); // soft border: no visible rectangle edge
+      gl_FragColor=vec4(uC,uO*smoothstep(.25,.85,v)*smoothstep(0.,uE,e));}`});
   const me=new THREE.Mesh(geo,m);me.position.set((a[0]+a[3])/2,a[1]+p.height+.6*l,(a[2]+a[5])/2);me.renderOrder=2;scene.add(me);fxObjs.push(me);fxUpd.push({u(t){m.uniforms.uT.value=t;}});}}
+// ---- clouds (cloud_layer discs, cloud_puffs billboards): shared GLSL - value-noise fbm + the scene's distance & height fog
+const CLOUD_GLSL=`float ch(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float cn(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(ch(i),ch(i+vec2(1,0)),f.x),mix(ch(i+vec2(0,1)),ch(i+vec2(1,1)),f.x),f.y);}
+float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*cn(p);p=p*2.03+vec2(17.1,9.2);a*=.5;}return v;}
+uniform vec3 uFogC;uniform float uFN,uFF;uniform vec2 uHF;
+vec3 cfog(vec3 c,float d,float wy){float f=smoothstep(uFN,uFF,d);if(uHF.y>0.)f=max(f,1.-exp(min(0.,(wy-uHF.x)*uHF.y)));return mix(c,uFogC,f);}`;
+const lin=c=>new THREE.Color().setRGB(c[0],c[1],c[2],THREE.SRGBColorSpace);
+function cloudU(p){const sd=env?env.sun.direction_to_sun:[0,1,0];return {uC:{value:lin(p.color)},uS:{value:lin(p.shade)},uG:{value:lin(p.glow)},uO:{value:p.opacity},uT:{value:0},
+  uSun:{value:new THREE.Vector3(...sd).normalize()},uFogC:{value:scene.fog?scene.fog.color:new THREE.Color(1,1,1)},uFN:{value:scene.fog?scene.fog.near:1e4},uFF:{value:scene.fog?scene.fog.far:2e4},
+  uHF:{value:new THREE.Vector2(...(window.HFOG||[0,0]))}};}
+function makeCloudLayer(fx,p){const c=fx.center||[0,0];
+  for(let l=0;l<p.layers;l++){const R=p.radius*(1-.1*l),geo=new THREE.CircleGeometry(R,72);geo.rotateX(-Math.PI/2);
+    const U=Object.assign(cloudU(p),{uCov:{value:p.coverage+.06*l},uSc:{value:p.scale*(1+.31*l)},uScr:{value:new THREE.Vector2(...p.scroll)},uCtr:{value:new THREE.Vector2(c[0],c[1])},uR:{value:R},uIn:{value:p.inner},uSeed:{value:l*17.3}});
+    U.uO.value=p.opacity*(l?.7:1);
+    const m=new THREE.ShaderMaterial({transparent:true,depthWrite:false,side:THREE.DoubleSide,uniforms:U,
+      vertexShader:'varying vec3 vW;void main(){vec4 w=modelMatrix*vec4(position,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}',
+      fragmentShader:CLOUD_GLSL+`uniform vec3 uC,uS,uG,uSun;uniform float uO,uT,uCov,uSc,uR,uIn,uSeed;uniform vec2 uScr,uCtr;varying vec3 vW;
+      void main(){vec2 q=vW.xz*uSc+uSeed;float n=fbm(q+uScr*uT),n2=fbm(q*2.6-uScr*uT*1.6+3.1);
+        float cov=smoothstep(uCov-.16,uCov+.2,n*.72+n2*.28);float r=length(vW.xz-uCtr)/uR,edge=1.-smoothstep(uIn,1.,r);
+        vec3 V=normalize(vW-cameraPosition);float fw=pow(max(dot(V,uSun),0.),6.);float d=length(vW-cameraPosition);
+        vec3 col=mix(uS,uC,smoothstep(.25,.85,n2*.6+n*.4))+uG*fw*.55;col=cfog(col,d,vW.y);
+        gl_FragColor=vec4(col,uO*cov*edge*smoothstep(2.,14.,abs(cameraPosition.y-vW.y)));
+        #include <colorspace_fragment>
+      }`});
+    const me=new THREE.Mesh(geo,m);me.position.set(c[0],p.y+l*p.spacing,c[1]);me.renderOrder=1;me.frustumCulled=false;scene.add(me);fxObjs.push(me);fxUpd.push({u(t){m.uniforms.uT.value=t;}});}}
+function makeCloudPuffs(fx,p,qn){const ix=(fx.emitters_by_quality||{})[qn]||(fx.emitters||[]).map((e,i)=>i),E=ix.map(i=>fx.emitters[i]),N=E.length;if(!N)return;
+  const b=new THREE.PlaneGeometry(1,1),g=new THREE.InstancedBufferGeometry();g.index=b.index;g.setAttribute('position',b.attributes.position);g.setAttribute('uv',b.attributes.uv);
+  const P=new Float32Array(N*3),S=new Float32Array(N),Rt=new Float32Array(N),Ph=new Float32Array(N);let ord=[...Array(N).keys()];
+  const at=[['iP',P,3],['iS',S,1],['iR',Rt,1],['iPh',Ph,1]].map(([k,a,n])=>{const x=new THREE.InstancedBufferAttribute(a,n);g.setAttribute(k,x);return x;});
+  const fill=()=>{ord.forEach((j,k)=>{P.set(E[j].pos,k*3);S[k]=E[j].size;Rt[k]=E[j].rot||0;Ph[k]=j*1.37;});at.forEach(x=>x.needsUpdate=true);};fill();g.instanceCount=N;
+  const U=Object.assign(cloudU(p),{uMap:{value:fxTex[p.texture]},uDr:{value:p.drift},uSq:{value:p.squash}});
+  const m=new THREE.ShaderMaterial({transparent:true,depthWrite:false,uniforms:U,
+    vertexShader:`attribute vec3 iP;attribute float iS,iR,iPh;uniform float uT,uDr,uSq;uniform vec3 uSun;varying vec2 vUv;varying float vD,vWY,vFw;
+    void main(){vec3 c=iP+vec3(sin(uT*.05+iPh),0.,cos(uT*.043+iPh*1.3))*uDr*iS*.15;vec4 mv=viewMatrix*vec4(c,1.);float cr=cos(iR),sr=sin(iR);
+      vec2 q=vec2(position.x*cr-position.y*sr,position.x*sr+position.y*cr);mv.xy+=q*vec2(iS,iS*uSq);gl_Position=projectionMatrix*mv;
+      vUv=uv;vD=-mv.z;vWY=c.y+position.y*iS*uSq;vFw=pow(max(dot(normalize(c-cameraPosition),uSun),0.),5.);}`,
+    fragmentShader:CLOUD_GLSL+`uniform sampler2D uMap;uniform vec3 uC,uS,uG;uniform float uO;varying vec2 vUv;varying float vD,vWY,vFw;
+    void main(){vec4 t=texture2D(uMap,vUv);vec3 col=mix(uS,uC,t.r)+uG*vFw*.5*t.r;col=cfog(col,vD,vWY);
+      gl_FragColor=vec4(col,t.a*uO*smoothstep(1.5,9.,vD));
+      #include <colorspace_fragment>
+    }`});
+  const me=new THREE.Mesh(g,m);me.frustumCulled=false;me.renderOrder=2;scene.add(me);fxObjs.push(me);let acc=0;const tmp=new THREE.Vector3();
+  fxUpd.push({u(t,dt){m.uniforms.uT.value=t;acc+=dt||0;if(acc<.25)return;acc=0; // back-to-front every 0.25 s (alpha blending order)
+    const cp=cam.position,d=E.map(e=>(e.pos[0]-cp.x)**2+(e.pos[1]-cp.y)**2+(e.pos[2]-cp.z)**2);ord=[...Array(N).keys()].sort((a,b2)=>d[b2]-d[a]);fill();}});}
 function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry.dispose();}for(const f of fxUpd)f.reset&&f.reset();fxObjs=[];fxUpd=[];
   const qn=FXQ[fxq];document.getElementById('fx').textContent='FX: '+qn;if(!FXD||qn==='off')return;
   for(const fx of FXD.effects){const Q=fx.quality[qn];if(!Q||!Q.enabled)continue;const p=Q.params;
@@ -140,7 +193,9 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry.dispose();}
       fxUpd.push({reset(){mats.forEach((m,i)=>m.emissiveIntensity=b[i]);},u(t,dt){if(fx.type==='pulse_light')mats.forEach((m,i)=>m.emissiveIntensity=b[i]*(1+p.amount*Math.sin(6.2831*p.speed*t+p.phase)));
         else{nx-=dt;if(nx<=0){nx=1/p.rate;mats.forEach((m,i)=>m.emissiveIntensity=b[i]*(1-p.amount*Math.random()));}}}});}
     else if(fx.category==='particles')makeParticles(fx,p);
-    else if(fx.category==='transparent_mesh'&&fx.area)makeFog(fx,p);}} // sky_drift: Godot only (Environment.sky_rotation)
+    else if(fx.category==='transparent_mesh'&&fx.area)makeFog(fx,p);
+    else if(fx.category==='cloud_layer')makeCloudLayer(fx,p);
+    else if(fx.category==='billboards')makeCloudPuffs(fx,p,qn);}} // sky_drift: Godot only (Environment.sky_rotation)
 if(FXD){const b=document.getElementById('fx');b.hidden=false;b.onclick=()=>{fxq=(fxq+1)%FXQ.length;buildFX();};buildFX();}
 window.setFX=q=>{fxq=FXQ.indexOf(q);buildFX();};
 window.fxInfo=()=>({quality:FXQ[fxq],objects:fxObjs.length,animated:fxUpd.length,

@@ -1105,6 +1105,83 @@
     ],
     "ring": false
    }
+  },
+  "height_fog": {
+   "height": 20,
+   "density": 0.045
+  },
+  "clouds": {
+   "layers": [
+    {
+     "y": 12,
+     "radius": 760,
+     "opacity": 0.88,
+     "coverage": 0.4,
+     "scale": 0.008,
+     "layers": 2,
+     "spacing": 8
+    },
+    {
+     "y": 27,
+     "radius": 360,
+     "opacity": 0.5,
+     "coverage": 0.56,
+     "scale": 0.018
+    }
+   ],
+   "collars": {
+    "glob": [
+     "*_Column"
+    ],
+    "y": [
+     14,
+     30
+    ],
+    "size": [
+     10,
+     18
+    ]
+   },
+   "islands": true,
+   "distant": true,
+   "horizon": [
+    300,
+    470
+   ],
+   "color": [
+    1.0,
+    0.9,
+    0.84
+   ],
+   "shade": [
+    0.5,
+    0.42,
+    0.56
+   ],
+   "glow": [
+    1.0,
+    0.58,
+    0.3
+   ],
+   "below": 6
+  },
+  "lighting": {
+   "sun_energy": 2.6,
+   "sun_color": [
+    1.0,
+    0.68,
+    0.42
+   ],
+   "ambient_energy": 1.0,
+   "exposure": 1.05,
+   "contrast": 1.12,
+   "saturation": 1.12,
+   "glow": {
+    "enabled": true,
+    "intensity": 0.9,
+    "bloom": 0.12,
+    "hdr_threshold": 0.85
+   }
   }
  },
  "background": {
@@ -1199,31 +1276,7 @@
  },
  "effects": {
   "auto": true,
-  "extra": [
-   {
-    "id": "Cloud_Sea_High",
-    "type": "fog_sheet",
-    "area": [
-     -200,
-     26,
-     -200,
-     200,
-     26,
-     200
-    ],
-    "height": 2.0,
-    "opacity": 0.28,
-    "color": [
-     1.0,
-     0.86,
-     0.8
-    ],
-    "scroll": [
-     0.004,
-     0.002
-    ]
-   }
-  ]
+  "extra": []
  },
  "spawns": [
   {

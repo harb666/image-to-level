@@ -18,7 +18,7 @@ IMPORTANT - what transfers where:
                      ShaderMaterial overrides / emission pulses on the imported scene by node name).
   Browser viewer   : approximates the same effects with three.js for previewing on iPhone (not identical to Godot).
 """
-import fnmatch, json, os, shutil, sys, numpy as np, trimesh
+import fnmatch, json, math, os, shutil, sys, numpy as np, trimesh
 from PIL import Image, ImageFilter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -51,10 +51,20 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                       "Godot FogVolume/volumetric fog is NOT available in the Mobile/Compatibility renderers, hence a sheet", glb="nothing",
                       defaults=dict(height=0.6, opacity=0.35, scroll=[0.02, 0.01], color=[0.55, 0.9, 0.3], layers=1),
                       quality={"performance": dict(enabled=False), "quality": dict(layers=2)}),
+    "cloud_layer": dict(category="cloud_layer", godot="disc MeshInstance3D + cloud_layer.gdshader (fbm noise coverage, radial edge fade, sun-side "
+                        "glow, soft intersections via depth). One transparent draw call per layer; no volumetrics", glb="nothing",
+                        defaults=dict(y=20.0, radius=600.0, inner=0.55, opacity=0.6, coverage=0.45, scale=0.012, scroll=[0.004, 0.0015],
+                                      color=[1.0, 0.86, 0.76], shade=[0.62, 0.5, 0.56], glow=[1.0, 0.62, 0.35], layers=1, spacing=6.0),
+                        quality={"performance": dict(layers_mult=0.5), "quality": dict(layers_mult=1.5)}),
+    "cloud_puffs": dict(category="billboards", godot="ONE MultiMeshInstance3D of quads, StandardMaterial3D billboard (keep scale), alpha, "
+                        "unshaded, proximity fade; per-instance colour = sun-lit tint baked here. One draw call", glb="nothing",
+                        defaults=dict(count=12, size=[8.0, 16.0], opacity=0.85, color=[1.0, 0.88, 0.8], shade=[0.6, 0.48, 0.55],
+                                      glow=[1.0, 0.6, 0.32], drift=0.6, texture="cloud", squash=0.55),
+                        quality={"performance": dict(count_mult=0.5), "quality": dict(count_mult=1.3)}),
     "sky_drift": dict(category="environment", godot="script: Environment.sky_rotation.y += speed (rad/s) - slow cloud drift", glb="nothing",
                       defaults=dict(speed_deg_s=0.25)),
 }
-PARTICLE_TEXTURES = ("puff", "mote", "spark", "bubble")
+PARTICLE_TEXTURES = ("puff", "mote", "spark", "bubble", "cloud")
 
 
 
@@ -75,6 +85,15 @@ def _sprites(out_dir):
     save("mote", np.clip(1 - r / 0.5, 0, 1) ** 2.2, S)
     save("spark", np.clip(1 - r / 0.5, 0, 1) ** 3 + np.exp(-(r / 0.08) ** 2), S)
     save("bubble", np.exp(-((r - 0.36) / 0.05) ** 2) * 0.9 + 0.15 * np.clip(1 - r / 0.4, 0, 1) + np.exp(-(np.hypot(x + 0.15, y + 0.15) / 0.06) ** 2), S)
+    # cloud: cumulus blob (overlapping soft lobes + fbm erosion); RGB = self-shadowing (lit top -> darker base), tinted at runtime
+    S = 128; y, x = (np.mgrid[:S, :S] + 0.5) / S - 0.5; a = np.zeros((S, S))
+    for cx_, cy_, r_ in ((0, 0.08, 0.3), (-0.2, 0.12, 0.2), (0.2, 0.1, 0.22), (-0.08, -0.08, 0.22), (0.12, -0.05, 0.2), (0.3, 0.18, 0.12), (-0.3, 0.2, 0.12)):
+        a = np.maximum(a, np.clip(1 - np.hypot(x - cx_, (y - cy_) * 1.15) / r_, 0, 1))
+    fb = sum(np.asarray(Image.fromarray((rng.random((k, k)) * 255).astype(np.uint8)).resize((S, S), Image.BICUBIC), float) / 255 / 2 ** i for i, k in enumerate((6, 12, 24)))
+    a = np.clip(a ** 0.8 * 1.35 - (1 - fb / 1.75) * 0.45, 0, 1) * np.clip((0.5 - np.abs(y + 0.02)) * 3, 0, 1)
+    lit = np.clip(0.55 + (0.25 - y) * 0.75 + (fb / 1.75 - 0.5) * 0.35, 0.35, 1.0)
+    img = np.zeros((S, S, 4), np.uint8); img[..., 0] = img[..., 1] = img[..., 2] = (lit * 255).astype(np.uint8); img[..., 3] = (np.clip(a, 0, 1) * 255).astype(np.uint8)
+    Image.fromarray(img, "RGBA").save(os.path.join(out_dir, "cloud.png"), optimize=True)
 
 
 def _node_boxes(glb):
@@ -93,6 +112,32 @@ def _mat_nodes(scene, mat):
         g = scene.geometry[scene.graph[node][1]]; m = getattr(getattr(g.visual, "material", None), "name", "")
         if m == mat or m == mat + "__2s": res.append(node)
     return res
+
+
+def _puff_rings(e, boxes, D):
+    """Cloud puff positions (deterministic): rings AROUND things so they hide their lower parts in cloud.
+    around_targets_glob + y: [y0, y1] (absolute band, clamped to each node's height) -> ring at the node's footprint
+    around_points: [[x, z, radius, y0, y1, n], ...] (terrain islands, distant cliffs, horizon banks)."""
+    import zlib
+    rng = np.random.default_rng(zlib.crc32(e["id"].encode())); s0, s1 = e.get("size", D["size"]); out = []
+    def ring(cx, cz, rad, y0, y1, n, of=None):
+        a0 = rng.uniform(0, 2 * np.pi)
+        for k in range(n):
+            a = a0 + 2 * np.pi * k / n + rng.uniform(-0.25, 0.25) * 2 * np.pi / n; rr = rad * rng.uniform(0.85, 1.25)
+            size = rng.uniform(s0, s1) * (1 + rad / 60) ** 0.5
+            out.append(dict(pos=[round(float(cx + np.cos(a) * rr), 2), round(float(rng.uniform(y0, y1)), 2), round(float(cz + np.sin(a) * rr), 2)],
+                            size=round(float(size), 2), rot=round(float(rng.uniform(-0.25, 0.25)), 3), **({"of": of} if of else {})))
+    if e.get("around_targets_glob"):
+        y0, y1 = e.get("y", [None, None])
+        for n in sorted(n for n in boxes if globmatch(n, e["around_targets_glob"])):
+            b = boxes[n]; c = (b[0] + b[1]) / 2; rad = float(np.hypot(*(b[1] - b[0])[[0, 2]]) / 2) + s0 * 0.25
+            lo, hi = max(b[0][1], y0 if y0 is not None else b[0][1]), min(b[1][1], y1 if y1 is not None else b[1][1])
+            if hi <= lo: continue
+            ring(c[0], c[2], rad, lo, hi, int(e.get("per_target", max(3, min(8, round(rad * 2 * np.pi / (s0 * 0.9)))))), n)
+    for pt in e.get("around_points", []):
+        x, z, rad, y0, y1 = pt[:5]; n = int(pt[5]) if len(pt) > 5 else max(4, int(round(rad * 2 * np.pi / (s0 * 0.8))))
+        ring(x, z, rad, y0, y1, n)
+    return out
 
 
 def resolve(level_dir, L=None):
@@ -124,6 +169,7 @@ def resolve(level_dir, L=None):
                 rad = round(float(np.hypot(*(b[1] - b[0])[[0, 2]]) / 2 + e.get("margin", 0.6)), 2)  # spawn AROUND the node, not inside it
                 em.append(dict(pos=[round(float(c[0]), 2), round(float(b[0][1] if a == "bottom" else b[1][1] if a == "top" else c[1]), 2), round(float(c[2]), 2)], radius=rad, of=n))
         for p in e.get("positions", []): em.append(dict(pos=p))
+        if e["type"] == "cloud_puffs": em += _puff_rings(e, boxes, t["defaults"])
         if e.get("at_background") == "factory_chimneys" and env:
             for l in env["background"]["layers"]:
                 for c in l.get("chimney_tops", []): em.append(dict(pos=c[:3], radius=c[3], of=l["node"]))
@@ -146,6 +192,14 @@ def resolve(level_dir, L=None):
                 merged = "burst" not in p and n_em > 1  # continuous multi-point effects -> ONE emitter (emission points)
                 cost = dict(max_particles=alive * n_em, emitters=n_em, extra_draw_calls=1 if merged else n_em)
                 if merged: R["merge_emitters"] = True
+            elif t["category"] == "cloud_layer":
+                n_l = max(1, int(round(p.get("layers", 1) * p.pop("layers_mult", 1.0)))); p["layers"] = n_l
+                cost = dict(max_particles=0, emitters=0, extra_draw_calls=n_l, transparent_area_m2=round(math.pi * p["radius"] ** 2 * n_l))
+            elif t["category"] == "billboards":
+                k = mult * p.pop("count_mult", 1.0); keep = em[::max(1, int(round(1 / k)))] if k < 1 else em
+                if k > 1 and len(em): keep = em  # quality: all of them (rings already generated at full density)
+                p["puffs"] = len(keep); R["emitters_by_quality"] = R.get("emitters_by_quality", {}); R["emitters_by_quality"][q] = [i for i, e_ in enumerate(em) if e_ in keep]
+                cost = dict(max_particles=len(keep), emitters=1, extra_draw_calls=1 if keep else 0, transparent_area_m2=round(sum(e_["size"] ** 2 * 0.6 for e_ in keep)))
             elif t["category"] == "transparent_mesh" and area:
                 cost = dict(max_particles=0, emitters=0, extra_draw_calls=p.get("layers", 1))
                 cost["transparent_area_m2"] = round((area[3] - area[0]) * (area[5] - area[2]) * p.get("layers", 1))

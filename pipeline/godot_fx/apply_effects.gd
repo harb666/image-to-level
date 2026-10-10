@@ -40,6 +40,10 @@ func _ready() -> void:
 				_particles(fx, p)
 			"transparent_mesh":
 				_fog_sheet(fx, p)
+			"cloud_layer":
+				_cloud_layer(fx, p)
+			"billboards":
+				_cloud_puffs(fx, p)
 			"environment":
 				_sky_speed = deg_to_rad(float(p.get("speed_deg_s", 0.0)))
 
@@ -197,6 +201,90 @@ func _fog_sheet(fx: Dictionary, p: Dictionary) -> void:
 		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		mi.position = Vector3((a[0] + a[3]) * 0.5, a[1] + float(p["height"]) + 0.6 * i, (a[2] + a[5]) * 0.5)
 		add_child(mi)
+
+
+func _sun_dir() -> Vector3:
+	# direction TO the sun: from environment.json next to effects.json (same values the browser preview uses)
+	var env = JSON.parse_string(FileAccess.get_file_as_string(_base_dir + "/environment.json"))
+	if env == null:
+		return Vector3(0.0, 0.3, -1.0)
+	var d: Array = env["sun"]["direction_to_sun"]
+	return Vector3(d[0], d[1], d[2]).normalized()
+
+
+func _cloud_layer(fx: Dictionary, p: Dictionary) -> void:
+	var shader: Shader = load(_base_dir + "/fx/godot/cloud_layer.gdshader")
+	var c: Array = fx.get("center", [0.0, 0.0])
+	for i in range(int(p["layers"])):
+		var r := float(p["radius"]) * (1.0 - 0.1 * i)
+		var mi := MeshInstance3D.new()
+		var plane := PlaneMesh.new()
+		plane.size = Vector2(2.0 * r, 2.0 * r)   # square mesh, the shader fades it to a disc
+		plane.subdivide_width = 8
+		plane.subdivide_depth = 8
+		mi.mesh = plane
+		var sm := ShaderMaterial.new()
+		sm.shader = shader
+		for k in ["color", "shade", "glow"]:
+			sm.set_shader_parameter(k, Color(p[k][0], p[k][1], p[k][2]))
+		sm.set_shader_parameter("opacity", float(p["opacity"]) * (0.7 if i > 0 else 1.0))
+		sm.set_shader_parameter("coverage", float(p["coverage"]) + 0.06 * i)
+		sm.set_shader_parameter("scale", float(p["scale"]) * (1.0 + 0.31 * i))
+		sm.set_shader_parameter("scroll", Vector2(p["scroll"][0], p["scroll"][1]))
+		sm.set_shader_parameter("center", Vector2(c[0], c[1]))
+		sm.set_shader_parameter("radius", r)
+		sm.set_shader_parameter("inner", float(p["inner"]))
+		sm.set_shader_parameter("seed", 17.3 * i)
+		sm.set_shader_parameter("sun_dir", _sun_dir())
+		mi.material_override = sm
+		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		mi.position = Vector3(c[0], float(p["y"]) + float(p["spacing"]) * i, c[1])
+		add_child(mi)
+
+
+func _cloud_puffs(fx: Dictionary, p: Dictionary) -> void:
+	## all puffs of one effect = ONE MultiMeshInstance3D (one draw call); billboard StandardMaterial3D, per-instance colour
+	var em: Array = fx.get("emitters", [])
+	var idx: Array = fx.get("emitters_by_quality", {}).get(quality, range(em.size()))
+	if idx.is_empty():
+		return
+	var quad := QuadMesh.new()
+	quad.size = Vector2(1.0, float(p["squash"]))
+	var mat := StandardMaterial3D.new()
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+	mat.billboard_keep_scale = true
+	mat.vertex_color_use_as_albedo = true
+	mat.albedo_texture = load(_base_dir + "/fx/cloud.png")
+	mat.proximity_fade_enabled = true
+	mat.proximity_fade_distance = 4.0
+	mat.distance_fade_mode = BaseMaterial3D.DISTANCE_FADE_PIXEL_ALPHA
+	mat.distance_fade_min_distance = 1.5
+	mat.distance_fade_max_distance = 9.0
+	quad.material = mat
+	var mm := MultiMesh.new()
+	mm.transform_format = MultiMesh.TRANSFORM_3D
+	mm.use_colors = true
+	mm.mesh = quad
+	mm.instance_count = idx.size()
+	var sun := _sun_dir()
+	var lit := Color(p["color"][0], p["color"][1], p["color"][2])
+	var glo := Color(p["glow"][0], p["glow"][1], p["glow"][2])
+	for k in range(idx.size()):
+		var e: Dictionary = em[int(idx[k])]
+		var s := float(e["size"])
+		var pos := Vector3(e["pos"][0], e["pos"][1], e["pos"][2])
+		mm.set_instance_transform(k, Transform3D(Basis().scaled(Vector3(s, s, s)), pos))
+		# sun-side puffs glow warmer (baked per instance; the browser preview computes it per view)
+		var side: float = clamp(Vector2(pos.x, pos.z).normalized().dot(Vector2(sun.x, sun.z).normalized()), 0.0, 1.0)
+		var c := lit.lerp(glo, 0.35 * side)
+		c.a = float(p["opacity"])
+		mm.set_instance_color(k, c)
+	var mmi := MultiMeshInstance3D.new()
+	mmi.multimesh = mm
+	mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	add_child(mmi)
 
 
 func _process(delta: float) -> void:

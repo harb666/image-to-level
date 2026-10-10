@@ -50,6 +50,7 @@ SCHEMA = {
     "hazards": (LIST, False, dict(ELEMENT, id=(STR, True), area=(("vec", 4), True), y=(NUM, True), material=(STR, False))),
     "materials": (DICT, False, {"variation": (BOOL, False), "roles": (DICT, False)}),
     "atmosphere": (DICT, False, {"sky": (STR, False), "sky_overrides": (DICT, False), "fog_start": (NUM, False), "fog_end": (NUM, False), "height_fog": (DICT, False),
+                                 "fog_color": (("vec", 3), False), "clouds": (DICT, False), "lighting": (DICT, False),
                                  "glow_color": (("vec", 3), False), "ambient": (STR, False, ("spores", "dust", "embers", "snow", "none")), "source": (STR, False)}),
     "background": (DICT, False, {"mountains": (STR, False, ("both", "far", "near", "none")), "mountain_height": (V2, False), "factories": (INT, False),
                                  "skyline": (BOOL, False), "spires": (BOOL, False), "town": (BOOL, False), "ground_type": (STR, False),

@@ -155,7 +155,9 @@ def _environment(spec, ctx):
     else: ar = spec["arena"]; R = math.hypot(*ar["size"]) / 2; f = max(1.0, R / 51.0)
     glow = at.get("glow_color") or A.role_material(spec.get("theme", "industrial"), "glow").get("emissive", [0.5, 1.0, 0.3])
     sky = dict(preset=at.get("sky", th["sky"]), **at.get("sky_overrides", {}))
-    atm = {k: at[k] for k in ("fog_start", "fog_end", "height_fog") if k in at}; atm.setdefault("fog_start", round(60 * f) if ctx.TR is None else round(R * 0.9))
+    atm = {k: at[k] for k in ("fog_start", "fog_end", "height_fog", "fog_color") if k in at}
+    LK = ("sun_energy", "sun_color", "ambient_energy", "exposure"); lit = at.get("lighting", {})  # light -> env.lighting, grading -> atmosphere
+    atm.update({k: v for k, v in lit.items() if k not in LK}); atm.setdefault("fog_start", round(60 * f) if ctx.TR is None else round(R * 0.9))
     if "layers" in bg: layers = bg["layers"]
     else:
         d = dict(th["background"], **{k: v for k, v in bg.items() if k != "source"}); mh = d.get("mountain_height", [70, 160])
@@ -173,6 +175,7 @@ def _environment(spec, ctx):
         for i, az in enumerate([48, 105, 215, 290, 160, 340][:d.get("factories", 0)]):
             layers.append(dict(id=f"Factory_{i + 1:02d}", type="factory", azimuth_deg=az, distance=round((165 + 12 * i) * f), scale=round(0.9 + 0.1 * (i % 3), 2), seed=i + 1, glow=glow, fade=0.15))
     env = dict(quality=spec.get("profile", "balanced"), horizon_distance=round(460 * f), sky=sky, atmosphere=atm, background=layers)
+    if any(k in lit for k in LK): env["lighting"] = {k: lit[k] for k in LK if k in lit}
     if ctx.TR is not None and "radius" not in ctx.terrain_def["zones"]["middle"]:  # middle zone runs into the far mountains (no gap)
         mr = [l for l in layers if l.get("type") == "mountain_ring"]
         if mr:
@@ -218,7 +221,39 @@ def _effects(spec, ctx, plats, env, glow):
                             count=220 if amb != "dust" else 160, color=col, **({"blend": "alpha", "alpha": 0.35} if amb == "dust" else {})))
         if any(l.get("type") == "factory" for l in env["background"]): out.append(dict(id="Factory_Smoke", type="smoke", at_background="factory_chimneys"))
         out.append(dict(id="Sky_Drift", type="sky_drift", speed_deg_s=0.25))
+        out += _clouds(spec, ctx, plats)
     out = [e for e in out if e["id"] not in set(cfg.get("disable", []))] + list(cfg.get("extra", []))
+    return out
+
+
+def _clouds(spec, ctx, plats):
+    """atmosphere.clouds -> layered cloud effects (cloud_layer discs + cloud_puffs rings) that bury the lower parts of
+    columns, islands and distant cliffs in cloud while staying BELOW the playable decks (combat sightlines stay clear).
+    Keys: layers [{y, radius, opacity, coverage, scale, layers}], collars {glob, y}|false, islands true|false,
+    distant true|false, horizon [radius, ...], color / shade / glow, below (m under the lowest deck kept clear)."""
+    C = spec.get("atmosphere", {}).get("clouds")
+    if not C: return []
+    tint = {k: C[k] for k in ("color", "shade", "glow") if k in C}; out = []
+    decks = [p["top"] for p in (plats.values() if isinstance(plats, dict) else plats)] or [0.0]; clear = min(decks) - C.get("below", 6.0)  # nothing above this height
+    for i, l in enumerate(C.get("layers", [])):
+        out.append(dict(id=f"Cloud_Layer_{i + 1}", type="cloud_layer", center=l.get("center", [0, 0]), **tint,
+                        **{k: (min(v, clear) if k == "y" else v) for k, v in l.items() if k != "center"}))
+    col = C.get("collars", {"glob": ["*_Column"]})
+    if col:
+        y = col.get("y", [clear - 14, clear]); y = [y[0], min(y[1], clear)]
+        out.append(dict(id="Cloud_Collars", type="cloud_puffs", around_targets_glob=col.get("glob", ["*_Column"]), y=y, size=col.get("size", [7.0, 13.0]), **tint))
+    TD = getattr(ctx, "terrain_def", None) or {}; feats = TD.get("features", []) if ctx.TR is not None else []
+    base = TD.get("base_y", 0.0)
+    def top(f): return base + f.get("height", 10)
+    near = [f for f in feats if f.get("radius") and f.get("center") and f.get("type") in ("mesa", "plateau", "hill", "mountain") and math.hypot(*f["center"]) < 120]
+    far = [f for f in feats if f.get("radius") and f.get("center") and f.get("type") in ("mesa", "plateau", "hill", "mountain", "cliff", "ridge") and math.hypot(*f["center"]) >= 120]
+    if C.get("islands", True) and near:
+        out.append(dict(id="Cloud_Islands", type="cloud_puffs", size=C.get("island_size", [14.0, 24.0]), **tint,
+                        around_points=[[f["center"][0], f["center"][1], f["radius"] * 1.05, min(top(f) - 16, clear - 4), min(top(f) - 7, clear)] for f in near]))
+    if C.get("distant", True):
+        pts = [[f["center"][0], f["center"][1], f["radius"] * 1.1, top(f) * 0.25, top(f) * 0.6] for f in far]
+        pts += [[0, 0, r, 0, clear - 8, max(16, int(r / 14))] for r in C.get("horizon", [])]
+        if pts: out.append(dict(id="Cloud_Distant", type="cloud_puffs", size=C.get("distant_size", [50.0, 110.0]), opacity=0.85, **tint, around_points=pts))
     return out
 
 
