@@ -1,0 +1,235 @@
+{
+ "generated_by": "image-to-level Stage 2 (pipeline/environment.py)",
+ "quality": "balanced",
+ "note": "Browser preview approximates this; Godot settings are generated but not tested in Godot here.",
+ "files": {
+  "level": "level.glb",
+  "background": "background.glb",
+  "sky_panorama": "sky/panorama.jpg",
+  "godot_environment": "environment.tres"
+ },
+ "sky": {
+  "type": "panorama",
+  "image": "sky/panorama.jpg",
+  "size": [
+   2048,
+   1024
+  ],
+  "projection": "equirectangular",
+  "preset": "overcast",
+  "external": false,
+  "azimuth_convention": "image column u -> atan2(dir.z, dir.x) (three.js); level azimuth 0=north(-z) 90=east(+x). If the Godot sky looks rotated vs the sun, adjust Environment sky_rotation.y in 90\u00b0 steps.",
+  "horizon_rgb": [
+   0.72,
+   0.741,
+   0.71
+  ],
+  "upper_rgb": [
+   0.514,
+   0.53,
+   0.547
+  ]
+ },
+ "sun": {
+  "azimuth_deg": 180,
+  "elevation_deg": 40,
+  "direction_to_sun": [
+   0.0,
+   0.6428,
+   0.766
+  ],
+  "color": [
+   0.95,
+   0.95,
+   1.0
+  ],
+  "energy": 0.9,
+  "godot_rotation_degrees": [
+   -40,
+   0,
+   0
+  ],
+  "shadows": {
+   "enabled": true,
+   "mode": "PSSM 2 splits",
+   "max_distance": 70,
+   "note": "keep shadows to the playable area on mobile"
+  }
+ },
+ "ambient": {
+  "source": "sky",
+  "sky_color": [
+   0.514,
+   0.53,
+   0.547
+  ],
+  "ground_color": [
+   0.403,
+   0.414,
+   0.41
+  ],
+  "energy": 1.4
+ },
+ "fog": {
+  "enabled": true,
+  "color": [
+   0.72,
+   0.741,
+   0.71
+  ],
+  "start": 163,
+  "end": 659,
+  "godot_density": 0.00455,
+  "sky_affect": 0.55,
+  "height": 2.0,
+  "height_density": 0.12
+ },
+ "tonemap": {
+  "mode": "filmic",
+  "exposure": 1.0
+ },
+ "glow": {
+  "enabled": true,
+  "intensity": 0.7,
+  "bloom": 0.08,
+  "hdr_threshold": 0.9
+ },
+ "adjustments": {
+  "brightness": 1.0,
+  "contrast": 1.05,
+  "saturation": 1.05
+ },
+ "camera": {
+  "far": 800,
+  "horizon_distance": 694
+ },
+ "background": {
+  "layers": [
+   {
+    "id": "Mountains_Far",
+    "node": "BG_Mountains_Far",
+    "type": "mountain_ring",
+    "triangles": 768,
+    "material": "bg_mountains_far",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840
+   },
+   {
+    "id": "Mountains_Near",
+    "node": "BG_Mountains_Near",
+    "type": "mountain_ring",
+    "triangles": 768,
+    "material": "bg_mountains_near",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840
+   },
+   {
+    "id": "Skyline_North",
+    "node": "BG_Skyline_North",
+    "type": "skyline",
+    "triangles": 600,
+    "material": "bg_skyline_north",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840
+   },
+   {
+    "id": "Factory_01",
+    "node": "BG_Factory_01",
+    "type": "factory",
+    "triangles": 288,
+    "material": "bg_factory_01",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840,
+    "chimney_tops": [
+     [
+      202.83,
+      57.49,
+      -160.08,
+      2.22
+     ],
+     [
+      196.7,
+      58.03,
+      -169.21,
+      2.26
+     ],
+     [
+      191.25,
+      54.67,
+      -169.95,
+      2.42
+     ]
+    ]
+   },
+   {
+    "id": "Factory_02",
+    "node": "BG_Factory_02",
+    "type": "factory",
+    "triangles": 288,
+    "material": "bg_factory_02",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840,
+    "chimney_tops": [
+     [
+      267.5,
+      45.41,
+      67.53,
+      2.64
+     ],
+     [
+      267.18,
+      51.22,
+      65.98,
+      1.68
+     ],
+     [
+      268.41,
+      71.61,
+      66.81,
+      2.17
+     ]
+    ]
+   }
+  ],
+  "materials": [
+   "bg_mountains_far",
+   "bg_mountains_near",
+   "bg_skyline_north",
+   "bg_factory_01",
+   "bg_factory_02"
+  ],
+  "stats": {
+   "glb_kb": 227,
+   "triangles": 2712,
+   "nodes": 6,
+   "mesh_nodes": 5,
+   "unique_meshes": 5,
+   "materials": 5,
+   "images": 10,
+   "draw_calls_unbatched": 5,
+   "draw_calls_batched_min": 5,
+   "tex_mem_uncompressed_mb": 0.83,
+   "tex_mem_gpu_compressed_mb": 0.21,
+   "texture_slots": {
+    "baseColorTexture": 5,
+    "metallicRoughnessTexture": 5,
+    "normalTexture": 5,
+    "occlusionTexture": 5,
+    "emissiveTexture": 3
+   },
+   "image_sizes": [
+    "128x128 jpeg"
+   ]
+  },
+  "tex_mem_gpu_compressed_mb": 0.38
+ },
+ "sky_asset": {
+  "kb": 57,
+  "tex_mem_gpu_compressed_mb": 2.67
+ }
+}

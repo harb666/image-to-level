@@ -1,0 +1,147 @@
+{
+ "format": "image-to-level package v1",
+ "level": "test_hybrid",
+ "title": "scene_spec.json - Engineering test C - hybrid industrial compound in open terrain (synthetic, no concept image)",
+ "generated": "2026-10-10 12:32:52",
+ "godot_root": "res://levels/test_hybrid/",
+ "use_in_game": "mobile/level_mobile.glb (+ mobile/background_mobile.glb, mobile/collision.glb)",
+ "profile": "balanced",
+ "spawns": [
+  {
+   "id": "spawn",
+   "position": [
+    -75.0,
+    -0.03,
+    -20.0
+   ],
+   "yaw_deg": -104.9
+  },
+  {
+   "id": "Player_Start_2",
+   "position": [
+    -75.0,
+    -0.39,
+    -24.0
+   ],
+   "yaw_deg": -104.9,
+   "team": "player"
+  },
+  {
+   "id": "Player_Start_3",
+   "position": [
+    -75.0,
+    -0.07,
+    -16.0
+   ],
+   "yaw_deg": -104.9,
+   "team": "player"
+  },
+  {
+   "id": "Player_Start_4",
+   "position": [
+    -79.0,
+    -0.09,
+    -20.0
+   ],
+   "yaw_deg": -104.9,
+   "team": "player"
+  },
+  {
+   "id": "Enemy_East_1",
+   "position": [
+    90.0,
+    -0.13,
+    -10.0
+   ],
+   "yaw_deg": 96.3,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_East_2",
+   "position": [
+    90.0,
+    -0.49,
+    -14.0
+   ],
+   "yaw_deg": 96.3,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_East_3",
+   "position": [
+    90.0,
+    -0.2,
+    -6.0
+   ],
+   "yaw_deg": 96.3,
+   "team": "enemy"
+  },
+  {
+   "id": "Enemy_East_4",
+   "position": [
+    86.0,
+    -0.16,
+    -10.0
+   ],
+   "yaw_deg": 96.3,
+   "team": "enemy"
+  }
+ ],
+ "hazards": [],
+ "generator": {
+  "tool": "pipeline/spec_to_level.py",
+  "spec_sha": "1235a7db6fe66aa5",
+  "theme": "post_apocalyptic",
+  "detail": "medium",
+  "mode": "hybrid"
+ },
+ "metrics": {
+  "dev": {
+   "glb_kb": 4302,
+   "triangles": 55450,
+   "draw_calls": 368,
+   "tex_mem_gpu_mb_est": 9.33
+  },
+  "mobile": {
+   "profile": "balanced",
+   "glb_kb": 5020,
+   "triangles": 68250,
+   "draw_calls": 279,
+   "visible_draw_calls_est": 73.6,
+   "visible_draw_calls_max_est": 130,
+   "tex_mem_gpu_mb_est": 9.83,
+   "materials": 31,
+   "nodes": 280,
+   "colliders": {
+    "colliders": 272,
+    "hazards": 0,
+    "glb_kb": 421
+   },
+   "background_kb": 227,
+   "visible_triangles_est": 19193,
+   "visible_triangles_max_est": 29305
+  },
+  "effects": {
+   "max_particles": 250,
+   "emitters": 7,
+   "extra_draw_calls": 2,
+   "transparent_area_m2": 0
+  },
+  "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
+ },
+ "validation": {
+  "passed": false,
+  "counts": {
+   "error": 8,
+   "warning": 7,
+   "info": 1
+  }
+ },
+ "gameplay_config_status": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer.",
+ "notes": [
+  "GLB carries static geometry/materials only; effects, environment and hazards are recreated in Godot from the JSON/tres + scripts.",
+  "Scripts and .tres are UNTESTED in Godot from this environment.",
+  "Performance numbers are estimates, not device benchmarks."
+ ],
+ "files": 34
+}

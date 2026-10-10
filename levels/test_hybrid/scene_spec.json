@@ -1,0 +1,496 @@
+{
+ "spec_version": 1,
+ "name": "test_hybrid",
+ "title": "Engineering test C - hybrid industrial compound in open terrain (synthetic, no concept image)",
+ "theme": "post_apocalyptic",
+ "detail": "medium",
+ "seed": 33,
+ "profile": "balanced",
+ "interpretation": {
+  "summary": "Synthetic Stage 9 test: walled industrial compound (structured arena on a terrain pad) inside hilly open terrain with a river, road + tunnel, factory, elevated platforms and bridges.",
+  "visible": [
+   "synthetic test - nothing seen"
+  ],
+  "inferred": [
+   "all elements chosen to exercise hybrid generation"
+  ]
+ },
+ "arena": {
+  "shape": "rect",
+  "size": [
+   56,
+   44
+  ],
+  "center": [
+   -20,
+   10
+  ],
+  "floor": {
+   "kind": "ground",
+   "y": 2.0
+  },
+  "walls": {
+   "height": 7,
+   "thickness": 2,
+   "style": "industrial",
+   "openings": [
+    {
+     "side": "east",
+     "width": 8
+    },
+    {
+     "side": "south",
+     "width": 8
+    }
+   ]
+  }
+ },
+ "world": {
+  "size": [
+   256,
+   240
+  ],
+  "center": [
+   0,
+   0
+  ],
+  "seed": 33,
+  "relief": "hilly",
+  "cell": 2.0,
+  "chunk": 32,
+  "boundary": {
+   "shape": "organic",
+   "margin": 24,
+   "barrier": "ridge",
+   "height": 16
+  },
+  "features": [
+   {
+    "id": "North_Hills",
+    "type": "ridge",
+    "points": [
+     [
+      -110,
+      -80
+     ],
+     [
+      -30,
+      -70
+     ],
+     [
+      50,
+      -88
+     ],
+     [
+      110,
+      -70
+     ]
+    ],
+    "width": 50,
+    "height": 18
+   },
+   {
+    "id": "Tunnel_Hill",
+    "type": "hill",
+    "center": [
+     62,
+     26
+    ],
+    "radius": 26,
+    "height": 14,
+    "shape": 0.8
+   },
+   {
+    "id": "Slag_Crater",
+    "type": "crater",
+    "center": [
+     30,
+     -40
+    ],
+    "radius": 11,
+    "depth": 3,
+    "rim": 1.5
+   },
+   {
+    "id": "River",
+    "type": "river",
+    "points": [
+     [
+      -120,
+      74
+     ],
+     [
+      -40,
+      66
+     ],
+     [
+      20,
+      78
+     ],
+     [
+      120,
+      70
+     ]
+    ],
+    "width": 9,
+    "depth": 1.5
+   },
+   {
+    "id": "Haul_Road",
+    "type": "road",
+    "points": [
+     [
+      -6,
+      4
+     ],
+     [
+      20,
+      20
+     ],
+     [
+      40,
+      26
+     ],
+     [
+      90,
+      26
+     ],
+     [
+      118,
+      20
+     ]
+    ],
+    "width": 7
+   },
+   {
+    "id": "South_Road",
+    "type": "road",
+    "points": [
+     [
+      -20,
+      36
+     ],
+     [
+      -16,
+      60
+     ],
+     [
+      -10,
+      100
+     ]
+    ],
+    "width": 6
+   },
+   {
+    "id": "East_Dump",
+    "type": "dunes",
+    "center": [
+     80,
+     -30
+    ],
+    "radius": 22,
+    "height": 2.5,
+    "wavelength": 12
+   }
+  ],
+  "scatter": [
+   {
+    "id": "Dead_Trees",
+    "kinds": [
+     "dead_tree",
+     {
+      "kind": "stump",
+      "weight": 0.4
+     }
+    ],
+    "density": 0.5,
+    "cluster": 0.6,
+    "slope_max": 28
+   },
+   {
+    "id": "Rubble",
+    "kinds": [
+     "debris",
+     {
+      "kind": "rock_small",
+      "weight": 0.8
+     },
+     {
+      "kind": "boulder",
+      "weight": 0.15
+     }
+    ],
+    "density": 1.4,
+    "cluster": 0.5,
+    "slope_max": 32
+   },
+   {
+    "id": "Dry_Grass",
+    "kinds": [
+     "grass_tuft"
+    ],
+    "density": 3.0,
+    "cluster": 0.6,
+    "slope_max": 24,
+    "layers": [
+     "grass"
+    ]
+   }
+  ],
+  "spawn_regions": [
+   {
+    "id": "Player_Start",
+    "team": "player",
+    "center": [
+     -75,
+     -20
+    ],
+    "radius": 12,
+    "count": 4
+   },
+   {
+    "id": "Enemy_Yard",
+    "team": "enemy",
+    "center": [
+     -20,
+     10
+    ],
+    "radius": 10,
+    "count": 4
+   },
+   {
+    "id": "Enemy_East",
+    "team": "enemy",
+    "center": [
+     90,
+     -10
+    ],
+    "radius": 12,
+    "count": 4
+   }
+  ]
+ },
+ "platforms": [
+  {
+   "id": "Gantry_A",
+   "center": [
+    -36,
+    0
+   ],
+   "size": [
+    10,
+    8
+   ],
+   "top": 7.0,
+   "cover": 2
+  },
+  {
+   "id": "Gantry_B",
+   "center": [
+    -6,
+    0
+   ],
+   "size": [
+    10,
+    8
+   ],
+   "top": 7.0,
+   "cover": 1
+  },
+  {
+   "id": "Tower_Top",
+   "center": [
+    -34,
+    24
+   ],
+   "size": [
+    8,
+    8
+   ],
+   "top": 10.0,
+   "cover": 1
+  },
+  {
+   "id": "Silo_Deck",
+   "center": [
+    24,
+    -6
+   ],
+   "size": [
+    9,
+    9
+   ],
+   "top": 8.0,
+   "cover": 2
+  },
+  {
+   "id": "Loading_Dock",
+   "center": [
+    -20,
+    24
+   ],
+   "size": [
+    12,
+    7
+   ],
+   "top": 2.3,
+   "cover": 1,
+   "source": "inferred"
+  }
+ ],
+ "connections": [
+  {
+   "id": "Gantry_Bridge",
+   "from": "Gantry_A",
+   "to": "Gantry_B",
+   "kind": "bridge",
+   "rails": true
+  },
+  {
+   "id": "Tower_Stairs",
+   "from": "Gantry_A",
+   "to": "Tower_Top",
+   "kind": "auto"
+  },
+  {
+   "id": "Yard_Catwalk",
+   "from": "Gantry_B",
+   "to": "Silo_Deck",
+   "kind": "auto",
+   "rails": true
+  },
+  {
+   "id": "Dock_Stairs",
+   "from": "Loading_Dock",
+   "to": "Gantry_A",
+   "kind": "auto",
+   "rails": true
+  }
+ ],
+ "structures": [
+  {
+   "id": "Factory",
+   "kind": "factory",
+   "position": [
+    -80,
+    30
+   ],
+   "size": [
+    26,
+    12,
+    20
+   ],
+   "count": 2,
+   "facing": "east"
+  },
+  {
+   "id": "Tanks",
+   "kind": "tank",
+   "position": [
+    -2,
+    26
+   ],
+   "size": [
+    5,
+    9,
+    5
+   ]
+  },
+  {
+   "id": "Machines",
+   "kind": "machinery",
+   "position": [
+    -30,
+    -6
+   ]
+  },
+  {
+   "id": "Haul_Tunnel",
+   "kind": "tunnel",
+   "from": [
+    46,
+    26
+   ],
+   "to": [
+    80,
+    26
+   ],
+   "width": 8,
+   "height": 5.5
+  },
+  {
+   "id": "River_Bridge_West",
+   "kind": "bridge",
+   "from": [
+    -60,
+    56
+   ],
+   "to": [
+    -60,
+    82
+   ],
+   "width": 5
+  },
+  {
+   "id": "Comms",
+   "kind": "antenna",
+   "position": [
+    70,
+    -52
+   ],
+   "size": [
+    3,
+    18,
+    3
+   ]
+  },
+  {
+   "id": "Wreck_1",
+   "kind": "wreck",
+   "position": [
+    12,
+    30
+   ],
+   "yaw": 40
+  },
+  {
+   "id": "Containers",
+   "kind": "container",
+   "position": [
+    6,
+    -20
+   ],
+   "count": 3
+  },
+  {
+   "id": "Ruin",
+   "kind": "ruins",
+   "position": [
+    -90,
+    -50
+   ],
+   "size": [
+    12,
+    4,
+    9
+   ],
+   "count": 3,
+   "material": "structure"
+  },
+  {
+   "id": "Boulders",
+   "kind": "boulder_field",
+   "position": [
+    60,
+    -20
+   ],
+   "radius": 8,
+   "count": 5
+  }
+ ],
+ "atmosphere": {
+  "sky": "overcast",
+  "ambient": "dust"
+ },
+ "effects": "auto"
+}

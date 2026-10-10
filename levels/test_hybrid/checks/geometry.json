@@ -1,0 +1,342 @@
+{
+ "level": "test_hybrid",
+ "counts": {
+  "ERROR": 7,
+  "WARNING": 2,
+  "INTENTIONAL": 8
+ },
+ "relations": {
+  "explicit": 39,
+  "inferred": 0
+ },
+ "repairable": 0,
+ "findings": [
+  {
+   "check": "connection",
+   "cls": "ERROR",
+   "objects": [
+    "Link_Ground_Gantry_A"
+   ],
+   "message": "Link_Ground_Gantry_A.low leads nowhere (no floor within 4 m at step height)",
+   "pos": [
+    -14.83,
+    1.92,
+    13.23
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": true,
+   "id": "connection:000"
+  },
+  {
+   "check": "connection",
+   "cls": "ERROR",
+   "objects": [
+    "Link_Ground_Gantry_B"
+   ],
+   "message": "Link_Ground_Gantry_B.low leads nowhere (no floor within 4 m at step height)",
+   "pos": [
+    -29.16,
+    1.93,
+    16.55
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": true,
+   "id": "connection:001"
+  },
+  {
+   "check": "connection",
+   "cls": "ERROR",
+   "objects": [
+    "Link_Ground_Tower_Top"
+   ],
+   "message": "Link_Ground_Tower_Top.low leads nowhere (no floor within 4 m at step height)",
+   "pos": [
+    -18.86,
+    1.84,
+    8.86
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": true,
+   "id": "connection:002"
+  },
+  {
+   "check": "connection",
+   "cls": "ERROR",
+   "objects": [
+    "Link_Ground_Gantry_A",
+    "Gantry_Bridge_Rail_L",
+    "Tower_Stairs_Deck"
+   ],
+   "message": "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A.high (blocks the route)",
+   "pos": [
+    -31.04,
+    6.99,
+    3.1
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": true,
+   "id": "connection:003"
+  },
+  {
+   "check": "connection",
+   "cls": "ERROR",
+   "objects": [
+    "Link_Ground_Gantry_B",
+    "Gantry_Bridge_Rail_L"
+   ],
+   "message": "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B.high (blocks the route)",
+   "pos": [
+    -10.96,
+    6.99,
+    3.54
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": true,
+   "id": "connection:004"
+  },
+  {
+   "check": "support",
+   "cls": "ERROR",
+   "objects": [
+    "Link_Ground_Gantry_A",
+    "Link_Ground_Gantry_A_Support"
+   ],
+   "message": "Link_Ground_Gantry_A is declared supported_by Link_Ground_Gantry_A_Support but does not touch it",
+   "pos": [
+    -22.94,
+    3.25,
+    8.17
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": true,
+   "id": "support:005"
+  },
+  {
+   "check": "support",
+   "cls": "ERROR",
+   "objects": [
+    "Link_Ground_Gantry_B",
+    "Link_Ground_Gantry_B_Support"
+   ],
+   "message": "Link_Ground_Gantry_B is declared supported_by Link_Ground_Gantry_B_Support but does not touch it",
+   "pos": [
+    -20.06,
+    3.26,
+    10.04
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": true,
+   "id": "support:006"
+  },
+  {
+   "check": "connection",
+   "cls": "WARNING",
+   "objects": [
+    "Link_Ground_Gantry_B",
+    "Link_Ground_Tower"
+   ],
+   "message": "Link_Ground_Tower stands in the landing of Link_Ground_Gantry_B.low (blocks the route)",
+   "pos": [
+    -29.16,
+    1.93,
+    16.55
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": true,
+   "id": "connection:007"
+  },
+  {
+   "check": "connection",
+   "cls": "WARNING",
+   "objects": [
+    "Link_Ground_Tower_Top",
+    "Link_Ground_Gantry_A",
+    "Link_Ground_Gantry_B"
+   ],
+   "message": "Link_Ground_Gantry_A stands in the landing of Link_Ground_Tower_Top.low (blocks the route)",
+   "pos": [
+    -18.86,
+    1.84,
+    8.86
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": true,
+   "id": "connection:008"
+  },
+  {
+   "check": "boundary",
+   "cls": "INTENTIONAL",
+   "objects": [
+    "Haul_Road"
+   ],
+   "message": "playable boundary edge 1: Haul_Road leaves the area through a gap in the barrier (invisible collider there)",
+   "pos": [
+    101.86,
+    1.02,
+    16.59
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": false,
+   "id": "boundary:009"
+  },
+  {
+   "check": "boundary",
+   "cls": "INTENTIONAL",
+   "objects": [
+    "River"
+   ],
+   "message": "playable boundary edge 3: River leaves the area through a gap in the barrier (invisible collider there)",
+   "pos": [
+    85.74,
+    0.64,
+    53.41
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": false,
+   "id": "boundary:010"
+  },
+  {
+   "check": "boundary",
+   "cls": "INTENTIONAL",
+   "objects": [
+    "South_Road"
+   ],
+   "message": "playable boundary edge 8: South_Road leaves the area through a gap in the barrier (invisible collider there)",
+   "pos": [
+    -7.26,
+    -0.74,
+    94.61
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": false,
+   "id": "boundary:011"
+  },
+  {
+   "check": "unreachable",
+   "cls": "INTENTIONAL",
+   "objects": [
+    "OuterWall (roof / top, no access)"
+   ],
+   "message": "163 m\u00b2 standable area at [0.8, 29.3] not reachable from the spawn (on OuterWall (roof / top, no access): inaccessible by design)",
+   "pos": [
+    0.8,
+    7.5,
+    29.3
+   ],
+   "measured": {
+    "area_m2": 163.0,
+    "objects": [
+     "OuterWall_South_01_Cap",
+     "OuterWall_East_02_Cap",
+     "OuterWall_East_02_Pilaster_01"
+    ]
+   },
+   "repair": null,
+   "ambiguous": false,
+   "id": "unreachable:012"
+  },
+  {
+   "check": "unreachable",
+   "cls": "INTENTIONAL",
+   "objects": [
+    "Haul (roof / top, no access)"
+   ],
+   "message": "840 m\u00b2 standable area at [63.2, 26.1] not reachable from the spawn (on Haul (roof / top, no access): inaccessible by design)",
+   "pos": [
+    63.2,
+    10.82,
+    26.1
+   ],
+   "measured": {
+    "area_m2": 840.0,
+    "objects": [
+     "Haul_Tunnel_Berm",
+     "Haul_Tunnel_Portal_A",
+     "Haul_Tunnel_Portal_B"
+    ]
+   },
+   "repair": null,
+   "ambiguous": false,
+   "id": "unreachable:013"
+  },
+  {
+   "check": "unreachable",
+   "cls": "INTENTIONAL",
+   "objects": [
+    "Factory (roof / top, no access)"
+   ],
+   "message": "171 m\u00b2 standable area at [-87.2, 30.4] not reachable from the spawn (on Factory (roof / top, no access): inaccessible by design)",
+   "pos": [
+    -87.2,
+    12.72,
+    30.4
+   ],
+   "measured": {
+    "area_m2": 171.0,
+    "objects": [
+     "Factory_Hall"
+    ]
+   },
+   "repair": null,
+   "ambiguous": false,
+   "id": "unreachable:014"
+  },
+  {
+   "check": "unreachable",
+   "cls": "INTENTIONAL",
+   "objects": [
+    "Factory (roof / top, no access)"
+   ],
+   "message": "162 m\u00b2 standable area at [-72.8, 29.6] not reachable from the spawn (on Factory (roof / top, no access): inaccessible by design)",
+   "pos": [
+    -72.8,
+    12.72,
+    29.6
+   ],
+   "measured": {
+    "area_m2": 162.0,
+    "objects": [
+     "Factory_Hall"
+    ]
+   },
+   "repair": null,
+   "ambiguous": false,
+   "id": "unreachable:015"
+  },
+  {
+   "check": "unreachable",
+   "cls": "INTENTIONAL",
+   "objects": [
+    "Factory (roof / top, no access)"
+   ],
+   "message": "168 m\u00b2 standable area at [-79.8, 39.6] not reachable from the spawn (on Factory (roof / top, no access): inaccessible by design)",
+   "pos": [
+    -79.8,
+    13.82,
+    39.6
+   ],
+   "measured": {
+    "area_m2": 168.0,
+    "objects": [
+     "Factory_Roof_01"
+    ]
+   },
+   "repair": null,
+   "ambiguous": false,
+   "id": "unreachable:016"
+  }
+ ],
+ "passed": false
+}
