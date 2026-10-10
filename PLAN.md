@@ -118,3 +118,31 @@ quality (procedural fallback instead).
    boundary/spawn overlay), render views at the boundary / hilltop, terrain edit commands.
 7. Three synthetic engineering worlds (A valley, B city, C hybrid), tests (`tests/test_stage9.py`), docs.
 
+
+## Stage 9 status
+Measured on the three synthetic engineering worlds (no concept image; previews are three.js, not Godot; draw calls /
+visible triangles / GPU memory are ESTIMATES from sampled third-person cameras, file sizes and counts are measured).
+
+| | A test_valley (open) | B test_urban (open) | C test_hybrid (hybrid) |
+|---|---|---|---|
+| theme / biome / prop style | alpine / rocky / realistic | futuristic_city / urban / stylised_scifi | post_apocalyptic / wasteland / post_apocalyptic |
+| terrain features / objects / scatter instances | 14 / 92 / 603 | 20 / 740 / 20 | 15 / 235 / 180 |
+| near chunks (LOD0 tris) + middle ring tris | 16 (32,768) + 3,108 | 4 (6,272) + 1,736 | 16 (32,768) + 3,108 |
+| dev GLB | 5.6 MB, 71k tris, 18 materials | 1.7 MB, 25k tris, 26 materials | 4.2 MB, 54k tris, 30 materials |
+| mobile GLB (all LODs stored) | 6.3 MB, 84k tris | 2.0 MB, 27k tris | 5.0 MB, 67k tris |
+| visible per camera (est.) | ~53 draws (max 80), ~22k tris (max 31k) | ~65 draws (max 134), ~12k tris | ~72 draws (max 124), ~19k tris |
+| GPU textures (est.) | 3.6 MB | 6.0 MB | 9.8 MB |
+| colliders | 251 (16 heightmaps, concave cave/arch/overhang) | 506 | 261 |
+| geometry + world checks | 0 errors, 0 warnings, 2 intentional | 0 / 0 / 19 intentional (roofs, river/street exits) | 0 / 1 warning / 8 intentional |
+| camera validation | 288 cameras, 0 back faces | 312, 0 | 960, 0 |
+| reachable / standable | 27,649 / 37,826 m² | 24,279 / 40,410 m² | 29,198 / 41,270 m² |
+
+- Open warnings: B and C exceed the 60 visible-draw-call target (estimate); C: a stair support beam stands in the
+  landing of another stair flight (layout of the synthetic spec, left for review).
+- Generator / validator issues found and fixed on the way (each a general rule, not a per-map fix): road profiles dipping
+  into river channels, perched river water above a bank, valleys breaching the boundary barrier, bridge decks below
+  the road, steel bridge supports not touching, coplanar kerbs / pilasters / tunnel walls, z-fight false positives from
+  bounding-box overlap (now exact triangle overlap), refine bridging from an enclosing floor, repair ridges reaching
+  into the playable area, coarse-grid narrow-walkway false positives.
+- Regression: all 7 earlier levels (Toxic Arena, toxic_arena_gen, town_square_gen, test_connections, town_square,
+  test_primitives, pagoda_balcony) rebuild byte-identical (dev + mobile GLB); Stage 8 geometry results unchanged.

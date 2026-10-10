@@ -1,8 +1,8 @@
 {
  "level": "test_urban",
  "assets_kb": {
-  "level.glb": 1745,
-  "mobile/level_mobile.glb": 1962,
+  "level.glb": 1746,
+  "mobile/level_mobile.glb": 1964,
   "mobile/collision.json": 183,
   "environment.json": 3,
   "background.glb": 130,
@@ -37,17 +37,17 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 1745,
+   "glb_kb": 1746,
    "triangles": 24896,
    "draw_calls": 723,
    "tex_mem_gpu_mb_est": 6.04
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 1962,
+   "glb_kb": 1964,
    "triangles": 27416,
    "draw_calls": 185,
-   "visible_draw_calls_est": 65.5,
+   "visible_draw_calls_est": 65.4,
    "visible_draw_calls_max_est": 134,
    "tex_mem_gpu_mb_est": 6.04,
    "materials": 26,
@@ -58,7 +58,7 @@
     "glb_kb": 355
    },
    "background_kb": 130,
-   "visible_triangles_est": 11718,
+   "visible_triangles_est": 11719,
    "visible_triangles_max_est": 20338
   },
   "effects": {
@@ -72,20 +72,20 @@
  "geometry": {
   "counts": {
    "ERROR": 0,
-   "WARNING": 1,
+   "WARNING": 0,
    "INTENTIONAL": 19
   },
   "relations": {
    "explicit": 19,
    "inferred": 0
   },
-  "repairable": 1,
+  "repairable": 0,
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 40432.0,
-  "reachable_area_m2": 24266.0,
-  "components": 435,
+  "standable_area_m2": 40410.0,
+  "reachable_area_m2": 24279.0,
+  "components": 462,
   "spawns": [
    {
     "id": "spawn",
@@ -274,38 +274,33 @@
   "passed": true
  },
  "camera": {
+  "players": 13,
+  "players_skipped_inside_or_against_walls": 0,
   "cameras": 312,
   "rays": 27456,
   "void_rays": 0,
+  "void_examples": [],
   "back_face": {},
   "open_mesh": {},
   "camera_inside": 0,
-  "passed": true
+  "visible_objects": 304,
+  "mode": "local (40 m) - world gaps: checks/geometry.json background",
+  "passed": true,
+  "stale_note": "from the last full run (--fast skipped it)"
  },
  "render": {
   "views": 22,
   "errors": [],
-  "load_seconds": 4.695,
+  "load_seconds": 4.365,
   "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
   "contact_sheet": "checks/views/contact_sheet.jpg",
   "note": "browser preview renders (three.js, SwiftShader) - not Godot"
  },
  "issues": [
   {
-   "kind": "geo_boundary",
-   "severity": "warning",
-   "object": "terrain",
-   "pos": [
-    -43.91,
-    -0.0,
-    82.53
-   ],
-   "message": "playable boundary edge 10 at open ground (terrain rises only 1.6 m outside): the invisible wall would be noticeable [auto-repairable]"
-  },
-  {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~66 visible draw calls (estimate, > 60)"
+   "message": "~65 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "low_ceiling",
@@ -316,12 +311,12 @@
     -0.04,
     14.6
    ],
-   "message": "370 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): TR_1_0_concrete, TR_1_0_grass, TR_1_0_mud, TR_1_0_road, TR_1_1_mud, TR_1_1_road, West_Lane_Sidewalk_L30, West_Lane_Sidewalk_L32"
+   "message": "377 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): TR_1_0_concrete, TR_1_0_grass, TR_1_0_mud, TR_1_0_road, TR_1_1_mud, TR_1_1_road, West_Lane_Sidewalk_L30, West_Lane_Sidewalk_L32"
   }
  ],
  "counts": {
   "error": 0,
-  "warning": 2,
+  "warning": 1,
   "info": 1
  },
  "passed": true,

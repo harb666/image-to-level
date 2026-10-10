@@ -2,30 +2,44 @@
  "repairs": [
   {
    "pass_": 1,
-   "finding": "terrain pokes 0.11 m through Bridge_West_Lane_Road_Canal_Deck",
+   "finding": "playable boundary edge 10 at open ground (terrain rises only 1.6 m outside): the invisible wall would be noticeable",
+   "action": "terrain_add",
+   "object": "terrain",
+   "result": "terrain feature Barrier_Fix_10 (ridge) added"
+  },
+  {
+   "pass_": 2,
+   "finding": "terrain pokes 0.06 m through Bridge_West_Lane_Road_Canal_Deck",
    "action": "terrain_lower",
    "object": "terrain",
-   "result": "already present"
+   "result": "terrain feature Lower_Bridge_West_Lane_Road_Canal_Deck (pad, lower) added"
   }
  ],
  "details": [
   {
    "pass_": 1,
-   "finding": "terrain pokes 0.11 m through Bridge_West_Lane_Road_Canal_Deck",
+   "finding": "playable boundary edge 10 at open ground (terrain rises only 1.6 m outside): the invisible wall would be noticeable",
+   "action": "terrain_add",
+   "object": "terrain",
+   "result": "terrain feature Barrier_Fix_10 (ridge) added",
+   "before": null,
+   "after": null
+  },
+  {
+   "pass_": 2,
+   "finding": "terrain pokes 0.06 m through Bridge_West_Lane_Road_Canal_Deck",
    "action": "terrain_lower",
    "object": "terrain",
-   "result": "already present",
+   "result": "terrain feature Lower_Bridge_West_Lane_Road_Canal_Deck (pad, lower) added",
    "before": null,
    "after": null
   }
  ],
  "remaining": {
-  "ERROR": 1,
+  "ERROR": 0,
   "WARNING": 0,
   "INTENTIONAL": 19
  },
- "needs_review": [
-  "terrain pokes 0.11 m through Bridge_West_Lane_Road_Canal_Deck"
- ],
+ "needs_review": [],
  "note": "Each repair touched only the named object; undo with: python3 pipeline/edit_level.py <level> undo"
 }

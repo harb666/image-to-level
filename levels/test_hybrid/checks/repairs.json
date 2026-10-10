@@ -124,21 +124,12 @@
   }
  ],
  "remaining": {
-  "ERROR": 7,
-  "WARNING": 3,
-  "INTENTIONAL": 9
+  "ERROR": 0,
+  "WARNING": 1,
+  "INTENTIONAL": 8
  },
  "needs_review": [
-  "Link_Ground_Gantry_A.low leads nowhere (no floor within 4 m at step height)",
-  "Link_Ground_Gantry_B.low leads nowhere (no floor within 4 m at step height)",
-  "Link_Ground_Tower_Top.low leads nowhere (no floor within 4 m at step height)",
-  "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_A.high (blocks the route)",
-  "railing Gantry_Bridge_Rail_L stands in the landing of Link_Ground_Gantry_B.high (blocks the route)",
-  "Link_Ground_Gantry_A is declared supported_by Link_Ground_Gantry_A_Support but does not touch it",
-  "Link_Ground_Gantry_B is declared supported_by Link_Ground_Gantry_B_Support but does not touch it",
-  "Tower_Stairs_Beam_R stands in the landing of Dock_Stairs.high (blocks the route)",
-  "Dock_Stairs stands in the landing of Link_Ground_Gantry_B.low (blocks the route)",
-  "Link_Ground_Gantry_A stands in the landing of Link_Ground_Tower_Top.low (blocks the route)"
+  "Tower_Stairs_Beam_R stands in the landing of Dock_Stairs.high (blocks the route)"
  ],
  "note": "Each repair touched only the named object; undo with: python3 pipeline/edit_level.py <level> undo"
 }

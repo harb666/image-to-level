@@ -2,86 +2,34 @@
  "passes": [
   {
    "n": 1,
-   "errors": 1,
-   "warnings": 6,
-   "top_errors": [
-    "terrain pokes 0.11 m through Bridge_West_Lane_Road_Canal_Deck [auto-repairable]"
-   ],
+   "errors": 0,
+   "warnings": 2,
+   "top_errors": [],
    "fixes": [
-    "geometry: terrain: already present"
+    "geometry: terrain: terrain feature Barrier_Fix_10 (ridge) added",
+    "geometry: terrain: terrain feature Lower_Bridge_West_Lane_Road_Canal_Deck (pad, lower) added"
    ]
   },
   {
    "n": 2,
-   "errors": 1,
-   "warnings": 6,
-   "top_errors": [
-    "terrain pokes 0.11 m through Bridge_West_Lane_Road_Canal_Deck [auto-repairable]"
-   ],
-   "fixes": [
-    "geometry: terrain: already present"
-   ]
-  },
-  {
-   "n": 3,
-   "errors": 1,
-   "warnings": 6,
-   "top_errors": [
-    "terrain pokes 0.11 m through Bridge_West_Lane_Road_Canal_Deck [auto-repairable]"
-   ],
-   "fixes": [
-    "geometry: terrain: already present"
-   ]
-  },
-  {
-   "n": "final",
-   "errors": 1,
-   "warnings": 6
+   "errors": 0,
+   "warnings": 1,
+   "top_errors": []
   }
  ],
  "max_passes": 3,
- "seconds": 512.3,
- "passed": false,
+ "seconds": 306.9,
+ "passed": true,
  "counts": {
-  "error": 1,
-  "warning": 6,
+  "error": 0,
+  "warning": 1,
   "info": 1
  },
  "needs_claude": [
   {
-   "severity": "error",
-   "message": "terrain pokes 0.11 m through Bridge_West_Lane_Road_Canal_Deck [auto-repairable]",
-   "object": "Bridge_West_Lane_Road_Canal_Deck"
-  },
-  {
    "severity": "warning",
-   "message": "~66 visible draw calls (estimate, > 60)",
+   "message": "~65 visible draw calls (estimate, > 60)",
    "object": null
-  },
-  {
-   "severity": "warning",
-   "message": "Block_6_Foundation: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Block_6_Foundation"
-  },
-  {
-   "severity": "warning",
-   "message": "Cross_Street_Sidewalk_R15: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Cross_Street_Sidewalk_R15"
-  },
-  {
-   "severity": "warning",
-   "message": "Skywalk_Stairs_From: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Skywalk_Stairs_From"
-  },
-  {
-   "severity": "warning",
-   "message": "Skywalk_Stairs_To: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Skywalk_Stairs_To"
-  },
-  {
-   "severity": "warning",
-   "message": "Tower_C_Foundation: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera",
-   "object": "Tower_C_Foundation"
   }
  ],
  "visual_review": "checks/views/contact_sheet.jpg + checks/inspect/contact_sheet.jpg must be LOOKED AT by Claude and compared with the reference before calling the level done"
