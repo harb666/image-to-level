@@ -146,3 +146,24 @@ visible triangles / GPU memory are ESTIMATES from sampled third-person cameras, 
   into the playable area, coarse-grid narrow-walkway false positives.
 - Regression: all 7 earlier levels (Toxic Arena, toxic_arena_gen, town_square_gen, test_connections, town_square,
   test_primitives, pagoda_balcony) rebuild byte-identical (dev + mobile GLB); Stage 8 geometry results unchanged.
+
+
+## Stage 10 status (Sky Citadel = skyforge_arena high-fidelity refinement)
+Reference: an AI-enhanced collage of real Sky Citadel screenshots (`levels/skyforge_arena/references/enhanced/`).
+Layout preserved: walkable areas, spawns, connections, every floor / deck / ramp / stairs object identical; all 11
+intended areas still 100% reachable (per-area standable within +/-1 m2 grid noise; total reachable -15 m2 = the
+corrected railings standing at the deck edges instead of being sunk into the sloped links).
+
+| | before | after |
+|---|---|---|
+| dev GLB (measured) | 3.9 MB, 61.0k tris, 22 materials | 5.3 MB, 88.7k tris, 20 materials |
+| mobile GLB (measured, all LODs stored) | 4.4 MB, 69.5k tris, 252 draw calls | 5.8 MB, 99.3k tris, 150 draw calls |
+| visible per camera (estimate) | ~68 draws (max 104), ~17k tris | ~57 draws (max 79), ~29k tris (max 45k) |
+| GPU textures (estimate) | 6.8 MB + 0.27 MB bg + 2.7 MB sky | 6.9 MB + 0.27 MB bg + 2.7 MB sky |
+| effects extra draws (balanced, estimate) | 6 | 11 (2+1 cloud layers, 3 instanced puff sets) |
+| checks | 0 errors, 1 warning (draw calls) | 0 errors, 0 warnings |
+
+New reusable systems: rail_run railings + post validation + snap_rail repair; cloud_layer / cloud_puffs + preview
+height fog; hull_plating / chevron materials, glossy deck option; tower decor kit; sky_pylon underside; bridge
+cross-beams; skyline setbacks / masts; per-level mobile overrides; navigation mirrors game colliders.
+Fixed on the way: inverted background spires, centroid-only burial test, duplicate check ignoring shape fields.

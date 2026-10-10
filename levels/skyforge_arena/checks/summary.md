@@ -1,14 +1,13 @@
 # skyforge_arena: generation summary
 
-Spec: levels/skyforge_arena/scene_spec.json · 432 objects · 22 materials · 9 effects
-Checks: PASSED ({'error': 0, 'warning': 1, 'info': 1}) · refine passes: 1
-Mobile (balanced): 4429 KB · 69506 tris · 252 draw calls · ~67.6 visible (estimate) · ~6.81 MB GPU textures (estimate)
-Navigation: 4262.0 m² reachable of 29400.3 m² standable
-Package: dist/skyforge_arena/package (34 files, 10.5 MB) valid=True
+Spec: levels/skyforge_arena/scene_spec.json · 641 objects · 23 materials · 13 effects
+Checks: PASSED ({'error': 0, 'warning': 0, 'info': 0}) · refine passes: 1
+Mobile (balanced): 5807 KB · 99292 tris · 150 draw calls · ~56.6 visible (estimate) · ~6.9 MB GPU textures (estimate)
+Navigation: 4246.8 m² reachable of 29297.5 m² standable
+Package: dist/skyforge_arena/package (36 files, 13.87 MB) valid=True
 Previews: dist/skyforge_arena/preview.html, preview_mobile.html · renders: levels/skyforge_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
-- warning: ~68 visible draw calls (estimate, > 60)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -24,9 +23,9 @@ Previews: dist/skyforge_arena/preview.html, preview_mobile.html · renders: leve
 - North_Hall: 2 cover crate(s) dropped - no free spot clear of landings
 
 ## Timing
-- spec -> level.json: 0.2 s
-- build (glb, sky, background, effects, mobile): 19.1 s
-- refine (checks -> safe fixes): 353.6 s
-- previews: 0.8 s
-- export package: 0.7 s
-- total: 374.4 s
+- spec -> level.json: 0.3 s
+- build (glb, sky, background, effects, mobile): 40.7 s
+- refine (checks -> safe fixes): 462.9 s
+- previews: 0.9 s
+- export package: 0.9 s
+- total: 505.7 s

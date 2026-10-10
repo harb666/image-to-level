@@ -1,21 +1,20 @@
 # Checks: skyforge_arena - PASSED
 
-errors 0 · warnings 1 · info 1
+errors 0 · warnings 0 · info 0
 
 | metric | dev | mobile |
 |---|---|---|
-| file KB | 3910 | 4429 |
-| triangles | 60756 | 69506 |
-| draw calls (measured) | 493 | 252 |
-| visible draw calls (estimate) | - | 67.6 |
-| GPU texture MB (estimate) | 6.81 | 6.81 |
+| file KB | 5284 | 5807 |
+| triangles | 88492 | 99292 |
+| draw calls (measured) | 658 | 150 |
+| visible draw calls (estimate) | - | 56.6 |
+| GPU texture MB (estimate) | 6.9 | 6.9 |
 
-Navigation: reachable 4262.0 of 29400.3 m² standable; components 89.
+Navigation: reachable 4246.8 of 29297.5 m² standable; components 106.
 Camera: 984 cameras, void rays 0, back faces 0.
 Geometry: {'ERROR': 0, 'WARNING': 0, 'INTENTIONAL': 2} (checks/geometry.md)
 
 ## Issues (highest impact first)
-- **warning** ~68 visible draw calls (estimate, > 60)
-- **info** 0 m² reachable floor has < 3.2 m headroom (cramped camera): Link_North_NW_Deck
+- none
 
 Estimates are not device benchmarks; renders are the browser preview, not Godot.

@@ -87,6 +87,12 @@ close-ups) - a passing geometric test is not proof that it looks right. Ambiguou
 cover in a landing, a big hover) are your call: fix with targeted edits or declare them intentional
 (`edit_level.py relate intentional_gap A B`).
 
+## 3c. Railings, clouds, detail (Stage 10)
+Railings are `rail_run` objects whose posts are checked against the real surface (`railing` findings, repaired by
+`snap_rail`, also for older tilted `railing` boxes). Clouds come from `atmosphere.clouds` (see SCENE_SPEC.md); they
+always stay below the lowest deck minus `below` m. Visual-only detail uses `collision: false`, and navigation ignores
+it exactly like the game colliders do (panels too), so decoration never changes gameplay.
+
 ## 4. Refine (Claude, bounded)
 
 1. **Look** at `levels/<name>/checks/views/contact_sheet.jpg`, plus individual views and `checks/navigation.png`

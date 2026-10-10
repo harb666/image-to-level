@@ -20,14 +20,14 @@
   "external": false,
   "azimuth_convention": "image column u -> atan2(dir.z, dir.x) (three.js); level azimuth 0=north(-z) 90=east(+x). If the Godot sky looks rotated vs the sun, adjust Environment sky_rotation.y in 90\u00b0 steps.",
   "horizon_rgb": [
-   0.99,
-   0.59,
-   0.324
+   0.999,
+   0.622,
+   0.298
   ],
   "upper_rgb": [
-   0.215,
-   0.186,
-   0.323
+   0.456,
+   0.267,
+   0.336
   ]
  },
  "sun": {
@@ -40,10 +40,10 @@
   ],
   "color": [
    1.0,
-   0.7,
-   0.45
+   0.68,
+   0.42
   ],
-  "energy": 2.2,
+  "energy": 2.6,
   "godot_rotation_degrees": [
    -7,
    175,
@@ -59,49 +59,49 @@
  "ambient": {
   "source": "sky",
   "sky_color": [
-   0.215,
-   0.186,
-   0.323
+   0.456,
+   0.267,
+   0.336
   ],
   "ground_color": [
-   0.379,
-   0.239,
-   0.192
+   0.383,
+   0.243,
+   0.189
   ],
-  "energy": 0.8
+  "energy": 1.0
  },
  "fog": {
   "enabled": true,
   "color": [
-   0.99,
-   0.59,
-   0.324
+   0.999,
+   0.622,
+   0.298
   ],
   "start": 260,
   "end": 900,
   "godot_density": 0.00333,
   "sky_affect": 0.55,
-  "height": 2.0,
-  "height_density": 0.12
+  "height": 20,
+  "height_density": 0.045
  },
  "tonemap": {
   "mode": "filmic",
-  "exposure": 1.0
+  "exposure": 1.05
  },
  "glow": {
   "enabled": true,
-  "intensity": 0.7,
-  "bloom": 0.08,
-  "hdr_threshold": 0.9
+  "intensity": 0.9,
+  "bloom": 0.12,
+  "hdr_threshold": 0.85
  },
  "adjustments": {
   "brightness": 1.0,
-  "contrast": 1.05,
-  "saturation": 1.05
+  "contrast": 1.12,
+  "saturation": 1.12
  },
  "camera": {
   "far": 800,
-  "horizon_distance": 1084
+  "horizon_distance": 1301
  },
  "background": {
   "layers": [
@@ -139,7 +139,7 @@
     "id": "Skyline_North",
     "node": "BG_Skyline_North",
     "type": "skyline",
-    "triangles": 648,
+    "triangles": 1072,
     "material": "bg_skyline_north",
     "collision": false,
     "cast_shadows": false,
@@ -164,8 +164,8 @@
    "bg_megastructure_ring"
   ],
   "stats": {
-   "glb_kb": 352,
-   "triangles": 4355,
+   "glb_kb": 383,
+   "triangles": 4779,
    "nodes": 6,
    "mesh_nodes": 5,
    "unique_meshes": 5,
@@ -189,7 +189,7 @@
   "tex_mem_gpu_compressed_mb": 0.35
  },
  "sky_asset": {
-  "kb": 53,
+  "kb": 74,
   "tex_mem_gpu_compressed_mb": 2.67
  }
 }

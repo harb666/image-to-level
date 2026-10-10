@@ -35,7 +35,8 @@ letters, digits and `_` only.
 | `pipes[]` | no | See [Platforms](#platforms-connections-structures-pipes). |
 | `hazards[]` | no | Extra hazard volumes: `{id, area: [x0, z0, x1, z1], y, material}`. |
 | `materials` | no | `{variation: true, roles: {<role>: {type, color, tile_m, ...}}}`. Overrides the theme palette per role. |
-| `atmosphere` | no | `{sky: <preset>, sky_overrides{}, fog_start, fog_end, height_fog{}, glow_color, ambient: spores / dust / embers / snow / none}` |
+| `atmosphere` | no | `{sky: <preset>, sky_overrides{}, fog_start, fog_end, height_fog{height, density}, fog_color, glow_color, ambient: spores / dust / embers / snow / none, clouds{}, lighting{}}` |
+| `mobile` | no | per-level mobile export overrides: `{cell, tex_max, bg_tex_max, prop_range, small}` (e.g. `{"cell": 64}` = bigger merge cells, fewer draw calls) |
 | `background` | no | Compact form: `{mountains: both / far / near / none, mountain_height: [lo, hi], factories: n, skyline, spires}`. Explicit form: `{layers: [...]}` using the Stage 2 layer format. |
 | `effects` | no | `"auto"` (the default), `"none"`, a list of Stage 4 effects, or `{auto, extra: [...], disable: [ids]}` |
 | `spawns[]` | no | `{id, on: <platform>}` or `{id, position: [x, y, z]}`, plus an optional `yaw` and `team` (player / enemy). The first entry is the main spawn. Open worlds normally use `world.spawn_regions` instead. |
@@ -277,3 +278,35 @@ or a moved river survives regeneration.
 
 Each regeneration is undoable with `edit_level.py undo`. A hand-made `level.json` that has no `gen_state.json` is
 never overwritten unless you pass `--force`.
+
+
+## Stage 10 additions (Sky Citadel refinement)
+
+**Clouds** - `atmosphere.clouds` (auto effects, all below the playable decks so combat sightlines stay clear):
+```json
+"clouds": {"layers": [{"y": 12, "radius": 760, "opacity": 0.88, "coverage": 0.4, "scale": 0.008, "layers": 2, "spacing": 8}],
+           "collars": {"glob": ["*_Column"], "y": [14, 30], "size": [10, 18]}, "islands": true, "distant": true,
+           "horizon": [300, 470], "color": [1, 0.9, 0.84], "shade": [0.5, 0.42, 0.56], "glow": [1, 0.58, 0.3], "below": 6}
+```
+- `cloud_layer`: soft disc (fbm coverage, radial edge fade - never a visible plane edge), sun-side glow, depth-faded
+  in Godot (`fx/godot/cloud_layer.gdshader`). One transparent draw per layer; performance preset halves the layers.
+- `cloud_puffs`: billboard cumulus puffs in rings around columns (`collars`), terrain islands (`islands`), distant
+  cliffs + horizon banks (`distant`, `horizon`). ONE draw call per effect (MultiMesh in Godot, instanced in the preview).
+- `height_fog`: Godot `fog_height` / `fog_height_density`; the browser preview now applies the same formula.
+
+**Lighting** - `atmosphere.lighting`: `sun_energy, sun_color, ambient_energy, exposure` (light) + `contrast,
+saturation, brightness, tonemap, glow{}` (grading).
+
+**Railings** - connectors with `"rails": true` build `rail_run` railings: vertical posts standing ON the deck surface
+(sloped ramps, stairs: on tread centres), top rail / mid rail / kick plate parallel to the slope, closed corner joints.
+Hand-placed: `edit_level.py prefab railing_path '{"name": "R", "points": [[x,y,z], ...]}'` (points on the floor).
+`geometry_check` verifies every post (floating / sunk / over the void) and repairs with `snap_rail`.
+
+**Tower decor kit** - `"decor": ["banners", "glow_strips", "vents", "bands", "pipes", "boxes", "hazard", "antenna"]`.
+Ground-level kit parts are visual-only (`collision: false`, inside the player radius): colliders and navigation unchanged.
+`sky_pylon` platforms get underside ribs + column collars (`"underside": false` to disable). Bridges get cross-beams.
+
+**Materials** - new kinds `hull_plating` (worn tower plates: straps, vents, rain streaks, scuffed edges, roughness
+breakup) and `chevron` (hazard stripes, role `stripe`); `scifi_floor` takes `gloss` and `metallic` (polished deck).
+
+**Skyline** - background `skyline` layers take `setbacks: true` (stepped high-rises) and `masts: 0..1` (antennas).
