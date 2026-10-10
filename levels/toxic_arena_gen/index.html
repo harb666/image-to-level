@@ -164,7 +164,7 @@ window.setMode=setMode;
 window.lookFrom=(px,py,pz,tx,ty,tz,fov=60)=>{orbit.enabled=false;fixedCam={p:new THREE.Vector3(px,py,pz),t:new THREE.Vector3(tx,ty,tz)};cam.fov=fov;cam.updateProjectionMatrix();
   $('stick').hidden=true;$('vert').hidden=true;$('jumpb').hidden=true;$('mode').textContent='View: inspect';};
 $('jumpb').onpointerdown=()=>{jumpReq=true;};addEventListener('keydown',e=>{if(e.code==='Space')jumpReq=true;});$('mode').onclick=()=>setMode((mode+1)%MODES.length);
-$('info').textContent=meta.triangles+' tris'+(env?' · '+env.sky.preset+' · '+env.quality:'');
+$('info').textContent=(window.TRIS_LABEL||meta.triangles+' tris')+(env?' · '+env.sky.preset+' · '+env.quality:'')+(window.BUILD_ID?' · '+window.BUILD_ID:'');
 // quality: render resolution (+ effects level when the level has effects); remembered per device
 const QL=[['low',1,'performance'],['med',1.5,'balanced'],['high',2,'quality']];let ql=1;try{ql=+(localStorage.getItem('lvq')??1);}catch(e){}
 function setQuality(i){ql=i;const [n,dpr,fxn]=QL[i];r.setPixelRatio(Math.min(devicePixelRatio,dpr));r.setSize(innerWidth,innerHeight);$('q').textContent='Quality: '+n;

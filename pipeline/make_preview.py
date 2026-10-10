@@ -45,6 +45,10 @@ if os.path.exists(fxp):  # Stage 4: effects metadata + particle sprites
     fx = json.load(open(fxp)); glob["FX"] = fx
     glob["FXTEX"] = {k: "data:image/png;base64," + b64(os.path.join(lvl, v)) for k, v in fx["textures"].items()}
 glob.update(TEXP=pool, TEX=tex)
+import hashlib, time  # footer: which build this is (so an old cached page is obvious) + the triangle count of what is shown
+glob["BUILD_ID"] = "build " + time.strftime("%m-%d %H:%M") + " " + hashlib.sha1(open(P("level.glb"), "rb").read()).hexdigest()[:6]
+if MOB and os.path.exists(os.path.join(lvl, "mobile", "mobile_manifest.json")):
+    glob["TRIS_LABEL"] = f"{json.load(open(os.path.join(lvl, 'mobile', 'mobile_manifest.json')))['metrics']['mobile']['level']['triangles']} tris (mobile)"
 from gameplay import load_gameplay  # Stage 7: player/camera numbers + validation issues for the overlay
 glob["GAMEPLAY"] = {k: v for k, v in load_gameplay(lvl).items() if k in ("player", "camera")}
 rp = os.path.join(lvl, "checks", "report.json")
