@@ -30,6 +30,7 @@ def load_tris(path, skip_invisible=True, skip_nonplayable=True):
         mat = getattr(getattr(m.visual, "material", None), "name", "") or ""
         if skip_invisible and (node.startswith("Boundary") or mat == "Collider_invisible"): continue
         if skip_nonplayable and node.startswith(NONPLAYABLE): continue
+        if node.endswith("__ol"): continue  # cartoon outline shells (build_level.outline_hull): not surfaces
         tri = trimesh.transform_points(m.triangles.reshape(-1, 3), M).reshape(-1, 3, 3)
         T.append(tri); names += [node] * len(tri); objs[node] = (m, M, mat)
     return (np.concatenate(T) if T else np.zeros((0, 3, 3))), np.array(names), objs

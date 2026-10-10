@@ -18,27 +18,27 @@ ALIEN_CARTOON = {
     "description": "Invader-Zim-like alien-industrial cartoon: purple-black inked structures, red accents, hot-pink sky, "
                    "striped pink planet, radioactive-green abyss / falls, alien satellites instead of trees.",
     "materials": {"variation": False, "roles": {
-        "deck":        {"type": "scifi_floor", "color": [0.27, 0.21, 0.37], "tile_m": 4.0, "wear": 0.15, "toon": True},
-        "structure":   {"type": "machinery_panel", "color": [0.17, 0.14, 0.22], "tile_m": 4.0, "accent": [1.0, 0.1, 0.18], "emissive": [1, 1, 1], "toon": True},
-        "structure_b": {"type": "hull_plating", "color": [0.16, 0.13, 0.21], "tile_m": 4.0, "wear": 0.2, "toon": True},
-        "wall":        {"type": "hull_plating", "color": [0.19, 0.16, 0.25], "tile_m": 4.0, "wear": 0.2, "toon": True},
-        "frame":       {"type": "industrial_metal", "color": [0.1, 0.08, 0.13], "tile_m": 3.0, "toon": True},
-        "trim":        {"type": "trim_light", "color": [0.12, 0.1, 0.16], "tile_m": 1.2, "accent": [1.0, 0.08, 0.2], "emissive": [1, 1, 1], "toon": True},
+        "deck":        {"type": "scifi_floor", "color": [0.33, 0.28, 0.42], "tile_m": 4.0, "wear": 0.0, "toon": True, "toon_flatten": 0.05},
+        "structure":   {"type": "machinery_panel", "color": [0.33, 0.26, 0.42], "tile_m": 4.0, "accent": [1.0, 0.1, 0.18], "emissive": [1, 1, 1], "toon": True},
+        "structure_b": {"type": "hull_plating", "color": [0.3, 0.23, 0.4], "tile_m": 4.0, "wear": 0.2, "toon": True},
+        "wall":        {"type": "hull_plating", "color": [0.36, 0.28, 0.46], "tile_m": 4.0, "wear": 0.2, "toon": True},
+        "frame":       {"type": "industrial_metal", "color": [0.2, 0.15, 0.26], "tile_m": 3.0, "toon": True},
+        "trim":        {"type": "trim_light", "color": [0.22, 0.17, 0.28], "tile_m": 1.2, "accent": [1.0, 0.08, 0.2], "emissive": [1, 1, 1], "toon": True},
         "glow":        {"type": "glow", "color": [1.0, 0.16, 0.3], "tile_m": 2.0, "emissive": [1.0, 0.12, 0.25]},
         "accent":      {"type": "banner", "color": [0.82, 0.06, 0.12], "tile_m": 2.0, "emissive": [0.55, 0.04, 0.1], "toon": True},
         "rail":        {"type": "painted_metal", "color": [0.85, 0.08, 0.1], "tile_m": 2.0, "res": 128, "wear": 0.02, "toon": True},
-        "grate":       {"type": "grating", "color": [0.2, 0.17, 0.26], "tile_m": 2.0, "toon": True},
-        "machine":     {"type": "machinery_panel", "color": [0.16, 0.13, 0.2], "tile_m": 2.0, "accent": [0.45, 1.0, 0.2], "emissive": [1, 1, 1], "toon": True},
+        "grate":       {"type": "grating", "color": [0.36, 0.3, 0.46], "tile_m": 2.0, "toon": True},
+        "machine":     {"type": "machinery_panel", "color": [0.3, 0.24, 0.38], "tile_m": 2.0, "accent": [0.45, 1.0, 0.2], "emissive": [1, 1, 1], "toon": True},
         "stripe":      {"type": "chevron", "color": [0.95, 0.12, 0.25], "tile_m": 1.5, "res": 128, "dark": [0.08, 0.05, 0.1], "wear": 0.1, "toon": True},
         "water":       {"type": "toxic", "color": [0.45, 1.0, 0.2], "tile_m": 3.0, "emissive": [0.42, 1.0, 0.15]},
     }},
     "world": {
-        "materials": {"rock":  {"type": "rock", "color": [0.27, 0.22, 0.33], "tile_m": 10.0, "res": 128, "toon": True},
-                      "grass": {"type": "moss", "color": [0.2, 0.17, 0.26], "tile_m": 5.0, "res": 128, "toon": True},
+        "materials": {"rock":  {"type": "rock", "color": [0.3, 0.23, 0.38], "tile_m": 10.0, "res": 128, "toon": True},
+                      "grass": {"type": "moss", "color": [0.3, 0.24, 0.38], "tile_m": 5.0, "res": 128, "toon": True},
                       "sand":  {"type": "toxic", "color": [0.4, 0.95, 0.2], "tile_m": 6.0, "res": 128, "emissive": [0.3, 0.8, 0.12]}},
         "scatter_replace": {"conifer": "sat_spire", "broadleaf": "sat_dish", "bush": "sat_pod", "palm": "sat_dish", "dead_tree": "sat_spire",
                             "alien_plant": "sat_pod"},
-        "scatter_style": "alien_cartoon", "scatter_density_mult": 0.35,
+        "scatter_style": "alien_cartoon", "scatter_density_mult": 0.5, "scatter_scale": [1.4, 2.1],
     },
     "atmosphere": {
         "sky": "sunset",
@@ -53,7 +53,7 @@ ALIEN_CARTOON = {
                      "glow": {"enabled": True, "intensity": 1.0, "bloom": 0.1, "hdr_threshold": 0.8}},
     },
     "background_types": {
-        "mountain_ring": {"toon": True, "color": [0.28, 0.2, 0.36], "fade": 0.15},
+        "mountain_ring": {"toon": True, "color": [0.24, 0.16, 0.32], "fade": 0.0},
         "spires": {"toon": True, "color": [0.12, 0.09, 0.17], "fade": 0.05},
         "skyline": {"toon": True, "color": [0.12, 0.09, 0.16], "fade": 0.05, "glow": [0.55, 1.0, 0.25], "lit": 0.22, "setbacks": True, "masts": 0.7, "spikes": 0.6, "tile_m": 26.0},
         "ring_structure": {"toon": True, "color": [0.16, 0.12, 0.22], "fade": 0.05, "glow": [1.0, 0.25, 0.7]},
@@ -61,8 +61,8 @@ ALIEN_CARTOON = {
     "background_add": [{"id": "Hover_Satellites", "type": "hover_satellites", "radius": [190, 520], "count": 16, "elevation": [55, 150],
                         "size": [10, 26], "color": [0.1, 0.08, 0.14], "toon": True, "glow": [1.0, 0.15, 0.25], "fade": 0.05, "seed": 21}],
     "structures_decor": {"tower": ["antenna"]},
-    "render": {"name": "alien_cartoon", "toon": {"steps": 3, "godot": {"diffuse_mode": "toon", "specular_mode": "disabled", "metallic": 0.0}},
-               "outline": {"color": [0.03, 0.01, 0.05], "width": [0.05, 0.16], "rel": 0.012, "min_size": 0.25,
+    "render": {"name": "alien_cartoon", "toon": {"steps": 3, "floor": 0.55, "godot": {"diffuse_mode": "toon", "specular_mode": "disabled", "metallic": 0.0}},
+               "outline": {"color": [0.03, 0.01, 0.05], "width": [0.07, 0.24], "rel": 0.016, "min_size": 0.25,
                            "skip_materials": ["glow", "water", "accent"], "skip_types": ["panel", "terrain", "boundary", "stream"]}},
 }
 
@@ -94,6 +94,7 @@ def apply(spec):
             new = [dict(k, kind=PW["scatter_replace"].get(k["kind"], k["kind"])) for k in kinds]
             if any(a["kind"] != b["kind"] for a, b in zip(kinds, new)):
                 sc["kinds"] = [k if len(k) > 1 else k["kind"] for k in new]; sc["density"] = round(sc.get("density", 1.0) * PW["scatter_density_mult"], 3)
+                if PW.get("scatter_scale"): sc.setdefault("scale", PW["scatter_scale"])
             sc.setdefault("style", PW["scatter_style"])
     bg = s.get("background", {})
     if "layers" in bg:

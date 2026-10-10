@@ -245,7 +245,7 @@ def export(level_dir, profile=None):
         scene.add_geometry(m, node_name=name, geom_name=name)
         rng = P["prop_range"] if kind == "P" else 0; ranges[name] = rng
         info = dict(node=name, kind="props" if kind == "P" else "static", material=mat, triangles=int(len(m.faces)),
-                    visibility_range_end=rng, cast_shadow=not (mat.split("__")[0] in glow or kind == "P"), source_objects=[i[0] for i in items])
+                    visibility_range_end=rng, cast_shadow=not (mat.split("__")[0] in glow or kind == "P" or mat == "ink"), source_objects=[i[0] for i in items])
         manifest_nodes.append(info); extras[name] = {k: info[k] for k in ("kind", "source_objects", "visibility_range_end", "cast_shadow")}
         extras[name]["source_bounds"] = {n: [round(float(v), 2) for v in mm.bounds.ravel()] for n, mm in items}  # tap-to-identify in merged meshes
     fx_groups = {}

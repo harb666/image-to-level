@@ -73,6 +73,25 @@ def node_matrix(o):
     return translation_matrix(o.get("position", [0, 0, 0])) @ euler_matrix(*r, "sxyz")
 
 
+def _outlined(o, OL):
+    sz = o.get("size") or [0, 0, 0]
+    return (o["type"] not in OL.get("skip_types", []) and o.get("material") not in OL.get("skip_materials", []) and o.get("outline", True)
+            and max(sz) >= OL.get("min_size", 0.25) and min(sz) > 0.0)
+
+
+def _ol_width(o, OL):
+    w0, w1 = OL.get("width", [0.05, 0.16]); return float(np.clip(OL.get("rel", 0.012) * max(o["size"]), w0, w1))
+
+
+def outline_hull(m, w):
+    """Inverted hull: the mesh welded, pushed out along its smoothed vertex normals by w, winding flipped. With normal
+    back-face culling only its far inner side renders -> a dark silhouette / crease line around the object.
+    Name suffix "__ol": every check, navigation and collider export ignores it (not a surface)."""
+    h = m.copy(); h.merge_vertices(merge_tex=True, merge_norm=True)
+    if len(h.faces) == 0: return None
+    vn = h.vertex_normals; h.vertices = h.vertices + vn * w; h.invert(); return h
+
+
 def build(level_dir):
     L = json.load(open(os.path.join(level_dir, "level.json")))
     TERR = isinstance(L.get("terrain"), dict)  # Stage 9 world terrain (terrain.py): definition in level.json, meshes derived
@@ -82,6 +101,8 @@ def build(level_dir):
         L["materials"].setdefault(L["terrain"].get("water_material", "water"), {"type": "water", "color": [0.25, 0.42, 0.48], "tile_m": 6.0})
     mats = {k: material(k, m) for k, m in L["materials"].items()}
     L.setdefault("draw_hint", "one material per surface type; mark static + batch in engine"); mats["_invisible"] = material("_invisible", None)
+    OL = (L.get("style") or {}).get("outline")
+    if OL: mats["_ink"] = trimesh.visual.material.PBRMaterial(name="ink", baseColorFactor=[*[int(c * 255) for c in OL.get("color", [0.03, 0.01, 0.05])], 255], metallicFactor=0.0, roughnessFactor=1.0)
     scene = trimesh.Scene(); base = scene.graph.base_frame; tris = 0
     world = {}  # name -> world matrix (for topdown)
     geoms = {}  # (type, size, material) -> shared geometry name
@@ -119,6 +140,11 @@ def build(level_dir):
         gname = o["name"] if o["type"] not in ("panel", "cylinder") else f"{o['type']}_{mk}_{len(geoms)}"
         geoms[key] = gname
         scene.add_geometry(m, node_name=o["name"], geom_name=gname, parent_node_name=parent, transform=T)
+        if OL and _outlined(o, OL):  # cartoon ink outline: inverted hull baked into the GLB (works in any engine, no shader)
+            if key + "__ol" not in geoms:
+                hull = outline_hull(shape(o, bevel), _ol_width(o, OL))
+                if hull is not None: hull.visual = trimesh.visual.TextureVisuals(material=mats["_ink"]); geoms[key + "__ol"] = gname + "__ol"; scene.add_geometry(hull, geom_name=gname + "__ol", node_name=o["name"] + "__ol", parent_node_name=parent, transform=T)
+            else: scene.graph.update(frame_from=parent, frame_to=o["name"] + "__ol", matrix=T, geometry=geoms[key + "__ol"])
     tinfo = None
     if TERR:
         import terrain as TM

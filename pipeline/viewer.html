@@ -81,11 +81,19 @@ for(const g of [gltf,bg]){if(!g)continue;applyTex(g.scene);
 const isTer=n=>/^(TR_|TRM_)/.test(n||'');
 gltf.scene.traverse(o=>{if(o.isMesh){if(!o.material.map&&o.geometry.attributes.color&&!isTer(o.name))o.material=new THREE.MeshLambertMaterial({vertexColors:true,flatShading:true});
   if(o.name.startsWith('Spawn'))o.visible=false;if(o.name.startsWith('Boundary'))o.material.visible=false;}});
+// art style (level.json "style", via environment.json): toon shading = MeshToonMaterial with an N-step ramp (Godot: diffuse_mode TOON,
+// see fx/godot/apply_style.gd). Outline shells come from the GLB itself (inverted hulls), not from a post-process.
+const STY=(env&&env.style)||null;
+if(STY&&STY.toon){const F=(STY.toon.floor??0.5).toFixed(3); // cel shading: the DIRECT sun term in bands (0 / floor / 1); sky ambient (IBL) stays smooth
+  THREE.ShaderChunk.lights_physical_pars_fragment=THREE.ShaderChunk.lights_physical_pars_fragment.split('float dotNL = saturate( dot( geometryNormal, directLight.direction ) );')
+    .join('float dotNL = saturate( dot( geometryNormal, directLight.direction ) ); dotNL = dotNL < 0.08 ? 0.0 : ( dotNL < 0.45 ? '+F+' : 1.0 );');}
+if(STY&&STY.toon)for(const g of [gltf,bg]){if(!g)continue;g.scene.traverse(o=>{if(o.isMesh&&o.material&&o.material.isMeshStandardMaterial)o.material.envMapIntensity=STY.toon.ambient??1.25;});}
 // Stage 9: Godot-style visibility ranges from node extras (terrain LODs, scatter view distance) - distance to the node's box centre
 const ranged=[];gltf.scene.traverse(o=>{const u=o.userData||{};if(o.isMesh&&(u.visibility_range_end>0||u.visibility_range_begin>0)){
   const c=new THREE.Box3().setFromObject(o).getCenter(new THREE.Vector3());ranged.push([o,c,u.visibility_range_begin||0,u.visibility_range_end||0]);}});
 function applyRanges(p){for(const [o,c,b,e] of ranged){const d=p.distanceTo(c);o.visible=d>=b&&(!(e>0)||d<=e);}}
-const solids=[];gltf.scene.traverse(o=>{if(o.isMesh&&o.visible&&!/^(TRM_|SCN_|TW_)/.test(o.name)&&!/_L[12](_far)?$/.test(o.name))solids.push(o)}); // background, middle zone, grass never collide
+const isInk=o=>/__ol$/.test(o.name||'')||(o.material&&o.material.name==='ink'); // cartoon outline shells: never solid / pickable
+const solids=[];gltf.scene.traverse(o=>{if(o.isMesh&&o.visible&&!isInk(o)&&!/^(TRM_|SCN_|TW_)/.test(o.name)&&!/_L[12](_far)?$/.test(o.name))solids.push(o)}); // background, middle zone, grass never collide
 const camSolids=solids.filter(o=>o.material.visible!==false); // camera ignores invisible colliders
 // ---- Stage 4 effects PREVIEW: approximates effects.json in three.js (Godot uses fx/godot/apply_effects.gd; not identical)
 let FXD=window.FX||null;if(!FXD&&!window.GLB){try{const rq=await fetch(base+'/effects.json');if(rq.ok)FXD=await rq.json();}catch(e){}}
@@ -242,7 +250,7 @@ const fmt=v=>Array.isArray(v)?'['+v.map(x=>+(+x).toFixed(2)).join(', ')+']':v;
 function texThumb(m){const c=document.createElement('canvas');c.width=c.height=64;const img=m&&m.map&&m.map.image;
   try{if(img)c.getContext('2d').drawImage(img,0,0,64,64);else{const g=c.getContext('2d');g.fillStyle=m&&m.color?'#'+m.color.getHexString():'#555';g.fillRect(0,0,64,64);}}catch(e){}return c;}
 function pick(cx,cy){const nd=new THREE.Vector2(cx/innerWidth*2-1,-(cy/innerHeight)*2+1),rc=new THREE.Raycaster();rc.setFromCamera(nd,cam);
-  const hits=rc.intersectObjects(pickRoots,true).filter(h=>h.object.visible&&h.object.material&&h.object.material.visible!==false&&!(h.object.name||'').startsWith('Spawn'));
+  const hits=rc.intersectObjects(pickRoots,true).filter(h=>h.object.visible&&h.object.material&&h.object.material.visible!==false&&!isInk(h.object)&&!(h.object.name||'').startsWith('Spawn'));
   if(!hits.length){$('sel').hidden=true;selBox.visible=false;return;}
   const h=hits[0],o=h.object,ud=o.userData||{};let name=o.name,merged=null,box=new THREE.Box3().setFromObject(o);
   if(ud.source_objects&&ud.source_objects.length>1){merged=o.name;name=ud.source_objects[0];let best=1e9;           // merged mobile node: which source object was hit?

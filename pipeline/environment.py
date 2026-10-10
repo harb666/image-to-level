@@ -113,6 +113,7 @@ def build_environment(level_dir, L=None, log=print):
         camera=dict(far=q["far"], horizon_distance=horizon),
         background=dict(layers=meta_layers, materials=list(mats), stats=bst,
                         tex_mem_gpu_compressed_mb=round(tex_px * 4 / 3 / 2 ** 20, 2)),
+        style=L.get("style"),  # art style (toon / outline settings) for the viewer + Godot (fx/godot/apply_style.gd)
         sky_asset=dict(kb=round(os.path.getsize(pano) / 1024), tex_mem_gpu_compressed_mb=round(q["sky_width"] ** 2 / 2 * 4 / 3 / 2 ** 20, 2)),
     )
     json.dump(E, open(os.path.join(level_dir, "environment.json"), "w"), indent=1)

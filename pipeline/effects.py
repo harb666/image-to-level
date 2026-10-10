@@ -100,6 +100,7 @@ def _node_boxes(glb):
     """World AABB per node of the level glb."""
     s = trimesh.load(glb, force="scene"); out = {}
     for node in s.graph.nodes_geometry:
+        if node.endswith("__ol"): continue  # cartoon outline shells
         M, g = s.graph[node]; b = s.geometry[g].bounds
         c = np.array([[x, y, z, 1] for x in b[:, 0] for y in b[:, 1] for z in b[:, 2]]) @ M.T
         out[node] = np.array([c[:, :3].min(0), c[:, :3].max(0)])
