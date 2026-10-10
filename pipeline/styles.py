@@ -31,6 +31,7 @@ ALIEN_CARTOON = {
         "machine":     {"type": "machinery_panel", "color": [0.3, 0.24, 0.38], "tile_m": 2.0, "accent": [0.45, 1.0, 0.2], "emissive": [1, 1, 1], "toon": True},
         "stripe":      {"type": "chevron", "color": [0.95, 0.12, 0.25], "tile_m": 1.5, "res": 128, "dark": [0.08, 0.05, 0.1], "wear": 0.1, "toon": True},
         "water":       {"type": "toxic", "color": [0.45, 1.0, 0.2], "tile_m": 3.0, "emissive": [0.42, 1.0, 0.15]},
+        "fall":        {"type": "toxic", "color": [0.42, 1.0, 0.2], "tile_m": 3.0, "emissive": [0.5, 1.0, 0.2], "streaks": True, "res": 256},
     }},
     "world": {
         "materials": {"rock":  {"type": "rock", "color": [0.22, 0.17, 0.29], "tile_m": 10.0, "res": 128, "toon": True},
@@ -61,6 +62,7 @@ ALIEN_CARTOON = {
     "background_add": [{"id": "Hover_Satellites", "type": "hover_satellites", "radius": [190, 520], "count": 16, "elevation": [55, 150],
                         "size": [10, 26], "color": [0.1, 0.08, 0.14], "toon": True, "glow": [1.0, 0.15, 0.25], "fade": 0.05, "seed": 21}],
     "structures_decor": {"tower": ["antenna"]},
+    "structures_material": {"waterfall": "fall"},  # role given to structures of a kind that set no material
     "render": {"name": "alien_cartoon", "toon": {"steps": 3, "floor": 0.55, "ambient": 0.85, "godot": {"diffuse_mode": "toon", "specular_mode": "disabled", "metallic": 0.0}},
                "outline": {"color": [0.03, 0.01, 0.05], "width": [0.1, 0.32], "rel": 0.022, "min_size": 0.25,
                            "skip_materials": ["glow", "water", "accent"], "skip_types": ["panel", "terrain", "boundary", "stream"]}},
@@ -101,6 +103,7 @@ def apply(spec):
         bg["layers"] = [_deep_under(P["background_types"].get(l["type"], {}), l) for l in bg["layers"]]
         ids = {l["id"] for l in bg["layers"]}; bg["layers"] += [copy.deepcopy(l) for l in P["background_add"] if l["id"] not in ids]
     for st in s.get("structures", []):
+        if st.get("kind") in P.get("structures_material", {}) and "material" not in st: st["material"] = P["structures_material"][st["kind"]]
         add = P["structures_decor"].get(st.get("kind"))
         if add and "decor" in st: st["decor"] = list(dict.fromkeys(list(st["decor"]) + [d for d in add if d not in st["decor"]]))
     s["style"] = _deep_under(P["render"], s.get("style", {}))

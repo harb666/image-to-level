@@ -130,7 +130,7 @@ VARIANT_ROLES = ("wall", "structure", "deck", "plaster")
 FALLBACK = {"foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
             "window": "glow", "foliage": "rock", "water": "hazard", "machine": "structure_b", "backdrop": "wall", "structure_b": "structure",
             "frame": "structure_b", "rail": "frame", "grate": "deck", "trim": "structure_b", "accent": "trim", "glow": "accent", "pipe": "frame",
-            "hazard": "water", "stripe": "trim", "ground": "deck", "deck": "ground", "wall": "structure", "structure": "wall", "rock": "structure"}
+            "hazard": "water", "fall": "water", "stripe": "trim", "ground": "deck", "deck": "ground", "wall": "structure", "structure": "wall", "rock": "structure"}
 
 
 def role_material(theme, role):
@@ -156,6 +156,7 @@ class Ctx:
         self.objects, self.names, self.roles = [], set(), set(); self.walkable, self.hazards, self.pours = [], [], []
         self.detail = {"low": 0, "medium": 1, "high": 2}[spec.get("detail", "medium")]
         self.variation = spec.get("materials", {}).get("variation", True); self.notes = []; self.platforms = {}; self.element = None
+        self.exits = []  # level transit triggers (elevator shafts, portals) -> level.json "exits"
         self.relations, self.floor_of, self.landings, self.pending_covers = [], {}, [], []  # Stage 8: scene graph + deferred cover
 
     def role(self, r, key=None):

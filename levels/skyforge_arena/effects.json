@@ -15,39 +15,14 @@
     -0.174,
     0.255
    ],
-   "outlet_diameter": 14.0,
+   "outlet_diameter": 20.0,
    "section": "sheet",
-   "stream_width": 14.0,
+   "stream_width": 20.0,
    "initial_speed": 1.6,
    "impact_pos": [
     -100.491,
     -0.799,
     -26.916
-   ],
-   "receiving": null,
-   "hazard": false
-  },
-  {
-   "stream": "Falls_West_B",
-   "source_object": null,
-   "outlet_pos": [
-    -118.996,
-    47.797,
-    -12.087
-   ],
-   "outlet_dir": [
-    0.981,
-    -0.174,
-    0.086
-   ],
-   "outlet_diameter": 9.0,
-   "section": "sheet",
-   "stream_width": 9.0,
-   "initial_speed": 1.6,
-   "impact_pos": [
-    -114.099,
-    -0.803,
-    -11.659
    ],
    "receiving": null,
    "hazard": false
@@ -113,20 +88,20 @@
  },
  "totals": {
   "performance": {
-   "max_particles": 127,
-   "emitters": 14,
+   "max_particles": 110,
+   "emitters": 12,
    "extra_draw_calls": 11,
    "transparent_area_m2": 2567348
   },
   "balanced": {
-   "max_particles": 403,
-   "emitters": 14,
+   "max_particles": 361,
+   "emitters": 12,
    "extra_draw_calls": 14,
    "transparent_area_m2": 5811912
   },
   "quality": {
-   "max_particles": 515,
-   "emitters": 14,
+   "max_particles": 448,
+   "emitters": 12,
    "extra_draw_calls": 16,
    "transparent_area_m2": 8033647
   }
@@ -141,10 +116,13 @@
    "targets": [
     "Falls_Island_W",
     "Falls_NW",
-    "Falls_West_A",
-    "Falls_West_B"
+    "Falls_West_A"
    ],
    "material_tile_m": 3.0,
+   "flow_uv": [
+    0.0035,
+    1.0
+   ],
    "quality": {
     "performance": {
      "enabled": true,
@@ -218,17 +196,8 @@
       -0.5,
       -26.92
      ],
-     "radius": 7.6,
+     "radius": 10.6,
      "of": "Falls_West_A"
-    },
-    {
-     "pos": [
-      -114.1,
-      -0.5,
-      -11.66
-     ],
-     "radius": 5.1,
-     "of": "Falls_West_B"
     }
    ],
    "quality": {
@@ -258,8 +227,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 40,
-      "emitters": 4,
+      "max_particles": 30,
+      "emitters": 3,
       "extra_draw_calls": 1
      }
     },
@@ -289,8 +258,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 96,
-      "emitters": 4,
+      "max_particles": 72,
+      "emitters": 3,
       "extra_draw_calls": 1
      }
     },
@@ -320,8 +289,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 156,
-      "emitters": 4,
+      "max_particles": 117,
+      "emitters": 3,
       "extra_draw_calls": 1
      }
     }
@@ -359,17 +328,8 @@
       -0.5,
       -26.92
      ],
-     "radius": 7.6,
+     "radius": 10.6,
      "of": "Falls_West_A"
-    },
-    {
-     "pos": [
-      -114.1,
-      -0.5,
-      -11.66
-     ],
-     "radius": 5.1,
-     "of": "Falls_West_B"
     }
    ],
    "quality": {
@@ -399,8 +359,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 28,
-      "emitters": 4,
+      "max_particles": 21,
+      "emitters": 3,
       "extra_draw_calls": 1
      }
     },
@@ -430,8 +390,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 72,
-      "emitters": 4,
+      "max_particles": 54,
+      "emitters": 3,
       "extra_draw_calls": 1
      }
     },
@@ -461,8 +421,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 112,
-      "emitters": 4,
+      "max_particles": 84,
+      "emitters": 3,
       "extra_draw_calls": 1
      }
     }
@@ -583,8 +543,30 @@
     "Hub_Pylon_1_Glow_02L",
     "Hub_Pylon_1_Glow_01R",
     "Hub_Pylon_1_Glow_01L",
-    "Hub_Marking_Ring_4",
-    "Hub_Marking_Ring_3"
+    "Elevator_Radial_4",
+    "Elevator_Radial_3",
+    "Elevator_Radial_2",
+    "Elevator_Radial_1",
+    "Elevator_OuterRing",
+    "Elevator_Panel_16",
+    "Elevator_Panel_14",
+    "Elevator_Panel_13",
+    "Elevator_Panel_12",
+    "Elevator_Panel_10",
+    "Elevator_Panel_09",
+    "Elevator_Panel_08",
+    "Elevator_Panel_06",
+    "Elevator_Panel_05",
+    "Elevator_Panel_04",
+    "Elevator_Panel_02",
+    "Elevator_Panel_01",
+    "Elevator_LightRing_2",
+    "Elevator_LightRing_1",
+    "Elevator_Strip_7",
+    "Elevator_Strip_5",
+    "Elevator_Strip_3",
+    "Elevator_Strip_1",
+    "Elevator_GlowFloor"
    ],
    "quality": {
     "performance": {
@@ -652,6 +634,7 @@
     "North_Tower_W_Beacon_2",
     "North_Tower_W_Beacon_1",
     "North_Hall_Block_Parapet",
+    "Elevator_Rim",
     "East_Deck_Trim",
     "SE_Octagon_Trim",
     "South_Tower_Trim",

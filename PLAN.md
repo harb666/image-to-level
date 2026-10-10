@@ -175,3 +175,9 @@ all 394 structural colliders identical, every intended area 100% reachable, reac
 Scenery-only change: island trees (196 scatter colliders) -> alien satellites (120), islands are not playable.
 New reusable systems: styles.py presets, toon material flag, outline shells (GLB), cel-banded preview lighting,
 Godot apply_style.gd, alien satellite props + hover satellites + spiky skyline, striped planet / stylised cloud options.
+
+## Stage 12 status (Skyforge: falls, fly-by fade, elevator shaft)
+Liquid flow direction is measured per mesh (`flow_uv`) and used by the preview and Godot shader (previously the preview
+scrolled falls upward). Fly-by ships grow in / shrink away instead of popping. Generic `hole` on box / cylinder /
+frustum, `elevator_shaft` structure with a `level_exit` trigger exported to collision.json + Godot Area3D signal.
+Not modelled: the closed hatch of concept 1 (the shaft is always open); Construct Error must handle `level_exit_entered`.

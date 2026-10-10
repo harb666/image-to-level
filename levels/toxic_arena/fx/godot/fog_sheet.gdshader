@@ -19,5 +19,6 @@ void fragment() {
 	vec2 p = wp.xz * scale;
 	float n = vnoise(p + scroll * TIME * 10.0) * 0.6 + vnoise(p * 2.3 - scroll * 17.0 * TIME) * 0.4;
 	ALBEDO = color;
-	ALPHA = opacity * smoothstep(0.25, 0.85, n);
+	float e = min(min(UV.x, 1.0 - UV.x), min(UV.y, 1.0 - UV.y));  // soft border: no visible rectangle edge
+	ALPHA = opacity * smoothstep(0.25, 0.85, n) * smoothstep(0.0, 0.15, e);
 }

@@ -93,6 +93,11 @@ Railings are `rail_run` objects whose posts are checked against the real surface
 always stay below the lowest deck minus `below` m. Visual-only detail uses `collision: false`, and navigation ignores
 it exactly like the game colliders do (panels too), so decoration never changes gameplay.
 
+## 3d. Exits (Stage 12)
+A level that leads somewhere else gets an `elevator_shaft` (or any future structure that appends to `ctx.exits`).
+Check `level.json` `exits` and `mobile/collision.json` `triggers` after the build; the preview shows a toast when the
+player drops into the trigger and respawns them; it does not load anything.
+
 ## 4. Refine (Claude, bounded)
 
 1. **Look** at `levels/<name>/checks/views/contact_sheet.jpg`, plus individual views and `checks/navigation.png`

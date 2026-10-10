@@ -372,10 +372,41 @@ def crystals(w, h, d, o):
     return trimesh.util.concatenate(parts)
 
 
+def tube(r_top, r_bot, r_in, h, n=24, phase=0.0, rz_top=None, rz_bot=None):
+    """Closed hollow ring (annulus / hollow frustum) with a vertical round hole r_in through it, base at y=0. Outer
+    radius r_top at y=h, r_bot at y=0 (rz_*: elliptical z radius). Outer wall faces out, hole wall faces the axis."""
+    a = np.linspace(0, 2 * np.pi, n, endpoint=False) + phase; ca, sa = np.cos(a), np.sin(a)
+    rz_top = r_top if rz_top is None else rz_top; rz_bot = r_bot if rz_bot is None else rz_bot
+    V = np.vstack([np.c_[r_top * ca, np.full(n, h), rz_top * sa], np.c_[r_bot * ca, np.zeros(n), rz_bot * sa],
+                   np.c_[r_in * ca, np.full(n, h), r_in * sa], np.c_[r_in * ca, np.zeros(n), r_in * sa]])
+    OT, OB, IT, IB = 0, n, 2 * n, 3 * n; F = []
+    for i in range(n):
+        j = (i + 1) % n
+        F += [[OT + i, OT + j, OB + j], [OT + i, OB + j, OB + i]]   # outer wall
+        F += [[IT + i, IB + j, IT + j], [IT + i, IB + i, IB + j]]   # hole wall
+        F += [[OT + i, IT + j, OT + j], [OT + i, IT + i, IT + j]]   # top ring
+        F += [[OB + i, OB + j, IB + j], [OB + i, IB + j, IB + i]]   # bottom ring
+    m = trimesh.Trimesh(V, np.array(F), process=True); m.fix_normals(); return m
+
+
+def holed(w, h, d, hole, sections=0, phase=0.0, k=1.0):
+    """Block with a round vertical hole of radius `hole` through its centre, base at y=0, outline unchanged: sections 0 =
+    w x d rectangle, n = regular n-gon (circumradius w/2, d/2; first corner at `phase`); k = base scale (frustum). The
+    outline is resampled to a multiple of n vertices (>= 24) so the hole stays round (tube())."""
+    if sections: n, sx, sz = int(sections), w / 2, d / 2
+    else: n, phase, sx, sz = 4, np.pi / 4, w / 2 * np.sqrt(2), d / 2 * np.sqrt(2)
+    m = n * int(np.ceil(24 / n)); a = np.linspace(0, 2 * np.pi, m, endpoint=False)
+    f = np.cos(np.pi / n) / np.cos(np.mod(a, 2 * np.pi / n) - np.pi / n)  # polygon radius along each ray (1 at corners)
+    if hole >= min(sx, sz) * np.cos(np.pi / n) - 0.05: raise ValueError(f"hole r {hole} does not fit inside a {w} x {d} outline")
+    return tube(sx * f, sx * f * k, float(hole), h, m, phase, sz * f, sz * f * k)
+
+
 def frustum(w, h, d, o):
     """Tapered block: full w x d footprint at the top (y=h), "bottom_scale" x at the base (y=0). "sections" 0 = rectangular,
-    n = regular n-gon (flats facing the axes, like the rotated platform cylinders). Closed (Stage 9 sky-pylon underframes)."""
+    n = regular n-gon (flats facing the axes, like the rotated platform cylinders). Closed (Stage 9 sky-pylon underframes).
+    "hole": r -> a round vertical hole of radius r through it (elevator shafts)."""
     k = o.get("bottom_scale", 0.5); n = int(o.get("sections", 0) or 0)
+    if o.get("hole"): return holed(w, h, d, float(o["hole"]), n, np.pi / n if n else 0.0, k)
     if n: a = np.linspace(0, 2 * np.pi, n, endpoint=False) + np.pi / n; ring = np.c_[w / 2 * np.cos(a), d / 2 * np.sin(a)]
     else: ring = np.array([[-w / 2, -d / 2], [w / 2, -d / 2], [w / 2, d / 2], [-w / 2, d / 2]])
     top = np.c_[ring[:, 0], np.full(len(ring), h), ring[:, 1]]; bot = np.c_[ring[:, 0] * k, np.zeros(len(ring)), ring[:, 1] * k]
@@ -390,6 +421,9 @@ SHAPES = dict(railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=
 def make(o, bevel=0.0):
     """Builder entry for Stage 3 types; returns None if the type isn't handled here."""
     t = o["type"]; w, h, d = o["size"]
+    if t in ("box", "cylinder") and o.get("hole"):  # hollow: a round hole straight through (elevator shafts)
+        n = int(o.get("sections", 12)) if t == "cylinder" else 0; r = min(w, d)
+        return holed(r if n else w, h, r if n else d, float(o["hole"]), n)
     if t == "box" and (o.get("bevel", bevel) or 0) > 0: return bevel_box(w, h, d, o.get("bevel", bevel))
     if t in SHAPES: return SHAPES[t](w, h, d, o)
     return None

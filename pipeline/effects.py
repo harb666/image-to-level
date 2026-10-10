@@ -151,7 +151,9 @@ def flyby_paths(eid, p, n):
     """Deterministic ship routes: arc at radius r / height y from azimuth a0 to a1 (deg, level convention: 0 = north,
     90 = east), speed m/s, then hidden for `gap` s, repeating; phase staggers them. Runtime (preview + Godot):
       cycle = travel + gap, travel = |a1 - a0| * pi/180 * r / speed, u = ((t + phase) mod cycle) / travel
-      visible while u < 1: az = a0 + (a1 - a0) * u, pos = (r sin az, y + bob sin(t * 0.7 + phase), -r cos az)."""
+      visible while u < 1: az = a0 + (a1 - a0) * u, env = smoothstep(0, .2, u) * (1 - smoothstep(.8, 1, u)),
+      far = 1 + 0.5 (1 - env), pos = (r far sin az, y + 18 (1 - env) + bob sin(t * 0.7 + phase), -r far cos az),
+      scale = size * env  -> ships grow in from / shrink away into the distance (never pop in or out)."""
     import zlib
     rng = np.random.default_rng(zlib.crc32(eid.encode())); out = []
     for i in range(n):
@@ -189,6 +191,30 @@ def _puff_rings(e, boxes, D):
     return out
 
 
+def flow_uv(scene, node, W, by):
+    """Direction the liquid flows, expressed in the node's glTF UV space (unit 2-vector): per triangle, the world flow
+    direction (stream source -> sink, else straight down) projected on the triangle is mapped through the triangle's
+    position->UV Jacobian; area-weighted mean. trimesh holds v flipped vs glTF (v_gltf = 1 - v), hence the sign."""
+    from anchors import world_anchor
+    if node not in scene.graph.nodes_geometry: return None
+    M, g = scene.graph[node]; m = scene.geometry[g]; uv = getattr(m.visual, "uv", None)
+    if uv is None or len(uv) != len(m.vertices): return None
+    Fw = np.array([0.0, -1.0, 0.0]); o = by.get(node)
+    if o is not None and o.get("type") == "stream":
+        try: a, b = world_anchor(W, o, "source")["pos"], world_anchor(W, o, "sink")["pos"]; Fw = (b - a) / (np.linalg.norm(b - a) or 1)
+        except Exception: pass
+    P = trimesh.transform_points(m.vertices, M)[m.faces]; U = uv[m.faces]; acc = np.zeros(2)
+    for p_, u_ in zip(P, U):
+        e = np.stack([p_[1] - p_[0], p_[2] - p_[0]], 1); n = np.cross(e[:, 0], e[:, 1]); area = np.linalg.norm(n) / 2
+        if area < 1e-6: continue
+        n = n / (2 * area); F = Fw - n * np.dot(Fw, n)
+        if np.linalg.norm(F) < 0.2: continue  # face across the flow (caps)
+        ab = np.linalg.lstsq(e, F, rcond=None)[0]; d = (u_[1] - u_[0]) * ab[0] + (u_[2] - u_[0]) * ab[1]
+        if np.linalg.norm(d) > 1e-9: acc += area * d / np.linalg.norm(d)
+    if np.linalg.norm(acc) < 1e-9: return None
+    acc = acc / np.linalg.norm(acc); return np.array([acc[0], -acc[1]])
+
+
 def resolve(level_dir, L=None):
     L = L or json.load(open(os.path.join(level_dir, "level.json"))); spec = L.get("effects")
     if not spec: return None
@@ -208,6 +234,9 @@ def resolve(level_dir, L=None):
         if tg and t["category"] == "surface_shader":  # UV speed needs the material's tile size (UVs are metres / tile_m)
             mat = next((o.get("material") for o in L["objects"] if o["name"] == tg[0]), None)
             R["material_tile_m"] = L["materials"].get(mat, {}).get("tile_m", 2.0)
+            if e["type"] == "liquid_flow":  # measured flow direction in glTF UV space (UV layouts differ per mesh: never assume +v)
+                fu = [flow_uv(scene, n, W, by) for n in tg]; fu = [f for f in fu if f is not None]
+                if fu: a = np.mean(fu, 0); a = a / (np.linalg.norm(a) or 1); R["flow_uv"] = [round(float(a[0]), 4), round(float(a[1]), 4)]
         em = []
         if e.get("at_targets_glob"):
             for n in sorted(n for n in boxes if globmatch(n, e["at_targets_glob"])):

@@ -42,7 +42,7 @@ SCHEMA = {
                                      to=(V2, False), inner=(V2, False), notes=(STR, False), y=(NUM, False), width=(NUM, False), rails=(BOOL, False),
                                      length=(NUM, False), lanes=(INT, False), sidewalk=(NUM, False), lamps=(BOOL, False), depth=(NUM, False),
                                      variant=(INT, False), pad_margin=(NUM, False), pad_blend=(NUM, False), team=(STR, False), y_from=(NUM, False),
-                                     y_to=(NUM, False), pier_spacing=(NUM, False), segment=(NUM, False), stairs=(STR, False, ("from", "to", "both", "none")), **{"from": (V2, False)})),
+                                     y_to=(NUM, False), pier_spacing=(NUM, False), segment=(NUM, False), target=(STR, False), stairs=(STR, False, ("from", "to", "both", "none")), **{"from": (V2, False)})),
     "pipes": (LIST, False, dict(ELEMENT, id=(STR, True), kind=(STR, False, ("outlet", "run")), wall=(STR, False, ("north", "south", "east", "west", "ne", "nw", "se", "sw")),
                                 at=(NUM, False), position=(LIST, False), yaw=(NUM, False), y=(NUM, False), radius=(NUM, False), length=(NUM, False), pour=(BOOL, False),
                                 pour_material=(STR, False), points=(LIST, False), notes=(STR, False), width=(NUM, False),

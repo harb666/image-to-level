@@ -589,16 +589,17 @@
  ],
  "structures": [
   {
-   "id": "Hub_Marking",
-   "kind": "floor_marking",
+   "id": "Elevator",
+   "kind": "elevator_shaft",
    "on": "Hub",
-   "size": [
-    14,
-    0.1,
-    14
+   "offset": [
+    0,
+    0
    ],
-   "count": 4,
-   "source": "visible"
+   "radius": 5.5,
+   "target": "next_level",
+   "source": "visible",
+   "notes": "concept: hub centre becomes the elevator shaft to the next level"
   },
   {
    "id": "Hub_Pylon_1",
@@ -968,18 +969,7 @@
    ],
    "yaw": 75,
    "source": "visible",
-   "width": 14
-  },
-  {
-   "id": "Falls_West_B",
-   "kind": "waterfall",
-   "position": [
-    -118,
-    -12
-   ],
-   "yaw": 85,
-   "source": "visible",
-   "width": 9
+   "width": 20
   },
   {
    "id": "Falls_NW",

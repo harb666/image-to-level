@@ -321,6 +321,9 @@ def k_toxic(S, rng, c, m):
     sw = np.sin((x + 0.35 * _noise(rng, 3, 2, S)) * 2 * np.pi * 3) * np.sin((y + 0.35 * _noise(rng, 3, 2, S)) * 2 * np.pi * 2)
     cid, e = _cells(rng, 30, S); foam = np.clip(1 - e * 3, 0, 1) ** 3
     t = 0.8 + 0.2 * sw ** 2 + 0.12 * n + 0.35 * foam
+    if m.get("streaks"):  # falling liquid: long streaks along v (the flow direction of falls / pours) - motion reads clearly
+        st = ndimage.gaussian_filter1d(_noise(rng, 28, 2, S), S / 5, axis=0, mode="wrap"); st = (st - st.min()) / (np.ptp(st) + 1e-6)
+        t = 0.62 + 0.55 * st + 0.25 * (st > 0.72) + 0.1 * n; foam = foam * 0.3
     alb = np.clip(c[None, None] * t[..., None] + np.stack([0.4 * foam, 0.1 * foam, 0.3 * foam], -1), 0, 1)
     return dict(alb=alb, h=0.5 * sw ** 2 + 0.3 * foam, rough=0.12, metal=0.0, emit=np.ones((S, S)), nstr=0.4)
 

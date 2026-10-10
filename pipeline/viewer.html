@@ -199,8 +199,9 @@ function makeFlyby(fx,p){ // flyby_ships: one InstancedMesh per design; same rou
     const im=new THREE.InstancedMesh(geo,new THREE.MeshBasicMaterial({vertexColors:true,fog:true}),byD[d].length);im.frustumCulled=false;scene.add(im);fxObjs.push(im);
     const L=byD[d],up={u(t){L.forEach((sh,i)=>{const cyc=sh.travel+sh.gap,k=((t+sh.phase)%cyc)/sh.travel;
       if(k>=1){M.makeScale(0,0,0);im.setMatrixAt(i,M);return;}
-      const az=(sh.a0+(sh.a1-sh.a0)*k)*D,dir=Math.sign(sh.a1-sh.a0);P.set(sh.r*Math.sin(az),sh.y+sh.bob*Math.sin(t*0.7+sh.phase),-sh.r*Math.cos(az));
-      const tx=Math.cos(az)*dir,tz=Math.sin(az)*dir;E.set(0,Math.atan2(-tx,-tz),0.12*dir);Q.setFromEuler(E);S.setScalar(sh.size);M.compose(P,Q,S);im.setMatrixAt(i,M);});
+      const ss=x=>x<=0?0:x>=1?1:x*x*(3-2*x),env=ss(k/0.2)*(1-ss((k-0.8)/0.2)),far=1+0.5*(1-env); // fly in / out of the distance: grow + approach, shrink + recede
+      const az=(sh.a0+(sh.a1-sh.a0)*k)*D,dir=Math.sign(sh.a1-sh.a0);P.set(sh.r*far*Math.sin(az),sh.y+18*(1-env)+sh.bob*Math.sin(t*0.7+sh.phase),-sh.r*far*Math.cos(az));
+      const tx=Math.cos(az)*dir,tz=Math.sin(az)*dir;E.set(0,Math.atan2(-tx,-tz),0.12*dir);Q.setFromEuler(E);S.setScalar(sh.size*env);M.compose(P,Q,S);im.setMatrixAt(i,M);});
       im.instanceMatrix.needsUpdate=true;}};fxUpd.push(up);up.u(performance.now()/1000);}}  // placed immediately (not only on the next frame)
 function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry.dispose();}for(const f of fxUpd)f.reset&&f.reset();fxObjs=[];fxUpd=[];
   const qn=FXQ[fxq];document.getElementById('fx').textContent='FX: '+qn;if(!FXD||qn==='off')return;
@@ -208,7 +209,7 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry.dispose();}
     if(fx.category==='surface_shader'){const tg=(fx.targets||[]).map(n=>byName[n]).filter(Boolean);if(!tg.length)continue;
       const orig=tg.map(o=>o.material),m=uvAnim(tg[0].material),b=m.emissiveIntensity,tile=fx.material_tile_m||2;tg.forEach(o=>o.material=m);
       fxUpd.push({reset(){tg.forEach((o,i)=>o.material=orig[i]);},u(t){if(fx.type==='liquid_surface'){m.userData.off.value.set(p.scroll[0]*t+p.swirl*Math.sin(t*.7),p.scroll[1]*t+p.swirl*Math.cos(t*.5));
-        m.emissiveIntensity=b*(1+p.pulse_amount*Math.sin(t*p.pulse_speed*6.2831));}else m.userData.off.value.set(Math.sin(t*3)*p.wobble,t*p.speed/tile);}});}
+        m.emissiveIntensity=b*(1+p.pulse_amount*Math.sin(t*p.pulse_speed*6.2831));}else{const f=fx.flow_uv||[0,1],k=t*p.speed/tile,w=Math.sin(t*3)*p.wobble;m.userData.off.value.set(-f[0]*k-f[1]*w,-f[1]*k+f[0]*w);}}});} // texture moves ALONG the measured flow
     else if(fx.category==='material_animation'){const mats=[...new Set(fx.target_material?Object.values(byName).map(o=>o.material).filter(m=>m.name===fx.target_material||m.name===fx.target_material+'__2s'):(fx.targets||[]).map(n=>byName[n]&&byName[n].material).filter(Boolean))],b=mats.map(m=>m.emissiveIntensity);let nx=0;
       fxUpd.push({reset(){mats.forEach((m,i)=>m.emissiveIntensity=b[i]);},u(t,dt){if(fx.type==='pulse_light')mats.forEach((m,i)=>m.emissiveIntensity=b[i]*(1+p.amount*Math.sin(6.2831*p.speed*t+p.phase)));
         else{nx-=dt;if(nx<=0){nx=1/p.rate;mats.forEach((m,i)=>m.emissiveIntensity=b[i]*(1-p.amount*Math.random()));}}}});}
@@ -228,7 +229,7 @@ const avatar=new THREE.Mesh(new THREE.CapsuleGeometry(GP.player.radius,Math.max(
 const $=id=>document.getElementById(id);
 const orbit=new OrbitControls(cam,r.domElement);orbit.enabled=false;
 const MODES=['3rd person','1st person','orbit','free cam','top-down'];let mode=0,yaw=0,pitch=0,vy=0;const pos=new THREE.Vector3(),fpos=new THREE.Vector3();
-const spawn=()=>{pos.set(...meta.spawn);pos.y+=meta.eye_height;const f=meta.spawn_facing||[0,0,-1];yaw=Math.atan2(-f[0],-f[2]);pitch=-0.15;};spawn();
+let exitT=0;const spawn=()=>{pos.set(...meta.spawn);pos.y+=meta.eye_height;const f=meta.spawn_facing||[0,0,-1];yaw=Math.atan2(-f[0],-f[2]);pitch=-0.15;};spawn();
 $('reset').onclick=()=>{setMode(mode);spawn();};
 window.view=(x,z,yd,pd=0,y=0)=>{pos.set(x,meta.eye_height+y,z);vy=0;yaw=yd*Math.PI/180;pitch=pd*Math.PI/180;}; // scripted screenshots
 const ctr=meta.bounds_min.map((v,i)=>(v+meta.bounds_max[i])/2),ext=Math.max(meta.bounds_max[0]-meta.bounds_min[0],meta.bounds_max[2]-meta.bounds_min[2]);
@@ -344,6 +345,9 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
     ray.set(new THREE.Vector3(pos.x,pos.y+0.5,pos.z),down);ray.far=100;const h=ray.intersectObjects(solids)[0];
     const ground=h?h.point.y:-50;if(h&&h.object.name.startsWith('Hazard')&&pos.y-meta.eye_height<h.point.y+0.3){spawn();}if(jumpReq&&pos.y<=ground+meta.eye_height+0.05)vy=Math.sqrt(2*GP.player.gravity*GP.player.jump_height);jumpReq=false;vy-=GP.player.gravity*dt;pos.y+=vy*dt;
     if(pos.y<ground+meta.eye_height){pos.y=ground+meta.eye_height;vy=0;}if(pos.y<((GP.design||{}).kill_y??-40))spawn();
+  for(const ex of (meta.exits||[])){const dx=pos.x-ex.center[0],dz=pos.z-ex.center[2],fy=pos.y-meta.eye_height;
+    if(dx*dx+dz*dz<ex.radius*ex.radius&&Math.abs(fy-ex.center[1])<ex.height/2&&!exitT){exitT=1;const b=document.getElementById('info');
+      b.textContent='⬇ '+ex.id.replace(/_/g,' ')+' → '+ex.target+' (Construct Error loads the next level here)';setTimeout(()=>{spawn();exitT=0;},1800);}}
     avatar.position.set(pos.x,pos.y-meta.eye_height+GP.player.height/2,pos.z);avatar.visible=M==='3rd person';
     if(M==='1st person'){cam.position.copy(pos);cam.rotation.set(pitch,yaw,0,'YXZ');}
     else{ // 3rd person: camera orbits 5 m from the player's head, pulled in when a wall is in the way

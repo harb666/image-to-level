@@ -233,7 +233,8 @@ def export(level_dir, profile=None):
             if hid.any():
                 removed += int(hid.sum()); m.update_faces(~hid); m.remove_unreferenced_vertices()
                 if not len(m.faces): continue
-        size = np.ptp(m.bounds, 0); c = m.bounds.mean(0); small = size.max() < P["small"]
+        size = np.ptp(m.bounds, 0); c = m.bounds.mean(0)
+        small = size.max() < P["small"] and not by.get(node, {}).get("mobile", {}).get("static")  # "mobile": {"static": true} = architectural detail, merged with the static cell
         if mat == "ink":  # cartoon outline shells: untextured + cheap -> coarse cells (4x), never split off as props (fewer draw calls)
             ic = P["cell"] * 4; o0 = np.add(L["bounds"]["min"], L["bounds"]["max"]) / 2 - ic / 2  # grid centred on the level (no split at x/z = 0)
             key = ("S", int((c[0] - o0[0]) // ic), int((c[2] - o0[2]) // ic), mat)
@@ -288,7 +289,8 @@ def export(level_dir, profile=None):
         bg = os.path.join(out_dir, "background_mobile.glb"); shutil.copy(bg_src, bg); downscale_images(bg, P["bg_tex_max"])
     cols, haz = colliders(L, level_dir)
     json.dump(dict(note="World-space colliders generated from level.json shapes. Godot: BoxShape3D / CylinderShape3D / ConvexPolygonShape3D / "
-                        "HeightMapShape3D (cell size = 'cell'). Hazards are areas (Area3D), not solid.", colliders=cols, hazards=haz),
+                        "HeightMapShape3D (cell size = 'cell'). Hazards are areas (Area3D), not solid. Triggers (level exits) are areas too.",
+                        colliders=cols, hazards=haz, triggers=L.get("exits", [])),
               open(os.path.join(out_dir, "collision.json"), "w"), indent=1)
     cs = trimesh.Scene()
     for c in cols:

@@ -195,6 +195,7 @@ All sizes are `[w, h, d]`. For buildings, `w` is the frontage. `facing` takes `c
 | `gate` / `arch` | Round (`round: true`) or square arch. `opening` is the width fraction. Passable. |
 | `wall` | Free-standing wall: `from` [x, z], `to` [x, z], `height`, `thickness`, `style`, `inner` [x, z]. |
 | `machinery`, `tank`, `pillar`, `lamp`, `crates` (cover), `rocks`, `tree`, `banner` | Props and decor. |
+| `elevator_shaft` | Stage 12: open shaft through the centre of its platform (`on`, `offset` [0, 0]), `radius` (default 5.5), `target` (next level id), `depth` (solid platforms, default 10). Cuts a real hole through every slab, lines the shaft (pilasters, light strips and rings, glowing floor), dresses the rim and adds a `level_exit` trigger. See below. |
 
 To support a shape that isn't listed (for example a dome or a crane), add a file to `pipeline/modules/` that registers
 it with `@structure("kind")` (Stage 9; or a function in `architecture.py` registered in `STRUCTURES`). Keep the mesh
@@ -343,3 +344,22 @@ Building blocks usable without the preset:
   (`count, radius, height, azimuth_deg, arc_deg, speed, gap, size, color, glow`). Deterministic routes + ship meshes
   live in effects.json; the preview and `fx/godot/apply_effects.gd` (MultiMesh, untested in Godot) animate them with
   the same formula. Cost: one draw call per ship design, a few dozen triangles per ship.
+- `flyby_ships` never pop in or out: each pass grows in from the distance and shrinks away again (size, distance and
+  height follow a smoothstep envelope over the first / last 20 % of the pass; the formula is in `effects.flyby_paths`).
+
+## Stage 12 additions (flow direction, elevator shaft, level exits)
+- Liquids flow the right way: effects.json `liquid_flow` entries carry `flow_uv`, the measured downstream direction
+  in the target mesh's glTF UV space (stream source -> sink, else straight down; projected through each triangle's
+  position -> UV mapping). The preview and `liquid_flow.gdshader` (`flow_dir`) scroll along it, so any UV layout works.
+- Material `"streaks": true` (toxic kind): long streaks along the fall instead of blotches (alien_cartoon role `fall`,
+  used by `waterfall` structures without a material via the preset's `structures_material`).
+- `"hole": r` on `box`, `cylinder` and `frustum` objects: a round vertical hole straight through, outline unchanged
+  (`shapes.holed`, watertight). Give holed objects `"collision_mesh": true` so the collider stays concave.
+- `elevator_shaft` (`pipeline/modules/transit.py`): sky_pylon platforms are cut down to where the underframe meets the
+  column; solid platforms are cut `depth` m and their base is split (lower part stays solid). The shaft floor never
+  goes below 0.3 m above the arena floor / hazard. Off-centre shafts are skipped with a note.
+- level.json `"exits"`: `{id, type: "level_exit", target, shape: "cylinder", center, radius, height}` -> mobile
+  `collision.json` `"triggers"` -> `apply_mobile.gd` builds an `Area3D` per trigger (group `level_exit`, meta
+  `target`) and emits `level_exit_entered(target, body)`. Construct Error decides what loading the next level means;
+  the preview only shows a toast and respawns.
+- Per object `"mobile": {"static": true}`: small parts stay in the static merge cells instead of their own draw call.

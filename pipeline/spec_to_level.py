@@ -31,7 +31,7 @@ def mode_of(spec):
 def generate(spec, G, level_dir=None):
     spec = copy.deepcopy(spec); ctx = A.Ctx(spec, G); ctx.level_dir = level_dir; ctx.TR = None
     ar, W = spec.get("arena"), spec.get("world"); auto = []
-    fy = ar["floor"]["y"] if ar else float(W.get("base_y", 0.0))
+    fy = ar["floor"]["y"] if ar else float(W.get("base_y", 0.0)); ctx.floor_y = fy
     centre = tuple(ar.get("center", [0, 0])) if ar else tuple(W.get("center") or [(a + b) / 2 for a, b in zip(WM.extent_of(W)[:2], WM.extent_of(W)[2:])])
     if W: _, auto = WM.build_world(ctx, spec, W, fy, centre)  # Stage 9: terrain definition, pads, foundations, boundary, auto bridges
     if ar: A.arena(ctx, ar, fy)
@@ -106,7 +106,7 @@ def generate(spec, G, level_dir=None):
              generator=dict(tool="pipeline/spec_to_level.py", spec_sha=H(spec), theme=theme, detail=spec.get("detail", "medium")),
              interpretation=spec.get("interpretation", {}), sky_color=PRESETS[env["sky"]["preset"]]["horizon"],
              spawn=spawn, spawns=spawns, hazards=ctx.hazards, effects=_effects(spec, ctx, plats, env, glow), environment=env,
-             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})), **({"style": spec["style"]} if spec.get("style") else {}),
+             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})), **({"style": spec["style"]} if spec.get("style") else {}), **({"exits": ctx.exits} if ctx.exits else {}),
              validation=dict(ignore_objects=[]), generator_notes=ctx.notes, relations=ctx.relations)
     if spec.get("gameplay"): L["gameplay"] = spec["gameplay"]
     if W: L["gameplay"] = dict({"nav": {"cell": 1.0}}, **L.get("gameplay", {}))  # open worlds: 1 m nav cells (large areas)
@@ -285,7 +285,7 @@ def _merge(new, cur, state, key, rep, label):
     return out
 
 
-TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions", "style")
+TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions", "style", "exits")
 
 
 def merge(Lnew, Lcur, state):

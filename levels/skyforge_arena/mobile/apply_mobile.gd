@@ -8,6 +8,8 @@ extends Node3D
 @export_file("*.json") var manifest_path: String = "res://levels/toxic_arena/mobile/mobile_manifest.json"
 @export var level_root: Node3D
 @export var hazard_group: StringName = &"hazard"
+## emitted when a body enters a level exit (e.g. falls into the elevator shaft): load `target` in your game
+signal level_exit_entered(target: String, body: Node)
 
 
 func _ready() -> void:
@@ -29,6 +31,20 @@ func _ready() -> void:
 	var col = JSON.parse_string(FileAccess.get_file_as_string(manifest_path.get_base_dir() + "/collision.json"))
 	if col == null:
 		return
+	for tr in col.get("triggers", []):  # level exits (elevator shafts ...): Area3D in group "level_exit", meta "target"
+		var ta := Area3D.new()
+		ta.name = String(tr["id"])
+		var tcs := CollisionShape3D.new()
+		var cyl := CylinderShape3D.new()
+		cyl.radius = float(tr["radius"])
+		cyl.height = float(tr["height"])
+		tcs.shape = cyl
+		ta.add_child(tcs)
+		ta.position = Vector3(tr["center"][0], tr["center"][1], tr["center"][2])
+		ta.set_meta("target", tr["target"])
+		ta.add_to_group(&"level_exit")
+		ta.body_entered.connect(func(b): level_exit_entered.emit(String(tr["target"]), b))
+		add_child(ta)
 	for h in col["hazards"]:
 		var area := Area3D.new()
 		area.name = String(h["name"]) + "_Area"

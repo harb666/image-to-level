@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Skyforge Arena",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "359c0aefc92ce688",
+  "spec_sha": "77bf23a59aa25a2b",
   "theme": "scifi",
   "detail": "medium",
   "mode": "open"
@@ -88,7 +88,6 @@
    "type": "liquid_flow",
    "targets_glob": [
     "Falls_West_A",
-    "Falls_West_B",
     "Falls_NW",
     "Falls_Island_W"
    ],
@@ -99,7 +98,6 @@
    "type": "splash",
    "at_targets_glob": [
     "Falls_West_A",
-    "Falls_West_B",
     "Falls_NW",
     "Falls_Island_W"
    ],
@@ -110,7 +108,6 @@
    "type": "steam",
    "at_targets_glob": [
     "Falls_West_A",
-    "Falls_West_B",
     "Falls_NW",
     "Falls_Island_W"
    ],
@@ -889,6 +886,22 @@
    "toon": true,
    "toon_flatten": 0.05
   },
+  "fall": {
+   "type": "toxic",
+   "color": [
+    0.42,
+    1.0,
+    0.2
+   ],
+   "tile_m": 3.0,
+   "emissive": [
+    0.5,
+    1.0,
+    0.2
+   ],
+   "streaks": true,
+   "res": 256
+  },
   "frame": {
    "type": "industrial_metal",
    "color": [
@@ -1038,20 +1051,6 @@
    "wear": 0.2,
    "bevel": 0.12,
    "toon": true
-  },
-  "water": {
-   "type": "toxic",
-   "color": [
-    0.45,
-    1.0,
-    0.2
-   ],
-   "tile_m": 3.0,
-   "emissive": [
-    0.42,
-    1.0,
-    0.15
-   ]
   },
   "ter_road": {
    "type": "gravel",
@@ -1211,6 +1210,15 @@
     0.8,
     0.16000000000000003
    ]
+  },
+  "water": {
+   "type": "water",
+   "color": [
+    0.25,
+    0.42,
+    0.48
+   ],
+   "tile_m": 6.0
   }
  },
  "objects": [
@@ -1630,7 +1638,9 @@
    "material": "deck",
    "sections": 24,
    "gen": "Hub",
-   "source": "visible"
+   "source": "visible",
+   "hole": 5.9,
+   "collision_mesh": true
   },
   {
    "name": "Hub_Trim",
@@ -1654,7 +1664,9 @@
    "material": "trim",
    "sections": 24,
    "gen": "Hub",
-   "source": "visible"
+   "source": "visible",
+   "hole": 5.9,
+   "collision_mesh": true
   },
   {
    "name": "Hub_Body",
@@ -1678,7 +1690,9 @@
    "material": "structure",
    "sections": 24,
    "gen": "Hub",
-   "source": "visible"
+   "source": "visible",
+   "hole": 5.9,
+   "collision_mesh": true
   },
   {
    "name": "Hub_Underframe",
@@ -1703,7 +1717,9 @@
    "sections": 24,
    "bottom_scale": 0.45,
    "gen": "Hub",
-   "source": "visible"
+   "source": "visible",
+   "hole": 5.9,
+   "collision_mesh": true
   },
   {
    "name": "Hub_Column",
@@ -6719,7 +6735,420 @@
    "source": "visible"
   },
   {
-   "name": "Hub_Marking_Ring_1",
+   "name": "Elevator",
+   "type": "group",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Liner",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    29.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    11.8,
+    10.3,
+    11.8
+   ],
+   "material": "structure_b",
+   "sections": 24,
+   "hole": 5.5,
+   "collision_mesh": true,
+   "outline": false,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_GlowFloor",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    29.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    11.0,
+    0.12,
+    11.0
+   ],
+   "material": "glow",
+   "sections": 24,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Pilaster_1",
+   "type": "box",
+   "position": [
+    4.878,
+    29.7,
+    2.021
+   ],
+   "rotation": [
+    0.0,
+    67.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.9,
+    10.05,
+    0.5
+   ],
+   "material": "structure_b",
+   "bevel": 0,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Strip_1",
+   "type": "box",
+   "position": [
+    4.601,
+    30.3,
+    1.906
+   ],
+   "rotation": [
+    0.0,
+    67.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.22,
+    8.7,
+    0.08
+   ],
+   "material": "glow",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Pilaster_2",
+   "type": "box",
+   "position": [
+    2.021,
+    29.7,
+    4.878
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.9,
+    10.05,
+    0.5
+   ],
+   "material": "structure_b",
+   "bevel": 0,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Pilaster_3",
+   "type": "box",
+   "position": [
+    -2.021,
+    29.7,
+    4.878
+   ],
+   "rotation": [
+    0.0,
+    -22.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.9,
+    10.05,
+    0.5
+   ],
+   "material": "structure_b",
+   "bevel": 0,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Strip_3",
+   "type": "box",
+   "position": [
+    -1.906,
+    30.3,
+    4.601
+   ],
+   "rotation": [
+    0.0,
+    -22.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.22,
+    8.7,
+    0.08
+   ],
+   "material": "glow",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Pilaster_4",
+   "type": "box",
+   "position": [
+    -4.878,
+    29.7,
+    2.021
+   ],
+   "rotation": [
+    0.0,
+    -67.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.9,
+    10.05,
+    0.5
+   ],
+   "material": "structure_b",
+   "bevel": 0,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Pilaster_5",
+   "type": "box",
+   "position": [
+    -4.878,
+    29.7,
+    -2.021
+   ],
+   "rotation": [
+    0.0,
+    -112.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.9,
+    10.05,
+    0.5
+   ],
+   "material": "structure_b",
+   "bevel": 0,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Strip_5",
+   "type": "box",
+   "position": [
+    -4.601,
+    30.3,
+    -1.906
+   ],
+   "rotation": [
+    0.0,
+    -112.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.22,
+    8.7,
+    0.08
+   ],
+   "material": "glow",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Pilaster_6",
+   "type": "box",
+   "position": [
+    -2.021,
+    29.7,
+    -4.878
+   ],
+   "rotation": [
+    0.0,
+    -157.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.9,
+    10.05,
+    0.5
+   ],
+   "material": "structure_b",
+   "bevel": 0,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Pilaster_7",
+   "type": "box",
+   "position": [
+    2.021,
+    29.7,
+    -4.878
+   ],
+   "rotation": [
+    0.0,
+    -202.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.9,
+    10.05,
+    0.5
+   ],
+   "material": "structure_b",
+   "bevel": 0,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Strip_7",
+   "type": "box",
+   "position": [
+    1.906,
+    30.3,
+    -4.601
+   ],
+   "rotation": [
+    0.0,
+    -202.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.22,
+    8.7,
+    0.08
+   ],
+   "material": "glow",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Pilaster_8",
+   "type": "box",
+   "position": [
+    4.878,
+    29.7,
+    -2.021
+   ],
+   "rotation": [
+    0.0,
+    -247.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.9,
+    10.05,
+    0.5
+   ],
+   "material": "structure_b",
+   "bevel": 0,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_LightRing_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    32.275,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    11.02,
+    0.3,
+    11.02
+   ],
+   "material": "glow",
+   "sections": 16,
+   "hole": 5.35,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_LightRing_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    36.395,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    11.02,
+    0.3,
+    11.02
+   ],
+   "material": "glow",
+   "sections": 16,
+   "hole": 5.35,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Rim",
    "type": "cylinder",
    "position": [
     0.0,
@@ -6731,68 +7160,456 @@
     0.0,
     0.0
    ],
+   "parent": "Elevator",
    "size": [
-    14.0,
-    0.04,
-    14.0
+    13.0,
+    0.14,
+    13.0
+   ],
+   "material": "trim",
+   "sections": 24,
+   "hole": 5.5,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Panel_01",
+   "type": "box",
+   "position": [
+    7.8,
+    40.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    1.6,
+    0.05,
+    0.75
+   ],
+   "material": "glow",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Panel_02",
+   "type": "box",
+   "position": [
+    7.206,
+    40.0,
+    2.985
+   ],
+   "rotation": [
+    0.0,
+    67.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    1.6,
+    0.05,
+    0.75
+   ],
+   "material": "glow",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Emblem_1",
+   "type": "panel",
+   "position": [
+    5.515,
+    40.03,
+    5.515
+   ],
+   "rotation": [
+    -90.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    1.5,
+    1.5,
+    0.0
    ],
    "material": "accent",
-   "sections": 24,
-   "gen": "Hub_Marking",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
    "source": "visible"
   },
   {
-   "name": "Hub_Marking_Ring_2",
-   "type": "cylinder",
+   "name": "Elevator_Panel_04",
+   "type": "box",
    "position": [
-    0.0,
-    40.02,
-    0.0
+    2.985,
+    40.0,
+    7.206
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
+   "parent": "Elevator",
    "size": [
-    10.5,
-    0.04,
-    10.5
-   ],
-   "material": "deck",
-   "sections": 24,
-   "gen": "Hub_Marking",
-   "source": "visible"
-  },
-  {
-   "name": "Hub_Marking_Ring_3",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    40.04,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    7.0,
-    0.04,
-    7.0
+    1.6,
+    0.05,
+    0.75
    ],
    "material": "glow",
-   "sections": 24,
-   "gen": "Hub_Marking",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
    "source": "visible"
   },
   {
-   "name": "Hub_Marking_Ring_4",
+   "name": "Elevator_Panel_05",
+   "type": "box",
+   "position": [
+    0.0,
+    40.0,
+    7.8
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    1.6,
+    0.05,
+    0.75
+   ],
+   "material": "glow",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Panel_06",
+   "type": "box",
+   "position": [
+    -2.985,
+    40.0,
+    7.206
+   ],
+   "rotation": [
+    0.0,
+    -22.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    1.6,
+    0.05,
+    0.75
+   ],
+   "material": "glow",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Emblem_2",
+   "type": "panel",
+   "position": [
+    -5.515,
+    40.03,
+    5.515
+   ],
+   "rotation": [
+    -90.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    1.5,
+    1.5,
+    0.0
+   ],
+   "material": "accent",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Panel_08",
+   "type": "box",
+   "position": [
+    -7.206,
+    40.0,
+    2.985
+   ],
+   "rotation": [
+    0.0,
+    -67.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    1.6,
+    0.05,
+    0.75
+   ],
+   "material": "glow",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Panel_09",
+   "type": "box",
+   "position": [
+    -7.8,
+    40.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    1.6,
+    0.05,
+    0.75
+   ],
+   "material": "glow",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Panel_10",
+   "type": "box",
+   "position": [
+    -7.206,
+    40.0,
+    -2.985
+   ],
+   "rotation": [
+    0.0,
+    -112.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    1.6,
+    0.05,
+    0.75
+   ],
+   "material": "glow",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Emblem_3",
+   "type": "panel",
+   "position": [
+    -5.515,
+    40.03,
+    -5.515
+   ],
+   "rotation": [
+    -90.0,
+    -315.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    1.5,
+    1.5,
+    0.0
+   ],
+   "material": "accent",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Panel_12",
+   "type": "box",
+   "position": [
+    -2.985,
+    40.0,
+    -7.206
+   ],
+   "rotation": [
+    0.0,
+    -157.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    1.6,
+    0.05,
+    0.75
+   ],
+   "material": "glow",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Panel_13",
+   "type": "box",
+   "position": [
+    -0.0,
+    40.0,
+    -7.8
+   ],
+   "rotation": [
+    0.0,
+    -180.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    1.6,
+    0.05,
+    0.75
+   ],
+   "material": "glow",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Panel_14",
+   "type": "box",
+   "position": [
+    2.985,
+    40.0,
+    -7.206
+   ],
+   "rotation": [
+    0.0,
+    -202.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    1.6,
+    0.05,
+    0.75
+   ],
+   "material": "glow",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Emblem_4",
+   "type": "panel",
+   "position": [
+    5.515,
+    40.03,
+    -5.515
+   ],
+   "rotation": [
+    -90.0,
+    -405.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    1.5,
+    1.5,
+    0.0
+   ],
+   "material": "accent",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Panel_16",
+   "type": "box",
+   "position": [
+    7.206,
+    40.0,
+    -2.985
+   ],
+   "rotation": [
+    0.0,
+    -247.5,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    1.6,
+    0.05,
+    0.75
+   ],
+   "material": "glow",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_OuterRing",
    "type": "cylinder",
    "position": [
     0.0,
-    40.06,
+    40.0,
     0.0
    ],
    "rotation": [
@@ -6800,14 +7617,113 @@
     0.0,
     0.0
    ],
+   "parent": "Elevator",
    "size": [
-    3.5,
+    18.5,
     0.04,
-    3.5
+    18.5
    ],
    "material": "glow",
-   "sections": 24,
-   "gen": "Hub_Marking",
+   "sections": 32,
+   "hole": 9.0,
+   "outline": false,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Radial_1",
+   "type": "box",
+   "position": [
+    8.132,
+    40.0,
+    8.132
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.55,
+    0.04,
+    3.6
+   ],
+   "material": "glow",
+   "outline": false,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Radial_2",
+   "type": "box",
+   "position": [
+    -8.132,
+    40.0,
+    8.132
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.55,
+    0.04,
+    3.6
+   ],
+   "material": "glow",
+   "outline": false,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Radial_3",
+   "type": "box",
+   "position": [
+    -8.132,
+    40.0,
+    -8.132
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.55,
+    0.04,
+    3.6
+   ],
+   "material": "glow",
+   "outline": false,
+   "gen": "Elevator",
+   "source": "visible"
+  },
+  {
+   "name": "Elevator_Radial_4",
+   "type": "box",
+   "position": [
+    8.132,
+    40.0,
+    -8.132
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Elevator",
+   "size": [
+    0.55,
+    0.04,
+    3.6
+   ],
+   "material": "glow",
+   "outline": false,
+   "gen": "Elevator",
    "source": "visible"
   },
   {
@@ -15593,42 +16509,16 @@
     0.0
    ],
    "size": [
-    14.0,
+    20.0,
     48.61,
     0.35
    ],
-   "material": "water",
+   "material": "fall",
    "section": "sheet",
    "speed": 1.6,
    "pitch": -10,
    "inset": 0.6,
    "gen": "Falls_West_A",
-   "source": "visible"
-  },
-  {
-   "name": "Falls_West_B",
-   "type": "stream",
-   "position": [
-    -118.996,
-    47.797,
-    -12.087
-   ],
-   "rotation": [
-    0.0,
-    85.0,
-    0.0
-   ],
-   "size": [
-    9.0,
-    48.6,
-    0.35
-   ],
-   "material": "water",
-   "section": "sheet",
-   "speed": 1.6,
-   "pitch": -10,
-   "inset": 0.6,
-   "gen": "Falls_West_B",
    "source": "visible"
   },
   {
@@ -15649,7 +16539,7 @@
     44.75,
     0.35
    ],
-   "material": "water",
+   "material": "fall",
    "section": "sheet",
    "speed": 1.6,
    "pitch": -10,
@@ -15675,7 +16565,7 @@
     22.8,
     0.35
    ],
-   "material": "water",
+   "material": "fall",
    "section": "sheet",
    "speed": 1.6,
    "pitch": -10,
@@ -16047,6 +16937,22 @@
    ]
   }
  },
+ "exits": [
+  {
+   "id": "Elevator_Exit",
+   "type": "level_exit",
+   "target": "next_level",
+   "shape": "cylinder",
+   "center": [
+    0,
+    34.5,
+    0
+   ],
+   "radius": 5.2,
+   "height": 8.6,
+   "note": "entering the shaft below the floor loads the next level (Construct Error: handle in the level_exit trigger)"
+  }
+ ],
  "validation": {
   "ignore_objects": []
  },
@@ -16060,6 +16966,7 @@
   "Ramp_Hub_SW: 0.40 m junction plate where it meets SW_Octagon's angled edge",
   "Ramp_Hub_SE: 0.35 m junction plate where it meets Hub's angled edge",
   "Ramp_Hub_SE: 0.35 m junction plate where it meets SE_Octagon's angled edge",
+  "Elevator: elevator shaft r 5.5 m, 10.3 m deep through Hub; exit trigger -> next_level",
   "North_Hall: 2 cover crate(s) dropped - no free spot clear of landings"
  ],
  "relations": [
@@ -16547,16 +17454,16 @@
  "spawn_regions": [],
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 70804,
-  "objects": 641,
-  "materials": 27,
-  "glb_kb": 4323,
-  "nodes": 935,
-  "draw_calls_unbatched": 895,
-  "draw_calls_batched_min": 21,
-  "images": 56,
-  "tex_mem_gpu_compressed_mb": 5.98,
-  "tex_mem_uncompressed_mb": 23.92,
+  "triangles": 72320,
+  "objects": 675,
+  "materials": 28,
+  "glb_kb": 4402,
+  "nodes": 970,
+  "draw_calls_unbatched": 929,
+  "draw_calls_batched_min": 22,
+  "images": 58,
+  "tex_mem_gpu_compressed_mb": 6.15,
+  "tex_mem_uncompressed_mb": 24.58,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)",
   "terrain_triangles_lod0": 28800
  }

@@ -76,6 +76,8 @@ func _surface(fx: Dictionary, p: Dictionary) -> void:
 		else:
 			sm.set_shader_parameter("uv_speed", float(p["speed"]) / float(fx.get("material_tile_m", 2.0)))
 			sm.set_shader_parameter("wobble", p["wobble"])
+			var f: Array = fx.get("flow_uv", [0.0, 1.0])
+			sm.set_shader_parameter("flow_dir", Vector2(f[0], f[1]))
 		sm.set_shader_parameter("glow_energy", p["glow_energy"])
 		mi.material_override = sm
 
@@ -326,9 +328,11 @@ func _update_flyers() -> void:
 			var k: float = fmod(_t + sh["phase"], cyc) / sh["travel"]
 			if k >= 1.0:
 				mm.set_instance_transform(i, Transform3D(Basis().scaled(Vector3.ZERO), Vector3.ZERO)); continue
+			var env: float = smoothstep(0.0, 0.2, k) * (1.0 - smoothstep(0.8, 1.0, k))  # grow + approach / shrink + recede
+			var far: float = 1.0 + 0.5 * (1.0 - env)
 			var az: float = deg_to_rad(sh["a0"] + (sh["a1"] - sh["a0"]) * k); var dir: float = sign(sh["a1"] - sh["a0"])
-			var pos := Vector3(sh["r"] * sin(az), sh["y"] + sh["bob"] * sin(_t * 0.7 + sh["phase"]), -sh["r"] * cos(az))
-			var b := Basis.from_euler(Vector3(0.0, atan2(-cos(az) * dir, -sin(az) * dir), 0.12 * dir)).scaled(Vector3.ONE * float(sh["size"]))
+			var pos := Vector3(sh["r"] * far * sin(az), sh["y"] + 18.0 * (1.0 - env) + sh["bob"] * sin(_t * 0.7 + sh["phase"]), -sh["r"] * far * cos(az))
+			var b := Basis.from_euler(Vector3(0.0, atan2(-cos(az) * dir, -sin(az) * dir), 0.12 * dir)).scaled(Vector3.ONE * max(float(sh["size"]) * env, 0.001))
 			mm.set_instance_transform(i, Transform3D(b, pos))
 
 

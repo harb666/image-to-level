@@ -41,22 +41,22 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 4323,
-    "triangles": 82008,
-    "nodes": 935,
-    "mesh_nodes": 895,
-    "unique_meshes": 599,
-    "materials": 21,
-    "images": 56,
-    "draw_calls_unbatched": 895,
-    "draw_calls_batched_min": 21,
-    "tex_mem_uncompressed_mb": 23.92,
-    "tex_mem_gpu_compressed_mb": 5.98,
+    "glb_kb": 4402,
+    "triangles": 84020,
+    "nodes": 970,
+    "mesh_nodes": 929,
+    "unique_meshes": 605,
+    "materials": 22,
+    "images": 58,
+    "draw_calls_unbatched": 929,
+    "draw_calls_batched_min": 22,
+    "tex_mem_uncompressed_mb": 24.58,
+    "tex_mem_gpu_compressed_mb": 6.15,
     "texture_slots": {
-     "baseColorTexture": 18,
-     "metallicRoughnessTexture": 18,
+     "baseColorTexture": 19,
+     "metallicRoughnessTexture": 19,
      "normalTexture": 18,
-     "occlusionTexture": 18,
+     "occlusionTexture": 19,
      "emissiveTexture": 8
     },
     "image_sizes": [
@@ -68,30 +68,30 @@
    },
    "visible": {
     "cameras": 96,
-    "visible_draw_calls_mean": 337.9,
-    "visible_draw_calls_max": 793,
-    "visible_triangles_mean": 43357,
-    "visible_triangles_max": 70136
+    "visible_draw_calls_mean": 351.0,
+    "visible_draw_calls_max": 828,
+    "visible_triangles_mean": 44414,
+    "visible_triangles_max": 72228
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 4955,
-    "triangles": 92592,
+    "glb_kb": 5031,
+    "triangles": 94604,
     "nodes": 139,
     "mesh_nodes": 138,
     "unique_meshes": 138,
-    "materials": 21,
-    "images": 56,
+    "materials": 22,
+    "images": 58,
     "draw_calls_unbatched": 138,
-    "draw_calls_batched_min": 21,
-    "tex_mem_uncompressed_mb": 23.92,
-    "tex_mem_gpu_compressed_mb": 5.98,
+    "draw_calls_batched_min": 22,
+    "tex_mem_uncompressed_mb": 24.58,
+    "tex_mem_gpu_compressed_mb": 6.15,
     "texture_slots": {
-     "baseColorTexture": 18,
-     "metallicRoughnessTexture": 18,
+     "baseColorTexture": 19,
+     "metallicRoughnessTexture": 19,
      "normalTexture": 18,
-     "occlusionTexture": 18,
+     "occlusionTexture": 19,
      "emissiveTexture": 8
     },
     "image_sizes": [
@@ -125,20 +125,20 @@
     ]
    },
    "collision": {
-    "colliders": 514,
+    "colliders": 544,
     "hazards": 0,
-    "glb_kb": 547
+    "glb_kb": 569
    },
    "visible": {
     "cameras": 96,
-    "visible_draw_calls_mean": 58.8,
-    "visible_draw_calls_max": 85,
-    "visible_triangles_mean": 43124,
-    "visible_triangles_max": 57717
+    "visible_draw_calls_mean": 59.2,
+    "visible_draw_calls_max": 86,
+    "visible_triangles_mean": 44927,
+    "visible_triangles_max": 59737
    },
    "hidden_faces_removed": 0,
    "effects_extra_draw_calls": 14,
-   "effects_max_particles": 403
+   "effects_max_particles": 361
   }
  },
  "nodes": [
@@ -338,7 +338,7 @@
    "node": "M_accent_-1_-1",
    "kind": "static",
    "material": "accent",
-   "triangles": 16,
+   "triangles": 18,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -349,7 +349,8 @@
     "North_Tower_W_Banner_04",
     "North_Tower_W_Banner_03",
     "North_Tower_W_Banner_02",
-    "North_Tower_W_Banner_01"
+    "North_Tower_W_Banner_01",
+    "Elevator_Emblem_3"
    ]
   },
   {
@@ -416,7 +417,7 @@
    "node": "M_glow_-1_-1",
    "kind": "static",
    "material": "glow",
-   "triangles": 50,
+   "triangles": 98,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -444,7 +445,11 @@
     "Hub_Pylon_2_Glow_02R",
     "Hub_Pylon_2_Glow_02L",
     "Hub_Pylon_2_Glow_01R",
-    "Hub_Pylon_2_Glow_01L"
+    "Hub_Pylon_2_Glow_01L",
+    "Elevator_Radial_3",
+    "Elevator_Panel_12",
+    "Elevator_Panel_10",
+    "Elevator_Strip_5"
    ]
   },
   {
@@ -528,7 +533,7 @@
    "node": "M_structure_b_-1_-1",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 1082,
+   "triangles": 1106,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -554,6 +559,8 @@
     "Hub_Pylon_2_Rib_02",
     "Hub_Pylon_2_Rib_01",
     "Hub_Pylon_2_Cap",
+    "Elevator_Pilaster_6",
+    "Elevator_Pilaster_5",
     "West_Post_Column",
     "West_Post_Underframe",
     "NW_Bastion_Cover_02",
@@ -594,14 +601,15 @@
    "node": "M_accent_-1_0",
    "kind": "static",
    "material": "accent",
-   "triangles": 8,
+   "triangles": 10,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
     "SW_Tower_Banner_04",
     "SW_Tower_Banner_03",
     "SW_Tower_Banner_02",
-    "SW_Tower_Banner_01"
+    "SW_Tower_Banner_01",
+    "Elevator_Emblem_2"
    ]
   },
   {
@@ -654,7 +662,7 @@
    "node": "M_glow_-1_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 48,
+   "triangles": 108,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -681,7 +689,12 @@
     "Hub_Pylon_3_Glow_02R",
     "Hub_Pylon_3_Glow_02L",
     "Hub_Pylon_3_Glow_01R",
-    "Hub_Pylon_3_Glow_01L"
+    "Hub_Pylon_3_Glow_01L",
+    "Elevator_Radial_2",
+    "Elevator_Panel_09",
+    "Elevator_Panel_08",
+    "Elevator_Panel_06",
+    "Elevator_Strip_3"
    ]
   },
   {
@@ -738,7 +751,7 @@
    "node": "M_structure_b_-1_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 896,
+   "triangles": 920,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -760,6 +773,8 @@
     "Hub_Pylon_3_Rib_02",
     "Hub_Pylon_3_Rib_01",
     "Hub_Pylon_3_Cap",
+    "Elevator_Pilaster_4",
+    "Elevator_Pilaster_3",
     "SW_Octagon_Cover_02",
     "SW_Octagon_Column",
     "SW_Octagon_Underframe"
@@ -794,7 +809,7 @@
    "node": "M_accent_0_-1",
    "kind": "static",
    "material": "accent",
-   "triangles": 16,
+   "triangles": 18,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -805,7 +820,8 @@
     "North_Tower_E_Banner_04",
     "North_Tower_E_Banner_03",
     "North_Tower_E_Banner_02",
-    "North_Tower_E_Banner_01"
+    "North_Tower_E_Banner_01",
+    "Elevator_Emblem_4"
    ]
   },
   {
@@ -877,7 +893,7 @@
    "node": "M_glow_0_-1",
    "kind": "static",
    "material": "glow",
-   "triangles": 50,
+   "triangles": 110,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -905,7 +921,12 @@
     "Hub_Pylon_1_Glow_02R",
     "Hub_Pylon_1_Glow_02L",
     "Hub_Pylon_1_Glow_01R",
-    "Hub_Pylon_1_Glow_01L"
+    "Hub_Pylon_1_Glow_01L",
+    "Elevator_Radial_4",
+    "Elevator_Panel_16",
+    "Elevator_Panel_14",
+    "Elevator_Panel_13",
+    "Elevator_Strip_7"
    ]
   },
   {
@@ -983,7 +1004,7 @@
    "node": "M_structure_b_0_-1",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 1274,
+   "triangles": 1298,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -1012,6 +1033,8 @@
     "Hub_Pylon_1_Rib_02",
     "Hub_Pylon_1_Rib_01",
     "Hub_Pylon_1_Cap",
+    "Elevator_Pilaster_8",
+    "Elevator_Pilaster_7",
     "East_Deck_Cover_02",
     "East_Deck_Column",
     "East_Deck_Underframe",
@@ -1055,7 +1078,7 @@
    "node": "M_accent_0_0",
    "kind": "static",
    "material": "accent",
-   "triangles": 112,
+   "triangles": 18,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1067,7 +1090,7 @@
     "SE_Tower_Banner_03",
     "SE_Tower_Banner_02",
     "SE_Tower_Banner_01",
-    "Hub_Marking_Ring_1"
+    "Elevator_Emblem_1"
    ]
   },
   {
@@ -1078,7 +1101,6 @@
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Hub_Marking_Ring_2",
     "SE_Octagon_Floor",
     "South_Tower_Floor",
     "South_Gate_Floor",
@@ -1151,7 +1173,7 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 256,
+   "triangles": 1000,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1187,8 +1209,16 @@
     "Hub_Pylon_5_Glow_02L",
     "Hub_Pylon_5_Glow_01R",
     "Hub_Pylon_5_Glow_01L",
-    "Hub_Marking_Ring_4",
-    "Hub_Marking_Ring_3"
+    "Elevator_Radial_1",
+    "Elevator_OuterRing",
+    "Elevator_Panel_05",
+    "Elevator_Panel_04",
+    "Elevator_Panel_02",
+    "Elevator_Panel_01",
+    "Elevator_LightRing_2",
+    "Elevator_LightRing_1",
+    "Elevator_Strip_1",
+    "Elevator_GlowFloor"
    ]
   },
   {
@@ -1211,7 +1241,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 10988,
+   "triangles": 11484,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1326,7 +1356,8 @@
     "Hub_Pylon_1_Top__ol",
     "Hub_Pylon_1_Cap__ol",
     "Hub_Pylon_1_Body__ol",
-    "Hub_Marking_Ring_2__ol",
+    "Elevator_Rim__ol",
+    "Elevator_Pilaster_1__ol",
     "Bridge_Hub_East_Cross_01__ol",
     "Bridge_Hub_East_Rail_R__ol",
     "Bridge_Hub_East_Rail_L__ol",
@@ -1516,7 +1547,7 @@
    "node": "M_structure_0_0",
    "kind": "static",
    "material": "structure",
-   "triangles": 204,
+   "triangles": 300,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1530,7 +1561,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 1596,
+   "triangles": 1912,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -1560,6 +1591,9 @@
     "Hub_Pylon_5_Rib_02",
     "Hub_Pylon_5_Rib_01",
     "Hub_Pylon_5_Cap",
+    "Elevator_Pilaster_2",
+    "Elevator_Pilaster_1",
+    "Elevator_Liner",
     "SE_Octagon_Cover_02",
     "SE_Octagon_Column",
     "SE_Octagon_Underframe",
@@ -1576,10 +1610,11 @@
    "node": "M_trim_0_0",
    "kind": "static",
    "material": "trim",
-   "triangles": 204,
+   "triangles": 492,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Elevator_Rim",
     "SE_Octagon_Trim",
     "South_Tower_Trim",
     "South_Gate_Trim",
@@ -1605,14 +1640,13 @@
   {
    "node": "FX_Pour_Flow",
    "kind": "effect_target",
-   "material": "water",
-   "triangles": 320,
+   "material": "fall",
+   "triangles": 240,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
     "Falls_Island_W",
     "Falls_NW",
-    "Falls_West_B",
     "Falls_West_A"
    ],
    "reason": "merged targets of one shader effect"
