@@ -65,6 +65,7 @@ def build_environment(level_dir, L=None, log=print):
         mname = "bg_" + lay["id"].lower()
         mdef = dict(type=lay.get("material_type", kind), color=_lerp(lay.get("color", col), fog_color, fade), tile_m=lay.get("tile_m", tile),
                     res=lay.get("res", q["tex_res"]))
+        if lay.get("toon"): mdef["toon"] = True
         if lay.get("glow"): mdef.update(accent=lay["glow"], emissive=_lerp([0.7, 0.7, 0.7], [0.25, 0.25, 0.25], fade), lit=lay.get("lit", 0.15))
         mat, px = make_material(mname, mdef); mats[mname] = mdef; tex_px += sum(px)
         m = GENERATORS[typ](lay, q)

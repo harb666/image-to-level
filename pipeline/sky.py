@@ -133,29 +133,42 @@ def render(cfg, width=2048, glows=(), seed=7):
         sR = s[R]; t = 1.0 / np.maximum(sR, 0.12)  # cap the perspective squeeze near the horizon (no aliasing band)
         for layer in range(int(cl.get("layers", 2))):
             sc = cl.get("scale", 1.0) * (1.6 if layer else 0.9)
-            px, pz = dx[R] * t * sc, dz[R] * t * sc
+            px, pz = dx[R] * t * sc, dz[R] * t * sc * cl.get("stretch", 1.0)  # stretch > 1: long streaky (stylised) clouds
             n = fbm3(px * 0.9, pz * 0.9 * (1 + layer * 1.5), layer * 7.3, seed + 11 + layer, 5)
+            if cl.get("angular"):  # stylised, angular cloud shapes: ridged noise folded into sharp crests
+                n = n * (1 - cl["angular"]) + (1 - np.abs(2 * n - 1)) * cl["angular"] * 0.75 + cl["angular"] * 0.12
             thr = 1 - cl["coverage"] * (0.95 if layer == 0 else cl.get("wisps", 0.4))
             c = _smooth(thr - 0.02, thr + 0.22, n) * _smooth(0.03, 0.22, sR)  # fade into haze at the horizon
             n2 = fbm3((px + sd[0] * 0.25) * 0.9, (pz + sd[2] * 0.25) * 0.9 * (1 + layer * 1.5), layer * 7.3, seed + 11 + layer, 5)
             light = np.clip(0.55 + (n - n2) * 4, 0, 1) * (0.7 + 0.3 * np.exp(-ang[R] / 40))
+            if cl.get("posterize"):  # flat cartoon cloud shading + hard cloud edges
+                k = cl["posterize"]; light = np.round(light * (k - 1)) / (k - 1); c = _smooth(0.45, 0.55, c) * _smooth(0.03, 0.22, sR)
             ccol = _mix(np.array(cl["dark"]), np.array(cl["lit"]), light)
             img[R] = _mix(img[R], ccol, c * (0.95 if layer == 0 else 0.6)); cover[R] = np.maximum(cover[R], c)
     if p.get("stars", 0):
         st = (_hash3(np.floor(A * 900).astype(np.int64), np.floor(E * 900).astype(np.int64), 3, seed) > 0.9985) * _smooth(0.02, 0.2, s)
         img = img + (st * p["stars"] * (1 - cover))[..., None]
+    pdisc = 0.0
     if p.get("planet"):
         pl = p["planet"]; pd = _dir(pl["azimuth_deg"], pl["elevation_deg"])
         pang = np.degrees(np.arccos(np.clip(dx * pd[0] + dy * pd[1] + dz * pd[2], -1, 1))); r = pl["size_deg"] / 2
-        disc = _smooth(r, r * 0.97, pang); shade = np.clip(0.35 + 0.65 * (dx * sd[0] + dy * sd[1] + dz * sd[2] + 0.4), 0.15, 1)
-        bands = 0.85 + 0.15 * np.sin((dy - pd[1]) * 300)
-        img = _mix(img, np.array(pl["color"])[None, None] * (shade * bands)[..., None], disc * (1 - 0.7 * cover))
+        disc = _smooth(r, r * 0.97, pang); pdisc = disc; shade = np.clip(0.35 + 0.65 * (dx * sd[0] + dy * sd[1] + dz * sd[2] + 0.4), 0.15, 1)
+        st = pl.get("stripes")
+        if st:  # explicit horizontal stripes: hard-edged bands alternating colour / stripe colour (cartoon planet)
+            ph = np.sin((dy - pd[1]) * st.get("frequency", 300)); band = _smooth(-0.15, 0.15, ph) * st.get("strength", 0.5)
+            pc = _mix(np.array(pl["color"])[None, None] * np.ones_like(img), np.array(st.get("color", [1, 1, 1]))[None, None] * np.ones_like(img), band)
+            img = _mix(img, pc * np.clip(shade, 0.6, 1)[..., None], disc * (1.0 if pl.get("over_clouds") else 1 - 0.5 * cover))
+            if pl.get("over_clouds"): cover = np.where(disc > 0.5, 0.0, cover)  # nothing veils it; the sun glow below stays off it too
+        else:
+            bands = 0.85 + 0.15 * np.sin((dy - pd[1]) * 300)
+            img = _mix(img, np.array(pl["color"])[None, None] * (shade * bands)[..., None], disc * (1 - 0.7 * cover))
         if pl.get("ring"):
             ringd = np.abs((dy - pd[1]) * 3 - (dx - pd[0]) * 0.6)
             ring = (ringd < 0.012) * (pang < r * 2.2) * (pang > r * 1.15)
             img = _mix(img, np.array(pl["color"]) * 1.3, ring * 0.6)
     disc = _smooth(sun["size_deg"], sun["size_deg"] * 0.8, ang) * (1 - 0.85 * cover)
     glow = sun.get("glow", 0.5) * (0.6 * np.exp(-ang / 6) + 0.4 * np.exp(-ang / 30)) * (1 - 0.5 * cover)
+    if p.get("planet") and p["planet"].get("over_clouds"): glow = glow * (1 - 0.85 * pdisc); disc = disc * (1 - pdisc)  # planet in front of the sun
     img = img + (np.array(sun["color"])[None, None] * np.clip(disc + glow, 0, None)[..., None]) * (s > -0.05)[..., None]
     # industrial/city glows on the horizon (factories)
     for g in list(p.get("glows", [])) + list(glows):

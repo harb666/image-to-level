@@ -482,7 +482,28 @@ def maps(m):
     for k in ("rough", "metal"):
         d[k] = np.broadcast_to(np.asarray(d[k], float), (S, S))
     d.setdefault("emit", None); d["S"] = S; d["kind"] = kind
+    if m.get("toon"): d = toonify(d, m)
     return d
+
+
+def toonify(d, m):
+    """Cartoon version of any kind ("toon": true): surface noise smoothed away, colour posterised into a few flat
+    steps, dark INK lines wherever the height map has an edge (panel seams, rivets, grating holes, frames), matte and
+    non-metallic (no realistic reflections), weak normals. Emissive parts keep their colour."""
+    S = d["S"]; h = _blur(np.asarray(d["h"], float), max(0.6, S / 256)); alb = _blur3(np.clip(d["alb"], 0, 1), S / 160)
+    med = np.median(alb.reshape(-1, 3), 0); dev = alb - med; big = np.clip((np.abs(dev).max(-1) - 0.12) * 8, 0, 1)[..., None]
+    alb = med + dev * (big + (1 - big) * m.get("toon_flatten", 0.2))  # grime / wear blotches flattened, accents kept
+    lv = m.get("toon_levels", 5); alb = np.round(alb * lv) / lv * 0.85 + alb * 0.15  # mostly flat steps, a hint of the original
+    gy, gx = np.gradient(h); g = np.hypot(gx, gy) * S; ref = np.percentile(g, 99.5) + 1e-6
+    ink = np.clip((g / ref - m.get("ink_threshold", 0.18)) * 3.0, 0, 1) * m.get("ink", 0.9)
+    ink_col = np.array(m.get("ink_color", [0.03, 0.01, 0.05]))
+    alb = alb * (1 - ink[..., None]) + ink_col * ink[..., None]
+    d.update(alb=alb, rough=np.full((S, S), m.get("toon_rough", 0.9)), metal=np.zeros((S, S)), nstr=d.get("nstr", 1.0) * 0.25, h=h)
+    return d
+
+
+def _blur3(a, s):
+    return np.stack([_blur(a[..., k], s) for k in range(a.shape[-1])], -1)
 
 
 def make_material(name, m):

@@ -27,9 +27,16 @@ STYLES = {  # role colours per art style (materials "sc_<role>")
                     debris=[0.5, 0.42, 0.35], cactus=[0.35, 0.65, 0.3], flower=[1.0, 0.85, 0.2]),
     "post_apocalyptic": dict(trunk=[0.25, 0.22, 0.2], foliage=[0.33, 0.33, 0.2], foliage_b=[0.4, 0.36, 0.22], rock=[0.4, 0.37, 0.33], crystal=[0.5, 1.0, 0.3],
                              debris=[0.35, 0.25, 0.18], cactus=[0.32, 0.36, 0.22], flower=[0.6, 0.55, 0.3]),
+    "alien_cartoon": dict(trunk=[0.18, 0.14, 0.24], foliage=[0.25, 0.2, 0.32], foliage_b=[0.3, 0.22, 0.4], rock=[0.27, 0.22, 0.33], crystal=[0.5, 1.0, 0.25],
+                          debris=[0.2, 0.16, 0.26], cactus=[0.3, 0.5, 0.25], flower=[1.0, 0.2, 0.5],
+                          hull=[0.15, 0.12, 0.2], frame=[0.08, 0.06, 0.11], light=[1.0, 0.12, 0.2], light_b=[0.5, 1.0, 0.2]),
 }
+for _p in STYLES.values():  # alien satellite roles for every style (any style may scatter satellites)
+    _p.setdefault("hull", [0.3, 0.3, 0.32]); _p.setdefault("frame", [0.15, 0.15, 0.16]); _p.setdefault("light", [1.0, 0.2, 0.15]); _p.setdefault("light_b", [0.4, 1.0, 0.3])
+TOON_STYLES = {"alien_cartoon", "cartoon"}  # scatter materials of these styles are toon-shaded (flat, inked)
 ROLE_KIND = dict(trunk=("wood", 2.0), foliage=("grass", 2.0), foliage_b=("moss", 2.0), rock=("rock", 4.0), crystal=("glow", 1.0), debris=("damaged_metal", 2.0),
-                 cactus=("moss", 1.5), flower=("grass", 1.0))
+                 cactus=("moss", 1.5), flower=("grass", 1.0), hull=("hull_plating", 3.0), frame=("industrial_metal", 2.0), light=("glow", 1.0), light_b=("glow", 1.0))
+EMISSIVE_ROLES = {"crystal", "light", "light_b"}
 
 
 def _ico(r, sub=1, seed=1, jitter=0.18, flat=0.0):
@@ -165,11 +172,81 @@ def flowers(rng, st):
     return dict(flower=trimesh.util.concatenate(parts)), dict()
 
 
+# ---- alien satellites (reusable for alien-themed maps): tall, asymmetric, angular silhouettes with glowing lights.
+# Low poly (~100-250 tris), closed parts, base at y=0. Roles: hull (body), frame (stalks / struts), light / light_b (emissive).
+def _tilt(m, ax, az):
+    m.apply_transform(rotation_matrix(ax, [1, 0, 0]) @ rotation_matrix(az, [0, 0, 1])); return m
+
+
+def _saucer(r, h, n=8, y=0.0):
+    """Angular disc: two cones base to base (faceted, strong silhouette)."""
+    a = np.linspace(0, 2 * np.pi, n, endpoint=False); rim = np.c_[r * np.cos(a), np.zeros(n), r * np.sin(a)]
+    m = trimesh.convex.convex_hull(np.vstack([rim, [[0, h * 0.6, 0], [0, -h * 0.4, 0]]])); m.apply_translation([0, y, 0]); return m
+
+
+def _bulb(r, y, x=0.0, z=0.0):
+    """Light: a diamond (12 tris) - reads as a glowing dot at any distance."""
+    b = trimesh.creation.box([r * 1.4] * 3); b.apply_transform(rotation_matrix(np.pi / 4, [1, 0, 0]) @ rotation_matrix(np.pi / 4, [0, 0, 1])); b.apply_translation([x, y, z]); return b
+
+
+def sat_dish(rng, st):
+    """Satellite tower: tapered faceted stalk, angular struts, tilted dish on a saucer head, crooked antennae, lights."""
+    h = rng.uniform(9, 15); stalk = _cyl(0.55, h, 5, -0.4, rng.uniform(0.18, 0.28))
+    head = _saucer(rng.uniform(2.2, 3.4), rng.uniform(0.9, 1.4), int(rng.choice([6, 7, 8])), h)
+    dish = _cone(rng.uniform(1.6, 2.4), 0.9, 8); dish.apply_transform(rotation_matrix(np.pi, [1, 0, 0])); dish.apply_translation([0, 0.9, 0])
+    _tilt(dish, rng.uniform(-0.7, -0.35), rng.uniform(-0.3, 0.3)); dish.apply_translation([rng.uniform(-0.6, 0.6), h + 1.0, rng.uniform(-0.6, 0.6)])
+    struts = []
+    for k in range(3):
+        a = 2 * np.pi * k / 3 + rng.uniform(-0.3, 0.3); L = h * rng.uniform(0.3, 0.45)
+        s_ = _cyl(0.12, L, 4); _tilt(s_, math.cos(a) * 0.5, math.sin(a) * 0.5); s_.apply_translation([math.sin(a) * 0.9, -0.3, math.cos(a) * 0.9]); struts.append(s_)
+    ants = []; lights = []
+    for k in range(int(rng.integers(2, 4))):
+        L = rng.uniform(1.5, 4.0); an = _cyl(0.06, L, 4); _tilt(an, rng.uniform(-0.6, 0.6), rng.uniform(-0.6, 0.6))
+        x, z = rng.uniform(-1.5, 1.5), rng.uniform(-1.5, 1.5); an.apply_translation([x, h + 0.4, z]); ants.append(an)
+        lights.append(_bulb(0.22, h + 0.4 + L * 0.95, x + rng.uniform(-0.4, 0.4), z + rng.uniform(-0.4, 0.4)))
+    ring = [_bulb(0.18, h - 0.05, math.cos(a) * 2.6, math.sin(a) * 2.6) for a in np.linspace(0, 2 * np.pi, 5, endpoint=False)]
+    key = "light" if rng.random() < 0.6 else "light_b"
+    return {"hull": trimesh.util.concatenate([head, dish]), "frame": trimesh.util.concatenate([stalk] + struts + ants),
+            key: trimesh.util.concatenate(lights + ring)}, dict(collider=("cylinder", 0.6, h))
+
+
+def sat_pod(rng, st):
+    """Observation pod: crooked stalk, bulbous angular pod with a viewing band, spikes underneath, an eye light."""
+    h = rng.uniform(6, 10); lean = rng.uniform(-0.25, 0.25); stalk = _cyl(0.4, h, 5, -0.4, 0.22); _tilt(stalk, lean * 0.4, lean)
+    top = np.array([math.sin(lean) * h * 0.9 * 0, h, 0]); top[0] = -math.sin(lean) * h * 0.95; top[2] = math.sin(lean * 0.4) * h * 0.95
+    r = rng.uniform(1.8, 2.8); pod = _saucer(r, r * 1.3, 7, 0); pod.apply_translation(top + [0, r * 0.35, 0])
+    cap = _cone(r * 0.55, r * 0.9, 6); cap.apply_translation(top + [0, r * 0.95, 0])
+    band = _cyl(r * 0.92, 0.3, 7); band.apply_translation(top + [0, r * 0.25, 0])
+    spikes = []
+    for k in range(int(rng.integers(3, 6))):
+        sp = _cone(0.25, rng.uniform(1.0, 2.2), 4); sp.apply_transform(rotation_matrix(np.pi, [1, 0, 0])); a = rng.uniform(0, 2 * np.pi)
+        sp.apply_translation(top + [math.cos(a) * r * 0.5, r * 0.1, math.sin(a) * r * 0.5]); spikes.append(sp)
+    eye = _bulb(0.35, top[1] + r * 0.3, top[0] + r * 0.95, top[2]); tip = _bulb(0.2, top[1] + r * 1.9, top[0], top[2])
+    return {"hull": trimesh.util.concatenate([pod, cap]), "frame": trimesh.util.concatenate([stalk] + spikes),
+            "light_b" if rng.random() < 0.5 else "light": trimesh.util.concatenate([eye, tip, band])}, dict(collider=("cylinder", 0.5, h))
+
+
+def sat_spire(rng, st):
+    """Crooked antenna spire: stacked, tilted segments, angular cross-bars at odd angles, beacon lights."""
+    y = -0.4; x = z = 0.0; segs = []; bars = []; lights = []; r = 0.55
+    for k in range(int(rng.integers(3, 5))):
+        L = rng.uniform(2.5, 4.5); s_ = _cyl(r, L, 4 if k % 2 else 5, 0, r * 0.75); ax, az = rng.uniform(-0.18, 0.18), rng.uniform(-0.18, 0.18)
+        _tilt(s_, ax, az); s_.apply_translation([x, y, z]); segs.append(s_)
+        x += -math.sin(az) * L; z += math.sin(ax) * L; y += L * 0.97; r *= 0.75
+        if rng.random() < 0.75:
+            bl = rng.uniform(1.8, 3.6); b = trimesh.creation.box([bl, 0.14, 0.14]); b.apply_transform(rotation_matrix(rng.uniform(0, np.pi), [0, 1, 0]) @ rotation_matrix(rng.uniform(-0.4, 0.4), [0, 0, 1]))
+            b.apply_translation([x, y - 0.3, z]); bars.append(b); lights.append(_bulb(0.16, y - 0.3, x + bl * 0.45 * rng.choice([-1, 1]) * 0.6, z))
+    tip = _cone(r * 1.2, rng.uniform(1.5, 3.0), 4, y); tip.apply_translation([x, 0, z]); lights.append(_bulb(0.3, y + 0.2, x, z))
+    return {"hull": trimesh.util.concatenate(segs + [tip]), "frame": trimesh.util.concatenate(bars) if bars else _cyl(0.1, 0.5, 4),
+            "light": trimesh.util.concatenate(lights)}, dict(collider=("cylinder", 0.6, y))
+
+
 PROPS = dict(conifer=conifer, broadleaf=broadleaf, dead_tree=dead_tree, palm=palm, bush=bush, grass_tuft=grass_tuft, rock_small=rock_small,
-             boulder=boulder, cactus=cactus, crystal=crystal, alien_plant=alien_plant, debris=debris, stump=stump, log=log, flowers=flowers)
+             boulder=boulder, cactus=cactus, crystal=crystal, alien_plant=alien_plant, debris=debris, stump=stump, log=log, flowers=flowers,
+             sat_dish=sat_dish, sat_pod=sat_pod, sat_spire=sat_spire)
 SINK = dict(conifer=0.2, broadleaf=0.2, dead_tree=0.2, palm=0.2, bush=0.25, grass_tuft=0.05, rock_small=0.15, boulder=0.45, cactus=0.15, crystal=0.12,
-            alien_plant=0.15, debris=0.1, stump=0.1, log=0.12, flowers=0.0)
-DEFAULT_VIEW = dict(grass_tuft=35, flowers=30, rock_small=60, debris=60, bush=80, crystal=90, alien_plant=80)  # m; trees / boulders: 160
+            alien_plant=0.15, debris=0.1, stump=0.1, log=0.12, flowers=0.0, sat_dish=0.3, sat_pod=0.3, sat_spire=0.3)
+DEFAULT_VIEW = dict(sat_dish=400, sat_pod=400, sat_spire=400, grass_tuft=35, flowers=30, rock_small=60, debris=60, bush=80, crystal=90, alien_plant=80)  # m; trees / boulders: 160
 
 
 def variants(kind, style, n=3, seed=0):
@@ -185,7 +262,8 @@ def variants(kind, style, n=3, seed=0):
 def materials(style, used_roles):
     pal = STYLES.get(style, STYLES["realistic"]); out = {}
     for r in sorted(used_roles):
-        k, tile = ROLE_KIND[r]; out[f"sc_{r}"] = dict(type=k, color=pal[r], tile_m=tile, res=128, **({"emissive": [c * 0.8 for c in pal[r]]} if r == "crystal" else {}))
+        k, tile = ROLE_KIND[r]; out[f"sc_{r}"] = dict(type=k, color=pal[r], tile_m=tile, res=128, **({"emissive": [c * 0.8 for c in pal[r]]} if r in EMISSIVE_ROLES else {}),
+                                                      **({"toon": True} if style in TOON_STYLES and r not in EMISSIVE_ROLES else {}))
     return out
 
 

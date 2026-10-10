@@ -106,7 +106,7 @@ def generate(spec, G, level_dir=None):
              generator=dict(tool="pipeline/spec_to_level.py", spec_sha=H(spec), theme=theme, detail=spec.get("detail", "medium")),
              interpretation=spec.get("interpretation", {}), sky_color=PRESETS[env["sky"]["preset"]]["horizon"],
              spawn=spawn, spawns=spawns, hazards=ctx.hazards, effects=_effects(spec, ctx, plats, env, glow), environment=env,
-             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})),
+             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})), **({"style": spec["style"]} if spec.get("style") else {}),
              validation=dict(ignore_objects=[]), generator_notes=ctx.notes, relations=ctx.relations)
     if spec.get("gameplay"): L["gameplay"] = spec["gameplay"]
     if W: L["gameplay"] = dict({"nav": {"cell": 1.0}}, **L.get("gameplay", {}))  # open worlds: 1 m nav cells (large areas)
@@ -285,7 +285,7 @@ def _merge(new, cur, state, key, rep, label):
     return out
 
 
-TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions")
+TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions", "style")
 
 
 def merge(Lnew, Lcur, state):
@@ -331,7 +331,8 @@ def state_of(L):
 
 
 def run(spec_path, level_dir=None, force=False, dry=False, verbose=True):
-    spec = json.load(open(spec_path)); E, W = validate(spec)
+    import styles
+    spec = styles.apply(json.load(open(spec_path))); E, W = validate(spec)  # art_style preset deep-merged UNDER the spec
     for w in W: verbose and print("warning:", w)
     if E: raise SystemExit("scene spec invalid:\n  " + "\n  ".join(E))
     level_dir = level_dir or os.path.dirname(os.path.abspath(spec_path)); lp = os.path.join(level_dir, "level.json"); sp = os.path.join(level_dir, "gen_state.json")

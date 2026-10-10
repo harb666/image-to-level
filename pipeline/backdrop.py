@@ -144,7 +144,10 @@ def skyline(L, q):
             for _ in range(int(rng.integers(0, 3))):
                 ww, dd = ww * rng.uniform(0.55, 0.8), dd * rng.uniform(0.55, 0.8); th = h * rng.uniform(0.15, 0.35)
                 m = trimesh.util.concatenate([m, _box(ww, th, dd, y=y_ - 0.5)]); y_ += th - 0.5
-            if rng.random() < L.get("masts", 0.0): m = trimesh.util.concatenate([m, _cyl(0.5, h * rng.uniform(0.15, 0.3), 0, y_ - 0.5, 0, 5)])
+            if rng.random() < L.get("spikes", 0.0):  # alien spire top: a sharp faceted cone (strong silhouette)
+                sp = trimesh.creation.cone(radius=min(ww, dd) * 0.5, height=h * rng.uniform(0.25, 0.6), sections=4)
+                sp.apply_transform(trimesh.transformations.rotation_matrix(-np.pi / 2, [1, 0, 0])); sp.apply_translation([0, y_ - 0.5, 0]); m = trimesh.util.concatenate([m, sp])
+            elif rng.random() < L.get("masts", 0.0): m = trimesh.util.concatenate([m, _cyl(0.5, h * rng.uniform(0.15, 0.3), 0, y_ - 0.5, 0, 5)])
         elif rng.random() < 0.35: m = trimesh.util.concatenate([m, _cyl(rng.uniform(1, 2), h * 1.4 + 5, w * 0.25, -5, 0, 6)])
         m.apply_transform(trimesh.transformations.rotation_matrix(np.radians(-az), [0, 1, 0]))
         m.apply_translation(polar(az, r + rng.uniform(-25, 25))); parts.append(m)
@@ -191,10 +194,32 @@ def ring_structure(L, q):
     return trimesh.util.concatenate(parts)
 
 
-GENERATORS = dict(ground=ground, mountain_ring=mountain_ring, spires=spires, skyline=skyline, factory=factory, townscape=townscape, ring_structure=ring_structure)
+def hover_satellites(L, q):
+    """Alien satellites hovering in the distance (silhouettes, one merged mesh): angular saucer bodies, a dangling
+    spike or mast, asymmetric fins. radius [r0, r1], elevation [y0, y1], size [s0, s1] (saucer diameter), count."""
+    rng = np.random.default_rng(_seed(L)); r0, r1 = L.get("radius", [200, 500]); y0, y1 = L.get("elevation", [50, 140]); s0, s1 = L.get("size", [10, 26])
+    n = max(2, int(round(L.get("count", 12) * q["density"]))); parts = []
+    for i in range(n):
+        d = rng.uniform(s0, s1); r = d / 2; k = int(rng.choice([5, 6, 7, 8])); a = np.linspace(0, 2 * np.pi, k, endpoint=False)
+        rim = np.c_[r * np.cos(a), np.zeros(k), r * np.sin(a)]
+        body = trimesh.convex.convex_hull(np.vstack([rim, [[0, r * rng.uniform(0.35, 0.7), 0], [0, -r * rng.uniform(0.25, 0.5), 0]]]))
+        sp = trimesh.creation.cone(radius=r * 0.18, height=r * rng.uniform(1.0, 2.2), sections=4); sp.apply_transform(trimesh.transformations.rotation_matrix(np.pi / 2, [1, 0, 0]))
+        sp.apply_translation([0, -r * 0.3, 0]); bits = [body, sp]
+        if rng.random() < 0.6:
+            mast = _cyl(r * 0.05, r * rng.uniform(0.6, 1.4), rng.uniform(-r, r) * 0.3, r * 0.4, 0, 4); bits.append(mast)
+        for f in range(int(rng.integers(1, 3))):  # fins / wings at odd angles
+            fin = _box(r * rng.uniform(0.6, 1.2), r * 0.08, r * 0.35); fin.apply_transform(trimesh.transformations.rotation_matrix(rng.uniform(-0.6, 0.6), [0, 0, 1]))
+            fin.apply_translation([r * rng.choice([-0.8, 0.8]), 0, 0]); bits.append(fin)
+        m = trimesh.util.concatenate(bits); m.apply_transform(trimesh.transformations.rotation_matrix(rng.uniform(-0.25, 0.25), [1, 0, 0]) @ trimesh.transformations.rotation_matrix(rng.uniform(0, 2 * np.pi), [0, 1, 0]))
+        m.apply_translation(polar(rng.uniform(0, 360), rng.uniform(r0, r1)) + np.array([0, rng.uniform(y0, y1), 0])); parts.append(m)
+    return trimesh.util.concatenate(parts)
+
+
+GENERATORS = dict(ground=ground, mountain_ring=mountain_ring, spires=spires, skyline=skyline, factory=factory, townscape=townscape, ring_structure=ring_structure, hover_satellites=hover_satellites)
 DEFAULTS = {  # material kind, colour, tile size per layer type (overridable per layer: material_type/color/tile_m)
     "ground": ("dirt", [0.16, 0.17, 0.14], 14.0), "mountain_ring": ("rock", [0.2, 0.21, 0.19], 40.0),
     "spires": ("rock", [0.17, 0.18, 0.16], 14.0), "skyline": ("factory_facade", [0.16, 0.17, 0.17], 12.0),
     "factory": ("factory_facade", [0.17, 0.18, 0.18], 10.0), "townscape": ("plaster", [0.72, 0.67, 0.58], 6.0),
     "ring_structure": ("machinery_panel", [0.3, 0.3, 0.32], 16.0),
+    "hover_satellites": ("hull_plating", [0.12, 0.1, 0.16], 12.0),
 }
