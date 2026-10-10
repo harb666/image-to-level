@@ -136,6 +136,9 @@ def build(level_dir):
         import shutil; shutil.rmtree(os.path.join(level_dir, "sky"), ignore_errors=True)
     from effects import build_effects  # Stage 4: effects.json + fx/ (removes stale outputs when the level has no effects)
     build_effects(level_dir, L)
+    if L.get("mobile", {}).get("export", True):  # Stage 5: keep mobile/ in sync with every build ("mobile": {"export": false} to skip)
+        from export_mobile import export
+        export(level_dir)
 
 
 def topdown(L, world, path, px=10):

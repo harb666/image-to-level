@@ -10,7 +10,7 @@ committed, then paused for approval.
 | 2 Sky & distant scenery ✅ | panoramic sky (CPU-painted equirect, jpeg), horizon haze, lightweight backdrop cards/rings (mountains, factory skylines) in level.json `sky` / `backdrop` | world feels larger, no extra gameplay geometry |
 | 3 Geometry & camera completeness ✅ | bevelled/modular primitives (railings, catwalk, machinery, rocks), `validate_level.py`: sample camera-reachable viewpoints (3rd-person orbit), raycast for exposed backs/void/gaps, auto-fill with perimeter/skirt geometry, report | no exposed edges from any reachable camera |
 | 4 Effects metadata ✅ | `effects[]` in level.json (toxic flow, bubbles, steam, sparks, pulsing lights, fog) + viewer preview; export sidecar `effects.json` for Godot (GLB carries only static emissive) | Godot-recreatable VFX |
-| 5 Mobile performance | dev vs mobile export: merge static meshes by material (names kept in node extras/level.json), LOD for big objects, collision proxies, texture atlas for small emissive/decals, KTX2 if a free encoder is available (else rely on Godot VRAM compression) | fewer draw calls, measured budgets |
+| 5 Mobile performance ✅ | dev vs mobile export: merge static meshes by material (names kept in node extras/level.json), LOD for big objects, collision proxies, texture atlas for small emissive/decals, KTX2 if a free encoder is available (else rely on Godot VRAM compression) | fewer draw calls, measured budgets |
 | 6 iPhone editing & preview | third-person + free camera + top-down, tap-to-identify object (name/material), screenshot button, quality toggle, edit-by-name helper | full phone workflow |
 
 Not possible on free CPU infra: real device GPU benchmarks (numbers are estimates), neural texture/sky generation at
@@ -31,3 +31,8 @@ quality (procedural fallback instead).
   estimates, merged emitters), effects.json, fx sprites, Godot kit (3 shaders + apply_effects.gd, untested in Godot),
   viewer FX preview + quality button. Toxic Arena: 13 effects; balanced ≈ 911 particles, 10 extra draw calls (est.),
   5,184 m² mist overdraw; performance ≈ 293 particles, no mist. level.glb unchanged (390 KB / 3,676 tris).
+- Stage 5 ✅ export_mobile.py: cell+material merging (props separate with visibility ranges), FX targets merged per effect,
+  hidden-face removal under hazard liquid, texture caps per profile, lossless JPEG restore, node extras/merge map,
+  collision.json/.glb (primitive colliders, stairs→ramps, hazard areas), mobile_manifest.json + apply_mobile.gd, metrics
+  incl. estimated visible draw calls. Toxic Arena balanced: draw calls 137 → 50, est. visible ~69 → ~39, 92 colliders;
+  validated (0 issues) and visually identical in preview (mean pixel diff 0.05/255). Town square 117 → 29 draw calls.

@@ -115,7 +115,7 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry.dispose();}
       const orig=tg.map(o=>o.material),m=uvAnim(tg[0].material),b=m.emissiveIntensity,tile=fx.material_tile_m||2;tg.forEach(o=>o.material=m);
       fxUpd.push({reset(){tg.forEach((o,i)=>o.material=orig[i]);},u(t){if(fx.type==='liquid_surface'){m.userData.off.value.set(p.scroll[0]*t+p.swirl*Math.sin(t*.7),p.scroll[1]*t+p.swirl*Math.cos(t*.5));
         m.emissiveIntensity=b*(1+p.pulse_amount*Math.sin(t*p.pulse_speed*6.2831));}else m.userData.off.value.set(Math.sin(t*3)*p.wobble,t*p.speed/tile);}});}
-    else if(fx.category==='material_animation'){const mats=[...new Set((fx.targets||[]).map(n=>byName[n]&&byName[n].material).filter(Boolean))],b=mats.map(m=>m.emissiveIntensity);let nx=0;
+    else if(fx.category==='material_animation'){const mats=[...new Set(fx.target_material?Object.values(byName).map(o=>o.material).filter(m=>m.name===fx.target_material||m.name===fx.target_material+'__2s'):(fx.targets||[]).map(n=>byName[n]&&byName[n].material).filter(Boolean))],b=mats.map(m=>m.emissiveIntensity);let nx=0;
       fxUpd.push({reset(){mats.forEach((m,i)=>m.emissiveIntensity=b[i]);},u(t,dt){if(fx.type==='pulse_light')mats.forEach((m,i)=>m.emissiveIntensity=b[i]*(1+p.amount*Math.sin(6.2831*p.speed*t+p.phase)));
         else{nx-=dt;if(nx<=0){nx=1/p.rate;mats.forEach((m,i)=>m.emissiveIntensity=b[i]*(1-p.amount*Math.random()));}}}});}
     else if(fx.category==='particles')makeParticles(fx,p);

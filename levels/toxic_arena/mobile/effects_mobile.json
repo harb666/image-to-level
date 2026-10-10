@@ -1,0 +1,1400 @@
+{
+ "generated_by": "image-to-level Stage 4 (pipeline/effects.py)",
+ "default_quality": "balanced",
+ "note": "Mobile copy of ../effects.json: targets renamed to merged nodes of level_mobile.glb. GLB holds only static appearance. Recreate these at runtime (fx/godot/apply_effects.gd is an untested starter). Costs are estimates: particles alive, emitters, extra draw calls, transparent overdraw area.",
+ "textures": {
+  "puff": "fx/puff.png",
+  "mote": "fx/mote.png",
+  "spark": "fx/spark.png",
+  "bubble": "fx/bubble.png"
+ },
+ "totals": {
+  "performance": {
+   "max_particles": 293,
+   "emitters": 34,
+   "extra_draw_calls": 9,
+   "transparent_area_m2": 0
+  },
+  "balanced": {
+   "max_particles": 911,
+   "emitters": 34,
+   "extra_draw_calls": 10,
+   "transparent_area_m2": 5184
+  },
+  "quality": {
+   "max_particles": 1429,
+   "emitters": 34,
+   "extra_draw_calls": 11,
+   "transparent_area_m2": 10368
+  }
+ },
+ "effects": [
+  {
+   "id": "Toxic_Surface",
+   "type": "liquid_surface",
+   "category": "surface_shader",
+   "glb_contains": "static base colour + emissive texture",
+   "godot_runtime": "ShaderMaterial liquid_surface.gdshader on target meshes (albedo from the GLB texture)",
+   "targets": [
+    "HazardFluid"
+   ],
+   "material_tile_m": 6.0,
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "scroll": [
+       0.03,
+       0.015
+      ],
+      "swirl": 0.0,
+      "pulse_speed": 0.2,
+      "pulse_amount": 0.18,
+      "glow_energy": 1.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "scroll": [
+       0.03,
+       0.015
+      ],
+      "swirl": 0.03,
+      "pulse_speed": 0.2,
+      "pulse_amount": 0.18,
+      "glow_energy": 1.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "scroll": [
+       0.03,
+       0.015
+      ],
+      "swirl": 0.03,
+      "pulse_speed": 0.2,
+      "pulse_amount": 0.18,
+      "glow_energy": 1.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Toxic_Falls",
+   "type": "liquid_flow",
+   "category": "surface_shader",
+   "glb_contains": "static texture",
+   "godot_runtime": "ShaderMaterial liquid_flow.gdshader (UV scroll along the fall/pipe)",
+   "targets": [
+    "FX_Toxic_Falls"
+   ],
+   "material_tile_m": 6.0,
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 3.0,
+      "glow_energy": 1.2,
+      "wobble": 0.02
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 3.0,
+      "glow_energy": 1.2,
+      "wobble": 0.02
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 3.0,
+      "glow_energy": 1.2,
+      "wobble": 0.02
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Toxic_Bubbles",
+   "type": "bubbles",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D, box emitter on the surface, alpha billboard",
+   "area": [
+    -36.0,
+    1.0,
+    -36.0,
+    36.0,
+    1.0,
+    36.0
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 18.0,
+      "lifetime": 1.4,
+      "speed": [
+       0.3,
+       0.7
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.15,
+       0.45
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.92,
+       1.0,
+       0.7
+      ],
+      "texture": "bubble",
+      "blend": "alpha",
+      "spread": 10
+     },
+     "cost_estimate": {
+      "max_particles": 26,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 45.0,
+      "lifetime": 1.4,
+      "speed": [
+       0.3,
+       0.7
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.15,
+       0.45
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.92,
+       1.0,
+       0.7
+      ],
+      "texture": "bubble",
+      "blend": "alpha",
+      "spread": 10
+     },
+     "cost_estimate": {
+      "max_particles": 63,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 72.0,
+      "lifetime": 1.4,
+      "speed": [
+       0.3,
+       0.7
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.15,
+       0.45
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.92,
+       1.0,
+       0.7
+      ],
+      "texture": "bubble",
+      "blend": "alpha",
+      "spread": 10
+     },
+     "cost_estimate": {
+      "max_particles": 101,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    }
+   }
+  },
+  {
+   "id": "Fall_Splash",
+   "type": "splash",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D, point emitter, gravity",
+   "emitters": [
+    {
+     "pos": [
+      27.4,
+      1.0,
+      -12.0
+     ],
+     "radius": 1.68,
+     "of": "Pipe_East_01_Fall"
+    },
+    {
+     "pos": [
+      26.8,
+      1.0,
+      -26.8
+     ],
+     "radius": 2.3,
+     "of": "Pipe_NE_01_Fall"
+    },
+    {
+     "pos": [
+      -26.8,
+      1.0,
+      -26.8
+     ],
+     "radius": 2.3,
+     "of": "Pipe_NW_01_Fall"
+    },
+    {
+     "pos": [
+      12.0,
+      1.0,
+      -27.4
+     ],
+     "radius": 1.68,
+     "of": "Pipe_North_01_Fall"
+    },
+    {
+     "pos": [
+      26.8,
+      1.0,
+      26.8
+     ],
+     "radius": 2.3,
+     "of": "Pipe_SE_01_Fall"
+    },
+    {
+     "pos": [
+      -26.8,
+      1.0,
+      26.8
+     ],
+     "radius": 2.3,
+     "of": "Pipe_SW_01_Fall"
+    },
+    {
+     "pos": [
+      -12.0,
+      1.0,
+      27.4
+     ],
+     "radius": 1.68,
+     "of": "Pipe_South_01_Fall"
+    },
+    {
+     "pos": [
+      -27.4,
+      1.0,
+      12.0
+     ],
+     "radius": 1.68,
+     "of": "Pipe_West_01_Fall"
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 12.0,
+      "lifetime": 0.8,
+      "speed": [
+       2.0,
+       4.0
+      ],
+      "gravity": -9.8,
+      "kill_below_spawn": true,
+      "size": [
+       0.35,
+       0.1
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.9,
+       1.0,
+       0.6
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 40
+     },
+     "cost_estimate": {
+      "max_particles": 80,
+      "emitters": 8,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 30.0,
+      "lifetime": 0.8,
+      "speed": [
+       2.0,
+       4.0
+      ],
+      "gravity": -9.8,
+      "kill_below_spawn": true,
+      "size": [
+       0.35,
+       0.1
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.9,
+       1.0,
+       0.6
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 40
+     },
+     "cost_estimate": {
+      "max_particles": 192,
+      "emitters": 8,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 48.0,
+      "lifetime": 0.8,
+      "speed": [
+       2.0,
+       4.0
+      ],
+      "gravity": -9.8,
+      "kill_below_spawn": true,
+      "size": [
+       0.35,
+       0.1
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.9,
+       1.0,
+       0.6
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 40
+     },
+     "cost_estimate": {
+      "max_particles": 312,
+      "emitters": 8,
+      "extra_draw_calls": 1
+     }
+    }
+   },
+   "merge_emitters": true
+  },
+  {
+   "id": "Fall_Steam",
+   "type": "steam",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D, small sphere emitter, slow rise, growing soft puffs",
+   "emitters": [
+    {
+     "pos": [
+      27.4,
+      1.0,
+      -12.0
+     ],
+     "radius": 1.68,
+     "of": "Pipe_East_01_Fall"
+    },
+    {
+     "pos": [
+      26.8,
+      1.0,
+      -26.8
+     ],
+     "radius": 2.3,
+     "of": "Pipe_NE_01_Fall"
+    },
+    {
+     "pos": [
+      -26.8,
+      1.0,
+      -26.8
+     ],
+     "radius": 2.3,
+     "of": "Pipe_NW_01_Fall"
+    },
+    {
+     "pos": [
+      12.0,
+      1.0,
+      -27.4
+     ],
+     "radius": 1.68,
+     "of": "Pipe_North_01_Fall"
+    },
+    {
+     "pos": [
+      26.8,
+      1.0,
+      26.8
+     ],
+     "radius": 2.3,
+     "of": "Pipe_SE_01_Fall"
+    },
+    {
+     "pos": [
+      -26.8,
+      1.0,
+      26.8
+     ],
+     "radius": 2.3,
+     "of": "Pipe_SW_01_Fall"
+    },
+    {
+     "pos": [
+      -12.0,
+      1.0,
+      27.4
+     ],
+     "radius": 1.68,
+     "of": "Pipe_South_01_Fall"
+    },
+    {
+     "pos": [
+      -27.4,
+      1.0,
+      12.0
+     ],
+     "radius": 1.68,
+     "of": "Pipe_West_01_Fall"
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 2.0,
+      "lifetime": 3.5,
+      "speed": [
+       0.8,
+       1.5
+      ],
+      "gravity": 0.15,
+      "size": [
+       1.2,
+       5.0
+      ],
+      "alpha": 0.5,
+      "color": [
+       0.8,
+       0.92,
+       0.74
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 15,
+      "radius": 0.8
+     },
+     "cost_estimate": {
+      "max_particles": 56,
+      "emitters": 8,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 5.0,
+      "lifetime": 3.5,
+      "speed": [
+       0.8,
+       1.5
+      ],
+      "gravity": 0.15,
+      "size": [
+       1.2,
+       5.0
+      ],
+      "alpha": 0.5,
+      "color": [
+       0.8,
+       0.92,
+       0.74
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 15,
+      "radius": 0.8
+     },
+     "cost_estimate": {
+      "max_particles": 144,
+      "emitters": 8,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 8.0,
+      "lifetime": 3.5,
+      "speed": [
+       0.8,
+       1.5
+      ],
+      "gravity": 0.15,
+      "size": [
+       1.2,
+       5.0
+      ],
+      "alpha": 0.5,
+      "color": [
+       0.8,
+       0.92,
+       0.74
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 15,
+      "radius": 0.8
+     },
+     "cost_estimate": {
+      "max_particles": 224,
+      "emitters": 8,
+      "extra_draw_calls": 1
+     }
+    }
+   },
+   "merge_emitters": true
+  },
+  {
+   "id": "Trim_Pulse",
+   "type": "pulse_light",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
+   "target_material": "edge_trim",
+   "targets": [
+    "Platform_East_01_Trim",
+    "Platform_NE_01_Trim",
+    "Platform_NW_01_Trim",
+    "Platform_North_01_Trim",
+    "Platform_SE_01_Trim",
+    "Platform_SW_01_Trim",
+    "Platform_South_01_Trim",
+    "Platform_West_01_Trim",
+    "Walkway_East_Trim",
+    "Walkway_North_Trim",
+    "Walkway_South_Trim",
+    "Walkway_West_Trim"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 0.35,
+      "amount": 0.35,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 0.35,
+      "amount": 0.35,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 0.35,
+      "amount": 0.35,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Tower_Glow_Pulse",
+   "type": "pulse_light",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
+   "target_material": "glow_strip",
+   "targets": [
+    "Central_Tower_Glow_01_L",
+    "Central_Tower_Glow_01_R",
+    "Central_Tower_Glow_02_L",
+    "Central_Tower_Glow_02_R",
+    "Central_Tower_Glow_03_L",
+    "Central_Tower_Glow_03_R",
+    "Central_Tower_Glow_04_L",
+    "Central_Tower_Glow_04_R"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 0.9,
+      "amount": 0.45,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 0.9,
+      "amount": 0.45,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 0.9,
+      "amount": 0.45,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Machinery_Flicker",
+   "type": "flicker",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier random flicker (rate Hz)",
+   "target_material": "concrete_dark",
+   "targets": [
+    "Central_Platform_Base",
+    "Platform_East_01_Base",
+    "Platform_NE_01_Base",
+    "Platform_NW_01_Base",
+    "Platform_North_01_Base",
+    "Platform_SE_01_Base",
+    "Platform_SW_01_Base",
+    "Platform_South_01_Base",
+    "Platform_West_01_Base",
+    "Walkway_East_Base",
+    "Walkway_North_Base",
+    "Walkway_South_Base",
+    "Walkway_West_Base"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 6,
+      "amount": 0.2
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 6,
+      "amount": 0.2
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 6,
+      "amount": 0.2
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Tower_Sparks",
+   "type": "sparks",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D per point (independent bursts), explosiveness 1, one_shot re-triggered every interval, additive",
+   "emitters": [
+    {
+     "pos": [
+      3.7,
+      6.4,
+      3.7
+     ]
+    },
+    {
+     "pos": [
+      -3.7,
+      6.4,
+      -3.7
+     ]
+    },
+    {
+     "pos": [
+      -35.0,
+      9.5,
+      12
+     ]
+    },
+    {
+     "pos": [
+      35.0,
+      9.5,
+      -12
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "burst": 7,
+      "interval": [
+       1.5,
+       4.0
+      ],
+      "lifetime": 0.6,
+      "speed": [
+       3.0,
+       6.0
+      ],
+      "gravity": -9.8,
+      "size": [
+       0.1,
+       0.03
+      ],
+      "alpha": 1.0,
+      "color": [
+       1.0,
+       0.65,
+       0.2
+      ],
+      "texture": "spark",
+      "blend": "add",
+      "spread": 70
+     },
+     "cost_estimate": {
+      "max_particles": 28,
+      "emitters": 4,
+      "extra_draw_calls": 4
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "burst": 18,
+      "interval": [
+       1.5,
+       4.0
+      ],
+      "lifetime": 0.6,
+      "speed": [
+       3.0,
+       6.0
+      ],
+      "gravity": -9.8,
+      "size": [
+       0.1,
+       0.03
+      ],
+      "alpha": 1.0,
+      "color": [
+       1.0,
+       0.65,
+       0.2
+      ],
+      "texture": "spark",
+      "blend": "add",
+      "spread": 70
+     },
+     "cost_estimate": {
+      "max_particles": 72,
+      "emitters": 4,
+      "extra_draw_calls": 4
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "burst": 22,
+      "interval": [
+       1.5,
+       4.0
+      ],
+      "lifetime": 0.6,
+      "speed": [
+       3.0,
+       6.0
+      ],
+      "gravity": -9.8,
+      "size": [
+       0.1,
+       0.03
+      ],
+      "alpha": 1.0,
+      "color": [
+       1.0,
+       0.65,
+       0.2
+      ],
+      "texture": "spark",
+      "blend": "add",
+      "spread": 70
+     },
+     "cost_estimate": {
+      "max_particles": 88,
+      "emitters": 4,
+      "extra_draw_calls": 4
+     }
+    }
+   }
+  },
+  {
+   "id": "Toxic_Spores",
+   "type": "ambient_particles",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D, box emitter over the play volume, slow drift (spores/ash/dust)",
+   "area": [
+    -36.0,
+    1.0,
+    -36.0,
+    36.0,
+    16.0,
+    36.0
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "count": 31,
+      "lifetime": 8.0,
+      "speed": [
+       0.05,
+       0.25
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.12,
+       0.25
+      ],
+      "alpha": 0.7,
+      "color": [
+       0.85,
+       1.0,
+       0.55
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 180
+     },
+     "cost_estimate": {
+      "max_particles": 31,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "count": 260,
+      "lifetime": 8.0,
+      "speed": [
+       0.05,
+       0.25
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.12,
+       0.25
+      ],
+      "alpha": 0.7,
+      "color": [
+       0.85,
+       1.0,
+       0.55
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 180
+     },
+     "cost_estimate": {
+      "max_particles": 260,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "count": 416,
+      "lifetime": 8.0,
+      "speed": [
+       0.05,
+       0.25
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.12,
+       0.25
+      ],
+      "alpha": 0.7,
+      "color": [
+       0.85,
+       1.0,
+       0.55
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 180
+     },
+     "cost_estimate": {
+      "max_particles": 416,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    }
+   }
+  },
+  {
+   "id": "Toxic_Mist",
+   "type": "fog_sheet",
+   "category": "transparent_mesh",
+   "glb_contains": "nothing",
+   "godot_runtime": "large plane MeshInstance3D + fog_sheet.gdshader (scrolling noise, depth-faded). Godot FogVolume/volumetric fog is NOT available in the Mobile/Compatibility renderers, hence a sheet",
+   "area": [
+    -36.0,
+    1.0,
+    -36.0,
+    36.0,
+    1.0,
+    36.0
+   ],
+   "quality": {
+    "performance": {
+     "enabled": false,
+     "params": {
+      "height": 0.5,
+      "opacity": 0.32,
+      "scroll": [
+       0.02,
+       0.01
+      ],
+      "color": [
+       0.55,
+       0.9,
+       0.3
+      ],
+      "layers": 1
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 1,
+      "transparent_area_m2": 5184
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "height": 0.5,
+      "opacity": 0.32,
+      "scroll": [
+       0.02,
+       0.01
+      ],
+      "color": [
+       0.55,
+       0.9,
+       0.3
+      ],
+      "layers": 1
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 1,
+      "transparent_area_m2": 5184
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "height": 0.5,
+      "opacity": 0.32,
+      "scroll": [
+       0.02,
+       0.01
+      ],
+      "color": [
+       0.55,
+       0.9,
+       0.3
+      ],
+      "layers": 2
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 2,
+      "transparent_area_m2": 10368
+     }
+    }
+   }
+  },
+  {
+   "id": "Factory_Smoke",
+   "type": "smoke",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D at chimney tops, few large puffs (distant: low cost)",
+   "emitters": [
+    {
+     "pos": [
+      133.62,
+      71.29,
+      -115.34
+     ],
+     "radius": 1.82,
+     "of": "BG_Factory_NE"
+    },
+    {
+     "pos": [
+      123.26,
+      51.69,
+      -121.61
+     ],
+     "radius": 1.92,
+     "of": "BG_Factory_NE"
+    },
+    {
+     "pos": [
+      113.62,
+      60.33,
+      -133.73
+     ],
+     "radius": 1.92,
+     "of": "BG_Factory_NE"
+    },
+    {
+     "pos": [
+      202.19,
+      44.72,
+      48.3
+     ],
+     "radius": 2.42,
+     "of": "BG_Factory_E"
+    },
+    {
+     "pos": [
+      200.78,
+      45.55,
+      60.4
+     ],
+     "radius": 2.29,
+     "of": "BG_Factory_E"
+    },
+    {
+     "pos": [
+      200.3,
+      40.77,
+      54.03
+     ],
+     "radius": 2.07,
+     "of": "BG_Factory_E"
+    },
+    {
+     "pos": [
+      -116.4,
+      72.14,
+      148.28
+     ],
+     "radius": 1.66,
+     "of": "BG_Factory_SW"
+    },
+    {
+     "pos": [
+      -96.69,
+      70.34,
+      157.2
+     ],
+     "radius": 2.26,
+     "of": "BG_Factory_SW"
+    },
+    {
+     "pos": [
+      -115.58,
+      54.79,
+      148.04
+     ],
+     "radius": 2.5,
+     "of": "BG_Factory_SW"
+    },
+    {
+     "pos": [
+      -182.8,
+      74.25,
+      -88.54
+     ],
+     "radius": 3.32,
+     "of": "BG_Factory_W"
+    },
+    {
+     "pos": [
+      -189.36,
+      78.64,
+      -68.73
+     ],
+     "radius": 2.33,
+     "of": "BG_Factory_W"
+    },
+    {
+     "pos": [
+      -180.87,
+      56.65,
+      -85.8
+     ],
+     "radius": 2.52,
+     "of": "BG_Factory_W"
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 0.48,
+      "lifetime": 12.0,
+      "speed": [
+       2.0,
+       3.5
+      ],
+      "gravity": 0.05,
+      "size": [
+       6.0,
+       26.0
+      ],
+      "alpha": 0.45,
+      "color": [
+       0.16,
+       0.18,
+       0.15
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 12,
+      "radius": 2.0,
+      "wind": [
+       1.2,
+       0,
+       0.4
+      ]
+     },
+     "cost_estimate": {
+      "max_particles": 72,
+      "emitters": 12,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 1.2,
+      "lifetime": 12.0,
+      "speed": [
+       2.0,
+       3.5
+      ],
+      "gravity": 0.05,
+      "size": [
+       6.0,
+       26.0
+      ],
+      "alpha": 0.45,
+      "color": [
+       0.16,
+       0.18,
+       0.15
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 12,
+      "radius": 2.0,
+      "wind": [
+       1.2,
+       0,
+       0.4
+      ]
+     },
+     "cost_estimate": {
+      "max_particles": 180,
+      "emitters": 12,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 1.92,
+      "lifetime": 12.0,
+      "speed": [
+       2.0,
+       3.5
+      ],
+      "gravity": 0.05,
+      "size": [
+       6.0,
+       26.0
+      ],
+      "alpha": 0.45,
+      "color": [
+       0.16,
+       0.18,
+       0.15
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 12,
+      "radius": 2.0,
+      "wind": [
+       1.2,
+       0,
+       0.4
+      ]
+     },
+     "cost_estimate": {
+      "max_particles": 288,
+      "emitters": 12,
+      "extra_draw_calls": 1
+     }
+    }
+   },
+   "merge_emitters": true
+  },
+  {
+   "id": "Sky_Drift",
+   "type": "sky_drift",
+   "category": "environment",
+   "glb_contains": "nothing",
+   "godot_runtime": "script: Environment.sky_rotation.y += speed (rad/s) - slow cloud drift",
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed_deg_s": 0.25
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed_deg_s": 0.25
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed_deg_s": 0.25
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  }
+ ]
+}

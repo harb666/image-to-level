@@ -5,6 +5,9 @@ import base64, json, os, sys
 from glb_tools import _read, _view
 
 lvl, title, out = sys.argv[1:4]
+MOB = "--mobile" in sys.argv  # preview the Stage 5 mobile export (mobile/level_mobile.glb, background_mobile.glb, effects_mobile.json)
+P = (lambda f: os.path.join(lvl, "mobile", {"level.glb": "level_mobile.glb", "background.glb": "background_mobile.glb", "effects.json": "effects_mobile.json"}[f])) if MOB \
+    else (lambda f: os.path.join(lvl, f))
 s = open(os.path.join(os.path.dirname(__file__), "viewer.html")).read()
 s = s.replace('<!doctype html>\n<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">\n', '')
 s = s.replace('<title>Level Viewer</title>', f'<title>{title}</title>').replace(':root{--bg:#111;--fg:#eee}', ':root{--bg:#111;--fg:#eee;color-scheme:dark}')
@@ -30,14 +33,14 @@ def add_glb_textures(path):
 
 
 b64 = lambda p: base64.b64encode(open(p, "rb").read()).decode()
-glob = {"GLB": b64(os.path.join(lvl, "level.glb"))}; add_glb_textures(os.path.join(lvl, "level.glb"))
+glob = {"GLB": b64(P("level.glb"))}; add_glb_textures(P("level.glb"))
 envp = os.path.join(lvl, "environment.json")
 if os.path.exists(envp):
     env = json.load(open(envp)); glob["ENV"] = env
     glob["SKY"] = "data:image/jpeg;base64," + b64(os.path.join(lvl, env["sky"]["image"]))
     if env["files"].get("background"):
-        glob["BGGLB"] = b64(os.path.join(lvl, "background.glb")); add_glb_textures(os.path.join(lvl, "background.glb"))
-fxp = os.path.join(lvl, "effects.json")
+        glob["BGGLB"] = b64(P("background.glb")); add_glb_textures(P("background.glb"))
+fxp = P("effects.json")
 if os.path.exists(fxp):  # Stage 4: effects metadata + particle sprites
     fx = json.load(open(fxp)); glob["FX"] = fx
     glob["FXTEX"] = {k: "data:image/png;base64," + b64(os.path.join(lvl, v)) for k, v in fx["textures"].items()}

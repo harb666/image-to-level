@@ -76,11 +76,19 @@ func _surface(fx: Dictionary, p: Dictionary) -> void:
 
 func _material_anim(fx: Dictionary, p: Dictionary) -> void:
 	var seen := {}
-	for n in fx.get("targets", []):
-		var mi := _mesh(n)
+	var meshes: Array = []
+	if fx.has("target_material"):  # works for the dev AND the merged mobile export (node names differ, material names don't)
+		for node in level_root.find_children("*", "MeshInstance3D", true, false):
+			var mm := (node as MeshInstance3D).get_active_material(0)
+			if mm and mm.resource_name.begins_with(fx["target_material"]):
+				meshes.append(node)
+	else:
+		for n in fx.get("targets", []):
+			meshes.append(_mesh(n))
+	for mi in meshes:
 		if mi == null:
 			continue
-		var m := mi.get_active_material(0) as BaseMaterial3D
+		var m := (mi as MeshInstance3D).get_active_material(0) as BaseMaterial3D
 		if m == null or seen.has(m):
 			continue
 		seen[m] = true

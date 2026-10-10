@@ -1,0 +1,370 @@
+{
+ "generated_by": "image-to-level Stage 5 (pipeline/export_mobile.py)",
+ "profile": "balanced",
+ "settings": {
+  "cell": 48,
+  "tex_max": 512,
+  "bg_tex_max": 128,
+  "prop_range": 70,
+  "small": 2.0
+ },
+ "files": {
+  "level": "level_mobile.glb",
+  "background": "background_mobile.glb",
+  "collision": "collision.glb",
+  "collision_data": "collision.json",
+  "effects": null,
+  "environment": "../environment.json"
+ },
+ "godot": {
+  "project_settings": {
+   "rendering/textures/vram_compression/import_etc2_astc": true,
+   "rendering/renderer/rendering_method.mobile": "mobile",
+   "rendering/lights_and_shadows/directional_shadow/size.mobile": 2048,
+   "rendering/anti_aliasing/quality/msaa_3d": "2x"
+  },
+  "import_level_glb": {
+   "meshes/generate_lods": true,
+   "meshes/light_baking": "Static Lightmaps (optional)",
+   "textures": "VRAM Compressed (Godot compresses embedded images to ASTC/ETC2 on import)"
+  },
+  "import_collision_glb": "nodes named *-convcolonly / *-colonly become StaticBody3D colliders; meshes are discarded",
+  "directional_light": {
+   "shadow_enabled": true,
+   "directional_shadow_mode": "PSSM 2 splits",
+   "directional_shadow_max_distance": 60
+  },
+  "note": "Settings are recommendations for Godot 4 mobile; not verified in Godot here. KTX2/Basis is not used: Godot re-compresses on import."
+ },
+ "metrics": {
+  "profile": "balanced",
+  "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
+  "dev": {
+   "level": {
+    "glb_kb": 405,
+    "triangles": 2980,
+    "nodes": 47,
+    "mesh_nodes": 39,
+    "unique_meshes": 27,
+    "materials": 8,
+    "images": 22,
+    "draw_calls_unbatched": 39,
+    "draw_calls_batched_min": 8,
+    "tex_mem_uncompressed_mb": 10.33,
+    "tex_mem_gpu_compressed_mb": 2.58,
+    "texture_slots": {
+     "baseColorTexture": 8,
+     "metallicRoughnessTexture": 8,
+     "normalTexture": 8,
+     "occlusionTexture": 8,
+     "emissiveTexture": 2
+    },
+    "image_sizes": [
+     "256x256 jpeg",
+     "512x512 jpeg"
+    ]
+   },
+   "visible": {
+    "cameras": 32,
+    "visible_draw_calls_mean": 21.8,
+    "visible_draw_calls_max": 41,
+    "visible_triangles_mean": 4901,
+    "visible_triangles_max": 6340
+   }
+  },
+  "mobile": {
+   "level": {
+    "glb_kb": 361,
+    "triangles": 2980,
+    "nodes": 20,
+    "mesh_nodes": 19,
+    "unique_meshes": 19,
+    "materials": 8,
+    "images": 22,
+    "draw_calls_unbatched": 19,
+    "draw_calls_batched_min": 8,
+    "tex_mem_uncompressed_mb": 10.33,
+    "tex_mem_gpu_compressed_mb": 2.58,
+    "texture_slots": {
+     "baseColorTexture": 8,
+     "metallicRoughnessTexture": 8,
+     "normalTexture": 8,
+     "occlusionTexture": 8,
+     "emissiveTexture": 2
+    },
+    "image_sizes": [
+     "256x256 jpeg",
+     "512x512 jpeg"
+    ]
+   },
+   "background": {
+    "glb_kb": 133,
+    "triangles": 3360,
+    "nodes": 3,
+    "mesh_nodes": 2,
+    "unique_meshes": 2,
+    "materials": 2,
+    "images": 6,
+    "draw_calls_unbatched": 2,
+    "draw_calls_batched_min": 2,
+    "tex_mem_uncompressed_mb": 0.5,
+    "tex_mem_gpu_compressed_mb": 0.12,
+    "texture_slots": {
+     "baseColorTexture": 2,
+     "metallicRoughnessTexture": 2,
+     "normalTexture": 2,
+     "occlusionTexture": 2
+    },
+    "image_sizes": [
+     "128x128 jpeg"
+    ]
+   },
+   "collision": {
+    "colliders": 40,
+    "hazards": 0,
+    "glb_kb": 34
+   },
+   "visible": {
+    "cameras": 32,
+    "visible_draw_calls_mean": 13.2,
+    "visible_draw_calls_max": 21,
+    "visible_triangles_mean": 5149,
+    "visible_triangles_max": 6340
+   },
+   "hidden_faces_removed": 0,
+   "effects_extra_draw_calls": 0,
+   "effects_max_particles": 0
+  }
+ },
+ "nodes": [
+  {
+   "node": "M_pf_machine_-1_0_props",
+   "kind": "props",
+   "material": "pf_machine",
+   "triangles": 156,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Machines_01_Vent"
+   ]
+  },
+  {
+   "node": "M_pf_metal_-1_0_props",
+   "kind": "props",
+   "material": "pf_metal",
+   "triangles": 40,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pipe_South_Flange_01a"
+   ]
+  },
+  {
+   "node": "M_pf_metal_0_0_props",
+   "kind": "props",
+   "material": "pf_metal",
+   "triangles": 288,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pipe_South_Junction_02",
+    "Pipe_South_Junction_01",
+    "Pipe_South_Flange_03b",
+    "Pipe_South_Flange_03a",
+    "Pipe_South_Flange_02b",
+    "Pipe_South_Flange_02a",
+    "Pipe_South_Flange_01b"
+   ]
+  },
+  {
+   "node": "M_pf_grating_-1_-1",
+   "kind": "static",
+   "material": "pf_grating",
+   "triangles": 192,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Stairs_A"
+   ]
+  },
+  {
+   "node": "M_pf_metal_-1_-1",
+   "kind": "static",
+   "material": "pf_metal",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Catwalk_01_Support_01",
+    "Platform_A_Base"
+   ]
+  },
+  {
+   "node": "M_pf_rail_-1_-1",
+   "kind": "static",
+   "material": "pf_rail",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Rail_A_North"
+   ]
+  },
+  {
+   "node": "M_pf_machine_-1_0",
+   "kind": "static",
+   "material": "pf_machine",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Gate_West_Lights"
+   ]
+  },
+  {
+   "node": "M_pf_metal_-1_0",
+   "kind": "static",
+   "material": "pf_metal",
+   "triangles": 132,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Gate_West_Arch"
+   ]
+  },
+  {
+   "node": "M_pf_pipe_-1_0",
+   "kind": "static",
+   "material": "pf_pipe",
+   "triangles": 180,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Elbow_Demo",
+    "Pipe_South_Seg_01"
+   ]
+  },
+  {
+   "node": "M_pf_grating_0_-1",
+   "kind": "static",
+   "material": "pf_grating",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Catwalk_01_Deck"
+   ]
+  },
+  {
+   "node": "M_pf_metal_0_-1",
+   "kind": "static",
+   "material": "pf_metal",
+   "triangles": 204,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Catwalk_01_Support_03",
+    "Catwalk_01_Support_02",
+    "Catwalk_01_Beam_R",
+    "Catwalk_01_Beam_L",
+    "Platform_B_Base"
+   ]
+  },
+  {
+   "node": "M_pf_rail_0_-1",
+   "kind": "static",
+   "material": "pf_rail",
+   "triangles": 432,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Rail_B_North",
+    "Catwalk_01_Rail_R",
+    "Catwalk_01_Rail_L"
+   ]
+  },
+  {
+   "node": "M_pf_rock_0_-1",
+   "kind": "static",
+   "material": "pf_rock",
+   "triangles": 136,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Cliff_North"
+   ]
+  },
+  {
+   "node": "M_pf_concrete_0_0",
+   "kind": "static",
+   "material": "pf_concrete",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Yard_Floor"
+   ]
+  },
+  {
+   "node": "M_pf_machine_0_0",
+   "kind": "static",
+   "material": "pf_machine",
+   "triangles": 216,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Machines_01_Unit"
+   ]
+  },
+  {
+   "node": "M_pf_machine__2s_0_0",
+   "kind": "static",
+   "material": "pf_machine__2s",
+   "triangles": 2,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Sign_01"
+   ]
+  },
+  {
+   "node": "M_pf_metal_0_0",
+   "kind": "static",
+   "material": "pf_metal",
+   "triangles": 186,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Beam_Overhead",
+    "Machines_01_Tank"
+   ]
+  },
+  {
+   "node": "M_pf_pipe_0_0",
+   "kind": "static",
+   "material": "pf_pipe",
+   "triangles": 80,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Pipe_South_Seg_03",
+    "Pipe_South_Seg_02"
+   ]
+  },
+  {
+   "node": "M_pf_rock_0_0",
+   "kind": "static",
+   "material": "pf_rock",
+   "triangles": 400,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Rocks_East_Rock_05",
+    "Rocks_East_Rock_04",
+    "Rocks_East_Rock_03",
+    "Rocks_East_Rock_02",
+    "Rocks_East_Rock_01"
+   ]
+  }
+ ]
+}

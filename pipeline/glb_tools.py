@@ -56,3 +56,53 @@ def dedupe_images(path):
     g["buffers"] = [{"byteLength": len(out) + (-len(out) % 4)}]
     _write(path, g, bytes(out))
     return len(imgs) - len(keep)
+
+
+def _repack(g, binary, new_views):
+    """Rebuild the binary chunk; new_views: {bufferView index: replacement bytes}."""
+    out, bvs = bytearray(), g["bufferViews"]
+    for i, bv in enumerate(bvs):
+        out += b"\0" * (-len(out) % 4); chunk = new_views.get(i, _view(binary, bv))
+        bv["byteOffset"] = len(out); bv["byteLength"] = len(chunk); out += chunk
+    g["buffers"] = [{"byteLength": len(out) + (-len(out) % 4)}]
+    return bytes(out)
+
+
+def downscale_images(path, max_px, quality=82):
+    """Cap every embedded image at max_px (keeps aspect, re-encodes JPEG). Returns number of images changed."""
+    import io
+    from PIL import Image
+    g, binary = _read(path); new = {}
+    for im in g.get("images", []):
+        bv = g["bufferViews"][im["bufferView"]]; img = Image.open(io.BytesIO(_view(binary, bv)))
+        if max(img.size) <= max_px: continue
+        s = max_px / max(img.size); img = img.convert("RGB").resize((max(1, round(img.width * s)), max(1, round(img.height * s))), Image.LANCZOS)
+        b = io.BytesIO(); img.save(b, "JPEG", quality=quality); new[im["bufferView"]] = b.getvalue(); im["mimeType"] = "image/jpeg"
+    if new: _write(path, g, _repack(g, binary, new))
+    return len(new)
+
+
+def set_node_extras(path, extras):
+    """glTF node "extras" (Godot can import them as node metadata): {node name: dict}."""
+    g, binary = _read(path)
+    for n in g.get("nodes", []):
+        if n.get("name") in extras: n["extras"] = extras[n["name"]]
+    _write(path, g, binary)
+
+
+def restore_images(path, ref_glb):
+    """Replace re-encoded images (e.g. trimesh re-saving JPEGs as PNG after a load/export round trip) with the exact
+    original bytes from ref_glb, matched by decoded pixels. Lossless; returns number of images restored."""
+    import hashlib, io
+    import numpy as np
+    from PIL import Image
+    key = lambda raw: hashlib.sha1(np.asarray(Image.open(io.BytesIO(raw)).convert("RGB")).tobytes()).hexdigest()
+    rg, rb = _read(ref_glb); orig = {}
+    for im in rg.get("images", []):
+        raw = _view(rb, rg["bufferViews"][im["bufferView"]]); orig[key(raw)] = (raw, im.get("mimeType", "image/jpeg"))
+    g, binary = _read(path); new = {}
+    for im in g.get("images", []):
+        k = key(_view(binary, g["bufferViews"][im["bufferView"]]))
+        if k in orig: new[im["bufferView"]] = orig[k][0]; im["mimeType"] = orig[k][1]
+    if new: _write(path, g, _repack(g, binary, new))
+    return len(new)

@@ -32,12 +32,24 @@ def load_tris(path, skip_invisible=True):
 
 
 def closed_mask(names, objs):
-    """Per-triangle: does it belong to a closed (watertight) object? Only those can contain a point."""
-    closed = {}
-    for nm, (m, M, _) in objs.items():
-        mm = m.copy(); mm.merge_vertices(merge_tex=True, merge_norm=True)
-        closed[nm] = all(b.is_watertight for b in mm.split(only_watertight=False)) if len(mm.faces) else False
-    return np.array([closed.get(n, False) for n in names])
+    """Per-triangle body id (-1 = open) after welding: only CLOSED bodies (every edge shared by exactly 2 faces) can
+    contain a point. Per body, not per object, so merged meshes (Stage 5) with some open parts are handled."""
+    from scipy.sparse.csgraph import connected_components
+    from scipy.sparse import coo_matrix
+    out, nxt = [], 0
+    for nm in dict.fromkeys(names):
+        m, M, _ = objs[nm]; mm = m.copy(); mm.merge_vertices(merge_tex=True, merge_norm=True)
+        nf = len(mm.faces); body = np.full(len(m.faces), -1)
+        if nf:
+            adj = mm.face_adjacency
+            _, lab = connected_components(coo_matrix((np.ones(len(adj)), (adj[:, 0], adj[:, 1])), shape=(nf, nf)), directed=False)
+            e = np.sort(mm.faces[:, [0, 1, 1, 2, 2, 0]].reshape(-1, 2), axis=1); fl = np.repeat(lab, 3)
+            key = np.c_[e, fl]; _, inv, cnt = np.unique(key, axis=0, return_inverse=True, return_counts=True)
+            ok = np.ones(lab.max() + 1, bool); ok[fl[cnt[inv.ravel()] != 2]] = False
+            if len(mm.faces) == len(m.faces):  # face order preserved by merge_vertices
+                body = np.where(ok[lab], lab + nxt, -1); nxt += lab.max() + 1
+        out.append(body)
+    return np.concatenate(out) if out else np.zeros(0, int)
 
 
 def cast(O, D, T, far=1e4):
@@ -87,11 +99,11 @@ def frustum(fwd, hfov=100, vfov=70, nh=11, nv=8):
     return np.array(out)
 
 
-def validate(level_dir, step=6.0, verbose=True):
+def validate(level_dir, step=6.0, verbose=True, mobile=False):
     L = json.load(open(os.path.join(level_dir, "level.json"))); V = L.get("validation", {})
     ignore = set(V.get("ignore_objects", []))
-    T, names, objs = load_tris(os.path.join(level_dir, "level.glb"))
-    bgp = os.path.join(level_dir, "background.glb")
+    T, names, objs = load_tris(os.path.join(level_dir, "mobile", "level_mobile.glb") if mobile else os.path.join(level_dir, "level.glb"))
+    bgp = os.path.join(level_dir, "mobile", "background_mobile.glb") if mobile else os.path.join(level_dir, "background.glb")
     BT = load_tris(bgp)[0] if os.path.exists(bgp) else np.zeros((0, 3, 3))
     spec = {o["name"]: o for o in L["objects"]}
     # player positions over walkable areas
@@ -101,7 +113,7 @@ def validate(level_dir, step=6.0, verbose=True):
         zs = np.arange(w["min"][1] + 1.23, w["max"][1] - 0.99, step) if w["max"][1] - w["min"][1] > 2 else [(w["min"][1] + w["max"][1]) / 2]
         pts += [[x, w["y"], z] for x in xs for z in zs]
     heads = np.array(pts, float) + [0, 1.9, 0]
-    cm = closed_mask(names, objs); TC, NC = T[cm], names[cm]
+    body = closed_mask(names, objs); cm = body >= 0; TC, NC = T[cm], body[cm]
     ins = inside_solid(np.array(pts, float) + [0, 0.5, 0], TC, NC)
     # player capsule (r 0.35 m) can't stand closer than ~0.4 m to geometry: drop such samples
     ring = np.array([[np.cos(a), 0, np.sin(a)] for a in np.radians(np.arange(0, 360, 45))])
@@ -141,7 +153,7 @@ def validate(level_dir, step=6.0, verbose=True):
                     t3, i3, _ = cast(P2, D[jp], T, 0.25); mounted = (i3 >= 0) & (names[np.maximum(i3, 0)] != names[ii[jp]])
                     jc = np.r_[jc[~ispanel], jp[~mounted]]
             for nm in names[ii[jc]]:
-                if nm in ignore or spec.get(nm, {}).get("double_sided"): continue
+                if nm in ignore or spec.get(nm, {}).get("double_sided") or objs[nm][2].endswith("__2s"): continue  # __2s = doubleSided material
                 issues["back_face"][nm] = issues["back_face"].get(nm, 0) + 1
         miss = (~hit) & (D[:, 1] < -0.01)
         if miss.any() and len(BT):
@@ -165,7 +177,7 @@ def validate(level_dir, step=6.0, verbose=True):
              camera_inside=issues["camera_inside"], visible_objects=len(visible),
              passed=issues["void"] == 0 and not issues["back_face"] and not open_mesh)
     os.makedirs(os.path.join(level_dir, "checks"), exist_ok=True)
-    json.dump(R, open(os.path.join(level_dir, "checks", "validation.json"), "w"), indent=1)
+    json.dump(R, open(os.path.join(level_dir, "checks", "validation_mobile.json" if mobile else "validation.json"), "w"), indent=1)
     if verbose: print(json.dumps({k: v for k, v in R.items() if k != "void_examples"}))
     return R
 
@@ -202,7 +214,7 @@ def fix(level_dir, R):
 
 
 if __name__ == "__main__":
-    d = sys.argv[1]; R = validate(d)
+    d = sys.argv[1]; R = validate(d, mobile="--mobile" in sys.argv)  # --mobile: check mobile/level_mobile.glb instead
     if "--fix" in sys.argv and not R["passed"]:
         log = fix(d, R); print("fixes:", log)
         subprocess.run([sys.executable, os.path.join(HERE, "build_level.py"), d], check=True, stdout=subprocess.DEVNULL)

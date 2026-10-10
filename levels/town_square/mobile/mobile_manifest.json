@@ -1,0 +1,521 @@
+{
+ "generated_by": "image-to-level Stage 5 (pipeline/export_mobile.py)",
+ "profile": "balanced",
+ "settings": {
+  "cell": 48,
+  "tex_max": 512,
+  "bg_tex_max": 128,
+  "prop_range": 70,
+  "small": 2.0
+ },
+ "files": {
+  "level": "level_mobile.glb",
+  "background": null,
+  "collision": "collision.glb",
+  "collision_data": "collision.json",
+  "effects": null,
+  "environment": "../environment.json"
+ },
+ "godot": {
+  "project_settings": {
+   "rendering/textures/vram_compression/import_etc2_astc": true,
+   "rendering/renderer/rendering_method.mobile": "mobile",
+   "rendering/lights_and_shadows/directional_shadow/size.mobile": 2048,
+   "rendering/anti_aliasing/quality/msaa_3d": "2x"
+  },
+  "import_level_glb": {
+   "meshes/generate_lods": true,
+   "meshes/light_baking": "Static Lightmaps (optional)",
+   "textures": "VRAM Compressed (Godot compresses embedded images to ASTC/ETC2 on import)"
+  },
+  "import_collision_glb": "nodes named *-convcolonly / *-colonly become StaticBody3D colliders; meshes are discarded",
+  "directional_light": {
+   "shadow_enabled": true,
+   "directional_shadow_mode": "PSSM 2 splits",
+   "directional_shadow_max_distance": 60
+  },
+  "note": "Settings are recommendations for Godot 4 mobile; not verified in Godot here. KTX2/Basis is not used: Godot re-compresses on import."
+ },
+ "metrics": {
+  "profile": "balanced",
+  "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
+  "dev": {
+   "level": {
+    "glb_kb": 500,
+    "triangles": 2772,
+    "nodes": 131,
+    "mesh_nodes": 117,
+    "unique_meshes": 51,
+    "materials": 12,
+    "images": 31,
+    "draw_calls_unbatched": 117,
+    "draw_calls_batched_min": 12,
+    "tex_mem_uncompressed_mb": 13.33,
+    "tex_mem_gpu_compressed_mb": 3.33,
+    "texture_slots": {
+     "baseColorTexture": 11,
+     "metallicRoughnessTexture": 11,
+     "normalTexture": 9,
+     "occlusionTexture": 11
+    },
+    "image_sizes": [
+     "256x256 jpeg",
+     "512x512 jpeg"
+    ]
+   },
+   "visible": {
+    "cameras": 104,
+    "visible_draw_calls_mean": 46.1,
+    "visible_draw_calls_max": 110,
+    "visible_triangles_mean": 2287,
+    "visible_triangles_max": 2692
+   }
+  },
+  "mobile": {
+   "level": {
+    "glb_kb": 434,
+    "triangles": 2724,
+    "nodes": 30,
+    "mesh_nodes": 29,
+    "unique_meshes": 29,
+    "materials": 11,
+    "images": 31,
+    "draw_calls_unbatched": 29,
+    "draw_calls_batched_min": 11,
+    "tex_mem_uncompressed_mb": 13.33,
+    "tex_mem_gpu_compressed_mb": 3.33,
+    "texture_slots": {
+     "baseColorTexture": 11,
+     "metallicRoughnessTexture": 11,
+     "occlusionTexture": 11,
+     "normalTexture": 9
+    },
+    "image_sizes": [
+     "256x256 jpeg",
+     "512x512 jpeg"
+    ]
+   },
+   "background": null,
+   "collision": {
+    "colliders": 51,
+    "hazards": 0,
+    "glb_kb": 60
+   },
+   "visible": {
+    "cameras": 104,
+    "visible_draw_calls_mean": 16.1,
+    "visible_draw_calls_max": 29,
+    "visible_triangles_mean": 2461,
+    "visible_triangles_max": 2724
+   },
+   "hidden_faces_removed": 0,
+   "effects_extra_draw_calls": 0,
+   "effects_max_particles": 0
+  }
+ },
+ "nodes": [
+  {
+   "node": "M_window_-1_-2_props",
+   "kind": "props",
+   "material": "window",
+   "triangles": 14,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Tower_01_Window_03",
+    "Tower_01_Window_02",
+    "Tower_01_Window_01",
+    "Building_01_Window_08",
+    "Building_01_Window_07",
+    "Building_01_Window_04",
+    "Building_01_Window_03"
+   ]
+  },
+  {
+   "node": "M_stone_brick_-1_-1_props",
+   "kind": "props",
+   "material": "stone_brick",
+   "triangles": 12,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Building_03_Chimney"
+   ]
+  },
+  {
+   "node": "M_window_-1_-1_props",
+   "kind": "props",
+   "material": "window",
+   "triangles": 26,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Building_04_Window_01",
+    "Building_03_Window_06",
+    "Building_03_Window_05",
+    "Building_03_Window_04",
+    "Building_03_Window_03",
+    "Building_03_Window_02",
+    "Building_03_Window_01",
+    "Building_02_Window_02",
+    "Building_02_Window_01",
+    "Building_01_Window_06",
+    "Building_01_Window_05",
+    "Building_01_Window_02",
+    "Building_01_Window_01"
+   ]
+  },
+  {
+   "node": "M_window_0_-2_props",
+   "kind": "props",
+   "material": "window",
+   "triangles": 10,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Tower_02_Window_07",
+    "Tower_02_Window_06",
+    "Tower_02_Window_04",
+    "Tower_02_Window_03",
+    "Tower_02_Window_01"
+   ]
+  },
+  {
+   "node": "M_stone_brick_0_-1_props",
+   "kind": "props",
+   "material": "stone_brick",
+   "triangles": 96,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Fountain_01_Bowl",
+    "Fountain_01_Column"
+   ]
+  },
+  {
+   "node": "M_window_0_-1_props",
+   "kind": "props",
+   "material": "window",
+   "triangles": 56,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Building_09_Window_06",
+    "Building_09_Window_05",
+    "Building_09_Window_04",
+    "Building_09_Window_03",
+    "Building_09_Window_02",
+    "Building_09_Window_01",
+    "Building_08_Window_08",
+    "Building_08_Window_07",
+    "Building_08_Window_06",
+    "Building_08_Window_05",
+    "Building_08_Window_04",
+    "Building_08_Window_03",
+    "Building_08_Window_02",
+    "Building_08_Window_01",
+    "Building_07_Window_03",
+    "Building_07_Window_02",
+    "Building_07_Window_01",
+    "Tower_03_Window_04",
+    "Tower_03_Window_03",
+    "Tower_03_Window_02",
+    "Tower_03_Window_01",
+    "Building_06_Window_04",
+    "Building_06_Window_03",
+    "Building_06_Window_02",
+    "Building_06_Window_01",
+    "Tower_02_Window_08",
+    "Tower_02_Window_05",
+    "Tower_02_Window_02"
+   ]
+  },
+  {
+   "node": "M_door_wood_-1_-2",
+   "kind": "static",
+   "material": "door_wood",
+   "triangles": 4,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_01_Door",
+    "Building_01_Door"
+   ]
+  },
+  {
+   "node": "M_roof_slate_-1_-2",
+   "kind": "static",
+   "material": "roof_slate",
+   "triangles": 6,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_01_Spire"
+   ]
+  },
+  {
+   "node": "M_roof_tiles_-1_-2",
+   "kind": "static",
+   "material": "roof_tiles",
+   "triangles": 8,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Building_01_Roof"
+   ]
+  },
+  {
+   "node": "M_stone_brick_-1_-2",
+   "kind": "static",
+   "material": "stone_brick",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_01_Body",
+    "Building_01_Body"
+   ]
+  },
+  {
+   "node": "M_trim_wood_-1_-2",
+   "kind": "static",
+   "material": "trim_wood",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_01_Trim",
+    "Building_01_Trim"
+   ]
+  },
+  {
+   "node": "M_door_wood_-1_-1",
+   "kind": "static",
+   "material": "door_wood",
+   "triangles": 8,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Building_05_Door",
+    "Building_04_Door",
+    "Building_03_Door",
+    "Building_02_Door"
+   ]
+  },
+  {
+   "node": "M_roof_tiles_-1_-1",
+   "kind": "static",
+   "material": "roof_tiles",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Building_05_Roof",
+    "Building_04_Roof",
+    "Building_03_Roof",
+    "Building_02_Roof"
+   ]
+  },
+  {
+   "node": "M_stone_brick_-1_-1",
+   "kind": "static",
+   "material": "stone_brick",
+   "triangles": 60,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Building_04_Body",
+    "Building_03_Body",
+    "Building_02_Chimney",
+    "Building_02_Body",
+    "Building_01_Chimney"
+   ]
+  },
+  {
+   "node": "M_trim_wood_-1_-1",
+   "kind": "static",
+   "material": "trim_wood",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Building_05_Trim",
+    "Building_04_Trim",
+    "Building_03_Trim",
+    "Building_02_Trim"
+   ]
+  },
+  {
+   "node": "M_wood_-1_-1",
+   "kind": "static",
+   "material": "wood",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Building_05_Body"
+   ]
+  },
+  {
+   "node": "M_door_wood_0_-2",
+   "kind": "static",
+   "material": "door_wood",
+   "triangles": 2,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_02_Door"
+   ]
+  },
+  {
+   "node": "M_roof_slate_0_-2",
+   "kind": "static",
+   "material": "roof_slate",
+   "triangles": 6,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_02_Spire"
+   ]
+  },
+  {
+   "node": "M_stone_brick_0_-2",
+   "kind": "static",
+   "material": "stone_brick",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_02_Body"
+   ]
+  },
+  {
+   "node": "M_trim_wood_0_-2",
+   "kind": "static",
+   "material": "trim_wood",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_02_Trim"
+   ]
+  },
+  {
+   "node": "M_cobblestone_0_-1",
+   "kind": "static",
+   "material": "cobblestone",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Ground"
+   ]
+  },
+  {
+   "node": "M_door_wood_0_-1",
+   "kind": "static",
+   "material": "door_wood",
+   "triangles": 10,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Building_09_Door",
+    "Building_08_Door",
+    "Building_07_Door",
+    "Tower_03_Door",
+    "Building_06_Door"
+   ]
+  },
+  {
+   "node": "M_grass_0_-1",
+   "kind": "static",
+   "material": "grass",
+   "triangles": 991,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Terrain_Top"
+   ]
+  },
+  {
+   "node": "M_rock_0_-1",
+   "kind": "static",
+   "material": "rock",
+   "triangles": 961,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Terrain"
+   ]
+  },
+  {
+   "node": "M_roof_slate_0_-1",
+   "kind": "static",
+   "material": "roof_slate",
+   "triangles": 6,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Tower_03_Spire"
+   ]
+  },
+  {
+   "node": "M_roof_tiles_0_-1",
+   "kind": "static",
+   "material": "roof_tiles",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Building_09_Roof",
+    "Building_08_Roof",
+    "Building_07_Roof",
+    "Building_06_Roof"
+   ]
+  },
+  {
+   "node": "M_stone_brick_0_-1",
+   "kind": "static",
+   "material": "stone_brick",
+   "triangles": 132,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Fountain_01_Basin",
+    "Building_09_Body",
+    "Building_08_Body",
+    "Building_07_Chimney",
+    "Building_07_Body",
+    "Tower_03_Body",
+    "Building_06_Chimney",
+    "Building_06_Body"
+   ]
+  },
+  {
+   "node": "M_trim_wood_0_-1",
+   "kind": "static",
+   "material": "trim_wood",
+   "triangles": 60,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Building_09_Trim",
+    "Building_08_Trim",
+    "Building_07_Trim",
+    "Tower_03_Trim",
+    "Building_06_Trim"
+   ]
+  },
+  {
+   "node": "M_water_0_-1",
+   "kind": "static",
+   "material": "water",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Fountain_01_Water"
+   ]
+  }
+ ]
+}

@@ -136,6 +136,27 @@ Placement: `target`, `targets_glob`, `target_material`, `area_from` (node's top 
 `anchor` bottom/top/center (spawns on a disc around the node), `positions`, `at_background: "factory_chimneys"`
 (chimney tops from environment.json). Viewer: "FX" button cycles off/performance/balanced/quality (approximation).
 
+## Mobile export (Stage 5) — `levels/<name>/mobile/` (rebuilt by every build; or `python3 pipeline/export_mobile.py levels/<name> [--profile performance|balanced|quality]`)
+level.json stays the editable master; `level.glb` stays the dev export (one node per object). Mobile export:
+- `level_mobile.glb`: static meshes merged by material inside spatial cells (cell 64/48/32 m for performance/balanced/
+  quality: big enough to cut draw calls, small enough for frustum culling); small props (< 2 m) merged into separate
+  `_props` cells with a visibility range (45/70/110 m); vertices welded (flat shading kept). Kept separate: hazards,
+  per-node effect targets (each shader effect's targets merged into ONE `FX_<effect id>` node), objects with
+  `"mobile": {"merge": false}`. Faces entirely under opaque hazard liquid removed (`"mobile": {"cull_below_y": y}` to
+  override). Original JPEG bytes restored after the round-trip; textures capped at 256/512/1024 px. Node `extras` list
+  the source objects (also in the manifest) so edits still target level.json names.
+- `background_mobile.glb` (textures capped 64/128/256), `effects_mobile.json` (targets renamed to merged nodes).
+- `collision.json`: world-space colliders from level.json SHAPES (not render meshes): boxes (box/railing/ibeam/boundary),
+  cylinders, convex hulls (rock/cliff/tank/machinery/...; ≤ 32 points), stairs → ramp, arch → 2 piers + lintel (opening
+  stays passable), terrain → heightmap; panels excluded; `"collision": false` per object. Hazards (+ any object using a
+  hazard's material, e.g. toxic falls) → `hazards` areas. `collision.glb`: same as `*-convcolonly` / `*-colonly` nodes.
+- `mobile_manifest.json`: per node kind/material/triangles/source objects/visibility_range_end/cast_shadow, Godot settings
+  (ETC2/ASTC VRAM compression, LOD generation, mobile shadow settings), metrics. `apply_mobile.gd`: Godot starter (UNTESTED).
+- Metrics: dev vs mobile file stats + ESTIMATED visible draw calls/triangles from 80 sampled third-person cameras
+  (frustum + distance culling, iPhone 19.5:9, background included). No device benchmarks here.
+- `validate_level.py levels/<name> --mobile` checks the mobile build; `make_preview.py ... --mobile` previews it.
+- KTX2/Basis not used (Godot re-compresses on import; the sandboxed preview can't fetch a transcoder).
+
 ## Hand-authored layouts (concept sheets with a top-down plan)
 When a concept sheet has a TOP DOWN LAYOUT/side view, don't run it through MiDaS: write a small layout script in
 `pipeline/layouts/<level>.py` that emits level.json directly (same schema), then `build_level.py`. Example:
@@ -158,7 +179,9 @@ Materials: see Materials section (Toxic Arena uses industrial_metal, trim_light,
 sandboxed pages block the blob: URLs GLTFLoader uses for .glb textures, which renders everything black).
 
 ## Mobile notes
-Toxic Arena after Stage 3 (bevels): 3,676 tris, 390 KB glb, 10 materials / 34 images, 137 draw calls unbatched (10 min if
+Toxic Arena MOBILE (balanced): 411 KB, 3,364 tris, 51 nodes, 50 draw calls (est. ~39 visible per frame incl. background,
+vs ~69 dev), 92 colliders + 9 hazard areas (52 KB), +10 effect draw calls / ~911 particles.
+Toxic Arena dev export: 3,676 tris, 390 KB glb, 10 materials / 34 images, 137 draw calls unbatched (10 min if
 batched by material), est. texture memory 3.9 MB GPU-compressed (15.6 MB uncompressed); plus background.glb 413 KB,
 6.8k tris, 9 draw calls, ~0.35 MB textures; sky 56 KB jpeg (~2.7 MB GPU-compressed at 2048x1024). Town square: 2.5k tris, 483 KB. Engines: mark static & batch
 (draw calls ≈ materials). Colliders: use Body/Wall/Platform/Ground boxes; Boundary_* are invisible (alpha 0).
