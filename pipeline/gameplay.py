@@ -77,6 +77,9 @@ def analyse(level_dir, G=None, write=True, verbose=True):
     L = json.load(open(os.path.join(level_dir, "level.json"))); G = G or load_gameplay(level_dir, L)
     P_, D_, cell = G["player"], G["design"], G["nav"]["cell"]
     T, names, _ = load_tris(os.path.join(level_dir, "level.glb"), skip_invisible=False)  # invisible boundaries block too
+    nocol = {o["name"] for o in L["objects"] if o.get("collision") is False or o["type"] == "panel"}  # no collider in the game (export_mobile) -> not in nav either
+    keep_tri = np.array([(n[:-4] if n.endswith("_Top") else n) not in nocol for n in names]) if nocol else None
+    if keep_tri is not None: T, names = T[keep_tri], [n for n, kk in zip(names, keep_tri) if kk]
     base = np.array([n[:-4] if n.endswith("_Top") else n for n in names]); onames, oid = np.unique(base, return_inverse=True)
     hz = hazard_objects(L); is_hz_obj = np.array([n in hz for n in onames]); invisible = np.array([n.startswith("Boundary") for n in onames])
     nrm = np.cross(T[:, 1] - T[:, 0], T[:, 2] - T[:, 0]); nl = np.linalg.norm(nrm, axis=1); ny = np.where(nl > 0, nrm[:, 1] / np.maximum(nl, 1e-12), 0)
@@ -110,6 +113,7 @@ def analyse(level_dir, G=None, write=True, verbose=True):
         cm = body >= 0
         if cm.any():
             pts = np.c_[b0[0] + (s_cell[cand] % nx + 0.5) * cell, s_top[cand] + 0.05, b0[2] + (s_cell[cand] // nx + 0.5) * cell]
+            if keep_tri is not None: body = body[keep_tri]; cm = body >= 0  # same triangle filter as T
             bur = np.zeros(len(cand), bool); bid = np.unique(body[cm]); tb = body
             blo = np.array([T[tb == b].reshape(-1, 3).min(0) for b in bid]); bhi = np.array([T[tb == b].reshape(-1, 3).max(0) for b in bid])
             order = np.lexsort((pts[:, 0], np.floor(pts[:, 2] / 8), np.floor(pts[:, 0] / 8)))  # spatial chunks: only nearby bodies

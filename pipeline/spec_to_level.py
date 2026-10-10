@@ -252,7 +252,7 @@ def _clouds(spec, ctx, plats):
                         around_points=[[f["center"][0], f["center"][1], f["radius"] * 1.05, min(top(f) - 16, clear - 4), min(top(f) - 7, clear)] for f in near]))
     if C.get("distant", True):
         pts = [[f["center"][0], f["center"][1], f["radius"] * 1.1, top(f) * 0.25, top(f) * 0.6] for f in far]
-        pts += [[0, 0, r, 0, clear - 8, max(16, int(r / 14))] for r in C.get("horizon", [])]
+        pts += [[0, 0, r, min(0.0, clear - 20), clear - 8, max(16, int(r / 14))] for r in C.get("horizon", [])]
         if pts: out.append(dict(id="Cloud_Distant", type="cloud_puffs", size=C.get("distant_size", [50.0, 110.0]), opacity=0.85, **tint, around_points=pts))
     return out
 

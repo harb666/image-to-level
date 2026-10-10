@@ -587,7 +587,10 @@ def structure_yaw(s, x, z, centre):
 
 
 def tower(ctx, s, x, y, z, yaw):
-    """Industrial tower: bevelled body, wider cap, setback top, corner ribs, banner + glow strips per face, vents."""
+    """Industrial tower: bevelled body, wider cap, setback top, corner ribs, banner + glow strips per face, vents.
+    Opt-in decor kit (s["decor"]): bands (structural straps), pipes (side conduits), boxes (machinery junction boxes),
+    hazard (plinth + worn chevrons), antenna (masts + beacons). Ground-level kit parts stick out <= 0.35 m (inside the
+    player capsule radius) and are collision: false, so the tower's collider / navigation stay exactly as before."""
     n = s["id"]; w, h, d = s["size"]; g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); dec = s.get("decor", ["banners", "glow_strips", "vents"])
     ctx.add(n + "_Body", "box", [0, 0, 0], [w, h, d], "wall", g)
     ctx.add(n + "_Cap", "box", [0, h, 0], [w + 1, 1.2, d + 1], "structure_b", g)
@@ -605,19 +608,19 @@ def tower(ctx, s, x, y, z, yaw):
         if "vents" in dec and ctx.detail >= 2:
             ctx.add(f"{n}_Vent_{k + 1:02d}", "vent", [px + nx * 6, h * 0.86, pz + nz * 6], [fw * 0.4, 0.9, 0.3], "machine", g, [0, fy, 0])
         if "boxes" in dec and h > 6 and k % 2 == 1:  # machinery junction boxes with indicator lights on two faces (shared material)
-            ox, oz = local(0, 0.22, fy); ctx.add(f"{n}_Box_{k + 1:02d}", "box", [px + ox, h * 0.12, pz + oz], [min(1.6, fw * 0.45), min(2.2, h * 0.14), 0.45], "machine", g, [0, fy, 0])
+            ox, oz = local(0, 0.17, fy); ctx.add(f"{n}_Box_{k + 1:02d}", "box", [px + ox, h * 0.12, pz + oz], [min(1.6, fw * 0.45), min(2.2, h * 0.14), 0.34], "machine", g, [0, fy, 0], collision=False)
         if "pipes" in dec and h > 6 and k in (1, 3):  # vertical conduits up the side faces, standing on the floor
             for sd in (-1, 1):
-                ox, oz = local(sd * fw * 0.18, 0.2, fy)
-                ctx.add(f"{n}_Pipe_{k + 1:02d}{'LR'[sd > 0]}", "cylinder", [px + ox, 0, pz + oz], [0.32, h * 0.92, 0.32], "frame", g, sections=8)
+                ox, oz = local(sd * fw * 0.18, 0.17, fy)
+                ctx.add(f"{n}_Pipe_{k + 1:02d}{'LR'[sd > 0]}", "cylinder", [px + ox, 0, pz + oz], [0.32, h * 0.92, 0.32], "frame", g, sections=8, collision=False)
     hz = max(0.6, min(1.2, h * 0.06))
     if "bands" in dec and h > 6:  # structural straps: break the silhouette, read at gameplay distance
         for i, f in enumerate((0.42, 0.7)):
             ctx.add(f"{n}_Band_{i + 1}", "box", [0, h * f, 0], [w + 0.36, 0.45, d + 0.36], "structure_b", g)
     if "hazard" in dec and h > 4:  # reinforced plinth with worn hazard chevrons on every face
-        ctx.add(n + "_Plinth", "box", [0, 0, 0], [w + 0.7, hz, d + 0.7], "structure_b", g)
+        ctx.add(n + "_Plinth", "box", [0, 0, 0], [w + 0.5, hz, d + 0.5], "structure_b", g, collision=False)
         for k, (px, pz, fy, fw) in enumerate(((0, d / 2, 0, w), (w / 2, 0, 90, d), (0, -d / 2, 180, w), (-w / 2, 0, 270, d))):
-            ox, oz = local(0, 0.37, fy); ctx.add(f"{n}_Chevron_{k + 1:02d}", "panel", [px + ox, hz * 0.18, pz + oz], [fw + 0.5, hz * 0.62, 0], "stripe", g, [0, fy, 0])
+            ox, oz = local(0, 0.27, fy); ctx.add(f"{n}_Chevron_{k + 1:02d}", "panel", [px + ox, hz * 0.18, pz + oz], [fw + 0.3, hz * 0.62, 0], "stripe", g, [0, fy, 0])
     if "antenna" in dec and h > 10:  # masts with red beacons on the roof
         top = h + 1.2 + (h * 0.12 if ctx.detail >= 1 else 0)
         for i, (ax, az, hh) in enumerate(((w * 0.12, d * 0.1, h * 0.28), (-w * 0.15, -d * 0.12, h * 0.18))):

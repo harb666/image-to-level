@@ -121,7 +121,7 @@ def _puff_rings(e, boxes, D):
     import zlib
     rng = np.random.default_rng(zlib.crc32(e["id"].encode())); s0, s1 = e.get("size", D["size"]); out = []
     def ring(cx, cz, rad, y0, y1, n, of=None):
-        a0 = rng.uniform(0, 2 * np.pi)
+        y0, y1 = min(y0, y1), max(y0, y1); a0 = rng.uniform(0, 2 * np.pi)
         for k in range(n):
             a = a0 + 2 * np.pi * k / n + rng.uniform(-0.25, 0.25) * 2 * np.pi / n; rr = rad * rng.uniform(0.85, 1.25)
             size = rng.uniform(s0, s1) * (1 + rad / 60) ** 0.5

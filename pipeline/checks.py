@@ -91,7 +91,7 @@ def schema(L, I):
     seen = {}
     for n, o in by.items():  # exact duplicates (same type/size/material at the same world spot): z-fighting + wasted triangles
         if o.get("type") == "group" or wp.get(n) is None: continue
-        key = (o["type"], json.dumps(o.get("size")), o.get("material"), tuple(wp[n]), json.dumps(o.get("rotation")))
+        key = (tuple(wp[n]), json.dumps({k: v for k, v in o.items() if k not in ("name", "parent", "position", "gen", "source")}, sort_keys=True))  # every shape field (e.g. rail_run points)
         if key in seen: I.append(dict(kind="duplicate_object", severity="warning", object=n, pos=wp[n], message=f"{n}: exact duplicate of {seen[key]} (z-fighting)"))
         else: seen[key] = n
     return wp

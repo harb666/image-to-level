@@ -87,7 +87,7 @@ def rail_run(w, h, d, o):
     o["points"]: base points in the object's local frame, each ON the supporting surface. Posts stay vertical and
     are sunk 2 cm into the floor; top rail, mid rail and kick plate follow the slope continuously and meet at the
     corner posts (extended by half a post: closed joints). size = [length, height, post thickness]."""
-    P = np.asarray(o["points"], float); t = max(d, 0.05); posts = rail_posts(P, o.get("post_spacing", 1.6)); parts = []
+    P = np.asarray(o.get("points") or [[-w / 2, 0, 0], [w / 2, 0, 0]], float); t = max(d, 0.05); posts = rail_posts(P, o.get("post_spacing", 1.6)); parts = []
     for p in posts: parts.append(_box(t, h + 0.02, t, p[0], p[1] - 0.02, p[2]))
     for a, b in zip(P[:-1], P[1:]):
         f = (b - a) / max(np.linalg.norm(b - a), 1e-6) * t / 2  # half-post overlap at each end: no gaps at corners
