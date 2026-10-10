@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Engineering test B - futuristic urban combat district (synthetic, no concept image)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "67e1d98bc2bb89d8",
+  "spec_sha": "87e86a970aa6aac7",
   "theme": "futuristic_city",
   "detail": "medium",
   "mode": "open"
@@ -204,13 +204,13 @@
    "name": "Skywalk",
    "min": [
     -1.0,
-    22.0
+    35.0
    ],
    "max": [
     1.0,
-    24.0
+    37.0
    ],
-   "y": 8.0
+   "y": 7.0
   },
   {
    "name": "Bridge_Avenue_Road_Canal",
@@ -222,7 +222,7 @@
     1.0,
     62.0
    ],
-   "y": -0.015000000000000003
+   "y": 0.009999999999999998
   },
   {
    "name": "Bridge_West_Lane_Road_Canal",
@@ -234,7 +234,7 @@
     -61.0,
     60.0
    ],
-   "y": 0.05
+   "y": 0.075
   },
   {
    "name": "Player_Start",
@@ -426,6 +426,15 @@
     0.8,
     1.0
    ]
+  },
+  "grate": {
+   "type": "grating",
+   "color": [
+    0.3,
+    0.31,
+    0.3
+   ],
+   "tile_m": 2.0
   },
   "machine": {
    "type": "machinery_panel",
@@ -14413,12 +14422,12 @@
    "type": "group",
    "position": [
     0.0,
-    8.0,
-    23.0
+    7.0,
+    36.0
    ],
    "rotation": [
     0.0,
-    86.99,
+    90.0,
     0.0
    ],
    "gen": "Skywalk",
@@ -14458,7 +14467,7 @@
    "size": [
     3.0,
     0.45,
-    38.053
+    32.0
    ],
    "material": "deck",
    "connector": true,
@@ -14481,7 +14490,7 @@
    ],
    "parent": "Skywalk_Span",
    "size": [
-    37.453,
+    31.4,
     1.05,
     0.06
    ],
@@ -14504,7 +14513,7 @@
    ],
    "parent": "Skywalk_Span",
    "size": [
-    37.853,
+    31.8,
     0.7,
     0.35
    ],
@@ -14527,7 +14536,7 @@
    ],
    "parent": "Skywalk_Span",
    "size": [
-    37.453,
+    31.4,
     1.05,
     0.06
    ],
@@ -14550,7 +14559,7 @@
    ],
    "parent": "Skywalk_Span",
    "size": [
-    37.853,
+    31.8,
     0.7,
     0.35
    ],
@@ -14564,7 +14573,7 @@
    "position": [
     0.0,
     -1.94,
-    -11.416
+    0.0
    ],
    "rotation": [
     0.0,
@@ -14587,8 +14596,8 @@
    "type": "cylinder",
    "position": [
     -1.05,
-    -8.764,
-    -11.416
+    -7.75,
+    0.0
    ],
    "rotation": [
     0.0,
@@ -14598,7 +14607,7 @@
    "parent": "Skywalk",
    "size": [
     0.6,
-    6.824,
+    5.81,
     0.6
    ],
    "material": "frame",
@@ -14611,8 +14620,8 @@
    "type": "cylinder",
    "position": [
     1.05,
-    -8.764,
-    -11.416
+    -7.75,
+    0.0
    ],
    "rotation": [
     0.0,
@@ -14622,223 +14631,7 @@
    "parent": "Skywalk",
    "size": [
     0.6,
-    6.824,
-    0.6
-   ],
-   "material": "frame",
-   "sections": 8,
-   "gen": "Skywalk",
-   "source": "visible"
-  },
-  {
-   "name": "Skywalk_Pier_02",
-   "type": "box",
-   "position": [
-    0.0,
-    -1.94,
-    -3.805
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Skywalk",
-   "size": [
-    2.6,
-    0.8,
-    1.0
-   ],
-   "material": "structure_b",
-   "connector": false,
-   "gen": "Skywalk",
-   "source": "visible"
-  },
-  {
-   "name": "Skywalk_Column_02L",
-   "type": "cylinder",
-   "position": [
-    -1.05,
-    -8.719,
-    -3.805
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Skywalk",
-   "size": [
-    0.6,
-    6.779,
-    0.6
-   ],
-   "material": "frame",
-   "sections": 8,
-   "gen": "Skywalk",
-   "source": "visible"
-  },
-  {
-   "name": "Skywalk_Column_02R",
-   "type": "cylinder",
-   "position": [
-    1.05,
-    -8.719,
-    -3.805
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Skywalk",
-   "size": [
-    0.6,
-    6.779,
-    0.6
-   ],
-   "material": "frame",
-   "sections": 8,
-   "gen": "Skywalk",
-   "source": "visible"
-  },
-  {
-   "name": "Skywalk_Pier_03",
-   "type": "box",
-   "position": [
-    0.0,
-    -1.94,
-    3.805
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Skywalk",
-   "size": [
-    2.6,
-    0.8,
-    1.0
-   ],
-   "material": "structure_b",
-   "connector": false,
-   "gen": "Skywalk",
-   "source": "visible"
-  },
-  {
-   "name": "Skywalk_Column_03L",
-   "type": "cylinder",
-   "position": [
-    -1.05,
-    -8.721,
-    3.805
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Skywalk",
-   "size": [
-    0.6,
-    6.781,
-    0.6
-   ],
-   "material": "frame",
-   "sections": 8,
-   "gen": "Skywalk",
-   "source": "visible"
-  },
-  {
-   "name": "Skywalk_Column_03R",
-   "type": "cylinder",
-   "position": [
-    1.05,
-    -8.721,
-    3.805
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Skywalk",
-   "size": [
-    0.6,
-    6.781,
-    0.6
-   ],
-   "material": "frame",
-   "sections": 8,
-   "gen": "Skywalk",
-   "source": "visible"
-  },
-  {
-   "name": "Skywalk_Pier_04",
-   "type": "box",
-   "position": [
-    0.0,
-    -1.94,
-    11.416
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Skywalk",
-   "size": [
-    2.6,
-    0.8,
-    1.0
-   ],
-   "material": "structure_b",
-   "connector": false,
-   "gen": "Skywalk",
-   "source": "visible"
-  },
-  {
-   "name": "Skywalk_Column_04L",
-   "type": "cylinder",
-   "position": [
-    -1.05,
-    -8.753,
-    11.416
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Skywalk",
-   "size": [
-    0.6,
-    6.813,
-    0.6
-   ],
-   "material": "frame",
-   "sections": 8,
-   "gen": "Skywalk",
-   "source": "visible"
-  },
-  {
-   "name": "Skywalk_Column_04R",
-   "type": "cylinder",
-   "position": [
-    1.05,
-    -8.753,
-    11.416
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Skywalk",
-   "size": [
-    0.6,
-    6.813,
+    5.81,
     0.6
    ],
    "material": "frame",
@@ -14851,8 +14644,8 @@
    "type": "box",
    "position": [
     0.0,
-    -9.161,
-    -18.126
+    -8.218,
+    -15.1
    ],
    "rotation": [
     0.0,
@@ -14862,7 +14655,7 @@
    "parent": "Skywalk",
    "size": [
     3.4,
-    8.011,
+    7.068,
     1.8
    ],
    "material": "structure_b",
@@ -14875,8 +14668,8 @@
    "type": "box",
    "position": [
     0.0,
-    -9.16,
-    18.126
+    -8.18,
+    15.1
    ],
    "rotation": [
     0.0,
@@ -14886,11 +14679,55 @@
    "parent": "Skywalk",
    "size": [
     3.4,
-    8.01,
+    7.03,
     1.8
    ],
    "material": "structure_b",
    "connector": false,
+   "gen": "Skywalk",
+   "source": "visible"
+  },
+  {
+   "name": "Skywalk_Stairs_From",
+   "type": "stairs",
+   "position": [
+    -21.118,
+    -0.188,
+    36.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    3.0,
+    7.178,
+    10.237
+   ],
+   "material": "grate",
+   "gen": "Skywalk",
+   "source": "visible"
+  },
+  {
+   "name": "Skywalk_Stairs_To",
+   "type": "stairs",
+   "position": [
+    21.109,
+    -0.174,
+    36.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    3.0,
+    7.164,
+    10.217
+   ],
+   "material": "grate",
    "gen": "Skywalk",
    "source": "visible"
   },
@@ -16819,7 +16656,7 @@
    "type": "group",
    "position": [
     0.0,
-    -0.015,
+    0.01,
     61.0
    ],
    "rotation": [
@@ -16839,7 +16676,7 @@
     0.0
    ],
    "rotation": [
-    -0.31,
+    -0.28,
     0.0,
     0.0
    ],
@@ -16965,11 +16802,35 @@
    "source": "inferred"
   },
   {
+   "name": "Bridge_Avenue_Road_Canal_Pier_01",
+   "type": "box",
+   "position": [
+    0.0,
+    -1.94,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Bridge_Avenue_Road_Canal",
+   "size": [
+    16.2,
+    0.8,
+    1.0
+   ],
+   "material": "structure_b",
+   "connector": false,
+   "gen": "Bridge_Avenue_Road_Canal",
+   "source": "inferred"
+  },
+  {
    "name": "Bridge_Avenue_Road_Canal_Column_01L",
    "type": "cylinder",
    "position": [
     -7.85,
-    -4.15,
+    -4.175,
     0.0
    ],
    "rotation": [
@@ -16980,7 +16841,7 @@
    "parent": "Bridge_Avenue_Road_Canal",
    "size": [
     0.6,
-    3.0,
+    2.235,
     0.6
    ],
    "material": "frame",
@@ -16993,7 +16854,7 @@
    "type": "cylinder",
    "position": [
     7.85,
-    -4.15,
+    -4.175,
     0.0
    ],
    "rotation": [
@@ -17004,7 +16865,7 @@
    "parent": "Bridge_Avenue_Road_Canal",
    "size": [
     0.6,
-    3.0,
+    2.235,
     0.6
    ],
    "material": "frame",
@@ -17017,7 +16878,7 @@
    "type": "group",
    "position": [
     -62.0,
-    0.05,
+    0.075,
     59.0
    ],
    "rotation": [
@@ -17037,7 +16898,7 @@
     0.0
    ],
    "rotation": [
-    -0.17,
+    -0.2,
     0.0,
     0.0
    ],
@@ -17191,7 +17052,7 @@
    "type": "cylinder",
    "position": [
     -5.85,
-    -4.195,
+    -4.22,
     0.0
    ],
    "rotation": [
@@ -17202,7 +17063,7 @@
    "parent": "Bridge_West_Lane_Road_Canal",
    "size": [
     0.6,
-    2.255,
+    2.28,
     0.6
    ],
    "material": "frame",
@@ -17215,7 +17076,7 @@
    "type": "cylinder",
    "position": [
     5.85,
-    -4.195,
+    -4.22,
     0.0
    ],
    "rotation": [
@@ -17226,7 +17087,7 @@
    "parent": "Bridge_West_Lane_Road_Canal",
    "size": [
     0.6,
-    2.255,
+    2.28,
     0.6
    ],
    "material": "frame",
@@ -17273,51 +17134,6 @@
   },
   {
    "type": "supported_by",
-   "a": "Skywalk_Pier_02",
-   "b": "Skywalk_Column_02L"
-  },
-  {
-   "type": "supported_by",
-   "a": "Skywalk_Pier_02",
-   "b": "Skywalk_Column_02R"
-  },
-  {
-   "type": "supported_by",
-   "a": "Skywalk_Girder_L",
-   "b": "Skywalk_Pier_02"
-  },
-  {
-   "type": "supported_by",
-   "a": "Skywalk_Pier_03",
-   "b": "Skywalk_Column_03L"
-  },
-  {
-   "type": "supported_by",
-   "a": "Skywalk_Pier_03",
-   "b": "Skywalk_Column_03R"
-  },
-  {
-   "type": "supported_by",
-   "a": "Skywalk_Girder_L",
-   "b": "Skywalk_Pier_03"
-  },
-  {
-   "type": "supported_by",
-   "a": "Skywalk_Pier_04",
-   "b": "Skywalk_Column_04L"
-  },
-  {
-   "type": "supported_by",
-   "a": "Skywalk_Pier_04",
-   "b": "Skywalk_Column_04R"
-  },
-  {
-   "type": "supported_by",
-   "a": "Skywalk_Girder_L",
-   "b": "Skywalk_Pier_04"
-  },
-  {
-   "type": "supported_by",
    "a": "Skywalk_Girder_L",
    "b": "Skywalk_Abutment_A"
   },
@@ -17325,6 +17141,18 @@
    "type": "supported_by",
    "a": "Skywalk_Girder_L",
    "b": "Skywalk_Abutment_B"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Skywalk_Stairs_From",
+   "b": "Skywalk_Deck",
+   "a_anchor": "high"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Skywalk_Stairs_To",
+   "b": "Skywalk_Deck",
+   "a_anchor": "high"
   },
   {
    "type": "supported_by",
@@ -17338,13 +17166,18 @@
   },
   {
    "type": "supported_by",
-   "a": "Bridge_Avenue_Road_Canal_Girder_L",
+   "a": "Bridge_Avenue_Road_Canal_Pier_01",
    "b": "Bridge_Avenue_Road_Canal_Column_01L"
   },
   {
    "type": "supported_by",
-   "a": "Bridge_Avenue_Road_Canal_Girder_R",
+   "a": "Bridge_Avenue_Road_Canal_Pier_01",
    "b": "Bridge_Avenue_Road_Canal_Column_01R"
+  },
+  {
+   "type": "supported_by",
+   "a": "Bridge_Avenue_Road_Canal_Girder_L",
+   "b": "Bridge_Avenue_Road_Canal_Pier_01"
   },
   {
    "type": "supported_by",
@@ -18202,16 +18035,16 @@
  ],
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 24576,
-  "objects": 746,
-  "materials": 25,
-  "glb_kb": 1665,
-  "nodes": 778,
-  "draw_calls_unbatched": 729,
-  "draw_calls_batched_min": 25,
-  "images": 59,
-  "tex_mem_gpu_compressed_mb": 5.79,
-  "tex_mem_uncompressed_mb": 23.17,
+  "triangles": 24896,
+  "objects": 740,
+  "materials": 26,
+  "glb_kb": 1747,
+  "nodes": 772,
+  "draw_calls_unbatched": 723,
+  "draw_calls_batched_min": 26,
+  "images": 62,
+  "tex_mem_gpu_compressed_mb": 6.04,
+  "tex_mem_uncompressed_mb": 24.17,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)",
   "terrain_triangles_lod0": 6272
  }
