@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Skyforge Arena",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "77bf23a59aa25a2b",
+  "spec_sha": "9a7ccb61eae9f39e",
   "theme": "scifi",
   "detail": "medium",
   "mode": "open"
@@ -862,17 +862,50 @@
   "accent": {
    "type": "banner",
    "color": [
-    0.82,
-    0.06,
-    0.12
+    0.78,
+    0.05,
+    0.1
    ],
    "tile_m": 2.0,
    "emissive": [
-    0.55,
-    0.04,
-    0.1
+    1,
+    1,
+    1
    ],
-   "toon": true
+   "toon": true,
+   "res": 512,
+   "panel_cut": "pennant",
+   "emblem_aspect": 1.55,
+   "emblem_band": [
+    0.2,
+    0.8
+   ],
+   "emblem_color": [
+    1.0,
+    0.16,
+    0.2
+   ],
+   "atlas": {
+    "banner": [
+     0,
+     0,
+     0.75,
+     1
+    ],
+    "drip": [
+     0.78,
+     0.52,
+     0.98,
+     0.98
+    ],
+    "puddle": [
+     0.78,
+     0.02,
+     0.98,
+     0.48
+    ]
+   },
+   "emblem": "levels/skyforge_arena/references/banner_emblem_ref.png"
   },
   "deck": {
    "type": "scifi_floor",
@@ -7230,9 +7263,9 @@
    "name": "Elevator_Emblem_1",
    "type": "panel",
    "position": [
-    5.515,
+    5.268,
     40.03,
-    5.515
+    5.268
    ],
    "rotation": [
     -90.0,
@@ -7241,8 +7274,8 @@
    ],
    "parent": "Elevator",
    "size": [
-    1.5,
-    1.5,
+    1.3,
+    2.2,
     0.0
    ],
    "material": "accent",
@@ -7338,9 +7371,9 @@
    "name": "Elevator_Emblem_2",
    "type": "panel",
    "position": [
-    -5.515,
+    -5.268,
     40.03,
-    5.515
+    5.268
    ],
    "rotation": [
     -90.0,
@@ -7349,8 +7382,8 @@
    ],
    "parent": "Elevator",
    "size": [
-    1.5,
-    1.5,
+    1.3,
+    2.2,
     0.0
    ],
    "material": "accent",
@@ -7446,9 +7479,9 @@
    "name": "Elevator_Emblem_3",
    "type": "panel",
    "position": [
-    -5.515,
+    -5.268,
     40.03,
-    -5.515
+    -5.268
    ],
    "rotation": [
     -90.0,
@@ -7457,8 +7490,8 @@
    ],
    "parent": "Elevator",
    "size": [
-    1.5,
-    1.5,
+    1.3,
+    2.2,
     0.0
    ],
    "material": "accent",
@@ -7554,9 +7587,9 @@
    "name": "Elevator_Emblem_4",
    "type": "panel",
    "position": [
-    5.515,
+    5.268,
     40.03,
-    -5.515
+    -5.268
    ],
    "rotation": [
     -90.0,
@@ -7565,8 +7598,8 @@
    ],
    "parent": "Elevator",
    "size": [
-    1.5,
-    1.5,
+    1.3,
+    2.2,
     0.0
    ],
    "material": "accent",
@@ -10561,6 +10594,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.548,
    "gen": "North_Tower_W",
    "source": "visible"
   },
@@ -10630,6 +10664,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.548,
    "gen": "North_Tower_W",
    "source": "visible"
   },
@@ -10773,6 +10808,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.548,
    "gen": "North_Tower_W",
    "source": "visible"
   },
@@ -10842,6 +10878,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.548,
    "gen": "North_Tower_W",
    "source": "visible"
   },
@@ -11418,6 +11455,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.548,
    "gen": "North_Tower_E",
    "source": "visible"
   },
@@ -11487,6 +11525,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.548,
    "gen": "North_Tower_E",
    "source": "visible"
   },
@@ -11630,6 +11669,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.548,
    "gen": "North_Tower_E",
    "source": "visible"
   },
@@ -11699,6 +11739,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.548,
    "gen": "North_Tower_E",
    "source": "visible"
   },
@@ -12275,6 +12316,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.54,
    "gen": "NW_Tower",
    "source": "visible"
   },
@@ -12344,6 +12386,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.54,
    "gen": "NW_Tower",
    "source": "visible"
   },
@@ -12487,6 +12530,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.54,
    "gen": "NW_Tower",
    "source": "visible"
   },
@@ -12556,6 +12600,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.54,
    "gen": "NW_Tower",
    "source": "visible"
   },
@@ -13264,6 +13309,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.548,
    "gen": "SW_Tower",
    "source": "visible"
   },
@@ -13333,6 +13379,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.548,
    "gen": "SW_Tower",
    "source": "visible"
   },
@@ -13476,6 +13523,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.548,
    "gen": "SW_Tower",
    "source": "visible"
   },
@@ -13545,6 +13593,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.548,
    "gen": "SW_Tower",
    "source": "visible"
   },
@@ -14121,6 +14170,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.543,
    "gen": "SE_Tower",
    "source": "visible"
   },
@@ -14190,6 +14240,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.543,
    "gen": "SE_Tower",
    "source": "visible"
   },
@@ -14333,6 +14384,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.543,
    "gen": "SE_Tower",
    "source": "visible"
   },
@@ -14402,6 +14454,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.543,
    "gen": "SE_Tower",
    "source": "visible"
   },
@@ -14978,6 +15031,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.537,
    "gen": "East_Tower",
    "source": "visible"
   },
@@ -15047,6 +15101,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.537,
    "gen": "East_Tower",
    "source": "visible"
   },
@@ -15190,6 +15245,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.537,
    "gen": "East_Tower",
    "source": "visible"
   },
@@ -15259,6 +15315,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.537,
    "gen": "East_Tower",
    "source": "visible"
   },
@@ -15835,6 +15892,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.552,
    "gen": "South_Spire",
    "source": "visible"
   },
@@ -15904,6 +15962,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.552,
    "gen": "South_Spire",
    "source": "visible"
   },
@@ -16047,6 +16106,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.552,
    "gen": "South_Spire",
    "source": "visible"
   },
@@ -16116,6 +16176,7 @@
     0.0
    ],
    "material": "accent",
+   "emblem_at": 0.552,
    "gen": "South_Spire",
    "source": "visible"
   },
@@ -16499,9 +16560,9 @@
    "name": "Falls_West_A",
    "type": "stream",
    "position": [
-    -105.239,
-    47.811,
-    -28.188
+    -106.554,
+    48.24,
+    -28.541
    ],
    "rotation": [
     0.0,
@@ -16510,7 +16571,7 @@
    ],
    "size": [
     20.0,
-    48.61,
+    49.04,
     0.35
    ],
    "material": "fall",
@@ -16518,6 +16579,306 @@
    "speed": 1.6,
    "pitch": -10,
    "inset": 0.6,
+   "grid": [
+    [
+     [
+      -8.488,
+      0.073,
+      -3.991
+     ],
+     [
+      -4.3,
+      0.035,
+      -1.031
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      4.3,
+      0.041,
+      -2.531
+     ],
+     [
+      8.502,
+      0.189,
+      -4.646
+     ]
+    ],
+    [
+     [
+      -9.116,
+      0.076,
+      -3.265
+     ],
+     [
+      -4.578,
+      0.062,
+      0.09
+     ],
+     [
+      0.0,
+      0.011,
+      1.106
+     ],
+     [
+      4.578,
+      -0.029,
+      -1.16
+     ],
+     [
+      9.034,
+      0.18,
+      -3.717
+     ]
+    ],
+    [
+     [
+      -9.832,
+      0.067,
+      -2.539
+     ],
+     [
+      -4.862,
+      0.098,
+      1.211
+     ],
+     [
+      0.0,
+      0.013,
+      2.211
+     ],
+     [
+      4.862,
+      -0.065,
+      0.211
+     ],
+     [
+      9.887,
+      0.166,
+      -2.789
+     ]
+    ],
+    [
+     [
+      -10.387,
+      0.065,
+      -1.839
+     ],
+     [
+      -5.152,
+      0.098,
+      1.911
+     ],
+     [
+      0.0,
+      0.013,
+      2.911
+     ],
+     [
+      5.152,
+      -0.067,
+      0.911
+     ],
+     [
+      10.413,
+      0.163,
+      -2.089
+     ]
+    ],
+    [
+     [
+      -10.608,
+      -2.155,
+      1.961
+     ],
+     [
+      -5.3,
+      -2.123,
+      3.961
+     ],
+     [
+      0.0,
+      -2.205,
+      3.961
+     ],
+     [
+      5.3,
+      -2.282,
+      3.461
+     ],
+     [
+      10.711,
+      -2.061,
+      0.211
+     ]
+    ],
+    [
+     [
+      -10.826,
+      -6.595,
+      1.961
+     ],
+     [
+      -5.375,
+      -6.566,
+      3.961
+     ],
+     [
+      -0.0,
+      -6.641,
+      4.665
+     ],
+     [
+      5.375,
+      -6.71,
+      3.461
+     ],
+     [
+      10.822,
+      -6.51,
+      0.211
+     ]
+    ],
+    [
+     [
+      -10.868,
+      -13.873,
+      2.461
+     ],
+     [
+      -5.45,
+      -13.849,
+      4.502
+     ],
+     [
+      0.0,
+      -13.911,
+      5.5
+     ],
+     [
+      5.45,
+      -13.968,
+      3.711
+     ],
+     [
+      10.795,
+      -13.802,
+      0.711
+     ]
+    ],
+    [
+     [
+      -11.058,
+      -23.243,
+      2.461
+     ],
+     [
+      -5.525,
+      -23.225,
+      5.29
+     ],
+     [
+      0.0,
+      -23.27,
+      6.287
+     ],
+     [
+      5.525,
+      -23.312,
+      4.284
+     ],
+     [
+      11.171,
+      -23.191,
+      1.292
+     ]
+    ],
+    [
+     [
+      -11.166,
+      -33.685,
+      2.961
+     ],
+     [
+      -5.6,
+      -33.675,
+      5.994
+     ],
+     [
+      0.0,
+      -33.702,
+      6.99
+     ],
+     [
+      5.6,
+      -33.727,
+      4.987
+     ],
+     [
+      11.191,
+      -33.654,
+      1.997
+     ]
+    ],
+    [
+     [
+      -11.256,
+      -42.368,
+      2.961
+     ],
+     [
+      -5.675,
+      -42.363,
+      6.499
+     ],
+     [
+      0.0,
+      -42.375,
+      7.495
+     ],
+     [
+      5.675,
+      -42.386,
+      5.491
+     ],
+     [
+      11.511,
+      -42.354,
+      2.502
+     ]
+    ],
+    [
+     [
+      -11.488,
+      -49.04,
+      3.1
+     ],
+     [
+      -5.75,
+      -49.04,
+      6.852
+     ],
+     [
+      0.0,
+      -49.04,
+      7.848
+     ],
+     [
+      5.75,
+      -49.04,
+      5.844
+     ],
+     [
+      11.476,
+      -49.04,
+      2.855
+     ]
+    ]
+   ],
+   "double_sided": true,
    "gen": "Falls_West_A",
    "source": "visible"
   },
@@ -16525,9 +16886,9 @@
    "name": "Falls_NW",
    "type": "stream",
    "position": [
-    -88.153,
-    43.951,
-    -121.636
+    -88.71,
+    44.348,
+    -122.348
    ],
    "rotation": [
     0.0,
@@ -16536,7 +16897,7 @@
    ],
    "size": [
     12.0,
-    44.75,
+    45.15,
     0.35
    ],
    "material": "fall",
@@ -16544,6 +16905,251 @@
    "speed": 1.6,
    "pitch": -10,
    "inset": 0.6,
+   "grid": [
+    [
+     [
+      -5.274,
+      0.014,
+      2.579
+     ],
+     [
+      -1.72,
+      0.046,
+      0.644
+     ],
+     [
+      1.72,
+      -0.046,
+      -0.644
+     ],
+     [
+      5.153,
+      -0.232,
+      0.499
+     ]
+    ],
+    [
+     [
+      -5.535,
+      -0.002,
+      3.292
+     ],
+     [
+      -1.831,
+      0.01,
+      1.824
+     ],
+     [
+      1.831,
+      -0.108,
+      0.93
+     ],
+     [
+      5.473,
+      -0.232,
+      0.877
+     ]
+    ],
+    [
+     [
+      -5.707,
+      -0.02,
+      4.004
+     ],
+     [
+      -1.945,
+      -0.034,
+      3.004
+     ],
+     [
+      1.945,
+      -0.181,
+      2.504
+     ],
+     [
+      5.979,
+      -0.232,
+      1.254
+     ]
+    ],
+    [
+     [
+      -6.251,
+      -0.025,
+      4.704
+     ],
+     [
+      -2.061,
+      -0.04,
+      3.704
+     ],
+     [
+      2.061,
+      -0.187,
+      3.204
+     ],
+     [
+      6.089,
+      -0.232,
+      1.954
+     ]
+    ],
+    [
+     [
+      -6.238,
+      -2.088,
+      7.254
+     ],
+     [
+      -2.12,
+      -2.103,
+      5.254
+     ],
+     [
+      2.12,
+      -2.244,
+      4.504
+     ],
+     [
+      6.253,
+      -2.287,
+      4.004
+     ]
+    ],
+    [
+     [
+      -6.475,
+      -6.166,
+      7.254
+     ],
+     [
+      -2.15,
+      -6.179,
+      5.383
+     ],
+     [
+      2.15,
+      -6.307,
+      4.88
+     ],
+     [
+      6.558,
+      -6.346,
+      4.004
+     ]
+    ],
+    [
+     [
+      -6.493,
+      -12.85,
+      7.504
+     ],
+     [
+      -2.18,
+      -12.861,
+      6.184
+     ],
+     [
+      2.18,
+      -12.967,
+      5.679
+     ],
+     [
+      6.678,
+      -12.999,
+      4.428
+     ]
+    ],
+    [
+     [
+      -6.47,
+      -21.455,
+      7.938
+     ],
+     [
+      -2.21,
+      -21.463,
+      6.938
+     ],
+     [
+      2.21,
+      -21.541,
+      6.433
+     ],
+     [
+      6.697,
+      -21.564,
+      5.181
+     ]
+    ],
+    [
+     [
+      -6.646,
+      -31.046,
+      8.613
+     ],
+     [
+      -2.24,
+      -31.05,
+      7.613
+     ],
+     [
+      2.24,
+      -31.097,
+      7.106
+     ],
+     [
+      6.611,
+      -31.111,
+      5.854
+     ]
+    ],
+    [
+     [
+      -6.867,
+      -39.02,
+      9.097
+     ],
+     [
+      -2.27,
+      -39.022,
+      8.096
+     ],
+     [
+      2.27,
+      -39.042,
+      7.589
+     ],
+     [
+      6.669,
+      -39.048,
+      6.337
+     ]
+    ],
+    [
+     [
+      -6.953,
+      -45.148,
+      9.435
+     ],
+     [
+      -2.3,
+      -45.148,
+      8.434
+     ],
+     [
+      2.3,
+      -45.148,
+      7.927
+     ],
+     [
+      6.954,
+      -45.148,
+      6.674
+     ]
+    ]
+   ],
+   "double_sided": true,
    "gen": "Falls_NW",
    "source": "visible"
   },
@@ -16551,9 +17157,9 @@
    "name": "Falls_Island_W",
    "type": "stream",
    "position": [
-    -51.97,
-    21.999,
-    12.347
+    -53.51,
+    22.382,
+    12.619
    ],
    "rotation": [
     0.0,
@@ -16562,7 +17168,7 @@
    ],
    "size": [
     5.0,
-    22.8,
+    23.18,
     0.35
    ],
    "material": "fall",
@@ -16570,6 +17176,196 @@
    "speed": 1.6,
    "pitch": -10,
    "inset": 0.6,
+   "grid": [
+    [
+     [
+      -2.286,
+      0.068,
+      2.14
+     ],
+     [
+      -0.0,
+      0.0,
+      0.0
+     ],
+     [
+      2.197,
+      -0.136,
+      2.045
+     ]
+    ],
+    [
+     [
+      -2.31,
+      0.046,
+      2.777
+     ],
+     [
+      -0.0,
+      -0.029,
+      1.707
+     ],
+     [
+      2.45,
+      -0.149,
+      2.73
+     ]
+    ],
+    [
+     [
+      -2.512,
+      0.018,
+      3.414
+     ],
+     [
+      -0.0,
+      -0.071,
+      3.414
+     ],
+     [
+      2.48,
+      -0.151,
+      3.414
+     ]
+    ],
+    [
+     [
+      -2.574,
+      0.011,
+      4.114
+     ],
+     [
+      -0.0,
+      -0.074,
+      4.114
+     ],
+     [
+      2.659,
+      -0.151,
+      4.114
+     ]
+    ],
+    [
+     [
+      -2.741,
+      -1.19,
+      5.164
+     ],
+     [
+      -0.0,
+      -1.271,
+      5.414
+     ],
+     [
+      2.73,
+      -1.346,
+      5.414
+     ]
+    ],
+    [
+     [
+      -2.653,
+      -3.273,
+      5.302
+     ],
+     [
+      -0.0,
+      -3.346,
+      5.414
+     ],
+     [
+      2.797,
+      -3.413,
+      5.414
+     ]
+    ],
+    [
+     [
+      -2.706,
+      -6.686,
+      5.874
+     ],
+     [
+      0.0,
+      -6.747,
+      5.87
+     ],
+     [
+      2.731,
+      -6.803,
+      5.867
+     ]
+    ],
+    [
+     [
+      -2.626,
+      -11.081,
+      6.413
+     ],
+     [
+      -0.0,
+      -11.126,
+      6.408
+     ],
+     [
+      2.834,
+      -11.167,
+      6.404
+     ]
+    ],
+    [
+     [
+      -2.88,
+      -15.979,
+      6.895
+     ],
+     [
+      -0.0,
+      -16.006,
+      6.89
+     ],
+     [
+      2.693,
+      -16.03,
+      6.885
+     ]
+    ],
+    [
+     [
+      -2.972,
+      -20.052,
+      7.241
+     ],
+     [
+      -0.0,
+      -20.063,
+      7.235
+     ],
+     [
+      2.684,
+      -20.074,
+      7.229
+     ]
+    ],
+    [
+     [
+      -3.036,
+      -23.182,
+      7.482
+     ],
+     [
+      -0.0,
+      -23.182,
+      7.476
+     ],
+     [
+      2.715,
+      -23.182,
+      7.47
+     ]
+    ]
+   ],
+   "double_sided": true,
    "gen": "Falls_Island_W",
    "source": "inferred"
   },
@@ -16894,6 +17690,626 @@
    "material": "structure_b",
    "gen": "East_Deck",
    "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_1_Leak_01",
+   "type": "panel",
+   "position": [
+    -0.95,
+    3.29,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_1",
+   "size": [
+    0.9,
+    1.21,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 834228749,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Hub_Pylon_1",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Leak_01",
+   "type": "panel",
+   "position": [
+    0.0,
+    3.315,
+    -0.95
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    0.9,
+    1.19,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 52861005,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "Hub_Pylon_5_Leak_02",
+   "type": "panel",
+   "position": [
+    -0.007,
+    2.723,
+    0.95
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Hub_Pylon_5",
+   "size": [
+    0.84,
+    1.78,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 642971136,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Hub_Pylon_5",
+   "source": "visible"
+  },
+  {
+   "name": "North_Hall_Block_Leak_01",
+   "type": "panel",
+   "position": [
+    6.05,
+    4.421,
+    3.533
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "North_Hall_Block",
+   "size": [
+    0.67,
+    3.58,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 545775254,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "North_Hall_Block",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Leak_01",
+   "type": "panel",
+   "position": [
+    -1.8,
+    5.805,
+    -1.06
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.48,
+    5.4,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 871187206,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Leak_02",
+   "type": "panel",
+   "position": [
+    -1.8,
+    3.821,
+    -1.06
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.48,
+    7.38,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 607483034,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Leak_03",
+   "type": "panel",
+   "position": [
+    -1.8,
+    5.971,
+    -1.06
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.48,
+    5.23,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 1052271816,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Leak_04",
+   "type": "panel",
+   "position": [
+    1.06,
+    11.311,
+    1.8
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.48,
+    4.69,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 573654604,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "North_Tower_E_Leak_05",
+   "type": "panel",
+   "position": [
+    2.1,
+    3.219,
+    0.63
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "North_Tower_E",
+   "size": [
+    0.26,
+    11.3,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 423649474,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "North_Tower_E",
+   "source": "visible"
+  },
+  {
+   "name": "NW_Tower_Leak_01",
+   "type": "panel",
+   "position": [
+    2.55,
+    3.625,
+    1.585
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "NW_Tower",
+   "size": [
+    0.93,
+    11.78,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 866458027,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "NW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "SW_Tower_Leak_01",
+   "type": "panel",
+   "position": [
+    -1.585,
+    1.01,
+    2.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "SW_Tower",
+   "size": [
+    0.93,
+    5.71,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 14807066,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "SW_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Leak_01",
+   "type": "panel",
+   "position": [
+    -2.051,
+    1.25,
+    -3.05
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    0.8,
+    9.67,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 811367907,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Puddle_01",
+   "type": "panel",
+   "position": [
+    -2.051,
+    0.04,
+    -4.433
+   ],
+   "rotation": [
+    -90.0,
+    180.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    1.59,
+    1.13,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "blob",
+   "seed": 590852971,
+   "uv_region": "puddle",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Leak_02",
+   "type": "panel",
+   "position": [
+    1.94,
+    1.25,
+    -3.05
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    1.19,
+    9.67,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 318732687,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Puddle_02",
+   "type": "panel",
+   "position": [
+    1.94,
+    0.04,
+    -4.601
+   ],
+   "rotation": [
+    -90.0,
+    180.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    1.16,
+    1.3,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "blob",
+   "seed": 752911586,
+   "uv_region": "puddle",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "East_Tower_Leak_03",
+   "type": "panel",
+   "position": [
+    -3.05,
+    18.873,
+    -1.935
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "parent": "East_Tower",
+   "size": [
+    1.23,
+    7.13,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 938012388,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_Tower",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Leak_01",
+   "type": "panel",
+   "position": [
+    2.55,
+    0.89,
+    1.563
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    0.75,
+    4.99,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 180976790,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Puddle_01",
+   "type": "panel",
+   "position": [
+    4.186,
+    0.04,
+    1.563
+   ],
+   "rotation": [
+    -90.0,
+    90.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    1.2,
+    1.39,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "blob",
+   "seed": 898068703,
+   "uv_region": "puddle",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Leak_02",
+   "type": "panel",
+   "position": [
+    2.55,
+    6.142,
+    -1.585
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    0.93,
+    7.86,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 611586909,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "South_Spire",
+   "source": "visible"
+  },
+  {
+   "name": "South_Spire_Leak_03",
+   "type": "panel",
+   "position": [
+    2.85,
+    7.196,
+    -0.9
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "South_Spire",
+   "size": [
+    0.26,
+    5.48,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 812736685,
+   "uv_region": "drip",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "South_Spire",
+   "source": "visible"
   }
  ],
  "mobile": {
@@ -16967,7 +18383,8 @@
   "Ramp_Hub_SE: 0.35 m junction plate where it meets Hub's angled edge",
   "Ramp_Hub_SE: 0.35 m junction plate where it meets SE_Octagon's angled edge",
   "Elevator: elevator shaft r 5.5 m, 10.3 m deep through Hub; exit trigger -> next_level",
-  "North_Hall: 2 cover crate(s) dropped - no free spot clear of landings"
+  "North_Hall: 2 cover crate(s) dropped - no free spot clear of landings",
+  "leaks: 20 slime decals (visual only) on structures picked with chance 0.4"
  ],
  "relations": [
   {
@@ -17454,16 +18871,16 @@
  "spawn_regions": [],
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 72320,
-  "objects": 675,
+  "triangles": 72399,
+  "objects": 695,
   "materials": 28,
-  "glb_kb": 4402,
-  "nodes": 970,
-  "draw_calls_unbatched": 929,
+  "glb_kb": 4457,
+  "nodes": 990,
+  "draw_calls_unbatched": 949,
   "draw_calls_batched_min": 22,
   "images": 58,
-  "tex_mem_gpu_compressed_mb": 6.15,
-  "tex_mem_uncompressed_mb": 24.58,
+  "tex_mem_gpu_compressed_mb": 7.15,
+  "tex_mem_uncompressed_mb": 28.58,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)",
   "terrain_triangles_lod0": 28800
  }

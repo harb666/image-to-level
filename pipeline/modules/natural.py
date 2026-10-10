@@ -118,6 +118,57 @@ def waterfall(ctx, s, x, y, z, yaw):
     else: top, bottom = s.get("y", y + 10), y
     top = s.get("y", top) - 0.15; drop = top - bottom + 0.8
     if drop < 2: ctx.notes.append(f"{n}: no drop at this position - waterfall skipped"); return
+    G = _fall_grid(ctx, s, x, z, yaw, w, top, bottom) if TR is not None and s.get("organic", True) and "y" not in s else None
+    if G is not None:  # Stage 13: curved sheet hugging the real lip, kept clear of the cliff below (nothing pokes through)
+        o0 = 0.5 * (G[0, (G.shape[1] - 1) // 2] + G[0, G.shape[1] // 2]); Gl = G - o0  # origin: top of the middle column
+        a = math.radians(yaw); ca_, sa_ = math.cos(a), math.sin(a)
+        Gl = np.stack([Gl[..., 0] * ca_ - Gl[..., 2] * sa_, Gl[..., 1], Gl[..., 0] * sa_ + Gl[..., 2] * ca_], -1)  # world -> local (inverse Ry)
+        st = ctx.add(n, "stream", list(o0), [round(w, 2), round(float(o0[1] - G[-1, :, 1].min()), 2), 0.35], s.get("material", "water"), rot=[0, yaw, 0],
+                     section="sheet", speed=s.get("speed", 1.6), pitch=-10, inset=0.6, grid=np.round(Gl, 3).tolist(), double_sided=True)  # one surface, both sides drawn
+        ctx.pours.append(st); return
     st = ctx.add(n, "stream", [x, top, z], [round(w, 2), round(drop, 2), 0.35], s.get("material", "water"), rot=[0, yaw, 0],
                  section="sheet", speed=s.get("speed", 1.6), pitch=-10, inset=0.6)
     ctx.pours.append(st)
+
+
+def _fall_grid(ctx, s, x, z, yaw, w, top, bottom, clear=0.85):
+    """World-space centre surface (rows x cols x 3) of a terrain waterfall. Every column finds ITS OWN lip along the
+    facing line (diagonal / ragged cliff edges), starts a few metres upstream lying on the ground (ragged, rounded top
+    edge), bends over the lip and falls; below the lip each row is pushed out until it is >= `clear` m in front of the
+    deepest rock reaching that height (sampled on the column and halfway to its neighbours), so no cliff face cuts
+    through the sheet. Width tapers in at the top and widens a little towards the bottom; edges wobble."""
+    TR = ctx.TR; rng = np.random.default_rng(_seed(s)); a = math.radians(yaw)
+    F = np.array([math.sin(a), math.cos(a)]); S = np.array([math.cos(a), -math.sin(a)])
+    C = int(np.clip(round(w / 4.5), 2, 4)) + 1; R_up = 3; t = np.arange(-10, 40.01, 0.25)
+    us = np.linspace(-0.5, 0.5, C); spacing = w / (C - 1)
+    def prof(lat): P = np.array([x, z]) + S * lat + F * t[:, None]; return TR.height(P[:, 0], P[:, 1])
+    cols = []
+    for j, u in enumerate(us):
+        lat = u * w * 0.86; Hc = prof(lat); i0 = np.searchsorted(t, -6)
+        steep = np.flatnonzero((Hc[i0:-8] - Hc[i0 + 4:-4]) > 1.2)  # drop > 1.2 m over the next metre
+        il = i0 + (int(steep[0]) if len(steep) else int(np.argmin(np.abs(t[i0:] - 0)))); tl, yl = t[il], Hc[il]
+        if yl < top - 6 or yl > top + 3: tl, yl = 0.0, top  # no usable edge on this column: use the fall's own lip
+        side = [lat + k * spacing / 2 for k in (-1, 1)] + ([lat * 1.25] if j in (0, C - 1) else [])  # between columns + beyond the edges
+        Hn = np.max([Hc] + [prof(q) for q in side], axis=0)  # (the sheet widens below)
+        def front(yq):  # furthest rock (t) at height >= yq, scanning out from the lip
+            below = np.flatnonzero((t > tl) & (Hn < yq - 0.2)); return t[below[0]] - 0.25 if len(below) else -1e9  # none: at / under the ground the sheet ends
+        end_t = tl + 6; gx = np.array([x, z]) + S * lat + F * end_t; wy = TR.water_y(np.array([gx[0]]), np.array([gx[1]]))[0]
+        ybot = max(float(TR.height_at(*gx)), float(wy) if np.isfinite(wy) else -1e9, bottom - 2) - 0.8
+        up = 2.0 + 1.6 * rng.random() - 1.4 * abs(u * 2) ** 2  # ragged, rounded top edge on the plateau
+        pts = []
+        for k, f in enumerate(np.linspace(1, 0, R_up)):
+            tk = tl - max(0.3, up) * f - 0.15; pts.append([tk, float(TR.height(*(np.array([x, z]) + S * lat + F * tk)[:, None])[0]) + 0.3])
+        pts[-1][1] = max(pts[-1][1], yl + 0.3)
+        pts.append([tl + 0.55, yl + 0.3])  # rounded lip: bends over the edge (as thick as the flow on the plateau)
+        prev = tl + 0.55; fs = np.array([0.06, 0.17, 0.33, 0.52, 0.72, 0.88, 1.0]) ** 1.15; ys = yl - (yl - ybot) * fs
+        for k, yq in enumerate(ys):  # each row clears the rock down to the NEXT row, so the straight segment between them does too
+            tau = (-0.28 + math.sqrt(0.0784 + 19.62 * (yl - yq))) / 9.81
+            tk = max(tl + 0.55 + 1.58 * tau, front(ys[min(k + 1, len(ys) - 1)]) + clear, prev); prev = tk; pts.append([tk, yq])
+        cols.append((lat, np.array(pts)))
+    R = len(cols[0][1]); G = np.zeros((R, C, 3))
+    for j, (lat, P) in enumerate(cols):
+        for i in range(R):
+            fr = i / (R - 1); wob = (0.35 * (rng.random() - 0.5) if j in (0, C - 1) else 0.0)
+            l2 = lat * (0.86 + 0.14 * min(1, fr * 3)) / 0.86 * (1 + 0.15 * fr) + wob  # taper in at the top, widen below
+            xy = np.array([x, z]) + S * l2 + F * P[i, 0]; G[i, j] = [xy[0], P[i, 1], xy[1]]
+    return G

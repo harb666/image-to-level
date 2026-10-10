@@ -17,6 +17,7 @@ SCHEMA = {
     "spec_version": (INT, True), "name": (STR, True), "title": (STR, False), "theme": (STR, False), "detail": (STR, False, ("low", "medium", "high")),
     "seed": (INT, False), "profile": (STR, False, ("performance", "balanced", "quality")),
     "art_style": (STR, False, tuple(sorted(__import__("styles").PRESETS))), "style": (DICT, False),
+    "leaks": (DICT, False, {"chance": (NUM, False), "material": (STR, False), "seed": (INT, False), "kinds": (LIST, False), "max_drips": (INT, False)}),
     "mobile": (DICT, False, {"cell": (NUM, False), "tex_max": (INT, False), "bg_tex_max": (INT, False), "prop_range": (NUM, False), "small": (NUM, False)}),
     "references": (LIST, False, {"file": (STR, True), "kind": (STR, False, ("concept_sheet", "perspective", "top_down", "elevation", "detail", "photo")),
                                  "panels": (LIST, False, {"id": (STR, True), "bbox_px": (("vec", 4), False), "view": (STR, True, ("top_down", "elevation", "perspective", "detail", "text")),

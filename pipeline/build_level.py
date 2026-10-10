@@ -42,6 +42,8 @@ def shape(o, bevel=0.0):
     if t == "cylinder":
         m = trimesh.creation.cylinder(radius=min(w, d) / 2, height=h, sections=o.get("sections", 12))
         m.apply_transform(euler_matrix(-np.pi / 2, 0, 0)); m.apply_translation([0, h / 2, 0]); return m
+    if t == "panel" and o.get("cut"):  # pennant banner / drip / puddle outline (shapes.cut_panel, own UVs)
+        return shapes.cut_panel(w, h, o["cut"], o.get("seed", 0), o.get("_layout"))
     if t == "panel":  # flat quad facing +z (windows, doors, signs); base at y=0
         return trimesh.Trimesh([[-w/2, 0, 0], [w/2, 0, 0], [w/2, h, 0], [-w/2, h, 0]], [[0, 1, 2], [0, 2, 3]])
     if t == "spire":  # 4-sided pyramid
@@ -133,8 +135,16 @@ def build(level_dir):
         if key in geoms:  # identical part (window/door/...) -> reuse the same mesh (glTF instancing)
             scene.graph.update(frame_from=parent, frame_to=o["name"], matrix=T, geometry=geoms[key])
             tris += len(scene.geometry[geoms[key]].faces); continue
-        m, uv = uv_world(shape(o, bevel), tile)
-        if o["type"] == "panel": uv = (m.vertices[:, :2] - [-o["size"][0] / 2, 0]) / o["size"][:2]  # whole texture once
+        mspec = L["materials"].get(o.get("material"), {})
+        if o["type"] == "panel" and not o.get("cut") and mspec.get("panel_cut"):  # e.g. banners: every panel of the material is cut
+            o = dict(o, cut=mspec["panel_cut"], _layout=(mspec.get("emblem_aspect", 1.3), tuple(mspec.get("emblem_band", (0.2, 0.8))), o.get("emblem_at")))
+        g0 = shape(o, bevel)
+        if "uv" in g0.metadata: m, uv = g0, g0.metadata["uv"]  # shapes with their own UVs (grid sheets, cut panels)
+        else:
+            m, uv = uv_world(g0, tile)
+            if o["type"] == "panel": uv = (m.vertices[:, :2] - [-o["size"][0] / 2, 0]) / o["size"][:2]  # whole texture once
+        reg = (mspec.get("atlas") or {}).get(o.get("uv_region") or ("banner" if o["type"] == "panel" else None))
+        if reg: uv = np.asarray(reg[:2]) + np.asarray(uv) * (np.asarray(reg[2:]) - np.asarray(reg[:2]))  # atlas sub-rectangle
         m.visual = trimesh.visual.TextureVisuals(uv=uv, material=mats[mk])
         if o["type"] != "boundary": tris += len(m.faces)
         gname = o["name"] if o["type"] not in ("panel", "cylinder") else f"{o['type']}_{mk}_{len(geoms)}"

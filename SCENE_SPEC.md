@@ -363,3 +363,21 @@ Building blocks usable without the preset:
   `target`) and emits `level_exit_entered(target, body)`. Construct Error decides what loading the next level means;
   the preview only shows a toast and respawns.
 - Per object `"mobile": {"static": true}`: small parts stay in the static merge cells instead of their own draw call.
+
+## Stage 13 additions (banners, organic falls, leaks)
+- Banner materials can be an atlas: `"atlas": {"banner": [u0, v0, u1, v1], "drip": [...], "puddle": [...]}` (UV
+  rectangles, v up). `"panel_cut": "pennant"` cuts every panel of the material into a swallowtail banner whose middle
+  band shows the emblem at a fixed aspect (`emblem_aspect`, `emblem_band`), so the emblem never stretches on long or
+  short banners. `"emblem": "<path from the repo root>"` uses an image (alpha, or everything that differs from the
+  border colour); without it a procedural emblem is drawn. `emblem_color`, `cloth_glow`, `slime` tune the colours.
+  Towers with strap bands centre the emblem between the bands (`emblem_at` on the banner panel).
+- Panels take `"cut": "pennant" | "drip" | "blob"` (shapes.cut_panel) and `"uv_region": "<atlas cell>"`.
+- Terrain waterfalls (`waterfall` on a world with terrain) are curved sheets (`stream` with a `grid`): every column
+  finds its own lip, the top lies on the plateau with a ragged rounded edge, bends over the edge, and every row stays
+  >= 0.85 m in front of the rock reaching down to the next row (no cliff pokes through). The sheet has its own UVs
+  (v along the flow). `"organic": false` or an explicit `"y"` keeps the old straight sheet.
+- `"leaks": {"chance", "material", "seed", "kinds", "max_drips"}` (alien_cartoon: chance 0.4, material accent):
+  slime runs down one or two faces of randomly picked structures (reproducible), sometimes pooling at the base; they
+  avoid banners, are visual only (collision false, navigation and colliders unchanged) and, on an atlas material,
+  add no material or draw call (`pipeline/weathering.py`).
+

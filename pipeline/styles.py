@@ -8,6 +8,7 @@ operations a plain merge cannot express. Levels without "art_style" are untouche
   world.scatter_style   prop palette for scatter     atmosphere              sky / planet / clouds / fog / lighting
   background_types      per background layer TYPE overrides (colours, fades, options); background_add: extra layers
   structures_decor      decor kit added to structures of a kind (towers get antennas, ...)
+  leaks                 slime leaking from some structures (pipeline/weathering.py), merged under spec "leaks"
   render                level.json "style": toon shading + outline shells (build_level / viewer / Godot metadata)
 
   python3 pipeline/styles.py                      # list presets
@@ -25,7 +26,10 @@ ALIEN_CARTOON = {
         "frame":       {"type": "industrial_metal", "color": [0.2, 0.15, 0.26], "tile_m": 3.0, "toon": True},
         "trim":        {"type": "trim_light", "color": [0.22, 0.17, 0.28], "tile_m": 1.2, "accent": [1.0, 0.08, 0.2], "emissive": [1, 1, 1], "toon": True},
         "glow":        {"type": "glow", "color": [1.0, 0.16, 0.3], "tile_m": 2.0, "emissive": [1.0, 0.12, 0.25]},
-        "accent":      {"type": "banner", "color": [0.82, 0.06, 0.12], "tile_m": 2.0, "emissive": [0.55, 0.04, 0.1], "toon": True},
+        "accent":      {"type": "banner", "color": [0.78, 0.05, 0.1], "tile_m": 2.0, "emissive": [1, 1, 1], "toon": True, "res": 512,
+                        # pennant banners with a glowing emblem ("emblem": image path overrides the procedural one) + slime decal cells
+                        "panel_cut": "pennant", "emblem_aspect": 1.55, "emblem_band": [0.2, 0.8], "emblem_color": [1.0, 0.16, 0.2],
+                        "atlas": {"banner": [0, 0, 0.75, 1], "drip": [0.78, 0.52, 0.98, 0.98], "puddle": [0.78, 0.02, 0.98, 0.48]}},
         "rail":        {"type": "painted_metal", "color": [0.85, 0.08, 0.1], "tile_m": 2.0, "res": 128, "wear": 0.02, "toon": True},
         "grate":       {"type": "grating", "color": [0.27, 0.22, 0.35], "tile_m": 2.0, "toon": True},
         "machine":     {"type": "machinery_panel", "color": [0.3, 0.24, 0.38], "tile_m": 2.0, "accent": [0.45, 1.0, 0.2], "emissive": [1, 1, 1], "toon": True},
@@ -63,6 +67,7 @@ ALIEN_CARTOON = {
                         "size": [10, 26], "color": [0.1, 0.08, 0.14], "toon": True, "glow": [1.0, 0.15, 0.25], "fade": 0.05, "seed": 21}],
     "structures_decor": {"tower": ["antenna"]},
     "structures_material": {"waterfall": "fall"},  # role given to structures of a kind that set no material
+    "leaks": {"chance": 0.4, "material": "accent"},  # green slime leaking from some structures (weathering.py; accent atlas cells)
     "render": {"name": "alien_cartoon", "toon": {"steps": 3, "floor": 0.55, "ambient": 0.85, "godot": {"diffuse_mode": "toon", "specular_mode": "disabled", "metallic": 0.0}},
                "outline": {"color": [0.03, 0.01, 0.05], "width": [0.1, 0.32], "rel": 0.022, "min_size": 0.25,
                            "skip_materials": ["glow", "water", "accent"], "skip_types": ["panel", "terrain", "boundary", "stream"]}},
@@ -106,6 +111,7 @@ def apply(spec):
         if st.get("kind") in P.get("structures_material", {}) and "material" not in st: st["material"] = P["structures_material"][st["kind"]]
         add = P["structures_decor"].get(st.get("kind"))
         if add and "decor" in st: st["decor"] = list(dict.fromkeys(list(st["decor"]) + [d for d in add if d not in st["decor"]]))
+    if P.get("leaks"): s["leaks"] = _deep_under(P["leaks"], s.get("leaks", {}))
     s["style"] = _deep_under(P["render"], s.get("style", {}))
     return s
 

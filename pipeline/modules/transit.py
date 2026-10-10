@@ -12,6 +12,7 @@ arena floor; the base is split).
 """
 import math
 from modules import structure
+from architecture import local as A_local
 
 
 @structure("elevator_shaft", pad=False)
@@ -51,7 +52,8 @@ def elevator_shaft(ctx, s, x, y, z, yaw):
     for i in range(16):  # ring of light panels, emblem plates at the diagonals
         a = 2 * math.pi * i / 16; ca, sa = math.cos(a), math.sin(a); r = R + 2.3
         if i % 4 == 2:
-            ctx.add(f"{n}_Emblem_{i // 4 + 1}", "panel", [ca * r, top + 0.03, sa * r], [1.5, 1.5, 0], "accent", g, [-90, -math.degrees(a) - 90, 0], outline=False, mobile={"static": True})
+            yw = -math.degrees(a) - 90; ex, ez = A_local(0, 1.1 - 0.75, yw)  # 1.3 x 2.2 insignia plate centred where the old 1.5 plate was
+            ctx.add(f"{n}_Emblem_{i // 4 + 1}", "panel", [ca * r + ex, top + 0.03, sa * r + ez], [1.3, 2.2, 0], "accent", g, [-90, yw, 0], outline=False, mobile={"static": True})
         else:
             ctx.add(f"{n}_Panel_{i + 1:02d}", "box", [ca * r, top, sa * r], [1.6, 0.05, 0.75], "glow", g, [0, -math.degrees(a) + 90, 0], outline=False, mobile={"static": True})
     ctx.add(n + "_OuterRing", "cylinder", [0, top, 0], [2 * (R + 3.75), 0.04, 2 * (R + 3.75)], "glow", g, sections=32, hole=R + 3.5, outline=False)

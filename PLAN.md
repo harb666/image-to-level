@@ -181,3 +181,9 @@ Liquid flow direction is measured per mesh (`flow_uv`) and used by the preview a
 scrolled falls upward). Fly-by ships grow in / shrink away instead of popping. Generic `hole` on box / cylinder /
 frustum, `elevator_shaft` structure with a `level_exit` trigger exported to collision.json + Godot Area3D signal.
 Not modelled: the closed hatch of concept 1 (the shaft is always open); Construct Error must handle `level_exit_entered`.
+
+## Stage 13 status (Skyforge: emblem banners, organic falls, slime leaks)
+Banners are swallowtail pennants with the emblem from levels/skyforge_arena/references/banner_emblem_ref.png (atlas
+material: banner + slime decal cells, one draw call). Terrain waterfalls follow each column's own lip and keep clear of
+the cliff. Slime leaks on ~40 % of the structures, visual only. Gameplay and colliders unchanged (scenery aside).
+

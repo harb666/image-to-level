@@ -68,6 +68,7 @@ def generate(spec, G, level_dir=None):
         ctx.element = (p["id"], p.get("source", "visible")); A.pipe(ctx, p, fy, ar or {"center": list(centre), "size": [0, 0]})
     A.party_walls(ctx)
     A.place_covers(ctx)  # after connections: cover never stands in a landing (Stage 8)
+    import weathering; weathering.leaks(ctx, spec)  # Stage 13: slime decals on some structures (visual only)
     for h in spec.get("hazards", []):
         ctx.element = (h["id"], h.get("source", "visible")); x0, z0, x1, z1 = h["area"]
         ctx.hazards.append(ctx.add(h["id"], "box", [(x0 + x1) / 2, 0, (z0 + z1) / 2], [abs(x1 - x0), h["y"], abs(z1 - z0)], h.get("material", "hazard")))

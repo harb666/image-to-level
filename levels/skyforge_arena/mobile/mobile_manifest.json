@@ -41,17 +41,17 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 4402,
-    "triangles": 84020,
-    "nodes": 970,
-    "mesh_nodes": 929,
-    "unique_meshes": 605,
+    "glb_kb": 4457,
+    "triangles": 84099,
+    "nodes": 990,
+    "mesh_nodes": 949,
+    "unique_meshes": 625,
     "materials": 22,
     "images": 58,
-    "draw_calls_unbatched": 929,
+    "draw_calls_unbatched": 949,
     "draw_calls_batched_min": 22,
-    "tex_mem_uncompressed_mb": 24.58,
-    "tex_mem_gpu_compressed_mb": 6.15,
+    "tex_mem_uncompressed_mb": 28.58,
+    "tex_mem_gpu_compressed_mb": 7.15,
     "texture_slots": {
      "baseColorTexture": 19,
      "metallicRoughnessTexture": 19,
@@ -68,16 +68,16 @@
    },
    "visible": {
     "cameras": 96,
-    "visible_draw_calls_mean": 351.0,
-    "visible_draw_calls_max": 828,
-    "visible_triangles_mean": 44414,
-    "visible_triangles_max": 72228
+    "visible_draw_calls_mean": 358.2,
+    "visible_draw_calls_max": 847,
+    "visible_triangles_mean": 44464,
+    "visible_triangles_max": 72290
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 5031,
-    "triangles": 94604,
+    "glb_kb": 5068,
+    "triangles": 94683,
     "nodes": 139,
     "mesh_nodes": 138,
     "unique_meshes": 138,
@@ -85,8 +85,8 @@
     "images": 58,
     "draw_calls_unbatched": 138,
     "draw_calls_batched_min": 22,
-    "tex_mem_uncompressed_mb": 24.58,
-    "tex_mem_gpu_compressed_mb": 6.15,
+    "tex_mem_uncompressed_mb": 28.58,
+    "tex_mem_gpu_compressed_mb": 7.15,
     "texture_slots": {
      "baseColorTexture": 19,
      "metallicRoughnessTexture": 19,
@@ -125,16 +125,16 @@
     ]
    },
    "collision": {
-    "colliders": 544,
+    "colliders": 543,
     "hazards": 0,
-    "glb_kb": 569
+    "glb_kb": 568
    },
    "visible": {
     "cameras": 96,
-    "visible_draw_calls_mean": 59.2,
+    "visible_draw_calls_mean": 59.4,
     "visible_draw_calls_max": 86,
-    "visible_triangles_mean": 44927,
-    "visible_triangles_max": 59737
+    "visible_triangles_mean": 45084,
+    "visible_triangles_max": 59808
    },
    "hidden_faces_removed": 0,
    "effects_extra_draw_calls": 14,
@@ -338,10 +338,11 @@
    "node": "M_accent_-1_-1",
    "kind": "static",
    "material": "accent",
-   "triangles": 18,
+   "triangles": 74,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "NW_Tower_Leak_01",
     "NW_Tower_Banner_04",
     "NW_Tower_Banner_03",
     "NW_Tower_Banner_02",
@@ -601,10 +602,12 @@
    "node": "M_accent_-1_0",
    "kind": "static",
    "material": "accent",
-   "triangles": 10,
+   "triangles": 55,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "South_Spire_Puddle_01",
+    "SW_Tower_Leak_01",
     "SW_Tower_Banner_04",
     "SW_Tower_Banner_03",
     "SW_Tower_Banner_02",
@@ -809,18 +812,30 @@
    "node": "M_accent_0_-1",
    "kind": "static",
    "material": "accent",
-   "triangles": 18,
+   "triangles": 188,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "East_Tower_Leak_03",
+    "East_Tower_Puddle_02",
+    "East_Tower_Leak_02",
+    "East_Tower_Puddle_01",
+    "East_Tower_Leak_01",
     "East_Tower_Banner_04",
     "East_Tower_Banner_03",
     "East_Tower_Banner_02",
     "East_Tower_Banner_01",
+    "North_Tower_E_Leak_05",
+    "North_Tower_E_Leak_04",
+    "North_Tower_E_Leak_03",
+    "North_Tower_E_Leak_02",
+    "North_Tower_E_Leak_01",
     "North_Tower_E_Banner_04",
     "North_Tower_E_Banner_03",
     "North_Tower_E_Banner_02",
     "North_Tower_E_Banner_01",
+    "North_Hall_Block_Leak_01",
+    "Hub_Pylon_1_Leak_01",
     "Elevator_Emblem_4"
    ]
   },
@@ -1078,10 +1093,13 @@
    "node": "M_accent_0_0",
    "kind": "static",
    "material": "accent",
-   "triangles": 18,
+   "triangles": 118,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "South_Spire_Leak_03",
+    "South_Spire_Leak_02",
+    "South_Spire_Leak_01",
     "South_Spire_Banner_04",
     "South_Spire_Banner_03",
     "South_Spire_Banner_02",
@@ -1090,6 +1108,8 @@
     "SE_Tower_Banner_03",
     "SE_Tower_Banner_02",
     "SE_Tower_Banner_01",
+    "Hub_Pylon_5_Leak_02",
+    "Hub_Pylon_5_Leak_01",
     "Elevator_Emblem_1"
    ]
   },
@@ -1640,8 +1660,8 @@
   {
    "node": "FX_Pour_Flow",
    "kind": "effect_target",
-   "material": "fall",
-   "triangles": 240,
+   "material": "fall__2s",
+   "triangles": 180,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2363,7 +2383,7 @@
    "node": "SC_Island_Trees__160_2_1",
    "kind": "scatter",
    "material": "sc_atlas_island_trees",
-   "triangles": 4248,
+   "triangles": 4256,
    "visibility_range_end": 260,
    "cast_shadow": true,
    "source_objects": [
@@ -2375,7 +2395,7 @@
    "node": "SC_Island_Trees__160_1_1",
    "kind": "scatter",
    "material": "sc_atlas_island_trees",
-   "triangles": 566,
+   "triangles": 536,
    "visibility_range_end": 260,
    "cast_shadow": true,
    "source_objects": [
@@ -2387,7 +2407,7 @@
    "node": "SC_Island_Trees__160_1_0",
    "kind": "scatter",
    "material": "sc_atlas_island_trees",
-   "triangles": 3974,
+   "triangles": 3832,
    "visibility_range_end": 260,
    "cast_shadow": true,
    "source_objects": [
@@ -2399,7 +2419,7 @@
    "node": "SC_Island_Trees__160_0_2",
    "kind": "scatter",
    "material": "sc_atlas_island_trees",
-   "triangles": 2960,
+   "triangles": 2932,
    "visibility_range_end": 260,
    "cast_shadow": true,
    "source_objects": [
@@ -2411,7 +2431,7 @@
    "node": "SC_Island_Trees__160_0_1",
    "kind": "scatter",
    "material": "sc_atlas_island_trees",
-   "triangles": 918,
+   "triangles": 872,
    "visibility_range_end": 260,
    "cast_shadow": true,
    "source_objects": [
@@ -2423,7 +2443,7 @@
    "node": "SC_Island_Trees__160_0_0",
    "kind": "scatter",
    "material": "sc_atlas_island_trees",
-   "triangles": 8074,
+   "triangles": 8080,
    "visibility_range_end": 260,
    "cast_shadow": true,
    "source_objects": [

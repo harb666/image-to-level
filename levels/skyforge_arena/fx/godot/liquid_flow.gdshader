@@ -2,7 +2,7 @@
 // uv_speed = flow speed (m/s) / material tile size (m); flow_dir = effects.json "flow_uv" (measured flow direction in
 // the mesh's UV space - the texture moves along it, so falls and pipes flow the right way whatever their UV layout).
 shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back;
+render_mode blend_mix, depth_draw_opaque, cull_disabled;  // open liquid sheets (terrain waterfalls) show both sides
 
 uniform sampler2D albedo_tex : source_color, filter_linear_mipmap, repeat_enable;
 uniform float uv_speed = 0.25;

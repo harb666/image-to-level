@@ -370,7 +370,71 @@ def k_pipe(S, rng, c, m):
     return dict(alb=alb, h=h, rough=0.38 + 0.35 * grime, metal=0.55 - 0.3 * np.clip(grime, 0, 1), nstr=1.2)
 
 
+def emblem_mask(src, W, H):
+    """Emblem image -> float mask (H, W) fitted (aspect kept, centred). Alpha if the image has transparency, else every
+    pixel that differs from the border colour (a logo on a plain background). Paths are relative to the repo root."""
+    import os
+    p = src if os.path.isabs(src) else os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), src)
+    im = Image.open(p); a = np.asarray(im.convert("RGBA"), float) / 255
+    if a[..., 3].min() < 0.5: k = a[..., 3]
+    else:
+        b = np.concatenate([a[0, :, :3], a[-1, :, :3], a[:, 0, :3], a[:, -1, :3]]); bg = np.median(b, 0)
+        k = np.clip((np.abs(a[..., :3] - bg).max(-1) - 0.12) * 5, 0, 1)
+    ys, xs = np.nonzero(k > 0.5); k = k[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    sc = min(W / k.shape[1], H / k.shape[0]); w, h = max(1, int(k.shape[1] * sc)), max(1, int(k.shape[0] * sc))
+    r = np.asarray(Image.fromarray((k * 255).astype(np.uint8)).resize((w, h), Image.LANCZOS), float) / 255
+    out = np.zeros((H, W)); y0, x0 = (H - h) // 2, (W - w) // 2; out[y0:y0 + h, x0:x0 + w] = r; return out
+
+
+def _proc_emblem(W, H):
+    """Default (original) alien emblem when no image is given: horned crest over an eye and a spike."""
+    y, x = np.mgrid[0:H, 0:W] / np.array([H, W])[:, None, None]; x = x * W / H - (W / H - 1) / 2 if W > H else x  # square-ish coords
+    crest = (y > 0.18) & (y < 0.5) & (np.abs(x - 0.5) < 0.42 - (y - 0.18) * 0.7) & ~(np.hypot(x - 0.5, y - 0.62) < 0.2)
+    horns = ((np.abs(np.abs(x - 0.5) - 0.3) < 0.05 * (0.18 - y) / 0.13) & (y > 0.05) & (y < 0.18))
+    eye = np.hypot(x - 0.5, y - 0.6) < 0.13
+    spike = (y > 0.76) & (y < 0.97) & (np.abs(x - 0.5) < 0.09 * (0.97 - y) / 0.21)
+    return (crest | horns | eye | spike).astype(float)
+
+
+def _banner_atlas(S, rng, c, m):
+    """Banner atlas ("atlas" in the material): pennant banner cloth with a glowing emblem ("emblem": image path, else a
+    procedural one) in its "banner" rectangle, plus liquid decal cells ("drip", "puddle": slime running down walls /
+    pooling on floors, colour "slime") so leaks share the banner's draw call. Rectangles are UV (u0, v0, u1, v1),
+    trimesh convention (v up). The emblem sits in the "emblem_band" of the banner (fixed aspect, see shapes.cut_panel)."""
+    x, y = _xy(S); fine = _noise(rng, 48, 2, S); n = _noise(rng, 6, 3, S)
+    alb = np.zeros((S, S, 3)); h = np.full((S, S), 0.5); emit = np.zeros((S, S)); rough = np.full((S, S), 0.8)
+    A = m["atlas"]; pix = lambda r: (int(r[0] * S), int((1 - r[3]) * S), int(r[2] * S), int((1 - r[1]) * S))  # x0, y0, x1, y1
+    x0, y0, x1, y1 = pix(A["banner"]); W, H = x1 - x0, y1 - y0
+    bx = (x[y0:y1, x0:x1] - x0 / S) / (W / S); v = 1 - (y[y0:y1, x0:x1] - y0 / S) / (H / S)
+    cloth = c[None, None] * (0.7 + 0.035 * np.sin(bx * np.pi * 6) + 0.03 * fine[y0:y1, x0:x1])[..., None]
+    border = (np.minimum(bx, 1 - bx) < 0.07) | (v > 0.965)
+    sub = np.where(border[..., None], c * 0.32, cloth); hh = np.where(border, 0.75, 0.5)
+    b0, b1 = m.get("emblem_band", (0.2, 0.8)); ea = m.get("emblem_aspect", 1.3)
+    ey0, ey1 = y0 + int((1 - b1) * H), y0 + int((1 - b0) * H)  # emblem band rows (the band shows as w x ea*w)
+    bw = int(W * 0.86); bh = int((ey1 - ey0) * 0.92)
+    # mask drawn in display aspect (w : ea*w), then squashed into the band's texel aspect
+    disp_h = int(bw * ea / 0.86 * 0.92); mk = emblem_mask(m["emblem"], bw, disp_h) if m.get("emblem") else _proc_emblem(bw, disp_h)
+    mk = np.asarray(Image.fromarray((mk * 255).astype(np.uint8)).resize((bw, bh), Image.LANCZOS), float) / 255
+    E = np.zeros((H, W)); oy, ox = ey0 - y0 + ((ey1 - ey0) - bh) // 2, (W - bw) // 2; E[oy:oy + bh, ox:ox + bw] = mk
+    ec = np.array(m.get("emblem_color", [1.0, 0.16, 0.2]))
+    sub = sub * (1 - E[..., None]) + ec * E[..., None]; hh = hh + 0.35 * E
+    alb[y0:y1, x0:x1] = sub; h[y0:y1, x0:x1] = hh; emit[y0:y1, x0:x1] = np.maximum(E, np.where(border, 0.0, m.get("cloth_glow", 0.22)))
+    sl = np.array(m.get("slime", [0.45, 1.0, 0.18]))
+    if "drip" in A:  # runny slime: vertical streaks, bright core, darker edges
+        x0, y0, x1, y1 = pix(A["drip"]); bx = (x[y0:y1, x0:x1] - x0 / S) / ((x1 - x0) / S)
+        st = ndimage.gaussian_filter1d(_noise(rng, 24, 2, S)[y0:y1, x0:x1], S / 20, axis=0); st = (st - st.min()) / (np.ptp(st) + 1e-6)
+        k = 0.65 + 0.35 * st + 0.25 * (np.abs(bx - 0.5) < 0.18)
+        alb[y0:y1, x0:x1] = np.clip(sl * k[..., None], 0, 1); h[y0:y1, x0:x1] = 0.7; emit[y0:y1, x0:x1] = 0.55 + 0.25 * st; rough[y0:y1, x0:x1] = 0.15
+    if "puddle" in A:  # pooled slime: brighter rim, glossy spots
+        x0, y0, x1, y1 = pix(A["puddle"]); px_ = (x[y0:y1, x0:x1] - x0 / S) / ((x1 - x0) / S); py_ = (y[y0:y1, x0:x1] - y0 / S) / ((y1 - y0) / S)
+        r = np.hypot(px_ - 0.5, py_ - 0.5) * 2; spot = n[y0:y1, x0:x1] > 0.68
+        k = 0.7 + 0.3 * np.clip((r - 0.6) * 3, 0, 1) + 0.3 * spot
+        alb[y0:y1, x0:x1] = np.clip(sl * k[..., None], 0, 1); h[y0:y1, x0:x1] = 0.7; emit[y0:y1, x0:x1] = 0.5 + 0.2 * spot; rough[y0:y1, x0:x1] = 0.1
+    return dict(alb=alb, h=_blur(h, 0.6), rough=rough, metal=0.0, emit=emit, nstr=0.6)
+
+
 def k_banner(S, rng, c, m):
+    if m.get("atlas"): return _banner_atlas(S, rng, c, m)
     alb = np.clip(legacy_texture_at("red_panel", S) * c[None, None] * 1.1, 0, 1)
     x, y = _xy(S); r = np.hypot(x - 0.5, (y - 0.42) * 1.2)
     emb = (np.abs(r - 0.17) < 0.022) | ((r < 0.25) & ((np.abs(x - 0.5) < 0.012) | (np.abs(y - 0.42) < 0.012)))

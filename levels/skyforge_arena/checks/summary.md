@@ -1,10 +1,10 @@
 # skyforge_arena: generation summary
 
-Spec: levels/skyforge_arena/scene_spec.json · 675 objects · 28 materials · 14 effects
+Spec: levels/skyforge_arena/scene_spec.json · 695 objects · 28 materials · 14 effects
 Checks: PASSED ({'error': 0, 'warning': 0, 'info': 0}) · refine passes: 1
-Mobile (balanced): 5031 KB · 94604 tris · 138 draw calls · ~59.2 visible (estimate) · ~6.15 MB GPU textures (estimate)
-Navigation: 4138.0 m² reachable of 29439.2 m² standable
-Package: dist/skyforge_arena/package (37 files, 12.57 MB) valid=True
+Mobile (balanced): 5068 KB · 94683 tris · 138 draw calls · ~59.4 visible (estimate) · ~7.15 MB GPU textures (estimate)
+Navigation: 4138.0 m² reachable of 29489.0 m² standable
+Package: dist/skyforge_arena/package (37 files, 12.67 MB) valid=True
 Previews: dist/skyforge_arena/preview.html, preview_mobile.html · renders: levels/skyforge_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
@@ -22,11 +22,12 @@ Previews: dist/skyforge_arena/preview.html, preview_mobile.html · renders: leve
 - Ramp_Hub_SE: 0.35 m junction plate where it meets SE_Octagon's angled edge
 - Elevator: elevator shaft r 5.5 m, 10.3 m deep through Hub; exit trigger -> next_level
 - North_Hall: 2 cover crate(s) dropped - no free spot clear of landings
+- leaks: 20 slime decals (visual only) on structures picked with chance 0.4
 
 ## Timing
-- spec -> level.json: 0.2 s
-- build (glb, sky, background, effects, mobile): 27.9 s
-- refine (checks -> safe fixes): 503.6 s
+- spec -> level.json: 0.6 s
+- build (glb, sky, background, effects, mobile): 33.5 s
+- refine (checks -> safe fixes): 525.2 s
 - previews: 0.8 s
 - export package: 0.8 s
-- total: 533.3 s
+- total: 560.9 s

@@ -434,7 +434,7 @@ def check_mesh(g, L, out):
         if not np.isfinite(T).all(): out.append(F("mesh", "ERROR", [base], f"{nm}: NaN/inf vertices")); continue
         bad = int((g.area[idx] < 1e-9).sum())
         if bad: out.append(F("mesh", "WARNING", [base], f"{nm}: {bad} degenerate triangles"))
-        if o.get("type") in ("panel", "terrain", None) or o.get("double_sided"): continue
+        if o.get("type") in ("panel", "terrain", None) or o.get("double_sided") or (o.get("grid") and not o.get("closed")): continue  # open by design
         V = T.reshape(-1, 3); _, inv = np.unique(np.round(V, 4), axis=0, return_inverse=True); F_ = inv.reshape(-1, 3)
         e = np.sort(F_[:, [0, 1, 1, 2, 2, 0]].reshape(-1, 2), 1); _, c = np.unique(e, axis=0, return_counts=True)
         if (c == 1).sum(): out.append(F("mesh", "WARNING", [base], f"{nm}: {(c == 1).sum()} open boundary edges (not a closed solid)", V.mean(0)))

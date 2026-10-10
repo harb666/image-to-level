@@ -601,7 +601,9 @@ def tower(ctx, s, x, y, z, yaw):
             ctx.add(f"{n}_Rib_{i + 1:02d}", "box", [sx * w / 2, 0, sz * d / 2], [0.7, h, 0.7], "structure_b", g)
     for k, (px, pz, fy, fw) in enumerate(((0, d / 2, 0, w), (w / 2, 0, 90, d), (0, -d / 2, 180, w), (-w / 2, 0, 270, d))):
         nx, nz = (px and math.copysign(0.03, px)), (pz and math.copysign(0.03, pz))
-        if "banners" in dec: ctx.add(f"{n}_Banner_{k + 1:02d}", "panel", [px + nx, h * 0.3, pz + nz], [min(2.6, fw * 0.4), h * 0.5, 0], "accent", g, [0, fy, 0])
+        if "banners" in dec:  # emblem (pennant banner materials) centred between the strap bands when there are bands
+            at = {"emblem_at": round(((0.42 * h + 0.45 + 0.7 * h) / 2 - 0.3 * h) / (0.5 * h), 3)} if "bands" in dec and h > 6 else {}
+            ctx.add(f"{n}_Banner_{k + 1:02d}", "panel", [px + nx, h * 0.3, pz + nz], [min(2.6, fw * 0.4), h * 0.5, 0], "accent", g, [0, fy, 0], **at)
         if "glow_strips" in dec:
             for sd in (-1, 1):
                 ox, oz = local(sd * fw * 0.34, 0, fy)

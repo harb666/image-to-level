@@ -232,7 +232,13 @@ def wedge(w, h, d, o):
 
 
 def stream_path(h, o, n=None):
-    """Centre-line of a stream (outlet at the origin, local +z forward): list of (point, tangent, fraction 0..1)."""
+    """Centre-line of a stream (outlet at the origin, local +z forward): list of (point, tangent, fraction 0..1).
+    Grid sheets (o["grid"], terrain waterfalls): the middle column of the grid."""
+    if o.get("grid"):
+        G = np.asarray(o["grid"], float); C = G.shape[1]; P = 0.5 * (G[:, (C - 1) // 2] + G[:, C // 2])
+        seg = np.diff(P, axis=0); L = np.r_[0, np.cumsum(np.linalg.norm(seg, axis=1))]; T = np.vstack([seg, seg[-1:]])
+        T = T / (np.linalg.norm(T, axis=1, keepdims=True) + 1e-9)
+        return [(P[i], T[i], L[i] / (L[-1] or 1)) for i in range(len(P))]
     sp = float(o.get("speed", 2.5)); p = np.radians(float(o.get("pitch", 0.0))); g = 9.81; vz, vy = sp * np.cos(p), sp * np.sin(p)
     if abs(vz) < 1e-3:  # vertical: straight column
         t_end = 1.0; pos = lambda t: np.array([0.0, -h * t, 0.0]); tan = lambda t: np.array([0.0, -1.0, 0.0])
@@ -247,7 +253,83 @@ def stream_path(h, o, n=None):
     return out
 
 
+def grid_sheet(G, d, closed=False):
+    """Curved liquid sheet from G = (rows, cols, 3) centre surface (row 0 upstream, col 0 = -x side). Default: one
+    surface facing out / up (its back faces the cliff and is never seen; 4x fewer triangles than a slab); closed=True:
+    slab of thickness d. Own UVs (metadata["uv"], trimesh convention): u across, v down the flow (arc length / 4 m),
+    so the liquid texture flows along v everywhere, also over the curved lip."""
+    G = np.asarray(G, float); R, C = G.shape[:2]
+    du = np.gradient(G, axis=1); dv = np.gradient(G, axis=0); N = np.cross(du, dv); N /= np.linalg.norm(N, axis=-1, keepdims=True) + 1e-9
+    if N[..., 2].mean() + N[..., 1].mean() < 0: N = -N  # front faces downstream / up
+    arc = np.r_[0, np.cumsum(np.linalg.norm(np.diff(G.mean(1), axis=0), axis=1))]; across = np.linspace(0, 1, C) * np.linalg.norm(G[0, -1] - G[0, 0]) / 4
+    U = np.stack(np.meshgrid(across, -arc / 4), -1)  # (R, C, 2): v decreases downstream in trimesh = increases in glTF
+    V, UV, F = [], [], []
+    def surf(P, uv, flip):
+        b = len(V); V.extend(P.reshape(-1, 3)); UV.extend(uv.reshape(-1, 2)); idx = b + np.arange(R * C).reshape(R, C)
+        for i in range(R - 1):
+            for j in range(C - 1):
+                a, b_, c, e = idx[i, j], idx[i, j + 1], idx[i + 1, j + 1], idx[i + 1, j]
+                F.extend([[a, e, c], [a, c, b_]] if not flip else [[a, c, e], [a, b_, c]])
+        return idx
+    if not closed:
+        surf(G, U, False); m = trimesh.Trimesh(np.array(V), np.array(F), process=False)
+        if np.mean(m.face_normals[:, 1] + m.face_normals[:, 2]) < 0: m.invert()
+        m.metadata["uv"] = np.array(UV); return m
+    front, back = G + N * d / 2, G - N * d / 2
+    surf(front, U, False); surf(back, U, True)
+    def strip(A, B, uvA, uvB, flip):  # side / cap strip between two polylines
+        b = len(V); n = len(A); V.extend(A); V.extend(B); UV.extend(uvA); UV.extend(uvB)
+        for k in range(n - 1):
+            a, b_, c, e = b + k, b + k + 1, b + n + k + 1, b + n + k
+            F.extend([[a, c, b_], [a, e, c]] if not flip else [[a, b_, c], [a, c, e]])
+    strip(front[:, 0], back[:, 0], U[:, 0], U[:, 0], False); strip(front[:, -1], back[:, -1], U[:, -1], U[:, -1], True)
+    strip(front[0], back[0], U[0], U[0], True); strip(front[-1], back[-1], U[-1], U[-1], False)
+    m = trimesh.Trimesh(np.array(V), np.array(F), process=False)
+    if m.volume < 0: m.invert()
+    m.metadata["uv"] = np.array(UV); return m
+
+
+def cut_panel(w, h, cut, seed=0, layout=None):
+    """Flat shapes in the panel plane (x across, y up, facing +z; base y = 0) with their own UVs 0..1 (trimesh v up):
+    "pennant": banner with a swallowtail V-cut at the bottom; layout (h_emblem_rel, v_bands) maps the middle band
+      to a fixed-aspect emblem area of the texture so the emblem never stretches whatever the banner's aspect.
+    "drip": liquid running down a wall: a band along the top edge with 2-4 tongues of random length.
+    "blob": irregular puddle (in the panel plane; lay it flat with rotation [-90, yaw, 0])."""
+    rng = np.random.default_rng(seed); P, T = [], []
+    if cut == "pennant":
+        ea, (b0, b1), at = (tuple(layout) + (None,))[:3] if layout else (1.3, (0.2, 0.8), None); notch = min(0.9 * w, 0.18 * h)
+        lo, hi = notch + 0.05 * h, h - min(0.35 * w, 0.1 * h)  # emblem band: w x ea*w when the banner is long enough (else squashed)
+        if at is None: y2 = hi; y1 = max(y2 - w * ea, lo)  # near the top
+        else: he = min(w * ea, hi - lo); yc = float(np.clip(at * h, lo + he / 2, hi - he / 2)); y1, y2 = yc - he / 2, yc + he / 2  # centred at at*h
+        vb = lambda y: np.interp(y, [0, y1, y2, h], [0, b0, b1, 1])
+        pts = [(-w / 2, 0), (0, notch), (w / 2, 0), (w / 2, y1), (-w / 2, y1), (w / 2, y2), (-w / 2, y2), (w / 2, h), (-w / 2, h)]
+        P = [(x, y) for x, y in pts]; T = [[0, 1, 4], [1, 3, 4], [1, 2, 3], [4, 3, 5], [4, 5, 6], [6, 5, 7], [6, 7, 8]]
+        uv = [((x + w / 2) / w, vb(y)) for x, y in P]
+    elif cut == "drip":
+        band = min(0.3 * h, 0.5); n = int(rng.integers(2, 5)); xs = np.sort(rng.uniform(-w / 2 + 0.1, w / 2 - 0.1, n))
+        tw = np.minimum(w / (n + 0.5), 0.42) * rng.uniform(0.55, 1.0, n); L = (h - band) * rng.uniform(0.25, 1.0, n); L[int(rng.integers(n))] = h - band  # one runs the full length
+        P = [(-w / 2, h - band), (w / 2, h - band), (w / 2, h), (-w / 2, h)]; T = [[0, 1, 2], [0, 2, 3]]
+        for x, t_, l in zip(xs, tw, L):  # tongue swelling into a drop with a pointed tip (3 triangles)
+            x0, x1 = max(-w / 2, x - t_ / 2), min(w / 2, x + t_ / 2); c = (x0 + x1) / 2; hw = (x1 - x0) / 2
+            yt = h - band + 0.01; yd = max(t_ * 0.9, yt - l + t_ * 0.9); k = len(P)
+            P += [(x0, yt), (x1, yt), (c + hw * 1.25, yd), (c - hw * 1.25, yd), (c, max(0.0, yd - t_ * 0.9))]
+            T += [[k, k + 3, k + 2], [k, k + 2, k + 1], [k + 3, k + 4, k + 2]]
+        uv = [((x + w / 2) / w, y / h) for x, y in P]
+    elif cut == "blob":
+        n = 12; a = np.linspace(0, 2 * np.pi, n, endpoint=False) + rng.uniform(0, 0.4); r = 0.5 * (0.7 + 0.3 * rng.random(n))
+        r = 0.5 * r + 0.25 * (np.roll(r, 1) + np.roll(r, -1))  # soften
+        P = [(0.0, h / 2)] + [(w * rr * np.cos(q), h / 2 + h * rr * np.sin(q)) for q, rr in zip(a, r)]
+        T = [[0, 1 + i, 1 + (i + 1) % n] for i in range(n)]
+        uv = [((x + w / 2) / w, y / h) for x, y in P]
+    else: raise ValueError(cut)
+    m = trimesh.Trimesh(np.c_[np.array(P), np.zeros(len(P))], np.array(T), process=False)
+    flip = m.face_normals[:, 2] < 0
+    if flip.any(): f = m.faces.copy(); f[flip] = f[flip][:, ::-1]; m = trimesh.Trimesh(m.vertices, f, process=False)
+    m.metadata["uv"] = np.array(uv, float); return m
+
+
 def stream(w, h, d, o):
+    if o.get("grid"): return grid_sheet(o["grid"], d, o.get("closed", False))
     sec = o.get("section", "circle"); sides = int(o.get("sides", 10)) if sec == "circle" else 4
     widen, thin = float(o.get("widen", 0.2)), float(o.get("thin", 0.35)); V, rings = [], []
     for P, T, f in stream_path(h, o):
