@@ -1335,6 +1335,62 @@
    "merge_emitters": true
   },
   {
+   "id": "Fan_Spin",
+   "type": "spin",
+   "category": "transform_animation",
+   "glb_contains": "rotor mesh at rest, own node",
+   "godot_runtime": "script: rotor node.rotate_object_local(Vector3.UP, rpm * TAU / 60 * delta); the rotor's node origin is its centre and its local +y its axis (per-target rpm in 'speeds', sign = direction)",
+   "speeds": {
+    "Works_Wall_North_01_M01Fan_Rotor": 31.2,
+    "Works_Wall_North_02_M01Fan_Rotor": 22.4,
+    "Ceil_Fan_1_Rotor": -30.8,
+    "Works_Ceil_Fan_1_Rotor": -17.2,
+    "Works_Ceil_Fan_2_Rotor": -28.1
+   },
+   "targets": [
+    "Ceil_Fan_1_Rotor",
+    "Works_Ceil_Fan_1_Rotor",
+    "Works_Ceil_Fan_2_Rotor",
+    "Works_Wall_North_01_M01Fan_Rotor",
+    "Works_Wall_North_02_M01Fan_Rotor"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed_rpm": 20.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed_rpm": 20.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed_rpm": 20.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Glow_Pulse",
    "type": "pulse_light",
    "category": "material_animation",
@@ -1344,9 +1400,7 @@
    "targets": [
     "Ceiling__glow",
     "Elevator_Car__glow",
-    "M_glow_0_-1",
     "M_glow_0_0",
-    "M_glow_0_0_props",
     "M_glow_0_1",
     "M_glow_0_1_props"
    ],
@@ -1401,7 +1455,6 @@
    "target_material": "trim",
    "targets": [
     "Ceiling__trim",
-    "M_trim_0_-1",
     "M_trim_0_0",
     "M_trim_0_1"
    ],
@@ -1455,7 +1508,6 @@
    "godot_runtime": "script: emission_energy_multiplier random flicker (rate Hz)",
    "target_material": "structure",
    "targets": [
-    "M_structure_0_-1",
     "M_structure_0_0",
     "M_structure_0_1"
    ],

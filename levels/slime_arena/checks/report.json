@@ -1,61 +1,61 @@
 {
  "level": "slime_arena",
  "assets_kb": {
-  "level.glb": 3648,
-  "mobile/level_mobile.glb": 2335,
-  "mobile/collision.json": 185,
+  "level.glb": 3742,
+  "mobile/level_mobile.glb": 2408,
+  "mobile/collision.json": 196,
   "environment.json": 4,
   "background.glb": 474,
-  "effects.json": 39
+  "effects.json": 40
  },
  "complexity": {
-  "triangles": 69517,
-  "nodes": 2652,
-  "materials": 16,
+  "triangles": 68069,
+  "nodes": 2559,
+  "materials": 18,
   "heaviest": [
    [
-    "W_Stairs_Process",
-    240
+    "Works_Ceil_Fan_2_Rotor",
+    758
    ],
    [
-    "Works_Wall_West_02_M05Fan__ol",
-    240
+    "Works_Wall_North_01_M01Fan_Rotor",
+    758
    ],
    [
-    "Works_Wall_West_02_M05Fan",
-    240
+    "Works_Ceil_Fan_1_Rotor",
+    682
    ],
    [
-    "Works_Wall_West_02_M03Fan__ol",
-    240
+    "Works_Wall_North_02_M01Fan_Rotor",
+    682
    ],
    [
-    "Works_Wall_West_02_M03Fan",
-    240
+    "Ceil_Fan_1_Rotor",
+    606
    ]
   ]
  },
  "performance": {
   "dev": {
-   "glb_kb": 3648,
-   "triangles": 51503,
-   "draw_calls": 2652,
-   "tex_mem_gpu_mb_est": 6.77
+   "glb_kb": 3742,
+   "triangles": 52071,
+   "draw_calls": 2559,
+   "tex_mem_gpu_mb_est": 9.44
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 2335,
-   "triangles": 67408,
-   "draw_calls": 72,
-   "visible_draw_calls_est": 49.0,
-   "visible_draw_calls_max_est": 71,
-   "tex_mem_gpu_mb_est": 3.48,
-   "materials": 18,
-   "nodes": 73,
+   "glb_kb": 2408,
+   "triangles": 66050,
+   "draw_calls": 67,
+   "visible_draw_calls_est": 46.3,
+   "visible_draw_calls_max_est": 68,
+   "tex_mem_gpu_mb_est": 4.81,
+   "materials": 20,
+   "nodes": 68,
    "colliders": {
-    "colliders": 632,
+    "colliders": 670,
     "hazards": 16,
-    "glb_kb": 381
+    "glb_kb": 412
    },
    "background_kb": 407
   },
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 48829.0,
-  "reachable_area_m2": 9090.0,
-  "components": 382,
+  "standable_area_m2": 48845.0,
+  "reachable_area_m2": 9087.0,
+  "components": 387,
   "spawns": [
    {
     "id": "spawn",
@@ -95,7 +95,7 @@
     "standable": true,
     "clearance_m": 5.5,
     "headroom_m": 99.0,
-    "component": 5,
+    "component": 6,
     "hazard_distance_m": 11.34
    },
    {
@@ -108,7 +108,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 19.79,
-    "component": 5,
+    "component": 6,
     "hazard_distance_m": 5.02
    },
    {
@@ -121,7 +121,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 19.77,
-    "component": 209,
+    "component": 214,
     "hazard_distance_m": 7.52
    },
    {
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 19.8,
-    "component": 5,
+    "component": 6,
     "hazard_distance_m": 6.52
    },
    {
@@ -147,7 +147,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 16.77,
-    "component": 5,
+    "component": 6,
     "hazard_distance_m": 5.61
    },
    {
@@ -160,7 +160,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 16.8,
-    "component": 5,
+    "component": 6,
     "hazard_distance_m": 7.52
    },
    {
@@ -173,7 +173,7 @@
     "standable": true,
     "clearance_m": 4.5,
     "headroom_m": 14.8,
-    "component": 5,
+    "component": 6,
     "hazard_distance_m": 6.26
    },
    {
@@ -186,7 +186,7 @@
     "standable": true,
     "clearance_m": 5.5,
     "headroom_m": 12.8,
-    "component": 54,
+    "component": 56,
     "hazard_distance_m": 6.52
    },
    {
@@ -199,7 +199,7 @@
     "standable": true,
     "clearance_m": 8.5,
     "headroom_m": 18.8,
-    "component": 108,
+    "component": 110,
     "hazard_distance_m": 9.41
    }
   ],
@@ -212,7 +212,7 @@
    },
    {
     "name": "Walkway_South",
-    "standable_m2": 529.0,
+    "standable_m2": 526.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -422,14 +422,14 @@
   "back_face": {},
   "open_mesh": {},
   "camera_inside": 24,
-  "visible_objects": 1136,
+  "visible_objects": 1257,
   "passed": true,
   "stale_note": "from the last full run (--fast skipped it)"
  },
  "render": {
   "views": 16,
   "errors": [],
-  "load_seconds": 4.316,
+  "load_seconds": 4.687,
   "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
   "contact_sheet": "checks/views/contact_sheet.jpg",
   "note": "browser preview renders (three.js, SwiftShader) - not Godot"
@@ -438,7 +438,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "69517 triangles (> budget 40000)"
+   "message": "68069 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
@@ -449,7 +449,7 @@
     6.73,
     -54.5
    ],
-   "message": "88 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): Walkway_East_Floor, Walkway_North_Floor, Walkway_South_Floor, Walkway_West_Floor"
+   "message": "91 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): Walkway_East_Floor, Walkway_North_Floor, Walkway_South_Floor, Walkway_West_Floor"
   }
  ],
  "counts": {

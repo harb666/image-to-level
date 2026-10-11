@@ -1346,6 +1346,62 @@
    "merge_emitters": true
   },
   {
+   "id": "Fan_Spin",
+   "type": "spin",
+   "category": "transform_animation",
+   "glb_contains": "rotor mesh at rest, own node",
+   "godot_runtime": "script: rotor node.rotate_object_local(Vector3.UP, rpm * TAU / 60 * delta); the rotor's node origin is its centre and its local +y its axis (per-target rpm in 'speeds', sign = direction)",
+   "speeds": {
+    "Works_Wall_North_01_M01Fan_Rotor": 31.2,
+    "Works_Wall_North_02_M01Fan_Rotor": 22.4,
+    "Ceil_Fan_1_Rotor": -30.8,
+    "Works_Ceil_Fan_1_Rotor": -17.2,
+    "Works_Ceil_Fan_2_Rotor": -28.1
+   },
+   "targets": [
+    "Works_Wall_North_01_M01Fan_Rotor",
+    "Works_Wall_North_02_M01Fan_Rotor",
+    "Ceil_Fan_1_Rotor",
+    "Works_Ceil_Fan_1_Rotor",
+    "Works_Ceil_Fan_2_Rotor"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed_rpm": 20.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed_rpm": 20.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed_rpm": 20.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Glow_Pulse",
    "type": "pulse_light",
    "category": "material_animation",
@@ -1560,45 +1616,37 @@
     "Central_Glow_01R",
     "Central_Glow_01L",
     "Works_Wall_West_03_M03Pipes_Red",
-    "Works_Wall_West_02_M09Tank_Light",
-    "Works_Wall_West_02_M08Emblem_Red",
-    "Works_Wall_West_02_M05Fan_Red",
-    "Works_Wall_West_02_M04Vent_Red",
-    "Works_Wall_West_01_M04Machine_Red",
-    "Works_Wall_West_01_M04Machine_Light",
-    "Works_Wall_West_01_M03Fan_Red",
+    "Works_Wall_West_03_M02Tank_Light",
+    "Works_Wall_West_02_M06Tank_Red",
+    "Works_Wall_West_02_M06Tank_Light",
+    "Works_Wall_West_02_M03Machine_Light",
+    "Works_Wall_West_02_M02Tank_Light",
+    "Works_Wall_West_01_M03Machine_Red",
+    "Works_Wall_West_01_M03Machine_Light",
     "Works_Wall_West_01_M01Tank_Light",
-    "Works_Wall_East_03_M06Machine_Light",
     "Works_Wall_East_03_M03Plain_Strip",
     "Works_Wall_East_03_M02Emblem_Red",
     "Works_Wall_East_02_M03Machine_Light",
     "Works_Wall_East_02_M02Door_Sign",
     "Works_Wall_East_02_M02Door_Frame",
-    "Works_Wall_East_01_M03Fan_Red",
     "Works_Wall_East_01_M02Machine_Red",
     "Works_Wall_East_01_M02Machine_Light",
-    "Works_Wall_North_03_M02Machine_Red",
-    "Works_Wall_North_03_M02Machine_Light",
+    "Works_Wall_North_02_M03Machine_Red",
+    "Works_Wall_North_02_M03Machine_Light",
     "Works_Wall_North_02_M02Tank_Light",
-    "Works_Wall_North_01_M03Pipes_Red",
     "Works_Wall_North_01_M01Fan_Red",
-    "OuterWall_West_03_M02Fan_Red",
     "OuterWall_West_03_M01Tank_Red",
     "OuterWall_West_03_M01Tank_Light",
-    "OuterWall_West_01_M02Plain_Strip",
     "OuterWall_West_01_M01Machine_Red",
     "OuterWall_West_01_M01Machine_Light",
-    "OuterWall_South_03_M02Plain_Strip",
     "OuterWall_South_03_M01Tank_Red",
     "OuterWall_South_03_M01Tank_Light",
     "OuterWall_South_02_M01Plain_Strip",
-    "OuterWall_South_01_M02Fan_Red",
-    "OuterWall_East_03_M02Emblem_Red",
     "OuterWall_East_03_M01Machine_Light",
+    "OuterWall_East_02_M03Plain_Red",
     "OuterWall_East_02_M03Plain_Strip",
+    "OuterWall_East_02_M01Machine_Light",
     "OuterWall_East_01_M01Vent_Red",
-    "OuterWall_North_03_M01Machine_Light",
-    "OuterWall_North_02_M01Emblem_Red",
     "OuterWall_North_01_M01Machine_Red",
     "OuterWall_North_01_M01Machine_Light"
    ],

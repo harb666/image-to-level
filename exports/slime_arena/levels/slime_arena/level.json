@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "056851af8cd9d356",
+  "spec_sha": "f3b78cb5c2e50e53",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -271,6 +271,17 @@
     "W_Drain_Core_Fall"
    ],
    "anchor": "bottom"
+  },
+  {
+   "id": "Fan_Spin",
+   "type": "spin",
+   "targets": [
+    "Works_Wall_North_01_M01Fan_Rotor",
+    "Works_Wall_North_02_M01Fan_Rotor",
+    "Ceil_Fan_1_Rotor",
+    "Works_Ceil_Fan_1_Rotor",
+    "Works_Ceil_Fan_2_Rotor"
+   ]
   },
   {
    "id": "Glow_Pulse",
@@ -1344,6 +1355,42 @@
    "wear": 0.2,
    "bevel": 0.12,
    "toon": true
+  },
+  "wall_slimed": {
+   "type": "wall_slimed",
+   "color": [
+    0.27,
+    0.21,
+    0.33
+   ],
+   "tile_m": 13.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 512,
+   "toon": true,
+   "emissive": [
+    0.8,
+    0.9,
+    0.6
+   ]
+  },
+  "wall_works": {
+   "type": "wall_works",
+   "color": [
+    0.29,
+    0.23,
+    0.36
+   ],
+   "tile_m": 16.0,
+   "wear": 0.4,
+   "bevel": 0.12,
+   "res": 512,
+   "toon": true,
+   "emissive": [
+    1,
+    1,
+    1
+   ]
   }
  },
  "objects": [
@@ -1379,7 +1426,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -1441,7 +1488,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -1654,7 +1701,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -1716,7 +1763,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -1778,7 +1825,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -1991,7 +2038,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -2016,7 +2063,7 @@
     26.0,
     4.0
    ],
-   "material": "wall",
+   "material": "wall_slimed",
    "gen": "arena.walls",
    "source": "inferred"
   },
@@ -2047,9 +2094,9 @@
    "name": "OuterWall_North_01_M01Machine_Bracket",
    "type": "box",
    "position": [
-    -4.51,
-    6.2,
-    2.9
+    -0.51,
+    9.5,
+    2.7
    ],
    "rotation": [
     0.0,
@@ -2060,7 +2107,7 @@
    "size": [
     3.342,
     0.8,
-    1.8
+    1.4
    ],
    "material": "frame",
    "collision": false,
@@ -2074,9 +2121,9 @@
    "name": "OuterWall_North_01_M01Machine",
    "type": "machinery",
    "position": [
-    -4.51,
-    7.0,
-    3.1
+    -0.51,
+    10.3,
+    2.8
    ],
    "rotation": [
     0.0,
@@ -2087,7 +2134,7 @@
    "size": [
     4.177,
     6.031,
-    2.2
+    1.6
    ],
    "material": "machine",
    "seed": 401847,
@@ -2102,8 +2149,8 @@
    "name": "OuterWall_North_01_M01Machine_Light",
    "type": "box",
    "position": [
-    -5.763,
-    13.331,
+    -1.763,
+    16.631,
     2.15
    ],
    "rotation": [
@@ -2130,7 +2177,7 @@
    "name": "OuterWall_North_01_M01Machine_Red",
    "type": "box",
    "position": [
-    -4.982,
+    -0.982,
     10.541,
     2.15
    ],
@@ -2158,7 +2205,7 @@
    "name": "OuterWall_North_01_M01Machine_Plate",
    "type": "box",
    "position": [
-    -4.51,
+    -0.51,
     15.411,
     2.06
    ],
@@ -2173,177 +2220,7 @@
     7.115,
     0.12
    ],
-   "material": "machine",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_01_M02Fan",
-   "type": "cylinder",
-   "position": [
-    3.196,
-    17.375,
-    2.0
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_01",
-   "size": [
-    7.909,
-    0.9,
-    7.909
-   ],
-   "material": "structure_b",
-   "sections": 10,
-   "hole": 3.5044505244118267,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_01_M02Fan_Hub",
-   "type": "cylinder",
-   "position": [
-    3.196,
-    17.375,
-    2.0
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_01",
-   "size": [
-    1.0,
-    0.6,
-    1.0
-   ],
-   "material": "machine",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_01_M02Fan_Blade_1",
-   "type": "box",
-   "position": [
-    3.196,
-    17.375,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    15.0
-   ],
-   "parent": "OuterWall_North_01",
-   "size": [
-    7.009,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_01_M02Fan_Blade_2",
-   "type": "box",
-   "position": [
-    3.196,
-    17.375,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    60.0
-   ],
-   "parent": "OuterWall_North_01",
-   "size": [
-    7.009,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_01_M02Fan_Blade_3",
-   "type": "box",
-   "position": [
-    3.196,
-    17.375,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    105.0
-   ],
-   "parent": "OuterWall_North_01",
-   "size": [
-    7.009,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_01_M02Fan_Blade_4",
-   "type": "box",
-   "position": [
-    3.196,
-    17.375,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    150.0
-   ],
-   "parent": "OuterWall_North_01",
-   "size": [
-    7.009,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -2362,7 +2239,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -2415,289 +2292,6 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_North_02_M01Emblem",
-   "type": "panel",
-   "position": [
-    -1.173,
-    9.5,
-    2.03
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_02",
-   "size": [
-    4.412,
-    8.507,
-    0.0
-   ],
-   "material": "accent",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_02_M01Emblem_Red",
-   "type": "box",
-   "position": [
-    -0.081,
-    21.671,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_02",
-   "size": [
-    0.5,
-    0.35,
-    0.3
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_02_M01Emblem_Plate",
-   "type": "box",
-   "position": [
-    -1.173,
-    14.542,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_02",
-   "size": [
-    5.204,
-    6.47,
-    0.12
-   ],
-   "material": "machine",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_02_M02Pipes_Pipe_1",
-   "type": "cylinder",
-   "position": [
-    1.881,
-    0.5,
-    2.556
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_02",
-   "size": [
-    0.911,
-    21.766,
-    0.911
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_02_M02Pipes_Pipe_2",
-   "type": "cylinder",
-   "position": [
-    3.042,
-    0.5,
-    2.556
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_02",
-   "size": [
-    0.911,
-    21.766,
-    0.911
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_02_M02Pipes_Pipe_3",
-   "type": "cylinder",
-   "position": [
-    4.204,
-    0.5,
-    2.556
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_02",
-   "size": [
-    0.911,
-    21.766,
-    0.911
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_02_M02Pipes_Bracket_1",
-   "type": "box",
-   "position": [
-    3.042,
-    10.123,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_02",
-   "size": [
-    3.784,
-    0.35,
-    1.411
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_02_M02Pipes_Bracket_2",
-   "type": "box",
-   "position": [
-    3.042,
-    10.8,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_02",
-   "size": [
-    3.784,
-    0.35,
-    1.411
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_02_M02Pipes_Bracket_3",
-   "type": "box",
-   "position": [
-    3.042,
-    18.394,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_02",
-   "size": [
-    3.784,
-    0.35,
-    1.411
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_02_M02Pipes_Plate",
-   "type": "box",
-   "position": [
-    3.042,
-    5.507,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_02",
-   "size": [
-    2.295,
-    10.869,
-    0.12
-   ],
-   "material": "machine",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
    "name": "OuterWall_North_03",
    "type": "group",
    "position": [
@@ -2707,7 +2301,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -2760,259 +2354,6 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_North_03_M01Machine_Bracket",
-   "type": "box",
-   "position": [
-    -1.093,
-    6.2,
-    2.9
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_03",
-   "size": [
-    3.464,
-    0.8,
-    1.8
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_03_M01Machine",
-   "type": "machinery",
-   "position": [
-    -1.093,
-    7.0,
-    3.1
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_03",
-   "size": [
-    4.33,
-    4.568,
-    2.2
-   ],
-   "material": "machine",
-   "seed": 860369,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_03_M01Machine_Light",
-   "type": "box",
-   "position": [
-    -2.393,
-    11.868,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_03",
-   "size": [
-    0.6,
-    0.35,
-    0.3
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_03_M01Machine_Plate",
-   "type": "box",
-   "position": [
-    -1.093,
-    15.377,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_03",
-   "size": [
-    4.567,
-    9.823,
-    0.12
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_03_M02Pipes_Pipe_1",
-   "type": "cylinder",
-   "position": [
-    2.711,
-    0.5,
-    2.397
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_03",
-   "size": [
-    0.594,
-    24.763,
-    0.594
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_03_M02Pipes_Pipe_2",
-   "type": "cylinder",
-   "position": [
-    3.555,
-    0.5,
-    2.397
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_03",
-   "size": [
-    0.594,
-    24.763,
-    0.594
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_03_M02Pipes_Bracket_1",
-   "type": "box",
-   "position": [
-    3.133,
-    10.407,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_03",
-   "size": [
-    1.988,
-    0.35,
-    1.094
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_03_M02Pipes_Bracket_2",
-   "type": "box",
-   "position": [
-    3.133,
-    10.885,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_03",
-   "size": [
-    1.988,
-    0.35,
-    1.094
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_03_M02Pipes_Plate",
-   "type": "box",
-   "position": [
-    3.133,
-    1.073,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_03",
-   "size": [
-    2.585,
-    13.66,
-    0.12
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
    "name": "OuterWall_North_04",
    "type": "group",
    "position": [
@@ -3022,7 +2363,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -3047,7 +2388,7 @@
     26.0,
     4.0
    ],
-   "material": "wall",
+   "material": "wall_works",
    "gen": "arena.walls",
    "source": "inferred"
   },
@@ -3078,7 +2419,7 @@
    "name": "OuterWall_North_04_M01Pipes_Pipe_1",
    "type": "cylinder",
    "position": [
-    -6.107,
+    -2.107,
     0.5,
     2.417
    ],
@@ -3095,7 +2436,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -3107,7 +2447,7 @@
    "name": "OuterWall_North_04_M01Pipes_Pipe_2",
    "type": "cylinder",
    "position": [
-    -5.223,
+    -1.223,
     0.5,
     2.417
    ],
@@ -3124,7 +2464,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -3136,7 +2475,7 @@
    "name": "OuterWall_North_04_M01Pipes_Pipe_3",
    "type": "cylinder",
    "position": [
-    -4.339,
+    -0.339,
     0.5,
     2.417
    ],
@@ -3153,7 +2492,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -3165,7 +2503,7 @@
    "name": "OuterWall_North_04_M01Pipes_Bracket_1",
    "type": "box",
    "position": [
-    -5.223,
+    -1.223,
     9.905,
     2.3
    ],
@@ -3193,7 +2531,7 @@
    "name": "OuterWall_North_04_M01Pipes_Bracket_2",
    "type": "box",
    "position": [
-    -5.223,
+    -1.223,
     20.124,
     2.3
    ],
@@ -3221,7 +2559,7 @@
    "name": "OuterWall_North_04_M01Pipes_Plate",
    "type": "box",
    "position": [
-    -5.223,
+    -1.223,
     5.19,
     2.06
    ],
@@ -3234,62 +2572,6 @@
    "size": [
     4.975,
     11.022,
-    0.12
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_04_M02Emblem",
-   "type": "panel",
-   "position": [
-    2.562,
-    9.5,
-    2.03
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_04",
-   "size": [
-    6.798,
-    11.097,
-    0.0
-   ],
-   "material": "accent",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_04_M02Emblem_Plate",
-   "type": "box",
-   "position": [
-    2.562,
-    12.79,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North_04",
-   "size": [
-    8.315,
-    7.309,
     0.12
    ],
    "material": "structure_b",
@@ -3311,7 +2593,7 @@
    ],
    "rotation": [
     0.0,
-    90.0,
+    -90.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -3373,7 +2655,7 @@
    ],
    "rotation": [
     0.0,
-    90.0,
+    -90.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -3586,7 +2868,7 @@
    ],
    "rotation": [
     0.0,
-    90.0,
+    -90.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -3648,7 +2930,7 @@
    ],
    "rotation": [
     0.0,
-    90.0,
+    -90.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -3888,7 +3170,7 @@
    ],
    "rotation": [
     0.0,
-    90.0,
+    -90.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -3944,7 +3226,7 @@
    "name": "OuterWall_East_01_M01Vent",
    "type": "box",
    "position": [
-    -1.485,
+    0.639,
     9.399,
     2.1
    ],
@@ -3955,7 +3237,7 @@
    ],
    "parent": "OuterWall_East_01",
    "size": [
-    5.899,
+    3.97,
     2.449,
     0.3
    ],
@@ -3971,7 +3253,7 @@
    "name": "OuterWall_East_01_M01Vent_Slat_1",
    "type": "box",
    "position": [
-    -1.485,
+    0.639,
     9.891,
     2.3
    ],
@@ -3982,7 +3264,7 @@
    ],
    "parent": "OuterWall_East_01",
    "size": [
-    5.399,
+    3.47,
     0.24,
     0.15
    ],
@@ -3999,7 +3281,7 @@
    "name": "OuterWall_East_01_M01Vent_Slat_2",
    "type": "box",
    "position": [
-    -1.485,
+    0.639,
     10.503,
     2.3
    ],
@@ -4010,7 +3292,7 @@
    ],
    "parent": "OuterWall_East_01",
    "size": [
-    5.399,
+    3.47,
     0.24,
     0.15
    ],
@@ -4027,7 +3309,7 @@
    "name": "OuterWall_East_01_M01Vent_Slat_3",
    "type": "box",
    "position": [
-    -1.485,
+    0.639,
     11.116,
     2.3
    ],
@@ -4038,7 +3320,7 @@
    ],
    "parent": "OuterWall_East_01",
    "size": [
-    5.399,
+    3.47,
     0.24,
     0.15
    ],
@@ -4055,7 +3337,7 @@
    "name": "OuterWall_East_01_M01Vent_Red",
    "type": "box",
    "position": [
-    0.533,
+    1.934,
     10.083,
     2.15
    ],
@@ -4083,7 +3365,7 @@
    "name": "OuterWall_East_01_M01Vent_Plate",
    "type": "box",
    "position": [
-    -1.485,
+    0.639,
     12.606,
     2.06
    ],
@@ -4094,182 +3376,11 @@
    ],
    "parent": "OuterWall_East_01",
    "size": [
-    10.218,
+    6.876,
     8.219,
     0.12
    ],
-   "material": "machine",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_01_M02Pipes_Pipe_1",
-   "type": "cylinder",
-   "position": [
-    5.363,
-    0.5,
-    2.482
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_01",
-   "size": [
-    0.764,
-    22.302,
-    0.764
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_01_M02Pipes_Pipe_2",
-   "type": "cylinder",
-   "position": [
-    6.377,
-    0.5,
-    2.482
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_01",
-   "size": [
-    0.764,
-    22.302,
-    0.764
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_01_M02Pipes_Pipe_3",
-   "type": "cylinder",
-   "position": [
-    7.39,
-    0.5,
-    2.482
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_01",
-   "size": [
-    0.764,
-    22.302,
-    0.764
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_01_M02Pipes_Bracket_1",
-   "type": "box",
-   "position": [
-    6.377,
-    10.798,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_01",
-   "size": [
-    3.341,
-    0.35,
-    1.264
-   ],
    "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_01_M02Pipes_Bracket_2",
-   "type": "box",
-   "position": [
-    6.377,
-    17.08,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_01",
-   "size": [
-    3.341,
-    0.35,
-    1.264
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_01_M02Pipes_Plate",
-   "type": "box",
-   "position": [
-    6.377,
-    5.947,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_01",
-   "size": [
-    3.57,
-    13.617,
-    0.12
-   ],
-   "material": "structure_b",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -4288,7 +3399,7 @@
    ],
    "rotation": [
     0.0,
-    90.0,
+    -90.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -4341,28 +3452,110 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_East_02_M01Fan",
-   "type": "cylinder",
+   "name": "OuterWall_East_02_M01Machine_Bracket",
+   "type": "box",
    "position": [
-    -11.373,
-    14.848,
-    2.0
+    -7.373,
+    9.5,
+    2.7
    ],
    "rotation": [
-    90.0,
+    0.0,
     0.0,
     0.0
    ],
    "parent": "OuterWall_East_02",
    "size": [
-    5.365,
-    0.9,
-    5.365
+    3.009,
+    0.8,
+    1.4
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_02_M01Machine",
+   "type": "machinery",
+   "position": [
+    -7.373,
+    10.3,
+    2.8
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_02",
+   "size": [
+    3.761,
+    3.534,
+    1.6
+   ],
+   "material": "machine",
+   "seed": 371410,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_02_M01Machine_Light",
+   "type": "box",
+   "position": [
+    -8.502,
+    14.134,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_02",
+   "size": [
+    0.6,
+    0.35,
+    0.3
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_02_M01Machine_Plate",
+   "type": "box",
+   "position": [
+    -7.373,
+    13.162,
+    2.06
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_02",
+   "size": [
+    5.237,
+    5.595,
+    0.12
    ],
    "material": "structure_b",
-   "sections": 10,
-   "hole": 2.2325715054620052,
    "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -4370,28 +3563,26 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_East_02_M01Fan_Hub",
-   "type": "cylinder",
+   "name": "OuterWall_East_02_M02Vent",
+   "type": "box",
    "position": [
-    -11.373,
-    14.848,
-    2.0
+    -0.522,
+    10.598,
+    2.1
    ],
    "rotation": [
-    90.0,
+    0.0,
     0.0,
     0.0
    ],
    "parent": "OuterWall_East_02",
    "size": [
-    1.0,
-    0.6,
-    1.0
+    3.695,
+    3.022,
+    0.3
    ],
-   "material": "machine",
-   "sections": 6,
+   "material": "structure_b",
    "collision": false,
-   "outline": false,
    "mobile": {
     "static": true
    },
@@ -4399,23 +3590,23 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_East_02_M01Fan_Blade_1",
+   "name": "OuterWall_East_02_M02Vent_Slat_1",
    "type": "box",
    "position": [
-    -11.373,
-    14.848,
+    -0.522,
+    11.234,
     2.3
    ],
    "rotation": [
     0.0,
     0.0,
-    15.0
+    0.0
    ],
    "parent": "OuterWall_East_02",
    "size": [
-    4.465,
-    0.5,
-    0.08
+    3.195,
+    0.24,
+    0.15
    ],
    "material": "frame",
    "collision": false,
@@ -4427,23 +3618,23 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_East_02_M01Fan_Blade_2",
+   "name": "OuterWall_East_02_M02Vent_Slat_2",
    "type": "box",
    "position": [
-    -11.373,
-    14.848,
+    -0.522,
+    11.989,
     2.3
    ],
    "rotation": [
     0.0,
     0.0,
-    60.0
+    0.0
    ],
    "parent": "OuterWall_East_02",
    "size": [
-    4.465,
-    0.5,
-    0.08
+    3.195,
+    0.24,
+    0.15
    ],
    "material": "frame",
    "collision": false,
@@ -4455,23 +3646,23 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_East_02_M01Fan_Blade_3",
+   "name": "OuterWall_East_02_M02Vent_Slat_3",
    "type": "box",
    "position": [
-    -11.373,
-    14.848,
+    -0.522,
+    12.745,
     2.3
    ],
    "rotation": [
     0.0,
     0.0,
-    105.0
+    0.0
    ],
    "parent": "OuterWall_East_02",
    "size": [
-    4.465,
-    0.5,
-    0.08
+    3.195,
+    0.24,
+    0.15
    ],
    "material": "frame",
    "collision": false,
@@ -4483,39 +3674,11 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_East_02_M01Fan_Blade_4",
+   "name": "OuterWall_East_02_M02Vent_Plate",
    "type": "box",
    "position": [
-    -11.373,
-    14.848,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    150.0
-   ],
-   "parent": "OuterWall_East_02",
-   "size": [
-    4.465,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_02_M01Fan_Plate",
-   "type": "box",
-   "position": [
-    -11.373,
-    3.631,
+    -0.522,
+    12.253,
     2.06
    ],
    "rotation": [
@@ -4525,67 +3688,11 @@
    ],
    "parent": "OuterWall_East_02",
    "size": [
-    4.708,
-    8.325,
+    5.755,
+    10.824,
     0.12
    ],
-   "material": "machine",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_02_M02Emblem",
-   "type": "panel",
-   "position": [
-    -4.522,
-    9.5,
-    2.03
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_02",
-   "size": [
-    5.177,
-    8.401,
-    0.0
-   ],
-   "material": "accent",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_02_M02Emblem_Plate",
-   "type": "box",
-   "position": [
-    -4.522,
-    14.437,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_02",
-   "size": [
-    6.197,
-    6.506,
-    0.12
-   ],
-   "material": "frame",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -4598,8 +3705,8 @@
    "name": "OuterWall_East_02_M03Plain_Strip",
    "type": "box",
    "position": [
-    3.183,
-    14.14,
+    7.273,
+    13.029,
     2.05
    ],
    "rotation": [
@@ -4609,9 +3716,37 @@
    ],
    "parent": "OuterWall_East_02",
    "size": [
-    5.791,
+    5.918,
     0.18,
     0.1
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_02_M03Plain_Red",
+   "type": "box",
+   "position": [
+    7.403,
+    20.253,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_02",
+   "size": [
+    0.5,
+    0.35,
+    0.3
    ],
    "material": "glow",
    "collision": false,
@@ -4626,8 +3761,8 @@
    "name": "OuterWall_East_02_M03Plain_Plate",
    "type": "box",
    "position": [
-    3.183,
-    11.533,
+    7.273,
+    12.821,
     2.06
    ],
    "rotation": [
@@ -4637,67 +3772,11 @@
    ],
    "parent": "OuterWall_East_02",
    "size": [
-    7.52,
-    9.657,
+    6.89,
+    10.604,
     0.12
    ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_02_M04Emblem",
-   "type": "panel",
-   "position": [
-    10.993,
-    9.5,
-    2.03
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_02",
-   "size": [
-    5.327,
-    10.642,
-    0.0
-   ],
-   "material": "accent",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_02_M04Emblem_Plate",
-   "type": "box",
-   "position": [
-    10.993,
-    13.537,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_02",
-   "size": [
-    6.413,
-    11.663,
-    0.12
-   ],
-   "material": "structure_b",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -4716,7 +3795,7 @@
    ],
    "rotation": [
     0.0,
-    90.0,
+    -90.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -4741,7 +3820,7 @@
     26.0,
     4.0
    ],
-   "material": "wall",
+   "material": "wall_works",
    "gen": "arena.walls",
    "source": "inferred"
   },
@@ -4772,9 +3851,9 @@
    "name": "OuterWall_East_03_M01Machine_Bracket",
    "type": "box",
    "position": [
-    -4.152,
-    6.2,
-    2.9
+    -0.152,
+    9.5,
+    2.7
    ],
    "rotation": [
     0.0,
@@ -4785,7 +3864,7 @@
    "size": [
     3.603,
     0.8,
-    1.8
+    1.4
    ],
    "material": "frame",
    "collision": false,
@@ -4799,9 +3878,9 @@
    "name": "OuterWall_East_03_M01Machine",
    "type": "machinery",
    "position": [
-    -4.152,
-    7.0,
-    3.1
+    -0.152,
+    10.3,
+    2.8
    ],
    "rotation": [
     0.0,
@@ -4812,7 +3891,7 @@
    "size": [
     4.504,
     5.409,
-    2.2
+    1.6
    ],
    "material": "machine",
    "seed": 718637,
@@ -4827,8 +3906,8 @@
    "name": "OuterWall_East_03_M01Machine_Light",
    "type": "box",
    "position": [
-    -5.503,
-    12.709,
+    -1.503,
+    16.009,
     2.15
    ],
    "rotation": [
@@ -4855,7 +3934,7 @@
    "name": "OuterWall_East_03_M01Machine_Plate",
    "type": "box",
    "position": [
-    -4.152,
+    -0.152,
     12.336,
     2.06
    ],
@@ -4870,261 +3949,7 @@
     7.572,
     0.12
    ],
-   "material": "machine",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_03_M02Emblem",
-   "type": "panel",
-   "position": [
-    2.734,
-    9.5,
-    2.03
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_03",
-   "size": [
-    5.159,
-    7.588,
-    0.0
-   ],
-   "material": "accent",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_03_M02Emblem_Red",
-   "type": "box",
-   "position": [
-    3.166,
-    16.471,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_03",
-   "size": [
-    0.5,
-    0.35,
-    0.3
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_03_M02Emblem_Plate",
-   "type": "box",
-   "position": [
-    2.734,
-    15.802,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_03",
-   "size": [
-    5.638,
-    6.904,
-    0.12
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_03_M03Pipes_Pipe_1",
-   "type": "cylinder",
-   "position": [
-    6.736,
-    0.5,
-    2.468
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_03",
-   "size": [
-    0.736,
-    24.105,
-    0.736
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_03_M03Pipes_Pipe_2",
-   "type": "cylinder",
-   "position": [
-    7.722,
-    0.5,
-    2.468
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_03",
-   "size": [
-    0.736,
-    24.105,
-    0.736
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_03_M03Pipes_Bracket_1",
-   "type": "box",
-   "position": [
-    7.229,
-    18.511,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_03",
-   "size": [
-    2.272,
-    0.35,
-    1.236
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_03_M03Pipes_Bracket_2",
-   "type": "box",
-   "position": [
-    7.229,
-    20.015,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_03",
-   "size": [
-    2.272,
-    0.35,
-    1.236
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_03_M03Pipes_Bracket_3",
-   "type": "box",
-   "position": [
-    7.229,
-    23.541,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_03",
-   "size": [
-    2.272,
-    0.35,
-    1.236
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_03_M03Pipes_Plate",
-   "type": "box",
-   "position": [
-    7.229,
-    4.394,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_03",
-   "size": [
-    1.857,
-    8.298,
-    0.12
-   ],
-   "material": "structure_b",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -5143,7 +3968,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    -180.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -5205,7 +4030,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    -180.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -5445,7 +4270,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    -180.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -5507,7 +4332,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    -180.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -5720,7 +4545,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    -180.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -5745,7 +4570,7 @@
     26.0,
     4.0
    ],
-   "material": "wall",
+   "material": "wall_works",
    "gen": "arena.walls",
    "source": "inferred"
   },
@@ -5776,7 +4601,7 @@
    "name": "OuterWall_South_01_M01Vent",
    "type": "box",
    "position": [
-    -2.807,
+    0.703,
     12.503,
     2.1
    ],
@@ -5787,7 +4612,7 @@
    ],
    "parent": "OuterWall_South_01",
    "size": [
-    3.683,
+    3.263,
     3.561,
     0.3
    ],
@@ -5803,7 +4628,7 @@
    "name": "OuterWall_South_01_M01Vent_Slat_1",
    "type": "box",
    "position": [
-    -2.807,
+    0.703,
     13.273,
     2.3
    ],
@@ -5814,7 +4639,7 @@
    ],
    "parent": "OuterWall_South_01",
    "size": [
-    3.183,
+    2.763,
     0.24,
     0.15
    ],
@@ -5831,7 +4656,7 @@
    "name": "OuterWall_South_01_M01Vent_Slat_2",
    "type": "box",
    "position": [
-    -2.807,
+    0.703,
     14.163,
     2.3
    ],
@@ -5842,7 +4667,7 @@
    ],
    "parent": "OuterWall_South_01",
    "size": [
-    3.183,
+    2.763,
     0.24,
     0.15
    ],
@@ -5859,7 +4684,7 @@
    "name": "OuterWall_South_01_M01Vent_Slat_3",
    "type": "box",
    "position": [
-    -2.807,
+    0.703,
     15.054,
     2.3
    ],
@@ -5870,7 +4695,7 @@
    ],
    "parent": "OuterWall_South_01",
    "size": [
-    3.183,
+    2.763,
     0.24,
     0.15
    ],
@@ -5887,7 +4712,7 @@
    "name": "OuterWall_South_01_M01Vent_Plate",
    "type": "box",
    "position": [
-    -2.807,
+    0.703,
     14.957,
     2.06
    ],
@@ -5898,237 +4723,11 @@
    ],
    "parent": "OuterWall_South_01",
    "size": [
-    7.314,
+    6.479,
     10.243,
     0.12
    ],
-   "material": "machine",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_01_M02Fan",
-   "type": "cylinder",
-   "position": [
-    4.014,
-    20.174,
-    2.0
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_01",
-   "size": [
-    3.87,
-    0.9,
-    3.87
-   ],
-   "material": "structure_b",
-   "sections": 10,
-   "hole": 1.484791810608438,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_01_M02Fan_Hub",
-   "type": "cylinder",
-   "position": [
-    4.014,
-    20.174,
-    2.0
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_01",
-   "size": [
-    1.0,
-    0.6,
-    1.0
-   ],
-   "material": "machine",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_01_M02Fan_Blade_1",
-   "type": "box",
-   "position": [
-    4.014,
-    20.174,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    15.0
-   ],
-   "parent": "OuterWall_South_01",
-   "size": [
-    2.97,
-    0.5,
-    0.08
-   ],
    "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_01_M02Fan_Blade_2",
-   "type": "box",
-   "position": [
-    4.014,
-    20.174,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    60.0
-   ],
-   "parent": "OuterWall_South_01",
-   "size": [
-    2.97,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_01_M02Fan_Blade_3",
-   "type": "box",
-   "position": [
-    4.014,
-    20.174,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    105.0
-   ],
-   "parent": "OuterWall_South_01",
-   "size": [
-    2.97,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_01_M02Fan_Blade_4",
-   "type": "box",
-   "position": [
-    4.014,
-    20.174,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    150.0
-   ],
-   "parent": "OuterWall_South_01",
-   "size": [
-    2.97,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_01_M02Fan_Red",
-   "type": "box",
-   "position": [
-    4.0,
-    22.556,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_01",
-   "size": [
-    0.5,
-    0.35,
-    0.3
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_01_M02Fan_Plate",
-   "type": "box",
-   "position": [
-    4.014,
-    3.218,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_01",
-   "size": [
-    4.728,
-    9.157,
-    0.12
-   ],
-   "material": "machine",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -6147,7 +4746,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    -180.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -6203,7 +4802,7 @@
    "name": "OuterWall_South_02_M01Plain_Strip",
    "type": "box",
    "position": [
-    -8.501,
+    -4.501,
     13.98,
     2.05
    ],
@@ -6231,7 +4830,7 @@
    "name": "OuterWall_South_02_M02Pipes_Pipe_1",
    "type": "cylinder",
    "position": [
-    2.164,
+    5.876,
     0.5,
     2.398
    ],
@@ -6248,7 +4847,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -6260,7 +4858,7 @@
    "name": "OuterWall_South_02_M02Pipes_Pipe_2",
    "type": "cylinder",
    "position": [
-    3.009,
+    6.721,
     0.5,
     2.398
    ],
@@ -6277,7 +4875,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -6289,7 +4886,7 @@
    "name": "OuterWall_South_02_M02Pipes_Bracket_1",
    "type": "box",
    "position": [
-    2.587,
+    6.298,
     11.559,
     2.3
    ],
@@ -6317,7 +4914,7 @@
    "name": "OuterWall_South_02_M02Pipes_Bracket_2",
    "type": "box",
    "position": [
-    2.587,
+    6.298,
     14.06,
     2.3
    ],
@@ -6345,7 +4942,7 @@
    "name": "OuterWall_South_02_M02Pipes_Bracket_3",
    "type": "box",
    "position": [
-    2.587,
+    6.298,
     16.455,
     2.3
    ],
@@ -6373,7 +4970,7 @@
    "name": "OuterWall_South_02_M02Pipes_Plate",
    "type": "box",
    "position": [
-    2.587,
+    6.298,
     5.445,
     2.06
    ],
@@ -6384,150 +4981,11 @@
    ],
    "parent": "OuterWall_South_02",
    "size": [
-    10.252,
+    9.714,
     11.461,
     0.12
    ],
-   "material": "structure_b",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_02_M03Vent",
-   "type": "box",
-   "position": [
-    11.788,
-    8.208,
-    2.1
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_02",
-   "size": [
-    3.504,
-    2.895,
-    0.3
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_02_M03Vent_Slat_1",
-   "type": "box",
-   "position": [
-    11.788,
-    8.812,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_02",
-   "size": [
-    3.004,
-    0.24,
-    0.15
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_02_M03Vent_Slat_2",
-   "type": "box",
-   "position": [
-    11.788,
-    9.536,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_02",
-   "size": [
-    3.004,
-    0.24,
-    0.15
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_02_M03Vent_Slat_3",
-   "type": "box",
-   "position": [
-    11.788,
-    10.259,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_02",
-   "size": [
-    3.004,
-    0.24,
-    0.15
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_02_M03Vent_Plate",
-   "type": "box",
-   "position": [
-    11.788,
-    12.354,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_02",
-   "size": [
-    5.854,
-    6.848,
-    0.12
-   ],
-   "material": "machine",
+   "material": "wall_slimed",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -6546,7 +5004,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    -180.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -6571,7 +5029,7 @@
     26.0,
     4.0
    ],
-   "material": "wall",
+   "material": "wall_slimed",
    "gen": "arena.walls",
    "source": "inferred"
   },
@@ -6602,7 +5060,7 @@
    "name": "OuterWall_South_03_M01Tank_Glass",
    "type": "box",
    "position": [
-    -4.523,
+    -0.523,
     9.906,
     2.15
    ],
@@ -6630,7 +5088,7 @@
    "name": "OuterWall_South_03_M01Tank_Bar_1",
    "type": "box",
    "position": [
-    -4.523,
+    -0.523,
     9.906,
     2.35
    ],
@@ -6657,7 +5115,7 @@
    "name": "OuterWall_South_03_M01Tank_Rim_1",
    "type": "box",
    "position": [
-    -4.523,
+    -0.523,
     9.506,
     2.35
    ],
@@ -6684,7 +5142,7 @@
    "name": "OuterWall_South_03_M01Tank_Rim_2",
    "type": "box",
    "position": [
-    -4.523,
+    -0.523,
     20.329,
     2.35
    ],
@@ -6711,7 +5169,7 @@
    "name": "OuterWall_South_03_M01Tank_Light",
    "type": "box",
    "position": [
-    -2.867,
+    1.133,
     20.929,
     2.15
    ],
@@ -6767,7 +5225,7 @@
    "name": "OuterWall_South_03_M01Tank_Plate",
    "type": "box",
    "position": [
-    -4.523,
+    -0.523,
     15.775,
     2.06
    ],
@@ -6782,177 +5240,7 @@
     9.425,
     0.12
    ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_03_M02Plain_Strip",
-   "type": "box",
-   "position": [
-    1.742,
-    13.166,
-    2.05
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_03",
-   "size": [
-    4.869,
-    0.18,
-    0.1
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_03_M02Plain_Plate",
-   "type": "box",
-   "position": [
-    1.742,
-    13.868,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_03",
-   "size": [
-    5.643,
-    10.972,
-    0.12
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_03_M03Pipes_Pipe_1",
-   "type": "cylinder",
-   "position": [
-    6.474,
-    0.5,
-    2.361
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_03",
-   "size": [
-    0.522,
-    22.446,
-    0.522
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_03_M03Pipes_Pipe_2",
-   "type": "cylinder",
-   "position": [
-    7.246,
-    0.5,
-    2.361
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_03",
-   "size": [
-    0.522,
-    22.446,
-    0.522
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_03_M03Pipes_Bracket_1",
-   "type": "box",
-   "position": [
-    6.86,
-    11.311,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_03",
-   "size": [
-    1.843,
-    0.35,
-    1.022
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_03_M03Pipes_Bracket_2",
-   "type": "box",
-   "position": [
-    6.86,
-    11.414,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_03",
-   "size": [
-    1.843,
-    0.35,
-    1.022
-   ],
-   "material": "frame",
+   "material": "structure_b",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -6971,7 +5259,7 @@
    ],
    "rotation": [
     0.0,
-    270.0,
+    90.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -7033,7 +5321,7 @@
    ],
    "rotation": [
     0.0,
-    270.0,
+    90.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -7273,7 +5561,7 @@
    ],
    "rotation": [
     0.0,
-    270.0,
+    90.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -7335,7 +5623,7 @@
    ],
    "rotation": [
     0.0,
-    270.0,
+    90.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -7548,7 +5836,7 @@
    ],
    "rotation": [
     0.0,
-    270.0,
+    90.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -7604,9 +5892,9 @@
    "name": "OuterWall_West_01_M01Machine_Bracket",
    "type": "box",
    "position": [
-    -3.084,
-    6.2,
-    2.9
+    0.289,
+    9.5,
+    2.7
    ],
    "rotation": [
     0.0,
@@ -7615,9 +5903,9 @@
    ],
    "parent": "OuterWall_West_01",
    "size": [
-    6.014,
+    5.234,
     0.8,
-    1.8
+    1.4
    ],
    "material": "frame",
    "collision": false,
@@ -7631,9 +5919,9 @@
    "name": "OuterWall_West_01_M01Machine",
    "type": "machinery",
    "position": [
-    -3.084,
-    7.0,
-    3.1
+    0.289,
+    10.3,
+    2.8
    ],
    "rotation": [
     0.0,
@@ -7642,9 +5930,9 @@
    ],
    "parent": "OuterWall_West_01",
    "size": [
-    7.517,
+    6.543,
     4.669,
-    2.2
+    1.6
    ],
    "material": "machine",
    "seed": 872830,
@@ -7659,8 +5947,8 @@
    "name": "OuterWall_West_01_M01Machine_Light",
    "type": "box",
    "position": [
-    -5.339,
-    11.969,
+    -1.674,
+    15.269,
     2.15
    ],
    "rotation": [
@@ -7687,7 +5975,7 @@
    "name": "OuterWall_West_01_M01Machine_Red",
    "type": "box",
    "position": [
-    -2.128,
+    1.107,
     14.655,
     2.15
    ],
@@ -7712,62 +6000,6 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_West_01_M02Plain_Strip",
-   "type": "box",
-   "position": [
-    5.127,
-    11.595,
-    2.05
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_01",
-   "size": [
-    4.722,
-    0.18,
-    0.1
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_01_M02Plain_Plate",
-   "type": "box",
-   "position": [
-    5.127,
-    14.145,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_01",
-   "size": [
-    5.045,
-    11.055,
-    0.12
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
    "name": "OuterWall_West_02",
    "type": "group",
    "position": [
@@ -7777,7 +6009,7 @@
    ],
    "rotation": [
     0.0,
-    270.0,
+    90.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -7802,7 +6034,7 @@
     26.0,
     4.0
    ],
-   "material": "wall",
+   "material": "wall_slimed",
    "gen": "arena.walls",
    "source": "inferred"
   },
@@ -7833,7 +6065,7 @@
    "name": "OuterWall_West_02_M01Pipes_Pipe_1",
    "type": "cylinder",
    "position": [
-    -11.996,
+    -7.996,
     0.5,
     2.448
    ],
@@ -7850,7 +6082,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -7862,7 +6093,7 @@
    "name": "OuterWall_West_02_M01Pipes_Pipe_2",
    "type": "cylinder",
    "position": [
-    -11.05,
+    -7.05,
     0.5,
     2.448
    ],
@@ -7879,7 +6110,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -7891,7 +6121,7 @@
    "name": "OuterWall_West_02_M01Pipes_Pipe_3",
    "type": "cylinder",
    "position": [
-    -10.103,
+    -6.103,
     0.5,
     2.448
    ],
@@ -7908,7 +6138,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -7920,7 +6149,7 @@
    "name": "OuterWall_West_02_M01Pipes_Pipe_4",
    "type": "cylinder",
    "position": [
-    -9.156,
+    -5.156,
     0.5,
     2.448
    ],
@@ -7937,7 +6166,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -7949,7 +6177,7 @@
    "name": "OuterWall_West_02_M01Pipes_Bracket_1",
    "type": "box",
    "position": [
-    -10.576,
+    -6.576,
     12.825,
     2.3
    ],
@@ -7977,7 +6205,7 @@
    "name": "OuterWall_West_02_M01Pipes_Bracket_2",
    "type": "box",
    "position": [
-    -10.576,
+    -6.576,
     22.24,
     2.3
    ],
@@ -8005,7 +6233,7 @@
    "name": "OuterWall_West_02_M01Pipes_Plate",
    "type": "box",
    "position": [
-    -10.576,
+    -6.576,
     3.91,
     2.06
    ],
@@ -8020,7 +6248,7 @@
     13.526,
     0.12
    ],
-   "material": "frame",
+   "material": "wall_slimed",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -8033,7 +6261,7 @@
    "name": "OuterWall_West_02_M02Vent",
    "type": "box",
    "position": [
-    -0.22,
+    3.78,
     8.936,
     2.1
    ],
@@ -8060,7 +6288,7 @@
    "name": "OuterWall_West_02_M02Vent_Slat_1",
    "type": "box",
    "position": [
-    -0.22,
+    3.78,
     9.762,
     2.3
    ],
@@ -8088,7 +6316,7 @@
    "name": "OuterWall_West_02_M02Vent_Slat_2",
    "type": "box",
    "position": [
-    -0.22,
+    3.78,
     10.707,
     2.3
    ],
@@ -8116,7 +6344,7 @@
    "name": "OuterWall_West_02_M02Vent_Slat_3",
    "type": "box",
    "position": [
-    -0.22,
+    3.78,
     11.653,
     2.3
    ],
@@ -8144,7 +6372,7 @@
    "name": "OuterWall_West_02_M02Vent_Plate",
    "type": "box",
    "position": [
-    -0.22,
+    3.78,
     12.17,
     2.06
    ],
@@ -8159,63 +6387,7 @@
     9.815,
     0.12
    ],
-   "material": "structure_b",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_02_M03Emblem",
-   "type": "panel",
-   "position": [
-    9.77,
-    9.5,
-    2.03
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_02",
-   "size": [
-    5.642,
-    8.728,
-    0.0
-   ],
-   "material": "accent",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_02_M03Emblem_Plate",
-   "type": "box",
-   "position": [
-    9.77,
-    14.64,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_02",
-   "size": [
-    6.911,
-    10.56,
-    0.12
-   ],
-   "material": "machine",
+   "material": "wall_slimed",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -8234,7 +6406,7 @@
    ],
    "rotation": [
     0.0,
-    270.0,
+    90.0,
     0.0
    ],
    "gen": "arena.walls",
@@ -8290,7 +6462,7 @@
    "name": "OuterWall_West_03_M01Tank_Glass",
    "type": "box",
    "position": [
-    -4.914,
+    -0.914,
     9.694,
     2.15
    ],
@@ -8318,7 +6490,7 @@
    "name": "OuterWall_West_03_M01Tank_Bar_1",
    "type": "box",
    "position": [
-    -4.914,
+    -0.914,
     9.694,
     2.35
    ],
@@ -8345,7 +6517,7 @@
    "name": "OuterWall_West_03_M01Tank_Rim_1",
    "type": "box",
    "position": [
-    -4.914,
+    -0.914,
     9.294,
     2.35
    ],
@@ -8372,7 +6544,7 @@
    "name": "OuterWall_West_03_M01Tank_Rim_2",
    "type": "box",
    "position": [
-    -4.914,
+    -0.914,
     22.135,
     2.35
    ],
@@ -8399,7 +6571,7 @@
    "name": "OuterWall_West_03_M01Tank_Light",
    "type": "box",
    "position": [
-    -2.542,
+    1.458,
     22.735,
     2.15
    ],
@@ -8443,402 +6615,6 @@
     0.3
    ],
    "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_03_M02Fan",
-   "type": "cylinder",
-   "position": [
-    1.597,
-    15.786,
-    2.0
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_03",
-   "size": [
-    4.892,
-    0.9,
-    4.892
-   ],
-   "material": "structure_b",
-   "sections": 10,
-   "hole": 1.9957588811196991,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_03_M02Fan_Hub",
-   "type": "cylinder",
-   "position": [
-    1.597,
-    15.786,
-    2.0
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_03",
-   "size": [
-    1.0,
-    0.6,
-    1.0
-   ],
-   "material": "machine",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_03_M02Fan_Blade_1",
-   "type": "box",
-   "position": [
-    1.597,
-    15.786,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    15.0
-   ],
-   "parent": "OuterWall_West_03",
-   "size": [
-    3.992,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_03_M02Fan_Blade_2",
-   "type": "box",
-   "position": [
-    1.597,
-    15.786,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    60.0
-   ],
-   "parent": "OuterWall_West_03",
-   "size": [
-    3.992,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_03_M02Fan_Blade_3",
-   "type": "box",
-   "position": [
-    1.597,
-    15.786,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    105.0
-   ],
-   "parent": "OuterWall_West_03",
-   "size": [
-    3.992,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_03_M02Fan_Blade_4",
-   "type": "box",
-   "position": [
-    1.597,
-    15.786,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    150.0
-   ],
-   "parent": "OuterWall_West_03",
-   "size": [
-    3.992,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_03_M02Fan_Red",
-   "type": "box",
-   "position": [
-    0.721,
-    17.691,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_03",
-   "size": [
-    0.5,
-    0.35,
-    0.3
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_03_M02Fan_Plate",
-   "type": "box",
-   "position": [
-    1.597,
-    1.037,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_03",
-   "size": [
-    5.384,
-    12.656,
-    0.12
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_03_M03Pipes_Pipe_1",
-   "type": "cylinder",
-   "position": [
-    6.182,
-    0.5,
-    2.364
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_03",
-   "size": [
-    0.529,
-    23.092,
-    0.529
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_03_M03Pipes_Pipe_2",
-   "type": "cylinder",
-   "position": [
-    6.961,
-    0.5,
-    2.364
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_03",
-   "size": [
-    0.529,
-    23.092,
-    0.529
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_03_M03Pipes_Bracket_1",
-   "type": "box",
-   "position": [
-    6.571,
-    17.293,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_03",
-   "size": [
-    1.857,
-    0.35,
-    1.029
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_03_M03Pipes_Bracket_2",
-   "type": "box",
-   "position": [
-    6.571,
-    19.763,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_03",
-   "size": [
-    1.857,
-    0.35,
-    1.029
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_03_M03Pipes_Bracket_3",
-   "type": "box",
-   "position": [
-    6.571,
-    19.828,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_03",
-   "size": [
-    1.857,
-    0.35,
-    1.029
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_03_M03Pipes_Plate",
-   "type": "box",
-   "position": [
-    6.571,
-    3.516,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_03",
-   "size": [
-    3.645,
-    11.309,
-    0.12
-   ],
-   "material": "machine",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -9616,7 +7392,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -9678,7 +7454,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -9864,7 +7640,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -9926,7 +7702,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -10112,7 +7888,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -10168,8 +7944,8 @@
    "name": "Works_Wall_North_01_M01Fan",
    "type": "cylinder",
    "position": [
-    -7.352,
-    18.473,
+    -3.352,
+    18.433,
     2.0
    ],
    "rotation": [
@@ -10179,13 +7955,13 @@
    ],
    "parent": "Works_Wall_North_01",
    "size": [
-    7.22,
-    0.9,
-    7.22
+    8.82,
+    1.0,
+    8.82
    ],
    "material": "structure_b",
-   "sections": 10,
-   "hole": 3.1597579864066407,
+   "sections": 20,
+   "hole": 3.809757986406641,
    "collision": false,
    "mobile": {
     "static": true
@@ -10194,12 +7970,120 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_North_01_M01Fan_Hub",
+   "name": "Works_Wall_North_01_M01Fan_Clamp_1",
+   "type": "box",
+   "position": [
+    -0.128,
+    21.257,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    45.0
+   ],
+   "parent": "Works_Wall_North_01",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_01_M01Fan_Clamp_2",
+   "type": "box",
+   "position": [
+    -6.576,
+    21.257,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    135.0
+   ],
+   "parent": "Works_Wall_North_01",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_01_M01Fan_Clamp_3",
+   "type": "box",
+   "position": [
+    -6.576,
+    14.809,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    225.0
+   ],
+   "parent": "Works_Wall_North_01",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_01_M01Fan_Clamp_4",
+   "type": "box",
+   "position": [
+    -0.128,
+    14.809,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    315.0
+   ],
+   "parent": "Works_Wall_North_01",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_01_M01Fan_Glow",
    "type": "cylinder",
    "position": [
-    -7.352,
-    18.473,
-    2.0
+    -3.352,
+    18.433,
+    2.05
    ],
    "rotation": [
     90.0,
@@ -10208,12 +8092,12 @@
    ],
    "parent": "Works_Wall_North_01",
    "size": [
-    1.0,
-    0.6,
-    1.0
+    7.52,
+    0.05,
+    7.52
    ],
-   "material": "machine",
-   "sections": 6,
+   "material": "fall",
+   "sections": 16,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -10223,23 +8107,23 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_North_01_M01Fan_Blade_1",
+   "name": "Works_Wall_North_01_M01Fan_Grille_01",
    "type": "box",
    "position": [
-    -7.352,
-    18.473,
-    2.3
+    -3.352,
+    15.576,
+    2.22
    ],
    "rotation": [
     0.0,
     0.0,
-    15.0
+    0.0
    ],
    "parent": "Works_Wall_North_01",
    "size": [
-    6.32,
-    0.5,
-    0.08
+    4.939,
+    0.12,
+    0.1
    ],
    "material": "frame",
    "collision": false,
@@ -10251,23 +8135,23 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_North_01_M01Fan_Blade_2",
+   "name": "Works_Wall_North_01_M01Fan_Grille_11",
    "type": "box",
    "position": [
-    -7.352,
-    18.473,
-    2.3
+    -6.209,
+    18.433,
+    2.22
    ],
    "rotation": [
     0.0,
     0.0,
-    60.0
+    0.0
    ],
    "parent": "Works_Wall_North_01",
    "size": [
-    6.32,
-    0.5,
-    0.08
+    0.12,
+    4.939,
+    0.1
    ],
    "material": "frame",
    "collision": false,
@@ -10279,23 +8163,23 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_North_01_M01Fan_Blade_3",
+   "name": "Works_Wall_North_01_M01Fan_Grille_02",
    "type": "box",
    "position": [
-    -7.352,
-    18.473,
-    2.3
+    -3.352,
+    17.481,
+    2.22
    ],
    "rotation": [
     0.0,
     0.0,
-    105.0
+    0.0
    ],
    "parent": "Works_Wall_North_01",
    "size": [
-    6.32,
-    0.5,
-    0.08
+    7.23,
+    0.12,
+    0.1
    ],
    "material": "frame",
    "collision": false,
@@ -10307,29 +8191,172 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_North_01_M01Fan_Blade_4",
+   "name": "Works_Wall_North_01_M01Fan_Grille_12",
    "type": "box",
    "position": [
-    -7.352,
-    18.473,
-    2.3
+    -4.305,
+    18.433,
+    2.22
    ],
    "rotation": [
     0.0,
     0.0,
-    150.0
+    0.0
    ],
    "parent": "Works_Wall_North_01",
    "size": [
-    6.32,
-    0.5,
-    0.08
+    0.12,
+    7.23,
+    0.1
    ],
    "material": "frame",
    "collision": false,
    "outline": false,
    "mobile": {
     "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_01_M01Fan_Grille_03",
+   "type": "box",
+   "position": [
+    -3.352,
+    19.385,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_North_01",
+   "size": [
+    7.23,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_01_M01Fan_Grille_13",
+   "type": "box",
+   "position": [
+    -2.4,
+    18.433,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_North_01",
+   "size": [
+    0.12,
+    7.23,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_01_M01Fan_Grille_04",
+   "type": "box",
+   "position": [
+    -3.352,
+    21.29,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_North_01",
+   "size": [
+    4.939,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_01_M01Fan_Grille_14",
+   "type": "box",
+   "position": [
+    -0.495,
+    18.433,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_North_01",
+   "size": [
+    0.12,
+    4.939,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_01_M01Fan_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    -3.352,
+    18.433,
+    2.62
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_North_01",
+   "size": [
+    7.239,
+    0.45,
+    7.239
+   ],
+   "material": "frame",
+   "blades": 8,
+   "sweep": 25.113448584701185,
+   "collision": false,
+   "outline": false,
+   "spin": 31.2,
+   "mobile": {
+    "merge": false
    },
    "gen": "Works.walls",
    "source": "visible"
@@ -10338,7 +8365,7 @@
    "name": "Works_Wall_North_01_M01Fan_Red",
    "type": "box",
    "position": [
-    -6.255,
+    -2.255,
     13.667,
     2.15
    ],
@@ -10366,7 +8393,7 @@
    "name": "Works_Wall_North_01_M01Fan_Plate",
    "type": "box",
    "position": [
-    -7.352,
+    -3.352,
     6.116,
     2.06
    ],
@@ -10381,7 +8408,7 @@
     5.185,
     0.12
    ],
-   "material": "machine",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -10394,7 +8421,7 @@
    "name": "Works_Wall_North_01_M02Emblem",
    "type": "panel",
    "position": [
-    3.005,
+    5.136,
     10.5,
     2.03
    ],
@@ -10405,8 +8432,8 @@
    ],
    "parent": "Works_Wall_North_01",
    "size": [
-    6.353,
-    9.759,
+    5.382,
+    8.268,
     0.0
    ],
    "material": "accent",
@@ -10422,7 +8449,7 @@
    "name": "Works_Wall_North_01_M02Emblem_Plate",
    "type": "box",
    "position": [
-    3.005,
+    5.136,
     16.564,
     2.06
    ],
@@ -10433,210 +8460,11 @@
    ],
    "parent": "Works_Wall_North_01",
    "size": [
-    7.87,
+    5.059,
     8.636,
     0.12
    ],
-   "material": "structure_b",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_01_M03Pipes_Pipe_1",
-   "type": "cylinder",
-   "position": [
-    9.417,
-    0.5,
-    2.451
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_01",
-   "size": [
-    0.702,
-    24.343,
-    0.702
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_01_M03Pipes_Pipe_2",
-   "type": "cylinder",
-   "position": [
-    10.369,
-    0.5,
-    2.451
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_01",
-   "size": [
-    0.702,
-    24.343,
-    0.702
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_01_M03Pipes_Pipe_3",
-   "type": "cylinder",
-   "position": [
-    11.321,
-    0.5,
-    2.451
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_01",
-   "size": [
-    0.702,
-    24.343,
-    0.702
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_01_M03Pipes_Bracket_1",
-   "type": "box",
-   "position": [
-    10.369,
-    10.263,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_01",
-   "size": [
-    3.156,
-    0.35,
-    1.202
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_01_M03Pipes_Bracket_2",
-   "type": "box",
-   "position": [
-    10.369,
-    14.791,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_01",
-   "size": [
-    3.156,
-    0.35,
-    1.202
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_01_M03Pipes_Red",
-   "type": "box",
-   "position": [
-    10.787,
-    22.438,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_01",
-   "size": [
-    0.5,
-    0.35,
-    0.3
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_01_M03Pipes_Plate",
-   "type": "box",
-   "position": [
-    10.369,
-    1.447,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_01",
-   "size": [
-    3.502,
-    9.121,
-    0.12
-   ],
-   "material": "structure_b",
+   "material": "wall_slimed",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -10655,7 +8483,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -10711,8 +8539,8 @@
    "name": "Works_Wall_North_02_M01Fan",
    "type": "cylinder",
    "position": [
-    -12.889,
-    15.889,
+    -8.889,
+    15.328,
     2.0
    ],
    "rotation": [
@@ -10723,12 +8551,12 @@
    "parent": "Works_Wall_North_02",
    "size": [
     7.482,
-    0.9,
+    1.0,
     7.482
    ],
    "material": "structure_b",
-   "sections": 10,
-   "hole": 3.2910989963360007,
+   "sections": 20,
+   "hole": 3.1410989963360008,
    "collision": false,
    "mobile": {
     "static": true
@@ -10737,12 +8565,120 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_North_02_M01Fan_Hub",
+   "name": "Works_Wall_North_02_M01Fan_Clamp_1",
+   "type": "box",
+   "position": [
+    -6.137,
+    17.679,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    45.0
+   ],
+   "parent": "Works_Wall_North_02",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_02_M01Fan_Clamp_2",
+   "type": "box",
+   "position": [
+    -11.64,
+    17.679,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    135.0
+   ],
+   "parent": "Works_Wall_North_02",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_02_M01Fan_Clamp_3",
+   "type": "box",
+   "position": [
+    -11.64,
+    12.176,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    225.0
+   ],
+   "parent": "Works_Wall_North_02",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_02_M01Fan_Clamp_4",
+   "type": "box",
+   "position": [
+    -6.137,
+    12.176,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    315.0
+   ],
+   "parent": "Works_Wall_North_02",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_02_M01Fan_Glow",
    "type": "cylinder",
    "position": [
-    -12.889,
-    15.889,
-    2.0
+    -8.889,
+    15.328,
+    2.05
    ],
    "rotation": [
     90.0,
@@ -10751,12 +8687,12 @@
    ],
    "parent": "Works_Wall_North_02",
    "size": [
-    1.0,
-    0.6,
-    1.0
+    6.182,
+    0.05,
+    6.182
    ],
-   "material": "machine",
-   "sections": 6,
+   "material": "fall",
+   "sections": 16,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -10766,23 +8702,23 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_North_02_M01Fan_Blade_1",
+   "name": "Works_Wall_North_02_M01Fan_Grille_01",
    "type": "box",
    "position": [
-    -12.889,
-    15.889,
-    2.3
+    -8.889,
+    12.972,
+    2.22
    ],
    "rotation": [
     0.0,
     0.0,
-    15.0
+    0.0
    ],
    "parent": "Works_Wall_North_02",
    "size": [
-    6.582,
-    0.5,
-    0.08
+    4.072,
+    0.12,
+    0.1
    ],
    "material": "frame",
    "collision": false,
@@ -10794,23 +8730,23 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_North_02_M01Fan_Blade_2",
+   "name": "Works_Wall_North_02_M01Fan_Grille_11",
    "type": "box",
    "position": [
-    -12.889,
-    15.889,
-    2.3
+    -11.245,
+    15.328,
+    2.22
    ],
    "rotation": [
     0.0,
     0.0,
-    60.0
+    0.0
    ],
    "parent": "Works_Wall_North_02",
    "size": [
-    6.582,
-    0.5,
-    0.08
+    0.12,
+    4.072,
+    0.1
    ],
    "material": "frame",
    "collision": false,
@@ -10822,23 +8758,23 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_North_02_M01Fan_Blade_3",
+   "name": "Works_Wall_North_02_M01Fan_Grille_02",
    "type": "box",
    "position": [
-    -12.889,
-    15.889,
-    2.3
+    -8.889,
+    14.542,
+    2.22
    ],
    "rotation": [
     0.0,
     0.0,
-    105.0
+    0.0
    ],
    "parent": "Works_Wall_North_02",
    "size": [
-    6.582,
-    0.5,
-    0.08
+    5.961,
+    0.12,
+    0.1
    ],
    "material": "frame",
    "collision": false,
@@ -10850,29 +8786,172 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_North_02_M01Fan_Blade_4",
+   "name": "Works_Wall_North_02_M01Fan_Grille_12",
    "type": "box",
    "position": [
-    -12.889,
-    15.889,
-    2.3
+    -9.674,
+    15.328,
+    2.22
    ],
    "rotation": [
     0.0,
     0.0,
-    150.0
+    0.0
    ],
    "parent": "Works_Wall_North_02",
    "size": [
-    6.582,
-    0.5,
-    0.08
+    0.12,
+    5.961,
+    0.1
    ],
    "material": "frame",
    "collision": false,
    "outline": false,
    "mobile": {
     "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_02_M01Fan_Grille_03",
+   "type": "box",
+   "position": [
+    -8.889,
+    16.113,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_North_02",
+   "size": [
+    5.961,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_02_M01Fan_Grille_13",
+   "type": "box",
+   "position": [
+    -8.103,
+    15.328,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_North_02",
+   "size": [
+    0.12,
+    5.961,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_02_M01Fan_Grille_04",
+   "type": "box",
+   "position": [
+    -8.889,
+    17.684,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_North_02",
+   "size": [
+    4.072,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_02_M01Fan_Grille_14",
+   "type": "box",
+   "position": [
+    -6.533,
+    15.328,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_North_02",
+   "size": [
+    0.12,
+    4.072,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_02_M01Fan_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    -8.889,
+    15.328,
+    2.62
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_North_02",
+   "size": [
+    5.968,
+    0.45,
+    5.968
+   ],
+   "material": "frame",
+   "blades": 7,
+   "sweep": 25.615740688741667,
+   "collision": false,
+   "outline": false,
+   "spin": 22.4,
+   "mobile": {
+    "merge": false
    },
    "gen": "Works.walls",
    "source": "visible"
@@ -10881,7 +8960,7 @@
    "name": "Works_Wall_North_02_M01Fan_Plate",
    "type": "box",
    "position": [
-    -12.889,
+    -8.889,
     5.713,
     2.06
    ],
@@ -10896,7 +8975,7 @@
     8.188,
     0.12
    ],
-   "material": "machine",
+   "material": "frame",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -10909,7 +8988,7 @@
    "name": "Works_Wall_North_02_M02Tank_Glass",
    "type": "box",
    "position": [
-    -4.02,
+    -0.02,
     8.505,
     2.15
    ],
@@ -10937,7 +9016,7 @@
    "name": "Works_Wall_North_02_M02Tank_Bar_1",
    "type": "box",
    "position": [
-    -4.945,
+    -0.945,
     8.505,
     2.35
    ],
@@ -10964,7 +9043,7 @@
    "name": "Works_Wall_North_02_M02Tank_Bar_2",
    "type": "box",
    "position": [
-    -3.094,
+    0.906,
     8.505,
     2.35
    ],
@@ -10991,7 +9070,7 @@
    "name": "Works_Wall_North_02_M02Tank_Rim_1",
    "type": "box",
    "position": [
-    -4.02,
+    -0.02,
     8.105,
     2.35
    ],
@@ -11018,7 +9097,7 @@
    "name": "Works_Wall_North_02_M02Tank_Rim_2",
    "type": "box",
    "position": [
-    -4.02,
+    -0.02,
     17.758,
     2.35
    ],
@@ -11045,7 +9124,7 @@
    "name": "Works_Wall_North_02_M02Tank_Light",
    "type": "box",
    "position": [
-    -1.043,
+    2.957,
     18.358,
     2.15
    ],
@@ -11073,7 +9152,7 @@
    "name": "Works_Wall_North_02_M02Tank_Plate",
    "type": "box",
    "position": [
-    -4.02,
+    -0.02,
     14.743,
     2.06
    ],
@@ -11088,7 +9167,7 @@
     10.457,
     0.12
    ],
-   "material": "structure_b",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -11098,27 +9177,25 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_North_02_M03Fan",
-   "type": "cylinder",
+   "name": "Works_Wall_North_02_M03Machine_Bracket",
+   "type": "box",
    "position": [
-    4.936,
-    20.512,
-    2.0
+    8.936,
+    10.5,
+    2.7
    ],
    "rotation": [
-    90.0,
+    0.0,
     0.0,
     0.0
    ],
    "parent": "Works_Wall_North_02",
    "size": [
-    6.901,
-    0.9,
-    6.901
+    4.783,
+    0.8,
+    1.4
    ],
-   "material": "structure_b",
-   "sections": 10,
-   "hole": 3.0004291782119896,
+   "material": "frame",
    "collision": false,
    "mobile": {
     "static": true
@@ -11127,28 +9204,27 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_North_02_M03Fan_Hub",
-   "type": "cylinder",
+   "name": "Works_Wall_North_02_M03Machine",
+   "type": "machinery",
    "position": [
-    4.936,
-    20.512,
-    2.0
+    8.936,
+    11.3,
+    2.8
    ],
    "rotation": [
-    90.0,
+    0.0,
     0.0,
     0.0
    ],
    "parent": "Works_Wall_North_02",
    "size": [
-    1.0,
-    0.6,
-    1.0
+    5.978,
+    6.474,
+    1.6
    ],
    "material": "machine",
-   "sections": 6,
+   "seed": 627282,
    "collision": false,
-   "outline": false,
    "mobile": {
     "static": true
    },
@@ -11156,124 +9232,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_North_02_M03Fan_Blade_1",
+   "name": "Works_Wall_North_02_M03Machine_Light",
    "type": "box",
    "position": [
-    4.936,
-    20.512,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    15.0
-   ],
-   "parent": "Works_Wall_North_02",
-   "size": [
-    6.001,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_02_M03Fan_Blade_2",
-   "type": "box",
-   "position": [
-    4.936,
-    20.512,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    60.0
-   ],
-   "parent": "Works_Wall_North_02",
-   "size": [
-    6.001,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_02_M03Fan_Blade_3",
-   "type": "box",
-   "position": [
-    4.936,
-    20.512,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    105.0
-   ],
-   "parent": "Works_Wall_North_02",
-   "size": [
-    6.001,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_02_M03Fan_Blade_4",
-   "type": "box",
-   "position": [
-    4.936,
-    20.512,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    150.0
-   ],
-   "parent": "Works_Wall_North_02",
-   "size": [
-    6.001,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_02_M03Fan_Plate",
-   "type": "box",
-   "position": [
-    4.936,
-    3.399,
-    2.06
+    7.143,
+    18.074,
+    2.15
    ],
    "rotation": [
     0.0,
@@ -11282,97 +9246,11 @@
    ],
    "parent": "Works_Wall_North_02",
    "size": [
-    8.374,
-    13.727,
-    0.12
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_02_M04Pipes_Pipe_1",
-   "type": "cylinder",
-   "position": [
-    13.041,
-    0.5,
-    2.616
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_02",
-   "size": [
-    1.033,
-    22.341,
-    1.033
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_02_M04Pipes_Pipe_2",
-   "type": "cylinder",
-   "position": [
-    14.323,
-    0.5,
-    2.616
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_02",
-   "size": [
-    1.033,
-    22.341,
-    1.033
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_02_M04Pipes_Bracket_1",
-   "type": "box",
-   "position": [
-    13.682,
-    10.365,
-    2.29
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_02",
-   "size": [
-    2.865,
+    0.6,
     0.35,
-    1.533
+    0.3
    ],
-   "material": "frame",
+   "material": "glow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -11382,12 +9260,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_North_02_M04Pipes_Bracket_2",
+   "name": "Works_Wall_North_02_M03Machine_Red",
    "type": "box",
    "position": [
-    13.682,
-    14.339,
-    2.29
+    8.15,
+    22.605,
+    2.15
    ],
    "rotation": [
     0.0,
@@ -11396,39 +9274,11 @@
    ],
    "parent": "Works_Wall_North_02",
    "size": [
-    2.865,
+    0.5,
     0.35,
-    1.533
+    0.3
    ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_02_M04Pipes_Plate",
-   "type": "box",
-   "position": [
-    13.682,
-    2.276,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_02",
-   "size": [
-    6.959,
-    11.842,
-    0.12
-   ],
-   "material": "frame",
+   "material": "glow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -11447,7 +9297,7 @@
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -11472,7 +9322,7 @@
     26.0,
     4.0
    ],
-   "material": "wall",
+   "material": "wall_works",
    "gen": "Works.walls",
    "source": "visible"
   },
@@ -11503,7 +9353,7 @@
    "name": "Works_Wall_North_03_M01Pipes_Pipe_1",
    "type": "cylinder",
    "position": [
-    -2.865,
+    -0.247,
     0.5,
     2.634
    ],
@@ -11520,7 +9370,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -11532,7 +9381,7 @@
    "name": "Works_Wall_North_03_M01Pipes_Pipe_2",
    "type": "cylinder",
    "position": [
-    -1.547,
+    1.072,
     0.5,
     2.634
    ],
@@ -11549,7 +9398,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -11561,7 +9409,7 @@
    "name": "Works_Wall_North_03_M01Pipes_Bracket_1",
    "type": "box",
    "position": [
-    -2.206,
+    0.413,
     16.878,
     2.3
    ],
@@ -11589,7 +9437,7 @@
    "name": "Works_Wall_North_03_M01Pipes_Bracket_2",
    "type": "box",
    "position": [
-    -2.206,
+    0.413,
     18.222,
     2.3
    ],
@@ -11617,7 +9465,7 @@
    "name": "Works_Wall_North_03_M01Pipes_Bracket_3",
    "type": "box",
    "position": [
-    -2.206,
+    0.413,
     20.38,
     2.3
    ],
@@ -11645,7 +9493,7 @@
    "name": "Works_Wall_North_03_M01Pipes_Plate",
    "type": "box",
    "position": [
-    -2.206,
+    0.413,
     5.541,
     2.06
    ],
@@ -11656,150 +9504,11 @@
    ],
    "parent": "Works_Wall_North_03",
    "size": [
-    9.532,
+    6.882,
     10.339,
     0.12
    ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_03_M02Machine_Bracket",
-   "type": "box",
-   "position": [
-    5.381,
-    7.2,
-    2.9
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_03",
-   "size": [
-    3.086,
-    0.8,
-    1.8
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_03_M02Machine",
-   "type": "machinery",
-   "position": [
-    5.381,
-    8.0,
-    3.1
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_03",
-   "size": [
-    3.857,
-    3.997,
-    2.2
-   ],
-   "material": "machine",
-   "seed": 256465,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_03_M02Machine_Light",
-   "type": "box",
-   "position": [
-    4.224,
-    12.297,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_03",
-   "size": [
-    0.6,
-    0.35,
-    0.3
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_03_M02Machine_Red",
-   "type": "box",
-   "position": [
-    6.814,
-    20.765,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_03",
-   "size": [
-    0.5,
-    0.35,
-    0.3
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_03_M02Machine_Plate",
-   "type": "box",
-   "position": [
-    5.381,
-    12.513,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_03",
-   "size": [
-    4.484,
-    7.974,
-    0.12
-   ],
-   "material": "machine",
+   "material": "structure_b",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -11818,7 +9527,7 @@
    ],
    "rotation": [
     0.0,
-    90.0,
+    -90.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -11880,7 +9589,7 @@
    ],
    "rotation": [
     0.0,
-    90.0,
+    -90.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -12120,7 +9829,7 @@
    ],
    "rotation": [
     0.0,
-    90.0,
+    -90.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -12182,7 +9891,7 @@
    ],
    "rotation": [
     0.0,
-    90.0,
+    -90.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -12368,7 +10077,7 @@
    ],
    "rotation": [
     0.0,
-    90.0,
+    -90.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -12424,7 +10133,7 @@
    "name": "Works_Wall_East_01_M01Pipes_Pipe_1",
    "type": "cylinder",
    "position": [
-    -7.447,
+    -3.447,
     0.5,
     2.392
    ],
@@ -12441,7 +10150,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -12453,7 +10161,7 @@
    "name": "Works_Wall_East_01_M01Pipes_Pipe_2",
    "type": "cylinder",
    "position": [
-    -6.613,
+    -2.613,
     0.5,
     2.392
    ],
@@ -12470,7 +10178,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -12482,7 +10189,7 @@
    "name": "Works_Wall_East_01_M01Pipes_Pipe_3",
    "type": "cylinder",
    "position": [
-    -5.779,
+    -1.779,
     0.5,
     2.392
    ],
@@ -12499,7 +10206,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -12511,7 +10217,7 @@
    "name": "Works_Wall_East_01_M01Pipes_Bracket_1",
    "type": "box",
    "position": [
-    -6.613,
+    -2.613,
     10.341,
     2.3
    ],
@@ -12539,7 +10245,7 @@
    "name": "Works_Wall_East_01_M01Pipes_Bracket_2",
    "type": "box",
    "position": [
-    -6.613,
+    -2.613,
     16.201,
     2.3
    ],
@@ -12567,7 +10273,7 @@
    "name": "Works_Wall_East_01_M01Pipes_Bracket_3",
    "type": "box",
    "position": [
-    -6.613,
+    -2.613,
     16.797,
     2.3
    ],
@@ -12595,7 +10301,7 @@
    "name": "Works_Wall_East_01_M01Pipes_Plate",
    "type": "box",
    "position": [
-    -6.613,
+    -2.613,
     5.817,
     2.06
    ],
@@ -12610,7 +10316,7 @@
     7.735,
     0.12
    ],
-   "material": "machine",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -12623,9 +10329,9 @@
    "name": "Works_Wall_East_01_M02Machine_Bracket",
    "type": "box",
    "position": [
-    1.132,
-    7.2,
-    2.9
+    3.51,
+    10.5,
+    2.7
    ],
    "rotation": [
     0.0,
@@ -12634,9 +10340,9 @@
    ],
    "parent": "Works_Wall_East_01",
    "size": [
-    4.213,
+    2.732,
     0.8,
-    1.8
+    1.4
    ],
    "material": "frame",
    "collision": false,
@@ -12650,9 +10356,9 @@
    "name": "Works_Wall_East_01_M02Machine",
    "type": "machinery",
    "position": [
-    1.132,
-    8.0,
-    3.1
+    3.51,
+    11.3,
+    2.8
    ],
    "rotation": [
     0.0,
@@ -12661,9 +10367,9 @@
    ],
    "parent": "Works_Wall_East_01",
    "size": [
-    5.267,
+    3.415,
     5.739,
-    2.2
+    1.6
    ],
    "material": "machine",
    "seed": 322444,
@@ -12678,8 +10384,8 @@
    "name": "Works_Wall_East_01_M02Machine_Light",
    "type": "box",
    "position": [
-    -0.448,
-    14.039,
+    2.486,
+    17.339,
     2.15
    ],
    "rotation": [
@@ -12706,206 +10412,8 @@
    "name": "Works_Wall_East_01_M02Machine_Red",
    "type": "box",
    "position": [
-    3.5,
+    4.944,
     19.554,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_East_01",
-   "size": [
-    0.5,
-    0.35,
-    0.3
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_01_M03Fan",
-   "type": "cylinder",
-   "position": [
-    8.121,
-    21.334,
-    2.0
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_East_01",
-   "size": [
-    3.557,
-    0.9,
-    3.557
-   ],
-   "material": "structure_b",
-   "sections": 10,
-   "hole": 1.3286081940167758,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_01_M03Fan_Hub",
-   "type": "cylinder",
-   "position": [
-    8.121,
-    21.334,
-    2.0
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_East_01",
-   "size": [
-    1.0,
-    0.6,
-    1.0
-   ],
-   "material": "machine",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_01_M03Fan_Blade_1",
-   "type": "box",
-   "position": [
-    8.121,
-    21.334,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    15.0
-   ],
-   "parent": "Works_Wall_East_01",
-   "size": [
-    2.657,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_01_M03Fan_Blade_2",
-   "type": "box",
-   "position": [
-    8.121,
-    21.334,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    60.0
-   ],
-   "parent": "Works_Wall_East_01",
-   "size": [
-    2.657,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_01_M03Fan_Blade_3",
-   "type": "box",
-   "position": [
-    8.121,
-    21.334,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    105.0
-   ],
-   "parent": "Works_Wall_East_01",
-   "size": [
-    2.657,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_01_M03Fan_Blade_4",
-   "type": "box",
-   "position": [
-    8.121,
-    21.334,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    150.0
-   ],
-   "parent": "Works_Wall_East_01",
-   "size": [
-    2.657,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_01_M03Fan_Red",
-   "type": "box",
-   "position": [
-    9.295,
-    17.682,
     2.15
    ],
    "rotation": [
@@ -12938,7 +10446,7 @@
    ],
    "rotation": [
     0.0,
-    90.0,
+    -90.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -12963,7 +10471,7 @@
     26.0,
     4.0
    ],
-   "material": "wall",
+   "material": "wall_works",
    "gen": "Works.walls",
    "source": "visible"
   },
@@ -12994,7 +10502,7 @@
    "name": "Works_Wall_East_02_M01Emblem",
    "type": "panel",
    "position": [
-    -16.236,
+    -12.236,
     10.5,
     2.03
    ],
@@ -13022,7 +10530,7 @@
    "name": "Works_Wall_East_02_M02Door_Frame",
    "type": "box",
    "position": [
-    -5.518,
+    -1.518,
     8.0,
     2.15
    ],
@@ -13077,7 +10585,7 @@
    "name": "Works_Wall_East_02_M02Door_Sign",
    "type": "box",
    "position": [
-    -5.518,
+    -1.518,
     13.1,
     2.2
    ],
@@ -13105,9 +10613,9 @@
    "name": "Works_Wall_East_02_M03Machine_Bracket",
    "type": "box",
    "position": [
-    4.115,
-    7.2,
-    2.9
+    8.115,
+    10.5,
+    2.7
    ],
    "rotation": [
     0.0,
@@ -13118,7 +10626,7 @@
    "size": [
     4.785,
     0.8,
-    1.8
+    1.4
    ],
    "material": "frame",
    "collision": false,
@@ -13132,9 +10640,9 @@
    "name": "Works_Wall_East_02_M03Machine",
    "type": "machinery",
    "position": [
-    4.115,
-    8.0,
-    3.1
+    8.115,
+    11.3,
+    2.8
    ],
    "rotation": [
     0.0,
@@ -13145,7 +10653,7 @@
    "size": [
     5.982,
     4.739,
-    2.2
+    1.6
    ],
    "material": "machine",
    "seed": 965265,
@@ -13160,8 +10668,8 @@
    "name": "Works_Wall_East_02_M03Machine_Light",
    "type": "box",
    "position": [
-    2.32,
-    13.039,
+    6.32,
+    16.339,
     2.15
    ],
    "rotation": [
@@ -13188,7 +10696,7 @@
    "name": "Works_Wall_East_02_M03Machine_Plate",
    "type": "box",
    "position": [
-    4.115,
+    8.115,
     14.366,
     2.06
    ],
@@ -13203,7 +10711,7 @@
     6.726,
     0.12
    ],
-   "material": "frame",
+   "material": "structure_b",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -13216,7 +10724,7 @@
    "name": "Works_Wall_East_02_M04Emblem",
    "type": "panel",
    "position": [
-    13.805,
+    16.11,
     10.5,
     2.03
    ],
@@ -13227,8 +10735,8 @@
    ],
    "parent": "Works_Wall_East_02",
    "size": [
-    5.434,
-    10.282,
+    4.625,
+    8.751,
     0.0
    ],
    "material": "accent",
@@ -13244,7 +10752,7 @@
    "name": "Works_Wall_East_02_M04Emblem_Plate",
    "type": "box",
    "position": [
-    13.805,
+    16.11,
     13.889,
     2.06
    ],
@@ -13255,209 +10763,11 @@
    ],
    "parent": "Works_Wall_East_02",
    "size": [
-    7.431,
+    4.684,
     7.314,
     0.12
    ],
-   "material": "structure_b",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_02_M05Fan",
-   "type": "cylinder",
-   "position": [
-    20.695,
-    15.235,
-    2.0
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_East_02",
-   "size": [
-    3.41,
-    0.9,
-    3.41
-   ],
-   "material": "structure_b",
-   "sections": 10,
-   "hole": 1.254757254303352,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_02_M05Fan_Hub",
-   "type": "cylinder",
-   "position": [
-    20.695,
-    15.235,
-    2.0
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_East_02",
-   "size": [
-    1.0,
-    0.6,
-    1.0
-   ],
-   "material": "machine",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_02_M05Fan_Blade_1",
-   "type": "box",
-   "position": [
-    20.695,
-    15.235,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    15.0
-   ],
-   "parent": "Works_Wall_East_02",
-   "size": [
-    2.51,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_02_M05Fan_Blade_2",
-   "type": "box",
-   "position": [
-    20.695,
-    15.235,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    60.0
-   ],
-   "parent": "Works_Wall_East_02",
-   "size": [
-    2.51,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_02_M05Fan_Blade_3",
-   "type": "box",
-   "position": [
-    20.695,
-    15.235,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    105.0
-   ],
-   "parent": "Works_Wall_East_02",
-   "size": [
-    2.51,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_02_M05Fan_Blade_4",
-   "type": "box",
-   "position": [
-    20.695,
-    15.235,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    150.0
-   ],
-   "parent": "Works_Wall_East_02",
-   "size": [
-    2.51,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_02_M05Fan_Plate",
-   "type": "box",
-   "position": [
-    20.695,
-    3.791,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_East_02",
-   "size": [
-    4.142,
-    11.169,
-    0.12
-   ],
-   "material": "machine",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -13476,7 +10786,7 @@
    ],
    "rotation": [
     0.0,
-    90.0,
+    -90.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -13501,7 +10811,7 @@
     26.0,
     4.0
    ],
-   "material": "wall",
+   "material": "wall_works",
    "gen": "Works.walls",
    "source": "visible"
   },
@@ -13532,7 +10842,7 @@
    "name": "Works_Wall_East_03_M01Pipes_Pipe_1",
    "type": "cylinder",
    "position": [
-    -24.751,
+    -20.751,
     0.5,
     2.474
    ],
@@ -13549,7 +10859,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -13561,7 +10870,7 @@
    "name": "Works_Wall_East_03_M01Pipes_Pipe_2",
    "type": "cylinder",
    "position": [
-    -23.753,
+    -19.753,
     0.5,
     2.474
    ],
@@ -13578,7 +10887,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -13590,7 +10898,7 @@
    "name": "Works_Wall_East_03_M01Pipes_Bracket_1",
    "type": "box",
    "position": [
-    -24.252,
+    -20.252,
     12.062,
     2.3
    ],
@@ -13618,7 +10926,7 @@
    "name": "Works_Wall_East_03_M01Pipes_Bracket_2",
    "type": "box",
    "position": [
-    -24.252,
+    -20.252,
     15.353,
     2.3
    ],
@@ -13646,7 +10954,7 @@
    "name": "Works_Wall_East_03_M01Pipes_Plate",
    "type": "box",
    "position": [
-    -24.252,
+    -20.252,
     3.135,
     2.06
    ],
@@ -13661,7 +10969,7 @@
     12.386,
     0.12
    ],
-   "material": "machine",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -13674,7 +10982,7 @@
    "name": "Works_Wall_East_03_M02Emblem",
    "type": "panel",
    "position": [
-    -13.848,
+    -9.848,
     10.5,
     2.03
    ],
@@ -13702,7 +11010,7 @@
    "name": "Works_Wall_East_03_M02Emblem_Red",
    "type": "box",
    "position": [
-    -9.314,
+    -5.314,
     10.986,
     2.15
    ],
@@ -13730,7 +11038,7 @@
    "name": "Works_Wall_East_03_M02Emblem_Plate",
    "type": "box",
    "position": [
-    -13.848,
+    -9.848,
     14.543,
     2.06
    ],
@@ -13745,7 +11053,7 @@
     10.657,
     0.12
    ],
-   "material": "structure_b",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -13758,7 +11066,7 @@
    "name": "Works_Wall_East_03_M03Plain_Strip",
    "type": "box",
    "position": [
-    -3.855,
+    0.145,
     11.403,
     2.05
    ],
@@ -13786,7 +11094,7 @@
    "name": "Works_Wall_East_03_M03Plain_Plate",
    "type": "box",
    "position": [
-    -3.855,
+    0.145,
     15.189,
     2.06
    ],
@@ -13801,7 +11109,7 @@
     5.095,
     0.12
    ],
-   "material": "structure_b",
+   "material": "wall_slimed",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -13814,7 +11122,7 @@
    "name": "Works_Wall_East_03_M04Pipes_Pipe_1",
    "type": "cylinder",
    "position": [
-    5.03,
+    9.03,
     0.5,
     2.441
    ],
@@ -13831,7 +11139,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -13843,7 +11150,7 @@
    "name": "Works_Wall_East_03_M04Pipes_Pipe_2",
    "type": "cylinder",
    "position": [
-    5.962,
+    9.962,
     0.5,
     2.441
    ],
@@ -13860,7 +11167,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -13872,7 +11178,7 @@
    "name": "Works_Wall_East_03_M04Pipes_Pipe_3",
    "type": "cylinder",
    "position": [
-    6.894,
+    10.894,
     0.5,
     2.441
    ],
@@ -13889,7 +11195,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -13901,7 +11206,7 @@
    "name": "Works_Wall_East_03_M04Pipes_Bracket_1",
    "type": "box",
    "position": [
-    5.962,
+    9.962,
     10.103,
     2.3
    ],
@@ -13929,7 +11234,7 @@
    "name": "Works_Wall_East_03_M04Pipes_Bracket_2",
    "type": "box",
    "position": [
-    5.962,
+    9.962,
     11.268,
     2.3
    ],
@@ -13957,7 +11262,7 @@
    "name": "Works_Wall_East_03_M04Pipes_Bracket_3",
    "type": "box",
    "position": [
-    5.962,
+    9.962,
     11.627,
     2.3
    ],
@@ -13985,7 +11290,7 @@
    "name": "Works_Wall_East_03_M05Vent",
    "type": "box",
    "position": [
-    14.803,
+    18.803,
     11.949,
     2.1
    ],
@@ -14012,7 +11317,7 @@
    "name": "Works_Wall_East_03_M05Vent_Slat_1",
    "type": "box",
    "position": [
-    14.803,
+    18.803,
     12.358,
     2.3
    ],
@@ -14040,7 +11345,7 @@
    "name": "Works_Wall_East_03_M05Vent_Slat_2",
    "type": "box",
    "position": [
-    14.803,
+    18.803,
     12.887,
     2.3
    ],
@@ -14068,7 +11373,7 @@
    "name": "Works_Wall_East_03_M05Vent_Slat_3",
    "type": "box",
    "position": [
-    14.803,
+    18.803,
     13.416,
     2.3
    ],
@@ -14093,12 +11398,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_East_03_M06Machine_Bracket",
-   "type": "box",
+   "name": "Works_Wall_East_03_M06Pipes_Pipe_1",
+   "type": "cylinder",
    "position": [
-    23.529,
-    7.2,
-    2.9
+    22.976,
+    0.5,
+    2.528
    ],
    "rotation": [
     0.0,
@@ -14107,66 +11412,67 @@
    ],
    "parent": "Works_Wall_East_03",
    "size": [
-    5.932,
-    0.8,
-    1.8
+    0.855,
+    21.585,
+    0.855
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_East_03_M06Pipes_Pipe_2",
+   "type": "cylinder",
+   "position": [
+    24.082,
+    0.5,
+    2.528
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_East_03",
+   "size": [
+    0.855,
+    21.585,
+    0.855
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_East_03_M06Pipes_Bracket_1",
+   "type": "box",
+   "position": [
+    23.529,
+    14.933,
+    2.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_East_03",
+   "size": [
+    2.511,
+    0.35,
+    1.355
    ],
    "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_03_M06Machine",
-   "type": "machinery",
-   "position": [
-    23.529,
-    8.0,
-    3.1
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_East_03",
-   "size": [
-    7.415,
-    6.415,
-    2.2
-   ],
-   "material": "machine",
-   "seed": 719664,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_03_M06Machine_Light",
-   "type": "box",
-   "position": [
-    21.304,
-    14.715,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_East_03",
-   "size": [
-    0.6,
-    0.35,
-    0.3
-   ],
-   "material": "glow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -14176,11 +11482,39 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_East_03_M06Machine_Plate",
+   "name": "Works_Wall_East_03_M06Pipes_Bracket_2",
    "type": "box",
    "position": [
     23.529,
-    15.516,
+    17.431,
+    2.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_East_03",
+   "size": [
+    2.511,
+    0.35,
+    1.355
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_East_03_M06Pipes_Plate",
+   "type": "box",
+   "position": [
+    23.529,
+    1.957,
     2.06
    ],
    "rotation": [
@@ -14190,11 +11524,11 @@
    ],
    "parent": "Works_Wall_East_03",
    "size": [
-    8.524,
-    9.684,
+    2.731,
+    12.807,
     0.12
    ],
-   "material": "structure_b",
+   "material": "frame",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -14213,7 +11547,7 @@
    ],
    "rotation": [
     0.0,
-    270.0,
+    90.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -14275,7 +11609,7 @@
    ],
    "rotation": [
     0.0,
-    270.0,
+    90.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -14461,7 +11795,7 @@
    ],
    "rotation": [
     0.0,
-    270.0,
+    90.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -14523,7 +11857,7 @@
    ],
    "rotation": [
     0.0,
-    270.0,
+    90.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -14763,7 +12097,7 @@
    ],
    "rotation": [
     0.0,
-    270.0,
+    90.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -14788,7 +12122,7 @@
     26.0,
     4.0
    ],
-   "material": "wall",
+   "material": "wall_works",
    "gen": "Works.walls",
    "source": "visible"
   },
@@ -14819,7 +12153,7 @@
    "name": "Works_Wall_West_01_M01Tank_Glass",
    "type": "box",
    "position": [
-    -12.266,
+    -8.266,
     9.849,
     2.15
    ],
@@ -14847,7 +12181,7 @@
    "name": "Works_Wall_West_01_M01Tank_Bar_1",
    "type": "box",
    "position": [
-    -13.345,
+    -9.345,
     9.849,
     2.35
    ],
@@ -14874,7 +12208,7 @@
    "name": "Works_Wall_West_01_M01Tank_Bar_2",
    "type": "box",
    "position": [
-    -11.186,
+    -7.186,
     9.849,
     2.35
    ],
@@ -14901,7 +12235,7 @@
    "name": "Works_Wall_West_01_M01Tank_Rim_1",
    "type": "box",
    "position": [
-    -12.266,
+    -8.266,
     9.449,
     2.35
    ],
@@ -14928,7 +12262,7 @@
    "name": "Works_Wall_West_01_M01Tank_Rim_2",
    "type": "box",
    "position": [
-    -12.266,
+    -8.266,
     16.559,
     2.35
    ],
@@ -14955,7 +12289,7 @@
    "name": "Works_Wall_West_01_M01Tank_Light",
    "type": "box",
    "position": [
-    -8.828,
+    -4.828,
     17.159,
     2.15
    ],
@@ -14983,7 +12317,7 @@
    "name": "Works_Wall_West_01_M01Tank_Plate",
    "type": "box",
    "position": [
-    -12.266,
+    -8.266,
     15.724,
     2.06
    ],
@@ -14998,7 +12332,7 @@
     9.476,
     0.12
    ],
-   "material": "structure_b",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -15011,7 +12345,7 @@
    "name": "Works_Wall_West_01_M02Vent",
    "type": "box",
    "position": [
-    -2.23,
+    1.77,
     15.971,
     2.1
    ],
@@ -15038,7 +12372,7 @@
    "name": "Works_Wall_West_01_M02Vent_Slat_1",
    "type": "box",
    "position": [
-    -2.23,
+    1.77,
     16.717,
     2.3
    ],
@@ -15066,7 +12400,7 @@
    "name": "Works_Wall_West_01_M02Vent_Slat_2",
    "type": "box",
    "position": [
-    -2.23,
+    1.77,
     17.582,
     2.3
    ],
@@ -15094,7 +12428,7 @@
    "name": "Works_Wall_West_01_M02Vent_Slat_3",
    "type": "box",
    "position": [
-    -2.23,
+    1.77,
     18.448,
     2.3
    ],
@@ -15122,7 +12456,7 @@
    "name": "Works_Wall_West_01_M02Vent_Plate",
    "type": "box",
    "position": [
-    -2.23,
+    1.77,
     15.422,
     2.06
    ],
@@ -15137,232 +12471,6 @@
     7.025,
     0.12
    ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_01_M03Fan",
-   "type": "cylinder",
-   "position": [
-    6.469,
-    18.258,
-    2.0
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_01",
-   "size": [
-    4.921,
-    0.9,
-    4.921
-   ],
-   "material": "structure_b",
-   "sections": 10,
-   "hole": 2.0106776178534522,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_01_M03Fan_Hub",
-   "type": "cylinder",
-   "position": [
-    6.469,
-    18.258,
-    2.0
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_01",
-   "size": [
-    1.0,
-    0.6,
-    1.0
-   ],
-   "material": "machine",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_01_M03Fan_Blade_1",
-   "type": "box",
-   "position": [
-    6.469,
-    18.258,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    15.0
-   ],
-   "parent": "Works_Wall_West_01",
-   "size": [
-    4.021,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_01_M03Fan_Blade_2",
-   "type": "box",
-   "position": [
-    6.469,
-    18.258,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    60.0
-   ],
-   "parent": "Works_Wall_West_01",
-   "size": [
-    4.021,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_01_M03Fan_Blade_3",
-   "type": "box",
-   "position": [
-    6.469,
-    18.258,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    105.0
-   ],
-   "parent": "Works_Wall_West_01",
-   "size": [
-    4.021,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_01_M03Fan_Blade_4",
-   "type": "box",
-   "position": [
-    6.469,
-    18.258,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    150.0
-   ],
-   "parent": "Works_Wall_West_01",
-   "size": [
-    4.021,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_01_M03Fan_Red",
-   "type": "box",
-   "position": [
-    5.351,
-    15.617,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_01",
-   "size": [
-    0.5,
-    0.35,
-    0.3
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_01_M03Fan_Plate",
-   "type": "box",
-   "position": [
-    6.469,
-    1.923,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_01",
-   "size": [
-    4.403,
-    11.108,
-    0.12
-   ],
    "material": "structure_b",
    "collision": false,
    "outline": false,
@@ -15373,12 +12481,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_01_M04Machine_Bracket",
+   "name": "Works_Wall_West_01_M03Machine_Bracket",
    "type": "box",
    "position": [
-    13.765,
-    7.2,
-    2.9
+    10.469,
+    10.5,
+    2.7
    ],
    "rotation": [
     0.0,
@@ -15387,9 +12495,9 @@
    ],
    "parent": "Works_Wall_West_01",
    "size": [
-    4.167,
+    2.837,
     0.8,
-    1.8
+    1.4
    ],
    "material": "frame",
    "collision": false,
@@ -15400,12 +12508,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_01_M04Machine",
+   "name": "Works_Wall_West_01_M03Machine",
    "type": "machinery",
    "position": [
-    13.765,
-    8.0,
-    3.1
+    10.469,
+    11.3,
+    2.8
    ],
    "rotation": [
     0.0,
@@ -15414,12 +12522,12 @@
    ],
    "parent": "Works_Wall_West_01",
    "size": [
-    5.209,
-    3.392,
-    2.2
+    3.546,
+    4.878,
+    1.6
    ],
    "material": "machine",
-   "seed": 229345,
+   "seed": 171869,
    "collision": false,
    "mobile": {
     "static": true
@@ -15428,11 +12536,11 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_01_M04Machine_Light",
+   "name": "Works_Wall_West_01_M03Machine_Light",
    "type": "box",
    "position": [
-    12.202,
-    11.692,
+    9.405,
+    16.478,
     2.15
    ],
    "rotation": [
@@ -15456,11 +12564,11 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_01_M04Machine_Red",
+   "name": "Works_Wall_West_01_M03Machine_Red",
    "type": "box",
    "position": [
-    12.431,
-    20.762,
+    10.121,
+    11.088,
     2.15
    ],
    "rotation": [
@@ -15484,11 +12592,11 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_01_M04Machine_Plate",
+   "name": "Works_Wall_West_01_M03Machine_Plate",
    "type": "box",
    "position": [
-    13.765,
-    15.417,
+    10.469,
+    15.554,
     2.06
    ],
    "rotation": [
@@ -15498,11 +12606,11 @@
    ],
    "parent": "Works_Wall_West_01",
    "size": [
-    7.163,
-    9.783,
+    4.633,
+    5.668,
     0.12
    ],
-   "material": "structure_b",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -15521,7 +12629,7 @@
    ],
    "rotation": [
     0.0,
-    270.0,
+    90.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -15546,7 +12654,7 @@
     26.0,
     4.0
    ],
-   "material": "wall",
+   "material": "wall_works",
    "gen": "Works.walls",
    "source": "visible"
   },
@@ -15577,7 +12685,7 @@
    "name": "Works_Wall_West_02_M01Pipes_Pipe_1",
    "type": "cylinder",
    "position": [
-    -27.212,
+    -23.212,
     0.5,
     2.502
    ],
@@ -15594,7 +12702,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -15606,7 +12713,7 @@
    "name": "Works_Wall_West_02_M01Pipes_Pipe_2",
    "type": "cylinder",
    "position": [
-    -26.158,
+    -22.158,
     0.5,
     2.502
    ],
@@ -15623,7 +12730,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -15635,7 +12741,7 @@
    "name": "Works_Wall_West_02_M01Pipes_Pipe_3",
    "type": "cylinder",
    "position": [
-    -25.104,
+    -21.104,
     0.5,
     2.502
    ],
@@ -15652,7 +12758,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -15664,7 +12769,7 @@
    "name": "Works_Wall_West_02_M01Pipes_Pipe_4",
    "type": "cylinder",
    "position": [
-    -24.05,
+    -20.05,
     0.5,
     2.502
    ],
@@ -15681,7 +12786,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -15693,7 +12797,7 @@
    "name": "Works_Wall_West_02_M01Pipes_Bracket_1",
    "type": "box",
    "position": [
-    -25.631,
+    -21.631,
     10.317,
     2.3
    ],
@@ -15721,7 +12825,7 @@
    "name": "Works_Wall_West_02_M01Pipes_Bracket_2",
    "type": "box",
    "position": [
-    -25.631,
+    -21.631,
     13.342,
     2.3
    ],
@@ -15749,7 +12853,7 @@
    "name": "Works_Wall_West_02_M01Pipes_Bracket_3",
    "type": "box",
    "position": [
-    -25.631,
+    -21.631,
     22.382,
     2.3
    ],
@@ -15774,12 +12878,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_02_M02Vent",
+   "name": "Works_Wall_West_02_M02Tank_Glass",
    "type": "box",
    "position": [
-    -19.798,
-    13.163,
-    2.1
+    -15.798,
+    10.479,
+    2.15
    ],
    "rotation": [
     0.0,
@@ -15788,9 +12892,64 @@
    ],
    "parent": "Works_Wall_West_02",
    "size": [
-    3.137,
-    3.583,
+    3.392,
+    10.758,
     0.3
+   ],
+   "material": "hazard",
+   "collision": true,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M02Tank_Bar_1",
+   "type": "box",
+   "position": [
+    -15.798,
+    10.479,
+    2.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    0.3,
+    10.758,
+    0.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M02Tank_Rim_1",
+   "type": "box",
+   "position": [
+    -15.798,
+    10.079,
+    2.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    4.192,
+    0.45,
+    0.6
    ],
    "material": "structure_b",
    "collision": false,
@@ -15801,12 +12960,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_02_M02Vent_Slat_1",
+   "name": "Works_Wall_West_02_M02Tank_Rim_2",
    "type": "box",
    "position": [
-    -19.798,
-    13.939,
-    2.3
+    -15.798,
+    21.237,
+    2.35
    ],
    "rotation": [
     0.0,
@@ -15815,11 +12974,38 @@
    ],
    "parent": "Works_Wall_West_02",
    "size": [
-    2.637,
-    0.24,
-    0.15
+    4.192,
+    0.45,
+    0.6
    ],
-   "material": "frame",
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M02Tank_Light",
+   "type": "box",
+   "position": [
+    -13.902,
+    21.837,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    0.45,
+    0.45,
+    0.3
+   ],
+   "material": "glow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -15829,66 +13015,10 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_02_M02Vent_Slat_2",
+   "name": "Works_Wall_West_02_M02Tank_Plate",
    "type": "box",
    "position": [
-    -19.798,
-    14.835,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    2.637,
-    0.24,
-    0.15
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M02Vent_Slat_3",
-   "type": "box",
-   "position": [
-    -19.798,
-    15.731,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    2.637,
-    0.24,
-    0.15
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M02Vent_Plate",
-   "type": "box",
-   "position": [
-    -19.798,
+    -15.798,
     14.879,
     2.06
    ],
@@ -15903,7 +13033,7 @@
     6.569,
     0.12
    ],
-   "material": "structure_b",
+   "material": "wall_slimed",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -15913,27 +13043,25 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_02_M03Fan",
-   "type": "cylinder",
+   "name": "Works_Wall_West_02_M03Machine_Bracket",
+   "type": "box",
    "position": [
-    -13.419,
-    17.078,
-    2.0
+    -9.419,
+    10.5,
+    2.7
    ],
    "rotation": [
-    90.0,
+    0.0,
     0.0,
     0.0
    ],
    "parent": "Works_Wall_West_02",
    "size": [
-    5.442,
-    0.9,
-    5.442
+    3.385,
+    0.8,
+    1.4
    ],
-   "material": "structure_b",
-   "sections": 10,
-   "hole": 2.2708902351623714,
+   "material": "frame",
    "collision": false,
    "mobile": {
     "static": true
@@ -15942,28 +13070,27 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_02_M03Fan_Hub",
-   "type": "cylinder",
+   "name": "Works_Wall_West_02_M03Machine",
+   "type": "machinery",
    "position": [
-    -13.419,
-    17.078,
-    2.0
+    -9.419,
+    11.3,
+    2.8
    ],
    "rotation": [
-    90.0,
+    0.0,
     0.0,
     0.0
    ],
    "parent": "Works_Wall_West_02",
    "size": [
-    1.0,
-    0.6,
-    1.0
+    4.232,
+    4.258,
+    1.6
    ],
    "material": "machine",
-   "sections": 6,
+   "seed": 61241,
    "collision": false,
-   "outline": false,
    "mobile": {
     "static": true
    },
@@ -15971,25 +13098,25 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_02_M03Fan_Blade_1",
+   "name": "Works_Wall_West_02_M03Machine_Light",
    "type": "box",
    "position": [
-    -13.419,
-    17.078,
-    2.3
+    -10.688,
+    15.858,
+    2.15
    ],
    "rotation": [
     0.0,
     0.0,
-    15.0
+    0.0
    ],
    "parent": "Works_Wall_West_02",
    "size": [
-    4.542,
-    0.5,
-    0.08
+    0.6,
+    0.35,
+    0.3
    ],
-   "material": "frame",
+   "material": "glow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -15999,95 +13126,11 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_02_M03Fan_Blade_2",
+   "name": "Works_Wall_West_02_M03Machine_Plate",
    "type": "box",
    "position": [
-    -13.419,
-    17.078,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    60.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    4.542,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M03Fan_Blade_3",
-   "type": "box",
-   "position": [
-    -13.419,
-    17.078,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    105.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    4.542,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M03Fan_Blade_4",
-   "type": "box",
-   "position": [
-    -13.419,
-    17.078,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    150.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    4.542,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M03Fan_Plate",
-   "type": "box",
-   "position": [
-    -13.419,
-    4.308,
+    -9.419,
+    14.981,
     2.06
    ],
    "rotation": [
@@ -16098,10 +13141,10 @@
    "parent": "Works_Wall_West_02",
    "size": [
     5.615,
-    13.655,
+    10.219,
     0.12
    ],
-   "material": "structure_b",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -16111,136 +13154,81 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_02_M04Vent",
-   "type": "box",
+   "name": "Works_Wall_West_02_M04Pipes_Pipe_1",
+   "type": "cylinder",
    "position": [
-    -6.146,
-    15.848,
-    2.1
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    3.064,
-    3.208,
-    0.3
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M04Vent_Slat_1",
-   "type": "box",
-   "position": [
-    -6.146,
-    16.53,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    2.564,
-    0.24,
-    0.15
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M04Vent_Slat_2",
-   "type": "box",
-   "position": [
-    -6.146,
-    17.332,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    2.564,
-    0.24,
-    0.15
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M04Vent_Slat_3",
-   "type": "box",
-   "position": [
-    -6.146,
-    18.134,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    2.564,
-    0.24,
-    0.15
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M04Vent_Red",
-   "type": "box",
-   "position": [
-    -3.483,
-    19.511,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
+    -1.376,
     0.5,
-    0.35,
-    0.3
+    2.643
    ],
-   "material": "glow",
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    1.087,
+    22.885,
+    1.087
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M04Pipes_Pipe_2",
+   "type": "cylinder",
+   "position": [
+    -0.039,
+    0.5,
+    2.643
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    1.087,
+    22.885,
+    1.087
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M04Pipes_Bracket_1",
+   "type": "box",
+   "position": [
+    -0.707,
+    10.514,
+    2.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    2.974,
+    0.35,
+    1.587
+   ],
+   "material": "frame",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -16250,11 +13238,67 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_02_M04Vent_Plate",
+   "name": "Works_Wall_West_02_M04Pipes_Bracket_2",
    "type": "box",
    "position": [
-    -6.146,
-    15.271,
+    -0.707,
+    19.061,
+    2.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    2.974,
+    0.35,
+    1.587
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M04Pipes_Bracket_3",
+   "type": "box",
+   "position": [
+    -0.707,
+    21.784,
+    2.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    2.974,
+    0.35,
+    1.587
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M04Pipes_Plate",
+   "type": "box",
+   "position": [
+    -0.707,
+    3.563,
     2.06
    ],
    "rotation": [
@@ -16264,11 +13308,11 @@
    ],
    "parent": "Works_Wall_West_02",
    "size": [
-    5.596,
-    5.592,
+    8.354,
+    11.691,
     0.12
    ],
-   "material": "machine",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -16278,489 +13322,10 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_02_M05Fan",
-   "type": "cylinder",
-   "position": [
-    2.178,
-    19.739,
-    2.0
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    6.359,
-    0.9,
-    6.359
-   ],
-   "material": "structure_b",
-   "sections": 10,
-   "hole": 2.729544010004425,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M05Fan_Hub",
-   "type": "cylinder",
-   "position": [
-    2.178,
-    19.739,
-    2.0
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    1.0,
-    0.6,
-    1.0
-   ],
-   "material": "machine",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M05Fan_Blade_1",
-   "type": "box",
-   "position": [
-    2.178,
-    19.739,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    15.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    5.459,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M05Fan_Blade_2",
-   "type": "box",
-   "position": [
-    2.178,
-    19.739,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    60.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    5.459,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M05Fan_Blade_3",
-   "type": "box",
-   "position": [
-    2.178,
-    19.739,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    105.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    5.459,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M05Fan_Blade_4",
-   "type": "box",
-   "position": [
-    2.178,
-    19.739,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    150.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    5.459,
-    0.5,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M05Fan_Red",
-   "type": "box",
-   "position": [
-    2.015,
-    20.222,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    0.5,
-    0.35,
-    0.3
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M05Fan_Plate",
-   "type": "box",
-   "position": [
-    2.178,
-    5.894,
-    2.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    6.852,
-    9.603,
-    0.12
-   ],
-   "material": "machine",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M06Pipes_Pipe_1",
-   "type": "cylinder",
-   "position": [
-    9.425,
-    0.5,
-    2.619
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    1.039,
-    23.543,
-    1.039
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M06Pipes_Pipe_2",
-   "type": "cylinder",
-   "position": [
-    10.714,
-    0.5,
-    2.619
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    1.039,
-    23.543,
-    1.039
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M06Pipes_Bracket_1",
-   "type": "box",
-   "position": [
-    10.069,
-    11.894,
-    2.29
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    2.878,
-    0.35,
-    1.539
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M06Pipes_Bracket_2",
-   "type": "box",
-   "position": [
-    10.069,
-    19.902,
-    2.29
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    2.878,
-    0.35,
-    1.539
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M06Pipes_Bracket_3",
-   "type": "box",
-   "position": [
-    10.069,
-    22.044,
-    2.29
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    2.878,
-    0.35,
-    1.539
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M07Vent",
-   "type": "box",
-   "position": [
-    16.382,
-    9.365,
-    2.1
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    4.398,
-    2.243,
-    0.3
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M07Vent_Slat_1",
-   "type": "box",
-   "position": [
-    16.382,
-    9.805,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    3.898,
-    0.24,
-    0.15
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M07Vent_Slat_2",
-   "type": "box",
-   "position": [
-    16.382,
-    10.366,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    3.898,
-    0.24,
-    0.15
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M07Vent_Slat_3",
-   "type": "box",
-   "position": [
-    16.382,
-    10.927,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    3.898,
-    0.24,
-    0.15
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M08Emblem",
+   "name": "Works_Wall_West_02_M05Emblem",
    "type": "panel",
    "position": [
-    22.441,
+    8.801,
     10.5,
     2.03
    ],
@@ -16771,8 +13336,8 @@
    ],
    "parent": "Works_Wall_West_02",
    "size": [
-    4.42,
-    6.67,
+    6.425,
+    10.198,
     0.0
    ],
    "material": "accent",
@@ -16785,11 +13350,175 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_02_M08Emblem_Red",
+   "name": "Works_Wall_West_02_M06Tank_Glass",
    "type": "box",
    "position": [
-    21.384,
-    22.163,
+    17.201,
+    8.822,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    4.564,
+    6.085,
+    0.3
+   ],
+   "material": "hazard",
+   "collision": true,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M06Tank_Bar_1",
+   "type": "box",
+   "position": [
+    16.441,
+    8.822,
+    2.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    0.3,
+    6.085,
+    0.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M06Tank_Bar_2",
+   "type": "box",
+   "position": [
+    17.962,
+    8.822,
+    2.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    0.3,
+    6.085,
+    0.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M06Tank_Rim_1",
+   "type": "box",
+   "position": [
+    17.201,
+    8.422,
+    2.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    5.364,
+    0.45,
+    0.6
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M06Tank_Rim_2",
+   "type": "box",
+   "position": [
+    17.201,
+    14.908,
+    2.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    5.364,
+    0.45,
+    0.6
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M06Tank_Light",
+   "type": "box",
+   "position": [
+    19.683,
+    15.508,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    0.45,
+    0.45,
+    0.3
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M06Tank_Red",
+   "type": "box",
+   "position": [
+    19.719,
+    21.675,
     2.15
    ],
    "rotation": [
@@ -16813,12 +13542,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_02_M09Tank_Glass",
+   "name": "Works_Wall_West_02_M06Tank_Plate",
    "type": "box",
    "position": [
-    27.602,
-    8.974,
-    2.15
+    17.201,
+    13.154,
+    2.06
    ],
    "rotation": [
     0.0,
@@ -16827,12 +13556,12 @@
    ],
    "parent": "Works_Wall_West_02",
    "size": [
-    3.589,
-    10.448,
-    0.3
+    7.11,
+    11.832,
+    0.12
    ],
-   "material": "hazard",
-   "collision": true,
+   "material": "wall_works",
+   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -16841,12 +13570,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_02_M09Tank_Bar_1",
-   "type": "box",
+   "name": "Works_Wall_West_02_M07Pipes_Pipe_1",
+   "type": "cylinder",
    "position": [
-    27.602,
-    8.974,
-    2.35
+    22.399,
+    0.5,
+    2.521
    ],
    "rotation": [
     0.0,
@@ -16855,12 +13584,97 @@
    ],
    "parent": "Works_Wall_West_02",
    "size": [
-    0.3,
-    10.448,
-    0.3
+    0.843,
+    21.885,
+    0.843
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M07Pipes_Pipe_2",
+   "type": "cylinder",
+   "position": [
+    23.492,
+    0.5,
+    2.521
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    0.843,
+    21.885,
+    0.843
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M07Pipes_Pipe_3",
+   "type": "cylinder",
+   "position": [
+    24.584,
+    0.5,
+    2.521
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    0.843,
+    21.885,
+    0.843
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M07Pipes_Bracket_1",
+   "type": "box",
+   "position": [
+    23.492,
+    11.384,
+    2.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    3.579,
+    0.35,
+    1.343
    ],
    "material": "frame",
    "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -16868,12 +13682,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_02_M09Tank_Rim_1",
+   "name": "Works_Wall_West_02_M07Pipes_Bracket_2",
    "type": "box",
    "position": [
-    27.602,
-    8.574,
-    2.35
+    23.492,
+    19.624,
+    2.3
    ],
    "rotation": [
     0.0,
@@ -16882,12 +13696,13 @@
    ],
    "parent": "Works_Wall_West_02",
    "size": [
-    4.389,
-    0.45,
-    0.6
+    3.579,
+    0.35,
+    1.343
    ],
-   "material": "structure_b",
+   "material": "frame",
    "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -16895,12 +13710,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_02_M09Tank_Rim_2",
+   "name": "Works_Wall_West_02_M07Pipes_Plate",
    "type": "box",
    "position": [
-    27.602,
-    19.423,
-    2.35
+    23.492,
+    4.414,
+    2.06
    ],
    "rotation": [
     0.0,
@@ -16909,38 +13724,11 @@
    ],
    "parent": "Works_Wall_West_02",
    "size": [
-    4.389,
-    0.45,
-    0.6
+    3.749,
+    9.319,
+    0.12
    ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_02_M09Tank_Light",
-   "type": "box",
-   "position": [
-    29.597,
-    20.023,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_02",
-   "size": [
-    0.45,
-    0.45,
-    0.3
-   ],
-   "material": "glow",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -16959,7 +13747,7 @@
    ],
    "rotation": [
     0.0,
-    270.0,
+    90.0,
     0.0
    ],
    "gen": "Works.walls",
@@ -16984,7 +13772,7 @@
     26.0,
     4.0
    ],
-   "material": "wall",
+   "material": "wall_slimed",
    "gen": "Works.walls",
    "source": "visible"
   },
@@ -17015,7 +13803,7 @@
    "name": "Works_Wall_West_03_M01Pipes_Pipe_1",
    "type": "cylinder",
    "position": [
-    -10.528,
+    -6.528,
     0.5,
     2.599
    ],
@@ -17032,7 +13820,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -17044,7 +13831,7 @@
    "name": "Works_Wall_West_03_M01Pipes_Pipe_2",
    "type": "cylinder",
    "position": [
-    -9.281,
+    -5.281,
     0.5,
     2.599
    ],
@@ -17061,7 +13848,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -17073,7 +13859,7 @@
    "name": "Works_Wall_West_03_M01Pipes_Pipe_3",
    "type": "cylinder",
    "position": [
-    -8.034,
+    -4.034,
     0.5,
     2.599
    ],
@@ -17090,7 +13876,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -17102,7 +13887,7 @@
    "name": "Works_Wall_West_03_M01Pipes_Pipe_4",
    "type": "cylinder",
    "position": [
-    -6.787,
+    -2.787,
     0.5,
     2.599
    ],
@@ -17119,7 +13904,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -17131,7 +13915,7 @@
    "name": "Works_Wall_West_03_M01Pipes_Bracket_1",
    "type": "box",
    "position": [
-    -8.657,
+    -4.657,
     12.078,
     2.3
    ],
@@ -17159,7 +13943,7 @@
    "name": "Works_Wall_West_03_M01Pipes_Bracket_2",
    "type": "box",
    "position": [
-    -8.657,
+    -4.657,
     18.512,
     2.3
    ],
@@ -17187,7 +13971,7 @@
    "name": "Works_Wall_West_03_M01Pipes_Bracket_3",
    "type": "box",
    "position": [
-    -8.657,
+    -4.657,
     20.171,
     2.3
    ],
@@ -17215,7 +13999,7 @@
    "name": "Works_Wall_West_03_M01Pipes_Plate",
    "type": "box",
    "position": [
-    -8.657,
+    -4.657,
     4.709,
     2.06
    ],
@@ -17230,7 +14014,7 @@
     10.458,
     0.12
    ],
-   "material": "machine",
+   "material": "frame",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -17240,12 +14024,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_03_M02Vent",
+   "name": "Works_Wall_West_03_M02Tank_Glass",
    "type": "box",
    "position": [
-    -0.708,
-    15.671,
-    2.1
+    3.292,
+    8.991,
+    2.15
    ],
    "rotation": [
     0.0,
@@ -17254,9 +14038,64 @@
    ],
    "parent": "Works_Wall_West_03",
    "size": [
-    3.155,
-    2.392,
+    3.495,
+    13.624,
     0.3
+   ],
+   "material": "hazard",
+   "collision": true,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_03_M02Tank_Bar_1",
+   "type": "box",
+   "position": [
+    3.292,
+    8.991,
+    2.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_03",
+   "size": [
+    0.3,
+    13.624,
+    0.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_03_M02Tank_Rim_1",
+   "type": "box",
+   "position": [
+    3.292,
+    8.591,
+    2.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_03",
+   "size": [
+    4.295,
+    0.45,
+    0.6
    ],
    "material": "structure_b",
    "collision": false,
@@ -17267,12 +14106,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_03_M02Vent_Slat_1",
+   "name": "Works_Wall_West_03_M02Tank_Rim_2",
    "type": "box",
    "position": [
-    -0.708,
-    16.149,
-    2.3
+    3.292,
+    22.614,
+    2.35
    ],
    "rotation": [
     0.0,
@@ -17281,11 +14120,38 @@
    ],
    "parent": "Works_Wall_West_03",
    "size": [
-    2.655,
-    0.24,
-    0.15
+    4.295,
+    0.45,
+    0.6
    ],
-   "material": "frame",
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_03_M02Tank_Light",
+   "type": "box",
+   "position": [
+    5.24,
+    23.214,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_03",
+   "size": [
+    0.45,
+    0.45,
+    0.3
+   ],
+   "material": "glow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -17295,66 +14161,10 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_West_03_M02Vent_Slat_2",
+   "name": "Works_Wall_West_03_M02Tank_Plate",
    "type": "box",
    "position": [
-    -0.708,
-    16.747,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_03",
-   "size": [
-    2.655,
-    0.24,
-    0.15
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_03_M02Vent_Slat_3",
-   "type": "box",
-   "position": [
-    -0.708,
-    17.345,
-    2.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_03",
-   "size": [
-    2.655,
-    0.24,
-    0.15
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_03_M02Vent_Plate",
-   "type": "box",
-   "position": [
-    -0.708,
+    3.292,
     14.653,
     2.06
    ],
@@ -17369,7 +14179,7 @@
     10.206,
     0.12
    ],
-   "material": "machine",
+   "material": "frame",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -17382,7 +14192,7 @@
    "name": "Works_Wall_West_03_M03Pipes_Pipe_1",
    "type": "cylinder",
    "position": [
-    7.123,
+    7.609,
     0.5,
     2.461
    ],
@@ -17399,7 +14209,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -17411,7 +14220,7 @@
    "name": "Works_Wall_West_03_M03Pipes_Pipe_2",
    "type": "cylinder",
    "position": [
-    8.096,
+    8.582,
     0.5,
     2.461
    ],
@@ -17428,36 +14237,6 @@
    ],
    "material": "pipe",
    "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_03_M03Pipes_Pipe_3",
-   "type": "cylinder",
-   "position": [
-    9.068,
-    0.5,
-    2.461
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_03",
-   "size": [
-    0.723,
-    23.809,
-    0.723
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -17480,7 +14259,7 @@
    ],
    "parent": "Works_Wall_West_03",
    "size": [
-    3.218,
+    2.245,
     0.35,
     1.223
    ],
@@ -17508,7 +14287,7 @@
    ],
    "parent": "Works_Wall_West_03",
    "size": [
-    3.218,
+    2.245,
     0.35,
     1.223
    ],
@@ -17536,7 +14315,7 @@
    ],
    "parent": "Works_Wall_West_03",
    "size": [
-    3.218,
+    2.245,
     0.35,
     1.223
    ],
@@ -17553,7 +14332,7 @@
    "name": "Works_Wall_West_03_M03Pipes_Red",
    "type": "box",
    "position": [
-    9.341,
+    8.325,
     21.937,
     2.15
    ],
@@ -17592,11 +14371,11 @@
    ],
    "parent": "Works_Wall_West_03",
    "size": [
-    9.698,
+    2.52,
     9.103,
     0.12
    ],
-   "material": "machine",
+   "material": "wall_works",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -46523,7 +43302,7 @@
    "type": "cylinder",
    "position": [
     -4.756,
-    25.55,
+    25.48,
     -21.881
    ],
    "rotation": [
@@ -46532,13 +43311,13 @@
     0.0
    ],
    "size": [
-    4.41,
-    0.85,
-    4.41
+    5.61,
+    0.9,
+    5.61
    ],
    "material": "structure_b",
-   "sections": 12,
-   "hole": 1.8051179810894138,
+   "sections": 20,
+   "hole": 2.2051179810894137,
    "collision": false,
    "cutaway": true,
    "mobile": {
@@ -46548,11 +43327,119 @@
    "source": "inferred"
   },
   {
-   "name": "Ceil_Fan_1_Hub",
+   "name": "Ceil_Fan_1_Clamp_1",
+   "type": "box",
+   "position": [
+    -2.667,
+    25.33,
+    -19.792
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_1_Clamp_2",
+   "type": "box",
+   "position": [
+    -6.846,
+    25.33,
+    -19.792
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_1_Clamp_3",
+   "type": "box",
+   "position": [
+    -6.846,
+    25.33,
+    -23.971
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_1_Clamp_4",
+   "type": "box",
+   "position": [
+    -2.667,
+    25.33,
+    -23.971
+   ],
+   "rotation": [
+    0.0,
+    -315.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_1_Glow",
    "type": "cylinder",
    "position": [
     -4.756,
-    25.7,
+    26.26,
     -21.881
    ],
    "rotation": [
@@ -46561,13 +43448,14 @@
     0.0
    ],
    "size": [
-    0.9,
-    0.7,
-    0.9
+    4.31,
+    0.05,
+    4.31
    ],
-   "material": "machine",
-   "sections": 8,
+   "material": "fall",
+   "sections": 16,
    "collision": false,
+   "outline": false,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
@@ -46576,26 +43464,26 @@
    "source": "inferred"
   },
   {
-   "name": "Ceil_Fan_1_Blade_1",
+   "name": "Ceil_Fan_1_Grille_01",
    "type": "box",
    "position": [
     -4.756,
-    25.9,
-    -21.881
+    26.082,
+    -23.535
    ],
    "rotation": [
     0.0,
-    20.0,
-    12.0
+    0.0,
+    0.0
    ],
    "size": [
-    3.41,
-    0.08,
-    0.5
+    2.859,
+    0.1,
+    0.12
    ],
    "material": "frame",
-   "outline": false,
    "collision": false,
+   "outline": false,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
@@ -46604,26 +43492,26 @@
    "source": "inferred"
   },
   {
-   "name": "Ceil_Fan_1_Blade_2",
+   "name": "Ceil_Fan_1_Grille_11",
    "type": "box",
    "position": [
-    -4.756,
-    25.9,
+    -6.41,
+    26.082,
     -21.881
    ],
    "rotation": [
     0.0,
-    65.0,
-    12.0
+    0.0,
+    0.0
    ],
    "size": [
-    3.41,
-    0.08,
-    0.5
+    2.859,
+    0.1,
+    0.12
    ],
    "material": "frame",
-   "outline": false,
    "collision": false,
+   "outline": false,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
@@ -46632,26 +43520,26 @@
    "source": "inferred"
   },
   {
-   "name": "Ceil_Fan_1_Blade_3",
+   "name": "Ceil_Fan_1_Grille_02",
    "type": "box",
    "position": [
     -4.756,
-    25.9,
-    -21.881
+    26.082,
+    -22.433
    ],
    "rotation": [
     0.0,
-    110.0,
-    12.0
+    0.0,
+    0.0
    ],
    "size": [
-    3.41,
-    0.08,
-    0.5
+    4.185,
+    0.1,
+    0.12
    ],
    "material": "frame",
-   "outline": false,
    "collision": false,
+   "outline": false,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
@@ -46660,29 +43548,172 @@
    "source": "inferred"
   },
   {
-   "name": "Ceil_Fan_1_Blade_4",
+   "name": "Ceil_Fan_1_Grille_12",
    "type": "box",
    "position": [
-    -4.756,
-    25.9,
+    -5.307,
+    26.082,
     -21.881
    ],
    "rotation": [
     0.0,
-    155.0,
-    12.0
+    0.0,
+    0.0
    ],
    "size": [
-    3.41,
-    0.08,
-    0.5
+    4.185,
+    0.1,
+    0.12
    ],
    "material": "frame",
-   "outline": false,
    "collision": false,
+   "outline": false,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_1_Grille_03",
+   "type": "box",
+   "position": [
+    -4.756,
+    26.082,
+    -21.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.185,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_1_Grille_13",
+   "type": "box",
+   "position": [
+    -4.205,
+    26.082,
+    -21.881
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.185,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_1_Grille_04",
+   "type": "box",
+   "position": [
+    -4.756,
+    26.082,
+    -20.227
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.859,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_1_Grille_14",
+   "type": "box",
+   "position": [
+    -3.102,
+    26.082,
+    -21.881
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.859,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_1_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    -4.756,
+    25.822,
+    -21.881
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.19,
+    0.405,
+    4.19
+   ],
+   "material": "frame",
+   "blades": 6,
+   "sweep": 24.680054435389835,
+   "collision": false,
+   "outline": false,
+   "spin": -30.8,
+   "cutaway": true,
+   "mobile": {
+    "merge": false
    },
    "gen": "arena.ceiling",
    "source": "inferred"
@@ -55462,7 +52493,7 @@
    "type": "cylinder",
    "position": [
     27.262,
-    25.55,
+    25.48,
     -210.116
    ],
    "rotation": [
@@ -55471,13 +52502,13 @@
     0.0
    ],
    "size": [
-    6.402,
-    0.85,
-    6.402
+    7.602,
+    0.9,
+    7.602
    ],
    "material": "structure_b",
-   "sections": 12,
-   "hole": 2.800842018998027,
+   "sections": 20,
+   "hole": 3.200842018998027,
    "collision": false,
    "cutaway": true,
    "mobile": {
@@ -55487,11 +52518,119 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Fan_1_Hub",
+   "name": "Works_Ceil_Fan_1_Clamp_1",
+   "type": "box",
+   "position": [
+    30.056,
+    25.33,
+    -207.322
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_1_Clamp_2",
+   "type": "box",
+   "position": [
+    24.469,
+    25.33,
+    -207.322
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_1_Clamp_3",
+   "type": "box",
+   "position": [
+    24.469,
+    25.33,
+    -212.91
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_1_Clamp_4",
+   "type": "box",
+   "position": [
+    30.056,
+    25.33,
+    -212.91
+   ],
+   "rotation": [
+    0.0,
+    -315.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_1_Glow",
    "type": "cylinder",
    "position": [
     27.262,
-    25.7,
+    26.26,
     -210.116
    ],
    "rotation": [
@@ -55500,13 +52639,14 @@
     0.0
    ],
    "size": [
-    0.9,
-    0.7,
-    0.9
+    6.302,
+    0.05,
+    6.302
    ],
-   "material": "machine",
-   "sections": 8,
+   "material": "fall",
+   "sections": 16,
    "collision": false,
+   "outline": false,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
@@ -55515,26 +52655,26 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Fan_1_Blade_1",
+   "name": "Works_Ceil_Fan_1_Grille_01",
    "type": "box",
    "position": [
     27.262,
-    25.9,
-    -210.116
+    26.082,
+    -212.517
    ],
    "rotation": [
     0.0,
-    20.0,
-    12.0
+    0.0,
+    0.0
    ],
    "size": [
-    5.402,
-    0.08,
-    0.5
+    4.15,
+    0.1,
+    0.12
    ],
    "material": "frame",
-   "outline": false,
    "collision": false,
+   "outline": false,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
@@ -55543,26 +52683,26 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Fan_1_Blade_2",
+   "name": "Works_Ceil_Fan_1_Grille_11",
    "type": "box",
    "position": [
-    27.262,
-    25.9,
+    24.862,
+    26.082,
     -210.116
    ],
    "rotation": [
     0.0,
-    65.0,
-    12.0
+    0.0,
+    0.0
    ],
    "size": [
-    5.402,
-    0.08,
-    0.5
+    4.15,
+    0.1,
+    0.12
    ],
    "material": "frame",
-   "outline": false,
    "collision": false,
+   "outline": false,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
@@ -55571,26 +52711,26 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Fan_1_Blade_3",
+   "name": "Works_Ceil_Fan_1_Grille_02",
    "type": "box",
    "position": [
     27.262,
-    25.9,
-    -210.116
+    26.082,
+    -210.916
    ],
    "rotation": [
     0.0,
-    110.0,
-    12.0
+    0.0,
+    0.0
    ],
    "size": [
-    5.402,
-    0.08,
-    0.5
+    6.074,
+    0.1,
+    0.12
    ],
    "material": "frame",
-   "outline": false,
    "collision": false,
+   "outline": false,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
@@ -55599,29 +52739,172 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Fan_1_Blade_4",
+   "name": "Works_Ceil_Fan_1_Grille_12",
    "type": "box",
    "position": [
-    27.262,
-    25.9,
+    26.462,
+    26.082,
     -210.116
    ],
    "rotation": [
     0.0,
-    155.0,
-    12.0
+    0.0,
+    0.0
    ],
    "size": [
-    5.402,
-    0.08,
-    0.5
+    6.074,
+    0.1,
+    0.12
    ],
    "material": "frame",
-   "outline": false,
    "collision": false,
+   "outline": false,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_1_Grille_03",
+   "type": "box",
+   "position": [
+    27.262,
+    26.082,
+    -209.316
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.074,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_1_Grille_13",
+   "type": "box",
+   "position": [
+    28.063,
+    26.082,
+    -210.116
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.074,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_1_Grille_04",
+   "type": "box",
+   "position": [
+    27.262,
+    26.082,
+    -207.715
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.15,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_1_Grille_14",
+   "type": "box",
+   "position": [
+    29.663,
+    26.082,
+    -210.116
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.15,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_1_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    27.262,
+    25.822,
+    -210.116
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.082,
+    0.405,
+    6.082
+   ],
+   "material": "frame",
+   "blades": 7,
+   "sweep": 18.47054150832527,
+   "collision": false,
+   "outline": false,
+   "spin": -17.2,
+   "cutaway": true,
+   "mobile": {
+    "merge": false
    },
    "gen": "Works.ceiling",
    "source": "visible"
@@ -55631,7 +52914,7 @@
    "type": "cylinder",
    "position": [
     -37.896,
-    25.55,
+    25.48,
     -205.124
    ],
    "rotation": [
@@ -55640,13 +52923,13 @@
     0.0
    ],
    "size": [
-    5.645,
-    0.85,
-    5.645
+    6.845,
+    0.9,
+    6.845
    ],
    "material": "structure_b",
-   "sections": 12,
-   "hole": 2.4226063448881865,
+   "sections": 20,
+   "hole": 2.8226063448881864,
    "collision": false,
    "cutaway": true,
    "mobile": {
@@ -55656,11 +52939,119 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Fan_2_Hub",
+   "name": "Works_Ceil_Fan_2_Clamp_1",
+   "type": "box",
+   "position": [
+    -35.37,
+    25.33,
+    -202.597
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_2_Clamp_2",
+   "type": "box",
+   "position": [
+    -40.423,
+    25.33,
+    -202.597
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_2_Clamp_3",
+   "type": "box",
+   "position": [
+    -40.423,
+    25.33,
+    -207.65
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_2_Clamp_4",
+   "type": "box",
+   "position": [
+    -35.37,
+    25.33,
+    -207.65
+   ],
+   "rotation": [
+    0.0,
+    -315.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_2_Glow",
    "type": "cylinder",
    "position": [
     -37.896,
-    25.7,
+    26.26,
     -205.124
    ],
    "rotation": [
@@ -55669,13 +53060,14 @@
     0.0
    ],
    "size": [
-    0.9,
-    0.7,
-    0.9
+    5.545,
+    0.05,
+    5.545
    ],
-   "material": "machine",
-   "sections": 8,
+   "material": "fall",
+   "sections": 16,
    "collision": false,
+   "outline": false,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
@@ -55684,26 +53076,26 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Fan_2_Blade_1",
+   "name": "Works_Ceil_Fan_2_Grille_01",
    "type": "box",
    "position": [
     -37.896,
-    25.9,
-    -205.124
+    26.082,
+    -207.241
    ],
    "rotation": [
     0.0,
-    20.0,
-    12.0
+    0.0,
+    0.0
    ],
    "size": [
-    4.645,
-    0.08,
-    0.5
+    3.659,
+    0.1,
+    0.12
    ],
    "material": "frame",
-   "outline": false,
    "collision": false,
+   "outline": false,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
@@ -55712,26 +53104,26 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Fan_2_Blade_2",
+   "name": "Works_Ceil_Fan_2_Grille_11",
    "type": "box",
    "position": [
-    -37.896,
-    25.9,
+    -40.013,
+    26.082,
     -205.124
    ],
    "rotation": [
     0.0,
-    65.0,
-    12.0
+    0.0,
+    0.0
    ],
    "size": [
-    4.645,
-    0.08,
-    0.5
+    3.659,
+    0.1,
+    0.12
    ],
    "material": "frame",
-   "outline": false,
    "collision": false,
+   "outline": false,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
@@ -55740,26 +53132,26 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Fan_2_Blade_3",
+   "name": "Works_Ceil_Fan_2_Grille_02",
    "type": "box",
    "position": [
     -37.896,
-    25.9,
-    -205.124
+    26.082,
+    -205.829
    ],
    "rotation": [
     0.0,
-    110.0,
-    12.0
+    0.0,
+    0.0
    ],
    "size": [
-    4.645,
-    0.08,
-    0.5
+    5.357,
+    0.1,
+    0.12
    ],
    "material": "frame",
-   "outline": false,
    "collision": false,
+   "outline": false,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
@@ -55768,29 +53160,172 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Fan_2_Blade_4",
+   "name": "Works_Ceil_Fan_2_Grille_12",
    "type": "box",
    "position": [
-    -37.896,
-    25.9,
+    -38.602,
+    26.082,
     -205.124
    ],
    "rotation": [
     0.0,
-    155.0,
-    12.0
+    0.0,
+    0.0
    ],
    "size": [
-    4.645,
-    0.08,
-    0.5
+    5.357,
+    0.1,
+    0.12
    ],
    "material": "frame",
-   "outline": false,
    "collision": false,
+   "outline": false,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_2_Grille_03",
+   "type": "box",
+   "position": [
+    -37.896,
+    26.082,
+    -204.418
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.357,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_2_Grille_13",
+   "type": "box",
+   "position": [
+    -37.191,
+    26.082,
+    -205.124
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.357,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_2_Grille_04",
+   "type": "box",
+   "position": [
+    -37.896,
+    26.082,
+    -203.007
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.659,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_2_Grille_14",
+   "type": "box",
+   "position": [
+    -35.779,
+    26.082,
+    -205.124
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.659,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "Works.ceiling",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Ceil_Fan_2_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    -37.896,
+    25.822,
+    -205.124
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.363,
+    0.405,
+    5.363
+   ],
+   "material": "frame",
+   "blades": 8,
+   "sweep": 27.49698029135622,
+   "collision": false,
+   "outline": false,
+   "spin": -28.1,
+   "cutaway": true,
+   "mobile": {
+    "merge": false
    },
    "gen": "Works.ceiling",
    "source": "visible"
@@ -62732,6 +60267,146 @@
    "source": "visible"
   },
   {
+   "name": "Works_Wall_North_02_M04Pipes_Bracket_1",
+   "type": "box",
+   "position": [
+    13.682,
+    10.365,
+    2.29
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_North_02",
+   "size": [
+    2.865,
+    0.35,
+    1.533
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_02_M04Pipes_Bracket_2",
+   "type": "box",
+   "position": [
+    13.682,
+    14.339,
+    2.29
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_North_02",
+   "size": [
+    2.865,
+    0.35,
+    1.533
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M06Pipes_Bracket_1",
+   "type": "box",
+   "position": [
+    10.069,
+    11.894,
+    2.29
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    2.878,
+    0.35,
+    1.539
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M06Pipes_Bracket_2",
+   "type": "box",
+   "position": [
+    10.069,
+    19.902,
+    2.29
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    2.878,
+    0.35,
+    1.539
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_02_M06Pipes_Bracket_3",
+   "type": "box",
+   "position": [
+    10.069,
+    22.044,
+    2.29
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_West_02",
+   "size": [
+    2.878,
+    0.35,
+    1.539
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
    "name": "OuterWall_East_03_Banner_01",
    "type": "panel",
    "position": [
@@ -62859,7 +60534,7 @@
  ],
  "mobile": {
   "profile": "balanced",
-  "cell": 128
+  "cell": 160
  },
  "style": {
   "name": "alien_cartoon",
@@ -63647,16 +61322,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 51503,
-  "objects": 2347,
-  "materials": 16,
-  "glb_kb": 3648,
-  "nodes": 2819,
-  "draw_calls_unbatched": 2652,
-  "draw_calls_batched_min": 18,
-  "images": 49,
-  "tex_mem_gpu_compressed_mb": 6.77,
-  "tex_mem_uncompressed_mb": 27.08,
+  "triangles": 52071,
+  "objects": 2265,
+  "materials": 18,
+  "glb_kb": 3742,
+  "nodes": 2726,
+  "draw_calls_unbatched": 2559,
+  "draw_calls_batched_min": 20,
+  "images": 57,
+  "tex_mem_gpu_compressed_mb": 9.44,
+  "tex_mem_uncompressed_mb": 37.75,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }
