@@ -503,7 +503,45 @@ def frustum(w, h, d, o):
     return trimesh.convex.convex_hull(np.vstack([top, bot]))
 
 
-SHAPES = dict(railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
+def fan_rotor(w, h, d, o):
+    """Smooth fan rotor (Stage 19, from the user's wall-fan reference): o["blades"] (8) swept, twisted blades that are
+    narrow at the hub and broad at the tip, rounded tip corners, a stepped hub with a domed cap. Axis +y, centred on
+    the origin (spins about its node's local y). Vertices are shared, so normals are smooth; own planar UVs."""
+    n = int(o.get("blades", 8)); R = w / 2; r0 = R * o.get("hub", 0.2); T = h * 0.22; ns, nc = 5, 4; parts = []
+    sweep = math.radians(o.get("sweep", 22)); p0, p1 = math.radians(o.get("pitch_root", 38)), math.radians(o.get("pitch_tip", 16))
+    gap = 2 * math.pi / n * o.get("solidity", 0.5)  # angular width at the tip
+    for b in range(n):
+        base = 2 * math.pi * b / n; top = np.zeros((ns, nc, 3))
+        for i, t in enumerate(np.linspace(0, 1, ns)):
+            r = r0 * 1.05 + (R - r0 * 1.05) * t; span = (gap * 0.45 + gap * 0.55 * t ** 0.8)  # chord grows towards the tip
+            pitch = p0 + (p1 - p0) * t; thc = base + sweep * t ** 1.4
+            for j, sc in enumerate(np.linspace(-0.5, 0.5, nc)):
+                rr = r - (R * 0.06 * (2 * sc) ** 4 if i == ns - 1 else 0.0)  # rounded tip corners
+                th = thc + sc * span; chord = span * rr
+                top[i, j] = [rr * math.cos(th), -sc * chord * math.sin(pitch) * 0.6, rr * math.sin(th)]
+        bot = top - [0, T, 0]
+        V = np.concatenate([top.reshape(-1, 3), bot.reshape(-1, 3)]); off = ns * nc; F = []
+        idx = lambda i, j: i * nc + j
+        for i in range(ns - 1):
+            for j in range(nc - 1):
+                a, b_, c_, d_ = idx(i, j), idx(i, j + 1), idx(i + 1, j + 1), idx(i + 1, j)
+                F += [[a, c_, b_], [a, d_, c_], [a + off, b_ + off, c_ + off], [a + off, c_ + off, d_ + off]]
+        for i in range(ns - 1):  # leading / trailing edges
+            for j, s_ in ((0, 1), (nc - 1, -1)):
+                a, b_ = idx(i, j), idx(i + 1, j)
+                F += ([[a, b_, b_ + off], [a, b_ + off, a + off]] if s_ > 0 else [[a, b_ + off, b_], [a, a + off, b_ + off]])
+        for j in range(nc - 1):  # tip and root caps
+            for i, s_ in ((ns - 1, 1), (0, -1)):
+                a, b_ = idx(i, j), idx(i, j + 1)
+                F += ([[a, b_, b_ + off], [a, b_ + off, a + off]] if s_ > 0 else [[a, b_ + off, b_], [a, a + off, b_ + off]])
+        m = trimesh.Trimesh(V + [0, T / 2, 0], np.array(F), process=False); m.fix_normals(); parts.append(m)
+    hub = _cyl(r0 * 1.2, h, y=-h / 2, sections=12); cap = trimesh.creation.icosphere(subdivisions=1, radius=r0 * 0.95); cap.vertices[:, 1] = np.maximum(cap.vertices[:, 1], 0) * 0.45
+    cap.apply_translation([0, h / 2, 0]); ring = _cyl(r0 * 1.45, h * 0.35, y=-h / 2, sections=12)
+    m = trimesh.util.concatenate(parts + [hub, trimesh.convex.convex_hull(cap.vertices), ring])
+    m.metadata["uv"] = (m.vertices[:, [0, 2]] / w + 0.5); return m
+
+
+SHAPES = dict(fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
               stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum)
 

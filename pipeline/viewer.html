@@ -220,6 +220,8 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry.dispose();}
     else if(fx.category==='material_animation'){const mats=[...new Set(fx.target_material?Object.values(byName).map(o=>o.material).filter(m=>m.name===fx.target_material||m.name===fx.target_material+'__2s'):(fx.targets||[]).map(n=>byName[n]&&byName[n].material).filter(Boolean))],b=mats.map(m=>m.emissiveIntensity);let nx=0;
       fxUpd.push({reset(){mats.forEach((m,i)=>m.emissiveIntensity=b[i]);},u(t,dt){if(fx.type==='pulse_light')mats.forEach((m,i)=>m.emissiveIntensity=b[i]*(1+p.amount*Math.sin(6.2831*p.speed*t+p.phase)));
         else{nx-=dt;if(nx<=0){nx=1/p.rate;mats.forEach((m,i)=>m.emissiveIntensity=b[i]*(1-p.amount*Math.random()));}}}});}
+    else if(fx.category==='transform_animation'){const tg=(fx.targets||[]).map(n=>[byName[n],(fx.speeds||{})[n]??p.speed_rpm]).filter(a=>a[0]); // spinning fan rotors
+      const r0=tg.map(a=>a[0].quaternion.clone());fxUpd.push({reset(){tg.forEach((a,i)=>a[0].quaternion.copy(r0[i]));},u(t,dt){for(const [o,r] of tg)o.rotateY(r*6.2831/60*dt);}});}
     else if(fx.category==='particles')makeParticles(fx,p);
     else if(fx.category==='transparent_mesh'&&fx.area)makeFog(fx,p);
     else if(fx.category==='cloud_layer')makeCloudLayer(fx,p);

@@ -71,7 +71,7 @@ class Size(unittest.TestCase):
         self.assertFalse(_outlined({"type": "box", "size": [0.3, 6, 0.3], "material": "frame"}, OL))  # chain / mullion
         self.assertTrue(_outlined({"type": "box", "size": [2, 1, 2], "material": "frame"}, OL))
         src = open(os.path.join(PIPE, "build_level.py")).read(); self.assertIn("bevel_min", src)
-        self.assertIn("centred on the level", open(os.path.join(PIPE, "export_mobile.py")).read())
+        self.assertIn("starting at the level's min corner", open(os.path.join(PIPE, "export_mobile.py")).read())
 
 
 if __name__ == "__main__":

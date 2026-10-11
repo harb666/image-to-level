@@ -213,6 +213,8 @@ def _effects(spec, ctx, plats, env, glow):
                     dict(id="Pour_Splash", type="splash", at_targets_glob=list(ctx.pours), anchor="bottom"),
                     dict(id="Pour_Steam", type="steam", at_targets_glob=list(ctx.pours), anchor="bottom")]
         for f in getattr(ctx, "fountains", []): out.append(dict(id=f + "_Ripple", type="liquid_surface", target=f, scroll=[0.02, 0.01], swirl=0.02, pulse_speed=0.1, pulse_amount=0.05))
+        spins = [o["name"] for o in ctx.objects if o.get("spin")]
+        if spins: out.append(dict(id="Fan_Spin", type="spin", targets=spins))  # Stage 19: rotating fan rotors
         if "glow" in ctx.roles: out.append(dict(id="Glow_Pulse", type="pulse_light", target_material="glow", speed=0.9, amount=0.4))
         if "trim" in ctx.roles and A.role_material(spec.get("theme", "industrial"), "trim").get("emissive"): out.append(dict(id="Trim_Pulse", type="pulse_light", target_material="trim", speed=0.35, amount=0.35))
         if "structure" in ctx.roles and A.role_material(spec.get("theme", "industrial"), "structure").get("emissive"): out.append(dict(id="Machinery_Flicker", type="flicker", target_material="structure", rate=6, amount=0.2))

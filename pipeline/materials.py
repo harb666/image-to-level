@@ -9,6 +9,7 @@ All maps are tileable. Standard glTF 2.0 PBR, so Godot 4 imports them into Stand
 PBR kinds: industrial_metal, painted_metal, damaged_metal, scifi_floor, grating, concrete, rock, sand, dirt, grass,
   toxic, glow, machinery_panel, trim_light, pipe, banner, factory_facade (distant buildings, lit windows),
   hull_plating (worn tower/wall plates: straps, vents, rain streaks), chevron (hazard stripes),
+  wall_works (irregular riveted plates, vents, X-braces, green light dashes, conduits), wall_slimed (+ glowing slime drips),
   snow, mud, asphalt ("lines": true = lane line), gravel, moss (Stage 9 terrain layers).  Legacy (stylised, albedo-derived normals): cobblestone,
   stone_brick, plaster, wood, painted_wood, trim_wood, door_wood, window, roof_tiles, roof_slate, metal, water, soil.
 """
@@ -135,7 +136,7 @@ def legacy_texture(kind):
 # ---------------------------------------------------------------- PBR kinds
 ALIASES = {"industrial_wall": "industrial_metal", "platform_side": "machinery_panel", "floor_plate": "scifi_floor",
            "grate": "grating", "pipe_metal": "pipe", "red_panel": "banner", "cliff": "rock"}
-DEFAULT_RES = {"hull_plating": 512, "industrial_metal": 512, "scifi_floor": 512, "rock": 512, "painted_metal": 512, "damaged_metal": 512,
+DEFAULT_RES = {"wall_works": 512, "wall_slimed": 512, "hull_plating": 512, "industrial_metal": 512, "scifi_floor": 512, "rock": 512, "painted_metal": 512, "damaged_metal": 512,
                "concrete": 256, "glow": 128}
 
 
@@ -561,6 +562,85 @@ def k_moss(S, rng, c, m):
     alb = c[None, None] * ((0.55 + 0.5 * clump) * (0.85 + 0.25 * fine) * rng.uniform(0.9, 1.1, 40)[cid])[..., None]
     return dict(alb=alb, h=h, rough=0.95, metal=0.0, nstr=1.0)
 
+
+
+def _bsp_plates(rng, S, n=14, minside=0.12):
+    """Irregular tileable plate layout (Stage 19): the unit square split recursively into ~n rectangles (seams at the tile
+    edges line up with the neighbour tile). Returns (plate id map, edge distance in uv, list of rects)."""
+    rects = [(0.0, 0.0, 1.0, 1.0)]
+    while len(rects) < n:
+        i = max(range(len(rects)), key=lambda k: (rects[k][2] - rects[k][0]) * (rects[k][3] - rects[k][1]) * rng.uniform(0.6, 1.4))
+        x0, y0, x1, y1 = rects.pop(i)
+        if (x1 - x0) > (y1 - y0) * rng.uniform(0.7, 1.3) and x1 - x0 > 2 * minside:
+            cx = x0 + (x1 - x0) * rng.uniform(0.3, 0.7); rects += [(x0, y0, cx, y1), (cx, y0, x1, y1)]
+        elif y1 - y0 > 2 * minside:
+            cy = y0 + (y1 - y0) * rng.uniform(0.3, 0.7); rects += [(x0, y0, x1, cy), (x0, cy, x1, y1)]
+        else: rects.append((x0, y0, x1, y1)); break
+    x, y = _xy(S); pid = np.zeros((S, S), int); e = np.ones((S, S))
+    for k, (x0, y0, x1, y1) in enumerate(rects):
+        msk = (x >= x0) & (x < x1) & (y >= y0) & (y < y1); pid[msk] = k
+        e = np.where(msk, np.minimum(np.minimum(x - x0, x1 - x), np.minimum(y - y0, y1 - y)), e)
+    return pid, e, rects
+
+
+def k_wall_works(S, rng, c, m):
+    """Factory wall from the user's fan reference (Stage 19): big riveted plates in an IRREGULAR layout (no 2x2 grid),
+    bevelled seams, rivets near plate corners, some plates with louvred vents, some with an X-braced inset, some with
+    pairs of green light dashes (emissive), vertical conduit runs, dirt streaks washed down from seams. Tile it large
+    (tile_m ~12 m): within one tile nothing repeats."""
+    x, y = _xy(S); fine = _noise(rng, 32, 2, S); wear = m.get("wear", 0.5)
+    pid, e, rects = _bsp_plates(rng, S, int(m.get("plates", 14)))
+    seam = np.clip(e * S / 3.0, 0, 1) ** 0.7; pv = rng.uniform(0.78, 1.12, len(rects))[pid]
+    h = 0.55 * seam + 0.03 * fine; alb_k = pv * (0.42 + 0.58 * seam); emit = np.zeros((S, S)); dash = np.zeros((S, S), bool)
+    for k, (x0, y0, x1, y1) in enumerate(rects):
+        msk = pid == k; w_, h_ = x1 - x0, y1 - y0; kind = rng.choice(["plain", "vent", "brace", "lights", "inset", "plain"], p=[0.25, 0.2, 0.15, 0.15, 0.15, 0.1])
+        for cx_, cy_ in ((x0 + 0.018, y0 + 0.018), (x1 - 0.018, y0 + 0.018), (x0 + 0.018, y1 - 0.018), (x1 - 0.018, y1 - 0.018)):  # corner rivets
+            r_ = np.hypot(x - cx_, y - cy_); h = h + 0.3 * _dome(r_, 0.008) * msk; alb_k = alb_k * np.where(msk & (r_ < 0.008), 1.25, 1.0)
+        ix0, iy0, ix1, iy1 = x0 + w_ * 0.18, y0 + h_ * 0.18, x1 - w_ * 0.18, y1 - h_ * 0.18; inner = msk & (x > ix0) & (x < ix1) & (y > iy0) & (y < iy1)
+        if kind == "vent":
+            louv = inner & ((((y - iy0) / max(iy1 - iy0, 1e-3)) * int(rng.integers(6, 11))) % 1 < 0.45); h = h - 0.25 * inner + 0.18 * louv; alb_k = alb_k * np.where(inner, np.where(louv, 0.85, 0.35), 1)
+        elif kind == "brace":
+            u_, v_ = (x - ix0) / (ix1 - ix0 + 1e-6), (y - iy0) / (iy1 - iy0 + 1e-6); bar = inner & ((np.abs(u_ - v_) < 0.07) | (np.abs(u_ + v_ - 1) < 0.07) | (_edge(u_, v_) < 0.05))
+            h = h - 0.12 * inner + 0.2 * bar; alb_k = alb_k * np.where(inner & ~bar, 0.6, 1.0)
+        elif kind == "lights":
+            n_ = int(rng.integers(2, 4)); lw = min(0.06, w_ * 0.22)
+            for j in range(n_):
+                yy = iy0 + (iy1 - iy0) * (j + 0.5) / n_
+                for xx in (x0 + w_ * 0.35, x0 + w_ * 0.65):
+                    dmask = msk & (np.abs(x - xx) < lw / 2) & (np.abs(y - yy) < 0.008); dash |= dmask
+        elif kind == "inset":
+            h = h - 0.15 * inner; alb_k = alb_k * np.where(inner, 0.82, 1.0)
+    for k in range(int(rng.integers(2, 4))):  # vertical conduits (two thin pipes) crossing plates
+        cx_ = rng.uniform(0.05, 0.95); pipe = np.abs(x - cx_) < 0.006; pipe2 = np.abs(x - cx_ - 0.016) < 0.005
+        h = np.where(pipe | pipe2, 0.85, h); alb_k = np.where(pipe | pipe2, 0.55 + 0.4 * np.clip(1 - np.abs(x - cx_) / 0.006, 0, 1), alb_k)
+    src = np.clip(1 - seam, 0, 1) * 0.5 + _noise(rng, 24, 1, S) * 0.1; acc = np.zeros(S); kk = np.zeros_like(src)
+    for r in range(S): acc = acc * 0.985 + src[r]; kk[r] = acc
+    streak = np.clip(kk / 16 * _noise(rng, 48, 1, S), 0, 1) * np.clip((_noise(rng, 40, 1, S) - 0.4) * 3, 0, 1)
+    grime = np.clip(_grime(rng, S, y, wear) + 0.5 * streak, 0, 1.4)
+    alb = c[None, None] * (alb_k * (0.88 + 0.12 * fine) * (1 - 0.4 * grime))[..., None]
+    lc = np.array(m.get("light_color", [0.45, 1.0, 0.25])); alb = np.where(dash[..., None], lc, alb); emit = dash.astype(float)
+    d = dict(alb=alb, h=h, rough=np.clip(0.6 + 0.2 * grime, 0, 1), metal=0.3 * np.ones((S, S)), nstr=1.0)
+    if m.get("emissive"): d["emit"] = emit
+    d["_post"] = [(*np.nonzero(dash), lc)] if dash.any() else None  # light dashes stay crisp through the toon pass
+    return d
+
+
+def k_wall_slimed(S, rng, c, m):
+    """The same irregular plates (another layout) with green slime leaking from seams and vents: drips that run down,
+    pool along horizontal seams and stain the plates; the slime glows (emissive mask)."""
+    d = k_wall_works(S, rng, c, dict(m, emissive=None, plates=int(m.get("plates", 11))))
+    x, y = _xy(S); seam = d["h"] < 0.3
+    src = (seam & (_noise(rng, 20, 1, S) > 0.62)).astype(float)  # leak sources along some seams
+    acc = np.zeros(S); run = np.zeros((S, S)); jit = _noise(rng, 60, 1, S)
+    for r in range(S): acc = np.maximum(acc * (0.975 + 0.02 * jit[r]), src[r]); run[r] = acc
+    drip = (run > 0.45) & (np.abs(((x * 90 + 3 * _noise(rng, 8, 1, S)) % 1) - 0.5) < 0.18 + 0.2 * run)
+    stain = np.clip(_blur(run, S / 128) * 1.6 - 0.25, 0, 1) * (_noise(rng, 14, 2, S) > 0.35)
+    sc = np.array(m.get("slime_color", [0.42, 1.0, 0.18]))
+    alb = d["alb"] * (1 - 0.55 * stain[..., None]) + sc * 0.55 * stain[..., None]; alb = np.where(drip[..., None], sc * (0.75 + 0.25 * run[..., None]), alb)
+    d.update(alb=alb, h=d["h"] + 0.08 * drip, rough=np.where(drip, 0.25, d["rough"]))
+    if m.get("emissive"): d["emit"] = np.clip(drip * 0.9 + stain * 0.35, 0, 1)
+    d["_post"] = [(*np.nonzero(drip), None)] if False else d.get("_post")
+    return d
 
 PBR = {k[2:]: f for k, f in globals().items() if k.startswith("k_")}
 

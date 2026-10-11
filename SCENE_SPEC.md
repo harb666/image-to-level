@@ -500,3 +500,19 @@ Building blocks usable without the preset:
   banded drums with red lights, flared capital into the roof. `rock_face` (from/to along a wall, height, depth):
   jagged cliff slabs, the raw rock the factory was cut into.
 - `style.bevel_min` raised to 2.5 m for this level: only big boxes keep their bevel (cheaper dressing).
+
+## Stage 19: spinning fans, wall textures from the fan reference, inner-face fix
+- Shape `fan_rotor` (size [diameter, depth, diameter]; `blades`, `sweep` deg, `pitch_root` / `pitch_tip`, `hub`,
+  `solidity`): swept, twisted blades broad at the tip, stepped hub with a domed cap; shared vertices = smooth shading.
+  `fan_unit()` builds the whole fan (housing ring + 4 clamps, glow disc, open grille of bars, rotor). Wall fans (wall
+  module `Fan`, at most one per wall) and the varied ceiling's fan rings use it.
+- Objects with `"spin": rpm` (sign = direction) get the effect `{"type": "spin", "targets": [...]}` (category
+  `transform_animation`, per-target `speeds`): Godot `apply_effects.gd` calls `rotate_object_local(Vector3.UP, ...)`, the
+  preview rotates the meshes. Rotors carry `mobile.merge: false` (own node: it must move) and no outline shell.
+- Material kinds `wall_works` (irregular riveted plates from a recursive split, corner rivets, louvred vents, X-braced
+  insets, pairs of green light dashes - emissive, conduit pairs, grime streaks) and `wall_slimed` (same plates + glowing
+  slime drips and stains). alien_cartoon roles `wall_works` (tile 16 m) / `wall_slimed` (13 m); varied walls pick their
+  body texture per segment and use them for raised plates, so stretches of wall differ in texture as well as in modules.
+- FIX: `wall_segment` turned its decorated side (local +z) to the OUTSIDE of the arena; it now faces the inner point.
+  Pilasters, banners and Stage 18 wall modules all sit on the inner face (modules also keep clear of the corners).
+- Mobile cells start at the level's min corner (fewest cells: this level 1 x 2 at 160 m).

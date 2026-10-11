@@ -18,6 +18,9 @@ var _sky_speed: float = 0.0
 var _t: float = 0.0
 
 
+var _spins: Array = []  # [rotor node, rad/s]
+
+
 func _ready() -> void:
 	if quality == "off":
 		return
@@ -48,6 +51,11 @@ func _ready() -> void:
 				_flyby(fx, p)
 			"environment":
 				_sky_speed = deg_to_rad(float(p.get("speed_deg_s", 0.0)))
+			"transform_animation":  # spinning fan rotors (own nodes; origin = rotor centre, local +y = axis)
+				for n in fx.get("targets", []):
+					var nd := level_root.find_child(String(n), true, false) as Node3D
+					if nd != null:
+						_spins.append([nd, float(fx.get("speeds", {}).get(n, p.get("speed_rpm", 20.0))) * TAU / 60.0])
 
 
 func _mesh(node_name: String) -> MeshInstance3D:
@@ -338,6 +346,8 @@ func _update_flyers() -> void:
 
 func _process(delta: float) -> void:
 	_t += delta
+	for sp in _spins:
+		(sp[0] as Node3D).rotate_object_local(Vector3.UP, float(sp[1]) * delta)
 	_update_flyers()
 	for an in _anims:
 		var m: BaseMaterial3D = an[0]
