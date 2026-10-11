@@ -2,7 +2,8 @@
 
   python3 pipeline/package.py levels/<name> [--zip]     -> dist/<name>/package/levels/<name>/ (+ dist/<name>/<name>.zip)
                                                           and levels/<name>/level_manifest.json
-  python3 pipeline/package.py levels/<name> --out exports/<name>   -> exports/<name>/levels/<name>/ (committed copy for the game)
+  python3 pipeline/package.py levels/<name> --out exports/<name> [--game]   -> exports/<name>/levels/<name>/ (committed copy for the game;
+                                                          --game leaves out level.glb / background.glb / mobile/pick.json: the game loads mobile/)
   python3 pipeline/package.py --check dist/<name>/package   validate an existing package
 
 The package mirrors the Godot project layout: copy its "levels/<name>/" folder to res://levels/<name>/ (the paths
@@ -37,7 +38,10 @@ PURPOSE = {"level.json": "editable master (source of truth for edits)", "level.g
 def sha1(p): return hashlib.sha1(open(p, "rb").read()).hexdigest()
 
 
-def build(level_dir, out_root=None, make_zip=False, verbose=True):
+GAME_SKIP = {"level.glb", "background.glb", "mobile/pick.json"}  # --game: desktop / preview-only files the game never loads
+
+
+def build(level_dir, out_root=None, make_zip=False, verbose=True, game=False):
     L = json.load(open(os.path.join(level_dir, "level.json"))); name = os.path.basename(os.path.normpath(level_dir))
     out_root = out_root or os.path.join(ROOT, "dist", name, "package"); dst = os.path.join(out_root, "levels", name)
     shutil.rmtree(out_root, ignore_errors=True); os.makedirs(dst)
@@ -47,6 +51,7 @@ def build(level_dir, out_root=None, make_zip=False, verbose=True):
     if os.path.isdir(os.path.join(level_dir, "fx")):
         for r, _, fs in os.walk(os.path.join(level_dir, "fx")): files += [os.path.relpath(os.path.join(r, f), level_dir) for f in sorted(fs)]
     files += [f for f in ("checks/report.md",) if os.path.exists(os.path.join(level_dir, f))]
+    if game: files = [f for f in files if f.replace(os.sep, "/") not in GAME_SKIP]
     for f in files:
         s = os.path.join(level_dir, f)
         if os.path.exists(s): os.makedirs(os.path.dirname(os.path.join(dst, f)), exist_ok=True); shutil.copy2(s, os.path.join(dst, f))
@@ -72,7 +77,7 @@ def build(level_dir, out_root=None, make_zip=False, verbose=True):
             p = os.path.join(r, f); rel = os.path.relpath(p, dst).replace(os.sep, "/")
             if rel == "level_manifest.json": continue
             entries.append(dict(path=rel, bytes=os.path.getsize(p), sha1=sha1(p), purpose=PURPOSE.get(rel, "effect sprite / Godot effect kit" if rel.startswith("fx/") else "")))
-    M = dict(format="image-to-level package v1", level=name, title=L.get("source", name), generated=time.strftime("%Y-%m-%d %H:%M:%S"),
+    M = dict(format="image-to-level package v1", variant="game" if game else "full", level=name, title=L.get("source", name), generated=time.strftime("%Y-%m-%d %H:%M:%S"),
              godot_root=f"res://levels/{name}/", use_in_game="mobile/level_mobile.glb (+ mobile/background_mobile.glb, mobile/collision.glb)",
              profile=L.get("mobile", {}).get("profile", "balanced"), spawns=spawns, hazards=L.get("hazards", []),
              generator=L.get("generator"), metrics=rep.get("performance"), validation=dict(passed=rep.get("passed"), counts=rep.get("counts")),
@@ -110,7 +115,7 @@ def check(pkg_root, verbose=True):
                 g, b = _read(p); assert g["asset"]["version"] == "2.0"
                 for bv in g.get("bufferViews", []): assert bv.get("byteOffset", 0) + bv["byteLength"] <= len(b)
         except Exception as ex: errs.append(f"{e['path']} does not parse: {ex}")
-    for need in ("level.json", "level.glb", "mobile/level_mobile.glb", "mobile/collision.json", "gameplay/spawns.json", "IMPORT_GODOT.md"):
+    for need in ("level.json",) + (() if M.get("variant") == "game" else ("level.glb",)) + ("mobile/level_mobile.glb", "mobile/collision.json", "gameplay/spawns.json", "IMPORT_GODOT.md"):
         if not os.path.exists(os.path.join(d, need)): errs.append(f"required file missing: {need}")
     tres = os.path.join(d, "environment.tres")
     if os.path.exists(tres):
@@ -139,4 +144,4 @@ def check(pkg_root, verbose=True):
 if __name__ == "__main__":
     if sys.argv[1] == "--check": sys.exit(1 if check(sys.argv[2]) else 0)
     out = sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv else None  # e.g. exports/<name> (committed, for the game repo)
-    r = build(sys.argv[1], out_root=out, make_zip="--zip" in sys.argv); sys.exit(0 if r["valid"] else 1)
+    r = build(sys.argv[1], out_root=out, make_zip="--zip" in sys.argv, game="--game" in sys.argv); sys.exit(0 if r["valid"] else 1)

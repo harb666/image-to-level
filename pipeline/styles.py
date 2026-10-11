@@ -108,7 +108,8 @@ def apply(spec):
     bg = s.get("background", {})
     if "layers" in bg:
         bg["layers"] = [_deep_under(P["background_types"].get(l["type"], {}), l) for l in bg["layers"]]
-        ids = {l["id"] for l in bg["layers"]}; bg["layers"] += [copy.deepcopy(l) for l in P["background_add"] if l["id"] not in ids]
+        ids = {l["id"] for l in bg["layers"]}
+        if not (s.get("arena") or {}).get("ceiling"): bg["layers"] += [copy.deepcopy(l) for l in P["background_add"] if l["id"] not in ids]  # roofed: no sky props
     for st in s.get("structures", []):
         if st.get("kind") in P.get("structures_material", {}) and "material" not in st: st["material"] = P["structures_material"][st["kind"]]
         add = P["structures_decor"].get(st.get("kind"))

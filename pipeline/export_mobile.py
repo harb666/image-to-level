@@ -243,7 +243,7 @@ def export(level_dir, profile=None):
             key = ("S", int((c[0] - o0[0]) // ic), int((c[2] - o0[2]) // ic), mat)
         else: key = ("P" if small else "S", int(c[0] // P["cell"]), int(c[2] // P["cell"]), mat)
         groups.setdefault(key, []).append((node, m))
-    manifest_nodes, ranges, extras = [], {}, {}
+    manifest_nodes, ranges, extras, pick = [], {}, {}, {}
     glow = {k for k, v in L["materials"].items() if v.get("emissive")}
     for (kind, ix, iz, mat), items in sorted(groups.items()):
         name = f"{kind[2:]}__{mat}" if kind.startswith("G:") else f"M_{mat}_{ix}_{iz}" + ("_props" if kind == "P" else "")
@@ -255,7 +255,7 @@ def export(level_dir, profile=None):
                     visibility_range_end=rng, cast_shadow=not (mat.split("__")[0] in glow or kind == "P" or mat == "ink"), source_objects=[i[0] for i in items])
         if kind.startswith("G:"): info["group"] = kind[2:]
         manifest_nodes.append(info); extras[name] = {k: info[k] for k in ("kind", "source_objects", "visibility_range_end", "cast_shadow") + (("group",) if "group" in info else ())}
-        extras[name]["source_bounds"] = {n: [round(float(v), 2) for v in mm.bounds.ravel()] for n, mm in items}  # tap-to-identify in merged meshes
+        pick[name] = {n: [round(float(v), 2) for v in mm.bounds.ravel()] for n, mm in items}  # tap-to-identify in merged meshes (preview only: pick.json)
     fx_groups = {}
     for node, M, g in [x for x in separate if x[0] in fx_merge]:
         m = src.geometry[g].copy(); m.apply_transform(M); fx_groups.setdefault(fx_merge[node], []).append((node, m))
@@ -264,8 +264,8 @@ def export(level_dir, profile=None):
         scene.add_geometry(m, node_name=name, geom_name=name); mat = m.visual.material.name
         manifest_nodes.append(dict(node=name, kind="effect_target", material=mat, triangles=int(len(m.faces)), visibility_range_end=0,
                                    cast_shadow=mat.split("__")[0] not in glow, source_objects=[i[0] for i in items], reason="merged targets of one shader effect"))
-        extras[name] = dict(kind="effect_target", source_objects=[i[0] for i in items],
-                            source_bounds={n: [round(float(v), 2) for v in mm.bounds.ravel()] for n, mm in items})
+        extras[name] = dict(kind="effect_target", source_objects=[i[0] for i in items])
+        pick[name] = {n: [round(float(v), 2) for v in mm.bounds.ravel()] for n, mm in items}
     separate = [x for x in separate if x[0] not in fx_merge]
     for node, M, g in separate:
         scene.add_geometry(src.geometry[g], node_name=node, geom_name=g, transform=M)
@@ -291,6 +291,11 @@ def export(level_dir, profile=None):
     bg_src = os.path.join(level_dir, "background.glb"); bg = None
     if os.path.exists(bg_src):
         bg = os.path.join(out_dir, "background_mobile.glb"); shutil.copy(bg_src, bg); downscale_images(bg, P["bg_tex_max"])
+    elif os.path.exists(os.path.join(out_dir, "background_mobile.glb")): os.remove(os.path.join(out_dir, "background_mobile.glb"))  # stale (level lost its background)
+    json.dump(pick, open(os.path.join(out_dir, "pick.json"), "w"), separators=(",", ":"))  # preview tap-to-identify; not part of the game package
+    from glb_tools import slim  # Stage 16: 16-bit indices, no normal / ORM maps on toon materials, unused images dropped
+    toon = {k for k, v in L["materials"].items() if v.get("toon")} | {"bg_" + l["id"].lower() for l in L.get("environment", {}).get("background", []) if l.get("toon")}
+    slim_report = {os.path.basename(f): slim(f, toon) for f in (lg, bg) if f}
     cols, haz = colliders(L, level_dir)
     json.dump(dict(note="World-space colliders generated from level.json shapes. Godot: BoxShape3D / CylinderShape3D / ConvexPolygonShape3D / "
                         "HeightMapShape3D (cell size = 'cell'). Hazards are areas (Area3D), not solid. Triggers (level exits) are areas too.",
@@ -300,7 +305,7 @@ def export(level_dir, profile=None):
     for c in cols:
         m = collider_mesh(c); suffix = "-colonly" if c["shape"] == "heightmap" else "-convcolonly"
         cs.add_geometry(m, node_name=c["name"] + suffix, geom_name=c["name"] + suffix)
-    cg = os.path.join(out_dir, "collision.glb"); cs.export(cg)
+    cg = os.path.join(out_dir, "collision.glb"); cs.export(cg); slim_report["collision.glb"] = slim(cg)
     shutil.copy(os.path.join(HERE, "godot_fx", "apply_mobile.gd"), out_dir)
     if isinstance(L.get("terrain"), dict): shutil.copy(os.path.join(HERE, "godot_fx", "apply_scatter_multimesh.gd"), out_dir)
     elif os.path.exists(os.path.join(out_dir, "apply_scatter_multimesh.gd")): os.remove(os.path.join(out_dir, "apply_scatter_multimesh.gd"))
@@ -313,7 +318,8 @@ def export(level_dir, profile=None):
                    dev=dict(level=stats(dev_glb), visible=estimate(L, dev_nodes + bg_nodes, far)),
                    mobile=dict(level=stats(lg), background=stats(bg) if bg else None, collision=dict(colliders=len(cols), hazards=len(haz), glb_kb=round(os.path.getsize(cg) / 1024)),
                                visible=estimate(L, mob_nodes + bg_nodes, far), hidden_faces_removed=removed, effects_extra_draw_calls=fx_q.get("extra_draw_calls", 0),
-                               effects_max_particles=fx_q.get("max_particles", 0)))
+                               effects_max_particles=fx_q.get("max_particles", 0),
+                               slimmed_kb={k: [round(a / 1024), round(b / 1024)] for k, (a, b) in slim_report.items()}))
     godot = dict(project_settings={"rendering/textures/vram_compression/import_etc2_astc": True, "rendering/renderer/rendering_method.mobile": "mobile",
                                    "rendering/lights_and_shadows/directional_shadow/size.mobile": 2048, "rendering/anti_aliasing/quality/msaa_3d": "2x"},
                  import_level_glb={"meshes/generate_lods": True, "meshes/light_baking": "Static Lightmaps (optional)", "textures": "VRAM Compressed (Godot compresses embedded images to ASTC/ETC2 on import)"},

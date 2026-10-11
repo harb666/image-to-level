@@ -8,6 +8,9 @@ others. Level azimuth convention: 0° = north (-z), 90° = east (+x). Layer type
   skyline       band of industrial blocks + chimneys along an azimuth range
   factory       one modular factory complex (hall, towers, chimneys, pipe bridge) at azimuth/distance
   ring_structure  sci-fi megastructure ring on pylons at azimuth/distance (Stage 9)
+  factory_interior  the rest of an indoor factory seen through the arena's windows (Stage 16): tank towers with glowing
+                slime sections, tiered decks with rails, gantry trusses with hanging claws, pillars, roof and enclosing
+                walls round a square hole for the playable hall; part = "hull" | "glass" | "lights" | "shell" (roof + outer walls) (same seed)
 """
 import numpy as np, trimesh
 from sky import fbm3
@@ -258,7 +261,68 @@ def mothership(L, q):
     m.apply_translation([0, y0, 0]); return m
 
 
-GENERATORS = dict(ground=ground, mountain_ring=mountain_ring, spires=spires, skyline=skyline, factory=factory, townscape=townscape, ring_structure=ring_structure, hover_satellites=hover_satellites, mothership=mothership)
+def _along(x, z, along_x, ln, inner):
+    """Keep a long piece (length ln, along x if along_x else along z, centred on x, z) out of the |x|,|z| < inner hall:
+    flip it to the other axis when it would reach in; the far side of the ring is always clear along the tangent."""
+    def clear(ax):
+        if ax: return abs(z) >= inner + 1 or min(abs(x - ln / 2), abs(x + ln / 2)) >= inner + 1 and (x - ln / 2) * (x + ln / 2) > 0
+        return abs(x) >= inner + 1 or min(abs(z - ln / 2), abs(z + ln / 2)) >= inner + 1 and (z - ln / 2) * (z + ln / 2) > 0
+    return along_x if clear(along_x) else (not along_x if clear(not along_x) else abs(z) > abs(x))
+
+
+def factory_interior(L, q):
+    """Indoor factory around the playable hall (seen through its windows): everything lies outside the square
+    |x|, |z| < "inner" (m, centred on the origin) and inside "outer"; slime sea at "floor_y", roof at "roof_y", enclosing
+    walls just beyond "outer". Low-poly on purpose (8-sided cylinders, boxes; no detail you only see up close).
+    part = "hull" (dark structure) | "glass" (glowing slime: tank sections + sea) | "lights" (red strips / beacons) | "shell"
+    (roof + enclosing walls; give that layer "cutaway": true so the preview hides it from above)."""
+    rng = np.random.default_rng(_seed(dict(L, id=L.get("factory_id", "factory_interior")))); part = L.get("part", "hull")
+    inner, outer = float(L.get("inner", 66.0)), float(L.get("outer", 160.0)); fy, ry = float(L.get("floor_y", -8.0)), float(L.get("roof_y", 62.0))
+    den = q.get("density", 1.0); H, G, Li = [], [], []
+
+    def spot(lo, hi):
+        while True:
+            x, z = rng.uniform(-hi, hi, 2)
+            if lo < max(abs(x), abs(z)) < hi: return float(x), float(z)
+
+    towers = []
+    for _ in range(int(L.get("towers", 14) * den)):  # tank towers: base, stacked glowing sections between bands, cap, top pipe
+        x, z = spot(inner + 10, outer - 8); r = rng.uniform(3.5, 8.0); top = rng.uniform(min(24.0, ry * 0.5), ry - 6); y = fy
+        H.append(_cyl(r * 1.15, 6 - fy + y, x, y, z)); y = 6.0
+        while y < top - 6:
+            g = rng.uniform(6, 11); G.append(_cyl(r, g, x, y, z)); y += g
+            H.append(_cyl(r * 1.12, 1.4, x, y, z)); Li.append(_box(r * 0.5, 0.35, 0.3, x, y + 0.5, z + r * 1.12)); y += 1.4
+        H.append(_cyl(r * 0.8, 2.5, x, y, z, 6)); H.append(_cyl(0.9, ry - y, x, y + 2.5, z, 6)); towers.append((x, z, r))
+    for _ in range(int(L.get("decks", 16) * den)):  # tiered decks with a rail line and red marker lights, on two legs
+        x, z = spot(inner + 4, outer - 6); y = float(rng.choice([v for v in (4.0, 14.0, 24.0, 34.0) if v < ry - 6] or [4.0])); ln = rng.uniform(14, 34); rot = rng.random() < 0.5; rot = _along(x, z, rot, ln, inner)
+        w, d = (ln, 4.0) if rot else (4.0, ln); H.append(_box(w, 0.8, d, x, y, z)); H.append(_box(w, 0.15, 0.15, x, y + 1.1, z + 1.9) if rot else _box(0.15, 0.15, d, x + 1.9, y + 1.1, z))
+        for s_ in (-0.4, 0.4): H.append(_box(0.9, y - fy, 0.9, x + (s_ * w if rot else 0), fy, z + (0 if rot else s_ * d)))
+        for k in range(3): Li.append(_box(0.6, 0.3, 0.3, x + ((k - 1) * w * 0.3 if rot else 2.0), y - 0.35, z + (2.0 if rot else (k - 1) * d * 0.3)))
+    for _ in range(int(L.get("gantries", 10) * den)):  # gantry trusses at the top with hanging claws
+        x, z = spot(inner + 6, outer - 10); y = rng.uniform(min(38.0, ry - 10), ry - 8); ln = rng.uniform(30, 60); rot = rng.random() < 0.5; rot = _along(x, z, rot, ln, inner)
+        H.append(_box(ln, 1.6, 1.2, x, y, z) if rot else _box(1.2, 1.6, ln, x, y, z))
+        for k in range(int(rng.integers(1, 3))):
+            o = rng.uniform(-ln / 3, ln / 3); cx, cz = (x + o, z) if rot else (x, z + o); drop = rng.uniform(8, 18)
+            H += [_box(0.25, drop, 0.25, cx, y - drop, cz), _box(1.6, 1.2, 1.6, cx, y - drop - 1.2, cz)]
+            for a in range(3):
+                t = 2 * np.pi * a / 3; H.append(_box(0.3, 1.8, 0.3, cx + 0.7 * np.cos(t), y - drop - 3.0, cz + 0.7 * np.sin(t)))
+            Li.append(_box(0.5, 0.5, 0.5, cx, y - drop - 0.6, cz + 0.85))
+    for _ in range(int(L.get("pillars", 20) * den)):  # structural pillars floor to roof
+        x, z = spot(inner + 2, outer); H.append(_box(1.8, ry - fy, 1.8, x, fy, z))
+    for _ in range(int(L.get("pipes", 10) * den)):  # long horizontal pipes
+        x, z = spot(inner + 6, outer - 6); y = rng.uniform(8, min(45.0, ry - 4)); ln = rng.uniform(25, 60); c = _cyl(0.9, ln, 0, -ln / 2, 0, 6)
+        along_x = _along(x, z, rng.random() < 0.5, ln, inner)  # rotation about z lays the pipe along x, about x along z
+        c.apply_transform(trimesh.transformations.rotation_matrix(np.pi / 2, [0, 0, 1] if along_x else [1, 0, 0])); c.apply_translation([x, y, z]); H.append(c)
+    E = outer + 12; S = []  # roof + enclosing walls ("shell" part: the preview cuts it away from above): no sky anywhere
+    S.append(_box(2 * E, 2.0, 2 * E, 0, ry, 0))
+    for sx, sz, w, d in ((0, -E, 2 * E, 2.0), (0, E, 2 * E, 2.0), (-E, 0, 2.0, 2 * E), (E, 0, 2.0, 2 * E)): S.append(_box(w, ry - fy + 2, d, sx, fy, sz))
+    for k in range(int(L.get("roof_lamps", 24))):
+        x, z = spot(inner, outer); Li.append(_box(6.0, 0.3, 1.0, x, ry - 0.3, z))
+    G.append(_box(2 * E, 0.5, 2 * E, 0, fy - 0.5, 0))  # the slime sea below
+    m = trimesh.util.concatenate({"hull": H, "glass": G, "lights": Li, "shell": S}[part]); return m
+
+
+GENERATORS = dict(ground=ground, mountain_ring=mountain_ring, spires=spires, skyline=skyline, factory=factory, townscape=townscape, ring_structure=ring_structure, hover_satellites=hover_satellites, mothership=mothership, factory_interior=factory_interior)
 DEFAULTS = {  # material kind, colour, tile size per layer type (overridable per layer: material_type/color/tile_m)
     "ground": ("dirt", [0.16, 0.17, 0.14], 14.0), "mountain_ring": ("rock", [0.2, 0.21, 0.19], 40.0),
     "spires": ("rock", [0.17, 0.18, 0.16], 14.0), "skyline": ("factory_facade", [0.16, 0.17, 0.17], 12.0),
@@ -266,4 +330,5 @@ DEFAULTS = {  # material kind, colour, tile size per layer type (overridable per
     "ring_structure": ("machinery_panel", [0.3, 0.3, 0.32], 16.0),
     "hover_satellites": ("hull_plating", [0.12, 0.1, 0.16], 12.0),
     "mothership": ("hull_plating", [0.16, 0.1, 0.2], 14.0),
+    "factory_interior": ("hull_plating", [0.2, 0.15, 0.26], 10.0),
 }

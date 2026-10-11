@@ -470,6 +470,17 @@ def wall_segment(ctx, name, p0, p1, height, thick, base_y, style, inner=None, de
     return g
 
 
+def window_frame(ctx, name, p0, p1, y0, y1, thick, inner):
+    """Frame bars across a wall window (mullions every ~5 m + one transom), centred in the wall thickness; visual only."""
+    dx, dz = p1[0] - p0[0], p1[1] - p0[1]; L = math.hypot(dx, dz); yaw = yaw_to(dx / L, dz / L) - 90
+    g = ctx.add(name, "group", [(p0[0] + p1[0]) / 2, 0, (p0[1] + p1[1]) / 2], rot=[0, yaw, 0]); n = max(1, int(round(L / 5.0)))
+    for k in range(1, n):
+        ctx.add(f"{name}_Mullion_{k:02d}", "box", [-L / 2 + L * k / n, y0, 0], [0.35, y1 - y0, 0.5], "frame", g, collision=False, mobile={"static": True})
+    ctx.add(name + "_Transom", "box", [0, y0 + (y1 - y0) * 0.55, 0], [L, 0.35, 0.5], "frame", g, collision=False, mobile={"static": True})
+    ctx.add(name + "_Ledge", "box", [0, y0, 0], [L, 0.25, thick + 0.6], "trim", g, collision=False, mobile={"static": True})
+    return g
+
+
 def arena_outline(arena):
     """Corner points (x, z) of the arena boundary, clockwise from north-west."""
     (cx, cz), (w, d) = arena.get("center", [0, 0]), arena["size"]; sh = arena.get("shape", "rect")
@@ -502,19 +513,21 @@ def arena(ctx, a, floor_y):
         for i, (p0, p1) in enumerate(zip(pts, pts[1:] + pts[:1])):
             L = math.hypot(p1[0] - p0[0], p1[1] - p0[1]); ux, uz = (p1[0] - p0[0]) / L, (p1[1] - p0[1]) / L; nx, nz = uz, -ux  # outward normal (clockwise)
             q0 = (p0[0] + nx * t / 2 - ux * t / 2, p0[1] + nz * t / 2 - uz * t / 2); q1 = (p1[0] + nx * t / 2 + ux * t / 2, p1[1] + nz * t / 2 + uz * t / 2)
-            segs = [(q0, q1)]
-            for op in W.get("openings", []):  # split around openings (rect arenas: by side name)
-                if sh == "rect" and op["side"].capitalize() == names[i]:
-                    new = []
-                    for s0, s1 in segs:
-                        SL = math.hypot(s1[0] - s0[0], s1[1] - s0[1]); c = SL / 2 + op.get("at", 0) * (1 if names[i] in ("North", "South") else 1)
-                        h0, h1 = c - op["width"] / 2, c + op["width"] / 2
-                        if h0 > 0.5: new.append((s0, (s0[0] + ux * h0, s0[1] + uz * h0)))
-                        if h1 < SL - 0.5: new.append(((s0[0] + ux * h1, s0[1] + uz * h1), s1))
-                        if op.get("height", 0) and op["height"] < W["height"] - 0.5:
-                            m0 = (s0[0] + ux * h0, s0[1] + uz * h0); m1 = (s0[0] + ux * h1, s0[1] + uz * h1)
-                            wall_segment(ctx, f"OuterWall_{names[i]}_Lintel", m0, m1, W["height"], t, op["height"], style, (cx, cz), decor=False)
-                    segs = new
+            SL = math.hypot(q1[0] - q0[0], q1[1] - q0[1]); P = lambda u: (q0[0] + ux * u, q0[1] + uz * u)  # u: metres along the side from q0
+            ops = sorted([op for op in W.get("openings", []) if sh == "rect" and op["side"].capitalize() == names[i]], key=lambda op: op.get("at", 0))
+            cuts = []
+            for j, op in enumerate(ops):  # every opening in the SIDE's own coordinates (several per side stay where they were asked)
+                c = SL / 2 + op.get("at", 0); h0, h1 = max(0.0, c - op["width"] / 2), min(SL, c + op["width"] / 2); cuts.append((h0, h1))
+                m0, m1 = P(h0), P(h1); tag = f"OuterWall_{names[i]}_Op{j + 1}"
+                if op.get("height", 0) and op["height"] < W["height"] - 0.5:  # lintel above the opening
+                    wall_segment(ctx, tag + "_Lintel" if len(ops) > 1 else f"OuterWall_{names[i]}_Lintel", m0, m1, W["height"], t, op["height"], style, (cx, cz), decor=False)
+                if op.get("sill"):  # window: wall kept below the sill (out of reach), frame bars across the opening
+                    wall_segment(ctx, tag + "_Sill", m0, m1, op["sill"], t, 0.0, style, (cx, cz), decor=False)
+                    if op.get("frame", True): window_frame(ctx, tag + "_Frame", m0, m1, op["sill"], op.get("height") or W["height"], t, (cx, cz))
+            segs, u = [], 0.0
+            for h0, h1 in cuts + [(SL, SL)]:
+                if h0 - u > 0.5: segs.append((P(u), P(h0)))
+                u = max(u, h1)
             for k, (s0, s1) in enumerate(segs):
                 nm = f"OuterWall_{names[i]}" + (f"_{k + 1:02d}" if len(segs) > 1 else "")
                 wall_segment(ctx, nm, s0, s1, W["height"], t, 0.0, style, (cx, cz))

@@ -440,3 +440,28 @@ Building blocks usable without the preset:
 - spawns `{"at": "<elevator_arrival id>"}`: stand on the car floor, facing south unless `yaw` is given.
 - `"campaign": {"level", "part", "parts", "previous", "next"}` is copied to level.json: where the level sits in a
   multi-part level. Level 1 = `skyforge_arena` (part 1, its elevator exit targets `slime_arena`) -> `slime_arena` (part 2).
+
+## Stage 16: factory hall dressing, windows onto the factory, smaller files
+- Wall openings (rect arenas) are placed in their side's own coordinates (several per side work). `"sill": y` keeps
+  the wall below the sill (a window, out of reach when the sill is > 3 m above the walkway) and adds frame bars
+  (mullions ~5 m apart, transom, ledge; `"frame": false` to skip); `"height"` is the window top (lintel above).
+- `pipeline/modules/factory.py` kinds:
+  | kind | keys | |
+  |---|---|---|
+  | `vat` | `position` [x, z], `size` [D, H, D] (8, 20, 8), `sections` (10), `banner` | slime vat standing in the slime: plinth, red-lit bands, glowing glass (the hazard material, solid collider, not a hazard area), dark body with a banner facing the hall, cap |
+  | `claw` | `position`, `length` (9), `y` (top; default the ceiling) | crane claw on two chain strands: hoist block with a red light, three prongs. Visual only |
+  | `gallery` | `from`, `to`, `y`, `width` (3) | upper balcony along a wall: grate deck, railing + red light strip on the hall side, struts. Visual only (out of reach) |
+  | `blast_door` | `position` [x, y, z], `facing`, `size` [W, H, D] | sealed door against a wall (frame, two striped leaves, lit seam, warning light): a future exit |
+  All parts carry `mobile.static` (merged into the static cells: no extra draw calls) and reuse existing material roles.
+- Background layer `factory_interior` (indoor levels; the only type kept under `arena.ceiling`): tank towers with
+  glowing slime sections, tiered decks, gantries with hanging claws, pillars, pipes, roof and outer walls around the
+  square `inner` (m) hole for the hall, out to `outer`; `floor_y` (slime sea), `roof_y`, counts `towers`, `decks`,
+  `gantries`, `pillars`, `pipes`, `roof_lamps`, `factory_id` + `seed`. `part`: `hull` | `glass` | `lights` | `shell`
+  (one material each = one draw call each; give the shell layer `"cutaway": true` so the preview hides it from above).
+  Long pieces always run along the ring, never into the hall.
+- File size (mobile export, automatic): `glb_tools.slim` writes 16-bit index buffers where possible, drops normal /
+  occlusion / metallic-roughness maps from toon materials (flat toon shading never shows them; base colour + emissive
+  stay), removes unused images and repacks the binary chunk. Tap-to-identify boxes for merged nodes moved out of the
+  GLB into `mobile/pick.json` (preview only). Indoor levels render a 512 px sky (only ambient light uses it). Background
+  meshes share corner vertices (faces stay flat). A level without background no longer keeps a stale
+  `background_mobile.glb`. `package.py --game` leaves out `level.glb`, `background.glb` and `mobile/pick.json`.

@@ -1,7 +1,7 @@
 """Small in-place GLB post-processing (no external tools).
 dedupe_images(path): identical embedded images (e.g. the ORM map used for both metallicRoughness and occlusion,
 which trimesh writes twice) become one image/texture, and the binary chunk is repacked without the duplicates."""
-import hashlib, json, struct
+import hashlib, json, os, struct
 
 
 def _read(path):
@@ -124,3 +124,61 @@ def far_material(path, prefixes=("TRM_",), suffixes=("_far",)):
         for pr in g["meshes"][i]["primitives"]:
             if "material" not in pr and "COLOR_0" in pr["attributes"]: pr["material"] = mi; k += 1
     _write(path, g, binary); return k
+
+
+def slim(path, plain_materials=(), drop_extras=()):
+    """Smaller GLB, same look where it matters (Stage 16):
+      - 16-bit index buffers wherever a primitive has < 65536 vertices (trimesh always writes 32-bit),
+      - materials named in plain_materials (e.g. toon materials) lose their normal / occlusion / metallic-roughness maps
+        (base colour + emissive kept; flat toon shading never shows them) and the images nobody uses any more,
+      - node extras keys in drop_extras are removed (e.g. preview-only pick data),
+      - the binary chunk is rebuilt from the buffer views still in use (4-byte aligned).
+    Returns (bytes before, bytes after)."""
+    import numpy as np
+    before = os.path.getsize(path); g, binary = _read(path)
+    for m in g.get("materials", []):
+        if m.get("name", "").split("__")[0] in plain_materials:
+            for k in ("normalTexture", "occlusionTexture"): m.pop(k, None)
+            pbr = m.get("pbrMetallicRoughness", {})
+            if pbr.pop("metallicRoughnessTexture", None) is not None: pbr["metallicFactor"] = 0.0; pbr.setdefault("roughnessFactor", 1.0)
+    for n in g.get("nodes", []):
+        if "extras" in n:
+            for k in drop_extras: n["extras"].pop(k, None)
+            if not n["extras"]: n.pop("extras")
+    used_tex = sorted({t["index"] for m in g.get("materials", []) for t in _tex_refs(m)})  # drop unreferenced textures / images
+    tmap = {o: i for i, o in enumerate(used_tex)}; g["textures"] = [g["textures"][i] for i in used_tex] if used_tex else []
+    for m in g.get("materials", []):
+        for t in _tex_refs(m): t["index"] = tmap[t["index"]]
+    used_img = sorted({t["source"] for t in g["textures"]}); imap = {o: i for i, o in enumerate(used_img)}
+    g["images"] = [g["images"][i] for i in used_img] if used_img else []
+    for t in g["textures"]: t["source"] = imap[t["source"]]
+    for k in ("textures", "images"):
+        if not g[k]: g.pop(k)
+    if not g.get("textures"): g.pop("samplers", None)
+    views = {}  # rebuild the buffer: bufferView index -> new bytes
+    idx_acc = {p["indices"] for me in g.get("meshes", []) for p in me["primitives"] if "indices" in p}
+    for ai in idx_acc:
+        a = g["accessors"][ai]; bv = g["bufferViews"][a["bufferView"]]
+        if a["componentType"] != 5125: continue
+        data = np.frombuffer(_view(binary, bv), dtype="<u4", count=a["count"], offset=a.get("byteOffset", 0))
+        if data.size and data.max() < 65535:
+            views[a["bufferView"]] = data.astype("<u2").tobytes(); a["componentType"] = 5123; a.pop("byteOffset", None)
+            a.pop("max", None); a.pop("min", None)
+    keep = sorted({a["bufferView"] for a in g.get("accessors", []) if "bufferView" in a} | {i["bufferView"] for i in g.get("images", []) if "bufferView" in i})
+    vmap, out = {}, bytearray()
+    for vi in keep:
+        bv = dict(g["bufferViews"][vi]); data = views.get(vi, _view(binary, g["bufferViews"][vi]))
+        out += b"\0" * (-len(out) % 4); bv["byteOffset"] = len(out); bv["byteLength"] = len(data); bv["buffer"] = 0; bv.pop("byteStride", None) if vi in views else None
+        out += data; vmap[vi] = len(vmap); g.setdefault("_nv", []).append(bv)
+    g["bufferViews"] = g.pop("_nv", [])
+    for a in g.get("accessors", []):
+        if "bufferView" in a: a["bufferView"] = vmap[a["bufferView"]]
+    for i in g.get("images", []):
+        if "bufferView" in i: i["bufferView"] = vmap[i["bufferView"]]
+    g["buffers"] = [{"byteLength": len(out) + (-len(out) % 4)}]
+    _write(path, g, bytes(out)); return before, os.path.getsize(path)
+
+
+def _tex_refs(m):
+    pbr = m.get("pbrMetallicRoughness", {})
+    return [t for t in (pbr.get("baseColorTexture"), pbr.get("metallicRoughnessTexture"), m.get("normalTexture"), m.get("occlusionTexture"), m.get("emissiveTexture")) if t]

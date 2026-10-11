@@ -21,6 +21,7 @@ from scene_spec import validate
 from gameplay import load_gameplay
 
 H = lambda v: hashlib.sha1(json.dumps(v, sort_keys=True).encode()).hexdigest()[:16]
+INDOOR_LAYERS = {"factory_interior"}  # background layer types allowed under arena.ceiling (the rest is sky scenery)
 UNITS = "metres, y-up; position = centre of object's base, in parent space; rotation = degrees XYZ"
 
 
@@ -178,7 +179,7 @@ def _environment(spec, ctx):
         for i, az in enumerate([48, 105, 215, 290, 160, 340][:d.get("factories", 0)]):
             layers.append(dict(id=f"Factory_{i + 1:02d}", type="factory", azimuth_deg=az, distance=round((165 + 12 * i) * f), scale=round(0.9 + 0.1 * (i % 3), 2), seed=i + 1, glow=glow, fade=0.15))
     indoor = getattr(ctx, "ceiling_y", None)
-    if indoor is not None: layers = []  # roofed arena: nothing outside is ever seen (style presets add sky layers too)
+    if indoor is not None: layers = [l for l in layers if l.get("type") in INDOOR_LAYERS]  # roofed arena: no sky scenery, only what the windows show
     env = dict(quality=spec.get("profile", "balanced"), horizon_distance=round(460 * f), sky=sky, atmosphere=atm, background=layers)
     if indoor is not None: env["indoor"] = dict(ceiling_y=round(indoor, 2), note="roofed level: sky/background never visible; sun casts no shadows (the roof would shade the whole hall)")
     if any(k in lit for k in LK): env["lighting"] = {k: lit[k] for k in LK if k in lit}

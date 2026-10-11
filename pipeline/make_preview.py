@@ -47,6 +47,7 @@ if os.path.exists(fxp):  # Stage 4: effects metadata + particle sprites
 glob.update(TEXP=pool, TEX=tex)
 import hashlib, time  # footer: which build this is (so an old cached page is obvious) + the triangle count of what is shown
 glob["BUILD_ID"] = "build " + time.strftime("%m-%d %H:%M") + " " + hashlib.sha1(open(P("level.glb"), "rb").read()).hexdigest()[:6]
+if MOB and os.path.exists(os.path.join(lvl, "mobile", "pick.json")): glob["PICK"] = json.load(open(os.path.join(lvl, "mobile", "pick.json")))  # merged-node pick boxes
 if MOB and os.path.exists(os.path.join(lvl, "mobile", "mobile_manifest.json")):
     glob["TRIS_LABEL"] = f"{json.load(open(os.path.join(lvl, 'mobile', 'mobile_manifest.json')))['metrics']['mobile']['level']['triangles']} tris (mobile)"
 from gameplay import load_gameplay  # Stage 7: player/camera numbers + validation issues for the overlay

@@ -106,6 +106,7 @@ const byName={};gltf.scene.traverse(o=>{if(o.isMesh)byName[o.name]=o;});
 // roofed levels: the ceiling (objects tagged "cutaway", mobile group nodes) hides while the camera is above it, so orbit / top-down views look in
 const cutN=new Set((meta.objects||[]).filter(o=>o.cutaway).map(o=>o.name)),cutG=new Set((meta.objects||[]).filter(o=>o.cutaway&&o.mobile&&o.mobile.group).map(o=>o.mobile.group));
 const cutY=((meta.environment||{}).indoor||{}).ceiling_y,cutaway=[];if(cutY!=null)gltf.scene.traverse(o=>{if(o.isMesh&&(cutN.has(o.name.split('__')[0])||cutG.has((o.userData||{}).group)))cutaway.push(o);});
+if(cutY!=null&&bg){const cl=new Set(((meta.environment||{}).background||[]).filter(l=>l.cutaway).map(l=>'BG_'+l.id));bg.scene.traverse(o=>{if(o.isMesh&&(cl.has(o.name)||cl.has((o.parent||{}).name)))cutaway.push(o);});}
 let fxObjs=[],fxUpd=[];
 const PV=`attribute float aSize;attribute float aAlpha;varying float vA;varying float vF;uniform float uScale,uFogN,uFogF;
 void main(){vec4 mv=modelViewMatrix*vec4(position,1.);gl_PointSize=min(aSize*uScale/max(.1,-mv.z),1024.);gl_Position=projectionMatrix*mv;vA=aAlpha;vF=smoothstep(uFogN,uFogF,-mv.z);}`;
@@ -275,7 +276,7 @@ function pick(cx,cy){const nd=new THREE.Vector2(cx/innerWidth*2-1,-(cy/innerHeig
   if(!hits.length){$('sel').hidden=true;selBox.visible=false;return;}
   const h=hits[0],o=h.object,ud=o.userData||{};let name=o.name,merged=null,box=new THREE.Box3().setFromObject(o);
   if(ud.source_objects&&ud.source_objects.length>1){merged=o.name;name=ud.source_objects[0];let best=1e9;           // merged mobile node: which source object was hit?
-    for(const [n,b] of Object.entries(ud.source_bounds||{})){const bb=new THREE.Box3(new THREE.Vector3(b[0],b[1],b[2]),new THREE.Vector3(b[3],b[4],b[5]));
+    for(const [n,b] of Object.entries(ud.source_bounds||(window.PICK||{})[o.name]||{})){const bb=new THREE.Box3(new THREE.Vector3(b[0],b[1],b[2]),new THREE.Vector3(b[3],b[4],b[5]));
       const d=bb.distanceToPoint(h.point);if(d<best){best=d;name=n;box=bb;}}}
   const base=name.replace(/_Top$/,''),sp=objSpec[base],bgl=env&&(env.background.layers||[]).find(l=>l.node===name);
   const m=o.material,md=(meta.materials||{})[(sp&&sp.material)||(m.name||'').replace(/__2s$/,'')]||{};

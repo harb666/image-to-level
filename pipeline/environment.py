@@ -33,6 +33,7 @@ def build_environment(level_dir, L=None, log=print):
     env = L.get("environment")
     if not env: return None
     qname = env.get("quality", "balanced"); q = QUALITY[qname]
+    if env.get("indoor"): q = dict(q, sky_width=512, sky_q=70)  # roofed: the sky only feeds ambient light, never seen -> tiny panorama
     layers = env.get("background", [])
     # ---- sky (cached: only re-rendered when its inputs change)
     glows = [dict(azimuth_deg=l.get("azimuth_deg", 0), color=l["glow"], strength=l.get("glow_strength", 0.35), width_deg=l.get("glow_width_deg", 10))
@@ -81,6 +82,7 @@ def build_environment(level_dir, L=None, log=print):
         else:  # faceted low-poly look
             m, uv = uv_world(m, mdef["tile_m"])
         m.visual = trimesh.visual.TextureVisuals(uv=uv, material=mat)
+        if typ != "ground": m.merge_vertices(merge_tex=False, merge_norm=False)  # share corners with the same UV (faces stay flat): ~1/3 fewer vertices
         node = "BG_" + lay["id"] if not lay["id"].startswith("BG_") else lay["id"]
         scene.add_geometry(m, node_name=node, geom_name=node, parent_node_name="Background", transform=T)
         meta_layers.append(dict(id=lay["id"], node=node, type=typ, triangles=int(len(m.faces)), material=mname,
