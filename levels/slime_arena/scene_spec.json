@@ -115,42 +115,51 @@
      "notes": "ENVIRONMENT DETAILS: pipe outlet with flange, console with red light, railings"
     }
    ]
+  },
+  {
+   "file": "references/slime_factory_ref_main.png",
+   "kind": "perspective",
+   "notes": "user reference 1 (main): our hall restyled - elevator on the octagon deck, grated bridges, crate platforms, slime vats with emblems and banners, pipes pouring slime, upper balconies with railings, claws on chains"
+  },
+  {
+   "file": "references/slime_factory_ref_depth.png",
+   "kind": "perspective",
+   "notes": "user reference 2 (depth): the factory beyond - tank towers with glowing sections, tiers of decks, gantries with hanging claws, round platforms on pillars, slime sea, green haze"
   }
  ],
  "interpretation": {
-  "summary": "Part 2 of 3 of the first full level: an enclosed industrial hall flooded with glowing slime. The round elevator from the Skyforge Arena (part 1) comes down through an opening in the roof and stops on the octagonal central deck (the concept's central tower is removed for it). Four flat bridges to deck platforms against the middle of each wall, four lower square platforms on the diagonals reached by ramps, pipes pouring slime from the corners and walls, a walkway ring along the walls. No open sky: a girder roof with lamp panels closes the hall.",
+  "summary": "Part 2 of 3 of the first full level: a big enclosed slime factory hall (112 m square, roof at 26.5 m). The round elevator from the Skyforge Arena (part 1) comes down through the roof onto the octagonal central deck. Core as in reference 1: four grated bridges to crate platforms, ramps to four lower diagonal platforms. Expanded ring: bridges on to four landings on the wall walkway, ramps on to four round pillar platforms, eight slime vats with banners, claws hanging on chains, upper galleries, a sealed blast door (future exit to part 3). High windows look out on the rest of the factory (reference 2): tank towers, tiered decks, gantries with claws, a slime sea - non-playable background, three draw calls.",
   "scale_basis": "No dimensions given. Arena square read as 80 m incl. walls so the 11 m edge platforms and 22 m central deck give third-person combat room; heights from the elevation ratio (fluid -> outer deck ~6 m, central deck ~+1 m, tower ~13 m).",
   "visible": [
-   "square boundary walls",
-   "toxic fluid floor",
-   "4 edge platforms + cross bridges (plan)",
-   "4 diagonal square platforms (plan)",
-   "corner and wall pipes pouring fluid",
-   "red light panels on platform sides",
-   "octagonal central deck (now the elevator landing)"
+   "octagonal central deck with the round elevator (ref 1)",
+   "grated catwalk bridges to square platforms with crates (ref 1)",
+   "slime vats with glowing sections, emblem banners (ref 1, 2)",
+   "pipes pouring slime (ref 1)",
+   "upper balconies with railings (ref 1)",
+   "claws hanging on chains (ref 1, 2)",
+   "round platforms on pillars (ref 2)",
+   "tank towers, tiered decks, gantries beyond (ref 2)",
+   "green haze (ref 2)"
   ],
   "inferred": [
-   "exact metres (scale basis above)",
-   "walkway ring height/width along the walls",
-   "ramps between decks of different heights",
-   "cover crate positions",
-   "background mountains + factories (sheet shows only dark industrial silhouettes)",
-   "roof slab, girders and lamp panels (user direction: indoor room, no sky box)",
-   "wall height raised to 22 m to give the hall a roof 14 m above the central deck",
-   "elevator car / shaft above the roof (user direction: round elevator arrives in the centre)"
+   "scale: hall 112 m square so the ref 1 core keeps its 72 m spacing and gains an outer ring",
+   "roof height 26.5 m",
+   "landings joining the bridges to the wall walkway",
+   "window sills at 13 m (above reach from the 7 m walkway)",
+   "blast door position (north wall, at the north landing)",
+   "exact background layout (random, seeded)"
   ],
   "assumptions": [
-   "diagonal platforms are lower (elevation shows lower blocks) and reached by ramps from the central deck",
-   "edge platforms connect to the walkway ring at the same height",
-   "the central tower from the concept is removed (user direction) - the elevator car takes its place",
-   "art style alien_cartoon to match part 1 (Skyforge Arena)"
+   "the factory beyond the windows is scenery, not playable (keeps the file small)",
+   "vats are solid and safe to touch (not hazards)",
+   "alien_cartoon style to match part 1"
   ]
  },
  "arena": {
   "shape": "rect",
   "size": [
-   72,
-   72
+   112,
+   112
   ],
   "center": [
    0,
@@ -163,20 +172,78 @@
    "source": "visible"
   },
   "walls": {
-   "height": 22,
+   "height": 26,
    "thickness": 4,
    "style": "industrial",
-   "source": "visible"
+   "source": "inferred",
+   "openings": [
+    {
+     "side": "north",
+     "at": -28,
+     "width": 24,
+     "sill": 11,
+     "height": 25
+    },
+    {
+     "side": "north",
+     "at": 28,
+     "width": 24,
+     "sill": 11,
+     "height": 25
+    },
+    {
+     "side": "east",
+     "at": -28,
+     "width": 24,
+     "sill": 11,
+     "height": 25
+    },
+    {
+     "side": "east",
+     "at": 28,
+     "width": 24,
+     "sill": 11,
+     "height": 25
+    },
+    {
+     "side": "south",
+     "at": -28,
+     "width": 24,
+     "sill": 11,
+     "height": 25
+    },
+    {
+     "side": "south",
+     "at": 28,
+     "width": 24,
+     "sill": 11,
+     "height": 25
+    },
+    {
+     "side": "west",
+     "at": -28,
+     "width": 24,
+     "sill": 11,
+     "height": 25
+    },
+    {
+     "side": "west",
+     "at": 28,
+     "width": 24,
+     "sill": 11,
+     "height": 25
+    }
+   ]
   },
   "walkway": {
-   "width": 4,
+   "width": 5,
    "y": 7.0,
    "source": "inferred"
   },
   "ceiling": {
    "opening": 5.6,
    "thickness": 1.0,
-   "beam_step": 12,
+   "beam_step": 16,
    "lamps": true,
    "source": "inferred"
   }
@@ -308,6 +375,130 @@
    "top": 5.0,
    "cover": 1,
    "source": "visible"
+  },
+  {
+   "id": "Landing_North",
+   "center": [
+    0,
+    -47.5
+   ],
+   "size": [
+    10,
+    7
+   ],
+   "top": 7.0,
+   "cover": 1,
+   "source": "inferred"
+  },
+  {
+   "id": "Landing_South",
+   "center": [
+    0,
+    47.5
+   ],
+   "size": [
+    10,
+    7
+   ],
+   "top": 7.0,
+   "cover": 1,
+   "source": "inferred"
+  },
+  {
+   "id": "Landing_East",
+   "center": [
+    47.5,
+    0
+   ],
+   "size": [
+    7,
+    10
+   ],
+   "top": 7.0,
+   "cover": 1,
+   "source": "inferred"
+  },
+  {
+   "id": "Landing_West",
+   "center": [
+    -47.5,
+    0
+   ],
+   "size": [
+    7,
+    10
+   ],
+   "top": 7.0,
+   "cover": 1,
+   "source": "inferred"
+  },
+  {
+   "id": "Round_NE",
+   "shape": "circle",
+   "center": [
+    37,
+    -37
+   ],
+   "size": [
+    14,
+    14
+   ],
+   "top": 7.0,
+   "cover": 2,
+   "style": "industrial_pillar",
+   "source": "visible",
+   "notes": "round platform on pillars (ref 2)"
+  },
+  {
+   "id": "Round_NW",
+   "shape": "circle",
+   "center": [
+    -37,
+    -37
+   ],
+   "size": [
+    14,
+    14
+   ],
+   "top": 7.0,
+   "cover": 2,
+   "style": "industrial_pillar",
+   "source": "visible",
+   "notes": "round platform on pillars (ref 2)"
+  },
+  {
+   "id": "Round_SE",
+   "shape": "circle",
+   "center": [
+    37,
+    37
+   ],
+   "size": [
+    14,
+    14
+   ],
+   "top": 7.0,
+   "cover": 2,
+   "style": "industrial_pillar",
+   "source": "visible",
+   "notes": "round platform on pillars (ref 2)"
+  },
+  {
+   "id": "Round_SW",
+   "shape": "circle",
+   "center": [
+    -37,
+    37
+   ],
+   "size": [
+    14,
+    14
+   ],
+   "top": 7.0,
+   "cover": 2,
+   "style": "industrial_pillar",
+   "source": "visible",
+   "notes": "round platform on pillars (ref 2)"
   }
  ],
  "connections": [
@@ -366,6 +557,62 @@
    "to": "Platform_SW",
    "width": 4,
    "source": "inferred"
+  },
+  {
+   "id": "Link_North",
+   "from": "Platform_North",
+   "to": "Landing_North",
+   "width": 4.5,
+   "source": "inferred"
+  },
+  {
+   "id": "Link_South",
+   "from": "Platform_South",
+   "to": "Landing_South",
+   "width": 4.5,
+   "source": "inferred"
+  },
+  {
+   "id": "Link_East",
+   "from": "Platform_East",
+   "to": "Landing_East",
+   "width": 4.5,
+   "source": "inferred"
+  },
+  {
+   "id": "Link_West",
+   "from": "Platform_West",
+   "to": "Landing_West",
+   "width": 4.5,
+   "source": "inferred"
+  },
+  {
+   "id": "RampOut_NE",
+   "from": "Platform_NE",
+   "to": "Round_NE",
+   "width": 4,
+   "source": "inferred"
+  },
+  {
+   "id": "RampOut_NW",
+   "from": "Platform_NW",
+   "to": "Round_NW",
+   "width": 4,
+   "source": "inferred"
+  },
+  {
+   "id": "RampOut_SE",
+   "from": "Platform_SE",
+   "to": "Round_SE",
+   "width": 4,
+   "source": "inferred"
+  },
+  {
+   "id": "RampOut_SW",
+   "from": "Platform_SW",
+   "to": "Round_SW",
+   "width": 4,
+   "source": "inferred"
   }
  ],
  "structures": [
@@ -417,6 +664,251 @@
     2.2
    ],
    "source": "inferred"
+  },
+  {
+   "id": "Vat_01",
+   "kind": "vat",
+   "position": [
+    18,
+    -45
+   ],
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Vat_02",
+   "kind": "vat",
+   "position": [
+    -18,
+    -45
+   ],
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Vat_03",
+   "kind": "vat",
+   "position": [
+    18,
+    45
+   ],
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Vat_04",
+   "kind": "vat",
+   "position": [
+    -18,
+    45
+   ],
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Vat_05",
+   "kind": "vat",
+   "position": [
+    45,
+    18
+   ],
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Vat_06",
+   "kind": "vat",
+   "position": [
+    45,
+    -18
+   ],
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Vat_07",
+   "kind": "vat",
+   "position": [
+    -45,
+    18
+   ],
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Vat_08",
+   "kind": "vat",
+   "position": [
+    -45,
+    -18
+   ],
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "source": "visible"
+  },
+  {
+   "id": "Claw_1",
+   "kind": "claw",
+   "position": [
+    24,
+    -8
+   ],
+   "length": 7.0,
+   "source": "visible"
+  },
+  {
+   "id": "Claw_2",
+   "kind": "claw",
+   "position": [
+    -24,
+    8
+   ],
+   "length": 9.0,
+   "source": "visible"
+  },
+  {
+   "id": "Claw_3",
+   "kind": "claw",
+   "position": [
+    8,
+    24
+   ],
+   "length": 11.0,
+   "source": "visible"
+  },
+  {
+   "id": "Claw_4",
+   "kind": "claw",
+   "position": [
+    -8,
+    -24
+   ],
+   "length": 7.0,
+   "source": "visible"
+  },
+  {
+   "id": "Claw_5",
+   "kind": "claw",
+   "position": [
+    40,
+    8
+   ],
+   "length": 9.0,
+   "source": "visible"
+  },
+  {
+   "id": "Claw_6",
+   "kind": "claw",
+   "position": [
+    -40,
+    -8
+   ],
+   "length": 11.0,
+   "source": "visible"
+  },
+  {
+   "id": "Gallery_North",
+   "kind": "gallery",
+   "from": [
+    -14,
+    -54.5
+   ],
+   "to": [
+    14,
+    -54.5
+   ],
+   "y": 16.0,
+   "source": "visible"
+  },
+  {
+   "id": "Gallery_South",
+   "kind": "gallery",
+   "from": [
+    14,
+    54.5
+   ],
+   "to": [
+    -14,
+    54.5
+   ],
+   "y": 16.0,
+   "source": "visible"
+  },
+  {
+   "id": "Gallery_East",
+   "kind": "gallery",
+   "from": [
+    54.5,
+    -14
+   ],
+   "to": [
+    54.5,
+    14
+   ],
+   "y": 16.0,
+   "source": "visible"
+  },
+  {
+   "id": "Gallery_West",
+   "kind": "gallery",
+   "from": [
+    -54.5,
+    14
+   ],
+   "to": [
+    -54.5,
+    -14
+   ],
+   "y": 16.0,
+   "source": "visible"
+  },
+  {
+   "id": "Door_North",
+   "kind": "blast_door",
+   "position": [
+    0,
+    7.0,
+    -55.7
+   ],
+   "facing": "south",
+   "size": [
+    6,
+    7,
+    0.6
+   ],
+   "source": "inferred",
+   "notes": "sealed - candidate exit to part 3"
   }
  ],
  "pipes": [
@@ -459,40 +951,40 @@
   {
    "id": "Pipe_North",
    "wall": "north",
-   "at": 13,
+   "at": 10,
    "y": 10.5,
    "radius": 1.2,
-   "length": 6,
+   "length": 9,
    "pour": true,
    "source": "visible"
   },
   {
    "id": "Pipe_South",
    "wall": "south",
-   "at": -13,
+   "at": -10,
    "y": 10.5,
    "radius": 1.2,
-   "length": 6,
+   "length": 9,
    "pour": true,
    "source": "visible"
   },
   {
    "id": "Pipe_East",
    "wall": "east",
-   "at": -13,
+   "at": -10,
    "y": 10.5,
    "radius": 1.2,
-   "length": 6,
+   "length": 9,
    "pour": true,
    "source": "visible"
   },
   {
    "id": "Pipe_West",
    "wall": "west",
-   "at": 13,
+   "at": 10,
    "y": 10.5,
    "radius": 1.2,
-   "length": 6,
+   "length": 9,
    "pour": true,
    "source": "visible"
   }
@@ -505,12 +997,12 @@
   "ambient": "spores",
   "source": "inferred",
   "fog_color": [
-   0.16,
-   0.24,
+   0.17,
+   0.27,
    0.12
   ],
-  "fog_start": 35,
-  "fog_end": 190,
+  "fog_start": 50,
+  "fog_end": 260,
   "height_fog": {
    "height": 5,
    "density": 0.06
@@ -522,8 +1014,98 @@
   }
  },
  "background": {
-  "source": "inferred",
-  "layers": []
+  "source": "visible",
+  "layers": [
+   {
+    "type": "factory_interior",
+    "inner": 66,
+    "outer": 160,
+    "floor_y": -8,
+    "roof_y": 60,
+    "factory_id": "slime_factory",
+    "seed": 3,
+    "id": "Factory_Hull",
+    "part": "hull",
+    "color": [
+     0.2,
+     0.15,
+     0.26
+    ],
+    "toon": true,
+    "fade": 0.15,
+    "res": 64,
+    "towers": 18
+   },
+   {
+    "type": "factory_interior",
+    "inner": 66,
+    "outer": 160,
+    "floor_y": -8,
+    "roof_y": 60,
+    "factory_id": "slime_factory",
+    "seed": 3,
+    "id": "Factory_Glass",
+    "part": "glass",
+    "material_type": "toxic",
+    "color": [
+     0.42,
+     1.0,
+     0.2
+    ],
+    "emissive": [
+     0.45,
+     1.0,
+     0.2
+    ],
+    "res": 64,
+    "towers": 18
+   },
+   {
+    "type": "factory_interior",
+    "inner": 66,
+    "outer": 160,
+    "floor_y": -8,
+    "roof_y": 60,
+    "factory_id": "slime_factory",
+    "seed": 3,
+    "id": "Factory_Lights",
+    "part": "lights",
+    "material_type": "glow",
+    "color": [
+     1.0,
+     0.15,
+     0.25
+    ],
+    "emissive": [
+     1.0,
+     0.12,
+     0.25
+    ],
+    "res": 32,
+    "towers": 18
+   },
+   {
+    "type": "factory_interior",
+    "inner": 66,
+    "outer": 160,
+    "floor_y": -8,
+    "roof_y": 60,
+    "factory_id": "slime_factory",
+    "seed": 3,
+    "towers": 18,
+    "id": "Factory_Shell",
+    "part": "shell",
+    "color": [
+     0.13,
+     0.1,
+     0.17
+    ],
+    "toon": true,
+    "fade": 0.3,
+    "res": 32,
+    "cutaway": true
+   }
+  ]
  },
  "effects": "auto",
  "spawns": [
@@ -542,13 +1124,18 @@
    "team": "enemy"
   },
   {
-   "id": "enemy_west",
-   "on": "Platform_West",
+   "id": "enemy_ne",
+   "on": "Round_NE",
    "team": "enemy"
   },
   {
-   "id": "enemy_south",
-   "on": "Platform_South",
+   "id": "enemy_sw",
+   "on": "Round_SW",
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_nw",
+   "on": "Round_NW",
    "team": "enemy"
   }
  ],
@@ -561,5 +1148,8 @@
   "part": 2,
   "parts": 3,
   "previous": "skyforge_arena"
+ },
+ "mobile": {
+  "cell": 64
  }
 }
