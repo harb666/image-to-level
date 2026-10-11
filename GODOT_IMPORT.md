@@ -27,6 +27,9 @@ Use the mobile files for the game, and the dev files for editing and inspection.
 | Terrain (Stage 9) | `mobile/level_mobile.glb` nodes `TR_<i>_<j>_<material>_L0/L1`, `TR_<i>_<j>_L2_far`, `TRM_<sector>` | Chunk LODs with complementary visibility ranges in `mobile_manifest.json` (begin/end); `apply_mobile.gd` sets them. Borders are full-resolution at every LOD, so any mix is crack-free. `*_far` / `TRM_*` use vertex colours (the importer enables vertex colour as albedo). Middle zone `TRM_*` has no collision. |
 | Terrain collision | `mobile/collision.glb` `TR_<i>_<j>-colonly` | One heightmap mesh per chunk (or build HeightMapShape3D from `collision.json`: origin, cell, heights). Caves / arches / overhangs / tunnel berms are concave (`-colonly`) so their openings stay open. |
 | Scatter (optional) | `terrain.json` → `instances`, `props/props.glb`, `mobile/apply_scatter_multimesh.gd` | The GLB already has scatter merged per cell (no code needed). For MultiMesh instancing use the script (UNTESTED in Godot here); it hides the merged `SC_*` nodes. |
+| Art style (toon) | `fx/godot/apply_style.gd` + `environment.json` → `style` | Add a Node with this script, set `environment_path` to `res://levels/<name>/environment.json` and `level_root` to the level_mobile instance: every material gets diffuse_mode TOON with specular off; the `ink` material stays unlit black. Outlines need no code: they are inverted-hull meshes in the GLB (`*__ol` / merged `M_ink_*`), with no colliders. |
+| Level exits (elevator shaft) | `level.json` → `exits`, `mobile/collision.json` → `triggers` | `apply_mobile.gd` creates one `Area3D` (CylinderShape3D) per trigger, in the group `level_exit`, with meta `target` (e.g. `next_level`), and emits `level_exit_entered(target, body)` when a body enters. Connect that signal in Construct Error and load the next level there; nothing is loaded automatically. |
+| Animated extras | `mobile/effects_mobile.json` | Built by `apply_effects.gd`: liquid falls (`liquid_flow`: direction measured per mesh as `flow_uv` → shader `flow_dir`, no manual flipping), cloud layers / puffs, fly-by ships behind the skyline (MultiMesh; they grow in / shrink away, never pop). |
 | Spawns | `gameplay/spawns.json` | The `PlayerSpawn` node in the GLB is the first spawn. Extra team or respawn points are listed in the JSON (position, yaw_deg, Stage 9 `team` player / enemy, plus the `spawn_regions` they came from). |
 | Hazards | `gameplay/hazards.json` | Box Area3Ds in world space. Construct Error decides whether they kill, damage or respawn. `apply_mobile.gd` creates them in the group `hazard`. |
 
@@ -48,6 +51,9 @@ The GLB holds only static meshes and PBR materials. These are rebuilt at runtime
 - sky drift
 - hazards
 - spawns
+- level-exit trigger volumes
+- cloud layers, cloud puffs and fly-by ships
+- toon shading (outline shells ARE in the GLB)
 
 The browser preview approximates all of these with three.js. It is close to Godot but not identical.
 
@@ -57,7 +63,8 @@ The browser preview approximates all of these with three.js. It is close to Godo
 - [ ] The collision shapes line up with the floors and walls. You can't walk through walls.
 - [ ] The hazard areas trigger.
 - [ ] The sky and fog look like the preview.
-- [ ] The effects play, and none of them spawn inside opaque geometry.
+- [ ] The effects play, and none of them spawn inside opaque geometry. Falls flow downwards.
+- [ ] Dropping into the elevator shaft fires `level_exit_entered` (connected to Construct Error's level loader).
 - [ ] Run the profiler on a device. The manifest numbers are estimates.
 - [ ] Worlds: walk to a chunk border and watch LODs switch (no cracks, no popping holes); check the boundary colliders
       sit just inside the barrier ridge; look out from the edge in every direction (no void below the horizon).

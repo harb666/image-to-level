@@ -13,4 +13,4 @@ The GLB only carries static appearance. `effects.json` (next to level.glb) descr
 - Pulses/flicker animate `emission_energy_multiplier` of the shared imported material (affects every node using it).
 - Particles are `CPUParticles3D` (Mobile + Compatibility renderers). Sprites: `fx/*.png`.
 - Mist uses `fog_sheet.gdshader` on a plane (volumetric FogVolume is Forward+ only).
-- If a fall flows upwards, negate `uv_speed` in liquid_flow.gdshader (UV orientation can differ per importer).
+- Falls flow along `flow_uv` (measured per mesh by effects.py, passed to the shader as `flow_dir`): no manual flipping.

@@ -2,6 +2,7 @@
 
   python3 pipeline/package.py levels/<name> [--zip]     -> dist/<name>/package/levels/<name>/ (+ dist/<name>/<name>.zip)
                                                           and levels/<name>/level_manifest.json
+  python3 pipeline/package.py levels/<name> --out exports/<name>   -> exports/<name>/levels/<name>/ (committed copy for the game)
   python3 pipeline/package.py --check dist/<name>/package   validate an existing package
 
 The package mirrors the Godot project layout: copy its "levels/<name>/" folder to res://levels/<name>/ (the paths
@@ -137,4 +138,5 @@ def check(pkg_root, verbose=True):
 
 if __name__ == "__main__":
     if sys.argv[1] == "--check": sys.exit(1 if check(sys.argv[2]) else 0)
-    r = build(sys.argv[1], make_zip="--zip" in sys.argv); sys.exit(0 if r["valid"] else 1)
+    out = sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv else None  # e.g. exports/<name> (committed, for the game repo)
+    r = build(sys.argv[1], out_root=out, make_zip="--zip" in sys.argv); sys.exit(0 if r["valid"] else 1)
