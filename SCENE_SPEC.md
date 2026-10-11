@@ -195,6 +195,7 @@ All sizes are `[w, h, d]`. For buildings, `w` is the frontage. `facing` takes `c
 | `gate` / `arch` | Round (`round: true`) or square arch. `opening` is the width fraction. Passable. |
 | `wall` | Free-standing wall: `from` [x, z], `to` [x, z], `height`, `thickness`, `style`, `inner` [x, z]. |
 | `machinery`, `tank`, `pillar`, `lamp`, `crates` (cover), `rocks`, `tree`, `banner` | Props and decor. |
+| `elevator_arrival` | Stage 15: round elevator car that comes DOWN into the level and rests at the centre of its platform (`on`, `offset` [0, 0]); `radius` (default 5.0), `car_height` (4.8), `comes_from` (previous level id), `travel_s` (6 s), `shaft` (m of shaft above the roof). Open between four posts, spawn with `"at": "<id>"`. See Stage 15. |
 | `elevator_shaft` | Stage 12: open shaft through the centre of its platform (`on`, `offset` [0, 0]), `radius` (default 5.5), `target` (next level id), `depth` (solid platforms, default 10). Cuts a real hole through every slab, lines the shaft (pilasters, light strips and rings, glowing floor), dresses the rim and adds a `level_exit` trigger. See below. |
 
 To support a shape that isn't listed (for example a dome or a crane), add a file to `pipeline/modules/` that registers
@@ -419,3 +420,23 @@ Building blocks usable without the preset:
 - Connection junction plates use the floor material of the platform they meet and sit 3 cm under its surface: hidden
   where they overlap the deck, read as the deck continuing where they fill the corner gap (no visible square).
 
+
+## Stage 15: indoor arenas, elevator arrivals, multi-part levels
+- `arena.ceiling` `{"opening": m, "thickness": 1.0, "beam_step": 12, "beam_depth": 1.1, "lamps": true, "material": "wall"}`:
+  a roof slab on the wall caps (y = walls.height + 0.5) with an optional round opening at the arena centre (a real hole,
+  concave collider), girders under it (they never cross the opening) and glow lamp panels in the bays. A roofed level has
+  no background layers (art-style presets add none either), no sky drift or cloud effects, and the sun casts no shadows
+  (`environment.json` `indoor`, `sun.shadows.enabled` false, manifest `directional_light.shadow_enabled` false) - the
+  roof would otherwise shade the whole hall in Godot. Ceiling parts are tagged `"cutaway": true`: the preview hides them
+  while the camera is above the roof (orbit / top-down views look in; third person inside sees the roof).
+- `elevator_arrival` (`pipeline/modules/transit.py`): car = floor disc (0.25 m step) with a hazard-stripe edge, a light
+  ring and an emblem; four posts on the diagonals (walk-off openings ~4-6 m wide); top ring, cross beams, hoist hub and
+  cable. Under a ceiling opening it adds a lit shaft above the roof (liner, pilasters, light strips, winch, cap); the car
+  starts 0.3 m above the roof slab (`start_offset_y`) hidden inside that shaft.
+- level.json `"entrances"`: `{id, type: "elevator_arrival", comes_from, car, mobile_group, rest_position,
+  start_offset_y, duration_s, spawn, radius, shaft_top_y}` (also in mobile `collision.json`).
+- `"mobile": {"group": G}` on an object: the mobile export merges it per material into its own nodes `G__<material>`
+  (manifest `kind: "group"`, `group: G`), never into the static cells. Used for the car (movable) and the ceiling.
+- spawns `{"at": "<elevator_arrival id>"}`: stand on the car floor, facing south unless `yaw` is given.
+- `"campaign": {"level", "part", "parts", "previous", "next"}` is copied to level.json: where the level sits in a
+  multi-part level. Level 1 = `skyforge_arena` (part 1, its elevator exit targets `slime_arena`) -> `slime_arena` (part 2).

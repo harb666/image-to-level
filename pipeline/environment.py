@@ -105,7 +105,8 @@ def build_environment(level_dir, L=None, log=print):
                  horizon_rgb=info["horizon_rgb"], upper_rgb=info["upper_rgb"]),
         sun=dict(azimuth_deg=az, elevation_deg=el, direction_to_sun=[round(float(v), 4) for v in sd], color=light.get("sun_color", sun["color"]),
                  energy=light.get("sun_energy", 1.5), godot_rotation_degrees=[-el, round(180 - az, 2), 0],
-                 shadows=dict(enabled=True, mode="PSSM 2 splits", max_distance=70, note="keep shadows to the playable area on mobile")),
+                 shadows=dict(enabled=True, mode="PSSM 2 splits", max_distance=70, note="keep shadows to the playable area on mobile") if not env.get("indoor") else
+                 dict(enabled=False, note="indoor level: the roof would shadow the whole hall - the sun acts as fill light only")),
         ambient=dict(source="sky", sky_color=info["upper_rgb"], ground_color=info.get("below_rgb", fog_color), energy=light.get("ambient_energy", 1.0)),
         fog=dict(enabled=True, color=fog_color, start=atm["fog_start"], end=round(fog_end), godot_density=round(3.0 / fog_end, 5),
                  sky_affect=atm["sky_affect"], height=atm["height_fog"]["height"], height_density=atm["height_fog"]["density"]),
@@ -114,7 +115,7 @@ def build_environment(level_dir, L=None, log=print):
         camera=dict(far=q["far"], horizon_distance=horizon),
         background=dict(layers=meta_layers, materials=list(mats), stats=bst,
                         tex_mem_gpu_compressed_mb=round(tex_px * 4 / 3 / 2 ** 20, 2)),
-        style=L.get("style"),  # art style (toon / outline settings) for the viewer + Godot (fx/godot/apply_style.gd)
+        style=L.get("style"), **({"indoor": env["indoor"]} if env.get("indoor") else {}),  # art style (toon / outline settings) for the viewer + Godot (fx/godot/apply_style.gd)
         sky_asset=dict(kb=round(os.path.getsize(pano) / 1024), tex_mem_gpu_compressed_mb=round(q["sky_width"] ** 2 / 2 * 4 / 3 / 2 ** 20, 2)),
     )
     json.dump(E, open(os.path.join(level_dir, "environment.json"), "w"), indent=1)

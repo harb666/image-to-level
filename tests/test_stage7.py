@@ -12,7 +12,7 @@ def build(d):
 class Spec(unittest.TestCase):
     def test_real_specs_valid(self):
         from scene_spec import validate
-        for n in ("toxic_arena_gen", "town_square_gen"):
+        for n in ("slime_arena", "town_square_gen"):
             E, W = validate(json.load(open(os.path.join(ROOT, "levels", n, "scene_spec.json")))); self.assertEqual(E, [], n)
 
     def test_errors_are_specific(self):

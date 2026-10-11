@@ -220,7 +220,7 @@ Split of responsibilities: **Claude** interprets the references (with measuring 
 - Viewer: jump button, gameplay-config camera/player, scripted inspection camera, issues overlay (markers + list + "Copy
   for Claude"). `make_preview.py` embeds GAMEPLAY + ISSUES.
 - Tests: `tests/` (unittest; Stages 1-6 regression + Stage 7; `QUICK=1` skips slow ones).
-Real-image runs: `levels/toxic_arena_gen` (multi-panel concept sheet: plan + elevation + perspective + details) and
+Real-image runs: `levels/slime_arena` (multi-panel concept sheet: plan + elevation + perspective + details) and
 `levels/town_square_gen` (single perspective image). Both specs, renders and reports are committed.
 
 ## Connection-aware construction, geometry validation & repair (Stage 8)

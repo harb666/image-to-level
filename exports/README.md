@@ -10,11 +10,11 @@ Each folder here is a validated Godot 4 package produced by `python3 pipeline/pa
 Pulling only this folder from another checkout:
 
     git clone --depth 1 --filter=blob:none --sparse https://github.com/harb666/image-to-level.git
-    cd image-to-level && git sparse-checkout set exports/skyforge_arena
+    cd image-to-level && git sparse-checkout set exports/skyforge_arena exports/slime_arena
 
 | Level | Notes |
 |---|---|
-| `skyforge_arena` | alien_cartoon style (toon + outline shells), elevator shaft in the Hub = `level_exit` trigger (target `next_level`), mobile export ~134 draw calls / ~88k triangles (estimates in `mobile/mobile_manifest.json`). |
+| `skyforge_arena` | Level 1, part 1. alien_cartoon style (toon + outline shells), elevator shaft in the Hub = `level_exit` trigger (target `slime_arena`), mobile export ~134 draw calls / ~88k triangles (estimates in `mobile/mobile_manifest.json`). |
 
 The Godot scripts are UNTESTED in Godot from the generator environment - check the first import in the editor.
 Regenerate an export after changing a level (`generate.py`, then the package command above).

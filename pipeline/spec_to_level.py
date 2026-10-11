@@ -107,9 +107,10 @@ def generate(spec, G, level_dir=None):
              generator=dict(tool="pipeline/spec_to_level.py", spec_sha=H(spec), theme=theme, detail=spec.get("detail", "medium")),
              interpretation=spec.get("interpretation", {}), sky_color=PRESETS[env["sky"]["preset"]]["horizon"],
              spawn=spawn, spawns=spawns, hazards=ctx.hazards, effects=_effects(spec, ctx, plats, env, glow), environment=env,
-             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})), **({"style": spec["style"]} if spec.get("style") else {}), **({"exits": ctx.exits} if ctx.exits else {}),
+             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})), **({"style": spec["style"]} if spec.get("style") else {}), **({"exits": ctx.exits} if ctx.exits else {}), **({"entrances": ctx.entrances} if ctx.entrances else {}),
              validation=dict(ignore_objects=[]), generator_notes=ctx.notes, relations=ctx.relations)
     if spec.get("gameplay"): L["gameplay"] = spec["gameplay"]
+    if spec.get("campaign"): L["campaign"] = spec["campaign"]  # where this level sits in a multi-part level (previous / next part)
     if W: L["gameplay"] = dict({"nav": {"cell": 1.0}}, **L.get("gameplay", {}))  # open worlds: 1 m nav cells (large areas)
     L["generator"]["mode"] = mode_of(spec)
     if ctx.TR is not None:
@@ -129,6 +130,7 @@ def _spawns(spec, plats, blocks, centre, ctx, G):
     want = spec.get("spawns") or [{"id": "spawn", "on": max(plats, key=lambda k: plats[k]["center"][1]) if plats else None}]
     for i, s in enumerate(want):
         if s.get("position"): x, y, z = s["position"]
+        elif s.get("at"): x, y, z = ctx.arrival_spawns[s["at"]]  # standing on an arriving elevator car
         elif s.get("on"):
             p = plats[s["on"]]; (cx, cz), (w, d) = p["center"], p["size"]; y = p["top"]; best = None
             hx, hz = max(0.0, w / 2 - rq), max(0.0, d / 2 - rq)
@@ -142,7 +144,7 @@ def _spawns(spec, plats, blocks, centre, ctx, G):
             x, z = best[1], best[2]
         else:
             fy = spec["arena"]["floor"]["y"]; x, y, z = centre[0], fy, centre[1] + spec["arena"]["size"][1] * 0.35  # (world levels use spawn regions)
-        yaw = s.get("yaw", math.degrees(math.atan2(-(centre[0] - x), -(centre[1] - z))) if math.hypot(centre[0] - x, centre[1] - z) > 1 else 0.0)
+        yaw = s.get("yaw", 180.0 if s.get("at") else math.degrees(math.atan2(-(centre[0] - x), -(centre[1] - z))) if math.hypot(centre[0] - x, centre[1] - z) > 1 else 0.0)
         out.append(dict(id=s.get("id", "spawn" if i == 0 else f"spawn_{i + 1}"), position=[round(x, 2), round(y, 2), round(z, 2)], yaw_deg=round(yaw, 1),
                         **({"team": s["team"]} if s.get("team") else {})))
     first = dict(position=out[0]["position"], yaw_deg=out[0]["yaw_deg"])
@@ -175,7 +177,10 @@ def _environment(spec, ctx):
         if d.get("skyline"): layers.append(dict(id="Skyline_North", type="skyline", radius=round(250 * f), azimuth_deg=[-55, 40], count=26, height=[18, 60], fade=0.35, glow=glow, lit=0.12))
         for i, az in enumerate([48, 105, 215, 290, 160, 340][:d.get("factories", 0)]):
             layers.append(dict(id=f"Factory_{i + 1:02d}", type="factory", azimuth_deg=az, distance=round((165 + 12 * i) * f), scale=round(0.9 + 0.1 * (i % 3), 2), seed=i + 1, glow=glow, fade=0.15))
+    indoor = getattr(ctx, "ceiling_y", None)
+    if indoor is not None: layers = []  # roofed arena: nothing outside is ever seen (style presets add sky layers too)
     env = dict(quality=spec.get("profile", "balanced"), horizon_distance=round(460 * f), sky=sky, atmosphere=atm, background=layers)
+    if indoor is not None: env["indoor"] = dict(ceiling_y=round(indoor, 2), note="roofed level: sky/background never visible; sun casts no shadows (the roof would shade the whole hall)")
     if any(k in lit for k in LK): env["lighting"] = {k: lit[k] for k in LK if k in lit}
     if ctx.TR is not None and "radius" not in ctx.terrain_def["zones"]["middle"]:  # middle zone runs into the far mountains (no gap)
         mr = [l for l in layers if l.get("type") == "mountain_ring"]
@@ -221,8 +226,8 @@ def _effects(spec, ctx, plats, env, glow):
             out.append(dict(id="Ambient_" + amb.capitalize(), type="ambient_particles", area=[cx - w / 2, fy, cz - d / 2, cx + w / 2, fy + 15, cz + d / 2],
                             count=220 if amb != "dust" else 160, color=col, **({"blend": "alpha", "alpha": 0.35} if amb == "dust" else {})))
         if any(l.get("type") == "factory" for l in env["background"]): out.append(dict(id="Factory_Smoke", type="smoke", at_background="factory_chimneys"))
-        out.append(dict(id="Sky_Drift", type="sky_drift", speed_deg_s=0.25))
-        out += _clouds(spec, ctx, plats)
+        if getattr(ctx, "ceiling_y", None) is None:  # roofed levels never see the sky
+            out.append(dict(id="Sky_Drift", type="sky_drift", speed_deg_s=0.25)); out += _clouds(spec, ctx, plats)
     out = [e for e in out if e["id"] not in set(cfg.get("disable", []))] + list(cfg.get("extra", []))
     return out
 
@@ -286,7 +291,7 @@ def _merge(new, cur, state, key, rep, label):
     return out
 
 
-TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions", "style", "exits")
+TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions", "style", "exits", "entrances")
 
 
 def merge(Lnew, Lcur, state):

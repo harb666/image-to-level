@@ -228,6 +228,9 @@ def export(level_dir, profile=None):
         if node in keep or by.get(node, {}).get("mobile", {}).get("merge") is False:
             separate.append((node, M, g)); continue
         m = m0.copy(); m.apply_transform(M)
+        mg = by.get(node, {}).get("mobile", {}).get("group") or by.get(node.split("__")[0], {}).get("mobile", {}).get("group")
+        if mg:  # "mobile": {"group": G}: merged per material into its own nodes G__<mat> (moving elevator car, cutaway ceiling)
+            groups.setdefault(("G:" + mg, 0, 0, mat), []).append((node, m)); continue
         if cull_y is not None:  # faces entirely under opaque hazard liquid can never be seen
             hid = m.triangles[:, :, 1].max(1) < cull_y - 0.01
             if hid.any():
@@ -243,14 +246,15 @@ def export(level_dir, profile=None):
     manifest_nodes, ranges, extras = [], {}, {}
     glow = {k for k, v in L["materials"].items() if v.get("emissive")}
     for (kind, ix, iz, mat), items in sorted(groups.items()):
-        name = f"M_{mat}_{ix}_{iz}" + ("_props" if kind == "P" else "")
+        name = f"{kind[2:]}__{mat}" if kind.startswith("G:") else f"M_{mat}_{ix}_{iz}" + ("_props" if kind == "P" else "")
         m = trimesh.util.concatenate([i[1] for i in items])
         m.merge_vertices(merge_tex=False, merge_norm=False)  # weld only identical position+UV (flat shading kept)
         scene.add_geometry(m, node_name=name, geom_name=name)
         rng = P["prop_range"] if kind == "P" else 0; ranges[name] = rng
-        info = dict(node=name, kind="props" if kind == "P" else "static", material=mat, triangles=int(len(m.faces)),
+        info = dict(node=name, kind="group" if kind.startswith("G:") else "props" if kind == "P" else "static", material=mat, triangles=int(len(m.faces)),
                     visibility_range_end=rng, cast_shadow=not (mat.split("__")[0] in glow or kind == "P" or mat == "ink"), source_objects=[i[0] for i in items])
-        manifest_nodes.append(info); extras[name] = {k: info[k] for k in ("kind", "source_objects", "visibility_range_end", "cast_shadow")}
+        if kind.startswith("G:"): info["group"] = kind[2:]
+        manifest_nodes.append(info); extras[name] = {k: info[k] for k in ("kind", "source_objects", "visibility_range_end", "cast_shadow") + (("group",) if "group" in info else ())}
         extras[name]["source_bounds"] = {n: [round(float(v), 2) for v in mm.bounds.ravel()] for n, mm in items}  # tap-to-identify in merged meshes
     fx_groups = {}
     for node, M, g in [x for x in separate if x[0] in fx_merge]:
@@ -290,7 +294,7 @@ def export(level_dir, profile=None):
     cols, haz = colliders(L, level_dir)
     json.dump(dict(note="World-space colliders generated from level.json shapes. Godot: BoxShape3D / CylinderShape3D / ConvexPolygonShape3D / "
                         "HeightMapShape3D (cell size = 'cell'). Hazards are areas (Area3D), not solid. Triggers (level exits) are areas too.",
-                        colliders=cols, hazards=haz, triggers=L.get("exits", [])),
+                        colliders=cols, hazards=haz, triggers=L.get("exits", []), entrances=L.get("entrances", [])),
               open(os.path.join(out_dir, "collision.json"), "w"), indent=1)
     cs = trimesh.Scene()
     for c in cols:
@@ -314,7 +318,7 @@ def export(level_dir, profile=None):
                                    "rendering/lights_and_shadows/directional_shadow/size.mobile": 2048, "rendering/anti_aliasing/quality/msaa_3d": "2x"},
                  import_level_glb={"meshes/generate_lods": True, "meshes/light_baking": "Static Lightmaps (optional)", "textures": "VRAM Compressed (Godot compresses embedded images to ASTC/ETC2 on import)"},
                  import_collision_glb="nodes named *-convcolonly / *-colonly become StaticBody3D colliders; meshes are discarded",
-                 directional_light={"shadow_enabled": True, "directional_shadow_mode": "PSSM 2 splits", "directional_shadow_max_distance": 60},
+                 directional_light={"shadow_enabled": False, "note": "indoor level: the roof would shadow the whole hall"} if L.get("environment", {}).get("indoor") else {"shadow_enabled": True, "directional_shadow_mode": "PSSM 2 splits", "directional_shadow_max_distance": 60},
                  note="Settings are recommendations for Godot 4 mobile; not verified in Godot here. KTX2/Basis is not used: Godot re-compresses on import.")
     M = dict(generated_by="image-to-level Stage 5 (pipeline/export_mobile.py)", profile=profile, settings=P, files=dict(
         level="level_mobile.glb", background="background_mobile.glb" if bg else None, collision="collision.glb", collision_data="collision.json",

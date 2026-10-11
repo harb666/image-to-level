@@ -25,11 +25,14 @@ SCHEMA = {
     "interpretation": (DICT, False, {"summary": (STR, False), "visible": (LIST, False), "inferred": (LIST, False), "assumptions": (LIST, False),
                                      "scale_basis": (STR, False), "questions": (LIST, False)}),
     "world": (DICT, False, None),  # Stage 9 (schema WORLD below; validated separately)
+    "campaign": (DICT, False, {"level": (INT, False), "part": (INT, False), "parts": (INT, False), "previous": (STR, False), "next": (STR, False)}),
     "arena": (DICT, False, {"shape": (STR, False, ("rect", "octagon", "circle")), "size": (V2, True), "center": (V2, False), "source": (STR, False),
                            "floor": (DICT, True, {"kind": (STR, True, ("hazard", "ground", "deck")), "y": (NUM, True), "material": (STR, False), "name": (STR, False), "source": (STR, False)}),
                            "walls": (DICT, False, {"height": (NUM, True), "thickness": (NUM, False), "style": (STR, False, ("auto", "industrial", "stone", "none")), "source": (STR, False),
                                                    "openings": (LIST, False, {"side": (STR, True, ("north", "south", "east", "west")), "at": (NUM, False), "width": (NUM, True), "height": (NUM, False)})}),
                            "walkway": (DICT, False, {"width": (NUM, False), "y": (NUM, True), "style": (STR, False), "source": (STR, False)}),
+                           "ceiling": (DICT, False, {"opening": (NUM, False), "opening_at": (V2, False), "thickness": (NUM, False), "beam_step": (NUM, False),
+                                                     "beam_depth": (NUM, False), "lamps": (BOOL, False), "material": (STR, False), "source": (STR, False)}),
                            "boundary": (STR, False, ("walls", "invisible"))}),
     "platforms": (LIST, False, dict(ELEMENT, id=(STR, True), shape=(STR, False, ("rect", "octagon", "circle")), center=(V2, True), size=(V2, True),
                                     top=(NUM, True), style=(STR, False, ("industrial_pillar", "stone_plinth", "plain", "sky_pylon")), cover=(INT, False), lights=(BOOL, False),
@@ -43,7 +46,7 @@ SCHEMA = {
                                      to=(V2, False), inner=(V2, False), notes=(STR, False), y=(NUM, False), width=(NUM, False), rails=(BOOL, False),
                                      length=(NUM, False), lanes=(INT, False), sidewalk=(NUM, False), lamps=(BOOL, False), depth=(NUM, False),
                                      variant=(INT, False), pad_margin=(NUM, False), pad_blend=(NUM, False), team=(STR, False), y_from=(NUM, False),
-                                     y_to=(NUM, False), pier_spacing=(NUM, False), segment=(NUM, False), target=(STR, False), bottom=(STR, False, ("void", "glow")), dressing=(STR, False, ("minimal", "full")), stairs=(STR, False, ("from", "to", "both", "none")), **{"from": (V2, False)})),
+                                     y_to=(NUM, False), pier_spacing=(NUM, False), segment=(NUM, False), target=(STR, False), travel=(NUM, False), travel_s=(NUM, False), comes_from=(STR, False), shaft=(NUM, False), car_height=(NUM, False), bottom=(STR, False, ("void", "glow")), dressing=(STR, False, ("minimal", "full")), stairs=(STR, False, ("from", "to", "both", "none")), **{"from": (V2, False)})),
     "pipes": (LIST, False, dict(ELEMENT, id=(STR, True), kind=(STR, False, ("outlet", "run")), wall=(STR, False, ("north", "south", "east", "west", "ne", "nw", "se", "sw")),
                                 at=(NUM, False), position=(LIST, False), yaw=(NUM, False), y=(NUM, False), radius=(NUM, False), length=(NUM, False), pour=(BOOL, False),
                                 pour_material=(STR, False), points=(LIST, False), notes=(STR, False), width=(NUM, False),
@@ -59,7 +62,7 @@ SCHEMA = {
                                  "skyline": (BOOL, False), "spires": (BOOL, False), "town": (BOOL, False), "ground_type": (STR, False),
                                  "ground_color": (("vec", 3), False), "layers": (LIST, False), "source": (STR, False)}),
     "effects": ((STR, LIST, DICT), False),
-    "spawns": (LIST, False, {"id": (STR, False), "on": (STR, False), "position": (V3, False), "yaw": (NUM, False), "team": (STR, False, ("player", "enemy"))}),
+    "spawns": (LIST, False, {"id": (STR, False), "on": (STR, False), "at": (STR, False), "position": (V3, False), "yaw": (NUM, False), "team": (STR, False, ("player", "enemy"))}),
     "gameplay": (DICT, False), "refine": (DICT, False, {"max_passes": (INT, False)}), "notes": (STR, False),
 }
 
@@ -176,7 +179,9 @@ def validate(spec):
         elif p.get("wall") and not A: E.append(f"spec.pipes[{i}]: 'wall' outlets need an arena - use 'position' + 'yaw' in open worlds")
     for i, s in enumerate(spec.get("spawns", [])):
         if s.get("on") and s["on"] not in plats: E.append(f"spec.spawns[{i}].on: unknown platform '{s['on']}'")
-        if not s.get("on") and not s.get("position"): E.append(f"spec.spawns[{i}]: needs 'on' or 'position'")
+        if not s.get("on") and not s.get("position") and not s.get("at"): E.append(f"spec.spawns[{i}]: needs 'on', 'position' or 'at' (an elevator_arrival id)")
+        if s.get("at") and s["at"] not in {x["id"] for x in spec.get("structures", []) if x.get("kind") == "elevator_arrival"}:
+            E.append(f"spec.spawns[{i}].at: '{s['at']}' is not an elevator_arrival structure")
     if isinstance(spec.get("effects"), str) and spec["effects"] not in ("auto", "none"): E.append("spec.effects: 'auto', 'none', a list of Stage 4 effects or {auto, extra, disable}")
     sky = spec.get("atmosphere", {}).get("sky")
     if sky:

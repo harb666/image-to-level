@@ -103,6 +103,9 @@ let FXD=window.FX||null;if(!FXD&&!window.GLB){try{const rq=await fetch(base+'/ef
 const FXQ=['off','performance','balanced','quality'];let fxq=FXD?FXQ.indexOf(FXD.default_quality):0;
 const fxTex={};if(FXD)for(const k in FXD.textures)fxTex[k]=new THREE.TextureLoader().load(window.FXTEX?FXTEX[k]:base+'/'+FXD.textures[k]);
 const byName={};gltf.scene.traverse(o=>{if(o.isMesh)byName[o.name]=o;});
+// roofed levels: the ceiling (objects tagged "cutaway", mobile group nodes) hides while the camera is above it, so orbit / top-down views look in
+const cutN=new Set((meta.objects||[]).filter(o=>o.cutaway).map(o=>o.name)),cutG=new Set((meta.objects||[]).filter(o=>o.cutaway&&o.mobile&&o.mobile.group).map(o=>o.mobile.group));
+const cutY=((meta.environment||{}).indoor||{}).ceiling_y,cutaway=[];if(cutY!=null)gltf.scene.traverse(o=>{if(o.isMesh&&(cutN.has(o.name.split('__')[0])||cutG.has((o.userData||{}).group)))cutaway.push(o);});
 let fxObjs=[],fxUpd=[];
 const PV=`attribute float aSize;attribute float aAlpha;varying float vA;varying float vF;uniform float uScale,uFogN,uFogF;
 void main(){vec4 mv=modelViewMatrix*vec4(position,1.);gl_PointSize=min(aSize*uScale/max(.1,-mv.z),1024.);gl_Position=projectionMatrix*mv;vA=aAlpha;vF=smoothstep(uFogN,uFogF,-mv.z);}`;
@@ -365,6 +368,7 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
     fpos.addScaledVector(new THREE.Vector3(s,0,-f).applyQuaternion(q),12*dt).addScaledVector(UP,8*u*dt);cam.position.copy(fpos);cam.quaternion.copy(q);
   }else{avatar.visible=true;orbit.update();}
   for(const f of fxUpd)f.u&&f.u(now/1000,dt);
+  if(cutaway.length){const show=cam.position.y<cutY-0.3;for(const o of cutaway)o.visible=show;}
   r.render(scene,cam);
   if(showStats){const i=r.info;$('stats').textContent=`browser preview (three.js) - not Godot\nfps ${fpsS.toFixed(0)}  draw calls ${i.render.calls}\ntriangles ${i.render.triangles}\ntextures ${i.memory.textures}  geometries ${i.memory.geometries}\npixel ratio ${r.getPixelRatio().toFixed(2)}  ${M}`;}});
 onresize=()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();r.setSize(innerWidth,innerHeight);};

@@ -158,6 +158,7 @@ class Ctx:
         self.detail = {"low": 0, "medium": 1, "high": 2}[spec.get("detail", "medium")]
         self.variation = spec.get("materials", {}).get("variation", True); self.notes = []; self.platforms = {}; self.element = None
         self.exits = []  # level transit triggers (elevator shafts, portals) -> level.json "exits"
+        self.entrances = []  # arrivals from the previous level (elevator car coming down) -> level.json "entrances"
         self.relations, self.floor_of, self.landings, self.pending_covers = [], {}, [], []  # Stage 8: scene graph + deferred cover
 
     def role(self, r, key=None):
@@ -525,11 +526,43 @@ def arena(ctx, a, floor_y):
                                        "West": (cx - w / 2 + wd / 2, cz, wd, d - 2 * wd), "East": (cx + w / 2 - wd / 2, cz, wd, d - 2 * wd)}.items():
                 platform(ctx, dict(id="Walkway_" + nm, center=[x, z], size=[sw, sd], top=ww["y"], shape="rect", lights=False, cover=0,
                                    style=ww.get("style")), 0.0, (cx, cz))
+    if a.get("ceiling") and W: ceiling(ctx, a, W)
     if a.get("boundary", "walls" if W else "invisible") == "invisible" or not W:
         ctx.element = ("arena.boundary", "inferred"); pts = arena_outline(a)
         for i, (p0, p1) in enumerate(zip(pts, pts[1:] + pts[:1])):
             L = math.hypot(p1[0] - p0[0], p1[1] - p0[1]); yaw = yaw_to((p1[0] - p0[0]) / L, (p1[1] - p0[1]) / L) - 90
             ctx.add(f"Boundary_{i + 1:02d}", "boundary", [(p0[0] + p1[0]) / 2, fl.get("y", 0), (p0[1] + p1[1]) / 2], [L, 12, 0.5], rot=[0, yaw, 0])
+
+
+def ceiling(ctx, a, W):
+    """Indoor arena (arena.ceiling): roof slab resting on the wall tops (y = walls.height), optional round opening
+    ("opening": radius, at "opening_at" [x, z], default the arena centre) for an elevator shaft, a grid of girders
+    under it ("beam_step" m, beams never cross the opening) and lamp panels between them. Every part is tagged
+    "cutaway" (the preview hides it when the camera rises above the roof) and grouped for the mobile export
+    ("mobile.group" "Ceiling": a few separate nodes, never mixed into wall cells)."""
+    C = a["ceiling"] if isinstance(a["ceiling"], dict) else {}; ctx.element = ("arena.ceiling", C.get("source", "visible"))
+    (cx, cz), (w, d) = a.get("center", [0, 0]), a["size"]; t = W.get("thickness", 3.0); y = float(W["height"]) + 0.5  # on the wall caps
+    th = float(C.get("thickness", 1.0)); R = C.get("opening"); ox, oz = C.get("opening_at", [cx, cz])
+    tag = dict(cutaway=True, mobile={"group": "Ceiling"})
+    hole = {} if not R else dict(hole=float(R), collision_mesh=True)
+    if R and (abs(ox - cx) > 0.01 or abs(oz - cz) > 0.01): ctx.notes.append("ceiling opening must be at the arena centre - moved there"); ox, oz = cx, cz
+    ctx.add("Ceiling_Slab", "box", [cx, y, cz], [w + 2 * t + 0.6, th, d + 2 * t + 0.6], C.get("material", "wall"), **hole, **tag, outline=False)
+    step = float(C.get("beam_step", 12.0)); bh = float(C.get("beam_depth", 1.1)); keep = (R or 0) + 0.8
+    xs = [cx + k * step for k in range(-int(w / 2 / step), int(w / 2 / step) + 1) if abs(k * step) < w / 2 - 1 and abs(k * step) > keep]
+    zs = [cz + k * step for k in range(-int(d / 2 / step), int(d / 2 / step) + 1) if abs(k * step) < d / 2 - 1 and abs(k * step) > keep]
+    for i, x in enumerate(xs):  # girders north-south, then east-west (wall face to wall face)
+        ctx.add(f"Ceiling_Beam_NS_{i + 1:02d}", "ibeam", [x, y - bh, cz], [d, bh, 0.6], "frame", None, [0, 90, 0], collision=False, **tag)
+    for i, z in enumerate(zs):
+        ctx.add(f"Ceiling_Beam_EW_{i + 1:02d}", "ibeam", [cx, y - bh - 0.02, z], [w, bh, 0.6], "frame", None, collision=False, **tag)
+    if C.get("lamps", True):  # lamp panels in the bays between the girders (glow material: emissive, no extra light cost)
+        bx = [cx - w / 2] + xs + [cx + w / 2]; bz = [cz - d / 2] + zs + [cz + d / 2]; k = 0
+        for x0, x1 in zip(bx, bx[1:]):
+            for z0, z1 in zip(bz, bz[1:]):
+                mx, mz = (x0 + x1) / 2, (z0 + z1) / 2
+                if R and math.hypot(mx - ox, mz - oz) < R + 3: continue
+                k += 1; ctx.add(f"Ceiling_Lamp_{k:02d}", "box", [mx, y - 0.18, mz], [min(4.0, (x1 - x0) * 0.4), 0.18, min(1.2, (z1 - z0) * 0.2)], "glow", None,
+                                collision=False, outline=False, **tag)
+    ctx.ceiling_y = y; ctx.notes.append(f"ceiling: roof slab at y {y:.1f} m" + (f" with a {R} m opening for the shaft" if R else "") + f", {len(xs) + len(zs)} girders")
 
 
 # ------------------------------------------------------------------ structures
