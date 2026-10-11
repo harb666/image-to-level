@@ -134,7 +134,7 @@ def elevator_arrival(ctx, s, x, y, z, yaw):
                 ctx.add(f"{n}_Shaft_Strip_{i + 1}", "box", [ca * (r - 0.25), y0 + 0.5, sa * (r - 0.25)], [0.2, H - 1.0, 0.08], "glow", sg, [0, ry, 0],
                         collision=False, outline=False, **cut)
         cable = shaft_top - 1.0 - (top + Hc + 0.9)
-        if cable > 0.2: ctx.add(car + "_Cable", "cylinder", [0, Hc + 0.9, 0], [0.32, cable, 0.32], "frame", g, sections=8, collision=False, outline=False, **mob)
+        if cable > 0.2: ctx.add(car + "_Cable", "cylinder", [0, Hc + 0.9, 0], [0.32, cable, 0.32], "frame", g, sections=8, collision=False, outline=False, cutaway=True, **mob)
         travel = round(float(s.get("travel", y0 + 0.3 - top)), 2)
         if top + travel + Hc + 1.35 > shaft_top: ctx.notes.append(f"{n}: car at its start height pokes out of the shaft cap - raise 'shaft'")
     else: travel = round(float(s.get("travel", 12.0)), 2)
