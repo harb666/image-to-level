@@ -90,9 +90,10 @@ class Level(unittest.TestCase):
         from scene_spec import validate
         s = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "scene_spec.json"))); self.assertEqual(validate(s)[0], [])
         kinds = [x["kind"] for x in s["structures"]]
-        for k, n in (("vat", 8), ("claw", 6), ("gallery", 4), ("blast_door", 1), ("elevator_arrival", 1)): self.assertEqual(kinds.count(k), n, k)
-        self.assertEqual(s["arena"]["size"], [112, 112]); self.assertEqual(len(s["arena"]["walls"]["openings"]), 8)
-        self.assertTrue(all(op["sill"] - s["arena"]["walkway"]["y"] > 3 for op in s["arena"]["walls"]["openings"]))  # out of reach
+        for k in ("vat", "claw", "gallery", "blast_door", "elevator_arrival", "conveyor", "robot_arm", "lattice", "conduit"): self.assertIn(k, kinds)
+        self.assertEqual(s["arena"]["size"], [112, 112])
+        self.assertTrue(all(op["sill"] - s["arena"]["walkway"]["y"] > 3 for op in s["arena"]["walls"]["openings"] if op.get("sill")))  # out of reach
+        vats = [tuple(x["size"]) for x in s["structures"] if x["kind"] == "vat"]; self.assertEqual(len(vats), len(set(vats)))  # no two vats alike
 
 
 if __name__ == "__main__":

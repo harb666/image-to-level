@@ -261,7 +261,7 @@ def mothership(L, q):
     m.apply_translation([0, y0, 0]); return m
 
 
-def _along(x, z, along_x, ln, inner):
+def _along_square(x, z, along_x, ln, inner):
     """Keep a long piece (length ln, along x if along_x else along z, centred on x, z) out of the |x|,|z| < inner hall:
     flip it to the other axis when it would reach in; the far side of the ring is always clear along the tangent."""
     def clear(ax):
@@ -279,11 +279,22 @@ def factory_interior(L, q):
     rng = np.random.default_rng(_seed(dict(L, id=L.get("factory_id", "factory_interior")))); part = L.get("part", "hull")
     inner, outer = float(L.get("inner", 66.0)), float(L.get("outer", 160.0)); fy, ry = float(L.get("floor_y", -8.0)), float(L.get("roof_y", 62.0))
     den = q.get("density", 1.0); H, G, Li = [], [], []
+    X0, Z0, X1, Z1 = L.get("extent", [-outer, -outer, outer, outer])  # area filled with factory
+    clear = [list(r) for r in L.get("clear", [[-inner, -inner, inner, inner]])]  # playable enclosures (x0, z0, x1, z1): kept empty
 
-    def spot(lo, hi):
+    def free(x0, z0, x1, z1, m):
+        return all(x1 < c[0] - m or x0 > c[2] + m or z1 < c[1] - m or z0 > c[3] + m for c in clear)
+
+    def spot(lo, hi):  # lo: margin from the playable enclosures, hi: margin from the extent edge (legacy names)
+        m, e = lo - inner, outer - hi
         while True:
-            x, z = rng.uniform(-hi, hi, 2)
-            if lo < max(abs(x), abs(z)) < hi: return float(x), float(z)
+            x, z = float(rng.uniform(X0 + e, X1 - e)), float(rng.uniform(Z0 + e, Z1 - e))
+            if free(x, z, x, z, m): return x, z
+
+    def _along(x, z, ax, ln, _inner):  # a long piece (along x if ax) must stay out of the enclosures: try both axes
+        for a in (ax, not ax):
+            if free(x - ln / 2, z, x + ln / 2, z, 1.0) if a else free(x, z - ln / 2, x, z + ln / 2, 1.0): return a
+        return None
 
     towers = []
     for _ in range(int(L.get("towers", 14) * den)):  # tank towers: base, stacked glowing sections between bands, cap, top pipe
@@ -295,11 +306,13 @@ def factory_interior(L, q):
         H.append(_cyl(r * 0.8, 2.5, x, y, z, 6)); H.append(_cyl(0.9, ry - y, x, y + 2.5, z, 6)); towers.append((x, z, r))
     for _ in range(int(L.get("decks", 16) * den)):  # tiered decks with a rail line and red marker lights, on two legs
         x, z = spot(inner + 4, outer - 6); y = float(rng.choice([v for v in (4.0, 14.0, 24.0, 34.0) if v < ry - 6] or [4.0])); ln = rng.uniform(14, 34); rot = rng.random() < 0.5; rot = _along(x, z, rot, ln, inner)
+        if rot is None: continue
         w, d = (ln, 4.0) if rot else (4.0, ln); H.append(_box(w, 0.8, d, x, y, z)); H.append(_box(w, 0.15, 0.15, x, y + 1.1, z + 1.9) if rot else _box(0.15, 0.15, d, x + 1.9, y + 1.1, z))
         for s_ in (-0.4, 0.4): H.append(_box(0.9, y - fy, 0.9, x + (s_ * w if rot else 0), fy, z + (0 if rot else s_ * d)))
         for k in range(3): Li.append(_box(0.6, 0.3, 0.3, x + ((k - 1) * w * 0.3 if rot else 2.0), y - 0.35, z + (2.0 if rot else (k - 1) * d * 0.3)))
     for _ in range(int(L.get("gantries", 10) * den)):  # gantry trusses at the top with hanging claws
         x, z = spot(inner + 6, outer - 10); y = rng.uniform(min(38.0, ry - 10), ry - 8); ln = rng.uniform(30, 60); rot = rng.random() < 0.5; rot = _along(x, z, rot, ln, inner)
+        if rot is None: continue
         H.append(_box(ln, 1.6, 1.2, x, y, z) if rot else _box(1.2, 1.6, ln, x, y, z))
         for k in range(int(rng.integers(1, 3))):
             o = rng.uniform(-ln / 3, ln / 3); cx, cz = (x + o, z) if rot else (x, z + o); drop = rng.uniform(8, 18)
@@ -312,13 +325,14 @@ def factory_interior(L, q):
     for _ in range(int(L.get("pipes", 10) * den)):  # long horizontal pipes
         x, z = spot(inner + 6, outer - 6); y = rng.uniform(8, min(45.0, ry - 4)); ln = rng.uniform(25, 60); c = _cyl(0.9, ln, 0, -ln / 2, 0, 6)
         along_x = _along(x, z, rng.random() < 0.5, ln, inner)  # rotation about z lays the pipe along x, about x along z
+        if along_x is None: continue
         c.apply_transform(trimesh.transformations.rotation_matrix(np.pi / 2, [0, 0, 1] if along_x else [1, 0, 0])); c.apply_translation([x, y, z]); H.append(c)
-    E = outer + 12; S = []  # roof + enclosing walls ("shell" part: the preview cuts it away from above): no sky anywhere
-    S.append(_box(2 * E, 2.0, 2 * E, 0, ry, 0))
-    for sx, sz, w, d in ((0, -E, 2 * E, 2.0), (0, E, 2 * E, 2.0), (-E, 0, 2.0, 2 * E), (E, 0, 2.0, 2 * E)): S.append(_box(w, ry - fy + 2, d, sx, fy, sz))
+    S = []; ex0, ez0, ex1, ez1 = X0 - 12, Z0 - 12, X1 + 12, Z1 + 12; cxe, cze, We, De = (ex0 + ex1) / 2, (ez0 + ez1) / 2, ex1 - ex0, ez1 - ez0
+    S.append(_box(We, 2.0, De, cxe, ry, cze))  # roof + enclosing walls ("shell" part: the preview cuts it away from above): no sky anywhere
+    for sx, sz, w, d in ((cxe, ez0, We, 2.0), (cxe, ez1, We, 2.0), (ex0, cze, 2.0, De), (ex1, cze, 2.0, De)): S.append(_box(w, ry - fy + 2, d, sx, fy, sz))
     for k in range(int(L.get("roof_lamps", 24))):
         x, z = spot(inner, outer); Li.append(_box(6.0, 0.3, 1.0, x, ry - 0.3, z))
-    G.append(_box(2 * E, 0.5, 2 * E, 0, fy - 0.5, 0))  # the slime sea below
+    G.append(_box(We, 0.5, De, cxe, fy - 0.5, cze))  # the slime sea below
     m = trimesh.util.concatenate({"hull": H, "glass": G, "lights": Li, "shell": S}[part]); return m
 
 

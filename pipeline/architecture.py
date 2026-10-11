@@ -477,7 +477,6 @@ def window_frame(ctx, name, p0, p1, y0, y1, thick, inner):
     for k in range(1, n):
         ctx.add(f"{name}_Mullion_{k:02d}", "box", [-L / 2 + L * k / n, y0, 0], [0.35, y1 - y0, 0.5], "frame", g, collision=False, mobile={"static": True})
     ctx.add(name + "_Transom", "box", [0, y0 + (y1 - y0) * 0.55, 0], [L, 0.35, 0.5], "frame", g, collision=False, mobile={"static": True})
-    ctx.add(name + "_Ledge", "box", [0, y0, 0], [L, 0.25, thick + 0.6], "trim", g, collision=False, mobile={"static": True})
     return g
 
 
@@ -492,12 +491,15 @@ def arena_outline(arena):
 SIDES = {"north": (0, -1), "south": (0, 1), "east": (1, 0), "west": (-1, 0)}
 
 
-def arena(ctx, a, floor_y):
+def arena(ctx, a, floor_y, pre=""):
+    """The arena enclosure; also used for spec "annexes" (extra roofed wings next to it): pre = name prefix
+    ("<id>_"), walls.skip = sides not built (the side shared with the arena, whose wall carries the doorway)."""
     (cx, cz), (w, d) = a.get("center", [0, 0]), a["size"]; fl = a.get("floor", {"kind": "ground"}); sh = a.get("shape", "rect")
+    el = (pre[:-1] if pre else "arena")
     big = [w + 2 * a.get("walls", {}).get("thickness", 2), 0, d + 2 * a.get("walls", {}).get("thickness", 2)]
     if fl["kind"] == "hazard":
-        ctx.element = ("arena.floor", fl.get("source", "visible"))
-        n = ctx.add(fl.get("name", "HazardFluid"), "box" if sh == "rect" else "cylinder", [cx, 0, cz], [w, fl["y"], d], fl.get("material", "hazard"),
+        ctx.element = (el + ".floor", fl.get("source", "visible"))
+        n = ctx.add(fl.get("name", pre + "HazardFluid"), "box" if sh == "rect" else "cylinder", [cx, 0, cz], [w, fl["y"], d], fl.get("material", "hazard"),
                     **({} if sh == "rect" else {"sections": 8 if sh == "octagon" else 24}))
         ctx.hazards.append(n)
     else:
@@ -508,9 +510,11 @@ def arena(ctx, a, floor_y):
         ctx.walkable.append(dict(name=fl.get("name", "Ground"), min=[cx - w / 2 + 1, cz - d / 2 + 1], max=[cx + w / 2 - 1, cz + d / 2 - 1], y=fl["y"]))
     W = a.get("walls")
     if W and W.get("style", "auto") != "none":
-        ctx.element = ("arena.walls", W.get("source", "visible")); style = ctx.theme["wall_style"] if W.get("style", "auto") == "auto" else W["style"]
+        ctx.element = (el + ".walls", W.get("source", "visible")); style = ctx.theme["wall_style"] if W.get("style", "auto") == "auto" else W["style"]
         pts = arena_outline(a); t = W.get("thickness", 3.0); names = ["North", "East", "South", "West"] if sh == "rect" else [f"{i + 1:02d}" for i in range(len(pts))]
+        WN = (pre or "Outer") + "Wall_"
         for i, (p0, p1) in enumerate(zip(pts, pts[1:] + pts[:1])):
+            if sh == "rect" and names[i].lower() in W.get("skip", []): continue
             L = math.hypot(p1[0] - p0[0], p1[1] - p0[1]); ux, uz = (p1[0] - p0[0]) / L, (p1[1] - p0[1]) / L; nx, nz = uz, -ux  # outward normal (clockwise)
             q0 = (p0[0] + nx * t / 2 - ux * t / 2, p0[1] + nz * t / 2 - uz * t / 2); q1 = (p1[0] + nx * t / 2 + ux * t / 2, p1[1] + nz * t / 2 + uz * t / 2)
             SL = math.hypot(q1[0] - q0[0], q1[1] - q0[1]); P = lambda u: (q0[0] + ux * u, q0[1] + uz * u)  # u: metres along the side from q0
@@ -518,9 +522,9 @@ def arena(ctx, a, floor_y):
             cuts = []
             for j, op in enumerate(ops):  # every opening in the SIDE's own coordinates (several per side stay where they were asked)
                 c = SL / 2 + op.get("at", 0); h0, h1 = max(0.0, c - op["width"] / 2), min(SL, c + op["width"] / 2); cuts.append((h0, h1))
-                m0, m1 = P(h0), P(h1); tag = f"OuterWall_{names[i]}_Op{j + 1}"
+                m0, m1 = P(h0), P(h1); tag = f"{WN}{names[i]}_Op{j + 1}"
                 if op.get("height", 0) and op["height"] < W["height"] - 0.5:  # lintel above the opening
-                    wall_segment(ctx, tag + "_Lintel" if len(ops) > 1 else f"OuterWall_{names[i]}_Lintel", m0, m1, W["height"], t, op["height"], style, (cx, cz), decor=False)
+                    wall_segment(ctx, tag + "_Lintel" if len(ops) > 1 else f"{WN}{names[i]}_Lintel", m0, m1, W["height"], t, op["height"], style, (cx, cz), decor=False)
                 if op.get("sill"):  # window: wall kept below the sill (out of reach), frame bars across the opening
                     wall_segment(ctx, tag + "_Sill", m0, m1, op["sill"], t, 0.0, style, (cx, cz), decor=False)
                     if op.get("frame", True): window_frame(ctx, tag + "_Frame", m0, m1, op["sill"], op.get("height") or W["height"], t, (cx, cz))
@@ -529,53 +533,55 @@ def arena(ctx, a, floor_y):
                 if h0 - u > 0.5: segs.append((P(u), P(h0)))
                 u = max(u, h1)
             for k, (s0, s1) in enumerate(segs):
-                nm = f"OuterWall_{names[i]}" + (f"_{k + 1:02d}" if len(segs) > 1 else "")
+                nm = f"{WN}{names[i]}" + (f"_{k + 1:02d}" if len(segs) > 1 else "")
                 wall_segment(ctx, nm, s0, s1, W["height"], t, 0.0, style, (cx, cz))
     if a.get("walkway"):
-        ww = a["walkway"]; ctx.element = ("arena.walkway", ww.get("source", "visible")); wd = ww.get("width", 4.0)
+        ww = a["walkway"]; ctx.element = (el + ".walkway", ww.get("source", "visible")); wd = ww.get("width", 4.0)
         if sh != "rect": ctx.notes.append("walkway ring is only generated for rect arenas")
         else:
             for nm, (x, z, sw, sd) in {"North": (cx, cz - d / 2 + wd / 2, w, wd), "South": (cx, cz + d / 2 - wd / 2, w, wd),
                                        "West": (cx - w / 2 + wd / 2, cz, wd, d - 2 * wd), "East": (cx + w / 2 - wd / 2, cz, wd, d - 2 * wd)}.items():
-                platform(ctx, dict(id="Walkway_" + nm, center=[x, z], size=[sw, sd], top=ww["y"], shape="rect", lights=False, cover=0,
+                platform(ctx, dict(id=pre + "Walkway_" + nm, center=[x, z], size=[sw, sd], top=ww["y"], shape="rect", lights=False, cover=0,
                                    style=ww.get("style")), 0.0, (cx, cz))
-    if a.get("ceiling") and W: ceiling(ctx, a, W)
+    if a.get("ceiling") not in (None, False) and W: ceiling(ctx, a, W, pre)  # {} = a roof with defaults
     if a.get("boundary", "walls" if W else "invisible") == "invisible" or not W:
-        ctx.element = ("arena.boundary", "inferred"); pts = arena_outline(a)
+        ctx.element = (el + ".boundary", "inferred"); pts = arena_outline(a)
         for i, (p0, p1) in enumerate(zip(pts, pts[1:] + pts[:1])):
             L = math.hypot(p1[0] - p0[0], p1[1] - p0[1]); yaw = yaw_to((p1[0] - p0[0]) / L, (p1[1] - p0[1]) / L) - 90
-            ctx.add(f"Boundary_{i + 1:02d}", "boundary", [(p0[0] + p1[0]) / 2, fl.get("y", 0), (p0[1] + p1[1]) / 2], [L, 12, 0.5], rot=[0, yaw, 0])
+            ctx.add(f"{pre}Boundary_{i + 1:02d}", "boundary", [(p0[0] + p1[0]) / 2, fl.get("y", 0), (p0[1] + p1[1]) / 2], [L, 12, 0.5], rot=[0, yaw, 0])
 
 
-def ceiling(ctx, a, W):
+def ceiling(ctx, a, W, pre=""):
     """Indoor arena (arena.ceiling): roof slab resting on the wall tops (y = walls.height), optional round opening
     ("opening": radius, at "opening_at" [x, z], default the arena centre) for an elevator shaft, a grid of girders
     under it ("beam_step" m, beams never cross the opening) and lamp panels between them. Every part is tagged
     "cutaway" (the preview hides it when the camera rises above the roof) and grouped for the mobile export
     ("mobile.group" "Ceiling": a few separate nodes, never mixed into wall cells)."""
-    C = a["ceiling"] if isinstance(a["ceiling"], dict) else {}; ctx.element = ("arena.ceiling", C.get("source", "visible"))
+    C = a["ceiling"] if isinstance(a["ceiling"], dict) else {}; ctx.element = ((pre[:-1] if pre else "arena") + ".ceiling", C.get("source", "visible"))
     (cx, cz), (w, d) = a.get("center", [0, 0]), a["size"]; t = W.get("thickness", 3.0); y = float(W["height"]) + 0.5  # on the wall caps
     th = float(C.get("thickness", 1.0)); R = C.get("opening"); ox, oz = C.get("opening_at", [cx, cz])
     tag = dict(cutaway=True, mobile={"group": "Ceiling"})
     hole = {} if not R else dict(hole=float(R), collision_mesh=True)
     if R and (abs(ox - cx) > 0.01 or abs(oz - cz) > 0.01): ctx.notes.append("ceiling opening must be at the arena centre - moved there"); ox, oz = cx, cz
-    ctx.add("Ceiling_Slab", "box", [cx, y, cz], [w + 2 * t + 0.6, th, d + 2 * t + 0.6], C.get("material", "wall"), **hole, **tag, outline=False)
+    sk = W.get("skip", []); ex = {s_: (-0.3 if s_ in sk else t + 0.3) for s_ in ("north", "south", "east", "west")}  # a skipped side meets the arena's slab edge
+    x0, x1, z0, z1 = cx - w / 2 - ex["west"], cx + w / 2 + ex["east"], cz - d / 2 - ex["north"], cz + d / 2 + ex["south"]
+    ctx.add(pre + "Ceiling_Slab", "box", [(x0 + x1) / 2, y, (z0 + z1) / 2], [x1 - x0, th, z1 - z0], C.get("material", "wall"), **hole, **tag, outline=False)
     step = float(C.get("beam_step", 12.0)); bh = float(C.get("beam_depth", 1.1)); keep = (R or 0) + 0.8
     xs = [cx + k * step for k in range(-int(w / 2 / step), int(w / 2 / step) + 1) if abs(k * step) < w / 2 - 1 and abs(k * step) > keep]
     zs = [cz + k * step for k in range(-int(d / 2 / step), int(d / 2 / step) + 1) if abs(k * step) < d / 2 - 1 and abs(k * step) > keep]
     for i, x in enumerate(xs):  # girders north-south, then east-west (wall face to wall face)
-        ctx.add(f"Ceiling_Beam_NS_{i + 1:02d}", "ibeam", [x, y - bh, cz], [d, bh, 0.6], "frame", None, [0, 90, 0], collision=False, **tag)
+        ctx.add(f"{pre}Ceiling_Beam_NS_{i + 1:02d}", "ibeam", [x, y - bh, cz], [d, bh, 0.6], "frame", None, [0, 90, 0], collision=False, outline=False, **tag)
     for i, z in enumerate(zs):
-        ctx.add(f"Ceiling_Beam_EW_{i + 1:02d}", "ibeam", [cx, y - bh - 0.02, z], [w, bh, 0.6], "frame", None, collision=False, **tag)
+        ctx.add(f"{pre}Ceiling_Beam_EW_{i + 1:02d}", "ibeam", [cx, y - bh - 0.02, z], [w, bh, 0.6], "frame", None, collision=False, outline=False, **tag)
     if C.get("lamps", True):  # lamp panels in the bays between the girders (glow material: emissive, no extra light cost)
         bx = [cx - w / 2] + xs + [cx + w / 2]; bz = [cz - d / 2] + zs + [cz + d / 2]; k = 0
         for x0, x1 in zip(bx, bx[1:]):
             for z0, z1 in zip(bz, bz[1:]):
                 mx, mz = (x0 + x1) / 2, (z0 + z1) / 2
                 if R and math.hypot(mx - ox, mz - oz) < R + 3: continue
-                k += 1; ctx.add(f"Ceiling_Lamp_{k:02d}", "box", [mx, y - 0.18, mz], [min(4.0, (x1 - x0) * 0.4), 0.18, min(1.2, (z1 - z0) * 0.2)], "glow", None,
+                k += 1; ctx.add(f"{pre}Ceiling_Lamp_{k:02d}", "box", [mx, y - 0.18, mz], [min(4.0, (x1 - x0) * 0.4), 0.18, min(1.2, (z1 - z0) * 0.2)], "glow", None,
                                 collision=False, outline=False, **tag)
-    ctx.ceiling_y = y; ctx.notes.append(f"ceiling: roof slab at y {y:.1f} m" + (f" with a {R} m opening for the shaft" if R else "") + f", {len(xs) + len(zs)} girders")
+    ctx.ceiling_y = y; ctx.notes.append(f"{pre}ceiling: roof slab at y {y:.1f} m" + (f" with a {R} m opening for the shaft" if R else "") + f", {len(xs) + len(zs)} girders")
 
 
 # ------------------------------------------------------------------ structures
@@ -874,7 +880,10 @@ def pipe(ctx, p, floor_y, arena_spec):
         else:
             sx, sz = SIDES[side]; embed = 0.4; x = cx + sx * (w / 2 + embed) + (at if sz else 0); z = cz + sz * (d / 2 + embed) + (at if sx else 0); yaw = yaw_to(-sx, -sz)
     L += embed; dx, dz = math.sin(math.radians(yaw)), math.cos(math.radians(yaw)); n = p["id"]; ox, oz = x + dx * L, z + dz * L
-    pool = (ctx.hazards or [None])[0]; mat = p.get("pour_material", "hazard")
+    mat = p.get("pour_material", "hazard"); by_ = {o["name"]: o for o in ctx.objects}
+    def _in(h, px, pz):
+        o = by_.get(h); return o is not None and o.get("size") and abs(px - o["position"][0]) <= o["size"][0] / 2 and abs(pz - o["position"][2]) <= o["size"][2] / 2
+    pool = next((h for h in ctx.hazards if _in(h, x + dx * L, z + dz * L)), (ctx.hazards or [None])[0])  # the pool under the outlet (annexes have their own)
     if out_t in ("circle", "broken", "vertical"):
         if out_t == "vertical":  # pipe hanging down from (x, y, z): outlet at the bottom
             src = ctx.add(n, "cylinder", [x, y, z], [2 * r, L, 2 * r], "pipe", rot=[180, 0, 0], sections=10); oy = y - L; ox, oz = x, z

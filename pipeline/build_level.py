@@ -79,7 +79,8 @@ def _outlined(o, OL):
     sz = o.get("size") or [0, 0, 0]
     if o.get("outline") is not True and max(sz[0], sz[2]) > OL.get("max_footprint", 1e9): return False  # big decks / bodies: their edges already read; a hull there is a heavy black slab
     return (o["type"] not in OL.get("skip_types", []) and (o.get("material") not in OL.get("skip_materials", []) or o.get("outline") is True) and o.get("outline", True)
-            and max(sz) >= OL.get("min_size", 0.25) and min(sz) > 0.0)
+            and max(sz) >= OL.get("min_size", 0.25) and min(sz) > 0.0
+            and (o.get("outline") is True or sorted(sz)[1] >= OL.get("min_thickness", 0.0)))  # thin bars (chains, mullions, rails): no shell
 
 
 def _ol_width(o, OL):
@@ -134,6 +135,7 @@ def build(level_dir):
                 mats[mk + "__2s"] = material(mk + "__2s", L["materials"][mk]); mats[mk + "__2s"].doubleSided = True
             mk = mk + "__2s"
         bevel = L["materials"].get(o.get("material"), {}).get("bevel", 0.0)
+        if bevel and o["type"] == "box" and sorted(o.get("size") or [0, 0, 0])[1] < (L.get("style") or {}).get("bevel_min", 0.0): bevel = 0.0  # thin / small: a bevel never reads (x3.7 triangles)
         key = json.dumps([{k: v for k, v in o.items() if k not in ("name", "position", "rotation", "parent")}, mk, bevel], sort_keys=True)
         if key in geoms:  # identical part (window/door/...) -> reuse the same mesh (glTF instancing)
             scene.graph.update(frame_from=parent, frame_to=o["name"], matrix=T, geometry=geoms[key])

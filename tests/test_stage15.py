@@ -72,7 +72,7 @@ class Campaign(unittest.TestCase):
         sky = json.load(open(os.path.join(ROOT, "levels", "skyforge_arena", "level.json")))
         self.assertEqual(sky["exits"][0]["target"], "slime_arena"); self.assertEqual(sky["campaign"]["next"], "slime_arena")
         spec = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "scene_spec.json"))); self.assertEqual(validate(spec)[0], [])
-        self.assertEqual(spec["campaign"], {"level": 1, "part": 2, "parts": 3, "previous": "skyforge_arena"})
+        self.assertEqual({k: spec["campaign"][k] for k in ("level", "part", "parts", "previous")}, {"level": 1, "part": 2, "parts": 3, "previous": "skyforge_arena"})
         self.assertFalse(any(s["kind"] == "tower" for s in spec["structures"]))
         self.assertEqual(next(s for s in spec["structures"] if s["kind"] == "elevator_arrival")["comes_from"], "skyforge_arena")
 

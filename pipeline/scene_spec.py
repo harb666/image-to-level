@@ -30,7 +30,7 @@ SCHEMA = {
                            "floor": (DICT, True, {"kind": (STR, True, ("hazard", "ground", "deck")), "y": (NUM, True), "material": (STR, False), "name": (STR, False), "source": (STR, False)}),
                            "walls": (DICT, False, {"height": (NUM, True), "thickness": (NUM, False), "style": (STR, False, ("auto", "industrial", "stone", "none")), "source": (STR, False),
                                                    "openings": (LIST, False, {"side": (STR, True, ("north", "south", "east", "west")), "at": (NUM, False), "width": (NUM, True), "height": (NUM, False),
-                                                                                   "sill": (NUM, False), "frame": (BOOL, False)})}),
+                                                                                   "sill": (NUM, False), "frame": (BOOL, False)}), "skip": (LIST, False)}),
                            "walkway": (DICT, False, {"width": (NUM, False), "y": (NUM, True), "style": (STR, False), "source": (STR, False)}),
                            "ceiling": (DICT, False, {"opening": (NUM, False), "opening_at": (V2, False), "thickness": (NUM, False), "beam_step": (NUM, False),
                                                      "beam_depth": (NUM, False), "lamps": (BOOL, False), "material": (STR, False), "source": (STR, False)}),
@@ -47,7 +47,7 @@ SCHEMA = {
                                      to=(V2, False), inner=(V2, False), notes=(STR, False), y=(NUM, False), width=(NUM, False), rails=(BOOL, False),
                                      length=(NUM, False), lanes=(INT, False), sidewalk=(NUM, False), lamps=(BOOL, False), depth=(NUM, False),
                                      variant=(INT, False), pad_margin=(NUM, False), pad_blend=(NUM, False), team=(STR, False), y_from=(NUM, False),
-                                     y_to=(NUM, False), pier_spacing=(NUM, False), segment=(NUM, False), target=(STR, False), travel=(NUM, False), travel_s=(NUM, False), comes_from=(STR, False), shaft=(NUM, False), car_height=(NUM, False), bottom=(STR, False, ("void", "glow")), dressing=(STR, False, ("minimal", "full")), stairs=(STR, False, ("from", "to", "both", "none")), **{"from": (V2, False)})),
+                                     y_to=(NUM, False), pier_spacing=(NUM, False), segment=(NUM, False), target=(STR, False), travel=(NUM, False), travel_s=(NUM, False), comes_from=(STR, False), parcels=(NUM, False), pose=(LIST, False), scale=(NUM, False), step=(NUM, False), channel_side=(NUM, False), open=(BOOL, False), pedestal=(NUM, False), banner=(BOOL, False), sections=(INT, False), shaft=(NUM, False), car_height=(NUM, False), bottom=(STR, False, ("void", "glow")), dressing=(STR, False, ("minimal", "full")), stairs=(STR, False, ("from", "to", "both", "none")), **{"from": (V2, False)})),
     "pipes": (LIST, False, dict(ELEMENT, id=(STR, True), kind=(STR, False, ("outlet", "run")), wall=(STR, False, ("north", "south", "east", "west", "ne", "nw", "se", "sw")),
                                 at=(NUM, False), position=(LIST, False), yaw=(NUM, False), y=(NUM, False), radius=(NUM, False), length=(NUM, False), pour=(BOOL, False),
                                 pour_material=(STR, False), points=(LIST, False), notes=(STR, False), width=(NUM, False),
@@ -66,6 +66,9 @@ SCHEMA = {
     "spawns": (LIST, False, {"id": (STR, False), "on": (STR, False), "at": (STR, False), "position": (V3, False), "yaw": (NUM, False), "team": (STR, False, ("player", "enemy"))}),
     "gameplay": (DICT, False), "refine": (DICT, False, {"max_passes": (INT, False)}), "notes": (STR, False),
 }
+import copy as _copy
+SCHEMA["annexes"] = (LIST, False, dict(_copy.deepcopy(SCHEMA["arena"][2]), id=(STR, True), notes=(STR, False)))  # Stage 17: extra roofed wings
+SCHEMA["annexes"][2]["floor"] = (DICT, False, SCHEMA["arena"][2]["floor"][2])  # default: the arena's floor
 
 
 FEATURE = dict(ELEMENT, id=(STR, True), type=(STR, True, None), center=(V2, False), radius=(NUM, False), height=(NUM, False), depth=(NUM, False),
@@ -92,7 +95,7 @@ NEEDS = {"hill": ("center", "radius", "height"), "mountain": ("center", "radius"
          "ridge": ("points", "height"), "barrier": ("points", "height"), "valley": ("points",), "canyon": ("points",), "river": ("points",), "road": ("points",),
          "path": ("points",), "street": ("points",), "cliff": ("points", "height"), "coast": ("points",), "pad": ("center",), "heightmap": ("image", "area"),
          "mask": ("image", "area")}
-LINE_KINDS = ("gallery", "wall", "bridge", "street", "walkway", "tunnel", "barrier_line", "pipeline", "fence")
+LINE_KINDS = ("gallery", "conveyor", "conduit", "wall", "bridge", "street", "walkway", "tunnel", "barrier_line", "pipeline", "fence")
 
 
 def _type_ok(v, t):
@@ -156,7 +159,8 @@ def validate(spec):
     for i, p in enumerate(spec.get("platforms", [])):
         if min(p["size"]) <= 0.5: E.append(f"spec.platforms[{i}].size: too small ({p['size']})")
         if A and p["top"] <= A["floor"]["y"] - 0.01 and A["floor"]["kind"] != "hazard": W.append(f"spec.platforms[{i}].top: at/below the arena floor")
-        if A and not Wd and (abs(p["center"][0] - cx) > hw + 1 or abs(p["center"][1] - cz) > hd + 1): W.append(f"spec.platforms[{i}]: centre outside the arena")
+        rooms = [((cx, cz), (hw, hd))] + [(tuple(x.get("center", [0, 0])), (x["size"][0] / 2, x["size"][1] / 2)) for x in spec.get("annexes", [])]  # arena + annexes
+        if A and not Wd and all(abs(p["center"][0] - c[0]) > h[0] + 1 or abs(p["center"][1] - c[1]) > h[1] + 1 for c, h in rooms): W.append(f"spec.platforms[{i}]: centre outside the arena")
         if p["top"] > 60: W.append(f"spec.platforms[{i}].top: {p['top']} m is very high - metres?")
     for i, c in enumerate(spec.get("connections", [])):
         for k in ("from", "to"):

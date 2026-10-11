@@ -36,6 +36,7 @@ def generate(spec, G, level_dir=None):
     centre = tuple(ar.get("center", [0, 0])) if ar else tuple(W.get("center") or [(a + b) / 2 for a, b in zip(WM.extent_of(W)[:2], WM.extent_of(W)[2:])])
     if W: _, auto = WM.build_world(ctx, spec, W, fy, centre)  # Stage 9: terrain definition, pads, foundations, boundary, auto bridges
     if ar: A.arena(ctx, ar, fy)
+    for ax in spec.get("annexes", []): A.arena(ctx, dict(ax, floor=ax.get("floor") or ar["floor"]), fy, pre=ax["id"] + "_")  # extra roofed wings (Stage 17)
     for t in spec.get("terrain", []):
         ctx.element = (t["id"], t.get("source", "visible")); A.terrain(ctx, t, fy)
     base_y = 0.0 if ar and ar["floor"]["kind"] == "hazard" else fy

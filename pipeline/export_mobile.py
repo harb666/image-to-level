@@ -241,7 +241,9 @@ def export(level_dir, profile=None):
         if mat == "ink":  # cartoon outline shells: untextured + cheap -> coarse cells (4x), never split off as props (fewer draw calls)
             ic = P["cell"] * 4; o0 = np.add(L["bounds"]["min"], L["bounds"]["max"]) / 2 - ic / 2  # grid centred on the level (no split at x/z = 0)
             key = ("S", int((c[0] - o0[0]) // ic), int((c[2] - o0[2]) // ic), mat)
-        else: key = ("P" if small else "S", int(c[0] // P["cell"]), int(c[2] // P["cell"]), mat)
+        else:  # cells on a grid centred on the level (a grid anchored at 0 splits a centred level in two)
+            g0 = np.add(L["bounds"]["min"], L["bounds"]["max"]) / 2 - P["cell"] / 2
+            key = ("P" if small else "S", int((c[0] - g0[0]) // P["cell"]), int((c[2] - g0[2]) // P["cell"]), mat)
         groups.setdefault(key, []).append((node, m))
     manifest_nodes, ranges, extras, pick = [], {}, {}, {}
     glow = {k for k, v in L["materials"].items() if v.get("emissive")}

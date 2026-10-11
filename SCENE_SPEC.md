@@ -465,3 +465,20 @@ Building blocks usable without the preset:
   GLB into `mobile/pick.json` (preview only). Indoor levels render a 512 px sky (only ambient light uses it). Background
   meshes share corner vertices (faces stay flat). A level without background no longer keeps a stale
   `background_mobile.glb`. `package.py --game` leaves out `level.glb`, `background.glb` and `mobile/pick.json`.
+
+## Stage 17: the Toxic Works (annexes, zone kit, exit door, size settings)
+- `"annexes": [{id, center, size, floor?, walls {height, thickness, skip: ["south"], openings}, ceiling, walkway?}]`:
+  extra rect enclosures built like the arena (slime floor, walls with windows / doorways, roof with girders + lamps),
+  names prefixed `<id>_`. `walls.skip` leaves out the side shared with the arena: put the annex's inner edge on the
+  arena wall's OUTER face and cut the doorway into the arena wall (`openings` with a `height`); the two roof slabs then
+  meet edge to edge. Platforms inside an annex are fine (the "outside the arena" warning knows annexes).
+- Zone kit (`pipeline/modules/factory.py`): `conveyor` (from/to/y/width/parcels: 0.75 m bed = low cover, rollers, lit
+  edges, crates riding on it), `robot_arm` (position [x, y, z], pose [shoulder, elbow] deg or from the id, scale,
+  pedestal m down to the slime), `lattice` (maintenance-shaft frame: posts, rings every 4 m, braces, lit ladder, service
+  cage), `conduit` (from/to/y/width/height/step: arch ribs with light bars and a spine pipe over a walkway),
+  `blast_door` `"open": true` (+ `"target"`: a `level_exit` trigger in the doorway and a dark corridor panel).
+- `style.bevel_min` (m): boxes whose middle dimension is below it get no bevel (a bevelled box is ~44 triangles, a
+  plain one 12; under toon ink lines the bevel of a thin part never reads). `style.outline.min_thickness` (m): no ink
+  shell on thin bars (chains, mullions, braces, rails). Mobile cells sit on a grid centred on the level.
+- `factory_interior` background: `extent` [x0, z0, x1, z1] (filled area) and `clear` (list of rects kept empty = every
+  playable room incl. walls); long pieces run along whichever axis stays out of the rooms.
