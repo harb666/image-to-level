@@ -29,7 +29,8 @@ ALIEN_CARTOON = {
         "accent":      {"type": "banner", "color": [0.78, 0.05, 0.1], "tile_m": 2.0, "emissive": [1, 1, 1], "toon": True, "res": 512,
                         # pennant banners with a glowing emblem ("emblem": image path overrides the procedural one) + slime decal cells
                         "panel_cut": "pennant", "emblem_aspect": 1.55, "emblem_band": [0.2, 0.8], "emblem_color": [1.0, 0.16, 0.2],
-                        "atlas": {"banner": [0, 0, 0.75, 1], "drip": [0.78, 0.52, 0.98, 0.98], "puddle": [0.78, 0.02, 0.98, 0.48]}},
+                        "atlas": {"banner": [0, 0, 0.68, 1], "void": [0.7, 0.02, 0.77, 0.32], "drip": [0.79, 0.52, 0.98, 0.98], "puddle": [0.79, 0.02, 0.98, 0.48]},
+                        "void_top": [0.2, 0.15, 0.27], "void_black": 0.45},
         "rail":        {"type": "painted_metal", "color": [0.85, 0.08, 0.1], "tile_m": 2.0, "res": 128, "wear": 0.02, "toon": True},
         "grate":       {"type": "grating", "color": [0.27, 0.22, 0.35], "tile_m": 2.0, "toon": True},
         "machine":     {"type": "machinery_panel", "color": [0.3, 0.24, 0.38], "tile_m": 2.0, "accent": [0.45, 1.0, 0.2], "emissive": [1, 1, 1], "toon": True},

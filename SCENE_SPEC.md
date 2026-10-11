@@ -380,4 +380,10 @@ Building blocks usable without the preset:
   slime runs down one or two faces of randomly picked structures (reproducible), sometimes pooling at the base; they
   avoid banners, are visual only (collision false, navigation and colliders unchanged) and, on an atlas material,
   add no material or draw call (`pipeline/weathering.py`).
+- `elevator_shaft` `"bottom": "void"` (default) | `"glow"`: void = the lower 70 % of the shaft is wrapped in a dark
+  sleeve (panel cut `"sleeve"`) whose wall fades from the wall colour into pure black, with a black bottom and the lower
+  light ring / strips removed, so the shaft reads bottomless. The black comes from the banner atlas cell `"void"`
+  (`void_top`, `void_black`; ambient occlusion 0 there, so no sky light or reflection) - no extra draw call; levels
+  without that atlas use a plain black `void` role. The preview's toon shading now drops direct specular, like the
+  Godot toon style (`specular_mode disabled`).
 

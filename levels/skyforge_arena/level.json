@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Skyforge Arena",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "9a7ccb61eae9f39e",
+  "spec_sha": "0419f69c382d82b6",
   "theme": "scifi",
   "detail": "medium",
   "mode": "open"
@@ -889,22 +889,34 @@
     "banner": [
      0,
      0,
-     0.75,
+     0.68,
      1
     ],
+    "void": [
+     0.7,
+     0.02,
+     0.77,
+     0.32
+    ],
     "drip": [
-     0.78,
+     0.79,
      0.52,
      0.98,
      0.98
     ],
     "puddle": [
-     0.78,
+     0.79,
      0.02,
      0.98,
      0.48
     ]
    },
+   "void_top": [
+    0.2,
+    0.15,
+    0.27
+   ],
+   "void_black": 0.45,
    "emblem": "levels/skyforge_arena/references/banner_emblem_ref.png"
   },
   "deck": {
@@ -6811,30 +6823,6 @@
    "source": "visible"
   },
   {
-   "name": "Elevator_GlowFloor",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    29.7,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Elevator",
-   "size": [
-    11.0,
-    0.12,
-    11.0
-   ],
-   "material": "glow",
-   "sections": 24,
-   "gen": "Elevator",
-   "source": "visible"
-  },
-  {
    "name": "Elevator_Pilaster_1",
    "type": "box",
    "position": [
@@ -6863,7 +6851,7 @@
    "type": "box",
    "position": [
     4.601,
-    30.3,
+    36.61,
     1.906
    ],
    "rotation": [
@@ -6874,7 +6862,7 @@
    "parent": "Elevator",
    "size": [
     0.22,
-    8.7,
+    2.39,
     0.08
    ],
    "material": "glow",
@@ -6937,7 +6925,7 @@
    "type": "box",
    "position": [
     -1.906,
-    30.3,
+    36.61,
     4.601
    ],
    "rotation": [
@@ -6948,7 +6936,7 @@
    "parent": "Elevator",
    "size": [
     0.22,
-    8.7,
+    2.39,
     0.08
    ],
    "material": "glow",
@@ -7011,7 +6999,7 @@
    "type": "box",
    "position": [
     -4.601,
-    30.3,
+    36.61,
     -1.906
    ],
    "rotation": [
@@ -7022,7 +7010,7 @@
    "parent": "Elevator",
    "size": [
     0.22,
-    8.7,
+    2.39,
     0.08
    ],
    "material": "glow",
@@ -7085,7 +7073,7 @@
    "type": "box",
    "position": [
     1.906,
-    30.3,
+    36.61,
     -4.601
    ],
    "rotation": [
@@ -7096,7 +7084,7 @@
    "parent": "Elevator",
    "size": [
     0.22,
-    8.7,
+    2.39,
     0.08
    ],
    "material": "glow",
@@ -7135,7 +7123,7 @@
    "type": "cylinder",
    "position": [
     0.0,
-    32.275,
+    38.455,
     0.0
    ],
    "rotation": [
@@ -7156,11 +7144,11 @@
    "source": "visible"
   },
   {
-   "name": "Elevator_LightRing_2",
-   "type": "cylinder",
+   "name": "Elevator_Void",
+   "type": "panel",
    "position": [
     0.0,
-    36.395,
+    29.82,
     0.0
    ],
    "rotation": [
@@ -7170,13 +7158,18 @@
    ],
    "parent": "Elevator",
    "size": [
-    11.02,
-    0.3,
-    11.02
+    9.76,
+    7.11,
+    0.0
    ],
-   "material": "glow",
-   "sections": 16,
-   "hole": 5.35,
+   "material": "accent",
+   "cut": "sleeve",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
    "gen": "Elevator",
    "source": "visible"
   },
@@ -18871,12 +18864,12 @@
  "spawn_regions": [],
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 72399,
-  "objects": 695,
+  "triangles": 72119,
+  "objects": 694,
   "materials": 28,
-  "glb_kb": 4457,
-  "nodes": 990,
-  "draw_calls_unbatched": 949,
+  "glb_kb": 4455,
+  "nodes": 989,
+  "draw_calls_unbatched": 948,
   "draw_calls_batched_min": 22,
   "images": 58,
   "tex_mem_gpu_compressed_mb": 7.15,

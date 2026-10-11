@@ -3,7 +3,8 @@
   {"id": "Elevator", "kind": "elevator_shaft", "on": "Hub", "radius": 5.5, "target": "next_level"}
 
 Cuts a real round hole through the platform it stands on (floor plate, trim, body, underframe -> hollow rings with
-concave colliders), lines it with a shaft (wall, pilasters with light strips, light rings, glowing floor), dresses the
+concave colliders), lines it with a shaft (wall, pilasters with light strips, light rings; "bottom": "void" (default) = the lower
+walls fade into pure black with no floor in sight - reads bottomless; "glow" = lit red floor), dresses the
 rim (lip, ring of light panels, emblem plates, outer light ring, radial strips) and registers a level_exit trigger
 volume inside the shaft (level.json "exits" -> collision.json triggers -> Godot Area3D; the preview shows the exit).
 Must sit at the centre of its platform (offset [0, 0]); works on any platform style / shape (sky_pylon: the shaft ends where
@@ -40,14 +41,21 @@ def elevator_shaft(ctx, s, x, y, z, yaw):
         else: o["hole"] = R + T; o["collision_mesh"] = True
     g = ctx.add(n, "group", [x, 0, z]); depth = top - yb; seg = 24
     ctx.add(n + "_Liner", "cylinder", [0, yb, 0], [2 * (R + T), depth, 2 * (R + T)], "structure_b", g, sections=seg, hole=R, collision_mesh=True, outline=False)  # outer face hidden in the deck
-    ctx.add(n + "_GlowFloor", "cylinder", [0, yb, 0], [2 * R, 0.12, 2 * R], "glow", g, sections=seg)  # the lift glow far below
-    for i in range(8):  # pilasters around the wall, light strips on every other one
+    void = s.get("bottom", "void") != "glow"  # "void": walls fade into pure black, no floor in sight (reads bottomless)
+    fade = 0.7 if void else 0.0  # lower part of the shaft hidden by the dark sleeve
+    if not void: ctx.add(n + "_GlowFloor", "cylinder", [0, yb, 0], [2 * R, 0.12, 2 * R], "glow", g, sections=seg)  # the lift glow far below
+    for i in range(8):  # pilasters around the wall, light strips on every other one (above the dark part)
         a = 2 * math.pi * (i + 0.5) / 8; ca, sa = math.cos(a), math.sin(a); r = R - 0.22
         ctx.add(f"{n}_Pilaster_{i + 1}", "box", [ca * r, yb, sa * r], [0.9, depth - 0.25, 0.5], "structure_b", g, [0, -math.degrees(a) + 90, 0], bevel=0)
         if i % 2 == 0:
-            ctx.add(f"{n}_Strip_{i + 1}", "box", [ca * (r - 0.3), yb + 0.6, sa * (r - 0.3)], [0.22, depth - 1.6, 0.08], "glow", g, [0, -math.degrees(a) + 90, 0], mobile={"static": True})
-    for j, f in enumerate((0.25, 0.65)):  # light rings set into the wall
+            y0 = yb + max(0.6, depth * fade - 0.3)
+            ctx.add(f"{n}_Strip_{i + 1}", "box", [ca * (r - 0.3), y0, sa * (r - 0.3)], [0.22, top - 1.0 - y0, 0.08], "glow", g, [0, -math.degrees(a) + 90, 0], mobile={"static": True})
+    for j, f in enumerate((0.85,) if void else (0.25, 0.65)):  # light rings set into the wall
         ctx.add(f"{n}_LightRing_{j + 1}", "cylinder", [0, yb + depth * f, 0], [2 * R + 0.02, 0.3, 2 * R + 0.02], "glow", g, sections=16, hole=R - 0.15)
+    if void:  # dark sleeve in front of the lower wall + black bottom: wall colour at its top edge fading to black (atlas "void" cell)
+        roles = ctx.spec.get("materials", {}).get("roles", {}); atl = (roles.get("accent") or {}).get("atlas") or {}
+        ctx.add(n + "_Void", "panel", [0, yb + 0.12, 0], [2 * (R - 0.62), depth * fade - 0.1, 0], "accent" if "void" in atl else "void", g,
+                cut="sleeve", uv_region="void", collision=False, outline=False, mobile={"static": True})
     ctx.add(n + "_Rim", "cylinder", [0, top, 0], [2 * (R + 1.0), 0.14, 2 * (R + 1.0)], "trim", g, sections=seg, hole=R)
     for i in range(16):  # ring of light panels, emblem plates at the diagonals
         a = 2 * math.pi * i / 16; ca, sa = math.cos(a), math.sin(a); r = R + 2.3

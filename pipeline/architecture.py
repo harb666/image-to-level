@@ -136,6 +136,7 @@ FALLBACK = {"foundation": "structure_b", "timber": "frame", "stone": "structure"
 def role_material(theme, role):
     """Material definition for a role (variants '<role>_v2' get a tint/wear shift; missing roles fall back sensibly)."""
     roles = THEMES[theme]["roles"]; base = role[:-3] if role.endswith("_v2") else role; seen = set()
+    if base == "void" and "void" not in roles: return {"type": "concrete", "color": [0.0, 0.0, 0.0], "tile_m": 4.0}  # pure black (bottomless pits)
     r = base
     while r not in roles and r not in seen: seen.add(r); r = FALLBACK.get(r, "wall")
     m = dict(roles.get(r, _IND["wall"]))

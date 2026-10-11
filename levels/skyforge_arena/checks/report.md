@@ -4,9 +4,9 @@ errors 0 · warnings 0 · info 0
 
 | metric | dev | mobile |
 |---|---|---|
-| file KB | 4457 | 5068 |
-| triangles | 72399 | 94683 |
-| draw calls (measured) | 949 | 138 |
+| file KB | 4455 | 5059 |
+| triangles | 72119 | 94403 |
+| draw calls (measured) | 948 | 138 |
 | visible draw calls (estimate) | - | 59.4 |
 | GPU texture MB (estimate) | 7.15 | 7.15 |
 

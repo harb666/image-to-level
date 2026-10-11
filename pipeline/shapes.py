@@ -294,7 +294,8 @@ def cut_panel(w, h, cut, seed=0, layout=None):
     "pennant": banner with a swallowtail V-cut at the bottom; layout (h_emblem_rel, v_bands) maps the middle band
       to a fixed-aspect emblem area of the texture so the emblem never stretches whatever the banner's aspect.
     "drip": liquid running down a wall: a band along the top edge with 2-4 tongues of random length.
-    "blob": irregular puddle (in the panel plane; lay it flat with rotation [-90, yaw, 0])."""
+    "blob": irregular puddle (in the panel plane; lay it flat with rotation [-90, yaw, 0]).
+    "sleeve": inward-facing open cylinder + bottom disc (bottomless-shaft darkness, atlas cell "void")."""
     rng = np.random.default_rng(seed); P, T = [], []
     if cut == "pennant":
         ea, (b0, b1), at = (tuple(layout) + (None,))[:3] if layout else (1.3, (0.2, 0.8), None); notch = min(0.9 * w, 0.18 * h)
@@ -321,6 +322,13 @@ def cut_panel(w, h, cut, seed=0, layout=None):
         P = [(0.0, h / 2)] + [(w * rr * np.cos(q), h / 2 + h * rr * np.sin(q)) for q, rr in zip(a, r)]
         T = [[0, 1 + i, 1 + (i + 1) % n] for i in range(n)]
         uv = [((x + w / 2) / w, y / h) for x, y in P]
+    elif cut == "sleeve":  # open cylinder (diameter w, height h) seen from INSIDE + bottom disc; u fixed at 0.5, v = y / h
+        n = 24; a = np.linspace(0, 2 * np.pi, n, endpoint=False); r = w / 2; ca, sa = np.cos(a), np.sin(a)
+        V = np.r_[np.c_[r * ca, np.zeros(n), r * sa], np.c_[r * ca, np.full(n, h), r * sa], [[0, 0, 0]], np.c_[r * ca, np.zeros(n), r * sa]]; F = []
+        for i in range(n):  # wall faces the axis; the disc has its own rim vertices (flat normal, no shading from the wall)
+            j = (i + 1) % n; F += [[i, j, n + j], [i, n + j, n + i], [2 * n, 2 * n + 1 + j, 2 * n + 1 + i]]
+        m = trimesh.Trimesh(V, np.array(F), process=False)
+        m.metadata["uv"] = np.c_[np.full(len(V), 0.5), V[:, 1] / h]; return m
     else: raise ValueError(cut)
     m = trimesh.Trimesh(np.c_[np.array(P), np.zeros(len(P))], np.array(T), process=False)
     flip = m.face_normals[:, 2] < 0

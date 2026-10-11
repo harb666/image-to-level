@@ -430,7 +430,16 @@ def _banner_atlas(S, rng, c, m):
         r = np.hypot(px_ - 0.5, py_ - 0.5) * 2; spot = n[y0:y1, x0:x1] > 0.68
         k = 0.7 + 0.3 * np.clip((r - 0.6) * 3, 0, 1) + 0.3 * spot
         alb[y0:y1, x0:x1] = np.clip(sl * k[..., None], 0, 1); h[y0:y1, x0:x1] = 0.7; emit[y0:y1, x0:x1] = 0.5 + 0.2 * spot; rough[y0:y1, x0:x1] = 0.1
-    return dict(alb=alb, h=_blur(h, 0.6), rough=rough, metal=0.0, emit=emit, nstr=0.6)
+    post = []
+    if "void" in A:  # bottomless-shaft fade: wall colour at the top -> pure black (no light, no emission) over the lower part
+        x0, y0, x1, y1 = pix(A["void"]); vv = 1 - (np.arange(y0, y1) - y0 + 0.5) / (y1 - y0)  # v: 0 bottom .. 1 top
+        k = np.clip((vv - m.get("void_black", 0.45)) / (1 - m.get("void_black", 0.45)), 0, 1) ** 1.6
+        col = np.array(m.get("void_top", [0.2, 0.15, 0.27]))[None, :] * k[:, None]
+        alb[y0:y1, x0:x1] = col[:, None, :]; h[y0:y1, x0:x1] = 0.5; emit[y0:y1, x0:x1] = 0.0; rough[y0:y1, x0:x1] = 1.0
+        alb[:y0, x0:x1] = col[0]; h[:y0, x0:x1] = 0.5  # the column above continues the top colour (no bleeding at small mips)
+        post.append((slice(0, y1), slice(x0, x1), alb[:y1, x0:x1].copy()))
+        aom = np.ones((S, S)); aom[y0:y1, x0:x1] = k[:, None]  # occlusion: black part gets no sky light / reflection
+    return dict(alb=alb, h=_blur(h, 0.6), rough=rough, metal=0.0, emit=emit, nstr=0.6, _post=post, **({"ao_mul": aom} if "void" in A else {}))
 
 
 def k_banner(S, rng, c, m):
@@ -550,6 +559,7 @@ def maps(m):
         d[k] = np.broadcast_to(np.asarray(d[k], float), (S, S))
     d.setdefault("emit", None); d["S"] = S; d["kind"] = kind
     if m.get("toon"): d = toonify(d, m)
+    for ys, xs, a in d.pop("_post", None) or []: d["alb"][ys, xs] = a  # cells that must stay smooth (not posterised / inked)
     return d
 
 
@@ -578,7 +588,9 @@ def make_material(name, m):
     if name == "_invisible":
         return trimesh.visual.material.PBRMaterial(name="Collider_invisible", baseColorFactor=[1, 0, 0, 0], alphaMode="BLEND"), []
     d = maps(m); alb = np.clip(d["alb"], 0, 1)
-    orm = np.stack([_ao(d["h"]) if d["nstr"] > 0 else np.ones_like(d["rough"]), np.clip(d["rough"], 0.04, 1), np.clip(d["metal"], 0, 1)], -1)
+    ao = _ao(d["h"]) if d["nstr"] > 0 else np.ones_like(d["rough"])
+    if d.get("ao_mul") is not None: ao = ao * d["ao_mul"]  # e.g. bottomless-shaft cell: no sky light / reflections at all
+    orm = np.stack([ao, np.clip(d["rough"], 0.04, 1), np.clip(d["metal"], 0, 1)], -1)
     kw = dict(name=name, baseColorTexture=_img(alb, 85), metallicFactor=1.0, roughnessFactor=1.0)
     ormi = _img(orm, 88); kw["metallicRoughnessTexture"] = ormi; kw["occlusionTexture"] = ormi
     px = [d["S"] ** 2] * 2

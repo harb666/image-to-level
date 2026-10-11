@@ -4,7 +4,7 @@ import json, os, subprocess, sys, types, unittest
 import numpy as np
 from _util import ROOT, PIPE, FULL, tmp_level, small_spec, write_spec
 
-ATLAS = {"banner": [0, 0, 0.75, 1], "drip": [0.78, 0.52, 0.98, 0.98], "puddle": [0.78, 0.02, 0.98, 0.48]}
+ATLAS = {"banner": [0, 0, 0.68, 1], "void": [0.7, 0.02, 0.77, 0.32], "drip": [0.79, 0.52, 0.98, 0.98], "puddle": [0.79, 0.02, 0.98, 0.48]}
 
 
 class Banner(unittest.TestCase):
@@ -98,6 +98,33 @@ class Leaks(unittest.TestCase):
         sc = trimesh.load(os.path.join(out[1][0], "level.glb"), force="scene")
         uv = np.vstack([sc.geometry[sc.graph[k][1]].visual.uv for k in sc.graph.nodes_geometry if "_Leak_" in k])
         self.assertGreater(float(uv[:, 0].min()), 0.77)  # drips sample the slime cell of the atlas only
+
+
+class BottomlessShaft(unittest.TestCase):
+    def test_sleeve_faces_inward_and_disc_up(self):
+        import shapes
+        m = shapes.cut_panel(9.0, 7.0, "sleeve"); fn, c, uv = m.face_normals, m.triangles_center, m.metadata["uv"]
+        wall = [i for i in range(len(fn)) if i % 3 != 2]
+        self.assertTrue((np.einsum("ij,ij->i", fn[wall], -c[wall] * [1, 0, 1]) > 0).all()); self.assertTrue((fn[2::3][:, 1] > 0.99).all())
+        self.assertTrue(np.allclose(uv[:, 0], 0.5)); self.assertAlmostEqual(float(uv[m.vertices[:, 1] == 0, 1].max()), 0.0)  # bottom = v 0 (black)
+
+    def test_void_cell_is_black_unlit_and_fades(self):
+        import materials
+        A = {"banner": [0, 0, 0.68, 1], "void": [0.7, 0.02, 0.77, 0.32]}
+        d = materials.maps({"type": "banner", "color": [0.78, 0.05, 0.1], "res": 128, "toon": True, "emissive": [1, 1, 1], "atlas": A, "void_top": [0.2, 0.15, 0.27]})
+        S = d["S"]; col = lambda v: d["alb"][int((1 - (0.02 + 0.3 * v)) * S) - 1, int(0.735 * S)]
+        self.assertLess(float(col(0.05).max()), 0.01); self.assertGreater(float(col(0.97).sum()), 0.3)  # black at the bottom, wall colour at the top
+        self.assertLess(float(d["emit"][int(0.9 * S), int(0.735 * S)]), 1e-6); self.assertLess(float(d["ao_mul"][int(0.95 * S), int(0.735 * S)]), 0.05)
+
+    def test_shaft_bottom_is_void_by_default(self):
+        import spec_to_level
+        from test_stage12 import _shaft_spec
+        for bottom, want in ((None, True), ("glow", False)):
+            s = small_spec(art_style="alien_cartoon"); s.update({k: v for k, v in _shaft_spec("sky_pylon").items() if k in ("platforms", "structures")})
+            if bottom: s["structures"][0]["bottom"] = bottom
+            d = tmp_level(name="void"); spec_to_level.run(write_spec(d, s), d, verbose=False); by = {o["name"]: o for o in json.load(open(os.path.join(d, "level.json")))["objects"]}
+            self.assertEqual("Lift_Void" in by, want); self.assertEqual("Lift_GlowFloor" in by, not want)
+            if want: self.assertEqual((by["Lift_Void"]["material"], by["Lift_Void"]["uv_region"], by["Lift_Void"]["collision"]), ("accent", "void", False))
 
 
 if __name__ == "__main__":
