@@ -6,9 +6,9 @@
    "stream": "Pipe_NE_Fall",
    "source_object": "Pipe_NE",
    "outlet_pos": [
-    28.222,
+    48.222,
     10.0,
-    -28.222
+    -48.222
    ],
    "outlet_dir": [
     -0.707,
@@ -20,9 +20,9 @@
    "stream_width": 2.58,
    "initial_speed": 1.95,
    "impact_pos": [
-    26.323,
+    46.323,
     0.7,
-    -26.323
+    -46.323
    ],
    "receiving": "HazardFluid",
    "hazard": true
@@ -31,9 +31,9 @@
    "stream": "Pipe_NW_Fall",
    "source_object": "Pipe_NW",
    "outlet_pos": [
-    -28.222,
+    -48.222,
     10.0,
-    -28.222
+    -48.222
    ],
    "outlet_dir": [
     0.707,
@@ -45,9 +45,9 @@
    "stream_width": 2.58,
    "initial_speed": 1.95,
    "impact_pos": [
-    -26.323,
+    -46.323,
     0.7,
-    -26.323
+    -46.323
    ],
    "receiving": "HazardFluid",
    "hazard": true
@@ -56,9 +56,9 @@
    "stream": "Pipe_SE_Fall",
    "source_object": "Pipe_SE",
    "outlet_pos": [
-    28.222,
+    48.222,
     10.0,
-    28.222
+    48.222
    ],
    "outlet_dir": [
     -0.707,
@@ -70,9 +70,9 @@
    "stream_width": 2.58,
    "initial_speed": 1.95,
    "impact_pos": [
-    26.323,
+    46.323,
     0.7,
-    26.323
+    46.323
    ],
    "receiving": "HazardFluid",
    "hazard": true
@@ -81,9 +81,9 @@
    "stream": "Pipe_SW_Fall",
    "source_object": "Pipe_SW",
    "outlet_pos": [
-    -28.222,
+    -48.222,
     10.0,
-    28.222
+    48.222
    ],
    "outlet_dir": [
     0.707,
@@ -95,9 +95,9 @@
    "stream_width": 2.58,
    "initial_speed": 1.95,
    "impact_pos": [
-    -26.323,
+    -46.323,
     0.7,
-    26.323
+    46.323
    ],
    "receiving": "HazardFluid",
    "hazard": true
@@ -106,9 +106,9 @@
    "stream": "Pipe_North_Fall",
    "source_object": "Pipe_North",
    "outlet_pos": [
-    13.0,
+    10.0,
     10.5,
-    -30.0
+    -47.0
    ],
    "outlet_dir": [
     0.0,
@@ -120,9 +120,9 @@
    "stream_width": 2.064,
    "initial_speed": 1.8,
    "impact_pos": [
-    13.0,
+    10.0,
     0.7,
-    -27.456
+    -44.456
    ],
    "receiving": "HazardFluid",
    "hazard": true
@@ -131,9 +131,9 @@
    "stream": "Pipe_South_Fall",
    "source_object": "Pipe_South",
    "outlet_pos": [
-    -13.0,
+    -10.0,
     10.5,
-    30.0
+    47.0
    ],
    "outlet_dir": [
     0.0,
@@ -145,9 +145,9 @@
    "stream_width": 2.064,
    "initial_speed": 1.8,
    "impact_pos": [
-    -13.0,
+    -10.0,
     0.7,
-    27.456
+    44.456
    ],
    "receiving": "HazardFluid",
    "hazard": true
@@ -156,9 +156,9 @@
    "stream": "Pipe_East_Fall",
    "source_object": "Pipe_East",
    "outlet_pos": [
-    30.0,
+    47.0,
     10.5,
-    -13.0
+    -10.0
    ],
    "outlet_dir": [
     -1.0,
@@ -170,9 +170,9 @@
    "stream_width": 2.064,
    "initial_speed": 1.8,
    "impact_pos": [
-    27.456,
+    44.456,
     0.7,
-    -13.0
+    -10.0
    ],
    "receiving": "HazardFluid",
    "hazard": true
@@ -181,9 +181,9 @@
    "stream": "Pipe_West_Fall",
    "source_object": "Pipe_West",
    "outlet_pos": [
-    -30.0,
+    -47.0,
     10.5,
-    13.0
+    10.0
    ],
    "outlet_dir": [
     1.0,
@@ -195,11 +195,111 @@
    "stream_width": 2.064,
    "initial_speed": 1.8,
    "impact_pos": [
-    -27.456,
+    -44.456,
     0.7,
-    13.0
+    10.0
    ],
    "receiving": "HazardFluid",
+   "hazard": true
+  },
+  {
+   "stream": "W_Spill_Fall",
+   "source_object": "W_Spill",
+   "outlet_pos": [
+    -50.0,
+    13.0,
+    -131.0
+   ],
+   "outlet_dir": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "outlet_diameter": 4.6,
+   "section": "rect",
+   "stream_width": 4.6,
+   "initial_speed": 1.0,
+   "impact_pos": [
+    -48.416,
+    0.7,
+    -131.0
+   ],
+   "receiving": "HazardFluid_2",
+   "hazard": true
+  },
+  {
+   "stream": "W_Hanging_Fall",
+   "source_object": "W_Hanging",
+   "outlet_pos": [
+    -22.0,
+    19.0,
+    -140.0
+   ],
+   "outlet_dir": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "outlet_diameter": 1.8,
+   "section": "circle",
+   "stream_width": 1.548,
+   "initial_speed": 0,
+   "impact_pos": [
+    -22.0,
+    0.7,
+    -140.0
+   ],
+   "receiving": "HazardFluid_2",
+   "hazard": true
+  },
+  {
+   "stream": "W_Broken_Fall",
+   "source_object": "W_Broken",
+   "outlet_pos": [
+    -49.0,
+    11.0,
+    -160.0
+   ],
+   "outlet_dir": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "outlet_diameter": 2.0,
+   "section": "circle",
+   "stream_width": 1.72,
+   "initial_speed": 0.8,
+   "impact_pos": [
+    -47.931,
+    0.7,
+    -160.0
+   ],
+   "receiving": "HazardFluid_2",
+   "hazard": true
+  },
+  {
+   "stream": "W_Drain_Core_Fall",
+   "source_object": "W_Drain_Core",
+   "outlet_pos": [
+    6.0,
+    9.0,
+    -219.0
+   ],
+   "outlet_dir": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "outlet_diameter": 1.6,
+   "section": "rect",
+   "stream_width": 1.6,
+   "initial_speed": 1.0,
+   "impact_pos": [
+    6.0,
+    0.7,
+    -217.699
+   ],
+   "receiving": "HazardFluid_2",
    "hazard": true
   }
  ],
@@ -213,22 +313,22 @@
  },
  "totals": {
   "performance": {
-   "max_particles": 188,
-   "emitters": 18,
-   "extra_draw_calls": 4,
+   "max_particles": 289,
+   "emitters": 28,
+   "extra_draw_calls": 6,
    "transparent_area_m2": 0
   },
   "balanced": {
-   "max_particles": 619,
-   "emitters": 18,
-   "extra_draw_calls": 5,
-   "transparent_area_m2": 5184
+   "max_particles": 868,
+   "emitters": 28,
+   "extra_draw_calls": 8,
+   "transparent_area_m2": 31584
   },
   "quality": {
-   "max_particles": 989,
-   "emitters": 18,
-   "extra_draw_calls": 6,
-   "transparent_area_m2": 10368
+   "max_particles": 1380,
+   "emitters": 28,
+   "extra_draw_calls": 10,
+   "transparent_area_m2": 63168
   }
  },
  "effects": [
@@ -306,12 +406,12 @@
    "glb_contains": "nothing",
    "godot_runtime": "CPUParticles3D, box emitter on the surface, alpha billboard",
    "area": [
-    -36.0,
+    -56.0,
     1.0,
-    -36.0,
-    36.0,
+    -56.0,
+    56.0,
     1.0,
-    36.0
+    56.0
    ],
    "quality": {
     "performance": {
@@ -413,12 +513,12 @@
    "glb_contains": "nothing",
    "godot_runtime": "large plane MeshInstance3D + fog_sheet.gdshader (scrolling noise, depth-faded). Godot FogVolume/volumetric fog is NOT available in the Mobile/Compatibility renderers, hence a sheet",
    "area": [
-    -36.0,
+    -56.0,
     1.0,
-    -36.0,
-    36.0,
+    -56.0,
+    56.0,
     1.0,
-    36.0
+    56.0
    ],
    "quality": {
     "performance": {
@@ -441,7 +541,7 @@
       "max_particles": 0,
       "emitters": 0,
       "extra_draw_calls": 1,
-      "transparent_area_m2": 5184
+      "transparent_area_m2": 12544
      }
     },
     "balanced": {
@@ -464,7 +564,7 @@
       "max_particles": 0,
       "emitters": 0,
       "extra_draw_calls": 1,
-      "transparent_area_m2": 5184
+      "transparent_area_m2": 12544
      }
     },
     "quality": {
@@ -487,7 +587,267 @@
       "max_particles": 0,
       "emitters": 0,
       "extra_draw_calls": 2,
-      "transparent_area_m2": 10368
+      "transparent_area_m2": 25088
+     }
+    }
+   }
+  },
+  {
+   "id": "Hazard_Surface_2",
+   "type": "liquid_surface",
+   "category": "surface_shader",
+   "glb_contains": "static base colour + emissive texture",
+   "godot_runtime": "ShaderMaterial liquid_surface.gdshader on target meshes (albedo from the GLB texture)",
+   "targets": [
+    "HazardFluid_2"
+   ],
+   "material_tile_m": 6.0,
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "scroll": [
+       0.03,
+       0.015
+      ],
+      "swirl": 0.0,
+      "pulse_speed": 0.2,
+      "pulse_amount": 0.18,
+      "glow_energy": 1.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "scroll": [
+       0.03,
+       0.015
+      ],
+      "swirl": 0.03,
+      "pulse_speed": 0.2,
+      "pulse_amount": 0.18,
+      "glow_energy": 1.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "scroll": [
+       0.03,
+       0.015
+      ],
+      "swirl": 0.03,
+      "pulse_speed": 0.2,
+      "pulse_amount": 0.18,
+      "glow_energy": 1.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Hazard_Bubbles_2",
+   "type": "bubbles",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D, box emitter on the surface, alpha billboard",
+   "area": [
+    -56.0,
+    1.0,
+    -230.0,
+    56.0,
+    1.0,
+    -60.0
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 18.0,
+      "lifetime": 1.4,
+      "speed": [
+       0.3,
+       0.7
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.15,
+       0.45
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.92,
+       1.0,
+       0.7
+      ],
+      "texture": "bubble",
+      "blend": "alpha",
+      "spread": 10
+     },
+     "cost_estimate": {
+      "max_particles": 26,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 45.0,
+      "lifetime": 1.4,
+      "speed": [
+       0.3,
+       0.7
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.15,
+       0.45
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.92,
+       1.0,
+       0.7
+      ],
+      "texture": "bubble",
+      "blend": "alpha",
+      "spread": 10
+     },
+     "cost_estimate": {
+      "max_particles": 63,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 72.0,
+      "lifetime": 1.4,
+      "speed": [
+       0.3,
+       0.7
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.15,
+       0.45
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.92,
+       1.0,
+       0.7
+      ],
+      "texture": "bubble",
+      "blend": "alpha",
+      "spread": 10
+     },
+     "cost_estimate": {
+      "max_particles": 101,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    }
+   }
+  },
+  {
+   "id": "Hazard_Mist_2",
+   "type": "fog_sheet",
+   "category": "transparent_mesh",
+   "glb_contains": "nothing",
+   "godot_runtime": "large plane MeshInstance3D + fog_sheet.gdshader (scrolling noise, depth-faded). Godot FogVolume/volumetric fog is NOT available in the Mobile/Compatibility renderers, hence a sheet",
+   "area": [
+    -56.0,
+    1.0,
+    -230.0,
+    56.0,
+    1.0,
+    -60.0
+   ],
+   "quality": {
+    "performance": {
+     "enabled": false,
+     "params": {
+      "height": 0.5,
+      "opacity": 0.3,
+      "scroll": [
+       0.02,
+       0.01
+      ],
+      "color": [
+       0.6,
+       1.0,
+       0.25
+      ],
+      "layers": 1
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 1,
+      "transparent_area_m2": 19040
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "height": 0.5,
+      "opacity": 0.3,
+      "scroll": [
+       0.02,
+       0.01
+      ],
+      "color": [
+       0.6,
+       1.0,
+       0.25
+      ],
+      "layers": 1
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 1,
+      "transparent_area_m2": 19040
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "height": 0.5,
+      "opacity": 0.3,
+      "scroll": [
+       0.02,
+       0.01
+      ],
+      "color": [
+       0.6,
+       1.0,
+       0.25
+      ],
+      "layers": 2
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 2,
+      "transparent_area_m2": 38080
      }
     }
    }
@@ -506,12 +866,16 @@
     "Pipe_SE_Fall",
     "Pipe_SW_Fall",
     "Pipe_South_Fall",
-    "Pipe_West_Fall"
+    "Pipe_West_Fall",
+    "W_Broken_Fall",
+    "W_Drain_Core_Fall",
+    "W_Hanging_Fall",
+    "W_Spill_Fall"
    ],
    "material_tile_m": 6.0,
    "flow_uv": [
-    0.0935,
-    0.9956
+    0.0672,
+    0.9977
    ],
    "quality": {
     "performance": {
@@ -564,75 +928,111 @@
    "emitters": [
     {
      "pos": [
-      27.46,
+      44.46,
       1.0,
-      -13.0
+      -10.0
      ],
      "radius": 1.63,
      "of": "Pipe_East_Fall"
     },
     {
      "pos": [
-      26.32,
+      46.32,
       1.0,
-      -26.32
+      -46.32
      ],
      "radius": 1.89,
      "of": "Pipe_NE_Fall"
     },
     {
      "pos": [
-      -26.32,
+      -46.32,
       1.0,
-      -26.32
+      -46.32
      ],
      "radius": 1.89,
      "of": "Pipe_NW_Fall"
     },
     {
      "pos": [
-      13.0,
+      10.0,
       1.0,
-      -27.46
+      -44.46
      ],
      "radius": 1.63,
      "of": "Pipe_North_Fall"
     },
     {
      "pos": [
-      26.32,
+      46.32,
       1.0,
-      26.32
+      46.32
      ],
      "radius": 1.89,
      "of": "Pipe_SE_Fall"
     },
     {
      "pos": [
-      -26.32,
+      -46.32,
       1.0,
-      26.32
+      46.32
      ],
      "radius": 1.89,
      "of": "Pipe_SW_Fall"
     },
     {
      "pos": [
-      -13.0,
+      -10.0,
       1.0,
-      27.46
+      44.46
      ],
      "radius": 1.63,
      "of": "Pipe_South_Fall"
     },
     {
      "pos": [
-      -27.46,
+      -44.46,
       1.0,
-      13.0
+      10.0
      ],
      "radius": 1.63,
      "of": "Pipe_West_Fall"
+    },
+    {
+     "pos": [
+      -47.93,
+      1.0,
+      -160.0
+     ],
+     "radius": 1.46,
+     "of": "W_Broken_Fall"
+    },
+    {
+     "pos": [
+      6.0,
+      1.0,
+      -217.7
+     ],
+     "radius": 1.4,
+     "of": "W_Drain_Core_Fall"
+    },
+    {
+     "pos": [
+      -22.0,
+      1.0,
+      -140.0
+     ],
+     "radius": 1.37,
+     "of": "W_Hanging_Fall"
+    },
+    {
+     "pos": [
+      -48.42,
+      1.0,
+      -131.0
+     ],
+     "radius": 2.9,
+     "of": "W_Spill_Fall"
     }
    ],
    "quality": {
@@ -662,8 +1062,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 80,
-      "emitters": 8,
+      "max_particles": 120,
+      "emitters": 12,
       "extra_draw_calls": 1
      }
     },
@@ -693,8 +1093,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 192,
-      "emitters": 8,
+      "max_particles": 288,
+      "emitters": 12,
       "extra_draw_calls": 1
      }
     },
@@ -724,8 +1124,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 312,
-      "emitters": 8,
+      "max_particles": 468,
+      "emitters": 12,
       "extra_draw_calls": 1
      }
     }
@@ -741,75 +1141,111 @@
    "emitters": [
     {
      "pos": [
-      27.46,
+      44.46,
       1.0,
-      -13.0
+      -10.0
      ],
      "radius": 1.63,
      "of": "Pipe_East_Fall"
     },
     {
      "pos": [
-      26.32,
+      46.32,
       1.0,
-      -26.32
+      -46.32
      ],
      "radius": 1.89,
      "of": "Pipe_NE_Fall"
     },
     {
      "pos": [
-      -26.32,
+      -46.32,
       1.0,
-      -26.32
+      -46.32
      ],
      "radius": 1.89,
      "of": "Pipe_NW_Fall"
     },
     {
      "pos": [
-      13.0,
+      10.0,
       1.0,
-      -27.46
+      -44.46
      ],
      "radius": 1.63,
      "of": "Pipe_North_Fall"
     },
     {
      "pos": [
-      26.32,
+      46.32,
       1.0,
-      26.32
+      46.32
      ],
      "radius": 1.89,
      "of": "Pipe_SE_Fall"
     },
     {
      "pos": [
-      -26.32,
+      -46.32,
       1.0,
-      26.32
+      46.32
      ],
      "radius": 1.89,
      "of": "Pipe_SW_Fall"
     },
     {
      "pos": [
-      -13.0,
+      -10.0,
       1.0,
-      27.46
+      44.46
      ],
      "radius": 1.63,
      "of": "Pipe_South_Fall"
     },
     {
      "pos": [
-      -27.46,
+      -44.46,
       1.0,
-      13.0
+      10.0
      ],
      "radius": 1.63,
      "of": "Pipe_West_Fall"
+    },
+    {
+     "pos": [
+      -47.93,
+      1.0,
+      -160.0
+     ],
+     "radius": 1.46,
+     "of": "W_Broken_Fall"
+    },
+    {
+     "pos": [
+      6.0,
+      1.0,
+      -217.7
+     ],
+     "radius": 1.4,
+     "of": "W_Drain_Core_Fall"
+    },
+    {
+     "pos": [
+      -22.0,
+      1.0,
+      -140.0
+     ],
+     "radius": 1.37,
+     "of": "W_Hanging_Fall"
+    },
+    {
+     "pos": [
+      -48.42,
+      1.0,
+      -131.0
+     ],
+     "radius": 2.9,
+     "of": "W_Spill_Fall"
     }
    ],
    "quality": {
@@ -839,8 +1275,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 56,
-      "emitters": 8,
+      "max_particles": 84,
+      "emitters": 12,
       "extra_draw_calls": 1
      }
     },
@@ -870,8 +1306,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 144,
-      "emitters": 8,
+      "max_particles": 216,
+      "emitters": 12,
       "extra_draw_calls": 1
      }
     },
@@ -901,8 +1337,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 224,
-      "emitters": 8,
+      "max_particles": 336,
+      "emitters": 12,
       "extra_draw_calls": 1
      }
     }
@@ -917,6 +1353,36 @@
    "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
    "target_material": "glow",
    "targets": [
+    "Exit_Door_Warning",
+    "Conduit_RibLight_06",
+    "Conduit_RibLight_05",
+    "Conduit_RibLight_04",
+    "Conduit_RibLight_03",
+    "Conduit_RibLight_02",
+    "Conduit_RibLight_01",
+    "Claw_Proc_Light",
+    "Maint_Lattice_CageLight",
+    "Maint_Lattice_Ladder",
+    "Claw_Core_E_Light",
+    "Claw_Core_W_Light",
+    "Arm_4_Light",
+    "Arm_3_Light",
+    "Arm_2_Light",
+    "Arm_1_Light",
+    "Conv_East_Edge_2",
+    "Conv_East_Edge_1",
+    "Conv_West_Edge_2",
+    "Conv_West_Edge_1",
+    "Gate_Works_Warning",
+    "Gallery_West_Edge",
+    "Gallery_South_Edge",
+    "Gallery_North_Edge",
+    "Claw_6_Light",
+    "Claw_5_Light",
+    "Claw_4_Light",
+    "Claw_3_Light",
+    "Claw_2_Light",
+    "Claw_1_Light",
     "Elevator_Shaft_Strip_7",
     "Elevator_Shaft_Strip_5",
     "Elevator_Shaft_Strip_3",
@@ -926,6 +1392,56 @@
     "Elevator_Car_PostLight_2",
     "Elevator_Car_PostLight_1",
     "Elevator_Car_LightRing",
+    "Conduit_Walk_Glow_02R",
+    "Conduit_Walk_Glow_02L",
+    "Conduit_Walk_Glow_01R",
+    "Conduit_Walk_Glow_01L",
+    "Processing_Deck_Glow_02R",
+    "Processing_Deck_Glow_02L",
+    "Processing_Deck_Glow_01R",
+    "Processing_Deck_Glow_01L",
+    "Maint_High_Glow_02R",
+    "Maint_High_Glow_02L",
+    "Maint_High_Glow_01R",
+    "Maint_High_Glow_01L",
+    "Maint_Low_Glow_01R",
+    "Maint_Low_Glow_01L",
+    "Core_Ring_Glow_01R",
+    "Core_Ring_Glow_01L",
+    "Purification_Deck_Glow_01R",
+    "Purification_Deck_Glow_01L",
+    "Pipe_Junction_B_Glow_02R",
+    "Pipe_Junction_B_Glow_02L",
+    "Pipe_Junction_B_Glow_01R",
+    "Pipe_Junction_B_Glow_01L",
+    "Pipe_Junction_A_Glow_01R",
+    "Pipe_Junction_A_Glow_01L",
+    "Assembly_Line_Glow_01R",
+    "Assembly_Line_Glow_01L",
+    "Round_SW_Glow_02R",
+    "Round_SW_Glow_02L",
+    "Round_SW_Glow_01R",
+    "Round_SW_Glow_01L",
+    "Round_SE_Glow_02R",
+    "Round_SE_Glow_02L",
+    "Round_SE_Glow_01R",
+    "Round_SE_Glow_01L",
+    "Round_NW_Glow_02R",
+    "Round_NW_Glow_02L",
+    "Round_NW_Glow_01R",
+    "Round_NW_Glow_01L",
+    "Round_NE_Glow_02R",
+    "Round_NE_Glow_02L",
+    "Round_NE_Glow_01R",
+    "Round_NE_Glow_01L",
+    "Landing_West_Glow_01R",
+    "Landing_West_Glow_01L",
+    "Landing_East_Glow_01R",
+    "Landing_East_Glow_01L",
+    "Landing_South_Glow_01R",
+    "Landing_South_Glow_01L",
+    "Landing_North_Glow_01R",
+    "Landing_North_Glow_01L",
     "Platform_West_Glow_01R",
     "Platform_West_Glow_01L",
     "Platform_East_Glow_01R",
@@ -936,6 +1452,107 @@
     "Platform_North_Glow_01L",
     "Central_Glow_01R",
     "Central_Glow_01L",
+    "Works_Ceiling_Lamp_77",
+    "Works_Ceiling_Lamp_76",
+    "Works_Ceiling_Lamp_75",
+    "Works_Ceiling_Lamp_74",
+    "Works_Ceiling_Lamp_73",
+    "Works_Ceiling_Lamp_72",
+    "Works_Ceiling_Lamp_71",
+    "Works_Ceiling_Lamp_70",
+    "Works_Ceiling_Lamp_69",
+    "Works_Ceiling_Lamp_68",
+    "Works_Ceiling_Lamp_67",
+    "Works_Ceiling_Lamp_66",
+    "Works_Ceiling_Lamp_65",
+    "Works_Ceiling_Lamp_64",
+    "Works_Ceiling_Lamp_63",
+    "Works_Ceiling_Lamp_62",
+    "Works_Ceiling_Lamp_61",
+    "Works_Ceiling_Lamp_60",
+    "Works_Ceiling_Lamp_59",
+    "Works_Ceiling_Lamp_58",
+    "Works_Ceiling_Lamp_57",
+    "Works_Ceiling_Lamp_56",
+    "Works_Ceiling_Lamp_55",
+    "Works_Ceiling_Lamp_54",
+    "Works_Ceiling_Lamp_53",
+    "Works_Ceiling_Lamp_52",
+    "Works_Ceiling_Lamp_51",
+    "Works_Ceiling_Lamp_50",
+    "Works_Ceiling_Lamp_49",
+    "Works_Ceiling_Lamp_48",
+    "Works_Ceiling_Lamp_47",
+    "Works_Ceiling_Lamp_46",
+    "Works_Ceiling_Lamp_45",
+    "Works_Ceiling_Lamp_44",
+    "Works_Ceiling_Lamp_43",
+    "Works_Ceiling_Lamp_42",
+    "Works_Ceiling_Lamp_41",
+    "Works_Ceiling_Lamp_40",
+    "Works_Ceiling_Lamp_39",
+    "Works_Ceiling_Lamp_38",
+    "Works_Ceiling_Lamp_37",
+    "Works_Ceiling_Lamp_36",
+    "Works_Ceiling_Lamp_35",
+    "Works_Ceiling_Lamp_34",
+    "Works_Ceiling_Lamp_33",
+    "Works_Ceiling_Lamp_32",
+    "Works_Ceiling_Lamp_31",
+    "Works_Ceiling_Lamp_30",
+    "Works_Ceiling_Lamp_29",
+    "Works_Ceiling_Lamp_28",
+    "Works_Ceiling_Lamp_27",
+    "Works_Ceiling_Lamp_26",
+    "Works_Ceiling_Lamp_25",
+    "Works_Ceiling_Lamp_24",
+    "Works_Ceiling_Lamp_23",
+    "Works_Ceiling_Lamp_22",
+    "Works_Ceiling_Lamp_21",
+    "Works_Ceiling_Lamp_20",
+    "Works_Ceiling_Lamp_19",
+    "Works_Ceiling_Lamp_18",
+    "Works_Ceiling_Lamp_17",
+    "Works_Ceiling_Lamp_16",
+    "Works_Ceiling_Lamp_15",
+    "Works_Ceiling_Lamp_14",
+    "Works_Ceiling_Lamp_13",
+    "Works_Ceiling_Lamp_12",
+    "Works_Ceiling_Lamp_11",
+    "Works_Ceiling_Lamp_10",
+    "Works_Ceiling_Lamp_09",
+    "Works_Ceiling_Lamp_08",
+    "Works_Ceiling_Lamp_07",
+    "Works_Ceiling_Lamp_06",
+    "Works_Ceiling_Lamp_05",
+    "Works_Ceiling_Lamp_04",
+    "Works_Ceiling_Lamp_03",
+    "Works_Ceiling_Lamp_02",
+    "Works_Ceiling_Lamp_01",
+    "Ceiling_Lamp_48",
+    "Ceiling_Lamp_47",
+    "Ceiling_Lamp_46",
+    "Ceiling_Lamp_45",
+    "Ceiling_Lamp_44",
+    "Ceiling_Lamp_43",
+    "Ceiling_Lamp_42",
+    "Ceiling_Lamp_41",
+    "Ceiling_Lamp_40",
+    "Ceiling_Lamp_39",
+    "Ceiling_Lamp_38",
+    "Ceiling_Lamp_37",
+    "Ceiling_Lamp_36",
+    "Ceiling_Lamp_35",
+    "Ceiling_Lamp_34",
+    "Ceiling_Lamp_33",
+    "Ceiling_Lamp_32",
+    "Ceiling_Lamp_31",
+    "Ceiling_Lamp_30",
+    "Ceiling_Lamp_29",
+    "Ceiling_Lamp_28",
+    "Ceiling_Lamp_27",
+    "Ceiling_Lamp_26",
+    "Ceiling_Lamp_25",
     "Ceiling_Lamp_24",
     "Ceiling_Lamp_23",
     "Ceiling_Lamp_22",
@@ -1011,7 +1628,72 @@
    "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
    "target_material": "trim",
    "targets": [
+    "Proc_Tower_C_Cap",
+    "Proc_Tower_C_BandMid",
+    "Proc_Tower_C_BandLow",
+    "Proc_Tower_B_Cap",
+    "Proc_Tower_B_BandMid",
+    "Proc_Tower_B_BandLow",
+    "Proc_Tower_A_Cap",
+    "Proc_Tower_A_BandMid",
+    "Proc_Tower_A_BandLow",
+    "Core_Vat_Cap",
+    "Core_Vat_BandMid",
+    "Core_Vat_BandLow",
+    "Purifier_4_Cap",
+    "Purifier_4_BandMid",
+    "Purifier_4_BandLow",
+    "Purifier_3_Cap",
+    "Purifier_3_BandMid",
+    "Purifier_3_BandLow",
+    "Purifier_2_Cap",
+    "Purifier_2_BandMid",
+    "Purifier_2_BandLow",
+    "Purifier_1_Cap",
+    "Purifier_1_BandMid",
+    "Purifier_1_BandLow",
+    "Vat_08_Cap",
+    "Vat_08_BandMid",
+    "Vat_08_BandLow",
+    "Vat_07_Cap",
+    "Vat_07_BandMid",
+    "Vat_07_BandLow",
+    "Vat_06_Cap",
+    "Vat_06_BandMid",
+    "Vat_06_BandLow",
+    "Vat_05_Cap",
+    "Vat_05_BandMid",
+    "Vat_05_BandLow",
+    "Vat_04_Cap",
+    "Vat_04_BandMid",
+    "Vat_04_BandLow",
+    "Vat_03_Cap",
+    "Vat_03_BandMid",
+    "Vat_03_BandLow",
+    "Vat_02_Cap",
+    "Vat_02_BandMid",
+    "Vat_02_BandLow",
+    "Vat_01_Cap",
+    "Vat_01_BandMid",
+    "Vat_01_BandLow",
     "Elevator_Shaft_Lip",
+    "Conduit_Walk_Trim",
+    "Processing_Deck_Trim",
+    "Maint_High_Trim",
+    "Maint_Low_Trim",
+    "Core_Ring_Trim",
+    "Purification_Deck_Trim",
+    "Pipe_Junction_B_Trim",
+    "Pipe_Junction_A_Trim",
+    "Assembly_Line_Trim",
+    "Round_SW_Trim",
+    "Round_SE_Trim",
+    "Round_NW_Trim",
+    "Round_NE_Trim",
+    "Landing_West_Trim",
+    "Landing_East_Trim",
+    "Landing_South_Trim",
+    "Landing_North_Trim",
     "Platform_SW_Trim",
     "Platform_SE_Trim",
     "Platform_NW_Trim",
@@ -1076,9 +1758,40 @@
    "godot_runtime": "script: emission_energy_multiplier random flicker (rate Hz)",
    "target_material": "structure",
    "targets": [
+    "Arm_4_Link2",
+    "Arm_4_Link1",
+    "Arm_3_Link2",
+    "Arm_3_Link1",
+    "Arm_2_Link2",
+    "Arm_2_Link1",
+    "Arm_1_Link2",
+    "Arm_1_Link1",
+    "Conduit_Walk_Base",
+    "Processing_Deck_Base",
+    "Maint_High_Base",
+    "Maint_Low_Base",
+    "Core_Ring_Base",
+    "Purification_Deck_Base",
+    "Pipe_Junction_B_Base",
+    "Pipe_Junction_A_Base",
+    "Assembly_Line_Base",
+    "Round_SW_Base",
+    "Round_SE_Base",
+    "Round_NW_Base",
+    "Round_NE_Base",
+    "Landing_West_Base",
+    "Landing_East_Base",
+    "Landing_South_Base",
+    "Landing_North_Base",
+    "Platform_SW_Base",
+    "Platform_SE_Base",
     "Platform_NW_Base",
     "Platform_NE_Base",
+    "Platform_West_Base",
     "Platform_East_Base",
+    "Platform_South_Base",
+    "Platform_North_Base",
+    "Central_Base",
     "Walkway_East_Base",
     "Walkway_West_Base",
     "Walkway_South_Base",
@@ -1124,18 +1837,138 @@
    }
   },
   {
+   "id": "Sparks",
+   "type": "sparks",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D per point (independent bursts), explosiveness 1, one_shot re-triggered every interval, additive",
+   "emitters": [
+    {
+     "pos": [
+      -17.4,
+      9.4,
+      -115.0
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "burst": 7,
+      "interval": [
+       1.5,
+       4.0
+      ],
+      "lifetime": 0.6,
+      "speed": [
+       3.0,
+       6.0
+      ],
+      "gravity": -9.8,
+      "size": [
+       0.1,
+       0.03
+      ],
+      "alpha": 1.0,
+      "color": [
+       1.0,
+       0.65,
+       0.2
+      ],
+      "texture": "spark",
+      "blend": "add",
+      "spread": 70
+     },
+     "cost_estimate": {
+      "max_particles": 7,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "burst": 18,
+      "interval": [
+       1.5,
+       4.0
+      ],
+      "lifetime": 0.6,
+      "speed": [
+       3.0,
+       6.0
+      ],
+      "gravity": -9.8,
+      "size": [
+       0.1,
+       0.03
+      ],
+      "alpha": 1.0,
+      "color": [
+       1.0,
+       0.65,
+       0.2
+      ],
+      "texture": "spark",
+      "blend": "add",
+      "spread": 70
+     },
+     "cost_estimate": {
+      "max_particles": 18,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "burst": 22,
+      "interval": [
+       1.5,
+       4.0
+      ],
+      "lifetime": 0.6,
+      "speed": [
+       3.0,
+       6.0
+      ],
+      "gravity": -9.8,
+      "size": [
+       0.1,
+       0.03
+      ],
+      "alpha": 1.0,
+      "color": [
+       1.0,
+       0.65,
+       0.2
+      ],
+      "texture": "spark",
+      "blend": "add",
+      "spread": 70
+     },
+     "cost_estimate": {
+      "max_particles": 22,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    }
+   }
+  },
+  {
    "id": "Ambient_Spores",
    "type": "ambient_particles",
    "category": "particles",
    "glb_contains": "nothing",
    "godot_runtime": "CPUParticles3D, box emitter over the play volume, slow drift (spores/ash/dust)",
    "area": [
-    -36.0,
+    -56.0,
     1.0,
-    -36.0,
-    36.0,
+    -56.0,
+    56.0,
     16.0,
-    36.0
+    56.0
    ],
    "quality": {
     "performance": {

@@ -2,86 +2,642 @@
  "repairs": [
   {
    "pass_": 1,
-   "finding": "Ceiling_Slab and Elevator_Shaft_Liner share coplanar faces (5.68 m\u00b2, different materials): z-fighting flicker",
+   "finding": "W_Ramp_Conduit_Deck and W_Ramp_Conduit_Junction_Lo share coplanar faces (0.31 m\u00b2, different materials): z-fighting flicker",
    "action": "nudge",
-   "object": "Elevator_Shaft_Liner",
-   "result": "moved 10 mm behind Ceiling_Slab"
+   "object": "W_Ramp_Conduit_Deck",
+   "result": "moved 10 mm behind W_Ramp_Conduit_Junction_Lo"
+  },
+  {
+   "pass_": 1,
+   "finding": "W_Stairs_Shaft and W_Stairs_Shaft_Junction_Hi share coplanar faces (0.04 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "W_Stairs_Shaft",
+   "result": "moved 10 mm behind W_Stairs_Shaft_Junction_Hi"
+  },
+  {
+   "pass_": 1,
+   "finding": "W_Stairs_Maint and W_Stairs_Maint_Junction_Hi share coplanar faces (0.04 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "W_Stairs_Maint",
+   "result": "moved 10 mm behind W_Stairs_Maint_Junction_Hi"
+  },
+  {
+   "pass_": 1,
+   "finding": "W_Ramp_Core_Deck and W_Ramp_Core_Junction_Lo share coplanar faces (0.25 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "W_Ramp_Core_Deck",
+   "result": "moved 10 mm behind W_Ramp_Core_Junction_Lo"
+  },
+  {
+   "pass_": 1,
+   "finding": "W_Cat_Junction_Deck and W_Cat_Junction_Junction_Lo share coplanar faces (0.25 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "W_Cat_Junction_Deck",
+   "result": "moved 10 mm behind W_Cat_Junction_Junction_Lo"
+  },
+  {
+   "pass_": 1,
+   "finding": "W_Cat_Pipes_Deck and W_Cat_Pipes_Junction_Lo share coplanar faces (0.25 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "W_Cat_Pipes_Deck",
+   "result": "moved 10 mm behind W_Cat_Pipes_Junction_Lo"
+  },
+  {
+   "pass_": 1,
+   "finding": "RampOut_SW_Deck and RampOut_SW_Junction_Lo share coplanar faces (0.25 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "RampOut_SW_Deck",
+   "result": "moved 10 mm behind RampOut_SW_Junction_Lo"
+  },
+  {
+   "pass_": 1,
+   "finding": "RampOut_NE_Deck and RampOut_NE_Junction_Lo share coplanar faces (0.25 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "RampOut_NE_Deck",
+   "result": "moved 10 mm behind RampOut_NE_Junction_Lo"
+  },
+  {
+   "pass_": 1,
+   "finding": "RampOut_SE_Deck and RampOut_SE_Junction_Lo share coplanar faces (0.25 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "RampOut_SE_Deck",
+   "result": "moved 10 mm behind RampOut_SE_Junction_Lo"
+  },
+  {
+   "pass_": 1,
+   "finding": "RampOut_NW_Deck and RampOut_NW_Junction_Lo share coplanar faces (0.25 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "RampOut_NW_Deck",
+   "result": "moved 10 mm behind RampOut_NW_Junction_Lo"
   }
  ],
  "details": [
   {
    "pass_": 1,
-   "finding": "Ceiling_Slab and Elevator_Shaft_Liner share coplanar faces (5.68 m\u00b2, different materials): z-fighting flicker",
+   "finding": "W_Ramp_Conduit_Deck and W_Ramp_Conduit_Junction_Lo share coplanar faces (0.31 m\u00b2, different materials): z-fighting flicker",
    "action": "nudge",
-   "object": "Elevator_Shaft_Liner",
-   "result": "moved 10 mm behind Ceiling_Slab",
+   "object": "W_Ramp_Conduit_Deck",
+   "result": "moved 10 mm behind W_Ramp_Conduit_Junction_Lo",
    "before": {
-    "name": "Elevator_Shaft_Liner",
-    "type": "cylinder",
+    "name": "W_Ramp_Conduit_Deck",
+    "type": "box",
     "position": [
-     -0.0168,
-     22.51,
-     0.0196
+     0.0,
+     10.567,
+     0.193
     ],
     "rotation": [
-     0.0,
+     -28.93,
      0.0,
      0.0
     ],
-    "parent": "Elevator_Shaft",
+    "parent": "W_Ramp_Conduit",
     "size": [
-     12.4,
-     9.3,
-     12.4
+     4.5,
+     0.4,
+     12.746
     ],
-    "material": "structure_b",
-    "sections": 24,
-    "hole": 5.6,
-    "collision": false,
-    "outline": false,
-    "cutaway": true,
-    "mobile": {
-     "group": "Ceiling"
-    },
-    "gen": "Elevator",
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "W_Ramp_Conduit",
     "source": "inferred"
    },
    "after": {
-    "name": "Elevator_Shaft_Liner",
-    "type": "cylinder",
+    "name": "W_Ramp_Conduit_Deck",
+    "type": "box",
     "position": [
-     -0.0107,
-     22.51,
-     0.0275
+     0.01,
+     10.567,
+     0.193
     ],
     "rotation": [
-     0.0,
+     -28.93,
      0.0,
      0.0
     ],
-    "parent": "Elevator_Shaft",
+    "parent": "W_Ramp_Conduit",
     "size": [
-     12.4,
-     9.3,
-     12.4
+     4.5,
+     0.4,
+     12.746
     ],
-    "material": "structure_b",
-    "sections": 24,
-    "hole": 5.6,
-    "collision": false,
-    "outline": false,
-    "cutaway": true,
-    "mobile": {
-     "group": "Ceiling"
-    },
-    "gen": "Elevator",
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "W_Ramp_Conduit",
+    "source": "inferred"
+   }
+  },
+  {
+   "pass_": 1,
+   "finding": "W_Stairs_Shaft and W_Stairs_Shaft_Junction_Hi share coplanar faces (0.04 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "W_Stairs_Shaft",
+   "result": "moved 10 mm behind W_Stairs_Shaft_Junction_Hi",
+   "before": {
+    "name": "W_Stairs_Shaft",
+    "type": "stairs",
+    "position": [
+     35.871,
+     15.0,
+     -206.129
+    ],
+    "rotation": [
+     0.0,
+     45.0,
+     0.0
+    ],
+    "size": [
+     3.0,
+     3.99,
+     5.698
+    ],
+    "material": "grate",
+    "connector": true,
+    "gen": "W_Stairs_Shaft",
+    "source": "visible"
+   },
+   "after": {
+    "name": "W_Stairs_Shaft",
+    "type": "stairs",
+    "position": [
+     35.8781,
+     15.0,
+     -206.1361
+    ],
+    "rotation": [
+     0.0,
+     45.0,
+     0.0
+    ],
+    "size": [
+     3.0,
+     3.99,
+     5.698
+    ],
+    "material": "grate",
+    "connector": true,
+    "gen": "W_Stairs_Shaft",
+    "source": "visible"
+   }
+  },
+  {
+   "pass_": 1,
+   "finding": "W_Stairs_Maint and W_Stairs_Maint_Junction_Hi share coplanar faces (0.04 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "W_Stairs_Maint",
+   "result": "moved 10 mm behind W_Stairs_Maint_Junction_Hi",
+   "before": {
+    "name": "W_Stairs_Maint",
+    "type": "stairs",
+    "position": [
+     21.876,
+     11.9,
+     -207.261
+    ],
+    "rotation": [
+     0.0,
+     120.26,
+     0.0
+    ],
+    "size": [
+     3.0,
+     3.09,
+     9.301
+    ],
+    "material": "grate",
+    "connector": true,
+    "gen": "W_Stairs_Maint",
+    "source": "visible"
+   },
+   "after": {
+    "name": "W_Stairs_Maint",
+    "type": "stairs",
+    "position": [
+     21.871,
+     11.9,
+     -207.2696
+    ],
+    "rotation": [
+     0.0,
+     120.26,
+     0.0
+    ],
+    "size": [
+     3.0,
+     3.09,
+     9.301
+    ],
+    "material": "grate",
+    "connector": true,
+    "gen": "W_Stairs_Maint",
+    "source": "visible"
+   }
+  },
+  {
+   "pass_": 1,
+   "finding": "W_Ramp_Core_Deck and W_Ramp_Core_Junction_Lo share coplanar faces (0.25 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "W_Ramp_Core_Deck",
+   "result": "moved 10 mm behind W_Ramp_Core_Junction_Lo",
+   "before": {
+    "name": "W_Ramp_Core_Deck",
+    "type": "box",
+    "position": [
+     0.0,
+     10.584,
+     0.052
+    ],
+    "rotation": [
+     -7.44,
+     0.0,
+     0.0
+    ],
+    "parent": "W_Ramp_Core",
+    "size": [
+     5.0,
+     0.4,
+     15.749
+    ],
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "W_Ramp_Core",
+    "source": "inferred"
+   },
+   "after": {
+    "name": "W_Ramp_Core_Deck",
+    "type": "box",
+    "position": [
+     0.01,
+     10.584,
+     0.052
+    ],
+    "rotation": [
+     -7.44,
+     0.0,
+     0.0
+    ],
+    "parent": "W_Ramp_Core",
+    "size": [
+     5.0,
+     0.4,
+     15.749
+    ],
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "W_Ramp_Core",
+    "source": "inferred"
+   }
+  },
+  {
+   "pass_": 1,
+   "finding": "W_Cat_Junction_Deck and W_Cat_Junction_Junction_Lo share coplanar faces (0.25 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "W_Cat_Junction_Deck",
+   "result": "moved 10 mm behind W_Cat_Junction_Junction_Lo",
+   "before": {
+    "name": "W_Cat_Junction_Deck",
+    "type": "box",
+    "position": [
+     0.0,
+     9.093,
+     0.022
+    ],
+    "rotation": [
+     -3.08,
+     0.0,
+     0.0
+    ],
+    "parent": "W_Cat_Junction",
+    "size": [
+     3.0,
+     0.4,
+     18.893
+    ],
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "W_Cat_Junction",
+    "source": "visible"
+   },
+   "after": {
+    "name": "W_Cat_Junction_Deck",
+    "type": "box",
+    "position": [
+     0.01,
+     9.093,
+     0.022
+    ],
+    "rotation": [
+     -3.08,
+     0.0,
+     0.0
+    ],
+    "parent": "W_Cat_Junction",
+    "size": [
+     3.0,
+     0.4,
+     18.893
+    ],
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "W_Cat_Junction",
+    "source": "visible"
+   }
+  },
+  {
+   "pass_": 1,
+   "finding": "W_Cat_Pipes_Deck and W_Cat_Pipes_Junction_Lo share coplanar faces (0.25 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "W_Cat_Pipes_Deck",
+   "result": "moved 10 mm behind W_Cat_Pipes_Junction_Lo",
+   "before": {
+    "name": "W_Cat_Pipes_Deck",
+    "type": "box",
+    "position": [
+     0.0,
+     7.587,
+     0.04
+    ],
+    "rotation": [
+     -5.78,
+     0.0,
+     0.0
+    ],
+    "parent": "W_Cat_Pipes",
+    "size": [
+     3.5,
+     0.4,
+     20.164
+    ],
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "W_Cat_Pipes",
+    "source": "visible"
+   },
+   "after": {
+    "name": "W_Cat_Pipes_Deck",
+    "type": "box",
+    "position": [
+     0.01,
+     7.587,
+     0.04
+    ],
+    "rotation": [
+     -5.78,
+     0.0,
+     0.0
+    ],
+    "parent": "W_Cat_Pipes",
+    "size": [
+     3.5,
+     0.4,
+     20.164
+    ],
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "W_Cat_Pipes",
+    "source": "visible"
+   }
+  },
+  {
+   "pass_": 1,
+   "finding": "RampOut_SW_Deck and RampOut_SW_Junction_Lo share coplanar faces (0.25 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "RampOut_SW_Deck",
+   "result": "moved 10 mm behind RampOut_SW_Junction_Lo",
+   "before": {
+    "name": "RampOut_SW_Deck",
+    "type": "box",
+    "position": [
+     0.0,
+     5.832,
+     0.06
+    ],
+    "rotation": [
+     -8.65,
+     0.0,
+     0.0
+    ],
+    "parent": "RampOut_SW",
+    "size": [
+     4.0,
+     0.4,
+     16.93
+    ],
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "RampOut_SW",
+    "source": "inferred"
+   },
+   "after": {
+    "name": "RampOut_SW_Deck",
+    "type": "box",
+    "position": [
+     0.01,
+     5.832,
+     0.06
+    ],
+    "rotation": [
+     -8.65,
+     0.0,
+     0.0
+    ],
+    "parent": "RampOut_SW",
+    "size": [
+     4.0,
+     0.4,
+     16.93
+    ],
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "RampOut_SW",
+    "source": "inferred"
+   }
+  },
+  {
+   "pass_": 1,
+   "finding": "RampOut_NE_Deck and RampOut_NE_Junction_Lo share coplanar faces (0.25 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "RampOut_NE_Deck",
+   "result": "moved 10 mm behind RampOut_NE_Junction_Lo",
+   "before": {
+    "name": "RampOut_NE_Deck",
+    "type": "box",
+    "position": [
+     0.0,
+     5.584,
+     0.05
+    ],
+    "rotation": [
+     -7.15,
+     0.0,
+     0.0
+    ],
+    "parent": "RampOut_NE",
+    "size": [
+     4.0,
+     0.4,
+     16.369
+    ],
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "RampOut_NE",
+    "source": "inferred"
+   },
+   "after": {
+    "name": "RampOut_NE_Deck",
+    "type": "box",
+    "position": [
+     0.01,
+     5.584,
+     0.05
+    ],
+    "rotation": [
+     -7.15,
+     0.0,
+     0.0
+    ],
+    "parent": "RampOut_NE",
+    "size": [
+     4.0,
+     0.4,
+     16.369
+    ],
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "RampOut_NE",
+    "source": "inferred"
+   }
+  },
+  {
+   "pass_": 1,
+   "finding": "RampOut_SE_Deck and RampOut_SE_Junction_Lo share coplanar faces (0.25 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "RampOut_SE_Deck",
+   "result": "moved 10 mm behind RampOut_SE_Junction_Lo",
+   "before": {
+    "name": "RampOut_SE_Deck",
+    "type": "box",
+    "position": [
+     0.0,
+     5.337,
+     0.04
+    ],
+    "rotation": [
+     -5.73,
+     0.0,
+     0.0
+    ],
+    "parent": "RampOut_SE",
+    "size": [
+     4.0,
+     0.4,
+     15.327
+    ],
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "RampOut_SE",
+    "source": "inferred"
+   },
+   "after": {
+    "name": "RampOut_SE_Deck",
+    "type": "box",
+    "position": [
+     0.01,
+     5.337,
+     0.04
+    ],
+    "rotation": [
+     -5.73,
+     0.0,
+     0.0
+    ],
+    "parent": "RampOut_SE",
+    "size": [
+     4.0,
+     0.4,
+     15.327
+    ],
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "RampOut_SE",
+    "source": "inferred"
+   }
+  },
+  {
+   "pass_": 1,
+   "finding": "RampOut_NW_Deck and RampOut_NW_Junction_Lo share coplanar faces (0.25 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "RampOut_NW_Deck",
+   "result": "moved 10 mm behind RampOut_NW_Junction_Lo",
+   "before": {
+    "name": "RampOut_NW_Deck",
+    "type": "box",
+    "position": [
+     0.0,
+     6.08,
+     0.07
+    ],
+    "rotation": [
+     -10.05,
+     0.0,
+     0.0
+    ],
+    "parent": "RampOut_NW",
+    "size": [
+     4.0,
+     0.4,
+     17.502
+    ],
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "RampOut_NW",
+    "source": "inferred"
+   },
+   "after": {
+    "name": "RampOut_NW_Deck",
+    "type": "box",
+    "position": [
+     0.01,
+     6.08,
+     0.07
+    ],
+    "rotation": [
+     -10.05,
+     0.0,
+     0.0
+    ],
+    "parent": "RampOut_NW",
+    "size": [
+     4.0,
+     0.4,
+     17.502
+    ],
+    "material": "grate",
+    "connector": true,
+    "axis": "z",
+    "gen": "RampOut_NW",
     "source": "inferred"
    }
   }
  ],
  "remaining": {
   "ERROR": 0,
-  "WARNING": 1,
+  "WARNING": 0,
   "INTENTIONAL": 0
  },
  "needs_review": [],

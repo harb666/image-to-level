@@ -1,8 +1,9 @@
 {
  "format": "image-to-level package v1",
+ "variant": "game",
  "level": "slime_arena",
- "title": "scene_spec.json - Slime Arena (Level 1 - Part 2 of 3)",
- "generated": "2026-10-11 14:00:21",
+ "title": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
+ "generated": "2026-10-11 15:22:42",
  "godot_root": "res://levels/slime_arena/",
  "use_in_game": "mobile/level_mobile.glb (+ mobile/background_mobile.glb, mobile/collision.glb)",
  "profile": "balanced",
@@ -17,7 +18,7 @@
    "yaw_deg": 180.0
   },
   {
-   "id": "enemy_north",
+   "id": "enemy_hall_n",
    "position": [
     0.0,
     7.0,
@@ -27,75 +28,116 @@
    "team": "enemy"
   },
   {
-   "id": "enemy_east",
+   "id": "enemy_hall_ne",
    "position": [
-    29.5,
+    37.0,
     7.0,
-    0.0
+    -37.0
    ],
-   "yaw_deg": 90.0,
+   "yaw_deg": 135.0,
    "team": "enemy"
   },
   {
-   "id": "enemy_west",
-   "position": [
-    -29.5,
-    7.0,
-    0.0
-   ],
-   "yaw_deg": -90.0,
-   "team": "enemy"
-  },
-  {
-   "id": "enemy_south",
+   "id": "enemy_assembly",
    "position": [
     0.0,
     7.0,
-    29.5
+    -82.0
    ],
-   "yaw_deg": -0.0,
+   "yaw_deg": -180.0,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_pipes",
+   "position": [
+    -36.0,
+    10.0,
+    -139.09
+   ],
+   "yaw_deg": -165.5,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_purif",
+   "position": [
+    -14.0,
+    10.0,
+    -166.0
+   ],
+   "yaw_deg": -175.2,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_core",
+   "position": [
+    -0.08,
+    12.0,
+    -191.93
+   ],
+   "yaw_deg": -180.0,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_process",
+   "position": [
+    42.0,
+    14.0,
+    -172.0
+   ],
+   "yaw_deg": 166.3,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_conduit",
+   "position": [
+    47.9,
+    8.0,
+    -130.0
+   ],
+   "yaw_deg": 159.8,
    "team": "enemy"
   }
  ],
  "hazards": [
-  "HazardFluid"
+  "HazardFluid",
+  "HazardFluid_2"
  ],
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "1fdfb21681f0f786",
+  "spec_sha": "cc19b6bd457dc6a4",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
  },
  "metrics": {
   "dev": {
-   "glb_kb": 712,
-   "triangles": 11302,
-   "draw_calls": 388,
-   "tex_mem_gpu_mb_est": 6.9
+   "glb_kb": 1985,
+   "triangles": 31261,
+   "draw_calls": 1604,
+   "tex_mem_gpu_mb_est": 6.46
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 854,
-   "triangles": 13502,
-   "draw_calls": 67,
-   "visible_draw_calls_est": 42.5,
-   "visible_draw_calls_max_est": 65,
-   "tex_mem_gpu_mb_est": 6.9,
+   "glb_kb": 1476,
+   "triangles": 40414,
+   "draw_calls": 69,
+   "visible_draw_calls_est": 43.9,
+   "visible_draw_calls_max_est": 68,
+   "tex_mem_gpu_mb_est": 3.21,
    "materials": 16,
-   "nodes": 68,
+   "nodes": 70,
    "colliders": {
-    "colliders": 192,
-    "hazards": 9,
-    "glb_kb": 112
+    "colliders": 615,
+    "hazards": 16,
+    "glb_kb": 359
    },
-   "background_kb": null
+   "background_kb": 407
   },
   "effects": {
-   "max_particles": 619,
-   "emitters": 18,
-   "extra_draw_calls": 5,
-   "transparent_area_m2": 5184
+   "max_particles": 868,
+   "emitters": 28,
+   "extra_draw_calls": 8,
+   "transparent_area_m2": 31584
   },
   "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
  },
@@ -103,7 +145,7 @@
   "passed": true,
   "counts": {
    "error": 0,
-   "warning": 0,
+   "warning": 1,
    "info": 1
   }
  },
@@ -113,5 +155,5 @@
   "Scripts and .tres are UNTESTED in Godot from this environment.",
   "Performance numbers are estimates, not device benchmarks."
  ],
- "files": 33
+ "files": 32
 }

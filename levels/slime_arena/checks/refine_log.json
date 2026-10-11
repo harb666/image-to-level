@@ -2,39 +2,44 @@
  "passes": [
   {
    "n": 1,
-   "errors": 0,
-   "warnings": 1,
-   "top_errors": [],
+   "errors": 6,
+   "warnings": 19,
+   "top_errors": [
+    "OuterWall_South_03_Banner_01: back face visible from 5 camera rays (missing/one-sided geometry)",
+    "OuterWall_East_03_Banner_01: back face visible from 4 camera rays (missing/one-sided geometry)",
+    "OuterWall_West_03_Banner_01: back face visible from 3 camera rays (missing/one-sided geometry)",
+    "Works_Wall_East_02_Banner_02: back face visible from 3 camera rays (missing/one-sided geometry)",
+    "Round_SW_Light_02: back face visible from 1 camera rays (missing/one-sided geometry)",
+    "Works_Wall_West_02_Banner_03: back face visible from 1 camera rays (missing/one-sided geometry)"
+   ],
    "fixes": [
-    "geometry: Elevator_Shaft_Liner: moved 10 mm behind Ceiling_Slab"
+    "geometry: W_Ramp_Conduit_Deck: moved 10 mm behind W_Ramp_Conduit_Junction_Lo",
+    "geometry: W_Stairs_Shaft: moved 10 mm behind W_Stairs_Shaft_Junction_Hi",
+    "geometry: W_Stairs_Maint: moved 10 mm behind W_Stairs_Maint_Junction_Hi",
+    "geometry: W_Ramp_Core_Deck: moved 10 mm behind W_Ramp_Core_Junction_Lo",
+    "geometry: W_Cat_Junction_Deck: moved 10 mm behind W_Cat_Junction_Junction_Lo",
+    "geometry: W_Cat_Pipes_Deck: moved 10 mm behind W_Cat_Pipes_Junction_Lo",
+    "geometry: RampOut_SW_Deck: moved 10 mm behind RampOut_SW_Junction_Lo",
+    "geometry: RampOut_NE_Deck: moved 10 mm behind RampOut_NE_Junction_Lo",
+    "geometry: RampOut_SE_Deck: moved 10 mm behind RampOut_SE_Junction_Lo",
+    "geometry: RampOut_NW_Deck: moved 10 mm behind RampOut_NW_Junction_Lo",
+    "camera: OuterWall_South_03_Banner_01: double_sided",
+    "camera: OuterWall_East_03_Banner_01: double_sided",
+    "camera: OuterWall_West_03_Banner_01: double_sided",
+    "camera: Works_Wall_East_02_Banner_02: double_sided",
+    "camera: Round_SW_Light_02: double_sided",
+    "camera: Works_Wall_West_02_Banner_03: double_sided"
    ]
   },
   {
    "n": 2,
    "errors": 0,
    "warnings": 1,
-   "top_errors": [],
-   "fixes": [
-    "geometry: Elevator_Shaft_Liner: moved 10 mm behind Ceiling_Slab"
-   ]
-  },
-  {
-   "n": 3,
-   "errors": 0,
-   "warnings": 1,
-   "top_errors": [],
-   "fixes": [
-    "geometry: Elevator_Shaft_Liner: moved 10 mm behind Ceiling_Slab"
-   ]
-  },
-  {
-   "n": "final",
-   "errors": 0,
-   "warnings": 1
+   "top_errors": []
   }
  ],
  "max_passes": 3,
- "seconds": 829.8,
+ "seconds": 1430.7,
  "passed": true,
  "counts": {
   "error": 0,
@@ -44,8 +49,8 @@
  "needs_claude": [
   {
    "severity": "warning",
-   "message": "Ceiling_Slab and Elevator_Shaft_Liner share coplanar faces (2.82 m\u00b2, different materials): z-fighting flicker [auto-repairable]",
-   "object": "Ceiling_Slab"
+   "message": "42253 triangles (> budget 40000)",
+   "object": null
   }
  ],
  "visual_review": "checks/views/contact_sheet.jpg + checks/inspect/contact_sheet.jpg must be LOOKED AT by Claude and compared with the reference before calling the level done"
