@@ -169,3 +169,39 @@ def conduit(ctx, s, x, y, z, yaw):
     side = float(s.get("channel_side", 0))
     if side: ctx.add(n + "_Channel", "box", [side * (w / 2 + 1.2), -0.6, 0], [2.0, 0.3, L], s.get("material", "hazard"), g, **st)
 
+
+
+@structure("column", pad=False)
+def column(ctx, s, x, y, z, yaw):
+    """Reactor column from the slime to the ceiling (or "height"): plinth, glowing slime-glass sections at irregular
+    heights between dark banded drums, a flared capital into the roof, red lights on some bands. "radius" (2.5)."""
+    n = s["id"]; r = float(s.get("radius", 2.5)); top = float(s.get("height", getattr(ctx, "ceiling_y", 24.0)))
+    import random as _r
+    rg = _r.Random(n); g = ctx.add(n, "group", [x, 0, z], rot=[0, yaw, 0]); st = dict(mobile={"static": True}); sec = int(s.get("sections", 8))
+    ctx.add(n + "_Plinth", "cylinder", [0, -0.5, 0], [2 * r * 1.35, 4.5, 2 * r * 1.35], "structure_b", g, sections=sec, **st)
+    yy, k = 4.0, 0
+    while yy < top - 4:
+        k += 1
+        if k % 2:  # glass section
+            hh = min(rg.uniform(3, 7), top - 4 - yy); ctx.add(f"{n}_Glass_{k:02d}", "cylinder", [0, yy, 0], [2 * r, hh, 2 * r], s.get("material", "hazard"), g, sections=sec, collision=True, outline=False, **st)
+        else:
+            hh = min(rg.uniform(1.0, 3.5), top - 4 - yy); ctx.add(f"{n}_Drum_{k:02d}", "cylinder", [0, yy, 0], [2 * r * 1.12, hh, 2 * r * 1.12], "structure_b" if k % 4 else "trim", g, sections=sec, **st)
+            if rg.random() < 0.6 and hh > 0.6:  # set into the drum (centre on the flat face's plane: never floating off a corner)
+                ctx.add(f"{n}_Red_{k:02d}", "box", [0, yy + hh / 2 - 0.15, r * 1.12 * math.cos(math.pi / sec)], [0.6, 0.3, 0.3], "glow", g, collision=False, outline=False, **st)
+        yy += hh
+    ctx.add(n + "_Neck", "cylinder", [0, yy, 0], [2 * r * 1.05, top - 2.5 - yy, 2 * r * 1.05], "structure_b", g, sections=sec, **st)
+    ctx.add(n + "_Capital", "frustum", [0, top - 2.5, 0], [2 * r * 2.0, 2.5, 2 * r * 2.0], "structure_b", g, sections=sec, bottom_scale=0.55, collision=False, **st)
+
+
+@structure("rock_face", pad=False)
+def rock_face(ctx, s, x, y, z, yaw):
+    """Raw cave rock the factory was built into (from/to along a wall, "height", "depth"): a few jagged cliff slabs
+    of different heights and depths, buried in the slime. Visual only."""
+    n = s["id"]; (ax, az), (bx, bz) = s["from"], s["to"]; L = math.hypot(bx - ax, bz - az); H = float(s.get("height", 20)); D = float(s.get("depth", 5))
+    import random as _r
+    rg = _r.Random(n); g = ctx.add(n, "group", [x, 0, z], rot=[0, yaw - 90, 0]); u = -L / 2; k = 0
+    while u < L / 2 - 1:
+        k += 1; sw = min(rg.uniform(8, 16), L / 2 - u); hh = H * rg.uniform(0.6, 1.0); dd = D * rg.uniform(0.6, 1.0)
+        ctx.add(f"{n}_Slab_{k:02d}", "cliff", [u + sw / 2, 0, 0], [sw + 1.5, hh, dd], s.get("material", "rock"), g, seed=rg.randrange(1 << 20), step=3.5,
+                collision=False, mobile={"static": True})
+        u += sw

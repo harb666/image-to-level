@@ -448,8 +448,9 @@ def connection(ctx, c, A, B, floor_y):
 
 
 # ------------------------------------------------------------------ walls / arena
-def wall_segment(ctx, name, p0, p1, height, thick, base_y, style, inner=None, decor=True):
-    """Straight wall from p0 to p1 (x, z); 'inner' = point on the playable side (pilasters/banners face it)."""
+def wall_segment(ctx, name, p0, p1, height, thick, base_y, style, inner=None, decor=True, dress=None):
+    """Straight wall from p0 to p1 (x, z); 'inner' = point on the playable side (pilasters/banners face it).
+    dress = {"dressing": "varied", "dress_y": y}: Stage 18 irregular wall modules instead of the pilaster rhythm."""
     dx, dz = p1[0] - p0[0], p1[1] - p0[1]; L = math.hypot(dx, dz); ux, uz = dx / L, dz / L
     mid = ((p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2); yaw = yaw_to(ux, uz) - 90  # local +x along the wall, +z = normal
     nx, nz = uz, -ux
@@ -458,6 +459,7 @@ def wall_segment(ctx, name, p0, p1, height, thick, base_y, style, inner=None, de
     ctx.add(name + "_Body", "box", [0, base_y, 0], [L, height - base_y, thick], "wall", g)
     ctx.add(name + "_Cap", "box", [0, height, 0], [L + 0.3, 0.5, thick + 0.4], "trim" if style == "stone" else "structure_b", g)
     if not decor: return g
+    if dress and dress.get("dressing") == "varied": _wall_varied(ctx, name, g, L, height, thick, base_y, dress); return g
     step = 12.0 if ctx.detail >= 1 else 24.0; n = max(0, int(L / step))
     for i in range(n):  # pilasters / buttresses on the inner face
         x = -L / 2 + L * (i + 0.5) / n
@@ -468,6 +470,68 @@ def wall_segment(ctx, name, p0, p1, height, thick, base_y, style, inner=None, de
     if style != "stone" and ctx.detail >= 2 and L > 10:  # horizontal pipe along the inner face
         ctx.add(name + "_Pipe", "cylinder", [-L / 2 + 1, base_y + 2.2, thick / 2 + 0.7], [1.2, L - 2, 1.2], "pipe", g, [0, 0, -90], sections=8)
     return g
+
+
+WALL_MODULES = (("pipes", 3), ("machine", 2), ("fan", 1.5), ("emblem", 1.5), ("vent", 1.5), ("tank", 2), ("door", 0.7), ("plain", 1.2))
+
+
+def _wall_varied(ctx, name, g, L, height, thick, base_y, dress):
+    """Stage 18 wall dressing: the inner face is cut into slots of random width (5-13 m) and every slot gets a module,
+    never the same twice in a row: vertical pipe bundle with brackets, machine housing on a bracket, big wall fan,
+    painted emblem (banner panel), vent grille, glowing slime-tank window, sealed side door (at most one per wall),
+    plain stretch with a light strip. Red lights here and there. Seeded by the wall name -> stable between builds."""
+    rng = np.random.default_rng(_h("wall" + name)); fy = float(dress.get("dress_y", 7.0)); f = thick / 2; st = dict(mobile={"static": True})
+    u = -L / 2 + rng.uniform(0.5, 2.0); prev = None; k = 0; doors = 0; H = height - base_y
+    mods, wts = zip(*WALL_MODULES)
+    while u < L / 2 - 3:
+        sw = min(rng.uniform(5, 13), L / 2 - 0.5 - u); x = u + sw / 2; k += 1
+        p = np.array(wts, float); p[[i for i, m in enumerate(mods) if m == prev or (m == "door" and doors)]] = 0; m = mods[int(rng.choice(len(mods), p=p / p.sum()))]
+        if sw < 4.5: m = "pipes" if prev != "pipes" else "plain"
+        nm = f"{name}_M{k:02d}{m.capitalize()}"  # module kind in the name (level.json readers, tests)
+        if m == "pipes":
+            nps = int(rng.integers(2, 5)); r = rng.uniform(0.25, 0.55); y1 = height - rng.uniform(0.5, 4)
+            for i in range(nps):
+                px = x + (i - (nps - 1) / 2) * (2 * r + 0.25)
+                ctx.add(f"{nm}_Pipe_{i + 1}", "cylinder", [px, base_y + 0.5, f + r + 0.1], [2 * r, y1 - base_y - 0.5, 2 * r], "pipe", g, sections=6, collision=False, outline=False, **st)
+            for j, yy in enumerate(sorted(rng.uniform(fy + 2, y1 - 1, int(rng.integers(2, 4))))):
+                ctx.add(f"{nm}_Bracket_{j + 1}", "box", [x, yy, f + 0.3], [nps * (2 * r + 0.25) + 0.3, 0.35, 2 * r + 0.5], "frame", g, collision=False, outline=False, **st)
+        elif m == "machine":
+            mw, mh = sw * rng.uniform(0.5, 0.8), rng.uniform(3, 6.5)
+            ctx.add(nm + "_Bracket", "box", [x, fy - 0.8, f + 0.9], [mw * 0.8, 0.8, 1.8], "frame", g, collision=False, **st)
+            ctx.add(nm, "machinery", [x, fy, f + 1.1], [mw, mh, 2.2], "machine", g, seed=int(rng.integers(1 << 20)), collision=False, **st)
+            ctx.add(nm + "_Light", "box", [x - mw * 0.3, fy + mh + 0.3, f + 0.15], [0.6, 0.35, 0.3], "glow", g, collision=False, outline=False, **st)  # on the wall above the housing
+        elif m == "fan":
+            rr = min(sw / 2 - 0.6, rng.uniform(2.4, 4.2)); yy = rng.uniform(fy + 4 + rr, max(fy + 4.5 + rr, height - rr - 2))
+            ctx.add(nm, "cylinder", [x, yy, f], [2 * rr, 0.9, 2 * rr], "structure_b", g, [90, 0, 0], sections=10, hole=rr - 0.45, collision=False, **st)
+            ctx.add(nm + "_Hub", "cylinder", [x, yy, f], [1.0, 0.6, 1.0], "machine", g, [90, 0, 0], sections=6, collision=False, outline=False, **st)
+            for b in range(4): ctx.add(f"{nm}_Blade_{b + 1}", "box", [x, yy, f + 0.3], [2 * rr - 0.9, 0.5, 0.08], "frame", g, [0, 0, 45 * b + 15], collision=False, outline=False, **st)
+        elif m == "emblem":
+            ew = min(sw * 0.8, rng.uniform(4, 7)); eh = min(H - (fy + 3 - base_y) - 1, ew * rng.uniform(1.4, 2.0))
+            if eh > 3: ctx.add(nm, "panel", [x, fy + 2.5, f + 0.03], [ew, eh, 0], "accent", g, collision=False, outline=False, **st)
+        elif m == "vent":
+            vw = sw * rng.uniform(0.4, 0.7); yy = rng.uniform(fy + 1, fy + 8); vh = rng.uniform(2, 4)  # frame + 3 slats (a louvred vent shape is ~500 triangles)
+            ctx.add(nm, "box", [x, yy, f + 0.1], [vw, vh, 0.3], "structure_b", g, collision=False, **st)
+            for j in range(3): ctx.add(f"{nm}_Slat_{j + 1}", "box", [x, yy + vh * (j + 1) / 4 - 0.12, f + 0.3], [vw - 0.5, 0.24, 0.15], "frame", g, collision=False, outline=False, **st)
+        elif m == "tank":
+            tw, th = sw * rng.uniform(0.45, 0.75), rng.uniform(6, min(14, H - (fy - base_y) - 3)); yy = fy + rng.uniform(0.5, 3)
+            ctx.add(nm + "_Glass", "box", [x, yy, f + 0.15], [tw, th, 0.3], "hazard", g, collision=True, outline=False, **st)  # solid: slime glass is never a hazard area
+            for i in range(1, int(tw / 2.2) + 1): ctx.add(f"{nm}_Bar_{i}", "box", [x - tw / 2 + i * tw / (int(tw / 2.2) + 1), yy, f + 0.35], [0.3, th, 0.3], "frame", g, collision=False, **st)
+            for j, yb in enumerate((yy - 0.4, yy + th)): ctx.add(f"{nm}_Rim_{j + 1}", "box", [x, yb, f + 0.35], [tw + 0.8, 0.45, 0.6], "structure_b", g, collision=False, **st)
+            ctx.add(nm + "_Light", "box", [x + tw / 2 + 0.2, yy + th + 0.6, f + 0.15], [0.45, 0.45, 0.3], "glow", g, collision=False, outline=False, **st)
+        elif m == "door":
+            doors += 1; dw = min(sw * 0.6, 3.6); dh = 4.4
+            ctx.add(nm + "_Frame", "box", [x, fy, f + 0.15], [dw + 1.0, dh + 0.7, 0.3], "glow", g, collision=False, outline=False, **st)
+            ctx.add(nm, "box", [x, fy, f + 0.25], [dw, dh, 0.3], "structure_b", g, collision=False, **st)
+            ctx.add(nm + "_Sign", "box", [x, fy + dh + 0.7, f + 0.2], [1.6, 0.5, 0.2], "glow", g, collision=False, outline=False, **st)
+        else:
+            ctx.add(nm + "_Strip", "box", [x, fy + rng.uniform(3, 8), f + 0.05], [sw * 0.7, 0.18, 0.1], "glow", g, collision=False, outline=False, **st)
+        if rng.random() < 0.35 and m not in ("door",):  # a stray red light box
+            ctx.add(nm + "_Red", "box", [x + rng.uniform(-sw / 2 + 0.5, sw / 2 - 0.5), rng.uniform(fy + 2, height - 3), f + 0.15], [0.5, 0.35, 0.3], "glow", g, collision=False, outline=False, **st)
+        if rng.random() < 0.7:  # raised wall plate in another tone over part of the slot: the face reads as panels, not one tiled sheet
+            y0 = rng.uniform(fy + 4.5, fy + 9) if m not in ("pipes", "fan") else rng.uniform(base_y + 1, fy - 1); y1 = min(height - 0.8, y0 + rng.uniform(5, 14))
+            if y1 - y0 > 2: ctx.add(nm + "_Plate", "box", [x, y0, f + 0.06], [sw * rng.uniform(0.7, 0.96), y1 - y0, 0.12], str(rng.choice(["structure_b", "frame", "machine"])), g,
+                                   collision=False, outline=False, **st)
+        prev = m; u += sw
 
 
 def window_frame(ctx, name, p0, p1, y0, y1, thick, inner):
@@ -528,13 +592,17 @@ def arena(ctx, a, floor_y, pre=""):
                 if op.get("sill"):  # window: wall kept below the sill (out of reach), frame bars across the opening
                     wall_segment(ctx, tag + "_Sill", m0, m1, op["sill"], t, 0.0, style, (cx, cz), decor=False)
                     if op.get("frame", True): window_frame(ctx, tag + "_Frame", m0, m1, op["sill"], op.get("height") or W["height"], t, (cx, cz))
+                    if op.get("fill") == "slime":  # Stage 18: a giant slime-tank window instead of a view out (glowing glass in the wall)
+                        mx_, mz_ = (m0[0] + m1[0]) / 2, (m0[1] + m1[1]) / 2; yaw_ = yaw_to(ux, uz) - 90
+                        ctx.add(tag + "_Slime", "box", [mx_, op["sill"] + 0.25, mz_], [op["width"] - 0.1, (op.get("height") or W["height"]) - op["sill"] - 0.25, 0.6], "hazard", None, [0, yaw_, 0],
+                                collision=True, outline=False, mobile={"static": True})
             segs, u = [], 0.0
             for h0, h1 in cuts + [(SL, SL)]:
                 if h0 - u > 0.5: segs.append((P(u), P(h0)))
                 u = max(u, h1)
             for k, (s0, s1) in enumerate(segs):
                 nm = f"{WN}{names[i]}" + (f"_{k + 1:02d}" if len(segs) > 1 else "")
-                wall_segment(ctx, nm, s0, s1, W["height"], t, 0.0, style, (cx, cz))
+                wall_segment(ctx, nm, s0, s1, W["height"], t, 0.0, style, (cx, cz), dress=W if W.get("dressing") else None)
     if a.get("walkway"):
         ww = a["walkway"]; ctx.element = (el + ".walkway", ww.get("source", "visible")); wd = ww.get("width", 4.0)
         if sh != "rect": ctx.notes.append("walkway ring is only generated for rect arenas")
@@ -566,6 +634,9 @@ def ceiling(ctx, a, W, pre=""):
     sk = W.get("skip", []); ex = {s_: (-0.3 if s_ in sk else t + 0.3) for s_ in ("north", "south", "east", "west")}  # a skipped side meets the arena's slab edge
     x0, x1, z0, z1 = cx - w / 2 - ex["west"], cx + w / 2 + ex["east"], cz - d / 2 - ex["north"], cz + d / 2 + ex["south"]
     ctx.add(pre + "Ceiling_Slab", "box", [(x0 + x1) / 2, y, (z0 + z1) / 2], [x1 - x0, th, z1 - z0], C.get("material", "wall"), **hole, **tag, outline=False)
+    if C.get("style") == "varied":  # Stage 18: irregular dressing, built after the platforms (pods keep headroom over decks)
+        ctx.pending_ceilings = getattr(ctx, "pending_ceilings", []) + [dict(pre=pre, cx=cx, cz=cz, w=w, d=d, y=y, R=R or 0.0, ox=ox, oz=oz, C=C, tag=tag)]
+        ctx.ceiling_y = y; ctx.notes.append(f"{pre}ceiling: roof slab at y {y:.1f} m, varied dressing"); return
     step = float(C.get("beam_step", 12.0)); bh = float(C.get("beam_depth", 1.1)); keep = (R or 0) + 0.8
     xs = [cx + k * step for k in range(-int(w / 2 / step), int(w / 2 / step) + 1) if abs(k * step) < w / 2 - 1 and abs(k * step) > keep]
     zs = [cz + k * step for k in range(-int(d / 2 / step), int(d / 2 / step) + 1) if abs(k * step) < d / 2 - 1 and abs(k * step) > keep]
@@ -582,6 +653,108 @@ def ceiling(ctx, a, W, pre=""):
                 k += 1; ctx.add(f"{pre}Ceiling_Lamp_{k:02d}", "box", [mx, y - 0.18, mz], [min(4.0, (x1 - x0) * 0.4), 0.18, min(1.2, (z1 - z0) * 0.2)], "glow", None,
                                 collision=False, outline=False, **tag)
     ctx.ceiling_y = y; ctx.notes.append(f"{pre}ceiling: roof slab at y {y:.1f} m" + (f" with a {R} m opening for the shaft" if R else "") + f", {len(xs) + len(zs)} girders")
+
+
+def _floor_under(ctx, x, z, r=3.0):
+    """Highest walkable surface within r m of (x, z) (platforms, walkways, decks), else the arena floor."""
+    ys = [w_["y"] for w_ in ctx.walkable if w_["min"][0] - r <= x <= w_["max"][0] + r and w_["min"][1] - r <= z <= w_["max"][1] + r]
+    return max(ys + [getattr(ctx, "floor_y", 0.0)])
+
+
+def dress_ceilings(ctx):
+    """Stage 18 "varied" ceilings (after platforms + structures): no grid. Seeded per room:
+      - main beams across the short span at irregular spacing, mixed I-beams and deep trusses, split round the shaft
+      - stepped ceiling sections (coffers) hanging at different depths, some edged with red light strips
+      - long ducts at different heights, a ventilation fan ring
+      - clusters of hanging green cage lamps of mixed size and drop (bottoms >= 4.5 m over any deck below)
+      - sagging cable runs, scattered pairs of red ceiling lights
+    Visual only (no colliders), cutaway + mobile group "Ceiling" like the slab."""
+    for P in getattr(ctx, "pending_ceilings", []):
+        pre, cx, cz, w, d, y, R, ox, oz, C, tag = (P[k] for k in ("pre", "cx", "cz", "w", "d", "y", "R", "ox", "oz", "C", "tag"))
+        ctx.element = ((pre[:-1] if pre else "arena") + ".ceiling", C.get("source", "visible"))
+        rng = np.random.default_rng(_h("ceiling" + pre + str(C.get("seed", 0)))); vis = dict(collision=False, **tag); n = pre + "Ceil_"
+        along_z = d >= w; L, S = (d, w) if along_z else (w, d)  # beams span S (short), stand along L
+        def P2(u, v): return (cx + v, cz + u) if along_z else (cx + u, cz + v)  # u along L, v across
+        ou, ov = ((oz - cz, ox - cx) if along_z else (ox - cx, oz - cz)) if R else (1e9, 1e9)
+        def clear_of_shaft(x, z, m): return not R or math.hypot(x - ox, z - oz) > R + m
+        u = -L / 2 + rng.uniform(4, 9); k = 0
+        while u < L / 2 - 3:  # ---- main beams
+            k += 1; deep = rng.random() < 0.35; bh = rng.uniform(2.0, 3.2) if deep else rng.uniform(0.9, 2.0)
+            spans = [(-S / 2, S / 2)]
+            if R and abs(u - ou) < R + 1.5: spans = [(-S / 2, ov - R - 1.2), (ov + R + 1.2, S / 2)]
+            for j, (v0, v1) in enumerate(spans):
+                if v1 - v0 < 2: continue
+                x, z = P2(u, (v0 + v1) / 2); ln = v1 - v0; rot = [0, 0 if along_z else 90, 0]; nm = f"{n}Beam_{k:02d}_{j + 1}"
+                if deep:  # truss: two chords + alternating web diagonals
+                    for yy, c in ((y - 0.45, "T"), (y - bh, "B")): ctx.add(f"{nm}_{c}", "box", [x, yy, z], [ln, 0.45, 0.45], "frame", None, rot, outline=c == "B", **vis)
+                    nw = max(2, int(ln / 3.2)); ang = math.degrees(math.atan2(ln / nw, bh - 0.45))
+                    for i in range(nw):
+                        vv = v0 + ln * (i + 0.5) / nw; wx, wz = P2(u, vv)
+                        ctx.add(f"{nm}_W{i + 1:02d}", "box", [wx, y - bh + 0.45, wz], [0.22, (bh - 0.9) / max(math.cos(math.radians(ang)), 0.3), 0.22], "frame", None,
+                                ([0, 0, ang if i % 2 else -ang] if along_z else [ang if i % 2 else -ang, 0, 0]), outline=False, **vis)
+                else: ctx.add(nm, "ibeam", [x, y - bh, z], [ln, bh, rng.uniform(0.5, 0.9)], "frame", None, [0, 0 if along_z else 90, 0], outline=False, **vis)
+            u += rng.uniform(8, 21)
+        area = w * d; nc = max(2, int(area / 2600))  # ---- stepped sections
+        for i in range(nc):
+            for _ in range(20):
+                sw, sd = rng.uniform(10, 26), rng.uniform(8, 22); x = cx + rng.uniform(-w / 2 + sw / 2, w / 2 - sw / 2); z = cz + rng.uniform(-d / 2 + sd / 2, d / 2 - sd / 2)
+                if clear_of_shaft(x, z, max(sw, sd) / 2 + 2): break
+            else: continue
+            drop = rng.uniform(1.6, 4.2); ctx.add(f"{n}Step_{i + 1:02d}", "box", [x, y - drop, z], [sw, drop - 0.05, sd], "wall", None, outline=False, **vis)
+            if rng.random() < 0.6:
+                ctx.add(f"{n}Step_{i + 1:02d}_Strip", "box", [x, y - drop - 0.12, z + sd / 2 - 0.4], [sw * rng.uniform(0.4, 0.8), 0.12, 0.25], "glow", None, outline=False, **vis)
+        for i in range(int(rng.integers(2, 4))):  # ---- ducts along L at different heights / offsets, clear of the shaft
+            for _ in range(20):
+                v = rng.uniform(-S / 2 + 3, S / 2 - 3)
+                if not R or abs(v - ov) > R + 2.5: break
+            r = rng.uniform(0.6, 1.3); u0, u1 = sorted(rng.uniform(-L / 2 + 1, L / 2 - 1, 2)); u1 = max(u1, u0 + L * 0.35)
+            x, z = P2(u0, v); yy = y - rng.uniform(2.4, 4.5)
+            dl = min(u1, L / 2 - 1) - u0
+            ctx.add(f"{n}Duct_{i + 1}", "cylinder", [x, yy, z], [2 * r, dl, 2 * r], "pipe", None, [90, 0, 0] if along_z else [0, 0, -90], sections=8, outline=False, **vis)
+            for j in range(max(2, int(dl / 12)) + 1):  # hangers from the roof
+                hx, hz = P2(u0 + 0.5 + (dl - 1.0) * j / max(2, int(dl / 12)), v)
+                ctx.add(f"{n}Duct_{i + 1}_Hanger_{j + 1}", "box", [hx, yy + r - 0.1, hz], [0.18, y - yy - r + 0.1, 0.18], "frame", None, outline=False, **vis)
+        for i in range(int(rng.integers(1, 3))):  # ---- ventilation fan rings
+            for _ in range(20):
+                x, z = cx + rng.uniform(-w / 2 + 6, w / 2 - 6), cz + rng.uniform(-d / 2 + 6, d / 2 - 6)
+                if clear_of_shaft(x, z, 8): break
+            rr = rng.uniform(2.2, 3.6); f = f"{n}Fan_{i + 1}"
+            ctx.add(f, "cylinder", [x, y - 0.95, z], [2 * rr, 0.85, 2 * rr], "structure_b", None, sections=12, hole=rr - 0.4, **vis)
+            ctx.add(f + "_Hub", "cylinder", [x, y - 0.8, z], [0.9, 0.7, 0.9], "machine", None, sections=8, **vis)
+            for b in range(4): ctx.add(f"{f}_Blade_{b + 1}", "box", [x, y - 0.6, z], [2 * rr - 1.0, 0.08, 0.5], "frame", None, [0, 45 * b + 20, 12], outline=False, **vis)
+        npods = int(area / 800 * C.get("pods", 1.0)); placed = 0; att = 0  # ---- hanging cage lamps, in clusters
+        while placed < npods and att < npods * 12:
+            att += 1; x0, z0 = cx + rng.uniform(-w / 2 + 3, w / 2 - 3), cz + rng.uniform(-d / 2 + 3, d / 2 - 3)
+            for j in range(int(rng.integers(1, 4))):
+                x, z = x0 + rng.uniform(-3, 3), z0 + rng.uniform(-3, 3)
+                if not clear_of_shaft(x, z, 2.5) or abs(x - cx) > w / 2 - 2 or abs(z - cz) > d / 2 - 2: continue
+                big = rng.random() < 0.2; r = rng.uniform(1.3, 2.0) if big else rng.uniform(0.6, 1.0); h = r * rng.uniform(1.8, 2.4)
+                low = _floor_under(ctx, x, z, r + 2.0) + 4.5 + h; bot = max(low, y - rng.uniform(3.5, 12.0))
+                if bot + h + 1.0 > y - 0.5: continue
+                placed += 1; nm = f"{n}Pod_{placed:02d}"
+                ctx.add(nm + "_Cable", "box", [x, bot + h, z], [0.1, y - bot - h, 0.1], "frame", None, outline=False, **vis)
+                ctx.add(nm + "_Cap", "cylinder", [x, bot + h - 0.1, z], [2 * r + 0.3, 0.45, 2 * r + 0.3], "structure_b", None, sections=6, **vis)
+                ctx.add(nm, "cylinder", [x, bot + 0.25, z], [2 * r, h - 0.35, 2 * r], "fall" if "fall" in ctx.spec.get("materials", {}).get("roles", {}) else "glow", None,
+                        sections=6, outline=False, **vis)
+                ctx.add(nm + "_Base", "cylinder", [x, bot, z], [2 * r + 0.2, 0.3, 2 * r + 0.2], "structure_b", None, sections=6, outline=False, **vis)
+                for b in range(2): ctx.add(f"{nm}_Bar_{b + 1}", "box", [x, bot + 0.2, z], [2 * r + 0.25, h - 0.3, 0.14], "frame", None, [0, 90 * b + 45, 0], outline=False, **vis)  # cage
+        for i in range(int(area / 1400)):  # ---- sagging cable runs (4 segments)
+            x0, z0 = cx + rng.uniform(-w / 2 + 2, w / 2 - 2), cz + rng.uniform(-d / 2 + 2, d / 2 - 2); a = rng.uniform(0, 2 * math.pi); ln = rng.uniform(8, 20)
+            x1, z1 = x0 + math.cos(a) * ln, z0 + math.sin(a) * ln
+            if abs(x1 - cx) > w / 2 - 1 or abs(z1 - cz) > d / 2 - 1: continue
+            sag = rng.uniform(1.5, 4.5); pts = [(x0 + (x1 - x0) * t, y - 0.6 - sag * 4 * t * (1 - t), z0 + (z1 - z0) * t) for t in np.linspace(0, 1, 5)]
+            for j, (pa, pb) in enumerate(zip(pts, pts[1:])):
+                dx, dy, dz = pb[0] - pa[0], pb[1] - pa[1], pb[2] - pa[2]; sl = math.sqrt(dx * dx + dy * dy + dz * dz)
+                yaw = math.degrees(math.atan2(dx, dz)); pitch = math.degrees(math.asin(max(-1, min(1, dy / sl))))
+                ctx.add(f"{n}Cable_{i + 1:02d}_{j + 1}", "box", [(pa[0] + pb[0]) / 2, (pa[1] + pb[1]) / 2 - 0.08, (pa[2] + pb[2]) / 2], [0.16, 0.16, sl + 0.1], "frame", None,
+                        [-pitch, yaw, 0], outline=False, **vis)
+        for i in range(int(area / 700)):  # ---- red ceiling lights in pairs ("II")
+            x, z = cx + rng.uniform(-w / 2 + 2, w / 2 - 2), cz + rng.uniform(-d / 2 + 2, d / 2 - 2)
+            if not clear_of_shaft(x, z, 1.5): continue
+            rot = [0, float(rng.choice([0, 90])), 0]
+            for j, o in enumerate((-0.35, 0.35)):
+                ox_, oz_ = local(o, 0, rot[1]); ctx.add(f"{n}Red_{i + 1:02d}_{j + 1}", "box", [x + ox_, y - 0.25, z + oz_], [0.3, 0.2, 1.1], "glow", None, rot, outline=False, **vis)
+    ctx.element = None
 
 
 # ------------------------------------------------------------------ structures

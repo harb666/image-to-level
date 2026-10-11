@@ -70,6 +70,7 @@ def generate(spec, G, level_dir=None):
         ctx.element = (p["id"], p.get("source", "visible")); A.pipe(ctx, p, fy, ar or {"center": list(centre), "size": [0, 0]})
     A.party_walls(ctx)
     A.place_covers(ctx)  # after connections: cover never stands in a landing (Stage 8)
+    A.dress_ceilings(ctx)  # Stage 18: "varied" ceilings, after every deck exists (lamp pods keep headroom)
     import weathering; weathering.leaks(ctx, spec); weathering.crate_skin(ctx, spec)  # slime decals, printed crates (visual only)
     for h in spec.get("hazards", []):
         ctx.element = (h["id"], h.get("source", "visible")); x0, z0, x1, z1 = h["area"]

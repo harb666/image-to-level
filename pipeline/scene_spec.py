@@ -30,10 +30,11 @@ SCHEMA = {
                            "floor": (DICT, True, {"kind": (STR, True, ("hazard", "ground", "deck")), "y": (NUM, True), "material": (STR, False), "name": (STR, False), "source": (STR, False)}),
                            "walls": (DICT, False, {"height": (NUM, True), "thickness": (NUM, False), "style": (STR, False, ("auto", "industrial", "stone", "none")), "source": (STR, False),
                                                    "openings": (LIST, False, {"side": (STR, True, ("north", "south", "east", "west")), "at": (NUM, False), "width": (NUM, True), "height": (NUM, False),
-                                                                                   "sill": (NUM, False), "frame": (BOOL, False)}), "skip": (LIST, False)}),
+                                                                                   "sill": (NUM, False), "frame": (BOOL, False), "fill": (STR, False, ("slime",))}), "skip": (LIST, False), "dressing": (STR, False, ("pilasters", "varied")), "dress_y": (NUM, False)}),
                            "walkway": (DICT, False, {"width": (NUM, False), "y": (NUM, True), "style": (STR, False), "source": (STR, False)}),
                            "ceiling": (DICT, False, {"opening": (NUM, False), "opening_at": (V2, False), "thickness": (NUM, False), "beam_step": (NUM, False),
-                                                     "beam_depth": (NUM, False), "lamps": (BOOL, False), "material": (STR, False), "source": (STR, False)}),
+                                                     "beam_depth": (NUM, False), "lamps": (BOOL, False), "material": (STR, False), "source": (STR, False),
+                                                     "style": (STR, False, ("grid", "varied")), "seed": (INT, False), "pods": (NUM, False)}),
                            "boundary": (STR, False, ("walls", "invisible"))}),
     "platforms": (LIST, False, dict(ELEMENT, id=(STR, True), shape=(STR, False, ("rect", "octagon", "circle")), center=(V2, True), size=(V2, True),
                                     top=(NUM, True), style=(STR, False, ("industrial_pillar", "stone_plinth", "plain", "sky_pylon")), cover=(INT, False), lights=(BOOL, False),
@@ -95,7 +96,7 @@ NEEDS = {"hill": ("center", "radius", "height"), "mountain": ("center", "radius"
          "ridge": ("points", "height"), "barrier": ("points", "height"), "valley": ("points",), "canyon": ("points",), "river": ("points",), "road": ("points",),
          "path": ("points",), "street": ("points",), "cliff": ("points", "height"), "coast": ("points",), "pad": ("center",), "heightmap": ("image", "area"),
          "mask": ("image", "area")}
-LINE_KINDS = ("gallery", "conveyor", "conduit", "wall", "bridge", "street", "walkway", "tunnel", "barrier_line", "pipeline", "fence")
+LINE_KINDS = ("rock_face", "gallery", "conveyor", "conduit", "wall", "bridge", "street", "walkway", "tunnel", "barrier_line", "pipeline", "fence")
 
 
 def _type_ok(v, t):

@@ -482,3 +482,21 @@ Building blocks usable without the preset:
   shell on thin bars (chains, mullions, braces, rails). Mobile cells sit on a grid centred on the level.
 - `factory_interior` background: `extent` [x0, z0, x1, z1] (filled area) and `clear` (list of rects kept empty = every
   playable room incl. walls); long pieces run along whichever axis stays out of the rooms.
+
+## Stage 18: immersive, non-repeating dressing
+- `ceiling.style: "varied"` (+ `seed`, `pods` density factor): no grid. Main beams across the short span at irregular
+  spacing (8-21 m), mixed I-beams and deep trusses (chords + alternating webs), split round the shaft; stepped
+  ceiling sections hanging 1.6-4.2 m (some with red light strips); 2-3 ducts at different heights on hangers; 1-2
+  ventilation fan rings; clusters of caged green lamp pods of mixed size and drop (bottom >= 4.5 m over any walkable
+  surface below); sagging cable runs; scattered red light pairs. Built after the platforms (dress_ceilings). All
+  visual: no colliders, cutaway, mobile group "Ceiling". `ceiling.material` sets the slab (e.g. "frame": dark).
+- `walls.dressing: "varied"` (+ `dress_y`: the height where machines / doors / tanks sit): each inner face is cut into
+  random 5-13 m slots, each gets a module never equal to its neighbour: `Pipes` (bundle + brackets), `Machine`
+  (housing on a bracket + light), `Fan` (big wall fan), `Emblem` (painted banner), `Vent` (frame + slats), `Tank`
+  (glowing slime window, solid), `Door` (sealed, lit frame + sign, at most one per wall), `Plain` (light strip); plus raised
+  plates in other tones and stray red lights. Object names carry the kind: `<wall>_M03Fan_Hub`.
+- Window openings `"fill": "slime"`: a giant slime-tank window (glowing, solid) instead of a view out.
+- `column` (position, radius, height = ceiling): reactor column, slime-glass sections at irregular heights between
+  banded drums with red lights, flared capital into the roof. `rock_face` (from/to along a wall, height, depth):
+  jagged cliff slabs, the raw rock the factory was cut into.
+- `style.bevel_min` raised to 2.5 m for this level: only big boxes keep their bevel (cheaper dressing).
