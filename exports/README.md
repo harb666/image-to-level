@@ -14,6 +14,7 @@ Pulling only this folder from another checkout:
 
 | Level | Notes |
 |---|---|
+| `slime_arena` | Level 1, part 2 (indoor hall, roof). The round elevator from part 1 arrives through the roof onto the central deck: `entrances` + `apply_mobile.gd` `play_arrival("Elevator", player)`; player spawns on the car. Sun shadows off (indoor). Mobile ~67 draw calls / ~13.5k triangles (estimates). |
 | `skyforge_arena` | Level 1, part 1. alien_cartoon style (toon + outline shells), elevator shaft in the Hub = `level_exit` trigger (target `slime_arena`), mobile export ~134 draw calls / ~88k triangles (estimates in `mobile/mobile_manifest.json`). |
 
 The Godot scripts are UNTESTED in Godot from the generator environment - check the first import in the editor.

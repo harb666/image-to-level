@@ -1,0 +1,89 @@
+{
+ "repairs": [
+  {
+   "pass_": 1,
+   "finding": "Ceiling_Slab and Elevator_Shaft_Liner share coplanar faces (5.68 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "Elevator_Shaft_Liner",
+   "result": "moved 10 mm behind Ceiling_Slab"
+  }
+ ],
+ "details": [
+  {
+   "pass_": 1,
+   "finding": "Ceiling_Slab and Elevator_Shaft_Liner share coplanar faces (5.68 m\u00b2, different materials): z-fighting flicker",
+   "action": "nudge",
+   "object": "Elevator_Shaft_Liner",
+   "result": "moved 10 mm behind Ceiling_Slab",
+   "before": {
+    "name": "Elevator_Shaft_Liner",
+    "type": "cylinder",
+    "position": [
+     -0.0168,
+     22.51,
+     0.0196
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "parent": "Elevator_Shaft",
+    "size": [
+     12.4,
+     9.3,
+     12.4
+    ],
+    "material": "structure_b",
+    "sections": 24,
+    "hole": 5.6,
+    "collision": false,
+    "outline": false,
+    "cutaway": true,
+    "mobile": {
+     "group": "Ceiling"
+    },
+    "gen": "Elevator",
+    "source": "inferred"
+   },
+   "after": {
+    "name": "Elevator_Shaft_Liner",
+    "type": "cylinder",
+    "position": [
+     -0.0107,
+     22.51,
+     0.0275
+    ],
+    "rotation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "parent": "Elevator_Shaft",
+    "size": [
+     12.4,
+     9.3,
+     12.4
+    ],
+    "material": "structure_b",
+    "sections": 24,
+    "hole": 5.6,
+    "collision": false,
+    "outline": false,
+    "cutaway": true,
+    "mobile": {
+     "group": "Ceiling"
+    },
+    "gen": "Elevator",
+    "source": "inferred"
+   }
+  }
+ ],
+ "remaining": {
+  "ERROR": 0,
+  "WARNING": 1,
+  "INTENTIONAL": 0
+ },
+ "needs_review": [],
+ "note": "Each repair touched only the named object; undo with: python3 pipeline/edit_level.py <level> undo"
+}

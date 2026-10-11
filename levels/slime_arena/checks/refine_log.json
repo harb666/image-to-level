@@ -1,0 +1,52 @@
+{
+ "passes": [
+  {
+   "n": 1,
+   "errors": 0,
+   "warnings": 1,
+   "top_errors": [],
+   "fixes": [
+    "geometry: Elevator_Shaft_Liner: moved 10 mm behind Ceiling_Slab"
+   ]
+  },
+  {
+   "n": 2,
+   "errors": 0,
+   "warnings": 1,
+   "top_errors": [],
+   "fixes": [
+    "geometry: Elevator_Shaft_Liner: moved 10 mm behind Ceiling_Slab"
+   ]
+  },
+  {
+   "n": 3,
+   "errors": 0,
+   "warnings": 1,
+   "top_errors": [],
+   "fixes": [
+    "geometry: Elevator_Shaft_Liner: moved 10 mm behind Ceiling_Slab"
+   ]
+  },
+  {
+   "n": "final",
+   "errors": 0,
+   "warnings": 1
+  }
+ ],
+ "max_passes": 3,
+ "seconds": 829.8,
+ "passed": true,
+ "counts": {
+  "error": 0,
+  "warning": 1,
+  "info": 1
+ },
+ "needs_claude": [
+  {
+   "severity": "warning",
+   "message": "Ceiling_Slab and Elevator_Shaft_Liner share coplanar faces (2.82 m\u00b2, different materials): z-fighting flicker [auto-repairable]",
+   "object": "Ceiling_Slab"
+  }
+ ],
+ "visual_review": "checks/views/contact_sheet.jpg + checks/inspect/contact_sheet.jpg must be LOOKED AT by Claude and compared with the reference before calling the level done"
+}

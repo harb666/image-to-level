@@ -1,0 +1,156 @@
+{
+ "generated_by": "image-to-level Stage 2 (pipeline/environment.py)",
+ "quality": "balanced",
+ "note": "Browser preview approximates this; Godot settings are generated but not tested in Godot here.",
+ "files": {
+  "level": "level.glb",
+  "background": null,
+  "sky_panorama": "sky/panorama.jpg",
+  "godot_environment": "environment.tres"
+ },
+ "sky": {
+  "type": "panorama",
+  "image": "sky/panorama.jpg",
+  "size": [
+   2048,
+   1024
+  ],
+  "projection": "equirectangular",
+  "preset": "industrial_smog",
+  "external": false,
+  "azimuth_convention": "image column u -> atan2(dir.z, dir.x) (three.js); level azimuth 0=north(-z) 90=east(+x). If the Godot sky looks rotated vs the sun, adjust Environment sky_rotation.y in 90\u00b0 steps.",
+  "horizon_rgb": [
+   0.869,
+   0.669,
+   0.414
+  ],
+  "upper_rgb": [
+   0.617,
+   0.158,
+   0.422
+  ]
+ },
+ "sun": {
+  "azimuth_deg": 215,
+  "elevation_deg": 9,
+  "direction_to_sun": [
+   -0.5665,
+   0.1564,
+   0.8091
+  ],
+  "color": [
+   1.0,
+   0.62,
+   0.8
+  ],
+  "energy": 1.1,
+  "godot_rotation_degrees": [
+   -9,
+   -35,
+   0
+  ],
+  "shadows": {
+   "enabled": false,
+   "note": "indoor level: the roof would shadow the whole hall - the sun acts as fill light only"
+  }
+ },
+ "ambient": {
+  "source": "sky",
+  "sky_color": [
+   0.617,
+   0.158,
+   0.422
+  ],
+  "ground_color": [
+   0.269,
+   0.321,
+   0.154
+  ],
+  "energy": 1.6
+ },
+ "fog": {
+  "enabled": true,
+  "color": [
+   0.16,
+   0.24,
+   0.12
+  ],
+  "start": 35,
+  "end": 190,
+  "godot_density": 0.01579,
+  "sky_affect": 0.55,
+  "height": 5,
+  "height_density": 0.06
+ },
+ "tonemap": {
+  "mode": "filmic",
+  "exposure": 1.0
+ },
+ "glow": {
+  "enabled": true,
+  "intensity": 1.0,
+  "bloom": 0.1,
+  "hdr_threshold": 0.8
+ },
+ "adjustments": {
+  "brightness": 1.0,
+  "contrast": 1.15,
+  "saturation": 1.2
+ },
+ "camera": {
+  "far": 800,
+  "horizon_distance": 460
+ },
+ "background": {
+  "layers": [],
+  "materials": [],
+  "stats": null,
+  "tex_mem_gpu_compressed_mb": 0.0
+ },
+ "style": {
+  "name": "alien_cartoon",
+  "toon": {
+   "steps": 3,
+   "floor": 0.55,
+   "ambient": 0.85,
+   "godot": {
+    "diffuse_mode": "toon",
+    "specular_mode": "disabled",
+    "metallic": 0.0
+   }
+  },
+  "outline": {
+   "color": [
+    0.03,
+    0.01,
+    0.05
+   ],
+   "width": [
+    0.03,
+    0.08
+   ],
+   "rel": 0.008,
+   "max_footprint": 12.0,
+   "min_size": 0.25,
+   "skip_materials": [
+    "glow",
+    "water",
+    "accent"
+   ],
+   "skip_types": [
+    "panel",
+    "terrain",
+    "boundary",
+    "stream"
+   ]
+  }
+ },
+ "indoor": {
+  "ceiling_y": 22.5,
+  "note": "roofed level: sky/background never visible; sun casts no shadows (the roof would shade the whole hall)"
+ },
+ "sky_asset": {
+  "kb": 130,
+  "tex_mem_gpu_compressed_mb": 2.67
+ }
+}

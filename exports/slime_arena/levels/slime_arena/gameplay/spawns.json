@@ -1,0 +1,55 @@
+{
+ "note": "Positions in metres (Godot: y up, -z forward). yaw_deg rotates the player about +y. Stage 9: 'team' player / enemy; spawn_regions = the regions the points were chosen in (safe, flat, dry, clear).",
+ "spawns": [
+  {
+   "id": "spawn",
+   "position": [
+    0,
+    8.25,
+    0
+   ],
+   "yaw_deg": 180.0
+  },
+  {
+   "id": "enemy_north",
+   "position": [
+    0.0,
+    7.0,
+    -29.5
+   ],
+   "yaw_deg": -180.0,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_east",
+   "position": [
+    29.5,
+    7.0,
+    0.0
+   ],
+   "yaw_deg": 90.0,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_west",
+   "position": [
+    -29.5,
+    7.0,
+    0.0
+   ],
+   "yaw_deg": -90.0,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_south",
+   "position": [
+    0.0,
+    7.0,
+    29.5
+   ],
+   "yaw_deg": -0.0,
+   "team": "enemy"
+  }
+ ],
+ "spawn_regions": []
+}

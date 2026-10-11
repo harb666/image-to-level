@@ -1,0 +1,117 @@
+{
+ "format": "image-to-level package v1",
+ "level": "slime_arena",
+ "title": "scene_spec.json - Slime Arena (Level 1 - Part 2 of 3)",
+ "generated": "2026-10-11 14:00:21",
+ "godot_root": "res://levels/slime_arena/",
+ "use_in_game": "mobile/level_mobile.glb (+ mobile/background_mobile.glb, mobile/collision.glb)",
+ "profile": "balanced",
+ "spawns": [
+  {
+   "id": "spawn",
+   "position": [
+    0,
+    8.25,
+    0
+   ],
+   "yaw_deg": 180.0
+  },
+  {
+   "id": "enemy_north",
+   "position": [
+    0.0,
+    7.0,
+    -29.5
+   ],
+   "yaw_deg": -180.0,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_east",
+   "position": [
+    29.5,
+    7.0,
+    0.0
+   ],
+   "yaw_deg": 90.0,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_west",
+   "position": [
+    -29.5,
+    7.0,
+    0.0
+   ],
+   "yaw_deg": -90.0,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_south",
+   "position": [
+    0.0,
+    7.0,
+    29.5
+   ],
+   "yaw_deg": -0.0,
+   "team": "enemy"
+  }
+ ],
+ "hazards": [
+  "HazardFluid"
+ ],
+ "generator": {
+  "tool": "pipeline/spec_to_level.py",
+  "spec_sha": "1fdfb21681f0f786",
+  "theme": "toxic_industrial",
+  "detail": "medium",
+  "mode": "structured"
+ },
+ "metrics": {
+  "dev": {
+   "glb_kb": 712,
+   "triangles": 11302,
+   "draw_calls": 388,
+   "tex_mem_gpu_mb_est": 6.9
+  },
+  "mobile": {
+   "profile": "balanced",
+   "glb_kb": 854,
+   "triangles": 13502,
+   "draw_calls": 67,
+   "visible_draw_calls_est": 42.5,
+   "visible_draw_calls_max_est": 65,
+   "tex_mem_gpu_mb_est": 6.9,
+   "materials": 16,
+   "nodes": 68,
+   "colliders": {
+    "colliders": 192,
+    "hazards": 9,
+    "glb_kb": 112
+   },
+   "background_kb": null
+  },
+  "effects": {
+   "max_particles": 619,
+   "emitters": 18,
+   "extra_draw_calls": 5,
+   "transparent_area_m2": 5184
+  },
+  "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
+ },
+ "validation": {
+  "passed": true,
+  "counts": {
+   "error": 0,
+   "warning": 0,
+   "info": 1
+  }
+ },
+ "gameplay_config_status": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer.",
+ "notes": [
+  "GLB carries static geometry/materials only; effects, environment and hazards are recreated in Godot from the JSON/tres + scripts.",
+  "Scripts and .tres are UNTESTED in Godot from this environment.",
+  "Performance numbers are estimates, not device benchmarks."
+ ],
+ "files": 33
+}
