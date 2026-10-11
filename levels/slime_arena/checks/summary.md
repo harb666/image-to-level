@@ -1,19 +1,19 @@
 # slime_arena: generation summary
 
-Spec: levels/slime_arena/scene_spec.json · 1416 objects · 14 materials · 14 effects
+Spec: levels/slime_arena/scene_spec.json · 2347 objects · 16 materials · 14 effects
 Checks: PASSED ({'error': 0, 'warning': 1, 'info': 1}) · refine passes: 2
-Mobile (balanced): 1476 KB · 40414 tris · 69 draw calls · ~43.9 visible (estimate) · ~3.21 MB GPU textures (estimate)
-Navigation: 9044.0 m² reachable of 48634.0 m² standable
-Package: dist/slime_arena/package (35 files, 5.99 MB) valid=True
+Mobile (balanced): 2335 KB · 67408 tris · 72 draw calls · ~49.0 visible (estimate) · ~3.48 MB GPU textures (estimate)
+Navigation: 9090.0 m² reachable of 48829.0 m² standable
+Package: dist/slime_arena/package (35 files, 9.14 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
-- warning: 42253 triangles (> budget 40000)
+- warning: 69517 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
-- ceiling: roof slab at y 26.5 m with a 5.6 m opening for the shaft, 12 girders
-- Works_ceiling: roof slab at y 26.5 m, 16 girders
+- ceiling: roof slab at y 26.5 m, varied dressing
+- Works_ceiling: roof slab at y 26.5 m, varied dressing
 - Ramp_NE: 2.15 m junction plate where it meets Platform_NE's corner
 - Ramp_NW: 2.15 m junction plate where it meets Platform_NW's corner
 - Ramp_SE: 2.15 m junction plate where it meets Platform_SE's corner
@@ -44,9 +44,9 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - crates: 35 printed crates (accent atlas)
 
 ## Timing
-- spec -> level.json: 0.1 s
-- build (glb, sky, background, effects, mobile): 30.9 s
-- refine (checks -> safe fixes): 1430.7 s
-- previews: 0.4 s
-- export package: 0.3 s
-- total: 1462.5 s
+- spec -> level.json: 0.2 s
+- build (glb, sky, background, effects, mobile): 58.4 s
+- refine (checks -> safe fixes): 2746.2 s
+- previews: 0.5 s
+- export package: 0.4 s
+- total: 2805.8 s

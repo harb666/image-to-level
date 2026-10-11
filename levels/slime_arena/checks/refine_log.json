@@ -2,33 +2,25 @@
  "passes": [
   {
    "n": 1,
-   "errors": 6,
-   "warnings": 19,
-   "top_errors": [
-    "OuterWall_South_03_Banner_01: back face visible from 5 camera rays (missing/one-sided geometry)",
-    "OuterWall_East_03_Banner_01: back face visible from 4 camera rays (missing/one-sided geometry)",
-    "OuterWall_West_03_Banner_01: back face visible from 3 camera rays (missing/one-sided geometry)",
-    "Works_Wall_East_02_Banner_02: back face visible from 3 camera rays (missing/one-sided geometry)",
-    "Round_SW_Light_02: back face visible from 1 camera rays (missing/one-sided geometry)",
-    "Works_Wall_West_02_Banner_03: back face visible from 1 camera rays (missing/one-sided geometry)"
-   ],
+   "errors": 0,
+   "warnings": 23,
+   "top_errors": [],
    "fixes": [
-    "geometry: W_Ramp_Conduit_Deck: moved 10 mm behind W_Ramp_Conduit_Junction_Lo",
-    "geometry: W_Stairs_Shaft: moved 10 mm behind W_Stairs_Shaft_Junction_Hi",
-    "geometry: W_Stairs_Maint: moved 10 mm behind W_Stairs_Maint_Junction_Hi",
-    "geometry: W_Ramp_Core_Deck: moved 10 mm behind W_Ramp_Core_Junction_Lo",
-    "geometry: W_Cat_Junction_Deck: moved 10 mm behind W_Cat_Junction_Junction_Lo",
-    "geometry: W_Cat_Pipes_Deck: moved 10 mm behind W_Cat_Pipes_Junction_Lo",
-    "geometry: RampOut_SW_Deck: moved 10 mm behind RampOut_SW_Junction_Lo",
-    "geometry: RampOut_NE_Deck: moved 10 mm behind RampOut_NE_Junction_Lo",
-    "geometry: RampOut_SE_Deck: moved 10 mm behind RampOut_SE_Junction_Lo",
-    "geometry: RampOut_NW_Deck: moved 10 mm behind RampOut_NW_Junction_Lo",
-    "camera: OuterWall_South_03_Banner_01: double_sided",
-    "camera: OuterWall_East_03_Banner_01: double_sided",
-    "camera: OuterWall_West_03_Banner_01: double_sided",
-    "camera: Works_Wall_East_02_Banner_02: double_sided",
-    "camera: Round_SW_Light_02: double_sided",
-    "camera: Works_Wall_West_02_Banner_03: double_sided"
+    "geometry: Works_Ceil_Red_24_2: moved 10 mm behind Works_Ceil_Step_04",
+    "geometry: Works_Ceil_Red_24_1: moved 10 mm behind Works_Ceil_Step_04",
+    "geometry: Works_Ceil_Red_20_2: moved 10 mm behind Works_Ceil_Step_02",
+    "geometry: Ceil_Red_06_2: moved 10 mm behind Ceil_Step_03",
+    "geometry: Ceil_Red_06_1: moved 10 mm behind Ceil_Step_03",
+    "geometry: Ceil_Red_05_2: moved 10 mm behind Ceil_Step_03",
+    "geometry: Ceil_Red_05_1: moved 10 mm behind Ceil_Step_03",
+    "geometry: Works_Wall_East_02_M02Door: moved 10 mm behind Works_Wall_East_02_M02Door_Frame",
+    "geometry: OuterWall_West_03_M01Tank_Red: moved 10 mm behind OuterWall_West_03_M01Tank_Glass",
+    "geometry: Works_Wall_West_02_M06Pipes_Bracket_3: moved 10 mm behind Works_Wall_West_02_M06Pipes_Pipe_2",
+    "geometry: Works_Wall_West_02_M06Pipes_Bracket_2: moved 10 mm behind Works_Wall_West_02_M06Pipes_Pipe_2",
+    "geometry: Works_Wall_West_02_M06Pipes_Bracket_1: moved 10 mm behind Works_Wall_West_02_M06Pipes_Pipe_2",
+    "geometry: Works_Wall_North_02_M04Pipes_Bracket_2: moved 10 mm behind Works_Wall_North_02_M04Pipes_Pipe_2",
+    "geometry: Works_Wall_North_02_M04Pipes_Bracket_1: moved 10 mm behind Works_Wall_North_02_M04Pipes_Pipe_2",
+    "geometry: OuterWall_South_03_M01Tank_Red: moved 10 mm behind OuterWall_South_03_M01Tank_Glass"
    ]
   },
   {
@@ -39,7 +31,7 @@
   }
  ],
  "max_passes": 3,
- "seconds": 1430.7,
+ "seconds": 2746.2,
  "passed": true,
  "counts": {
   "error": 0,
@@ -49,7 +41,7 @@
  "needs_claude": [
   {
    "severity": "warning",
-   "message": "42253 triangles (> budget 40000)",
+   "message": "69517 triangles (> budget 40000)",
    "object": null
   }
  ],

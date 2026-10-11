@@ -130,6 +130,11 @@
    "file": "references/toxic_works_map.png",
    "kind": "concept_sheet",
    "notes": "user map 'Toxic Works - full map overview, linear factory level': 1 loading bay (start), 2 assembly line, 3 pipeworks, 4 purification hall, 5 core chamber, 6 maintenance shafts, 7 processing towers, 8 waste conduits, exit"
+  },
+  {
+   "file": "references/toxic_works_mood.png",
+   "kind": "perspective",
+   "notes": "user mood board (4 in-game views): hanging cage lamps, irregular ceiling with cables / ducts / red lights, glowing columns, wall machinery / pipe bundles / fans / painted emblems / slime-tank windows, raw rock wall, piers over the slime"
   }
  ],
  "interpretation": {
@@ -153,7 +158,12 @@
    "maintenance shaft lattice + lift cage (map 6)",
    "processing towers (map 7)",
    "ribbed conduit tunnel (map 8)",
-   "exit door (map)"
+   "exit door (map)",
+   "irregular ceilings: trusses, stepped sections, ducts, fans, cables, hanging cage lamps, red light pairs (mood board)",
+   "varied wall modules: pipe bundles, machines, fans, emblems, vents, tank windows, doors (mood board)",
+   "reactor columns floor to ceiling (mood board)",
+   "raw rock wall (mood board)",
+   "slime-tank windows (mood board)"
   ],
   "inferred": [
    "scale: hall 112 m square so the ref 1 core keeps its 72 m spacing and gains an outer ring",
@@ -221,14 +231,16 @@
      "at": 28,
      "width": 24,
      "sill": 11,
-     "height": 25
+     "height": 25,
+     "fill": "slime"
     },
     {
      "side": "south",
      "at": -28,
      "width": 24,
      "sill": 11,
-     "height": 25
+     "height": 25,
+     "fill": "slime"
     },
     {
      "side": "south",
@@ -242,7 +254,8 @@
      "at": -28,
      "width": 24,
      "sill": 11,
-     "height": 25
+     "height": 25,
+     "fill": "slime"
     },
     {
      "side": "west",
@@ -257,7 +270,9 @@
      "width": 12,
      "height": 15
     }
-   ]
+   ],
+   "dressing": "varied",
+   "dress_y": 7.0
   },
   "walkway": {
    "width": 5,
@@ -269,7 +284,10 @@
    "thickness": 1.0,
    "beam_step": 16,
    "lamps": true,
-   "source": "inferred"
+   "source": "inferred",
+   "style": "varied",
+   "seed": 1,
+   "material": "frame"
   }
  },
  "platforms": [
@@ -1480,6 +1498,84 @@
    "target": "level1_part3",
    "source": "visible",
    "notes": "exit to part 3"
+  },
+  {
+   "id": "Column_Hall_W",
+   "kind": "column",
+   "position": [
+    -30,
+    -20
+   ],
+   "radius": 2.8,
+   "source": "visible"
+  },
+  {
+   "id": "Column_Hall_SW",
+   "kind": "column",
+   "position": [
+    -22,
+    32
+   ],
+   "radius": 2.0,
+   "sections": 6,
+   "source": "visible"
+  },
+  {
+   "id": "Column_Hall_E",
+   "kind": "column",
+   "position": [
+    30,
+    -22
+   ],
+   "radius": 2.4,
+   "source": "visible"
+  },
+  {
+   "id": "Column_Works_Mid",
+   "kind": "column",
+   "position": [
+    24,
+    -120
+   ],
+   "radius": 3.2,
+   "source": "visible"
+  },
+  {
+   "id": "Column_Works_SW",
+   "kind": "column",
+   "position": [
+    -34,
+    -80
+   ],
+   "radius": 2.4,
+   "source": "visible"
+  },
+  {
+   "id": "Column_Works_NW",
+   "kind": "column",
+   "position": [
+    -30,
+    -205
+   ],
+   "radius": 2.0,
+   "sections": 6,
+   "source": "visible"
+  },
+  {
+   "id": "Rock_West",
+   "kind": "rock_face",
+   "from": [
+    -53,
+    -176
+   ],
+   "to": [
+    -53,
+    -228
+   ],
+   "height": 24,
+   "depth": 6,
+   "source": "visible",
+   "notes": "raw rock the factory was cut into (mood board)"
   }
  ],
  "pipes": [
@@ -1663,7 +1759,20 @@
   }
  ],
  "materials": {
-  "variation": false
+  "variation": false,
+  "roles": {
+   "rock": {
+    "type": "rock",
+    "color": [
+     0.22,
+     0.17,
+     0.27
+    ],
+    "tile_m": 6.0,
+    "res": 128,
+    "toon": true
+   }
+  }
  },
  "atmosphere": {
   "sky": "industrial_smog",
@@ -1974,7 +2083,8 @@
       "at": 20,
       "width": 16,
       "sill": 14,
-      "height": 23
+      "height": 23,
+      "fill": "slime"
      },
      {
       "side": "west",
@@ -1995,7 +2105,8 @@
       "at": -25,
       "width": 14,
       "sill": 12,
-      "height": 22
+      "height": 22,
+      "fill": "slime"
      },
      {
       "side": "north",
@@ -2004,12 +2115,17 @@
       "sill": 13,
       "height": 25
      }
-    ]
+    ],
+    "dressing": "varied",
+    "dress_y": 8.0
    },
    "ceiling": {
     "thickness": 1.0,
     "beam_step": 16,
-    "lamps": true
+    "lamps": true,
+    "style": "varied",
+    "seed": 2,
+    "material": "frame"
    }
   }
  ],
@@ -2023,6 +2139,6 @@
    "min_thickness": 0.45,
    "min_size": 0.6
   },
-  "bevel_min": 1.2
+  "bevel_min": 2.5
  }
 }

@@ -1,61 +1,61 @@
 {
  "level": "slime_arena",
  "assets_kb": {
-  "level.glb": 1985,
-  "mobile/level_mobile.glb": 1476,
-  "mobile/collision.json": 181,
+  "level.glb": 3648,
+  "mobile/level_mobile.glb": 2335,
+  "mobile/collision.json": 185,
   "environment.json": 4,
   "background.glb": 474,
-  "effects.json": 38
+  "effects.json": 39
  },
  "complexity": {
-  "triangles": 42253,
-  "nodes": 1604,
-  "materials": 14,
+  "triangles": 69517,
+  "nodes": 2652,
+  "materials": 16,
   "heaviest": [
    [
     "W_Stairs_Process",
     240
    ],
    [
-    "Valve_A_Unit__ol",
-    216
+    "Works_Wall_West_02_M05Fan__ol",
+    240
    ],
    [
-    "Valve_A_Unit",
-    216
+    "Works_Wall_West_02_M05Fan",
+    240
    ],
    [
-    "W_Broken_Fall",
-    200
+    "Works_Wall_West_02_M03Fan__ol",
+    240
    ],
    [
-    "Pipe_West_Fall",
-    200
+    "Works_Wall_West_02_M03Fan",
+    240
    ]
   ]
  },
  "performance": {
   "dev": {
-   "glb_kb": 1985,
-   "triangles": 31261,
-   "draw_calls": 1604,
-   "tex_mem_gpu_mb_est": 6.46
+   "glb_kb": 3648,
+   "triangles": 51503,
+   "draw_calls": 2652,
+   "tex_mem_gpu_mb_est": 6.77
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 1476,
-   "triangles": 40414,
-   "draw_calls": 69,
-   "visible_draw_calls_est": 43.9,
-   "visible_draw_calls_max_est": 68,
-   "tex_mem_gpu_mb_est": 3.21,
-   "materials": 16,
-   "nodes": 70,
+   "glb_kb": 2335,
+   "triangles": 67408,
+   "draw_calls": 72,
+   "visible_draw_calls_est": 49.0,
+   "visible_draw_calls_max_est": 71,
+   "tex_mem_gpu_mb_est": 3.48,
+   "materials": 18,
+   "nodes": 73,
    "colliders": {
-    "colliders": 615,
+    "colliders": 632,
     "hazards": 16,
-    "glb_kb": 359
+    "glb_kb": 381
    },
    "background_kb": 407
   },
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 48634.0,
-  "reachable_area_m2": 9044.0,
-  "components": 243,
+  "standable_area_m2": 48829.0,
+  "reachable_area_m2": 9090.0,
+  "components": 382,
   "spawns": [
    {
     "id": "spawn",
@@ -95,7 +95,7 @@
     "standable": true,
     "clearance_m": 5.5,
     "headroom_m": 99.0,
-    "component": 4,
+    "component": 5,
     "hazard_distance_m": 11.34
    },
    {
@@ -108,7 +108,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 19.79,
-    "component": 4,
+    "component": 5,
     "hazard_distance_m": 5.02
    },
    {
@@ -121,7 +121,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 19.77,
-    "component": 137,
+    "component": 209,
     "hazard_distance_m": 7.52
    },
    {
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 19.8,
-    "component": 4,
+    "component": 5,
     "hazard_distance_m": 6.52
    },
    {
@@ -147,7 +147,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 16.77,
-    "component": 4,
+    "component": 5,
     "hazard_distance_m": 5.61
    },
    {
@@ -160,7 +160,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 16.8,
-    "component": 4,
+    "component": 5,
     "hazard_distance_m": 7.52
    },
    {
@@ -173,7 +173,7 @@
     "standable": true,
     "clearance_m": 4.5,
     "headroom_m": 14.8,
-    "component": 4,
+    "component": 5,
     "hazard_distance_m": 6.26
    },
    {
@@ -186,7 +186,7 @@
     "standable": true,
     "clearance_m": 5.5,
     "headroom_m": 12.8,
-    "component": 40,
+    "component": 54,
     "hazard_distance_m": 6.52
    },
    {
@@ -199,7 +199,7 @@
     "standable": true,
     "clearance_m": 8.5,
     "headroom_m": 18.8,
-    "component": 94,
+    "component": 108,
     "hazard_distance_m": 9.41
    }
   ],
@@ -422,14 +422,14 @@
   "back_face": {},
   "open_mesh": {},
   "camera_inside": 24,
-  "visible_objects": 906,
+  "visible_objects": 1136,
   "passed": true,
   "stale_note": "from the last full run (--fast skipped it)"
  },
  "render": {
   "views": 16,
   "errors": [],
-  "load_seconds": 4.073,
+  "load_seconds": 4.316,
   "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
   "contact_sheet": "checks/views/contact_sheet.jpg",
   "note": "browser preview renders (three.js, SwiftShader) - not Godot"
@@ -438,7 +438,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "42253 triangles (> budget 40000)"
+   "message": "69517 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
