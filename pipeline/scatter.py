@@ -193,18 +193,21 @@ def sat_dish(rng, st):
     """Satellite tower: tapered faceted stalk, angular struts, tilted dish on a saucer head, crooked antennae, lights."""
     h = rng.uniform(9, 15); stalk = _cyl(0.55, h, 5, -0.4, rng.uniform(0.18, 0.28))
     head = _saucer(rng.uniform(2.2, 3.4), rng.uniform(0.9, 1.4), int(rng.choice([6, 7, 8])), h)
+    hh = head.bounds[1][1] - h  # saucer top above h
     dish = _cone(rng.uniform(1.6, 2.4), 0.9, 8); dish.apply_transform(rotation_matrix(np.pi, [1, 0, 0])); dish.apply_translation([0, 0.9, 0])
-    _tilt(dish, rng.uniform(-0.7, -0.35), rng.uniform(-0.3, 0.3)); dish.apply_translation([rng.uniform(-0.6, 0.6), h + 1.0, rng.uniform(-0.6, 0.6)])
+    _tilt(dish, rng.uniform(-0.7, -0.35), rng.uniform(-0.3, 0.3)); dish.apply_translation([rng.uniform(-0.4, 0.4), h + hh * 0.6, rng.uniform(-0.4, 0.4)])  # apex sunk into the head
     struts = []
     for k in range(3):
         a = 2 * np.pi * k / 3 + rng.uniform(-0.3, 0.3); L = h * rng.uniform(0.3, 0.45)
         s_ = _cyl(0.12, L, 4); _tilt(s_, math.cos(a) * 0.5, math.sin(a) * 0.5); s_.apply_translation([math.sin(a) * 0.9, -0.3, math.cos(a) * 0.9]); struts.append(s_)
     ants = []; lights = []
     for k in range(int(rng.integers(2, 4))):
-        L = rng.uniform(1.5, 4.0); an = _cyl(0.06, L, 4); _tilt(an, rng.uniform(-0.6, 0.6), rng.uniform(-0.6, 0.6))
-        x, z = rng.uniform(-1.5, 1.5), rng.uniform(-1.5, 1.5); an.apply_translation([x, h + 0.4, z]); ants.append(an)
-        lights.append(_bulb(0.22, h + 0.4 + L * 0.95, x + rng.uniform(-0.4, 0.4), z + rng.uniform(-0.4, 0.4)))
-    ring = [_bulb(0.18, h - 0.05, math.cos(a) * 2.6, math.sin(a) * 2.6) for a in np.linspace(0, 2 * np.pi, 5, endpoint=False)]
+        L = rng.uniform(1.5, 4.0); an = _cyl(0.06, L, 4); ax_, az_ = rng.uniform(-0.6, 0.6), rng.uniform(-0.6, 0.6); _tilt(an, ax_, az_)
+        x, z = rng.uniform(-0.9, 0.9), rng.uniform(-0.9, 0.9); an.apply_translation([x, h + 0.1, z]); ants.append(an)  # foot inside the head
+        tip = np.array([0.0, L, 0.0, 1.0]) @ (rotation_matrix(ax_, [1, 0, 0]) @ rotation_matrix(az_, [0, 0, 1])).T  # exact antenna tip
+        lights.append(_bulb(0.22, h + 0.1 + tip[1], x + tip[0], z + tip[2]))
+    rr = (head.bounds[1][0] - head.bounds[0][0]) / 2 * 0.8  # ring lights on the saucer rim, not outside it
+    ring = [_bulb(0.18, h, math.cos(a) * rr, math.sin(a) * rr) for a in np.linspace(0, 2 * np.pi, 5, endpoint=False)]
     key = "light" if rng.random() < 0.6 else "light_b"
     return {"hull": trimesh.util.concatenate([head, dish]), "frame": trimesh.util.concatenate([stalk] + struts + ants),
             key: trimesh.util.concatenate(lights + ring)}, dict(collider=("cylinder", 0.6, h))
@@ -232,10 +235,12 @@ def sat_spire(rng, st):
     for k in range(int(rng.integers(3, 5))):
         L = rng.uniform(2.5, 4.5); s_ = _cyl(r, L, 4 if k % 2 else 5, 0, r * 0.75); ax, az = rng.uniform(-0.18, 0.18), rng.uniform(-0.18, 0.18)
         _tilt(s_, ax, az); s_.apply_translation([x, y, z]); segs.append(s_)
-        x += -math.sin(az) * L; z += math.sin(ax) * L; y += L * 0.97; r *= 0.75
-        if rng.random() < 0.75:
-            bl = rng.uniform(1.8, 3.6); b = trimesh.creation.box([bl, 0.14, 0.14]); b.apply_transform(rotation_matrix(rng.uniform(0, np.pi), [0, 1, 0]) @ rotation_matrix(rng.uniform(-0.4, 0.4), [0, 0, 1]))
-            b.apply_translation([x, y - 0.3, z]); bars.append(b); lights.append(_bulb(0.16, y - 0.3, x + bl * 0.45 * rng.choice([-1, 1]) * 0.6, z))
+        t = (rotation_matrix(ax, [1, 0, 0]) @ rotation_matrix(az, [0, 0, 1]))[:3, :3] @ [0, L * 0.97, 0]  # exact top of this segment
+        x, y, z = x + t[0], y + t[1], z + t[2]; r *= 0.75
+        if rng.random() < 0.75:  # cross-bar through the stem, its light at one END of the bar
+            bl = rng.uniform(1.8, 3.6); b = trimesh.creation.box([bl, 0.14, 0.14]); Rb = rotation_matrix(rng.uniform(0, np.pi), [0, 1, 0]) @ rotation_matrix(rng.uniform(-0.4, 0.4), [0, 0, 1])
+            b.apply_transform(Rb); b.apply_translation([x, y - 0.3, z]); bars.append(b)
+            e = Rb[:3, :3] @ [bl * 0.5 * rng.choice([-1, 1]), 0, 0]; lights.append(_bulb(0.16, y - 0.3 + e[1], x + e[0], z + e[2]))
     tip = _cone(r * 1.2, rng.uniform(1.5, 3.0), 4, y); tip.apply_translation([x, 0, z]); lights.append(_bulb(0.3, y + 0.2, x, z))
     return {"hull": trimesh.util.concatenate(segs + [tip]), "frame": trimesh.util.concatenate(bars) if bars else _cyl(0.1, 0.5, 4),
             "light": trimesh.util.concatenate(lights)}, dict(collider=("cylinder", 0.6, y))
@@ -292,9 +297,14 @@ def place(TR, L, sc, blockers):
     keep &= rng.random(X.size) < p
     X, Z = X[keep], Z[keep]
     if not len(X): return []
-    H, M = TR._eval(X, Z); e = 0.75
-    sl = np.degrees(np.arctan(np.hypot(TR.height(X + e, Z) - TR.height(X - e, Z), TR.height(X, Z + e) - TR.height(X, Z - e)) / (2 * e)))
+    _, M = TR._eval(X, Z); e = 0.75
+    hgt = getattr(TR, "mesh_height", TR.height); H = hgt(X, Z)  # the RENDERED ground: props stand on what you see (no floating at rims)
+    sl = np.degrees(np.arctan(np.hypot(hgt(X + e, Z) - hgt(X - e, Z), hgt(X, Z + e) - hgt(X, Z - e)) / (2 * e)))
     ok = sl <= sc.get("slope_max", 30)
+    ec = sc.get("edge_clear", 1.6)  # never on a ledge: the ground all round the base (ring of radius ec) stays within 0.8 m
+    if ec:
+        for a in np.linspace(0, 2 * np.pi, 8, endpoint=False):
+            ok &= hgt(X + ec * math.cos(a), Z + ec * math.sin(a)) > H - 0.8
     if sc.get("height"): ok &= (H >= sc["height"][0]) & (H <= sc["height"][1])
     W = TR.water_y(X, Z); ok &= ~(H < W + 0.3)
     avoid = sc.get("avoid", ["road", "path", "river", "bank", "pad", "plaza", "cliff", "objects", "spawns"])

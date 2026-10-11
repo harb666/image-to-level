@@ -401,3 +401,14 @@ Building blocks usable without the preset:
   on big flat pieces a world-space hull reads as a heavy black slab along the edges up close. alien_cartoon: 12 m,
   width 0.03-0.08 m (rel 0.008). The ink colour is sRGB and converted to linear for the glTF factor.
 
+## Stage 14: nothing floats
+- `Terrain.mesh_height(X, Z)`: height of the RENDERED terrain (LOD0 triangles, same diagonal rule as the chunks).
+  The analytic `height()` is sharper at mesa rims and cliff edges (up to a cell further out), so props and waterfalls
+  placed with it could hang off the visible edge. Scatter placement and terrain waterfalls now use mesh_height.
+- Scatter `"edge_clear"` (m, default 1.6): an instance is placed only if the ground on a ring of that radius round its
+  base stays within 0.8 m of the base (never on a ledge).
+- Alien satellite props are whole: lights sit on bar ends / antenna tips / saucer rims, cross-bars pass through the
+  stem, dishes sit in the saucer (tests/test_stage14.py measures the gap of every part).
+- Terrain waterfalls narrow themselves when a column finds no edge near the lip height (small islands), keep the
+  plateau part on the island, and are closed slabs (visible thickness from the side).
+

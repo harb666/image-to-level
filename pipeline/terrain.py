@@ -426,6 +426,19 @@ class Terrain:
     def height_at(self, x, z):
         return float(self.height(np.array([x]), np.array([z]))[0])
 
+    def mesh_height(self, X, Z):
+        """Height of the RENDERED terrain (LOD0 grid triangles, same diagonal rule as chunk_mesh) - what you see and
+        stand on. The analytic height() is sharper (mesa rims, cliff edges sit up to a cell further out): props and
+        waterfalls placed with it can float off the visible edge."""
+        G = self.grid(); H = G["H"]; c = self.cell; X = np.asarray(X, float); Z = np.asarray(Z, float)
+        fc = np.clip((X - G["X"][0, 0]) / c, 0, H.shape[1] - 1.000001); fr = np.clip((Z - G["Z"][0, 0]) / c, 0, H.shape[0] - 1.000001)
+        j, i = np.floor(fc).astype(int), np.floor(fr).astype(int); fx, fz = fc - j, fr - i
+        a, b, cc, d = H[i, j], H[i, j + 1], H[i + 1, j + 1], H[i + 1, j]
+        diag_ac = np.abs(a - cc) <= np.abs(b - d)
+        h_ac = np.where(fz >= fx, a + (d - a) * fz + (cc - d) * fx, a + (b - a) * fx + (cc - b) * fz)
+        h_bd = np.where(fx + fz <= 1, a + (b - a) * fx + (d - a) * fz, cc + (d - cc) * (1 - fx) + (b - cc) * (1 - fz))
+        return np.where(diag_ac, h_ac, h_bd)
+
     def water_y(self, X, Z):
         """Water surface height at points (-inf where no water)."""
         X = np.asarray(X, float); Z = np.asarray(Z, float); W = np.full(X.shape, -np.inf)
