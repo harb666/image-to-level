@@ -430,7 +430,34 @@ def _banner_atlas(S, rng, c, m):
         r = np.hypot(px_ - 0.5, py_ - 0.5) * 2; spot = n[y0:y1, x0:x1] > 0.68
         k = 0.7 + 0.3 * np.clip((r - 0.6) * 3, 0, 1) + 0.3 * spot
         alb[y0:y1, x0:x1] = np.clip(sl * k[..., None], 0, 1); h[y0:y1, x0:x1] = 0.7; emit[y0:y1, x0:x1] = 0.5 + 0.2 * spot; rough[y0:y1, x0:x1] = 0.1
+    if "crate_side" in A:  # printed crate side: framed purple plate, black inset with the emblem, two glowing strips
+        x0, y0, x1, y1 = pix(A["crate_side"]); W2, H2 = x1 - x0, y1 - y0; cx_, cy_ = np.meshgrid((np.arange(W2) + 0.5) / W2, (np.arange(H2) + 0.5) / H2)
+        body = np.array(m.get("crate_color", [0.36, 0.16, 0.32])); dk = body * 0.45
+        frame = (np.minimum(cx_, 1 - cx_) < 0.08) | (np.minimum(cy_, 1 - cy_) < 0.08)
+        panel = (np.abs(cx_ - 0.5) < 0.21) & (np.abs(cy_ - 0.5) < 0.34); strip = (np.abs(np.abs(cx_ - 0.5) - 0.31) < 0.035) & (np.abs(cy_ - 0.5) < 0.3)
+        bolt = np.hypot(np.minimum(cx_, 1 - cx_) - 0.04, np.minimum(cy_, 1 - cy_) - 0.04) < 0.022
+        bw2, bh2 = int(W2 * 0.38), int(H2 * 0.62); mk = emblem_mask(m["emblem"], bw2, bh2) if m.get("emblem") else _proc_emblem(bw2, bh2)
+        E = np.zeros((H2, W2)); oy, ox = (H2 - bh2) // 2, (W2 - bw2) // 2; E[oy:oy + bh2, ox:ox + bw2] = mk; E *= panel
+        red, glow = np.array(m.get("crate_red", [0.8, 0.04, 0.09])), np.array(m.get("emblem_color", [1.0, 0.16, 0.2]))
+        cc = np.where(frame[..., None], dk, body * (0.95 + 0.05 * fine[y0:y1, x0:x1])[..., None])
+        cc = np.where(panel[..., None], np.array([0.03, 0.02, 0.04]), cc); cc = cc * (1 - E[..., None]) + red * E[..., None]
+        cc = np.where(strip[..., None], glow, np.where(bolt[..., None], body * 1.4, cc))
+        alb[y0:y1, x0:x1] = cc; h[y0:y1, x0:x1] = 0.5 + 0.25 * frame - 0.2 * panel + 0.15 * E + 0.1 * strip + 0.2 * bolt
+        emit[y0:y1, x0:x1] = np.maximum(strip.astype(float), 0.55 * E); rough[y0:y1, x0:x1] = 0.8
+    if "crate_top" in A:  # crate lid: framed plate with a recessed glowing red disc
+        x0, y0, x1, y1 = pix(A["crate_top"]); W2, H2 = x1 - x0, y1 - y0; cx_, cy_ = np.meshgrid((np.arange(W2) + 0.5) / W2, (np.arange(H2) + 0.5) / H2)
+        body = np.array(m.get("crate_color", [0.36, 0.16, 0.32])); r = np.hypot(cx_ - 0.5, cy_ - 0.5)
+        frame = (np.minimum(cx_, 1 - cx_) < 0.08) | (np.minimum(cy_, 1 - cy_) < 0.08); well = r < 0.3; disc = r < 0.22
+        glow = np.array(m.get("emblem_color", [1.0, 0.16, 0.2]))
+        cc = np.where(frame[..., None], body * 0.45, body * (0.95 + 0.05 * fine[y0:y1, x0:x1])[..., None])
+        cc = np.where(well[..., None], np.array([0.08, 0.04, 0.1]), cc); cc = np.where(disc[..., None], glow * (0.85 + 0.15 * (r < 0.12))[..., None], cc)
+        alb[y0:y1, x0:x1] = cc; h[y0:y1, x0:x1] = 0.5 + 0.25 * frame - 0.25 * well + 0.1 * disc; emit[y0:y1, x0:x1] = disc.astype(float); rough[y0:y1, x0:x1] = 0.8
     post = []
+    for cell in ("crate_side", "crate_top"):  # keep the printed crate colours exact (not posterised); ink their edges here
+        if cell not in A: continue
+        x0, y0, x1, y1 = pix(A[cell]); hh = _blur(h[y0:y1, x0:x1], 0.8); gy, gx = np.gradient(hh); g = np.hypot(gx, gy)
+        ink = np.clip(g / (np.percentile(g, 99) + 1e-6) * 1.6 - 0.35, 0, 1) * (emit[y0:y1, x0:x1] < 0.5)
+        post.append((slice(y0, y1), slice(x0, x1), alb[y0:y1, x0:x1] * (1 - ink[..., None]) + np.array([0.03, 0.01, 0.05]) * ink[..., None]))
     if "void" in A:  # bottomless-shaft fade: wall colour at the top -> pure black (no light, no emission) over the lower part
         x0, y0, x1, y1 = pix(A["void"]); vv = 1 - (np.arange(y0, y1) - y0 + 0.5) / (y1 - y0)  # v: 0 bottom .. 1 top
         k = np.clip((vv - m.get("void_black", 0.45)) / (1 - m.get("void_black", 0.45)), 0, 1) ** 1.6

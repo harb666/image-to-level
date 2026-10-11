@@ -77,7 +77,7 @@ def node_matrix(o):
 
 def _outlined(o, OL):
     sz = o.get("size") or [0, 0, 0]
-    return (o["type"] not in OL.get("skip_types", []) and o.get("material") not in OL.get("skip_materials", []) and o.get("outline", True)
+    return (o["type"] not in OL.get("skip_types", []) and (o.get("material") not in OL.get("skip_materials", []) or o.get("outline") is True) and o.get("outline", True)
             and max(sz) >= OL.get("min_size", 0.25) and min(sz) > 0.0)
 
 

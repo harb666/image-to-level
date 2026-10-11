@@ -74,3 +74,18 @@ def _puddle(ctx, g, mat, rng, px, pz, fy, cx, out, name):
     sx, sz = _rot(0, pd / 2, fy)  # blob centre: local (0, h/2) -> after rotation [-90, fy, 0] at Ry(fy)(0, 0, -h/2) = -(sx, sz)
     ctx.add(name, "panel", [cx_ + sx, 0.04, cz_ + sz], [round(pw, 2), round(pd, 2), 0], mat, g, [-90, fy, 0],
             cut="blob", seed=int(rng.integers(1 << 30)), uv_region="puddle", collision=False, outline=False, mobile={"static": True})
+
+
+def crate_skin(ctx, spec):
+    """Printed crates: when the accent material is an atlas with "crate_side" / "crate_top" cells (alien_cartoon), every
+    crate (crates structures, platform cover crates) becomes a plain box that shows the side print on its four sides
+    and the lid on top. Same size and position (same collider, same cover); accent material + mobile static merge, so
+    no extra draw call; outlined like the rest of the cartoon world."""
+    A = ((spec.get("materials", {}).get("roles", {}).get("accent") or {}).get("atlas") or {})
+    if not ("crate_side" in A and "crate_top" in A): return 0
+    groups = {s["id"] for s in spec.get("structures", []) if s.get("kind") == "crates"}; n = 0
+    for o in ctx.objects:
+        if o["type"] == "box" and (o.get("parent") in groups or "_Cover_" in o["name"]):
+            o.update(material=ctx.role("accent"), faces={"side": A["crate_side"], "top": A["crate_top"]}, outline=True, mobile={"static": True}); n += 1
+    if n: ctx.notes.append(f"crates: {n} printed crates (accent atlas)")
+    return n

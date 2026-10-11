@@ -97,7 +97,27 @@ class Leaks(unittest.TestCase):
         import trimesh
         sc = trimesh.load(os.path.join(out[1][0], "level.glb"), force="scene")
         uv = np.vstack([sc.geometry[sc.graph[k][1]].visual.uv for k in sc.graph.nodes_geometry if "_Leak_" in k])
-        self.assertGreater(float(uv[:, 0].min()), 0.77)  # drips sample the slime cell of the atlas only
+        r = json.load(open(os.path.join(out[1][0], "level.json")))["materials"]["accent"]["atlas"]["drip"]
+        self.assertTrue(((uv[:, 0] > r[0] - 1e-4) & (uv[:, 0] < r[2] + 1e-4)).all())  # drips sample the slime cell of the atlas only
+
+
+class Crates(unittest.TestCase):
+    def test_printed_crates_keep_size_and_add_no_material(self):
+        import spec_to_level, shapes
+        s = small_spec(art_style="alien_cartoon"); s["structures"] = [{"id": "Box", "kind": "crates", "on": "A", "offset": [2, 2]}]
+        s0 = json.loads(json.dumps(s)); s0["materials"] = {"roles": {"accent": {"atlas": {"banner": [0, 0, 1, 1]}}}}  # atlas without crate cells
+        out = []
+        for spec in (s0, s):
+            d = tmp_level(name="crate"); spec_to_level.run(write_spec(d, spec), d, verbose=False); out.append(json.load(open(os.path.join(d, "level.json"))))
+        a = {o["name"]: o for o in out[0]["objects"] if o["name"].startswith("Box_") or "_Cover_" in o["name"]}
+        b = {o["name"]: o for o in out[1]["objects"] if o["name"].startswith("Box_") or "_Cover_" in o["name"]}
+        self.assertEqual(set(a), set(b)); self.assertTrue(b)
+        for n in b:
+            self.assertEqual((a[n]["position"], a[n]["size"]), (b[n]["position"], b[n]["size"])); self.assertEqual(b[n]["material"], "accent")
+            self.assertIn("crate_side", json.dumps(out[1]["materials"]["accent"]["atlas"]))
+        m = shapes.make(dict(next(iter(b.values())))); uv = m.metadata["uv"]; side = out[1]["materials"]["accent"]["atlas"]["crate_side"]
+        self.assertTrue(((uv[:16, 0] >= side[0] - 1e-6) & (uv[:16, 0] <= side[2] + 1e-6)).all())  # four sides show the side print
+        self.assertEqual(set(out[1]["materials"]), set(out[0]["materials"]))
 
 
 class BottomlessShaft(unittest.TestCase):

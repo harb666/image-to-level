@@ -2,8 +2,8 @@
 
 Spec: levels/skyforge_arena/scene_spec.json · 694 objects · 28 materials · 14 effects
 Checks: PASSED ({'error': 0, 'warning': 0, 'info': 0}) · refine passes: 1
-Mobile (balanced): 5059 KB · 94403 tris · 138 draw calls · ~59.4 visible (estimate) · ~7.15 MB GPU textures (estimate)
-Navigation: 4138.0 m² reachable of 29489.0 m² standable
+Mobile (balanced): 5035 KB · 93059 tris · 134 draw calls · ~57.7 visible (estimate) · ~7.15 MB GPU textures (estimate)
+Navigation: 4138.3 m² reachable of 29489.2 m² standable
 Package: dist/skyforge_arena/package (37 files, 12.65 MB) valid=True
 Previews: dist/skyforge_arena/preview.html, preview_mobile.html · renders: levels/skyforge_arena/checks/views/contact_sheet.jpg
 
@@ -23,11 +23,12 @@ Previews: dist/skyforge_arena/preview.html, preview_mobile.html · renders: leve
 - Elevator: elevator shaft r 5.5 m, 10.3 m deep through Hub; exit trigger -> next_level
 - North_Hall: 2 cover crate(s) dropped - no free spot clear of landings
 - leaks: 20 slime decals (visual only) on structures picked with chance 0.4
+- crates: 26 printed crates (accent atlas)
 
 ## Timing
 - spec -> level.json: 0.4 s
-- build (glb, sky, background, effects, mobile): 20.5 s
-- refine (checks -> safe fixes): 360.4 s
-- previews: 0.7 s
+- build (glb, sky, background, effects, mobile): 20.6 s
+- refine (checks -> safe fixes): 362.3 s
+- previews: 0.6 s
 - export package: 0.7 s
-- total: 382.6 s
+- total: 384.6 s
