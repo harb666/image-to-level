@@ -104,7 +104,9 @@ def build(level_dir):
     mats = {k: material(k, m) for k, m in L["materials"].items()}
     L.setdefault("draw_hint", "one material per surface type; mark static + batch in engine"); mats["_invisible"] = material("_invisible", None)
     OL = (L.get("style") or {}).get("outline")
-    if OL: mats["_ink"] = trimesh.visual.material.PBRMaterial(name="ink", baseColorFactor=[*[int(c * 255) for c in OL.get("color", [0.03, 0.01, 0.05])], 255], metallicFactor=0.0, roughnessFactor=1.0)
+    if OL:  # outline "color" is an sRGB colour; glTF baseColorFactor is LINEAR (writing it raw shows a purple halo, not ink)
+        lin = [c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4 for c in OL.get("color", [0.03, 0.01, 0.05])]
+        mats["_ink"] = trimesh.visual.material.PBRMaterial(name="ink", baseColorFactor=[*[int(round(c * 255)) for c in lin], 255], metallicFactor=0.0, roughnessFactor=1.0)
     scene = trimesh.Scene(); base = scene.graph.base_frame; tris = 0
     world = {}  # name -> world matrix (for topdown)
     geoms = {}  # (type, size, material) -> shared geometry name

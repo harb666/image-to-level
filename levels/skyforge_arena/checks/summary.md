@@ -26,9 +26,9 @@ Previews: dist/skyforge_arena/preview.html, preview_mobile.html · renders: leve
 - crates: 26 printed crates (accent atlas)
 
 ## Timing
-- spec -> level.json: 0.6 s
-- build (glb, sky, background, effects, mobile): 22.5 s
-- refine (checks -> safe fixes): 376.1 s
-- previews: 0.6 s
-- export package: 0.8 s
-- total: 400.5 s
+- spec -> level.json: 0.4 s
+- build (glb, sky, background, effects, mobile): 24.7 s
+- refine (checks -> safe fixes): 362.6 s
+- previews: 0.7 s
+- export package: 0.7 s
+- total: 389.1 s

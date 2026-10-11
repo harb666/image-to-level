@@ -74,7 +74,9 @@ def elevator_shaft(ctx, s, x, y, z, yaw):
     else:  # "minimal": plain hull lip, two insignia plates (not symmetric), nothing repeating round the hole
         ctx.add(n + "_Rim", "cylinder", [0, top, 0], [2 * (R + 0.8), 0.14, 2 * (R + 0.8)], "structure_b", g, sections=seg, hole=R)
         for k, deg in enumerate((38.0, 196.0)):
-            a = math.radians(deg); r = R + 2.3; yw = -deg - 90; ex, ez = A_local(0, 1.1 - 0.75, yw)
+            # plate lies flat along the radius, centred at R + 2.1: spans R + 1.0 .. R + 3.2, clear of the lip (R + 0.8) and
+            # fully inside the outer light ring (R + 3.5), so the ring never runs across the emblem
+            a = math.radians(deg); r = R + 2.1; yw = -deg - 90; ex, ez = A_local(0, 1.1, yw)
             ctx.add(f"{n}_Emblem_{k + 1}", "panel", [math.cos(a) * r + ex, top + 0.03, math.sin(a) * r + ez], [1.3, 2.2, 0], "accent", g, [-90, yw, 0], outline=False, mobile={"static": True})
     ctx.add(n + "_OuterRing", "cylinder", [0, top, 0], [2 * (R + 3.75), 0.04, 2 * (R + 3.75)], "glow", g, sections=32, hole=R + 3.5, outline=False)
     lo = yb + 0.5; hi = top - 1.2

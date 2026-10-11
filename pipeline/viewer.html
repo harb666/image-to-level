@@ -88,6 +88,8 @@ if(STY&&STY.toon){const F=(STY.toon.floor??0.5).toFixed(3); // cel shading: the 
   THREE.ShaderChunk.lights_physical_pars_fragment=THREE.ShaderChunk.lights_physical_pars_fragment.split('float dotNL = saturate( dot( geometryNormal, directLight.direction ) );')
     .join('float dotNL = saturate( dot( geometryNormal, directLight.direction ) ); dotNL = dotNL < 0.08 ? 0.0 : ( dotNL < 0.45 ? '+F+' : 1.0 );')
     .replace(/reflectedLight\.directSpecular \+=/g,'reflectedLight.directSpecular += 0.0 *');} // no sun highlights: Godot toon style runs specular_mode disabled
+for(const g of [gltf,bg]){if(!g)continue;const inkM={};g.scene.traverse(o=>{if(o.isMesh&&o.material&&o.material.name==='ink'){const c=o.material.color.getHex(); // outline shells: UNLIT ink like Godot (lit, they pick up sky reflections = a purple halo round every box)
+  o.material=inkM[c]||(inkM[c]=Object.assign(new THREE.MeshBasicMaterial({color:c,side:o.material.side}),{name:'ink'}));}});}
 if(STY&&STY.toon)for(const g of [gltf,bg]){if(!g)continue;g.scene.traverse(o=>{if(o.isMesh&&o.material&&o.material.isMeshStandardMaterial)o.material.envMapIntensity=STY.toon.ambient??1.25;});}
 // Stage 9: Godot-style visibility ranges from node extras (terrain LODs, scatter view distance) - distance to the node's box centre
 const ranged=[];gltf.scene.traverse(o=>{const u=o.userData||{};if(o.isMesh&&(u.visibility_range_end>0||u.visibility_range_begin>0)){
