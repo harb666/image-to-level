@@ -68,7 +68,13 @@ class Elevator(unittest.TestCase):
             for o in L["objects"]:  # nothing solid left inside the shaft between its floor and the deck
                 if o["name"].startswith("A") and o.get("size") and not o.get("hole") and o["type"] in ("box", "cylinder", "frustum"):
                     self.assertLessEqual(o["position"][1] + o["size"][1], yb + 0.01, f"{style}: {o['name']} blocks the shaft")
-            self.assertTrue(any(n.startswith("Lift_Panel") for n in by)); self.assertLess(ex["center"][1] + ex["height"] / 2, 4.0)
+            self.assertFalse(any(n.startswith("Lift_Panel") for n in by)); self.assertEqual(sum(n.startswith("Lift_Emblem") for n in by), 2)  # minimal rim; self.assertLess(ex["center"][1] + ex["height"] / 2, 4.0)
+
+    def test_full_dressing_keeps_the_light_ring(self):
+        import spec_to_level
+        s = _shaft_spec("sky_pylon"); s["structures"][0]["dressing"] = "full"; d = tmp_level(name="full")
+        spec_to_level.run(write_spec(d, s), d, verbose=False); names = [o["name"] for o in json.load(open(os.path.join(d, "level.json")))["objects"]]
+        self.assertEqual(sum(n.startswith("Lift_Panel") for n in names), 12); self.assertEqual(sum(n.startswith("Lift_Radial") for n in names), 4)
 
     def test_off_centre_shaft_is_skipped(self):
         import spec_to_level

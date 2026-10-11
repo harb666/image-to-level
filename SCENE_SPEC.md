@@ -394,4 +394,7 @@ Building blocks usable without the preset:
   `crate_body`, `crate_plate`, `crate_glow`). It does not reuse the banner emblem. Same size / position, so colliders and cover are unchanged; one
   shared material (fewer mobile draw calls than before). `"outline": true` on an object forces an outline even if
   its material is in `skip_materials`.
+- `elevator_shaft` `"dressing": "minimal"` (default) | `"full"`: minimal = plain hull lip, two insignia plates placed
+  off-symmetry, one continuous outer light ring, four inner light strips of uneven length (no striped lip, no ring of
+  light panels, no radial strips, no segmented inner light ring); full = the earlier, busier rim.
 

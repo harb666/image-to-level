@@ -5,7 +5,8 @@
 Cuts a real round hole through the platform it stands on (floor plate, trim, body, underframe -> hollow rings with
 concave colliders), lines it with a shaft (wall, pilasters with light strips, light rings; "bottom": "void" (default) = the lower
 walls fade into pure black with no floor in sight - reads bottomless; "glow" = lit red floor), dresses the
-rim (lip, ring of light panels, emblem plates, outer light ring, radial strips) and registers a level_exit trigger
+rim ("dressing": "minimal" (default): plain lip, two insignia plates, one outer light ring; "full": striped lip,
+ring of light panels, four insignia plates, radial strips, inner light ring) and registers a level_exit trigger
 volume inside the shaft (level.json "exits" -> collision.json triggers -> Godot Area3D; the preview shows the exit).
 Must sit at the centre of its platform (offset [0, 0]); works on any platform style / shape (sky_pylon: the shaft ends where
 the underframe meets the column; solid platforms: `depth` m deep, default 10, never below 0.3 m above the base or the
@@ -48,26 +49,34 @@ def elevator_shaft(ctx, s, x, y, z, yaw):
         a = 2 * math.pi * (i + 0.5) / 8; ca, sa = math.cos(a), math.sin(a); r = R - 0.22
         ctx.add(f"{n}_Pilaster_{i + 1}", "box", [ca * r, yb, sa * r], [0.9, depth - 0.25, 0.5], "structure_b", g, [0, -math.degrees(a) + 90, 0], bevel=0)
         if i % 2 == 0:
-            y0 = yb + max(0.6, depth * fade - 0.3)
-            ctx.add(f"{n}_Strip_{i + 1}", "box", [ca * (r - 0.3), y0, sa * (r - 0.3)], [0.22, top - 1.0 - y0, 0.08], "glow", g, [0, -math.degrees(a) + 90, 0], mobile={"static": True})
-    for j, f in enumerate((0.85,) if void else (0.25, 0.65)):  # light rings set into the wall
+            y0 = yb + max(0.6, depth * fade - 0.3); y1 = top - 1.0
+            if s.get("dressing", "minimal") != "full": y0, y1 = y0 + (0.0, 0.5, 0.15, 0.8)[i // 2], y1 - (0.3, 0.0, 0.6, 0.15)[i // 2]  # uneven lengths
+            ctx.add(f"{n}_Strip_{i + 1}", "box", [ca * (r - 0.3), y0, sa * (r - 0.3)], [0.22, y1 - y0, 0.08], "glow", g, [0, -math.degrees(a) + 90, 0], mobile={"static": True})
+    minimal = s.get("dressing", "minimal") != "full"
+    for j, f in enumerate(() if minimal else (0.85,) if void else (0.25, 0.65)):  # light rings set into the wall
         ctx.add(f"{n}_LightRing_{j + 1}", "cylinder", [0, yb + depth * f, 0], [2 * R + 0.02, 0.3, 2 * R + 0.02], "glow", g, sections=16, hole=R - 0.15)
     if void:  # dark sleeve in front of the lower wall + black bottom: wall colour at its top edge fading to black (atlas "void" cell)
         roles = ctx.spec.get("materials", {}).get("roles", {}); atl = (roles.get("accent") or {}).get("atlas") or {}
         ctx.add(n + "_Void", "panel", [0, yb + 0.12, 0], [2 * (R - 0.62), depth * fade - 0.1, 0], "accent" if "void" in atl else "void", g,
                 cut="sleeve", uv_region="void", collision=False, outline=False, mobile={"static": True})
-    ctx.add(n + "_Rim", "cylinder", [0, top, 0], [2 * (R + 1.0), 0.14, 2 * (R + 1.0)], "trim", g, sections=seg, hole=R)
-    for i in range(16):  # ring of light panels, emblem plates at the diagonals
-        a = 2 * math.pi * i / 16; ca, sa = math.cos(a), math.sin(a); r = R + 2.3
-        if i % 4 == 2:
-            yw = -math.degrees(a) - 90; ex, ez = A_local(0, 1.1 - 0.75, yw)  # 1.3 x 2.2 insignia plate centred where the old 1.5 plate was
-            ctx.add(f"{n}_Emblem_{i // 4 + 1}", "panel", [ca * r + ex, top + 0.03, sa * r + ez], [1.3, 2.2, 0], "accent", g, [-90, yw, 0], outline=False, mobile={"static": True})
-        else:
-            ctx.add(f"{n}_Panel_{i + 1:02d}", "box", [ca * r, top, sa * r], [1.6, 0.05, 0.75], "glow", g, [0, -math.degrees(a) + 90, 0], outline=False, mobile={"static": True})
+    if s.get("dressing", "minimal") == "full":  # ring of light panels, 4 insignia plates, radial strips, striped lip
+        ctx.add(n + "_Rim", "cylinder", [0, top, 0], [2 * (R + 1.0), 0.14, 2 * (R + 1.0)], "trim", g, sections=seg, hole=R)
+        for i in range(16):
+            a = 2 * math.pi * i / 16; ca, sa = math.cos(a), math.sin(a); r = R + 2.3
+            if i % 4 == 2:
+                yw = -math.degrees(a) - 90; ex, ez = A_local(0, 1.1 - 0.75, yw)
+                ctx.add(f"{n}_Emblem_{i // 4 + 1}", "panel", [ca * r + ex, top + 0.03, sa * r + ez], [1.3, 2.2, 0], "accent", g, [-90, yw, 0], outline=False, mobile={"static": True})
+            else:
+                ctx.add(f"{n}_Panel_{i + 1:02d}", "box", [ca * r, top, sa * r], [1.6, 0.05, 0.75], "glow", g, [0, -math.degrees(a) + 90, 0], outline=False, mobile={"static": True})
+        for i in range(4):
+            a = 2 * math.pi * (i + 0.5) / 4; ca, sa = math.cos(a), math.sin(a); r = R + 6.0
+            ctx.add(f"{n}_Radial_{i + 1}", "box", [ca * r, top, sa * r], [0.55, 0.04, 3.6], "glow", g, [0, -math.degrees(a) + 90, 0], outline=False)
+    else:  # "minimal": plain hull lip, two insignia plates (not symmetric), nothing repeating round the hole
+        ctx.add(n + "_Rim", "cylinder", [0, top, 0], [2 * (R + 0.8), 0.14, 2 * (R + 0.8)], "structure_b", g, sections=seg, hole=R)
+        for k, deg in enumerate((38.0, 196.0)):
+            a = math.radians(deg); r = R + 2.3; yw = -deg - 90; ex, ez = A_local(0, 1.1 - 0.75, yw)
+            ctx.add(f"{n}_Emblem_{k + 1}", "panel", [math.cos(a) * r + ex, top + 0.03, math.sin(a) * r + ez], [1.3, 2.2, 0], "accent", g, [-90, yw, 0], outline=False, mobile={"static": True})
     ctx.add(n + "_OuterRing", "cylinder", [0, top, 0], [2 * (R + 3.75), 0.04, 2 * (R + 3.75)], "glow", g, sections=32, hole=R + 3.5, outline=False)
-    for i in range(4):  # radial light strips
-        a = 2 * math.pi * (i + 0.5) / 4; ca, sa = math.cos(a), math.sin(a); r = R + 6.0
-        ctx.add(f"{n}_Radial_{i + 1}", "box", [ca * r, top, sa * r], [0.55, 0.04, 3.6], "glow", g, [0, -math.degrees(a) + 90, 0], outline=False)
     lo = yb + 0.5; hi = top - 1.2
     ctx.exits.append(dict(id=n + "_Exit", type="level_exit", target=s.get("target", "next_level"), shape="cylinder",
                           center=[round(x, 3), round((lo + hi) / 2, 3), round(z, 3)], radius=round(R - 0.3, 3), height=round(hi - lo, 3),
