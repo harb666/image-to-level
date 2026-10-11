@@ -397,4 +397,7 @@ Building blocks usable without the preset:
 - `elevator_shaft` `"dressing": "minimal"` (default) | `"full"`: minimal = plain hull lip, two insignia plates placed
   off-symmetry, one continuous outer light ring, four inner light strips of uneven length (no striped lip, no ring of
   light panels, no radial strips, no segmented inner light ring); full = the earlier, busier rim.
+- Outline `"max_footprint"` (m): objects wider than this (decks, platform bodies, underframes) get no outline shell -
+  on big flat pieces a world-space hull reads as a heavy black slab along the edges up close. alien_cartoon: 12 m,
+  width 0.03-0.08 m (rel 0.008). The ink colour is sRGB and converted to linear for the glTF factor.
 

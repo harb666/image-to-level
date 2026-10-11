@@ -71,7 +71,7 @@ ALIEN_CARTOON = {
     "structures_material": {"waterfall": "fall"},  # role given to structures of a kind that set no material
     "leaks": {"chance": 0.4, "material": "accent"},  # green slime leaking from some structures (weathering.py; accent atlas cells)
     "render": {"name": "alien_cartoon", "toon": {"steps": 3, "floor": 0.55, "ambient": 0.85, "godot": {"diffuse_mode": "toon", "specular_mode": "disabled", "metallic": 0.0}},
-               "outline": {"color": [0.03, 0.01, 0.05], "width": [0.08, 0.22], "rel": 0.022, "min_size": 0.25,
+               "outline": {"color": [0.03, 0.01, 0.05], "width": [0.03, 0.08], "rel": 0.008, "max_footprint": 12.0, "min_size": 0.25,
                            "skip_materials": ["glow", "water", "accent"], "skip_types": ["panel", "terrain", "boundary", "stream"]}},
 }
 
