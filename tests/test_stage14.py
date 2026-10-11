@@ -12,7 +12,7 @@ class Props(unittest.TestCase):
         for k in ("sat_dish", "sat_pod", "sat_spire"):
             for parts, meta in scatter.variants(k, "alien_cartoon", 6):
                 comps = trimesh.util.concatenate(list(parts.values())).split(only_watertight=False)
-                P = [np.vstack([trimesh.sample.sample_surface_even(c, 300)[0], c.vertices]) for c in comps]
+                P = [np.vstack([trimesh.sample.sample_surface(c, int(max(300, c.area * 600)), seed=1)[0], c.vertices]) for c in comps]  # ~4 cm apart
                 for i, c in enumerate(comps):
                     if c.bounds[0][1] < 0.05: continue  # stands on the ground
                     d = cKDTree(np.vstack([P[j] for j in range(len(P)) if j != i])).query(P[i])[0].min()

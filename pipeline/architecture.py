@@ -434,9 +434,11 @@ def connection(ctx, c, A, B, floor_y):
         ends = {"lo": (o, "low"), "hi": (o, "high")}
     for key, pl, pt, t, fl_, yy in (("hi", hi, hi_pt, toward, fhi, hi["top"]), ("lo", lo, lo_pt, (-toward[0], -toward[1]), flo, lo["top"])):
         jd = support_depth(pl, pt, t, width); target = fl_
-        if jd and jd - 0.1 > 0.15:  # junction plate (support_depth includes the 0.1 m inset): flat piece at the floor height (1 cm under it) filling the corner gaps
+        if jd and jd - 0.1 > 0.15:  # junction plate (support_depth includes the 0.1 m inset): flat piece just under the floor, in the floor's material, filling the corner gaps
             jc = (pt[0] + t[0] * jd / 2, pt[1] + t[1] * jd / 2)
-            target = ctx.add(f"{c['id']}_Junction_{'Hi' if pl is hi else 'Lo'}", "box", [jc[0], yy - 0.41, jc[1]], [width, 0.4, jd + 0.1], "grate", rot=[0, yaw, 0], connector=False)
+            fmat = next((o["material"] for o in ctx.objects if o["name"] == fl_ and o.get("material")), "grate")  # the platform's own floor:
+            target = ctx.add(f"{c['id']}_Junction_{'Hi' if pl is hi else 'Lo'}", "box", [jc[0], yy - 0.43, jc[1]], [width, 0.4, jd + 0.1], None, rot=[0, yaw, 0],
+                             connector=False, material=fmat)  # 3 cm under it: hidden where it overlaps, reads as the deck continuing where it fills the gap
             ctx.rel("supported_by", target, fl_); ctx.notes.append(f"{c['id']}: {jd:.2f} m junction plate where it meets {pl['id']}'s {'corner' if jd > width / 3 else 'angled edge'}")
         ctx.rel("walkable_connection", ends[key][0], target, a_anchor=ends[key][1])
     foot = p0 if run > gap2 + 0.05 else lo_pt  # a run longer than the gap lands ON the lower platform: keep its real foot clear

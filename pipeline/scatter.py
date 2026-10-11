@@ -206,8 +206,8 @@ def sat_dish(rng, st):
         x, z = rng.uniform(-0.9, 0.9), rng.uniform(-0.9, 0.9); an.apply_translation([x, h + 0.1, z]); ants.append(an)  # foot inside the head
         tip = np.array([0.0, L, 0.0, 1.0]) @ (rotation_matrix(ax_, [1, 0, 0]) @ rotation_matrix(az_, [0, 0, 1])).T  # exact antenna tip
         lights.append(_bulb(0.22, h + 0.1 + tip[1], x + tip[0], z + tip[2]))
-    rr = (head.bounds[1][0] - head.bounds[0][0]) / 2 * 0.8  # ring lights on the saucer rim, not outside it
-    ring = [_bulb(0.18, h, math.cos(a) * rr, math.sin(a) * rr) for a in np.linspace(0, 2 * np.pi, 5, endpoint=False)]
+    rim = head.vertices[np.abs(head.vertices[:, 1] - h) < 1e-6]  # the saucer's rim corners: lights sit ON them, half embedded
+    ring = [_bulb(0.18, h, p[0], p[2]) for p in rim[np.linspace(0, len(rim) - 1, min(5, len(rim))).astype(int)]]
     key = "light" if rng.random() < 0.6 else "light_b"
     return {"hull": trimesh.util.concatenate([head, dish]), "frame": trimesh.util.concatenate([stalk] + struts + ants),
             key: trimesh.util.concatenate(lights + ring)}, dict(collider=("cylinder", 0.6, h))

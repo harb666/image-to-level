@@ -411,4 +411,11 @@ Building blocks usable without the preset:
   stem, dishes sit in the saucer (tests/test_stage14.py measures the gap of every part).
 - Terrain waterfalls narrow themselves when a column finds no edge near the lip height (small islands), keep the
   plateau part on the island, and are closed slabs (visible thickness from the side).
+- Terrain waterfalls CLING to the cliff: columns ~2 m apart, a row every ~2.5 m of drop, each row 0.3 m (+ half the
+  slab) in front of the rendered rock at its own height and the next row's (so it steps out above a ledge, never
+  through it), the first ~4 m following the water's arc off the lip. No gap behind the sheet to see through. Lips are
+  found on LOD0 (what you see up close); the rock to clear is the outermost of terrain LOD 0-2 (coarse chunks shown at
+  distance can bulge past LOD0). All columns run down to one common bottom (no stepped, mid-air ends).
+- Connection junction plates use the floor material of the platform they meet and sit 3 cm under its surface: hidden
+  where they overlap the deck, read as the deck continuing where they fill the corner gap (no visible square).
 

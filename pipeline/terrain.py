@@ -426,14 +426,21 @@ class Terrain:
     def height_at(self, x, z):
         return float(self.height(np.array([x]), np.array([z]))[0])
 
-    def mesh_height(self, X, Z):
+    def mesh_height(self, X, Z, lod=0):
         """Height of the RENDERED terrain (LOD0 grid triangles, same diagonal rule as chunk_mesh) - what you see and
         stand on. The analytic height() is sharper (mesa rims, cliff edges sit up to a cell further out): props and
-        waterfalls placed with it can float off the visible edge."""
+        waterfalls placed with it can float off the visible edge. lod k: the coarser chunk version (interiors every 2^k
+        vertices) that is shown at distance - its cliffs can bulge out past LOD0."""
         G = self.grid(); H = G["H"]; c = self.cell; X = np.asarray(X, float); Z = np.asarray(Z, float)
         fc = np.clip((X - G["X"][0, 0]) / c, 0, H.shape[1] - 1.000001); fr = np.clip((Z - G["Z"][0, 0]) / c, 0, H.shape[0] - 1.000001)
-        j, i = np.floor(fc).astype(int), np.floor(fr).astype(int); fx, fz = fc - j, fr - i
-        a, b, cc, d = H[i, j], H[i, j + 1], H[i + 1, j + 1], H[i + 1, j]
+        st = 2 ** lod  # LOD k: chunk interiors sampled every 2^k vertices (borders stay full-res, approximated at LOD0 here)
+        if st > 1 and self.C // st >= 3:
+            lc, lr = np.mod(fc, self.C), np.mod(fr, self.C); inner = (lc >= st) & (lc <= self.C - st) & (lr >= st) & (lr <= self.C - st)
+            j = np.where(inner, np.floor(fc / st) * st, np.floor(fc)).astype(int); i = np.where(inner, np.floor(fr / st) * st, np.floor(fr)).astype(int)
+            s_ = np.where(inner, st, 1); j1, i1 = np.minimum(j + s_, H.shape[1] - 1), np.minimum(i + s_, H.shape[0] - 1); fx, fz = (fc - j) / s_, (fr - i) / s_
+        else:
+            j, i = np.floor(fc).astype(int), np.floor(fr).astype(int); j1, i1 = j + 1, i + 1; fx, fz = fc - j, fr - i
+        a, b, cc, d = H[i, j], H[i, j1], H[i1, j1], H[i1, j]
         diag_ac = np.abs(a - cc) <= np.abs(b - d)
         h_ac = np.where(fz >= fx, a + (d - a) * fz + (cc - d) * fx, a + (b - a) * fx + (cc - b) * fz)
         h_bd = np.where(fx + fz <= 1, a + (b - a) * fx + (d - a) * fz, cc + (d - cc) * (1 - fx) + (b - cc) * (1 - fz))

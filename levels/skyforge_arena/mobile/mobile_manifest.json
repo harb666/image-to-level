@@ -41,8 +41,8 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 4193,
-    "triangles": 76509,
+    "glb_kb": 4236,
+    "triangles": 77441,
     "nodes": 920,
     "mesh_nodes": 879,
     "unique_meshes": 578,
@@ -68,16 +68,16 @@
    },
    "visible": {
     "cameras": 96,
-    "visible_draw_calls_mean": 325.2,
+    "visible_draw_calls_mean": 325.1,
     "visible_draw_calls_max": 777,
-    "visible_triangles_mean": 40771,
-    "visible_triangles_max": 65283
+    "visible_triangles_mean": 41109,
+    "visible_triangles_max": 66215
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 4744,
-    "triangles": 87093,
+    "glb_kb": 4765,
+    "triangles": 88025,
     "nodes": 135,
     "mesh_nodes": 134,
     "unique_meshes": 134,
@@ -131,10 +131,10 @@
    },
    "visible": {
     "cameras": 96,
-    "visible_draw_calls_mean": 57.4,
+    "visible_draw_calls_mean": 57.5,
     "visible_draw_calls_max": 82,
-    "visible_triangles_mean": 39288,
-    "visible_triangles_max": 53440
+    "visible_triangles_mean": 39845,
+    "visible_triangles_max": 54372
    },
    "hidden_faces_removed": 0,
    "effects_extra_draw_calls": 14,
@@ -306,10 +306,14 @@
    "node": "M_deck_-1_-1",
    "kind": "static",
    "material": "deck",
-   "triangles": 24,
+   "triangles": 72,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Link_North_NW_Junction_Lo",
+    "Link_North_NW_Junction_Hi",
+    "Ramp_Hub_NW_Junction_Lo",
+    "Ramp_Hub_NW_Junction_Hi",
     "West_Post_Floor",
     "NW_Bastion_Floor"
    ]
@@ -402,16 +406,12 @@
    "node": "M_grate_-1_-1",
    "kind": "static",
    "material": "grate",
-   "triangles": 84,
+   "triangles": 36,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Bridge_Hub_West_Deck",
-    "Link_North_NW_Junction_Lo",
-    "Link_North_NW_Junction_Hi",
     "Link_North_NW_Deck",
-    "Ramp_Hub_NW_Junction_Lo",
-    "Ramp_Hub_NW_Junction_Hi",
     "Ramp_Hub_NW_Deck"
    ]
   },
@@ -569,10 +569,12 @@
    "node": "M_deck_-1_0",
    "kind": "static",
    "material": "deck",
-   "triangles": 32,
+   "triangles": 56,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Ramp_Hub_SW_Junction_Lo",
+    "Ramp_Hub_SW_Junction_Hi",
     "SW_Octagon_Floor"
    ]
   },
@@ -650,12 +652,10 @@
    "node": "M_grate_-1_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 36,
+   "triangles": 12,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Ramp_Hub_SW_Junction_Lo",
-    "Ramp_Hub_SW_Junction_Hi",
     "Ramp_Hub_SW_Deck"
    ]
   },
@@ -1067,10 +1067,12 @@
    "node": "M_deck_0_0",
    "kind": "static",
    "material": "deck",
-   "triangles": 268,
+   "triangles": 292,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Ramp_Hub_SE_Junction_Lo",
+    "Ramp_Hub_SE_Junction_Hi",
     "SE_Octagon_Floor",
     "South_Tower_Floor",
     "South_Gate_Floor",
@@ -1187,12 +1189,10 @@
    "node": "M_grate_0_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 72,
+   "triangles": 48,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Ramp_Hub_SE_Junction_Lo",
-    "Ramp_Hub_SE_Junction_Hi",
     "Ramp_Hub_SE_Deck",
     "Link_Gate_SE_Deck",
     "Bridge_Gate_Tower_Deck",
@@ -1551,7 +1551,7 @@
    "node": "FX_Pour_Flow",
    "kind": "effect_target",
    "material": "fall",
-   "triangles": 516,
+   "triangles": 1448,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
