@@ -2,7 +2,7 @@
 
 Spec: levels/skyforge_arena/scene_spec.json · 694 objects · 28 materials · 14 effects
 Checks: PASSED ({'error': 0, 'warning': 0, 'info': 0}) · refine passes: 1
-Mobile (balanced): 5035 KB · 93059 tris · 134 draw calls · ~57.7 visible (estimate) · ~7.15 MB GPU textures (estimate)
+Mobile (balanced): 5033 KB · 93095 tris · 134 draw calls · ~57.7 visible (estimate) · ~7.15 MB GPU textures (estimate)
 Navigation: 4138.3 m² reachable of 29489.2 m² standable
 Package: dist/skyforge_arena/package (37 files, 12.65 MB) valid=True
 Previews: dist/skyforge_arena/preview.html, preview_mobile.html · renders: levels/skyforge_arena/checks/views/contact_sheet.jpg
@@ -26,9 +26,9 @@ Previews: dist/skyforge_arena/preview.html, preview_mobile.html · renders: leve
 - crates: 26 printed crates (accent atlas)
 
 ## Timing
-- spec -> level.json: 0.4 s
-- build (glb, sky, background, effects, mobile): 20.6 s
-- refine (checks -> safe fixes): 362.3 s
+- spec -> level.json: 0.3 s
+- build (glb, sky, background, effects, mobile): 23.2 s
+- refine (checks -> safe fixes): 356.7 s
 - previews: 0.6 s
-- export package: 0.7 s
-- total: 384.6 s
+- export package: 0.8 s
+- total: 381.5 s

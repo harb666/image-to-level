@@ -115,8 +115,12 @@ class Crates(unittest.TestCase):
         for n in b:
             self.assertEqual((a[n]["position"], a[n]["size"]), (b[n]["position"], b[n]["size"])); self.assertEqual(b[n]["material"], "accent")
             self.assertIn("crate_side", json.dumps(out[1]["materials"]["accent"]["atlas"]))
-        m = shapes.make(dict(next(iter(b.values())))); uv = m.metadata["uv"]; side = out[1]["materials"]["accent"]["atlas"]["crate_side"]
-        self.assertTrue(((uv[:16, 0] >= side[0] - 1e-6) & (uv[:16, 0] <= side[2] + 1e-6)).all())  # four sides show the side print
+        A = out[1]["materials"]["accent"]["atlas"]; inside = lambda q, r: ((q[:, 0] >= r[0] - 1e-6) & (q[:, 0] <= r[2] + 1e-6) & (q[:, 1] >= r[1] - 1e-6) & (q[:, 1] <= r[3] + 1e-6)).all()
+        for o in b.values():  # glyph print on one pair of faces, plain plate on the other, lid on top
+            uv = shapes.make(dict(o)).metadata["uv"]; ax = o["faces"]["front_axis"]
+            fr, sd = (uv[:8], uv[8:16]) if ax == "z" else (uv[8:16], uv[:8])
+            self.assertTrue(inside(fr, A["crate_front"]) and inside(sd, A["crate_side"]) and inside(uv[16:20], A["crate_top"]))
+        self.assertGreater(len({o["faces"]["front_axis"] for o in b.values()}), 1)  # facing varies crate to crate
         self.assertEqual(set(out[1]["materials"]), set(out[0]["materials"]))
 
 

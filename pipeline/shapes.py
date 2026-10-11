@@ -508,14 +508,16 @@ SHAPES = dict(railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=
               stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum)
 
 
-def box_faces(w, h, d, side, top):
-    """Box (base y = 0) whose four sides each show the whole `side` atlas rectangle and whose top / bottom show `top`
-    (rects u0, v0, u1, v1, trimesh v up) - crates with a printed face on every side (metadata["uv"])."""
-    x, z = w / 2, d / 2; V, UV, F = [], [], []
+def box_faces(w, h, d, side, top, front=None, front_axis="z"):
+    """Box (base y = 0) whose sides each show a whole atlas rectangle and whose top / bottom show `top` (rects u0, v0,
+    u1, v1, trimesh v up) - crates with a printed face on every side (metadata["uv"]). `front` (optional) goes on the
+    two faces across `front_axis` ("z": +z / -z, "x": +x / -x), `side` on the other two."""
+    x, z = w / 2, d / 2; V, UV, F = [], [], []; fz = front or side
+    fz, fx = (fz, side) if front_axis == "z" else (side, fz)
     def quad(p, r):  # p: 4 corners counter-clockwise seen from outside, starting bottom-left
         b = len(V); V.extend(p); u0, v0, u1, v1 = r; UV.extend([(u0, v0), (u1, v0), (u1, v1), (u0, v1)]); F.extend([[b, b + 1, b + 2], [b, b + 2, b + 3]])
-    quad([(-x, 0, z), (x, 0, z), (x, h, z), (-x, h, z)], side); quad([(x, 0, -z), (-x, 0, -z), (-x, h, -z), (x, h, -z)], side)
-    quad([(x, 0, z), (x, 0, -z), (x, h, -z), (x, h, z)], side); quad([(-x, 0, -z), (-x, 0, z), (-x, h, z), (-x, h, -z)], side)
+    quad([(-x, 0, z), (x, 0, z), (x, h, z), (-x, h, z)], fz); quad([(x, 0, -z), (-x, 0, -z), (-x, h, -z), (x, h, -z)], fz)
+    quad([(x, 0, z), (x, 0, -z), (x, h, -z), (x, h, z)], fx); quad([(-x, 0, -z), (-x, 0, z), (-x, h, z), (-x, h, -z)], fx)
     quad([(-x, h, z), (x, h, z), (x, h, -z), (-x, h, -z)], top); quad([(-x, 0, -z), (x, 0, -z), (x, 0, z), (-x, 0, z)], top)
     m = trimesh.Trimesh(np.array(V, float), np.array(F), process=False); m.metadata["uv"] = np.array(UV, float); return m
 
@@ -526,7 +528,8 @@ def make(o, bevel=0.0):
     if t in ("box", "cylinder") and o.get("hole"):  # hollow: a round hole straight through (elevator shafts)
         n = int(o.get("sections", 12)) if t == "cylinder" else 0; r = min(w, d)
         return holed(r if n else w, h, r if n else d, float(o["hole"]), n)
-    if t == "box" and o.get("faces"): return box_faces(w, h, d, o["faces"]["side"], o["faces"]["top"])  # printed crate (atlas cells)
+    if t == "box" and o.get("faces"):  # printed crate (atlas cells)
+        F = o["faces"]; return box_faces(w, h, d, F["side"], F["top"], F.get("front"), F.get("front_axis", "z"))
     if t == "box" and (o.get("bevel", bevel) or 0) > 0: return bevel_box(w, h, d, o.get("bevel", bevel))
     if t in SHAPES: return SHAPES[t](w, h, d, o)
     return None

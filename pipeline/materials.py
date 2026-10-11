@@ -396,6 +396,45 @@ def _proc_emblem(W, H):
     return (crest | horns | eye | spike).astype(float)
 
 
+def crate_face(kind, W, H, m, fine=None):
+    """One printed face of the alien cargo crate (W x H texels, rows top -> bottom): grey hull, dark corner brackets
+    with glowing triangles, dark edge rails with light strips, and per face: "front" maroon plate with a black glyph
+    (downward spike, ring, antenna), "side" plain maroon plate with dash marks, "top" bevelled frame round a glowing
+    square. Returns (albedo, height, emission). Colours: crate_body, crate_plate, crate_glow."""
+    y, x = (np.mgrid[0:H, 0:W] + 0.5) / np.array([H, W])[:, None, None]
+    body, dark = np.array(m.get("crate_body", [0.46, 0.42, 0.47])), np.array([0.17, 0.11, 0.17])
+    plate, glow, ink = np.array(m.get("crate_plate", [0.36, 0.09, 0.24])), np.array(m.get("crate_glow", [1.0, 0.12, 0.62])), np.array([0.03, 0.01, 0.04])
+    f = fine if fine is not None else np.zeros((H, W))
+    col = body * (0.94 + 0.06 * f)[..., None]; hgt = np.full((H, W), 0.5); em = np.zeros((H, W))
+    def put(mask, c, hv=None, e=None):
+        nonlocal col, hgt, em
+        col = np.where(mask[..., None], c, col)
+        if hv is not None: hgt = np.where(mask, hv, hgt)
+        if e is not None: em = np.where(mask, e, em)
+    dx, dy = np.minimum(x, 1 - x), np.minimum(y, 1 - y)
+    if kind != "top":  # dark rails down both vertical edges with two light strips each
+        put(dx < 0.1, dark, 0.7); put((dx > 0.03) & (dx < 0.065) & (np.abs(y - 0.5) < 0.24) & (np.abs(y - 0.5) > 0.03), glow, 0.75, 1.0)
+    put(dx + dy < 0.2, dark, 0.8)  # corner brackets
+    put((dx + dy < 0.12) & (dx > 0.015) & (dy > 0.015), glow, 0.85, 1.0)  # glowing corner triangles
+    if kind == "front":  # maroon plate narrowing downwards (notch bottom right) with the black glyph
+        top_w = 0.31 - 0.13 * (y - 0.2) / 0.66; pm = (y > 0.2) & (y < 0.86) & (np.abs(x - 0.52) < top_w) & ~((x > 0.6) & (y > 0.7))
+        put(pm, plate, 0.4)
+        tri = (y > 0.38) & (y < 0.68) & (np.abs(x - 0.5) < 0.17 * (0.68 - y) / 0.3)  # black downward triangle
+        spike = (y >= 0.64) & (y < 0.84) & (np.abs(x - 0.5 - 0.04 * (y - 0.64) / 0.2) < 0.03 * (0.84 - y) / 0.2 + 0.004)
+        ring = np.hypot((x - 0.53) * 1.15, y - 0.47) < 0.06; hole = np.hypot((x - 0.53) * 1.15, y - 0.47) < 0.03
+        ant = ((np.abs(x - 0.5) < 0.011) & (y > 0.22) & (y < 0.39)) | (np.hypot(x - 0.5, y - 0.21) < 0.022)
+        put(((tri & ~ring) | (ring & ~hole) | spike | ant), ink, 0.55); put(ring & ~hole & ~tri, ink, 0.55)
+        put((ring & ~hole) & tri, plate, 0.45); put(hole, ink, 0.55)  # ring cut out of the triangle (plate colour), black eye
+    elif kind == "side":
+        pm = (y > 0.16) & (y < 0.86) & (x > 0.26 - 0.04 * (y - 0.16)) & (x < 0.74 + 0.02 * (y - 0.16)); put(pm, plate, 0.4)
+        for k in range(2): put((y > 0.66 + k * 0.07) & (y < 0.69 + k * 0.07) & (x > 0.3 + 0.03 * k) & (x < 0.45 - 0.02 * k), dark, 0.45)
+    else:
+        put((np.abs(x - 0.5) < 0.26) & (np.abs(y - 0.5) < 0.26), plate * 0.8, 0.65)  # bevelled frame
+        put((np.abs(x - 0.5) < 0.17) & (np.abs(y - 0.5) < 0.17), glow, 0.6, 1.0)
+        put(((np.abs(x - 0.5) < 0.006) | (np.abs(y - 0.5) < 0.006)) & ((np.abs(x - 0.5) > 0.3) | (np.abs(y - 0.5) > 0.3)) & (dx > 0.12) & (dy > 0.12), dark, 0.45)  # seams
+    return col, hgt, em
+
+
 def _banner_atlas(S, rng, c, m):
     """Banner atlas ("atlas" in the material): pennant banner cloth with a glowing emblem ("emblem": image path, else a
     procedural one) in its "banner" rectangle, plus liquid decal cells ("drip", "puddle": slime running down walls /
@@ -430,30 +469,12 @@ def _banner_atlas(S, rng, c, m):
         r = np.hypot(px_ - 0.5, py_ - 0.5) * 2; spot = n[y0:y1, x0:x1] > 0.68
         k = 0.7 + 0.3 * np.clip((r - 0.6) * 3, 0, 1) + 0.3 * spot
         alb[y0:y1, x0:x1] = np.clip(sl * k[..., None], 0, 1); h[y0:y1, x0:x1] = 0.7; emit[y0:y1, x0:x1] = 0.5 + 0.2 * spot; rough[y0:y1, x0:x1] = 0.1
-    if "crate_side" in A:  # printed crate side: framed purple plate, black inset with the emblem, two glowing strips
-        x0, y0, x1, y1 = pix(A["crate_side"]); W2, H2 = x1 - x0, y1 - y0; cx_, cy_ = np.meshgrid((np.arange(W2) + 0.5) / W2, (np.arange(H2) + 0.5) / H2)
-        body = np.array(m.get("crate_color", [0.36, 0.16, 0.32])); dk = body * 0.45
-        frame = (np.minimum(cx_, 1 - cx_) < 0.08) | (np.minimum(cy_, 1 - cy_) < 0.08)
-        panel = (np.abs(cx_ - 0.5) < 0.21) & (np.abs(cy_ - 0.5) < 0.34); strip = (np.abs(np.abs(cx_ - 0.5) - 0.31) < 0.035) & (np.abs(cy_ - 0.5) < 0.3)
-        bolt = np.hypot(np.minimum(cx_, 1 - cx_) - 0.04, np.minimum(cy_, 1 - cy_) - 0.04) < 0.022
-        bw2, bh2 = int(W2 * 0.38), int(H2 * 0.62); mk = emblem_mask(m["emblem"], bw2, bh2) if m.get("emblem") else _proc_emblem(bw2, bh2)
-        E = np.zeros((H2, W2)); oy, ox = (H2 - bh2) // 2, (W2 - bw2) // 2; E[oy:oy + bh2, ox:ox + bw2] = mk; E *= panel
-        red, glow = np.array(m.get("crate_red", [0.8, 0.04, 0.09])), np.array(m.get("emblem_color", [1.0, 0.16, 0.2]))
-        cc = np.where(frame[..., None], dk, body * (0.95 + 0.05 * fine[y0:y1, x0:x1])[..., None])
-        cc = np.where(panel[..., None], np.array([0.03, 0.02, 0.04]), cc); cc = cc * (1 - E[..., None]) + red * E[..., None]
-        cc = np.where(strip[..., None], glow, np.where(bolt[..., None], body * 1.4, cc))
-        alb[y0:y1, x0:x1] = cc; h[y0:y1, x0:x1] = 0.5 + 0.25 * frame - 0.2 * panel + 0.15 * E + 0.1 * strip + 0.2 * bolt
-        emit[y0:y1, x0:x1] = np.maximum(strip.astype(float), 0.55 * E); rough[y0:y1, x0:x1] = 0.8
-    if "crate_top" in A:  # crate lid: framed plate with a recessed glowing red disc
-        x0, y0, x1, y1 = pix(A["crate_top"]); W2, H2 = x1 - x0, y1 - y0; cx_, cy_ = np.meshgrid((np.arange(W2) + 0.5) / W2, (np.arange(H2) + 0.5) / H2)
-        body = np.array(m.get("crate_color", [0.36, 0.16, 0.32])); r = np.hypot(cx_ - 0.5, cy_ - 0.5)
-        frame = (np.minimum(cx_, 1 - cx_) < 0.08) | (np.minimum(cy_, 1 - cy_) < 0.08); well = r < 0.3; disc = r < 0.22
-        glow = np.array(m.get("emblem_color", [1.0, 0.16, 0.2]))
-        cc = np.where(frame[..., None], body * 0.45, body * (0.95 + 0.05 * fine[y0:y1, x0:x1])[..., None])
-        cc = np.where(well[..., None], np.array([0.08, 0.04, 0.1]), cc); cc = np.where(disc[..., None], glow * (0.85 + 0.15 * (r < 0.12))[..., None], cc)
-        alb[y0:y1, x0:x1] = cc; h[y0:y1, x0:x1] = 0.5 + 0.25 * frame - 0.25 * well + 0.1 * disc; emit[y0:y1, x0:x1] = disc.astype(float); rough[y0:y1, x0:x1] = 0.8
+    for cell in ("crate_front", "crate_side", "crate_top"):  # printed crate faces (crate_face: grey hull, pink lights)
+        if cell in A:
+            x0, y0, x1, y1 = pix(A[cell]); cc, hh, ee = crate_face(cell[6:], x1 - x0, y1 - y0, m, fine[y0:y1, x0:x1])
+            alb[y0:y1, x0:x1] = cc; h[y0:y1, x0:x1] = hh; emit[y0:y1, x0:x1] = ee; rough[y0:y1, x0:x1] = 0.8
     post = []
-    for cell in ("crate_side", "crate_top"):  # keep the printed crate colours exact (not posterised); ink their edges here
+    for cell in ("crate_front", "crate_side", "crate_top"):  # keep the printed crate colours exact (not posterised); ink their edges here
         if cell not in A: continue
         x0, y0, x1, y1 = pix(A[cell]); hh = _blur(h[y0:y1, x0:x1], 0.8); gy, gx = np.gradient(hh); g = np.hypot(gx, gy)
         ink = np.clip(g / (np.percentile(g, 99) + 1e-6) * 1.6 - 0.35, 0, 1) * (emit[y0:y1, x0:x1] < 0.5)

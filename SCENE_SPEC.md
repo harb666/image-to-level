@@ -386,10 +386,12 @@ Building blocks usable without the preset:
   (`void_top`, `void_black`; ambient occlusion 0 there, so no sky light or reflection) - no extra draw call; levels
   without that atlas use a plain black `void` role. The preview's toon shading now drops direct specular, like the
   Godot toon style (`specular_mode disabled`).
-- Printed crates: when the accent atlas has `"crate_side"` and `"crate_top"` cells (alien_cartoon), every crate
-  (`crates` structures and platform cover crates) is a plain box showing the side print on its four sides (framed
-  plate, black inset with the emblem, two glowing strips) and a glowing disc lid (`box` `"faces": {"side", "top"}`,
-  shapes.box_faces; `crate_color`, `crate_red`). Same size / position, so colliders and cover are unchanged; one
+- Printed crates: when the accent atlas has `"crate_front"`, `"crate_side"` and `"crate_top"` cells (alien_cartoon),
+  every crate (`crates` structures and platform cover crates) is a plain box: grey hull, dark corner brackets with
+  glowing pink triangles, edge rails with light strips; a maroon plate with a black glyph on one pair of faces (picked
+  per crate, so stacks don't repeat), a plain plate with dash marks on the other pair, a glowing square lid
+  (`box` `"faces": {"front", "side", "top", "front_axis"}`, shapes.box_faces, materials.crate_face;
+  `crate_body`, `crate_plate`, `crate_glow`). It does not reuse the banner emblem. Same size / position, so colliders and cover are unchanged; one
   shared material (fewer mobile draw calls than before). `"outline": true` on an object forces an outline even if
   its material is in `skip_materials`.
 

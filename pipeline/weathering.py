@@ -78,14 +78,16 @@ def _puddle(ctx, g, mat, rng, px, pz, fy, cx, out, name):
 
 def crate_skin(ctx, spec):
     """Printed crates: when the accent material is an atlas with "crate_side" / "crate_top" cells (alien_cartoon), every
-    crate (crates structures, platform cover crates) becomes a plain box that shows the side print on its four sides
-    and the lid on top. Same size and position (same collider, same cover); accent material + mobile static merge, so
+    crate (crates structures, platform cover crates) becomes a plain box: glyph print ("crate_front") on one pair of
+    faces (picked per crate), plain plate ("crate_side") on the other pair, lid on top. Same size and position (same collider, same cover); accent material + mobile static merge, so
     no extra draw call; outlined like the rest of the cartoon world."""
     A = ((spec.get("materials", {}).get("roles", {}).get("accent") or {}).get("atlas") or {})
     if not ("crate_side" in A and "crate_top" in A): return 0
     groups = {s["id"] for s in spec.get("structures", []) if s.get("kind") == "crates"}; n = 0
     for o in ctx.objects:
         if o["type"] == "box" and (o.get("parent") in groups or "_Cover_" in o["name"]):
-            o.update(material=ctx.role("accent"), faces={"side": A["crate_side"], "top": A["crate_top"]}, outline=True, mobile={"static": True}); n += 1
+            fa = "zx"[_rng("crate", o["name"]).integers(2)]  # which pair of faces carries the glyph: varies crate to crate
+            o.update(material=ctx.role("accent"), faces={"side": A["crate_side"], "top": A["crate_top"], "front": A.get("crate_front"), "front_axis": fa},
+                     outline=True, mobile={"static": True}); n += 1
     if n: ctx.notes.append(f"crates: {n} printed crates (accent atlas)")
     return n
