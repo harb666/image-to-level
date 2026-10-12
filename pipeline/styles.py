@@ -37,9 +37,11 @@ ALIEN_CARTOON = {
         "ceiling":     {"type": "ceiling_works", "color": [0.42, 0.45, 0.32], "tile_m": 20.0, "res": 1024, "toon": True, "toon_flatten": 0.6, "seed": 1},
         "ceiling_b":   {"type": "ceiling_works", "color": [0.4, 0.42, 0.31], "tile_m": 18.0, "res": 1024, "toon": True, "toon_flatten": 0.6, "seed": 2},
         "lamp":        {"type": "glow", "color": [1.0, 0.95, 0.75], "tile_m": 2.0, "emissive": [1.0, 0.92, 0.7]},
-        "screen":      {"type": "screen_ui", "color": [1, 1, 1], "tile_m": 4.0, "res": 512, "seed": 1, "emissive": [0.85, 0.85, 0.85]},
-        "screen_b":    {"type": "screen_ui", "color": [1, 1, 1], "tile_m": 4.0, "res": 512, "seed": 2, "emissive": [0.85, 0.85, 0.85]},
+        "screen":      {"type": "screen_atlas", "color": [1, 1, 1], "tile_m": 4.0, "res": 1024, "emissive": [0.85, 0.85, 0.85], "atlas": {"a": [0, 0, 0.5, 1], "b": [0.5, 0, 1, 1]},
+                        "left": {"type": "screen_ui", "seed": 1}, "right": {"type": "screen_ui", "seed": 2}},  # both TV layouts, one material
         "tv_casing":   {"type": "tv_casing", "color": [0.24, 0.18, 0.29], "tile_m": 4.0, "res": 512, "toon": True, "emissive": [1, 1, 1], "border": 0.07, "chin": 0.2},
+        "bigscreen":   {"type": "screen_atlas", "color": [1, 1, 1], "tile_m": 4.0, "res": 1024, "emissive": [0.9, 0.9, 0.9], "atlas": {"a": [0, 0, 0.5, 1], "b": [0.5, 0, 1, 1]},
+                        "left": {"type": "bigscreen", "mode": "broadcast", "aspect": 1.7}, "right": {"type": "bigscreen", "mode": "specimen", "aspect": 1.7}},  # viewscreen + specimen window
         "glass":       {"type": "toxic", "color": [0.55, 1.0, 0.45], "tile_m": 4.0, "res": 64, "alpha": 0.22, "emissive": [0.1, 0.3, 0.08]},
         "rail":        {"type": "painted_metal", "color": [0.85, 0.08, 0.1], "tile_m": 2.0, "res": 128, "wear": 0.02, "toon": True},
         "grate":       {"type": "grating", "color": [0.27, 0.22, 0.35], "tile_m": 2.0, "toon": True},

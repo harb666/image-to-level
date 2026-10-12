@@ -127,7 +127,7 @@ for _k, _b, _s in (("industrial", "industrial", "realistic"), ("toxic_industrial
                    ("medieval_town", "temperate", "realistic"), ("ruins", "wasteland", "realistic")):
     THEMES[_k].setdefault("biome", _b); THEMES[_k].setdefault("style", _s)
 VARIANT_ROLES = ("wall", "structure", "deck", "plaster")
-FALLBACK = {"tv_casing": "structure_b", "screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
+FALLBACK = {"bigscreen": "glow", "tv_casing": "structure_b", "screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
             "window": "glow", "foliage": "rock", "water": "hazard", "machine": "structure_b", "backdrop": "wall", "structure_b": "structure",
             "frame": "structure_b", "rail": "frame", "grate": "deck", "trim": "structure_b", "accent": "trim", "glow": "accent", "pipe": "frame",
             "hazard": "water", "fall": "water", "stripe": "trim", "ground": "deck", "deck": "ground", "wall": "structure", "structure": "wall", "rock": "structure"}
@@ -542,10 +542,10 @@ def _wall_varied(ctx, name, g, L, height, thick, base_y, dress):
             ctx.add(nm, "box", [x, yy, f + 0.1], [vw, vh, 0.3], "structure_b", g, collision=False, **st)
             for j in range(3): ctx.add(f"{nm}_Slat_{j + 1}", "box", [x, yy + vh * (j + 1) / 4 - 0.12, f + 0.3], [vw - 0.5, 0.24, 0.15], "frame", g, collision=False, outline=False, **st)
         elif m == "monitor":  # Stage 22-23: wall TV - moulded tv_body (casing texture: screws, vents, speaker grille, knobs, LED), glass screen, mount arms
-            tw = min(sw * rng.uniform(0.5, 0.7), rng.uniform(3.2, 5.2)); th = tw * 0.74; yy = fy + rng.uniform(1.4, 2.6); scr = "screen" if rng.random() < 0.5 else "screen_b"
+            tw = min(sw * rng.uniform(0.5, 0.7), rng.uniform(3.2, 5.2)); th = tw * 0.74; yy = fy + rng.uniform(1.4, 2.6); scr = "a" if rng.random() < 0.5 else "b"  # which of the two layouts
             bf, cf, depth, stand = 0.07, 0.2, 0.9, 0.35; W_ = tw / (1 - 2 * bf); H_ = W_ * 0.8; th = H_ * (1 - cf - bf * 1.33) * 0.98; y0 = yy - H_ * cf
             ctx.add(nm + "_Body", "tv_body", [x, y0, f + stand], [W_, H_, depth], "tv_casing", g, border=bf, chin=cf, **st)
-            ctx.add(nm + "_Screen", "panel", [x, yy + H_ * 0.003, f + stand + depth - 0.12 + 0.02], [W_ * (1 - 2 * bf) * 0.995, th, 0], scr, g, collision=False, outline=False, **st)
+            ctx.add(nm + "_Screen", "panel", [x, yy + H_ * 0.003, f + stand + depth - 0.12 + 0.02], [W_ * (1 - 2 * bf) * 0.995, th, 0], "screen", g, uv_region=scr, collision=False, outline=False, **st)
             for k_ in (-1, 1): ctx.add(f"{nm}_Arm_{k_ + 1}", "box", [x + k_ * W_ * 0.2, y0 + H_ * 0.45, f + 0.0], [0.25, 0.3, stand + 0.1], "frame", g, collision=False, outline=False, **st)
             for cxs, cys in ((-1, -1), (1, -1), (-1, 1), (1, 1)):  # angular red corner caps on the bezel (reference)
                 ctx.add(f"{nm}_Corner_{cxs + 1}{cys + 1}", "box", [x + cxs * (W_ / 2 - 0.3), y0 + (H_ - 0.36 if cys > 0 else 0.2), f + stand + depth + 0.01], [0.6, 0.15, 0.06], "glow", g,
@@ -629,6 +629,16 @@ def arena(ctx, a, floor_y, pre=""):
                         mx_, mz_ = (m0[0] + m1[0]) / 2, (m0[1] + m1[1]) / 2; yaw_ = yaw_to(ux, uz) - 90
                         ctx.add(tag + "_Slime", "box", [mx_, op["sill"] + 0.25, mz_], [op["width"] - 0.1, (op.get("height") or W["height"]) - op["sill"] - 0.25, 0.6], "hazard", None, [0, yaw_, 0],
                                 collision=True, outline=False, mobile={"static": True})
+                    elif op.get("fill") in ("screen", "specimen"):  # Stage 24: giant broadcast viewscreen / specimen containment window
+                        mx_, mz_ = (m0[0] + m1[0]) / 2, (m0[1] + m1[1]) / 2; yaw_ = yaw_to(ux, uz) - 90; ox_, oz_ = -nx * (t / 2 + 0.04), -nz * (t / 2 + 0.04)  # room side
+                        y0_, hh_ = op["sill"] + 0.25, (op.get("height") or W["height"]) - op["sill"] - 0.5
+                        ctx.add(tag + "_Back", "box", [mx_, y0_, mz_], [op["width"] - 0.1, hh_, t - 0.04], "frame", None, [0, yaw_, 0], collision=True, outline=False, mobile={"static": True})
+                        ctx.add(tag + "_Screen", "panel", [mx_ + ox_, y0_, mz_ + oz_], [op["width"] - 0.4, hh_, 0], "bigscreen", None, [0, yaw_, 0],
+                                uv_region="a" if op["fill"] == "screen" else "b", collision=False, outline=False, mobile={"static": True})
+                        for cxs in (-1, 1):  # angular red caps at the top corners, a light bar along the sill
+                            cx_, cz_ = mx_ + ux * cxs * (op["width"] / 2 - 0.6) - nx * (t / 2 + 0.06), mz_ + uz * cxs * (op["width"] / 2 - 0.6) - nz * (t / 2 + 0.06)
+                            ctx.add(f"{tag}_Cap_{cxs + 1}", "box", [cx_, y0_ + hh_ - 0.6, cz_], [1.6, 0.3, 0.2], "glow", None, [0, yaw_, -cxs * 40], collision=False, outline=False, mobile={"static": True})
+                        ctx.add(tag + "_SillLight", "box", [mx_ - nx * (t / 2 + 0.06), y0_ - 0.12, mz_ - nz * (t / 2 + 0.06)], [op["width"] * 0.6, 0.18, 0.2], "glow", None, [0, yaw_, 0], collision=False, outline=False, mobile={"static": True})
             segs, u = [], 0.0
             for h0, h1 in cuts + [(SL, SL)]:
                 if h0 - u > 0.5: segs.append((P(u), P(h0)))

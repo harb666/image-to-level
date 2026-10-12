@@ -136,7 +136,7 @@ def legacy_texture(kind):
 # ---------------------------------------------------------------- PBR kinds
 ALIASES = {"industrial_wall": "industrial_metal", "platform_side": "machinery_panel", "floor_plate": "scifi_floor",
            "grate": "grating", "pipe_metal": "pipe", "red_panel": "banner", "cliff": "rock"}
-DEFAULT_RES = {"tv_casing": 512, "screen_ui": 512, "ceiling_works": 1024, "wall_works": 512, "wall_slimed": 512, "hull_plating": 512, "industrial_metal": 512, "scifi_floor": 512, "rock": 512, "painted_metal": 512, "damaged_metal": 512,
+DEFAULT_RES = {"screen_atlas": 1024, "bigscreen": 1024, "tv_casing": 512, "screen_ui": 512, "ceiling_works": 1024, "wall_works": 512, "wall_slimed": 512, "hull_plating": 512, "industrial_metal": 512, "scifi_floor": 512, "rock": 512, "painted_metal": 512, "damaged_metal": 512,
                "concrete": 256, "glow": 128}
 
 
@@ -803,6 +803,89 @@ def k_tv_casing(S, rng, c, m):
     if m.get("emissive"): d["emit"] = (led > 0.5).astype(float)
     d["_post"] = [(*np.nonzero(led > 0.5), lc)]
     return d
+
+
+def k_bigscreen(S, rng, c, m):
+    """Wall-sized window fills (Stage 24, Invader-Zim-like, original designs). m["mode"]:
+      "broadcast": giant propaganda viewscreen - purple broadcast, ringed horned emblem holding one huge watching eye,
+                   targeting rays, red glyph headline, glyph ticker, warning triangles, a conquest panel (planet in a
+                   crosshair) and green status bars; scanlines + vignette.
+      "specimen":  containment window of an alien lab - glowing green liquid with bubbles and caustics, a floating
+                   one-eyed tentacled specimen wired to feed tubes from above, glass glare, glyph label plate, hazard edge.
+    Drawn for m["aspect"] (w / h) and squeezed into the square texture; fully emissive."""
+    from PIL import ImageDraw
+    ar = float(m.get("aspect", 1.7)); W, H = int(S * ar), S; u = S / 512; R = lambda *a: [int(v * u) for v in a]
+    ORANGE, MAG, PINK, PURP, GREEN, RED, BLK = (255, 110, 30), (220, 40, 230), (255, 60, 150), (150, 60, 255), (120, 255, 60), (255, 40, 70), (12, 4, 18)
+    def glyph_row(dr, x0, y0, n, size, col, w=3):
+        for k in range(n):
+            x, t = x0 + k * size * 1.35, rng.integers(5)
+            if t == 0: dr.polygon(R(x, y0 + size, x + size / 2, y0, x + size, y0 + size), outline=col, width=int(w * u))
+            elif t == 1: dr.rectangle(R(x, y0, x + size, y0 + size), outline=col, width=int(w * u)); dr.line(R(x + size / 2, y0, x + size / 2, y0 + size), fill=col, width=int(w * u))
+            elif t == 2: dr.line(R(x, y0 + size * 0.2, x + size * 0.35, y0 + size, x + size * 0.65, y0, x + size, y0 + size * 0.8), fill=col, width=int(w * u))
+            elif t == 3: dr.ellipse(R(x, y0, x + size, y0 + size), outline=col, width=int(w * u)); dr.line(R(x + size / 2, y0 - 3, x + size / 2, y0 + size + 3), fill=col, width=int(w * u))
+            else: dr.line(R(x, y0, x + size, y0 + size), fill=col, width=int(w * u)); dr.line(R(x + size, y0, x, y0 + size), fill=col, width=int(w * u)); dr.ellipse(R(x + size * 0.35, y0 + size * 0.35, x + size * 0.65, y0 + size * 0.65), fill=col)
+    if m.get("mode", "broadcast") == "broadcast":
+        im = Image.new("RGB", (W, H), (30, 8, 50)); d = ImageDraw.Draw(im); Wu = W / u
+        for y in range(H): t = y / H; d.line([(0, y), (W, y)], fill=(int(36 + 30 * t), int(8 + 6 * t), int(64 + 26 * t)))
+        cx, cy = Wu / 2, 270
+        for k in range(16):  # targeting rays
+            a = 2 * np.pi * k / 16; d.line(R(cx + 120 * np.cos(a), cy + 120 * np.sin(a), cx + 330 * np.cos(a), cy + 330 * np.sin(a)), fill=(70, 20, 110), width=int(6 * u))
+        for rr_, col, w_ in ((205, PURP, 12), (185, MAG, 6), (165, (60, 16, 90), 0)):
+            if w_: d.ellipse(R(cx - rr_, cy - rr_, cx + rr_, cy + rr_), outline=col, width=int(w_ * u))
+            else: d.ellipse(R(cx - rr_, cy - rr_, cx + rr_, cy + rr_), fill=col)
+        d.polygon(R(cx - 110, cy - 120, cx + 110, cy - 120, cx + 85, cy + 40, cx, cy + 150, cx - 85, cy + 40), fill=RED, outline=BLK)  # horned shield
+        d.polygon(R(cx - 110, cy - 120, cx - 150, cy - 185, cx - 70, cy - 118), fill=RED); d.polygon(R(cx + 110, cy - 120, cx + 150, cy - 185, cx + 70, cy - 118), fill=RED)
+        d.ellipse(R(cx - 78, cy - 70, cx + 78, cy + 30), fill=(250, 235, 245), outline=BLK, width=int(6 * u))  # the eye
+        d.ellipse(R(cx - 40, cy - 60, cx + 40, cy + 20), fill=PINK); d.ellipse(R(cx - 10, cy - 52, cx + 10, cy + 12), fill=BLK); d.ellipse(R(cx + 12, cy - 50, cx + 24, cy - 38), fill=(255, 255, 255))
+        d.rectangle(R(30, 20, Wu - 30, 82), fill=(60, 10, 40), outline=RED, width=int(4 * u)); glyph_row(d, 60, 32, int((Wu - 120) / 52), 38, RED, 5)  # headline
+        d.rectangle(R(0, 470, Wu, 512), fill=(20, 4, 30)); glyph_row(d, 20, 478, int(Wu / 30), 22, MAG, 3)  # ticker
+        px, py = 120, 280; d.rectangle(R(px - 95, py - 120, px + 95, py + 140), outline=PURP, width=int(5 * u))  # conquest panel
+        d.ellipse(R(px - 60, py - 60, px + 60, py + 60), fill=(40, 90, 200), outline=(140, 200, 255), width=int(3 * u))
+        for k in range(5): d.arc(R(px - 60, py - 60 + k * 22, px + 60, py - 40 + k * 22), 0, 180, fill=(70, 160, 90), width=int(6 * u))
+        d.line(R(px - 85, py, px + 85, py), fill=RED, width=int(3 * u)); d.line(R(px, py - 85, px, py + 85), fill=RED, width=int(3 * u)); d.ellipse(R(px - 75, py - 75, px + 75, py + 75), outline=RED, width=int(3 * u))
+        glyph_row(d, px - 80, py + 95, 5, 24, ORANGE, 3)
+        bx = Wu - 215  # status bars
+        d.rectangle(R(bx - 10, 160, bx + 190, 440), outline=PURP, width=int(5 * u))
+        for k in range(6):
+            v = rng.uniform(0.3, 1.0); d.rectangle(R(bx + 10, 180 + k * 42, bx + 10 + 160 * v, 205 + k * 42), fill=[GREEN, ORANGE, PINK][k % 3])
+        for x0 in (40, Wu - 100):
+            for y0 in (100, 400): d.polygon(R(x0, y0 + 50, x0 + 30, y0, x0 + 60, y0 + 50), fill=ORANGE, outline=BLK); d.line(R(x0 + 30, y0 + 15, x0 + 30, y0 + 35), fill=BLK, width=int(5 * u))
+        a = np.asarray(im.resize((S, S), Image.BILINEAR), float) / 255.0
+        xx, yy = _xy(S); a = a * (1 - 0.2 * (((np.arange(S) // max(1, S // 200)) % 2)[:, None, None]))
+        a = a * np.clip(1.2 - 1.2 * (((xx - 0.5) * 1.2) ** 2 + (yy - 0.5) ** 2), 0.5, 1)[..., None]
+    else:
+        im = Image.new("RGB", (W, H), (20, 60, 14)); d = ImageDraw.Draw(im); Wu = W / u
+        for y in range(H): t = y / H; d.line([(0, y), (W, y)], fill=(int(40 + 60 * t), int(140 + 80 * t), int(20 + 30 * t)))
+        cx, cy = Wu / 2, 250
+        for k in range(3):  # feed tubes from the top into the specimen
+            tx = cx + (k - 1) * 60; d.line(R(tx, 0, tx, cy - 90 + abs(k - 1) * 20), fill=(30, 50, 26), width=int(16 * u)); d.line(R(tx, 0, tx, cy - 90 + abs(k - 1) * 20), fill=(90, 130, 70), width=int(4 * u))
+        for k in range(7):  # tentacles (wavy, tapering)
+            a0 = np.radians(18 + k * 24); pts = []  # fanned out underneath the body
+            for j in range(12):
+                t = j / 11; r = 70 + 190 * t; w_ = np.radians(18) * np.sin(t * 6 + k)
+                pts.append((cx + r * np.cos(a0 + w_), cy + 30 + r * np.sin(a0 + w_) * 0.85))
+            for j in range(11): d.line(R(*pts[j], *pts[j + 1]), fill=(18, 50, 20), width=max(2, int((22 - j * 1.8) * u)))
+        d.ellipse(R(cx - 95, cy - 100, cx + 95, cy + 80), fill=(22, 58, 24), outline=(10, 30, 12), width=int(4 * u))  # body
+        d.ellipse(R(cx - 50, cy - 60, cx + 50, cy + 25), fill=(250, 245, 200)); d.ellipse(R(cx - 26, cy - 45, cx + 26, cy + 10), fill=(255, 60, 120)); d.ellipse(R(cx - 7, cy - 38, cx + 7, cy + 2), fill=BLK)
+        for k in range(int(rng.integers(30, 50))):  # bubbles
+            bx, by, br = rng.uniform(20, Wu - 20), rng.uniform(20, 460), rng.uniform(3, 12); d.ellipse(R(bx - br, by - br, bx + br, by + br), outline=(210, 255, 180), width=max(1, int(2 * u)))
+        d.rectangle(R(cx - 140, 440, cx + 140, 492), fill=(40, 40, 46), outline=(200, 200, 200), width=int(3 * u)); glyph_row(d, cx - 120, 452, 8, 26, (255, 200, 60), 3)
+        a = np.asarray(im.resize((S, S), Image.BILINEAR), float) / 255.0
+        xx, yy = _xy(S); caus = np.abs(np.sin(_noise(rng, 12, 2, S) * 18)) ** 8; a = a + 0.12 * caus[..., None] * np.array([0.6, 1, 0.5])
+        glare = np.clip(1 - np.abs((xx - yy * 0.4) - 0.25) / 0.05, 0, 1) + np.clip(1 - np.abs((xx - yy * 0.4) - 0.33) / 0.02, 0, 1); a = a + 0.2 * glare[..., None]
+        edge = np.minimum(np.minimum(xx, 1 - xx), np.minimum(yy, 1 - yy)) < 0.025; hz = (((xx + yy) * 30) % 1) < 0.5
+        a = np.where(edge[..., None], np.where(hz[..., None], np.array([0.95, 0.75, 0.1]), np.array([0.05, 0.05, 0.05])), a)
+    return dict(alb=np.clip(a, 0, 1), h=np.zeros((S, S)), rough=np.full((S, S), 0.4), metal=0.0, emit=np.ones((S, S)), nstr=0.0)
+
+
+def k_screen_atlas(S, rng, c, m):
+    """Two screens side by side in ONE texture (one material, one draw call): left = m["left"], right = m["right"]
+    (material dicts of screen_ui / bigscreen); objects choose a half with uv_region (atlas cells "a" / "b")."""
+    out, dflt = {}, {"left": {"type": "screen_ui", "seed": 1}, "right": {"type": "screen_ui", "seed": 2}}
+    for k_ in ("left", "right"):
+        sub = dict(m.get(k_) or dflt[k_]); sub["res"] = S; d = PBR[sub["type"]](S, np.random.default_rng(sum(map(ord, sub["type"])) + int(sub.get("seed", 0)) * 7919), np.array(sub.get("color", [1, 1, 1]), float), sub)
+        out[k_] = np.asarray(Image.fromarray((np.clip(d["alb"], 0, 1) * 255).astype(np.uint8)).resize((S // 2, S), Image.BILINEAR), float) / 255.0
+    return dict(alb=np.concatenate([out["left"], out["right"]], 1), h=np.zeros((S, S)), rough=np.full((S, S), 0.45), metal=0.0, emit=np.ones((S, S)), nstr=0.0)
 
 PBR = {k[2:]: f for k, f in globals().items() if k.startswith("k_")}
 

@@ -550,3 +550,15 @@ Building blocks usable without the preset:
 - `screen_ui` now has screen glass: scanlines, vignette, glare streak, pixel grid, rounded dark corners.
 - Wall `Monitor` = tv_body + recessed screen panel + mount arms + red corner caps + cable; screens get a subtle
   `flicker` effect (CRT feel).
+
+## Stage 24: alien viewscreens instead of green slime windows
+- Material kind `bigscreen` (fully emissive, `"aspect"` default 1.7): `"mode": "broadcast"` = propaganda viewscreen
+  (horned one-eyed emblem with rays, glyph headline and ticker, planet crosshair panel, status bars, warning triangles);
+  `"mode": "specimen"` = green containment tank with bubbles, caustics and a one-eyed tentacled specimen on feed tubes,
+  glare, glyph label, hazard edge. Both are original designs, scanlines and vignette on top.
+- Material kind `screen_atlas`: `"left"` / `"right"` sub-materials rendered side by side in one texture (atlas cells
+  `"a"` / `"b"`), so two looks cost one draw call. alien_cartoon roles: `screen` = two `screen_ui` layouts (wall
+  monitors pick a half with `uv_region`), `bigscreen` = broadcast | specimen.
+- Wall openings take `"fill": "screen"` or `"specimen"` (with `"frame": false`): a solid backing box fills the hole
+  (collision), the `bigscreen` panel faces the room, red caps at the top corners and a light bar along the sill.
+  Both screen roles get a subtle `flicker` effect.

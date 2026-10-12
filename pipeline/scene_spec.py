@@ -30,7 +30,7 @@ SCHEMA = {
                            "floor": (DICT, True, {"kind": (STR, True, ("hazard", "ground", "deck")), "y": (NUM, True), "material": (STR, False), "name": (STR, False), "source": (STR, False)}),
                            "walls": (DICT, False, {"height": (NUM, True), "thickness": (NUM, False), "style": (STR, False, ("auto", "industrial", "stone", "none")), "source": (STR, False),
                                                    "openings": (LIST, False, {"side": (STR, True, ("north", "south", "east", "west")), "at": (NUM, False), "width": (NUM, True), "height": (NUM, False),
-                                                                                   "sill": (NUM, False), "frame": (BOOL, False), "fill": (STR, False, ("slime",))}), "skip": (LIST, False), "dressing": (STR, False, ("pilasters", "varied")), "dress_y": (NUM, False)}),
+                                                                                   "sill": (NUM, False), "frame": (BOOL, False), "fill": (STR, False, ("slime", "screen", "specimen"))}), "skip": (LIST, False), "dressing": (STR, False, ("pilasters", "varied")), "dress_y": (NUM, False)}),
                            "walkway": (DICT, False, {"width": (NUM, False), "y": (NUM, True), "style": (STR, False), "source": (STR, False)}),
                            "ceiling": (DICT, False, {"opening": (NUM, False), "opening_at": (V2, False), "thickness": (NUM, False), "beam_step": (NUM, False),
                                                      "beam_depth": (NUM, False), "lamps": (BOOL, False), "material": (STR, False), "source": (STR, False),
