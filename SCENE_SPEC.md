@@ -534,3 +534,10 @@ Building blocks usable without the preset:
 - Varied ceilings add: hazard-striped beam ends, warm pill lights (`lamp` role) under beams at irregular spacing,
   conduit bundles (3-4 pipes) resting on hung trays, green capsule tubes in banded holders along the long walls,
   square recesses round the ceiling fans. Every part is offset so no two faces share a plane (no flicker).
+
+## Stage 22: wall monitors
+- Material kind `screen_ui` (fully emissive): purple control screen - radar circle with a green wireframe robot
+  schematic (original design), dials and buttons, alien glyph column with a red horned emblem, grinning icon, dots.
+  Drawn for 4:3 panels; alien_cartoon roles `screen` (seed 1) / `screen_b` (seed 2).
+- Wall module `Monitor` replaces `Tank`: frame, screen panel, angular red corner caps, red top lights, side box with a
+  light, feed cable up the wall (max 3.5 m).

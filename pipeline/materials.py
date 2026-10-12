@@ -136,7 +136,7 @@ def legacy_texture(kind):
 # ---------------------------------------------------------------- PBR kinds
 ALIASES = {"industrial_wall": "industrial_metal", "platform_side": "machinery_panel", "floor_plate": "scifi_floor",
            "grate": "grating", "pipe_metal": "pipe", "red_panel": "banner", "cliff": "rock"}
-DEFAULT_RES = {"ceiling_works": 1024, "wall_works": 512, "wall_slimed": 512, "hull_plating": 512, "industrial_metal": 512, "scifi_floor": 512, "rock": 512, "painted_metal": 512, "damaged_metal": 512,
+DEFAULT_RES = {"screen_ui": 512, "ceiling_works": 1024, "wall_works": 512, "wall_slimed": 512, "hull_plating": 512, "industrial_metal": 512, "scifi_floor": 512, "rock": 512, "painted_metal": 512, "damaged_metal": 512,
                "concrete": 256, "glow": 128}
 
 
@@ -684,6 +684,60 @@ def k_ceiling_works(S, rng, c, m):
     mc = np.array(m.get("moss", [0.27, 0.33, 0.12]))
     alb = c[None, None] * (k_ * (0.88 + 0.12 * fine))[..., None]; alb = alb * (1 - 0.55 * moss[..., None]) + mc * 0.55 * moss[..., None] * k_[..., None]
     return dict(alb=alb, h=h, rough=np.full((S, S), 0.75), metal=0.25 * np.ones((S, S)), nstr=1.0)
+
+
+def k_screen_ui(S, rng, c, m):
+    """Glowing alien control screen (Stage 22, user's monitor reference): deep purple panel with a faint grid, a big
+    radar circle holding a green wireframe robot schematic (original design: boxy head, antenna, round eyes), dials and
+    buttons in orange / magenta, a column of alien glyphs with a red horned emblem, a grinning orange icon, indicator
+    dots. Drawn for a 4:3 screen (squeezed into the square texture; the panel stretches it back). "seed" = another layout.
+    Fully emissive (screens light themselves), no normals."""
+    from PIL import ImageDraw
+    W, H = int(S * 4 / 3), S; im = Image.new("RGB", (W, H), (34, 10, 58)); d = ImageDraw.Draw(im); u = S / 512
+    R = lambda *a: [int(v * u) for v in a]
+    for y in range(H):  # vertical gradient
+        t = y / H; d.line([(0, y), (W, y)], fill=(int(40 + 25 * t), int(12 + 6 * t), int(70 + 30 * t)))
+    for g in range(0, int(W / u), 24): d.line(R(g, 0, g, 512), fill=(58, 24, 96))
+    for g in range(0, 512, 24): d.line([(0, int(g * u)), (W, int(g * u))], fill=(58, 24, 96))
+    ORANGE, MAG, PINK, PURP, GREEN, RED = (255, 110, 30), (220, 40, 230), (255, 60, 150), (150, 60, 255), (120, 255, 60), (255, 40, 70)
+    cx, cy, rr = rng.uniform(300, 360), rng.uniform(250, 280), rng.uniform(150, 175)
+    d.ellipse(R(cx - rr - 10, cy - rr - 10, cx + rr + 10, cy + rr + 10), outline=PURP, width=int(10 * u))
+    d.ellipse(R(cx - rr, cy - rr, cx + rr, cy + rr), fill=(30, 12, 52), outline=(90, 40, 160), width=int(3 * u))
+    for k in range(-3, 4): d.line(R(cx + k * rr / 4, cy - rr * 0.95, cx + k * rr / 4, cy + rr * 0.95), fill=(60, 30, 110), width=1)
+    for k in range(-3, 4): d.line(R(cx - rr * 0.95, cy + k * rr / 4, cx + rr * 0.95, cy + k * rr / 4), fill=(60, 30, 110), width=1)
+    s_ = rr / 150; L = lambda pts, w=3: d.line([(int((cx + px * s_) * u), int((cy + py * s_) * u)) for px, py in pts], fill=GREEN, width=max(1, int(w * u)))
+    L([(-38, -95), (38, -95), (42, -40), (-42, -40), (-38, -95)], 4); L([(0, -95), (0, -128)]); d.ellipse(R(cx - 6 * s_, cy - 136 * s_, cx + 6 * s_, cy - 124 * s_), outline=GREEN, width=int(3 * u))
+    for ex in (-17, 17):
+        d.ellipse(R(cx + (ex - 13) * s_, cy - 80 * s_, cx + (ex + 13) * s_, cy - 54 * s_), outline=GREEN, width=int(4 * u)); d.ellipse(R(cx + (ex - 4) * s_, cy - 71 * s_, cx + (ex + 4) * s_, cy - 63 * s_), fill=GREEN)
+    L([(0, -40), (0, -30)]); L([(-22, -30), (22, -30), (26, 30), (-26, 30), (-22, -30)], 4)
+    L([(-22, -22), (-62, -8), (-90, -4)]); L([(22, -22), (62, -8), (90, -4)]); L([(-12, 30), (-14, 70), (-20, 80)]); L([(12, 30), (14, 70), (20, 80)])
+    for j in range(5): L([(-20, -20 + j * 10), (20, -20 + j * 10)], 1)
+    for tx, ty in ((cx + rr * 0.55, cy - rr * 0.6), (cx - rr * 0.95, cy + rr * 0.5)):  # callout boxes with glyph lines
+        d.rectangle(R(tx, ty, tx + 60, ty + 34), outline=PINK, width=int(2 * u))
+        for j in range(3): d.line(R(tx + 6, ty + 8 + j * 9, tx + 6 + rng.uniform(25, 50), ty + 8 + j * 9), fill=PINK, width=int(3 * u))
+    dx, dy = rng.uniform(70, 95), rng.uniform(95, 130)  # big dial, left
+    d.pieslice(R(dx - 60, dy - 60, dx + 60, dy + 60), 90, 360, fill=MAG); d.ellipse(R(dx - 34, dy - 34, dx + 34, dy + 34), fill=ORANGE)
+    d.ellipse(R(dx - 12, dy - 12, dx + 12, dy + 12), fill=(40, 12, 60))
+    for a in range(90, 360, 30): d.line(R(dx, dy, dx + 60 * np.cos(np.radians(a)), dy + 60 * np.sin(np.radians(a))), fill=(40, 12, 60), width=int(3 * u))
+    for k in range(int(rng.integers(4, 7))):  # scattered dots / buttons
+        bx, by_, br = rng.uniform(30, 200), rng.uniform(200, 470), rng.uniform(8, 20); d.ellipse(R(bx - br, by_ - br, bx + br, by_ + br), fill=[ORANGE, MAG, PINK, PURP][k % 4])
+    for k in range(2): d.rounded_rectangle(R(200 + k * 70, 28, 255 + k * 70, 48), radius=int(8 * u), fill=ORANGE)
+    fx, fy_ = rng.uniform(520, 560), 70  # grinning icon
+    d.ellipse(R(fx - 32, fy_ - 32, fx + 32, fy_ + 32), fill=ORANGE, outline=(60, 15, 20), width=int(3 * u))
+    d.polygon(R(fx - 20, fy_ - 12, fx - 6, fy_ - 4, fx - 20, fy_ - 2), fill=(50, 10, 20)); d.polygon(R(fx + 20, fy_ - 12, fx + 6, fy_ - 4, fx + 20, fy_ - 2), fill=(50, 10, 20))
+    d.chord(R(fx - 22, fy_ - 12, fx + 22, fy_ + 22), 0, 180, fill=(50, 10, 20))
+    gx = rng.uniform(560, 600); d.rounded_rectangle(R(gx - 40, 130, gx + 40, 495), radius=int(30 * u), outline=PURP, width=int(4 * u))
+    d.polygon(R(gx - 22, 170, gx + 22, 170, gx + 14, 205, gx, 225, gx - 14, 205), fill=RED); d.polygon(R(gx - 22, 170, gx - 30, 150, gx - 12, 172), fill=RED); d.polygon(R(gx + 22, 170, gx + 30, 150, gx + 12, 172), fill=RED)
+    for row in range(8):  # alien glyph column
+        for col in range(2):
+            x0, y0 = gx - 26 + col * 30, 250 + row * 29; t = rng.integers(4)
+            if t == 0: d.polygon(R(x0, y0 + 18, x0 + 9, y0, x0 + 18, y0 + 18), outline=MAG, width=int(3 * u))
+            elif t == 1: d.rectangle(R(x0, y0, x0 + 16, y0 + 18), outline=MAG, width=int(3 * u)); d.line(R(x0 + 8, y0, x0 + 8, y0 + 18), fill=MAG, width=int(3 * u))
+            elif t == 2: d.line(R(x0, y0 + 4, x0 + 6, y0 + 16, x0 + 11, y0 + 2, x0 + 17, y0 + 14), fill=MAG, width=int(3 * u))  # zigzag
+            else: d.ellipse(R(x0 + 2, y0 + 2, x0 + 16, y0 + 16), outline=MAG, width=int(3 * u)); d.line(R(x0 + 9, y0 - 2, x0 + 9, y0 + 20), fill=MAG, width=int(3 * u))
+    for k in range(4): d.ellipse(R(470 + k * 0, 290 + k * 40, 492, 312 + k * 40), fill=[GREEN, PINK, ORANGE, MAG][k]); d.line(R(498, 301 + k * 40, 540, 301 + k * 40), fill=PURP, width=int(4 * u))
+    a = np.asarray(im.resize((S, S), Image.BILINEAR), float) / 255.0
+    return dict(alb=a, h=np.zeros((S, S)), rough=np.full((S, S), 0.5), metal=0.0, emit=np.ones((S, S)), nstr=0.0)
 
 PBR = {k[2:]: f for k, f in globals().items() if k.startswith("k_")}
 

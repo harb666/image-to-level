@@ -127,7 +127,7 @@ for _k, _b, _s in (("industrial", "industrial", "realistic"), ("toxic_industrial
                    ("medieval_town", "temperate", "realistic"), ("ruins", "wasteland", "realistic")):
     THEMES[_k].setdefault("biome", _b); THEMES[_k].setdefault("style", _s)
 VARIANT_ROLES = ("wall", "structure", "deck", "plaster")
-FALLBACK = {"ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
+FALLBACK = {"screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
             "window": "glow", "foliage": "rock", "water": "hazard", "machine": "structure_b", "backdrop": "wall", "structure_b": "structure",
             "frame": "structure_b", "rail": "frame", "grate": "deck", "trim": "structure_b", "accent": "trim", "glow": "accent", "pipe": "frame",
             "hazard": "water", "fall": "water", "stripe": "trim", "ground": "deck", "deck": "ground", "wall": "structure", "structure": "wall", "rock": "structure"}
@@ -502,7 +502,7 @@ def fan_unit(ctx, nm, parent, c, R, depth, wall=True, rpm=None, seed=0, st=None)
             **dict(st, mobile={"merge": False}))  # own node: it spins
 
 
-WALL_MODULES = (("pipes", 3), ("machine", 2), ("fan", 1.5), ("emblem", 1.5), ("vent", 1.5), ("tank", 2), ("door", 0.7), ("plain", 1.2))
+WALL_MODULES = (("pipes", 3), ("machine", 2), ("fan", 1.5), ("emblem", 1.5), ("vent", 1.5), ("monitor", 2), ("door", 0.7), ("plain", 1.2))
 
 
 def _wall_varied(ctx, name, g, L, height, thick, base_y, dress):
@@ -541,12 +541,18 @@ def _wall_varied(ctx, name, g, L, height, thick, base_y, dress):
             vw = sw * rng.uniform(0.4, 0.7); yy = rng.uniform(fy + 1, fy + 8); vh = rng.uniform(2, 4)  # frame + 3 slats (a louvred vent shape is ~500 triangles)
             ctx.add(nm, "box", [x, yy, f + 0.1], [vw, vh, 0.3], "structure_b", g, collision=False, **st)
             for j in range(3): ctx.add(f"{nm}_Slat_{j + 1}", "box", [x, yy + vh * (j + 1) / 4 - 0.12, f + 0.3], [vw - 0.5, 0.24, 0.15], "frame", g, collision=False, outline=False, **st)
-        elif m == "tank":
-            tw, th = sw * rng.uniform(0.45, 0.75), rng.uniform(6, min(14, H - (fy - base_y) - 3)); yy = fy + rng.uniform(0.5, 3)
-            ctx.add(nm + "_Glass", "box", [x, yy, f + 0.15], [tw, th, 0.3], "hazard", g, collision=True, outline=False, **st)  # solid: slime glass is never a hazard area
-            for i in range(1, int(tw / 2.2) + 1): ctx.add(f"{nm}_Bar_{i}", "box", [x - tw / 2 + i * tw / (int(tw / 2.2) + 1), yy, f + 0.35], [0.3, th, 0.3], "frame", g, collision=False, **st)
-            for j, yb in enumerate((yy - 0.4, yy + th)): ctx.add(f"{nm}_Rim_{j + 1}", "box", [x, yb, f + 0.35], [tw + 0.8, 0.45, 0.6], "structure_b", g, collision=False, **st)
-            ctx.add(nm + "_Light", "box", [x + tw / 2 + 0.2, yy + th + 0.6, f + 0.15], [0.45, 0.45, 0.3], "glow", g, collision=False, outline=False, **st)
+        elif m == "monitor":  # Stage 22 (user's monitor reference): framed control screen with angular red corners, feed cable, side box
+            tw = min(sw * rng.uniform(0.5, 0.7), rng.uniform(3.2, 5.2)); th = tw * 0.74; yy = fy + rng.uniform(1.2, 2.4); scr = "screen" if rng.random() < 0.5 else "screen_b"
+            ctx.add(nm + "_Frame", "box", [x, yy - 0.35, f + 0.3], [tw + 0.7, th + 0.7, 0.6], "structure_b", g, **st)
+            ctx.add(nm + "_Screen", "panel", [x, yy, f + 0.62], [tw, th, 0], scr, g, collision=False, outline=False, **st)
+            for cxs, cys in ((-1, -1), (1, -1), (-1, 1), (1, 1)):  # angular red corner accents
+                ctx.add(f"{nm}_Corner_{cxs + 1}{cys + 1}", "box", [x + cxs * (tw / 2 + 0.05), yy + (th + 0.05 if cys > 0 else -0.3), f + 0.66], [0.75, 0.2, 0.08], "glow", g,
+                        [0, 0, -cxs * cys * 45], collision=False, outline=False, **st)  # cuts across the frame corner (angular cap)
+            for j, sx_ in enumerate((-0.3, 0.3)): ctx.add(f"{nm}_TopLight_{j + 1}", "box", [x + sx_ * tw, yy + th + 0.38, f + 0.62], [tw * 0.18, 0.14, 0.08], "glow", g, collision=False, outline=False, **st)
+            sd_ = 1 if rng.random() < 0.5 else -1
+            ctx.add(nm + "_Box", "box", [x + sd_ * (tw / 2 + 0.75), yy + th * 0.3, f + 0.35], [0.8, 1.3, 0.7], "machine", g, collision=False, **st)
+            ctx.add(nm + "_BoxLight", "box", [x + sd_ * (tw / 2 + 0.75), yy + th * 0.3 + 0.35, f + 0.71], [0.45, 0.45, 0.04], "glow", g, collision=False, outline=False, **st)
+            ctx.add(nm + "_Cable", "cylinder", [x - sd_ * tw * 0.25, yy + th + 0.35, f + 0.25], [0.26, max(0.5, min(3.5, height - (yy + th + 0.35) - 0.5)), 0.26], "pipe", g, sections=6, collision=False, outline=False, **st)
         elif m == "door":
             doors += 1; dw = min(sw * 0.6, 3.6); dh = 4.4
             ctx.add(nm + "_Frame", "box", [x, fy, f + 0.15], [dw + 1.0, dh + 0.7, 0.3], "glow", g, collision=False, outline=False, **st)
