@@ -22,7 +22,7 @@ def vat(ctx, s, x, y, z, yaw):
     gh = H * 0.5; base = 3.0; uh = max(1.5, H - base - 1.0 - gh - 1.0 - 0.8)
     ctx.add(n + "_Plinth", "cylinder", [0, y0, 0], [D + 1.2, base - y0, D + 1.2], "structure_b", g, sections=seg, **st)
     ctx.add(n + "_BandLow", "cylinder", [0, base, 0], [D + 0.6, 1.0, D + 0.6], "trim", g, sections=seg, collision=False, **st)
-    ctx.add(n + "_Glass", "cylinder", [0, base + 1.0, 0], [D, gh, D], s.get("material", "glass"), g, sections=seg, collision=True, double_sided=True, tube=True, **st)  # see-through: blobs rise inside
+    ctx.add(n + "_Glass", "cylinder", [0, base + 0.9, 0], [D, gh + 0.2, D], s.get("material", "glass"), g, sections=seg, collision=True, double_sided=True, tube=True, **st)  # see-through: blobs rise inside; ends sunk 10 cm into the bands (no shared planes)
     ctx.add(n + "_BandMid", "cylinder", [0, base + 1.0 + gh, 0], [D + 0.6, 1.0, D + 0.6], "trim", g, sections=seg, collision=False, **st)
     yu = base + 2.0 + gh
     ctx.add(n + "_Body", "cylinder", [0, yu, 0], [D + 0.3, uh, D + 0.3], "structure_b", g, sections=seg, **st)
@@ -183,7 +183,7 @@ def column(ctx, s, x, y, z, yaw):
     while yy < top - 4:
         k += 1
         if k % 2:  # glass section
-            hh = min(rg.uniform(3, 7), top - 4 - yy); ctx.add(f"{n}_Glass_{k:02d}", "cylinder", [0, yy, 0], [2 * r, hh, 2 * r], s.get("material", "glass"), g, sections=sec, collision=True, double_sided=True, tube=True, outline=False, **st)
+            hh = min(rg.uniform(3, 7), top - 4 - yy); ctx.add(f"{n}_Glass_{k:02d}", "cylinder", [0, yy - 0.1, 0], [2 * r, hh + 0.2, 2 * r], s.get("material", "glass"), g, sections=sec, collision=True, double_sided=True, tube=True, outline=False, **st)
         else:
             hh = min(rg.uniform(1.0, 3.5), top - 4 - yy); ctx.add(f"{n}_Drum_{k:02d}", "cylinder", [0, yy, 0], [2 * r * 1.12, hh, 2 * r * 1.12], "structure_b" if k % 4 else "trim", g, sections=sec, **st)
             if rg.random() < 0.6 and hh > 0.6:  # set into the drum (centre on the flat face's plane: never floating off a corner)

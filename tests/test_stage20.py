@@ -19,6 +19,15 @@ class Tubes(unittest.TestCase):
         for e in blobs: self.assertGreater(e["lifetime"], 0.5)
         import materials
         m, _ = materials.make_material("glass", L["materials"]["glass"]); self.assertEqual(m.alphaMode, "BLEND")
+        by = {o["name"]: o for o in L["objects"]}  # see-through glass never ends flush with a band (z-fighting seen through it)
+        g = by["VatA_Glass"]; lo, mid = by["VatA_BandLow"], by["VatA_BandMid"]
+        self.assertLess(g["position"][1], lo["position"][1] + lo["size"][1] - 0.05)
+        self.assertGreater(g["position"][1] + g["size"][1], mid["position"][1] + 0.05)
+        ys = sorted([(o["position"][1], o["position"][1] + o["size"][1]) for o in L["objects"] if o.get("parent") == "Col" and o["type"] == "cylinder" and "_Glass" not in o["name"]])
+        for o in L["objects"]:
+            if o.get("parent") == "Col" and "_Glass" in o["name"]:
+                for y in (o["position"][1], o["position"][1] + o["size"][1]):
+                    self.assertFalse(any(abs(y - a) < 0.02 or abs(y - b) < 0.02 for a, b in ys), (o["name"], y))
 
 
 class LessSlime(unittest.TestCase):
