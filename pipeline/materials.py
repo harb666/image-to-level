@@ -705,13 +705,30 @@ def k_screen_ui(S, rng, c, m):
     d.ellipse(R(cx - rr, cy - rr, cx + rr, cy + rr), fill=(30, 12, 52), outline=(90, 40, 160), width=int(3 * u))
     for k in range(-3, 4): d.line(R(cx + k * rr / 4, cy - rr * 0.95, cx + k * rr / 4, cy + rr * 0.95), fill=(60, 30, 110), width=1)
     for k in range(-3, 4): d.line(R(cx - rr * 0.95, cy + k * rr / 4, cx + rr * 0.95, cy + k * rr / 4), fill=(60, 30, 110), width=1)
-    s_ = rr / 150; L = lambda pts, w=3: d.line([(int((cx + px * s_) * u), int((cy + py * s_) * u)) for px, py in pts], fill=GREEN, width=max(1, int(w * u)))
-    L([(-38, -95), (38, -95), (42, -40), (-42, -40), (-38, -95)], 4); L([(0, -95), (0, -128)]); d.ellipse(R(cx - 6 * s_, cy - 136 * s_, cx + 6 * s_, cy - 124 * s_), outline=GREEN, width=int(3 * u))
-    for ex in (-17, 17):
-        d.ellipse(R(cx + (ex - 13) * s_, cy - 80 * s_, cx + (ex + 13) * s_, cy - 54 * s_), outline=GREEN, width=int(4 * u)); d.ellipse(R(cx + (ex - 4) * s_, cy - 71 * s_, cx + (ex + 4) * s_, cy - 63 * s_), fill=GREEN)
-    L([(0, -40), (0, -30)]); L([(-22, -30), (22, -30), (26, 30), (-26, 30), (-22, -30)], 4)
-    L([(-22, -22), (-62, -8), (-90, -4)]); L([(22, -22), (62, -8), (90, -4)]); L([(-12, 30), (-14, 70), (-20, 80)]); L([(12, 30), (14, 70), (20, 80)])
-    for j in range(5): L([(-20, -20 + j * 10), (20, -20 + j * 10)], 1)
+    s_ = rr / 150; DK = (24, 70, 26)  # robot schematic (user reference): green outlines over a dark green fill
+    P_ = lambda px, py: (int((cx + px * s_) * u), int((cy + py * s_) * u)); lw = max(1, int(3 * u))
+    def box(x0, y0, x1, y1, r=4, w=lw): d.rounded_rectangle([P_(x0, y0), P_(x1, y1)], radius=max(1, int(r * s_ * u)), fill=DK, outline=GREEN, width=w)
+    def circ(px, py, r, fill=DK, w=lw): d.ellipse([P_(px - r, py - r), P_(px + r, py + r)], fill=fill, outline=GREEN, width=w)
+    def seg(*pts, w=lw): d.line([P_(*q) for q in pts], fill=GREEN, width=w)
+    seg((-56, -24), (-110, -30), w=max(1, int(1.5 * u))); seg((56, -24), (110, -30), w=max(1, int(1.5 * u)))  # thin lines out from the shoulders
+    seg((0, -112), (0, -128)); circ(0, -132, 5, fill=GREEN)  # antenna
+    box(-34, -112, 34, -62, 6); circ(-37, -88, 4); circ(37, -88, 4)  # head + ear bolts
+    for ex in (-15, 15): circ(ex, -92, 11); circ(ex, -92, 5); d.ellipse([P_(ex - 2, -94), P_(ex + 2, -90)], fill=GREEN)  # ringed eyes
+    box(-10, -76, 10, -68, 2); seg((-4, -76), (-4, -68), w=1); seg((4, -76), (4, -68), w=1)  # mouth grille
+    box(-9, -62, 9, -52, 2)  # neck
+    d.polygon([P_(-44, -52), P_(44, -52), P_(36, -4), P_(-36, -4)], fill=DK, outline=GREEN); d.line([P_(-44, -52), P_(44, -52), P_(36, -4), P_(-36, -4), P_(-44, -52)], fill=GREEN, width=lw)  # torso
+    box(-16, -42, 16, -14, 2); box(-9, -35, 9, -21, 1, max(1, lw - 1))  # chest panel
+    box(-26, -4, 26, 8, 3); box(-18, 8, 18, 20, 3)  # waist + hip block
+    for sd in (-1, 1):
+        circ(sd * 50, -44, 9)  # shoulder joint
+        d.polygon([P_(sd * 52, -38), P_(sd * 62, -34), P_(sd * 76, -6), P_(sd * 66, -2)], fill=DK, outline=GREEN); seg((sd * 52, -38), (sd * 62, -34), (sd * 76, -6), (sd * 66, -2), (sd * 52, -38))  # upper arm
+        circ(sd * 72, -2, 7)  # elbow
+        d.polygon([P_(sd * 70, 4), P_(sd * 80, 0), P_(sd * 90, 24), P_(sd * 80, 28)], fill=DK, outline=GREEN); seg((sd * 70, 4), (sd * 80, 0), (sd * 90, 24), (sd * 80, 28), (sd * 70, 4))  # forearm
+        seg((sd * 82, 28), (sd * 78, 40), (sd * 86, 44)); seg((sd * 88, 26), (sd * 98, 36), (sd * 94, 44))  # two-pronged claw
+        box(sd * 6 - 7, 20, sd * 6 + 7 + sd * 4, 52, 3)  # thigh
+        circ(sd * 10, 56, 6)  # knee
+        box(sd * 10 - 7, 60, sd * 10 + 7, 86, 3)  # shin
+        box(sd * 10 - 12 + sd * 2, 86, sd * 10 + 12 + sd * 2, 98, 3)  # boot
     for tx, ty in ((cx + rr * 0.55, cy - rr * 0.6), (cx - rr * 0.95, cy + rr * 0.5)):  # callout boxes with glyph lines
         d.rectangle(R(tx, ty, tx + 60, ty + 34), outline=PINK, width=int(2 * u))
         for j in range(3): d.line(R(tx + 6, ty + 8 + j * 9, tx + 6 + rng.uniform(25, 50), ty + 8 + j * 9), fill=PINK, width=int(3 * u))
