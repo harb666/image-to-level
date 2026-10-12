@@ -127,7 +127,7 @@ for _k, _b, _s in (("industrial", "industrial", "realistic"), ("toxic_industrial
                    ("medieval_town", "temperate", "realistic"), ("ruins", "wasteland", "realistic")):
     THEMES[_k].setdefault("biome", _b); THEMES[_k].setdefault("style", _s)
 VARIANT_ROLES = ("wall", "structure", "deck", "plaster")
-FALLBACK = {"glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
+FALLBACK = {"ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
             "window": "glow", "foliage": "rock", "water": "hazard", "machine": "structure_b", "backdrop": "wall", "structure_b": "structure",
             "frame": "structure_b", "rail": "frame", "grate": "deck", "trim": "structure_b", "accent": "trim", "glow": "accent", "pipe": "frame",
             "hazard": "water", "fall": "water", "stripe": "trim", "ground": "deck", "deck": "ground", "wall": "structure", "structure": "wall", "rock": "structure"}
@@ -721,15 +721,24 @@ def dress_ceilings(ctx):
                         vv = v0 + ln * (i + 0.5) / nw; wx, wz = P2(u, vv)
                         ctx.add(f"{nm}_W{i + 1:02d}", "box", [wx, y - bh + 0.45, wz], [0.22, (bh - 0.9) / max(math.cos(math.radians(ang)), 0.3), 0.22], "frame", None,
                                 ([0, 0, ang if i % 2 else -ang] if along_z else [ang if i % 2 else -ang, 0, 0]), outline=False, **vis)
-                else: ctx.add(nm, "ibeam", [x, y - bh, z], [ln, bh, rng.uniform(0.5, 0.9)], "frame", None, [0, 0 if along_z else 90, 0], outline=False, **vis)
-            u += rng.uniform(8, 21)
+                else: bw_ = rng.uniform(0.5, 0.9); ctx.add(nm, "ibeam", [x, y - bh, z], [ln, bh, bw_], "frame", None, [0, 0 if along_z else 90, 0], outline=False, **vis)
+                sw_ = (0.45 if deep else bw_) + 0.1  # stripe band 5 cm proud of the beam on each side
+                for e_, vv in (("A", v0 + 1.0), ("B", v1 - 1.0)):  # 10 cm in from the beam end (no shared end face)  # hazard-striped ends where the beam meets a wall / the shaft
+                    ex_, ez_ = P2(u, vv); ctx.add(f"{nm}_Stripe{e_}", "box", [ex_, y - bh - 0.04, ez_], [1.8, min(bh, 1.2) * 0.7, sw_] if along_z else [sw_, min(bh, 1.2) * 0.7, 1.8],
+                                                  "stripe", None, outline=False, **vis)
+                vv = v0 + rng.uniform(2, 6)
+                while vv < v1 - 2:  # warm pill lights under the beam at irregular spacing
+                    lx, lz = P2(u, vv); ctx.add(f"{nm}_Lamp_{int(vv * 10) % 10000:04d}", "box", [lx, y - bh - 0.14, lz], [1.4, 0.12, 0.34] if along_z else [0.34, 0.12, 1.4],
+                                                "lamp", None, outline=False, **vis)
+                    vv += rng.uniform(5, 13)
+            beam_u = getattr(ctx, "_beam_u", []) + [(pre, u)]; ctx._beam_u = beam_u; u += rng.uniform(8, 21)
         area = w * d; nc = max(2, int(area / 2600))  # ---- stepped sections
         for i in range(nc):
             for _ in range(20):
                 sw, sd = rng.uniform(10, 26), rng.uniform(8, 22); x = cx + rng.uniform(-w / 2 + sw / 2, w / 2 - sw / 2); z = cz + rng.uniform(-d / 2 + sd / 2, d / 2 - sd / 2)
                 if clear_of_shaft(x, z, max(sw, sd) / 2 + 2): break
             else: continue
-            drop = rng.uniform(1.6, 4.2); ctx.add(f"{n}Step_{i + 1:02d}", "box", [x, y - drop, z], [sw, drop - 0.05, sd], "wall", None, outline=False, **vis)
+            drop = rng.uniform(1.6, 4.2); ctx.add(f"{n}Step_{i + 1:02d}", "box", [x, y - drop, z], [sw, drop - 0.05, sd], C.get("material", "wall"), None, outline=False, **vis)
             if rng.random() < 0.6:
                 ctx.add(f"{n}Step_{i + 1:02d}_Strip", "box", [x, y - drop - 0.12, z + sd / 2 - 0.4], [sw * rng.uniform(0.4, 0.8), 0.12, 0.25], "glow", None, outline=False, **vis)
         for i in range(int(rng.integers(2, 4))):  # ---- ducts along L at different heights / offsets, clear of the shaft
@@ -774,12 +783,44 @@ def dress_ceilings(ctx):
                 yaw = math.degrees(math.atan2(dx, dz)); pitch = math.degrees(math.asin(max(-1, min(1, dy / sl))))
                 ctx.add(f"{n}Cable_{i + 1:02d}_{j + 1}", "box", [(pa[0] + pb[0]) / 2, (pa[1] + pb[1]) / 2 - 0.08, (pa[2] + pb[2]) / 2], [0.16, 0.16, sl + 0.1], "frame", None,
                         [-pitch, yaw, 0], outline=False, **vis)
+        for i in range(int(rng.integers(2, 4))):  # ---- conduit bundles (3-4 thin pipes on brackets) along L
+            v = rng.uniform(-S / 2 + 3, S / 2 - 3)
+            if R and abs(v - ov) < R + 2: continue
+            u0, u1 = -L / 2 + rng.uniform(1, 10), L / 2 - rng.uniform(1, 10); npipe = int(rng.integers(3, 5))
+            for j in range(npipe):
+                x, z = P2(u0, v + (j - npipe / 2) * 0.34)
+                ctx.add(f"{n}Conduit_{i + 1}_{j + 1}", "cylinder", [x, y - 0.6, z], [0.24, u1 - u0, 0.24], "pipe", None, [90, 0, 0] if along_z else [0, 0, -90], sections=6, outline=False, **vis)
+            uu = u0 + 2
+            while uu < u1 - 1:
+                x, z = P2(uu, v - 0.17); bwid = npipe * 0.34 + 0.3; bn = f"{n}Conduit_{i + 1}_Br_{int(uu) + 1000}"  # tray the pipes rest on, hung from the roof
+                ctx.add(bn, "box", [x, y - 0.85, z], [bwid, 0.12, 0.25] if along_z else [0.25, 0.12, bwid], "frame", None, outline=False, **vis)
+                for hs in (-1, 1):
+                    hx, hz = P2(uu, v - 0.17 + hs * (bwid / 2 - 0.06)); ctx.add(f"{bn}_H{hs + 1}", "box", [hx, y - 0.74, hz], [0.08, 0.72, 0.08], "frame", None, outline=False, **vis)
+                uu += rng.uniform(4, 9)
+        caps = 0
+        for side in (-1, 1):  # ---- green glass capsule tubes along the long walls under the roof (irregular runs)
+            u = -L / 2 + rng.uniform(3, 10)
+            while u < L / 2 - 6:
+                cl = rng.uniform(3, 5.5); v = side * (S / 2 - 1.3); x, z = P2(u, v); caps += 1; cn = f"{n}Capsule_{caps:02d}"
+                ctx.add(cn, "cylinder", [x, y - 1.7, z], [0.9, cl, 0.9], "fall" if "fall" in ctx.spec.get("materials", {}).get("roles", {}) else "glow", None,
+                        [90, 0, 0] if along_z else [0, 0, -90], sections=8, outline=False, **vis)
+                for j, f_ in enumerate((0.1, 0.5, 0.9)):  # bands inside the tube's length (never flush with its end caps)
+                    bx, bz = P2(u + f_ * cl - 0.2, v)
+                    ctx.add(f"{cn}_Band_{j + 1}", "cylinder", [bx, y - 1.7, bz], [1.15, 0.4, 1.15], "structure_b", None, [90, 0, 0] if along_z else [0, 0, -90], sections=8, **vis)
+                hx, hz = P2(u + cl / 2, v); ctx.add(cn + "_Hanger", "box", [hx, y - 1.7 + 0.45, hz], [0.3, 1.3, 0.3], "frame", None, outline=False, **vis)
+                u += cl + rng.uniform(4, 16)
+        for f_ in [o for o in ctx.objects if o["name"].startswith(f"{n}Fan_") and o["name"].count("_") == (n + "Fan_1").count("_")]:  # ---- square recess round each fan
+            fx_, fy_, fz_ = f_["position"]; hw = f_["size"][0] / 2 + 0.8
+            for j, (ox_, oz_, sx_, sz_) in enumerate(((0, -hw, 2 * hw + 0.6, 0.6), (0, hw, 2 * hw + 0.6, 0.6), (-hw, 0, 0.6, 2 * hw - 0.6), (hw, 0, 0.6, 2 * hw - 0.6))):
+                ctx.add(f"{f_['name']}_Recess_{j + 1}", "box", [fx_ + ox_, y - 1.25, fz_ + oz_], [sx_, 1.2, sz_], "structure_b", None, **vis)
         for i in range(int(area / 700)):  # ---- red ceiling lights in pairs ("II")
             x, z = cx + rng.uniform(-w / 2 + 2, w / 2 - 2), cz + rng.uniform(-d / 2 + 2, d / 2 - 2)
             if not clear_of_shaft(x, z, 1.5): continue
+            uu_ = z - cz if along_z else x - cx
+            if any(p_ == pre and abs(uu_ - bu) < 1.2 for p_, bu in getattr(ctx, "_beam_u", [])): continue  # not on a beam line
             rot = [0, float(rng.choice([0, 90])), 0]
             for j, o in enumerate((-0.35, 0.35)):
-                ox_, oz_ = local(o, 0, rot[1]); ctx.add(f"{n}Red_{i + 1:02d}_{j + 1}", "box", [x + ox_, y - 0.25, z + oz_], [0.3, 0.2, 1.1], "glow", None, rot, outline=False, **vis)
+                ox_, oz_ = local(o, 0, rot[1]); ctx.add(f"{n}Red_{i + 1:02d}_{j + 1}", "box", [x + ox_, y - 0.27, z + oz_], [0.3, 0.2, 1.1], "glow", None, rot, outline=False, **vis)
     ctx.element = None
 
 

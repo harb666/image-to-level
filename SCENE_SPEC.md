@@ -525,3 +525,12 @@ Building blocks usable without the preset:
   height so blobs fade before the top.
 - `wall_slimed`: fewer leak sources (`leak_threshold`, default 0.8), thinner drips, fainter stains; used on fewer wall
   stretches / plates. `wall_works`: fewer plates with green light dashes.
+
+## Stage 21: ceilings from the user's ceiling reference
+- Material kind `ceiling_works`: dark olive riveted plates in an irregular layout, rivet rows along seams, vent grilles
+  of different sizes, X-braced panels, slot vents, conduit bundles with brackets, patchy moss grime. `"seed"` (any PBR
+  kind) changes the layout: alien_cartoon roles `ceiling` (seed 1, 20 m tile) and `ceiling_b` (seed 2, 18 m) give each
+  room its own roof. Varied-ceiling stepped sections use the room's `ceiling.material`.
+- Varied ceilings add: hazard-striped beam ends, warm pill lights (`lamp` role) under beams at irregular spacing,
+  conduit bundles (3-4 pipes) resting on hung trays, green capsule tubes in banded holders along the long walls,
+  square recesses round the ceiling fans. Every part is offset so no two faces share a plane (no flicker).

@@ -9,7 +9,7 @@ All maps are tileable. Standard glTF 2.0 PBR, so Godot 4 imports them into Stand
 PBR kinds: industrial_metal, painted_metal, damaged_metal, scifi_floor, grating, concrete, rock, sand, dirt, grass,
   toxic, glow, machinery_panel, trim_light, pipe, banner, factory_facade (distant buildings, lit windows),
   hull_plating (worn tower/wall plates: straps, vents, rain streaks), chevron (hazard stripes),
-  wall_works (irregular riveted plates, vents, X-braces, green light dashes, conduits), wall_slimed (+ glowing slime drips),
+  ceiling_works (olive plates, vents, X-braces, conduit bundles, moss), wall_works (irregular riveted plates, vents, X-braces, green light dashes, conduits), wall_slimed (+ glowing slime drips),
   snow, mud, asphalt ("lines": true = lane line), gravel, moss (Stage 9 terrain layers).  Legacy (stylised, albedo-derived normals): cobblestone,
   stone_brick, plaster, wood, painted_wood, trim_wood, door_wood, window, roof_tiles, roof_slate, metal, water, soil.
 """
@@ -136,7 +136,7 @@ def legacy_texture(kind):
 # ---------------------------------------------------------------- PBR kinds
 ALIASES = {"industrial_wall": "industrial_metal", "platform_side": "machinery_panel", "floor_plate": "scifi_floor",
            "grate": "grating", "pipe_metal": "pipe", "red_panel": "banner", "cliff": "rock"}
-DEFAULT_RES = {"wall_works": 512, "wall_slimed": 512, "hull_plating": 512, "industrial_metal": 512, "scifi_floor": 512, "rock": 512, "painted_metal": 512, "damaged_metal": 512,
+DEFAULT_RES = {"ceiling_works": 1024, "wall_works": 512, "wall_slimed": 512, "hull_plating": 512, "industrial_metal": 512, "scifi_floor": 512, "rock": 512, "painted_metal": 512, "damaged_metal": 512,
                "concrete": 256, "glow": 128}
 
 
@@ -642,6 +642,49 @@ def k_wall_slimed(S, rng, c, m):
     d["_post"] = [(*np.nonzero(drip), None)] if False else d.get("_post")
     return d
 
+
+def k_ceiling_works(S, rng, c, m):
+    """Factory ceiling from the user's ceiling reference (Stage 21): dark olive riveted plates in an irregular layout
+    (recursive split, "seed" changes it per room), rivet rows along the seams, vent grilles of different sizes (bars
+    one way or the other), X-braced panels, small slot vents, bundles of 3-5 conduits with brackets running across
+    plates, and patchy green moss grime (not glowing). Tile large (~20 m): nothing in one tile repeats."""
+    x, y = _xy(S); fine = _noise(rng, 32, 2, S)
+    pid, e, rects = _bsp_plates(rng, S, int(m.get("plates", 18)), 0.08)
+    seam = np.clip(e * S / 2.5, 0, 1) ** 0.7; pv = rng.uniform(0.8, 1.15, len(rects))[pid]
+    h = 0.55 * seam + 0.03 * fine; k_ = pv * (0.45 + 0.55 * seam)
+    rv = (e < 0.012) & (e > 0.004) & ((((x + y) * S / 9) % 1) < 0.22)  # rivet rows just inside the seams
+    h = h + 0.25 * rv; k_ = k_ * np.where(rv, 1.3, 1.0)
+    for k, (x0, y0, x1, y1) in enumerate(rects):
+        msk = pid == k; w_, h_ = x1 - x0, y1 - y0
+        kind = rng.choice(["plain", "vent_h", "vent_v", "brace", "slots", "inset"], p=[0.3, 0.17, 0.13, 0.14, 0.12, 0.14])
+        mx, my = min(0.2, 0.1 + rng.uniform(0, 0.1)), min(0.2, 0.1 + rng.uniform(0, 0.1))
+        ix0, iy0, ix1, iy1 = x0 + w_ * mx, y0 + h_ * my, x1 - w_ * mx, y1 - h_ * my
+        inner = msk & (x > ix0) & (x < ix1) & (y > iy0) & (y < iy1); u_, v_ = (x - ix0) / (ix1 - ix0 + 1e-6), (y - iy0) / (iy1 - iy0 + 1e-6)
+        if kind in ("vent_h", "vent_v"):
+            bars = inner & ((((v_ if kind == "vent_h" else u_) * int(rng.integers(7, 15))) % 1) < 0.42)
+            frame = inner & (_edge(u_, v_) < 0.05)
+            h = h - 0.3 * inner + 0.22 * bars + 0.3 * frame; k_ = k_ * np.where(inner, np.where(bars | frame, 0.9, 0.18), 1)
+        elif kind == "brace":
+            bar = inner & ((np.abs(u_ - v_) < 0.05) | (np.abs(u_ + v_ - 1) < 0.05) | (_edge(u_, v_) < 0.04))
+            h = h - 0.1 * inner + 0.22 * bar; k_ = k_ * np.where(inner & ~bar, 0.7, 1.0)
+        elif kind == "slots":
+            n_ = int(rng.integers(2, 5)); sl = np.zeros_like(inner)
+            for j in range(n_): sl |= inner & (np.abs(v_ - (j + 0.5) / n_) < 0.05) & (np.abs(u_ - 0.5) < 0.3)
+            h = h - 0.2 * sl; k_ = k_ * np.where(sl, 0.2, 1.0)
+        elif kind == "inset":
+            h = h - 0.12 * inner; k_ = k_ * np.where(inner, 0.85, 1.0)
+    for b in range(int(rng.integers(2, 4))):  # conduit bundles (3-5 parallel pipes) with brackets
+        vert = rng.random() < 0.6; c0 = rng.uniform(0.05, 0.85); n_ = int(rng.integers(3, 6)); a, b_ = (x, y) if vert else (y, x)
+        for j in range(n_):
+            cc = c0 + j * 0.013; p_ = np.abs(a - cc) < 0.005; prof = np.clip(1 - np.abs(a - cc) / 0.005, 0, 1)
+            h = np.where(p_, 0.75 + 0.2 * prof, h); k_ = np.where(p_, 0.5 + 0.45 * prof, k_)
+        br = (np.abs(a - (c0 + n_ * 0.0065)) < n_ * 0.0075) & ((((b_ * 9) % 1) < 0.025))
+        h = np.where(br, 0.95, h); k_ = np.where(br, 0.95, k_)
+    moss = np.clip((_noise(rng, 10, 3, S) - 0.62) * 4, 0, 1) * np.clip((_noise(rng, 40, 2, S) - 0.4) * 3, 0, 1)  # patchy, never a whole plate
+    mc = np.array(m.get("moss", [0.27, 0.33, 0.12]))
+    alb = c[None, None] * (k_ * (0.88 + 0.12 * fine))[..., None]; alb = alb * (1 - 0.55 * moss[..., None]) + mc * 0.55 * moss[..., None] * k_[..., None]
+    return dict(alb=alb, h=h, rough=np.full((S, S), 0.75), metal=0.25 * np.ones((S, S)), nstr=1.0)
+
 PBR = {k[2:]: f for k, f in globals().items() if k.startswith("k_")}
 
 
@@ -673,7 +716,7 @@ def _img(a, q):
 def maps(m):
     """level.json material -> dict of float maps (alb, h, rough, metal, emit|None) + resolution."""
     kind = ALIASES.get(m["type"], m["type"]); c = np.array(m["color"], float)
-    rng = np.random.default_rng(sum(map(ord, kind)))
+    rng = np.random.default_rng(sum(map(ord, kind)) + int(m.get("seed", 0)) * 7919)  # "seed": another layout of the same kind
     if kind in PBR:
         S = int(m.get("res", DEFAULT_RES.get(kind, 256)))
         d = PBR[kind](S, rng, c, m)
