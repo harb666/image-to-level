@@ -313,21 +313,21 @@
  },
  "totals": {
   "performance": {
-   "max_particles": 289,
-   "emitters": 28,
-   "extra_draw_calls": 6,
+   "max_particles": 311,
+   "emitters": 50,
+   "extra_draw_calls": 10,
    "transparent_area_m2": 0
   },
   "balanced": {
-   "max_particles": 868,
-   "emitters": 28,
-   "extra_draw_calls": 8,
+   "max_particles": 911,
+   "emitters": 50,
+   "extra_draw_calls": 12,
    "transparent_area_m2": 31584
   },
   "quality": {
-   "max_particles": 1380,
-   "emitters": 28,
-   "extra_draw_calls": 10,
+   "max_particles": 1430,
+   "emitters": 50,
+   "extra_draw_calls": 14,
    "transparent_area_m2": 63168
   }
  },
@@ -1346,6 +1346,579 @@
    "merge_emitters": true
   },
   {
+   "id": "Tube_Blobs_01",
+   "type": "tube_blobs",
+   "category": "particles",
+   "glb_contains": "nothing (the tubes are see-through glass)",
+   "godot_runtime": "CPUParticles3D, one system for every tube of the group (emission points at the tube bottoms), slow rise, additive glow",
+   "emitters": [
+    {
+     "pos": [
+      -18.0,
+      5.2,
+      45.0
+     ]
+    },
+    {
+     "pos": [
+      -45.0,
+      5.2,
+      -18.0
+     ]
+    },
+    {
+     "pos": [
+      -25.0,
+      14.2,
+      -170.3
+     ]
+    },
+    {
+     "pos": [
+      -20.0,
+      14.2,
+      -170.6
+     ]
+    },
+    {
+     "pos": [
+      -3.5,
+      14.2,
+      -170.0
+     ]
+    },
+    {
+     "pos": [
+      -3.0,
+      14.2,
+      -162.4
+     ]
+    },
+    {
+     "pos": [
+      6.0,
+      16.2,
+      -198.0
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 0.12,
+      "lifetime": 1.85,
+      "speed": [
+       1.4400000000000002,
+       1.7600000000000002
+      ],
+      "gravity": 0.0,
+      "size": [
+       3.58,
+       2.76
+      ],
+      "alpha": 0.95,
+      "color": [
+       0.5,
+       1.0,
+       0.3
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 2,
+      "radius": 0.96
+     },
+     "cost_estimate": {
+      "max_particles": 7,
+      "emitters": 7,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 0.3,
+      "lifetime": 1.85,
+      "speed": [
+       1.4400000000000002,
+       1.7600000000000002
+      ],
+      "gravity": 0.0,
+      "size": [
+       3.58,
+       2.76
+      ],
+      "alpha": 0.95,
+      "color": [
+       0.5,
+       1.0,
+       0.3
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 2,
+      "radius": 0.96
+     },
+     "cost_estimate": {
+      "max_particles": 7,
+      "emitters": 7,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 0.48,
+      "lifetime": 1.85,
+      "speed": [
+       1.4400000000000002,
+       1.7600000000000002
+      ],
+      "gravity": 0.0,
+      "size": [
+       3.58,
+       2.76
+      ],
+      "alpha": 0.95,
+      "color": [
+       0.5,
+       1.0,
+       0.3
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 2,
+      "radius": 0.96
+     },
+     "cost_estimate": {
+      "max_particles": 7,
+      "emitters": 7,
+      "extra_draw_calls": 1
+     }
+    }
+   },
+   "merge_emitters": true
+  },
+  {
+   "id": "Tube_Blobs_02",
+   "type": "tube_blobs",
+   "category": "particles",
+   "glb_contains": "nothing (the tubes are see-through glass)",
+   "godot_runtime": "CPUParticles3D, one system for every tube of the group (emission points at the tube bottoms), slow rise, additive glow",
+   "emitters": [
+    {
+     "pos": [
+      18.0,
+      5.2,
+      -45.0
+     ]
+    },
+    {
+     "pos": [
+      -18.0,
+      5.2,
+      -45.0
+     ]
+    },
+    {
+     "pos": [
+      18.0,
+      5.2,
+      45.0
+     ]
+    },
+    {
+     "pos": [
+      45.0,
+      5.2,
+      18.0
+     ]
+    },
+    {
+     "pos": [
+      45.0,
+      5.2,
+      -18.0
+     ]
+    },
+    {
+     "pos": [
+      -45.0,
+      5.2,
+      18.0
+     ]
+    },
+    {
+     "pos": [
+      28.0,
+      5.2,
+      -166.0
+     ]
+    },
+    {
+     "pos": [
+      52.0,
+      5.2,
+      -185.0
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 0.12,
+      "lifetime": 3.42,
+      "speed": [
+       1.4400000000000002,
+       1.7600000000000002
+      ],
+      "gravity": 0.0,
+      "size": [
+       4.55,
+       3.5
+      ],
+      "alpha": 0.95,
+      "color": [
+       0.5,
+       1.0,
+       0.3
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 2,
+      "radius": 1.22
+     },
+     "cost_estimate": {
+      "max_particles": 8,
+      "emitters": 8,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 0.3,
+      "lifetime": 3.42,
+      "speed": [
+       1.4400000000000002,
+       1.7600000000000002
+      ],
+      "gravity": 0.0,
+      "size": [
+       4.55,
+       3.5
+      ],
+      "alpha": 0.95,
+      "color": [
+       0.5,
+       1.0,
+       0.3
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 2,
+      "radius": 1.22
+     },
+     "cost_estimate": {
+      "max_particles": 16,
+      "emitters": 8,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 0.48,
+      "lifetime": 3.42,
+      "speed": [
+       1.4400000000000002,
+       1.7600000000000002
+      ],
+      "gravity": 0.0,
+      "size": [
+       4.55,
+       3.5
+      ],
+      "alpha": 0.95,
+      "color": [
+       0.5,
+       1.0,
+       0.3
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 2,
+      "radius": 1.22
+     },
+     "cost_estimate": {
+      "max_particles": 16,
+      "emitters": 8,
+      "extra_draw_calls": 1
+     }
+    }
+   },
+   "merge_emitters": true
+  },
+  {
+   "id": "Tube_Blobs_03",
+   "type": "tube_blobs",
+   "category": "particles",
+   "glb_contains": "nothing (the tubes are see-through glass)",
+   "godot_runtime": "CPUParticles3D, one system for every tube of the group (emission points at the tube bottoms), slow rise, additive glow",
+   "emitters": [
+    {
+     "pos": [
+      28.0,
+      5.2,
+      -182.0
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 0.12,
+      "lifetime": 5.22,
+      "speed": [
+       1.4400000000000002,
+       1.7600000000000002
+      ],
+      "gravity": 0.0,
+      "size": [
+       3.9,
+       3.0
+      ],
+      "alpha": 0.95,
+      "color": [
+       0.5,
+       1.0,
+       0.3
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 2,
+      "radius": 1.05
+     },
+     "cost_estimate": {
+      "max_particles": 1,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 0.3,
+      "lifetime": 5.22,
+      "speed": [
+       1.4400000000000002,
+       1.7600000000000002
+      ],
+      "gravity": 0.0,
+      "size": [
+       3.9,
+       3.0
+      ],
+      "alpha": 0.95,
+      "color": [
+       0.5,
+       1.0,
+       0.3
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 2,
+      "radius": 1.05
+     },
+     "cost_estimate": {
+      "max_particles": 2,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 0.48,
+      "lifetime": 5.22,
+      "speed": [
+       1.4400000000000002,
+       1.7600000000000002
+      ],
+      "gravity": 0.0,
+      "size": [
+       3.9,
+       3.0
+      ],
+      "alpha": 0.95,
+      "color": [
+       0.5,
+       1.0,
+       0.3
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 2,
+      "radius": 1.05
+     },
+     "cost_estimate": {
+      "max_particles": 3,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    }
+   }
+  },
+  {
+   "id": "Tube_Blobs_04",
+   "type": "tube_blobs",
+   "category": "particles",
+   "glb_contains": "nothing (the tubes are see-through glass)",
+   "godot_runtime": "CPUParticles3D, one system for every tube of the group (emission points at the tube bottoms), slow rise, additive glow",
+   "emitters": [
+    {
+     "pos": [
+      -30.0,
+      4.2,
+      -20.0
+     ]
+    },
+    {
+     "pos": [
+      -22.0,
+      4.2,
+      32.0
+     ]
+    },
+    {
+     "pos": [
+      30.0,
+      4.2,
+      -22.0
+     ]
+    },
+    {
+     "pos": [
+      24.0,
+      4.2,
+      -120.0
+     ]
+    },
+    {
+     "pos": [
+      -34.0,
+      4.2,
+      -80.0
+     ]
+    },
+    {
+     "pos": [
+      -30.0,
+      4.2,
+      -205.0
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 0.12,
+      "lifetime": 7.72,
+      "speed": [
+       1.4400000000000002,
+       1.7600000000000002
+      ],
+      "gravity": 0.0,
+      "size": [
+       3.21,
+       2.47
+      ],
+      "alpha": 0.95,
+      "color": [
+       0.5,
+       1.0,
+       0.3
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 2,
+      "radius": 0.86
+     },
+     "cost_estimate": {
+      "max_particles": 6,
+      "emitters": 6,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 0.3,
+      "lifetime": 7.72,
+      "speed": [
+       1.4400000000000002,
+       1.7600000000000002
+      ],
+      "gravity": 0.0,
+      "size": [
+       3.21,
+       2.47
+      ],
+      "alpha": 0.95,
+      "color": [
+       0.5,
+       1.0,
+       0.3
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 2,
+      "radius": 0.86
+     },
+     "cost_estimate": {
+      "max_particles": 18,
+      "emitters": 6,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 0.48,
+      "lifetime": 7.72,
+      "speed": [
+       1.4400000000000002,
+       1.7600000000000002
+      ],
+      "gravity": 0.0,
+      "size": [
+       3.21,
+       2.47
+      ],
+      "alpha": 0.95,
+      "color": [
+       0.5,
+       1.0,
+       0.3
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 2,
+      "radius": 0.86
+     },
+     "cost_estimate": {
+      "max_particles": 24,
+      "emitters": 6,
+      "extra_draw_calls": 1
+     }
+    }
+   },
+   "merge_emitters": true
+  },
+  {
    "id": "Fan_Spin",
    "type": "spin",
    "category": "transform_animation",
@@ -1354,6 +1927,7 @@
    "speeds": {
     "Works_Wall_North_01_M01Fan_Rotor": 31.2,
     "Works_Wall_North_02_M01Fan_Rotor": 22.4,
+    "Works_Wall_West_02_M05Fan_Rotor": -26.7,
     "Ceil_Fan_1_Rotor": -30.8,
     "Works_Ceil_Fan_1_Rotor": -17.2,
     "Works_Ceil_Fan_2_Rotor": -28.1
@@ -1361,6 +1935,7 @@
    "targets": [
     "Works_Wall_North_01_M01Fan_Rotor",
     "Works_Wall_North_02_M01Fan_Rotor",
+    "Works_Wall_West_02_M05Fan_Rotor",
     "Ceil_Fan_1_Rotor",
     "Works_Ceil_Fan_1_Rotor",
     "Works_Ceil_Fan_2_Rotor"
@@ -1402,6 +1977,109 @@
    }
   },
   {
+   "id": "Screen_Flicker_screen",
+   "type": "flicker",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier random flicker (rate Hz)",
+   "target_material": "screen",
+   "targets": [
+    "Works_Wall_West_03_M02Monitor_Screen",
+    "Works_Wall_West_02_M02Monitor_Screen",
+    "OuterWall_West_03_M01Monitor_Screen",
+    "OuterWall_South_03_M01Monitor_Screen"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 5,
+      "amount": 0.12
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 5,
+      "amount": 0.12
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 5,
+      "amount": 0.12
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Screen_Flicker_screen_b",
+   "type": "flicker",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier random flicker (rate Hz)",
+   "target_material": "screen_b",
+   "targets": [
+    "Works_Wall_West_02_M07Monitor_Screen",
+    "Works_Wall_West_01_M01Monitor_Screen",
+    "Works_Wall_North_02_M02Monitor_Screen"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 5,
+      "amount": 0.12
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 5,
+      "amount": 0.12
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 5,
+      "amount": 0.12
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Glow_Pulse",
    "type": "pulse_light",
    "category": "material_animation",
@@ -1409,8 +2087,9 @@
    "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
    "target_material": "glow",
    "targets": [
-    "Works_Ceil_Red_27_2",
-    "Works_Ceil_Red_27_1",
+    "Works_Ceil_Red_20_2",
+    "Ceil_Red_05_2",
+    "Ceil_Red_05_1",
     "Works_Ceil_Red_26_2",
     "Works_Ceil_Red_26_1",
     "Works_Ceil_Red_25_2",
@@ -1423,12 +2102,8 @@
     "Works_Ceil_Red_22_1",
     "Works_Ceil_Red_21_2",
     "Works_Ceil_Red_21_1",
-    "Works_Ceil_Red_20_2",
-    "Works_Ceil_Red_20_1",
     "Works_Ceil_Red_19_2",
     "Works_Ceil_Red_19_1",
-    "Works_Ceil_Red_18_2",
-    "Works_Ceil_Red_18_1",
     "Works_Ceil_Red_17_2",
     "Works_Ceil_Red_17_1",
     "Works_Ceil_Red_16_2",
@@ -1461,41 +2136,26 @@
     "Works_Ceil_Red_03_1",
     "Works_Ceil_Red_02_2",
     "Works_Ceil_Red_02_1",
-    "Works_Ceil_Red_01_2",
-    "Works_Ceil_Red_01_1",
     "Works_Ceil_Step_07_Strip",
     "Works_Ceil_Step_06_Strip",
-    "Works_Ceil_Step_05_Strip",
     "Works_Ceil_Step_04_Strip",
-    "Works_Ceil_Step_03_Strip",
     "Works_Ceil_Step_02_Strip",
-    "Works_Ceil_Step_01_Strip",
-    "Ceil_Red_17_2",
-    "Ceil_Red_17_1",
     "Ceil_Red_16_2",
     "Ceil_Red_16_1",
     "Ceil_Red_15_2",
     "Ceil_Red_15_1",
-    "Ceil_Red_14_2",
-    "Ceil_Red_14_1",
     "Ceil_Red_13_2",
     "Ceil_Red_13_1",
     "Ceil_Red_12_2",
     "Ceil_Red_12_1",
     "Ceil_Red_11_2",
     "Ceil_Red_11_1",
-    "Ceil_Red_10_2",
-    "Ceil_Red_10_1",
-    "Ceil_Red_09_2",
-    "Ceil_Red_09_1",
     "Ceil_Red_08_2",
     "Ceil_Red_08_1",
     "Ceil_Red_07_2",
     "Ceil_Red_07_1",
     "Ceil_Red_06_2",
     "Ceil_Red_06_1",
-    "Ceil_Red_05_2",
-    "Ceil_Red_05_1",
     "Ceil_Red_04_2",
     "Ceil_Red_04_1",
     "Ceil_Red_03_2",
@@ -1504,8 +2164,9 @@
     "Ceil_Red_02_1",
     "Ceil_Red_01_2",
     "Ceil_Red_01_1",
-    "Ceil_Step_03_Strip",
+    "Ceil_Step_04_Strip",
     "Ceil_Step_02_Strip",
+    "Ceil_Step_01_Strip",
     "Column_Works_NW_Red_04",
     "Column_Works_SW_Red_06",
     "Column_Works_SW_Red_02",
@@ -1616,14 +2277,32 @@
     "Central_Glow_01R",
     "Central_Glow_01L",
     "Works_Wall_West_03_M03Pipes_Red",
-    "Works_Wall_West_03_M02Tank_Light",
-    "Works_Wall_West_02_M06Tank_Red",
-    "Works_Wall_West_02_M06Tank_Light",
+    "Works_Wall_West_03_M02Monitor_Red",
+    "Works_Wall_West_03_M02Monitor_Corner_22",
+    "Works_Wall_West_03_M02Monitor_Corner_02",
+    "Works_Wall_West_03_M02Monitor_Corner_20",
+    "Works_Wall_West_03_M02Monitor_Corner_00",
+    "Works_Wall_West_02_M08Pipes_Red",
+    "Works_Wall_West_02_M07Monitor_Corner_22",
+    "Works_Wall_West_02_M07Monitor_Corner_02",
+    "Works_Wall_West_02_M07Monitor_Corner_20",
+    "Works_Wall_West_02_M07Monitor_Corner_00",
+    "Works_Wall_West_02_M05Fan_Red",
+    "Works_Wall_West_02_M04Vent_Red",
     "Works_Wall_West_02_M03Machine_Light",
-    "Works_Wall_West_02_M02Tank_Light",
+    "Works_Wall_West_02_M02Monitor_Red",
+    "Works_Wall_West_02_M02Monitor_Corner_22",
+    "Works_Wall_West_02_M02Monitor_Corner_02",
+    "Works_Wall_West_02_M02Monitor_Corner_20",
+    "Works_Wall_West_02_M02Monitor_Corner_00",
     "Works_Wall_West_01_M03Machine_Red",
     "Works_Wall_West_01_M03Machine_Light",
-    "Works_Wall_West_01_M01Tank_Light",
+    "Works_Wall_West_01_M02Vent_Red",
+    "Works_Wall_West_01_M01Monitor_Red",
+    "Works_Wall_West_01_M01Monitor_Corner_22",
+    "Works_Wall_West_01_M01Monitor_Corner_02",
+    "Works_Wall_West_01_M01Monitor_Corner_20",
+    "Works_Wall_West_01_M01Monitor_Corner_00",
     "Works_Wall_East_03_M03Plain_Strip",
     "Works_Wall_East_03_M02Emblem_Red",
     "Works_Wall_East_02_M03Machine_Light",
@@ -1631,16 +2310,26 @@
     "Works_Wall_East_02_M02Door_Frame",
     "Works_Wall_East_01_M02Machine_Red",
     "Works_Wall_East_01_M02Machine_Light",
-    "Works_Wall_North_02_M03Machine_Red",
-    "Works_Wall_North_02_M03Machine_Light",
-    "Works_Wall_North_02_M02Tank_Light",
+    "Works_Wall_North_02_M03Plain_Strip",
+    "Works_Wall_North_02_M02Monitor_Red",
+    "Works_Wall_North_02_M02Monitor_Corner_22",
+    "Works_Wall_North_02_M02Monitor_Corner_02",
+    "Works_Wall_North_02_M02Monitor_Corner_20",
+    "Works_Wall_North_02_M02Monitor_Corner_00",
     "Works_Wall_North_01_M01Fan_Red",
     "OuterWall_West_03_M01Tank_Red",
-    "OuterWall_West_03_M01Tank_Light",
+    "OuterWall_West_03_M01Monitor_Red",
+    "OuterWall_West_03_M01Monitor_Corner_22",
+    "OuterWall_West_03_M01Monitor_Corner_02",
+    "OuterWall_West_03_M01Monitor_Corner_20",
+    "OuterWall_West_03_M01Monitor_Corner_00",
     "OuterWall_West_01_M01Machine_Red",
     "OuterWall_West_01_M01Machine_Light",
     "OuterWall_South_03_M01Tank_Red",
-    "OuterWall_South_03_M01Tank_Light",
+    "OuterWall_South_03_M01Monitor_Corner_22",
+    "OuterWall_South_03_M01Monitor_Corner_02",
+    "OuterWall_South_03_M01Monitor_Corner_20",
+    "OuterWall_South_03_M01Monitor_Corner_00",
     "OuterWall_South_02_M01Plain_Strip",
     "OuterWall_East_03_M01Machine_Light",
     "OuterWall_East_02_M03Plain_Red",

@@ -14,7 +14,7 @@ Pulling only this folder from another checkout:
 
 | Level | Notes |
 |---|---|
-| `slime_arena` | Level 1, part 2: Toxic Works. Elevator arrives in the slime hall (start); open gate north into the Works wing: assembly line, pipeworks, purification hall, core chamber, maintenance shafts, processing towers, waste conduits, exit door (`level_exit` -> `level1_part3`, placeholder). Game package (`--game`): no desktop GLBs. Varied ceilings / walls (plate + slime wall textures), spinning fans (effect `spin`), reactor columns, rock face, slime-tank windows. Mobile ~2.4 MB, ~66k triangles, ~67 draw calls (~46 visible, estimate). |
+| `slime_arena` | Level 1, part 2: Toxic Works. Elevator arrives in the slime hall (start); open gate north into the Works wing: assembly line, pipeworks, purification hall, core chamber, maintenance shafts, processing towers, waste conduits, exit door (`level_exit` -> `level1_part3`, placeholder). Game package (`--game`): no desktop GLBs. Olive plated ceilings (girders, lights, conduits, capsule tubes), plate + slime wall textures, spinning fans (effect `spin`), see-through tubes with rising slime blobs, wall TVs (screen flicker), reactor columns, rock face. Mobile ~3.2 MB, ~84k triangles, ~79 draw calls (~53 visible, estimate). |
 | `skyforge_arena` | Level 1, part 1. alien_cartoon style (toon + outline shells), elevator shaft in the Hub = `level_exit` trigger (target `slime_arena`), mobile export ~134 draw calls / ~88k triangles (estimates in `mobile/mobile_manifest.json`). |
 
 The Godot scripts are UNTESTED in Godot from the generator environment - check the first import in the editor.

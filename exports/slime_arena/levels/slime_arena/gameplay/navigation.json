@@ -1,7 +1,7 @@
 {
  "gameplay_status": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer.",
- "standable_area_m2": 48845.0,
- "reachable_area_m2": 9087.0,
+ "standable_area_m2": 48876.0,
+ "reachable_area_m2": 9081.0,
  "spawns": [
   {
    "id": "spawn",
@@ -13,7 +13,7 @@
    "standable": true,
    "clearance_m": 5.5,
    "headroom_m": 99.0,
-   "component": 6,
+   "component": 8,
    "hazard_distance_m": 11.34
   },
   {
@@ -26,7 +26,7 @@
    "standable": true,
    "clearance_m": 1.5,
    "headroom_m": 19.79,
-   "component": 6,
+   "component": 8,
    "hazard_distance_m": 5.02
   },
   {
@@ -39,7 +39,7 @@
    "standable": true,
    "clearance_m": 3.5,
    "headroom_m": 19.77,
-   "component": 214,
+   "component": 218,
    "hazard_distance_m": 7.52
   },
   {
@@ -52,7 +52,7 @@
    "standable": true,
    "clearance_m": 1.5,
    "headroom_m": 19.8,
-   "component": 6,
+   "component": 8,
    "hazard_distance_m": 6.52
   },
   {
@@ -65,7 +65,7 @@
    "standable": true,
    "clearance_m": 1.5,
    "headroom_m": 16.77,
-   "component": 6,
+   "component": 8,
    "hazard_distance_m": 5.61
   },
   {
@@ -78,7 +78,7 @@
    "standable": true,
    "clearance_m": 3.5,
    "headroom_m": 16.8,
-   "component": 6,
+   "component": 8,
    "hazard_distance_m": 7.52
   },
   {
@@ -91,7 +91,7 @@
    "standable": true,
    "clearance_m": 4.5,
    "headroom_m": 14.8,
-   "component": 6,
+   "component": 8,
    "hazard_distance_m": 6.26
   },
   {
@@ -104,7 +104,7 @@
    "standable": true,
    "clearance_m": 5.5,
    "headroom_m": 12.8,
-   "component": 56,
+   "component": 58,
    "hazard_distance_m": 6.52
   },
   {
@@ -117,7 +117,7 @@
    "standable": true,
    "clearance_m": 8.5,
    "headroom_m": 18.8,
-   "component": 110,
+   "component": 113,
    "hazard_distance_m": 9.41
   }
  ],
@@ -136,7 +136,7 @@
   },
   {
    "name": "Walkway_West",
-   "standable_m2": 406.0,
+   "standable_m2": 400.0,
    "reachable_fraction": 1.0,
    "one_way": false
   },
@@ -330,7 +330,7 @@
  "links": [
   {
    "frm_component": 0,
-   "to_component": 5,
+   "to_component": 6,
    "kind": "jump",
    "frm": [
     57.5,
@@ -347,7 +347,7 @@
   },
   {
    "frm_component": 0,
-   "to_component": 7,
+   "to_component": 9,
    "kind": "jump",
    "frm": [
     -57.5,
@@ -364,24 +364,24 @@
   },
   {
    "frm_component": 0,
-   "to_component": 111,
+   "to_component": 104,
    "kind": "jump",
    "frm": [
     -57.5,
     27.5,
-    -145.5
+    -157.5
    ],
    "to": [
     -54.5,
-    23.39,
-    -145.5
+    24.04,
+    -157.5
    ],
    "horizontal": 3.0,
-   "dy": -4.11
+   "dy": -3.46
   },
   {
    "frm_component": 0,
-   "to_component": 158,
+   "to_component": 160,
    "kind": "jump",
    "frm": [
     57.5,
@@ -398,7 +398,7 @@
   },
   {
    "frm_component": 0,
-   "to_component": 197,
+   "to_component": 200,
    "kind": "jump",
    "frm": [
     57.5,
@@ -414,8 +414,25 @@
    "dy": -5.42
   },
   {
-   "frm_component": 6,
-   "to_component": 9,
+   "frm_component": 4,
+   "to_component": 5,
+   "kind": "jump",
+   "frm": [
+    2.5,
+    12.15,
+    -228.5
+   ],
+   "to": [
+    5.5,
+    9.2,
+    -228.5
+   ],
+   "horizontal": 3.0,
+   "dy": -2.95
+  },
+  {
+   "frm_component": 8,
+   "to_component": 11,
    "kind": "jump",
    "frm": [
     34.5,
@@ -431,8 +448,8 @@
    "dy": 0.45
   },
   {
-   "frm_component": 6,
-   "to_component": 10,
+   "frm_component": 8,
+   "to_component": 12,
    "kind": "jump",
    "frm": [
     34.5,
@@ -448,8 +465,8 @@
    "dy": 0.95
   },
   {
-   "frm_component": 6,
-   "to_component": 14,
+   "frm_component": 8,
+   "to_component": 16,
    "kind": "jump",
    "frm": [
     33.5,
@@ -465,8 +482,8 @@
    "dy": 0.72
   },
   {
-   "frm_component": 6,
-   "to_component": 20,
+   "frm_component": 8,
+   "to_component": 22,
    "kind": "jump",
    "frm": [
     33.5,
@@ -482,8 +499,8 @@
    "dy": 0.74
   },
   {
-   "frm_component": 6,
-   "to_component": 65,
+   "frm_component": 8,
+   "to_component": 67,
    "kind": "jump",
    "frm": [
     -10.5,
@@ -499,8 +516,8 @@
    "dy": 1.13
   },
   {
-   "frm_component": 6,
-   "to_component": 159,
+   "frm_component": 8,
+   "to_component": 161,
    "kind": "jump",
    "frm": [
     2.5,
@@ -516,8 +533,8 @@
    "dy": 1.02
   },
   {
-   "frm_component": 6,
-   "to_component": 160,
+   "frm_component": 8,
+   "to_component": 162,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -533,8 +550,8 @@
    "dy": 0.96
   },
   {
-   "frm_component": 6,
-   "to_component": 161,
+   "frm_component": 8,
+   "to_component": 163,
    "kind": "jump",
    "frm": [
     6.5,
@@ -550,8 +567,8 @@
    "dy": 0.96
   },
   {
-   "frm_component": 6,
-   "to_component": 187,
+   "frm_component": 8,
+   "to_component": 189,
    "kind": "jump",
    "frm": [
     -6.5,
@@ -567,8 +584,8 @@
    "dy": 0.91
   },
   {
-   "frm_component": 6,
-   "to_component": 196,
+   "frm_component": 8,
+   "to_component": 199,
    "kind": "jump",
    "frm": [
     6.5,
@@ -584,8 +601,8 @@
    "dy": 0.96
   },
   {
-   "frm_component": 6,
-   "to_component": 204,
+   "frm_component": 8,
+   "to_component": 208,
    "kind": "drop",
    "frm": [
     16.5,
@@ -601,8 +618,8 @@
    "dy": -2.64
   },
   {
-   "frm_component": 6,
-   "to_component": 205,
+   "frm_component": 8,
+   "to_component": 209,
    "kind": "jump",
    "frm": [
     -18.5,
@@ -618,95 +635,95 @@
    "dy": -2.64
   },
   {
-   "frm_component": 6,
-   "to_component": 207,
-   "kind": "jump",
-   "frm": [
-    -20.5,
-    6.64,
-    -50.5
-   ],
-   "to": [
-    -20.5,
-    4.0,
-    -47.5
-   ],
-   "horizontal": 3.0,
-   "dy": -2.64
-  },
-  {
-   "frm_component": 6,
-   "to_component": 209,
-   "kind": "jump",
-   "frm": [
-    -15.5,
-    6.64,
-    -50.5
-   ],
-   "to": [
-    -15.5,
-    4.0,
-    -47.5
-   ],
-   "horizontal": 3.0,
-   "dy": -2.64
-  },
-  {
-   "frm_component": 6,
-   "to_component": 210,
-   "kind": "jump",
-   "frm": [
-    -21.5,
-    6.64,
-    -50.5
-   ],
-   "to": [
-    -21.5,
-    4.0,
-    -46.5
-   ],
-   "horizontal": 4.0,
-   "dy": -2.64
-  },
-  {
-   "frm_component": 6,
+   "frm_component": 8,
    "to_component": 211,
    "kind": "jump",
    "frm": [
-    -14.5,
+    -20.5,
     6.64,
     -50.5
    ],
    "to": [
-    -14.5,
+    -20.5,
     4.0,
-    -46.5
+    -47.5
    ],
-   "horizontal": 4.0,
+   "horizontal": 3.0,
    "dy": -2.64
   },
   {
-   "frm_component": 6,
-   "to_component": 212,
-   "kind": "jump",
-   "frm": [
-    13.5,
-    6.64,
-    -50.5
-   ],
-   "to": [
-    13.5,
-    4.0,
-    -46.5
-   ],
-   "horizontal": 4.0,
-   "dy": -2.64
-  },
-  {
-   "frm_component": 6,
+   "frm_component": 8,
    "to_component": 213,
    "kind": "jump",
    "frm": [
+    -15.5,
+    6.64,
+    -50.5
+   ],
+   "to": [
+    -15.5,
+    4.0,
+    -47.5
+   ],
+   "horizontal": 3.0,
+   "dy": -2.64
+  },
+  {
+   "frm_component": 8,
+   "to_component": 214,
+   "kind": "jump",
+   "frm": [
+    -21.5,
+    6.64,
+    -50.5
+   ],
+   "to": [
+    -21.5,
+    4.0,
+    -46.5
+   ],
+   "horizontal": 4.0,
+   "dy": -2.64
+  },
+  {
+   "frm_component": 8,
+   "to_component": 215,
+   "kind": "jump",
+   "frm": [
+    -14.5,
+    6.64,
+    -50.5
+   ],
+   "to": [
+    -14.5,
+    4.0,
+    -46.5
+   ],
+   "horizontal": 4.0,
+   "dy": -2.64
+  },
+  {
+   "frm_component": 8,
+   "to_component": 216,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    6.64,
+    -50.5
+   ],
+   "to": [
+    13.5,
+    4.0,
+    -46.5
+   ],
+   "horizontal": 4.0,
+   "dy": -2.64
+  },
+  {
+   "frm_component": 8,
+   "to_component": 217,
+   "kind": "jump",
+   "frm": [
     22.5,
     6.64,
     -50.5
@@ -720,8 +737,8 @@
    "dy": -2.64
   },
   {
-   "frm_component": 6,
-   "to_component": 214,
+   "frm_component": 8,
+   "to_component": 218,
    "kind": "drop",
    "frm": [
     8.5,
@@ -737,8 +754,8 @@
    "dy": -0.41
   },
   {
-   "frm_component": 6,
-   "to_component": 215,
+   "frm_component": 8,
+   "to_component": 219,
    "kind": "drop",
    "frm": [
     -9.5,
@@ -754,8 +771,8 @@
    "dy": -0.54
   },
   {
-   "frm_component": 6,
-   "to_component": 227,
+   "frm_component": 8,
+   "to_component": 231,
    "kind": "jump",
    "frm": [
     0.5,
@@ -771,8 +788,8 @@
    "dy": 1.1
   },
   {
-   "frm_component": 6,
-   "to_component": 244,
+   "frm_component": 8,
+   "to_component": 248,
    "kind": "jump",
    "frm": [
     -50.5,
@@ -788,8 +805,8 @@
    "dy": -2.64
   },
   {
-   "frm_component": 6,
-   "to_component": 254,
+   "frm_component": 8,
+   "to_component": 258,
    "kind": "jump",
    "frm": [
     -50.5,
@@ -805,8 +822,8 @@
    "dy": -2.64
   },
   {
-   "frm_component": 6,
-   "to_component": 258,
+   "frm_component": 8,
+   "to_component": 262,
    "kind": "jump",
    "frm": [
     50.5,
@@ -822,8 +839,8 @@
    "dy": -2.75
   },
   {
-   "frm_component": 6,
-   "to_component": 259,
+   "frm_component": 8,
+   "to_component": 263,
    "kind": "drop",
    "frm": [
     -50.5,
@@ -839,8 +856,8 @@
    "dy": -2.64
   },
   {
-   "frm_component": 6,
-   "to_component": 271,
+   "frm_component": 8,
+   "to_component": 275,
    "kind": "jump",
    "frm": [
     50.5,
@@ -856,8 +873,8 @@
    "dy": -2.75
   },
   {
-   "frm_component": 6,
-   "to_component": 281,
+   "frm_component": 8,
+   "to_component": 285,
    "kind": "jump",
    "frm": [
     50.5,
@@ -873,8 +890,8 @@
    "dy": -2.75
   },
   {
-   "frm_component": 6,
-   "to_component": 290,
+   "frm_component": 8,
+   "to_component": 294,
    "kind": "drop",
    "frm": [
     -50.5,
@@ -890,8 +907,8 @@
    "dy": -2.64
   },
   {
-   "frm_component": 6,
-   "to_component": 293,
+   "frm_component": 8,
+   "to_component": 297,
    "kind": "jump",
    "frm": [
     50.5,
@@ -907,8 +924,8 @@
    "dy": -2.75
   },
   {
-   "frm_component": 6,
-   "to_component": 294,
+   "frm_component": 8,
+   "to_component": 298,
    "kind": "jump",
    "frm": [
     -50.5,
@@ -924,8 +941,8 @@
    "dy": -2.64
   },
   {
-   "frm_component": 6,
-   "to_component": 296,
+   "frm_component": 8,
+   "to_component": 300,
    "kind": "jump",
    "frm": [
     50.5,
@@ -941,8 +958,8 @@
    "dy": -2.75
   },
   {
-   "frm_component": 6,
-   "to_component": 297,
+   "frm_component": 8,
+   "to_component": 301,
    "kind": "jump",
    "frm": [
     -50.5,
@@ -958,25 +975,25 @@
    "dy": -2.64
   },
   {
-   "frm_component": 6,
-   "to_component": 305,
+   "frm_component": 8,
+   "to_component": 309,
    "kind": "jump",
    "frm": [
     4.5,
-    8.13,
-    2.5
+    8.1,
+    1.5
    ],
    "to": [
     5.5,
     9.2,
-    2.5
+    1.5
    ],
    "horizontal": 1.0,
-   "dy": 1.08
+   "dy": 1.1
   },
   {
-   "frm_component": 6,
-   "to_component": 312,
+   "frm_component": 8,
+   "to_component": 316,
    "kind": "drop",
    "frm": [
     -10.5,
@@ -992,8 +1009,8 @@
    "dy": -0.41
   },
   {
-   "frm_component": 6,
-   "to_component": 313,
+   "frm_component": 8,
+   "to_component": 317,
    "kind": "drop",
    "frm": [
     10.5,
@@ -1009,8 +1026,8 @@
    "dy": -0.41
   },
   {
-   "frm_component": 6,
-   "to_component": 316,
+   "frm_component": 8,
+   "to_component": 320,
    "kind": "jump",
    "frm": [
     50.5,
@@ -1026,8 +1043,8 @@
    "dy": -2.75
   },
   {
-   "frm_component": 6,
-   "to_component": 317,
+   "frm_component": 8,
+   "to_component": 321,
    "kind": "jump",
    "frm": [
     -50.5,
@@ -1043,8 +1060,8 @@
    "dy": -2.64
   },
   {
-   "frm_component": 6,
-   "to_component": 322,
+   "frm_component": 8,
+   "to_component": 326,
    "kind": "jump",
    "frm": [
     -50.5,
@@ -1060,8 +1077,8 @@
    "dy": -2.64
   },
   {
-   "frm_component": 6,
-   "to_component": 326,
+   "frm_component": 8,
+   "to_component": 330,
    "kind": "drop",
    "frm": [
     50.5,
@@ -1077,8 +1094,8 @@
    "dy": -2.75
   },
   {
-   "frm_component": 6,
-   "to_component": 329,
+   "frm_component": 8,
+   "to_component": 333,
    "kind": "jump",
    "frm": [
     -50.5,
@@ -1094,8 +1111,8 @@
    "dy": -2.64
   },
   {
-   "frm_component": 6,
-   "to_component": 331,
+   "frm_component": 8,
+   "to_component": 335,
    "kind": "jump",
    "frm": [
     -50.5,
@@ -1111,8 +1128,8 @@
    "dy": -2.64
   },
   {
-   "frm_component": 6,
-   "to_component": 333,
+   "frm_component": 8,
+   "to_component": 337,
    "kind": "jump",
    "frm": [
     50.5,
@@ -1128,61 +1145,61 @@
    "dy": -2.75
   },
   {
-   "frm_component": 6,
-   "to_component": 371,
-   "kind": "jump",
-   "frm": [
-    -21.5,
-    6.75,
-    50.5
-   ],
-   "to": [
-    -21.5,
-    4.0,
-    47.5
-   ],
-   "horizontal": 3.0,
-   "dy": -2.75
-  },
-  {
-   "frm_component": 6,
-   "to_component": 372,
-   "kind": "jump",
-   "frm": [
-    -14.5,
-    6.75,
-    50.5
-   ],
-   "to": [
-    -14.5,
-    4.0,
-    47.5
-   ],
-   "horizontal": 3.0,
-   "dy": -2.75
-  },
-  {
-   "frm_component": 6,
-   "to_component": 374,
-   "kind": "jump",
-   "frm": [
-    13.5,
-    6.75,
-    50.5
-   ],
-   "to": [
-    13.5,
-    4.0,
-    47.5
-   ],
-   "horizontal": 3.0,
-   "dy": -2.75
-  },
-  {
-   "frm_component": 6,
+   "frm_component": 8,
    "to_component": 375,
    "kind": "jump",
    "frm": [
+    -21.5,
+    6.75,
+    50.5
+   ],
+   "to": [
+    -21.5,
+    4.0,
+    47.5
+   ],
+   "horizontal": 3.0,
+   "dy": -2.75
+  },
+  {
+   "frm_component": 8,
+   "to_component": 376,
+   "kind": "jump",
+   "frm": [
+    -14.5,
+    6.75,
+    50.5
+   ],
+   "to": [
+    -14.5,
+    4.0,
+    47.5
+   ],
+   "horizontal": 3.0,
+   "dy": -2.75
+  },
+  {
+   "frm_component": 8,
+   "to_component": 378,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    6.75,
+    50.5
+   ],
+   "to": [
+    13.5,
+    4.0,
+    47.5
+   ],
+   "horizontal": 3.0,
+   "dy": -2.75
+  },
+  {
+   "frm_component": 8,
+   "to_component": 379,
+   "kind": "jump",
+   "frm": [
     22.5,
     6.75,
     50.5
@@ -1196,61 +1213,61 @@
    "dy": -2.75
   },
   {
-   "frm_component": 6,
-   "to_component": 377,
-   "kind": "jump",
-   "frm": [
-    -20.5,
-    6.75,
-    50.5
-   ],
-   "to": [
-    -20.5,
-    4.0,
-    48.5
-   ],
-   "horizontal": 2.0,
-   "dy": -2.75
-  },
-  {
-   "frm_component": 6,
-   "to_component": 378,
-   "kind": "jump",
-   "frm": [
-    -15.5,
-    6.75,
-    50.5
-   ],
-   "to": [
-    -15.5,
-    4.0,
-    48.5
-   ],
-   "horizontal": 2.0,
-   "dy": -2.75
-  },
-  {
-   "frm_component": 6,
-   "to_component": 380,
-   "kind": "jump",
-   "frm": [
-    14.5,
-    6.75,
-    50.5
-   ],
-   "to": [
-    14.5,
-    4.0,
-    48.5
-   ],
-   "horizontal": 2.0,
-   "dy": -2.75
-  },
-  {
-   "frm_component": 6,
+   "frm_component": 8,
    "to_component": 381,
    "kind": "jump",
    "frm": [
+    -20.5,
+    6.75,
+    50.5
+   ],
+   "to": [
+    -20.5,
+    4.0,
+    48.5
+   ],
+   "horizontal": 2.0,
+   "dy": -2.75
+  },
+  {
+   "frm_component": 8,
+   "to_component": 382,
+   "kind": "jump",
+   "frm": [
+    -15.5,
+    6.75,
+    50.5
+   ],
+   "to": [
+    -15.5,
+    4.0,
+    48.5
+   ],
+   "horizontal": 2.0,
+   "dy": -2.75
+  },
+  {
+   "frm_component": 8,
+   "to_component": 384,
+   "kind": "jump",
+   "frm": [
+    14.5,
+    6.75,
+    50.5
+   ],
+   "to": [
+    14.5,
+    4.0,
+    48.5
+   ],
+   "horizontal": 2.0,
+   "dy": -2.75
+  },
+  {
+   "frm_component": 8,
+   "to_component": 385,
+   "kind": "jump",
+   "frm": [
     21.5,
     6.75,
     50.5
@@ -1264,8 +1281,8 @@
    "dy": -2.75
   },
   {
-   "frm_component": 6,
-   "to_component": 382,
+   "frm_component": 8,
+   "to_component": 386,
    "kind": "drop",
    "frm": [
     15.5,
@@ -1281,8 +1298,8 @@
    "dy": -2.75
   },
   {
-   "frm_component": 6,
-   "to_component": 383,
+   "frm_component": 8,
+   "to_component": 387,
    "kind": "drop",
    "frm": [
     20.5,
@@ -1298,8 +1315,8 @@
    "dy": -2.75
   },
   {
-   "frm_component": 9,
-   "to_component": 6,
+   "frm_component": 11,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     34.5,
@@ -1307,16 +1324,16 @@
     -208.5
    ],
    "to": [
-    34.5,
-    14.95,
-    -209.5
+    33.5,
+    14.87,
+    -208.5
    ],
    "horizontal": 1.0,
-   "dy": -0.45
+   "dy": -0.53
   },
   {
-   "frm_component": 9,
-   "to_component": 10,
+   "frm_component": 11,
+   "to_component": 12,
    "kind": "jump",
    "frm": [
     34.5,
@@ -1332,8 +1349,8 @@
    "dy": 0.5
   },
   {
-   "frm_component": 9,
-   "to_component": 14,
+   "frm_component": 11,
+   "to_component": 16,
    "kind": "jump",
    "frm": [
     34.5,
@@ -1349,8 +1366,8 @@
    "dy": 0.5
   },
   {
-   "frm_component": 9,
-   "to_component": 15,
+   "frm_component": 11,
+   "to_component": 17,
    "kind": "jump",
    "frm": [
     34.5,
@@ -1366,8 +1383,8 @@
    "dy": 1.0
   },
   {
-   "frm_component": 10,
-   "to_component": 6,
+   "frm_component": 12,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     35.5,
@@ -1383,8 +1400,8 @@
    "dy": -0.95
   },
   {
-   "frm_component": 10,
-   "to_component": 9,
+   "frm_component": 12,
+   "to_component": 11,
    "kind": "drop",
    "frm": [
     35.5,
@@ -1400,8 +1417,8 @@
    "dy": -0.5
   },
   {
-   "frm_component": 10,
-   "to_component": 14,
+   "frm_component": 12,
+   "to_component": 16,
    "kind": "jump",
    "frm": [
     35.5,
@@ -1417,8 +1434,8 @@
    "dy": 0.01
   },
   {
-   "frm_component": 10,
-   "to_component": 15,
+   "frm_component": 12,
+   "to_component": 17,
    "kind": "jump",
    "frm": [
     35.5,
@@ -1434,8 +1451,8 @@
    "dy": 0.5
   },
   {
-   "frm_component": 10,
-   "to_component": 16,
+   "frm_component": 12,
+   "to_component": 18,
    "kind": "jump",
    "frm": [
     35.5,
@@ -1451,8 +1468,8 @@
    "dy": 1.0
   },
   {
-   "frm_component": 10,
-   "to_component": 28,
+   "frm_component": 12,
+   "to_component": 30,
    "kind": "jump",
    "frm": [
     35.5,
@@ -1468,8 +1485,8 @@
    "dy": 1.03
   },
   {
-   "frm_component": 11,
-   "to_component": 17,
+   "frm_component": 13,
+   "to_component": 19,
    "kind": "jump",
    "frm": [
     -31.5,
@@ -1485,8 +1502,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 11,
-   "to_component": 19,
+   "frm_component": 13,
+   "to_component": 21,
    "kind": "jump",
    "frm": [
     -28.5,
@@ -1502,8 +1519,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 14,
-   "to_component": 6,
+   "frm_component": 16,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     34.5,
@@ -1519,8 +1536,8 @@
    "dy": -0.72
   },
   {
-   "frm_component": 14,
-   "to_component": 9,
+   "frm_component": 16,
+   "to_component": 11,
    "kind": "drop",
    "frm": [
     34.5,
@@ -1536,8 +1553,8 @@
    "dy": -0.5
   },
   {
-   "frm_component": 14,
-   "to_component": 10,
+   "frm_component": 16,
+   "to_component": 12,
    "kind": "jump",
    "frm": [
     34.5,
@@ -1553,8 +1570,8 @@
    "dy": -0.01
   },
   {
-   "frm_component": 14,
-   "to_component": 15,
+   "frm_component": 16,
+   "to_component": 17,
    "kind": "jump",
    "frm": [
     34.5,
@@ -1570,8 +1587,8 @@
    "dy": 0.5
   },
   {
-   "frm_component": 14,
-   "to_component": 16,
+   "frm_component": 16,
+   "to_component": 18,
    "kind": "jump",
    "frm": [
     34.5,
@@ -1587,8 +1604,8 @@
    "dy": 0.99
   },
   {
-   "frm_component": 14,
-   "to_component": 20,
+   "frm_component": 16,
+   "to_component": 22,
    "kind": "jump",
    "frm": [
     34.5,
@@ -1604,8 +1621,8 @@
    "dy": 0.03
   },
   {
-   "frm_component": 14,
-   "to_component": 28,
+   "frm_component": 16,
+   "to_component": 30,
    "kind": "jump",
    "frm": [
     34.5,
@@ -1621,8 +1638,8 @@
    "dy": 1.02
   },
   {
-   "frm_component": 15,
-   "to_component": 6,
+   "frm_component": 17,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     34.5,
@@ -1638,8 +1655,8 @@
    "dy": -1.22
   },
   {
-   "frm_component": 15,
-   "to_component": 9,
+   "frm_component": 17,
+   "to_component": 11,
    "kind": "drop",
    "frm": [
     35.5,
@@ -1655,8 +1672,8 @@
    "dy": -1.0
   },
   {
-   "frm_component": 15,
-   "to_component": 10,
+   "frm_component": 17,
+   "to_component": 12,
    "kind": "drop",
    "frm": [
     35.5,
@@ -1672,13 +1689,13 @@
    "dy": -0.5
   },
   {
-   "frm_component": 15,
-   "to_component": 14,
+   "frm_component": 17,
+   "to_component": 16,
    "kind": "drop",
    "frm": [
-    35.5,
+    34.5,
     16.4,
-    -207.5
+    -206.5
    ],
    "to": [
     34.5,
@@ -1689,8 +1706,8 @@
    "dy": -0.5
   },
   {
-   "frm_component": 15,
-   "to_component": 16,
+   "frm_component": 17,
+   "to_component": 18,
    "kind": "jump",
    "frm": [
     35.5,
@@ -1706,8 +1723,8 @@
    "dy": 0.49
   },
   {
-   "frm_component": 15,
-   "to_component": 20,
+   "frm_component": 17,
+   "to_component": 22,
    "kind": "drop",
    "frm": [
     34.5,
@@ -1723,8 +1740,8 @@
    "dy": -0.47
   },
   {
-   "frm_component": 15,
-   "to_component": 21,
+   "frm_component": 17,
+   "to_component": 23,
    "kind": "jump",
    "frm": [
     35.5,
@@ -1740,8 +1757,8 @@
    "dy": 0.64
   },
   {
-   "frm_component": 15,
-   "to_component": 22,
+   "frm_component": 17,
+   "to_component": 24,
    "kind": "jump",
    "frm": [
     35.5,
@@ -1757,8 +1774,8 @@
    "dy": 1.15
   },
   {
-   "frm_component": 15,
-   "to_component": 28,
+   "frm_component": 17,
+   "to_component": 30,
    "kind": "jump",
    "frm": [
     34.5,
@@ -1774,8 +1791,8 @@
    "dy": 0.52
   },
   {
-   "frm_component": 15,
-   "to_component": 29,
+   "frm_component": 17,
+   "to_component": 31,
    "kind": "jump",
    "frm": [
     35.5,
@@ -1791,8 +1808,8 @@
    "dy": 0.64
   },
   {
-   "frm_component": 16,
-   "to_component": 6,
+   "frm_component": 18,
+   "to_component": 8,
    "kind": "jump",
    "frm": [
     36.5,
@@ -1808,8 +1825,8 @@
    "dy": -1.71
   },
   {
-   "frm_component": 16,
-   "to_component": 9,
+   "frm_component": 18,
+   "to_component": 11,
    "kind": "jump",
    "frm": [
     36.5,
@@ -1825,8 +1842,8 @@
    "dy": -1.5
   },
   {
-   "frm_component": 16,
-   "to_component": 10,
+   "frm_component": 18,
+   "to_component": 12,
    "kind": "drop",
    "frm": [
     36.5,
@@ -1842,8 +1859,8 @@
    "dy": -1.0
   },
   {
-   "frm_component": 16,
-   "to_component": 14,
+   "frm_component": 18,
+   "to_component": 16,
    "kind": "jump",
    "frm": [
     36.5,
@@ -1859,8 +1876,8 @@
    "dy": -0.99
   },
   {
-   "frm_component": 16,
-   "to_component": 15,
+   "frm_component": 18,
+   "to_component": 17,
    "kind": "drop",
    "frm": [
     36.5,
@@ -1876,8 +1893,8 @@
    "dy": -0.49
   },
   {
-   "frm_component": 16,
-   "to_component": 20,
+   "frm_component": 18,
+   "to_component": 22,
    "kind": "jump",
    "frm": [
     36.5,
@@ -1893,8 +1910,8 @@
    "dy": -0.97
   },
   {
-   "frm_component": 16,
-   "to_component": 21,
+   "frm_component": 18,
+   "to_component": 23,
    "kind": "jump",
    "frm": [
     36.5,
@@ -1910,8 +1927,8 @@
    "dy": 0.49
   },
   {
-   "frm_component": 16,
-   "to_component": 22,
+   "frm_component": 18,
+   "to_component": 24,
    "kind": "jump",
    "frm": [
     36.5,
@@ -1927,8 +1944,8 @@
    "dy": 1.0
   },
   {
-   "frm_component": 17,
-   "to_component": 11,
+   "frm_component": 19,
+   "to_component": 13,
    "kind": "jump",
    "frm": [
     -32.5,
@@ -1944,8 +1961,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 17,
-   "to_component": 33,
+   "frm_component": 19,
+   "to_component": 35,
    "kind": "jump",
    "frm": [
     -32.5,
@@ -1961,8 +1978,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 19,
-   "to_component": 11,
+   "frm_component": 21,
+   "to_component": 13,
    "kind": "jump",
    "frm": [
     -27.5,
@@ -1978,8 +1995,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 19,
-   "to_component": 33,
+   "frm_component": 21,
+   "to_component": 35,
    "kind": "jump",
    "frm": [
     -27.5,
@@ -1995,8 +2012,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 20,
-   "to_component": 6,
+   "frm_component": 22,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     33.5,
@@ -2012,8 +2029,8 @@
    "dy": -0.74
   },
   {
-   "frm_component": 20,
-   "to_component": 14,
+   "frm_component": 22,
+   "to_component": 16,
    "kind": "jump",
    "frm": [
     33.5,
@@ -2029,8 +2046,8 @@
    "dy": -0.03
   },
   {
-   "frm_component": 20,
-   "to_component": 15,
+   "frm_component": 22,
+   "to_component": 17,
    "kind": "jump",
    "frm": [
     33.5,
@@ -2046,8 +2063,8 @@
    "dy": 0.47
   },
   {
-   "frm_component": 20,
-   "to_component": 16,
+   "frm_component": 22,
+   "to_component": 18,
    "kind": "jump",
    "frm": [
     33.5,
@@ -2063,8 +2080,8 @@
    "dy": 0.97
   },
   {
-   "frm_component": 20,
-   "to_component": 28,
+   "frm_component": 22,
+   "to_component": 30,
    "kind": "jump",
    "frm": [
     33.5,
@@ -2080,8 +2097,8 @@
    "dy": 1.0
   },
   {
-   "frm_component": 21,
-   "to_component": 6,
+   "frm_component": 23,
+   "to_component": 8,
    "kind": "jump",
    "frm": [
     36.5,
@@ -2097,8 +2114,8 @@
    "dy": -2.2
   },
   {
-   "frm_component": 21,
-   "to_component": 10,
+   "frm_component": 23,
+   "to_component": 12,
    "kind": "jump",
    "frm": [
     36.5,
@@ -2114,8 +2131,8 @@
    "dy": -1.49
   },
   {
-   "frm_component": 21,
-   "to_component": 14,
+   "frm_component": 23,
+   "to_component": 16,
    "kind": "jump",
    "frm": [
     36.5,
@@ -2131,8 +2148,8 @@
    "dy": -1.48
   },
   {
-   "frm_component": 21,
-   "to_component": 15,
+   "frm_component": 23,
+   "to_component": 17,
    "kind": "drop",
    "frm": [
     36.5,
@@ -2148,8 +2165,8 @@
    "dy": -0.64
   },
   {
-   "frm_component": 21,
-   "to_component": 16,
+   "frm_component": 23,
+   "to_component": 18,
    "kind": "drop",
    "frm": [
     36.5,
@@ -2165,8 +2182,8 @@
    "dy": -0.49
   },
   {
-   "frm_component": 21,
-   "to_component": 20,
+   "frm_component": 23,
+   "to_component": 22,
    "kind": "jump",
    "frm": [
     36.5,
@@ -2182,8 +2199,8 @@
    "dy": -1.45
   },
   {
-   "frm_component": 21,
-   "to_component": 22,
+   "frm_component": 23,
+   "to_component": 24,
    "kind": "jump",
    "frm": [
     36.5,
@@ -2199,8 +2216,8 @@
    "dy": 0.51
   },
   {
-   "frm_component": 21,
-   "to_component": 29,
+   "frm_component": 23,
+   "to_component": 31,
    "kind": "jump",
    "frm": [
     36.5,
@@ -2216,8 +2233,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 22,
-   "to_component": 6,
+   "frm_component": 24,
+   "to_component": 8,
    "kind": "jump",
    "frm": [
     37.5,
@@ -2233,8 +2250,8 @@
    "dy": -2.71
   },
   {
-   "frm_component": 22,
-   "to_component": 9,
+   "frm_component": 24,
+   "to_component": 11,
    "kind": "jump",
    "frm": [
     35.5,
@@ -2250,8 +2267,8 @@
    "dy": -2.53
   },
   {
-   "frm_component": 22,
-   "to_component": 10,
+   "frm_component": 24,
+   "to_component": 12,
    "kind": "jump",
    "frm": [
     36.5,
@@ -2267,8 +2284,8 @@
    "dy": -1.99
   },
   {
-   "frm_component": 22,
-   "to_component": 14,
+   "frm_component": 24,
+   "to_component": 16,
    "kind": "jump",
    "frm": [
     35.5,
@@ -2284,8 +2301,8 @@
    "dy": -2.02
   },
   {
-   "frm_component": 22,
-   "to_component": 15,
+   "frm_component": 24,
+   "to_component": 17,
    "kind": "drop",
    "frm": [
     36.5,
@@ -2301,8 +2318,8 @@
    "dy": -1.15
   },
   {
-   "frm_component": 22,
-   "to_component": 16,
+   "frm_component": 24,
+   "to_component": 18,
    "kind": "drop",
    "frm": [
     37.5,
@@ -2318,8 +2335,8 @@
    "dy": -1.0
   },
   {
-   "frm_component": 22,
-   "to_component": 20,
+   "frm_component": 24,
+   "to_component": 22,
    "kind": "jump",
    "frm": [
     36.5,
@@ -2335,13 +2352,13 @@
    "dy": -1.96
   },
   {
-   "frm_component": 22,
-   "to_component": 21,
+   "frm_component": 24,
+   "to_component": 23,
    "kind": "drop",
    "frm": [
-    36.5,
+    37.5,
     17.89,
-    -205.5
+    -206.5
    ],
    "to": [
     36.5,
@@ -2352,8 +2369,8 @@
    "dy": -0.51
   },
   {
-   "frm_component": 22,
-   "to_component": 28,
+   "frm_component": 24,
+   "to_component": 30,
    "kind": "drop",
    "frm": [
     35.5,
@@ -2369,8 +2386,8 @@
    "dy": -1.0
   },
   {
-   "frm_component": 22,
-   "to_component": 29,
+   "frm_component": 24,
+   "to_component": 31,
    "kind": "drop",
    "frm": [
     35.5,
@@ -2386,8 +2403,8 @@
    "dy": -0.54
   },
   {
-   "frm_component": 22,
-   "to_component": 30,
+   "frm_component": 24,
+   "to_component": 32,
    "kind": "jump",
    "frm": [
     37.5,
@@ -2403,8 +2420,8 @@
    "dy": 0.49
   },
   {
-   "frm_component": 27,
-   "to_component": 6,
+   "frm_component": 29,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -1.5,
@@ -2420,8 +2437,8 @@
    "dy": -1.45
   },
   {
-   "frm_component": 28,
-   "to_component": 6,
+   "frm_component": 30,
+   "to_component": 8,
    "kind": "jump",
    "frm": [
     34.5,
@@ -2437,8 +2454,8 @@
    "dy": -1.74
   },
   {
-   "frm_component": 28,
-   "to_component": 9,
+   "frm_component": 30,
+   "to_component": 11,
    "kind": "jump",
    "frm": [
     34.5,
@@ -2454,8 +2471,8 @@
    "dy": -1.53
   },
   {
-   "frm_component": 28,
-   "to_component": 10,
+   "frm_component": 30,
+   "to_component": 12,
    "kind": "jump",
    "frm": [
     34.5,
@@ -2471,8 +2488,8 @@
    "dy": -1.03
   },
   {
-   "frm_component": 28,
-   "to_component": 14,
+   "frm_component": 30,
+   "to_component": 16,
    "kind": "jump",
    "frm": [
     34.5,
@@ -2488,8 +2505,8 @@
    "dy": -1.02
   },
   {
-   "frm_component": 28,
-   "to_component": 15,
+   "frm_component": 30,
+   "to_component": 17,
    "kind": "drop",
    "frm": [
     34.5,
@@ -2505,8 +2522,8 @@
    "dy": -0.52
   },
   {
-   "frm_component": 28,
-   "to_component": 20,
+   "frm_component": 30,
+   "to_component": 22,
    "kind": "drop",
    "frm": [
     34.5,
@@ -2522,8 +2539,8 @@
    "dy": -1.0
   },
   {
-   "frm_component": 28,
-   "to_component": 22,
+   "frm_component": 30,
+   "to_component": 24,
    "kind": "jump",
    "frm": [
     34.5,
@@ -2539,8 +2556,8 @@
    "dy": 1.0
   },
   {
-   "frm_component": 28,
-   "to_component": 29,
+   "frm_component": 30,
+   "to_component": 31,
    "kind": "jump",
    "frm": [
     34.5,
@@ -2556,8 +2573,8 @@
    "dy": 0.46
   },
   {
-   "frm_component": 29,
-   "to_component": 6,
+   "frm_component": 31,
+   "to_component": 8,
    "kind": "jump",
    "frm": [
     35.5,
@@ -2573,8 +2590,8 @@
    "dy": -2.44
   },
   {
-   "frm_component": 29,
-   "to_component": 9,
+   "frm_component": 31,
+   "to_component": 11,
    "kind": "jump",
    "frm": [
     35.5,
@@ -2590,8 +2607,8 @@
    "dy": -1.98
   },
   {
-   "frm_component": 29,
-   "to_component": 10,
+   "frm_component": 31,
+   "to_component": 12,
    "kind": "jump",
    "frm": [
     35.5,
@@ -2607,8 +2624,8 @@
    "dy": -1.49
   },
   {
-   "frm_component": 29,
-   "to_component": 14,
+   "frm_component": 31,
+   "to_component": 16,
    "kind": "jump",
    "frm": [
     35.5,
@@ -2624,8 +2641,8 @@
    "dy": -1.48
   },
   {
-   "frm_component": 29,
-   "to_component": 15,
+   "frm_component": 31,
+   "to_component": 17,
    "kind": "drop",
    "frm": [
     35.5,
@@ -2641,8 +2658,8 @@
    "dy": -0.64
   },
   {
-   "frm_component": 29,
-   "to_component": 20,
+   "frm_component": 31,
+   "to_component": 22,
    "kind": "jump",
    "frm": [
     35.5,
@@ -2658,8 +2675,8 @@
    "dy": -1.45
   },
   {
-   "frm_component": 29,
-   "to_component": 21,
+   "frm_component": 31,
+   "to_component": 23,
    "kind": "jump",
    "frm": [
     35.5,
@@ -2675,8 +2692,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 29,
-   "to_component": 22,
+   "frm_component": 31,
+   "to_component": 24,
    "kind": "jump",
    "frm": [
     35.5,
@@ -2692,8 +2709,8 @@
    "dy": 0.51
   },
   {
-   "frm_component": 29,
-   "to_component": 28,
+   "frm_component": 31,
+   "to_component": 30,
    "kind": "drop",
    "frm": [
     35.5,
@@ -2709,8 +2726,8 @@
    "dy": -0.46
   },
   {
-   "frm_component": 30,
-   "to_component": 6,
+   "frm_component": 32,
+   "to_component": 8,
    "kind": "jump",
    "frm": [
     36.5,
@@ -2726,8 +2743,8 @@
    "dy": -3.58
   },
   {
-   "frm_component": 30,
-   "to_component": 9,
+   "frm_component": 32,
+   "to_component": 11,
    "kind": "jump",
    "frm": [
     38.5,
@@ -2743,8 +2760,8 @@
    "dy": -3.36
   },
   {
-   "frm_component": 30,
-   "to_component": 10,
+   "frm_component": 32,
+   "to_component": 12,
    "kind": "jump",
    "frm": [
     38.5,
@@ -2760,8 +2777,8 @@
    "dy": -2.86
   },
   {
-   "frm_component": 30,
-   "to_component": 14,
+   "frm_component": 32,
+   "to_component": 16,
    "kind": "jump",
    "frm": [
     38.5,
@@ -2777,8 +2794,8 @@
    "dy": -2.85
   },
   {
-   "frm_component": 30,
-   "to_component": 15,
+   "frm_component": 32,
+   "to_component": 17,
    "kind": "jump",
    "frm": [
     38.5,
@@ -2794,8 +2811,8 @@
    "dy": -2.01
   },
   {
-   "frm_component": 30,
-   "to_component": 16,
+   "frm_component": 32,
+   "to_component": 18,
    "kind": "jump",
    "frm": [
     38.5,
@@ -2811,8 +2828,8 @@
    "dy": -1.86
   },
   {
-   "frm_component": 30,
-   "to_component": 20,
+   "frm_component": 32,
+   "to_component": 22,
    "kind": "jump",
    "frm": [
     36.5,
@@ -2828,13 +2845,13 @@
    "dy": -2.84
   },
   {
-   "frm_component": 30,
-   "to_component": 21,
+   "frm_component": 32,
+   "to_component": 23,
    "kind": "jump",
    "frm": [
-    37.5,
-    18.73,
-    -204.5
+    38.5,
+    18.76,
+    -205.5
    ],
    "to": [
     36.5,
@@ -2842,16 +2859,16 @@
     -206.5
    ],
    "horizontal": 2.24,
-   "dy": -1.35
+   "dy": -1.37
   },
   {
-   "frm_component": 30,
-   "to_component": 22,
+   "frm_component": 32,
+   "to_component": 24,
    "kind": "drop",
    "frm": [
-    37.5,
-    18.73,
-    -204.5
+    38.5,
+    18.76,
+    -205.5
    ],
    "to": [
     37.5,
@@ -2859,11 +2876,11 @@
     -205.5
    ],
    "horizontal": 1.0,
-   "dy": -0.46
+   "dy": -0.49
   },
   {
-   "frm_component": 30,
-   "to_component": 28,
+   "frm_component": 32,
+   "to_component": 30,
    "kind": "jump",
    "frm": [
     36.5,
@@ -2879,8 +2896,8 @@
    "dy": -1.84
   },
   {
-   "frm_component": 30,
-   "to_component": 29,
+   "frm_component": 32,
+   "to_component": 31,
    "kind": "jump",
    "frm": [
     37.5,
@@ -2896,8 +2913,8 @@
    "dy": -1.35
   },
   {
-   "frm_component": 30,
-   "to_component": 49,
+   "frm_component": 32,
+   "to_component": 51,
    "kind": "drop",
    "frm": [
     40.5,
@@ -2913,8 +2930,8 @@
    "dy": -0.42
   },
   {
-   "frm_component": 30,
-   "to_component": 50,
+   "frm_component": 32,
+   "to_component": 52,
    "kind": "jump",
    "frm": [
     40.5,
@@ -2930,8 +2947,8 @@
    "dy": -0.9
   },
   {
-   "frm_component": 32,
-   "to_component": 6,
+   "frm_component": 34,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     3.5,
@@ -2947,8 +2964,8 @@
    "dy": -3.26
   },
   {
-   "frm_component": 32,
-   "to_component": 27,
+   "frm_component": 34,
+   "to_component": 29,
    "kind": "jump",
    "frm": [
     3.5,
@@ -2964,8 +2981,8 @@
    "dy": -1.8
   },
   {
-   "frm_component": 32,
-   "to_component": 36,
+   "frm_component": 34,
+   "to_component": 38,
    "kind": "jump",
    "frm": [
     3.5,
@@ -2981,8 +2998,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 32,
-   "to_component": 37,
+   "frm_component": 34,
+   "to_component": 39,
    "kind": "jump",
    "frm": [
     8.5,
@@ -2998,8 +3015,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 32,
-   "to_component": 40,
+   "frm_component": 34,
+   "to_component": 42,
    "kind": "jump",
    "frm": [
     8.5,
@@ -3015,8 +3032,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 32,
-   "to_component": 41,
+   "frm_component": 34,
+   "to_component": 43,
    "kind": "jump",
    "frm": [
     3.5,
@@ -3032,8 +3049,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 32,
-   "to_component": 42,
+   "frm_component": 34,
+   "to_component": 44,
    "kind": "jump",
    "frm": [
     8.5,
@@ -3049,8 +3066,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 33,
-   "to_component": 17,
+   "frm_component": 35,
+   "to_component": 19,
    "kind": "jump",
    "frm": [
     -31.5,
@@ -3066,8 +3083,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 33,
-   "to_component": 19,
+   "frm_component": 35,
+   "to_component": 21,
    "kind": "jump",
    "frm": [
     -28.5,
@@ -3083,8 +3100,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 36,
-   "to_component": 6,
+   "frm_component": 38,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     2.5,
@@ -3100,8 +3117,8 @@
    "dy": -3.29
   },
   {
-   "frm_component": 36,
-   "to_component": 27,
+   "frm_component": 38,
+   "to_component": 29,
    "kind": "jump",
    "frm": [
     2.5,
@@ -3117,8 +3134,8 @@
    "dy": -1.8
   },
   {
-   "frm_component": 36,
-   "to_component": 32,
+   "frm_component": 38,
+   "to_component": 34,
    "kind": "jump",
    "frm": [
     2.5,
@@ -3134,8 +3151,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 36,
-   "to_component": 39,
+   "frm_component": 38,
+   "to_component": 41,
    "kind": "jump",
    "frm": [
     2.5,
@@ -3151,8 +3168,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 37,
-   "to_component": 6,
+   "frm_component": 39,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     9.5,
@@ -3160,16 +3177,16 @@
     -202.5
    ],
    "to": [
-    9.5,
-    11.73,
-    -203.5
+    10.5,
+    11.71,
+    -202.5
    ],
    "horizontal": 1.0,
-   "dy": -3.27
+   "dy": -3.29
   },
   {
-   "frm_component": 37,
-   "to_component": 32,
+   "frm_component": 39,
+   "to_component": 34,
    "kind": "jump",
    "frm": [
     9.5,
@@ -3185,8 +3202,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 37,
-   "to_component": 40,
+   "frm_component": 39,
+   "to_component": 42,
    "kind": "jump",
    "frm": [
     9.5,
@@ -3202,8 +3219,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 37,
-   "to_component": 42,
+   "frm_component": 39,
+   "to_component": 44,
    "kind": "jump",
    "frm": [
     9.5,
@@ -3219,8 +3236,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 38,
-   "to_component": 30,
+   "frm_component": 40,
+   "to_component": 32,
    "kind": "drop",
    "frm": [
     43.5,
@@ -3236,8 +3253,8 @@
    "dy": -1.47
   },
   {
-   "frm_component": 39,
-   "to_component": 6,
+   "frm_component": 41,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     1.5,
@@ -3253,8 +3270,8 @@
    "dy": -3.29
   },
   {
-   "frm_component": 39,
-   "to_component": 27,
+   "frm_component": 41,
+   "to_component": 29,
    "kind": "jump",
    "frm": [
     1.5,
@@ -3270,8 +3287,8 @@
    "dy": -1.8
   },
   {
-   "frm_component": 39,
-   "to_component": 36,
+   "frm_component": 41,
+   "to_component": 38,
    "kind": "jump",
    "frm": [
     1.5,
@@ -3287,8 +3304,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 39,
-   "to_component": 41,
+   "frm_component": 41,
+   "to_component": 43,
    "kind": "jump",
    "frm": [
     1.5,
@@ -3304,8 +3321,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 40,
-   "to_component": 6,
+   "frm_component": 42,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     10.5,
@@ -3321,8 +3338,8 @@
    "dy": -3.29
   },
   {
-   "frm_component": 40,
-   "to_component": 32,
+   "frm_component": 42,
+   "to_component": 34,
    "kind": "jump",
    "frm": [
     10.5,
@@ -3338,95 +3355,95 @@
    "dy": 0.0
   },
   {
-   "frm_component": 40,
-   "to_component": 37,
-   "kind": "jump",
-   "frm": [
-    10.5,
-    15.0,
-    -201.5
-   ],
-   "to": [
-    9.5,
-    15.0,
-    -202.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 40,
-   "to_component": 42,
-   "kind": "jump",
-   "frm": [
-    10.5,
-    15.0,
-    -201.5
-   ],
-   "to": [
-    11.5,
-    15.0,
-    -200.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 41,
-   "to_component": 6,
-   "kind": "drop",
-   "frm": [
-    0.5,
-    15.0,
-    -200.5
-   ],
-   "to": [
-    0.5,
-    11.73,
-    -201.5
-   ],
-   "horizontal": 1.0,
-   "dy": -3.27
-  },
-  {
-   "frm_component": 41,
-   "to_component": 27,
-   "kind": "jump",
-   "frm": [
-    0.5,
-    15.0,
-    -200.5
-   ],
-   "to": [
-    -0.5,
-    13.2,
-    -204.5
-   ],
-   "horizontal": 4.12,
-   "dy": -1.8
-  },
-  {
-   "frm_component": 41,
-   "to_component": 32,
-   "kind": "jump",
-   "frm": [
-    0.5,
-    15.0,
-    -200.5
-   ],
-   "to": [
-    3.5,
-    15.0,
-    -203.5
-   ],
-   "horizontal": 4.24,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 41,
+   "frm_component": 42,
    "to_component": 39,
    "kind": "jump",
    "frm": [
+    10.5,
+    15.0,
+    -201.5
+   ],
+   "to": [
+    9.5,
+    15.0,
+    -202.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 42,
+   "to_component": 44,
+   "kind": "jump",
+   "frm": [
+    10.5,
+    15.0,
+    -201.5
+   ],
+   "to": [
+    11.5,
+    15.0,
+    -200.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 43,
+   "to_component": 8,
+   "kind": "drop",
+   "frm": [
+    0.5,
+    15.0,
+    -200.5
+   ],
+   "to": [
+    0.5,
+    11.73,
+    -201.5
+   ],
+   "horizontal": 1.0,
+   "dy": -3.27
+  },
+  {
+   "frm_component": 43,
+   "to_component": 29,
+   "kind": "jump",
+   "frm": [
+    0.5,
+    15.0,
+    -200.5
+   ],
+   "to": [
+    -0.5,
+    13.2,
+    -204.5
+   ],
+   "horizontal": 4.12,
+   "dy": -1.8
+  },
+  {
+   "frm_component": 43,
+   "to_component": 34,
+   "kind": "jump",
+   "frm": [
+    0.5,
+    15.0,
+    -200.5
+   ],
+   "to": [
+    3.5,
+    15.0,
+    -203.5
+   ],
+   "horizontal": 4.24,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 43,
+   "to_component": 41,
+   "kind": "jump",
+   "frm": [
     0.5,
     15.0,
     -200.5
@@ -3440,8 +3457,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 41,
-   "to_component": 43,
+   "frm_component": 43,
+   "to_component": 45,
    "kind": "jump",
    "frm": [
     0.5,
@@ -3457,8 +3474,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 41,
-   "to_component": 45,
+   "frm_component": 43,
+   "to_component": 47,
    "kind": "jump",
    "frm": [
     0.5,
@@ -3474,8 +3491,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 41,
-   "to_component": 47,
+   "frm_component": 43,
+   "to_component": 49,
    "kind": "jump",
    "frm": [
     0.5,
@@ -3491,8 +3508,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 42,
-   "to_component": 6,
+   "frm_component": 44,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     11.5,
@@ -3508,8 +3525,8 @@
    "dy": -3.26
   },
   {
-   "frm_component": 42,
-   "to_component": 32,
+   "frm_component": 44,
+   "to_component": 34,
    "kind": "jump",
    "frm": [
     11.5,
@@ -3525,8 +3542,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 42,
-   "to_component": 37,
+   "frm_component": 44,
+   "to_component": 39,
    "kind": "jump",
    "frm": [
     11.5,
@@ -3542,8 +3559,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 42,
-   "to_component": 40,
+   "frm_component": 44,
+   "to_component": 42,
    "kind": "jump",
    "frm": [
     11.5,
@@ -3559,8 +3576,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 42,
-   "to_component": 44,
+   "frm_component": 44,
+   "to_component": 46,
    "kind": "jump",
    "frm": [
     11.5,
@@ -3576,8 +3593,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 42,
-   "to_component": 46,
+   "frm_component": 44,
+   "to_component": 48,
    "kind": "jump",
    "frm": [
     11.5,
@@ -3593,8 +3610,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 42,
-   "to_component": 47,
+   "frm_component": 44,
+   "to_component": 49,
    "kind": "jump",
    "frm": [
     11.5,
@@ -3610,8 +3627,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 42,
-   "to_component": 48,
+   "frm_component": 44,
+   "to_component": 50,
    "kind": "jump",
    "frm": [
     11.5,
@@ -3627,8 +3644,8 @@
    "dy": -1.8
   },
   {
-   "frm_component": 43,
-   "to_component": 6,
+   "frm_component": 45,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     1.5,
@@ -3644,8 +3661,8 @@
    "dy": -3.26
   },
   {
-   "frm_component": 43,
-   "to_component": 41,
+   "frm_component": 45,
+   "to_component": 43,
    "kind": "jump",
    "frm": [
     1.5,
@@ -3661,8 +3678,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 43,
-   "to_component": 45,
+   "frm_component": 45,
+   "to_component": 47,
    "kind": "jump",
    "frm": [
     1.5,
@@ -3678,8 +3695,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 43,
-   "to_component": 47,
+   "frm_component": 45,
+   "to_component": 49,
    "kind": "jump",
    "frm": [
     1.5,
@@ -3695,8 +3712,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 44,
-   "to_component": 6,
+   "frm_component": 46,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     10.5,
@@ -3712,8 +3729,8 @@
    "dy": -3.27
   },
   {
-   "frm_component": 44,
-   "to_component": 42,
+   "frm_component": 46,
+   "to_component": 44,
    "kind": "jump",
    "frm": [
     10.5,
@@ -3729,8 +3746,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 44,
-   "to_component": 46,
+   "frm_component": 46,
+   "to_component": 48,
    "kind": "jump",
    "frm": [
     10.5,
@@ -3746,8 +3763,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 44,
-   "to_component": 47,
+   "frm_component": 46,
+   "to_component": 49,
    "kind": "jump",
    "frm": [
     10.5,
@@ -3763,8 +3780,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 44,
-   "to_component": 48,
+   "frm_component": 46,
+   "to_component": 50,
    "kind": "jump",
    "frm": [
     10.5,
@@ -3780,8 +3797,8 @@
    "dy": -1.8
   },
   {
-   "frm_component": 45,
-   "to_component": 6,
+   "frm_component": 47,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     2.5,
@@ -3797,8 +3814,8 @@
    "dy": -3.29
   },
   {
-   "frm_component": 45,
-   "to_component": 41,
+   "frm_component": 47,
+   "to_component": 43,
    "kind": "jump",
    "frm": [
     2.5,
@@ -3814,8 +3831,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 45,
-   "to_component": 43,
+   "frm_component": 47,
+   "to_component": 45,
    "kind": "jump",
    "frm": [
     2.5,
@@ -3831,8 +3848,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 45,
-   "to_component": 47,
+   "frm_component": 47,
+   "to_component": 49,
    "kind": "jump",
    "frm": [
     2.5,
@@ -3848,8 +3865,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 46,
-   "to_component": 6,
+   "frm_component": 48,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     9.5,
@@ -3865,8 +3882,8 @@
    "dy": -3.29
   },
   {
-   "frm_component": 46,
-   "to_component": 42,
+   "frm_component": 48,
+   "to_component": 44,
    "kind": "jump",
    "frm": [
     9.5,
@@ -3882,8 +3899,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 46,
-   "to_component": 44,
+   "frm_component": 48,
+   "to_component": 46,
    "kind": "jump",
    "frm": [
     9.5,
@@ -3899,8 +3916,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 46,
-   "to_component": 47,
+   "frm_component": 48,
+   "to_component": 49,
    "kind": "jump",
    "frm": [
     9.5,
@@ -3916,8 +3933,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 46,
-   "to_component": 48,
+   "frm_component": 48,
+   "to_component": 50,
    "kind": "jump",
    "frm": [
     9.5,
@@ -3933,8 +3950,8 @@
    "dy": -1.8
   },
   {
-   "frm_component": 47,
-   "to_component": 6,
+   "frm_component": 49,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     3.5,
@@ -3950,8 +3967,8 @@
    "dy": -3.27
   },
   {
-   "frm_component": 47,
-   "to_component": 41,
+   "frm_component": 49,
+   "to_component": 43,
    "kind": "jump",
    "frm": [
     3.5,
@@ -3967,8 +3984,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 47,
-   "to_component": 42,
+   "frm_component": 49,
+   "to_component": 44,
    "kind": "jump",
    "frm": [
     8.5,
@@ -3984,8 +4001,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 47,
-   "to_component": 43,
+   "frm_component": 49,
+   "to_component": 45,
    "kind": "jump",
    "frm": [
     3.5,
@@ -4001,8 +4018,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 47,
-   "to_component": 44,
+   "frm_component": 49,
+   "to_component": 46,
    "kind": "jump",
    "frm": [
     8.5,
@@ -4018,8 +4035,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 47,
-   "to_component": 45,
+   "frm_component": 49,
+   "to_component": 47,
    "kind": "jump",
    "frm": [
     3.5,
@@ -4035,8 +4052,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 47,
-   "to_component": 46,
+   "frm_component": 49,
+   "to_component": 48,
    "kind": "jump",
    "frm": [
     8.5,
@@ -4052,8 +4069,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 47,
-   "to_component": 48,
+   "frm_component": 49,
+   "to_component": 50,
    "kind": "jump",
    "frm": [
     8.5,
@@ -4069,8 +4086,8 @@
    "dy": -1.8
   },
   {
-   "frm_component": 48,
-   "to_component": 6,
+   "frm_component": 50,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     12.5,
@@ -4086,8 +4103,8 @@
    "dy": -1.42
   },
   {
-   "frm_component": 49,
-   "to_component": 30,
+   "frm_component": 51,
+   "to_component": 32,
    "kind": "jump",
    "frm": [
     40.5,
@@ -4103,8 +4120,8 @@
    "dy": 0.42
   },
   {
-   "frm_component": 49,
-   "to_component": 50,
+   "frm_component": 51,
+   "to_component": 52,
    "kind": "drop",
    "frm": [
     40.5,
@@ -4120,8 +4137,8 @@
    "dy": -0.48
   },
   {
-   "frm_component": 50,
-   "to_component": 30,
+   "frm_component": 52,
+   "to_component": 32,
    "kind": "jump",
    "frm": [
     40.5,
@@ -4137,8 +4154,8 @@
    "dy": 0.9
   },
   {
-   "frm_component": 50,
-   "to_component": 49,
+   "frm_component": 52,
+   "to_component": 51,
    "kind": "jump",
    "frm": [
     40.5,
@@ -4154,8 +4171,8 @@
    "dy": 0.48
   },
   {
-   "frm_component": 50,
-   "to_component": 56,
+   "frm_component": 52,
+   "to_component": 58,
    "kind": "drop",
    "frm": [
     40.5,
@@ -4171,8 +4188,8 @@
    "dy": -0.56
   },
   {
-   "frm_component": 51,
-   "to_component": 8,
+   "frm_component": 53,
+   "to_component": 10,
    "kind": "drop",
    "frm": [
     54.5,
@@ -4188,8 +4205,8 @@
    "dy": -2.7
   },
   {
-   "frm_component": 51,
-   "to_component": 56,
+   "frm_component": 53,
+   "to_component": 58,
    "kind": "drop",
    "frm": [
     49.5,
@@ -4205,8 +4222,8 @@
    "dy": -2.6
   },
   {
-   "frm_component": 56,
-   "to_component": 50,
+   "frm_component": 58,
+   "to_component": 52,
    "kind": "jump",
    "frm": [
     40.5,
@@ -4222,8 +4239,8 @@
    "dy": 0.56
   },
   {
-   "frm_component": 56,
-   "to_component": 101,
+   "frm_component": 58,
+   "to_component": 103,
    "kind": "drop",
    "frm": [
     43.5,
@@ -4239,8 +4256,8 @@
    "dy": -0.53
   },
   {
-   "frm_component": 56,
-   "to_component": 102,
+   "frm_component": 58,
+   "to_component": 105,
    "kind": "jump",
    "frm": [
     43.5,
@@ -4256,8 +4273,8 @@
    "dy": -1.1
   },
   {
-   "frm_component": 56,
-   "to_component": 103,
+   "frm_component": 58,
+   "to_component": 106,
    "kind": "jump",
    "frm": [
     43.5,
@@ -4273,8 +4290,8 @@
    "dy": -1.58
   },
   {
-   "frm_component": 56,
-   "to_component": 104,
+   "frm_component": 58,
+   "to_component": 107,
    "kind": "jump",
    "frm": [
     41.5,
@@ -4290,8 +4307,8 @@
    "dy": -2.04
   },
   {
-   "frm_component": 58,
-   "to_component": 56,
+   "frm_component": 60,
+   "to_component": 58,
    "kind": "drop",
    "frm": [
     38.5,
@@ -4307,8 +4324,8 @@
    "dy": -1.47
   },
   {
-   "frm_component": 59,
-   "to_component": 6,
+   "frm_component": 61,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -25.5,
@@ -4324,8 +4341,8 @@
    "dy": -3.29
   },
   {
-   "frm_component": 59,
-   "to_component": 60,
+   "frm_component": 61,
+   "to_component": 62,
    "kind": "jump",
    "frm": [
     -24.5,
@@ -4341,8 +4358,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 60,
-   "to_component": 6,
+   "frm_component": 62,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -21.5,
@@ -4358,8 +4375,8 @@
    "dy": -3.27
   },
   {
-   "frm_component": 60,
-   "to_component": 59,
+   "frm_component": 62,
+   "to_component": 61,
    "kind": "jump",
    "frm": [
     -21.5,
@@ -4375,8 +4392,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 60,
-   "to_component": 63,
+   "frm_component": 62,
+   "to_component": 65,
    "kind": "jump",
    "frm": [
     -21.5,
@@ -4392,8 +4409,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 61,
-   "to_component": 62,
+   "frm_component": 63,
+   "to_component": 64,
    "kind": "jump",
    "frm": [
     -21.5,
@@ -4409,8 +4426,8 @@
    "dy": -1.7
   },
   {
-   "frm_component": 63,
-   "to_component": 6,
+   "frm_component": 65,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -22.5,
@@ -4426,8 +4443,8 @@
    "dy": -3.27
   },
   {
-   "frm_component": 63,
-   "to_component": 60,
+   "frm_component": 65,
+   "to_component": 62,
    "kind": "jump",
    "frm": [
     -22.5,
@@ -4443,8 +4460,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 63,
-   "to_component": 77,
+   "frm_component": 65,
+   "to_component": 79,
    "kind": "jump",
    "frm": [
     -22.5,
@@ -4460,8 +4477,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 63,
-   "to_component": 78,
+   "frm_component": 65,
+   "to_component": 80,
    "kind": "jump",
    "frm": [
     -22.5,
@@ -4477,8 +4494,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 64,
-   "to_component": 6,
+   "frm_component": 66,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -17.5,
@@ -4494,25 +4511,25 @@
    "dy": -3.27
   },
   {
-   "frm_component": 64,
-   "to_component": 65,
+   "frm_component": 66,
+   "to_component": 67,
    "kind": "jump",
    "frm": [
     -17.5,
     13.0,
-    -170.5
+    -171.5
    ],
    "to": [
     -14.5,
     11.2,
-    -170.5
+    -171.5
    ],
    "horizontal": 3.0,
    "dy": -1.8
   },
   {
-   "frm_component": 64,
-   "to_component": 79,
+   "frm_component": 66,
+   "to_component": 81,
    "kind": "jump",
    "frm": [
     -17.5,
@@ -4528,8 +4545,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 65,
-   "to_component": 6,
+   "frm_component": 67,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -14.5,
@@ -4545,8 +4562,8 @@
    "dy": -1.47
   },
   {
-   "frm_component": 66,
-   "to_component": 6,
+   "frm_component": 68,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -4.5,
@@ -4562,8 +4579,8 @@
    "dy": -3.27
   },
   {
-   "frm_component": 66,
-   "to_component": 69,
+   "frm_component": 68,
+   "to_component": 71,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -4579,8 +4596,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 68,
-   "to_component": 6,
+   "frm_component": 70,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -2.5,
@@ -4596,8 +4613,8 @@
    "dy": -3.27
   },
   {
-   "frm_component": 68,
-   "to_component": 70,
+   "frm_component": 70,
+   "to_component": 72,
    "kind": "jump",
    "frm": [
     -2.5,
@@ -4613,8 +4630,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 69,
-   "to_component": 6,
+   "frm_component": 71,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -5.5,
@@ -4630,8 +4647,8 @@
    "dy": -3.27
   },
   {
-   "frm_component": 69,
-   "to_component": 66,
+   "frm_component": 71,
+   "to_component": 68,
    "kind": "jump",
    "frm": [
     -5.5,
@@ -4647,8 +4664,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 69,
-   "to_component": 80,
+   "frm_component": 71,
+   "to_component": 82,
    "kind": "jump",
    "frm": [
     -5.5,
@@ -4664,8 +4681,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 70,
-   "to_component": 6,
+   "frm_component": 72,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -1.5,
@@ -4681,8 +4698,8 @@
    "dy": -3.27
   },
   {
-   "frm_component": 70,
-   "to_component": 68,
+   "frm_component": 72,
+   "to_component": 70,
    "kind": "jump",
    "frm": [
     -1.5,
@@ -4698,8 +4715,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 70,
-   "to_component": 81,
+   "frm_component": 72,
+   "to_component": 83,
    "kind": "jump",
    "frm": [
     -1.5,
@@ -4715,8 +4732,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 70,
-   "to_component": 89,
+   "frm_component": 72,
+   "to_component": 92,
    "kind": "jump",
    "frm": [
     -1.5,
@@ -4732,8 +4749,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 71,
-   "to_component": 75,
+   "frm_component": 73,
+   "to_component": 77,
    "kind": "jump",
    "frm": [
     28.5,
@@ -4749,8 +4766,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 71,
-   "to_component": 83,
+   "frm_component": 73,
+   "to_component": 85,
    "kind": "jump",
    "frm": [
     28.5,
@@ -4766,8 +4783,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 72,
-   "to_component": 6,
+   "frm_component": 74,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -27.5,
@@ -4783,8 +4800,8 @@
    "dy": -3.25
   },
   {
-   "frm_component": 72,
-   "to_component": 76,
+   "frm_component": 74,
+   "to_component": 78,
    "kind": "jump",
    "frm": [
     -27.5,
@@ -4800,8 +4817,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 73,
-   "to_component": 82,
+   "frm_component": 75,
+   "to_component": 84,
    "kind": "jump",
    "frm": [
     25.5,
@@ -4817,8 +4834,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 75,
-   "to_component": 71,
+   "frm_component": 77,
+   "to_component": 73,
    "kind": "jump",
    "frm": [
     29.5,
@@ -4834,8 +4851,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 75,
-   "to_component": 83,
+   "frm_component": 77,
+   "to_component": 85,
    "kind": "jump",
    "frm": [
     30.5,
@@ -4851,8 +4868,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 76,
-   "to_component": 6,
+   "frm_component": 78,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -26.5,
@@ -4868,8 +4885,8 @@
    "dy": -3.25
   },
   {
-   "frm_component": 76,
-   "to_component": 72,
+   "frm_component": 78,
+   "to_component": 74,
    "kind": "jump",
    "frm": [
     -26.5,
@@ -4885,8 +4902,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 77,
-   "to_component": 6,
+   "frm_component": 79,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -23.5,
@@ -4902,8 +4919,8 @@
    "dy": -3.27
   },
   {
-   "frm_component": 77,
-   "to_component": 63,
+   "frm_component": 79,
+   "to_component": 65,
    "kind": "jump",
    "frm": [
     -23.5,
@@ -4916,79 +4933,79 @@
     -169.5
    ],
    "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 77,
-   "to_component": 78,
-   "kind": "jump",
-   "frm": [
-    -23.5,
-    13.0,
-    -168.5
-   ],
-   "to": [
-    -21.5,
-    13.0,
-    -168.5
-   ],
-   "horizontal": 2.0,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 78,
-   "to_component": 6,
-   "kind": "drop",
-   "frm": [
-    -21.5,
-    13.0,
-    -168.5
-   ],
-   "to": [
-    -22.5,
-    9.73,
-    -168.5
-   ],
-   "horizontal": 1.0,
-   "dy": -3.27
-  },
-  {
-   "frm_component": 78,
-   "to_component": 63,
-   "kind": "jump",
-   "frm": [
-    -21.5,
-    13.0,
-    -168.5
-   ],
-   "to": [
-    -22.5,
-    13.0,
-    -169.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 78,
-   "to_component": 77,
-   "kind": "jump",
-   "frm": [
-    -21.5,
-    13.0,
-    -168.5
-   ],
-   "to": [
-    -23.5,
-    13.0,
-    -168.5
-   ],
-   "horizontal": 2.0,
    "dy": 0.0
   },
   {
    "frm_component": 79,
-   "to_component": 6,
+   "to_component": 80,
+   "kind": "jump",
+   "frm": [
+    -23.5,
+    13.0,
+    -168.5
+   ],
+   "to": [
+    -21.5,
+    13.0,
+    -168.5
+   ],
+   "horizontal": 2.0,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 80,
+   "to_component": 8,
+   "kind": "drop",
+   "frm": [
+    -21.5,
+    13.0,
+    -168.5
+   ],
+   "to": [
+    -22.5,
+    9.73,
+    -168.5
+   ],
+   "horizontal": 1.0,
+   "dy": -3.27
+  },
+  {
+   "frm_component": 80,
+   "to_component": 65,
+   "kind": "jump",
+   "frm": [
+    -21.5,
+    13.0,
+    -168.5
+   ],
+   "to": [
+    -22.5,
+    13.0,
+    -169.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 80,
+   "to_component": 79,
+   "kind": "jump",
+   "frm": [
+    -21.5,
+    13.0,
+    -168.5
+   ],
+   "to": [
+    -23.5,
+    13.0,
+    -168.5
+   ],
+   "horizontal": 2.0,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 81,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -18.5,
@@ -5004,8 +5021,8 @@
    "dy": -3.28
   },
   {
-   "frm_component": 79,
-   "to_component": 64,
+   "frm_component": 81,
+   "to_component": 66,
    "kind": "jump",
    "frm": [
     -18.5,
@@ -5021,8 +5038,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 79,
-   "to_component": 65,
+   "frm_component": 81,
+   "to_component": 67,
    "kind": "jump",
    "frm": [
     -18.5,
@@ -5038,8 +5055,8 @@
    "dy": -1.8
   },
   {
-   "frm_component": 80,
-   "to_component": 6,
+   "frm_component": 82,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -4.5,
@@ -5055,8 +5072,8 @@
    "dy": -3.27
   },
   {
-   "frm_component": 80,
-   "to_component": 69,
+   "frm_component": 82,
+   "to_component": 71,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -5072,8 +5089,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 80,
-   "to_component": 87,
+   "frm_component": 82,
+   "to_component": 90,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -5089,8 +5106,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 80,
-   "to_component": 89,
+   "frm_component": 82,
+   "to_component": 92,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -5106,8 +5123,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 81,
-   "to_component": 6,
+   "frm_component": 83,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -2.5,
@@ -5123,8 +5140,8 @@
    "dy": -3.27
   },
   {
-   "frm_component": 81,
-   "to_component": 70,
+   "frm_component": 83,
+   "to_component": 72,
    "kind": "jump",
    "frm": [
     -2.5,
@@ -5140,8 +5157,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 81,
-   "to_component": 87,
+   "frm_component": 83,
+   "to_component": 90,
    "kind": "jump",
    "frm": [
     -2.5,
@@ -5157,8 +5174,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 81,
-   "to_component": 89,
+   "frm_component": 83,
+   "to_component": 92,
    "kind": "jump",
    "frm": [
     -2.5,
@@ -5174,8 +5191,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 82,
-   "to_component": 73,
+   "frm_component": 84,
+   "to_component": 75,
    "kind": "jump",
    "frm": [
     24.5,
@@ -5191,8 +5208,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 82,
-   "to_component": 85,
+   "frm_component": 84,
+   "to_component": 87,
    "kind": "jump",
    "frm": [
     24.5,
@@ -5208,8 +5225,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 83,
-   "to_component": 71,
+   "frm_component": 85,
+   "to_component": 73,
    "kind": "jump",
    "frm": [
     31.5,
@@ -5225,8 +5242,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 83,
-   "to_component": 75,
+   "frm_component": 85,
+   "to_component": 77,
    "kind": "jump",
    "frm": [
     31.5,
@@ -5242,8 +5259,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 84,
-   "to_component": 56,
+   "frm_component": 86,
+   "to_component": 58,
    "kind": "drop",
    "frm": [
     44.5,
@@ -5259,8 +5276,8 @@
    "dy": -1.47
   },
   {
-   "frm_component": 85,
-   "to_component": 82,
+   "frm_component": 87,
+   "to_component": 84,
    "kind": "jump",
    "frm": [
     23.5,
@@ -5276,8 +5293,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 86,
-   "to_component": 90,
+   "frm_component": 89,
+   "to_component": 93,
    "kind": "jump",
    "frm": [
     32.5,
@@ -5293,8 +5310,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 86,
-   "to_component": 96,
+   "frm_component": 89,
+   "to_component": 99,
    "kind": "jump",
    "frm": [
     32.5,
@@ -5310,8 +5327,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 87,
-   "to_component": 6,
+   "frm_component": 90,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -4.5,
@@ -5327,8 +5344,8 @@
    "dy": -3.27
   },
   {
-   "frm_component": 87,
-   "to_component": 80,
+   "frm_component": 90,
+   "to_component": 82,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -5344,8 +5361,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 87,
-   "to_component": 81,
+   "frm_component": 90,
+   "to_component": 83,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -5361,8 +5378,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 87,
-   "to_component": 91,
+   "frm_component": 90,
+   "to_component": 94,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -5378,8 +5395,8 @@
    "dy": -1.8
   },
   {
-   "frm_component": 88,
-   "to_component": 67,
+   "frm_component": 91,
+   "to_component": 69,
    "kind": "jump",
    "frm": [
     -3.5,
@@ -5395,8 +5412,8 @@
    "dy": -2.0
   },
   {
-   "frm_component": 89,
-   "to_component": 6,
+   "frm_component": 92,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -2.5,
@@ -5412,8 +5429,8 @@
    "dy": -3.27
   },
   {
-   "frm_component": 89,
-   "to_component": 70,
+   "frm_component": 92,
+   "to_component": 72,
    "kind": "jump",
    "frm": [
     -1.5,
@@ -5429,8 +5446,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 89,
-   "to_component": 80,
+   "frm_component": 92,
+   "to_component": 82,
    "kind": "jump",
    "frm": [
     -2.5,
@@ -5446,8 +5463,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 89,
-   "to_component": 81,
+   "frm_component": 92,
+   "to_component": 83,
    "kind": "jump",
    "frm": [
     -2.5,
@@ -5463,8 +5480,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 90,
-   "to_component": 86,
+   "frm_component": 93,
+   "to_component": 89,
    "kind": "jump",
    "frm": [
     31.5,
@@ -5480,8 +5497,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 90,
-   "to_component": 96,
+   "frm_component": 93,
+   "to_component": 99,
    "kind": "jump",
    "frm": [
     31.5,
@@ -5497,25 +5514,25 @@
    "dy": 0.0
   },
   {
-   "frm_component": 91,
-   "to_component": 6,
+   "frm_component": 94,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -8.5,
     11.2,
-    -163.5
+    -162.5
    ],
    "to": [
     -9.5,
-    9.7,
-    -163.5
+    9.73,
+    -162.5
    ],
    "horizontal": 1.0,
-   "dy": -1.5
+   "dy": -1.47
   },
   {
-   "frm_component": 92,
-   "to_component": 95,
+   "frm_component": 95,
+   "to_component": 98,
    "kind": "jump",
    "frm": [
     24.5,
@@ -5531,8 +5548,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 93,
-   "to_component": 6,
+   "frm_component": 96,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -5.5,
@@ -5548,8 +5565,8 @@
    "dy": -3.27
   },
   {
-   "frm_component": 93,
-   "to_component": 91,
+   "frm_component": 96,
+   "to_component": 94,
    "kind": "drop",
    "frm": [
     -5.5,
@@ -5565,8 +5582,8 @@
    "dy": -1.8
   },
   {
-   "frm_component": 93,
-   "to_component": 99,
+   "frm_component": 96,
+   "to_component": 101,
    "kind": "jump",
    "frm": [
     -5.5,
@@ -5582,8 +5599,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 94,
-   "to_component": 6,
+   "frm_component": 97,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -0.5,
@@ -5599,8 +5616,8 @@
    "dy": -3.33
   },
   {
-   "frm_component": 95,
-   "to_component": 92,
+   "frm_component": 98,
+   "to_component": 95,
    "kind": "jump",
    "frm": [
     25.5,
@@ -5616,8 +5633,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 95,
-   "to_component": 97,
+   "frm_component": 98,
+   "to_component": 100,
    "kind": "jump",
    "frm": [
     26.5,
@@ -5633,8 +5650,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 96,
-   "to_component": 86,
+   "frm_component": 99,
+   "to_component": 89,
    "kind": "jump",
    "frm": [
     30.5,
@@ -5650,8 +5667,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 96,
-   "to_component": 90,
+   "frm_component": 99,
+   "to_component": 93,
    "kind": "jump",
    "frm": [
     30.5,
@@ -5667,8 +5684,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 97,
-   "to_component": 95,
+   "frm_component": 100,
+   "to_component": 98,
    "kind": "jump",
    "frm": [
     27.5,
@@ -5684,8 +5701,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 99,
-   "to_component": 6,
+   "frm_component": 101,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -4.5,
@@ -5701,8 +5718,8 @@
    "dy": -3.27
   },
   {
-   "frm_component": 99,
-   "to_component": 91,
+   "frm_component": 101,
+   "to_component": 94,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -5718,8 +5735,8 @@
    "dy": -1.8
   },
   {
-   "frm_component": 99,
-   "to_component": 93,
+   "frm_component": 101,
+   "to_component": 96,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -5735,8 +5752,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 100,
-   "to_component": 6,
+   "frm_component": 102,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -1.5,
@@ -5752,8 +5769,8 @@
    "dy": -3.3
   },
   {
-   "frm_component": 101,
-   "to_component": 56,
+   "frm_component": 103,
+   "to_component": 58,
    "kind": "jump",
    "frm": [
     42.5,
@@ -5769,8 +5786,8 @@
    "dy": 0.48
   },
   {
-   "frm_component": 101,
-   "to_component": 102,
+   "frm_component": 103,
+   "to_component": 105,
    "kind": "drop",
    "frm": [
     42.5,
@@ -5786,8 +5803,8 @@
    "dy": -0.55
   },
   {
-   "frm_component": 101,
-   "to_component": 103,
+   "frm_component": 103,
+   "to_component": 106,
    "kind": "jump",
    "frm": [
     42.5,
@@ -5803,8 +5820,8 @@
    "dy": -1.11
   },
   {
-   "frm_component": 101,
-   "to_component": 104,
+   "frm_component": 103,
+   "to_component": 107,
    "kind": "jump",
    "frm": [
     41.5,
@@ -5820,8 +5837,8 @@
    "dy": -1.51
   },
   {
-   "frm_component": 101,
-   "to_component": 105,
+   "frm_component": 103,
+   "to_component": 108,
    "kind": "jump",
    "frm": [
     42.5,
@@ -5837,8 +5854,8 @@
    "dy": -2.8
   },
   {
-   "frm_component": 102,
-   "to_component": 56,
+   "frm_component": 105,
+   "to_component": 58,
    "kind": "jump",
    "frm": [
     43.5,
@@ -5854,8 +5871,8 @@
    "dy": 1.1
   },
   {
-   "frm_component": 102,
-   "to_component": 101,
+   "frm_component": 105,
+   "to_component": 103,
    "kind": "jump",
    "frm": [
     43.5,
@@ -5871,8 +5888,8 @@
    "dy": 0.57
   },
   {
-   "frm_component": 102,
-   "to_component": 103,
+   "frm_component": 105,
+   "to_component": 106,
    "kind": "drop",
    "frm": [
     43.5,
@@ -5888,8 +5905,8 @@
    "dy": -0.47
   },
   {
-   "frm_component": 102,
-   "to_component": 104,
+   "frm_component": 105,
+   "to_component": 107,
    "kind": "jump",
    "frm": [
     41.5,
@@ -5905,8 +5922,8 @@
    "dy": -0.99
   },
   {
-   "frm_component": 102,
-   "to_component": 105,
+   "frm_component": 105,
+   "to_component": 108,
    "kind": "jump",
    "frm": [
     43.5,
@@ -5922,8 +5939,8 @@
    "dy": -2.13
   },
   {
-   "frm_component": 102,
-   "to_component": 106,
+   "frm_component": 105,
+   "to_component": 109,
    "kind": "jump",
    "frm": [
     43.5,
@@ -5939,8 +5956,8 @@
    "dy": -2.7
   },
   {
-   "frm_component": 103,
-   "to_component": 101,
+   "frm_component": 106,
+   "to_component": 103,
    "kind": "jump",
    "frm": [
     41.5,
@@ -5956,8 +5973,8 @@
    "dy": 1.1
   },
   {
-   "frm_component": 103,
-   "to_component": 102,
+   "frm_component": 106,
+   "to_component": 105,
    "kind": "jump",
    "frm": [
     41.5,
@@ -5973,8 +5990,8 @@
    "dy": 0.58
   },
   {
-   "frm_component": 103,
-   "to_component": 104,
+   "frm_component": 106,
+   "to_component": 107,
    "kind": "drop",
    "frm": [
     41.5,
@@ -5990,8 +6007,8 @@
    "dy": -0.41
   },
   {
-   "frm_component": 103,
-   "to_component": 105,
+   "frm_component": 106,
+   "to_component": 108,
    "kind": "jump",
    "frm": [
     43.5,
@@ -6007,8 +6024,8 @@
    "dy": -1.65
   },
   {
-   "frm_component": 103,
-   "to_component": 106,
+   "frm_component": 106,
+   "to_component": 109,
    "kind": "jump",
    "frm": [
     43.5,
@@ -6024,8 +6041,8 @@
    "dy": -2.23
   },
   {
-   "frm_component": 103,
-   "to_component": 107,
+   "frm_component": 106,
+   "to_component": 110,
    "kind": "jump",
    "frm": [
     43.5,
@@ -6041,42 +6058,42 @@
    "dy": -2.82
   },
   {
-   "frm_component": 104,
-   "to_component": 102,
+   "frm_component": 107,
+   "to_component": 105,
    "kind": "jump",
    "frm": [
-    42.5,
-    11.64,
+    43.5,
+    11.63,
     -156.5
    ],
    "to": [
-    42.5,
-    12.74,
+    43.5,
+    12.67,
     -158.5
    ],
    "horizontal": 2.0,
-   "dy": 1.1
+   "dy": 1.04
   },
   {
-   "frm_component": 104,
-   "to_component": 103,
+   "frm_component": 107,
+   "to_component": 106,
    "kind": "jump",
    "frm": [
-    42.5,
-    11.64,
+    43.5,
+    11.63,
     -156.5
    ],
    "to": [
-    42.5,
-    12.18,
+    43.5,
+    12.2,
     -157.5
    ],
    "horizontal": 1.0,
-   "dy": 0.54
+   "dy": 0.57
   },
   {
-   "frm_component": 104,
-   "to_component": 105,
+   "frm_component": 107,
+   "to_component": 108,
    "kind": "drop",
    "frm": [
     43.5,
@@ -6092,8 +6109,8 @@
    "dy": -0.49
   },
   {
-   "frm_component": 104,
-   "to_component": 106,
+   "frm_component": 107,
+   "to_component": 109,
    "kind": "jump",
    "frm": [
     43.5,
@@ -6109,8 +6126,8 @@
    "dy": -1.07
   },
   {
-   "frm_component": 104,
-   "to_component": 107,
+   "frm_component": 107,
+   "to_component": 110,
    "kind": "jump",
    "frm": [
     43.5,
@@ -6126,8 +6143,8 @@
    "dy": -1.66
   },
   {
-   "frm_component": 104,
-   "to_component": 109,
+   "frm_component": 107,
+   "to_component": 112,
    "kind": "jump",
    "frm": [
     43.5,
@@ -6143,8 +6160,8 @@
    "dy": -2.19
   },
   {
-   "frm_component": 104,
-   "to_component": 110,
+   "frm_component": 107,
+   "to_component": 113,
    "kind": "jump",
    "frm": [
     41.5,
@@ -6160,178 +6177,178 @@
    "dy": -3.64
   },
   {
-   "frm_component": 105,
-   "to_component": 104,
+   "frm_component": 108,
+   "to_component": 107,
    "kind": "jump",
    "frm": [
-    43.5,
-    10.55,
+    42.5,
+    10.48,
     -154.5
    ],
    "to": [
-    43.5,
-    11.04,
+    42.5,
+    11.09,
     -155.5
    ],
    "horizontal": 1.0,
-   "dy": 0.49
+   "dy": 0.61
   },
   {
-   "frm_component": 105,
-   "to_component": 106,
+   "frm_component": 108,
+   "to_component": 109,
    "kind": "drop",
    "frm": [
-    43.5,
-    10.55,
+    42.5,
+    10.48,
     -154.5
    ],
    "to": [
-    43.5,
+    42.5,
     9.97,
     -153.5
    ],
    "horizontal": 1.0,
-   "dy": -0.58
+   "dy": -0.52
   },
   {
-   "frm_component": 105,
-   "to_component": 107,
-   "kind": "jump",
-   "frm": [
-    43.5,
-    10.55,
-    -154.5
-   ],
-   "to": [
-    43.5,
-    9.38,
-    -152.5
-   ],
-   "horizontal": 2.0,
-   "dy": -1.17
-  },
-  {
-   "frm_component": 105,
-   "to_component": 109,
-   "kind": "jump",
-   "frm": [
-    43.5,
-    10.55,
-    -154.5
-   ],
-   "to": [
-    43.5,
-    8.85,
-    -151.5
-   ],
-   "horizontal": 3.0,
-   "dy": -1.7
-  },
-  {
-   "frm_component": 105,
+   "frm_component": 108,
    "to_component": 110,
    "kind": "jump",
    "frm": [
-    43.5,
-    10.55,
+    42.5,
+    10.48,
     -154.5
    ],
    "to": [
-    43.5,
-    8.22,
+    42.5,
+    9.45,
+    -152.5
+   ],
+   "horizontal": 2.0,
+   "dy": -1.03
+  },
+  {
+   "frm_component": 108,
+   "to_component": 112,
+   "kind": "jump",
+   "frm": [
+    42.5,
+    10.48,
+    -154.5
+   ],
+   "to": [
+    42.5,
+    8.81,
+    -151.5
+   ],
+   "horizontal": 3.0,
+   "dy": -1.67
+  },
+  {
+   "frm_component": 108,
+   "to_component": 113,
+   "kind": "jump",
+   "frm": [
+    42.5,
+    10.48,
+    -154.5
+   ],
+   "to": [
+    42.5,
+    8.2,
     -150.5
    ],
    "horizontal": 4.0,
-   "dy": -2.32
+   "dy": -2.28
   },
   {
-   "frm_component": 106,
-   "to_component": 104,
+   "frm_component": 109,
+   "to_component": 107,
    "kind": "jump",
    "frm": [
-    43.5,
+    42.5,
     9.97,
     -153.5
    ],
    "to": [
-    43.5,
-    11.04,
+    42.5,
+    11.09,
     -155.5
    ],
    "horizontal": 2.0,
-   "dy": 1.07
+   "dy": 1.12
   },
   {
-   "frm_component": 106,
-   "to_component": 105,
+   "frm_component": 109,
+   "to_component": 108,
    "kind": "jump",
    "frm": [
-    43.5,
+    42.5,
     9.97,
     -153.5
    ],
    "to": [
-    43.5,
-    10.55,
+    42.5,
+    10.48,
     -154.5
    ],
    "horizontal": 1.0,
-   "dy": 0.58
+   "dy": 0.52
   },
   {
-   "frm_component": 106,
-   "to_component": 107,
+   "frm_component": 109,
+   "to_component": 110,
    "kind": "drop",
    "frm": [
-    43.5,
+    42.5,
     9.97,
     -153.5
    ],
    "to": [
-    43.5,
-    9.38,
+    42.5,
+    9.45,
     -152.5
    ],
    "horizontal": 1.0,
-   "dy": -0.59
+   "dy": -0.52
   },
   {
-   "frm_component": 106,
-   "to_component": 109,
+   "frm_component": 109,
+   "to_component": 112,
    "kind": "jump",
    "frm": [
-    43.5,
+    42.5,
     9.97,
     -153.5
    ],
    "to": [
-    43.5,
-    8.85,
+    42.5,
+    8.81,
     -151.5
    ],
    "horizontal": 2.0,
-   "dy": -1.12
+   "dy": -1.15
   },
   {
-   "frm_component": 106,
-   "to_component": 110,
+   "frm_component": 109,
+   "to_component": 113,
    "kind": "jump",
    "frm": [
-    43.5,
+    42.5,
     9.97,
     -153.5
    ],
    "to": [
-    43.5,
-    8.22,
+    42.5,
+    8.2,
     -150.5
    ],
    "horizontal": 3.0,
-   "dy": -1.75
+   "dy": -1.77
   },
   {
-   "frm_component": 107,
-   "to_component": 105,
+   "frm_component": 110,
+   "to_component": 108,
    "kind": "jump",
    "frm": [
     42.5,
@@ -6347,8 +6364,8 @@
    "dy": 1.03
   },
   {
-   "frm_component": 107,
-   "to_component": 106,
+   "frm_component": 110,
+   "to_component": 109,
    "kind": "jump",
    "frm": [
     42.5,
@@ -6364,8 +6381,8 @@
    "dy": 0.52
   },
   {
-   "frm_component": 107,
-   "to_component": 109,
+   "frm_component": 110,
+   "to_component": 112,
    "kind": "drop",
    "frm": [
     42.5,
@@ -6381,8 +6398,8 @@
    "dy": -0.64
   },
   {
-   "frm_component": 107,
-   "to_component": 110,
+   "frm_component": 110,
+   "to_component": 113,
    "kind": "jump",
    "frm": [
     42.5,
@@ -6398,8 +6415,8 @@
    "dy": -1.25
   },
   {
-   "frm_component": 108,
-   "to_component": 147,
+   "frm_component": 111,
+   "to_component": 149,
    "kind": "jump",
    "frm": [
     -22.5,
@@ -6415,8 +6432,8 @@
    "dy": -5.44
   },
   {
-   "frm_component": 108,
-   "to_component": 155,
+   "frm_component": 111,
+   "to_component": 157,
    "kind": "drop",
    "frm": [
     -55.5,
@@ -6432,8 +6449,8 @@
    "dy": -3.4
   },
   {
-   "frm_component": 109,
-   "to_component": 106,
+   "frm_component": 112,
+   "to_component": 109,
    "kind": "jump",
    "frm": [
     43.5,
@@ -6449,8 +6466,8 @@
    "dy": 1.12
   },
   {
-   "frm_component": 109,
-   "to_component": 107,
+   "frm_component": 112,
+   "to_component": 110,
    "kind": "jump",
    "frm": [
     43.5,
@@ -6466,8 +6483,8 @@
    "dy": 0.53
   },
   {
-   "frm_component": 109,
-   "to_component": 110,
+   "frm_component": 112,
+   "to_component": 113,
    "kind": "drop",
    "frm": [
     43.5,
@@ -6483,8 +6500,8 @@
    "dy": -0.63
   },
   {
-   "frm_component": 110,
-   "to_component": 107,
+   "frm_component": 113,
+   "to_component": 110,
    "kind": "jump",
    "frm": [
     43.5,
@@ -6500,59 +6517,59 @@
    "dy": 1.15
   },
   {
-   "frm_component": 110,
-   "to_component": 109,
+   "frm_component": 113,
+   "to_component": 112,
    "kind": "jump",
    "frm": [
-    43.5,
-    8.22,
+    42.5,
+    8.2,
     -150.5
    ],
    "to": [
-    43.5,
-    8.85,
+    42.5,
+    8.81,
     -151.5
    ],
    "horizontal": 1.0,
-   "dy": 0.63
+   "dy": 0.61
   },
   {
-   "frm_component": 112,
-   "to_component": 6,
+   "frm_component": 114,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -39.5,
-    12.3,
-    -142.5
+    12.22,
+    -143.5
    ],
    "to": [
     -40.5,
-    9.69,
-    -142.5
+    9.72,
+    -143.5
    ],
    "horizontal": 1.0,
-   "dy": -2.61
+   "dy": -2.5
   },
   {
-   "frm_component": 112,
-   "to_component": 118,
+   "frm_component": 114,
+   "to_component": 120,
    "kind": "jump",
    "frm": [
-    -38.5,
-    12.36,
+    -39.5,
+    12.15,
     -141.5
    ],
    "to": [
-    -38.5,
+    -39.5,
     11.2,
     -138.5
    ],
    "horizontal": 3.0,
-   "dy": -1.16
+   "dy": -0.95
   },
   {
-   "frm_component": 113,
-   "to_component": 108,
+   "frm_component": 115,
+   "to_component": 111,
    "kind": "drop",
    "frm": [
     -22.5,
@@ -6568,8 +6585,8 @@
    "dy": -2.71
   },
   {
-   "frm_component": 113,
-   "to_component": 114,
+   "frm_component": 115,
+   "to_component": 116,
    "kind": "jump",
    "frm": [
     -22.5,
@@ -6585,8 +6602,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 113,
-   "to_component": 116,
+   "frm_component": 115,
+   "to_component": 118,
    "kind": "jump",
    "frm": [
     -21.5,
@@ -6602,8 +6619,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 114,
-   "to_component": 108,
+   "frm_component": 116,
+   "to_component": 111,
    "kind": "drop",
    "frm": [
     -23.5,
@@ -6619,8 +6636,8 @@
    "dy": -2.71
   },
   {
-   "frm_component": 114,
-   "to_component": 113,
+   "frm_component": 116,
+   "to_component": 115,
    "kind": "jump",
    "frm": [
     -23.5,
@@ -6636,8 +6653,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 114,
-   "to_component": 119,
+   "frm_component": 116,
+   "to_component": 121,
    "kind": "jump",
    "frm": [
     -23.5,
@@ -6653,8 +6670,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 115,
-   "to_component": 113,
+   "frm_component": 117,
+   "to_component": 115,
    "kind": "drop",
    "frm": [
     -22.5,
@@ -6670,8 +6687,8 @@
    "dy": -4.53
   },
   {
-   "frm_component": 115,
-   "to_component": 114,
+   "frm_component": 117,
+   "to_component": 116,
    "kind": "drop",
    "frm": [
     -22.5,
@@ -6687,8 +6704,8 @@
    "dy": -4.53
   },
   {
-   "frm_component": 115,
-   "to_component": 116,
+   "frm_component": 117,
+   "to_component": 118,
    "kind": "drop",
    "frm": [
     -21.5,
@@ -6704,8 +6721,8 @@
    "dy": -4.53
   },
   {
-   "frm_component": 115,
-   "to_component": 119,
+   "frm_component": 117,
+   "to_component": 121,
    "kind": "drop",
    "frm": [
     -22.5,
@@ -6721,8 +6738,8 @@
    "dy": -4.53
   },
   {
-   "frm_component": 116,
-   "to_component": 108,
+   "frm_component": 118,
+   "to_component": 111,
    "kind": "jump",
    "frm": [
     -20.5,
@@ -6738,8 +6755,8 @@
    "dy": -2.71
   },
   {
-   "frm_component": 116,
-   "to_component": 113,
+   "frm_component": 118,
+   "to_component": 115,
    "kind": "jump",
    "frm": [
     -20.5,
@@ -6755,8 +6772,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 116,
-   "to_component": 119,
+   "frm_component": 118,
+   "to_component": 121,
    "kind": "jump",
    "frm": [
     -20.5,
@@ -6772,8 +6789,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 117,
-   "to_component": 110,
+   "frm_component": 119,
+   "to_component": 113,
    "kind": "drop",
    "frm": [
     43.5,
@@ -6789,8 +6806,8 @@
    "dy": -1.51
   },
   {
-   "frm_component": 118,
-   "to_component": 6,
+   "frm_component": 120,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -39.5,
@@ -6806,25 +6823,25 @@
    "dy": -1.45
   },
   {
-   "frm_component": 118,
-   "to_component": 112,
+   "frm_component": 120,
+   "to_component": 114,
    "kind": "jump",
    "frm": [
-    -38.5,
+    -39.5,
     11.2,
     -138.5
    ],
    "to": [
-    -38.5,
-    12.36,
+    -39.5,
+    12.15,
     -141.5
    ],
    "horizontal": 3.0,
-   "dy": 1.16
+   "dy": 0.95
   },
   {
-   "frm_component": 119,
-   "to_component": 108,
+   "frm_component": 121,
+   "to_component": 111,
    "kind": "drop",
    "frm": [
     -22.5,
@@ -6840,8 +6857,8 @@
    "dy": -2.71
   },
   {
-   "frm_component": 119,
-   "to_component": 114,
+   "frm_component": 121,
+   "to_component": 116,
    "kind": "jump",
    "frm": [
     -22.5,
@@ -6857,8 +6874,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 119,
-   "to_component": 116,
+   "frm_component": 121,
+   "to_component": 118,
    "kind": "jump",
    "frm": [
     -21.5,
@@ -6874,25 +6891,25 @@
    "dy": 0.0
   },
   {
-   "frm_component": 120,
-   "to_component": 123,
+   "frm_component": 122,
+   "to_component": 125,
    "kind": "jump",
    "frm": [
-    -53.5,
+    -54.5,
     13.18,
     -133.5
    ],
    "to": [
-    -53.5,
-    13.14,
+    -54.5,
+    13.09,
     -128.5
    ],
    "horizontal": 5.0,
-   "dy": -0.04
+   "dy": -0.09
   },
   {
-   "frm_component": 121,
-   "to_component": 142,
+   "frm_component": 123,
+   "to_component": 144,
    "kind": "jump",
    "frm": [
     55.5,
@@ -6908,12 +6925,12 @@
    "dy": 0.7
   },
   {
-   "frm_component": 123,
-   "to_component": 120,
+   "frm_component": 125,
+   "to_component": 122,
    "kind": "jump",
    "frm": [
     -54.5,
-    13.14,
+    13.09,
     -128.5
    ],
    "to": [
@@ -6922,11 +6939,11 @@
     -133.5
    ],
    "horizontal": 5.0,
-   "dy": 0.04
+   "dy": 0.09
   },
   {
-   "frm_component": 124,
-   "to_component": 108,
+   "frm_component": 126,
+   "to_component": 111,
    "kind": "drop",
    "frm": [
     -24.5,
@@ -6942,8 +6959,8 @@
    "dy": -3.76
   },
   {
-   "frm_component": 125,
-   "to_component": 129,
+   "frm_component": 127,
+   "to_component": 131,
    "kind": "jump",
    "frm": [
     24.5,
@@ -6959,8 +6976,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 125,
-   "to_component": 132,
+   "frm_component": 127,
+   "to_component": 134,
    "kind": "jump",
    "frm": [
     21.5,
@@ -6976,8 +6993,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 125,
-   "to_component": 133,
+   "frm_component": 127,
+   "to_component": 135,
    "kind": "jump",
    "frm": [
     24.5,
@@ -6993,8 +7010,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 127,
-   "to_component": 126,
+   "frm_component": 129,
+   "to_component": 128,
    "kind": "drop",
    "frm": [
     22.5,
@@ -7010,8 +7027,8 @@
    "dy": -5.0
   },
   {
-   "frm_component": 129,
-   "to_component": 125,
+   "frm_component": 131,
+   "to_component": 127,
    "kind": "jump",
    "frm": [
     25.5,
@@ -7027,8 +7044,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 129,
-   "to_component": 133,
+   "frm_component": 131,
+   "to_component": 135,
    "kind": "jump",
    "frm": [
     26.5,
@@ -7044,8 +7061,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 131,
-   "to_component": 130,
+   "frm_component": 133,
+   "to_component": 132,
    "kind": "drop",
    "frm": [
     25.5,
@@ -7061,8 +7078,8 @@
    "dy": -5.0
   },
   {
-   "frm_component": 132,
-   "to_component": 125,
+   "frm_component": 134,
+   "to_component": 127,
    "kind": "jump",
    "frm": [
     20.5,
@@ -7078,8 +7095,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 132,
-   "to_component": 139,
+   "frm_component": 134,
+   "to_component": 141,
    "kind": "jump",
    "frm": [
     20.5,
@@ -7095,8 +7112,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 133,
-   "to_component": 125,
+   "frm_component": 135,
+   "to_component": 127,
    "kind": "jump",
    "frm": [
     27.5,
@@ -7112,8 +7129,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 133,
-   "to_component": 129,
+   "frm_component": 135,
+   "to_component": 131,
    "kind": "jump",
    "frm": [
     27.5,
@@ -7129,8 +7146,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 133,
-   "to_component": 143,
+   "frm_component": 135,
+   "to_component": 145,
    "kind": "jump",
    "frm": [
     28.5,
@@ -7146,8 +7163,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 133,
-   "to_component": 152,
+   "frm_component": 135,
+   "to_component": 154,
    "kind": "jump",
    "frm": [
     28.5,
@@ -7163,27 +7180,27 @@
    "dy": 0.0
   },
   {
-   "frm_component": 135,
-   "to_component": 134,
-   "kind": "drop",
-   "frm": [
-    20.5,
-    16.96,
-    -121.5
-   ],
-   "to": [
-    20.5,
-    11.96,
-    -121.5
-   ],
-   "horizontal": 0.0,
-   "dy": -5.0
-  },
-  {
    "frm_component": 137,
    "to_component": 136,
    "kind": "drop",
    "frm": [
+    20.5,
+    16.96,
+    -121.5
+   ],
+   "to": [
+    20.5,
+    11.96,
+    -121.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.0
+  },
+  {
+   "frm_component": 139,
+   "to_component": 138,
+   "kind": "drop",
+   "frm": [
     27.5,
     16.96,
     -121.5
@@ -7197,8 +7214,8 @@
    "dy": -5.0
   },
   {
-   "frm_component": 138,
-   "to_component": 6,
+   "frm_component": 140,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -14.5,
@@ -7214,8 +7231,8 @@
    "dy": -1.47
   },
   {
-   "frm_component": 139,
-   "to_component": 132,
+   "frm_component": 141,
+   "to_component": 134,
    "kind": "jump",
    "frm": [
     19.5,
@@ -7231,8 +7248,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 139,
-   "to_component": 149,
+   "frm_component": 141,
+   "to_component": 151,
    "kind": "jump",
    "frm": [
     20.5,
@@ -7248,8 +7265,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 141,
-   "to_component": 140,
+   "frm_component": 143,
+   "to_component": 142,
    "kind": "drop",
    "frm": [
     20.5,
@@ -7265,8 +7282,8 @@
    "dy": -5.0
   },
   {
-   "frm_component": 142,
-   "to_component": 121,
+   "frm_component": 144,
+   "to_component": 123,
    "kind": "drop",
    "frm": [
     55.5,
@@ -7282,8 +7299,8 @@
    "dy": -0.7
   },
   {
-   "frm_component": 142,
-   "to_component": 157,
+   "frm_component": 144,
+   "to_component": 159,
    "kind": "drop",
    "frm": [
     55.5,
@@ -7299,8 +7316,8 @@
    "dy": -1.0
   },
   {
-   "frm_component": 143,
-   "to_component": 133,
+   "frm_component": 145,
+   "to_component": 135,
    "kind": "jump",
    "frm": [
     27.5,
@@ -7316,8 +7333,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 143,
-   "to_component": 152,
+   "frm_component": 145,
+   "to_component": 154,
    "kind": "jump",
    "frm": [
     27.5,
@@ -7333,8 +7350,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 145,
-   "to_component": 144,
+   "frm_component": 147,
+   "to_component": 146,
    "kind": "drop",
    "frm": [
     27.5,
@@ -7350,8 +7367,8 @@
    "dy": -5.0
   },
   {
-   "frm_component": 146,
-   "to_component": 6,
+   "frm_component": 148,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -20.5,
@@ -7367,8 +7384,8 @@
    "dy": -1.6
   },
   {
-   "frm_component": 146,
-   "to_component": 156,
+   "frm_component": 148,
+   "to_component": 158,
    "kind": "jump",
    "frm": [
     -20.5,
@@ -7384,8 +7401,8 @@
    "dy": 0.12
   },
   {
-   "frm_component": 147,
-   "to_component": 6,
+   "frm_component": 149,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -19.5,
@@ -7401,8 +7418,8 @@
    "dy": -2.84
   },
   {
-   "frm_component": 147,
-   "to_component": 138,
+   "frm_component": 149,
+   "to_component": 140,
    "kind": "jump",
    "frm": [
     -17.5,
@@ -7418,8 +7435,8 @@
    "dy": -1.38
   },
   {
-   "frm_component": 147,
-   "to_component": 146,
+   "frm_component": 149,
+   "to_component": 148,
    "kind": "drop",
    "frm": [
     -19.5,
@@ -7435,8 +7452,8 @@
    "dy": -1.23
   },
   {
-   "frm_component": 147,
-   "to_component": 148,
+   "frm_component": 149,
+   "to_component": 150,
    "kind": "jump",
    "frm": [
     -17.5,
@@ -7452,8 +7469,8 @@
    "dy": 0.86
   },
   {
-   "frm_component": 147,
-   "to_component": 156,
+   "frm_component": 149,
+   "to_component": 158,
    "kind": "drop",
    "frm": [
     -20.5,
@@ -7469,8 +7486,8 @@
    "dy": -1.35
   },
   {
-   "frm_component": 148,
-   "to_component": 6,
+   "frm_component": 150,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -16.5,
@@ -7486,8 +7503,8 @@
    "dy": -3.75
   },
   {
-   "frm_component": 148,
-   "to_component": 138,
+   "frm_component": 150,
+   "to_component": 140,
    "kind": "jump",
    "frm": [
     -14.5,
@@ -7503,8 +7520,8 @@
    "dy": -2.43
   },
   {
-   "frm_component": 148,
-   "to_component": 146,
+   "frm_component": 150,
+   "to_component": 148,
    "kind": "jump",
    "frm": [
     -16.5,
@@ -7520,8 +7537,8 @@
    "dy": -2.09
   },
   {
-   "frm_component": 148,
-   "to_component": 147,
+   "frm_component": 150,
+   "to_component": 149,
    "kind": "drop",
    "frm": [
     -16.5,
@@ -7537,8 +7554,8 @@
    "dy": -0.86
   },
   {
-   "frm_component": 148,
-   "to_component": 156,
+   "frm_component": 150,
+   "to_component": 158,
    "kind": "jump",
    "frm": [
     -16.5,
@@ -7554,8 +7571,8 @@
    "dy": -1.93
   },
   {
-   "frm_component": 149,
-   "to_component": 139,
+   "frm_component": 151,
+   "to_component": 141,
    "kind": "jump",
    "frm": [
     21.5,
@@ -7571,8 +7588,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 149,
-   "to_component": 152,
+   "frm_component": 151,
+   "to_component": 154,
    "kind": "jump",
    "frm": [
     22.5,
@@ -7588,8 +7605,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 151,
-   "to_component": 150,
+   "frm_component": 153,
+   "to_component": 152,
    "kind": "drop",
    "frm": [
     22.5,
@@ -7605,8 +7622,8 @@
    "dy": -5.0
   },
   {
-   "frm_component": 152,
-   "to_component": 133,
+   "frm_component": 154,
+   "to_component": 135,
    "kind": "jump",
    "frm": [
     26.5,
@@ -7622,8 +7639,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 152,
-   "to_component": 143,
+   "frm_component": 154,
+   "to_component": 145,
    "kind": "jump",
    "frm": [
     26.5,
@@ -7639,8 +7656,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 152,
-   "to_component": 149,
+   "frm_component": 154,
+   "to_component": 151,
    "kind": "jump",
    "frm": [
     23.5,
@@ -7656,8 +7673,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 154,
-   "to_component": 153,
+   "frm_component": 156,
+   "to_component": 155,
    "kind": "drop",
    "frm": [
     24.5,
@@ -7673,8 +7690,8 @@
    "dy": -5.0
   },
   {
-   "frm_component": 156,
-   "to_component": 6,
+   "frm_component": 158,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -21.5,
@@ -7684,14 +7701,14 @@
    "to": [
     -21.5,
     8.75,
-    -114.5
+    -116.5
    ],
    "horizontal": 1.0,
    "dy": -1.72
   },
   {
-   "frm_component": 156,
-   "to_component": 146,
+   "frm_component": 158,
+   "to_component": 148,
    "kind": "jump",
    "frm": [
     -21.5,
@@ -7707,8 +7724,8 @@
    "dy": -0.12
   },
   {
-   "frm_component": 156,
-   "to_component": 147,
+   "frm_component": 158,
+   "to_component": 149,
    "kind": "jump",
    "frm": [
     -22.5,
@@ -7724,8 +7741,8 @@
    "dy": 1.08
   },
   {
-   "frm_component": 157,
-   "to_component": 142,
+   "frm_component": 159,
+   "to_component": 144,
    "kind": "jump",
    "frm": [
     55.5,
@@ -7741,8 +7758,8 @@
    "dy": 1.0
   },
   {
-   "frm_component": 159,
-   "to_component": 6,
+   "frm_component": 161,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     2.5,
@@ -7758,8 +7775,8 @@
    "dy": -1.02
   },
   {
-   "frm_component": 159,
-   "to_component": 160,
+   "frm_component": 161,
+   "to_component": 162,
    "kind": "jump",
    "frm": [
     2.5,
@@ -7775,8 +7792,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 159,
-   "to_component": 161,
+   "frm_component": 161,
+   "to_component": 163,
    "kind": "jump",
    "frm": [
     4.5,
@@ -7792,8 +7809,8 @@
    "dy": -0.15
   },
   {
-   "frm_component": 159,
-   "to_component": 196,
+   "frm_component": 161,
+   "to_component": 199,
    "kind": "jump",
    "frm": [
     4.5,
@@ -7809,8 +7826,8 @@
    "dy": -0.15
   },
   {
-   "frm_component": 160,
-   "to_component": 6,
+   "frm_component": 162,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -4.5,
@@ -7818,16 +7835,16 @@
     -92.5
    ],
    "to": [
-    -5.5,
+    -4.5,
     6.79,
-    -92.5
+    -93.5
    ],
    "horizontal": 1.0,
    "dy": -0.96
   },
   {
-   "frm_component": 160,
-   "to_component": 159,
+   "frm_component": 162,
+   "to_component": 161,
    "kind": "jump",
    "frm": [
     -2.5,
@@ -7843,25 +7860,25 @@
    "dy": 0.0
   },
   {
-   "frm_component": 160,
-   "to_component": 187,
+   "frm_component": 162,
+   "to_component": 189,
    "kind": "jump",
    "frm": [
     -4.5,
     7.75,
-    -78.5
+    -77.5
    ],
    "to": [
     -8.5,
     7.66,
-    -78.5
+    -77.5
    ],
    "horizontal": 4.0,
    "dy": -0.09
   },
   {
-   "frm_component": 161,
-   "to_component": 6,
+   "frm_component": 163,
+   "to_component": 8,
    "kind": "jump",
    "frm": [
     8.5,
@@ -7877,8 +7894,8 @@
    "dy": -0.96
   },
   {
-   "frm_component": 161,
-   "to_component": 159,
+   "frm_component": 163,
+   "to_component": 161,
    "kind": "jump",
    "frm": [
     8.5,
@@ -7894,8 +7911,8 @@
    "dy": 0.15
   },
   {
-   "frm_component": 162,
-   "to_component": 175,
+   "frm_component": 164,
+   "to_component": 177,
    "kind": "jump",
    "frm": [
     -32.5,
@@ -7911,110 +7928,110 @@
    "dy": 0.0
   },
   {
-   "frm_component": 163,
-   "to_component": 171,
-   "kind": "jump",
-   "frm": [
-    -35.5,
-    4.0,
-    -82.5
-   ],
-   "to": [
-    -36.5,
-    4.0,
-    -81.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 164,
-   "to_component": 163,
-   "kind": "drop",
-   "frm": [
-    -35.5,
-    9.49,
-    -82.5
-   ],
-   "to": [
-    -35.5,
-    4.0,
-    -82.5
-   ],
-   "horizontal": 0.0,
-   "dy": -5.49
-  },
-  {
-   "frm_component": 164,
-   "to_component": 171,
-   "kind": "drop",
-   "frm": [
-    -35.5,
-    9.49,
-    -82.5
-   ],
-   "to": [
-    -36.5,
-    4.0,
-    -81.5
-   ],
-   "horizontal": 1.41,
-   "dy": -5.49
-  },
-  {
-   "frm_component": 164,
-   "to_component": 172,
-   "kind": "jump",
-   "frm": [
-    -35.5,
-    9.49,
-    -82.5
-   ],
-   "to": [
-    -36.5,
-    9.49,
-    -81.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 165,
-   "to_component": 164,
-   "kind": "drop",
-   "frm": [
-    -35.5,
-    14.51,
-    -82.5
-   ],
-   "to": [
-    -35.5,
-    9.49,
-    -82.5
-   ],
-   "horizontal": 0.0,
-   "dy": -5.02
-  },
-  {
-   "frm_component": 165,
-   "to_component": 172,
-   "kind": "drop",
-   "frm": [
-    -35.5,
-    14.51,
-    -82.5
-   ],
-   "to": [
-    -36.5,
-    9.49,
-    -81.5
-   ],
-   "horizontal": 1.41,
-   "dy": -5.02
-  },
-  {
    "frm_component": 165,
    "to_component": 173,
+   "kind": "jump",
+   "frm": [
+    -35.5,
+    4.0,
+    -82.5
+   ],
+   "to": [
+    -36.5,
+    4.0,
+    -81.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 166,
+   "to_component": 165,
+   "kind": "drop",
+   "frm": [
+    -35.5,
+    9.49,
+    -82.5
+   ],
+   "to": [
+    -35.5,
+    4.0,
+    -82.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.49
+  },
+  {
+   "frm_component": 166,
+   "to_component": 173,
+   "kind": "drop",
+   "frm": [
+    -35.5,
+    9.49,
+    -82.5
+   ],
+   "to": [
+    -36.5,
+    4.0,
+    -81.5
+   ],
+   "horizontal": 1.41,
+   "dy": -5.49
+  },
+  {
+   "frm_component": 166,
+   "to_component": 174,
+   "kind": "jump",
+   "frm": [
+    -35.5,
+    9.49,
+    -82.5
+   ],
+   "to": [
+    -36.5,
+    9.49,
+    -81.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 167,
+   "to_component": 166,
+   "kind": "drop",
+   "frm": [
+    -35.5,
+    14.51,
+    -82.5
+   ],
+   "to": [
+    -35.5,
+    9.49,
+    -82.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.02
+  },
+  {
+   "frm_component": 167,
+   "to_component": 174,
+   "kind": "drop",
+   "frm": [
+    -35.5,
+    14.51,
+    -82.5
+   ],
+   "to": [
+    -36.5,
+    9.49,
+    -81.5
+   ],
+   "horizontal": 1.41,
+   "dy": -5.02
+  },
+  {
+   "frm_component": 167,
+   "to_component": 175,
    "kind": "jump",
    "frm": [
     -35.5,
@@ -8030,8 +8047,8 @@
    "dy": -0.0
   },
   {
-   "frm_component": 166,
-   "to_component": 174,
+   "frm_component": 168,
+   "to_component": 176,
    "kind": "jump",
    "frm": [
     -35.5,
@@ -8047,8 +8064,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 167,
-   "to_component": 166,
+   "frm_component": 169,
+   "to_component": 168,
    "kind": "drop",
    "frm": [
     -35.5,
@@ -8064,8 +8081,8 @@
    "dy": -1.7
   },
   {
-   "frm_component": 167,
-   "to_component": 170,
+   "frm_component": 169,
+   "to_component": 172,
    "kind": "drop",
    "frm": [
     -33.5,
@@ -8081,8 +8098,8 @@
    "dy": -1.7
   },
   {
-   "frm_component": 167,
-   "to_component": 174,
+   "frm_component": 169,
+   "to_component": 176,
    "kind": "drop",
    "frm": [
     -36.5,
@@ -8098,8 +8115,8 @@
    "dy": -1.7
   },
   {
-   "frm_component": 167,
-   "to_component": 178,
+   "frm_component": 169,
+   "to_component": 180,
    "kind": "drop",
    "frm": [
     -32.5,
@@ -8115,8 +8132,8 @@
    "dy": -1.7
   },
   {
-   "frm_component": 167,
-   "to_component": 183,
+   "frm_component": 169,
+   "to_component": 185,
    "kind": "drop",
    "frm": [
     -36.5,
@@ -8132,8 +8149,8 @@
    "dy": -1.7
   },
   {
-   "frm_component": 167,
-   "to_component": 186,
+   "frm_component": 169,
+   "to_component": 188,
    "kind": "drop",
    "frm": [
     -31.5,
@@ -8149,13 +8166,13 @@
    "dy": -1.7
   },
   {
-   "frm_component": 167,
-   "to_component": 191,
+   "frm_component": 169,
+   "to_component": 193,
    "kind": "drop",
    "frm": [
-    -35.5,
+    -34.5,
     24.0,
-    -78.5
+    -77.5
    ],
    "to": [
     -35.5,
@@ -8166,8 +8183,8 @@
    "dy": -1.7
   },
   {
-   "frm_component": 167,
-   "to_component": 195,
+   "frm_component": 169,
+   "to_component": 197,
    "kind": "drop",
    "frm": [
     -33.5,
@@ -8183,8 +8200,8 @@
    "dy": -1.7
   },
   {
-   "frm_component": 168,
-   "to_component": 162,
+   "frm_component": 170,
+   "to_component": 164,
    "kind": "drop",
    "frm": [
     -32.5,
@@ -8200,89 +8217,21 @@
    "dy": -5.49
   },
   {
-   "frm_component": 168,
-   "to_component": 175,
-   "kind": "drop",
-   "frm": [
-    -32.5,
-    9.49,
-    -82.5
-   ],
-   "to": [
-    -31.5,
-    4.0,
-    -81.5
-   ],
-   "horizontal": 1.41,
-   "dy": -5.49
-  },
-  {
-   "frm_component": 168,
-   "to_component": 176,
-   "kind": "jump",
-   "frm": [
-    -32.5,
-    9.49,
-    -82.5
-   ],
-   "to": [
-    -31.5,
-    9.49,
-    -81.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 169,
-   "to_component": 168,
-   "kind": "drop",
-   "frm": [
-    -32.5,
-    14.51,
-    -82.5
-   ],
-   "to": [
-    -32.5,
-    9.49,
-    -82.5
-   ],
-   "horizontal": 0.0,
-   "dy": -5.02
-  },
-  {
-   "frm_component": 169,
-   "to_component": 176,
-   "kind": "drop",
-   "frm": [
-    -32.5,
-    14.51,
-    -82.5
-   ],
-   "to": [
-    -31.5,
-    9.49,
-    -81.5
-   ],
-   "horizontal": 1.41,
-   "dy": -5.02
-  },
-  {
-   "frm_component": 169,
+   "frm_component": 170,
    "to_component": 177,
-   "kind": "jump",
+   "kind": "drop",
    "frm": [
     -32.5,
-    14.51,
+    9.49,
     -82.5
    ],
    "to": [
     -31.5,
-    14.51,
+    4.0,
     -81.5
    ],
    "horizontal": 1.41,
-   "dy": 0.0
+   "dy": -5.49
   },
   {
    "frm_component": 170,
@@ -8290,12 +8239,12 @@
    "kind": "jump",
    "frm": [
     -32.5,
-    22.3,
+    9.49,
     -82.5
    ],
    "to": [
     -31.5,
-    22.3,
+    9.49,
     -81.5
    ],
    "horizontal": 1.41,
@@ -8303,88 +8252,71 @@
   },
   {
    "frm_component": 171,
-   "to_component": 163,
-   "kind": "jump",
-   "frm": [
-    -36.5,
-    4.0,
-    -81.5
-   ],
-   "to": [
-    -35.5,
-    4.0,
-    -82.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 172,
-   "to_component": 163,
+   "to_component": 170,
    "kind": "drop",
    "frm": [
-    -36.5,
-    9.49,
-    -81.5
-   ],
-   "to": [
-    -35.5,
-    4.0,
+    -32.5,
+    14.51,
     -82.5
    ],
-   "horizontal": 1.41,
-   "dy": -5.49
-  },
-  {
-   "frm_component": 172,
-   "to_component": 164,
-   "kind": "jump",
-   "frm": [
-    -36.5,
-    9.49,
-    -81.5
-   ],
    "to": [
-    -35.5,
+    -32.5,
     9.49,
     -82.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 172,
-   "to_component": 171,
-   "kind": "drop",
-   "frm": [
-    -36.5,
-    9.49,
-    -81.5
-   ],
-   "to": [
-    -36.5,
-    4.0,
-    -81.5
    ],
    "horizontal": 0.0,
-   "dy": -5.49
+   "dy": -5.02
   },
   {
-   "frm_component": 173,
-   "to_component": 164,
+   "frm_component": 171,
+   "to_component": 178,
    "kind": "drop",
    "frm": [
-    -36.5,
+    -32.5,
     14.51,
-    -81.5
+    -82.5
    ],
    "to": [
-    -35.5,
+    -31.5,
     9.49,
-    -82.5
+    -81.5
    ],
    "horizontal": 1.41,
    "dy": -5.02
+  },
+  {
+   "frm_component": 171,
+   "to_component": 179,
+   "kind": "jump",
+   "frm": [
+    -32.5,
+    14.51,
+    -82.5
+   ],
+   "to": [
+    -31.5,
+    14.51,
+    -81.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 172,
+   "to_component": 180,
+   "kind": "jump",
+   "frm": [
+    -32.5,
+    22.3,
+    -82.5
+   ],
+   "to": [
+    -31.5,
+    22.3,
+    -81.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
   },
   {
    "frm_component": 173,
@@ -8392,33 +8324,33 @@
    "kind": "jump",
    "frm": [
     -36.5,
-    14.51,
+    4.0,
     -81.5
    ],
    "to": [
     -35.5,
-    14.51,
+    4.0,
     -82.5
    ],
    "horizontal": 1.41,
    "dy": 0.0
   },
   {
-   "frm_component": 173,
-   "to_component": 172,
+   "frm_component": 174,
+   "to_component": 165,
    "kind": "drop",
    "frm": [
-    -36.5,
-    14.51,
-    -81.5
-   ],
-   "to": [
     -36.5,
     9.49,
     -81.5
    ],
-   "horizontal": 0.0,
-   "dy": -5.02
+   "to": [
+    -35.5,
+    4.0,
+    -82.5
+   ],
+   "horizontal": 1.41,
+   "dy": -5.49
   },
   {
    "frm_component": 174,
@@ -8426,12 +8358,63 @@
    "kind": "jump",
    "frm": [
     -36.5,
-    22.3,
+    9.49,
     -81.5
    ],
    "to": [
     -35.5,
-    22.3,
+    9.49,
+    -82.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 174,
+   "to_component": 173,
+   "kind": "drop",
+   "frm": [
+    -36.5,
+    9.49,
+    -81.5
+   ],
+   "to": [
+    -36.5,
+    4.0,
+    -81.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.49
+  },
+  {
+   "frm_component": 175,
+   "to_component": 166,
+   "kind": "drop",
+   "frm": [
+    -36.5,
+    14.51,
+    -81.5
+   ],
+   "to": [
+    -35.5,
+    9.49,
+    -82.5
+   ],
+   "horizontal": 1.41,
+   "dy": -5.02
+  },
+  {
+   "frm_component": 175,
+   "to_component": 167,
+   "kind": "jump",
+   "frm": [
+    -36.5,
+    14.51,
+    -81.5
+   ],
+   "to": [
+    -35.5,
+    14.51,
     -82.5
    ],
    "horizontal": 1.41,
@@ -8439,7 +8422,41 @@
   },
   {
    "frm_component": 175,
-   "to_component": 162,
+   "to_component": 174,
+   "kind": "drop",
+   "frm": [
+    -36.5,
+    14.51,
+    -81.5
+   ],
+   "to": [
+    -36.5,
+    9.49,
+    -81.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.02
+  },
+  {
+   "frm_component": 176,
+   "to_component": 168,
+   "kind": "jump",
+   "frm": [
+    -36.5,
+    22.3,
+    -81.5
+   ],
+   "to": [
+    -35.5,
+    22.3,
+    -82.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 177,
+   "to_component": 164,
    "kind": "jump",
    "frm": [
     -31.5,
@@ -8455,8 +8472,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 176,
-   "to_component": 162,
+   "frm_component": 178,
+   "to_component": 164,
    "kind": "drop",
    "frm": [
     -31.5,
@@ -8470,91 +8487,6 @@
    ],
    "horizontal": 1.41,
    "dy": -5.49
-  },
-  {
-   "frm_component": 176,
-   "to_component": 168,
-   "kind": "jump",
-   "frm": [
-    -31.5,
-    9.49,
-    -81.5
-   ],
-   "to": [
-    -32.5,
-    9.49,
-    -82.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 176,
-   "to_component": 175,
-   "kind": "drop",
-   "frm": [
-    -31.5,
-    9.49,
-    -81.5
-   ],
-   "to": [
-    -31.5,
-    4.0,
-    -81.5
-   ],
-   "horizontal": 0.0,
-   "dy": -5.49
-  },
-  {
-   "frm_component": 177,
-   "to_component": 168,
-   "kind": "drop",
-   "frm": [
-    -31.5,
-    14.51,
-    -81.5
-   ],
-   "to": [
-    -32.5,
-    9.49,
-    -82.5
-   ],
-   "horizontal": 1.41,
-   "dy": -5.02
-  },
-  {
-   "frm_component": 177,
-   "to_component": 169,
-   "kind": "jump",
-   "frm": [
-    -31.5,
-    14.51,
-    -81.5
-   ],
-   "to": [
-    -32.5,
-    14.51,
-    -82.5
-   ],
-   "horizontal": 1.41,
-   "dy": -0.0
-  },
-  {
-   "frm_component": 177,
-   "to_component": 176,
-   "kind": "drop",
-   "frm": [
-    -31.5,
-    14.51,
-    -81.5
-   ],
-   "to": [
-    -31.5,
-    9.49,
-    -81.5
-   ],
-   "horizontal": 0.0,
-   "dy": -5.02
   },
   {
    "frm_component": 178,
@@ -8562,6 +8494,91 @@
    "kind": "jump",
    "frm": [
     -31.5,
+    9.49,
+    -81.5
+   ],
+   "to": [
+    -32.5,
+    9.49,
+    -82.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 178,
+   "to_component": 177,
+   "kind": "drop",
+   "frm": [
+    -31.5,
+    9.49,
+    -81.5
+   ],
+   "to": [
+    -31.5,
+    4.0,
+    -81.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.49
+  },
+  {
+   "frm_component": 179,
+   "to_component": 170,
+   "kind": "drop",
+   "frm": [
+    -31.5,
+    14.51,
+    -81.5
+   ],
+   "to": [
+    -32.5,
+    9.49,
+    -82.5
+   ],
+   "horizontal": 1.41,
+   "dy": -5.02
+  },
+  {
+   "frm_component": 179,
+   "to_component": 171,
+   "kind": "jump",
+   "frm": [
+    -31.5,
+    14.51,
+    -81.5
+   ],
+   "to": [
+    -32.5,
+    14.51,
+    -82.5
+   ],
+   "horizontal": 1.41,
+   "dy": -0.0
+  },
+  {
+   "frm_component": 179,
+   "to_component": 178,
+   "kind": "drop",
+   "frm": [
+    -31.5,
+    14.51,
+    -81.5
+   ],
+   "to": [
+    -31.5,
+    9.49,
+    -81.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.02
+  },
+  {
+   "frm_component": 180,
+   "to_component": 172,
+   "kind": "jump",
+   "frm": [
+    -31.5,
     22.3,
     -81.5
    ],
@@ -8574,8 +8591,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 179,
-   "to_component": 192,
+   "frm_component": 181,
+   "to_component": 194,
    "kind": "jump",
    "frm": [
     -31.5,
@@ -8589,108 +8606,6 @@
    ],
    "horizontal": 1.41,
    "dy": 0.0
-  },
-  {
-   "frm_component": 180,
-   "to_component": 188,
-   "kind": "jump",
-   "frm": [
-    -36.5,
-    4.0,
-    -78.5
-   ],
-   "to": [
-    -35.5,
-    4.0,
-    -77.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 181,
-   "to_component": 180,
-   "kind": "drop",
-   "frm": [
-    -36.5,
-    9.49,
-    -78.5
-   ],
-   "to": [
-    -36.5,
-    4.0,
-    -78.5
-   ],
-   "horizontal": 0.0,
-   "dy": -5.49
-  },
-  {
-   "frm_component": 181,
-   "to_component": 188,
-   "kind": "drop",
-   "frm": [
-    -36.5,
-    9.49,
-    -78.5
-   ],
-   "to": [
-    -35.5,
-    4.0,
-    -77.5
-   ],
-   "horizontal": 1.41,
-   "dy": -5.49
-  },
-  {
-   "frm_component": 181,
-   "to_component": 189,
-   "kind": "jump",
-   "frm": [
-    -36.5,
-    9.49,
-    -78.5
-   ],
-   "to": [
-    -35.5,
-    9.49,
-    -77.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 182,
-   "to_component": 181,
-   "kind": "drop",
-   "frm": [
-    -36.5,
-    14.51,
-    -78.5
-   ],
-   "to": [
-    -36.5,
-    9.49,
-    -78.5
-   ],
-   "horizontal": 0.0,
-   "dy": -5.02
-  },
-  {
-   "frm_component": 182,
-   "to_component": 189,
-   "kind": "drop",
-   "frm": [
-    -36.5,
-    14.51,
-    -78.5
-   ],
-   "to": [
-    -35.5,
-    9.49,
-    -77.5
-   ],
-   "horizontal": 1.41,
-   "dy": -5.02
   },
   {
    "frm_component": 182,
@@ -8698,16 +8613,50 @@
    "kind": "jump",
    "frm": [
     -36.5,
-    14.51,
+    4.0,
     -78.5
    ],
    "to": [
     -35.5,
-    14.51,
+    4.0,
     -77.5
    ],
    "horizontal": 1.41,
-   "dy": -0.0
+   "dy": 0.0
+  },
+  {
+   "frm_component": 183,
+   "to_component": 182,
+   "kind": "drop",
+   "frm": [
+    -36.5,
+    9.49,
+    -78.5
+   ],
+   "to": [
+    -36.5,
+    4.0,
+    -78.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.49
+  },
+  {
+   "frm_component": 183,
+   "to_component": 190,
+   "kind": "drop",
+   "frm": [
+    -36.5,
+    9.49,
+    -78.5
+   ],
+   "to": [
+    -35.5,
+    4.0,
+    -77.5
+   ],
+   "horizontal": 1.41,
+   "dy": -5.49
   },
   {
    "frm_component": 183,
@@ -8715,114 +8664,80 @@
    "kind": "jump",
    "frm": [
     -36.5,
+    9.49,
+    -78.5
+   ],
+   "to": [
+    -35.5,
+    9.49,
+    -77.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 184,
+   "to_component": 183,
+   "kind": "drop",
+   "frm": [
+    -36.5,
+    14.51,
+    -78.5
+   ],
+   "to": [
+    -36.5,
+    9.49,
+    -78.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.02
+  },
+  {
+   "frm_component": 184,
+   "to_component": 191,
+   "kind": "drop",
+   "frm": [
+    -36.5,
+    14.51,
+    -78.5
+   ],
+   "to": [
+    -35.5,
+    9.49,
+    -77.5
+   ],
+   "horizontal": 1.41,
+   "dy": -5.02
+  },
+  {
+   "frm_component": 184,
+   "to_component": 192,
+   "kind": "jump",
+   "frm": [
+    -36.5,
+    14.51,
+    -78.5
+   ],
+   "to": [
+    -35.5,
+    14.51,
+    -77.5
+   ],
+   "horizontal": 1.41,
+   "dy": -0.0
+  },
+  {
+   "frm_component": 185,
+   "to_component": 193,
+   "kind": "jump",
+   "frm": [
+    -36.5,
     22.3,
     -78.5
    ],
    "to": [
     -35.5,
     22.3,
-    -77.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 184,
-   "to_component": 179,
-   "kind": "drop",
-   "frm": [
-    -31.5,
-    9.49,
-    -78.5
-   ],
-   "to": [
-    -31.5,
-    4.0,
-    -78.5
-   ],
-   "horizontal": 0.0,
-   "dy": -5.49
-  },
-  {
-   "frm_component": 184,
-   "to_component": 192,
-   "kind": "drop",
-   "frm": [
-    -31.5,
-    9.49,
-    -78.5
-   ],
-   "to": [
-    -32.5,
-    4.0,
-    -77.5
-   ],
-   "horizontal": 1.41,
-   "dy": -5.49
-  },
-  {
-   "frm_component": 184,
-   "to_component": 193,
-   "kind": "jump",
-   "frm": [
-    -31.5,
-    9.49,
-    -78.5
-   ],
-   "to": [
-    -32.5,
-    9.49,
-    -77.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 185,
-   "to_component": 184,
-   "kind": "drop",
-   "frm": [
-    -31.5,
-    14.51,
-    -78.5
-   ],
-   "to": [
-    -31.5,
-    9.49,
-    -78.5
-   ],
-   "horizontal": 0.0,
-   "dy": -5.02
-  },
-  {
-   "frm_component": 185,
-   "to_component": 193,
-   "kind": "drop",
-   "frm": [
-    -31.5,
-    14.51,
-    -78.5
-   ],
-   "to": [
-    -32.5,
-    9.49,
-    -77.5
-   ],
-   "horizontal": 1.41,
-   "dy": -5.02
-  },
-  {
-   "frm_component": 185,
-   "to_component": 194,
-   "kind": "jump",
-   "frm": [
-    -31.5,
-    14.51,
-    -78.5
-   ],
-   "to": [
-    -32.5,
-    14.51,
     -77.5
    ],
    "horizontal": 1.41,
@@ -8830,7 +8745,109 @@
   },
   {
    "frm_component": 186,
+   "to_component": 181,
+   "kind": "drop",
+   "frm": [
+    -31.5,
+    9.49,
+    -78.5
+   ],
+   "to": [
+    -31.5,
+    4.0,
+    -78.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.49
+  },
+  {
+   "frm_component": 186,
+   "to_component": 194,
+   "kind": "drop",
+   "frm": [
+    -31.5,
+    9.49,
+    -78.5
+   ],
+   "to": [
+    -32.5,
+    4.0,
+    -77.5
+   ],
+   "horizontal": 1.41,
+   "dy": -5.49
+  },
+  {
+   "frm_component": 186,
    "to_component": 195,
+   "kind": "jump",
+   "frm": [
+    -31.5,
+    9.49,
+    -78.5
+   ],
+   "to": [
+    -32.5,
+    9.49,
+    -77.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 187,
+   "to_component": 186,
+   "kind": "drop",
+   "frm": [
+    -31.5,
+    14.51,
+    -78.5
+   ],
+   "to": [
+    -31.5,
+    9.49,
+    -78.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.02
+  },
+  {
+   "frm_component": 187,
+   "to_component": 195,
+   "kind": "drop",
+   "frm": [
+    -31.5,
+    14.51,
+    -78.5
+   ],
+   "to": [
+    -32.5,
+    9.49,
+    -77.5
+   ],
+   "horizontal": 1.41,
+   "dy": -5.02
+  },
+  {
+   "frm_component": 187,
+   "to_component": 196,
+   "kind": "jump",
+   "frm": [
+    -31.5,
+    14.51,
+    -78.5
+   ],
+   "to": [
+    -32.5,
+    14.51,
+    -77.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 188,
+   "to_component": 197,
    "kind": "jump",
    "frm": [
     -31.5,
@@ -8846,123 +8863,38 @@
    "dy": 0.0
   },
   {
-   "frm_component": 187,
-   "to_component": 6,
+   "frm_component": 189,
+   "to_component": 8,
    "kind": "jump",
    "frm": [
     -8.5,
     7.66,
-    -78.5
+    -77.5
    ],
    "to": [
     -6.5,
     6.75,
-    -78.5
+    -77.5
    ],
    "horizontal": 2.0,
    "dy": -0.91
   },
   {
-   "frm_component": 187,
-   "to_component": 160,
+   "frm_component": 189,
+   "to_component": 162,
    "kind": "jump",
    "frm": [
     -8.5,
     7.66,
-    -78.5
+    -77.5
    ],
    "to": [
     -4.5,
     7.75,
-    -78.5
+    -77.5
    ],
    "horizontal": 4.0,
    "dy": 0.09
-  },
-  {
-   "frm_component": 188,
-   "to_component": 180,
-   "kind": "jump",
-   "frm": [
-    -35.5,
-    4.0,
-    -77.5
-   ],
-   "to": [
-    -36.5,
-    4.0,
-    -78.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 189,
-   "to_component": 180,
-   "kind": "drop",
-   "frm": [
-    -35.5,
-    9.49,
-    -77.5
-   ],
-   "to": [
-    -36.5,
-    4.0,
-    -78.5
-   ],
-   "horizontal": 1.41,
-   "dy": -5.49
-  },
-  {
-   "frm_component": 189,
-   "to_component": 181,
-   "kind": "jump",
-   "frm": [
-    -35.5,
-    9.49,
-    -77.5
-   ],
-   "to": [
-    -36.5,
-    9.49,
-    -78.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 189,
-   "to_component": 188,
-   "kind": "drop",
-   "frm": [
-    -35.5,
-    9.49,
-    -77.5
-   ],
-   "to": [
-    -35.5,
-    4.0,
-    -77.5
-   ],
-   "horizontal": 0.0,
-   "dy": -5.49
-  },
-  {
-   "frm_component": 190,
-   "to_component": 181,
-   "kind": "drop",
-   "frm": [
-    -35.5,
-    14.51,
-    -77.5
-   ],
-   "to": [
-    -36.5,
-    9.49,
-    -78.5
-   ],
-   "horizontal": 1.41,
-   "dy": -5.02
   },
   {
    "frm_component": 190,
@@ -8970,33 +8902,33 @@
    "kind": "jump",
    "frm": [
     -35.5,
-    14.51,
+    4.0,
     -77.5
    ],
    "to": [
     -36.5,
-    14.51,
+    4.0,
     -78.5
    ],
    "horizontal": 1.41,
    "dy": 0.0
   },
   {
-   "frm_component": 190,
-   "to_component": 189,
+   "frm_component": 191,
+   "to_component": 182,
    "kind": "drop",
    "frm": [
-    -35.5,
-    14.51,
-    -77.5
-   ],
-   "to": [
     -35.5,
     9.49,
     -77.5
    ],
-   "horizontal": 0.0,
-   "dy": -5.02
+   "to": [
+    -36.5,
+    4.0,
+    -78.5
+   ],
+   "horizontal": 1.41,
+   "dy": -5.49
   },
   {
    "frm_component": 191,
@@ -9004,6 +8936,91 @@
    "kind": "jump",
    "frm": [
     -35.5,
+    9.49,
+    -77.5
+   ],
+   "to": [
+    -36.5,
+    9.49,
+    -78.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 191,
+   "to_component": 190,
+   "kind": "drop",
+   "frm": [
+    -35.5,
+    9.49,
+    -77.5
+   ],
+   "to": [
+    -35.5,
+    4.0,
+    -77.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.49
+  },
+  {
+   "frm_component": 192,
+   "to_component": 183,
+   "kind": "drop",
+   "frm": [
+    -35.5,
+    14.51,
+    -77.5
+   ],
+   "to": [
+    -36.5,
+    9.49,
+    -78.5
+   ],
+   "horizontal": 1.41,
+   "dy": -5.02
+  },
+  {
+   "frm_component": 192,
+   "to_component": 184,
+   "kind": "jump",
+   "frm": [
+    -35.5,
+    14.51,
+    -77.5
+   ],
+   "to": [
+    -36.5,
+    14.51,
+    -78.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 192,
+   "to_component": 191,
+   "kind": "drop",
+   "frm": [
+    -35.5,
+    14.51,
+    -77.5
+   ],
+   "to": [
+    -35.5,
+    9.49,
+    -77.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.02
+  },
+  {
+   "frm_component": 193,
+   "to_component": 185,
+   "kind": "jump",
+   "frm": [
+    -35.5,
     22.3,
     -77.5
    ],
@@ -9016,8 +9033,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 192,
-   "to_component": 179,
+   "frm_component": 194,
+   "to_component": 181,
    "kind": "jump",
    "frm": [
     -32.5,
@@ -9033,8 +9050,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 193,
-   "to_component": 179,
+   "frm_component": 195,
+   "to_component": 181,
    "kind": "drop",
    "frm": [
     -32.5,
@@ -9050,8 +9067,8 @@
    "dy": -5.49
   },
   {
-   "frm_component": 193,
-   "to_component": 184,
+   "frm_component": 195,
+   "to_component": 186,
    "kind": "jump",
    "frm": [
     -32.5,
@@ -9067,8 +9084,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 193,
-   "to_component": 192,
+   "frm_component": 195,
+   "to_component": 194,
    "kind": "drop",
    "frm": [
     -32.5,
@@ -9084,8 +9101,8 @@
    "dy": -5.49
   },
   {
-   "frm_component": 194,
-   "to_component": 184,
+   "frm_component": 196,
+   "to_component": 186,
    "kind": "drop",
    "frm": [
     -32.5,
@@ -9101,8 +9118,8 @@
    "dy": -5.02
   },
   {
-   "frm_component": 194,
-   "to_component": 185,
+   "frm_component": 196,
+   "to_component": 187,
    "kind": "jump",
    "frm": [
     -32.5,
@@ -9118,8 +9135,8 @@
    "dy": -0.0
   },
   {
-   "frm_component": 194,
-   "to_component": 193,
+   "frm_component": 196,
+   "to_component": 195,
    "kind": "drop",
    "frm": [
     -32.5,
@@ -9135,8 +9152,8 @@
    "dy": -5.02
   },
   {
-   "frm_component": 195,
-   "to_component": 186,
+   "frm_component": 197,
+   "to_component": 188,
    "kind": "jump",
    "frm": [
     -32.5,
@@ -9152,8 +9169,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 196,
-   "to_component": 6,
+   "frm_component": 199,
+   "to_component": 8,
    "kind": "jump",
    "frm": [
     8.5,
@@ -9169,8 +9186,8 @@
    "dy": -0.96
   },
   {
-   "frm_component": 196,
-   "to_component": 159,
+   "frm_component": 199,
+   "to_component": 161,
    "kind": "jump",
    "frm": [
     8.5,
@@ -9186,25 +9203,25 @@
    "dy": 0.15
   },
   {
-   "frm_component": 198,
-   "to_component": 6,
+   "frm_component": 201,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
-    -37.5,
-    11.38,
+    -38.5,
+    11.5,
     -55.5
    ],
    "to": [
-    -37.5,
+    -38.5,
     6.73,
     -54.5
    ],
    "horizontal": 1.0,
-   "dy": -4.64
+   "dy": -4.77
   },
   {
-   "frm_component": 199,
-   "to_component": 6,
+   "frm_component": 202,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     17.5,
@@ -9220,8 +9237,8 @@
    "dy": -4.77
   },
   {
-   "frm_component": 200,
-   "to_component": 6,
+   "frm_component": 203,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -52.5,
@@ -9237,8 +9254,25 @@
    "dy": -4.22
   },
   {
-   "frm_component": 201,
-   "to_component": 6,
+   "frm_component": 203,
+   "to_component": 206,
+   "kind": "jump",
+   "frm": [
+    -52.5,
+    11.27,
+    -51.5
+   ],
+   "to": [
+    -54.5,
+    12.37,
+    -50.5
+   ],
+   "horizontal": 2.24,
+   "dy": 1.1
+  },
+  {
+   "frm_component": 204,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     9.5,
@@ -9254,8 +9288,8 @@
    "dy": -4.74
   },
   {
-   "frm_component": 202,
-   "to_component": 6,
+   "frm_component": 205,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     51.5,
@@ -9271,8 +9305,42 @@
    "dy": -4.24
   },
   {
-   "frm_component": 203,
-   "to_component": 6,
+   "frm_component": 206,
+   "to_component": 8,
+   "kind": "drop",
+   "frm": [
+    -54.5,
+    12.37,
+    -50.5
+   ],
+   "to": [
+    -54.5,
+    6.74,
+    -51.5
+   ],
+   "horizontal": 1.0,
+   "dy": -5.64
+  },
+  {
+   "frm_component": 206,
+   "to_component": 203,
+   "kind": "drop",
+   "frm": [
+    -54.5,
+    12.37,
+    -50.5
+   ],
+   "to": [
+    -53.5,
+    10.97,
+    -51.5
+   ],
+   "horizontal": 1.41,
+   "dy": -1.4
+  },
+  {
+   "frm_component": 207,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -3.5,
@@ -9288,188 +9356,52 @@
    "dy": -1.52
   },
   {
-   "frm_component": 205,
-   "to_component": 207,
-   "kind": "jump",
-   "frm": [
-    -19.5,
-    4.0,
-    -48.5
-   ],
-   "to": [
-    -20.5,
-    4.0,
-    -47.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 205,
-   "to_component": 209,
-   "kind": "jump",
-   "frm": [
-    -16.5,
-    4.0,
-    -48.5
-   ],
-   "to": [
-    -15.5,
-    4.0,
-    -47.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 205,
+   "frm_component": 209,
    "to_component": 211,
    "kind": "jump",
    "frm": [
-    -16.5,
-    4.0,
-    -48.5
-   ],
-   "to": [
-    -14.5,
-    4.0,
-    -46.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 207,
-   "to_component": 205,
-   "kind": "jump",
-   "frm": [
-    -20.5,
-    4.0,
-    -47.5
-   ],
-   "to": [
     -19.5,
     4.0,
     -48.5
    ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 207,
-   "to_component": 210,
-   "kind": "jump",
-   "frm": [
+   "to": [
     -20.5,
     4.0,
     -47.5
-   ],
-   "to": [
-    -21.5,
-    4.0,
-    -46.5
    ],
    "horizontal": 1.41,
    "dy": 0.0
   },
   {
    "frm_component": 209,
-   "to_component": 205,
+   "to_component": 213,
    "kind": "jump",
    "frm": [
-    -15.5,
-    4.0,
-    -47.5
-   ],
-   "to": [
     -16.5,
     4.0,
     -48.5
+   ],
+   "to": [
+    -15.5,
+    4.0,
+    -47.5
    ],
    "horizontal": 1.41,
    "dy": 0.0
   },
   {
    "frm_component": 209,
-   "to_component": 211,
+   "to_component": 215,
    "kind": "jump",
    "frm": [
-    -15.5,
-    4.0,
-    -47.5
-   ],
-   "to": [
-    -14.5,
-    4.0,
-    -46.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 210,
-   "to_component": 207,
-   "kind": "jump",
-   "frm": [
-    -21.5,
-    4.0,
-    -46.5
-   ],
-   "to": [
-    -20.5,
-    4.0,
-    -47.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 210,
-   "to_component": 216,
-   "kind": "jump",
-   "frm": [
-    -21.5,
-    4.0,
-    -43.5
-   ],
-   "to": [
-    -20.5,
-    4.0,
-    -42.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 210,
-   "to_component": 218,
-   "kind": "jump",
-   "frm": [
-    -21.5,
-    4.0,
-    -43.5
-   ],
-   "to": [
-    -19.5,
-    4.0,
-    -41.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 211,
-   "to_component": 205,
-   "kind": "jump",
-   "frm": [
-    -14.5,
-    4.0,
-    -46.5
-   ],
-   "to": [
     -16.5,
     4.0,
     -48.5
+   ],
+   "to": [
+    -14.5,
+    4.0,
+    -46.5
    ],
    "horizontal": 2.83,
    "dy": 0.0
@@ -9479,55 +9411,191 @@
    "to_component": 209,
    "kind": "jump",
    "frm": [
-    -14.5,
+    -20.5,
+    4.0,
+    -47.5
+   ],
+   "to": [
+    -19.5,
+    4.0,
+    -48.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 211,
+   "to_component": 214,
+   "kind": "jump",
+   "frm": [
+    -20.5,
+    4.0,
+    -47.5
+   ],
+   "to": [
+    -21.5,
     4.0,
     -46.5
    ],
-   "to": [
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 213,
+   "to_component": 209,
+   "kind": "jump",
+   "frm": [
     -15.5,
     4.0,
     -47.5
    ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 211,
-   "to_component": 217,
-   "kind": "jump",
-   "frm": [
-    -14.5,
-    4.0,
-    -43.5
-   ],
-   "to": [
-    -15.5,
-    4.0,
-    -42.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 211,
-   "to_component": 218,
-   "kind": "jump",
-   "frm": [
-    -14.5,
-    4.0,
-    -43.5
-   ],
    "to": [
     -16.5,
     4.0,
-    -41.5
+    -48.5
    ],
-   "horizontal": 2.83,
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 213,
+   "to_component": 215,
+   "kind": "jump",
+   "frm": [
+    -15.5,
+    4.0,
+    -47.5
+   ],
+   "to": [
+    -14.5,
+    4.0,
+    -46.5
+   ],
+   "horizontal": 1.41,
    "dy": 0.0
   },
   {
    "frm_component": 214,
-   "to_component": 6,
+   "to_component": 211,
+   "kind": "jump",
+   "frm": [
+    -21.5,
+    4.0,
+    -46.5
+   ],
+   "to": [
+    -20.5,
+    4.0,
+    -47.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 214,
+   "to_component": 220,
+   "kind": "jump",
+   "frm": [
+    -21.5,
+    4.0,
+    -43.5
+   ],
+   "to": [
+    -20.5,
+    4.0,
+    -42.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 214,
+   "to_component": 222,
+   "kind": "jump",
+   "frm": [
+    -21.5,
+    4.0,
+    -43.5
+   ],
+   "to": [
+    -19.5,
+    4.0,
+    -41.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 215,
+   "to_component": 209,
+   "kind": "jump",
+   "frm": [
+    -14.5,
+    4.0,
+    -46.5
+   ],
+   "to": [
+    -16.5,
+    4.0,
+    -48.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 215,
+   "to_component": 213,
+   "kind": "jump",
+   "frm": [
+    -14.5,
+    4.0,
+    -46.5
+   ],
+   "to": [
+    -15.5,
+    4.0,
+    -47.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 215,
+   "to_component": 221,
+   "kind": "jump",
+   "frm": [
+    -14.5,
+    4.0,
+    -43.5
+   ],
+   "to": [
+    -15.5,
+    4.0,
+    -42.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 215,
+   "to_component": 222,
+   "kind": "jump",
+   "frm": [
+    -14.5,
+    4.0,
+    -43.5
+   ],
+   "to": [
+    -16.5,
+    4.0,
+    -41.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 218,
+   "to_component": 8,
    "kind": "jump",
    "frm": [
     8.5,
@@ -9543,8 +9611,8 @@
    "dy": 0.41
   },
   {
-   "frm_component": 214,
-   "to_component": 228,
+   "frm_component": 218,
+   "to_component": 232,
    "kind": "drop",
    "frm": [
     29.5,
@@ -9560,13 +9628,13 @@
    "dy": -2.05
   },
   {
-   "frm_component": 214,
-   "to_component": 229,
+   "frm_component": 218,
+   "to_component": 233,
    "kind": "drop",
    "frm": [
-    28.5,
-    5.87,
-    -25.5
+    27.5,
+    5.73,
+    -24.5
    ],
    "to": [
     28.5,
@@ -9574,11 +9642,11 @@
     -24.5
    ],
    "horizontal": 1.0,
-   "dy": -1.87
+   "dy": -1.73
   },
   {
-   "frm_component": 214,
-   "to_component": 233,
+   "frm_component": 218,
+   "to_component": 237,
    "kind": "jump",
    "frm": [
     29.5,
@@ -9594,8 +9662,8 @@
    "dy": -2.05
   },
   {
-   "frm_component": 214,
-   "to_component": 239,
+   "frm_component": 218,
+   "to_component": 243,
    "kind": "drop",
    "frm": [
     26.5,
@@ -9611,8 +9679,8 @@
    "dy": -1.59
   },
   {
-   "frm_component": 214,
-   "to_component": 253,
+   "frm_component": 218,
+   "to_component": 257,
    "kind": "drop",
    "frm": [
     26.5,
@@ -9628,8 +9696,8 @@
    "dy": -1.59
   },
   {
-   "frm_component": 214,
-   "to_component": 263,
+   "frm_component": 218,
+   "to_component": 267,
    "kind": "jump",
    "frm": [
     25.5,
@@ -9645,8 +9713,8 @@
    "dy": -1.44
   },
   {
-   "frm_component": 214,
-   "to_component": 275,
+   "frm_component": 218,
+   "to_component": 279,
    "kind": "jump",
    "frm": [
     10.5,
@@ -9662,8 +9730,8 @@
    "dy": 1.01
   },
   {
-   "frm_component": 215,
-   "to_component": 6,
+   "frm_component": 219,
+   "to_component": 8,
    "kind": "jump",
    "frm": [
     -11.5,
@@ -9679,8 +9747,8 @@
    "dy": 0.41
   },
   {
-   "frm_component": 215,
-   "to_component": 236,
+   "frm_component": 219,
+   "to_component": 240,
    "kind": "drop",
    "frm": [
     -27.5,
@@ -9696,8 +9764,8 @@
    "dy": -2.18
   },
   {
-   "frm_component": 215,
-   "to_component": 247,
+   "frm_component": 219,
+   "to_component": 251,
    "kind": "jump",
    "frm": [
     -29.5,
@@ -9713,8 +9781,8 @@
    "dy": -2.65
   },
   {
-   "frm_component": 215,
-   "to_component": 256,
+   "frm_component": 219,
+   "to_component": 260,
    "kind": "drop",
    "frm": [
     -25.5,
@@ -9730,8 +9798,8 @@
    "dy": -1.64
   },
   {
-   "frm_component": 215,
-   "to_component": 274,
+   "frm_component": 219,
+   "to_component": 278,
    "kind": "jump",
    "frm": [
     -10.5,
@@ -9747,144 +9815,144 @@
    "dy": 1.01
   },
   {
-   "frm_component": 216,
-   "to_component": 210,
-   "kind": "jump",
-   "frm": [
-    -20.5,
-    4.0,
-    -42.5
-   ],
-   "to": [
-    -21.5,
-    4.0,
-    -43.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 216,
-   "to_component": 218,
-   "kind": "jump",
-   "frm": [
-    -20.5,
-    4.0,
-    -42.5
-   ],
-   "to": [
-    -19.5,
-    4.0,
-    -41.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 217,
-   "to_component": 211,
-   "kind": "jump",
-   "frm": [
-    -15.5,
-    4.0,
-    -42.5
-   ],
-   "to": [
-    -14.5,
-    4.0,
-    -43.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 217,
-   "to_component": 218,
-   "kind": "jump",
-   "frm": [
-    -15.5,
-    4.0,
-    -42.5
-   ],
-   "to": [
-    -16.5,
-    4.0,
-    -41.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 218,
-   "to_component": 210,
-   "kind": "jump",
-   "frm": [
-    -19.5,
-    4.0,
-    -41.5
-   ],
-   "to": [
-    -21.5,
-    4.0,
-    -43.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 218,
-   "to_component": 211,
-   "kind": "jump",
-   "frm": [
-    -16.5,
-    4.0,
-    -41.5
-   ],
-   "to": [
-    -14.5,
-    4.0,
-    -43.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 218,
-   "to_component": 216,
-   "kind": "jump",
-   "frm": [
-    -19.5,
-    4.0,
-    -41.5
-   ],
-   "to": [
-    -20.5,
-    4.0,
-    -42.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 218,
-   "to_component": 217,
-   "kind": "jump",
-   "frm": [
-    -16.5,
-    4.0,
-    -41.5
-   ],
-   "to": [
-    -15.5,
-    4.0,
-    -42.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 219,
+   "frm_component": 220,
    "to_component": 214,
+   "kind": "jump",
+   "frm": [
+    -20.5,
+    4.0,
+    -42.5
+   ],
+   "to": [
+    -21.5,
+    4.0,
+    -43.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 220,
+   "to_component": 222,
+   "kind": "jump",
+   "frm": [
+    -20.5,
+    4.0,
+    -42.5
+   ],
+   "to": [
+    -19.5,
+    4.0,
+    -41.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 221,
+   "to_component": 215,
+   "kind": "jump",
+   "frm": [
+    -15.5,
+    4.0,
+    -42.5
+   ],
+   "to": [
+    -14.5,
+    4.0,
+    -43.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 221,
+   "to_component": 222,
+   "kind": "jump",
+   "frm": [
+    -15.5,
+    4.0,
+    -42.5
+   ],
+   "to": [
+    -16.5,
+    4.0,
+    -41.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 222,
+   "to_component": 214,
+   "kind": "jump",
+   "frm": [
+    -19.5,
+    4.0,
+    -41.5
+   ],
+   "to": [
+    -21.5,
+    4.0,
+    -43.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 222,
+   "to_component": 215,
+   "kind": "jump",
+   "frm": [
+    -16.5,
+    4.0,
+    -41.5
+   ],
+   "to": [
+    -14.5,
+    4.0,
+    -43.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 222,
+   "to_component": 220,
+   "kind": "jump",
+   "frm": [
+    -19.5,
+    4.0,
+    -41.5
+   ],
+   "to": [
+    -20.5,
+    4.0,
+    -42.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 222,
+   "to_component": 221,
+   "kind": "jump",
+   "frm": [
+    -16.5,
+    4.0,
+    -41.5
+   ],
+   "to": [
+    -15.5,
+    4.0,
+    -42.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 223,
+   "to_component": 218,
    "kind": "drop",
    "frm": [
     32.5,
@@ -9900,8 +9968,8 @@
    "dy": -1.49
   },
   {
-   "frm_component": 220,
-   "to_component": 6,
+   "frm_component": 224,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -55.5,
@@ -9917,8 +9985,8 @@
    "dy": -4.77
   },
   {
-   "frm_component": 221,
-   "to_component": 215,
+   "frm_component": 225,
+   "to_component": 219,
    "kind": "drop",
    "frm": [
     -40.5,
@@ -9934,8 +10002,8 @@
    "dy": -1.46
   },
   {
-   "frm_component": 223,
-   "to_component": 6,
+   "frm_component": 227,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     55.5,
@@ -9951,8 +10019,8 @@
    "dy": -4.77
   },
   {
-   "frm_component": 223,
-   "to_component": 299,
+   "frm_component": 227,
+   "to_component": 303,
    "kind": "jump",
    "frm": [
     55.5,
@@ -9968,8 +10036,8 @@
    "dy": -0.02
   },
   {
-   "frm_component": 224,
-   "to_component": 214,
+   "frm_component": 228,
+   "to_component": 218,
    "kind": "drop",
    "frm": [
     39.5,
@@ -9985,8 +10053,8 @@
    "dy": -1.45
   },
   {
-   "frm_component": 225,
-   "to_component": 6,
+   "frm_component": 229,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     2.5,
@@ -10002,25 +10070,25 @@
    "dy": -3.22
   },
   {
-   "frm_component": 225,
-   "to_component": 227,
+   "frm_component": 229,
+   "to_component": 231,
    "kind": "jump",
    "frm": [
-    3.5,
-    10.18,
+    4.5,
+    10.16,
     -31.5
    ],
    "to": [
-    3.5,
+    4.5,
     8.2,
     -28.5
    ],
    "horizontal": 3.0,
-   "dy": -1.98
+   "dy": -1.96
   },
   {
-   "frm_component": 226,
-   "to_component": 6,
+   "frm_component": 230,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -4.5,
@@ -10036,8 +10104,8 @@
    "dy": -1.47
   },
   {
-   "frm_component": 226,
-   "to_component": 227,
+   "frm_component": 230,
+   "to_component": 231,
    "kind": "jump",
    "frm": [
     -2.5,
@@ -10053,8 +10121,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 227,
-   "to_component": 6,
+   "frm_component": 231,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     2.5,
@@ -10070,8 +10138,8 @@
    "dy": -1.5
   },
   {
-   "frm_component": 227,
-   "to_component": 226,
+   "frm_component": 231,
+   "to_component": 230,
    "kind": "jump",
    "frm": [
     2.5,
@@ -10087,8 +10155,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 228,
-   "to_component": 233,
+   "frm_component": 232,
+   "to_component": 237,
    "kind": "jump",
    "frm": [
     30.5,
@@ -10104,8 +10172,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 229,
-   "to_component": 239,
+   "frm_component": 233,
+   "to_component": 243,
    "kind": "jump",
    "frm": [
     28.5,
@@ -10121,8 +10189,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 230,
-   "to_component": 214,
+   "frm_component": 234,
+   "to_component": 218,
    "kind": "jump",
    "frm": [
     28.5,
@@ -10138,8 +10206,8 @@
    "dy": -5.95
   },
   {
-   "frm_component": 230,
-   "to_component": 240,
+   "frm_component": 234,
+   "to_component": 244,
    "kind": "jump",
    "frm": [
     28.5,
@@ -10155,8 +10223,8 @@
    "dy": -0.0
   },
   {
-   "frm_component": 231,
-   "to_component": 241,
+   "frm_component": 235,
+   "to_component": 245,
    "kind": "jump",
    "frm": [
     28.5,
@@ -10172,27 +10240,27 @@
    "dy": 0.0
   },
   {
-   "frm_component": 232,
-   "to_component": 231,
-   "kind": "drop",
-   "frm": [
-    28.5,
-    24.0,
-    -24.5
-   ],
-   "to": [
-    28.5,
-    19.96,
-    -24.5
-   ],
-   "horizontal": 0.0,
-   "dy": -4.04
-  },
-  {
-   "frm_component": 232,
+   "frm_component": 236,
    "to_component": 235,
    "kind": "drop",
    "frm": [
+    28.5,
+    24.0,
+    -24.5
+   ],
+   "to": [
+    28.5,
+    19.96,
+    -24.5
+   ],
+   "horizontal": 0.0,
+   "dy": -4.04
+  },
+  {
+   "frm_component": 236,
+   "to_component": 239,
+   "kind": "drop",
+   "frm": [
     31.5,
     24.0,
     -23.5
@@ -10206,8 +10274,8 @@
    "dy": -4.04
   },
   {
-   "frm_component": 232,
-   "to_component": 241,
+   "frm_component": 236,
+   "to_component": 245,
    "kind": "drop",
    "frm": [
     28.5,
@@ -10223,8 +10291,8 @@
    "dy": -4.04
   },
   {
-   "frm_component": 232,
-   "to_component": 243,
+   "frm_component": 236,
+   "to_component": 247,
    "kind": "drop",
    "frm": [
     32.5,
@@ -10240,8 +10308,8 @@
    "dy": -4.04
   },
   {
-   "frm_component": 232,
-   "to_component": 265,
+   "frm_component": 236,
+   "to_component": 269,
    "kind": "drop",
    "frm": [
     27.5,
@@ -10257,8 +10325,8 @@
    "dy": -4.04
   },
   {
-   "frm_component": 232,
-   "to_component": 268,
+   "frm_component": 236,
+   "to_component": 272,
    "kind": "drop",
    "frm": [
     31.5,
@@ -10274,8 +10342,8 @@
    "dy": -4.04
   },
   {
-   "frm_component": 232,
-   "to_component": 277,
+   "frm_component": 236,
+   "to_component": 281,
    "kind": "drop",
    "frm": [
     28.5,
@@ -10291,8 +10359,8 @@
    "dy": -4.04
   },
   {
-   "frm_component": 232,
-   "to_component": 279,
+   "frm_component": 236,
+   "to_component": 283,
    "kind": "drop",
    "frm": [
     31.5,
@@ -10308,8 +10376,8 @@
    "dy": -4.04
   },
   {
-   "frm_component": 233,
-   "to_component": 228,
+   "frm_component": 237,
+   "to_component": 232,
    "kind": "jump",
    "frm": [
     31.5,
@@ -10325,8 +10393,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 233,
-   "to_component": 257,
+   "frm_component": 237,
+   "to_component": 261,
    "kind": "jump",
    "frm": [
     32.5,
@@ -10342,8 +10410,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 234,
-   "to_component": 214,
+   "frm_component": 238,
+   "to_component": 218,
    "kind": "jump",
    "frm": [
     31.5,
@@ -10359,8 +10427,8 @@
    "dy": -6.0
   },
   {
-   "frm_component": 234,
-   "to_component": 242,
+   "frm_component": 238,
+   "to_component": 246,
    "kind": "jump",
    "frm": [
     31.5,
@@ -10376,25 +10444,25 @@
    "dy": 0.0
   },
   {
-   "frm_component": 235,
-   "to_component": 243,
-   "kind": "jump",
-   "frm": [
-    31.5,
-    19.96,
-    -24.5
-   ],
-   "to": [
-    32.5,
-    19.96,
-    -23.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 236,
+   "frm_component": 239,
    "to_component": 247,
+   "kind": "jump",
+   "frm": [
+    31.5,
+    19.96,
+    -24.5
+   ],
+   "to": [
+    32.5,
+    19.96,
+    -23.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 240,
+   "to_component": 251,
    "kind": "jump",
    "frm": [
     -31.5,
@@ -10410,8 +10478,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 236,
-   "to_component": 256,
+   "frm_component": 240,
+   "to_component": 260,
    "kind": "jump",
    "frm": [
     -27.5,
@@ -10427,8 +10495,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 238,
-   "to_component": 237,
+   "frm_component": 242,
+   "to_component": 241,
    "kind": "drop",
    "frm": [
     -30.5,
@@ -10444,8 +10512,8 @@
    "dy": -5.55
   },
   {
-   "frm_component": 239,
-   "to_component": 229,
+   "frm_component": 243,
+   "to_component": 233,
    "kind": "jump",
    "frm": [
     27.5,
@@ -10461,8 +10529,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 239,
-   "to_component": 253,
+   "frm_component": 243,
+   "to_component": 257,
    "kind": "jump",
    "frm": [
     27.5,
@@ -10478,8 +10546,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 240,
-   "to_component": 214,
+   "frm_component": 244,
+   "to_component": 218,
    "kind": "jump",
    "frm": [
     27.5,
@@ -10495,8 +10563,8 @@
    "dy": -5.95
   },
   {
-   "frm_component": 240,
-   "to_component": 230,
+   "frm_component": 244,
+   "to_component": 234,
    "kind": "jump",
    "frm": [
     27.5,
@@ -10512,8 +10580,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 241,
-   "to_component": 231,
+   "frm_component": 245,
+   "to_component": 235,
    "kind": "jump",
    "frm": [
     27.5,
@@ -10529,8 +10597,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 242,
-   "to_component": 214,
+   "frm_component": 246,
+   "to_component": 218,
    "kind": "jump",
    "frm": [
     32.5,
@@ -10546,8 +10614,8 @@
    "dy": -6.0
   },
   {
-   "frm_component": 242,
-   "to_component": 234,
+   "frm_component": 246,
+   "to_component": 238,
    "kind": "jump",
    "frm": [
     32.5,
@@ -10563,8 +10631,8 @@
    "dy": -0.0
   },
   {
-   "frm_component": 243,
-   "to_component": 235,
+   "frm_component": 247,
+   "to_component": 239,
    "kind": "jump",
    "frm": [
     32.5,
@@ -10580,8 +10648,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 244,
-   "to_component": 254,
+   "frm_component": 248,
+   "to_component": 258,
    "kind": "jump",
    "frm": [
     -47.5,
@@ -10597,8 +10665,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 246,
-   "to_component": 255,
+   "frm_component": 250,
+   "to_component": 259,
    "kind": "jump",
    "frm": [
     -42.5,
@@ -10614,8 +10682,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 246,
-   "to_component": 260,
+   "frm_component": 250,
+   "to_component": 264,
    "kind": "jump",
    "frm": [
     -42.5,
@@ -10631,8 +10699,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 247,
-   "to_component": 236,
+   "frm_component": 251,
+   "to_component": 240,
    "kind": "jump",
    "frm": [
     -32.5,
@@ -10648,8 +10716,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 247,
-   "to_component": 283,
+   "frm_component": 251,
+   "to_component": 287,
    "kind": "jump",
    "frm": [
     -33.5,
@@ -10665,8 +10733,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 249,
-   "to_component": 248,
+   "frm_component": 253,
+   "to_component": 252,
    "kind": "drop",
    "frm": [
     -32.5,
@@ -10682,8 +10750,8 @@
    "dy": -5.55
   },
   {
-   "frm_component": 250,
-   "to_component": 238,
+   "frm_component": 254,
+   "to_component": 242,
    "kind": "drop",
    "frm": [
     -30.5,
@@ -10699,8 +10767,8 @@
    "dy": -5.26
   },
   {
-   "frm_component": 250,
-   "to_component": 249,
+   "frm_component": 254,
+   "to_component": 253,
    "kind": "drop",
    "frm": [
     -32.5,
@@ -10716,8 +10784,8 @@
    "dy": -5.26
   },
   {
-   "frm_component": 250,
-   "to_component": 252,
+   "frm_component": 254,
+   "to_component": 256,
    "kind": "drop",
    "frm": [
     -28.5,
@@ -10733,8 +10801,8 @@
    "dy": -5.26
   },
   {
-   "frm_component": 250,
-   "to_component": 262,
+   "frm_component": 254,
+   "to_component": 266,
    "kind": "drop",
    "frm": [
     -27.5,
@@ -10750,8 +10818,8 @@
    "dy": -5.26
   },
   {
-   "frm_component": 250,
-   "to_component": 273,
+   "frm_component": 254,
+   "to_component": 277,
    "kind": "drop",
    "frm": [
     -32.5,
@@ -10767,13 +10835,13 @@
    "dy": -5.26
   },
   {
-   "frm_component": 250,
-   "to_component": 285,
+   "frm_component": 254,
+   "to_component": 289,
    "kind": "drop",
    "frm": [
-    -31.5,
+    -32.5,
     24.0,
-    -17.5
+    -18.5
    ],
    "to": [
     -32.5,
@@ -10784,8 +10852,8 @@
    "dy": -5.26
   },
   {
-   "frm_component": 250,
-   "to_component": 287,
+   "frm_component": 254,
+   "to_component": 291,
    "kind": "drop",
    "frm": [
     -28.5,
@@ -10801,8 +10869,8 @@
    "dy": -5.26
   },
   {
-   "frm_component": 250,
-   "to_component": 289,
+   "frm_component": 254,
+   "to_component": 293,
    "kind": "drop",
    "frm": [
     -29.5,
@@ -10818,8 +10886,8 @@
    "dy": -5.26
   },
   {
-   "frm_component": 252,
-   "to_component": 251,
+   "frm_component": 256,
+   "to_component": 255,
    "kind": "drop",
    "frm": [
     -27.5,
@@ -10835,8 +10903,8 @@
    "dy": -5.55
   },
   {
-   "frm_component": 253,
-   "to_component": 239,
+   "frm_component": 257,
+   "to_component": 243,
    "kind": "jump",
    "frm": [
     26.5,
@@ -10852,8 +10920,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 253,
-   "to_component": 263,
+   "frm_component": 257,
+   "to_component": 267,
    "kind": "jump",
    "frm": [
     26.5,
@@ -10869,8 +10937,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 254,
-   "to_component": 244,
+   "frm_component": 258,
+   "to_component": 248,
    "kind": "jump",
    "frm": [
     -48.5,
@@ -10886,8 +10954,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 254,
-   "to_component": 259,
+   "frm_component": 258,
+   "to_component": 263,
    "kind": "jump",
    "frm": [
     -48.5,
@@ -10903,8 +10971,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 255,
-   "to_component": 246,
+   "frm_component": 259,
+   "to_component": 250,
    "kind": "jump",
    "frm": [
     -41.5,
@@ -10920,8 +10988,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 255,
-   "to_component": 260,
+   "frm_component": 259,
+   "to_component": 264,
    "kind": "jump",
    "frm": [
     -41.5,
@@ -10937,8 +11005,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 256,
-   "to_component": 215,
+   "frm_component": 260,
+   "to_component": 219,
    "kind": "jump",
    "frm": [
     -26.5,
@@ -10954,8 +11022,8 @@
    "dy": 1.11
   },
   {
-   "frm_component": 256,
-   "to_component": 236,
+   "frm_component": 260,
+   "to_component": 240,
    "kind": "jump",
    "frm": [
     -26.5,
@@ -10971,8 +11039,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 256,
-   "to_component": 283,
+   "frm_component": 260,
+   "to_component": 287,
    "kind": "jump",
    "frm": [
     -27.5,
@@ -10988,8 +11056,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 257,
-   "to_component": 233,
+   "frm_component": 261,
+   "to_component": 237,
    "kind": "jump",
    "frm": [
     33.5,
@@ -11005,8 +11073,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 257,
-   "to_component": 266,
+   "frm_component": 261,
+   "to_component": 270,
    "kind": "jump",
    "frm": [
     33.5,
@@ -11022,8 +11090,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 258,
-   "to_component": 269,
+   "frm_component": 262,
+   "to_component": 273,
    "kind": "jump",
    "frm": [
     43.5,
@@ -11039,8 +11107,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 258,
-   "to_component": 271,
+   "frm_component": 262,
+   "to_component": 275,
    "kind": "jump",
    "frm": [
     46.5,
@@ -11056,8 +11124,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 258,
-   "to_component": 281,
+   "frm_component": 262,
+   "to_component": 285,
    "kind": "jump",
    "frm": [
     46.5,
@@ -11073,8 +11141,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 259,
-   "to_component": 254,
+   "frm_component": 263,
+   "to_component": 258,
    "kind": "jump",
    "frm": [
     -49.5,
@@ -11090,8 +11158,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 260,
-   "to_component": 246,
+   "frm_component": 264,
+   "to_component": 250,
    "kind": "jump",
    "frm": [
     -40.5,
@@ -11107,8 +11175,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 260,
-   "to_component": 255,
+   "frm_component": 264,
+   "to_component": 259,
    "kind": "jump",
    "frm": [
     -40.5,
@@ -11124,8 +11192,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 262,
-   "to_component": 261,
+   "frm_component": 266,
+   "to_component": 265,
    "kind": "drop",
    "frm": [
     -26.5,
@@ -11141,8 +11209,8 @@
    "dy": -5.55
   },
   {
-   "frm_component": 263,
-   "to_component": 214,
+   "frm_component": 267,
+   "to_component": 218,
    "kind": "jump",
    "frm": [
     27.5,
@@ -11158,8 +11226,8 @@
    "dy": 1.06
   },
   {
-   "frm_component": 263,
-   "to_component": 253,
+   "frm_component": 267,
+   "to_component": 257,
    "kind": "jump",
    "frm": [
     27.5,
@@ -11175,8 +11243,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 263,
-   "to_component": 282,
+   "frm_component": 267,
+   "to_component": 286,
    "kind": "jump",
    "frm": [
     28.5,
@@ -11192,8 +11260,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 264,
-   "to_component": 276,
+   "frm_component": 268,
+   "to_component": 280,
    "kind": "jump",
    "frm": [
     27.5,
@@ -11209,8 +11277,8 @@
    "dy": -0.0
   },
   {
-   "frm_component": 265,
-   "to_component": 277,
+   "frm_component": 269,
+   "to_component": 281,
    "kind": "jump",
    "frm": [
     27.5,
@@ -11226,8 +11294,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 266,
-   "to_component": 257,
+   "frm_component": 270,
+   "to_component": 261,
    "kind": "jump",
    "frm": [
     32.5,
@@ -11243,8 +11311,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 266,
-   "to_component": 282,
+   "frm_component": 270,
+   "to_component": 286,
    "kind": "jump",
    "frm": [
     32.5,
@@ -11260,8 +11328,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 267,
-   "to_component": 278,
+   "frm_component": 271,
+   "to_component": 282,
    "kind": "jump",
    "frm": [
     32.5,
@@ -11277,8 +11345,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 268,
-   "to_component": 279,
+   "frm_component": 272,
+   "to_component": 283,
    "kind": "jump",
    "frm": [
     32.5,
@@ -11294,8 +11362,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 269,
-   "to_component": 258,
+   "frm_component": 273,
+   "to_component": 262,
    "kind": "jump",
    "frm": [
     42.5,
@@ -11311,8 +11379,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 269,
-   "to_component": 280,
+   "frm_component": 273,
+   "to_component": 284,
    "kind": "jump",
    "frm": [
     42.5,
@@ -11328,8 +11396,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 271,
-   "to_component": 258,
+   "frm_component": 275,
+   "to_component": 262,
    "kind": "jump",
    "frm": [
     47.5,
@@ -11345,8 +11413,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 271,
-   "to_component": 281,
+   "frm_component": 275,
+   "to_component": 285,
    "kind": "jump",
    "frm": [
     47.5,
@@ -11362,8 +11430,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 273,
-   "to_component": 272,
+   "frm_component": 277,
+   "to_component": 276,
    "kind": "drop",
    "frm": [
     -33.5,
@@ -11379,8 +11447,8 @@
    "dy": -5.55
   },
   {
-   "frm_component": 274,
-   "to_component": 215,
+   "frm_component": 278,
+   "to_component": 219,
    "kind": "drop",
    "frm": [
     -15.5,
@@ -11396,8 +11464,8 @@
    "dy": -1.47
   },
   {
-   "frm_component": 275,
-   "to_component": 214,
+   "frm_component": 279,
+   "to_component": 218,
    "kind": "drop",
    "frm": [
     13.5,
@@ -11413,8 +11481,8 @@
    "dy": -1.46
   },
   {
-   "frm_component": 276,
-   "to_component": 264,
+   "frm_component": 280,
+   "to_component": 268,
    "kind": "jump",
    "frm": [
     28.5,
@@ -11430,8 +11498,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 277,
-   "to_component": 265,
+   "frm_component": 281,
+   "to_component": 269,
    "kind": "jump",
    "frm": [
     28.5,
@@ -11447,8 +11515,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 278,
-   "to_component": 267,
+   "frm_component": 282,
+   "to_component": 271,
    "kind": "jump",
    "frm": [
     31.5,
@@ -11464,8 +11532,8 @@
    "dy": -0.0
   },
   {
-   "frm_component": 279,
-   "to_component": 268,
+   "frm_component": 283,
+   "to_component": 272,
    "kind": "jump",
    "frm": [
     31.5,
@@ -11481,8 +11549,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 280,
-   "to_component": 269,
+   "frm_component": 284,
+   "to_component": 273,
    "kind": "jump",
    "frm": [
     41.5,
@@ -11498,8 +11566,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 280,
-   "to_component": 292,
+   "frm_component": 284,
+   "to_component": 296,
    "kind": "jump",
    "frm": [
     41.5,
@@ -11515,8 +11583,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 280,
-   "to_component": 296,
+   "frm_component": 284,
+   "to_component": 300,
    "kind": "jump",
    "frm": [
     41.5,
@@ -11532,8 +11600,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 281,
-   "to_component": 258,
+   "frm_component": 285,
+   "to_component": 262,
    "kind": "jump",
    "frm": [
     48.5,
@@ -11549,8 +11617,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 281,
-   "to_component": 271,
+   "frm_component": 285,
+   "to_component": 275,
    "kind": "jump",
    "frm": [
     48.5,
@@ -11566,8 +11634,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 281,
-   "to_component": 293,
+   "frm_component": 285,
+   "to_component": 297,
    "kind": "jump",
    "frm": [
     48.5,
@@ -11583,8 +11651,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 281,
-   "to_component": 296,
+   "frm_component": 285,
+   "to_component": 300,
    "kind": "jump",
    "frm": [
     48.5,
@@ -11600,8 +11668,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 282,
-   "to_component": 263,
+   "frm_component": 286,
+   "to_component": 267,
    "kind": "jump",
    "frm": [
     29.5,
@@ -11617,8 +11685,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 282,
-   "to_component": 266,
+   "frm_component": 286,
+   "to_component": 270,
    "kind": "jump",
    "frm": [
     29.5,
@@ -11634,8 +11702,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 283,
-   "to_component": 247,
+   "frm_component": 287,
+   "to_component": 251,
    "kind": "jump",
    "frm": [
     -32.5,
@@ -11651,8 +11719,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 283,
-   "to_component": 256,
+   "frm_component": 287,
+   "to_component": 260,
    "kind": "jump",
    "frm": [
     -28.5,
@@ -11668,44 +11736,44 @@
    "dy": 0.0
   },
   {
-   "frm_component": 285,
-   "to_component": 284,
-   "kind": "drop",
-   "frm": [
-    -32.5,
-    18.74,
-    -17.5
-   ],
-   "to": [
-    -32.5,
-    13.19,
-    -17.5
-   ],
-   "horizontal": 0.0,
-   "dy": -5.55
-  },
-  {
-   "frm_component": 287,
-   "to_component": 286,
-   "kind": "drop",
-   "frm": [
-    -27.5,
-    18.74,
-    -17.5
-   ],
-   "to": [
-    -27.5,
-    13.19,
-    -17.5
-   ],
-   "horizontal": 0.0,
-   "dy": -5.55
-  },
-  {
    "frm_component": 289,
    "to_component": 288,
    "kind": "drop",
    "frm": [
+    -32.5,
+    18.74,
+    -17.5
+   ],
+   "to": [
+    -32.5,
+    13.19,
+    -17.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.55
+  },
+  {
+   "frm_component": 291,
+   "to_component": 290,
+   "kind": "drop",
+   "frm": [
+    -27.5,
+    18.74,
+    -17.5
+   ],
+   "to": [
+    -27.5,
+    13.19,
+    -17.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.55
+  },
+  {
+   "frm_component": 293,
+   "to_component": 292,
+   "kind": "drop",
+   "frm": [
     -29.5,
     18.74,
     -16.5
@@ -11719,8 +11787,8 @@
    "dy": -5.55
   },
   {
-   "frm_component": 290,
-   "to_component": 294,
+   "frm_component": 294,
+   "to_component": 298,
    "kind": "jump",
    "frm": [
     -49.5,
@@ -11736,8 +11804,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 290,
-   "to_component": 297,
+   "frm_component": 294,
+   "to_component": 301,
    "kind": "jump",
    "frm": [
     -49.5,
@@ -11753,8 +11821,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 291,
-   "to_component": 295,
+   "frm_component": 295,
+   "to_component": 299,
    "kind": "jump",
    "frm": [
     -40.5,
@@ -11770,8 +11838,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 291,
-   "to_component": 298,
+   "frm_component": 295,
+   "to_component": 302,
    "kind": "jump",
    "frm": [
     -40.5,
@@ -11787,8 +11855,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 292,
-   "to_component": 280,
+   "frm_component": 296,
+   "to_component": 284,
    "kind": "jump",
    "frm": [
     42.5,
@@ -11804,8 +11872,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 292,
-   "to_component": 296,
+   "frm_component": 296,
+   "to_component": 300,
    "kind": "jump",
    "frm": [
     42.5,
@@ -11821,8 +11889,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 293,
-   "to_component": 281,
+   "frm_component": 297,
+   "to_component": 285,
    "kind": "jump",
    "frm": [
     47.5,
@@ -11838,8 +11906,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 293,
-   "to_component": 296,
+   "frm_component": 297,
+   "to_component": 300,
    "kind": "jump",
    "frm": [
     47.5,
@@ -11855,212 +11923,212 @@
    "dy": 0.0
   },
   {
-   "frm_component": 294,
-   "to_component": 290,
-   "kind": "jump",
-   "frm": [
-    -48.5,
-    4.0,
-    -14.5
-   ],
-   "to": [
-    -49.5,
-    4.0,
-    -15.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 294,
-   "to_component": 297,
-   "kind": "jump",
-   "frm": [
-    -48.5,
-    4.0,
-    -14.5
-   ],
-   "to": [
-    -47.5,
-    4.0,
-    -13.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 295,
-   "to_component": 291,
-   "kind": "jump",
-   "frm": [
-    -41.5,
-    4.0,
-    -14.5
-   ],
-   "to": [
-    -40.5,
-    4.0,
-    -15.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 295,
-   "to_component": 298,
-   "kind": "jump",
-   "frm": [
-    -41.5,
-    4.0,
-    -14.5
-   ],
-   "to": [
-    -42.5,
-    4.0,
-    -13.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 296,
-   "to_component": 280,
-   "kind": "jump",
-   "frm": [
-    43.5,
-    4.0,
-    -14.5
-   ],
-   "to": [
-    41.5,
-    4.0,
-    -16.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 296,
-   "to_component": 281,
-   "kind": "jump",
-   "frm": [
-    46.5,
-    4.0,
-    -14.5
-   ],
-   "to": [
-    48.5,
-    4.0,
-    -16.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 296,
-   "to_component": 292,
-   "kind": "jump",
-   "frm": [
-    43.5,
-    4.0,
-    -14.5
-   ],
-   "to": [
-    42.5,
-    4.0,
-    -15.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 296,
-   "to_component": 293,
-   "kind": "jump",
-   "frm": [
-    46.5,
-    4.0,
-    -14.5
-   ],
-   "to": [
-    47.5,
-    4.0,
-    -15.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 297,
-   "to_component": 290,
-   "kind": "jump",
-   "frm": [
-    -47.5,
-    4.0,
-    -13.5
-   ],
-   "to": [
-    -49.5,
-    4.0,
-    -15.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 297,
+   "frm_component": 298,
    "to_component": 294,
    "kind": "jump",
    "frm": [
-    -47.5,
-    4.0,
-    -13.5
-   ],
-   "to": [
     -48.5,
     4.0,
     -14.5
+   ],
+   "to": [
+    -49.5,
+    4.0,
+    -15.5
    ],
    "horizontal": 1.41,
    "dy": 0.0
   },
   {
    "frm_component": 298,
-   "to_component": 291,
+   "to_component": 301,
    "kind": "jump",
    "frm": [
-    -42.5,
-    4.0,
-    -13.5
-   ],
-   "to": [
-    -40.5,
-    4.0,
-    -15.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 298,
-   "to_component": 295,
-   "kind": "jump",
-   "frm": [
-    -42.5,
-    4.0,
-    -13.5
-   ],
-   "to": [
-    -41.5,
+    -48.5,
     4.0,
     -14.5
+   ],
+   "to": [
+    -47.5,
+    4.0,
+    -13.5
    ],
    "horizontal": 1.41,
    "dy": 0.0
   },
   {
    "frm_component": 299,
-   "to_component": 6,
+   "to_component": 295,
+   "kind": "jump",
+   "frm": [
+    -41.5,
+    4.0,
+    -14.5
+   ],
+   "to": [
+    -40.5,
+    4.0,
+    -15.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 299,
+   "to_component": 302,
+   "kind": "jump",
+   "frm": [
+    -41.5,
+    4.0,
+    -14.5
+   ],
+   "to": [
+    -42.5,
+    4.0,
+    -13.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 300,
+   "to_component": 284,
+   "kind": "jump",
+   "frm": [
+    43.5,
+    4.0,
+    -14.5
+   ],
+   "to": [
+    41.5,
+    4.0,
+    -16.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 300,
+   "to_component": 285,
+   "kind": "jump",
+   "frm": [
+    46.5,
+    4.0,
+    -14.5
+   ],
+   "to": [
+    48.5,
+    4.0,
+    -16.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 300,
+   "to_component": 296,
+   "kind": "jump",
+   "frm": [
+    43.5,
+    4.0,
+    -14.5
+   ],
+   "to": [
+    42.5,
+    4.0,
+    -15.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 300,
+   "to_component": 297,
+   "kind": "jump",
+   "frm": [
+    46.5,
+    4.0,
+    -14.5
+   ],
+   "to": [
+    47.5,
+    4.0,
+    -15.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 301,
+   "to_component": 294,
+   "kind": "jump",
+   "frm": [
+    -47.5,
+    4.0,
+    -13.5
+   ],
+   "to": [
+    -49.5,
+    4.0,
+    -15.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 301,
+   "to_component": 298,
+   "kind": "jump",
+   "frm": [
+    -47.5,
+    4.0,
+    -13.5
+   ],
+   "to": [
+    -48.5,
+    4.0,
+    -14.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 302,
+   "to_component": 295,
+   "kind": "jump",
+   "frm": [
+    -42.5,
+    4.0,
+    -13.5
+   ],
+   "to": [
+    -40.5,
+    4.0,
+    -15.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 302,
+   "to_component": 299,
+   "kind": "jump",
+   "frm": [
+    -42.5,
+    4.0,
+    -13.5
+   ],
+   "to": [
+    -41.5,
+    4.0,
+    -14.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 303,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     50.5,
@@ -12076,8 +12144,8 @@
    "dy": -4.73
   },
   {
-   "frm_component": 299,
-   "to_component": 223,
+   "frm_component": 303,
+   "to_component": 227,
    "kind": "jump",
    "frm": [
     55.5,
@@ -12093,42 +12161,42 @@
    "dy": 0.02
   },
   {
-   "frm_component": 300,
-   "to_component": 6,
+   "frm_component": 304,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -30.5,
     8.2,
-    -3.5
+    -4.5
    ],
    "to": [
     -31.5,
     6.73,
+    -4.5
+   ],
+   "horizontal": 1.0,
+   "dy": -1.47
+  },
+  {
+   "frm_component": 305,
+   "to_component": 8,
+   "kind": "drop",
+   "frm": [
+    28.5,
+    8.2,
+    -3.5
+   ],
+   "to": [
+    27.5,
+    6.73,
     -3.5
    ],
    "horizontal": 1.0,
    "dy": -1.47
   },
   {
-   "frm_component": 301,
-   "to_component": 6,
-   "kind": "drop",
-   "frm": [
-    28.5,
-    8.2,
-    -4.5
-   ],
-   "to": [
-    27.5,
-    6.73,
-    -4.5
-   ],
-   "horizontal": 1.0,
-   "dy": -1.47
-  },
-  {
-   "frm_component": 302,
-   "to_component": 6,
+   "frm_component": 306,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -50.5,
@@ -12144,8 +12212,8 @@
    "dy": -1.46
   },
   {
-   "frm_component": 303,
-   "to_component": 6,
+   "frm_component": 307,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -3.5,
@@ -12161,8 +12229,8 @@
    "dy": -5.07
   },
   {
-   "frm_component": 304,
-   "to_component": 6,
+   "frm_component": 308,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     3.5,
@@ -12178,8 +12246,8 @@
    "dy": -5.07
   },
   {
-   "frm_component": 305,
-   "to_component": 6,
+   "frm_component": 309,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     5.5,
@@ -12195,8 +12263,8 @@
    "dy": -1.08
   },
   {
-   "frm_component": 306,
-   "to_component": 6,
+   "frm_component": 310,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     49.5,
@@ -12212,8 +12280,8 @@
    "dy": -1.47
   },
   {
-   "frm_component": 307,
-   "to_component": 6,
+   "frm_component": 311,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -30.5,
@@ -12229,8 +12297,8 @@
    "dy": -1.47
   },
   {
-   "frm_component": 308,
-   "to_component": 6,
+   "frm_component": 312,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -3.5,
@@ -12246,8 +12314,8 @@
    "dy": -5.07
   },
   {
-   "frm_component": 309,
-   "to_component": 6,
+   "frm_component": 313,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     3.5,
@@ -12263,8 +12331,8 @@
    "dy": -4.69
   },
   {
-   "frm_component": 309,
-   "to_component": 305,
+   "frm_component": 313,
+   "to_component": 309,
    "kind": "jump",
    "frm": [
     3.5,
@@ -12280,8 +12348,8 @@
    "dy": -3.6
   },
   {
-   "frm_component": 310,
-   "to_component": 6,
+   "frm_component": 314,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     28.5,
@@ -12297,8 +12365,8 @@
    "dy": -1.47
   },
   {
-   "frm_component": 311,
-   "to_component": 6,
+   "frm_component": 315,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -54.5,
@@ -12314,8 +12382,8 @@
    "dy": -4.74
   },
   {
-   "frm_component": 312,
-   "to_component": 6,
+   "frm_component": 316,
+   "to_component": 8,
    "kind": "jump",
    "frm": [
     -11.5,
@@ -12331,8 +12399,8 @@
    "dy": 0.41
   },
   {
-   "frm_component": 312,
-   "to_component": 314,
+   "frm_component": 316,
+   "to_component": 318,
    "kind": "jump",
    "frm": [
     -13.5,
@@ -12348,13 +12416,13 @@
    "dy": 1.01
   },
   {
-   "frm_component": 312,
-   "to_component": 335,
+   "frm_component": 316,
+   "to_component": 339,
    "kind": "jump",
    "frm": [
-    -24.5,
-    5.93,
-    27.5
+    -25.5,
+    6.1,
+    28.5
    ],
    "to": [
     -23.5,
@@ -12362,11 +12430,11 @@
     29.5
    ],
    "horizontal": 2.24,
-   "dy": -1.93
+   "dy": -2.1
   },
   {
-   "frm_component": 312,
-   "to_component": 340,
+   "frm_component": 316,
+   "to_component": 344,
    "kind": "jump",
    "frm": [
     -25.5,
@@ -12382,13 +12450,13 @@
    "dy": -2.1
   },
   {
-   "frm_component": 313,
-   "to_component": 6,
+   "frm_component": 317,
+   "to_component": 8,
    "kind": "jump",
    "frm": [
-    11.5,
-    6.26,
-    8.5
+    10.5,
+    6.18,
+    9.5
    ],
    "to": [
     10.5,
@@ -12396,11 +12464,11 @@
     8.5
    ],
    "horizontal": 1.0,
-   "dy": 0.41
+   "dy": 0.5
   },
   {
-   "frm_component": 313,
-   "to_component": 315,
+   "frm_component": 317,
+   "to_component": 319,
    "kind": "jump",
    "frm": [
     13.5,
@@ -12416,8 +12484,8 @@
    "dy": 1.01
   },
   {
-   "frm_component": 314,
-   "to_component": 312,
+   "frm_component": 318,
+   "to_component": 316,
    "kind": "drop",
    "frm": [
     -19.5,
@@ -12433,16 +12501,16 @@
    "dy": -1.46
   },
   {
-   "frm_component": 315,
-   "to_component": 313,
+   "frm_component": 319,
+   "to_component": 317,
    "kind": "drop",
    "frm": [
-    17.5,
+    18.5,
     6.2,
     13.5
    ],
    "to": [
-    17.5,
+    18.5,
     4.74,
     12.5
    ],
@@ -12450,8 +12518,8 @@
    "dy": -1.46
   },
   {
-   "frm_component": 317,
-   "to_component": 322,
+   "frm_component": 321,
+   "to_component": 326,
    "kind": "jump",
    "frm": [
     -47.5,
@@ -12467,8 +12535,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 318,
-   "to_component": 311,
+   "frm_component": 322,
+   "to_component": 315,
    "kind": "jump",
    "frm": [
     -46.5,
@@ -12484,8 +12552,8 @@
    "dy": -5.82
   },
   {
-   "frm_component": 319,
-   "to_component": 323,
+   "frm_component": 323,
+   "to_component": 327,
    "kind": "jump",
    "frm": [
     -42.5,
@@ -12501,8 +12569,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 322,
-   "to_component": 317,
+   "frm_component": 326,
+   "to_component": 321,
    "kind": "jump",
    "frm": [
     -48.5,
@@ -12518,8 +12586,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 323,
-   "to_component": 319,
+   "frm_component": 327,
+   "to_component": 323,
    "kind": "jump",
    "frm": [
     -41.5,
@@ -12535,8 +12603,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 324,
-   "to_component": 6,
+   "frm_component": 328,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     55.5,
@@ -12552,8 +12620,8 @@
    "dy": -4.77
   },
   {
-   "frm_component": 327,
-   "to_component": 6,
+   "frm_component": 331,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -55.5,
@@ -12569,8 +12637,8 @@
    "dy": -4.77
   },
   {
-   "frm_component": 329,
-   "to_component": 331,
+   "frm_component": 333,
+   "to_component": 335,
    "kind": "jump",
    "frm": [
     -48.5,
@@ -12581,64 +12649,64 @@
     -47.5,
     4.0,
     21.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 330,
-   "to_component": 332,
-   "kind": "jump",
-   "frm": [
-    -41.5,
-    4.0,
-    20.5
-   ],
-   "to": [
-    -42.5,
-    4.0,
-    21.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 331,
-   "to_component": 329,
-   "kind": "jump",
-   "frm": [
-    -47.5,
-    4.0,
-    21.5
-   ],
-   "to": [
-    -48.5,
-    4.0,
-    20.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 332,
-   "to_component": 330,
-   "kind": "jump",
-   "frm": [
-    -42.5,
-    4.0,
-    21.5
-   ],
-   "to": [
-    -41.5,
-    4.0,
-    20.5
    ],
    "horizontal": 1.41,
    "dy": 0.0
   },
   {
    "frm_component": 334,
-   "to_component": 6,
+   "to_component": 336,
+   "kind": "jump",
+   "frm": [
+    -41.5,
+    4.0,
+    20.5
+   ],
+   "to": [
+    -42.5,
+    4.0,
+    21.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 335,
+   "to_component": 333,
+   "kind": "jump",
+   "frm": [
+    -47.5,
+    4.0,
+    21.5
+   ],
+   "to": [
+    -48.5,
+    4.0,
+    20.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 336,
+   "to_component": 334,
+   "kind": "jump",
+   "frm": [
+    -42.5,
+    4.0,
+    21.5
+   ],
+   "to": [
+    -41.5,
+    4.0,
+    20.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 338,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     2.5,
@@ -12654,8 +12722,8 @@
    "dy": -1.47
   },
   {
-   "frm_component": 335,
-   "to_component": 340,
+   "frm_component": 339,
+   "to_component": 344,
    "kind": "jump",
    "frm": [
     -23.5,
@@ -12671,8 +12739,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 336,
-   "to_component": 312,
+   "frm_component": 340,
+   "to_component": 316,
    "kind": "jump",
    "frm": [
     -22.5,
@@ -12688,8 +12756,8 @@
    "dy": -5.79
   },
   {
-   "frm_component": 337,
-   "to_component": 336,
+   "frm_component": 341,
+   "to_component": 340,
    "kind": "drop",
    "frm": [
     -22.5,
@@ -12705,8 +12773,8 @@
    "dy": -5.03
   },
   {
-   "frm_component": 338,
-   "to_component": 337,
+   "frm_component": 342,
+   "to_component": 341,
    "kind": "drop",
    "frm": [
     -22.5,
@@ -12722,13 +12790,13 @@
    "dy": -5.36
   },
   {
-   "frm_component": 339,
-   "to_component": 338,
+   "frm_component": 343,
+   "to_component": 342,
    "kind": "drop",
    "frm": [
-    -21.5,
+    -22.5,
     24.0,
-    29.5
+    30.5
    ],
    "to": [
     -22.5,
@@ -12739,8 +12807,8 @@
    "dy": -1.5
   },
   {
-   "frm_component": 339,
-   "to_component": 344,
+   "frm_component": 343,
+   "to_component": 348,
    "kind": "drop",
    "frm": [
     -20.5,
@@ -12756,8 +12824,8 @@
    "dy": -1.5
   },
   {
-   "frm_component": 339,
-   "to_component": 349,
+   "frm_component": 343,
+   "to_component": 353,
    "kind": "drop",
    "frm": [
     -23.5,
@@ -12773,8 +12841,8 @@
    "dy": -1.5
   },
   {
-   "frm_component": 339,
-   "to_component": 354,
+   "frm_component": 343,
+   "to_component": 358,
    "kind": "drop",
    "frm": [
     -22.5,
@@ -12790,8 +12858,8 @@
    "dy": -1.5
   },
   {
-   "frm_component": 340,
-   "to_component": 335,
+   "frm_component": 344,
+   "to_component": 339,
    "kind": "jump",
    "frm": [
     -24.5,
@@ -12807,8 +12875,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 341,
-   "to_component": 351,
+   "frm_component": 345,
+   "to_component": 355,
    "kind": "jump",
    "frm": [
     -19.5,
@@ -12824,8 +12892,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 343,
-   "to_component": 342,
+   "frm_component": 347,
+   "to_component": 346,
    "kind": "drop",
    "frm": [
     -19.5,
@@ -12841,8 +12909,8 @@
    "dy": -5.03
   },
   {
-   "frm_component": 344,
-   "to_component": 343,
+   "frm_component": 348,
+   "to_component": 347,
    "kind": "drop",
    "frm": [
     -19.5,
@@ -12858,25 +12926,25 @@
    "dy": -5.36
   },
   {
-   "frm_component": 345,
-   "to_component": 6,
+   "frm_component": 349,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
-    -4.5,
-    10.16,
-    31.5
+    -5.5,
+    9.95,
+    32.5
    ],
    "to": [
-    -4.5,
-    6.73,
-    30.5
+    -5.5,
+    6.74,
+    31.5
    ],
    "horizontal": 1.0,
-   "dy": -3.42
+   "dy": -3.21
   },
   {
-   "frm_component": 346,
-   "to_component": 312,
+   "frm_component": 350,
+   "to_component": 316,
    "kind": "drop",
    "frm": [
     -41.5,
@@ -12892,8 +12960,8 @@
    "dy": -1.5
   },
   {
-   "frm_component": 347,
-   "to_component": 312,
+   "frm_component": 351,
+   "to_component": 316,
    "kind": "jump",
    "frm": [
     -24.5,
@@ -12909,8 +12977,8 @@
    "dy": -5.54
   },
   {
-   "frm_component": 348,
-   "to_component": 347,
+   "frm_component": 352,
+   "to_component": 351,
    "kind": "drop",
    "frm": [
     -24.5,
@@ -12926,8 +12994,8 @@
    "dy": -5.03
   },
   {
-   "frm_component": 349,
-   "to_component": 348,
+   "frm_component": 353,
+   "to_component": 352,
    "kind": "drop",
    "frm": [
     -24.5,
@@ -12943,8 +13011,8 @@
    "dy": -5.36
   },
   {
-   "frm_component": 350,
-   "to_component": 313,
+   "frm_component": 354,
+   "to_component": 317,
    "kind": "drop",
    "frm": [
     40.5,
@@ -12960,8 +13028,8 @@
    "dy": -1.46
   },
   {
-   "frm_component": 351,
-   "to_component": 341,
+   "frm_component": 355,
+   "to_component": 345,
    "kind": "jump",
    "frm": [
     -20.5,
@@ -12977,8 +13045,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 353,
-   "to_component": 352,
+   "frm_component": 357,
+   "to_component": 356,
    "kind": "drop",
    "frm": [
     -22.5,
@@ -12994,8 +13062,8 @@
    "dy": -5.03
   },
   {
-   "frm_component": 354,
-   "to_component": 353,
+   "frm_component": 358,
+   "to_component": 357,
    "kind": "drop",
    "frm": [
     -21.5,
@@ -13011,8 +13079,8 @@
    "dy": -5.36
   },
   {
-   "frm_component": 355,
-   "to_component": 312,
+   "frm_component": 359,
+   "to_component": 316,
    "kind": "drop",
    "frm": [
     -34.5,
@@ -13028,8 +13096,8 @@
    "dy": -1.47
   },
   {
-   "frm_component": 356,
-   "to_component": 364,
+   "frm_component": 360,
+   "to_component": 368,
    "kind": "jump",
    "frm": [
     15.5,
@@ -13045,8 +13113,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 358,
-   "to_component": 365,
+   "frm_component": 362,
+   "to_component": 369,
    "kind": "jump",
    "frm": [
     20.5,
@@ -13062,8 +13130,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 358,
-   "to_component": 369,
+   "frm_component": 362,
+   "to_component": 373,
    "kind": "jump",
    "frm": [
     20.5,
@@ -13079,8 +13147,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 359,
-   "to_component": 313,
+   "frm_component": 363,
+   "to_component": 317,
    "kind": "drop",
    "frm": [
     32.5,
@@ -13088,16 +13156,16 @@
     40.5
    ],
    "to": [
-    32.5,
-    6.25,
-    39.5
+    31.5,
+    6.2,
+    40.5
    ],
    "horizontal": 1.0,
-   "dy": -1.45
+   "dy": -1.5
   },
   {
-   "frm_component": 360,
-   "to_component": 313,
+   "frm_component": 364,
+   "to_component": 317,
    "kind": "drop",
    "frm": [
     40.5,
@@ -13113,8 +13181,8 @@
    "dy": -1.46
   },
   {
-   "frm_component": 361,
-   "to_component": 366,
+   "frm_component": 365,
+   "to_component": 370,
    "kind": "jump",
    "frm": [
     -20.5,
@@ -13130,8 +13198,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 362,
-   "to_component": 373,
+   "frm_component": 366,
+   "to_component": 377,
    "kind": "jump",
    "frm": [
     -14.5,
@@ -13147,8 +13215,8 @@
    "dy": -3.12
   },
   {
-   "frm_component": 363,
-   "to_component": 367,
+   "frm_component": 367,
+   "to_component": 371,
    "kind": "jump",
    "frm": [
     -15.5,
@@ -13164,8 +13232,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 364,
-   "to_component": 356,
+   "frm_component": 368,
+   "to_component": 360,
    "kind": "jump",
    "frm": [
     14.5,
@@ -13181,8 +13249,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 364,
-   "to_component": 368,
+   "frm_component": 368,
+   "to_component": 372,
    "kind": "jump",
    "frm": [
     14.5,
@@ -13198,8 +13266,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 365,
-   "to_component": 358,
+   "frm_component": 369,
+   "to_component": 362,
    "kind": "jump",
    "frm": [
     21.5,
@@ -13215,8 +13283,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 365,
-   "to_component": 369,
+   "frm_component": 369,
+   "to_component": 373,
    "kind": "jump",
    "frm": [
     21.5,
@@ -13232,8 +13300,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 366,
-   "to_component": 361,
+   "frm_component": 370,
+   "to_component": 365,
    "kind": "jump",
    "frm": [
     -21.5,
@@ -13249,8 +13317,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 367,
-   "to_component": 363,
+   "frm_component": 371,
+   "to_component": 367,
    "kind": "jump",
    "frm": [
     -14.5,
@@ -13266,8 +13334,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 368,
-   "to_component": 364,
+   "frm_component": 372,
+   "to_component": 368,
    "kind": "jump",
    "frm": [
     13.5,
@@ -13283,8 +13351,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 369,
-   "to_component": 358,
+   "frm_component": 373,
+   "to_component": 362,
    "kind": "jump",
    "frm": [
     22.5,
@@ -13300,8 +13368,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 369,
-   "to_component": 365,
+   "frm_component": 373,
+   "to_component": 369,
    "kind": "jump",
    "frm": [
     22.5,
@@ -13317,8 +13385,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 370,
-   "to_component": 6,
+   "frm_component": 374,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -50.5,
@@ -13334,8 +13402,25 @@
    "dy": -4.27
   },
   {
-   "frm_component": 371,
-   "to_component": 377,
+   "frm_component": 374,
+   "to_component": 388,
+   "kind": "jump",
+   "frm": [
+    -51.5,
+    10.97,
+    53.5
+   ],
+   "to": [
+    -50.5,
+    11.82,
+    54.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.84
+  },
+  {
+   "frm_component": 375,
+   "to_component": 381,
    "kind": "jump",
    "frm": [
     -21.5,
@@ -13351,8 +13436,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 372,
-   "to_component": 378,
+   "frm_component": 376,
+   "to_component": 382,
    "kind": "jump",
    "frm": [
     -14.5,
@@ -13368,8 +13453,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 373,
-   "to_component": 6,
+   "frm_component": 377,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -9.5,
@@ -13385,8 +13470,8 @@
    "dy": -4.76
   },
   {
-   "frm_component": 373,
-   "to_component": 384,
+   "frm_component": 377,
+   "to_component": 389,
    "kind": "jump",
    "frm": [
     -10.5,
@@ -13402,8 +13487,8 @@
    "dy": 0.02
   },
   {
-   "frm_component": 374,
-   "to_component": 380,
+   "frm_component": 378,
+   "to_component": 384,
    "kind": "jump",
    "frm": [
     13.5,
@@ -13419,8 +13504,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 374,
-   "to_component": 382,
+   "frm_component": 378,
+   "to_component": 386,
    "kind": "jump",
    "frm": [
     13.5,
@@ -13436,8 +13521,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 375,
-   "to_component": 381,
+   "frm_component": 379,
+   "to_component": 385,
    "kind": "jump",
    "frm": [
     22.5,
@@ -13453,8 +13538,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 375,
-   "to_component": 383,
+   "frm_component": 379,
+   "to_component": 387,
    "kind": "jump",
    "frm": [
     22.5,
@@ -13470,8 +13555,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 376,
-   "to_component": 6,
+   "frm_component": 380,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     48.5,
@@ -13487,8 +13572,8 @@
    "dy": -4.13
   },
   {
-   "frm_component": 377,
-   "to_component": 371,
+   "frm_component": 381,
+   "to_component": 375,
    "kind": "jump",
    "frm": [
     -20.5,
@@ -13504,8 +13589,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 378,
-   "to_component": 372,
+   "frm_component": 382,
+   "to_component": 376,
    "kind": "jump",
    "frm": [
     -15.5,
@@ -13521,8 +13606,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 379,
-   "to_component": 6,
+   "frm_component": 383,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     1.5,
@@ -13538,8 +13623,8 @@
    "dy": -1.48
   },
   {
-   "frm_component": 380,
-   "to_component": 374,
+   "frm_component": 384,
+   "to_component": 378,
    "kind": "jump",
    "frm": [
     14.5,
@@ -13550,132 +13635,166 @@
     13.5,
     4.0,
     47.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 380,
-   "to_component": 382,
-   "kind": "jump",
-   "frm": [
-    14.5,
-    4.0,
-    48.5
-   ],
-   "to": [
-    15.5,
-    4.0,
-    49.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 381,
-   "to_component": 375,
-   "kind": "jump",
-   "frm": [
-    21.5,
-    4.0,
-    48.5
-   ],
-   "to": [
-    22.5,
-    4.0,
-    47.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 381,
-   "to_component": 383,
-   "kind": "jump",
-   "frm": [
-    21.5,
-    4.0,
-    48.5
-   ],
-   "to": [
-    20.5,
-    4.0,
-    49.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 382,
-   "to_component": 374,
-   "kind": "jump",
-   "frm": [
-    15.5,
-    4.0,
-    49.5
-   ],
-   "to": [
-    13.5,
-    4.0,
-    47.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 382,
-   "to_component": 380,
-   "kind": "jump",
-   "frm": [
-    15.5,
-    4.0,
-    49.5
-   ],
-   "to": [
-    14.5,
-    4.0,
-    48.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 383,
-   "to_component": 375,
-   "kind": "jump",
-   "frm": [
-    20.5,
-    4.0,
-    49.5
-   ],
-   "to": [
-    22.5,
-    4.0,
-    47.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 383,
-   "to_component": 381,
-   "kind": "jump",
-   "frm": [
-    20.5,
-    4.0,
-    49.5
-   ],
-   "to": [
-    21.5,
-    4.0,
-    48.5
    ],
    "horizontal": 1.41,
    "dy": 0.0
   },
   {
    "frm_component": 384,
-   "to_component": 6,
+   "to_component": 386,
+   "kind": "jump",
+   "frm": [
+    14.5,
+    4.0,
+    48.5
+   ],
+   "to": [
+    15.5,
+    4.0,
+    49.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 385,
+   "to_component": 379,
+   "kind": "jump",
+   "frm": [
+    21.5,
+    4.0,
+    48.5
+   ],
+   "to": [
+    22.5,
+    4.0,
+    47.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 385,
+   "to_component": 387,
+   "kind": "jump",
+   "frm": [
+    21.5,
+    4.0,
+    48.5
+   ],
+   "to": [
+    20.5,
+    4.0,
+    49.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 386,
+   "to_component": 378,
+   "kind": "jump",
+   "frm": [
+    15.5,
+    4.0,
+    49.5
+   ],
+   "to": [
+    13.5,
+    4.0,
+    47.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 386,
+   "to_component": 384,
+   "kind": "jump",
+   "frm": [
+    15.5,
+    4.0,
+    49.5
+   ],
+   "to": [
+    14.5,
+    4.0,
+    48.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 387,
+   "to_component": 379,
+   "kind": "jump",
+   "frm": [
+    20.5,
+    4.0,
+    49.5
+   ],
+   "to": [
+    22.5,
+    4.0,
+    47.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 387,
+   "to_component": 385,
+   "kind": "jump",
+   "frm": [
+    20.5,
+    4.0,
+    49.5
+   ],
+   "to": [
+    21.5,
+    4.0,
+    48.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 388,
+   "to_component": 8,
+   "kind": "drop",
+   "frm": [
+    -50.5,
+    11.82,
+    54.5
+   ],
+   "to": [
+    -50.5,
+    6.73,
+    54.5
+   ],
+   "horizontal": 0.0,
+   "dy": -5.08
+  },
+  {
+   "frm_component": 388,
+   "to_component": 374,
+   "kind": "drop",
+   "frm": [
+    -50.5,
+    11.82,
+    54.5
+   ],
+   "to": [
+    -51.5,
+    10.97,
+    53.5
+   ],
+   "horizontal": 1.41,
+   "dy": -0.84
+  },
+  {
+   "frm_component": 389,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     -40.5,
@@ -13691,8 +13810,8 @@
    "dy": -4.77
   },
   {
-   "frm_component": 384,
-   "to_component": 373,
+   "frm_component": 389,
+   "to_component": 377,
    "kind": "jump",
    "frm": [
     -15.5,
@@ -13708,8 +13827,8 @@
    "dy": -0.02
   },
   {
-   "frm_component": 385,
-   "to_component": 6,
+   "frm_component": 390,
+   "to_component": 8,
    "kind": "drop",
    "frm": [
     15.5,

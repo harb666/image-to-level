@@ -3,7 +3,7 @@
  "variant": "game",
  "level": "slime_arena",
  "title": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
- "generated": "2026-10-11 17:30:23",
+ "generated": "2026-10-12 10:05:28",
  "godot_root": "res://levels/slime_arena/",
  "use_in_game": "mobile/level_mobile.glb (+ mobile/background_mobile.glb, mobile/collision.glb)",
  "profile": "balanced",
@@ -104,39 +104,39 @@
  ],
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "f3b78cb5c2e50e53",
+  "spec_sha": "69ba72ba718ccc14",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
  },
  "metrics": {
   "dev": {
-   "glb_kb": 3742,
-   "triangles": 52071,
-   "draw_calls": 2559,
-   "tex_mem_gpu_mb_est": 9.44
+   "glb_kb": 4684,
+   "triangles": 67844,
+   "draw_calls": 3394,
+   "tex_mem_gpu_mb_est": 19.83
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 2408,
-   "triangles": 66050,
-   "draw_calls": 67,
-   "visible_draw_calls_est": 46.3,
-   "visible_draw_calls_max_est": 68,
-   "tex_mem_gpu_mb_est": 4.81,
-   "materials": 20,
-   "nodes": 68,
+   "glb_kb": 3193,
+   "triangles": 83757,
+   "draw_calls": 79,
+   "visible_draw_calls_est": 52.8,
+   "visible_draw_calls_max_est": 80,
+   "tex_mem_gpu_mb_est": 7.2,
+   "materials": 27,
+   "nodes": 80,
    "colliders": {
-    "colliders": 670,
+    "colliders": 668,
     "hazards": 16,
-    "glb_kb": 412
+    "glb_kb": 416
    },
    "background_kb": 407
   },
   "effects": {
-   "max_particles": 868,
-   "emitters": 28,
-   "extra_draw_calls": 8,
+   "max_particles": 911,
+   "emitters": 50,
+   "extra_draw_calls": 12,
    "transparent_area_m2": 31584
   },
   "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
@@ -159,8 +159,8 @@
   },
   {
    "path": "effects.json",
-   "bytes": 40836,
-   "sha1": "d13df7c85206e3907c8925e8b2d8310290454de9",
+   "bytes": 53496,
+   "sha1": "dbe286d38104c5183c90785dd46a8ab46c593f80",
    "purpose": "runtime effects metadata (Godot recreates them)"
   },
   {
@@ -177,14 +177,14 @@
   },
   {
    "path": "level.json",
-   "bytes": 871988,
-   "sha1": "b7f807d0413f8388d3f432fe607f95f8145e0c89",
+   "bytes": 1216305,
+   "sha1": "bfcb497e36185133c29c0367a0599a105161021e",
    "purpose": "editable master (source of truth for edits)"
   },
   {
    "path": "scene_spec.json",
-   "bytes": 33493,
-   "sha1": "9d770cc8722061230ace73de9e89662d73eb5161",
+   "bytes": 34162,
+   "sha1": "89cce0fde5d83b0e1393257c9d7b432915691e49",
    "purpose": "Claude's interpretation of the reference images (regenerate input)"
   },
   {
@@ -196,7 +196,7 @@
   {
    "path": "checks/report.md",
    "bytes": 803,
-   "sha1": "4d1887775b2a75bdcd2f0ec4f2c6471d02e639da",
+   "sha1": "0d81d3b3ad897f6633df2390b6b3f97d52b8db1c",
    "purpose": "validation report"
   },
   {
@@ -291,8 +291,8 @@
   },
   {
    "path": "gameplay/navigation.json",
-   "bytes": 170409,
-   "sha1": "a6b0c89cbbc89d868d3e5b76adf87d8a45d6a477",
+   "bytes": 171892,
+   "sha1": "2a5e572d7f5f5483021aa8570eb662dfa3c3af00",
    "purpose": "reachability summary from the gameplay config (not a navmesh)"
   },
   {
@@ -315,32 +315,32 @@
   },
   {
    "path": "mobile/collision.glb",
-   "bytes": 421980,
-   "sha1": "902a773de9002f8431221df1b692ec9f2eeb1216",
+   "bytes": 425532,
+   "sha1": "0fa6b429dc1b5b37be6c8e0ce20eadd4f12d576a",
    "purpose": "collision meshes (-colonly / -convcolonly import suffixes)"
   },
   {
    "path": "mobile/collision.json",
-   "bytes": 200374,
-   "sha1": "732a5cd11a11061c0ed65ca8704fc081768cb76e",
+   "bytes": 210220,
+   "sha1": "2bb7fdb71e0c4a008d6fad4683097da81452ed2a",
    "purpose": "primitive colliders + hazard areas"
   },
   {
    "path": "mobile/effects_mobile.json",
-   "bytes": 31134,
-   "sha1": "a2648ca53ced6864b08ca30eefa8a305beb7ef0b",
+   "bytes": 42686,
+   "sha1": "8d712653123a7b28a43f8eab86cc9e010cedb98d",
    "purpose": "effects with merged-node targets"
   },
   {
    "path": "mobile/level_mobile.glb",
-   "bytes": 2465532,
-   "sha1": "4d4ac546a4c67c22a53f35c6f1e63730b427d996",
+   "bytes": 3269688,
+   "sha1": "b2da14cc6eb36aef96993813faa38b25b54434ff",
    "purpose": "mobile export: merged by cell+material (use in game)"
   },
   {
    "path": "mobile/mobile_manifest.json",
-   "bytes": 93037,
-   "sha1": "ada817423762cd57ac753288ff685291542739e9",
+   "bytes": 124889,
+   "sha1": "dc063f8df9b8e0260e1b1056028ec2e13e3f6367",
    "purpose": "per-node visibility/shadows + Godot import settings + metrics"
   }
  ],
