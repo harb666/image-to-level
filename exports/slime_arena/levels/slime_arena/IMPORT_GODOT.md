@@ -80,3 +80,15 @@ The browser preview approximates all of these with three.js. It is close to Godo
   nothing to set up and less GPU memory. Non-toon materials (slime, glow) keep theirs.
 - Game exports (`exports/slime_arena`, built with `package.py --game`) contain no desktop `level.glb` / `background.glb`:
   instance `mobile/level_mobile.glb` and `mobile/background_mobile.glb`.
+
+## Smallest files (Stage 25)
+
+- Textures in the mobile GLBs are WebP (`EXT_texture_webp`, listed as required). Godot 4 imports it natively (the
+  extension is in the Godot 4.2 and 4.3 importer source). Godot re-encodes textures and meshes on import, so the size
+  of the exported game depends on your import settings: keep the default mesh compression and VRAM-compressed textures.
+- Faces that are buried in, or pressed flat against, a solid box are removed from `level_mobile.glb` (never visible).
+  `mobile_manifest.json` → `metrics.mobile.occluded_faces_removed` / `occluded_objects` lists what went.
+- Merge lists (which source objects went into which merged node) live only in `mobile_manifest.json`, not in GLB extras.
+- Game exports (`--game`) are minified and drop editor-only data: `level.json` without `objects` / `relations` /
+  `generator_notes`, `gameplay/navigation.json` without `links`, manifest nodes without `source_objects`, no
+  `scene_spec.json`. What was left out is counted under `"omitted"`. Numbers are rounded to 0.0001.
