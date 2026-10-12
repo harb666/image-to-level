@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "69ba72ba718ccc14",
+  "spec_sha": "f8b750ce4f7366ec",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -463,16 +463,16 @@
    ]
   },
   {
-   "id": "Screen_Flicker_screen",
+   "id": "Screen_Flicker_bigscreen",
    "type": "flicker",
-   "target_material": "screen",
+   "target_material": "bigscreen",
    "rate": 5,
    "amount": 0.12
   },
   {
-   "id": "Screen_Flicker_screen_b",
+   "id": "Screen_Flicker_screen",
    "type": "flicker",
-   "target_material": "screen_b",
+   "target_material": "screen",
    "rate": 5,
    "amount": 0.12
   },
@@ -1337,6 +1337,45 @@
    ],
    "void_black": 0.45
   },
+  "bigscreen": {
+   "type": "screen_atlas",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "tile_m": 4.0,
+   "emissive": [
+    0.9,
+    0.9,
+    0.9
+   ],
+   "res": 1024,
+   "atlas": {
+    "a": [
+     0,
+     0,
+     0.5,
+     1
+    ],
+    "b": [
+     0.5,
+     0,
+     1,
+     1
+    ]
+   },
+   "left": {
+    "type": "bigscreen",
+    "mode": "broadcast",
+    "aspect": 1.7
+   },
+   "right": {
+    "type": "bigscreen",
+    "mode": "specimen",
+    "aspect": 1.7
+   }
+  },
   "ceiling": {
    "type": "ceiling_works",
    "color": [
@@ -1525,7 +1564,7 @@
    "toon": true
   },
   "screen": {
-   "type": "screen_ui",
+   "type": "screen_atlas",
    "color": [
     1,
     1,
@@ -1537,24 +1576,29 @@
     0.85,
     0.85
    ],
-   "res": 512,
-   "seed": 1
-  },
-  "screen_b": {
-   "type": "screen_ui",
-   "color": [
-    1,
-    1,
-    1
-   ],
-   "tile_m": 4.0,
-   "emissive": [
-    0.85,
-    0.85,
-    0.85
-   ],
-   "res": 512,
-   "seed": 2
+   "res": 1024,
+   "atlas": {
+    "a": [
+     0,
+     0,
+     0.5,
+     1
+    ],
+    "b": [
+     0.5,
+     0,
+     1,
+     1
+    ]
+   },
+   "left": {
+    "type": "screen_ui",
+    "seed": 1
+   },
+   "right": {
+    "type": "screen_ui",
+    "seed": 2
+   }
   },
   "stripe": {
    "type": "chevron",
@@ -3286,158 +3330,7 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_East_Op2_Frame",
-   "type": "group",
-   "position": [
-    58.0,
-    0.0,
-    28.0
-   ],
-   "rotation": [
-    0.0,
-    -90.0,
-    0.0
-   ],
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_Op2_Frame_Mullion_01",
-   "type": "box",
-   "position": [
-    -7.2,
-    11.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_Op2_Frame",
-   "size": [
-    0.35,
-    14.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_Op2_Frame_Mullion_02",
-   "type": "box",
-   "position": [
-    -2.4,
-    11.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_Op2_Frame",
-   "size": [
-    0.35,
-    14.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_Op2_Frame_Mullion_03",
-   "type": "box",
-   "position": [
-    2.4,
-    11.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_Op2_Frame",
-   "size": [
-    0.35,
-    14.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_Op2_Frame_Mullion_04",
-   "type": "box",
-   "position": [
-    7.2,
-    11.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_Op2_Frame",
-   "size": [
-    0.35,
-    14.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_Op2_Frame_Transom",
-   "type": "box",
-   "position": [
-    0.0,
-    18.7,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East_Op2_Frame",
-   "size": [
-    24.0,
-    0.35,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_Op2_Slime",
+   "name": "OuterWall_East_Op2_Back",
    "type": "box",
    "position": [
     58.0,
@@ -3451,11 +3344,120 @@
    ],
    "size": [
     23.9,
-    13.75,
-    0.6
+    13.5,
+    3.96
    ],
-   "material": "hazard",
+   "material": "frame",
    "collision": true,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_Op2_Screen",
+   "type": "panel",
+   "position": [
+    55.96,
+    11.25,
+    28.0
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    23.6,
+    13.5,
+    0.0
+   ],
+   "material": "bigscreen",
+   "uv_region": "a",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_Op2_Cap_0",
+   "type": "box",
+   "position": [
+    55.94,
+    24.15,
+    16.6
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    40.0
+   ],
+   "size": [
+    1.6,
+    0.3,
+    0.2
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_Op2_Cap_2",
+   "type": "box",
+   "position": [
+    55.94,
+    24.15,
+    39.4
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    -40.0
+   ],
+   "size": [
+    1.6,
+    0.3,
+    0.2
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_Op2_SillLight",
+   "type": "box",
+   "position": [
+    55.94,
+    11.13,
+    28.0
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    14.4,
+    0.18,
+    0.2
+   ],
+   "material": "glow",
+   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -4386,158 +4388,7 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_South_Op1_Frame",
-   "type": "group",
-   "position": [
-    28.0,
-    0.0,
-    58.0
-   ],
-   "rotation": [
-    0.0,
-    -180.0,
-    0.0
-   ],
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_Op1_Frame_Mullion_01",
-   "type": "box",
-   "position": [
-    -7.2,
-    11.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_Op1_Frame",
-   "size": [
-    0.35,
-    14.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_Op1_Frame_Mullion_02",
-   "type": "box",
-   "position": [
-    -2.4,
-    11.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_Op1_Frame",
-   "size": [
-    0.35,
-    14.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_Op1_Frame_Mullion_03",
-   "type": "box",
-   "position": [
-    2.4,
-    11.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_Op1_Frame",
-   "size": [
-    0.35,
-    14.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_Op1_Frame_Mullion_04",
-   "type": "box",
-   "position": [
-    7.2,
-    11.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_Op1_Frame",
-   "size": [
-    0.35,
-    14.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_Op1_Frame_Transom",
-   "type": "box",
-   "position": [
-    0.0,
-    18.7,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South_Op1_Frame",
-   "size": [
-    24.0,
-    0.35,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_Op1_Slime",
+   "name": "OuterWall_South_Op1_Back",
    "type": "box",
    "position": [
     28.0,
@@ -4551,11 +4402,120 @@
    ],
    "size": [
     23.9,
-    13.75,
-    0.6
+    13.5,
+    3.96
    ],
-   "material": "hazard",
+   "material": "frame",
    "collision": true,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_Op1_Screen",
+   "type": "panel",
+   "position": [
+    28.0,
+    11.25,
+    55.96
+   ],
+   "rotation": [
+    0.0,
+    -180.0,
+    0.0
+   ],
+   "size": [
+    23.6,
+    13.5,
+    0.0
+   ],
+   "material": "bigscreen",
+   "uv_region": "a",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_Op1_Cap_0",
+   "type": "box",
+   "position": [
+    39.4,
+    24.15,
+    55.94
+   ],
+   "rotation": [
+    0.0,
+    -180.0,
+    40.0
+   ],
+   "size": [
+    1.6,
+    0.3,
+    0.2
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_Op1_Cap_2",
+   "type": "box",
+   "position": [
+    16.6,
+    24.15,
+    55.94
+   ],
+   "rotation": [
+    0.0,
+    -180.0,
+    -40.0
+   ],
+   "size": [
+    1.6,
+    0.3,
+    0.2
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_Op1_SillLight",
+   "type": "box",
+   "position": [
+    28.0,
+    11.13,
+    55.94
+   ],
+   "rotation": [
+    0.0,
+    -180.0,
+    0.0
+   ],
+   "size": [
+    14.4,
+    0.18,
+    0.2
+   ],
+   "material": "glow",
+   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -5407,6 +5367,7 @@
     0.0
    ],
    "material": "screen",
+   "uv_region": "a",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -5765,158 +5726,7 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_West_Op1_Frame",
-   "type": "group",
-   "position": [
-    -58.0,
-    0.0,
-    28.0
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    0.0
-   ],
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_Op1_Frame_Mullion_01",
-   "type": "box",
-   "position": [
-    -7.2,
-    11.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_Op1_Frame",
-   "size": [
-    0.35,
-    14.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_Op1_Frame_Mullion_02",
-   "type": "box",
-   "position": [
-    -2.4,
-    11.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_Op1_Frame",
-   "size": [
-    0.35,
-    14.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_Op1_Frame_Mullion_03",
-   "type": "box",
-   "position": [
-    2.4,
-    11.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_Op1_Frame",
-   "size": [
-    0.35,
-    14.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_Op1_Frame_Mullion_04",
-   "type": "box",
-   "position": [
-    7.2,
-    11.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_Op1_Frame",
-   "size": [
-    0.35,
-    14.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_Op1_Frame_Transom",
-   "type": "box",
-   "position": [
-    0.0,
-    18.7,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West_Op1_Frame",
-   "size": [
-    24.0,
-    0.35,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_Op1_Slime",
+   "name": "OuterWall_West_Op1_Back",
    "type": "box",
    "position": [
     -58.0,
@@ -5930,11 +5740,120 @@
    ],
    "size": [
     23.9,
-    13.75,
-    0.6
+    13.5,
+    3.96
    ],
-   "material": "hazard",
+   "material": "frame",
    "collision": true,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_West_Op1_Screen",
+   "type": "panel",
+   "position": [
+    -55.96,
+    11.25,
+    28.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    23.6,
+    13.5,
+    0.0
+   ],
+   "material": "bigscreen",
+   "uv_region": "b",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_West_Op1_Cap_0",
+   "type": "box",
+   "position": [
+    -55.94,
+    24.15,
+    39.4
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    40.0
+   ],
+   "size": [
+    1.6,
+    0.3,
+    0.2
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_West_Op1_Cap_2",
+   "type": "box",
+   "position": [
+    -55.94,
+    24.15,
+    16.6
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    -40.0
+   ],
+   "size": [
+    1.6,
+    0.3,
+    0.2
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_West_Op1_SillLight",
+   "type": "box",
+   "position": [
+    -55.94,
+    11.13,
+    28.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    14.4,
+    0.18,
+    0.2
+   ],
+   "material": "glow",
+   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -6897,6 +6816,7 @@
     0.0
    ],
    "material": "screen",
+   "uv_region": "a",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -8042,104 +7962,7 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_North_Op1_Frame",
-   "type": "group",
-   "position": [
-    -25.0,
-    0.0,
-    -232.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_Op1_Frame_Mullion_01",
-   "type": "box",
-   "position": [
-    -2.333,
-    12.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_Op1_Frame",
-   "size": [
-    0.35,
-    10.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_Op1_Frame_Mullion_02",
-   "type": "box",
-   "position": [
-    2.333,
-    12.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_Op1_Frame",
-   "size": [
-    0.35,
-    10.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_Op1_Frame_Transom",
-   "type": "box",
-   "position": [
-    0.0,
-    17.5,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_North_Op1_Frame",
-   "size": [
-    14.0,
-    0.35,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_North_Op1_Slime",
+   "name": "Works_Wall_North_Op1_Back",
    "type": "box",
    "position": [
     -25.0,
@@ -8153,11 +7976,120 @@
    ],
    "size": [
     13.9,
-    9.75,
-    0.6
+    9.5,
+    3.96
    ],
-   "material": "hazard",
+   "material": "frame",
    "collision": true,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_Op1_Screen",
+   "type": "panel",
+   "position": [
+    -25.0,
+    12.25,
+    -229.96
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    13.6,
+    9.5,
+    0.0
+   ],
+   "material": "bigscreen",
+   "uv_region": "a",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_Op1_Cap_0",
+   "type": "box",
+   "position": [
+    -31.4,
+    21.15,
+    -229.94
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    40.0
+   ],
+   "size": [
+    1.6,
+    0.3,
+    0.2
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_Op1_Cap_2",
+   "type": "box",
+   "position": [
+    -18.6,
+    21.15,
+    -229.94
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -40.0
+   ],
+   "size": [
+    1.6,
+    0.3,
+    0.2
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_North_Op1_SillLight",
+   "type": "box",
+   "position": [
+    -25.0,
+    12.13,
+    -229.94
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    8.4,
+    0.18,
+    0.2
+   ],
+   "material": "glow",
+   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -9566,7 +9498,8 @@
     2.586,
     0.0
    ],
-   "material": "screen_b",
+   "material": "screen",
+   "uv_region": "b",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -10513,104 +10446,7 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_East_Op2_Frame",
-   "type": "group",
-   "position": [
-    58.0,
-    0.0,
-    -125.0
-   ],
-   "rotation": [
-    0.0,
-    -90.0,
-    0.0
-   ],
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_Op2_Frame_Mullion_01",
-   "type": "box",
-   "position": [
-    -2.667,
-    14.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_East_Op2_Frame",
-   "size": [
-    0.35,
-    9.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_Op2_Frame_Mullion_02",
-   "type": "box",
-   "position": [
-    2.667,
-    14.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_East_Op2_Frame",
-   "size": [
-    0.35,
-    9.0,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_Op2_Frame_Transom",
-   "type": "box",
-   "position": [
-    0.0,
-    18.95,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_East_Op2_Frame",
-   "size": [
-    16.0,
-    0.35,
-    0.5
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_Op2_Slime",
+   "name": "Works_Wall_East_Op2_Back",
    "type": "box",
    "position": [
     58.0,
@@ -10624,11 +10460,120 @@
    ],
    "size": [
     15.9,
-    8.75,
-    0.6
+    8.5,
+    3.96
    ],
-   "material": "hazard",
+   "material": "frame",
    "collision": true,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_East_Op2_Screen",
+   "type": "panel",
+   "position": [
+    55.96,
+    14.25,
+    -125.0
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    15.6,
+    8.5,
+    0.0
+   ],
+   "material": "bigscreen",
+   "uv_region": "b",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_East_Op2_Cap_0",
+   "type": "box",
+   "position": [
+    55.94,
+    22.15,
+    -132.4
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    40.0
+   ],
+   "size": [
+    1.6,
+    0.3,
+    0.2
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_East_Op2_Cap_2",
+   "type": "box",
+   "position": [
+    55.94,
+    22.15,
+    -117.6
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    -40.0
+   ],
+   "size": [
+    1.6,
+    0.3,
+    0.2
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_East_Op2_SillLight",
+   "type": "box",
+   "position": [
+    55.94,
+    14.13,
+    -125.0
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    9.6,
+    0.18,
+    0.2
+   ],
+   "material": "glow",
+   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -12765,7 +12710,8 @@
     2.176,
     0.0
    ],
-   "material": "screen_b",
+   "material": "screen",
+   "uv_region": "b",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -13639,6 +13585,7 @@
     0.0
    ],
    "material": "screen",
+   "uv_region": "a",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -14814,7 +14761,8 @@
     2.129,
     0.0
    ],
-   "material": "screen_b",
+   "material": "screen",
+   "uv_region": "b",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -15522,6 +15470,7 @@
     0.0
    ],
    "material": "screen",
+   "uv_region": "a",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -84953,16 +84902,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 67844,
-  "objects": 3093,
+  "triangles": 67942,
+  "objects": 3087,
   "materials": 25,
-  "glb_kb": 4684,
-  "nodes": 3561,
-  "draw_calls_unbatched": 3394,
+  "glb_kb": 4926,
+  "nodes": 3553,
+  "draw_calls_unbatched": 3391,
   "draw_calls_batched_min": 27,
   "images": 75,
-  "tex_mem_gpu_compressed_mb": 19.83,
-  "tex_mem_uncompressed_mb": 79.31,
+  "tex_mem_gpu_compressed_mb": 22.83,
+  "tex_mem_uncompressed_mb": 91.31,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }
