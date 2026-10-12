@@ -638,7 +638,7 @@ def arena(ctx, a, floor_y, pre=""):
                         for cxs in (-1, 1):  # angular red caps at the top corners, a light bar along the sill
                             cx_, cz_ = mx_ + ux * cxs * (op["width"] / 2 - 0.6) - nx * (t / 2 + 0.06), mz_ + uz * cxs * (op["width"] / 2 - 0.6) - nz * (t / 2 + 0.06)
                             ctx.add(f"{tag}_Cap_{cxs + 1}", "box", [cx_, y0_ + hh_ - 0.6, cz_], [1.6, 0.3, 0.2], "glow", None, [0, yaw_, -cxs * 40], collision=False, outline=False, mobile={"static": True})
-                        ctx.add(tag + "_SillLight", "box", [mx_ - nx * (t / 2 + 0.06), y0_ - 0.12, mz_ - nz * (t / 2 + 0.06)], [op["width"] * 0.6, 0.18, 0.2], "glow", None, [0, yaw_, 0], collision=False, outline=False, mobile={"static": True})
+                        ctx.add(tag + "_SillLight", "box", [mx_ - nx * (t / 2 + 0.24), op["sill"] + 0.16, mz_ - nz * (t / 2 + 0.24)], [op["width"] * 0.6, 0.18, 0.12], "glow", None, [0, yaw_, 0], collision=False, outline=False, mobile={"static": True})
             segs, u = [], 0.0
             for h0, h1 in cuts + [(SL, SL)]:
                 if h0 - u > 0.5: segs.append((P(u), P(h0)))

@@ -38,7 +38,10 @@ PURPOSE = {"level.json": "editable master (source of truth for edits)", "level.g
 def sha1(p): return hashlib.sha1(open(p, "rb").read()).hexdigest()
 
 
-GAME_SKIP = {"level.glb", "background.glb", "mobile/pick.json"}  # --game: desktop / preview-only files the game never loads
+GAME_SKIP = {"level.glb", "background.glb", "mobile/pick.json", "scene_spec.json"}  # --game: desktop / preview / source files the game never loads
+GAME_TRIM = {"level.json": ("objects", "relations", "generator_notes"),  # --game (Stage 25): the game instances the mobile GLBs; these lists
+             "mobile/mobile_manifest.json": (),                         # only serve the editor / preview (level.json objects = 870 KB)
+             "gameplay/navigation.json": ("links",)}
 
 
 def build(level_dir, out_root=None, make_zip=False, verbose=True, game=False):
@@ -56,7 +59,8 @@ def build(level_dir, out_root=None, make_zip=False, verbose=True, game=False):
         s = os.path.join(level_dir, f)
         if os.path.exists(s): os.makedirs(os.path.dirname(os.path.join(dst, f)), exist_ok=True); shutil.copy2(s, os.path.join(dst, f))
     tres = os.path.join(dst, "environment.tres")  # res:// paths must match the package folder name
-    if os.path.exists(tres): open(tres, "w").write(re.sub(r"res://levels/[^/]+/", f"res://levels/{name}/", open(tres).read()))
+    if os.path.exists(tres):
+        txt = open(tres).read(); open(tres, "w").write(re.sub(r"res://levels/[^/]+/", f"res://levels/{name}/", txt))  # read BEFORE "w" truncates it
     gp = os.path.join(dst, "gameplay"); os.makedirs(gp)
     spawns = [dict(id="spawn", **L["spawn"])] + L.get("spawns", [])
     json.dump(dict(note="Positions in metres (Godot: y up, -z forward). yaw_deg rotates the player about +y. Stage 9: 'team' player / enemy; "
@@ -69,6 +73,7 @@ def build(level_dir, out_root=None, make_zip=False, verbose=True, game=False):
     if os.path.exists(nav_p):
         N = json.load(open(nav_p)); json.dump({k: N[k] for k in ("gameplay_status", "standable_area_m2", "reachable_area_m2", "spawns", "intended_areas", "links", "passed") if k in N},
                                              open(os.path.join(gp, "navigation.json"), "w"), indent=1)
+    if game: _compact(dst)
     open(os.path.join(dst, "IMPORT_GODOT.md"), "w").write(open(os.path.join(ROOT, "GODOT_IMPORT.md")).read().replace("<name>", name))
     rep = json.load(open(os.path.join(level_dir, "checks", "report.json"))) if os.path.exists(os.path.join(level_dir, "checks", "report.json")) else {}
     entries = []
@@ -96,6 +101,33 @@ def build(level_dir, out_root=None, make_zip=False, verbose=True, game=False):
     res = dict(package=out_root, files=len(entries), mb=round(sum(e["bytes"] for e in entries) / 1e6, 2), zip=z, valid=not errs, errors=errs)
     if verbose: print(json.dumps(res))
     return res
+
+
+def _compact(dst):
+    """--game: every JSON minified (no indent); editor-only lists dropped (GAME_TRIM, counts kept in "omitted");
+    manifest nodes lose their merge lists (source_objects: preview / editor only)."""
+    for r, _, fs in os.walk(dst):
+        for f in fs:
+            if not f.endswith(".json"): continue
+            p = os.path.join(r, f); rel = os.path.relpath(p, dst).replace(os.sep, "/"); D = json.load(open(p))
+            om = {k: len(D[k]) for k in GAME_TRIM.get(rel, ()) if k in D}
+            for k in om: D.pop(k)
+            if rel == "mobile/mobile_manifest.json":
+                for n in D.get("nodes", []): n.pop("source_objects", None)
+                om["nodes.source_objects"] = "see the full package"
+            if rel == "mobile/collision.json":
+                for c in D.get("colliders", []):
+                    if c.get("source") == c.get("name"): c.pop("source")  # same string twice
+            if om: D["omitted"] = dict(om, note="left out of the game package (--game); the full package / levels/<name>/ has them")
+            json.dump(_round(D), open(p, "w"), separators=(",", ":"))
+
+
+def _round(o, nd=4):
+    """Floats to 0.1 mm / 1e-4 (positions in metres, colours, quaternions): far below anything visible."""
+    if isinstance(o, float): r = round(o, nd); return int(r) if r == int(r) and abs(r) < 1e15 else r
+    if isinstance(o, list): return [_round(v, nd) for v in o]
+    if isinstance(o, dict): return {k: _round(v, nd) for k, v in o.items()}
+    return o
 
 
 def check(pkg_root, verbose=True):

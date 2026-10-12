@@ -126,12 +126,18 @@ def far_material(path, prefixes=("TRM_",), suffixes=("_far",)):
     _write(path, g, binary); return k
 
 
-def slim(path, plain_materials=(), drop_extras=()):
+def slim(path, plain_materials=(), drop_extras=(), weld_untextured=True, webp=None, mesh_meta=True):
     """Smaller GLB, same look where it matters (Stage 16):
       - 16-bit index buffers wherever a primitive has < 65536 vertices (trimesh always writes 32-bit),
       - materials named in plain_materials (e.g. toon materials) lose their normal / occlusion / metallic-roughness maps
         (base colour + emissive kept; flat toon shading never shows them) and the images nobody uses any more,
       - node extras keys in drop_extras are removed (e.g. preview-only pick data),
+      - weld_untextured (Stage 25): primitives whose material has no texture (ink outlines) lose TEXCOORD_0 and their
+        vertices are welded by position (fewer vertices, same shape),
+      - webp=quality (Stage 25): images re-encoded as WebP behind EXT_texture_webp (Godot 4 reads it natively,
+        three.js too); alpha kept,
+      - mesh extras (trimesh metadata, sometimes whole UV lists) are dropped; mesh_meta=False also drops mesh names
+        (collision.glb: Godot names the shapes after the nodes),
       - the binary chunk is rebuilt from the buffer views still in use (4-byte aligned).
     Returns (bytes before, bytes after)."""
     import numpy as np
@@ -149,32 +155,86 @@ def slim(path, plain_materials=(), drop_extras=()):
     tmap = {o: i for i, o in enumerate(used_tex)}; g["textures"] = [g["textures"][i] for i in used_tex] if used_tex else []
     for m in g.get("materials", []):
         for t in _tex_refs(m): t["index"] = tmap[t["index"]]
-    used_img = sorted({t["source"] for t in g["textures"]}); imap = {o: i for i, o in enumerate(used_img)}
+    src_of = lambda t: t["source"] if "source" in t else t["extensions"]["EXT_texture_webp"]["source"]
+    used_img = sorted({src_of(t) for t in g["textures"]}); imap = {o: i for i, o in enumerate(used_img)}
     g["images"] = [g["images"][i] for i in used_img] if used_img else []
-    for t in g["textures"]: t["source"] = imap[t["source"]]
+    for t in g["textures"]:
+        if "source" in t: t["source"] = imap[t["source"]]
+        else: t["extensions"]["EXT_texture_webp"]["source"] = imap[src_of(t)]
     for k in ("textures", "images"):
         if not g[k]: g.pop(k)
     if not g.get("textures"): g.pop("samplers", None)
     views = {}  # rebuild the buffer: bufferView index -> new bytes
+    for me in g.get("meshes", []):
+        me.pop("extras", None)  # trimesh metadata (units, per-vertex uv copies of shapes): nothing reads it
+        if not mesh_meta: me.pop("name", None)
+    if weld_untextured:
+        for me in g.get("meshes", []):
+            for p in me["primitives"]:
+                mat = g["materials"][p["material"]] if "material" in p else {}
+                if _tex_refs(mat) or "TEXCOORD_0" not in p["attributes"] or set(p["attributes"]) - {"POSITION", "TEXCOORD_0"} or "indices" not in p: continue
+                pa, ia = g["accessors"][p["attributes"]["POSITION"]], g["accessors"][p["indices"]]
+                if g["bufferViews"][pa["bufferView"]].get("byteStride") or pa["bufferView"] in views or ia["bufferView"] in views: continue
+                if sum(a.get("bufferView") in (pa["bufferView"], ia["bufferView"]) for a in g["accessors"]) != 2: continue  # views shared with other data
+                P_ = np.frombuffer(_view(binary, g["bufferViews"][pa["bufferView"]]), dtype="<f4", count=pa["count"] * 3, offset=pa.get("byteOffset", 0)).reshape(-1, 3)
+                dt = {5121: "<u1", 5123: "<u2", 5125: "<u4"}[ia["componentType"]]
+                I_ = np.frombuffer(_view(binary, g["bufferViews"][ia["bufferView"]]), dtype=dt, count=ia["count"], offset=ia.get("byteOffset", 0))
+                uq, inv = np.unique(P_, axis=0, return_inverse=True); inv = inv.ravel()
+                views[pa["bufferView"]] = uq.astype("<f4").tobytes(); pa["count"] = len(uq); pa.pop("byteOffset", None)
+                views[ia["bufferView"]] = inv[I_].astype("<u4").tobytes(); ia["componentType"] = 5125; ia.pop("byteOffset", None)
+                p["attributes"].pop("TEXCOORD_0")
     idx_acc = {p["indices"] for me in g.get("meshes", []) for p in me["primitives"] if "indices" in p}
     for ai in idx_acc:
         a = g["accessors"][ai]; bv = g["bufferViews"][a["bufferView"]]
         if a["componentType"] != 5125: continue
-        data = np.frombuffer(_view(binary, bv), dtype="<u4", count=a["count"], offset=a.get("byteOffset", 0))
+        data = np.frombuffer(views[a["bufferView"]], dtype="<u4") if a["bufferView"] in views else np.frombuffer(_view(binary, bv), dtype="<u4", count=a["count"], offset=a.get("byteOffset", 0))
         if data.size and data.max() < 65535:
             views[a["bufferView"]] = data.astype("<u2").tobytes(); a["componentType"] = 5123; a.pop("byteOffset", None)
             a.pop("max", None); a.pop("min", None)
+    if webp and g.get("images"):
+        from PIL import Image
+        import io
+        for im in g["images"]:
+            if "bufferView" not in im or im.get("mimeType") == "image/webp": continue
+            pic = Image.open(io.BytesIO(_view(binary, g["bufferViews"][im["bufferView"]]))); buf = io.BytesIO()
+            pic = pic.convert("RGBA" if "A" in pic.getbands() or "transparency" in pic.info else "RGB")
+            if pic.mode == "RGBA" and pic.getchannel("A").getextrema() == (255, 255): pic = pic.convert("RGB")
+            pic.save(buf, "WEBP", quality=int(webp), method=6); new = buf.getvalue()
+            if len(new) < g["bufferViews"][im["bufferView"]]["byteLength"]: views[im["bufferView"]] = new; im["mimeType"] = "image/webp"
+        wi = {i for i, im in enumerate(g["images"]) if im.get("mimeType") == "image/webp"}
+        for t in g.get("textures", []):
+            if t.get("source") in wi: t.setdefault("extensions", {})["EXT_texture_webp"] = {"source": t.pop("source")}
+        if wi:
+            for k in ("extensionsUsed", "extensionsRequired"): g[k] = sorted(set(g.get(k, [])) | {"EXT_texture_webp"})
     keep = sorted({a["bufferView"] for a in g.get("accessors", []) if "bufferView" in a} | {i["bufferView"] for i in g.get("images", []) if "bufferView" in i})
-    vmap, out = {}, bytearray()
+    vmap, out, seen = {}, bytearray(), {}  # identical buffer views (e.g. every box collider's index list) are stored once
     for vi in keep:
         bv = dict(g["bufferViews"][vi]); data = views.get(vi, _view(binary, g["bufferViews"][vi]))
-        out += b"\0" * (-len(out) % 4); bv["byteOffset"] = len(out); bv["byteLength"] = len(data); bv["buffer"] = 0; bv.pop("byteStride", None) if vi in views else None
-        out += data; vmap[vi] = len(vmap); g.setdefault("_nv", []).append(bv)
+        if vi in views: bv.pop("byteStride", None)
+        key = (bytes(data), bv.get("byteStride"), bv.get("target"))
+        if key in seen: vmap[vi] = seen[key]; continue
+        out += b"\0" * (-len(out) % 4); bv["byteOffset"] = len(out); bv["byteLength"] = len(data); bv["buffer"] = 0
+        out += data; vmap[vi] = seen[key] = len(g.setdefault("_nv", [])); g["_nv"].append(bv)
     g["bufferViews"] = g.pop("_nv", [])
     for a in g.get("accessors", []):
         if "bufferView" in a: a["bufferView"] = vmap[a["bufferView"]]
     for i in g.get("images", []):
         if "bufferView" in i: i["bufferView"] = vmap[i["bufferView"]]
+    amap, uniq, akey = {}, [], {}  # ... and so are accessors that became identical
+    for ai, a in enumerate(g.get("accessors", [])):
+        k = json.dumps(a, sort_keys=True); amap[ai] = akey.setdefault(k, len(uniq))
+        if amap[ai] == len(uniq): uniq.append(a)
+    if g.get("accessors"):
+        g["accessors"] = uniq
+        for me in g.get("meshes", []):
+            for p in me["primitives"]:
+                p["attributes"] = {k: amap[v] for k, v in p["attributes"].items()}
+                if "indices" in p: p["indices"] = amap[p["indices"]]
+                for t in p.get("targets", []): t.update({k: amap[v] for k, v in t.items()})
+        for sk in g.get("skins", []):
+            if "inverseBindMatrices" in sk: sk["inverseBindMatrices"] = amap[sk["inverseBindMatrices"]]
+        for an in g.get("animations", []):
+            for smp in an.get("samplers", []): smp["input"], smp["output"] = amap[smp["input"]], amap[smp["output"]]
     g["buffers"] = [{"byteLength": len(out) + (-len(out) % 4)}]
     _write(path, g, bytes(out)); return before, os.path.getsize(path)
 

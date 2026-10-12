@@ -807,11 +807,13 @@ def k_tv_casing(S, rng, c, m):
 
 def k_bigscreen(S, rng, c, m):
     """Wall-sized window fills (Stage 24, Invader-Zim-like, original designs). m["mode"]:
-      "broadcast": giant propaganda viewscreen - purple broadcast, ringed horned emblem holding one huge watching eye,
-                   targeting rays, red glyph headline, glyph ticker, warning triangles, a conquest panel (planet in a
-                   crosshair) and green status bars; scanlines + vignette.
-      "specimen":  containment window of an alien lab - glowing green liquid with bubbles and caustics, a floating
-                   one-eyed tentacled specimen wired to feed tubes from above, glass glare, glyph label plate, hazard edge.
+      "broadcast": giant robot propaganda viewscreen - purple broadcast, a riveted robot head with antenna bolts, visor
+                   with two glaring red eyes and a jaw grille in a ringed target with rays, red glyph headline, a ticker of
+                   marching robot heads, warning triangles, a production panel (cog in a crosshair) and status bars;
+                   scanlines + vignette.
+      "specimen":  robot assembly tank - glowing green liquid with bubbles and caustics, a half-built robot (open chest
+                   with a power core, dangling arms and legs, one eye booting) hung from feed cables, glass glare,
+                   glyph label plate, hazard edge.
     Drawn for m["aspect"] (w / h) and squeezed into the square texture; fully emissive."""
     from PIL import ImageDraw
     ar = float(m.get("aspect", 1.7)); W, H = int(S * ar), S; u = S / 512; R = lambda *a: [int(v * u) for v in a]
@@ -833,15 +835,27 @@ def k_bigscreen(S, rng, c, m):
         for rr_, col, w_ in ((205, PURP, 12), (185, MAG, 6), (165, (60, 16, 90), 0)):
             if w_: d.ellipse(R(cx - rr_, cy - rr_, cx + rr_, cy + rr_), outline=col, width=int(w_ * u))
             else: d.ellipse(R(cx - rr_, cy - rr_, cx + rr_, cy + rr_), fill=col)
-        d.polygon(R(cx - 110, cy - 120, cx + 110, cy - 120, cx + 85, cy + 40, cx, cy + 150, cx - 85, cy + 40), fill=RED, outline=BLK)  # horned shield
-        d.polygon(R(cx - 110, cy - 120, cx - 150, cy - 185, cx - 70, cy - 118), fill=RED); d.polygon(R(cx + 110, cy - 120, cx + 150, cy - 185, cx + 70, cy - 118), fill=RED)
-        d.ellipse(R(cx - 78, cy - 70, cx + 78, cy + 30), fill=(250, 235, 245), outline=BLK, width=int(6 * u))  # the eye
-        d.ellipse(R(cx - 40, cy - 60, cx + 40, cy + 20), fill=PINK); d.ellipse(R(cx - 10, cy - 52, cx + 10, cy + 12), fill=BLK); d.ellipse(R(cx + 12, cy - 50, cx + 24, cy - 38), fill=(255, 255, 255))
+        STEEL, DARK = (150, 150, 175), (70, 66, 92)
+        for sx in (-1, 1):  # antenna bolts and ear dishes
+            d.line(R(cx + sx * 55, cy - 115, cx + sx * 85, cy - 175), fill=DARK, width=int(8 * u)); d.ellipse(R(cx + sx * 85 - 13, cy - 188, cx + sx * 85 + 13, cy - 162), fill=RED, outline=BLK, width=int(3 * u))
+            d.rectangle(R(cx + sx * 118 - 18, cy - 50, cx + sx * 118 + 18, cy + 30), fill=DARK, outline=BLK, width=int(4 * u))
+        d.polygon(R(cx - 115, cy - 120, cx + 115, cy - 120, cx + 100, cy + 95, cx - 100, cy + 95), fill=STEEL, outline=BLK)  # the robot head
+        d.rectangle(R(cx - 115, cy - 120, cx + 115, cy - 96), fill=(185, 185, 205))
+        for rx in (-98, 98):
+            for ry in (-108, 80): d.ellipse(R(cx + rx - 5, cy + ry - 5, cx + rx + 5, cy + ry + 5), fill=DARK)  # rivets
+        d.rectangle(R(cx - 92, cy - 72, cx + 92, cy + 8), fill=BLK, outline=DARK, width=int(5 * u))  # visor
+        for ex, er in ((-44, 30), (44, 30)):  # two glaring eyes in the visor
+            d.ellipse(R(cx + ex - er, cy - 32 - er, cx + ex + er, cy - 32 + er), fill=RED); d.ellipse(R(cx + ex - er * 0.45, cy - 32 - er * 0.45, cx + ex + er * 0.45, cy - 32 + er * 0.45), fill=(255, 210, 120))
+            d.polygon(R(cx + ex - er - 6, cy - 70, cx + ex + er + 6, cy - 70, cx + ex + (er + 6) * (1 if ex > 0 else -1) * 0, cy - 52), fill=BLK)  # angry brow
+        d.rectangle(R(cx - 62, cy + 30, cx + 62, cy + 78), fill=DARK, outline=BLK, width=int(4 * u))  # jaw grille
+        for k in range(7): d.line(R(cx - 50 + k * 16.6, cy + 36, cx - 50 + k * 16.6, cy + 72), fill=(30, 26, 40), width=int(5 * u))
         d.rectangle(R(30, 20, Wu - 30, 82), fill=(60, 10, 40), outline=RED, width=int(4 * u)); glyph_row(d, 60, 32, int((Wu - 120) / 52), 38, RED, 5)  # headline
-        d.rectangle(R(0, 470, Wu, 512), fill=(20, 4, 30)); glyph_row(d, 20, 478, int(Wu / 30), 22, MAG, 3)  # ticker
-        px, py = 120, 280; d.rectangle(R(px - 95, py - 120, px + 95, py + 140), outline=PURP, width=int(5 * u))  # conquest panel
-        d.ellipse(R(px - 60, py - 60, px + 60, py + 60), fill=(40, 90, 200), outline=(140, 200, 255), width=int(3 * u))
-        for k in range(5): d.arc(R(px - 60, py - 60 + k * 22, px + 60, py - 40 + k * 22), 0, 180, fill=(70, 160, 90), width=int(6 * u))
+        d.rectangle(R(0, 470, Wu, 512), fill=(20, 4, 30))  # ticker: a marching robot army
+        for k in range(int(Wu / 34)):
+            x = 14 + k * 34; d.rectangle(R(x, 478, x + 22, 500), fill=MAG if k % 4 else ORANGE); d.rectangle(R(x + 4, 484, x + 18, 490), fill=BLK); d.line(R(x + 11, 478, x + 11, 472), fill=MAG, width=int(2 * u))
+        px, py = 120, 280; d.rectangle(R(px - 95, py - 120, px + 95, py + 140), outline=PURP, width=int(5 * u))  # production panel: a cog in a crosshair
+        cog = [(px + (62 if (k // 2) % 2 == 0 else 48) * np.cos(2 * np.pi * (k + 0.5 * (k % 2)) / 24), py + (62 if (k // 2) % 2 == 0 else 48) * np.sin(2 * np.pi * (k + 0.5 * (k % 2)) / 24)) for k in range(24)]
+        d.polygon([(int(x * u), int(y * u)) for x, y in cog], fill=(200, 200, 220), outline=BLK); d.ellipse(R(px - 22, py - 22, px + 22, py + 22), fill=(40, 10, 60))
         d.line(R(px - 85, py, px + 85, py), fill=RED, width=int(3 * u)); d.line(R(px, py - 85, px, py + 85), fill=RED, width=int(3 * u)); d.ellipse(R(px - 75, py - 75, px + 75, py + 75), outline=RED, width=int(3 * u))
         glyph_row(d, px - 80, py + 95, 5, 24, ORANGE, 3)
         bx = Wu - 215  # status bars
@@ -857,16 +871,24 @@ def k_bigscreen(S, rng, c, m):
         im = Image.new("RGB", (W, H), (20, 60, 14)); d = ImageDraw.Draw(im); Wu = W / u
         for y in range(H): t = y / H; d.line([(0, y), (W, y)], fill=(int(40 + 60 * t), int(140 + 80 * t), int(20 + 30 * t)))
         cx, cy = Wu / 2, 250
-        for k in range(3):  # feed tubes from the top into the specimen
-            tx = cx + (k - 1) * 60; d.line(R(tx, 0, tx, cy - 90 + abs(k - 1) * 20), fill=(30, 50, 26), width=int(16 * u)); d.line(R(tx, 0, tx, cy - 90 + abs(k - 1) * 20), fill=(90, 130, 70), width=int(4 * u))
-        for k in range(7):  # tentacles (wavy, tapering)
-            a0 = np.radians(18 + k * 24); pts = []  # fanned out underneath the body
-            for j in range(12):
-                t = j / 11; r = 70 + 190 * t; w_ = np.radians(18) * np.sin(t * 6 + k)
-                pts.append((cx + r * np.cos(a0 + w_), cy + 30 + r * np.sin(a0 + w_) * 0.85))
-            for j in range(11): d.line(R(*pts[j], *pts[j + 1]), fill=(18, 50, 20), width=max(2, int((22 - j * 1.8) * u)))
-        d.ellipse(R(cx - 95, cy - 100, cx + 95, cy + 80), fill=(22, 58, 24), outline=(10, 30, 12), width=int(4 * u))  # body
-        d.ellipse(R(cx - 50, cy - 60, cx + 50, cy + 25), fill=(250, 245, 200)); d.ellipse(R(cx - 26, cy - 45, cx + 26, cy + 10), fill=(255, 60, 120)); d.ellipse(R(cx - 7, cy - 38, cx + 7, cy + 2), fill=BLK)
+        RB, RD, LIT = (88, 100, 96), (34, 44, 40), (255, 90, 60); cy = 212  # robot hangs clear of the label plate
+        for k in range(3):  # feed cables from the top into the robot's head and shoulders
+            tx, ty = cx + (k - 1) * 70, (cy - 140) if k == 1 else (cy - 20)
+            d.line(R(tx, 0, tx, ty), fill=(30, 50, 26), width=int(14 * u)); d.line(R(tx, 0, tx, ty), fill=(90, 130, 70), width=int(4 * u))
+        for sx in (-1, 1):  # dangling arms (shoulder, elbow, claw) and legs
+            d.line(R(cx + sx * 78, cy - 10, cx + sx * 120, cy + 70), fill=RD, width=int(22 * u)); d.line(R(cx + sx * 120, cy + 70, cx + sx * 112, cy + 150), fill=RD, width=int(18 * u))
+            d.ellipse(R(cx + sx * 120 - 14, cy + 56, cx + sx * 120 + 14, cy + 84), fill=RB, outline=RD, width=int(3 * u))
+            d.polygon(R(cx + sx * 112 - 16, cy + 150, cx + sx * 112 + 16, cy + 150, cx + sx * 112 + 8, cy + 178, cx + sx * 112 - 8, cy + 178), fill=RB, outline=RD)
+            d.line(R(cx + sx * 30, cy + 110, cx + sx * 38, cy + 200), fill=RD, width=int(24 * u)); d.rectangle(R(cx + sx * 38 - 24, cy + 196, cx + sx * 38 + 24, cy + 214), fill=RB, outline=RD, width=int(3 * u))
+        d.rounded_rectangle(R(cx - 80, cy - 30, cx + 80, cy + 115), radius=int(22 * u), fill=RB, outline=RD, width=int(5 * u))  # torso
+        d.rectangle(R(cx - 40, cy, cx + 40, cy + 60), fill=RD); d.ellipse(R(cx - 16, cy + 14, cx + 16, cy + 46), fill=(120, 255, 90))  # open chest, power core
+        for k in range(3): d.line(R(cx - 34, cy + 72 + k * 12, cx + 34, cy + 72 + k * 12), fill=RD, width=int(4 * u))
+        d.rectangle(R(cx - 12, cy - 48, cx + 12, cy - 28), fill=RD)  # neck
+        d.rounded_rectangle(R(cx - 62, cy - 140, cx + 62, cy - 46), radius=int(14 * u), fill=RB, outline=RD, width=int(5 * u))  # head
+        d.rectangle(R(cx - 48, cy - 118, cx + 48, cy - 80), fill=(14, 22, 18))  # dark visor, one eye still booting
+        d.ellipse(R(cx - 38, cy - 112, cx - 12, cy - 86), fill=LIT); d.ellipse(R(cx + 12, cy - 112, cx + 38, cy - 86), outline=(60, 80, 60), width=int(3 * u))
+        d.line(R(cx, cy - 140, cx, cy - 165), fill=RD, width=int(6 * u)); d.ellipse(R(cx - 9, cy - 174, cx + 9, cy - 156), fill=LIT)  # antenna
+        for k in range(4): d.line(R(cx - 40 + k * 26, cy - 66, cx - 40 + k * 26, cy - 54), fill=RD, width=int(5 * u))  # mouth slits
         for k in range(int(rng.integers(30, 50))):  # bubbles
             bx, by, br = rng.uniform(20, Wu - 20), rng.uniform(20, 460), rng.uniform(3, 12); d.ellipse(R(bx - br, by - br, bx + br, by + br), outline=(210, 255, 180), width=max(1, int(2 * u)))
         d.rectangle(R(cx - 140, 440, cx + 140, 492), fill=(40, 40, 46), outline=(200, 200, 200), width=int(3 * u)); glyph_row(d, cx - 120, 452, 8, 26, (255, 200, 60), 3)

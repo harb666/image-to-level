@@ -6,7 +6,8 @@ Writes levels/<name>/mobile/:
   level_mobile.glb     static meshes MERGED by material inside spatial cells (draw calls down, frustum culling still
                        works); small props merged into separate cells with a view distance; objects that effects animate
                        per node, hazards and the spawn marker stay separate nodes with their original names. Faces hidden
-                       under opaque hazard liquid are removed. Textures capped per profile. Node extras = source objects.
+                       under opaque hazard liquid are removed. Textures capped per profile, WebP (EXT_texture_webp). Faces buried in / pressed against
+                       solid boxes are removed (Stage 25). Merge lists (node -> source objects) live in mobile_manifest.json.
   background_mobile.glb  background with textures capped per profile
   collision.json       authoritative lightweight colliders from level.json shapes (box/cylinder/convex/heightmap),
                        stairs as ramps, arches keep their opening, panels/decals excluded, hazards as areas
@@ -22,9 +23,9 @@ from glb_stats import stats
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PROFILES = {
-    "performance": dict(cell=64, tex_max=256, bg_tex_max=64, prop_range=45, small=2.0),
-    "balanced": dict(cell=48, tex_max=512, bg_tex_max=128, prop_range=70, small=2.0),
-    "quality": dict(cell=32, tex_max=1024, bg_tex_max=256, prop_range=110, small=2.0),
+    "performance": dict(cell=64, tex_max=256, bg_tex_max=64, prop_range=45, small=2.0, webp=78),
+    "balanced": dict(cell=48, tex_max=512, bg_tex_max=128, prop_range=70, small=2.0, webp=80),
+    "quality": dict(cell=32, tex_max=1024, bg_tex_max=256, prop_range=110, small=2.0, webp=88),
 }
 NO_COLLISION = {"panel", "group"}
 CONVEX_FROM_MESH = {"rock", "cliff", "tank", "machinery", "spire", "roof", "pipe_elbow", "vent", "ramp"}
@@ -201,6 +202,38 @@ def _terrain_mobile(L, level_dir, src, nodes, scene, manifest_nodes, ranges, ext
         extras[node] = dict(kind=kind, visibility_range_end=rng, cast_shadow=manifest_nodes[-1]["cast_shadow"])
 
 
+def _occluders(L, level_dir, keep, P):
+    """Boxes that hide what is pressed against / buried in them on mobile: opaque "box" objects with a matching box
+    collider, never cutaway (the preview hides those), never moving (mobile group / merge false), never effect targets
+    or hazards, never glass / alpha, and big or static (small props get a visibility range: they would leave holes)."""
+    by = {o["name"]: o for o in L["objects"]}; mats = L.get("materials", {}); out = []
+    cols, _ = colliders(L, level_dir)
+    for c in cols:
+        o = by.get(c.get("source"))
+        if c["shape"] != "box" or not o or o.get("type") != "box" or o.get("cutaway") or o["name"] in keep: continue
+        mb = o.get("mobile") or {}
+        if mb.get("group") or mb.get("merge") is False or (mats.get(o.get("material")) or {}).get("alpha") or o.get("material") in ("glass", "ink"): continue
+        if not np.allclose(sorted(c["size"]), sorted(o["size"]), atol=0.02): continue  # collider == the visible box
+        if max(o["size"]) < P["small"] and not mb.get("static"): continue
+        R = trimesh.transformations.quaternion_matrix([c["rotation"][3]] + list(c["rotation"][:3]))[:3, :3]
+        out.append((c["source"], np.asarray(c["center"], float), np.asarray(c["size"], float) / 2, R))
+    return out
+
+
+def _hidden(m, occ, own, gap=0.03, eps=0.005):
+    """Faces of world-space mesh m whose three corners, nudged gap metres out along the face normal, all lie inside ONE
+    occluder box (other than the face's own object): the whole face is covered by that box (boxes are convex)."""
+    tri = m.triangles; n = m.face_normals; c = tri.mean(1, keepdims=True)
+    pts = (tri * 0.99 + c * 0.01) + n[:, None, :] * gap  # (F, 3, 3)
+    lo, hi = pts.reshape(-1, 3).min(0), pts.reshape(-1, 3).max(0); hid = np.zeros(len(tri), bool)
+    for name, ctr, h, R in occ:
+        if name == own: continue
+        r = np.abs(R).dot(h)
+        if np.any(ctr - r > hi) or np.any(ctr + r < lo): continue  # AABB reject
+        loc = (pts - ctr) @ R; hid |= np.all(np.abs(loc) <= h - eps, axis=(1, 2))
+    return hid
+
+
 # ---------------------------------------------------------------- export
 def export(level_dir, profile=None):
     L = json.load(open(os.path.join(level_dir, "level.json"))); mob = L.get("mobile", {})
@@ -219,8 +252,9 @@ def export(level_dir, profile=None):
     cull_y = mob.get("cull_below_y")
     if cull_y is None and L.get("hazards"):
         cull_y = max(o["position"][1] + o["size"][1] for o in L["objects"] if o["name"] in L["hazards"] and o.get("size"))
+    occ = _occluders(L, level_dir, keep, P) if mob.get("cull_hidden", True) else []
     src = trimesh.load(os.path.join(level_dir, "level.glb"), force="scene")
-    scene = trimesh.Scene(); groups, removed = {}, 0; separate = []; terrain_nodes = []
+    scene = trimesh.Scene(); groups, removed, removed_hidden, gone = {}, 0, 0, set(); separate = []; terrain_nodes = []
     for node in src.graph.nodes_geometry:
         M, g = src.graph[node]; m0 = src.geometry[g]; mat = getattr(getattr(m0.visual, "material", None), "name", "")
         if node.startswith("Boundary") or mat == "Collider_invisible": continue  # invisible walls live in collision only
@@ -236,6 +270,11 @@ def export(level_dir, profile=None):
             if hid.any():
                 removed += int(hid.sum()); m.update_faces(~hid); m.remove_unreferenced_vertices()
                 if not len(m.faces): continue
+        if occ and mat != "ink":  # faces buried in / pressed against a solid box can never be seen (Stage 25)
+            hid = _hidden(m, occ, node.split("__")[0])
+            if hid.any():
+                removed_hidden += int(hid.sum()); m.update_faces(~hid); m.remove_unreferenced_vertices()
+                if not len(m.faces): gone.add(node); continue  # wholly covered: never visible
         size = np.ptp(m.bounds, 0); c = m.bounds.mean(0)
         small = size.max() < P["small"] and not by.get(node, {}).get("mobile", {}).get("static")  # "mobile": {"static": true} = architectural detail, merged with the static cell
         if mat == "ink":  # cartoon outline shells: untextured + cheap -> coarse cells (4x), never split off as props (fewer draw calls)
@@ -287,7 +326,7 @@ def export(level_dir, profile=None):
         FXm = json.loads(json.dumps(FX)); src2node = {s_: mn["node"] for mn in manifest_nodes for s_ in mn.get("source_objects", [])}
         for e in FXm["effects"]:
             if e.get("targets"):  # FX-merged node, else the merged cell node that now contains the object
-                e["targets"] = sorted({fx_merge.get(n) or src2node.get(n, n) for n in e["targets"]})
+                e["targets"] = sorted({fx_merge.get(n) or src2node.get(n, n) for n in e["targets"] if n not in gone})
         FXm["note"] = "Mobile copy of ../effects.json: targets renamed to merged nodes of level_mobile.glb. " + FX.get("note", "")
         json.dump(FXm, open(os.path.join(out_dir, "effects_mobile.json"), "w"), indent=1)
     bg_src = os.path.join(level_dir, "background.glb"); bg = None
@@ -297,7 +336,7 @@ def export(level_dir, profile=None):
     json.dump(pick, open(os.path.join(out_dir, "pick.json"), "w"), separators=(",", ":"))  # preview tap-to-identify; not part of the game package
     from glb_tools import slim  # Stage 16: 16-bit indices, no normal / ORM maps on toon materials, unused images dropped
     toon = {k for k, v in L["materials"].items() if v.get("toon")} | {"bg_" + l["id"].lower() for l in L.get("environment", {}).get("background", []) if l.get("toon")}
-    slim_report = {os.path.basename(f): slim(f, toon) for f in (lg, bg) if f}
+    slim_report = {os.path.basename(f): slim(f, toon, drop_extras=("source_objects",), webp=P["webp"] or None) for f in (lg, bg) if f}  # Stage 25: merge lists live in the manifest / pick.json
     cols, haz = colliders(L, level_dir)
     json.dump(dict(note="World-space colliders generated from level.json shapes. Godot: BoxShape3D / CylinderShape3D / ConvexPolygonShape3D / "
                         "HeightMapShape3D (cell size = 'cell'). Hazards are areas (Area3D), not solid. Triggers (level exits) are areas too.",
@@ -307,7 +346,7 @@ def export(level_dir, profile=None):
     for c in cols:
         m = collider_mesh(c); suffix = "-colonly" if c["shape"] == "heightmap" else "-convcolonly"
         cs.add_geometry(m, node_name=c["name"] + suffix, geom_name=c["name"] + suffix)
-    cg = os.path.join(out_dir, "collision.glb"); cs.export(cg); slim_report["collision.glb"] = slim(cg)
+    cg = os.path.join(out_dir, "collision.glb"); cs.export(cg); slim_report["collision.glb"] = slim(cg, mesh_meta=False)
     shutil.copy(os.path.join(HERE, "godot_fx", "apply_mobile.gd"), out_dir)
     if isinstance(L.get("terrain"), dict): shutil.copy(os.path.join(HERE, "godot_fx", "apply_scatter_multimesh.gd"), out_dir)
     elif os.path.exists(os.path.join(out_dir, "apply_scatter_multimesh.gd")): os.remove(os.path.join(out_dir, "apply_scatter_multimesh.gd"))
@@ -319,7 +358,7 @@ def export(level_dir, profile=None):
     metrics = dict(profile=profile, note="File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
                    dev=dict(level=stats(dev_glb), visible=estimate(L, dev_nodes + bg_nodes, far)),
                    mobile=dict(level=stats(lg), background=stats(bg) if bg else None, collision=dict(colliders=len(cols), hazards=len(haz), glb_kb=round(os.path.getsize(cg) / 1024)),
-                               visible=estimate(L, mob_nodes + bg_nodes, far), hidden_faces_removed=removed, effects_extra_draw_calls=fx_q.get("extra_draw_calls", 0),
+                               visible=estimate(L, mob_nodes + bg_nodes, far), hidden_faces_removed=removed, occluded_faces_removed=removed_hidden, occluded_objects=sorted(gone), effects_extra_draw_calls=fx_q.get("extra_draw_calls", 0),
                                effects_max_particles=fx_q.get("max_particles", 0),
                                slimmed_kb={k: [round(a / 1024), round(b / 1024)] for k, (a, b) in slim_report.items()}))
     godot = dict(project_settings={"rendering/textures/vram_compression/import_etc2_astc": True, "rendering/renderer/rendering_method.mobile": "mobile",
@@ -335,7 +374,7 @@ def export(level_dir, profile=None):
     d, mm = metrics["dev"], metrics["mobile"]
     print(json.dumps(dict(profile=profile, dev=dict(kb=d["level"]["glb_kb"], tris=d["level"]["triangles"], draws=d["level"]["draw_calls_unbatched"], vis=d["visible"]["visible_draw_calls_mean"]),
                           mobile=dict(kb=mm["level"]["glb_kb"], tris=mm["level"]["triangles"], draws=mm["level"]["draw_calls_unbatched"], vis=mm["visible"]["visible_draw_calls_mean"],
-                                      tex_gpu_mb=mm["level"]["tex_mem_gpu_compressed_mb"], colliders=len(cols), hidden_faces_removed=removed))))
+                                      tex_gpu_mb=mm["level"]["tex_mem_gpu_compressed_mb"], colliders=len(cols), hidden_faces_removed=removed, occluded_faces_removed=removed_hidden))))
     return M
 
 

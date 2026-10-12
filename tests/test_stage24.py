@@ -1,5 +1,5 @@
-"""Stage 24: the green slime windows become alien viewscreens - a "broadcast" propaganda screen and a "specimen"
-containment window (k_bigscreen), both packed into one screen_atlas material (one draw call), plus the wall monitors
+"""Stage 24: the green slime windows become viewscreens - a "broadcast" propaganda screen and a "specimen"
+tank (k_bigscreen; robots since Stage 25), both packed into one screen_atlas material (one draw call), plus the wall monitors
 sharing the "screen" atlas (uv_region a / b)."""
 import json, os, unittest
 import numpy as np

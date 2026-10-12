@@ -562,3 +562,15 @@ Building blocks usable without the preset:
 - Wall openings take `"fill": "screen"` or `"specimen"` (with `"frame": false`): a solid backing box fills the hole
   (collision), the `bigscreen` panel faces the room, red caps at the top corners and a light bar along the sill.
   Both screen roles get a subtle `flicker` effect.
+
+## Stage 25: robot viewscreens, smallest mobile / game files
+- `bigscreen` is about robots now: `broadcast` = a riveted robot head (antenna bolts, visor with two glaring red eyes,
+  jaw grille) in a ringed target, a cog in a crosshair, a ticker of marching robot heads; `specimen` = a half-built
+  robot (open chest with a power core, dangling arms, one eye booting) hung from feed cables in a green assembly tank.
+  The sill light bar sits on the front face of the window ledge (it was buried in the ledge before).
+- Mobile export: faces covered by one solid, opaque, always-visible box (not cutaway, not moving, not small props) are
+  culled (`mobile.cull_hidden`, default true); textures re-encoded as WebP (`EXT_texture_webp`, profile `webp` quality,
+  0 = keep JPEG / PNG); untextured outline meshes lose their UVs and are welded; mesh extras and node merge lists
+  (`source_objects`) leave the GLB (manifest / pick.json keep them); identical buffer views / accessors are stored once.
+- `package.py --game`: minified JSON rounded to 1e-4, editor-only lists omitted (counted under `"omitted"`), no
+  `scene_spec.json`. Fixed: `environment.tres` was written empty in every package (opened for writing before reading).

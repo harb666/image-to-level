@@ -20,7 +20,7 @@ def add_glb_textures(path):
     """Exact image bytes from the glb (no re-encode), pooled so shared maps are embedded once."""
     g, binary = _read(path)
     def uri(ti):
-        im = g["images"][g["textures"][ti]["source"]]
+        t = g["textures"][ti]; im = g["images"][t["source"] if "source" in t else t["extensions"]["EXT_texture_webp"]["source"]]  # Stage 25: WebP
         u = f"data:{im.get('mimeType', 'image/jpeg')};base64," + base64.b64encode(_view(binary, g["bufferViews"][im["bufferView"]])).decode()
         if u not in uri_id: uri_id[u] = len(pool); pool.append(u)
         return uri_id[u]
