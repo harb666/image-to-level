@@ -37,7 +37,7 @@ class Windows(unittest.TestCase):
 class Dressing(unittest.TestCase):
     def test_vat_claw_gallery_door(self):
         _, L = _gen(_spec()); by = {o["name"]: o for o in L["objects"]}
-        g = by["Vat_1_Glass"]; self.assertEqual(g["material"], "hazard"); self.assertTrue(g["collision"])  # glowing, solid, not a hazard area
+        g = by["Vat_1_Glass"]; self.assertEqual(g["material"], "glass"); self.assertTrue(g["collision"])  # see-through (Stage 20), solid, not a hazard area
         self.assertNotIn("Vat_1_Glass", L["hazards"])
         self.assertLess(by["Vat_1_Plinth"]["position"][1], 0.5)  # reaches into the slime
         ceil = L["environment"]["indoor"]["ceiling_y"]; ch = by["Claw_1_Chain_1"]

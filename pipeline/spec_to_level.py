@@ -213,6 +213,21 @@ def _effects(spec, ctx, plats, env, glow):
                     dict(id="Pour_Splash", type="splash", at_targets_glob=list(ctx.pours), anchor="bottom"),
                     dict(id="Pour_Steam", type="steam", at_targets_glob=list(ctx.pours), anchor="bottom")]
         for f in getattr(ctx, "fountains", []): out.append(dict(id=f + "_Ripple", type="liquid_surface", target=f, scroll=[0.02, 0.01], swirl=0.02, pulse_speed=0.1, pulse_amount=0.05))
+        tubes = [o for o in ctx.objects if o.get("tube")]
+        if tubes:  # Stage 20: blobs of slime rising through the see-through tubes now and then; one particle system per height group
+            from anchors import world_matrices
+            Wm, _ = world_matrices({"objects": ctx.objects}); grp, per = {}, {}
+            for o in tubes:  # one tube per structure: a column's glass sections are one shaft (blobs pass behind its bands)
+                p0 = Wm[o["name"]] @ [0, 0, 0, 1]; t = per.setdefault(o.get("parent") or o["name"], [p0[:3], 1e9, -1e9, o["size"][0] / 2])
+                t[1] = min(t[1], float(p0[1])); t[2] = max(t[2], float(p0[1]) + o["size"][1])
+            for (c0, y0, y1, r) in per.values():
+                h = y1 - y0
+                if h < 2.5: continue
+                grp.setdefault(int(h // 4), []).append(([round(float(c0[0]), 2), round(y0 + 0.3, 2), round(float(c0[2]), 2)], h, r))
+            for k, items in sorted(grp.items()):
+                h = min(i[1] for i in items); r = sum(i[2] for i in items) / len(items); v = 1.6
+                out.append(dict(id=f"Tube_Blobs_{k:02d}", type="tube_blobs", positions=[i[0] for i in items], merge_emitters=True,
+                                lifetime=round(0.72 * (h - 0.6) / v, 2), speed=[v * 0.9, v * 1.1], size=[round(r * 1.3, 2), round(r * 1.0, 2)], radius=round(r * 0.35, 2)))
         spins = [o["name"] for o in ctx.objects if o.get("spin")]
         if spins: out.append(dict(id="Fan_Spin", type="spin", targets=spins))  # Stage 19: rotating fan rotors
         if "glow" in ctx.roles: out.append(dict(id="Glow_Pulse", type="pulse_light", target_material="glow", speed=0.9, amount=0.4))

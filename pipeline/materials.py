@@ -593,7 +593,7 @@ def k_wall_works(S, rng, c, m):
     seam = np.clip(e * S / 3.0, 0, 1) ** 0.7; pv = rng.uniform(0.78, 1.12, len(rects))[pid]
     h = 0.55 * seam + 0.03 * fine; alb_k = pv * (0.42 + 0.58 * seam); emit = np.zeros((S, S)); dash = np.zeros((S, S), bool)
     for k, (x0, y0, x1, y1) in enumerate(rects):
-        msk = pid == k; w_, h_ = x1 - x0, y1 - y0; kind = rng.choice(["plain", "vent", "brace", "lights", "inset", "plain"], p=[0.25, 0.2, 0.15, 0.15, 0.15, 0.1])
+        msk = pid == k; w_, h_ = x1 - x0, y1 - y0; kind = rng.choice(["plain", "vent", "brace", "lights", "inset", "plain"], p=[0.28, 0.22, 0.17, 0.07, 0.16, 0.1])
         for cx_, cy_ in ((x0 + 0.018, y0 + 0.018), (x1 - 0.018, y0 + 0.018), (x0 + 0.018, y1 - 0.018), (x1 - 0.018, y1 - 0.018)):  # corner rivets
             r_ = np.hypot(x - cx_, y - cy_); h = h + 0.3 * _dome(r_, 0.008) * msk; alb_k = alb_k * np.where(msk & (r_ < 0.008), 1.25, 1.0)
         ix0, iy0, ix1, iy1 = x0 + w_ * 0.18, y0 + h_ * 0.18, x1 - w_ * 0.18, y1 - h_ * 0.18; inner = msk & (x > ix0) & (x < ix1) & (y > iy0) & (y < iy1)
@@ -630,11 +630,11 @@ def k_wall_slimed(S, rng, c, m):
     pool along horizontal seams and stain the plates; the slime glows (emissive mask)."""
     d = k_wall_works(S, rng, c, dict(m, emissive=None, plates=int(m.get("plates", 11))))
     x, y = _xy(S); seam = d["h"] < 0.3
-    src = (seam & (_noise(rng, 20, 1, S) > 0.62)).astype(float)  # leak sources along some seams
+    src = (seam & (_noise(rng, 20, 1, S) > float(m.get("leak_threshold", 0.8)))).astype(float)  # leak sources along a few seams (user: less green)
     acc = np.zeros(S); run = np.zeros((S, S)); jit = _noise(rng, 60, 1, S)
     for r in range(S): acc = np.maximum(acc * (0.975 + 0.02 * jit[r]), src[r]); run[r] = acc
-    drip = (run > 0.45) & (np.abs(((x * 90 + 3 * _noise(rng, 8, 1, S)) % 1) - 0.5) < 0.18 + 0.2 * run)
-    stain = np.clip(_blur(run, S / 128) * 1.6 - 0.25, 0, 1) * (_noise(rng, 14, 2, S) > 0.35)
+    drip = (run > 0.55) & (np.abs(((x * 90 + 3 * _noise(rng, 8, 1, S)) % 1) - 0.5) < 0.1 + 0.14 * run)  # thinner drips
+    stain = np.clip(_blur(run, S / 128) * 1.1 - 0.35, 0, 1) * (_noise(rng, 14, 2, S) > 0.5)  # fainter, patchier stains
     sc = np.array(m.get("slime_color", [0.42, 1.0, 0.18]))
     alb = d["alb"] * (1 - 0.55 * stain[..., None]) + sc * 0.55 * stain[..., None]; alb = np.where(drip[..., None], sc * (0.75 + 0.25 * run[..., None]), alb)
     d.update(alb=alb, h=d["h"] + 0.08 * drip, rough=np.where(drip, 0.25, d["rough"]))
@@ -720,6 +720,8 @@ def make_material(name, m):
     if d.get("ao_mul") is not None: ao = ao * d["ao_mul"]  # e.g. bottomless-shaft cell: no sky light / reflections at all
     orm = np.stack([ao, np.clip(d["rough"], 0.04, 1), np.clip(d["metal"], 0, 1)], -1)
     kw = dict(name=name, baseColorTexture=_img(alb, 85), metallicFactor=1.0, roughnessFactor=1.0)
+    if m.get("alpha") is not None:  # Stage 20: see-through (e.g. tube glass): blended, both sides drawn
+        kw.update(baseColorFactor=[1.0, 1.0, 1.0, float(m["alpha"])], alphaMode="BLEND", doubleSided=True)
     ormi = _img(orm, 88); kw["metallicRoughnessTexture"] = ormi; kw["occlusionTexture"] = ormi
     px = [d["S"] ** 2] * 2
     if d["nstr"] > 0:

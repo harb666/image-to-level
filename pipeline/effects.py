@@ -66,6 +66,9 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                         defaults=dict(count=4, radius=[440.0, 540.0], height=[40.0, 130.0], azimuth_deg=[-70.0, 70.0], arc_deg=[45.0, 90.0],
                                       speed=[30.0, 55.0], gap=[10.0, 28.0], size=[7.0, 14.0], color=[0.12, 0.07, 0.16], glow=[1.0, 0.3, 0.62]),
                         quality={"performance": dict(count_mult=0.5), "quality": dict(count_mult=1.5)}),
+    "tube_blobs": dict(category="particles", godot="CPUParticles3D, one system for every tube of the group (emission points at the tube bottoms), slow rise, additive glow",
+                       glb="nothing (the tubes are see-through glass)", defaults=dict(rate=0.3, lifetime=6.0, speed=[1.4, 1.8], gravity=0.0, size=[1.6, 1.2], alpha=0.95,
+                       color=[0.5, 1.0, 0.3], texture="mote", blend="add", spread=2, radius=0.3)),
     "spin": dict(category="transform_animation", godot="script: rotor node.rotate_object_local(Vector3.UP, rpm * TAU / 60 * delta); the rotor's node origin is its centre "
                  "and its local +y its axis (per-target rpm in 'speeds', sign = direction)", glb="rotor mesh at rest, own node", defaults=dict(speed_rpm=20.0)),
     "sky_drift": dict(category="environment", godot="script: Environment.sky_rotation.y += speed (rad/s) - slow cloud drift", glb="nothing",

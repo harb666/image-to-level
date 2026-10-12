@@ -127,7 +127,7 @@ for _k, _b, _s in (("industrial", "industrial", "realistic"), ("toxic_industrial
                    ("medieval_town", "temperate", "realistic"), ("ruins", "wasteland", "realistic")):
     THEMES[_k].setdefault("biome", _b); THEMES[_k].setdefault("style", _s)
 VARIANT_ROLES = ("wall", "structure", "deck", "plaster")
-FALLBACK = {"wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
+FALLBACK = {"glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
             "window": "glow", "foliage": "rock", "water": "hazard", "machine": "structure_b", "backdrop": "wall", "structure_b": "structure",
             "frame": "structure_b", "rail": "frame", "grate": "deck", "trim": "structure_b", "accent": "trim", "glow": "accent", "pipe": "frame",
             "hazard": "water", "fall": "water", "stripe": "trim", "ground": "deck", "deck": "ground", "wall": "structure", "structure": "wall", "rock": "structure"}
@@ -458,7 +458,7 @@ def wall_segment(ctx, name, p0, p1, height, thick, base_y, style, inner=None, de
     g = ctx.add(name, "group", [mid[0], 0, mid[1]], rot=[0, yaw, 0])
     body = "wall"
     if dress and dress.get("dressing") == "varied" and decor:  # Stage 19: wall stretches in different textures (plates, slime-stained, plain hull)
-        body = str(np.random.default_rng(_h("body" + name)).choice(["wall_works", "wall_works", "wall_slimed", "wall"]))
+        body = str(np.random.default_rng(_h("body" + name)).choice(["wall_works", "wall_works", "wall", "wall", "wall_slimed"]))
     ctx.add(name + "_Body", "box", [0, base_y, 0], [L, height - base_y, thick], body, g)
     ctx.add(name + "_Cap", "box", [0, height, 0], [L + 0.3, 0.5, thick + 0.4], "trim" if style == "stone" else "structure_b", g)
     if not decor: return g
@@ -558,7 +558,7 @@ def _wall_varied(ctx, name, g, L, height, thick, base_y, dress):
             ctx.add(nm + "_Red", "box", [x + rng.uniform(-sw / 2 + 0.5, sw / 2 - 0.5), rng.uniform(fy + 2, height - 3), f + 0.15], [0.5, 0.35, 0.3], "glow", g, collision=False, outline=False, **st)
         if rng.random() < 0.7:  # raised wall plate in another tone over part of the slot: the face reads as panels, not one tiled sheet
             y0 = rng.uniform(fy + 4.5, fy + 9) if m not in ("pipes", "fan") else rng.uniform(base_y + 1, fy - 1); y1 = min(height - 0.8, y0 + rng.uniform(5, 14))
-            if y1 - y0 > 2: ctx.add(nm + "_Plate", "box", [x, y0, f + 0.06], [sw * rng.uniform(0.7, 0.96), y1 - y0, 0.12], str(rng.choice(["wall_works", "wall_slimed", "structure_b", "frame", "wall_works"])), g,
+            if y1 - y0 > 2: ctx.add(nm + "_Plate", "box", [x, y0, f + 0.06], [sw * rng.uniform(0.7, 0.96), y1 - y0, 0.12], str(rng.choice(["wall_works", "structure_b", "frame", "wall_works", "structure_b", "wall_slimed"])), g,
                                    collision=False, outline=False, **st)
         prev = m; u += sw
 

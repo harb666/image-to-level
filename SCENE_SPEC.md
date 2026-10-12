@@ -516,3 +516,12 @@ Building blocks usable without the preset:
 - FIX: `wall_segment` turned its decorated side (local +z) to the OUTSIDE of the arena; it now faces the inner point.
   Pilasters, banners and Stage 18 wall modules all sit on the inner face (modules also keep clear of the corners).
 - Mobile cells start at the level's min corner (fewest cells: this level 1 x 2 at 160 m).
+
+## Stage 20: see-through tubes with rising slime blobs, less green on the walls
+- Material `"alpha": a` -> glTF alphaMode BLEND, double-sided (alien_cartoon role `glass`: faint green tint, alpha 0.22).
+  Vat glass and column glass sections use it (`material` overrides) and carry `"tube": true`, solid colliders, double-sided.
+- Effect `tube_blobs` (particles): glowing blobs of slime rising through the tubes every few seconds; one emitter per
+  structure (a column's sections are one shaft), one merged particle system per tube-height group, lifetime from the
+  height so blobs fade before the top.
+- `wall_slimed`: fewer leak sources (`leak_threshold`, default 0.8), thinner drips, fainter stains; used on fewer wall
+  stretches / plates. `wall_works`: fewer plates with green light dashes.

@@ -34,6 +34,7 @@ ALIEN_CARTOON = {
                         "void_top": [0.2, 0.15, 0.27], "void_black": 0.45},
         "wall_works":  {"type": "wall_works", "color": [0.29, 0.23, 0.36], "tile_m": 16.0, "res": 512, "wear": 0.4, "toon": True, "emissive": [1, 1, 1]},
         "wall_slimed": {"type": "wall_slimed", "color": [0.27, 0.21, 0.33], "tile_m": 13.0, "res": 512, "wear": 0.5, "toon": True, "emissive": [0.8, 0.9, 0.6]},
+        "glass":       {"type": "toxic", "color": [0.55, 1.0, 0.45], "tile_m": 4.0, "res": 64, "alpha": 0.22, "emissive": [0.1, 0.3, 0.08]},
         "rail":        {"type": "painted_metal", "color": [0.85, 0.08, 0.1], "tile_m": 2.0, "res": 128, "wear": 0.02, "toon": True},
         "grate":       {"type": "grating", "color": [0.27, 0.22, 0.35], "tile_m": 2.0, "toon": True},
         "machine":     {"type": "machinery_panel", "color": [0.3, 0.24, 0.38], "tile_m": 2.0, "accent": [0.45, 1.0, 0.2], "emissive": [1, 1, 1], "toon": True},
