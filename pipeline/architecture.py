@@ -127,7 +127,7 @@ for _k, _b, _s in (("industrial", "industrial", "realistic"), ("toxic_industrial
                    ("medieval_town", "temperate", "realistic"), ("ruins", "wasteland", "realistic")):
     THEMES[_k].setdefault("biome", _b); THEMES[_k].setdefault("style", _s)
 VARIANT_ROLES = ("wall", "structure", "deck", "plaster")
-FALLBACK = {"screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
+FALLBACK = {"tv_casing": "structure_b", "screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
             "window": "glow", "foliage": "rock", "water": "hazard", "machine": "structure_b", "backdrop": "wall", "structure_b": "structure",
             "frame": "structure_b", "rail": "frame", "grate": "deck", "trim": "structure_b", "accent": "trim", "glow": "accent", "pipe": "frame",
             "hazard": "water", "fall": "water", "stripe": "trim", "ground": "deck", "deck": "ground", "wall": "structure", "structure": "wall", "rock": "structure"}
@@ -541,18 +541,16 @@ def _wall_varied(ctx, name, g, L, height, thick, base_y, dress):
             vw = sw * rng.uniform(0.4, 0.7); yy = rng.uniform(fy + 1, fy + 8); vh = rng.uniform(2, 4)  # frame + 3 slats (a louvred vent shape is ~500 triangles)
             ctx.add(nm, "box", [x, yy, f + 0.1], [vw, vh, 0.3], "structure_b", g, collision=False, **st)
             for j in range(3): ctx.add(f"{nm}_Slat_{j + 1}", "box", [x, yy + vh * (j + 1) / 4 - 0.12, f + 0.3], [vw - 0.5, 0.24, 0.15], "frame", g, collision=False, outline=False, **st)
-        elif m == "monitor":  # Stage 22 (user's monitor reference): framed control screen with angular red corners, feed cable, side box
-            tw = min(sw * rng.uniform(0.5, 0.7), rng.uniform(3.2, 5.2)); th = tw * 0.74; yy = fy + rng.uniform(1.2, 2.4); scr = "screen" if rng.random() < 0.5 else "screen_b"
-            ctx.add(nm + "_Frame", "box", [x, yy - 0.35, f + 0.3], [tw + 0.7, th + 0.7, 0.6], "structure_b", g, **st)
-            ctx.add(nm + "_Screen", "panel", [x, yy, f + 0.62], [tw, th, 0], scr, g, collision=False, outline=False, **st)
-            for cxs, cys in ((-1, -1), (1, -1), (-1, 1), (1, 1)):  # angular red corner accents
-                ctx.add(f"{nm}_Corner_{cxs + 1}{cys + 1}", "box", [x + cxs * (tw / 2 + 0.05), yy + (th + 0.05 if cys > 0 else -0.3), f + 0.66], [0.75, 0.2, 0.08], "glow", g,
-                        [0, 0, -cxs * cys * 45], collision=False, outline=False, **st)  # cuts across the frame corner (angular cap)
-            for j, sx_ in enumerate((-0.3, 0.3)): ctx.add(f"{nm}_TopLight_{j + 1}", "box", [x + sx_ * tw, yy + th + 0.38, f + 0.62], [tw * 0.18, 0.14, 0.08], "glow", g, collision=False, outline=False, **st)
-            sd_ = 1 if rng.random() < 0.5 else -1
-            ctx.add(nm + "_Box", "box", [x + sd_ * (tw / 2 + 0.75), yy + th * 0.3, f + 0.35], [0.8, 1.3, 0.7], "machine", g, collision=False, **st)
-            ctx.add(nm + "_BoxLight", "box", [x + sd_ * (tw / 2 + 0.75), yy + th * 0.3 + 0.35, f + 0.71], [0.45, 0.45, 0.04], "glow", g, collision=False, outline=False, **st)
-            ctx.add(nm + "_Cable", "cylinder", [x - sd_ * tw * 0.25, yy + th + 0.35, f + 0.25], [0.26, max(0.5, min(3.5, height - (yy + th + 0.35) - 0.5)), 0.26], "pipe", g, sections=6, collision=False, outline=False, **st)
+        elif m == "monitor":  # Stage 22-23: wall TV - moulded tv_body (casing texture: screws, vents, speaker grille, knobs, LED), glass screen, mount arms
+            tw = min(sw * rng.uniform(0.5, 0.7), rng.uniform(3.2, 5.2)); th = tw * 0.74; yy = fy + rng.uniform(1.4, 2.6); scr = "screen" if rng.random() < 0.5 else "screen_b"
+            bf, cf, depth, stand = 0.07, 0.2, 0.9, 0.35; W_ = tw / (1 - 2 * bf); H_ = W_ * 0.8; th = H_ * (1 - cf - bf * 1.33) * 0.98; y0 = yy - H_ * cf
+            ctx.add(nm + "_Body", "tv_body", [x, y0, f + stand], [W_, H_, depth], "tv_casing", g, border=bf, chin=cf, **st)
+            ctx.add(nm + "_Screen", "panel", [x, yy + H_ * 0.003, f + stand + depth - 0.12 + 0.02], [W_ * (1 - 2 * bf) * 0.995, th, 0], scr, g, collision=False, outline=False, **st)
+            for k_ in (-1, 1): ctx.add(f"{nm}_Arm_{k_ + 1}", "box", [x + k_ * W_ * 0.2, y0 + H_ * 0.45, f + 0.0], [0.25, 0.3, stand + 0.1], "frame", g, collision=False, outline=False, **st)
+            for cxs, cys in ((-1, -1), (1, -1), (-1, 1), (1, 1)):  # angular red corner caps on the bezel (reference)
+                ctx.add(f"{nm}_Corner_{cxs + 1}{cys + 1}", "box", [x + cxs * (W_ / 2 - 0.3), y0 + (H_ - 0.36 if cys > 0 else 0.2), f + stand + depth + 0.01], [0.6, 0.15, 0.06], "glow", g,
+                        [0, 0, -cxs * cys * 45], collision=False, outline=False, **st)
+            ctx.add(nm + "_Cable", "cylinder", [x - W_ * 0.28, y0 + H_ * 0.85, f + 0.15], [0.24, max(0.5, min(3.5, height - (y0 + H_ * 0.85) - 0.5)), 0.24], "frame", g, sections=6, collision=False, outline=False, **st)
         elif m == "door":
             doors += 1; dw = min(sw * 0.6, 3.6); dh = 4.4
             ctx.add(nm + "_Frame", "box", [x, fy, f + 0.15], [dw + 1.0, dh + 0.7, 0.3], "glow", g, collision=False, outline=False, **st)

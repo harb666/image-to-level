@@ -136,7 +136,7 @@ def legacy_texture(kind):
 # ---------------------------------------------------------------- PBR kinds
 ALIASES = {"industrial_wall": "industrial_metal", "platform_side": "machinery_panel", "floor_plate": "scifi_floor",
            "grate": "grating", "pipe_metal": "pipe", "red_panel": "banner", "cliff": "rock"}
-DEFAULT_RES = {"screen_ui": 512, "ceiling_works": 1024, "wall_works": 512, "wall_slimed": 512, "hull_plating": 512, "industrial_metal": 512, "scifi_floor": 512, "rock": 512, "painted_metal": 512, "damaged_metal": 512,
+DEFAULT_RES = {"tv_casing": 512, "screen_ui": 512, "ceiling_works": 1024, "wall_works": 512, "wall_slimed": 512, "hull_plating": 512, "industrial_metal": 512, "scifi_floor": 512, "rock": 512, "painted_metal": 512, "damaged_metal": 512,
                "concrete": 256, "glow": 128}
 
 
@@ -737,7 +737,55 @@ def k_screen_ui(S, rng, c, m):
             else: d.ellipse(R(x0 + 2, y0 + 2, x0 + 16, y0 + 16), outline=MAG, width=int(3 * u)); d.line(R(x0 + 9, y0 - 2, x0 + 9, y0 + 20), fill=MAG, width=int(3 * u))
     for k in range(4): d.ellipse(R(470 + k * 0, 290 + k * 40, 492, 312 + k * 40), fill=[GREEN, PINK, ORANGE, MAG][k]); d.line(R(498, 301 + k * 40, 540, 301 + k * 40), fill=PURP, width=int(4 * u))
     a = np.asarray(im.resize((S, S), Image.BILINEAR), float) / 255.0
-    return dict(alb=a, h=np.zeros((S, S)), rough=np.full((S, S), 0.5), metal=0.0, emit=np.ones((S, S)), nstr=0.0)
+    xx, yy = _xy(S); ax = (xx - 0.5) * 4 / 3; ay = yy - 0.5  # screen glass (Stage 23): scanlines, vignette, glare, pixel grid, rounded corners
+    a = a * (1 - 0.18 * (((np.arange(S) // max(1, S // 170)) % 2)[:, None]))
+    a = a * np.clip(1.15 - 1.1 * (ax ** 2 + ay ** 2), 0.45, 1)[..., None]
+    glare = np.clip(1 - np.abs((xx + yy * 0.6) - 0.42) / 0.06, 0, 1) * np.clip(1 - yy * 1.6, 0, 1); a = a + 0.22 * glare[..., None]
+    a = a * (1 - 0.08 * ((np.arange(S) % max(2, S // 128)) == 0)[None, :, None])
+    rc = 0.06; qx, qy = np.clip(np.abs(ax) - (2 / 3 - rc), 0, None), np.clip(np.abs(ay) - (0.5 - rc), 0, None)
+    a = np.where((np.hypot(qx, qy) > rc)[..., None], 0.015, a)
+    return dict(alb=np.clip(a, 0, 1), h=np.zeros((S, S)), rough=np.full((S, S), 0.5), metal=0.0, emit=np.ones((S, S)), nstr=0.0)
+
+
+def k_tv_casing(S, rng, c, m):
+    """TV / monitor casing for the tv_body shape's front UVs (Stage 23): moulded dark plastic with a lit top-left edge
+    bevel and a shadow lip round the screen opening, screw heads in the corners, vent slits along the top, and a chin
+    with a dotted speaker grille, a badge plate, two knobs and a power LED (emissive). "border" / "chin" must match the
+    shape (fractions of width / height)."""
+    from PIL import ImageDraw
+    bf, cf = m.get("border", 0.07), m.get("chin", 0.2)
+    x, y = _xy(S); v = 1 - y  # v = 0 at the bottom of the TV
+    fine = _noise(rng, 32, 2, S); base = c[None, None] * (0.9 + 0.12 * v[..., None] + 0.05 * fine[..., None])
+    e_out = np.minimum(np.minimum(x, 1 - x), np.minimum(v, 1 - v)); inside = (x > bf) & (x < 1 - bf) & (v > cf) & (v < 1 - bf * 1.33)
+    band = lambda dist: np.clip(1 - dist / 0.018, 0, 1)
+    hi = np.maximum(band(1 - v), band(x)) - 0.6 * np.maximum(band(v), band(1 - x))  # bevel: lit top / left edges, dark bottom / right (smooth, no seams)
+    ddx = np.maximum.reduce([bf - x, np.zeros_like(x), x - (1 - bf)]); ddy = np.maximum.reduce([cf - v, np.zeros_like(v), v - (1 - bf * 1.33)])
+    lip = np.clip(1 - np.hypot(ddx, ddy) / 0.012, 0, 1) * ~inside  # shadow lip hugging the opening (true distance to the rectangle)
+    k_ = 1 + 0.45 * hi - 0.45 * lip; h = 0.6 + 0.3 * np.clip(hi, 0, 1) - 0.4 * lip
+    im = Image.new("L", (S, S), 0); dr = ImageDraw.Draw(im); em = Image.new("L", (S, S), 0); de = ImageDraw.Draw(em)
+    P = lambda u, vv: (int(u * S), int((1 - vv) * S))
+    for u, vv in ((0.03, 0.035), (0.97, 0.035), (0.03, 0.965), (0.97, 0.965)):  # screws
+        a, b = P(u - 0.012, vv + 0.016), P(u + 0.012, vv - 0.016); dr.ellipse([a, b], fill=200); dr.line([P(u - 0.009, vv), P(u + 0.009, vv)], fill=60, width=max(1, S // 256))
+    for k in range(9):  # vent slits along the top
+        u = 0.32 + k * 0.045; dr.rectangle([P(u, 0.985), P(u + 0.018, 1 - bf * 1.33 + 0.012)], fill=40)
+    for i in range(14):  # dotted speaker grille (left of the chin)
+        for j in range(4):
+            u, vv = 0.08 + i * 0.023, cf * (0.25 + j * 0.17); a, b = P(u - 0.006, vv + 0.008), P(u + 0.006, vv - 0.008); dr.ellipse([a, b], fill=35)
+    dr.rounded_rectangle([P(0.45, cf * 0.72), P(0.6, cf * 0.28)], radius=max(2, S // 128), fill=170)  # badge plate
+    for k in range(3): dr.line([P(0.47 + k * 0.035, cf * 0.5), P(0.49 + k * 0.035, cf * 0.5)], fill=240, width=max(1, S // 200))
+    for u in (0.7, 0.8):  # knobs
+        a, b = P(u - 0.03, cf * 0.5 + 0.04), P(u + 0.03, cf * 0.5 - 0.04); dr.ellipse([a, b], fill=120, outline=230, width=max(1, S // 256))
+        dr.line([P(u, cf * 0.5), P(u + 0.012, cf * 0.5 + 0.025)], fill=250, width=max(1, S // 200))
+    a, b = P(0.9 - 0.012, cf * 0.5 + 0.016), P(0.9 + 0.012, cf * 0.5 - 0.016); de.ellipse([a, b], fill=255)  # power LED
+    dmask = np.asarray(im, float) / 255.0; led = np.asarray(em, float) / 255.0
+    det = dmask > 0; k_ = np.where(det, 0.3 + 1.1 * dmask, k_); h = np.where(det, 0.3 + 0.6 * dmask, h)
+    badge = np.asarray(m.get("badge", [0.85, 0.15, 0.35])); lc = np.asarray(m.get("led", [0.4, 1.0, 0.3]))
+    alb = base * k_[..., None]; bmask = (dmask > 0.6) & (np.abs(x - 0.525) < 0.075) & (v < cf * 0.75) & (v > cf * 0.25)
+    alb = np.where(bmask[..., None], badge * (0.6 + 0.4 * dmask[..., None]), alb); alb = np.where((led > 0.5)[..., None], lc, alb)
+    d = dict(alb=alb, h=_blur(h, 0.6), rough=np.full((S, S), 0.45), metal=0.0, nstr=0.8)
+    if m.get("emissive"): d["emit"] = (led > 0.5).astype(float)
+    d["_post"] = [(*np.nonzero(led > 0.5), lc)]
+    return d
 
 PBR = {k[2:]: f for k, f in globals().items() if k.startswith("k_")}
 

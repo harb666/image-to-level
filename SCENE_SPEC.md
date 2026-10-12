@@ -541,3 +541,12 @@ Building blocks usable without the preset:
   Drawn for 4:3 panels; alien_cartoon roles `screen` (seed 1) / `screen_b` (seed 2).
 - Wall module `Monitor` replaces `Tank`: frame, screen panel, angular red corner caps, red top lights, side box with a
   light, feed cable up the wall (max 3.5 m).
+
+## Stage 23: monitors that read as TVs
+- Shape `tv_body` (size [w, h, depth]; `border`, `chin`, `radius`, `front`, `recess`): moulded bezel with rounded
+  corners, recessed screen opening above a control chin, back plate, tapered CRT-style back housing; planar front UVs.
+- Material kind `tv_casing` (laid out for those UVs): dark moulded plastic, lit edge bevel, shadow lip round the screen,
+  corner screws, top vent slits, chin with speaker grille, badge plate, two knobs, power LED (emissive).
+- `screen_ui` now has screen glass: scanlines, vignette, glare streak, pixel grid, rounded dark corners.
+- Wall `Monitor` = tv_body + recessed screen panel + mount arms + red corner caps + cable; screens get a subtle
+  `flicker` effect (CRT feel).

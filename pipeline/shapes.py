@@ -541,7 +541,39 @@ def fan_rotor(w, h, d, o):
     m.metadata["uv"] = (m.vertices[:, [0, 2]] / w + 0.5); return m
 
 
-SHAPES = dict(fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
+def _rrect(x0, y0, x1, y1, r, n=4):
+    """Rounded rectangle outline (counter-clockwise, same point count for any size: rings line up)."""
+    r = min(r, (x1 - x0) / 2 - 1e-3, (y1 - y0) / 2 - 1e-3); pts = []
+    for (cx, cy, a0) in ((x1 - r, y0 + r, -90), (x1 - r, y1 - r, 0), (x0 + r, y1 - r, 90), (x0 + r, y0 + r, 180)):
+        for k in range(n + 1):
+            a = math.radians(a0 + 90 * k / n); pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
+    return np.array(pts)
+
+
+def tv_body(w, h, d, o):
+    """Wall TV / monitor body (Stage 23): moulded bezel with rounded corners (front at z = d), a screen opening set
+    "border" (fraction of w) in from the sides / top and "chin" (fraction of h) up from the bottom, recessed "recess" m
+    with a back plate the screen panel sits in front of, and a tapered CRT-style back housing down to the wall (z = 0).
+    Base at y = 0, centred on x. Planar front UVs (u = x / w, v = y / h): the tv_casing texture is laid out for this."""
+    b, cf, rc, fd, rec = o.get("border", 0.07) * w, o.get("chin", 0.2) * h, o.get("radius", 0.06) * min(w, h), o.get("front", 0.35), o.get("recess", 0.12)
+    O = _rrect(-w / 2, 0, w / 2, h, rc); I = _rrect(-w / 2 + b, cf, w / 2 - b, h - b, rc * 0.6); n = len(O); V, F = [], []
+    def ring(P, z): V.extend([[x, y, z] for x, y in P]); return len(V) - n
+    of, ob, if_, ib = ring(O, d), ring(O, d - fd), ring(I, d), ring(I, d - rec)
+    for k in range(n):
+        k2 = (k + 1) % n
+        F += [[of + k, of + k2, if_ + k2], [of + k, if_ + k2, if_ + k]]            # bezel front ring
+        F += [[ob + k, ob + k2, of + k2], [ob + k, of + k2, of + k]]                # outer side wall
+        F += [[if_ + k, if_ + k2, ib + k2], [if_ + k, ib + k2, ib + k]]             # recess wall (faces inwards)
+        F += [[ob + k, ib + k2, ob + k2], [ob + k, ib + k, ib + k2]]                # back of the bezel (closes the solid)
+    front = trimesh.Trimesh(np.array(V), np.array(F), process=False); front.fix_normals()
+    Ip = _rrect(-w / 2 + b + 0.02, cf + 0.02, w / 2 - b - 0.02, h - b - 0.02, rc * 0.6)  # back plate behind the screen: thin closed slab, 2 cm inside the recess walls
+    plate = trimesh.convex.convex_hull(np.array([[x_, y_, z_] for x_, y_ in Ip for z_ in (d - rec - 0.04, d - rec)]))
+    hb = trimesh.convex.convex_hull(np.array([[sx * w * 0.46, y_, d - fd + 0.01] for sx in (-1, 1) for y_ in (h * 0.05, h * 0.95)]
+                                             + [[sx * w * 0.3, y_, 0.0] for sx in (-1, 1) for y_ in (h * 0.2, h * 0.8)]))  # back housing
+    m = trimesh.util.concatenate([front, plate, hb]); m.metadata["uv"] = np.c_[(m.vertices[:, 0] + w / 2) / w, m.vertices[:, 1] / h]; return m
+
+
+SHAPES = dict(tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
               stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum)
 
