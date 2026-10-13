@@ -610,3 +610,11 @@ Building blocks usable without the preset:
 - Objects with `"uv_space": "world"` (varied wall bodies, plates) get planar UVs from world metres instead of their
   own centre, so the same texture's pattern lines up across neighbouring parts; such meshes are never instanced.
 - Side-door leaf 2 cm above its frame's bottom (no shared bottom face).
+
+## Stage 30: outlets with a real opening, nothing hung in front of a pour
+- `drain` / `spillway` pipes that leave a wall get a mouth (pipe `"mouth": false` turns it off): jambs, sill and lintel
+  in that wall's own texture jutting 1.4 m from its face (placed on the face even when the channel starts inside the
+  wall), a dark tunnel back (accent atlas `void` cell), a `structure_b` trim and a hazard stripe on the lintel. Visual
+  only, no new materials.
+- Wall modules (TVs, machines, fans, vents, emblems, side doors) within 3 m of an outlet's fall and below its top + 4 m
+  are removed (`generator_notes` lists them).

@@ -1162,6 +1162,7 @@ def pipe(ctx, p, floor_y, arena_spec):
         cw = p.get("width", 2 * r if out_t == "drain" else 6.0); chh = 0.7 if out_t == "drain" else 0.5
         src = ctx.add(n, "channel", [x + dx * L / 2, y - 0.2, z + dz * L / 2], [cw, chh, L], "structure_b", rot=[0, yaw, 0], wall=0.2)
         ctx.add(n + "_Liquid", "box", [x + dx * (L / 2 - 0.1), y, z + dz * (L / 2 - 0.1)], [cw - 0.42, 0.12, L - 0.2], mat, rot=[0, yaw, 0])
+        if p.get("mouth", True): outlet_mouth(ctx, n, x, y - 0.2, z, yaw, cw, chh)  # Stage 30: a real opening in the wall it pours from
         sec, sw, sd, anchor = ("rect", cw - 0.4, 0.3, "outlet") if out_t == "drain" else ("rect", cw - 0.4, 0.18, "outlet")  # spillway: thin sheet
         pitch, speed, oy = 0, 1.0, y; ox, oz = x + dx * L, z + dz * L
     if p.get("pour", True):
@@ -1171,6 +1172,68 @@ def pipe(ctx, p, floor_y, arena_spec):
         ctx.rel("emits_from", st, src, b_anchor=anchor)
         if pool: ctx.rel("flows_into", st, pool)
         ctx.pours.append(st)
+
+
+def _wall_at(ctx, px, py, pz, d=None):
+    """(material, metres to the wall face) of the wall body containing world point (px, py, pz), or None. The distance
+    runs along d (x, z) from (px, pz) + d * 0.5 m to the body's face pointing that way."""
+    from anchors import world_matrices
+    W, by = world_matrices({"objects": ctx.objects})
+    for o in ctx.objects:
+        if not o["name"].endswith("_Body") or o["type"] != "box" or not o.get("size"): continue
+        M = W[o["name"]]; Mi = np.linalg.inv(M); q = Mi @ np.array([px, py, pz, 1.0]); w, h, dd = o["size"]
+        if not (abs(q[0]) <= w / 2 and 0 <= q[1] <= h and abs(q[2]) <= dd / 2): continue
+        if d is None: return o.get("material"), 0.0
+        dl = Mi[:3, :3] @ np.array([d[0], 0.0, d[1]]); k = 0 if abs(dl[0]) > abs(dl[2]) else 2; sg = np.sign(dl[k]) or 1.0
+        half = (w if k == 0 else dd) / 2; return o.get("material"), float((sg * half - q[k]) * sg) - 0.5
+    return None
+
+
+def outlet_mouth(ctx, n, x, y0, z, yaw, cw, chh, depth=1.4, rise=2.4):
+    """Stage 30: housing round a drain / spillway where it leaves the wall, so the liquid comes OUT of an opening: jambs,
+    sill and lintel in the surrounding wall's own texture jutting depth m from the face, a dark tunnel back (accent atlas
+    "void" cell), a structure_b trim round the mouth and a hazard stripe on the lintel. Only where a wall is right
+    behind (x, z) - free-standing channels keep their old look; the housing sits on that wall's face even when the
+    channel starts inside the wall. Visual only (no collision), no new materials."""
+    dx, dz = math.sin(math.radians(yaw)), math.cos(math.radians(yaw))
+    hit = _wall_at(ctx, x - dx * 0.5, y0 + 0.5, z - dz * 0.5, (dx, dz))
+    if hit is None: return None
+    wm, gap = hit; x, z = x + dx * gap, z + dz * gap  # sit on the wall's face (the channel may start inside the wall)
+    mw, mh, j, D = cw + 0.5, chh + rise, 0.9, depth; st = dict(collision=False, mobile={"static": True})
+    g = ctx.add(n + "_Mouth", "group", [x, y0, z], rot=[0, yaw, 0])
+    for s_ in (-1, 1): ctx.add(f"{n}_Mouth_Jamb_{s_ + 1}", "box", [s_ * (mw / 2 + j / 2), -0.8, D / 2], [j, mh + 0.8, D], wm, g, uv_space="world", **st)
+    ctx.add(n + "_Mouth_Lintel", "box", [0, mh, D / 2], [mw + 2 * j, 1.1, D], wm, g, uv_space="world", **st)
+    ctx.add(n + "_Mouth_Sill", "box", [0, -0.8, D / 2], [mw, 0.76, D], wm, g, uv_space="world", **st)
+    ctx.add(n + "_Mouth_Dark", "panel", [0, -0.04, 0.03], [mw, mh + 0.04, 0], ctx.role("accent"), g, uv_region="void", outline=False, **st)  # the tunnel going in
+    for s_ in (-1, 1): ctx.add(f"{n}_Mouth_Trim_{s_ + 1}", "box", [s_ * (mw / 2 + 0.2), -0.8, D + 0.06], [0.4, mh + 1.9, 0.12], ctx.role("structure_b"), g, outline=False, **st)
+    ctx.add(n + "_Mouth_TrimTop", "box", [0, mh + 0.7, D + 0.06], [mw, 0.4, 0.12], ctx.role("structure_b"), g, outline=False, **st)
+    ctx.add(n + "_Mouth_Stripe", "box", [0, mh + 0.2, D + 0.04], [mw - 0.2, 0.36, 0.1], ctx.role("stripe"), g, outline=False, **st)
+    return g
+
+
+def clear_outlets(ctx, margin=3.0):
+    """Stage 30: wall dressing (TVs, machines, fans, vents, emblems, side doors) never hangs in front of / under a pour:
+    every such module whose parts come within `margin` m of an outlet's mouth or its fall is removed."""
+    import re
+    from anchors import world_matrices
+    W, by = world_matrices({"objects": ctx.objects}); zones = []
+    for st in ctx.pours:
+        o = by.get(st)
+        if not o: continue
+        P = W[st][:3, 3]; w = max(o["size"][0], 2.0); zones.append((P, w / 2 + margin, P[1] + 4.0))
+    if not zones: return 0
+    pat = re.compile(r"^(.*_M\d\d(?:Monitor|Machine|Fan|Vent|Emblem|Door))(?:_|$)"); hit = set()
+    for o in ctx.objects:
+        m_ = pat.match(o["name"])
+        if not m_ or m_.group(1) in hit or o["type"] == "group": continue
+        q = W[o["name"]][:3, 3]
+        for P, r, ytop in zones:
+            if np.hypot(q[0] - P[0], q[2] - P[2]) < r + (o.get("size") or [0])[0] / 2 and q[1] < ytop: hit.add(m_.group(1)); break
+    if hit:
+        drop = {o["name"] for o in ctx.objects if any(o["name"] == h or o["name"].startswith(h + "_") for h in hit)}
+        ctx.objects[:] = [o for o in ctx.objects if o["name"] not in drop]; ctx.names -= drop
+        ctx.notes.append(f"outlets: removed wall dressing in front of pours: {', '.join(sorted(hit))}")
+    return len(hit)
 
 
 # ------------------------------------------------------------------ Stage 9: pluggable modules (pipeline/modules/*.py register more kinds)

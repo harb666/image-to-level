@@ -68,6 +68,7 @@ def generate(spec, G, level_dir=None):
             ctx.platform_blocks = getattr(ctx, "platform_blocks", []) + [blocks[s["on"]][-1]]  # cover keeps clear of it
     for p in spec.get("pipes", []):
         ctx.element = (p["id"], p.get("source", "visible")); A.pipe(ctx, p, fy, ar or {"center": list(centre), "size": [0, 0]})
+    A.clear_outlets(ctx)  # Stage 30: no TV / machine in front of a pour
     A.party_walls(ctx)
     A.place_covers(ctx)  # after connections: cover never stands in a landing (Stage 8)
     A.dress_ceilings(ctx)  # Stage 18: "varied" ceilings, after every deck exists (lamp pods keep headroom)
