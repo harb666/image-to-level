@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 5301,
-    "triangles": 89327,
-    "nodes": 3519,
-    "mesh_nodes": 3357,
-    "unique_meshes": 1685,
+    "glb_kb": 5261,
+    "triangles": 88100,
+    "nodes": 3524,
+    "mesh_nodes": 3360,
+    "unique_meshes": 1697,
     "materials": 28,
     "images": 79,
-    "draw_calls_unbatched": 3357,
+    "draw_calls_unbatched": 3360,
     "draw_calls_batched_min": 28,
     "tex_mem_uncompressed_mb": 91.65,
     "tex_mem_gpu_compressed_mb": 22.91,
@@ -70,16 +70,16 @@
    },
    "visible": {
     "cameras": 280,
-    "visible_draw_calls_mean": 1107.0,
-    "visible_draw_calls_max": 3139,
-    "visible_triangles_mean": 42055,
-    "visible_triangles_max": 94253
+    "visible_draw_calls_mean": 1108.4,
+    "visible_draw_calls_max": 3142,
+    "visible_triangles_mean": 41659,
+    "visible_triangles_max": 93026
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 2798,
-    "triangles": 83843,
+    "glb_kb": 2774,
+    "triangles": 82628,
     "nodes": 76,
     "mesh_nodes": 75,
     "unique_meshes": 75,
@@ -128,19 +128,19 @@
     ]
    },
    "collision": {
-    "colliders": 664,
+    "colliders": 663,
     "hazards": 16,
-    "glb_kb": 349
+    "glb_kb": 348
    },
    "visible": {
     "cameras": 280,
-    "visible_draw_calls_mean": 51.0,
+    "visible_draw_calls_mean": 51.1,
     "visible_draw_calls_max": 75,
-    "visible_triangles_mean": 82118,
-    "visible_triangles_max": 94145
+    "visible_triangles_mean": 81079,
+    "visible_triangles_max": 92930
    },
    "hidden_faces_removed": 2492,
-   "occluded_faces_removed": 2992,
+   "occluded_faces_removed": 2980,
    "occluded_objects": [
     "Assembly_Line_Light_01",
     "OuterWall_East_03_Banner_01",
@@ -155,8 +155,8 @@
    "effects_max_particles": 911,
    "slimmed_kb": {
     "level_mobile.glb": [
-     4120,
-     2798
+     4088,
+     2774
     ],
     "background_mobile.glb": [
      474,
@@ -164,7 +164,7 @@
     ],
     "collision.glb": [
      419,
-     349
+     348
     ]
    }
   }
@@ -2065,10 +2065,12 @@
    "node": "M_accent_0_0",
    "kind": "static",
    "material": "accent",
-   "triangles": 227,
+   "triangles": 241,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "W_Drain_Core_Mouth_Dark",
+    "W_Spill_Mouth_Dark",
     "Exit_Door_Dark",
     "Proc_Tower_C_Banner",
     "Proc_Tower_A_Banner",
@@ -2165,7 +2167,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 2281,
+   "triangles": 2164,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2258,11 +2260,6 @@
     "Works_Wall_West_02_M04Vent_Slat_3",
     "Works_Wall_West_02_M04Vent_Slat_2",
     "Works_Wall_West_02_M04Vent_Slat_1",
-    "Works_Wall_West_02_M03Machine_Plate",
-    "Works_Wall_West_02_M03Machine_Bracket",
-    "Works_Wall_West_02_M02Monitor_Cable",
-    "Works_Wall_West_02_M02Monitor_Arm_2",
-    "Works_Wall_West_02_M02Monitor_Arm_0",
     "Works_Wall_West_02_M01Pipes_Bracket_3",
     "Works_Wall_West_02_M01Pipes_Bracket_2",
     "Works_Wall_West_02_M01Pipes_Bracket_1",
@@ -2370,7 +2367,7 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 776,
+   "triangles": 708,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2429,12 +2426,6 @@
     "Works_Wall_West_02_M07Monitor_Corner_00",
     "Works_Wall_West_02_M05Fan_Red",
     "Works_Wall_West_02_M04Vent_Red",
-    "Works_Wall_West_02_M03Machine_Light",
-    "Works_Wall_West_02_M02Monitor_Red",
-    "Works_Wall_West_02_M02Monitor_Corner_22",
-    "Works_Wall_West_02_M02Monitor_Corner_02",
-    "Works_Wall_West_02_M02Monitor_Corner_20",
-    "Works_Wall_West_02_M02Monitor_Corner_00",
     "Works_Wall_West_01_M03Machine_Red",
     "Works_Wall_West_01_M03Machine_Light",
     "Works_Wall_West_01_M02Vent_Red",
@@ -2497,16 +2488,24 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 14866,
+   "triangles": 14302,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "W_Drain_Core_Mouth_Sill__ol",
+    "W_Drain_Core_Mouth_Lintel__ol",
+    "W_Drain_Core_Mouth_Jamb_2__ol",
+    "W_Drain_Core_Mouth_Jamb_0__ol",
     "W_Drain_Core_Liquid__ol",
     "W_Drain_Core__ol",
     "W_Broken_Mount__ol",
     "W_Broken__ol",
     "W_Hanging_Flange__ol",
     "W_Hanging__ol",
+    "W_Spill_Mouth_Sill__ol",
+    "W_Spill_Mouth_Lintel__ol",
+    "W_Spill_Mouth_Jamb_2__ol",
+    "W_Spill_Mouth_Jamb_0__ol",
     "W_Spill_Liquid__ol",
     "W_Spill__ol",
     "W_Run_High_Junction_01__ol",
@@ -2865,9 +2864,6 @@
     "Works_Wall_West_02_M07Monitor_Body__ol",
     "Works_Wall_West_02_M05Fan__ol",
     "Works_Wall_West_02_M04Vent__ol",
-    "Works_Wall_West_02_M03Machine__ol",
-    "Works_Wall_West_02_M03Machine_Bracket__ol",
-    "Works_Wall_West_02_M02Monitor_Body__ol",
     "Works_Wall_West_01_M03Machine__ol",
     "Works_Wall_West_01_M03Machine_Bracket__ol",
     "Works_Wall_West_01_M02Vent__ol",
@@ -2888,8 +2884,6 @@
     "Walkway_North_Rib_01__ol",
     "OuterWall_West_03_M01Monitor_Body__ol",
     "OuterWall_West_02_M02Vent__ol",
-    "OuterWall_West_01_M01Machine__ol",
-    "OuterWall_West_01_M01Machine_Bracket__ol",
     "OuterWall_South_03_M01Monitor_Body__ol",
     "OuterWall_South_01_M01Vent__ol",
     "OuterWall_East_03_M01Machine__ol",
@@ -2911,7 +2905,7 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 1262,
+   "triangles": 1096,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2930,7 +2924,6 @@
     "Arm_2_Turret",
     "Conv_East_Roller_2",
     "Conv_West_Roller_2",
-    "Works_Wall_West_02_M03Machine",
     "Works_Wall_West_01_M03Machine",
     "Works_Wall_East_02_M03Machine",
     "Works_Wall_East_01_M02Machine"
@@ -2997,13 +2990,12 @@
    "node": "M_screen_0_0",
    "kind": "static",
    "material": "screen",
-   "triangles": 8,
+   "triangles": 6,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
     "Works_Wall_West_03_M02Monitor_Screen",
     "Works_Wall_West_02_M07Monitor_Screen",
-    "Works_Wall_West_02_M02Monitor_Screen",
     "Works_Wall_North_02_M02Monitor_Screen"
    ]
   },
@@ -3011,10 +3003,12 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 20,
+   "triangles": 44,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "W_Drain_Core_Mouth_Stripe",
+    "W_Spill_Mouth_Stripe",
     "Exit_Door_Stripe_2",
     "Exit_Door_Stripe_1"
    ]
@@ -3048,11 +3042,17 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 4832,
+   "triangles": 4904,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "W_Drain_Core_Mouth_TrimTop",
+    "W_Drain_Core_Mouth_Trim_2",
+    "W_Drain_Core_Mouth_Trim_0",
     "W_Drain_Core",
+    "W_Spill_Mouth_TrimTop",
+    "W_Spill_Mouth_Trim_2",
+    "W_Spill_Mouth_Trim_0",
     "W_Spill",
     "Column_Works_NW_Capital",
     "Column_Works_NW_Neck",
@@ -3265,13 +3265,12 @@
    "node": "M_tv_casing_0_0",
    "kind": "static",
    "material": "tv_casing",
-   "triangles": 992,
+   "triangles": 744,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
     "Works_Wall_West_03_M02Monitor_Body",
     "Works_Wall_West_02_M07Monitor_Body",
-    "Works_Wall_West_02_M02Monitor_Body",
     "Works_Wall_North_02_M02Monitor_Body"
    ]
   },
@@ -3305,10 +3304,14 @@
    "node": "M_wall_slimed_0_0",
    "kind": "static",
    "material": "wall_slimed",
-   "triangles": 191,
+   "triangles": 231,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "W_Drain_Core_Mouth_Sill",
+    "W_Drain_Core_Mouth_Lintel",
+    "W_Drain_Core_Mouth_Jamb_2",
+    "W_Drain_Core_Mouth_Jamb_0",
     "Works_Wall_East_01_M01Pipes_Plate",
     "Works_Wall_East_01_Body",
     "Works_Wall_North_02_Body",
@@ -3320,10 +3323,14 @@
    "node": "M_wall_works_0_0",
    "kind": "static",
    "material": "wall_works",
-   "triangles": 258,
+   "triangles": 298,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "W_Spill_Mouth_Sill",
+    "W_Spill_Mouth_Lintel",
+    "W_Spill_Mouth_Jamb_2",
+    "W_Spill_Mouth_Jamb_0",
     "Works_Wall_West_02_Body",
     "Works_Wall_West_01_Body",
     "Works_Wall_East_03_M02Emblem_Plate",
@@ -3434,7 +3441,7 @@
    "node": "M_frame_0_1",
    "kind": "static",
    "material": "frame",
-   "triangles": 2366,
+   "triangles": 2356,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3550,7 +3557,6 @@
     "OuterWall_West_02_M01Pipes_Plate",
     "OuterWall_West_02_M01Pipes_Bracket_2",
     "OuterWall_West_02_M01Pipes_Bracket_1",
-    "OuterWall_West_01_M01Machine_Bracket",
     "OuterWall_West_Op2_Frame_Transom",
     "OuterWall_West_Op2_Frame_Mullion_04",
     "OuterWall_West_Op2_Frame_Mullion_03",
@@ -3633,7 +3639,7 @@
    "node": "M_glow_0_1",
    "kind": "static",
    "material": "glow",
-   "triangles": 575,
+   "triangles": 555,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3664,8 +3670,6 @@
     "OuterWall_West_03_M01Monitor_Corner_02",
     "OuterWall_West_03_M01Monitor_Corner_20",
     "OuterWall_West_03_M01Monitor_Corner_00",
-    "OuterWall_West_01_M01Machine_Red",
-    "OuterWall_West_01_M01Machine_Light",
     "OuterWall_West_Op1_SillLight",
     "OuterWall_West_Op1_Cap_2",
     "OuterWall_West_Op1_Cap_0",
@@ -3723,7 +3727,7 @@
    "node": "M_machine_0_1",
    "kind": "static",
    "material": "machine",
-   "triangles": 1008,
+   "triangles": 798,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3738,7 +3742,6 @@
     "Claw_3_Block",
     "Claw_2_Block",
     "Claw_1_Block",
-    "OuterWall_West_01_M01Machine",
     "OuterWall_East_03_M01Machine",
     "OuterWall_East_02_M01Machine",
     "OuterWall_North_01_M01Machine"

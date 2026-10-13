@@ -1,14 +1,14 @@
 # slime_arena: generation summary
 
-Spec: levels/slime_arena/scene_spec.json · 3057 objects · 26 materials · 21 effects
+Spec: levels/slime_arena/scene_spec.json · 3059 objects · 26 materials · 21 effects
 Checks: PASSED ({'error': 0, 'warning': 1, 'info': 1}) · refine passes: 1
-Mobile (balanced): 2798 KB · 83843 tris · 75 draw calls · ~51.0 visible (estimate) · ~7.24 MB GPU textures (estimate)
-Navigation: 9085.0 m² reachable of 48682.0 m² standable
-Package: dist/slime_arena/package (36 files, 11.85 MB) valid=True
+Mobile (balanced): 2774 KB · 82628 tris · 75 draw calls · ~51.1 visible (estimate) · ~7.24 MB GPU textures (estimate)
+Navigation: 9085.0 m² reachable of 48681.0 m² standable
+Package: dist/slime_arena/package (36 files, 11.78 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
-- warning: 89327 triangles (> budget 40000)
+- warning: 88100 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -40,6 +40,7 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - Elevator: elevator car r 5.2 m arrives on Central from skyforge_arena, travel 19.8 m
 - Gate_Works: open blast door (12 x 8 m)
 - Exit_Door: open exit door -> level1_part3
+- outlets: removed wall dressing in front of pours: OuterWall_West_01_M01Machine, Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine
 - Central: 3 cover crate(s) dropped - no free spot clear of landings
 - crates: 35 printed crates (accent atlas)
 - corrosion: 30 lit bodies get a plain skirt at the liquid line (no lights in the slime)
@@ -47,9 +48,9 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - corrosion: 1277 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 3.7 s
-- build (glb, sky, background, effects, mobile): 77.8 s
-- refine (checks -> safe fixes): 1992.9 s
+- spec -> level.json: 4.0 s
+- build (glb, sky, background, effects, mobile): 109.0 s
+- refine (checks -> safe fixes): 1717.2 s
 - previews: 0.6 s
-- export package: 0.6 s
-- total: 2075.6 s
+- export package: 0.5 s
+- total: 1831.2 s
