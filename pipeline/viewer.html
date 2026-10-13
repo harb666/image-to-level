@@ -220,6 +220,16 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry.dispose();}
     else if(fx.category==='material_animation'){const mats=[...new Set(fx.target_material?Object.values(byName).map(o=>o.material).filter(m=>m.name===fx.target_material||m.name===fx.target_material+'__2s'):(fx.targets||[]).map(n=>byName[n]&&byName[n].material).filter(Boolean))],b=mats.map(m=>m.emissiveIntensity);let nx=0;
       fxUpd.push({reset(){mats.forEach((m,i)=>m.emissiveIntensity=b[i]);},u(t,dt){if(fx.type==='pulse_light')mats.forEach((m,i)=>m.emissiveIntensity=b[i]*(1+p.amount*Math.sin(6.2831*p.speed*t+p.phase)));
         else{nx-=dt;if(nx<=0){nx=1/p.rate;mats.forEach((m,i)=>m.emissiveIntensity=b[i]*(1-p.amount*Math.random()));}}}});}
+    else if(fx.category==='material_shader'){const mats=[...new Set(Object.values(byName).map(o=>o.material).filter(m=>m&&(m.name===fx.target_material||m.name===fx.target_material+'__2s')))]; // Stage 26: tv_static (same maths as tv_static.gdshader)
+      const U={uT:{value:0}},ob=mats.map(m=>m.onBeforeCompile);mats.forEach(m=>{m.onBeforeCompile=sh=>{Object.assign(sh.uniforms,U,{uP1:{value:new THREE.Vector4(p.amount,p.grain,p.fps,p.seed)},uP2:{value:new THREE.Vector4(p.signal_every,p.signal_len,p.roll_speed,p.glow)}});
+        sh.fragmentShader='uniform float uT;uniform vec4 uP1,uP2;\nfloat tvHash(vec2 q){return fract(sin(dot(q,vec2(12.9898,78.233)))*43758.5453);}\n'+sh.fragmentShader.replace('#include <emissivemap_fragment>',`#include <emissivemap_fragment>
+        #ifdef USE_MAP
+        {vec2 sUv=vMapUv;vec3 pic=texture2D(map,sUv).rgb;float f=mod(floor(uT*uP1.z),997.);vec2 cell=floor(sUv*vec2(uP1.y*3.,uP1.y));
+         float n=tvHash(cell+vec2(f*13.1,f*7.7)+uP1.w),ln=.75+.25*tvHash(vec2(cell.y,f+uP1.w)),ph=mod(uT+uP1.w*1.7,uP2.x);
+         float sig=smoothstep(0.,.25,ph)*(1.-smoothstep(uP2.y-.25,uP2.y,ph)),mm=uP1.x*(1.-.8*sig),bar=smoothstep(0.,.08,abs(fract(sUv.y+uT*uP2.z)-.5));
+         vec3 col=mix(pic,vec3(n*ln),mm)*mix(.65,1.,bar);diffuseColor.rgb=col*.15;totalEmissiveRadiance=col*uP2.w;}
+        #endif`);};m.customProgramCacheKey=()=>'tvstatic'+fx.id;m.needsUpdate=true;});
+      fxUpd.push({reset(){mats.forEach((m,i)=>{m.onBeforeCompile=ob[i];m.customProgramCacheKey=THREE.Material.prototype.customProgramCacheKey;m.needsUpdate=true;});},u(t){U.uT.value=t;}});}
     else if(fx.category==='transform_animation'){const tg=(fx.targets||[]).map(n=>[byName[n],(fx.speeds||{})[n]??p.speed_rpm]).filter(a=>a[0]); // spinning fan rotors
       const r0=tg.map(a=>a[0].quaternion.clone());fxUpd.push({reset(){tg.forEach((a,i)=>a[0].quaternion.copy(r0[i]));},u(t,dt){for(const [o,r] of tg)o.rotateY(r*6.2831/60*dt);}});}
     else if(fx.category==='particles')makeParticles(fx,p);

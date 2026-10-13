@@ -34,6 +34,11 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                         glb="emissive at base strength", defaults=dict(speed=0.5, amount=0.3, phase=0.0)),
     "flicker": dict(category="material_animation", godot="script: emission_energy_multiplier random flicker (rate Hz)",
                     glb="emissive at base strength", defaults=dict(rate=8.0, amount=0.25)),
+    "tv_static": dict(category="material_shader", godot="ShaderMaterial tv_static.gdshader as material_override on every mesh using target_material "
+                      "(picture = the GLB base colour texture): animated snow over the picture, rolling bar, the picture breaks through every few seconds",
+                      glb="the screen picture (static texture)", defaults=dict(amount=0.85, grain=120.0, fps=18.0, signal_every=6.0, signal_len=1.4,
+                                                                               roll_speed=0.25, glow=1.0, seed=0.0),
+                      quality={"performance": dict(fps=12.0)}),
     "bubbles": dict(category="particles", godot="CPUParticles3D, box emitter on the surface, alpha billboard", glb="nothing",
                     defaults=dict(rate=40.0, lifetime=1.4, speed=[0.3, 0.7], gravity=0.0, size=[0.15, 0.45], alpha=1.0, color=[0.92, 1.0, 0.7], texture="bubble", blend="alpha", spread=10)),
     "splash": dict(category="particles", godot="CPUParticles3D, point emitter, gravity", glb="nothing",

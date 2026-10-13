@@ -26,7 +26,7 @@ class Monitors(unittest.TestCase):
             self.assertIn(by[n]["material"], ("screen", "screen_b")); base = n[:-len("_Screen")]
             for part in ("_Body", "_Cable", "_Arm_0", "_Corner_00"): self.assertIn(base + part, by)
             self.assertEqual(by[base + "_Body"]["type"], "tv_body"); self.assertEqual(by[base + "_Body"]["material"], "tv_casing")
-        fl = [e for e in L["effects"] if e["type"] == "flicker" and str(e.get("target_material", "")).startswith("screen")]; self.assertTrue(fl)
+        fl = [e for e in L["effects"] if e["type"] in ("flicker", "tv_static") and str(e.get("target_material", "")).startswith("screen")]; self.assertTrue(fl)  # tv_static since Stage 26
 
     def test_tv_body_and_casing(self):
         import shapes, materials

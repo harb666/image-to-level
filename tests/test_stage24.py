@@ -34,7 +34,7 @@ class Viewscreens(unittest.TestCase):
         self.assertTrue(all(o["collision"] is False for o in scr))
         backs = [o for o in L["objects"] if o["name"].startswith("OuterWall_North_Op") and o["name"].endswith("_Back")]
         self.assertEqual(len(backs), 2); self.assertTrue(all(o["collision"] for o in backs))  # the hole stays closed
-        self.assertTrue(any(e["type"] == "flicker" and e.get("target_material") == "bigscreen" for e in L["effects"]))
+        self.assertTrue(any(e["type"] in ("flicker", "tv_static") and e.get("target_material") == "bigscreen" for e in L["effects"]))
         self.assertFalse(any(o.get("material") == "slime" and "_Op" in o["name"] for o in L["objects"]))
 
 

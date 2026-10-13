@@ -574,3 +574,11 @@ Building blocks usable without the preset:
   (`source_objects`) leave the GLB (manifest / pick.json keep them); identical buffer views / accessors are stored once.
 - `package.py --game`: minified JSON rounded to 1e-4, editor-only lists omitted (counted under `"omitted"`), no
   `scene_spec.json`. Fixed: `environment.tres` was written empty in every package (opened for writing before reading).
+
+## Stage 26: TV static on the screens
+- Effect `tv_static` (category `material_shader`) on the `screen` and `bigscreen` roles: animated snow over the
+  picture (cells change `fps` times a second, line jitter), a dark bar rolling down, and every `signal_every` seconds
+  the picture breaks through for `signal_len` seconds. Godot: `fx/godot/tv_static.gdshader` set by `apply_effects.gd`
+  as a material_override (one ShaderMaterial per screen material; no extra draw calls); the preview runs the same maths.
+- Spec `"screens": {"static": 0.85, "signal_every": 6, "signal_len": 1.4}` - `static` is the share of snow over the
+  picture (1 = snow only); `0` switches it off and brings back the old CRT `flicker`.

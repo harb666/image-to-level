@@ -230,8 +230,12 @@ def _effects(spec, ctx, plats, env, glow):
                                 lifetime=round(0.72 * (h - 0.6) / v, 2), speed=[v * 0.9, v * 1.1], size=[round(r * 1.3, 2), round(r * 1.0, 2)], radius=round(r * 0.35, 2)))
         spins = [o["name"] for o in ctx.objects if o.get("spin")]
         if spins: out.append(dict(id="Fan_Spin", type="spin", targets=spins))  # Stage 19: rotating fan rotors
-        for sm in sorted(r for r in ctx.roles if r in ("screen", "bigscreen")):  # Stage 23: live screens flicker a little (CRT feel)
-            out.append(dict(id=f"Screen_Flicker_{sm}", type="flicker", target_material=sm, rate=5, amount=0.12))
+        SC = spec.get("screens") or {}
+        for i, sm in enumerate(sorted(r for r in ctx.roles if r in ("screen", "bigscreen"))):  # Stage 23: live screens flicker a little (CRT feel)
+            if SC.get("static", 0.85) > 0:  # Stage 26: TV static (snow) over the picture, the picture breaks through now and then
+                out.append(dict(id=f"Screen_Static_{sm}", type="tv_static", target_material=sm, amount=SC.get("static", 0.85), seed=float(i * 2.3),
+                                **{k: SC[k] for k in ("signal_every", "signal_len") if k in SC}))
+            else: out.append(dict(id=f"Screen_Flicker_{sm}", type="flicker", target_material=sm, rate=5, amount=0.12))
         if "glow" in ctx.roles: out.append(dict(id="Glow_Pulse", type="pulse_light", target_material="glow", speed=0.9, amount=0.4))
         if "trim" in ctx.roles and A.role_material(spec.get("theme", "industrial"), "trim").get("emissive"): out.append(dict(id="Trim_Pulse", type="pulse_light", target_material="trim", speed=0.35, amount=0.35))
         if "structure" in ctx.roles and A.role_material(spec.get("theme", "industrial"), "structure").get("emissive"): out.append(dict(id="Machinery_Flicker", type="flicker", target_material="structure", rate=6, amount=0.2))
