@@ -601,3 +601,10 @@ Building blocks usable without the preset:
   `skirt_material` sleeve 1 cm proud from under the surface to `skirt` m (2.2) above it; base light strips and lamp
   panels (`..._Glow_<n>L/R`, `..._Light_<n>`) that start within `light_clear` m (1.6) of the surface are removed when
   short, or start that high when tall.
+
+## Stage 29: seamless walls
+- Varied walls pick ONE body texture per wall run (`OuterWall_North_01/02/03` share it): textures change only at
+  corners. Raised wall plates use that same texture (relief panels, not patches of another texture).
+- Objects with `"uv_space": "world"` (varied wall bodies, plates) get planar UVs from world metres instead of their
+  own centre, so the pattern runs on across segments, plates and openings; such meshes are never instanced.
+- Side-door leaf 2 cm above its frame's bottom (no shared bottom face).

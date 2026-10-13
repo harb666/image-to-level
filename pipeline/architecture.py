@@ -15,7 +15,7 @@ Modules
   pipes: outlet (wall pipe + flange + optional pour/fall), run (polyline with flanges)
 Extend: add a function and register it in STRUCTURES / PLATFORM_STYLES; keep it closed-mesh and named.
 """
-import hashlib, math
+import hashlib, math, re
 import numpy as np
 import prefabs
 
@@ -460,11 +460,13 @@ def wall_segment(ctx, name, p0, p1, height, thick, base_y, style, inner=None, de
     g = ctx.add(name, "group", [mid[0], 0, mid[1]], rot=[0, yaw, 0])
     body = "wall"
     if dress and dress.get("dressing") == "varied" and decor:  # Stage 19: wall stretches in different textures (plates, slime-stained, plain hull)
-        body = str(np.random.default_rng(_h("body" + name)).choice(["wall_works", "wall_works", "wall", "wall", "wall_slimed"]))
-    ctx.add(name + "_Body", "box", [0, base_y, 0], [L, height - base_y, thick], body, g)
+        side = re.sub(r"_\d+$", "", name)  # Stage 29: one texture per wall run (OuterWall_North_01/02/03 ...): changes only at corners
+        body = str(np.random.default_rng(_h("body" + side)).choice(["wall_works", "wall_works", "wall", "wall", "wall_slimed"]))
+    uvw = dict(uv_space="world") if dress and dress.get("dressing") == "varied" else {}  # pattern runs on across segments, plates and openings
+    ctx.add(name + "_Body", "box", [0, base_y, 0], [L, height - base_y, thick], body, g, **uvw)
     ctx.add(name + "_Cap", "box", [0, height, 0], [L + 0.3, 0.5, thick + 0.4], "trim" if style == "stone" else "structure_b", g)
     if not decor: return g
-    if dress and dress.get("dressing") == "varied": _wall_varied(ctx, name, g, L, height, thick, base_y, dress); return g
+    if dress and dress.get("dressing") == "varied": _wall_varied(ctx, name, g, L, height, thick, base_y, dress, body); return g
     step = 12.0 if ctx.detail >= 1 else 24.0; n = max(0, int(L / step))
     for i in range(n):  # pilasters / buttresses on the inner face
         x = -L / 2 + L * (i + 0.5) / n
@@ -507,7 +509,7 @@ def fan_unit(ctx, nm, parent, c, R, depth, wall=True, rpm=None, seed=0, st=None)
 WALL_MODULES = (("pipes", 3), ("machine", 2), ("fan", 1.5), ("emblem", 1.5), ("vent", 1.5), ("monitor", 2), ("door", 0.7), ("plain", 1.2))
 
 
-def _wall_varied(ctx, name, g, L, height, thick, base_y, dress):
+def _wall_varied(ctx, name, g, L, height, thick, base_y, dress, body="wall"):
     """Stage 18 wall dressing: the inner face is cut into slots of random width (5-13 m) and every slot gets a module,
     never the same twice in a row: vertical pipe bundle with brackets, machine housing on a bracket, big wall fan,
     painted emblem (banner panel), vent grille, glowing slime-tank window, sealed side door (at most one per wall),
@@ -556,16 +558,16 @@ def _wall_varied(ctx, name, g, L, height, thick, base_y, dress):
         elif m == "door":
             doors += 1; dw = min(sw * 0.6, 3.6); dh = 4.4
             ctx.add(nm + "_Frame", "box", [x, fy, f + 0.15], [dw + 1.0, dh + 0.7, 0.3], "glow", g, collision=False, outline=False, **st)
-            ctx.add(nm, "box", [x, fy, f + 0.25], [dw, dh, 0.3], "structure_b", g, collision=False, **st)
+            ctx.add(nm, "box", [x, fy + 0.02, f + 0.25], [dw, dh - 0.02, 0.3], "structure_b", g, collision=False, **st)  # 2 cm up: no shared bottom face with the frame
             ctx.add(nm + "_Sign", "box", [x, fy + dh + 0.7, f + 0.2], [1.6, 0.5, 0.2], "glow", g, collision=False, outline=False, **st)
         else:
             ctx.add(nm + "_Strip", "box", [x, fy + rng.uniform(3, 8), f + 0.05], [sw * 0.7, 0.18, 0.1], "glow", g, collision=False, outline=False, **st)
         if rng.random() < 0.35 and m not in ("door",):  # a stray red light box
             ctx.add(nm + "_Red", "box", [x + rng.uniform(-sw / 2 + 0.5, sw / 2 - 0.5), rng.uniform(fy + 2, height - 3), f + 0.15], [0.5, 0.35, 0.3], "glow", g, collision=False, outline=False, **st)
-        if rng.random() < 0.7:  # raised wall plate in another tone over part of the slot: the face reads as panels, not one tiled sheet
+        if rng.random() < 0.7:  # raised wall plate over part of the slot: the face reads as panels, not one tiled sheet
             y0 = rng.uniform(fy + 4.5, fy + 9) if m not in ("pipes", "fan") else rng.uniform(base_y + 1, fy - 1); y1 = min(height - 0.8, y0 + rng.uniform(5, 14))
-            if y1 - y0 > 2: ctx.add(nm + "_Plate", "box", [x, y0, f + 0.06], [sw * rng.uniform(0.7, 0.96), y1 - y0, 0.12], str(rng.choice(["wall_works", "structure_b", "frame", "wall_works", "structure_b", "wall_slimed"])), g,
-                                   collision=False, outline=False, **st)
+            if y1 - y0 > 2: ctx.add(nm + "_Plate", "box", [x, y0, f + 0.06], [sw * rng.uniform(0.7, 0.96), y1 - y0, 0.12], body, g,  # Stage 29: the wall's own texture (relief, no seam)
+                                   collision=False, outline=False, uv_space="world", **st)
         prev = m; u += sw
 
 

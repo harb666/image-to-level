@@ -137,6 +137,7 @@ def build(level_dir):
         bevel = L["materials"].get(o.get("material"), {}).get("bevel", 0.0)
         if bevel and o["type"] == "box" and sorted(o.get("size") or [0, 0, 0])[1] < (L.get("style") or {}).get("bevel_min", 0.0): bevel = 0.0  # thin / small: a bevel never reads (x3.7 triangles)
         key = json.dumps([{k: v for k, v in o.items() if k not in ("name", "position", "rotation", "parent")}, mk, bevel], sort_keys=True)
+        if o.get("uv_space") == "world": key += "|" + o["name"]  # Stage 29: UVs depend on where it stands - never shared
         if key in geoms:  # identical part (window/door/...) -> reuse the same mesh (glTF instancing)
             scene.graph.update(frame_from=parent, frame_to=o["name"], matrix=T, geometry=geoms[key])
             tris += len(scene.geometry[geoms[key]].faces); continue
@@ -145,6 +146,8 @@ def build(level_dir):
             o = dict(o, cut=mspec["panel_cut"], _layout=(mspec.get("emblem_aspect", 1.3), tuple(mspec.get("emblem_band", (0.2, 0.8))), o.get("emblem_at")))
         g0 = shape(o, bevel)
         if "uv" in g0.metadata: m, uv = g0, g0.metadata["uv"]  # shapes with their own UVs (grid sheets, cut panels)
+        elif o.get("uv_space") == "world":  # Stage 29: planar UVs from WORLD metres: the pattern runs on across neighbouring parts
+            gw = g0.copy(); gw.apply_transform(world[o["name"]]); m, _ = uv_world(g0, tile); _, uv = uv_world(gw, tile)
         else:
             m, uv = uv_world(g0, tile)
             if o["type"] == "panel": uv = (m.vertices[:, :2] - [-o["size"][0] / 2, 0]) / o["size"][:2]  # whole texture once
