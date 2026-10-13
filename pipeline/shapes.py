@@ -294,6 +294,7 @@ def cut_panel(w, h, cut, seed=0, layout=None):
     "pennant": banner with a swallowtail V-cut at the bottom; layout (h_emblem_rel, v_bands) maps the middle band
       to a fixed-aspect emblem area of the texture so the emblem never stretches whatever the banner's aspect.
     "drip": liquid running down a wall: a band along the top edge with 2-4 tongues of random length.
+    "ragged": worn wall plate - the rectangle with irregularly eaten-away edges (Stage 29).
     "blob": irregular puddle (in the panel plane; lay it flat with rotation [-90, yaw, 0]).
     "sleeve": inward-facing open cylinder + bottom disc (bottomless-shaft darkness, atlas cell "void")."""
     rng = np.random.default_rng(seed); P, T = [], []
@@ -306,6 +307,21 @@ def cut_panel(w, h, cut, seed=0, layout=None):
         pts = [(-w / 2, 0), (0, notch), (w / 2, 0), (w / 2, y1), (-w / 2, y1), (w / 2, y2), (-w / 2, y2), (w / 2, h), (-w / 2, h)]
         P = [(x, y) for x, y in pts]; T = [[0, 1, 4], [1, 3, 4], [1, 2, 3], [4, 3, 5], [4, 5, 6], [6, 5, 7], [6, 7, 8]]
         uv = [((x + w / 2) / w, vb(y)) for x, y in P]
+    elif cut == "ragged":  # Stage 29 worn wall plate: rectangle eaten away irregularly at every edge (fan from the centre)
+        amp = min(0.9, 0.18 * min(w, h)); n = max(24, int(2 * (w + h) / 0.45)); ph = rng.uniform(0, 6.283, 6)
+        t = np.linspace(0, 1, n, endpoint=False); per = 2 * (w + h); d = t * per; Q = []
+        for di in d:  # walk the perimeter: bottom, right, top, left
+            if di < w: q = (-w / 2 + di, 0.0, 0, 1)
+            elif di < w + h: q = (w / 2, di - w, -1, 0)
+            elif di < 2 * w + h: q = (w / 2 - (di - w - h), h, 0, -1)
+            else: q = (-w / 2, h - (di - 2 * w - h), 1, 0)
+            Q.append(q)
+        k = np.arange(n) / n * 6.283
+        bite = (0.5 + 0.25 * np.sin(3 * k + ph[0]) + 0.15 * np.sin(7 * k + ph[1]) + 0.1 * np.sin(17 * k + ph[2])) * amp
+        bite = np.clip(bite + rng.uniform(-0.12, 0.12, n) * amp, 0.05 * amp, amp)
+        P = [(0.0, h / 2)] + [(qx + nx * b, qy + ny * b) for (qx, qy, nx, ny), b in zip(Q, bite)]
+        T = [[0, 1 + i, 1 + (i + 1) % n] for i in range(n)]
+        uv = [((x + w / 2) / w, y / h) for x, y in P]
     elif cut == "drip":
         band = min(0.3 * h, 0.5); n = int(rng.integers(2, 5)); xs = np.sort(rng.uniform(-w / 2 + 0.1, w / 2 - 0.1, n))
         tw = np.minimum(w / (n + 0.5), 0.42) * rng.uniform(0.55, 1.0, n); L = (h - band) * rng.uniform(0.25, 1.0, n); L[int(rng.integers(n))] = h - band  # one runs the full length

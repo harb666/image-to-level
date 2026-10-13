@@ -15,7 +15,7 @@ Modules
   pipes: outlet (wall pipe + flange + optional pour/fall), run (polyline with flanges)
 Extend: add a function and register it in STRUCTURES / PLATFORM_STYLES; keep it closed-mesh and named.
 """
-import hashlib, math, re
+import hashlib, math
 import numpy as np
 import prefabs
 
@@ -460,8 +460,7 @@ def wall_segment(ctx, name, p0, p1, height, thick, base_y, style, inner=None, de
     g = ctx.add(name, "group", [mid[0], 0, mid[1]], rot=[0, yaw, 0])
     body = "wall"
     if dress and dress.get("dressing") == "varied" and decor:  # Stage 19: wall stretches in different textures (plates, slime-stained, plain hull)
-        side = re.sub(r"_\d+$", "", name)  # Stage 29: one texture per wall run (OuterWall_North_01/02/03 ...): changes only at corners
-        body = str(np.random.default_rng(_h("body" + side)).choice(["wall_works", "wall_works", "wall", "wall", "wall_slimed"]))
+        body = str(np.random.default_rng(_h("body" + name)).choice(["wall_works", "wall_works", "wall", "wall", "wall_slimed"]))
     uvw = dict(uv_space="world") if dress and dress.get("dressing") == "varied" else {}  # pattern runs on across segments, plates and openings
     ctx.add(name + "_Body", "box", [0, base_y, 0], [L, height - base_y, thick], body, g, **uvw)
     ctx.add(name + "_Cap", "box", [0, height, 0], [L + 0.3, 0.5, thick + 0.4], "trim" if style == "stone" else "structure_b", g)
@@ -564,10 +563,14 @@ def _wall_varied(ctx, name, g, L, height, thick, base_y, dress, body="wall"):
             ctx.add(nm + "_Strip", "box", [x, fy + rng.uniform(3, 8), f + 0.05], [sw * 0.7, 0.18, 0.1], "glow", g, collision=False, outline=False, **st)
         if rng.random() < 0.35 and m not in ("door",):  # a stray red light box
             ctx.add(nm + "_Red", "box", [x + rng.uniform(-sw / 2 + 0.5, sw / 2 - 0.5), rng.uniform(fy + 2, height - 3), f + 0.15], [0.5, 0.35, 0.3], "glow", g, collision=False, outline=False, **st)
-        if rng.random() < 0.7:  # raised wall plate over part of the slot: the face reads as panels, not one tiled sheet
+        if rng.random() < 0.7:  # raised wall plate in another tone over part of the slot: the face reads as panels, not one tiled sheet
             y0 = rng.uniform(fy + 4.5, fy + 9) if m not in ("pipes", "fan") else rng.uniform(base_y + 1, fy - 1); y1 = min(height - 0.8, y0 + rng.uniform(5, 14))
-            if y1 - y0 > 2: ctx.add(nm + "_Plate", "box", [x, y0, f + 0.06], [sw * rng.uniform(0.7, 0.96), y1 - y0, 0.12], body, g,  # Stage 29: the wall's own texture (relief, no seam)
-                                   collision=False, outline=False, uv_space="world", **st)
+            if y1 - y0 > 2:  # (random draws in the original order: same plates, same textures as before)
+                pw, pm = sw * rng.uniform(0.7, 0.96), str(rng.choice(["wall_works", "structure_b", "frame", "wall_works", "structure_b", "wall_slimed"]))
+                if dress.get("plate_blend", True):  # Stage 29: worn ragged outline 1.2 cm off the wall (corrosion band 2.1 cm, emblems 3 cm): the plate's texture dissolves into the wall's
+                    ctx.add(nm + "_Plate", "panel", [x, y0, f + 0.012], [pw, y1 - y0, 0], pm, g, cut="ragged", seed=_h(nm) % 100000, collision=False, outline=False,
+                            uv_space="world", **st)
+                else: ctx.add(nm + "_Plate", "box", [x, y0, f + 0.06], [pw, y1 - y0, 0.12], pm, g, collision=False, outline=False, uv_space="world", **st)
         prev = m; u += sw
 
 

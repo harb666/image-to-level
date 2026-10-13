@@ -1,5 +1,5 @@
-"""Stage 29: seamless varied walls - one body texture per wall run, raised plates in the wall's own texture, and
-world-space planar UVs (uv_space "world") so the pattern runs on across segments, plates and openings."""
+"""Stage 29: wall textures merge - plates keep their own textures but get a worn ragged outline almost flush with the
+wall (no straight texture edge), and world-space planar UVs (uv_space "world") so patterns run on across parts."""
 import json, os, re, unittest
 import numpy as np
 from _util import tmp_level, small_spec, write_spec
@@ -14,17 +14,15 @@ def _gen():
 
 
 class Seamless(unittest.TestCase):
-    def test_one_texture_per_run_and_plates_match(self):
-        _, L = _gen(); by = {o["name"]: o for o in L["objects"]}
-        runs = {}
-        for o in L["objects"]:
-            m = re.match(r"(OuterWall_\w+?)(_\d+)?_Body$", o["name"])
-            if m and o["type"] == "box": runs.setdefault(m.group(1), set()).add(o["material"])
-        self.assertTrue(runs); self.assertTrue(all(len(v) == 1 for v in runs.values()), runs)
-        for o in L["objects"]:
-            if o["name"].endswith("_Plate"):
-                seg = re.match(r"(.+)_M\d\d", o["name"]).group(1)
-                self.assertEqual(o["material"], by[seg + "_Body"]["material"]); self.assertEqual(o["uv_space"], "world")
+    def test_plates_keep_their_textures_with_ragged_edges(self):
+        import shapes
+        _, L = _gen(); plates = [o for o in L["objects"] if o["name"].endswith("_Plate")]
+        self.assertTrue(plates)
+        self.assertTrue(all(o["type"] == "panel" and o["cut"] == "ragged" and o["uv_space"] == "world" for o in plates))
+        self.assertGreater(len({o["material"] for o in plates}), 1)  # the variety stays (several plate textures)
+        m = shapes.cut_panel(8.0, 10.0, "ragged", seed=3)
+        self.assertLess(m.area, 0.97 * 80); self.assertGreater(m.area, 0.6 * 80)  # eaten in from the edges, still a plate
+        self.assertGreater(len(m.faces), 40); self.assertTrue((m.face_normals[:, 2] > 0).all())
 
     def test_world_uvs_line_up(self):
         import trimesh, subprocess, sys
@@ -37,12 +35,8 @@ class Seamless(unittest.TestCase):
             tile = L["materials"][next(o for o in L["objects"] if o["name"] == n)["material"]].get("tile_m", 4.0)
             f = np.abs(m.face_normals[:, 2]) > 0.9; vi = np.unique(m.faces[f])
             pts[n] = (v[vi], uv[vi])
-        for n, (v, uv) in pts.items():  # u follows world x (or -x) at the same scale on both segments
-            k = np.polyfit(v[:, 0], uv[:, 0], 1); self.assertAlmostEqual(abs(k[0]), 1 / tile, 3)
-        (va, ua), (vb, ub) = pts.values()
-        fa, fb = np.polyfit(va[:, 0], ua[:, 0], 1), np.polyfit(vb[:, 0], ub[:, 0], 1)
-        self.assertAlmostEqual(fa[1], fb[1], 3)  # same offset: the pattern continues from one segment to the next
-
+        for n, (v, uv) in pts.items():
+            self.assertAlmostEqual(np.polyfit(v[:, 0], uv[:, 0], 1)[1], 0.0, 3)  # u = x / tile from the world origin: segments line up
 
 if __name__ == "__main__":
     unittest.main()

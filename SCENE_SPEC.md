@@ -602,9 +602,11 @@ Building blocks usable without the preset:
   panels (`..._Glow_<n>L/R`, `..._Light_<n>`) that start within `light_clear` m (1.6) of the surface are removed when
   short, or start that high when tall.
 
-## Stage 29: seamless walls
-- Varied walls pick ONE body texture per wall run (`OuterWall_North_01/02/03` share it): textures change only at
-  corners. Raised wall plates use that same texture (relief panels, not patches of another texture).
+## Stage 29: wall textures merge into each other
+- Varied walls keep their mix of textures (per segment, and raised plates in other tones), but a plate is now a worn
+  panel 1.2 cm off the wall with a ragged, eaten-away outline (`panel` with `"cut": "ragged"`), so its texture
+  dissolves into the wall's along an irregular edge instead of stopping at a straight line. `walls.plate_blend: false`
+  brings back the old raised box plates. No new materials or textures.
 - Objects with `"uv_space": "world"` (varied wall bodies, plates) get planar UVs from world metres instead of their
-  own centre, so the pattern runs on across segments, plates and openings; such meshes are never instanced.
+  own centre, so the same texture's pattern lines up across neighbouring parts; such meshes are never instanced.
 - Side-door leaf 2 cm above its frame's bottom (no shared bottom face).

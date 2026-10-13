@@ -145,9 +145,9 @@ def build(level_dir):
         if o["type"] == "panel" and not o.get("cut") and mspec.get("panel_cut"):  # e.g. banners: every panel of the material is cut
             o = dict(o, cut=mspec["panel_cut"], _layout=(mspec.get("emblem_aspect", 1.3), tuple(mspec.get("emblem_band", (0.2, 0.8))), o.get("emblem_at")))
         g0 = shape(o, bevel)
-        if "uv" in g0.metadata: m, uv = g0, g0.metadata["uv"]  # shapes with their own UVs (grid sheets, cut panels)
-        elif o.get("uv_space") == "world":  # Stage 29: planar UVs from WORLD metres: the pattern runs on across neighbouring parts
+        if o.get("uv_space") == "world":  # Stage 29: planar UVs from WORLD metres: the pattern runs on across neighbouring parts (even cut panels)
             gw = g0.copy(); gw.apply_transform(world[o["name"]]); m, _ = uv_world(g0, tile); _, uv = uv_world(gw, tile)
+        elif "uv" in g0.metadata: m, uv = g0, g0.metadata["uv"]  # shapes with their own UVs (grid sheets, cut panels)
         else:
             m, uv = uv_world(g0, tile)
             if o["type"] == "panel": uv = (m.vertices[:, :2] - [-o["size"][0] / 2, 0]) / o["size"][:2]  # whole texture once
