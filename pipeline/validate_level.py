@@ -188,7 +188,7 @@ def validate(level_dir, step=6.0, verbose=True, mobile=False):
     for nm in visible:
         if nm in ignore or nm not in objs: continue
         typ = spec.get(nm, spec.get(nm.rsplit("_Top", 1)[0], {})).get("type")
-        if typ in ("panel", None) or spec.get(nm, {}).get("double_sided"): continue
+        if typ in ("panel", "band", None) or spec.get(nm, {}).get("double_sided"): continue
         m = objs[nm][0].copy(); m.merge_vertices(merge_tex=True, merge_norm=True)
         u, cnt = np.unique(m.edges_sorted, axis=0, return_counts=True); b = u[cnt == 1]
         if len(b):
@@ -237,7 +237,7 @@ def _validate_local(level_dir, L, G, V, spec, ignore, heads, blocked_players, T,
     for nm in visible:
         if nm in ignore or nm not in objs or nm.startswith(("TR_", "TRM_", "TW_", "SC")): continue
         typ = spec.get(nm, spec.get(nm.rsplit("_Top", 1)[0], {})).get("type")
-        if typ in ("panel", None) or spec.get(nm, {}).get("double_sided"): continue
+        if typ in ("panel", "band", None) or spec.get(nm, {}).get("double_sided"): continue
         m = objs[nm][0].copy(); m.merge_vertices(merge_tex=True, merge_norm=True)
         u, cnt = np.unique(m.edges_sorted, axis=0, return_counts=True); b = u[cnt == 1]
         if len(b):
