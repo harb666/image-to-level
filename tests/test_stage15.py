@@ -47,6 +47,14 @@ class Arrival(unittest.TestCase):
         self.assertTrue(all(by[n]["cutaway"] for n in by if n.startswith("Lift_Shaft_")))
         self.assertFalse(any(o.get("collision", True) and o["name"].startswith("Lift_Shaft") for o in L["objects"] if o["type"] != "group"))
 
+    def test_open_lift_without_frame(self):  # Stage 27: "frame": false = the floor disc only
+        s = _indoor_spec(); s["structures"][0]["frame"] = False; _, L = _gen(s, "open")
+        car = [o["name"] for o in L["objects"] if o.get("parent") == "Lift_Car"]
+        self.assertIn("Lift_Car_Floor", car)
+        self.assertFalse([n for n in car if any(k in n for k in ("_Post", "_TopRing", "_Beam", "_Hub", "_Cable"))])
+        self.assertFalse([o for o in L["objects"] if o["name"] == "Lift_Car_Cable"])
+        self.assertEqual(L["entrances"][0]["car"], "Lift_Car")
+
     def test_spawn_at_unknown_arrival_is_an_error(self):
         from scene_spec import validate
         s = _indoor_spec(); s["spawns"] = [{"id": "player", "at": "Nope"}]

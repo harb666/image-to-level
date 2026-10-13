@@ -582,3 +582,7 @@ Building blocks usable without the preset:
   as a material_override (one ShaderMaterial per screen material; no extra draw calls); the preview runs the same maths.
 - Spec `"screens": {"static": 0.85, "signal_every": 6, "signal_len": 1.4}` - `static` is the share of snow over the
   picture (1 = snow only); `0` switches it off and brings back the old CRT `flicker`.
+
+## Stage 27: open lift
+- `elevator_arrival` takes `"frame": false`: the car is only its floor disc (hazard-stripe edge, light ring, emblem) -
+  no posts, top ring, cross beams, hoist hub or cable. Slime Arena uses it. The shaft above the roof stays.

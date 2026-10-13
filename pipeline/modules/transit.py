@@ -94,6 +94,7 @@ def elevator_arrival(ctx, s, x, y, z, yaw):
 
     The car (group "<id>_Car": floor disc with a hazard-stripe edge and a light ring, four posts with light strips, a top
     ring, cross beams, hoist hub and cable) stands open on all sides between its posts so the player walks straight off.
+    "frame": false leaves only the disc (floor, stripe, light ring, emblem): an open lift platform.
     Indoors (arena.ceiling with an "opening") a lit shaft continues above the roof opening up to a capped top where the car
     starts. level.json "entrances" records the car, its start height ("travel" m above the rest position) and duration so
     the game plays the arrival (apply_mobile.gd play_arrival); spawns with "at": "<id>" stand on the car floor. Car parts
@@ -109,15 +110,16 @@ def elevator_arrival(ctx, s, x, y, z, yaw):
     ctx.add(car + "_LightRing", "cylinder", [0, fl, 0], [2 * (R - 0.75), 0.03, 2 * (R - 0.75)], "glow", g, sections=24, hole=R - 0.95, collision=False, outline=False, **mob)
     yw = 180.0; ex, ez = A_local(0, 1.1, yw)
     ctx.add(car + "_Emblem", "panel", [ex, fl + 0.035, ez], [1.3, 2.2, 0], "accent", g, [-90, yw, 0], outline=False, collision=False, **mob)
-    for i in range(4):  # posts on the diagonals: four ~6 m wide openings to walk off the car
+    frame = s.get("frame", True)  # false: an open lift disc - no posts, top ring, beams, hub or cable (Stage 27)
+    for i in range(4 if frame else 0):  # posts on the diagonals: four ~6 m wide openings to walk off the car
         a = math.radians(45 + 90 * i); ca, sa = math.cos(a), math.sin(a); r = R - 0.3; ry = -math.degrees(a) + 90
         ctx.add(f"{car}_Post_{i + 1}", "box", [ca * r, fl, sa * r], [0.5, Hc - fl, 0.5], "structure_b", g, [0, ry, 0], bevel=0, **mob)
         ctx.add(f"{car}_PostLight_{i + 1}", "box", [ca * (r - 0.28), fl + 0.6, sa * (r - 0.28)], [0.14, Hc - fl - 1.4, 0.06], "glow", g, [0, ry, 0],
                 collision=False, outline=False, **mob)
-    ctx.add(car + "_TopRing", "cylinder", [0, Hc, 0], [2 * R, 0.45, 2 * R], "structure_b", g, sections=24, hole=R - 0.55, collision=False, **mob)
-    for i in range(2):  # cross beams post to post, meeting at the hoist hub
+    if frame: ctx.add(car + "_TopRing", "cylinder", [0, Hc, 0], [2 * R, 0.45, 2 * R], "structure_b", g, sections=24, hole=R - 0.55, collision=False, **mob)
+    for i in range(2 if frame else 0):  # cross beams post to post, meeting at the hoist hub
         ctx.add(f"{car}_Beam_{i + 1}", "box", [0, Hc, 0], [2 * (R - 0.4), 0.45, 0.45], "structure_b", g, [0, -45 - 90 * i, 0], collision=False, **mob)
-    ctx.add(car + "_Hub", "cylinder", [0, Hc + 0.45, 0], [1.6, 0.9, 1.6], "machine", g, sections=12, collision=False, **mob)
+    if frame: ctx.add(car + "_Hub", "cylinder", [0, Hc + 0.45, 0], [1.6, 0.9, 1.6], "machine", g, sections=12, collision=False, **mob)
     shaft_top = None
     if cy is not None and op:  # lit shaft above the roof opening, capped where the car starts
         th = float(C.get("thickness", 1.0)); y0 = cy + th; H = float(s.get("shaft", Hc + 3.5)); shaft_top = y0 + H; Rs = float(op); seg = 24
@@ -134,7 +136,7 @@ def elevator_arrival(ctx, s, x, y, z, yaw):
                 ctx.add(f"{n}_Shaft_Strip_{i + 1}", "box", [ca * (r - 0.25), y0 + 0.5, sa * (r - 0.25)], [0.2, H - 1.0, 0.08], "glow", sg, [0, ry, 0],
                         collision=False, outline=False, **cut)
         cable = shaft_top - 1.0 - (top + Hc + 0.9)
-        if cable > 0.2: ctx.add(car + "_Cable", "cylinder", [0, Hc + 0.9, 0], [0.32, cable, 0.32], "frame", g, sections=8, collision=False, outline=False, cutaway=True, **mob)
+        if frame and cable > 0.2: ctx.add(car + "_Cable", "cylinder", [0, Hc + 0.9, 0], [0.32, cable, 0.32], "frame", g, sections=8, collision=False, outline=False, cutaway=True, **mob)
         travel = round(float(s.get("travel", y0 + 0.3 - top)), 2)
         if top + travel + Hc + 1.35 > shaft_top: ctx.notes.append(f"{n}: car at its start height pokes out of the shaft cap - raise 'shaft'")
     else: travel = round(float(s.get("travel", 12.0)), 2)
