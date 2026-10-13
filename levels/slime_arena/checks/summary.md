@@ -1,14 +1,14 @@
 # slime_arena: generation summary
 
-Spec: levels/slime_arena/scene_spec.json · 3087 objects · 25 materials · 21 effects
+Spec: levels/slime_arena/scene_spec.json · 3074 objects · 25 materials · 21 effects
 Checks: PASSED ({'error': 0, 'warning': 1, 'info': 1}) · refine passes: 1
-Mobile (balanced): 2696 KB · 80939 tris · 77 draw calls · ~51.8 visible (estimate) · ~7.2 MB GPU textures (estimate)
-Navigation: 9081.0 m² reachable of 48682.0 m² standable
-Package: dist/slime_arena/package (36 files, 11.22 MB) valid=True
+Mobile (balanced): 2675 KB · 80283 tris · 74 draw calls · ~50.6 visible (estimate) · ~7.2 MB GPU textures (estimate)
+Navigation: 9085.0 m² reachable of 48682.0 m² standable
+Package: dist/slime_arena/package (36 files, 11.15 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
-- warning: 85848 triangles (> budget 40000)
+- warning: 85192 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -45,8 +45,8 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 
 ## Timing
 - spec -> level.json: 0.3 s
-- build (glb, sky, background, effects, mobile): 118.0 s
-- refine (checks -> safe fixes): 1819.2 s
+- build (glb, sky, background, effects, mobile): 107.6 s
+- refine (checks -> safe fixes): 1763.8 s
 - previews: 0.6 s
-- export package: 0.5 s
-- total: 1938.6 s
+- export package: 0.6 s
+- total: 1872.9 s

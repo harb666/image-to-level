@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 4922,
-    "triangles": 85848,
-    "nodes": 3553,
-    "mesh_nodes": 3391,
-    "unique_meshes": 1688,
+    "glb_kb": 4890,
+    "triangles": 85192,
+    "nodes": 3536,
+    "mesh_nodes": 3374,
+    "unique_meshes": 1678,
     "materials": 27,
     "images": 75,
-    "draw_calls_unbatched": 3391,
+    "draw_calls_unbatched": 3374,
     "draw_calls_batched_min": 27,
     "tex_mem_uncompressed_mb": 91.31,
     "tex_mem_gpu_compressed_mb": 22.83,
@@ -69,22 +69,22 @@
    },
    "visible": {
     "cameras": 280,
-    "visible_draw_calls_mean": 1116.6,
-    "visible_draw_calls_max": 3173,
-    "visible_triangles_mean": 39606,
-    "visible_triangles_max": 90933
+    "visible_draw_calls_mean": 1109.8,
+    "visible_draw_calls_max": 3156,
+    "visible_triangles_mean": 39342,
+    "visible_triangles_max": 90277
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 2696,
-    "triangles": 80939,
-    "nodes": 78,
-    "mesh_nodes": 77,
-    "unique_meshes": 77,
+    "glb_kb": 2675,
+    "triangles": 80283,
+    "nodes": 75,
+    "mesh_nodes": 74,
+    "unique_meshes": 74,
     "materials": 27,
     "images": 45,
-    "draw_calls_unbatched": 77,
+    "draw_calls_unbatched": 74,
     "draw_calls_batched_min": 27,
     "tex_mem_uncompressed_mb": 28.81,
     "tex_mem_gpu_compressed_mb": 7.2,
@@ -127,16 +127,16 @@
     ]
    },
    "collision": {
-    "colliders": 668,
+    "colliders": 664,
     "hazards": 16,
-    "glb_kb": 351
+    "glb_kb": 349
    },
    "visible": {
     "cameras": 280,
-    "visible_draw_calls_mean": 51.8,
-    "visible_draw_calls_max": 78,
-    "visible_triangles_mean": 79121,
-    "visible_triangles_max": 91245
+    "visible_draw_calls_mean": 50.6,
+    "visible_draw_calls_max": 75,
+    "visible_triangles_mean": 78855,
+    "visible_triangles_max": 90589
    },
    "hidden_faces_removed": 2017,
    "occluded_faces_removed": 2892,
@@ -156,16 +156,16 @@
    "effects_max_particles": 911,
    "slimmed_kb": {
     "level_mobile.glb": [
-     3930,
-     2696
+     3904,
+     2675
     ],
     "background_mobile.glb": [
      474,
      402
     ],
     "collision.glb": [
-     422,
-     351
+     419,
+     349
     ]
    }
   }
@@ -1918,29 +1918,13 @@
    "group": "Elevator_Car"
   },
   {
-   "node": "Elevator_Car__frame",
-   "kind": "group",
-   "material": "frame",
-   "triangles": 32,
-   "visibility_range_end": 0,
-   "cast_shadow": true,
-   "source_objects": [
-    "Elevator_Car_Cable"
-   ],
-   "group": "Elevator_Car"
-  },
-  {
    "node": "Elevator_Car__glow",
    "kind": "group",
    "material": "glow",
-   "triangles": 240,
+   "triangles": 192,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Elevator_Car_PostLight_4",
-    "Elevator_Car_PostLight_3",
-    "Elevator_Car_PostLight_2",
-    "Elevator_Car_PostLight_1",
     "Elevator_Car_LightRing"
    ],
    "group": "Elevator_Car"
@@ -1949,27 +1933,11 @@
    "node": "Elevator_Car__ink",
    "kind": "group",
    "material": "ink",
-   "triangles": 360,
+   "triangles": 96,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Elevator_Car_Hub__ol",
-    "Elevator_Car_Beam_1__ol",
-    "Elevator_Car_TopRing__ol",
-    "Elevator_Car_Post_1__ol",
     "Elevator_Car_Floor__ol"
-   ],
-   "group": "Elevator_Car"
-  },
-  {
-   "node": "Elevator_Car__machine",
-   "kind": "group",
-   "material": "machine",
-   "triangles": 48,
-   "visibility_range_end": 0,
-   "cast_shadow": false,
-   "source_objects": [
-    "Elevator_Car_Hub"
    ],
    "group": "Elevator_Car"
   },
@@ -1982,24 +1950,6 @@
    "cast_shadow": true,
    "source_objects": [
     "Elevator_Car_Stripe"
-   ],
-   "group": "Elevator_Car"
-  },
-  {
-   "node": "Elevator_Car__structure_b",
-   "kind": "group",
-   "material": "structure_b",
-   "triangles": 264,
-   "visibility_range_end": 0,
-   "cast_shadow": true,
-   "source_objects": [
-    "Elevator_Car_Beam_2",
-    "Elevator_Car_Beam_1",
-    "Elevator_Car_TopRing",
-    "Elevator_Car_Post_4",
-    "Elevator_Car_Post_3",
-    "Elevator_Car_Post_2",
-    "Elevator_Car_Post_1"
    ],
    "group": "Elevator_Car"
   },
