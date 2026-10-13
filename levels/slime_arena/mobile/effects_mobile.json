@@ -1966,11 +1966,11 @@
    }
   },
   {
-   "id": "Screen_Flicker_bigscreen",
-   "type": "flicker",
-   "category": "material_animation",
-   "glb_contains": "emissive at base strength",
-   "godot_runtime": "script: emission_energy_multiplier random flicker (rate Hz)",
+   "id": "Screen_Static_bigscreen",
+   "type": "tv_static",
+   "category": "material_shader",
+   "glb_contains": "the screen picture (static texture)",
+   "godot_runtime": "ShaderMaterial tv_static.gdshader as material_override on every mesh using target_material (picture = the GLB base colour texture): animated snow over the picture, rolling bar, the picture breaks through every few seconds",
    "target_material": "bigscreen",
    "targets": [
     "M_bigscreen_0_0",
@@ -1980,8 +1980,14 @@
     "performance": {
      "enabled": true,
      "params": {
-      "rate": 5,
-      "amount": 0.12
+      "amount": 0.85,
+      "grain": 120.0,
+      "fps": 12.0,
+      "signal_every": 6.0,
+      "signal_len": 1.4,
+      "roll_speed": 0.25,
+      "glow": 1.0,
+      "seed": 0.0
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -1992,8 +1998,14 @@
     "balanced": {
      "enabled": true,
      "params": {
-      "rate": 5,
-      "amount": 0.12
+      "amount": 0.85,
+      "grain": 120.0,
+      "fps": 18.0,
+      "signal_every": 6.0,
+      "signal_len": 1.4,
+      "roll_speed": 0.25,
+      "glow": 1.0,
+      "seed": 0.0
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -2004,8 +2016,14 @@
     "quality": {
      "enabled": true,
      "params": {
-      "rate": 5,
-      "amount": 0.12
+      "amount": 0.85,
+      "grain": 120.0,
+      "fps": 18.0,
+      "signal_every": 6.0,
+      "signal_len": 1.4,
+      "roll_speed": 0.25,
+      "glow": 1.0,
+      "seed": 0.0
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -2016,11 +2034,11 @@
    }
   },
   {
-   "id": "Screen_Flicker_screen",
-   "type": "flicker",
-   "category": "material_animation",
-   "glb_contains": "emissive at base strength",
-   "godot_runtime": "script: emission_energy_multiplier random flicker (rate Hz)",
+   "id": "Screen_Static_screen",
+   "type": "tv_static",
+   "category": "material_shader",
+   "glb_contains": "the screen picture (static texture)",
+   "godot_runtime": "ShaderMaterial tv_static.gdshader as material_override on every mesh using target_material (picture = the GLB base colour texture): animated snow over the picture, rolling bar, the picture breaks through every few seconds",
    "target_material": "screen",
    "targets": [
     "M_screen_0_0",
@@ -2030,8 +2048,14 @@
     "performance": {
      "enabled": true,
      "params": {
-      "rate": 5,
-      "amount": 0.12
+      "amount": 0.85,
+      "grain": 120.0,
+      "fps": 12.0,
+      "signal_every": 6.0,
+      "signal_len": 1.4,
+      "roll_speed": 0.25,
+      "glow": 1.0,
+      "seed": 2.3
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -2042,8 +2066,14 @@
     "balanced": {
      "enabled": true,
      "params": {
-      "rate": 5,
-      "amount": 0.12
+      "amount": 0.85,
+      "grain": 120.0,
+      "fps": 18.0,
+      "signal_every": 6.0,
+      "signal_len": 1.4,
+      "roll_speed": 0.25,
+      "glow": 1.0,
+      "seed": 2.3
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -2054,8 +2084,14 @@
     "quality": {
      "enabled": true,
      "params": {
-      "rate": 5,
-      "amount": 0.12
+      "amount": 0.85,
+      "grain": 120.0,
+      "fps": 18.0,
+      "signal_every": 6.0,
+      "signal_len": 1.4,
+      "roll_speed": 0.25,
+      "glow": 1.0,
+      "seed": 2.3
      },
      "cost_estimate": {
       "max_particles": 0,

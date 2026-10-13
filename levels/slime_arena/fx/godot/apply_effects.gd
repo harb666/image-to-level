@@ -39,6 +39,8 @@ func _ready() -> void:
 				_surface(fx, p)
 			"material_animation":
 				_material_anim(fx, p)
+			"material_shader":  # Stage 26: tv_static on screen materials
+				_material_shader(fx, p)
 			"particles":
 				_particles(fx, p)
 			"transparent_mesh":
@@ -110,6 +112,24 @@ func _material_anim(fx: Dictionary, p: Dictionary) -> void:
 		seen[m] = true
 		m.emission_enabled = true
 		_anims.append([m, m.emission_energy_multiplier, p, fx["type"], 0.0])
+
+
+func _material_shader(fx: Dictionary, p: Dictionary) -> void:
+	var shader: Shader = load(_base_dir + "/fx/godot/tv_static.gdshader")
+	var made := {}  # one ShaderMaterial per source material (merged mobile cells share it)
+	for node in level_root.find_children("*", "MeshInstance3D", true, false):
+		var mi := node as MeshInstance3D
+		var src := mi.get_active_material(0) as BaseMaterial3D
+		if src == null or not src.resource_name.begins_with(String(fx.get("target_material", "?"))):
+			continue
+		if not made.has(src):
+			var sm := ShaderMaterial.new()
+			sm.shader = shader
+			sm.set_shader_parameter("albedo_tex", src.albedo_texture)
+			for k in ["amount", "grain", "fps", "signal_every", "signal_len", "roll_speed", "glow", "seed"]:
+				sm.set_shader_parameter(k, float(p[k]))
+			made[src] = sm
+		mi.material_override = made[src]
 
 
 func _gradient(c: Array, a: float) -> Gradient:

@@ -4,7 +4,7 @@ Spec: levels/slime_arena/scene_spec.json · 3087 objects · 25 materials · 21 e
 Checks: PASSED ({'error': 0, 'warning': 1, 'info': 1}) · refine passes: 1
 Mobile (balanced): 2696 KB · 80939 tris · 77 draw calls · ~51.8 visible (estimate) · ~7.2 MB GPU textures (estimate)
 Navigation: 9081.0 m² reachable of 48682.0 m² standable
-Package: dist/slime_arena/package (35 files, 11.21 MB) valid=True
+Package: dist/slime_arena/package (36 files, 11.22 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
@@ -44,9 +44,9 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - crates: 35 printed crates (accent atlas)
 
 ## Timing
-- spec -> level.json: 0.5 s
-- build (glb, sky, background, effects, mobile): 143.8 s
-- refine (checks -> safe fixes): 4025.8 s
-- previews: 1.0 s
-- export package: 0.9 s
-- total: 4172.0 s
+- spec -> level.json: 0.3 s
+- build (glb, sky, background, effects, mobile): 118.0 s
+- refine (checks -> safe fixes): 1819.2 s
+- previews: 0.6 s
+- export package: 0.5 s
+- total: 1938.6 s
