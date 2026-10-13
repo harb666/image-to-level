@@ -595,3 +595,9 @@ Building blocks usable without the preset:
   call; no collision, ignored by navigation and the open-body check.
 - Material kind `corrosion` (128 px, cut-out: glTF alphaMode MASK, so no transparency sorting): rust-black pits with
   glowing green crust rims, stained metal, drips reaching up, a ragged top edge; denser towards the liquid.
+- Fixed: the band texture was upside down (trimesh UVs are bottom-up and flipped on glTF export) - the dense
+  corrosion now sits at the liquid line.
+- No lights in the slime: bodies whose texture has lit panels (`unlit`, default `["structure"]`) get a plain
+  `skirt_material` sleeve 1 cm proud from under the surface to `skirt` m (2.2) above it; base light strips and lamp
+  panels (`..._Glow_<n>L/R`, `..._Light_<n>`) that start within `light_clear` m (1.6) of the surface are removed when
+  short, or start that high when tall.

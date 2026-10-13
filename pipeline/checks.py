@@ -20,7 +20,7 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import shapes as _shapes
-TYPES = {"group", "box", "cylinder", "panel", "spire", "roof", "ramp", "stairs", "terrain", "boundary"} | set(_shapes.SHAPES)  # every builder type
+TYPES = {"group", "box", "cylinder", "panel", "spire", "roof", "ramp", "stairs", "terrain", "boundary", "band"} | set(_shapes.SHAPES)  # every builder type
 SEV = {"error": 0, "warning": 1, "info": 2}
 
 

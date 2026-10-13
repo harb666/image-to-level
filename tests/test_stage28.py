@@ -29,6 +29,19 @@ class Corrosion(unittest.TestCase):
         out = np.einsum("ij,ij->i", m.face_normals[near][:, [0, 2]], c[near][:, [0, 2]])
         self.assertTrue((out > 0).all())  # normals point away from the platform centre
         self.assertIn("uv", m.metadata); self.assertEqual(len(m.metadata["uv"]), len(m.vertices))
+        uv = m.metadata["uv"]; low = m.vertices[:, 1] < 1.0
+        self.assertTrue((uv[low, 1] == 0).all() and (uv[~low, 1] > 0.5).all())  # trimesh UVs are bottom-up: dense rows at the liquid
+
+    def test_no_lights_in_the_slime(self):
+        import re, sys
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "pipeline"))
+        from anchors import world_matrices
+        L = _gen(); W, by = world_matrices(L)
+        sk = [o for o in L["objects"] if o["name"].endswith("_Skirt")]
+        self.assertTrue(sk); self.assertTrue(all(o["material"] == "structure_b" and o["collision"] is False for o in sk))
+        for o in L["objects"]:
+            if re.search(r"_(Glow_\d+[LR]|Light_\d+)$", o["name"]):
+                self.assertGreaterEqual(W[o["name"]][1, 3], 1.0 + 1.6 - 1e-6, o["name"])
 
     def test_texture_is_cutout(self):
         import materials, architecture

@@ -93,7 +93,7 @@ def crate_skin(ctx, spec):
     return n
 
 
-CORR = dict(height=1.2, sink=0.15, offset=0.021, material="corrosion", tile=4.0)
+CORR = dict(height=1.2, sink=0.15, offset=0.021, material="corrosion", tile=4.0, skirt=2.2, skirt_material="structure_b", unlit=["structure"], light_clear=1.6)
 
 
 def corrosion(ctx, spec):
@@ -129,6 +129,7 @@ def corrosion(ctx, spec):
         if m is None or not len(m.faces): continue
         m = m.copy(); m.apply_transform(W[o["name"]]); solids.append((o["name"], m))
     paths, edges = [], 0
+    _skirts(ctx, cfg, pools, solids, by, W); _clear_lights(ctx, cfg, pools, W)
     for Ly, x0, z0, x1, z1 in pools:
         cut = Ly + 0.05; inside = lambda q: x0 + 0.05 < q[0] < x1 - 0.05 and z0 + 0.05 < q[1] < z1 - 0.05
         live = [(n, m) for n, m in solids if m.bounds[0][1] < Ly - 0.02 and m.bounds[1][1] > Ly + 0.3]
@@ -157,6 +158,53 @@ def corrosion(ctx, spec):
             mobile={"group": "Corrosion"})
     ctx.notes.append(f"corrosion: {edges} wall faces at the liquid line get a corroded band (one mesh, one material)")
     return edges
+
+
+def _skirts(ctx, cfg, pools, solids, by, W):
+    """Bodies whose texture has lit panels (cfg["unlit"], e.g. machinery_panel "structure") get a plain sleeve
+    (cfg["skirt_material"]) 1 cm proud from under the liquid to cfg["skirt"] m above it: no indicator lights sitting
+    in the slime. Same type and footprint as the body, no collision, no outline; the mobile export then culls the
+    body faces it covers."""
+    n = 0
+    for name, m in solids:
+        o = by[name]
+        if o.get("material") not in cfg["unlit"] or o["type"] not in ("box", "cylinder") or o.get("hole"): continue
+        rx, _, rz = o.get("rotation", [0, 0, 0])
+        if rx or rz: continue
+        b0, b1 = m.bounds[0][1], m.bounds[1][1]
+        for Ly, x0, z0, x1, z1 in pools:
+            if not (b0 < Ly - 0.02 and b1 > Ly + 0.3): continue
+            c = m.bounds.mean(0)
+            if not (x0 < c[0] < x1 and z0 < c[2] < z1): continue
+            y0 = max(b0, Ly - cfg["sink"]); y1 = min(b1 - 0.3, Ly + cfg["skirt"])
+            if y1 - y0 < 0.5: continue
+            w, h, d = o["size"]; e = 0.02  # 1 cm proud: clear of the body (coplanar check) and 1.1 cm behind the corrosion band
+            ctx.add(name + "_Skirt", o["type"], [o["position"][0], o["position"][1] + (y0 - b0), o["position"][2]], [w + e, y1 - y0, d + e],
+                    ctx.role(cfg["skirt_material"]), o.get("parent"), list(o.get("rotation", [0, 0, 0])), collision=False, outline=False,
+                    **({"sections": o["sections"]} if "sections" in o else {}), mobile={"static": True})
+            n += 1; break
+    if n: ctx.notes.append(f"corrosion: {n} lit bodies get a plain skirt at the liquid line (no lights in the slime)")
+    return n
+
+
+def _clear_lights(ctx, cfg, pools, W):
+    """Light strips / lamp panels at the base of decks (names ..._Glow_<n>L/R, ..._Light_<n>) that start in or just above
+    the liquid: short ones go, tall ones start cfg["light_clear"] m above the surface instead (no lamps in the slime)."""
+    import re
+    pat = re.compile(r"_(Glow_\d+[LR]|Light_\d+)$"); drop, moved = set(), 0
+    for o in ctx.objects:
+        if not pat.search(o["name"]) or not o.get("size") or o["type"] not in ("panel", "box"): continue
+        p = W[o["name"]][:3, 3]; y0 = p[1]; h = o["size"][1]
+        for Ly, x0, z0, x1, z1 in pools:
+            if not (x0 - 1 < p[0] < x1 + 1 and z0 - 1 < p[2] < z1 + 1) or y0 > Ly + cfg["light_clear"] or y0 + h < Ly: continue
+            cut = Ly + cfg["light_clear"] - y0
+            if h - cut < 1.5: drop.add(o["name"])
+            else: o["position"][1] = round(o["position"][1] + cut, 3); o["size"][1] = round(h - cut, 3); moved += 1
+            break
+    if drop:
+        ctx.objects[:] = [o for o in ctx.objects if o["name"] not in drop]; ctx.names -= drop
+    if drop or moved: ctx.notes.append(f"corrosion: {len(drop)} lights at the liquid line removed, {moved} light strips raised clear of it")
+    return len(drop), moved
 
 
 def _chain(segs, tol=0.0005):

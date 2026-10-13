@@ -575,15 +575,15 @@ def tv_body(w, h, d, o):
 
 def band(w, h, d, o):
     """Stage 28 corrosion band: o["segments"] = [{"pts": [[x, z], ...], "y0", "y1"}] in level coordinates (object at the
-    origin, no rotation); vertical strips facing out of the polyline's solid. UV u = metres along / o["tile"], v = 0 at
-    o["band_top"] -> 1 at y0 of the first pool (the texture's liquid line stays at the same v everywhere)."""
+    origin, no rotation); vertical strips facing out of the polyline's solid. UV u = metres along / o["tile"]; the image
+    runs from its top row at o["band_top"] to its bottom row at y0 (the texture's liquid line stays at the same height)."""
     V, F, UV = [], [], []; tile = float(o.get("tile", 2.6))
     for s in o["segments"]:
         pts = np.asarray(s["pts"], float); y0, y1 = s["y0"], s["y1"]; Ht = (o.get("band_top", y1) - y0) or 1.0
         acc = np.r_[0, np.cumsum(np.linalg.norm(np.diff(pts, axis=0), axis=1))]
         b = len(V)
         for (x, z), u in zip(pts, acc):
-            V += [[x, y0, z], [x, y1, z]]; UV += [[u / tile, 1.0], [u / tile, (o.get("band_top", y1) - y1) / Ht]]
+            V += [[x, y0, z], [x, y1, z]]; UV += [[u / tile, 0.0], [u / tile, 1.0 - (o.get("band_top", y1) - y1) / Ht]]  # trimesh UVs are bottom-up (flipped on glTF export)
         for k in range(len(pts) - 1):
             i = b + 2 * k; F += [[i, i + 2, i + 3], [i, i + 3, i + 1]]
     m = trimesh.Trimesh(np.array(V, float), np.array(F, int), process=False)
