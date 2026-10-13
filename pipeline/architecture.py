@@ -127,6 +127,7 @@ for _k, _b, _s in (("industrial", "industrial", "realistic"), ("toxic_industrial
                    ("medieval_town", "temperate", "realistic"), ("ruins", "wasteland", "realistic")):
     THEMES[_k].setdefault("biome", _b); THEMES[_k].setdefault("style", _s)
 VARIANT_ROLES = ("wall", "structure", "deck", "plaster")
+CORROSION = {"type": "corrosion", "color": [1.0, 1.0, 1.0], "tile_m": 4.0, "res": 128, "toon": True, "emissive": [1.0, 1.0, 1.0], "cutout": 0.5}
 FALLBACK = {"bigscreen": "glow", "tv_casing": "structure_b", "screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
             "window": "glow", "foliage": "rock", "water": "hazard", "machine": "structure_b", "backdrop": "wall", "structure_b": "structure",
             "frame": "structure_b", "rail": "frame", "grate": "deck", "trim": "structure_b", "accent": "trim", "glow": "accent", "pipe": "frame",
@@ -137,6 +138,7 @@ def role_material(theme, role):
     """Material definition for a role (variants '<role>_v2' get a tint/wear shift; missing roles fall back sensibly)."""
     roles = THEMES[theme]["roles"]; base = role[:-3] if role.endswith("_v2") else role; seen = set()
     if base == "void" and "void" not in roles: return {"type": "concrete", "color": [0.0, 0.0, 0.0], "tile_m": 4.0}  # pure black (bottomless pits)
+    if base == "corrosion" and "corrosion" not in roles: return dict(CORROSION)  # Stage 28: same cut-out band in every theme
     r = base
     while r not in roles and r not in seen: seen.add(r); r = FALLBACK.get(r, "wall")
     m = dict(roles.get(r, _IND["wall"]))

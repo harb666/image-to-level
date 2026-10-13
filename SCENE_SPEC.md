@@ -586,3 +586,12 @@ Building blocks usable without the preset:
 ## Stage 27: open lift
 - `elevator_arrival` takes `"frame": false`: the car is only its floor disc (hazard-stripe edge, light ring, emblem) -
   no posts, top ring, cross beams, hoist hub or cable. Slime Arena uses it. The shaft above the roof stays.
+
+## Stage 28: corrosion where the liquid meets the walls
+- Spec `"corrosion": {"height": 1.2}` (opt-in; also `sink`, `offset`, `tile`): every solid crossing a hazard pool's
+  surface is cut there; its near-vertical faces that face open liquid (not pressed against a neighbour) get a strip
+  2.1 cm in front, from 15 cm under the surface up to `height` m above it (never above the solid's top).
+- All strips are ONE object `Corrosion_Band` (type `band`, mobile group `Corrosion`): one mesh, one material, one draw
+  call; no collision, ignored by navigation and the open-body check.
+- Material kind `corrosion` (128 px, cut-out: glTF alphaMode MASK, so no transparency sorting): rust-black pits with
+  glowing green crust rims, stained metal, drips reaching up, a ragged top edge; denser towards the liquid.

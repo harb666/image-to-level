@@ -19,6 +19,7 @@ SCHEMA = {
     "art_style": (STR, False, tuple(sorted(__import__("styles").PRESETS))), "style": (DICT, False),
     "leaks": (DICT, False, {"chance": (NUM, False), "material": (STR, False), "seed": (INT, False), "kinds": (LIST, False), "max_drips": (INT, False)}),
     "mobile": (DICT, False, {"cell": (NUM, False), "tex_max": (INT, False), "bg_tex_max": (INT, False), "prop_range": (NUM, False), "small": (NUM, False), "webp": (INT, False), "cull_hidden": (BOOL, False)}),
+    "corrosion": (DICT, False, {"height": (NUM, False), "sink": (NUM, False), "offset": (NUM, False), "tile": (NUM, False), "material": (STR, False)}),  # Stage 28
     "screens": (DICT, False, {"static": (NUM, False), "signal_every": (NUM, False), "signal_len": (NUM, False)}),  # Stage 26: TV static on screen roles
     "references": (LIST, False, {"file": (STR, True), "kind": (STR, False, ("concept_sheet", "perspective", "top_down", "elevation", "detail", "photo")),
                                  "panels": (LIST, False, {"id": (STR, True), "bbox_px": (("vec", 4), False), "view": (STR, True, ("top_down", "elevation", "perspective", "detail", "text")),

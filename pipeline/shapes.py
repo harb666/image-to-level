@@ -573,6 +573,23 @@ def tv_body(w, h, d, o):
     m = trimesh.util.concatenate([front, plate, hb]); m.metadata["uv"] = np.c_[(m.vertices[:, 0] + w / 2) / w, m.vertices[:, 1] / h]; return m
 
 
+def band(w, h, d, o):
+    """Stage 28 corrosion band: o["segments"] = [{"pts": [[x, z], ...], "y0", "y1"}] in level coordinates (object at the
+    origin, no rotation); vertical strips facing out of the polyline's solid. UV u = metres along / o["tile"], v = 0 at
+    o["band_top"] -> 1 at y0 of the first pool (the texture's liquid line stays at the same v everywhere)."""
+    V, F, UV = [], [], []; tile = float(o.get("tile", 2.6))
+    for s in o["segments"]:
+        pts = np.asarray(s["pts"], float); y0, y1 = s["y0"], s["y1"]; Ht = (o.get("band_top", y1) - y0) or 1.0
+        acc = np.r_[0, np.cumsum(np.linalg.norm(np.diff(pts, axis=0), axis=1))]
+        b = len(V)
+        for (x, z), u in zip(pts, acc):
+            V += [[x, y0, z], [x, y1, z]]; UV += [[u / tile, 1.0], [u / tile, (o.get("band_top", y1) - y1) / Ht]]
+        for k in range(len(pts) - 1):
+            i = b + 2 * k; F += [[i, i + 2, i + 3], [i, i + 3, i + 1]]
+    m = trimesh.Trimesh(np.array(V, float), np.array(F, int), process=False)
+    m.metadata["uv"] = np.array(UV, float); return m
+
+
 SHAPES = dict(tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
               stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum)
@@ -601,5 +618,6 @@ def make(o, bevel=0.0):
     if t == "box" and o.get("faces"):  # printed crate (atlas cells)
         F = o["faces"]; return box_faces(w, h, d, F["side"], F["top"], F.get("front"), F.get("front_axis", "z"))
     if t == "box" and (o.get("bevel", bevel) or 0) > 0: return bevel_box(w, h, d, o.get("bevel", bevel))
+    if t == "band": return band(w, h, d, o)  # open strips by design (not in SHAPES: those are closed solids)
     if t in SHAPES: return SHAPES[t](w, h, d, o)
     return None

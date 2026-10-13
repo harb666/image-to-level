@@ -900,6 +900,29 @@ def k_bigscreen(S, rng, c, m):
     return dict(alb=np.clip(a, 0, 1), h=np.zeros((S, S)), rough=np.full((S, S), 0.4), metal=0.0, emit=np.ones((S, S)), nstr=0.0)
 
 
+def k_corrosion(S, rng, c, m):
+    """Stage 28 corroded band (cut-out: d["alpha"] 0 = no corrosion): u runs along the wall (tiles), v = 0 at the band
+    top -> 1 just under the liquid line (v ~ 0.89). Rust-black pits with bright green crust rims, olive-brown stained
+    metal, drips reaching up from the liquid, a ragged top edge; denser towards the liquid. The crust glows."""
+    x, y = _xy(S); line = float(m.get("line_v", 0.89))
+    dens = np.clip((y - 0.08) / (line - 0.08), 0, 1) ** 1.4  # 0 at the band top, 1 at the liquid line
+    n1, n2 = _noise(rng, 3, 3, S), _noise(rng, 9, 2, S)
+    col = _noise(rng, 16, 1, S)[0]  # per-column drip height (tileable along u)
+    drip = (np.abs(((x * 7 + 0.15 * n2) % 1) - 0.5) < 0.05 + 0.05 * dens) & (y > line - 0.5 * np.clip(col[None, :] * 1.6 - 0.45, 0, 1))
+    cover = (n1 * 1.1 + dens * 0.8 + 0.15 * n2 > 1.05) | drip | (y > line - 0.03)  # ragged patches: some reach high, most stay low ("slightly")
+    pn = _noise(rng, int(m.get("pits", 14)), 2, S)
+    pit = cover & (pn > 0.76 - 0.08 * dens)  # irregular rust-black pits, more near the liquid
+    rim = cover & ~pit & (pn > 0.66 - 0.08 * dens)  # green crust ring round each pit
+    stain = np.array([0.17, 0.19, 0.08]) * (0.85 + 0.3 * n2[..., None]) + np.array([0.05, 0.12, 0.0]) * dens[..., None]; crust = np.array([0.45, 1.0, 0.16])
+    alb = np.where(pit[..., None], np.array([0.02, 0.04, 0.02]), np.where(rim[..., None], crust * (0.7 + 0.3 * dens[..., None]), stain))
+    alb = np.where(drip[..., None] & ~pit[..., None], crust * 0.8, alb)
+    h = np.where(pit, 0.0, 0.5)
+    emit = (rim | drip).astype(float) * (0.4 + 0.6 * dens)
+    ys, xs = np.nonzero(pit)
+    return dict(alb=alb, h=h, rough=0.6, metal=0.0, emit=emit, nstr=0.4, alpha=cover.astype(float),
+                _post=[(ys, xs, np.array([0.02, 0.035, 0.02]))])  # pits stay near-black after the toon pass
+
+
 def k_screen_atlas(S, rng, c, m):
     """Two screens side by side in ONE texture (one material, one draw call): left = m["left"], right = m["right"]
     (material dicts of screen_ui / bigscreen); objects choose a half with uv_region (atlas cells "a" / "b")."""
@@ -987,6 +1010,9 @@ def make_material(name, m):
     if d.get("ao_mul") is not None: ao = ao * d["ao_mul"]  # e.g. bottomless-shaft cell: no sky light / reflections at all
     orm = np.stack([ao, np.clip(d["rough"], 0.04, 1), np.clip(d["metal"], 0, 1)], -1)
     kw = dict(name=name, baseColorTexture=_img(alb, 85), metallicFactor=1.0, roughnessFactor=1.0)
+    if d.get("alpha") is not None and m.get("cutout"):  # Stage 28: cut-out decal (corrosion band): RGBA, alpha-tested, opaque pass
+        b = io.BytesIO(); Image.fromarray((np.clip(np.dstack([alb, d["alpha"]]), 0, 1) * 255).astype(np.uint8), "RGBA").save(b, "PNG")
+        kw.update(baseColorTexture=Image.open(io.BytesIO(b.getvalue())), alphaMode="MASK", alphaCutoff=float(m["cutout"]))
     if m.get("alpha") is not None:  # Stage 20: see-through (e.g. tube glass): blended, both sides drawn
         kw.update(baseColorFactor=[1.0, 1.0, 1.0, float(m["alpha"])], alphaMode="BLEND", doubleSided=True)
     ormi = _img(orm, 88); kw["metallicRoughnessTexture"] = ormi; kw["occlusionTexture"] = ormi

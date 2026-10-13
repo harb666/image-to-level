@@ -91,3 +91,89 @@ def crate_skin(ctx, spec):
                      outline=True, mobile={"static": True}); n += 1
     if n: ctx.notes.append(f"crates: {n} printed crates (accent atlas)")
     return n
+
+
+CORR = dict(height=1.2, sink=0.15, offset=0.021, material="corrosion", tile=4.0)
+
+
+def corrosion(ctx, spec):
+    """Stage 28: corroded band where the toxic liquid meets walls / bases (spec "corrosion": {"height": 1.2}).
+    Every solid crossing a liquid surface is cut at the surface; its near-vertical faces that face open liquid (not
+    pressed against a neighbour) get a strip 2.1 cm in front (an odd gap: trims sit 3 / 5 cm proud), from just under the surface to "height" m above it (never
+    above the solid's top). All strips are ONE object (type "band", material "corrosion": a small cut-out texture of
+    pits and green crust) -> one mesh, one material, one draw call; visual only (no collision, ignored by navigation)."""
+    if not spec.get("corrosion"): return 0
+    import trimesh
+    from build_level import shape as _shape  # every type (plain boxes / cylinders too), same local frame as the GLB
+    from anchors import world_matrices
+    cfg = dict(CORR, **(spec["corrosion"] if isinstance(spec["corrosion"], dict) else {}))
+    by = {o["name"]: o for o in ctx.objects}
+    pools = []
+    for h in getattr(ctx, "hazards", []):
+        o = by.get(h)
+        if o and o["type"] == "box" and not o.get("parent") and not o.get("rotation", [0, 0, 0])[1]:
+            (x, y, z), (w, hh, d) = o["position"], o["size"]; pools.append((y + hh, x - w / 2, z - d / 2, x + w / 2, z + d / 2))
+    if not pools: return 0
+    W, _ = world_matrices({"objects": ctx.objects})
+    skip_t = {"group", "panel", "stream", "boundary", "terrain", "band", "railing", "rail_run"}
+    skip_m = {"hazard", "glass", "glow", "stripe", "ink", "accent", "screen", "bigscreen", cfg["material"]}
+    hz = set(getattr(ctx, "hazards", []))
+    solids = []
+    for o in ctx.objects:
+        if o["type"] in skip_t or o["name"] in hz or not o.get("size") or o.get("material") in skip_m or o.get("cutaway"): continue
+        if (o.get("mobile") or {}).get("group") or o.get("spin") or max(o["size"]) < 0.4: continue
+        p = W[o["name"]][:3, 3]; r = max(o["size"]) * 1.8
+        if not any(p[1] - r < Ly < p[1] + r and x0 - r < p[0] < x1 + r and z0 - r < p[2] < z1 + r for Ly, x0, z0, x1, z1 in pools): continue
+        try: m = _shape(o)
+        except Exception: continue
+        if m is None or not len(m.faces): continue
+        m = m.copy(); m.apply_transform(W[o["name"]]); solids.append((o["name"], m))
+    paths, edges = [], 0
+    for Ly, x0, z0, x1, z1 in pools:
+        cut = Ly + 0.05; inside = lambda q: x0 + 0.05 < q[0] < x1 - 0.05 and z0 + 0.05 < q[1] < z1 - 0.05
+        live = [(n, m) for n, m in solids if m.bounds[0][1] < Ly - 0.02 and m.bounds[1][1] > Ly + 0.3]
+        occ = [(n, m.bounds, m.face_normals, np.einsum("ij,ij->i", m.face_normals, m.triangles[:, 0])) for n, m in live if m.is_watertight and m.is_convex]
+        inside_solid = lambda P, b, fn, off: bool(np.all(b[0] <= P) and np.all(P <= b[1]) and np.all(fn @ P - off <= 0.01))  # convex solids only; within 1 cm of a face counts (no strip lying on another surface)
+        for name, m in live:
+            segs, fi = trimesh.intersections.mesh_plane(m, [0, 1, 0], [0, cut, 0], return_faces=True)
+            fn = m.face_normals[fi]; keep = np.abs(fn[:, 1]) < 0.3
+            top = min(Ly + cfg["height"], m.bounds[1][1] - 0.05)
+            for (a, b), nrm in zip(segs[keep][:, :, [0, 2]], fn[keep][:, [0, 2]]):
+                if np.hypot(*(b - a)) < 0.05: continue
+                nn = nrm / (np.linalg.norm(nrm) or 1); mid = (a + b) / 2; q = mid + nn * 0.2
+                if not inside(q): continue  # faces dry ground / outside the pool
+                P = np.array([[q[0], Ly + 0.3, q[1]]])
+                S_ = np.array([mid[0] + nn[0] * cfg["offset"], Ly + 0.3, mid[1] + nn[1] * cfg["offset"]])  # the strip itself
+                if any(on != name and (inside_solid(P[0], b_, fn_, off_) or inside_solid(S_, b_, fn_, off_)) for on, b_, fn_, off_ in occ): continue  # pressed against / inside a neighbour
+                if (-(b - a)[1]) * nn[0] + (b - a)[0] * nn[1] < 0: a, b = b, a  # strip winding faces out of the solid (left of a->b)
+                o_ = nn * cfg["offset"]
+                paths.append(dict(a=[round(float(a[0] + o_[0]), 5), round(float(a[1] + o_[1]), 5)], b=[round(float(b[0] + o_[0]), 5), round(float(b[1] + o_[1]), 5)],  # 0.01 mm: short strips stay parallel to their face
+                                  y0=round(Ly - cfg["sink"], 3), y1=round(float(top), 3)))
+                edges += 1
+    if not paths: return 0
+    ctx.element = ("corrosion", "inferred")
+    ctx.add("Corrosion_Band", "band", [0, 0, 0], [1, 1, 1], ctx.role(cfg["material"]), None, collision=False, outline=False,
+            segments=_chain(paths), band_top=round(float(max(p[0] for p in pools) + cfg["height"]), 3), tile=cfg["tile"],
+            mobile={"group": "Corrosion"})
+    ctx.notes.append(f"corrosion: {edges} wall faces at the liquid line get a corroded band (one mesh, one material)")
+    return edges
+
+
+def _chain(segs, tol=0.0005):
+    """Join edge segments that meet end to start (same y range) into polylines; drop the inner points of straight runs."""
+    key = lambda p: (round(p[0] / tol), round(p[1] / tol)); start = {}
+    for i, s in enumerate(segs): start.setdefault((key(s["a"]), s["y0"], s["y1"]), []).append(i)
+    used, out = set(), []
+    for i, s in enumerate(segs):
+        if i in used: continue
+        used.add(i); pts = [s["a"], s["b"]]; cur = s
+        while True:
+            nxt = [j for j in start.get((key(cur["b"]), cur["y0"], cur["y1"]), []) if j not in used]
+            if not nxt: break
+            j = nxt[0]; used.add(j); cur = segs[j]; pts.append(cur["b"])
+        simp = [pts[0]]
+        for k in range(1, len(pts) - 1):
+            u = np.subtract(pts[k], simp[-1]); v = np.subtract(pts[k + 1], pts[k])
+            if abs(u[0] * v[1] - u[1] * v[0]) > 1e-4 * (np.linalg.norm(u) * np.linalg.norm(v) + 1e-9): simp.append(pts[k])
+        simp.append(pts[-1]); out.append(dict(pts=simp, y0=s["y0"], y1=s["y1"]))
+    return out
