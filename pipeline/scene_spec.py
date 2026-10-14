@@ -36,7 +36,7 @@ SCHEMA = {
                            "walkway": (DICT, False, {"width": (NUM, False), "y": (NUM, True), "style": (STR, False), "source": (STR, False)}),
                            "ceiling": (DICT, False, {"opening": (NUM, False), "opening_at": (V2, False), "thickness": (NUM, False), "beam_step": (NUM, False),
                                                      "beam_depth": (NUM, False), "lamps": (BOOL, False), "material": (STR, False), "source": (STR, False),
-                                                     "style": (STR, False, ("grid", "varied")), "seed": (INT, False), "pods": (NUM, False)}),
+                                                     "style": (STR, False, ("grid", "varied")), "seed": (INT, False), "pods": (NUM, False), "lamp_rails": (INT, False)}),
                            "boundary": (STR, False, ("walls", "invisible"))}),
     "platforms": (LIST, False, dict(ELEMENT, id=(STR, True), shape=(STR, False, ("rect", "octagon", "circle")), center=(V2, True), size=(V2, True),
                                     top=(NUM, True), style=(STR, False, ("industrial_pillar", "stone_plinth", "plain", "sky_pylon")), cover=(INT, False), lights=(BOOL, False),

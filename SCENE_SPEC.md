@@ -769,3 +769,7 @@ Building blocks usable without the preset:
 ## Stage 53: no hanging pods in the slime arena
 - Both slime-arena ceilings set `"pods": 0`: the glass lamp pods (and the lamp rails that only carried them) are gone.
   The pod model lives on in the reactor columns (Stage 49).
+
+## Stage 54: bare lamp rails
+- Ceiling `"lamp_rails": n` places n lamp rails (I-beams on roof hangers) even when `"pods": 0`; with pods it sets the
+  rail count instead of pods / 6. The slime arena keeps its rails on their own for now: 4 in the hall, 1 in the works.

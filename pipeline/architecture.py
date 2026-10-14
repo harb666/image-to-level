@@ -802,8 +802,9 @@ def dress_ceilings(ctx):
                 if clear_of_shaft(x, z, 8) and not any(lo[0] < x + rr + 0.8 and hi[0] > x - rr - 0.8 and lo[2] < z + rr + 0.8 and hi[2] > z - rr - 0.8 for lo, hi in boxes): break
             fan_unit(ctx, f"{n}Fan_{i + 1}", None, (x, y - 0.12, z), rr, 0.9, wall=False, seed=_h(n + str(i)), st=vis)
         npods = int(area / 800 * C.get("pods", 1.0)); placed = 0  # ---- hanging cage lamps on lamp rails (Stage 32)
-        if npods:
-            nl = max(1, int(round(npods / 6))); per = int(math.ceil(npods / nl)); ry = y - 3.07  # odd height: never flush with a ceiling step
+        nl_ = int(C.get("lamp_rails", 0))  # Stage 54: "lamp_rails": n - rails even without pods ("pods": 0 -> bare rails)
+        if npods or nl_:
+            nl = nl_ or max(1, int(round(npods / 6))); per = int(math.ceil(npods / nl)); ry = y - 3.07  # odd height: never flush with a ceiling step
             busy = [k[1] for k in getattr(ctx, "crane_rails", set()) if abs(k[2]) < 1e-6]  # crane runways (world z of each line)
             for li in range(nl):
                 z = cz - d / 2 + d * (li + 0.5) / nl + rng.uniform(-2, 2)

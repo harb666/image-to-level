@@ -44,10 +44,13 @@ if __name__ == "__main__":
 
 
 class LampRails(unittest.TestCase):
-    def test_slime_arena_has_no_ceiling_pods(self):  # Stage 53: the user had the hanging pods removed (ceiling "pods": 0)
+    def test_slime_arena_bare_lamp_rails(self):  # Stage 53/54: the pods are gone, the lamp rails stay on their own ("lamp_rails")
         import re
         L = json.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "levels", "slime_arena", "level.json")))
-        self.assertFalse([o["name"] for o in L["objects"] if re.search(r"Ceil_(Pod|LampRail)_\d+", o["name"])])
+        names = [o["name"] for o in L["objects"]]
+        self.assertFalse([n for n in names if re.search(r"Ceil_Pod_\d+", n)])
+        rails = [n for n in names if re.search(r"Ceil_LampRail_\d+$", n)]; self.assertEqual(len(rails), 5)
+        for r in rails: self.assertIn(r + "_Hanger_1", names)
 
 
 class Stage33(unittest.TestCase):
