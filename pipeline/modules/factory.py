@@ -34,16 +34,61 @@ def vat(ctx, s, x, y, z, yaw):
 
 @structure("claw", pad=False)
 def claw(ctx, s, x, y, z, yaw):
-    """Crane claw hanging on a chain from the ceiling (or from "y" m): hoist block with a red light, three prongs."""
+    """Crane claw on an overhead runway (Stage 31): an I-beam rail runs wall to wall through the claw along world x
+    ("rail_yaw" turns it; claws on the same line share one rail), hung from the roof on hangers, under the ceiling ducts; a trolley rides
+    it and the hoist chains hang from the trolley to the block with its red light and three prongs. "rail": false
+    (or no ceiling) = the old chain straight from the ceiling / "y"."""
     n = s["id"]; top = float(s.get("y", getattr(ctx, "ceiling_y", 20.0))); L = float(s.get("length", 9.0)); yb = top - L
     st = dict(collision=False, mobile={"static": True}); g = ctx.add(n, "group", [x, 0, z], rot=[0, yaw, 0])
+    rail = s.get("rail", True) and getattr(ctx, "ceiling_y", None) is not None and "y" not in s
+    if rail:
+        ry = top - float(s.get("rail_drop", 4.9)); yb = min(yb, ry - 2.5)  # rail bottom; the claw head stays where it was (or lower)
+        ryaw = float(s.get("rail_yaw", 0.0))  # runways follow the room grid (world x by default), whatever the claw's own turn
+        _crane_rail(ctx, x, z, ryaw, ry, top)
+        tg = ctx.add(n + "_Trolley", "group", [x, 0, z], rot=[0, ryaw, 0], collision=False)
+        ctx.add(n + "_Trolley_Body", "box", [0, ry - 0.75, 0], [1.8, 0.75, 1.3], "machine", tg, **st)  # hangs under the rail's bottom flange
+        for k_ in (-1, 1): ctx.add(f"{n}_Trolley_Side_{k_ + 1}", "box", [0, ry - 0.2, k_ * 0.48], [1.5, 1.0, 0.14], "frame", tg, outline=False, **st)  # wheel plates either side of the web
+        ctop = ry - 0.7  # chains reach 5 cm into the trolley (attached, not just touching)
+    else: ctop = top
     for k, o in enumerate((-0.18, 0.18)):  # two chain strands
-        ctx.add(f"{n}_Chain_{k + 1}", "box", [o, yb, 0], [0.14, L, 0.3], "frame", g, outline=False, **st)
+        ctx.add(f"{n}_Chain_{k + 1}", "box", [o, yb, 0], [0.14, ctop - yb, 0.3], "frame", g, outline=False, **st)
     ctx.add(n + "_Block", "box", [0, yb - 1.3, 0], [1.6, 1.3, 1.6], "machine", g, **st)
     ctx.add(n + "_Light", "box", [0, yb - 0.9, 0.82], [0.5, 0.4, 0.06], "glow", g, outline=False, **st)
     for k in range(3):  # prongs angled outwards
         a = 2 * math.pi * k / 3; ca, sa = math.cos(a), math.sin(a)
         ctx.add(f"{n}_Prong_{k + 1}", "box", [ca * 0.55, yb - 3.1, sa * 0.55], [0.3, 1.9, 0.3], "structure_b", g, [math.degrees(sa) * -0.35, 0, math.degrees(ca) * 0.35], **st)
+
+
+def _rooms(ctx):
+    """[(x0, z0, x1, z1)] inner rectangles of the arena and its annexes."""
+    out = []
+    for a in [ctx.spec.get("arena") or {}] + list(ctx.spec.get("annexes") or []):
+        if not a.get("size"): continue
+        (cx, cz), (w, d) = a.get("center", [0, 0]), a["size"]; out.append((cx - w / 2, cz - d / 2, cx + w / 2, cz + d / 2))
+    return out
+
+
+def _crane_rail(ctx, x, z, yaw, ry, top, step=11.0):
+    """Overhead runway through (x, z) along local x of yaw, wall to wall of the room it is in (once per line)."""
+    ux, uz = A_local(1, 0, yaw); room = next((r for r in _rooms(ctx) if r[0] < x < r[2] and r[1] < z < r[3]), None)
+    ts = []
+    if room:
+        for k, (p, u, lo, hi) in enumerate(((x, ux, room[0], room[2]), (z, uz, room[1], room[3]))):
+            if abs(u) > 1e-6: ts += sorted([(lo - p) / u, (hi - p) / u])
+    t0, t1 = (max(ts[0::2]), min(ts[1::2])) if ts else (-15.0, 15.0)
+    t0, t1 = t0 + 0.13, t1 - 0.13  # ends stop just short of the wall faces (wall fans / glow rings sit a few cm proud)
+    cx_, cz_ = x + ux * (t0 + t1) / 2, z + uz * (t0 + t1) / 2; Lr = t1 - t0
+    key = (round(cx_, 1), round(cz_, 1), round(yaw % 180, 1), round(ry, 2)); done = getattr(ctx, "crane_rails", set())
+    if key in done: return None
+    done.add(key); ctx.crane_rails = done; n = f"CraneRail_{len(done):02d}"; st = dict(collision=False, mobile={"static": True})
+    g = ctx.add(n, "group", [cx_, 0, cz_], rot=[0, yaw, 0])
+    ctx.add(n + "_Beam", "ibeam", [0, ry, 0], [Lr, 0.8, 0.7], "frame", g, **st)
+    ctx.add(n + "_Stripe", "box", [0, ry + 0.28, 0], [Lr - 0.4, 0.24, 0.74], "stripe", g, outline=False, **st)  # hazard band on the web
+    m = max(2, int(round(Lr / step)))
+    for i in range(m + 1):  # hanger rods up into the roof (they carry it; the ends stop short of the walls)
+        hx = -Lr / 2 + 0.6 + (Lr - 1.2) * i / m
+        ctx.add(f"{n}_Hanger_{i:02d}", "box", [hx, ry + 0.8, 0], [0.3, top - ry - 0.8 + 0.1, 0.3], "frame", g, outline=False, **st)
+    return g
 
 
 @structure("gallery", pad=False)

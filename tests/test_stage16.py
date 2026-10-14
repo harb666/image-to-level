@@ -40,8 +40,10 @@ class Dressing(unittest.TestCase):
         g = by["Vat_1_Glass"]; self.assertEqual(g["material"], "glass"); self.assertTrue(g["collision"])  # see-through (Stage 20), solid, not a hazard area
         self.assertNotIn("Vat_1_Glass", L["hazards"])
         self.assertLess(by["Vat_1_Plinth"]["position"][1], 0.5)  # reaches into the slime
-        ceil = L["environment"]["indoor"]["ceiling_y"]; ch = by["Claw_1_Chain_1"]
-        self.assertAlmostEqual(ch["position"][1] + ch["size"][1], ceil, 2)  # hangs from the roof
+        ceil = L["environment"]["indoor"]["ceiling_y"]; ch = by["Claw_1_Chain_1"]; tr = by["Claw_1_Trolley_Body"]
+        self.assertAlmostEqual(ch["position"][1] + ch["size"][1], tr["position"][1] + 0.05, 2)  # hangs from its trolley (Stage 31)
+        hs = [o for o in L["objects"] if o["name"].startswith("CraneRail_01_Hanger_")]
+        self.assertTrue(hs and all(abs(o["position"][1] + o["size"][1] - ceil) < 0.15 for o in hs))  # the rail hangs from the roof
         self.assertTrue(all(o.get("collision") is False for o in L["objects"] if o["name"].startswith(("Claw_1_", "Gal_N_"))))
         self.assertIn("Door_N_Frame", by)
 

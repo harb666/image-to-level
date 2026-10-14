@@ -618,3 +618,10 @@ Building blocks usable without the preset:
   only, no new materials.
 - Wall modules (TVs, machines, fans, vents, emblems, side doors) within 3 m of an outlet's fall and below its top + 4 m
   are removed (`generator_notes` lists them).
+
+## Stage 31: nothing hangs from bare ceiling
+- `claw`: an overhead crane - an I-beam runway (hazard band on the web) runs wall to wall of its room along world x
+  (`rail_yaw` turns it), 4.9 m under the roof (`rail_drop`), hung on rods every ~11 m; claws on the same line share it.
+  A trolley rides the rail and the hoist chains hang from it. `"rail": false` (or a fixed `"y"`) = the old direct chain.
+- Overhead pipe runs (`pipes` with `"kind": "run"`) under a roof hang on rods with clamps every ~8 m (`"hangers": false`
+  turns it off); `vertical` outlet pipes get a feed pipe up into the roof with a roof plate.

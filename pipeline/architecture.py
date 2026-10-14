@@ -1130,6 +1130,18 @@ def pipe(ctx, p, floor_y, arena_spec):
     channel, sheet of liquid) | "vertical" (pipe pointing down, straight column) | "broken" (round pipe, weak tilted gush)."""
     if p.get("kind", "outlet") == "run":
         for o in prefabs.pipe_run(p["id"], p["points"], radius=p.get("radius", 0.5), material="pipe", junction="frame"): _adopt(ctx, o)
+        cy_, r_ = getattr(ctx, "ceiling_y", None), p.get("radius", 0.5)
+        if cy_ is not None and p.get("hangers", True):  # Stage 31: overhead runs hang from the roof on rods (every ~8 m)
+            pts = [np.asarray(q, float) for q in p["points"]]; k = 0
+            for a_, b_ in zip(pts, pts[1:]):
+                v = b_ - a_; Ls = float(np.linalg.norm(v))
+                if Ls < 1 or abs(v[1]) > 0.1 * Ls or cy_ - a_[1] < r_ + 0.5: continue  # horizontal segments under the roof only
+                m = max(1, int(Ls // 8))
+                for i in range(m):
+                    q = a_ + v * (i + 0.5) / m; k += 1; y0 = q[1] + r_ - 0.05
+                    ctx.add(f"{p['id']}_Hanger_{k:02d}", "box", [q[0], y0, q[2]], [0.18, cy_ - y0 + 0.05, 0.18], "frame", collision=False, outline=False, mobile={"static": True})
+                    ctx.add(f"{p['id']}_Clamp_{k:02d}", "box", [q[0], q[1] - r_ - 0.08, q[2]], [0.3, 2 * r_ + 0.16, 2 * r_ + 0.16] if abs(v[0]) > abs(v[2]) else [2 * r_ + 0.16, 2 * r_ + 0.16, 0.3],
+                            "frame", collision=False, outline=False, mobile={"static": True})
         return
     out_t = p.get("outlet", "circle"); r = p.get("radius", 1.2); L = p.get("length", 8.0); y = p.get("y", 9.0); embed = 0.0
     if "position" in p: x, z = p["position"][0], p["position"][-1]; yaw = p.get("yaw", 0); y = p["position"][1] if len(p["position"]) == 3 else y
@@ -1148,6 +1160,10 @@ def pipe(ctx, p, floor_y, arena_spec):
     if out_t in ("circle", "broken", "vertical"):
         if out_t == "vertical":  # pipe hanging down from (x, y, z): outlet at the bottom
             src = ctx.add(n, "cylinder", [x, y, z], [2 * r, L, 2 * r], "pipe", rot=[180, 0, 0], sections=10); oy = y - L; ox, oz = x, z
+            cy_ = getattr(ctx, "ceiling_y", None)
+            if cy_ is not None and cy_ - y > 0.3:  # Stage 31: fed from the roof - never a pipe hanging in mid-air
+                ctx.add(n + "_Feed", "cylinder", [x, y - 0.1, z], [2 * r * 0.8, cy_ - y + 0.08, 2 * r * 0.8], "pipe", sections=10, collision=False)
+                ctx.add(n + "_RoofPlate", "box", [x, cy_ - 0.24, z], [2 * r * 1.8, 0.22, 2 * r * 1.8], "frame", collision=False)
         else:
             src = ctx.add(n, "cylinder", [x, y, z], [2 * r, L, 2 * r], "pipe", rot=[90, yaw, 0], sections=10); oy = y
         if ctx.detail >= 1 and out_t != "broken":
