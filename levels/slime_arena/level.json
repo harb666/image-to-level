@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "dafc041abcc2063a",
+  "spec_sha": "d79c3cfb10d442f4",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -758,7 +758,16 @@
    "type": "tv_static",
    "target_material": "screen",
    "amount": 0.85,
-   "seed": 2.3
+   "seed": 2.3,
+   "egg_id": 2.0,
+   "egg_rect": [
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "egg_every": 40.0,
+   "egg_len": 4.0
   },
   {
    "id": "Glow_Pulse",
@@ -1638,15 +1647,27 @@
    "atlas": {
     "a": [
      0,
-     0,
+     0.5,
      0.5,
      1
     ],
     "b": [
      0.5,
-     0,
+     0.5,
      1,
      1
+    ],
+    "c": [
+     0,
+     0,
+     0.5,
+     0.5
+    ],
+    "d": [
+     0.5,
+     0,
+     1,
+     0.5
     ]
    },
    "left": {
@@ -1658,7 +1679,36 @@
     "type": "bigscreen",
     "mode": "specimen",
     "aspect": 1.7
-   }
+   },
+   "grid": [
+    [
+     {
+      "type": "bigscreen",
+      "mode": "broadcast",
+      "aspect": 1.7
+     },
+     {
+      "type": "bigscreen",
+      "mode": "specimen",
+      "aspect": 1.7
+     }
+    ],
+    [
+     {
+      "type": "bigscreen",
+      "mode": "broadcast",
+      "aspect": 1.7,
+      "seed": 5
+     },
+     {
+      "type": "bigscreen",
+      "mode": "specimen",
+      "aspect": 1.7,
+      "seed": 5
+     }
+    ]
+   ],
+   "notes": "Stage 52: two broadcast + two specimen variants"
   },
   "ceiling": {
    "type": "ceiling_works",
@@ -1927,15 +1977,27 @@
    "atlas": {
     "a": [
      0,
-     0,
+     0.5,
      0.5,
      1
     ],
     "b": [
      0.5,
-     0,
+     0.5,
      1,
      1
+    ],
+    "c": [
+     0,
+     0,
+     0.5,
+     0.5
+    ],
+    "d": [
+     0.5,
+     0,
+     1,
+     0.5
     ]
    },
    "left": {
@@ -1945,7 +2007,35 @@
    "right": {
     "type": "screen_ui",
     "seed": 2
-   }
+   },
+   "grid": [
+    [
+     {
+      "type": "screen_ui",
+      "seed": 1
+     },
+     {
+      "type": "screen_ui",
+      "seed": 2
+     }
+    ],
+    [
+     {
+      "type": "screen_ui",
+      "seed": 3
+     },
+     {
+      "image": "levels/slime_arena/references/tv_easter_egg.jpg"
+     }
+    ]
+   ],
+   "egg": {
+    "cell": "d",
+    "screen": 2,
+    "every": 40,
+    "len": 4.0
+   },
+   "notes": "Stage 52: 2x2 atlas - three TV layouts + the easter egg (cell d, shown now and then on TV #2 only)"
   },
   "stripe": {
    "type": "chevron",
@@ -3733,6 +3823,7 @@
    ],
    "material": "bigscreen",
    "uv_region": "a",
+   "uv_shift": 1,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -5114,7 +5205,8 @@
     0.0
    ],
    "material": "bigscreen",
-   "uv_region": "a",
+   "uv_region": "c",
+   "uv_shift": 2,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -6254,6 +6346,7 @@
    ],
    "material": "screen",
    "uv_region": "a",
+   "uv_shift": 1,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -6549,6 +6642,7 @@
    ],
    "material": "bigscreen",
    "uv_region": "b",
+   "uv_shift": 3,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -7406,7 +7500,8 @@
     0.0
    ],
    "material": "screen",
-   "uv_region": "a",
+   "uv_region": "b",
+   "uv_shift": 2,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -8489,6 +8584,7 @@
    ],
    "material": "bigscreen",
    "uv_region": "a",
+   "uv_shift": 4,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -9937,7 +10033,8 @@
     0.0
    ],
    "material": "screen",
-   "uv_region": "b",
+   "uv_region": "c",
+   "uv_shift": 3,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -10824,7 +10921,8 @@
     0.0
    ],
    "material": "bigscreen",
-   "uv_region": "b",
+   "uv_region": "d",
+   "uv_shift": 5,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -13153,7 +13251,8 @@
     0.0
    ],
    "material": "screen",
-   "uv_region": "b",
+   "uv_region": "a",
+   "uv_shift": 4,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -14679,7 +14778,8 @@
     0.0
    ],
    "material": "screen",
-   "uv_region": "b",
+   "uv_region": "c",
+   "uv_shift": 6,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -15283,6 +15383,7 @@
    ],
    "material": "screen",
    "uv_region": "a",
+   "uv_shift": 7,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -136494,7 +136595,7 @@
   "triangles": 91846,
   "objects": 4248,
   "materials": 29,
-  "glb_kb": 6140,
+  "glb_kb": 6217,
   "nodes": 4813,
   "draw_calls_unbatched": 4633,
   "draw_calls_batched_min": 31,

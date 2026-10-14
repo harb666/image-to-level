@@ -202,6 +202,11 @@ func _material_shader(fx: Dictionary, p: Dictionary) -> void:
 			sm.set_shader_parameter("albedo_tex", src.albedo_texture)
 			for k in ["amount", "grain", "fps", "signal_every", "signal_len", "roll_speed", "glow", "seed"]:
 				sm.set_shader_parameter(k, float(p[k]))
+			for k in ["egg_id", "egg_every", "egg_len"]:  # Stage 52: easter egg on one screen
+				if p.has(k):
+					sm.set_shader_parameter(k, float(p[k]))
+			if p.has("egg_rect"):
+				sm.set_shader_parameter("egg_rect", Vector4(p["egg_rect"][0], p["egg_rect"][1], p["egg_rect"][2], p["egg_rect"][3]))
 			made[src] = sm
 		mi.material_override = made[src]
 
