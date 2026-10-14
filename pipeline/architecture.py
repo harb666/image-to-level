@@ -291,13 +291,14 @@ def place_covers(ctx):
         ctx.element = el; w, d = p["size"]; (pcx, pcz) = p["center"]; ch = ctx.G["design"]["cover_height"]; want = min(int(p.get("cover", 0)), 4)
         spots = [(-w / 4, -d / 4), (w / 4, d / 4), (w / 4, -d / 4), (-w / 4, d / 4), (0, -d / 3), (0, d / 3), (-w / 3, 0), (w / 3, 0)]
         spots += [(w * 0.33 * math.cos(math.radians(a)), d * 0.33 * math.sin(math.radians(a))) for a in (22.5, 202.5, 112.5, 292.5, 67.5, 247.5, 157.5, 337.5)]
-        k = 0
+        k = 0; placed = []
         for sx, sz in spots:
             if k >= want: break
-            wx, wz = pcx + sx, pcz + sz; s = 1.6 if k % 2 == 0 else 2.0
+            wx, wz = pcx + sx, pcz + sz; s = 1.6 if k % 2 == 0 else 2.0; dd = 1.2 if k % 2 else 1.6
             if any(math.hypot(wx - x, wz - z) < r + s / 2 + 0.4 for x, z, r in ctx.landings + getattr(ctx, "platform_blocks", [])): continue
             if p.get("shape") in ("octagon", "circle") and math.hypot(sx, sz) > min(w, d) / 2 * 0.8: continue
-            ctx.add(f"{p['id']}_Cover_{k + 1:02d}", "box", [round(sx, 2), top, round(sz, 2)], [s, ch, 1.2 if k % 2 else 1.6], mat, g); k += 1
+            if any(abs(sx - qx) < (s + qs) / 2 + 0.4 and abs(sz - qz) < (dd + qd) / 2 + 0.4 for qx, qz, qs, qd in placed): continue  # Stage 36: crates never inside each other
+            ctx.add(f"{p['id']}_Cover_{k + 1:02d}", "box", [round(sx, 2), top, round(sz, 2)], [s, ch, dd], mat, g); k += 1; placed.append((sx, sz, s, dd))
         if k < want: ctx.notes.append(f"{p['id']}: {want - k} cover crate(s) dropped - no free spot clear of landings")
 
 
@@ -1154,6 +1155,13 @@ def pipe(ctx, p, floor_y, arena_spec):
     channel, sheet of liquid) | "vertical" (pipe pointing down, straight column) | "broken" (round pipe, weak tilted gush)."""
     if p.get("kind", "outlet") == "run":
         for o in prefabs.pipe_run(p["id"], p["points"], radius=p.get("radius", 0.5), material="pipe", junction="frame"): _adopt(ctx, o)
+        if p.get("fitting", True):  # Stage 36: fittings where the run comes out of a wall
+            pts_ = [np.asarray(q, float) for q in p["points"]]
+            for k_, (a_, b_) in enumerate(((pts_[0], pts_[1]), (pts_[-1], pts_[-2]))):
+                v_ = b_ - a_; v_[1] = 0.0; Lv = float(np.linalg.norm(v_))
+                if Lv < 1e-6 or abs(b_[1] - a_[1]) > 0.1 * Lv: continue
+                dd_ = v_ / Lv
+                if _on_wall(ctx, a_[0], a_[2], dd_[0], dd_[2]): wall_fitting(ctx, f"{p['id']}_End{k_ + 1}", tuple(a_), (dd_[0], dd_[2]), p.get("radius", 0.5))
         cy_, r_ = getattr(ctx, "ceiling_y", None), p.get("radius", 0.5)
         if cy_ is not None and p.get("hangers", True):  # Stage 31: overhead runs hang from the roof on rods (every ~8 m)
             pts = [np.asarray(q, float) for q in p["points"]]; k = 0
@@ -1167,16 +1175,18 @@ def pipe(ctx, p, floor_y, arena_spec):
                     ctx.add(f"{p['id']}_Clamp_{k:02d}", "box", [q[0], q[1] - r_ - 0.08, q[2]], [0.3, 2 * r_ + 0.16, 2 * r_ + 0.16] if abs(v[0]) > abs(v[2]) else [2 * r_ + 0.16, 2 * r_ + 0.16, 0.3],
                             "frame", collision=False, outline=False, mobile={"static": True})
         return
-    out_t = p.get("outlet", "circle"); r = p.get("radius", 1.2); L = p.get("length", 8.0); y = p.get("y", 9.0); embed = 0.0
+    out_t = p.get("outlet", "circle"); r = p.get("radius", 1.2); L = p.get("length", 8.0); y = p.get("y", 9.0); embed = 0.0; corner = False
     if "position" in p: x, z = p["position"][0], p["position"][-1]; yaw = p.get("yaw", 0); y = p["position"][1] if len(p["position"]) == 3 else y
     else:  # on the inner face of an arena wall: side + offset along it, pointing inwards; base embedded in the wall
         (cx, cz), (w, d) = arena_spec.get("center", [0, 0]), arena_spec["size"]; side = p["wall"].lower(); at = p.get("at", 0)
         corners = {"ne": (1, -1), "nw": (-1, -1), "se": (1, 1), "sw": (-1, 1)}
         if side in corners:  # corner pipe: start inside the wall corner so the whole cap is buried (no gap behind it)
-            sx, sz = corners[side]; embed = r * 1.1 + 0.3; x, z = cx + sx * (w / 2 + embed / math.sqrt(2)), cz + sz * (d / 2 + embed / math.sqrt(2)); yaw = yaw_to(-sx, -sz)
+            sx, sz = corners[side]; embed = r * 1.1 + 0.3; x, z = cx + sx * (w / 2 + embed / math.sqrt(2)), cz + sz * (d / 2 + embed / math.sqrt(2)); yaw = yaw_to(-sx, -sz); corner = True
         else:
             sx, sz = SIDES[side]; embed = 0.4; x = cx + sx * (w / 2 + embed) + (at if sz else 0); z = cz + sz * (d / 2 + embed) + (at if sx else 0); yaw = yaw_to(-sx, -sz)
     L += embed; dx, dz = math.sin(math.radians(yaw)), math.cos(math.radians(yaw)); n = p["id"]; ox, oz = x + dx * L, z + dz * L
+    if embed and out_t in ("circle", "broken") and p.get("fitting", True):  # Stage 36: a proper fitting where it leaves the wall
+        wall_fitting(ctx, n, (x + dx * embed, y, z + dz * embed), (dx, dz), r, corner=corner)
     mat = p.get("pour_material", "hazard"); by_ = {o["name"]: o for o in ctx.objects}
     def _in(h, px, pz):
         o = by_.get(h); return o is not None and o.get("size") and abs(px - o["position"][0]) <= o["size"][0] / 2 and abs(pz - o["position"][2]) <= o["size"][2] / 2
@@ -1212,6 +1222,41 @@ def pipe(ctx, p, floor_y, arena_spec):
         ctx.rel("emits_from", st, src, b_anchor=anchor)
         if pool: ctx.rel("flows_into", st, pool)
         ctx.pours.append(st)
+
+
+def _on_wall(ctx, x, z, dx, dz, tol=0.15):
+    """True when (x, z) lies on an inner wall face of the arena / an annex and (dx, dz) points into that room."""
+    for a in [ctx.spec.get("arena") or {}] + list(ctx.spec.get("annexes") or []):
+        if not a.get("size"): continue
+        (cx, cz), (w, d) = a.get("center", [0, 0]), a["size"]
+        if not (cx - w / 2 - tol <= x <= cx + w / 2 + tol and cz - d / 2 - tol <= z <= cz + d / 2 + tol): continue
+        if abs(x - (cx - w / 2)) < tol and dx > 0.7 or abs(x - (cx + w / 2)) < tol and dx < -0.7: return True
+        if abs(z - (cz - d / 2)) < tol and dz > 0.7 or abs(z - (cz + d / 2)) < tol and dz < -0.7: return True
+    return False
+
+
+def wall_fitting(ctx, n, P, d, r, corner=False):
+    """Stage 36: where a pipe of radius r comes out of a wall at P = (x, y, z) (axis height y) heading along d = (dx, dz):
+    a square mounting plate on the wall face with four bolts, a hazard stripe across its top and a red light, and a
+    flange collar round the pipe. Into a corner (no flat face): a thick boot round the pipe and the flange collar.
+    Visual only; existing materials (frame, structure_b, machine, stripe, glow)."""
+    x, y, z = P; dx, dz = d; yaw = math.degrees(math.atan2(dx, dz)); st = dict(collision=False, mobile={"static": True})
+    at = lambda t: [x + dx * t, y, z + dz * t]
+    if corner:
+        ctx.add(n + "_Boot", "cylinder", at(-0.6), [2 * r * 1.22, r + 1.5, 2 * r * 1.22], "frame", None, [90, yaw, 0], sections=10, **st)
+        ctx.add(n + "_Collar", "cylinder", at(r + 0.88), [2 * r * 1.38, 0.4, 2 * r * 1.38], "structure_b", None, [90, yaw, 0], sections=10, **st)
+        return
+    S = 2 * r + 1.2; px, pz = x + dx * 0.0, z + dz * 0.0
+    ctx.add(n + "_Plate", "box", [px + dx * 0.14, y - S / 2, pz + dz * 0.14], [S, S, 0.32], "frame", None, [0, yaw, 0], **st)  # back 2 cm into the wall (pipe ends sit at the face)
+    ctx.add(n + "_Collar", "cylinder", at(0.28), [2 * r * 1.32, 0.42, 2 * r * 1.32], "structure_b", None, [90, yaw, 0], sections=10, **st)
+    ux, uz = dz, -dx  # along the wall
+    for i, (a_, b_) in enumerate(((-1, -1), (1, -1), (-1, 1), (1, 1))):  # bolts in the plate's corners
+        o = S / 2 - 0.3
+        ctx.add(f"{n}_Bolt_{i + 1}", "box", [px + ux * a_ * o + dx * 0.27, y + b_ * o - 0.11, pz + uz * a_ * o + dz * 0.27], [0.22, 0.22, 0.14], "machine", None, [0, yaw, 0],
+                outline=False, **st)
+    ctx.add(n + "_Stripe", "box", [px + dx * 0.29, y + S / 2 - 0.42, pz + dz * 0.29], [S - 1.0, 0.24, 0.06], "stripe", None, [0, yaw, 0], outline=False, **st)
+    ctx.add(n + "_Light", "box", [px + ux * (S / 2 - 0.3) + dx * 0.29, y - S / 2 + 0.3, pz + uz * (S / 2 - 0.3) + dz * 0.29], [0.26, 0.16, 0.06], "glow", None, [0, yaw, 0],
+            outline=False, **st)
 
 
 def _wall_at(ctx, px, py, pz, d=None):

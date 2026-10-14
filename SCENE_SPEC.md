@@ -655,3 +655,9 @@ Building blocks usable without the preset:
   mouth.
 - Wall `Vent` module: a framed opening (four frame bars), dark duct behind it (accent atlas `void`), angled louvres
   every ~0.4 m and a status light - no flat panel of wall texture. Same placement as before.
+
+## Stage 36: crates apart, wall fittings for pipes
+- Cover crates on a platform keep 0.4 m apart (no crate inside another).
+- Pipes leaving a wall (`pipes` on an arena wall, and `run` ends on a wall face) get a fitting: square mounting plate
+  with four bolts, a hazard stripe and a red light, plus a flange collar; corner pipes get a thick boot and the collar.
+  `"fitting": false` on a pipe turns it off.

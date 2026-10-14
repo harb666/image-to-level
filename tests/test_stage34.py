@@ -54,3 +54,19 @@ class Stage35(unittest.TestCase):
         self.assertTrue(strips and all(o["size"][1] < 2.5 for o in strips))
         vents = [n for n in by if re.search(r"_M\d\dVent$", n)]
         self.assertTrue(vents and all(n + "_Duct" in by and n + "_FrameLow" in by and n + "_Slat_3" in by for n in vents))
+
+
+class Stage36(unittest.TestCase):
+    def test_no_overlapping_crates_and_wall_fittings(self):
+        import sys, numpy as np
+        from anchors import world_matrices
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); W, by = world_matrices(L)
+        cr = [o for o in L["objects"] if o["type"] == "box" and o.get("faces")]
+        def bb(o):
+            w, h, d = o["size"]; C = np.array([[sx * w / 2, y, sz * d / 2, 1] for sx in (-1, 1) for y in (0, h) for sz in (-1, 1)]) @ W[o["name"]].T
+            return C[:, :3].min(0), C[:, :3].max(0)
+        B = [bb(o) for o in cr]
+        for i in range(len(B)):
+            for j in range(i + 1, len(B)):
+                self.assertFalse((np.minimum(B[i][1], B[j][1]) - np.maximum(B[i][0], B[j][0]) > 0.02).all(), (cr[i]["name"], cr[j]["name"]))
+        for n in ("Pipe_North_Plate", "Pipe_North_Collar", "Pipe_North_Bolt_4", "Pipe_NE_Boot", "W_Run_North_End1_Plate"): self.assertIn(n, by)
