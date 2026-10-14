@@ -69,6 +69,41 @@ def _rooms(ctx):
     return out
 
 
+def _rail_clear_ends(ctx, x, z, ux, uz, ry, t0, t1, reach=8.0, gap=2.0):
+    """Pull each runway end back (up to `reach` m) until the beam's swept box (0.8 m tall, 0.7 m wide, +-0.2 m) is
+    clear of wall-mounted things at that end - window screens, TVs, fans, vents, machines, emblems, galleries."""
+    import re, numpy as _np
+    from anchors import world_matrices
+    W, _ = world_matrices({"objects": ctx.objects}); pat = re.compile(r"(_Screen|_Back|_M\d\d(Monitor|Fan|Vent|Machine|Emblem|Door)|Gallery|_SillLight|Mouth)")
+    boxes = []
+    for o in ctx.objects:
+        if o["type"] in ("group", "band") or not o.get("size") or not pat.search(o["name"]): continue
+        w_, h_, d_ = o["size"]; C = _np.array([[sx * w_ / 2, yy, sz * d_ / 2, 1] for sx in (-1, 1) for yy in (0, h_) for sz in (-1, 1)]) @ W[o["name"]].T
+        lo, hi = C[:, :3].min(0), C[:, :3].max(0)
+        if lo[1] < ry + 1.0 and hi[1] > ry - 0.4: boxes.append((lo, hi))
+    def hit(ta, tb):
+        a = _np.array([x + ux * ta, ry - 0.4, z + uz * ta]); b = _np.array([x + ux * tb, ry + 1.0, z + uz * tb]); lo = _np.minimum(a, b); hi = _np.maximum(a, b)
+        lo[[0, 2]] -= _np.abs([uz, ux]) * 0.55; hi[[0, 2]] += _np.abs([uz, ux]) * 0.55
+        return [bb for bb in boxes if (_np.minimum(hi, bb[1]) - _np.maximum(lo, bb[0]) > 0).all()]
+    stops = [False, False]
+    ts = []  # claws hanging on this line: a blocked end stops 5 m past the last one (not just short of the wall)
+    for c in ctx.spec.get("structures", []):
+        if c.get("kind") != "claw" or c.get("rail") is False: continue
+        px, pz = c["position"][0], c["position"][-1]; t = (px - x) * ux + (pz - z) * uz
+        if abs((px - x) * uz - (pz - z) * ux) < 0.5: ts.append(t)
+    for k_ in (0, 1):
+        for _ in range(int(reach / 0.25)):
+            ta, tb = (t0 - gap, t0 + 0.05) if k_ == 0 else (t1 - 0.05, t1 + gap)  # the end + the gap in front of it (toward the wall)
+            if not hit(ta, tb): break
+            if k_ == 0: t0 += 0.25
+            else: t1 -= 0.25
+            stops[k_] = True
+        if stops[k_] and ts:
+            if k_ == 0: t0 = max(t0, min(min(ts) - 5.0, t1 - 4.0))
+            else: t1 = min(t1, max(max(ts) + 5.0, t0 + 4.0))
+    return t0, t1, stops
+
+
 def _crane_rail(ctx, x, z, yaw, ry, top, step=11.0):
     """Overhead runway through (x, z) along local x of yaw, wall to wall of the room it is in (once per line)."""
     ux, uz = A_local(1, 0, yaw); room = next((r for r in _rooms(ctx) if r[0] < x < r[2] and r[1] < z < r[3]), None)
@@ -78,6 +113,7 @@ def _crane_rail(ctx, x, z, yaw, ry, top, step=11.0):
             if abs(u) > 1e-6: ts += sorted([(lo - p) / u, (hi - p) / u])
     t0, t1 = (max(ts[0::2]), min(ts[1::2])) if ts else (-15.0, 15.0)
     t0, t1 = t0 + 0.13, t1 - 0.13  # ends stop just short of the wall faces (wall fans / glow rings sit a few cm proud)
+    t0, t1, stops = _rail_clear_ends(ctx, x, z, ux, uz, ry, t0, t1)  # Stage 38: never into a screen / TV / fan / vent on the wall
     cx_, cz_ = x + ux * (t0 + t1) / 2, z + uz * (t0 + t1) / 2; Lr = t1 - t0
     key = (round(cx_, 1), round(cz_, 1), round(yaw % 180, 1), round(ry, 2)); done = getattr(ctx, "crane_rails", set())
     if key in done: return None
@@ -85,6 +121,8 @@ def _crane_rail(ctx, x, z, yaw, ry, top, step=11.0):
     g = ctx.add(n, "group", [cx_, 0, cz_], rot=[0, yaw, 0])
     ctx.add(n + "_Beam", "ibeam", [0, ry, 0], [Lr, 0.8, 0.7], "frame", g, **st)
     ctx.add(n + "_Stripe", "box", [0, ry + 0.28, 0], [Lr - 0.4, 0.24, 0.74], "stripe", g, outline=False, **st)  # hazard band on the web
+    for e, on in ((-1, stops[0]), (1, stops[1])):  # end stop block where the runway was cut short of something on the wall
+        if on: ctx.add(f"{n}_EndStop_{e + 1}", "box", [e * (Lr / 2 - 0.3), ry - 0.15, 0], [0.7, 1.1, 1.0], "structure_b", g, **st)  # 5 cm past the beam end
     m = max(2, int(round(Lr / step)))
     for i in range(m + 1):  # hanger rods up into the roof (they carry it; the ends stop short of the walls)
         hx = -Lr / 2 + 0.6 + (Lr - 1.2) * i / m

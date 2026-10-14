@@ -669,3 +669,6 @@ Building blocks usable without the preset:
 - Bridge supports (`pier`): flared footing sunk into the floor / liquid, hull-plated column with ribs on both broad
   faces, flared head under the deck, red light near the top - instead of a plain block.
 - Wall TVs and window screens lost their red angled corner caps.
+- Stage 38: a crane runway whose end would meet a window screen, TV, fan, vent, machine, emblem, gallery or outlet mouth
+  on the wall is cut back: to 5 m past the last claw on its line (or 2 m clear of the obstacle), with an end-stop
+  block. Runways with nothing in the way still run wall to wall.

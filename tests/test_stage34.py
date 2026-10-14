@@ -89,3 +89,20 @@ class Stage37(unittest.TestCase):
             parts = [p for p in B if p.startswith(u)]; lo = np.min([B[p][0] for p in parts], 0); hi = np.max([B[p][1] for p in parts], 0)
             for n in thin:
                 if not n.startswith(u): self.assertTrue((np.minimum(hi, B[n][1]) - np.maximum(lo, B[n][0]) <= 0.07).any(), (u, n))
+
+
+class Stage38(unittest.TestCase):
+    def test_crane_rails_keep_off_screens(self):
+        import re, numpy as np
+        from anchors import world_matrices
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); W, by = world_matrices(L)
+        def bb(n):
+            o = by[n]; w, h, d = o["size"]; C = np.array([[sx * w / 2, y, sz * d / 2, 1] for sx in (-1, 1) for y in (0, h) for sz in (-1, 1)]) @ W[n].T
+            return C[:, :3].min(0), C[:, :3].max(0)
+        rails = [n for n in by if re.match(r"CraneRail_\d+_Beam$", n)]
+        units = [n for n in by if re.search(r"(_Op\d_Screen|_M\d\d(Monitor_Body|Fan|Vent))$", n)]
+        for r in rails:
+            a = bb(r)
+            for u in units:
+                b = bb(u); b = (b[0] - 2.0, b[1] + 2.0)  # 2 m clear
+                self.assertFalse((np.minimum(a[1], b[1]) - np.maximum(a[0], b[0]) > 0).all(), (r, u))
