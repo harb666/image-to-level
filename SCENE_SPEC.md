@@ -702,3 +702,7 @@ Building blocks usable without the preset:
   looks endless: the lowest barrel starts hidden in the plinth under the glass and the top one leaves inside the capital.
 - At rest no barrel face is level with a column face (the train slides a few cm until clear). Visual only; one mobile
   group `Tube_Barrels` for all columns (2 draw calls, ~3.8k triangles).
+
+## Stage 44: no flags on the slime vats
+- The slime arena's vats set `"banner": false` (the flat flag on a ten-sided body sank into its corners); the vat module
+  default is unchanged for other levels.
