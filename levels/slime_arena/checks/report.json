@@ -1,16 +1,16 @@
 {
  "level": "slime_arena",
  "assets_kb": {
-  "level.glb": 6124,
-  "mobile/level_mobile.glb": 3728,
+  "level.glb": 6130,
+  "mobile/level_mobile.glb": 3641,
   "mobile/collision.json": 248,
   "environment.json": 4,
   "background.glb": 474,
-  "effects.json": 55
+  "effects.json": 56
  },
  "complexity": {
-  "triangles": 116912,
-  "nodes": 4680,
+  "triangles": 113864,
+  "nodes": 4626,
   "materials": 29,
   "heaviest": [
    [
@@ -37,21 +37,21 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 6124,
-   "triangles": 94774,
-   "draw_calls": 4680,
+   "glb_kb": 6130,
+   "triangles": 91726,
+   "draw_calls": 4626,
    "tex_mem_gpu_mb_est": 22.95
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3728,
-   "triangles": 110833,
-   "draw_calls": 77,
-   "visible_draw_calls_est": 55.2,
-   "visible_draw_calls_max_est": 77,
+   "glb_kb": 3641,
+   "triangles": 107785,
+   "draw_calls": 93,
+   "visible_draw_calls_est": 59.6,
+   "visible_draw_calls_max_est": 93,
    "tex_mem_gpu_mb_est": 7.28,
    "materials": 31,
-   "nodes": 78,
+   "nodes": 94,
    "colliders": {
     "colliders": 786,
     "hazards": 12,
@@ -60,10 +60,10 @@
    "background_kb": 402
   },
   "effects": {
-   "max_particles": 1710,
-   "emitters": 42,
+   "max_particles": 1277,
+   "emitters": 36,
    "extra_draw_calls": 9,
-   "transparent_area_m2": 31624.4
+   "transparent_area_m2": 31607.1
   },
   "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
  },
@@ -436,19 +436,19 @@
  },
  "issues": [
   {
-   "kind": "particle_budget",
+   "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "1710 particles (> 1500)"
+   "message": "mobile draw calls 93 (> 80)"
   },
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "116912 triangles (> budget 40000)"
+   "message": "113864 triangles (> budget 40000)"
   },
   {
    "kind": "dev_size",
    "severity": "info",
-   "message": "dev GLB 6124 KB (> 6000)"
+   "message": "dev GLB 6130 KB (> 6000)"
   },
   {
    "kind": "low_ceiling",

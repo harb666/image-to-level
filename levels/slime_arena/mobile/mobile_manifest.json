@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 6124,
-    "triangles": 116912,
-    "nodes": 4860,
-    "mesh_nodes": 4680,
-    "unique_meshes": 2226,
+    "glb_kb": 6130,
+    "triangles": 113864,
+    "nodes": 4806,
+    "mesh_nodes": 4626,
+    "unique_meshes": 2244,
     "materials": 31,
     "images": 88,
-    "draw_calls_unbatched": 4680,
+    "draw_calls_unbatched": 4626,
     "draw_calls_batched_min": 31,
     "tex_mem_uncompressed_mb": 91.79,
     "tex_mem_gpu_compressed_mb": 22.95,
@@ -71,22 +71,22 @@
    },
    "visible": {
     "cameras": 280,
-    "visible_draw_calls_mean": 1544.2,
-    "visible_draw_calls_max": 4425,
-    "visible_triangles_mean": 52085,
-    "visible_triangles_max": 121816
+    "visible_draw_calls_mean": 1526.6,
+    "visible_draw_calls_max": 4371,
+    "visible_triangles_mean": 51076,
+    "visible_triangles_max": 118768
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3728,
-    "triangles": 110833,
-    "nodes": 78,
-    "mesh_nodes": 77,
-    "unique_meshes": 77,
+    "glb_kb": 3641,
+    "triangles": 107785,
+    "nodes": 94,
+    "mesh_nodes": 93,
+    "unique_meshes": 93,
     "materials": 31,
     "images": 56,
-    "draw_calls_unbatched": 77,
+    "draw_calls_unbatched": 93,
     "draw_calls_batched_min": 31,
     "tex_mem_uncompressed_mb": 29.12,
     "tex_mem_gpu_compressed_mb": 7.28,
@@ -136,10 +136,10 @@
    },
    "visible": {
     "cameras": 280,
-    "visible_draw_calls_mean": 55.2,
-    "visible_draw_calls_max": 77,
-    "visible_triangles_mean": 105605,
-    "visible_triangles_max": 121224
+    "visible_draw_calls_mean": 59.6,
+    "visible_draw_calls_max": 93,
+    "visible_triangles_mean": 102332,
+    "visible_triangles_max": 118176
    },
    "hidden_faces_removed": 2888,
    "occluded_faces_removed": 3191,
@@ -154,11 +154,11 @@
     "W_Run_North_Flange_03a"
    ],
    "effects_extra_draw_calls": 9,
-   "effects_max_particles": 1710,
+   "effects_max_particles": 1277,
    "slimmed_kb": {
     "level_mobile.glb": [
-     5267,
-     3728
+     5158,
+     3641
     ],
     "background_mobile.glb": [
      474,
@@ -2073,6 +2073,246 @@
    "group": "Ceiling"
   },
   {
+   "node": "Column_Hall_E_Pod__frame",
+   "kind": "group",
+   "material": "frame",
+   "triangles": 84,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Column_Hall_E_Pod_Bar_3",
+    "Column_Hall_E_Pod_Bar_2",
+    "Column_Hall_E_Pod_Bar_1",
+    "Column_Hall_E_Pod_Base",
+    "Column_Hall_E_Pod_Cap"
+   ],
+   "group": "Column_Hall_E_Pod"
+  },
+  {
+   "node": "Column_Hall_E_Pod__glass_clear__2s",
+   "kind": "group",
+   "material": "glass_clear__2s",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Column_Hall_E_Pod_Shell"
+   ],
+   "group": "Column_Hall_E_Pod"
+  },
+  {
+   "node": "Column_Hall_E_Pod__hazard",
+   "kind": "group",
+   "material": "hazard",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Column_Hall_E_Pod_Fluid"
+   ],
+   "group": "Column_Hall_E_Pod"
+  },
+  {
+   "node": "Column_Hall_SW_Pod__frame",
+   "kind": "group",
+   "material": "frame",
+   "triangles": 84,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Column_Hall_SW_Pod_Bar_3",
+    "Column_Hall_SW_Pod_Bar_2",
+    "Column_Hall_SW_Pod_Bar_1",
+    "Column_Hall_SW_Pod_Base",
+    "Column_Hall_SW_Pod_Cap"
+   ],
+   "group": "Column_Hall_SW_Pod"
+  },
+  {
+   "node": "Column_Hall_SW_Pod__glass_clear__2s",
+   "kind": "group",
+   "material": "glass_clear__2s",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Column_Hall_SW_Pod_Shell"
+   ],
+   "group": "Column_Hall_SW_Pod"
+  },
+  {
+   "node": "Column_Hall_SW_Pod__hazard",
+   "kind": "group",
+   "material": "hazard",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Column_Hall_SW_Pod_Fluid"
+   ],
+   "group": "Column_Hall_SW_Pod"
+  },
+  {
+   "node": "Column_Hall_W_Pod__frame",
+   "kind": "group",
+   "material": "frame",
+   "triangles": 84,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Column_Hall_W_Pod_Bar_3",
+    "Column_Hall_W_Pod_Bar_2",
+    "Column_Hall_W_Pod_Bar_1",
+    "Column_Hall_W_Pod_Base",
+    "Column_Hall_W_Pod_Cap"
+   ],
+   "group": "Column_Hall_W_Pod"
+  },
+  {
+   "node": "Column_Hall_W_Pod__glass_clear__2s",
+   "kind": "group",
+   "material": "glass_clear__2s",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Column_Hall_W_Pod_Shell"
+   ],
+   "group": "Column_Hall_W_Pod"
+  },
+  {
+   "node": "Column_Hall_W_Pod__hazard",
+   "kind": "group",
+   "material": "hazard",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Column_Hall_W_Pod_Fluid"
+   ],
+   "group": "Column_Hall_W_Pod"
+  },
+  {
+   "node": "Column_Works_Mid_Pod__frame",
+   "kind": "group",
+   "material": "frame",
+   "triangles": 84,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Column_Works_Mid_Pod_Bar_3",
+    "Column_Works_Mid_Pod_Bar_2",
+    "Column_Works_Mid_Pod_Bar_1",
+    "Column_Works_Mid_Pod_Base",
+    "Column_Works_Mid_Pod_Cap"
+   ],
+   "group": "Column_Works_Mid_Pod"
+  },
+  {
+   "node": "Column_Works_Mid_Pod__glass_clear__2s",
+   "kind": "group",
+   "material": "glass_clear__2s",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Column_Works_Mid_Pod_Shell"
+   ],
+   "group": "Column_Works_Mid_Pod"
+  },
+  {
+   "node": "Column_Works_Mid_Pod__hazard",
+   "kind": "group",
+   "material": "hazard",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Column_Works_Mid_Pod_Fluid"
+   ],
+   "group": "Column_Works_Mid_Pod"
+  },
+  {
+   "node": "Column_Works_NW_Pod__frame",
+   "kind": "group",
+   "material": "frame",
+   "triangles": 84,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Column_Works_NW_Pod_Bar_3",
+    "Column_Works_NW_Pod_Bar_2",
+    "Column_Works_NW_Pod_Bar_1",
+    "Column_Works_NW_Pod_Base",
+    "Column_Works_NW_Pod_Cap"
+   ],
+   "group": "Column_Works_NW_Pod"
+  },
+  {
+   "node": "Column_Works_NW_Pod__glass_clear__2s",
+   "kind": "group",
+   "material": "glass_clear__2s",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Column_Works_NW_Pod_Shell"
+   ],
+   "group": "Column_Works_NW_Pod"
+  },
+  {
+   "node": "Column_Works_NW_Pod__hazard",
+   "kind": "group",
+   "material": "hazard",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Column_Works_NW_Pod_Fluid"
+   ],
+   "group": "Column_Works_NW_Pod"
+  },
+  {
+   "node": "Column_Works_SW_Pod__frame",
+   "kind": "group",
+   "material": "frame",
+   "triangles": 84,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Column_Works_SW_Pod_Bar_3",
+    "Column_Works_SW_Pod_Bar_2",
+    "Column_Works_SW_Pod_Bar_1",
+    "Column_Works_SW_Pod_Base",
+    "Column_Works_SW_Pod_Cap"
+   ],
+   "group": "Column_Works_SW_Pod"
+  },
+  {
+   "node": "Column_Works_SW_Pod__glass_clear__2s",
+   "kind": "group",
+   "material": "glass_clear__2s",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Column_Works_SW_Pod_Shell"
+   ],
+   "group": "Column_Works_SW_Pod"
+  },
+  {
+   "node": "Column_Works_SW_Pod__hazard",
+   "kind": "group",
+   "material": "hazard",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Column_Works_SW_Pod_Fluid"
+   ],
+   "group": "Column_Works_SW_Pod"
+  },
+  {
    "node": "Corrosion__corrosion",
    "kind": "group",
    "material": "corrosion",
@@ -2143,124 +2383,6 @@
     "Elevator_Car_Stripe"
    ],
    "group": "Elevator_Car"
-  },
-  {
-   "node": "Tube_Barrels__frame",
-   "kind": "group",
-   "material": "frame",
-   "triangles": 2880,
-   "visibility_range_end": 0,
-   "cast_shadow": true,
-   "source_objects": [
-    "Column_Works_NW_Barrel_4_Hoop_3",
-    "Column_Works_NW_Barrel_4_Hoop_2",
-    "Column_Works_NW_Barrel_4_Hoop_1",
-    "Column_Works_NW_Barrel_3_Hoop_3",
-    "Column_Works_NW_Barrel_3_Hoop_2",
-    "Column_Works_NW_Barrel_3_Hoop_1",
-    "Column_Works_NW_Barrel_2_Hoop_3",
-    "Column_Works_NW_Barrel_2_Hoop_2",
-    "Column_Works_NW_Barrel_2_Hoop_1",
-    "Column_Works_NW_Barrel_1_Hoop_3",
-    "Column_Works_NW_Barrel_1_Hoop_2",
-    "Column_Works_NW_Barrel_1_Hoop_1",
-    "Column_Works_SW_Barrel_4_Hoop_3",
-    "Column_Works_SW_Barrel_4_Hoop_2",
-    "Column_Works_SW_Barrel_4_Hoop_1",
-    "Column_Works_SW_Barrel_3_Hoop_3",
-    "Column_Works_SW_Barrel_3_Hoop_2",
-    "Column_Works_SW_Barrel_3_Hoop_1",
-    "Column_Works_SW_Barrel_2_Hoop_3",
-    "Column_Works_SW_Barrel_2_Hoop_2",
-    "Column_Works_SW_Barrel_2_Hoop_1",
-    "Column_Works_SW_Barrel_1_Hoop_3",
-    "Column_Works_SW_Barrel_1_Hoop_2",
-    "Column_Works_SW_Barrel_1_Hoop_1",
-    "Column_Works_Mid_Barrel_4_Hoop_3",
-    "Column_Works_Mid_Barrel_4_Hoop_2",
-    "Column_Works_Mid_Barrel_4_Hoop_1",
-    "Column_Works_Mid_Barrel_3_Hoop_3",
-    "Column_Works_Mid_Barrel_3_Hoop_2",
-    "Column_Works_Mid_Barrel_3_Hoop_1",
-    "Column_Works_Mid_Barrel_2_Hoop_3",
-    "Column_Works_Mid_Barrel_2_Hoop_2",
-    "Column_Works_Mid_Barrel_2_Hoop_1",
-    "Column_Works_Mid_Barrel_1_Hoop_3",
-    "Column_Works_Mid_Barrel_1_Hoop_2",
-    "Column_Works_Mid_Barrel_1_Hoop_1",
-    "Column_Hall_E_Barrel_4_Hoop_3",
-    "Column_Hall_E_Barrel_4_Hoop_2",
-    "Column_Hall_E_Barrel_4_Hoop_1",
-    "Column_Hall_E_Barrel_3_Hoop_3",
-    "Column_Hall_E_Barrel_3_Hoop_2",
-    "Column_Hall_E_Barrel_3_Hoop_1",
-    "Column_Hall_E_Barrel_2_Hoop_3",
-    "Column_Hall_E_Barrel_2_Hoop_2",
-    "Column_Hall_E_Barrel_2_Hoop_1",
-    "Column_Hall_E_Barrel_1_Hoop_3",
-    "Column_Hall_E_Barrel_1_Hoop_2",
-    "Column_Hall_E_Barrel_1_Hoop_1",
-    "Column_Hall_SW_Barrel_4_Hoop_3",
-    "Column_Hall_SW_Barrel_4_Hoop_2",
-    "Column_Hall_SW_Barrel_4_Hoop_1",
-    "Column_Hall_SW_Barrel_3_Hoop_3",
-    "Column_Hall_SW_Barrel_3_Hoop_2",
-    "Column_Hall_SW_Barrel_3_Hoop_1",
-    "Column_Hall_SW_Barrel_2_Hoop_3",
-    "Column_Hall_SW_Barrel_2_Hoop_2",
-    "Column_Hall_SW_Barrel_2_Hoop_1",
-    "Column_Hall_SW_Barrel_1_Hoop_3",
-    "Column_Hall_SW_Barrel_1_Hoop_2",
-    "Column_Hall_SW_Barrel_1_Hoop_1",
-    "Column_Hall_W_Barrel_4_Hoop_3",
-    "Column_Hall_W_Barrel_4_Hoop_2",
-    "Column_Hall_W_Barrel_4_Hoop_1",
-    "Column_Hall_W_Barrel_3_Hoop_3",
-    "Column_Hall_W_Barrel_3_Hoop_2",
-    "Column_Hall_W_Barrel_3_Hoop_1",
-    "Column_Hall_W_Barrel_2_Hoop_3",
-    "Column_Hall_W_Barrel_2_Hoop_2",
-    "Column_Hall_W_Barrel_2_Hoop_1",
-    "Column_Hall_W_Barrel_1_Hoop_3",
-    "Column_Hall_W_Barrel_1_Hoop_2",
-    "Column_Hall_W_Barrel_1_Hoop_1"
-   ],
-   "group": "Tube_Barrels"
-  },
-  {
-   "node": "Tube_Barrels__hazard",
-   "kind": "group",
-   "material": "hazard",
-   "triangles": 960,
-   "visibility_range_end": 0,
-   "cast_shadow": false,
-   "source_objects": [
-    "Column_Works_NW_Barrel_4",
-    "Column_Works_NW_Barrel_3",
-    "Column_Works_NW_Barrel_2",
-    "Column_Works_NW_Barrel_1",
-    "Column_Works_SW_Barrel_4",
-    "Column_Works_SW_Barrel_3",
-    "Column_Works_SW_Barrel_2",
-    "Column_Works_SW_Barrel_1",
-    "Column_Works_Mid_Barrel_4",
-    "Column_Works_Mid_Barrel_3",
-    "Column_Works_Mid_Barrel_2",
-    "Column_Works_Mid_Barrel_1",
-    "Column_Hall_E_Barrel_4",
-    "Column_Hall_E_Barrel_3",
-    "Column_Hall_E_Barrel_2",
-    "Column_Hall_E_Barrel_1",
-    "Column_Hall_SW_Barrel_4",
-    "Column_Hall_SW_Barrel_3",
-    "Column_Hall_SW_Barrel_2",
-    "Column_Hall_SW_Barrel_1",
-    "Column_Hall_W_Barrel_4",
-    "Column_Hall_W_Barrel_3",
-    "Column_Hall_W_Barrel_2",
-    "Column_Hall_W_Barrel_1"
-   ],
-   "group": "Tube_Barrels"
   },
   {
    "node": "M_accent_0_0_props",

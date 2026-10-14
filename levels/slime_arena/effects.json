@@ -213,22 +213,22 @@
  },
  "totals": {
   "performance": {
-   "max_particles": 652,
-   "emitters": 42,
+   "max_particles": 479,
+   "emitters": 36,
    "extra_draw_calls": 7,
-   "transparent_area_m2": 17.2
+   "transparent_area_m2": 10.3
   },
   "balanced": {
-   "max_particles": 1710,
-   "emitters": 42,
+   "max_particles": 1277,
+   "emitters": 36,
    "extra_draw_calls": 9,
-   "transparent_area_m2": 31624.4
+   "transparent_area_m2": 31607.1
   },
   "quality": {
-   "max_particles": 2707,
-   "emitters": 42,
+   "max_particles": 2026,
+   "emitters": 36,
    "extra_draw_calls": 11,
-   "transparent_area_m2": 63231.8
+   "transparent_area_m2": 63204.6
   }
  },
  "effects": [
@@ -238,6 +238,152 @@
    "category": "surface_shader",
    "glb_contains": "static base colour + emissive texture",
    "godot_runtime": "ShaderMaterial liquid_surface.gdshader on target meshes (albedo from the GLB texture)",
+   "ripples": [
+    [
+     10.0,
+     -44.46,
+     1.0,
+     1.03
+    ],
+    [
+     -10.0,
+     44.46,
+     1.0,
+     1.03
+    ],
+    [
+     44.46,
+     -10.0,
+     1.0,
+     1.03
+    ],
+    [
+     -44.46,
+     10.0,
+     1.0,
+     1.03
+    ],
+    [
+     18.0,
+     -45.0,
+     0.45,
+     4.6
+    ],
+    [
+     -18.0,
+     -45.0,
+     0.45,
+     3.6
+    ],
+    [
+     18.0,
+     45.0,
+     0.45,
+     5.1
+    ],
+    [
+     -18.0,
+     45.0,
+     0.45,
+     4.1
+    ],
+    [
+     45.0,
+     18.0,
+     0.45,
+     4.6
+    ],
+    [
+     45.0,
+     -18.0,
+     0.45,
+     3.6
+    ],
+    [
+     -45.0,
+     18.0,
+     0.45,
+     4.1
+    ],
+    [
+     -45.0,
+     -18.0,
+     0.45,
+     5.1
+    ],
+    [
+     -30.0,
+     -20.0,
+     0.45,
+     3.78
+    ],
+    [
+     -22.0,
+     32.0,
+     0.45,
+     2.7
+    ],
+    [
+     30.0,
+     -22.0,
+     0.45,
+     3.24
+    ],
+    [
+     0.0,
+     -16.5,
+     0.3,
+     1.15
+    ],
+    [
+     -0.0,
+     16.5,
+     0.3,
+     1.15
+    ],
+    [
+     16.5,
+     0.0,
+     0.3,
+     1.15
+    ],
+    [
+     -16.5,
+     0.0,
+     0.3,
+     1.15
+    ],
+    [
+     9.14,
+     -9.14,
+     0.3,
+     1.05
+    ],
+    [
+     -9.14,
+     -9.14,
+     0.3,
+     1.05
+    ],
+    [
+     9.14,
+     9.14,
+     0.3,
+     1.05
+    ],
+    [
+     -9.14,
+     9.14,
+     0.3,
+     1.05
+    ],
+    [
+     27.13,
+     -27.13,
+     0.3,
+     1.05
+    ]
+   ],
    "targets": [
     "HazardFluid"
    ],
@@ -253,7 +399,14 @@
       "swirl": 0.0,
       "pulse_speed": 0.2,
       "pulse_amount": 0.18,
-      "glow_energy": 1.0
+      "glow_energy": 1.0,
+      "ripple": 1.0,
+      "drops": 0.0,
+      "ripple_color": [
+       0.92,
+       1.0,
+       0.7
+      ]
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -271,7 +424,14 @@
       "swirl": 0.03,
       "pulse_speed": 0.2,
       "pulse_amount": 0.18,
-      "glow_energy": 1.0
+      "glow_energy": 1.0,
+      "ripple": 1.0,
+      "drops": 1.0,
+      "ripple_color": [
+       0.92,
+       1.0,
+       0.7
+      ]
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -289,7 +449,14 @@
       "swirl": 0.03,
       "pulse_speed": 0.2,
       "pulse_amount": 0.18,
-      "glow_energy": 1.0
+      "glow_energy": 1.0,
+      "ripple": 1.0,
+      "drops": 1.0,
+      "ripple_color": [
+       0.92,
+       1.0,
+       0.7
+      ]
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -498,6 +665,92 @@
    "category": "surface_shader",
    "glb_contains": "static base colour + emissive texture",
    "godot_runtime": "ShaderMaterial liquid_surface.gdshader on target meshes (albedo from the GLB texture)",
+   "ripples": [
+    [
+     -48.42,
+     -131.0,
+     1.0,
+     2.3
+    ],
+    [
+     -22.0,
+     -140.0,
+     1.0,
+     0.77
+    ],
+    [
+     -47.93,
+     -160.0,
+     1.0,
+     0.86
+    ],
+    [
+     6.0,
+     -217.7,
+     1.0,
+     0.8
+    ],
+    [
+     28.0,
+     -166.0,
+     0.45,
+     4.1
+    ],
+    [
+     52.0,
+     -185.0,
+     0.45,
+     3.1
+    ],
+    [
+     28.0,
+     -182.0,
+     0.45,
+     3.6
+    ],
+    [
+     24.0,
+     -120.0,
+     0.45,
+     4.32
+    ],
+    [
+     -34.0,
+     -80.0,
+     0.45,
+     3.24
+    ],
+    [
+     -30.0,
+     -205.0,
+     0.45,
+     2.7
+    ],
+    [
+     -10.59,
+     -105.83,
+     0.3,
+     0.95
+    ],
+    [
+     -26.72,
+     -129.8,
+     0.3,
+     0.85
+    ],
+    [
+     -4.92,
+     -180.53,
+     0.3,
+     1.25
+    ],
+    [
+     44.17,
+     -156.56,
+     0.3,
+     1.15
+    ]
+   ],
    "targets": [
     "HazardFluid_2"
    ],
@@ -513,7 +766,14 @@
       "swirl": 0.0,
       "pulse_speed": 0.2,
       "pulse_amount": 0.18,
-      "glow_energy": 1.0
+      "glow_energy": 1.0,
+      "ripple": 1.0,
+      "drops": 0.0,
+      "ripple_color": [
+       0.92,
+       1.0,
+       0.7
+      ]
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -531,7 +791,14 @@
       "swirl": 0.03,
       "pulse_speed": 0.2,
       "pulse_amount": 0.18,
-      "glow_energy": 1.0
+      "glow_energy": 1.0,
+      "ripple": 1.0,
+      "drops": 1.0,
+      "ripple_color": [
+       0.92,
+       1.0,
+       0.7
+      ]
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -549,7 +816,14 @@
       "swirl": 0.03,
       "pulse_speed": 0.2,
       "pulse_amount": 0.18,
-      "glow_energy": 1.0
+      "glow_energy": 1.0,
+      "ripple": 1.0,
+      "drops": 1.0,
+      "ripple_color": [
+       0.92,
+       1.0,
+       0.7
+      ]
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -1198,10 +1472,10 @@
       "nozzles": 0.7
      },
      "cost_estimate": {
-      "max_particles": 431,
-      "emitters": 22,
+      "max_particles": 258,
+      "emitters": 16,
       "extra_draw_calls": 1,
-      "transparent_area_m2": 17.2
+      "transparent_area_m2": 10.3
      }
     },
     "balanced": {
@@ -1226,10 +1500,10 @@
       "nozzles": 0.7
      },
      "cost_estimate": {
-      "max_particles": 1010,
-      "emitters": 22,
+      "max_particles": 577,
+      "emitters": 16,
       "extra_draw_calls": 1,
-      "transparent_area_m2": 40.4
+      "transparent_area_m2": 23.1
      }
     },
     "quality": {
@@ -1254,10 +1528,10 @@
       "nozzles": 0.7
      },
      "cost_estimate": {
-      "max_particles": 1595,
-      "emitters": 22,
+      "max_particles": 914,
+      "emitters": 16,
       "extra_draw_calls": 1,
-      "transparent_area_m2": 63.8
+      "transparent_area_m2": 36.6
      }
     }
    },
@@ -1373,48 +1647,6 @@
      -182.0,
      10.47,
      3.0
-    ],
-    [
-     -30.0,
-     4.2,
-     -20.0,
-     18.4,
-     2.8
-    ],
-    [
-     -22.0,
-     4.2,
-     32.0,
-     17.47,
-     2.0
-    ],
-    [
-     30.0,
-     4.2,
-     -22.0,
-     18.4,
-     2.4
-    ],
-    [
-     24.0,
-     4.2,
-     -120.0,
-     18.4,
-     3.2
-    ],
-    [
-     -34.0,
-     4.2,
-     -80.0,
-     18.4,
-     2.4
-    ],
-    [
-     -30.0,
-     4.2,
-     -205.0,
-     18.4,
-     2.0
     ]
    ]
   },
@@ -1558,115 +1790,108 @@
    }
   },
   {
-   "id": "Tube_Barrels",
-   "type": "tube_travel",
-   "category": "translate_loop",
-   "glb_contains": "targets at rest, own nodes (mobile group)",
-   "godot_runtime": "script: node.position = rest + Vector3.UP * fmod(t * speed, spacing) - one shared loop for every target; things wrap out of sight (barrels shooting up the column bores, Stage 43)",
-   "targets": [
-    "Column_Hall_W_Barrel_1",
-    "Column_Hall_W_Barrel_1_Hoop_1",
-    "Column_Hall_W_Barrel_1_Hoop_2",
-    "Column_Hall_W_Barrel_1_Hoop_3",
-    "Column_Hall_W_Barrel_2",
-    "Column_Hall_W_Barrel_2_Hoop_1",
-    "Column_Hall_W_Barrel_2_Hoop_2",
-    "Column_Hall_W_Barrel_2_Hoop_3",
-    "Column_Hall_W_Barrel_3",
-    "Column_Hall_W_Barrel_3_Hoop_1",
-    "Column_Hall_W_Barrel_3_Hoop_2",
-    "Column_Hall_W_Barrel_3_Hoop_3",
-    "Column_Hall_W_Barrel_4",
-    "Column_Hall_W_Barrel_4_Hoop_1",
-    "Column_Hall_W_Barrel_4_Hoop_2",
-    "Column_Hall_W_Barrel_4_Hoop_3",
-    "Column_Hall_SW_Barrel_1",
-    "Column_Hall_SW_Barrel_1_Hoop_1",
-    "Column_Hall_SW_Barrel_1_Hoop_2",
-    "Column_Hall_SW_Barrel_1_Hoop_3",
-    "Column_Hall_SW_Barrel_2",
-    "Column_Hall_SW_Barrel_2_Hoop_1",
-    "Column_Hall_SW_Barrel_2_Hoop_2",
-    "Column_Hall_SW_Barrel_2_Hoop_3",
-    "Column_Hall_SW_Barrel_3",
-    "Column_Hall_SW_Barrel_3_Hoop_1",
-    "Column_Hall_SW_Barrel_3_Hoop_2",
-    "Column_Hall_SW_Barrel_3_Hoop_3",
-    "Column_Hall_SW_Barrel_4",
-    "Column_Hall_SW_Barrel_4_Hoop_1",
-    "Column_Hall_SW_Barrel_4_Hoop_2",
-    "Column_Hall_SW_Barrel_4_Hoop_3",
-    "Column_Hall_E_Barrel_1",
-    "Column_Hall_E_Barrel_1_Hoop_1",
-    "Column_Hall_E_Barrel_1_Hoop_2",
-    "Column_Hall_E_Barrel_1_Hoop_3",
-    "Column_Hall_E_Barrel_2",
-    "Column_Hall_E_Barrel_2_Hoop_1",
-    "Column_Hall_E_Barrel_2_Hoop_2",
-    "Column_Hall_E_Barrel_2_Hoop_3",
-    "Column_Hall_E_Barrel_3",
-    "Column_Hall_E_Barrel_3_Hoop_1",
-    "Column_Hall_E_Barrel_3_Hoop_2",
-    "Column_Hall_E_Barrel_3_Hoop_3",
-    "Column_Hall_E_Barrel_4",
-    "Column_Hall_E_Barrel_4_Hoop_1",
-    "Column_Hall_E_Barrel_4_Hoop_2",
-    "Column_Hall_E_Barrel_4_Hoop_3",
-    "Column_Works_Mid_Barrel_1",
-    "Column_Works_Mid_Barrel_1_Hoop_1",
-    "Column_Works_Mid_Barrel_1_Hoop_2",
-    "Column_Works_Mid_Barrel_1_Hoop_3",
-    "Column_Works_Mid_Barrel_2",
-    "Column_Works_Mid_Barrel_2_Hoop_1",
-    "Column_Works_Mid_Barrel_2_Hoop_2",
-    "Column_Works_Mid_Barrel_2_Hoop_3",
-    "Column_Works_Mid_Barrel_3",
-    "Column_Works_Mid_Barrel_3_Hoop_1",
-    "Column_Works_Mid_Barrel_3_Hoop_2",
-    "Column_Works_Mid_Barrel_3_Hoop_3",
-    "Column_Works_Mid_Barrel_4",
-    "Column_Works_Mid_Barrel_4_Hoop_1",
-    "Column_Works_Mid_Barrel_4_Hoop_2",
-    "Column_Works_Mid_Barrel_4_Hoop_3",
-    "Column_Works_SW_Barrel_1",
-    "Column_Works_SW_Barrel_1_Hoop_1",
-    "Column_Works_SW_Barrel_1_Hoop_2",
-    "Column_Works_SW_Barrel_1_Hoop_3",
-    "Column_Works_SW_Barrel_2",
-    "Column_Works_SW_Barrel_2_Hoop_1",
-    "Column_Works_SW_Barrel_2_Hoop_2",
-    "Column_Works_SW_Barrel_2_Hoop_3",
-    "Column_Works_SW_Barrel_3",
-    "Column_Works_SW_Barrel_3_Hoop_1",
-    "Column_Works_SW_Barrel_3_Hoop_2",
-    "Column_Works_SW_Barrel_3_Hoop_3",
-    "Column_Works_SW_Barrel_4",
-    "Column_Works_SW_Barrel_4_Hoop_1",
-    "Column_Works_SW_Barrel_4_Hoop_2",
-    "Column_Works_SW_Barrel_4_Hoop_3",
-    "Column_Works_NW_Barrel_1",
-    "Column_Works_NW_Barrel_1_Hoop_1",
-    "Column_Works_NW_Barrel_1_Hoop_2",
-    "Column_Works_NW_Barrel_1_Hoop_3",
-    "Column_Works_NW_Barrel_2",
-    "Column_Works_NW_Barrel_2_Hoop_1",
-    "Column_Works_NW_Barrel_2_Hoop_2",
-    "Column_Works_NW_Barrel_2_Hoop_3",
-    "Column_Works_NW_Barrel_3",
-    "Column_Works_NW_Barrel_3_Hoop_1",
-    "Column_Works_NW_Barrel_3_Hoop_2",
-    "Column_Works_NW_Barrel_3_Hoop_3",
-    "Column_Works_NW_Barrel_4",
-    "Column_Works_NW_Barrel_4_Hoop_1",
-    "Column_Works_NW_Barrel_4_Hoop_2",
-    "Column_Works_NW_Barrel_4_Hoop_3"
+   "id": "Tube_Pods",
+   "type": "tube_pods",
+   "category": "launch",
+   "glb_contains": "pods at rest (hidden), own nodes (mobile group per column)",
+   "godot_runtime": "script: for each launch entry, every target node: position = rest + UP * min(fmod(t + phase, period) * speed, travel) (waits hidden, shoots up, vanishes into the roof; own period / phase per entry)",
+   "launches": [
+    {
+     "group": "Column_Hall_W_Pod",
+     "period": 2.73,
+     "phase": 2.39,
+     "travel": 23.2,
+     "targets": [
+      "Column_Hall_W_Pod_Cap",
+      "Column_Hall_W_Pod_Shell",
+      "Column_Hall_W_Pod_Fluid",
+      "Column_Hall_W_Pod_Base",
+      "Column_Hall_W_Pod_Bar_1",
+      "Column_Hall_W_Pod_Bar_2",
+      "Column_Hall_W_Pod_Bar_3"
+     ]
+    },
+    {
+     "group": "Column_Hall_SW_Pod",
+     "period": 4.46,
+     "phase": 2.97,
+     "travel": 22.6,
+     "targets": [
+      "Column_Hall_SW_Pod_Cap",
+      "Column_Hall_SW_Pod_Shell",
+      "Column_Hall_SW_Pod_Fluid",
+      "Column_Hall_SW_Pod_Base",
+      "Column_Hall_SW_Pod_Bar_1",
+      "Column_Hall_SW_Pod_Bar_2",
+      "Column_Hall_SW_Pod_Bar_3"
+     ]
+    },
+    {
+     "group": "Column_Hall_E_Pod",
+     "period": 4.87,
+     "phase": 4.33,
+     "travel": 23.0,
+     "targets": [
+      "Column_Hall_E_Pod_Cap",
+      "Column_Hall_E_Pod_Shell",
+      "Column_Hall_E_Pod_Fluid",
+      "Column_Hall_E_Pod_Base",
+      "Column_Hall_E_Pod_Bar_1",
+      "Column_Hall_E_Pod_Bar_2",
+      "Column_Hall_E_Pod_Bar_3"
+     ]
+    },
+    {
+     "group": "Column_Works_Mid_Pod",
+     "period": 5.8,
+     "phase": 1.21,
+     "travel": 23.2,
+     "targets": [
+      "Column_Works_Mid_Pod_Cap",
+      "Column_Works_Mid_Pod_Shell",
+      "Column_Works_Mid_Pod_Fluid",
+      "Column_Works_Mid_Pod_Base",
+      "Column_Works_Mid_Pod_Bar_1",
+      "Column_Works_Mid_Pod_Bar_2",
+      "Column_Works_Mid_Pod_Bar_3"
+     ]
+    },
+    {
+     "group": "Column_Works_SW_Pod",
+     "period": 3.09,
+     "phase": 1.74,
+     "travel": 23.0,
+     "targets": [
+      "Column_Works_SW_Pod_Cap",
+      "Column_Works_SW_Pod_Shell",
+      "Column_Works_SW_Pod_Fluid",
+      "Column_Works_SW_Pod_Base",
+      "Column_Works_SW_Pod_Bar_1",
+      "Column_Works_SW_Pod_Bar_2",
+      "Column_Works_SW_Pod_Bar_3"
+     ]
+    },
+    {
+     "group": "Column_Works_NW_Pod",
+     "period": 2.93,
+     "phase": 2.2,
+     "travel": 22.6,
+     "targets": [
+      "Column_Works_NW_Pod_Cap",
+      "Column_Works_NW_Pod_Shell",
+      "Column_Works_NW_Pod_Fluid",
+      "Column_Works_NW_Pod_Base",
+      "Column_Works_NW_Pod_Bar_1",
+      "Column_Works_NW_Pod_Bar_2",
+      "Column_Works_NW_Pod_Bar_3"
+     ]
+    }
    ],
    "quality": {
     "performance": {
      "enabled": true,
      "params": {
-      "speed": 9.0,
-      "spacing": 7.0
+      "speed": 28.0
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -1677,8 +1902,7 @@
     "balanced": {
      "enabled": true,
      "params": {
-      "speed": 9.0,
-      "spacing": 7.0
+      "speed": 28.0
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -1689,8 +1913,7 @@
     "quality": {
      "enabled": true,
      "params": {
-      "speed": 9.0,
-      "spacing": 7.0
+      "speed": 28.0
      },
      "cost_estimate": {
       "max_particles": 0,

@@ -20,6 +20,7 @@ var _t: float = 0.0
 
 var _spins: Array = []  # [rotor node, rad/s]
 var _travel: Array = []  # [node, rest position, speed m/s, spacing m] (Stage 43: barrels up the column bores)
+var _launch: Array = []  # [node, rest position, speed, period, phase, travel] (Stage 49: pods shooting up the columns)
 
 
 func _ready() -> void:
@@ -65,6 +66,12 @@ func _ready() -> void:
 				_flyby(fx, p)
 			"environment":
 				_sky_speed = deg_to_rad(float(p.get("speed_deg_s", 0.0)))
+			"launch":  # Stage 49: each entry's nodes wait, shoot up `travel` m at `speed`, repeat every `period` s (own phase)
+				for l in fx.get("launches", []):
+					for n in l.get("targets", []):
+						var nd := level_root.find_child(String(n), true, false) as Node3D
+						if nd != null:
+							_launch.append([nd, nd.position, float(p["speed"]), float(l["period"]), float(l["phase"]), float(l["travel"])])
 			"translate_loop":  # Stage 43: move up by fmod(t * speed, spacing), all targets in step (wraps out of sight)
 				for n in fx.get("targets", []):
 					var nd := level_root.find_child(String(n), true, false) as Node3D
@@ -100,6 +107,15 @@ func _surface(fx: Dictionary, p: Dictionary) -> void:
 			sm.set_shader_parameter("swirl", p["swirl"])
 			sm.set_shader_parameter("pulse_speed", p["pulse_speed"])
 			sm.set_shader_parameter("pulse_amount", p["pulse_amount"])
+			var rp: Array = []  # Stage 49: ripple points [x, z, amplitude, radius]
+			for q in fx.get("ripples", []):
+				rp.append(Vector4(q[0], q[1], q[2], q[3]))
+			sm.set_shader_parameter("ripple_points", rp)
+			sm.set_shader_parameter("ripple_count", rp.size())
+			sm.set_shader_parameter("ripple", float(p.get("ripple", 1.0)))
+			sm.set_shader_parameter("drops", float(p.get("drops", 1.0)))
+			var rc: Array = p.get("ripple_color", [0.92, 1.0, 0.7])
+			sm.set_shader_parameter("ripple_color", Color(rc[0], rc[1], rc[2]))
 		else:
 			sm.set_shader_parameter("uv_speed", float(p["speed"]) / float(fx.get("material_tile_m", 2.0)))
 			sm.set_shader_parameter("wobble", p["wobble"])
@@ -426,6 +442,8 @@ func _process(delta: float) -> void:
 	_t += delta
 	for sp in _spins:
 		(sp[0] as Node3D).rotate_object_local(Vector3.UP, float(sp[1]) * delta)
+	for la in _launch:
+		(la[0] as Node3D).position = (la[1] as Vector3) + Vector3.UP * minf(fmod(_t + float(la[4]), float(la[3])) * float(la[2]), float(la[5]))
 	for tv in _travel:
 		(tv[0] as Node3D).position = (tv[1] as Vector3) + Vector3.UP * fmod(_t * float(tv[2]), float(tv[3]))
 	_update_flyers()
