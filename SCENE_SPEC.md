@@ -755,3 +755,13 @@ Building blocks usable without the preset:
 - A round / broken outlet pipe placed with "position" whose base sits on an arena or annex wall face (within 0.3 m,
   pointing into the room) now gets the same Stage 36 wall fitting as wall-side pipes (plate, bolts, hazard stripe, red
   light, collar) instead of the plain mount block - e.g. `W_Broken` in the works wing.
+
+## Stage 52: every screen its own, plus an easter egg
+- Screens are numbered per role (`screen`, `bigscreen`) and carry the number as a whole-number u shift of their UVs
+  (object key `uv_shift`; the texture repeats, so the picture is unchanged). `tv_static` reads it: each screen has its
+  own signal timing and length, roll speed, a slight tint, and quick brightness flickers at its own moments.
+- Role atlases may be a 2x2 `grid` ([[top-left, top-right], [bottom-left, bottom-right]] - material dicts or
+  {"image": repo path}) with cells a-d in the same texture size: the slime arena's TVs cycle three layouts (screen_ui
+  seeds 1-3) and its window screens alternate two broadcast and two specimen variants.
+- Role key `egg`: {"cell", "screen", "every", "len"} - that one screen now and then shows the atlas cell (here TV #2:
+  `references/tv_easter_egg.jpg`, the user's GIR picture, ~4 s every 40 s, breaking through the static).

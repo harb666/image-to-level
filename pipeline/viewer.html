@@ -236,13 +236,20 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
       fxUpd.push({reset(){mats.forEach((m,i)=>m.emissiveIntensity=b[i]);},u(t,dt){if(fx.type==='pulse_light')mats.forEach((m,i)=>m.emissiveIntensity=b[i]*(1+p.amount*Math.sin(6.2831*p.speed*t+p.phase)));
         else{nx-=dt;if(nx<=0){nx=1/p.rate;mats.forEach((m,i)=>m.emissiveIntensity=b[i]*(1-p.amount*Math.random()));}}}});}
     else if(fx.category==='material_shader'){const mats=[...new Set(Object.values(byName).map(o=>o.material).filter(m=>m&&(m.name===fx.target_material||m.name===fx.target_material+'__2s')))]; // Stage 26: tv_static (same maths as tv_static.gdshader)
-      const U={uT:{value:0}},ob=mats.map(m=>m.onBeforeCompile);mats.forEach(m=>{m.onBeforeCompile=sh=>{Object.assign(sh.uniforms,U,{uP1:{value:new THREE.Vector4(p.amount,p.grain,p.fps,p.seed)},uP2:{value:new THREE.Vector4(p.signal_every,p.signal_len,p.roll_speed,p.glow)}});
-        sh.fragmentShader='uniform float uT;uniform vec4 uP1,uP2;\nfloat tvHash(vec2 q){return fract(sin(dot(q,vec2(12.9898,78.233)))*43758.5453);}\n'+sh.fragmentShader.replace('#include <emissivemap_fragment>',`#include <emissivemap_fragment>
+      const U={uT:{value:0}},ob=mats.map(m=>m.onBeforeCompile);mats.forEach(m=>{m.onBeforeCompile=sh=>{Object.assign(sh.uniforms,U,{uP1:{value:new THREE.Vector4(p.amount,p.grain,p.fps,p.seed)},uP2:{value:new THREE.Vector4(p.signal_every,p.signal_len,p.roll_speed,p.glow)},
+          uEgg:{value:new THREE.Vector4(p.egg_id??-1,p.egg_every??45,p.egg_len??3.5,0)},uEggR:{value:new THREE.Vector4(...(p.egg_rect||[.5,.5,.5,.5]))}});
+        sh.fragmentShader='uniform float uT;uniform vec4 uP1,uP2,uEgg,uEggR;\nfloat tvHash(vec2 q){return fract(sin(dot(q,vec2(12.9898,78.233)))*43758.5453);}\n'+sh.fragmentShader.replace('#include <emissivemap_fragment>',`#include <emissivemap_fragment>
         #ifdef USE_MAP
-        {vec2 sUv=vMapUv;vec3 pic=texture2D(map,sUv).rgb;float f=mod(floor(uT*uP1.z),997.);vec2 cell=floor(sUv*vec2(uP1.y*3.,uP1.y));
-         float n=tvHash(cell+vec2(f*13.1,f*7.7)+uP1.w),ln=.75+.25*tvHash(vec2(cell.y,f+uP1.w)),ph=mod(uT+uP1.w*1.7,uP2.x);
-         float sig=smoothstep(0.,.25,ph)*(1.-smoothstep(uP2.y-.25,uP2.y,ph)),mm=uP1.x*(1.-.8*sig),bar=smoothstep(0.,.08,abs(fract(sUv.y+uT*uP2.z)-.5));
-         vec3 col=mix(pic,vec3(n*ln),mm)*mix(.65,1.,bar);diffuseColor.rgb=col*.15;totalEmissiveRadiance=col*uP2.w;}
+        {vec2 sUv=vMapUv;float id=floor(sUv.x),on=step(.5,id),hid=tvHash(vec2(id,3.7))*on;vec2 luv=vec2(sUv.x-id,sUv.y); // Stage 52: per-screen id (whole-number u shift)
+         float sd=uP1.w+id*7.31,ev=uP2.x*mix(1.,.55+.9*tvHash(vec2(id,1.3)),on),sl=uP2.y*mix(1.,.7+.6*tvHash(vec2(id,5.1)),on);
+         float egg=0.;if(abs(id-uEgg.x)<.5){float e=mod(uT+11.,uEgg.y);egg=smoothstep(0.,.3,e)*(1.-smoothstep(uEgg.z-.3,uEgg.z,e));}
+         vec3 tint=mix(vec3(1.),vec3(.8+.4*tvHash(vec2(id,9.)),.8+.4*tvHash(vec2(id,11.)),.8+.4*tvHash(vec2(id,13.))),.5*on);
+         vec3 pic=texture2D(map,sUv).rgb*mix(tint,vec3(1.),egg);if(egg>0.)pic=mix(pic,texture2D(map,uEggR.xy+fract(luv*2.)*uEggR.zw).rgb,egg);
+         float f=mod(floor(uT*uP1.z),997.);vec2 cell=floor(sUv*vec2(uP1.y*3.,uP1.y));
+         float n=tvHash(cell+vec2(f*13.1,f*7.7)+sd),ln=.75+.25*tvHash(vec2(cell.y,f+sd)),ph=mod(uT+sd*1.7,ev);
+         float sig=max(smoothstep(0.,.25,ph)*(1.-smoothstep(sl-.25,sl,ph)),egg*1.1),mm=uP1.x*(1.-.8*min(sig,1.)),bar=smoothstep(0.,.08,abs(fract(luv.y+uT*uP2.z*mix(1.,.6+.8*hid,on))-.5));
+         float fk=on*step(.965,tvHash(vec2(floor(uT*(6.+6.*hid)),id)));
+         vec3 col=mix(pic,vec3(n*ln),mm)*mix(.65,1.,bar)*(1.-.45*fk);diffuseColor.rgb=col*.15;totalEmissiveRadiance=col*uP2.w;}
         #endif`);};m.customProgramCacheKey=()=>'tvstatic'+fx.id;m.needsUpdate=true;});
       fxUpd.push({reset(){mats.forEach((m,i)=>{m.onBeforeCompile=ob[i];m.customProgramCacheKey=THREE.Material.prototype.customProgramCacheKey;m.needsUpdate=true;});},u(t){U.uT.value=t;}});}
     else if(fx.category==='tube_bubbles'){const T=fx.tubes||[];let rs=48;const rnd=()=>((rs=(rs*16807)%2147483647)/2147483647); // Stage 48: bubbles up the vat tubes (same maths as tube_bubbles.gdshader)

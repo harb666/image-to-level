@@ -153,6 +153,7 @@ def build(level_dir):
             if o["type"] == "panel": uv = (m.vertices[:, :2] - [-o["size"][0] / 2, 0]) / o["size"][:2]  # whole texture once
         reg = (mspec.get("atlas") or {}).get(o.get("uv_region") or ("banner" if o["type"] == "panel" else None))
         if reg: uv = np.asarray(reg[:2]) + np.asarray(uv) * (np.asarray(reg[2:]) - np.asarray(reg[:2]))  # atlas sub-rectangle
+        if o.get("uv_shift"): uv = np.asarray(uv, float) + [float(o["uv_shift"]), 0.0]  # Stage 52: whole-number u shift = same texels (repeat), an id the screen shader reads
         m.visual = trimesh.visual.TextureVisuals(uv=uv, material=mats[mk])
         if o["type"] != "boundary": tris += len(m.faces)
         gname = o["name"] if o["type"] not in ("panel", "cylinder") else f"{o['type']}_{mk}_{len(geoms)}"

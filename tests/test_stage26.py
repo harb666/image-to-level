@@ -26,7 +26,7 @@ class Static(unittest.TestCase):
         import effects
         self.assertEqual(effects.TYPES["tv_static"]["category"], "material_shader")
         sh = open(os.path.join(PIPE, "godot_fx", "tv_static.gdshader")).read()
-        for u in effects.TYPES["tv_static"]["defaults"]: self.assertIn(f"uniform float {u}", sh)
+        for u in effects.TYPES["tv_static"]["defaults"]: self.assertIn(f"uniform {'vec4' if u == 'egg_rect' else 'float'} {u}", sh)
         gd = open(os.path.join(PIPE, "godot_fx", "apply_effects.gd")).read(); self.assertIn('"material_shader"', gd); self.assertIn("tv_static.gdshader", gd)
         self.assertIn("material_shader", open(os.path.join(PIPE, "viewer.html")).read())
 

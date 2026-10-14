@@ -13,7 +13,7 @@ PBR kinds: industrial_metal, painted_metal, damaged_metal, scifi_floor, grating,
   snow, mud, asphalt ("lines": true = lane line), gravel, moss (Stage 9 terrain layers).  Legacy (stylised, albedo-derived normals): cobblestone,
   stone_brick, plaster, wood, painted_wood, trim_wood, door_wood, window, roof_tiles, roof_slate, metal, water, soil.
 """
-import io, numpy as np, trimesh
+import io, os, numpy as np, trimesh
 from PIL import Image
 from scipy import ndimage
 
@@ -923,9 +923,26 @@ def k_corrosion(S, rng, c, m):
                 _post=[(ys, xs, np.array([0.02, 0.035, 0.02]))])  # pits stay near-black after the toon pass
 
 
+def _atlas_cell(sub, S_w, S_h):
+    """One atlas cell (float RGB, S_h x S_w): a generated screen (material dict) or {"image": path} (repo-relative,
+    resized to the cell - e.g. the slime arena's TV easter egg)."""
+    if sub.get("image"):
+        path = sub["image"] if os.path.isabs(sub["image"]) else os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), sub["image"])
+        return np.asarray(Image.open(path).convert("RGB").resize((S_w, S_h), Image.LANCZOS), float) / 255.0
+    sub = dict(sub); S = max(S_w, S_h); sub["res"] = S
+    d = PBR[sub["type"]](S, np.random.default_rng(sum(map(ord, sub["type"])) + int(sub.get("seed", 0)) * 7919), np.array(sub.get("color", [1, 1, 1]), float), sub)
+    return np.asarray(Image.fromarray((np.clip(d["alb"], 0, 1) * 255).astype(np.uint8)).resize((S_w, S_h), Image.BILINEAR), float) / 255.0
+
+
 def k_screen_atlas(S, rng, c, m):
     """Two screens side by side in ONE texture (one material, one draw call): left = m["left"], right = m["right"]
-    (material dicts of screen_ui / bigscreen); objects choose a half with uv_region (atlas cells "a" / "b")."""
+    (material dicts of screen_ui / bigscreen); objects choose a half with uv_region (atlas cells "a" / "b").
+    Stage 52: m["grid"] = [[top-left, top-right], [bottom-left, bottom-right]] - four cells (S/2 x S/2) in the same
+    texture size, each a material dict or {"image": path}; pair it with atlas rects (UV v runs up: bottom row v 0..0.5)."""
+    if m.get("grid"):
+        G = m["grid"]; h, w = S // len(G), S // len(G[0])
+        alb = np.concatenate([np.concatenate([_atlas_cell(cell, w, h) for cell in row], 1) for row in G], 0)
+        return dict(alb=alb, h=np.zeros((S, S)), rough=np.full((S, S), 0.45), metal=0.0, emit=np.ones((S, S)), nstr=0.0)
     out, dflt = {}, {"left": {"type": "screen_ui", "seed": 1}, "right": {"type": "screen_ui", "seed": 2}}
     for k_ in ("left", "right"):
         sub = dict(m.get(k_) or dflt[k_]); sub["res"] = S; d = PBR[sub["type"]](S, np.random.default_rng(sum(map(ord, sub["type"])) + int(sub.get("seed", 0)) * 7919), np.array(sub.get("color", [1, 1, 1]), float), sub)

@@ -572,9 +572,10 @@ def _wall_varied(ctx, name, g, L, height, thick, base_y, dress, body="wall"):
             ctx.add(nm + "_Status", "box", [x + vw / 2 - 0.45, yy + vh - fw + 0.07, f + 0.31], [0.3, 0.16, 0.06], "glow", g, collision=False, outline=False, **st)
         elif m == "monitor":  # Stage 22-23: wall TV - moulded tv_body (casing texture: screws, vents, speaker grille, knobs, LED), glass screen, mount arms
             tw = min(sw * rng.uniform(0.5, 0.7), rng.uniform(3.2, 5.2)); th = tw * 0.74; yy = fy + rng.uniform(1.4, 2.6); scr = "a" if rng.random() < 0.5 else "b"  # which of the two layouts
+            scr, sid = screen_slot(ctx, "screen", scr)  # Stage 52: own picture variant + id (flicker timing / easter egg)
             bf, cf, depth, stand = 0.07, 0.2, 0.9, 0.35; W_ = tw / (1 - 2 * bf); H_ = W_ * 0.8; th = H_ * (1 - cf - bf * 1.33) * 0.98; y0 = yy - H_ * cf
             ctx.add(nm + "_Body", "tv_body", [x, y0, f + stand], [W_, H_, depth], "tv_casing", g, border=bf, chin=cf, **st)
-            ctx.add(nm + "_Screen", "panel", [x, yy + H_ * 0.003, f + stand + depth - 0.12 + 0.02], [W_ * (1 - 2 * bf) * 0.995, th, 0], "screen", g, uv_region=scr, collision=False, outline=False, **st)
+            ctx.add(nm + "_Screen", "panel", [x, yy + H_ * 0.003, f + stand + depth - 0.12 + 0.02], [W_ * (1 - 2 * bf) * 0.995, th, 0], "screen", g, uv_region=scr, uv_shift=sid, collision=False, outline=False, **st)
             for k_ in (-1, 1): ctx.add(f"{nm}_Arm_{k_ + 1}", "box", [x + k_ * W_ * 0.2, y0 + H_ * 0.45, f + 0.0], [0.25, 0.3, stand + 0.1], "frame", g, collision=False, outline=False, **st)
             ctx.add(nm + "_Cable", "cylinder", [x - W_ * 0.28, y0 + H_ * 0.85, f + 0.15], [0.24, max(0.5, min(3.5, height - (y0 + H_ * 0.85) - 0.5)), 0.24], "frame", g, sections=6, collision=False, outline=False, **st)
         elif m == "door":
@@ -663,8 +664,9 @@ def arena(ctx, a, floor_y, pre=""):
                         mx_, mz_ = (m0[0] + m1[0]) / 2, (m0[1] + m1[1]) / 2; yaw_ = yaw_to(ux, uz) - 90; ox_, oz_ = -nx * (t / 2 + 0.04), -nz * (t / 2 + 0.04)  # room side
                         y0_, hh_ = op["sill"] + 0.25, (op.get("height") or W["height"]) - op["sill"] - 0.5
                         ctx.add(tag + "_Back", "box", [mx_, y0_, mz_], [op["width"] - 0.1, hh_, t - 0.04], "frame", None, [0, yaw_, 0], collision=True, outline=False, mobile={"static": True})
+                        reg_, sid_ = screen_slot(ctx, "bigscreen", "a" if op["fill"] == "screen" else "b")  # Stage 52: variant + id
                         ctx.add(tag + "_Screen", "panel", [mx_ + ox_, y0_, mz_ + oz_], [op["width"] - 0.4, hh_, 0], "bigscreen", None, [0, yaw_, 0],
-                                uv_region="a" if op["fill"] == "screen" else "b", collision=False, outline=False, mobile={"static": True})
+                                uv_region=reg_, uv_shift=sid_, collision=False, outline=False, mobile={"static": True})
                         ctx.add(tag + "_SillLight", "box", [mx_ - nx * (t / 2 + 0.24), op["sill"] + 0.16, mz_ - nz * (t / 2 + 0.24)], [op["width"] * 0.6, 0.18, 0.12], "glow", None, [0, yaw_, 0], collision=False, outline=False, mobile={"static": True})
             segs, u = [], 0.0
             for h0, h1 in cuts + [(SL, SL)]:
@@ -1279,6 +1281,20 @@ def wall_fitting(ctx, n, P, d, r, corner=False):
     ctx.add(n + "_Stripe", "box", [px + dx * 0.29, y + S / 2 - 0.42, pz + dz * 0.29], [S - 1.0, 0.24, 0.06], "stripe", None, [0, yaw, 0], outline=False, **st)
     ctx.add(n + "_Light", "box", [px + ux * (S / 2 - 0.3) + dx * 0.29, y - S / 2 + 0.3, pz + uz * (S / 2 - 0.3) + dz * 0.29], [0.26, 0.16, 0.06], "glow", None, [0, yaw, 0],
             outline=False, **st)
+
+
+def screen_slot(ctx, role, base):
+    """Stage 52: (atlas cell, id) for the next screen of `role`. Screens are numbered 1, 2, 3 ... per role; the id goes
+    into the panel's UVs as a whole-number u shift (same texels - the texture repeats) so the screen shader can tell
+    screens apart (own flicker timing / tint, the easter egg). With a 2x2 atlas (cells a-d) the picture varies too:
+    TVs cycle a, b, c (d is reserved for the easter egg when "egg" is set); window fills alternate a/c (broadcast)
+    and b/d (specimen)."""
+    n = getattr(ctx, "screen_ids", {}); n[role] = n.get(role, 0) + 1; ctx.screen_ids = n; i = n[role]
+    R = (ctx.spec.get("materials", {}).get("roles", {}).get(role) or {}); atl = R.get("atlas") or {}
+    if not {"c", "d"} <= set(atl): return base, i
+    if role == "screen": return ("a", "b", "c")[(i - 1) % 3] if R.get("egg") else ("a", "b", "c", "d")[(i - 1) % 4], i
+    k = n.get(role + base, 0) + 1; n[role + base] = k  # alternate the two variants of each kind
+    return {"a": ("a", "c"), "b": ("b", "d")}.get(base, (base, base))[(k - 1) % 2], i
 
 
 def _wall_at(ctx, px, py, pz, d=None):

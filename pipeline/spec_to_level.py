@@ -262,8 +262,13 @@ def _effects(spec, ctx, plats, env, glow):
         SC = spec.get("screens") or {}
         for i, sm in enumerate(sorted(r for r in ctx.roles if r in ("screen", "bigscreen"))):  # Stage 23: live screens flicker a little (CRT feel)
             if SC.get("static", 0.85) > 0:  # Stage 26: TV static (snow) over the picture, the picture breaks through now and then
+                R_ = (spec.get("materials", {}).get("roles", {}).get(sm) or {}); eg = R_.get("egg") or {}; atl = R_.get("atlas") or {}
+                egg = {}
+                if eg and eg.get("cell") in atl:  # Stage 52: easter egg - atlas cell in glTF UV space (v from the top): x, y, w, h
+                    u0, v0, u1, v1 = atl[eg["cell"]]; egg = dict(egg_id=float(eg.get("screen", 1)), egg_rect=[u0, round(1 - v1, 4), round(u1 - u0, 4), round(v1 - v0, 4)],
+                                                                 egg_every=float(eg.get("every", 45)), egg_len=float(eg.get("len", 3.5)))
                 out.append(dict(id=f"Screen_Static_{sm}", type="tv_static", target_material=sm, amount=SC.get("static", 0.85), seed=float(i * 2.3),
-                                **{k: SC[k] for k in ("signal_every", "signal_len") if k in SC}))
+                                **{k: SC[k] for k in ("signal_every", "signal_len") if k in SC}, **egg))
             else: out.append(dict(id=f"Screen_Flicker_{sm}", type="flicker", target_material=sm, rate=5, amount=0.12))
         if "glow" in ctx.roles: out.append(dict(id="Glow_Pulse", type="pulse_light", target_material="glow", speed=0.9, amount=0.4))
         if "trim" in ctx.roles and A.role_material(spec.get("theme", "industrial"), "trim").get("emissive"): out.append(dict(id="Trim_Pulse", type="pulse_light", target_material="trim", speed=0.35, amount=0.35))

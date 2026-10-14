@@ -193,3 +193,19 @@ class Stage50(unittest.TestCase):
             for n in solid:
                 a, b = B[n]; self.assertTrue((np.minimum(hi, b) - np.maximum(lo, a) <= 0.01).any(), (d, n))
             self.assertTrue([n for n in B if n.startswith(d + "_Hanger_")], d)
+
+
+class Stage52(unittest.TestCase):
+    def test_screens_differ_and_easter_egg(self):
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json")))
+        for role in ("screen", "bigscreen"):
+            sc = [o for o in L["objects"] if o.get("material") == role]
+            ids = [o.get("uv_shift") for o in sc]
+            self.assertTrue(sc and all(ids) and len(set(ids)) == len(ids), role)  # every screen its own id
+            self.assertGreaterEqual(len({o["uv_region"] for o in sc}), 3, role)  # several picture variants
+        tvs = {o["uv_shift"]: o for o in L["objects"] if o.get("material") == "screen"}
+        self.assertFalse([o for o in tvs.values() if o["uv_region"] == "d"])  # the egg cell is never a TV's normal picture
+        E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "effects_mobile.json")))
+        p = [e for e in E["effects"] if e["type"] == "tv_static" and e["target_material"] == "screen"][0]["quality"]["balanced"]["params"]
+        self.assertIn(int(p["egg_id"]), tvs); self.assertEqual(p["egg_rect"], [0.5, 0.5, 0.5, 0.5])
+        self.assertTrue(os.path.exists(os.path.join(ROOT, "levels", "slime_arena", "references", "tv_easter_egg.jpg")))
