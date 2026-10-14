@@ -411,8 +411,19 @@ def connection(ctx, c, A, B, floor_y):
         g = ctx.add(c["id"], "group", [ctr[0], 0, ctr[1]], rot=[0, yaw, 0])
         # box base-centred; rotating about its base centre: lift by t*cos so the TOP surface passes through the end points
         deck = ctx.add(c["id"] + "_Deck", "box", [0, ym - t * math.cos(math.radians(pitch)), t * math.sin(math.radians(pitch))], [width, t, Ls], "grate", g, [-pitch, 0, 0], connector=True, axis="z")
+        cp, sp_ = math.cos(math.radians(pitch)), math.sin(math.radians(pitch))
+        def on_slope(x, z, down, h):  # base centre of a pitched box whose top centre sits `down` m (along the deck normal) under the deck top above (x, z)
+            yt = ym + z * math.tan(math.radians(pitch)) - down / cp; return [x, yt - h * cp, z + h * sp_]
         for s, side in ((-1, "L"), (1, "R")):
             ctx.add(f"{c['id']}_Beam_{side}", "box", [s * (width / 2 - 0.3), ym - 0.86, 0], [0.3, 0.45, Ls * 0.9], "frame", g, [-pitch, 0, 0])
+            # Stage 46: hull cladding over the deck edge and girder (top 3 cm under the walking surface; hides the
+            # girder ends - no V-notch at the floors; stops 25 cm short of the low end, clear of its landing), a red light strip along it
+            ctx.add(f"{c['id']}_Clad_{side}", "box", on_slope(s * (width / 2 + 0.03), 0.125 * cp, 0.03, 0.95), [0.12, 0.95, Ls - 0.29], "structure_b", g, [-pitch, 0, 0], collision=False)
+            ctx.add(f"{c['id']}_CladLight_{side}", "box", on_slope(s * (width / 2 + 0.105), 0, 0.3, 0.11), [0.05, 0.11, max(0.5, Ls - 1.6)], "glow", g, [-pitch, 0, 0],
+                    collision=False, outline=False)
+        # hazard-stripe thresholds: a flat caution mat on the lower floor at the ramp's foot, a plate on the deck at its top
+        ctx.add(f"{c['id']}_Threshold_Lo", "box", [0, lo["top"] + 0.01, -Lh / 2 + ext - 0.45], [width - 0.5, 0.03, 0.8], "stripe", g, collision=False, outline=False)
+        ctx.add(f"{c['id']}_Threshold_Hi", "box", on_slope(0, Lh / 2 - 0.55, -0.04, 0.03), [width - 0.5, 0.03, 0.8], "stripe", g, [-pitch, 0, 0], collision=False, outline=False)
         if c.get("rails"):  # posts on the sloped deck top (it passes through (-Lh/2, y0) and (+Lh/2, hi top)), from where it leaves the lower floor
             _rails(ctx, c["id"], g, width, -Lh / 2 + ext + 0.3, Lh / 2 - 0.3, lambda z, y0=y0, Lh=Lh, yh=hi["top"]: y0 + (z + Lh / 2) / Lh * (yh - y0))
         if ym - floor_y > 1.5:

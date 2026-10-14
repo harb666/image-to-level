@@ -711,3 +711,9 @@ Building blocks usable without the preset:
 - The single support under an elevated `ramp` connection (sloped bridge) is now the Stage 37 `pier` (footing, ribbed
   hull column, flared head, red light) instead of a plain block; its head is tilted to the deck's pitch and sits 6 cm
   inside the deck. The pier stands min(1.2 m, 15 % of the run) toward the high end, clear of the low landing.
+
+## Stage 46: finished-looking sloped bridges and ramps
+- Elevated `ramp` connections get hull cladding (`structure_b`) along both deck edges, top 3 cm under the walking
+  surface and deep enough to hide the girders (no V-notch where the slope meets a floor), with a red `glow` strip along
+  it; hazard-stripe (`stripe`) plates mark the top of the ramp and a flat caution mat lies on the lower floor at its
+  foot. All visual only (no collision); landings stay clear.

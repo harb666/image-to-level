@@ -149,3 +149,13 @@ class Stage43(unittest.TestCase):
         E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "effects_mobile.json")))
         fx = [e for e in E["effects"] if e["type"] == "tube_travel"]
         self.assertEqual(fx[0]["category"], "translate_loop"); self.assertTrue(all(t.startswith("Tube_Barrels__") for t in fx[0]["targets"]))
+
+
+class Stage46(unittest.TestCase):
+    def test_sloped_bridges_dressed(self):
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        decks = [n[:-5] for n, o in by.items() if n.endswith("_Deck") and abs((o.get("rotation") or [0])[0]) > 1]
+        self.assertTrue(decks)
+        for d in decks:
+            for k in ("_Clad_L", "_Clad_R", "_CladLight_L", "_Threshold_Lo", "_Threshold_Hi", "_Support_Head", "_Support_Footing"): self.assertIn(d + k, by)
+            self.assertEqual(by[d + "_Threshold_Hi"]["material"], "stripe")
