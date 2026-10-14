@@ -1229,7 +1229,7 @@ def pipe(ctx, p, floor_y, arena_spec):
             fl = L - 0.47  # flange ends 2 cm behind the mouth: no coplanar end discs
             if out_t == "vertical": ctx.add(n + "_Flange", "cylinder", [x, y - fl, z], [2 * r * 1.25, 0.45, 2 * r * 1.25], "frame", rot=[180, 0, 0], sections=10)
             else: ctx.add(n + "_Flange", "cylinder", [x + dx * fl, y, z + dz * fl], [2 * r * 1.25, 0.45, 2 * r * 1.25], "frame", rot=[90, yaw, 0], sections=10)
-        if ctx.detail >= 1 and out_t != "vertical" and embed == 0.0 and not on_face:  # free-standing pipe: wall plate (arena pipes are embedded in the wall)
+        if ctx.detail >= 1 and out_t != "vertical" and embed == 0.0 and not on_face and p.get("mount", True):  # free-standing pipe: wall plate (arena pipes are embedded in the wall)
             ctx.add(n + "_Mount", "box", [x + dx * 0.3, y - r * 1.3, z + dz * 0.3], [r * 2.6, r * 2.6, 0.6], "frame", rot=[0, yaw, 0])
         sec, sw, sd, anchor = "circle", 2 * r * 0.86, 2 * r * 0.86, "outlet"
         pitch = -90 if out_t == "vertical" else (-20 if out_t == "broken" else 0); speed = 0 if out_t == "vertical" else (0.8 if out_t == "broken" else round(1.2 + 0.5 * r, 2))

@@ -447,9 +447,55 @@ def rock_face(ctx, s, x, y, z, yaw):
     of different heights and depths, buried in the slime. Visual only."""
     n = s["id"]; (ax, az), (bx, bz) = s["from"], s["to"]; L = math.hypot(bx - ax, bz - az); H = float(s.get("height", 20)); D = float(s.get("depth", 5))
     import random as _r
-    rg = _r.Random(n); g = ctx.add(n, "group", [x, 0, z], rot=[0, yaw - 90, 0]); u = -L / 2; k = 0
+    rg = _r.Random(n); g = ctx.add(n, "group", [x, 0, z], rot=[0, yaw - 90, 0]); u = -L / 2; k = 0; slabs = []
     while u < L / 2 - 1:
         k += 1; sw = min(rg.uniform(8, 16), L / 2 - u); hh = H * rg.uniform(0.6, 1.0); dd = D * rg.uniform(0.6, 1.0)
         ctx.add(f"{n}_Slab_{k:02d}", "cliff", [u + sw / 2, 0, 0], [sw + 1.5, hh, dd], s.get("material", "rock"), g, seed=rg.randrange(1 << 20), step=3.5,
                 collision=False, mobile={"static": True})
-        u += sw
+        slabs.append((u, u + sw, dd, hh)); u += sw
+    if s.get("industrial"): _rock_industry(ctx, s, n, g, x, z, yaw - 90, L, H, D, slabs, rg)
+
+
+def _rock_industry(ctx, s, n, g, x, z, gy, L, H, D, slabs, rg):
+    """Stage 56 (user reference): the factory dug into the rock. Taller pointed spires in front of the slabs; slime
+    trickling out of small pipe spouts set into the rock (real pours: streams, splashes, ripples); metal ledges on
+    brackets with red light slits; two glass tube tanks (bubbling slime, red band, cap, elbow pipe into the rock)
+    standing in the pool. Local frame of the rock group: x along the face, +z towards the room."""
+    from architecture import pipe as _pipe, local as _loc
+    st = dict(mobile={"static": True}); mat = s.get("material", "rock")
+    front = lambda u_: next((dd / 2 for a, b, dd, _ in slabs if a <= u_ <= b), D / 2)
+    top = lambda u_: next((hh for a, b, _, hh in slabs if a <= u_ <= b), H)
+    used = []
+    def pick(margin, lo=-L / 2 + 3, hi=L / 2 - 3):
+        for _ in range(40):
+            u_ = rg.uniform(lo, hi)
+            if all(abs(u_ - v) > margin for v in used): used.append(u_); return u_
+        return None
+    for i in range(int(s.get("spires", 4))):  # pointed spires a little in front of the slabs
+        u_ = rg.uniform(-L / 2 + 3, L / 2 - 3); sd = D * rg.uniform(0.35, 0.5)
+        ctx.add(f"{n}_Spire_{i + 1}", "cliff", [u_, 0, front(u_) - sd / 2 + rg.uniform(0.4, 1.0)], [rg.uniform(3.0, 5.5), H * rg.uniform(0.95, 1.15), sd], mat, g,
+                seed=rg.randrange(1 << 20), step=2.5, collision=False, **st)
+    for i in range(int(s.get("tanks", 2))):  # glass tube tanks standing in the pool, piped into the rock
+        u_ = pick(5.0)
+        if u_ is None: break
+        tg = ctx.add(f"{n}_Tank{i + 1}", "group", [u_, 0, front(u_) + 2.2], parent=g)
+        ctx.add(f"{n}_Tank{i + 1}_Plinth", "cylinder", [0, -0.5, 0], [2.2, 3.0, 2.2], "frame", tg, sections=8, **st)
+        for j, y0 in enumerate((2.4, 6.2)):
+            ctx.add(f"{n}_Tank{i + 1}_Glass_{j + 1}", "cylinder", [0, y0, 0], [1.6, 3.2, 1.6], "glass", tg, sections=8, collision=True, double_sided=True, tube=True, outline=False, **st)
+        ctx.add(f"{n}_Tank{i + 1}_Band", "cylinder", [0, 5.5, 0], [2.0, 0.8, 2.0], "trim", tg, sections=8, collision=False, **st)
+        ctx.add(f"{n}_Tank{i + 1}_Cap", "cylinder", [0, 9.3, 0], [2.1, 0.9, 2.1], "frame", tg, sections=8, collision=False, **st)
+        ctx.add(f"{n}_Tank{i + 1}_Elbow", "cylinder", [0, 9.75, 0], [0.7, 4.2, 0.7], "pipe", tg, [-90, 0, 0], sections=8, collision=False, **st)  # back into the rock
+    for i in range(int(s.get("ledges", 3))):  # metal ledges on brackets, red light slit along the front
+        u_ = pick(3.5)
+        if u_ is None: break
+        f_ = front(u_); y_ = rg.uniform(6.0, min(13.0, top(u_) - 4.0))
+        ctx.add(f"{n}_Ledge_{i + 1}", "box", [u_, y_, f_ + 0.5], [3.6, 0.35, 2.4], "frame", g, collision=False, **st)
+        ctx.add(f"{n}_Ledge_{i + 1}_Light", "box", [u_, y_ + 0.09, f_ + 1.72], [2.6, 0.16, 0.06], "glow", g, collision=False, outline=False, **st)
+        for k_, sd_ in enumerate((-1, 1)):
+            ctx.add(f"{n}_Ledge_{i + 1}_Bracket_{k_ + 1}", "box", [u_ + sd_ * 1.4, y_ - 1.37, f_ + 0.2], [0.3, 1.4, 1.6], "frame", g, collision=False, outline=False, **st)
+    for i in range(int(s.get("spouts", 5))):  # slime trickling out of pipe spouts set into the rock (real pours)
+        u_ = pick(2.5)
+        if u_ is None: break
+        f_ = front(u_); y_ = round(rg.uniform(3.5, min(14.0, top(u_) - 3.0)), 2); bx, bz = _loc(u_, f_ - 1.2, gy); nx, nz = _loc(0, 1, gy)
+        _pipe(ctx, dict(id=f"{n}_Spout_{i + 1}", position=[round(x + bx, 3), y_, round(z + bz, 3)], yaw=round(math.degrees(math.atan2(nx, nz)), 2), outlet="circle",
+                        radius=round(rg.uniform(0.3, 0.45), 2), length=2.4, pour=True, fitting=False, mount=False), getattr(ctx, "floor_y", 0.0), {})  # base buried in the rock

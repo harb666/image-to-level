@@ -777,3 +777,12 @@ Building blocks usable without the preset:
 ## Stage 55: no maintenance scaffolding
 - `Maint_Lattice` (the 24 m lattice tower of posts, rings, cross braces, ladder and lift cage in the maintenance zone)
   is removed from the slime arena spec; it was decoration only (no route used it). The `lattice` module stays.
+
+## Stage 56: the factory dug into glowing rock (user reference)
+- `rock_face` with `"industrial": true`: pointed spires in front of the slabs (`spires`, 4), slime trickling from pipe
+  spouts set into the rock (`spouts` - real pours: streams, splashes, steam and pool ripples; no mount block), metal
+  ledges on brackets with red light slits (`ledges`, 3), and glass tube tanks standing in the pool with bubbling slime,
+  a red band, a cap and an elbow pipe back into the rock (`tanks`, 2).
+- Rock material `veins`: [r, g, b] paints a few long wandering cracks that glow (emissive, kept crisp through the toon
+  pass, the rock lit green round them); `vein_width`, `vein_share`. Slime arena role `rock_veined` (256 px).
+- Pipes accept `"mount": false` (no mount block when the base is buried).

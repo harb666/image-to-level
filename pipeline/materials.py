@@ -292,7 +292,15 @@ def k_rock(S, rng, c, m):
     crack = (np.abs(_noise(rng, 5, 2, S) - 0.5) < 0.006).astype(float)
     h = facet * np.clip(e * 3, 0, 1) ** 0.5 + 0.35 * n + 0.1 * strata - 0.4 * crack
     alb = c[None, None] * ((rng.uniform(0.85, 1.12, 14)[cid][..., None] * rng.uniform(0.96, 1.04, (14, 3))[cid]) * (0.65 + 0.45 * np.clip(h, 0, 1))[..., None]) * (1 - 0.5 * crack)[..., None]
-    return dict(alb=alb, h=h, rough=0.88 + 0.1 * n, metal=0.0, nstr=1.8)
+    d = dict(alb=alb, h=h, rough=0.88 + 0.1 * n, metal=0.0, nstr=1.8)
+    if m.get("veins"):  # Stage 56: glowing slime veins - a few long wandering cracks, emissive, crisp through the toon pass
+        vn = _noise(rng, 2, 2, S); w = float(m.get("vein_width", 0.006))
+        mask = ndimage.binary_dilation(np.abs(vn - 0.5) < w, iterations=max(1, S // 256))
+        lab, nl = ndimage.label(mask); keep = rng.random(nl + 1) < float(m.get("vein_share", 0.55)); keep[0] = False; mask = keep[lab]  # only some of the cracks glow
+        vc = np.array(m["veins"], float); glow_ = ndimage.gaussian_filter(mask.astype(float), S / 128)
+        d["alb"] = alb * (1 - 0.35 * glow_[..., None]) + vc[None, None] * 0.3 * glow_[..., None]  # rock lit green round the veins
+        d["alb"][mask] = vc; d["emit"] = np.clip(mask + 0.35 * glow_, 0, 1); ys, xs = np.nonzero(mask); d["_post"] = [(ys, xs, vc)]
+    return d
 
 
 def k_sand(S, rng, c, m):

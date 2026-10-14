@@ -174,7 +174,7 @@ class Stage48(unittest.TestCase):
         self.assertFalse([n for n in by if n.startswith(("Pipe_NE", "Pipe_SW"))])
         E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "effects_mobile.json")))
         fx = [e for e in E["effects"] if e["type"] == "tube_bubbles"]
-        self.assertEqual(len(fx), 1); self.assertEqual(len(fx[0]["tubes"]), 16)  # vats only (Stage 49: no bubbles in the columns)
+        self.assertEqual(len(fx), 1); self.assertEqual(len(fx[0]["tubes"]), 18)  # 16 vats + the 2 rock-face tanks (Stage 56); none in the columns (Stage 49)
         self.assertFalse([e for e in E["effects"] if e["type"] == "tube_blobs"])
 
 
@@ -209,3 +209,15 @@ class Stage52(unittest.TestCase):
         p = [e for e in E["effects"] if e["type"] == "tv_static" and e["target_material"] == "screen"][0]["quality"]["balanced"]["params"]
         self.assertIn(int(p["egg_id"]), tvs); self.assertEqual(p["egg_rect"], [0.5, 0.5, 0.5, 0.5])
         self.assertTrue(os.path.exists(os.path.join(ROOT, "levels", "slime_arena", "references", "tv_easter_egg.jpg")))
+
+
+class Stage56(unittest.TestCase):
+    def test_industrial_rock_face(self):
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        self.assertTrue(L["materials"]["rock_veined"].get("veins"))
+        self.assertTrue(all(o["material"] == "rock_veined" for n, o in by.items() if n.startswith("Rock_West_S") and o["type"] == "cliff"))
+        for k in ("Rock_West_Spire_1", "Rock_West_Tank1_Glass_1", "Rock_West_Tank2_Elbow", "Rock_West_Ledge_1_Light", "Rock_West_Spout_1_Fall"): self.assertIn(k, by)
+        E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "effects.json")))
+        hz = [e for e in E["effects"] if e["id"] == "Hazard_Surface_2"][0]
+        self.assertGreaterEqual(sum(1 for q in hz["ripples"] if q[2] == 1.0), 4)  # the spouts' falls ripple the pool
+        bub = [e for e in E["effects"] if e["type"] == "tube_bubbles"][0]; self.assertEqual(len(bub["tubes"]), 18)  # 16 vats + 2 rock tanks
