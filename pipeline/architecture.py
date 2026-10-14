@@ -803,8 +803,9 @@ def dress_ceilings(ctx):
                     placed += 1; nm = f"{n}Pod_{placed:02d}"
                     ctx.add(nm + "_Cable", "box", [x, bot + h, z], [0.1, ry - bot - h + 0.05, 0.1], "frame", None, outline=False, **vis)  # from the rail
                     ctx.add(nm + "_Cap", "cylinder", [x, bot + h - 0.1, z], [2 * r + 0.3, 0.45, 2 * r + 0.3], "structure_b", None, sections=6, **vis)
-                    ctx.add(nm, "cylinder", [x, bot + 0.25, z], [2 * r, h - 0.35, 2 * r], "fall" if "fall" in ctx.spec.get("materials", {}).get("roles", {}) else "glow", None,
-                            sections=6, outline=False, **vis)
+                    ctx.add(nm, "cylinder", [x, bot + 0.25, z], [2 * r, h - 0.35, 2 * r], ctx.role("glass"), None, sections=6, outline=False, **vis)  # see-through shell (Stage 33)
+                    ctx.add(nm + "_Core", "cylinder", [x, bot + 0.27, z], [r * 0.9, h - 0.33, r * 0.9],  # base to cap (attached at both ends)
+                            "fall" if "fall" in ctx.spec.get("materials", {}).get("roles", {}) else "glow", None, sections=6, outline=False, **vis)  # glowing core inside
                     ctx.add(nm + "_Base", "cylinder", [x, bot, z], [2 * r + 0.2, 0.3, 2 * r + 0.2], "structure_b", None, sections=6, outline=False, **vis)
                     for b in range(2): ctx.add(f"{nm}_Bar_{b + 1}", "box", [x, bot + 0.2, z], [2 * r + 0.25, h - 0.3, 0.14], "frame", None, [0, 90 * b + 45, 0], outline=False, **vis)  # cage
         for i in range(int(area / 1400)):  # ---- sagging cable runs (4 segments)

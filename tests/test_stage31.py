@@ -53,3 +53,15 @@ class LampRails(unittest.TestCase):
         tops = [o["position"][1] for o in L["objects"] if re.search(r"Ceil_LampRail_\d+$", o["name"])]
         for p in pods:  # every cable ends at a lamp rail's underside
             c = by[p["name"] + "_Cable"]; self.assertTrue(any(abs(c["position"][1] + c["size"][1] - 0.05 - t) < 0.02 for t in tops), p["name"])
+
+
+class Stage33(unittest.TestCase):
+    def test_arm_claw_and_glass_pods(self):
+        L = json.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "levels", "slime_arena", "level.json")))
+        by = {o["name"]: o for o in L["objects"]}
+        for part in ("_Shoulder_Disc", "_Elbow_Disc", "_Spike", "_Wrist", "_Finger_1_Tip", "_Hose_1_1", "_Link1_Strip_0"):
+            self.assertIn("Arm_1" + part, by)
+        self.assertEqual(by["Arm_1_Link1"]["type"], "frustum")
+        self.assertIn("Claw_1_Finger_3_Tip", by); self.assertNotIn("Claw_1_Prong_1", by)
+        pods = [o for o in L["objects"] if o["name"].endswith("Pod_01")]
+        self.assertTrue(pods and all(o["material"] == "glass" and o["name"] + "_Core" in by for o in pods))

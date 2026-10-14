@@ -628,3 +628,10 @@ Building blocks usable without the preset:
 - Stage 32: varied-ceiling cage lamps hang in rows from lamp rails (I-beams 3 m under the roof on rods, kept clear of
   crane runways and the lift shaft), never straight from the ceiling panels. `ceiling.pods` scales the count per room
   (Slime Arena: 1.6 in the hall, 0.35 in the Works wing).
+
+## Stage 33: robot arms from the user's reference, glass lamp pods
+- `robot_arm`: tapered octagonal base and turret, shoulder / elbow axles with glowing red discs, tapered angular links
+  with red light strips on both sides, a spike on the back of the elbow, two sagging hoses, a tapered six-sided wrist
+  housing with a red diamond light and side strips, and a three-finger claw (`claw_fingers`: upper segment angled out,
+  tapered tip curling in, red inlays). Ceiling `claw`s get the same head (hoist housing + collar + fingers).
+- Cage lamp pods: see-through `glass` shell with a glowing core from base to cap.

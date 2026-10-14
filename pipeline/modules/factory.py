@@ -52,11 +52,11 @@ def claw(ctx, s, x, y, z, yaw):
     else: ctop = top
     for k, o in enumerate((-0.18, 0.18)):  # two chain strands
         ctx.add(f"{n}_Chain_{k + 1}", "box", [o, yb, 0], [0.14, ctop - yb, 0.3], "frame", g, outline=False, **st)
-    ctx.add(n + "_Block", "box", [0, yb - 1.3, 0], [1.6, 1.3, 1.6], "machine", g, **st)
-    ctx.add(n + "_Light", "box", [0, yb - 0.9, 0.82], [0.5, 0.4, 0.06], "glow", g, outline=False, **st)
-    for k in range(3):  # prongs angled outwards
-        a = 2 * math.pi * k / 3; ca, sa = math.cos(a), math.sin(a)
-        ctx.add(f"{n}_Prong_{k + 1}", "box", [ca * 0.55, yb - 3.1, sa * 0.55], [0.3, 1.9, 0.3], "structure_b", g, [math.degrees(sa) * -0.35, 0, math.degrees(ca) * 0.35], **st)
+    ctx.add(n + "_Block", "frustum", [0, yb - 1.5, 0], [1.9, 1.5, 1.9], "structure_b", g, sections=6, bottom_scale=0.55, **st)  # hoist housing, wide on top (Stage 33)
+    ctx.add(n + "_Light", "box", [0, yb - 0.85, 0.74], [0.4, 0.4, 0.05], "glow", g, [0, 0, 45], outline=False, **st)  # red diamond
+    for sd in (-1, 1): ctx.add(f"{n}_Strip_{sd + 1}", "box", [sd * 0.74, yb - 1.25, 0], [0.05, 0.9, 0.16], "glow", g, outline=False, **st)
+    ctx.add(n + "_Collar", "cylinder", [0, yb - 1.85, 0], [0.75, 0.4, 0.75], "machine", g, sections=8, **st)
+    claw_fingers(ctx, n, g, 0, yb - 1.84, 0, 1.7, st)
 
 
 def _rooms(ctx):
@@ -158,24 +158,74 @@ def conveyor(ctx, s, x, y, z, yaw):
 
 @structure("robot_arm", pad=False)
 def robot_arm(ctx, s, x, y, z, yaw):
-    """Industrial robot arm on a deck: turntable base, shoulder, two arm links in a pose ("pose" deg [shoulder, elbow],
-    default from the id so neighbours differ), wrist with a claw and a red light. Solid base, visual arm."""
+    """Industrial robot arm on a deck (Stage 33, from the user's reference): tapered base and turret, shoulder and elbow
+    joints with glowing red discs, angular tapered links with red light strips on both sides, a spike on the elbow,
+    sagging hose cables, a tapered wrist housing with a red diamond light and a three-finger claw with lit fingers.
+    Pose "pose" deg [shoulder, elbow] (default from the id so neighbours differ). Solid base, visual arm."""
     n = s["id"]; sc = float(s.get("scale", 1.0)); g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); st = dict(mobile={"static": True})
+    vis = dict(collision=False, **st)
     import random as _r
     rg = _r.Random(n); sh, el = s.get("pose", [rg.uniform(20, 55), rg.uniform(40, 100)])
     if s.get("pedestal"): ctx.add(n + "_Pedestal", "cylinder", [0, -float(s["pedestal"]), 0], [1.3 * sc, float(s["pedestal"]), 1.3 * sc], "structure_b", g, sections=10, **st)
-    ctx.add(n + "_Base", "cylinder", [0, 0, 0], [1.6 * sc, 0.6 * sc, 1.6 * sc], "structure_b", g, sections=10, **st)
-    ctx.add(n + "_Turret", "cylinder", [0, 0.6 * sc, 0], [1.1 * sc, 0.8 * sc, 1.1 * sc], "machine", g, sections=10, collision=False, **st)
-    a1 = math.radians(sh); l1 = 2.6 * sc; py = 1.4 * sc  # link 1 leans forward (+z) by sh from vertical
-    ctx.add(n + "_Link1", "box", [0, py, 0], [0.5 * sc, l1, 0.5 * sc], "structure", g, [sh, 0, 0], collision=False, **st)
-    ey, ez = py + l1 * math.cos(a1), l1 * math.sin(a1); a2 = a1 + math.radians(el); l2 = 2.0 * sc
-    ctx.add(n + "_Elbow", "cylinder", [0.35 * sc, ey - 0.3 * sc, ez], [0.6 * sc, 0.7 * sc, 0.6 * sc], "machine", g, [0, 0, 90], sections=8, collision=False, **st)
-    ctx.add(n + "_Link2", "box", [0, ey, ez], [0.4 * sc, l2, 0.4 * sc], "structure", g, [math.degrees(a2), 0, 0], collision=False, **st)
+    ctx.add(n + "_Base", "frustum", [0, 0, 0], [1.9 * sc, 0.6 * sc, 1.9 * sc], "structure_b", g, sections=8, bottom_scale=1.25, **st)
+    ctx.add(n + "_Turret", "frustum", [0, 0.6 * sc, 0], [1.2 * sc, 1.0 * sc, 1.2 * sc], "structure_b", g, sections=8, bottom_scale=1.2, **vis)
+    ctx.add(n + "_TurretLight", "box", [0, 0.75 * sc, 0.62 * sc], [0.14 * sc, 0.7 * sc, 0.06], "glow", g, outline=False, **vis)
+    py = 1.6 * sc; W1, l1 = 0.62 * sc, 2.7 * sc; a1 = math.radians(sh)
+    def link(nm, base, ang, L, W, top):  # tapered angular link (wide at the joint it starts from) + red strips on both sides
+        ctx.add(nm, "frustum", base, [W, L, W * 0.8], "structure_b", g, [ang, 0, 0], bottom_scale=1.0 / top, **vis)
+        dy, dz = math.cos(math.radians(ang)), math.sin(math.radians(ang))
+        for sd in (-1, 1):
+            ctx.add(f"{nm}_Strip_{sd + 1}", "box", [sd * (W * (1 + 1 / top) / 4 + 0.015), base[1] + dy * L * 0.18, base[2] + dz * L * 0.18], [0.05, L * 0.6, 0.14 * sc], "glow", g,
+                    [ang, 0, 0], outline=False, **vis)
+    def joint(nm, cy, cz, r, W):  # axle along x + a glowing red disc on both ends
+        ctx.add(nm, "cylinder", [W / 2, cy, cz], [2 * r, W, 2 * r], "structure_b", g, [0, 0, 90], sections=10, **vis)
+        ctx.add(nm + "_Disc", "cylinder", [W / 2 + 0.05, cy, cz], [1.2 * r, W + 0.1, 1.2 * r], "glow", g, [0, 0, 90], sections=10, outline=False, **vis)
+    joint(n + "_Shoulder", py, 0, 0.5 * sc, 0.95 * sc)
+    link(n + "_Link1", [0, py, 0], sh, l1, W1, 0.78)
+    ey, ez = py + l1 * math.cos(a1), l1 * math.sin(a1); a2 = a1 + math.radians(el); l2 = 2.2 * sc
+    joint(n + "_Elbow", ey, ez, 0.42 * sc, 0.8 * sc)
+    bk = a1 - math.pi / 2  # spike on the back of the elbow, pointing away from link 1
+    tip = (ey + 0.9 * sc * math.cos(bk) * -1, ez + 0.9 * sc * math.sin(bk) * -1)
+    ctx.add(n + "_Spike", "frustum", [0, tip[0], tip[1]], [0.36 * sc, 0.9 * sc, 0.36 * sc], "structure_b", g, [math.degrees(bk), 0, 0], sections=4, bottom_scale=0.05, **vis)
+    link(n + "_Link2", [0, ey, ez], math.degrees(a2), l2, 0.5 * sc, 0.75)
     wy, wz = ey + l2 * math.cos(a2), ez + l2 * math.sin(a2)
-    ctx.add(n + "_Wrist", "box", [0, wy - 0.3 * sc, wz], [0.7 * sc, 0.6 * sc, 0.7 * sc], "machine", g, collision=False, **st)
-    ctx.add(n + "_Light", "box", [0, wy - 0.15 * sc, wz + 0.36 * sc], [0.3 * sc, 0.2 * sc, 0.04], "glow", g, collision=False, outline=False, **st)
-    for k, sd in enumerate((-1, 1)):
-        ctx.add(f"{n}_Finger_{k + 1}", "box", [sd * 0.22 * sc, wy - 1.0 * sc, wz], [0.14 * sc, 0.7 * sc, 0.2 * sc], "structure_b", g, [0, 0, sd * 12], collision=False, **st)
+    hh = 0.95 * sc  # wrist housing hangs under the end of link 2, wide on top
+    ctx.add(n + "_Wrist", "frustum", [0, wy - hh + 0.1 * sc, wz], [0.95 * sc, hh, 0.95 * sc], "structure_b", g, sections=6, bottom_scale=0.55, **vis)
+    ctx.add(n + "_Light", "box", [0, wy - hh * 0.55, wz + 0.42 * sc], [0.22 * sc, 0.22 * sc, 0.05], "glow", g, [0, 0, 45], outline=False, **vis)  # red diamond
+    for sd in (-1, 1): ctx.add(f"{n}_WristStrip_{sd + 1}", "box", [sd * 0.38 * sc, wy - hh * 0.75, wz], [0.05, hh * 0.6, 0.12 * sc], "glow", g, outline=False, **vis)
+    cyl = wy - hh + 0.1 * sc
+    ctx.add(n + "_Collar", "cylinder", [0, cyl - 0.25 * sc, wz], [0.45 * sc, 0.28 * sc, 0.45 * sc], "machine", g, sections=8, **vis)
+    claw_fingers(ctx, n, g, 0, cyl - 0.24 * sc, wz, sc, vis)
+    for k, sd in enumerate((-1, 1)):  # hose cables: link 1 side -> wrist, sagging
+        p0 = (sd * 0.3 * sc, py + math.cos(a1) * l1 * 0.45, math.sin(a1) * l1 * 0.45); p1 = (sd * 0.25 * sc, wy - 0.2 * sc, wz - 0.3 * sc)
+        cable(ctx, f"{n}_Hose_{k + 1}", g, p0, p1, 0.6 * sc, 0.1 * sc, vis)
+
+
+def claw_fingers(ctx, n, g, cx, cy, cz, sc, vis, open_deg=38):
+    """Three-finger claw under (cx, cy, cz) in group g (Stage 33): each finger an upper segment angled outwards and a
+    tapered lower segment curling back in to a point, with red light inlays."""
+    for k in range(3):
+        ph = 120 * k; f = math.radians(ph); ox, oz = math.sin(f), math.cos(f); rr = 0.16 * sc
+        t1, l1 = math.radians(open_deg), 0.85 * sc; bx, by_, bz = cx + ox * rr, cy, cz + oz * rr
+        ctx.add(f"{n}_Finger_{k + 1}", "box", [bx, by_, bz], [0.24 * sc, l1, 0.2 * sc], "structure_b", g, [180 - open_deg, ph, 0], **vis)
+        ex, ey_, ez = bx + ox * math.sin(t1) * l1, by_ - math.cos(t1) * l1, bz + oz * math.sin(t1) * l1
+        t2 = -24; l2 = 1.0 * sc; r2 = math.radians(t2)
+        tx, ty, tz = ex + ox * math.sin(r2) * l2, ey_ - math.cos(r2) * l2, ez + oz * math.sin(r2) * l2
+        ctx.add(f"{n}_Finger_{k + 1}_Tip", "frustum", [tx, ty, tz], [0.24 * sc, l2 + 0.06 * sc, 0.2 * sc], "structure_b", g, [-t2, ph, 0], bottom_scale=0.2, **vis)
+        ctx.add(f"{n}_Finger_{k + 1}_Lit", "box", [tx + ox * 0.1 * sc, ty + 0.15 * sc, tz + oz * 0.1 * sc], [0.06 * sc, l2 * 0.6, 0.07 * sc], "glow", g, [-t2, ph, 0], outline=False, **vis)
+        ctx.add(f"{n}_Finger_{k + 1}_Lit2", "box", [bx + ox * 0.12 * sc, by_ - 0.12 * sc, bz + oz * 0.12 * sc], [0.06 * sc, l1 * 0.6, 0.07 * sc], "glow", g, [180 - open_deg, ph, 0],
+                outline=False, **vis)
+
+
+def cable(ctx, nm, g, p0, p1, sag, r, vis, segs=4):
+    """Sagging hose between two points (in g's frame): segs thin boxes along a parabola."""
+    import numpy as _np
+    pts = [(p0[0] + (p1[0] - p0[0]) * t, p0[1] + (p1[1] - p0[1]) * t - sag * 4 * t * (1 - t), p0[2] + (p1[2] - p0[2]) * t) for t in _np.linspace(0, 1, segs + 1)]
+    for j, (pa, pb) in enumerate(zip(pts, pts[1:])):
+        dx, dy, dz = pb[0] - pa[0], pb[1] - pa[1], pb[2] - pa[2]; sl = math.sqrt(dx * dx + dy * dy + dz * dz) or 1e-3
+        yw = math.degrees(math.atan2(dx, dz)); pt = math.degrees(math.asin(max(-1, min(1, dy / sl))))
+        ctx.add(f"{nm}_{j + 1}", "box", [(pa[0] + pb[0]) / 2, (pa[1] + pb[1]) / 2 - r / 2, (pa[2] + pb[2]) / 2], [2 * r, 2 * r, sl + 0.06], "frame", g, [-pt, yw, 0],
+                outline=False, **vis)
 
 
 @structure("lattice", pad=False)
