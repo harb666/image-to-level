@@ -717,3 +717,7 @@ Building blocks usable without the preset:
   surface and deep enough to hide the girders (no V-notch where the slope meets a floor), with a red `glow` strip along
   it; hazard-stripe (`stripe`) plates mark the top of the ramp and a flat caution mat lies on the lower floor at its
   foot. All visual only (no collision); landings stay clear.
+
+## Stage 47: free cam starts at the player (preview)
+- Switching the browser preview to "free cam" puts the camera 6 m behind and 3 m above the player, looking the same
+  way (it used to start wherever the previous orbit camera was - far out in a corner). Respawn re-places it too.
