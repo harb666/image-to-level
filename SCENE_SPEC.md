@@ -744,3 +744,9 @@ Building blocks usable without the preset:
   ceiling lamp-pod model (cap, clear shell, three cage bars, base) full of glowing slime - launched up the bore at
   28 m/s every 2.6-6.2 s, each column with its own period and phase (effect `tube_pods`, category `launch`). It waits
   hidden in the plinth and vanishes into the capital. Own mobile group per column (`<column>_Pod`): +3 draw calls each.
+
+## Stage 50: ceiling ducts stop short of columns and vats
+- After everything is placed, a ceiling duct (`<room>Ceil_Duct_<n>`) that would run through a structure standing up
+  from below (column - capital included -, vat, tower, machinery) ends 0.6 m before it; the pieces either side stay as
+  separate ducts (`..._Duct_<n>b`) when at least 6 m long, each re-hung with a hanger near both ends. Crane rails and
+  other hanging things are not obstacles. `generator_notes` lists the trimmed ducts.

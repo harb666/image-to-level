@@ -1362,6 +1362,49 @@ def clear_fixtures(ctx, pad=0.05):
     return drop
 
 
+def clear_ducts(ctx, gap=0.6, keep=6.0):
+    """Stage 50: ceiling ducts (<room>Ceil_Duct_<n>) never run through something standing up from below (columns, vats,
+    towers, machinery): the duct ends `gap` m before it; the pieces either side stay as separate ducts if at least `keep`
+    m long. Hangers outside the kept pieces go; every piece keeps a hanger near each end."""
+    import re
+    B = _aabb_all(ctx); by = {o["name"]: o for o in ctx.objects}; drop, notes = set(), []
+    def root(n):
+        while by.get(n, {}).get("parent"): n = by[n]["parent"]
+        return n
+    low = {}  # lowest point of every top-level structure (a column's capital counts as part of a standing column)
+    for n, (a, _) in B.items(): r_ = root(n); low[r_] = min(low.get(r_, 1e9), float(a[1]))
+    for dn in [n for n in B if re.search(r"Ceil_Duct_\d+$", n)]:
+        lo, hi = B[dn]; o = by[dn]; ax = 2 if hi[2] - lo[2] > hi[0] - lo[0] else 0; pre = dn.split("Duct_")[0]
+        blocked = []
+        for n, (a, b) in B.items():
+            if n.startswith(pre) or n == dn or low[root(n)] > lo[1] - 2.0: continue  # same ceiling's dressing / anything not rising from below
+            if (np.minimum(hi + 0.4, b) - np.maximum(lo - 0.4, a) <= 0).any(): continue
+            blocked.append((a[ax] - gap, b[ax] + gap))
+        if not blocked: continue
+        segs = [(lo[ax], hi[ax])]
+        for a, b in sorted(blocked):
+            segs = [q for s0, s1 in segs for q in ((s0, min(s1, a)), (max(s0, b), s1)) if q[1] - q[0] > 0.01]
+        segs = [q for q in segs if q[1] - q[0] >= keep]
+        hangers = [n for n in by if n.startswith(dn + "_Hanger_")]; y = dict(by[hangers[0]]) if hangers else None
+        ctx.objects[:] = [q for q in ctx.objects if q["name"] not in hangers]; ctx.names -= set(hangers)  # re-hung below
+        if not segs: drop.add(dn); notes.append(f"{dn} removed"); continue
+        for k, (s0, s1) in enumerate(segs):
+            nm = dn if k == 0 else f"{dn}{chr(97 + k)}"
+            pos = list(o["position"]); pos[ax] = round(s0, 3)
+            if k == 0: o["position"] = pos; o["size"] = [o["size"][0], round(s1 - s0, 3), o["size"][2]]
+            else: ctx.add(nm, "cylinder", pos, [o["size"][0], round(s1 - s0, 3), o["size"][2]], o["material"], None, o.get("rotation"), sections=o.get("sections", 8), outline=False,
+                          collision=o.get("collision", False), **({"mobile": o["mobile"]} if o.get("mobile") else {}), **({"cutaway": o["cutaway"]} if o.get("cutaway") else {}))
+            if y is not None:  # a hanger 0.5 m in from each end (+ one per 12 m between)
+                m = max(1, int((s1 - s0) / 12))
+                for j in range(m + 1):
+                    hp = list(y["position"]); hp[ax] = round(s0 + 0.5 + (s1 - s0 - 1.0) * j / m, 3)
+                    ctx.add(f"{nm}_Hanger_{j + 1}", "box", hp, y["size"], y["material"], None, outline=False, collision=y.get("collision", False),
+                            **({"mobile": y["mobile"]} if y.get("mobile") else {}), **({"cutaway": y["cutaway"]} if y.get("cutaway") else {}))
+        notes.append(f"{dn} trimmed to {len(segs)} piece(s) clear of {len(blocked)} standing part(s)")
+    if drop: ctx.objects[:] = [o for o in ctx.objects if o["name"] not in drop]; ctx.names -= drop
+    if notes: ctx.notes.append("ducts: " + "; ".join(notes))
+
+
 def pier(ctx, n, g, x, y0, z, top, w, d, rot=(0, 0, 0), pitch=0.0):
     """Stage 37 bridge support instead of a plain block: a flared footing sunk into the floor / liquid, a hull-plated
     column with two ribs on each broad face, a flared head under the deck and a red light near the top. Returns the

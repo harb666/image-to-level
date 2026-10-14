@@ -176,3 +176,20 @@ class Stage48(unittest.TestCase):
         fx = [e for e in E["effects"] if e["type"] == "tube_bubbles"]
         self.assertEqual(len(fx), 1); self.assertEqual(len(fx[0]["tubes"]), 16)  # vats only (Stage 49: no bubbles in the columns)
         self.assertFalse([e for e in E["effects"] if e["type"] == "tube_blobs"])
+
+
+class Stage50(unittest.TestCase):
+    def test_ducts_end_before_columns_and_vats(self):
+        import re, sys, numpy as np
+        sys.path.insert(0, os.path.join(ROOT, "pipeline"))
+        from architecture import _aabb_all
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json")))
+        class C: objects = L["objects"]
+        B = _aabb_all(C)
+        ducts = [n for n in B if re.search(r"Ceil_Duct_\d+[a-z]?$", n)]; self.assertTrue(ducts)
+        solid = [n for n in B if re.match(r"(Column_|Vat_|Purifier_|Proc_Tower|Core_Vat)", n)]
+        for d in ducts:
+            lo, hi = B[d]
+            for n in solid:
+                a, b = B[n]; self.assertTrue((np.minimum(hi, b) - np.maximum(lo, a) <= 0.01).any(), (d, n))
+            self.assertTrue([n for n in B if n.startswith(d + "_Hanger_")], d)
