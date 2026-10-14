@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 5261,
-    "triangles": 88100,
-    "nodes": 3524,
-    "mesh_nodes": 3360,
-    "unique_meshes": 1697,
+    "glb_kb": 5259,
+    "triangles": 87740,
+    "nodes": 3519,
+    "mesh_nodes": 3355,
+    "unique_meshes": 1692,
     "materials": 28,
     "images": 79,
-    "draw_calls_unbatched": 3360,
+    "draw_calls_unbatched": 3355,
     "draw_calls_batched_min": 28,
     "tex_mem_uncompressed_mb": 91.65,
     "tex_mem_gpu_compressed_mb": 22.91,
@@ -70,16 +70,16 @@
    },
    "visible": {
     "cameras": 280,
-    "visible_draw_calls_mean": 1108.4,
-    "visible_draw_calls_max": 3142,
-    "visible_triangles_mean": 41659,
-    "visible_triangles_max": 93026
+    "visible_draw_calls_mean": 1106.8,
+    "visible_draw_calls_max": 3137,
+    "visible_triangles_mean": 41537,
+    "visible_triangles_max": 92666
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 2774,
-    "triangles": 82628,
+    "glb_kb": 2766,
+    "triangles": 82278,
     "nodes": 76,
     "mesh_nodes": 75,
     "unique_meshes": 75,
@@ -128,19 +128,19 @@
     ]
    },
    "collision": {
-    "colliders": 663,
-    "hazards": 16,
-    "glb_kb": 348
+    "colliders": 661,
+    "hazards": 15,
+    "glb_kb": 347
    },
    "visible": {
     "cameras": 280,
     "visible_draw_calls_mean": 51.1,
     "visible_draw_calls_max": 75,
-    "visible_triangles_mean": 81079,
-    "visible_triangles_max": 92930
+    "visible_triangles_mean": 80738,
+    "visible_triangles_max": 92580
    },
    "hidden_faces_removed": 2492,
-   "occluded_faces_removed": 2980,
+   "occluded_faces_removed": 2970,
    "occluded_objects": [
     "Assembly_Line_Light_01",
     "OuterWall_East_03_Banner_01",
@@ -152,19 +152,19 @@
     "W_Run_North_Flange_03a"
    ],
    "effects_extra_draw_calls": 12,
-   "effects_max_particles": 911,
+   "effects_max_particles": 869,
    "slimmed_kb": {
     "level_mobile.glb": [
-     4088,
-     2774
+     4078,
+     2766
     ],
     "background_mobile.glb": [
      474,
      402
     ],
     "collision.glb": [
-     419,
-     348
+     417,
+     347
     ]
    }
   }
@@ -2488,7 +2488,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 14302,
+   "triangles": 14222,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2528,8 +2528,6 @@
     "Pipe_SW__ol",
     "Pipe_SE_Flange__ol",
     "Pipe_SE__ol",
-    "Pipe_NW_Flange__ol",
-    "Pipe_NW__ol",
     "Pipe_NE_Flange__ol",
     "Pipe_NE__ol",
     "Rock_West_Slab_04__ol",
@@ -3441,7 +3439,7 @@
    "node": "M_frame_0_1",
    "kind": "static",
    "material": "frame",
-   "triangles": 2356,
+   "triangles": 2316,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3451,7 +3449,6 @@
     "Pipe_North_Flange",
     "Pipe_SW_Flange",
     "Pipe_SE_Flange",
-    "Pipe_NW_Flange",
     "Pipe_NE_Flange",
     "Gallery_West_Strut_03",
     "Gallery_West_Strut_02",
@@ -3751,7 +3748,7 @@
    "node": "M_pipe_0_1",
    "kind": "static",
    "material": "pipe",
-   "triangles": 714,
+   "triangles": 684,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3761,7 +3758,6 @@
     "Pipe_North",
     "Pipe_SW",
     "Pipe_SE",
-    "Pipe_NW",
     "Pipe_NE",
     "Tank_South",
     "Tank_North",
@@ -4184,7 +4180,7 @@
    "node": "FX_Pour_Flow",
    "kind": "effect_target",
    "material": "hazard",
-   "triangles": 2060,
+   "triangles": 1860,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4198,7 +4194,6 @@
     "Pipe_North_Fall",
     "Pipe_SW_Fall",
     "Pipe_SE_Fall",
-    "Pipe_NW_Fall",
     "Pipe_NE_Fall"
    ],
    "reason": "merged targets of one shader effect"

@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "8335b3362c6529a7",
+  "spec_sha": "c3661210f93fd293",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -220,7 +220,6 @@
    "type": "liquid_flow",
    "targets_glob": [
     "Pipe_NE_Fall",
-    "Pipe_NW_Fall",
     "Pipe_SE_Fall",
     "Pipe_SW_Fall",
     "Pipe_North_Fall",
@@ -239,7 +238,6 @@
    "type": "splash",
    "at_targets_glob": [
     "Pipe_NE_Fall",
-    "Pipe_NW_Fall",
     "Pipe_SE_Fall",
     "Pipe_SW_Fall",
     "Pipe_North_Fall",
@@ -258,7 +256,6 @@
    "type": "steam",
    "at_targets_glob": [
     "Pipe_NE_Fall",
-    "Pipe_NW_Fall",
     "Pipe_SE_Fall",
     "Pipe_SW_Fall",
     "Pipe_North_Fall",
@@ -36447,78 +36444,6 @@
    "pitch": 0,
    "inset": 0.25,
    "gen": "Pipe_NE",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_NW",
-   "type": "cylinder",
-   "position": [
-    -57.379,
-    10.0,
-    -57.379
-   ],
-   "rotation": [
-    90.0,
-    45.0,
-    0.0
-   ],
-   "size": [
-    3.0,
-    12.95,
-    3.0
-   ],
-   "material": "pipe",
-   "sections": 10,
-   "gen": "Pipe_NW",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_NW_Flange",
-   "type": "cylinder",
-   "position": [
-    -48.554,
-    10.0,
-    -48.554
-   ],
-   "rotation": [
-    90.0,
-    45.0,
-    0.0
-   ],
-   "size": [
-    3.75,
-    0.45,
-    3.75
-   ],
-   "material": "frame",
-   "sections": 10,
-   "gen": "Pipe_NW",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_NW_Fall",
-   "type": "stream",
-   "position": [
-    -48.222,
-    10.0,
-    -48.222
-   ],
-   "rotation": [
-    0.0,
-    45.0,
-    0.0
-   ],
-   "size": [
-    2.58,
-    9.3,
-    2.58
-   ],
-   "material": "hazard",
-   "section": "circle",
-   "speed": 1.95,
-   "pitch": 0,
-   "inset": 0.25,
-   "gen": "Pipe_NW",
    "source": "visible"
   },
   {
@@ -96982,17 +96907,6 @@
   },
   {
    "type": "emits_from",
-   "a": "Pipe_NW_Fall",
-   "b": "Pipe_NW",
-   "b_anchor": "outlet"
-  },
-  {
-   "type": "flows_into",
-   "a": "Pipe_NW_Fall",
-   "b": "HazardFluid"
-  },
-  {
-   "type": "emits_from",
    "a": "Pipe_SE_Fall",
    "b": "Pipe_SE",
    "b_anchor": "outlet"
@@ -97116,12 +97030,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 71022,
-  "objects": 3059,
+  "triangles": 70742,
+  "objects": 3056,
   "materials": 26,
-  "glb_kb": 5261,
-  "nodes": 3524,
-  "draw_calls_unbatched": 3360,
+  "glb_kb": 5259,
+  "nodes": 3519,
+  "draw_calls_unbatched": 3355,
   "draw_calls_batched_min": 28,
   "images": 79,
   "tex_mem_gpu_compressed_mb": 22.91,
