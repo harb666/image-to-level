@@ -1206,8 +1206,9 @@ def pipe(ctx, p, floor_y, arena_spec):
         else:
             sx, sz = SIDES[side]; embed = 0.4; x = cx + sx * (w / 2 + embed) + (at if sz else 0); z = cz + sz * (d / 2 + embed) + (at if sx else 0); yaw = yaw_to(-sx, -sz)
     L += embed; dx, dz = math.sin(math.radians(yaw)), math.cos(math.radians(yaw)); n = p["id"]; ox, oz = x + dx * L, z + dz * L
-    if embed and out_t in ("circle", "broken") and p.get("fitting", True):  # Stage 36: a proper fitting where it leaves the wall
-        wall_fitting(ctx, n, (x + dx * embed, y, z + dz * embed), (dx, dz), r, corner=corner)
+    on_face = not embed and "position" in p and out_t in ("circle", "broken") and _on_wall(ctx, x, z, dx, dz, tol=0.3)
+    if (embed or on_face) and out_t in ("circle", "broken") and p.get("fitting", True):  # Stage 36: a proper fitting where it leaves the wall
+        wall_fitting(ctx, n, (x + dx * embed, y, z + dz * embed), (dx, dz), r, corner=corner)  # Stage 51: also pipes placed by "position" on a wall face
     mat = p.get("pour_material", "hazard"); by_ = {o["name"]: o for o in ctx.objects}
     def _in(h, px, pz):
         o = by_.get(h); return o is not None and o.get("size") and abs(px - o["position"][0]) <= o["size"][0] / 2 and abs(pz - o["position"][2]) <= o["size"][2] / 2
@@ -1225,7 +1226,7 @@ def pipe(ctx, p, floor_y, arena_spec):
             fl = L - 0.47  # flange ends 2 cm behind the mouth: no coplanar end discs
             if out_t == "vertical": ctx.add(n + "_Flange", "cylinder", [x, y - fl, z], [2 * r * 1.25, 0.45, 2 * r * 1.25], "frame", rot=[180, 0, 0], sections=10)
             else: ctx.add(n + "_Flange", "cylinder", [x + dx * fl, y, z + dz * fl], [2 * r * 1.25, 0.45, 2 * r * 1.25], "frame", rot=[90, yaw, 0], sections=10)
-        if ctx.detail >= 1 and out_t != "vertical" and embed == 0.0:  # free-standing pipe: wall plate (arena pipes are embedded in the wall)
+        if ctx.detail >= 1 and out_t != "vertical" and embed == 0.0 and not on_face:  # free-standing pipe: wall plate (arena pipes are embedded in the wall)
             ctx.add(n + "_Mount", "box", [x + dx * 0.3, y - r * 1.3, z + dz * 0.3], [r * 2.6, r * 2.6, 0.6], "frame", rot=[0, yaw, 0])
         sec, sw, sd, anchor = "circle", 2 * r * 0.86, 2 * r * 0.86, "outlet"
         pitch = -90 if out_t == "vertical" else (-20 if out_t == "broken" else 0); speed = 0 if out_t == "vertical" else (0.8 if out_t == "broken" else round(1.2 + 0.5 * r, 2))

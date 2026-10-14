@@ -750,3 +750,8 @@ Building blocks usable without the preset:
   from below (column - capital included -, vat, tower, machinery) ends 0.6 m before it; the pieces either side stay as
   separate ducts (`..._Duct_<n>b`) when at least 6 m long, each re-hung with a hanger near both ends. Crane rails and
   other hanging things are not obstacles. `generator_notes` lists the trimmed ducts.
+
+## Stage 51: wall fitting on position-placed pipes
+- A round / broken outlet pipe placed with "position" whose base sits on an arena or annex wall face (within 0.3 m,
+  pointing into the room) now gets the same Stage 36 wall fitting as wall-side pipes (plate, bolts, hazard stripe, red
+  light, collar) instead of the plain mount block - e.g. `W_Broken` in the works wing.

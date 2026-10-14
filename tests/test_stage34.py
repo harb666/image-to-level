@@ -70,7 +70,7 @@ class Stage36(unittest.TestCase):
         for i in range(len(B)):
             for j in range(i + 1, len(B)):
                 self.assertFalse((np.minimum(B[i][1], B[j][1]) - np.maximum(B[i][0], B[j][0]) > 0.02).all(), (cr[i]["name"], cr[j]["name"]))
-        for n in ("Pipe_North_Plate", "Pipe_North_Collar", "Pipe_North_Bolt_4", "W_Run_North_End1_Plate"): self.assertIn(n, by)
+        for n in ("Pipe_North_Plate", "Pipe_North_Collar", "Pipe_North_Bolt_4", "W_Run_North_End1_Plate", "W_Broken_Plate", "W_Broken_Collar"): self.assertIn(n, by)
 
 
 class Stage37(unittest.TestCase):
