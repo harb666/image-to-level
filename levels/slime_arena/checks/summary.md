@@ -1,15 +1,15 @@
 # slime_arena: generation summary
 
-Spec: levels/slime_arena/scene_spec.json · 4242 objects · 29 materials · 20 effects
+Spec: levels/slime_arena/scene_spec.json · 4241 objects · 29 materials · 20 effects
 Checks: PASSED ({'error': 0, 'warning': 2, 'info': 2}) · refine passes: 0
-Mobile (balanced): 3641 KB · 107785 tris · 93 draw calls · ~59.6 visible (estimate) · ~7.28 MB GPU textures (estimate)
+Mobile (balanced): 3641 KB · 107793 tris · 93 draw calls · ~59.6 visible (estimate) · ~7.28 MB GPU textures (estimate)
 Navigation: 9256.0 m² reachable of 48773.0 m² standable
 Package: dist/slime_arena/package (37 files, 14.36 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: mobile draw calls 93 (> 80)
-- warning: 113864 triangles (> budget 40000)
+- warning: 113872 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -48,14 +48,15 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - Central: 3 cover crate(s) dropped - no free spot clear of landings
 - crates: 35 printed crates (accent atlas)
 - fixtures: 31 parts cleared out of fans / vents (wall units removed: OuterWall_West_02_M02Vent, Works_Wall_West_02_M05Fan)
+- ducts: Ceil_Duct_3 trimmed to 1 piece(s) clear of 1 standing part(s); Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 3 standing part(s); Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 11 standing part(s)
 - corrosion: 30 lit bodies get a plain skirt at the liquid line (no lights in the slime)
 - corrosion: 48 lights at the liquid line removed, 20 light strips raised clear of it
 - corrosion: 1865 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
 - spec -> level.json: 5.1 s
-- build (glb, sky, background, effects, mobile): 156.2 s
-- checks (fast): 100.8 s
+- build (glb, sky, background, effects, mobile): 137.4 s
+- checks (fast): 103.4 s
 - previews: 0.7 s
 - export package: 0.7 s
-- total: 263.5 s
+- total: 247.4 s
