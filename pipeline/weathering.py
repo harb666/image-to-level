@@ -97,16 +97,17 @@ CORR = dict(height=1.2, sink=0.15, offset=0.021, material="corrosion", tile=4.0,
 
 
 def corrosion(ctx, spec):
-    """Stage 28: corroded band where the toxic liquid meets walls / bases (spec "corrosion": {"height": 1.2}).
+    """Stage 28: corroded band where the toxic liquid meets walls / bases (spec "corrosion": {"height": 1.2}; on by
+    default since Stage 34, "corrosion": false turns it off). Everything in or standing on the liquid gets it.
     Every solid crossing a liquid surface is cut at the surface; its near-vertical faces that face open liquid (not
     pressed against a neighbour) get a strip 2.1 cm in front (an odd gap: trims sit 3 / 5 cm proud), from just under the surface to "height" m above it (never
     above the solid's top). All strips are ONE object (type "band", material "corrosion": a small cut-out texture of
     pits and green crust) -> one mesh, one material, one draw call; visual only (no collision, ignored by navigation)."""
-    if not spec.get("corrosion"): return 0
+    if spec.get("corrosion") is False: return 0  # Stage 34: on by default wherever a hazard pool exists
     import trimesh
     from build_level import shape as _shape  # every type (plain boxes / cylinders too), same local frame as the GLB
     from anchors import world_matrices
-    cfg = dict(CORR, **(spec["corrosion"] if isinstance(spec["corrosion"], dict) else {}))
+    cfg = dict(CORR, **(spec.get("corrosion") if isinstance(spec.get("corrosion"), dict) else {}))
     by = {o["name"]: o for o in ctx.objects}
     pools = []
     for h in getattr(ctx, "hazards", []):
@@ -128,11 +129,11 @@ def corrosion(ctx, spec):
         except Exception: continue
         if m is None or not len(m.faces): continue
         m = m.copy(); m.apply_transform(W[o["name"]]); solids.append((o["name"], m))
-    paths, edges = [], 0
+    paths, edges = [], 0; ctx.element = ("corrosion", "inferred")  # skirts / band are generated (not drawn from the image)
     _skirts(ctx, cfg, pools, solids, by, W); _clear_lights(ctx, cfg, pools, W)
     for Ly, x0, z0, x1, z1 in pools:
         cut = Ly + 0.05; inside = lambda q: x0 + 0.05 < q[0] < x1 - 0.05 and z0 + 0.05 < q[1] < z1 - 0.05
-        live = [(n, m) for n, m in solids if m.bounds[0][1] < Ly - 0.02 and m.bounds[1][1] > Ly + 0.3]
+        live = [(n, m) for n, m in solids if m.bounds[0][1] < Ly + 0.04 and m.bounds[1][1] > Ly + 0.3]  # in it or standing on it
         occ = [(n, m.bounds, m.face_normals, np.einsum("ij,ij->i", m.face_normals, m.triangles[:, 0])) for n, m in live if m.is_watertight and m.is_convex]
         inside_solid = lambda P, b, fn, off: bool(np.all(b[0] <= P) and np.all(P <= b[1]) and np.all(fn @ P - off <= 0.01))  # convex solids only; within 1 cm of a face counts (no strip lying on another surface)
         for name, m in live:

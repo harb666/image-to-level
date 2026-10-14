@@ -495,13 +495,13 @@ def tube(r_top, r_bot, r_in, h, n=24, phase=0.0, rz_top=None, rz_bot=None):
     m = trimesh.Trimesh(V, np.array(F), process=True); m.fix_normals(); return m
 
 
-def holed(w, h, d, hole, sections=0, phase=0.0, k=1.0):
+def holed(w, h, d, hole, sections=0, phase=0.0, k=1.0, res=24):
     """Block with a round vertical hole of radius `hole` through its centre, base at y=0, outline unchanged: sections 0 =
     w x d rectangle, n = regular n-gon (circumradius w/2, d/2; first corner at `phase`); k = base scale (frustum). The
     outline is resampled to a multiple of n vertices (>= 24) so the hole stays round (tube())."""
     if sections: n, sx, sz = int(sections), w / 2, d / 2
     else: n, phase, sx, sz = 4, np.pi / 4, w / 2 * np.sqrt(2), d / 2 * np.sqrt(2)
-    m = n * int(np.ceil(24 / n)); a = np.linspace(0, 2 * np.pi, m, endpoint=False)
+    m = n * int(np.ceil(res / n)); a = np.linspace(0, 2 * np.pi, m, endpoint=False)  # res: Stage 34 lighter rings (16)
     f = np.cos(np.pi / n) / np.cos(np.mod(a, 2 * np.pi / n) - np.pi / n)  # polygon radius along each ray (1 at corners)
     if hole >= min(sx, sz) * np.cos(np.pi / n) - 0.05: raise ValueError(f"hole r {hole} does not fit inside a {w} x {d} outline")
     return tube(sx * f, sx * f * k, float(hole), h, m, phase, sz * f, sz * f * k)
@@ -512,7 +512,7 @@ def frustum(w, h, d, o):
     n = regular n-gon (flats facing the axes, like the rotated platform cylinders). Closed (Stage 9 sky-pylon underframes).
     "hole": r -> a round vertical hole of radius r through it (elevator shafts)."""
     k = o.get("bottom_scale", 0.5); n = int(o.get("sections", 0) or 0)
-    if o.get("hole"): return holed(w, h, d, float(o["hole"]), n, np.pi / n if n else 0.0, k)
+    if o.get("hole"): return holed(w, h, d, float(o["hole"]), n, np.pi / n if n else 0.0, k, res=int(o.get("hole_res", 24)))
     if n: a = np.linspace(0, 2 * np.pi, n, endpoint=False) + np.pi / n; ring = np.c_[w / 2 * np.cos(a), d / 2 * np.sin(a)]
     else: ring = np.array([[-w / 2, -d / 2], [w / 2, -d / 2], [w / 2, d / 2], [-w / 2, d / 2]])
     top = np.c_[ring[:, 0], np.full(len(ring), h), ring[:, 1]]; bot = np.c_[ring[:, 0] * k, np.zeros(len(ring)), ring[:, 1] * k]
@@ -630,7 +630,7 @@ def make(o, bevel=0.0):
     t = o["type"]; w, h, d = o["size"]
     if t in ("box", "cylinder") and o.get("hole"):  # hollow: a round hole straight through (elevator shafts)
         n = int(o.get("sections", 12)) if t == "cylinder" else 0; r = min(w, d)
-        return holed(r if n else w, h, r if n else d, float(o["hole"]), n)
+        return holed(r if n else w, h, r if n else d, float(o["hole"]), n, res=int(o.get("hole_res", 24)))
     if t == "box" and o.get("faces"):  # printed crate (atlas cells)
         F = o["faces"]; return box_faces(w, h, d, F["side"], F["top"], F.get("front"), F.get("front_axis", "z"))
     if t == "box" and (o.get("bevel", bevel) or 0) > 0: return bevel_box(w, h, d, o.get("bevel", bevel))

@@ -11,7 +11,7 @@ the static cells (no extra draw calls). Vat glass keeps a solid collider (not a 
 """
 import math
 from modules import structure
-from architecture import local as A_local
+from architecture import local as A_local, local
 
 
 @structure("vat", pad=False)
@@ -167,7 +167,9 @@ def robot_arm(ctx, s, x, y, z, yaw):
     vis = dict(collision=False, **st)
     import random as _r
     rg = _r.Random(n); sh, el = s.get("pose", [rg.uniform(20, 55), rg.uniform(40, 100)])
-    if s.get("pedestal"): ctx.add(n + "_Pedestal", "cylinder", [0, -float(s["pedestal"]), 0], [1.3 * sc, float(s["pedestal"]), 1.3 * sc], "structure_b", g, sections=10, **st)
+    if s.get("pedestal"):  # sunk 1.2 m deeper than asked: it stands IN what is below (liquid / deck), never on its surface
+        pd = float(s["pedestal"]) + 1.2; ctx.add(n + "_Pedestal", "cylinder", [0, -pd, 0], [1.3 * sc, pd, 1.3 * sc], "structure_b", g, sections=10, **st)
+    sh, el = _clear_pose(ctx, n, (x, y, z), yaw, sc, sh, el)
     ctx.add(n + "_Base", "frustum", [0, 0, 0], [1.9 * sc, 0.6 * sc, 1.9 * sc], "structure_b", g, sections=8, bottom_scale=1.25, **st)
     ctx.add(n + "_Turret", "frustum", [0, 0.6 * sc, 0], [1.2 * sc, 1.0 * sc, 1.2 * sc], "structure_b", g, sections=8, bottom_scale=1.2, **vis)
     face_light(ctx, n + "_TurretLight", g, (0, 0.6 * sc, 0), 8, 0.6 * sc, 0.72 * sc, 1.0 * sc, 90, 0.15 * sc, 0.85 * sc, 0.14 * sc, vis)
@@ -217,6 +219,48 @@ def face_light(ctx, nm, g, c, n, r_top, r_bot, H, theta, t0, t1, width, vis, mat
 def _R(rot):
     from trimesh.transformations import euler_matrix
     return euler_matrix(*[math.radians(v) for v in rot], "sxyz")[:3, :3]
+
+
+def _arm_points(sh, el, sc):
+    """Sample points (local x, y, z; radius) of a robot arm in pose (sh, el): links, wrist, claw fingers, hoses."""
+    a1 = math.radians(sh); l1 = 2.7 * sc; py = 1.6 * sc; ey, ez = py + l1 * math.cos(a1), l1 * math.sin(a1)
+    a2 = a1 + math.radians(el); l2 = 2.2 * sc; wy, wz = ey + l2 * math.cos(a2), ez + l2 * math.sin(a2); P = []
+    for t in (0.35, 0.65, 1.0): P.append((0, py + (ey - py) * t, ez * t, 0.45 * sc))
+    for t in (0.33, 0.66, 1.0): P.append((0, ey + (wy - ey) * t, ez + (wz - ez) * t, 0.35 * sc))
+    cy = wy - 0.95 * sc + 0.1 * sc - 0.24 * sc
+    P.append((0, wy - 0.5 * sc, wz, 0.5 * sc)); P.append((0, cy, wz, 0.3 * sc))
+    for k in range(3):  # knuckles and finger tips
+        f = math.radians(120 * k); ox, oz = math.sin(f), math.cos(f); o1 = 0.16 * sc + 0.85 * sc * math.sin(math.radians(38))
+        ky = cy - 0.85 * sc * math.cos(math.radians(38)); P.append((ox * o1, ky, wz + oz * o1, 0.18 * sc))
+        o2 = o1 - 1.0 * sc * math.sin(math.radians(24)); P.append((ox * o2, ky - 1.0 * sc * math.cos(math.radians(24)), wz + oz * o2, 0.08 * sc))
+    for t in (0.5,):  # hose sag (0.6 sc) half way between link 1 and the wrist
+        P.append((0.3 * sc, (py + math.cos(a1) * l1 * 0.45 + wy) / 2 - 0.6 * sc, (math.sin(a1) * l1 * 0.45 + wz) / 2, 0.12 * sc))
+    return P
+
+
+def _clear_pose(ctx, n, pos, yaw, sc, sh, el, margin=0.25):
+    """Stage 34: the pose closest to (sh, el) whose links, wrist, claw and hoses keep `margin` m clear of every other
+    object already in the level (conveyor beds, parcels, decks, walls ...) - no arm glitching into things."""
+    import numpy as _np
+    from anchors import world_matrices
+    W, by = world_matrices({"objects": ctx.objects}); boxes = []
+    for o in ctx.objects:
+        if o["type"] in ("group", "panel", "stream", "band", "boundary") or not o.get("size") or o["name"].startswith(n + "_") or o["name"] == n: continue
+        if o["name"] in getattr(ctx, "hazards", []): continue
+        M = W[o["name"]]; w, h, d = o["size"]; C = _np.array([[sx * w / 2, yy, sz * d / 2, 1] for sx in (-1, 1) for yy in (0, h) for sz in (-1, 1)]) @ M.T
+        lo, hi = C[:, :3].min(0), C[:, :3].max(0)
+        if _np.linalg.norm((lo + hi) / 2 - _np.array(pos)) < 12: boxes.append((lo, hi))
+    def hits(a, b):
+        for lx, ly, lz, r in _arm_points(a, b, sc):
+            wx, wz = local(lx, lz, yaw); q = _np.array([pos[0] + wx, pos[1] + ly, pos[2] + wz]); rr = r + margin
+            if any(_np.all(q > lo - rr) and _np.all(q < hi + rr) for lo, hi in boxes): return True
+        return False
+    if not hits(sh, el): return sh, el
+    for d in range(1, 30):  # widen the search step by step: open the elbow (lifts the claw), lean less / more
+        for a, b in ((sh, el - 4 * d), (sh - 3 * d, el), (sh - 3 * d, el - 4 * d), (sh + 3 * d, el - 4 * d), (sh, el + 4 * d)):
+            if 5 <= a <= 75 and 10 <= b <= 140 and not hits(a, b):
+                ctx.notes.append(f"{n}: pose {sh:.0f}/{el:.0f} -> {a:.0f}/{b:.0f} (clear of the objects around it)"); return a, b
+    ctx.notes.append(f"{n}: no clear pose found near {sh:.0f}/{el:.0f}"); return sh, el
 
 
 def claw_fingers(ctx, n, g, cx, cy, cz, sc, vis, open_deg=38):
@@ -295,7 +339,8 @@ def conduit(ctx, s, x, y, z, yaw):
 @structure("column", pad=False)
 def column(ctx, s, x, y, z, yaw):
     """Reactor column from the slime to the ceiling (or "height"): plinth, glowing slime-glass sections at irregular
-    heights between dark banded drums, a flared capital into the roof, red lights on some bands. "radius" (2.5)."""
+    heights between dark banded drums, a flared capital into the roof, red lights on some bands. "radius" (2.5).
+    Drums, neck and capital are rings (Stage 34): the glass pipe's bore runs on through them up into the roof."""
     n = s["id"]; r = float(s.get("radius", 2.5)); top = float(s.get("height", getattr(ctx, "ceiling_y", 24.0)))
     import random as _r
     rg = _r.Random(n); g = ctx.add(n, "group", [x, 0, z], rot=[0, yaw, 0]); st = dict(mobile={"static": True}); sec = int(s.get("sections", 8))
@@ -306,12 +351,14 @@ def column(ctx, s, x, y, z, yaw):
         if k % 2:  # glass section
             hh = min(rg.uniform(3, 7), top - 4 - yy); ctx.add(f"{n}_Glass_{k:02d}", "cylinder", [0, yy - 0.1, 0], [2 * r, hh + 0.2, 2 * r], s.get("material", "glass"), g, sections=sec, collision=True, double_sided=True, tube=True, outline=False, **st)
         else:
-            hh = min(rg.uniform(1.0, 3.5), top - 4 - yy); ctx.add(f"{n}_Drum_{k:02d}", "cylinder", [0, yy, 0], [2 * r * 1.12, hh, 2 * r * 1.12], "structure_b" if k % 4 else "trim", g, sections=sec, **st)
+            hh = min(rg.uniform(1.0, 3.5), top - 4 - yy); ctx.add(f"{n}_Drum_{k:02d}", "cylinder", [0, yy, 0], [2 * r * 1.12, hh, 2 * r * 1.12], "structure_b" if k % 4 else "trim", g, sections=sec,
+                                                                    hole=round(r * 0.8, 3), hole_res=16, **st)  # Stage 34: a ring - the liquid runs on through it
             if rg.random() < 0.6 and hh > 0.6:  # set into the drum (centre on the flat face's plane: never floating off a corner)
                 ctx.add(f"{n}_Red_{k:02d}", "box", [0, yy + hh / 2 - 0.15, r * 1.12 * math.cos(math.pi / sec)], [0.6, 0.3, 0.3], "glow", g, collision=False, outline=False, **st)
         yy += hh
-    ctx.add(n + "_Neck", "cylinder", [0, yy, 0], [2 * r * 1.05, top - 2.5 - yy, 2 * r * 1.05], "structure_b", g, sections=sec, **st)
-    ctx.add(n + "_Capital", "frustum", [0, top - 2.5, 0], [2 * r * 2.0, 2.5, 2 * r * 2.0], "structure_b", g, sections=sec, bottom_scale=0.55, collision=False, **st)
+    ctx.add(n + "_Neck", "cylinder", [0, yy, 0], [2 * r * 1.05, top - 2.5 - yy, 2 * r * 1.05], "structure_b", g, sections=sec, hole=round(r * 0.8, 3), hole_res=16, **st)
+    ctx.add(n + "_Capital", "frustum", [0, top - 2.5, 0], [2 * r * 2.0, 2.5, 2 * r * 2.0], "structure_b", g, sections=sec, bottom_scale=0.55, hole=round(r * 0.8, 3), hole_res=16,
+            collision=False, **st)  # the pipe carries on up into the roof
 
 
 @structure("rock_face", pad=False)

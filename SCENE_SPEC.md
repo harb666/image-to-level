@@ -638,3 +638,11 @@ Building blocks usable without the preset:
 - Fixes: lights on tapered parts (claw housing, wrist, turret) lie on the faces (`face_light`), link strips are as
   thick as the taper, fingers have a knuckle joint and their inlays sit on the finger faces - no floating pieces.
   Lamp pods use a clear `glass_clear` shell with nothing inside.
+
+## Stage 34: pipes the liquid can pass through, arms clear of everything, corrosion everywhere
+- `column`: drums, neck and capital are rings (`hole` 0.8 r, `hole_res` 16) - the glass pipe's bore runs on through
+  them up into the roof. Cylinders / frustums take `hole_res` (default 24) for the hole's resolution.
+- `robot_arm`: picks the pose closest to `pose` whose links, wrist, claw fingers and hoses keep 0.25 m clear of every
+  object already placed (`generator_notes` lists changed poses); pedestals sink 1.2 m below their stated base.
+- Corrosion is ON by default (`"corrosion": false` turns it off) and reaches everything in the liquid or standing on
+  its surface.

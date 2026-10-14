@@ -8,7 +8,7 @@ from _util import tmp_level, small_spec, write_spec
 def _gen(corr=True):
     import spec_to_level
     s = small_spec(); s["art_style"] = "alien_cartoon"
-    if corr: s["corrosion"] = {"height": 1.0}
+    s["corrosion"] = {"height": 1.0} if corr else False  # on by default since Stage 34
     d = tmp_level(name="corr"); spec_to_level.run(write_spec(d, s), d, verbose=False); return json.load(open(os.path.join(d, "level.json")))
 
 
@@ -19,7 +19,7 @@ class Corrosion(unittest.TestCase):
         self.assertEqual(b["material"], "corrosion"); self.assertFalse(b["collision"]); self.assertEqual(b["mobile"]["group"], "Corrosion")
         self.assertTrue(b["segments"]); self.assertEqual(L["materials"]["corrosion"]["cutout"], 0.5)
         for s in b["segments"]: self.assertLess(s["y0"], 1.0); self.assertGreater(s["y1"], 1.0)
-        self.assertFalse([o for o in _gen(False)["objects"] if o["type"] == "band"])  # opt-in
+        self.assertFalse([o for o in _gen(False)["objects"] if o["type"] == "band"])  # "corrosion": false turns it off
 
     def test_strips_face_out_of_their_solid(self):
         import shapes
