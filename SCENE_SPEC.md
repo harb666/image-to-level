@@ -625,3 +625,6 @@ Building blocks usable without the preset:
   A trolley rides the rail and the hoist chains hang from it. `"rail": false` (or a fixed `"y"`) = the old direct chain.
 - Overhead pipe runs (`pipes` with `"kind": "run"`) under a roof hang on rods with clamps every ~8 m (`"hangers": false`
   turns it off); `vertical` outlet pipes get a feed pipe up into the roof with a roof plate.
+- Stage 32: varied-ceiling cage lamps hang in rows from lamp rails (I-beams 3 m under the roof on rods, kept clear of
+  crane runways and the lift shaft), never straight from the ceiling panels. `ceiling.pods` scales the count per room
+  (Slime Arena: 1.6 in the hall, 0.35 in the Works wing).

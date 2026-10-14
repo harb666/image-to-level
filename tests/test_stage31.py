@@ -41,3 +41,15 @@ class Cranes(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class LampRails(unittest.TestCase):
+    def test_slime_arena_pods_hang_from_rails_mostly_in_the_hall(self):
+        import re
+        L = json.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "levels", "slime_arena", "level.json")))
+        by = {o["name"]: o for o in L["objects"]}
+        pods = [o for o in L["objects"] if re.search(r"Pod_\d+$", o["name"])]
+        hall = [o for o in pods if not o["name"].startswith("Works")]; self.assertGreater(len(hall), 2 * (len(pods) - len(hall)))
+        tops = [o["position"][1] for o in L["objects"] if re.search(r"Ceil_LampRail_\d+$", o["name"])]
+        for p in pods:  # every cable ends at a lamp rail's underside
+            c = by[p["name"] + "_Cable"]; self.assertTrue(any(abs(c["position"][1] + c["size"][1] - 0.05 - t) < 0.02 for t in tops), p["name"])

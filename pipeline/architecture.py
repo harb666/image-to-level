@@ -778,22 +778,35 @@ def dress_ceilings(ctx):
                 x, z = cx + rng.uniform(-w / 2 + 6, w / 2 - 6), cz + rng.uniform(-d / 2 + 6, d / 2 - 6)
                 if clear_of_shaft(x, z, 8): break
             rr = rng.uniform(2.2, 3.6); fan_unit(ctx, f"{n}Fan_{i + 1}", None, (x, y - 0.12, z), rr, 0.9, wall=False, seed=_h(n + str(i)), st=vis)
-        npods = int(area / 800 * C.get("pods", 1.0)); placed = 0; att = 0  # ---- hanging cage lamps, in clusters
-        while placed < npods and att < npods * 12:
-            att += 1; x0, z0 = cx + rng.uniform(-w / 2 + 3, w / 2 - 3), cz + rng.uniform(-d / 2 + 3, d / 2 - 3)
-            for j in range(int(rng.integers(1, 4))):
-                x, z = x0 + rng.uniform(-3, 3), z0 + rng.uniform(-3, 3)
-                if not clear_of_shaft(x, z, 2.5) or abs(x - cx) > w / 2 - 2 or abs(z - cz) > d / 2 - 2: continue
-                big = rng.random() < 0.2; r = rng.uniform(1.3, 2.0) if big else rng.uniform(0.6, 1.0); h = r * rng.uniform(1.8, 2.4)
-                low = _floor_under(ctx, x, z, r + 2.0) + 4.5 + h; bot = max(low, y - rng.uniform(3.5, 12.0))
-                if bot + h + 1.0 > y - 0.5: continue
-                placed += 1; nm = f"{n}Pod_{placed:02d}"
-                ctx.add(nm + "_Cable", "box", [x, bot + h, z], [0.1, y - bot - h, 0.1], "frame", None, outline=False, **vis)
-                ctx.add(nm + "_Cap", "cylinder", [x, bot + h - 0.1, z], [2 * r + 0.3, 0.45, 2 * r + 0.3], "structure_b", None, sections=6, **vis)
-                ctx.add(nm, "cylinder", [x, bot + 0.25, z], [2 * r, h - 0.35, 2 * r], "fall" if "fall" in ctx.spec.get("materials", {}).get("roles", {}) else "glow", None,
-                        sections=6, outline=False, **vis)
-                ctx.add(nm + "_Base", "cylinder", [x, bot, z], [2 * r + 0.2, 0.3, 2 * r + 0.2], "structure_b", None, sections=6, outline=False, **vis)
-                for b in range(2): ctx.add(f"{nm}_Bar_{b + 1}", "box", [x, bot + 0.2, z], [2 * r + 0.25, h - 0.3, 0.14], "frame", None, [0, 90 * b + 45, 0], outline=False, **vis)  # cage
+        npods = int(area / 800 * C.get("pods", 1.0)); placed = 0  # ---- hanging cage lamps on lamp rails (Stage 32)
+        if npods:
+            nl = max(1, int(round(npods / 6))); per = int(math.ceil(npods / nl)); ry = y - 3.07  # odd height: never flush with a ceiling step
+            busy = [k[1] for k in getattr(ctx, "crane_rails", set()) if abs(k[2]) < 1e-6]  # crane runways (world z of each line)
+            for li in range(nl):
+                z = cz - d / 2 + d * (li + 0.5) / nl + rng.uniform(-2, 2)
+                for _ in range(8):  # keep clear of the crane runways and the lift shaft
+                    if all(abs(z - b) > 3.5 for b in busy) and clear_of_shaft(cx, z, 3.0) or not (cz - d / 2 + 4 < z < cz + d / 2 - 4): break
+                    z += 4.0 if z < cz + d / 2 - 8 else -9.0
+                Lr = w - 6; ln = f"{n}LampRail_{li + 1}"
+                ctx.add(ln, "ibeam", [cx, ry, z], [Lr, 0.5, 0.4], "frame", None, **vis)
+                m = max(2, int(round(Lr / 11)))
+                for k in range(m + 1):
+                    hx = cx - Lr / 2 + 0.5 + (Lr - 1.0) * k / m
+                    ctx.add(f"{ln}_Hanger_{k + 1}", "box", [hx, ry + 0.5, z], [0.16, y - ry - 0.5 + 0.08, 0.16], "frame", None, outline=False, **vis)
+                for j in range(per):
+                    if placed >= npods: break
+                    x = cx - Lr / 2 + 2 + (Lr - 4) * (j + 0.5) / per + rng.uniform(-1.5, 1.5)
+                    if not clear_of_shaft(x, z, 2.5): continue
+                    big = rng.random() < 0.2; r = rng.uniform(1.3, 2.0) if big else rng.uniform(0.6, 1.0); h = r * rng.uniform(1.8, 2.4)
+                    low = _floor_under(ctx, x, z, r + 2.0) + 4.5 + h; bot = max(low, ry - h - rng.uniform(0.8, 6.0))
+                    if bot + h + 0.4 > ry: continue  # too little room under the rail here
+                    placed += 1; nm = f"{n}Pod_{placed:02d}"
+                    ctx.add(nm + "_Cable", "box", [x, bot + h, z], [0.1, ry - bot - h + 0.05, 0.1], "frame", None, outline=False, **vis)  # from the rail
+                    ctx.add(nm + "_Cap", "cylinder", [x, bot + h - 0.1, z], [2 * r + 0.3, 0.45, 2 * r + 0.3], "structure_b", None, sections=6, **vis)
+                    ctx.add(nm, "cylinder", [x, bot + 0.25, z], [2 * r, h - 0.35, 2 * r], "fall" if "fall" in ctx.spec.get("materials", {}).get("roles", {}) else "glow", None,
+                            sections=6, outline=False, **vis)
+                    ctx.add(nm + "_Base", "cylinder", [x, bot, z], [2 * r + 0.2, 0.3, 2 * r + 0.2], "structure_b", None, sections=6, outline=False, **vis)
+                    for b in range(2): ctx.add(f"{nm}_Bar_{b + 1}", "box", [x, bot + 0.2, z], [2 * r + 0.25, h - 0.3, 0.14], "frame", None, [0, 90 * b + 45, 0], outline=False, **vis)  # cage
         for i in range(int(area / 1400)):  # ---- sagging cable runs (4 segments)
             x0, z0 = cx + rng.uniform(-w / 2 + 2, w / 2 - 2), cz + rng.uniform(-d / 2 + 2, d / 2 - 2); a = rng.uniform(0, 2 * math.pi); ln = rng.uniform(8, 20)
             x1, z1 = x0 + math.cos(a) * ln, z0 + math.sin(a) * ln
