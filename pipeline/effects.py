@@ -76,6 +76,12 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
     "tube_blobs": dict(category="particles", godot="CPUParticles3D, one system for every tube of the group (emission points at the tube bottoms), slow rise, additive glow",
                        glb="nothing (the tubes are see-through glass)", defaults=dict(rate=0.3, lifetime=6.0, speed=[1.4, 1.8], gravity=0.0, size=[1.6, 1.2], alpha=0.95,
                        color=[0.5, 1.0, 0.3], texture="mote", blend="add", spread=2, radius=0.3)),
+    "tube_bubbles": dict(category="tube_bubbles", godot="ONE MeshInstance3D: an ArrayMesh of camera-facing quads (4 verts per bubble: VERTEX = tube bottom centre, "
+                         "UV = corner, COLOR = random seed, UV2 = (height, radius)) + tube_bubbles.gdshader, which moves every bubble up its tube in the vertex "
+                         "shader (rises faster as it goes, wobbles, grows a little, fades in at the nozzles and pops under the hood) and draws a glassy rim + "
+                         "highlights. render_priority -1 so the tinted glass is drawn over it. No CPU work, one draw call",
+                         glb="nothing (tube positions in 'tubes': [x, y_bottom, z, height, radius])",
+                         defaults=dict(density=1.6, size=[0.07, 0.34], speed=[0.9, 2.4], wobble=0.14, color=[0.82, 1.0, 0.7], alpha=0.85, nozzles=0.7)),
     "spin": dict(category="transform_animation", godot="script: rotor node.rotate_object_local(Vector3.UP, rpm * TAU / 60 * delta); the rotor's node origin is its centre "
                  "and its local +y its axis (per-target rpm in 'speeds', sign = direction)", glb="rotor mesh at rest, own node", defaults=dict(speed_rpm=20.0)),
     "tube_travel": dict(category="translate_loop", godot="script: node.position = rest + Vector3.UP * fmod(t * speed, spacing) - one shared loop for "
@@ -288,6 +294,10 @@ def resolve(level_dir, L=None):
                 merged = "burst" not in p and n_em > 1  # continuous multi-point effects -> ONE emitter (emission points)
                 cost = dict(max_particles=alive * n_em, emitters=n_em, extra_draw_calls=1 if merged else n_em)
                 if merged: R["merge_emitters"] = True
+            elif t["category"] == "tube_bubbles":  # per tube: round(density * height * radius) bubbles, 12..140
+                p["density"] = round(p["density"] * mult, 3); tb = e.get("tubes", []); R["tubes"] = tb
+                n_b = sum(min(140, max(12, int(round(p["density"] * h * r)))) for (_, _, _, h, r) in tb)
+                cost = dict(max_particles=n_b, emitters=len(tb), extra_draw_calls=1 if tb else 0, transparent_area_m2=round(n_b * 0.04, 1))
             elif t["category"] == "cloud_layer":
                 n_l = max(1, int(round(p.get("layers", 1) * p.pop("layers_mult", 1.0)))); p["layers"] = n_l
                 cost = dict(max_particles=0, emitters=0, extra_draw_calls=n_l, transparent_area_m2=round(math.pi * p["radius"] ** 2 * n_l))

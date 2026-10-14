@@ -217,20 +217,16 @@ def _effects(spec, ctx, plats, env, glow):
                     dict(id="Pour_Steam", type="steam", at_targets_glob=list(ctx.pours), anchor="bottom")]
         for f in getattr(ctx, "fountains", []): out.append(dict(id=f + "_Ripple", type="liquid_surface", target=f, scroll=[0.02, 0.01], swirl=0.02, pulse_speed=0.1, pulse_amount=0.05))
         tubes = [o for o in ctx.objects if o.get("tube")]
-        if tubes:  # Stage 20: blobs of slime rising through the see-through tubes now and then; one particle system per height group
+        if tubes:  # Stage 48: bubbles rising up the see-through tubes (one shader-animated mesh for all of them; replaces the Stage 20 glow blobs)
             from anchors import world_matrices
-            Wm, _ = world_matrices({"objects": ctx.objects}); grp, per = {}, {}
-            for o in tubes:  # one tube per structure: a column's glass sections are one shaft (blobs pass behind its bands)
-                p0 = Wm[o["name"]] @ [0, 0, 0, 1]; t = per.setdefault(o.get("parent") or o["name"], [p0[:3], 1e9, -1e9, o["size"][0] / 2])
-                t[1] = min(t[1], float(p0[1])); t[2] = max(t[2], float(p0[1]) + o["size"][1])
-            for (c0, y0, y1, r) in per.values():
-                h = y1 - y0
-                if h < 2.5: continue
-                grp.setdefault(int(h // 4), []).append(([round(float(c0[0]), 2), round(y0 + 0.3, 2), round(float(c0[2]), 2)], h, r))
-            for k, items in sorted(grp.items()):
-                h = min(i[1] for i in items); r = sum(i[2] for i in items) / len(items); v = 1.6
-                out.append(dict(id=f"Tube_Blobs_{k:02d}", type="tube_blobs", positions=[i[0] for i in items], merge_emitters=True,
-                                lifetime=round(0.72 * (h - 0.6) / v, 2), speed=[v * 0.9, v * 1.1], size=[round(r * 1.3, 2), round(r * 1.0, 2)], radius=round(r * 0.35, 2)))
+            Wm, _ = world_matrices({"objects": ctx.objects}); per = {}
+            for o in tubes:  # one tube per structure: a column's glass sections are one shaft (bubbles pass behind its bands)
+                p0 = Wm[o["name"]] @ [0, 0, 0, 1]; br = o.get("bubble_range")
+                lo, hi = (float(p0[1]) + br[0], float(p0[1]) + br[1]) if br else (float(p0[1]) + 0.3, float(p0[1]) + o["size"][1])
+                t = per.setdefault(o.get("parent") or o["name"], [p0[:3], 1e9, -1e9, o["size"][0] / 2])
+                t[1] = min(t[1], lo); t[2] = max(t[2], hi)
+            tb = [[round(float(c0[0]), 2), round(y0, 2), round(float(c0[2]), 2), round(y1 - y0, 2), round(r, 2)] for (c0, y0, y1, r) in per.values() if y1 - y0 >= 2.0]
+            if tb: out.append(dict(id="Tube_Bubbles", type="tube_bubbles", tubes=tb))
         fl = getattr(ctx, "fan_lights", [])
         if fl: out.append(dict(id="Fan_Lights", type="point_light", positions=[q[:3] for q in fl], color=[1.0, 0.8, 0.3], energy=1.0, range=16.0))  # Stage 39
         spins = [o["name"] for o in ctx.objects if o.get("spin")]

@@ -70,7 +70,7 @@ class Stage36(unittest.TestCase):
         for i in range(len(B)):
             for j in range(i + 1, len(B)):
                 self.assertFalse((np.minimum(B[i][1], B[j][1]) - np.maximum(B[i][0], B[j][0]) > 0.02).all(), (cr[i]["name"], cr[j]["name"]))
-        for n in ("Pipe_North_Plate", "Pipe_North_Collar", "Pipe_North_Bolt_4", "Pipe_NE_Boot", "W_Run_North_End1_Plate"): self.assertIn(n, by)
+        for n in ("Pipe_North_Plate", "Pipe_North_Collar", "Pipe_North_Bolt_4", "W_Run_North_End1_Plate"): self.assertIn(n, by)
 
 
 class Stage37(unittest.TestCase):
@@ -159,3 +159,14 @@ class Stage46(unittest.TestCase):
         for d in decks:
             for k in ("_Clad_L", "_Clad_R", "_CladLight_L", "_Threshold_Lo", "_Threshold_Hi", "_Support_Head", "_Support_Footing"): self.assertIn(d + k, by)
             self.assertEqual(by[d + "_Threshold_Hi"]["material"], "stripe")
+
+
+class Stage48(unittest.TestCase):
+    def test_vat_insides_and_bubbles(self):
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        for k in ("_Diffuser", "_DiffuserGrate", "_Nozzle_7", "_Hood", "_HoodGrate"): self.assertIn("Vat_01" + k, by)
+        self.assertFalse([n for n in by if n.startswith(("Pipe_NE", "Pipe_SW"))])
+        E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "effects_mobile.json")))
+        fx = [e for e in E["effects"] if e["type"] == "tube_bubbles"]
+        self.assertEqual(len(fx), 1); self.assertGreaterEqual(len(fx[0]["tubes"]), 16)
+        self.assertFalse([e for e in E["effects"] if e["type"] == "tube_blobs"])

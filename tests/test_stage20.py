@@ -14,9 +14,10 @@ class Tubes(unittest.TestCase):
         self.assertLess(L["materials"]["glass"]["alpha"], 0.5)
         glass = [o for o in L["objects"] if o.get("tube")]
         self.assertTrue(glass and all(o["material"] == "glass" and o["double_sided"] and o["collision"] for o in glass))
-        blobs = [e for e in L["effects"] if e["type"] == "tube_blobs"]
-        self.assertEqual(sum(len(e["positions"]) for e in blobs), 2)  # one emitter per structure (the column's sections are one shaft)
-        for e in blobs: self.assertGreater(e["lifetime"], 0.5)
+        bub = [e for e in L["effects"] if e["type"] == "tube_bubbles"]  # Stage 48: bubbles replace the glow blobs
+        self.assertEqual(sum(len(e["tubes"]) for e in bub), 2)  # one tube per structure (the column's sections are one shaft)
+        for e in bub: self.assertTrue(all(t[3] > 2.0 and t[4] > 0.5 for t in e["tubes"]))
+        self.assertFalse([e for e in L["effects"] if e["type"] == "tube_blobs"])
         import materials
         m, _ = materials.make_material("glass", L["materials"]["glass"]); self.assertEqual(m.alphaMode, "BLEND")
         by = {o["name"]: o for o in L["objects"]}  # see-through glass never ends flush with a band (z-fighting seen through it)

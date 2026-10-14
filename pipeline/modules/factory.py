@@ -22,14 +22,34 @@ def vat(ctx, s, x, y, z, yaw):
     gh = H * 0.5; base = 3.0; uh = max(1.5, H - base - 1.0 - gh - 1.0 - 0.8)
     ctx.add(n + "_Plinth", "cylinder", [0, y0, 0], [D + 1.2, base - y0, D + 1.2], "structure_b", g, sections=seg, **st)
     ctx.add(n + "_BandLow", "cylinder", [0, base, 0], [D + 0.6, 1.0, D + 0.6], "trim", g, sections=seg, collision=False, **st)
-    ctx.add(n + "_Glass", "cylinder", [0, base + 0.9, 0], [D, gh + 0.2, D], s.get("material", "glass"), g, sections=seg, collision=True, double_sided=True, tube=True, **st)  # see-through: blobs rise inside; ends sunk 10 cm into the bands (no shared planes)
+    ctx.add(n + "_Glass", "cylinder", [0, base + 0.9, 0], [D, gh + 0.2, D], s.get("material", "glass"), g, sections=seg, collision=True, double_sided=True, tube=True,
+            bubble_range=[0.78, round(gh - 0.75, 3)], **st)  # see-through: bubbles rise inside (nozzle tops -> under the hood); ends sunk 10 cm into the bands
     ctx.add(n + "_BandMid", "cylinder", [0, base + 1.0 + gh, 0], [D + 0.6, 1.0, D + 0.6], "trim", g, sections=seg, collision=False, **st)
+    _vat_insides(ctx, n, g, D, base + 1.0, base + 1.0 + gh, seg, st)
     yu = base + 2.0 + gh
     ctx.add(n + "_Body", "cylinder", [0, yu, 0], [D + 0.3, uh, D + 0.3], "structure_b", g, sections=seg, **st)
     ctx.add(n + "_Cap", "cylinder", [0, yu + uh, 0], [D + 0.9, 0.8, D + 0.9], "trim", g, sections=seg, collision=False, **st)
     if s.get("banner", True) and uh > 3:  # banner on the side facing the hall centre
         bw = min(3.0, D * 0.4); r = (D + 0.3) / 2 * math.cos(math.pi / seg) + 0.05
         ctx.add(n + "_Banner", "panel", [0, yu + uh * 0.08, r], [bw, uh * 0.8, 0], "accent", g, collision=False, outline=False, **st)
+
+
+def _vat_insides(ctx, n, g, D, yb, yt, seg, st):
+    """Stage 48: what the glass shows at its ends. Bottom: a machined diffuser drum with a perforated grate, a red-lit ring
+    and six bubble nozzles round a centre one (the bubbles start at their tops). Top: a funnel hood hanging from the band
+    with a vent grate where the bubbles end. Visual only; every face a few cm off its neighbours."""
+    v = dict(collision=False, **st); w = dict(v, outline=False)
+    ctx.add(n + "_Diffuser", "cylinder", [0, yb - 0.03, 0], [D * 0.86, 0.38, D * 0.86], "machine", g, sections=seg, **v)
+    ctx.add(n + "_DiffuserRing", "cylinder", [0, yb + 0.32, 0], [D * 0.8, 0.07, D * 0.8], "glow", g, sections=seg, hole=round(D * 0.4 * math.cos(math.pi / seg) - 0.08, 3), hole_res=seg, **w)
+    ctx.add(n + "_DiffuserGrate", "cylinder", [0, yb + 0.31, 0], [D * 0.7, 0.09, D * 0.7], "grate", g, sections=seg, **w)
+    for k in range(7):  # nozzles: six on a ring (radius 0.22 D) + the centre one
+        a = math.radians(60 * k); r = 0.0 if k == 6 else D * 0.22
+        ctx.add(f"{n}_Nozzle_{k + 1}", "frustum", [math.cos(a) * r, yb + 0.36, math.sin(a) * r], [0.18, 0.32, 0.18], "frame", g, sections=6, bottom_scale=1.7, **w)  # tapered spout
+    ctx.add(n + "_Hood", "frustum", [0, yt - 0.75, 0], [D * 0.88, 0.78, D * 0.88], "machine", g, sections=seg, bottom_scale=0.6, **v)
+    ctx.add(n + "_HoodGrate", "cylinder", [0, yt - 0.79, 0], [D * 0.88 * 0.6 - 0.12, 0.07, D * 0.88 * 0.6 - 0.12], "grate", g, sections=seg, **w)
+    for k in range(4):  # ribs down the hood's sloped face
+        a = math.radians(45 + 90 * k); r = D * 0.44 * 0.8
+        ctx.add(f"{n}_HoodRib_{k + 1}", "box", [math.cos(a) * r, yt - 0.7, math.sin(a) * r], [0.12, 0.68, D * 0.18], "frame", g, [0, -math.degrees(a) + 90, 0], **w)
 
 
 @structure("claw", pad=False)

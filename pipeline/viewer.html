@@ -230,6 +230,23 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
          vec3 col=mix(pic,vec3(n*ln),mm)*mix(.65,1.,bar);diffuseColor.rgb=col*.15;totalEmissiveRadiance=col*uP2.w;}
         #endif`);};m.customProgramCacheKey=()=>'tvstatic'+fx.id;m.needsUpdate=true;});
       fxUpd.push({reset(){mats.forEach((m,i)=>{m.onBeforeCompile=ob[i];m.customProgramCacheKey=THREE.Material.prototype.customProgramCacheKey;m.needsUpdate=true;});},u(t){U.uT.value=t;}});}
+    else if(fx.category==='tube_bubbles'){const T=fx.tubes||[];let rs=48;const rnd=()=>((rs=(rs*16807)%2147483647)/2147483647); // Stage 48: bubbles up the vat tubes (same maths as tube_bubbles.gdshader)
+      const P=[],C=[],S=[],H=[],I=[];for(const t of T){const n=Math.min(140,Math.max(12,Math.round(p.density*t[3]*t[4])));
+        for(let i=0;i<n;i++){const sd=[rnd(),rnd(),rnd(),rnd()],b=P.length/3;for(const c of [[-1,-1],[1,-1],[1,1],[-1,1]]){P.push(t[0],t[1],t[2]);C.push(...c);S.push(...sd);H.push(t[3],t[4]);}I.push(b,b+1,b+2,b,b+2,b+3);}}
+      if(P.length){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(P,3));g.setAttribute('corner',new THREE.Float32BufferAttribute(C,2));
+        g.setAttribute('seed',new THREE.Float32BufferAttribute(S,4));g.setAttribute('tube',new THREE.Float32BufferAttribute(H,2));g.setIndex(I);
+        const U={uT:{value:0},uSize:{value:new THREE.Vector2(...p.size)},uSpeed:{value:new THREE.Vector2(...p.speed)},uWob:{value:p.wobble},uNoz:{value:p.nozzles},uTint:{value:new THREE.Color(...p.color)},uA:{value:p.alpha}};
+        const m=new THREE.ShaderMaterial({uniforms:U,transparent:true,depthWrite:false,side:THREE.DoubleSide,
+          vertexShader:`attribute vec2 corner,tube;attribute vec4 seed;uniform float uT,uWob,uNoz;uniform vec2 uSize,uSpeed;varying vec2 q;varying float fade;
+          void main(){vec4 s=seed;float h=tube.x,r=tube.y,spd=mix(uSpeed.x,uSpeed.y,s.x),k=fract(uT*spd/h+s.y),y=h*pow(k,1.3),ang,rad;
+            if(s.w<uNoz){float n=floor(s.z*7.);ang=n*1.0472;rad=n>5.5?0.:.44*r;}else{ang=s.z*6.2832;rad=sqrt(fract(s.w*7.13))*.78*r;}
+            float wob=uWob*(.25+k)*min(1.,r*.5);vec3 off=vec3(cos(ang)*rad+sin(uT*(2.+3.*s.x)+s.y*40.)*wob,y,sin(ang)*rad+cos(uT*(1.7+2.*s.z)+s.w*30.)*wob);
+            float sz=mix(uSize.x,uSize.y,pow(fract(s.x*13.7+s.w),2.))*(.7+.5*k);fade=smoothstep(0.,.05,k)*(1.-smoothstep(.92,1.,k));q=corner;
+            vec4 mv=modelViewMatrix*vec4(position+off,1.);mv.xy+=corner*sz;gl_Position=projectionMatrix*mv;}`,
+          fragmentShader:`uniform vec3 uTint;uniform float uA;varying vec2 q;varying float fade;
+          void main(){float d=length(q);if(d>1.)discard;float rim=smoothstep(.6,.92,d)*(1.-smoothstep(.92,1.,d)),hl=1.-smoothstep(0.,.3,length(q-vec2(-.36,.38))),hl2=1.-smoothstep(0.,.13,length(q-vec2(.38,-.32)));
+            gl_FragColor=vec4(mix(uTint,vec3(1.),clamp(hl+.6*hl2,0.,1.)),clamp(.08+rim*.85+hl*.9+hl2*.55,0.,1.)*fade*uA);}`});
+        const me=new THREE.Mesh(g,m);me.frustumCulled=false;me.renderOrder=-1;scene.add(me);fxObjs.push(me);fxUpd.push({u(t){U.uT.value=t;}});}}
     else if(fx.category==='light'){for(const e of fx.emitters||[]){const L=new THREE.PointLight(new THREE.Color(...p.color),p.energy*60,p.range,1.6);L.position.set(...e.pos);scene.add(L);fxObjs.push(L);}} // Stage 39: soft coloured lights
     else if(fx.category==='translate_loop'){const tg=(fx.targets||[]).map(n=>byName[n]).filter(Boolean),y0=tg.map(o=>o.position.y); // Stage 43: barrels up the column bores
       fxUpd.push({reset(){tg.forEach((o,i)=>o.position.y=y0[i]);},u(t){const d=(t*p.speed)%p.spacing;tg.forEach((o,i)=>o.position.y=y0[i]+d);}});}

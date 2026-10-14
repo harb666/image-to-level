@@ -721,3 +721,15 @@ Building blocks usable without the preset:
 ## Stage 47: free cam starts at the player (preview)
 - Switching the browser preview to "free cam" puts the camera 6 m behind and 3 m above the player, looking the same
   way (it used to start wherever the previous orbit camera was - far out in a corner). Respawn re-places it too.
+
+## Stage 48: bubbling vats, no corner pours
+- The see-through tubes (vats, reactor columns) fill with rising bubbles instead of the glowing blobs: effect
+  `tube_bubbles` (one mesh for the whole level, animated in the vertex shader - `fx/godot/tube_bubbles.gdshader` in Godot,
+  the same maths in the preview). Bubbles stream mostly from seven nozzles, speed up, wobble and grow as they rise, fade
+  in at the nozzles and pop under the hood; glassy rim + two highlights, drawn before the tinted glass. Count per tube =
+  density x height x radius (12..140; ~1,000 in this level at balanced, 0.4x / 1.6x for performance / quality).
+  The insides cost ~7k triangles for the 16 vats (mobile level 3.8 MB, ~117k triangles, measured).
+- Vat insides: a machined diffuser drum at the bottom (perforated grate, red-lit ring, six tapered nozzles round a centre one)
+  and a funnel hood hanging at the top (ribs, vent grate where the bubbles end). Glass objects may carry
+  `bubble_range` [from, to] (m above the glass base).
+- `Pipe_NE` and `Pipe_SW` (the last corner pours) are gone from the slime arena.
