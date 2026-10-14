@@ -136,3 +136,16 @@ class Stage41(unittest.TestCase):
         self.assertTrue(wf and all(by[n]["material"] == "glow_dim" for n in wf))
         self.assertLess(max(L["materials"]["glow_dim"]["emissive"]), 0.4)
         self.assertNotIn("Valve_A_Vent", by); self.assertIn("Valve_A_Unit", by)
+
+
+class Stage43(unittest.TestCase):
+    def test_barrels_shoot_up_the_columns(self):
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        cols = [o["name"] for o in L["objects"] if o["name"].startswith("Column_") and o["type"] == "group"]
+        for c in cols:
+            ys = sorted(by[n]["position"][1] for n in by if n.startswith(c + "_Barrel_") and "_Hoop_" not in n)
+            self.assertTrue(len(ys) >= 2 and ys[0] + by[c + "_Barrel_1"]["size"][1] < 3.9, c)  # first one hidden in the plinth
+            self.assertTrue(all(abs(b - a - 7.0) < 1e-3 for a, b in zip(ys, ys[1:])), c)  # exact spacing: the loop is seamless
+        E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "effects_mobile.json")))
+        fx = [e for e in E["effects"] if e["type"] == "tube_travel"]
+        self.assertEqual(fx[0]["category"], "translate_loop"); self.assertTrue(all(t.startswith("Tube_Barrels__") for t in fx[0]["targets"]))

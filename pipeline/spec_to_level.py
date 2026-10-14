@@ -235,6 +235,10 @@ def _effects(spec, ctx, plats, env, glow):
         if fl: out.append(dict(id="Fan_Lights", type="point_light", positions=[q[:3] for q in fl], color=[1.0, 0.8, 0.3], energy=1.0, range=16.0))  # Stage 39
         spins = [o["name"] for o in ctx.objects if o.get("spin")]
         if spins: out.append(dict(id="Fan_Spin", type="spin", targets=spins))  # Stage 19: rotating fan rotors
+        travel = [o["name"] for o in ctx.objects if o.get("travel")]
+        if travel:  # Stage 43: barrels shooting up the column bores
+            from modules.factory import TUBE_SPACING, TUBE_SPEED
+            out.append(dict(id="Tube_Barrels", type="tube_travel", targets=travel, speed=TUBE_SPEED, spacing=TUBE_SPACING))
         SC = spec.get("screens") or {}
         for i, sm in enumerate(sorted(r for r in ctx.roles if r in ("screen", "bigscreen"))):  # Stage 23: live screens flicker a little (CRT feel)
             if SC.get("static", 0.85) > 0:  # Stage 26: TV static (snow) over the picture, the picture breaks through now and then

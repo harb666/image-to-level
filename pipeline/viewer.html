@@ -231,6 +231,8 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
         #endif`);};m.customProgramCacheKey=()=>'tvstatic'+fx.id;m.needsUpdate=true;});
       fxUpd.push({reset(){mats.forEach((m,i)=>{m.onBeforeCompile=ob[i];m.customProgramCacheKey=THREE.Material.prototype.customProgramCacheKey;m.needsUpdate=true;});},u(t){U.uT.value=t;}});}
     else if(fx.category==='light'){for(const e of fx.emitters||[]){const L=new THREE.PointLight(new THREE.Color(...p.color),p.energy*60,p.range,1.6);L.position.set(...e.pos);scene.add(L);fxObjs.push(L);}} // Stage 39: soft coloured lights
+    else if(fx.category==='translate_loop'){const tg=(fx.targets||[]).map(n=>byName[n]).filter(Boolean),y0=tg.map(o=>o.position.y); // Stage 43: barrels up the column bores
+      fxUpd.push({reset(){tg.forEach((o,i)=>o.position.y=y0[i]);},u(t){const d=(t*p.speed)%p.spacing;tg.forEach((o,i)=>o.position.y=y0[i]+d);}});}
     else if(fx.category==='transform_animation'){const tg=(fx.targets||[]).map(n=>[byName[n],(fx.speeds||{})[n]??p.speed_rpm]).filter(a=>a[0]); // spinning fan rotors
       const r0=tg.map(a=>a[0].quaternion.clone());fxUpd.push({reset(){tg.forEach((a,i)=>a[0].quaternion.copy(r0[i]));},u(t,dt){for(const [o,r] of tg)o.rotateY(r*6.2831/60*dt);}});}
     else if(fx.category==='particles')makeParticles(fx,p);

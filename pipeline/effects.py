@@ -78,6 +78,9 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                        color=[0.5, 1.0, 0.3], texture="mote", blend="add", spread=2, radius=0.3)),
     "spin": dict(category="transform_animation", godot="script: rotor node.rotate_object_local(Vector3.UP, rpm * TAU / 60 * delta); the rotor's node origin is its centre "
                  "and its local +y its axis (per-target rpm in 'speeds', sign = direction)", glb="rotor mesh at rest, own node", defaults=dict(speed_rpm=20.0)),
+    "tube_travel": dict(category="translate_loop", godot="script: node.position = rest + Vector3.UP * fmod(t * speed, spacing) - one shared loop for "
+                        "every target; things wrap out of sight (barrels shooting up the column bores, Stage 43)", glb="targets at rest, own nodes (mobile group)",
+                        defaults=dict(speed=9.0, spacing=7.0)),
     "sky_drift": dict(category="environment", godot="script: Environment.sky_rotation.y += speed (rad/s) - slow cloud drift", glb="nothing",
                       defaults=dict(speed_deg_s=0.25)),
 }

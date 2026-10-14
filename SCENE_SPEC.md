@@ -695,3 +695,10 @@ Building blocks usable without the preset:
   to +2.6 m) rings the mouth instead: 16 seams, four clamp plates (N/E/S/W) with a red light slot and a grille, four dark
   struts on the diagonals, eight small red triangle lights in dark recesses, and four red slots on plates outside that
   cross the glow ring. Visual only (no collision), existing roles; the car's floor emblem stays.
+
+## Stage 43: barrels shooting up the reactor columns
+- Every `column` carries a train of slime-green barrels with dark hoops up its bore, exactly 7 m apart (`"barrels": false`
+  turns it off). Effect `tube_travel` (category `translate_loop`) moves them all up by `(t * 9 m/s) mod 7 m`, so the train
+  looks endless: the lowest barrel starts hidden in the plinth under the glass and the top one leaves inside the capital.
+- At rest no barrel face is level with a column face (the train slides a few cm until clear). Visual only; one mobile
+  group `Tube_Barrels` for all columns (2 draw calls, ~3.8k triangles).
