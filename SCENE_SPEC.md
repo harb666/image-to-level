@@ -648,3 +648,10 @@ Building blocks usable without the preset:
   its surface.
 - Column plinths are rings too (the pipe reaches down into the slime). Lamp pods: the glass shell's ends sit 5 cm
   inside base and cap (no flickering lids), the cage is three corner posts outside the glass (no bars through it).
+
+## Stage 35: shaft like the previous level, real wall vents
+- `elevator_arrival` roof shaft: the same look as `elevator_shaft` "minimal" (Skyforge): plain structure_b lip, thin glow
+  outer ring, two insignia plates (not symmetric) on the roof's underside, short light strips of uneven length near the
+  mouth.
+- Wall `Vent` module: a framed opening (four frame bars), dark duct behind it (accent atlas `void`), angled louvres
+  every ~0.4 m and a status light - no flat panel of wall texture. Same placement as before.

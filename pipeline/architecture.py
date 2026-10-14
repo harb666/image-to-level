@@ -541,9 +541,18 @@ def _wall_varied(ctx, name, g, L, height, thick, base_y, dress, body="wall"):
             ew = min(sw * 0.8, rng.uniform(4, 7)); eh = min(H - (fy + 3 - base_y) - 1, ew * rng.uniform(1.4, 2.0))
             if eh > 3: ctx.add(nm, "panel", [x, fy + 2.5, f + 0.03], [ew, eh, 0], "accent", g, collision=False, outline=False, **st)
         elif m == "vent":
-            vw = sw * rng.uniform(0.4, 0.7); yy = rng.uniform(fy + 1, fy + 8); vh = rng.uniform(2, 4)  # frame + 3 slats (a louvred vent shape is ~500 triangles)
-            ctx.add(nm, "box", [x, yy, f + 0.1], [vw, vh, 0.3], "structure_b", g, collision=False, **st)
-            for j in range(3): ctx.add(f"{nm}_Slat_{j + 1}", "box", [x, yy + vh * (j + 1) / 4 - 0.12, f + 0.3], [vw - 0.5, 0.24, 0.15], "frame", g, collision=False, outline=False, **st)
+            vw = sw * rng.uniform(0.4, 0.7); yy = rng.uniform(fy + 1, fy + 8); vh = rng.uniform(2, 4)  # framed louvred vent (boxes: cheap)
+            fw = 0.3  # Stage 35: a real louvred vent - framed opening, dark duct behind, angled louvres, status light
+            ctx.add(nm, "box", [x, yy + vh - fw, f + 0.15], [vw, fw, 0.3], "structure_b", g, collision=False, **st)  # top of the frame
+            ctx.add(nm + "_FrameLow", "box", [x, yy, f + 0.15], [vw, fw, 0.3], "structure_b", g, collision=False, **st)
+            for k_, sd in enumerate((-1, 1)): ctx.add(f"{nm}_FrameSide_{k_ + 1}", "box", [x + sd * (vw / 2 - fw / 2), yy + fw - 0.02, f + 0.15], [fw, vh - 2 * fw + 0.04, 0.3], "structure_b", g,
+                                                      collision=False, **st)
+            ctx.add(nm + "_Duct", "panel", [x, yy + fw - 0.02, f + 0.02], [vw - 2 * fw + 0.04, vh - 2 * fw + 0.04, 0], ctx.role("accent"), g, uv_region="void", collision=False, outline=False, **st)
+            nl = max(3, int((vh - 2 * fw) / 0.42))
+            for j in range(nl):  # louvres tilted 35 deg, ends 2 cm into the side frames
+                ly = yy + fw + (vh - 2 * fw) * (j + 0.5) / nl - 0.15
+                ctx.add(f"{nm}_Slat_{j + 1}", "box", [x, ly, f + 0.2], [vw - 2 * fw + 0.04, 0.3, 0.07], "frame", g, [35, 0, 0], collision=False, outline=False, **st)
+            ctx.add(nm + "_Status", "box", [x + vw / 2 - 0.45, yy + vh - fw + 0.07, f + 0.31], [0.3, 0.16, 0.06], "glow", g, collision=False, outline=False, **st)
         elif m == "monitor":  # Stage 22-23: wall TV - moulded tv_body (casing texture: screws, vents, speaker grille, knobs, LED), glass screen, mount arms
             tw = min(sw * rng.uniform(0.5, 0.7), rng.uniform(3.2, 5.2)); th = tw * 0.74; yy = fy + rng.uniform(1.4, 2.6); scr = "a" if rng.random() < 0.5 else "b"  # which of the two layouts
             bf, cf, depth, stand = 0.07, 0.2, 0.9, 0.35; W_ = tw / (1 - 2 * bf); H_ = W_ * 0.8; th = H_ * (1 - cf - bf * 1.33) * 0.98; y0 = yy - H_ * cf

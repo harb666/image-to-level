@@ -128,12 +128,20 @@ def elevator_arrival(ctx, s, x, y, z, yaw):
                 collision=False, outline=False, **cut)  # starts inside the slab, 3 cm inside its hole: no coplanar faces with the roof
         ctx.add(n + "_Shaft_Cap", "cylinder", [0, shaft_top, 0], [2 * (Rs + 0.6), 0.6, 2 * (Rs + 0.6)], "structure_b", sg, sections=seg, collision=False, outline=False, **cut)
         ctx.add(n + "_Shaft_Winch", "cylinder", [0, shaft_top - 1.0, 0], [2.4, 1.0, 2.4], "machine", sg, sections=12, collision=False, **cut)
-        ctx.add(n + "_Shaft_Lip", "cylinder", [0, cy - 0.3, 0], [2 * (Rs + 0.9), 0.3, 2 * (Rs + 0.9)], "trim", sg, sections=seg, hole=Rs, collision=False, **cut)
-        for i in range(8):  # pilasters with light strips on every other one (the shaft reads lit from the hall)
+        # Stage 35: the same look as the previous level's shaft (elevator_shaft "minimal"): plain hull lip, a thin glow ring,
+        # two insignia plates (not symmetric), pilasters with short light strips of uneven length near the mouth
+        ctx.add(n + "_Shaft_Lip", "cylinder", [0, cy - 0.12, 0], [2 * (Rs + 0.8), 0.14, 2 * (Rs + 0.8)], "structure_b", sg, sections=seg, hole=Rs, collision=False, **cut)
+        ctx.add(n + "_Shaft_OuterRing", "cylinder", [0, cy - 0.03, 0], [2 * (Rs + 3.75), 0.04, 2 * (Rs + 3.75)], "glow", sg, sections=32, hole=Rs + 3.5, collision=False, outline=False, **cut)
+        for k, deg in enumerate((38.0, 196.0)):  # flat on the roof's underside, between lip and ring, facing down
+            a = math.radians(deg); rr = Rs + 2.1; yw = -deg - 90; ex, ez = A_local(0, 1.1, yw)
+            ctx.add(f"{n}_Shaft_Emblem_{k + 1}", "panel", [math.cos(a) * rr - ex, cy - 0.05, math.sin(a) * rr - ez], [1.3, 2.2, 0], "accent", sg, [90, yw, 0],
+                    collision=False, outline=False, **cut)
+        for i in range(8):  # pilasters with light strips on every other one, short and uneven, near the mouth (reads lit from the hall)
             a = 2 * math.pi * (i + 0.5) / 8; ca, sa = math.cos(a), math.sin(a); r = Rs - 0.2; ry = -math.degrees(a) + 90
             ctx.add(f"{n}_Shaft_Pilaster_{i + 1}", "box", [ca * r, y0, sa * r], [0.8, H, 0.4], "structure_b", sg, [0, ry, 0], bevel=0, collision=False, **cut)
             if i % 2 == 0:
-                ctx.add(f"{n}_Shaft_Strip_{i + 1}", "box", [ca * (r - 0.25), y0 + 0.5, sa * (r - 0.25)], [0.2, H - 1.0, 0.08], "glow", sg, [0, ry, 0],
+                s0 = y0 + 0.6 + (0.0, 0.5, 0.15, 0.8)[i // 2]; ln = (2.1, 1.9, 1.6, 1.4)[i // 2]
+                ctx.add(f"{n}_Shaft_Strip_{i + 1}", "box", [ca * (r - 0.25), s0, sa * (r - 0.25)], [0.22, ln, 0.08], "glow", sg, [0, ry, 0],
                         collision=False, outline=False, **cut)
         cable = shaft_top - 1.0 - (top + Hc + 0.9)
         if frame and cable > 0.2: ctx.add(car + "_Cable", "cylinder", [0, Hc + 0.9, 0], [0.32, cable, 0.32], "frame", g, sections=8, collision=False, outline=False, cutaway=True, **mob)
