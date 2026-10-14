@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "b6e7abf725a658c9",
+  "spec_sha": "dafc041abcc2063a",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -219,8 +219,6 @@
    "id": "Pour_Flow",
    "type": "liquid_flow",
    "targets_glob": [
-    "Pipe_NE_Fall",
-    "Pipe_SW_Fall",
     "Pipe_North_Fall",
     "Pipe_South_Fall",
     "Pipe_East_Fall",
@@ -236,8 +234,6 @@
    "id": "Pour_Splash",
    "type": "splash",
    "at_targets_glob": [
-    "Pipe_NE_Fall",
-    "Pipe_SW_Fall",
     "Pipe_North_Fall",
     "Pipe_South_Fall",
     "Pipe_East_Fall",
@@ -253,8 +249,6 @@
    "id": "Pour_Steam",
    "type": "steam",
    "at_targets_glob": [
-    "Pipe_NE_Fall",
-    "Pipe_SW_Fall",
     "Pipe_North_Fall",
     "Pipe_South_Fall",
     "Pipe_East_Fall",
@@ -267,182 +261,164 @@
    "anchor": "bottom"
   },
   {
-   "id": "Tube_Blobs_01",
-   "type": "tube_blobs",
-   "positions": [
+   "id": "Tube_Bubbles",
+   "type": "tube_bubbles",
+   "tubes": [
+    [
+     18.0,
+     5.68,
+     -45.0,
+     8.47,
+     4.0
+    ],
     [
      -18.0,
-     5.2,
-     45.0
+     5.68,
+     -45.0,
+     6.47,
+     3.0
+    ],
+    [
+     18.0,
+     5.68,
+     45.0,
+     9.47,
+     4.5
+    ],
+    [
+     -18.0,
+     5.68,
+     45.0,
+     5.47,
+     3.5
+    ],
+    [
+     45.0,
+     5.68,
+     18.0,
+     7.47,
+     4.0
+    ],
+    [
+     45.0,
+     5.68,
+     -18.0,
+     8.97,
+     3.0
     ],
     [
      -45.0,
-     5.2,
-     -18.0
+     5.68,
+     18.0,
+     6.97,
+     3.5
+    ],
+    [
+     -45.0,
+     5.68,
+     -18.0,
+     5.97,
+     4.5
     ],
     [
      -25.0,
-     14.2,
-     -170.3
+     14.68,
+     -170.3,
+     4.47,
+     1.5
     ],
     [
      -20.0,
-     14.2,
-     -170.6
+     14.68,
+     -170.6,
+     5.97,
+     1.8
     ],
     [
      -3.5,
-     14.2,
-     -170.0
+     14.68,
+     -170.0,
+     2.97,
+     1.3
     ],
     [
      -3.0,
-     14.2,
-     -162.4
+     14.68,
+     -162.4,
+     4.97,
+     1.7
     ],
     [
      6.0,
-     16.2,
-     -198.0
-    ]
-   ],
-   "merge_emitters": true,
-   "lifetime": 1.85,
-   "speed": [
-    1.4400000000000002,
-    1.7600000000000002
-   ],
-   "size": [
-    3.58,
-    2.76
-   ],
-   "radius": 0.96
-  },
-  {
-   "id": "Tube_Blobs_02",
-   "type": "tube_blobs",
-   "positions": [
-    [
-     18.0,
-     5.2,
-     -45.0
-    ],
-    [
-     -18.0,
-     5.2,
-     -45.0
-    ],
-    [
-     18.0,
-     5.2,
-     45.0
-    ],
-    [
-     45.0,
-     5.2,
-     18.0
-    ],
-    [
-     45.0,
-     5.2,
-     -18.0
-    ],
-    [
-     -45.0,
-     5.2,
-     18.0
+     16.68,
+     -198.0,
+     5.22,
+     5.0
     ],
     [
      28.0,
-     5.2,
-     -166.0
+     5.68,
+     -166.0,
+     8.47,
+     3.5
     ],
     [
      52.0,
-     5.2,
-     -185.0
-    ]
-   ],
-   "merge_emitters": true,
-   "lifetime": 3.42,
-   "speed": [
-    1.4400000000000002,
-    1.7600000000000002
-   ],
-   "size": [
-    4.55,
-    3.5
-   ],
-   "radius": 1.22
-  },
-  {
-   "id": "Tube_Blobs_03",
-   "type": "tube_blobs",
-   "positions": [
+     5.68,
+     -185.0,
+     6.47,
+     2.5
+    ],
     [
      28.0,
-     5.2,
-     -182.0
-    ]
-   ],
-   "merge_emitters": true,
-   "lifetime": 5.22,
-   "speed": [
-    1.4400000000000002,
-    1.7600000000000002
-   ],
-   "size": [
-    3.9,
-    3.0
-   ],
-   "radius": 1.05
-  },
-  {
-   "id": "Tube_Blobs_04",
-   "type": "tube_blobs",
-   "positions": [
+     5.68,
+     -182.0,
+     10.47,
+     3.0
+    ],
     [
      -30.0,
      4.2,
-     -20.0
+     -20.0,
+     18.4,
+     2.8
     ],
     [
      -22.0,
      4.2,
-     32.0
+     32.0,
+     17.47,
+     2.0
     ],
     [
      30.0,
      4.2,
-     -22.0
+     -22.0,
+     18.4,
+     2.4
     ],
     [
      24.0,
      4.2,
-     -120.0
+     -120.0,
+     18.4,
+     3.2
     ],
     [
      -34.0,
      4.2,
-     -80.0
+     -80.0,
+     18.4,
+     2.4
     ],
     [
      -30.0,
      4.2,
-     -205.0
+     -205.0,
+     18.4,
+     2.0
     ]
-   ],
-   "merge_emitters": true,
-   "lifetime": 7.72,
-   "speed": [
-    1.4400000000000002,
-    1.7600000000000002
-   ],
-   "size": [
-    3.21,
-    2.47
-   ],
-   "radius": 0.86
+   ]
   },
   {
    "id": "Fan_Lights",
@@ -3673,6 +3649,342 @@
    "source": "inferred"
   },
   {
+   "name": "OuterWall_East_01_M01Vent",
+   "type": "box",
+   "position": [
+    0.639,
+    11.548,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_01",
+   "size": [
+    3.97,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_01_M01Vent_FrameLow",
+   "type": "box",
+   "position": [
+    0.639,
+    9.399,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_01",
+   "size": [
+    3.97,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_01_M01Vent_FrameSide_1",
+   "type": "box",
+   "position": [
+    -1.196,
+    9.679,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_01",
+   "size": [
+    0.3,
+    1.889,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_01_M01Vent_FrameSide_2",
+   "type": "box",
+   "position": [
+    2.474,
+    9.679,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_01",
+   "size": [
+    0.3,
+    1.889,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_01_M01Vent_Duct",
+   "type": "panel",
+   "position": [
+    0.639,
+    9.679,
+    2.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_01",
+   "size": [
+    3.41,
+    1.889,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_01_M01Vent_Slat_1",
+   "type": "box",
+   "position": [
+    0.639,
+    9.78,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_01",
+   "size": [
+    3.41,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_01_M01Vent_Slat_2",
+   "type": "box",
+   "position": [
+    0.639,
+    10.242,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_01",
+   "size": [
+    3.41,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_01_M01Vent_Slat_3",
+   "type": "box",
+   "position": [
+    0.639,
+    10.705,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_01",
+   "size": [
+    3.41,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_01_M01Vent_Slat_4",
+   "type": "box",
+   "position": [
+    0.639,
+    11.167,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_01",
+   "size": [
+    3.41,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_01_M01Vent_Status",
+   "type": "box",
+   "position": [
+    2.174,
+    11.618,
+    2.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_01",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_01_M01Vent_Red",
+   "type": "box",
+   "position": [
+    1.934,
+    10.083,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_01",
+   "size": [
+    0.5,
+    0.35,
+    0.3
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_01_M01Vent_Plate",
+   "type": "panel",
+   "position": [
+    0.639,
+    12.606,
+    2.012
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East_01",
+   "size": [
+    6.876,
+    8.219,
+    0.0
+   ],
+   "material": "structure_b",
+   "cut": "ragged",
+   "seed": 58568,
+   "collision": false,
+   "outline": false,
+   "uv_space": "world",
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
    "name": "OuterWall_East_02",
    "type": "group",
    "position": [
@@ -6424,6 +6736,117 @@
     4.4
    ],
    "material": "structure_b",
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_West_01_M01Machine_Bracket",
+   "type": "box",
+   "position": [
+    0.289,
+    9.5,
+    2.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_West_01",
+   "size": [
+    5.234,
+    0.8,
+    1.4
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_West_01_M01Machine",
+   "type": "machinery",
+   "position": [
+    0.289,
+    10.3,
+    2.8
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_West_01",
+   "size": [
+    6.543,
+    4.669,
+    1.6
+   ],
+   "material": "machine",
+   "seed": 872830,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_West_01_M01Machine_Light",
+   "type": "box",
+   "position": [
+    -1.674,
+    15.269,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_West_01",
+   "size": [
+    0.6,
+    0.35,
+    0.3
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_West_01_M01Machine_Red",
+   "type": "box",
+   "position": [
+    1.107,
+    14.655,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_West_01",
+   "size": [
+    0.5,
+    0.35,
+    0.3
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
    "gen": "arena.walls",
    "source": "inferred"
   },
@@ -38079,6 +38502,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    9.25
+   ],
    "mobile": {
     "static": true
    },
@@ -38110,6 +38537,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    6.88,
+    0.38,
+    6.88
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    6.4,
+    0.07,
+    6.4
+   ],
+   "material": "glow",
+   "sections": 8,
+   "hole": 2.876,
+   "hole_res": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    5.6,
+    0.09,
+    5.6
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    1.76,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    0.88,
+    4.36,
+    1.524
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -0.88,
+    4.36,
+    1.524
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -1.76,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -0.88,
+    4.36,
+    -1.524
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    0.88,
+    4.36,
+    -1.524
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    13.25,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    7.04,
+    0.78,
+    7.04
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    13.21,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    4.104,
+    0.07,
+    4.104
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_HoodRib_1",
+   "type": "box",
+   "position": [
+    1.991,
+    13.3,
+    1.991
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    0.12,
+    0.68,
+    1.44
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_HoodRib_2",
+   "type": "box",
+   "position": [
+    -1.991,
+    13.3,
+    1.991
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    0.12,
+    0.68,
+    1.44
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_HoodRib_3",
+   "type": "box",
+   "position": [
+    -1.991,
+    13.3,
+    -1.991
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    0.12,
+    0.68,
+    1.44
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_HoodRib_4",
+   "type": "box",
+   "position": [
+    1.991,
+    13.3,
+    -1.991
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    0.12,
+    0.68,
+    1.44
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Vat_01",
    "source": "visible"
   },
@@ -38263,6 +39158,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    7.25
+   ],
    "mobile": {
     "static": true
    },
@@ -38294,6 +39193,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    5.16,
+    0.38,
+    5.16
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    4.8,
+    0.07,
+    4.8
+   ],
+   "material": "glow",
+   "sections": 8,
+   "hole": 2.137,
+   "hole_res": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    4.2,
+    0.09,
+    4.2
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    1.32,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    0.66,
+    4.36,
+    1.143
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -0.66,
+    4.36,
+    1.143
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -1.32,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -0.66,
+    4.36,
+    -1.143
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    0.66,
+    4.36,
+    -1.143
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    11.25,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    5.28,
+    0.78,
+    5.28
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    11.21,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    3.048,
+    0.07,
+    3.048
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_HoodRib_1",
+   "type": "box",
+   "position": [
+    1.493,
+    11.3,
+    1.493
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    0.12,
+    0.68,
+    1.08
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_HoodRib_2",
+   "type": "box",
+   "position": [
+    -1.493,
+    11.3,
+    1.493
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    0.12,
+    0.68,
+    1.08
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_HoodRib_3",
+   "type": "box",
+   "position": [
+    -1.493,
+    11.3,
+    -1.493
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    0.12,
+    0.68,
+    1.08
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_HoodRib_4",
+   "type": "box",
+   "position": [
+    1.493,
+    11.3,
+    -1.493
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    0.12,
+    0.68,
+    1.08
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Vat_02",
    "source": "visible"
   },
@@ -38447,6 +39814,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    10.25
+   ],
    "mobile": {
     "static": true
    },
@@ -38478,6 +39849,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    7.74,
+    0.38,
+    7.74
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    7.2,
+    0.07,
+    7.2
+   ],
+   "material": "glow",
+   "sections": 8,
+   "hole": 3.246,
+   "hole_res": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    6.3,
+    0.09,
+    6.3
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    1.98,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    0.99,
+    4.36,
+    1.715
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -0.99,
+    4.36,
+    1.715
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -1.98,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -0.99,
+    4.36,
+    -1.715
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    0.99,
+    4.36,
+    -1.715
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    14.25,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    7.92,
+    0.78,
+    7.92
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    14.21,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    4.632,
+    0.07,
+    4.632
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_HoodRib_1",
+   "type": "box",
+   "position": [
+    2.24,
+    14.3,
+    2.24
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    0.12,
+    0.68,
+    1.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_HoodRib_2",
+   "type": "box",
+   "position": [
+    -2.24,
+    14.3,
+    2.24
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    0.12,
+    0.68,
+    1.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_HoodRib_3",
+   "type": "box",
+   "position": [
+    -2.24,
+    14.3,
+    -2.24
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    0.12,
+    0.68,
+    1.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_HoodRib_4",
+   "type": "box",
+   "position": [
+    2.24,
+    14.3,
+    -2.24
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    0.12,
+    0.68,
+    1.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Vat_03",
    "source": "visible"
   },
@@ -38631,6 +40470,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    6.25
+   ],
    "mobile": {
     "static": true
    },
@@ -38662,6 +40505,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    6.02,
+    0.38,
+    6.02
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    5.6,
+    0.07,
+    5.6
+   ],
+   "material": "glow",
+   "sections": 8,
+   "hole": 2.507,
+   "hole_res": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    4.9,
+    0.09,
+    4.9
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    1.54,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    0.77,
+    4.36,
+    1.334
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -0.77,
+    4.36,
+    1.334
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -1.54,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -0.77,
+    4.36,
+    -1.334
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    0.77,
+    4.36,
+    -1.334
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    10.25,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    6.16,
+    0.78,
+    6.16
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    10.21,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    3.576,
+    0.07,
+    3.576
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_HoodRib_1",
+   "type": "box",
+   "position": [
+    1.742,
+    10.3,
+    1.742
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    0.12,
+    0.68,
+    1.26
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_HoodRib_2",
+   "type": "box",
+   "position": [
+    -1.742,
+    10.3,
+    1.742
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    0.12,
+    0.68,
+    1.26
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_HoodRib_3",
+   "type": "box",
+   "position": [
+    -1.742,
+    10.3,
+    -1.742
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    0.12,
+    0.68,
+    1.26
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_HoodRib_4",
+   "type": "box",
+   "position": [
+    1.742,
+    10.3,
+    -1.742
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    0.12,
+    0.68,
+    1.26
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Vat_04",
    "source": "visible"
   },
@@ -38815,6 +41126,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    8.25
+   ],
    "mobile": {
     "static": true
    },
@@ -38846,6 +41161,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    6.88,
+    0.38,
+    6.88
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    6.4,
+    0.07,
+    6.4
+   ],
+   "material": "glow",
+   "sections": 8,
+   "hole": 2.876,
+   "hole_res": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    5.6,
+    0.09,
+    5.6
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    1.76,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    0.88,
+    4.36,
+    1.524
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -0.88,
+    4.36,
+    1.524
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -1.76,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -0.88,
+    4.36,
+    -1.524
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    0.88,
+    4.36,
+    -1.524
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    12.25,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    7.04,
+    0.78,
+    7.04
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    12.21,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    4.104,
+    0.07,
+    4.104
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_HoodRib_1",
+   "type": "box",
+   "position": [
+    1.991,
+    12.3,
+    1.991
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    0.12,
+    0.68,
+    1.44
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_HoodRib_2",
+   "type": "box",
+   "position": [
+    -1.991,
+    12.3,
+    1.991
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    0.12,
+    0.68,
+    1.44
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_HoodRib_3",
+   "type": "box",
+   "position": [
+    -1.991,
+    12.3,
+    -1.991
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    0.12,
+    0.68,
+    1.44
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_HoodRib_4",
+   "type": "box",
+   "position": [
+    1.991,
+    12.3,
+    -1.991
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    0.12,
+    0.68,
+    1.44
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Vat_05",
    "source": "visible"
   },
@@ -38999,6 +41782,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    9.75
+   ],
    "mobile": {
     "static": true
    },
@@ -39030,6 +41817,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    5.16,
+    0.38,
+    5.16
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    4.8,
+    0.07,
+    4.8
+   ],
+   "material": "glow",
+   "sections": 8,
+   "hole": 2.137,
+   "hole_res": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    4.2,
+    0.09,
+    4.2
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    1.32,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    0.66,
+    4.36,
+    1.143
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -0.66,
+    4.36,
+    1.143
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -1.32,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -0.66,
+    4.36,
+    -1.143
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    0.66,
+    4.36,
+    -1.143
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    13.75,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    5.28,
+    0.78,
+    5.28
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    13.71,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    3.048,
+    0.07,
+    3.048
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_HoodRib_1",
+   "type": "box",
+   "position": [
+    1.493,
+    13.8,
+    1.493
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    0.12,
+    0.68,
+    1.08
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_HoodRib_2",
+   "type": "box",
+   "position": [
+    -1.493,
+    13.8,
+    1.493
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    0.12,
+    0.68,
+    1.08
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_HoodRib_3",
+   "type": "box",
+   "position": [
+    -1.493,
+    13.8,
+    -1.493
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    0.12,
+    0.68,
+    1.08
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_HoodRib_4",
+   "type": "box",
+   "position": [
+    1.493,
+    13.8,
+    -1.493
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    0.12,
+    0.68,
+    1.08
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Vat_06",
    "source": "visible"
   },
@@ -39183,6 +42438,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    7.75
+   ],
    "mobile": {
     "static": true
    },
@@ -39214,6 +42473,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    6.02,
+    0.38,
+    6.02
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    5.6,
+    0.07,
+    5.6
+   ],
+   "material": "glow",
+   "sections": 8,
+   "hole": 2.507,
+   "hole_res": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    4.9,
+    0.09,
+    4.9
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    1.54,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    0.77,
+    4.36,
+    1.334
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -0.77,
+    4.36,
+    1.334
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -1.54,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -0.77,
+    4.36,
+    -1.334
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    0.77,
+    4.36,
+    -1.334
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    11.75,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    6.16,
+    0.78,
+    6.16
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    11.71,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    3.576,
+    0.07,
+    3.576
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_HoodRib_1",
+   "type": "box",
+   "position": [
+    1.742,
+    11.8,
+    1.742
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    0.12,
+    0.68,
+    1.26
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_HoodRib_2",
+   "type": "box",
+   "position": [
+    -1.742,
+    11.8,
+    1.742
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    0.12,
+    0.68,
+    1.26
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_HoodRib_3",
+   "type": "box",
+   "position": [
+    -1.742,
+    11.8,
+    -1.742
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    0.12,
+    0.68,
+    1.26
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_HoodRib_4",
+   "type": "box",
+   "position": [
+    1.742,
+    11.8,
+    -1.742
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    0.12,
+    0.68,
+    1.26
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Vat_07",
    "source": "visible"
   },
@@ -39367,6 +43094,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    6.75
+   ],
    "mobile": {
     "static": true
    },
@@ -39398,6 +43129,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    7.74,
+    0.38,
+    7.74
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    7.2,
+    0.07,
+    7.2
+   ],
+   "material": "glow",
+   "sections": 8,
+   "hole": 3.246,
+   "hole_res": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    6.3,
+    0.09,
+    6.3
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    1.98,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    0.99,
+    4.36,
+    1.715
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -0.99,
+    4.36,
+    1.715
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -1.98,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -0.99,
+    4.36,
+    -1.715
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    0.99,
+    4.36,
+    -1.715
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    10.75,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    7.92,
+    0.78,
+    7.92
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    10.71,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    4.632,
+    0.07,
+    4.632
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_HoodRib_1",
+   "type": "box",
+   "position": [
+    2.24,
+    10.8,
+    2.24
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    0.12,
+    0.68,
+    1.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_HoodRib_2",
+   "type": "box",
+   "position": [
+    -2.24,
+    10.8,
+    2.24
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    0.12,
+    0.68,
+    1.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_HoodRib_3",
+   "type": "box",
+   "position": [
+    -2.24,
+    10.8,
+    -2.24
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    0.12,
+    0.68,
+    1.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_HoodRib_4",
+   "type": "box",
+   "position": [
+    2.24,
+    10.8,
+    -2.24
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    0.12,
+    0.68,
+    1.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Vat_08",
    "source": "visible"
   },
@@ -46047,6 +50246,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    5.25
+   ],
    "mobile": {
     "static": true
    },
@@ -46078,6 +50281,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    2.58,
+    0.38,
+    2.58
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    2.4,
+    0.07,
+    2.4
+   ],
+   "material": "glow",
+   "sections": 8,
+   "hole": 1.029,
+   "hole_res": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    2.1,
+    0.09,
+    2.1
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    0.66,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    0.33,
+    4.36,
+    0.572
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -0.33,
+    4.36,
+    0.572
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -0.66,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -0.33,
+    4.36,
+    -0.572
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    0.33,
+    4.36,
+    -0.572
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    9.25,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    2.64,
+    0.78,
+    2.64
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    9.21,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    1.464,
+    0.07,
+    1.464
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_HoodRib_1",
+   "type": "box",
+   "position": [
+    0.747,
+    9.3,
+    0.747
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    0.12,
+    0.68,
+    0.54
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_HoodRib_2",
+   "type": "box",
+   "position": [
+    -0.747,
+    9.3,
+    0.747
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    0.12,
+    0.68,
+    0.54
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_HoodRib_3",
+   "type": "box",
+   "position": [
+    -0.747,
+    9.3,
+    -0.747
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    0.12,
+    0.68,
+    0.54
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_HoodRib_4",
+   "type": "box",
+   "position": [
+    0.747,
+    9.3,
+    -0.747
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    0.12,
+    0.68,
+    0.54
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Purifier_1",
    "source": "visible"
   },
@@ -46231,6 +50902,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    6.75
+   ],
    "mobile": {
     "static": true
    },
@@ -46262,6 +50937,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    3.096,
+    0.38,
+    3.096
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    2.88,
+    0.07,
+    2.88
+   ],
+   "material": "glow",
+   "sections": 8,
+   "hole": 1.25,
+   "hole_res": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    2.52,
+    0.09,
+    2.52
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    0.792,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    0.396,
+    4.36,
+    0.686
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -0.396,
+    4.36,
+    0.686
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -0.792,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -0.396,
+    4.36,
+    -0.686
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    0.396,
+    4.36,
+    -0.686
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    10.75,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    3.168,
+    0.78,
+    3.168
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    10.71,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    1.781,
+    0.07,
+    1.781
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_HoodRib_1",
+   "type": "box",
+   "position": [
+    0.896,
+    10.8,
+    0.896
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    0.12,
+    0.68,
+    0.648
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_HoodRib_2",
+   "type": "box",
+   "position": [
+    -0.896,
+    10.8,
+    0.896
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    0.12,
+    0.68,
+    0.648
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_HoodRib_3",
+   "type": "box",
+   "position": [
+    -0.896,
+    10.8,
+    -0.896
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    0.12,
+    0.68,
+    0.648
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_HoodRib_4",
+   "type": "box",
+   "position": [
+    0.896,
+    10.8,
+    -0.896
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    0.12,
+    0.68,
+    0.648
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Purifier_2",
    "source": "visible"
   },
@@ -46415,6 +51558,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    3.75
+   ],
    "mobile": {
     "static": true
    },
@@ -46446,6 +51593,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    2.236,
+    0.38,
+    2.236
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    2.08,
+    0.07,
+    2.08
+   ],
+   "material": "glow",
+   "sections": 8,
+   "hole": 0.881,
+   "hole_res": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    1.82,
+    0.09,
+    1.82
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    0.572,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    0.286,
+    4.36,
+    0.495
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -0.286,
+    4.36,
+    0.495
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -0.572,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -0.286,
+    4.36,
+    -0.495
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    0.286,
+    4.36,
+    -0.495
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    7.75,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    2.288,
+    0.78,
+    2.288
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    7.71,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    1.253,
+    0.07,
+    1.253
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_HoodRib_1",
+   "type": "box",
+   "position": [
+    0.647,
+    7.8,
+    0.647
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    0.12,
+    0.68,
+    0.468
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_HoodRib_2",
+   "type": "box",
+   "position": [
+    -0.647,
+    7.8,
+    0.647
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    0.12,
+    0.68,
+    0.468
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_HoodRib_3",
+   "type": "box",
+   "position": [
+    -0.647,
+    7.8,
+    -0.647
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    0.12,
+    0.68,
+    0.468
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_HoodRib_4",
+   "type": "box",
+   "position": [
+    0.647,
+    7.8,
+    -0.647
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    0.12,
+    0.68,
+    0.468
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Purifier_3",
    "source": "visible"
   },
@@ -46599,6 +52214,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    5.75
+   ],
    "mobile": {
     "static": true
    },
@@ -46630,6 +52249,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    2.924,
+    0.38,
+    2.924
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    2.72,
+    0.07,
+    2.72
+   ],
+   "material": "glow",
+   "sections": 8,
+   "hole": 1.176,
+   "hole_res": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    2.38,
+    0.09,
+    2.38
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    0.748,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    0.374,
+    4.36,
+    0.648
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -0.374,
+    4.36,
+    0.648
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -0.748,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -0.374,
+    4.36,
+    -0.648
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    0.374,
+    4.36,
+    -0.648
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    9.75,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    2.992,
+    0.78,
+    2.992
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    9.71,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    1.675,
+    0.07,
+    1.675
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_HoodRib_1",
+   "type": "box",
+   "position": [
+    0.846,
+    9.8,
+    0.846
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    0.12,
+    0.68,
+    0.612
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_HoodRib_2",
+   "type": "box",
+   "position": [
+    -0.846,
+    9.8,
+    0.846
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    0.12,
+    0.68,
+    0.612
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_HoodRib_3",
+   "type": "box",
+   "position": [
+    -0.846,
+    9.8,
+    -0.846
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    0.12,
+    0.68,
+    0.612
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_HoodRib_4",
+   "type": "box",
+   "position": [
+    0.846,
+    9.8,
+    -0.846
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    0.12,
+    0.68,
+    0.612
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Purifier_4",
    "source": "visible"
   },
@@ -46783,6 +52870,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    6.0
+   ],
    "mobile": {
     "static": true
    },
@@ -46814,6 +52905,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    8.6,
+    0.38,
+    8.6
+   ],
+   "material": "machine",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    8.0,
+    0.07,
+    8.0
+   ],
+   "material": "glow",
+   "sections": 12,
+   "hole": 3.784,
+   "hole_res": 12,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    7.0,
+    0.09,
+    7.0
+   ],
+   "material": "grate",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    2.2,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    1.1,
+    4.36,
+    1.905
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -1.1,
+    4.36,
+    1.905
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -2.2,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -1.1,
+    4.36,
+    -1.905
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    1.1,
+    4.36,
+    -1.905
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    10.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    8.8,
+    0.78,
+    8.8
+   ],
+   "material": "machine",
+   "sections": 12,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    9.96,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    5.16,
+    0.07,
+    5.16
+   ],
+   "material": "grate",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_HoodRib_1",
+   "type": "box",
+   "position": [
+    2.489,
+    10.05,
+    2.489
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    0.12,
+    0.68,
+    1.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_HoodRib_2",
+   "type": "box",
+   "position": [
+    -2.489,
+    10.05,
+    2.489
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    0.12,
+    0.68,
+    1.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_HoodRib_3",
+   "type": "box",
+   "position": [
+    -2.489,
+    10.05,
+    -2.489
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    0.12,
+    0.68,
+    1.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_HoodRib_4",
+   "type": "box",
+   "position": [
+    2.489,
+    10.05,
+    -2.489
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    0.12,
+    0.68,
+    1.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Core_Vat",
    "source": "visible"
   },
@@ -50386,6 +56945,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    9.25
+   ],
    "mobile": {
     "static": true
    },
@@ -50417,6 +56980,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    6.02,
+    0.38,
+    6.02
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    5.6,
+    0.07,
+    5.6
+   ],
+   "material": "glow",
+   "sections": 8,
+   "hole": 2.507,
+   "hole_res": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    4.9,
+    0.09,
+    4.9
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    1.54,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    0.77,
+    4.36,
+    1.334
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -0.77,
+    4.36,
+    1.334
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -1.54,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -0.77,
+    4.36,
+    -1.334
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    0.77,
+    4.36,
+    -1.334
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    13.25,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    6.16,
+    0.78,
+    6.16
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    13.21,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    3.576,
+    0.07,
+    3.576
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_HoodRib_1",
+   "type": "box",
+   "position": [
+    1.742,
+    13.3,
+    1.742
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    0.12,
+    0.68,
+    1.26
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_HoodRib_2",
+   "type": "box",
+   "position": [
+    -1.742,
+    13.3,
+    1.742
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    0.12,
+    0.68,
+    1.26
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_HoodRib_3",
+   "type": "box",
+   "position": [
+    -1.742,
+    13.3,
+    -1.742
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    0.12,
+    0.68,
+    1.26
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_HoodRib_4",
+   "type": "box",
+   "position": [
+    1.742,
+    13.3,
+    -1.742
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    0.12,
+    0.68,
+    1.26
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Proc_Tower_A",
    "source": "visible"
   },
@@ -50570,6 +57601,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    7.25
+   ],
    "mobile": {
     "static": true
    },
@@ -50601,6 +57636,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    4.3,
+    0.38,
+    4.3
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    4.0,
+    0.07,
+    4.0
+   ],
+   "material": "glow",
+   "sections": 8,
+   "hole": 1.768,
+   "hole_res": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    3.5,
+    0.09,
+    3.5
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    1.1,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    0.55,
+    4.36,
+    0.953
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -0.55,
+    4.36,
+    0.953
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -1.1,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -0.55,
+    4.36,
+    -0.953
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    0.55,
+    4.36,
+    -0.953
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    11.25,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    4.4,
+    0.78,
+    4.4
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    11.21,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    2.52,
+    0.07,
+    2.52
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_HoodRib_1",
+   "type": "box",
+   "position": [
+    1.245,
+    11.3,
+    1.245
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    0.12,
+    0.68,
+    0.9
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_HoodRib_2",
+   "type": "box",
+   "position": [
+    -1.245,
+    11.3,
+    1.245
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    0.12,
+    0.68,
+    0.9
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_HoodRib_3",
+   "type": "box",
+   "position": [
+    -1.245,
+    11.3,
+    -1.245
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    0.12,
+    0.68,
+    0.9
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_HoodRib_4",
+   "type": "box",
+   "position": [
+    1.245,
+    11.3,
+    -1.245
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    0.12,
+    0.68,
+    0.9
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Proc_Tower_B",
    "source": "visible"
   },
@@ -50754,6 +58257,10 @@
    "collision": true,
    "double_sided": true,
    "tube": true,
+   "bubble_range": [
+    0.78,
+    11.25
+   ],
    "mobile": {
     "static": true
    },
@@ -50785,6 +58292,474 @@
    "mobile": {
     "static": true
    },
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_Diffuser",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.97,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    5.16,
+    0.38,
+    5.16
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.32,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    4.8,
+    0.07,
+    4.8
+   ],
+   "material": "glow",
+   "sections": 8,
+   "hole": 2.137,
+   "hole_res": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.31,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    4.2,
+    0.09,
+    4.2
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    1.32,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    0.66,
+    4.36,
+    1.143
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    -0.66,
+    4.36,
+    1.143
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    -1.32,
+    4.36,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    -0.66,
+    4.36,
+    -1.143
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    0.66,
+    4.36,
+    -1.143
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.36,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    0.18,
+    0.32,
+    0.18
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_Hood",
+   "type": "frustum",
+   "position": [
+    0.0,
+    15.25,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    5.28,
+    0.78,
+    5.28
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_HoodGrate",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    15.21,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    3.048,
+    0.07,
+    3.048
+   ],
+   "material": "grate",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_HoodRib_1",
+   "type": "box",
+   "position": [
+    1.493,
+    15.3,
+    1.493
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    0.12,
+    0.68,
+    1.08
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_HoodRib_2",
+   "type": "box",
+   "position": [
+    -1.493,
+    15.3,
+    1.493
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    0.12,
+    0.68,
+    1.08
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_HoodRib_3",
+   "type": "box",
+   "position": [
+    -1.493,
+    15.3,
+    -1.493
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    0.12,
+    0.68,
+    1.08
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_HoodRib_4",
+   "type": "box",
+   "position": [
+    1.493,
+    15.3,
+    -1.493
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    0.12,
+    0.68,
+    1.08
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
    "gen": "Proc_Tower_C",
    "source": "visible"
   },
@@ -57314,258 +65289,6 @@
     "static": true
    },
    "gen": "Rock_West",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_NE_Boot",
-   "type": "cylinder",
-   "position": [
-    56.424,
-    10.0,
-    -56.424
-   ],
-   "rotation": [
-    90.0,
-    -45.0,
-    0.0
-   ],
-   "size": [
-    3.66,
-    3.0,
-    3.66
-   ],
-   "material": "frame",
-   "sections": 10,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pipe_NE",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_NE_Collar",
-   "type": "cylinder",
-   "position": [
-    54.317,
-    10.0,
-    -54.317
-   ],
-   "rotation": [
-    90.0,
-    -45.0,
-    0.0
-   ],
-   "size": [
-    4.14,
-    0.4,
-    4.14
-   ],
-   "material": "structure_b",
-   "sections": 10,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pipe_NE",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_NE",
-   "type": "cylinder",
-   "position": [
-    57.379,
-    10.0,
-    -57.379
-   ],
-   "rotation": [
-    90.0,
-    -45.0,
-    0.0
-   ],
-   "size": [
-    3.0,
-    12.95,
-    3.0
-   ],
-   "material": "pipe",
-   "sections": 10,
-   "gen": "Pipe_NE",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_NE_Flange",
-   "type": "cylinder",
-   "position": [
-    48.554,
-    10.0,
-    -48.554
-   ],
-   "rotation": [
-    90.0,
-    -45.0,
-    0.0
-   ],
-   "size": [
-    3.75,
-    0.45,
-    3.75
-   ],
-   "material": "frame",
-   "sections": 10,
-   "gen": "Pipe_NE",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_NE_Fall",
-   "type": "stream",
-   "position": [
-    48.222,
-    10.0,
-    -48.222
-   ],
-   "rotation": [
-    0.0,
-    -45.0,
-    0.0
-   ],
-   "size": [
-    2.58,
-    9.3,
-    2.58
-   ],
-   "material": "hazard",
-   "section": "circle",
-   "speed": 1.95,
-   "pitch": 0,
-   "inset": 0.25,
-   "gen": "Pipe_NE",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_SW_Boot",
-   "type": "cylinder",
-   "position": [
-    -56.424,
-    10.0,
-    56.424
-   ],
-   "rotation": [
-    90.0,
-    135.0,
-    0.0
-   ],
-   "size": [
-    3.66,
-    3.0,
-    3.66
-   ],
-   "material": "frame",
-   "sections": 10,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pipe_SW",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_SW_Collar",
-   "type": "cylinder",
-   "position": [
-    -54.317,
-    10.0,
-    54.317
-   ],
-   "rotation": [
-    90.0,
-    135.0,
-    0.0
-   ],
-   "size": [
-    4.14,
-    0.4,
-    4.14
-   ],
-   "material": "structure_b",
-   "sections": 10,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pipe_SW",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_SW",
-   "type": "cylinder",
-   "position": [
-    -57.379,
-    10.0,
-    57.379
-   ],
-   "rotation": [
-    90.0,
-    135.0,
-    0.0
-   ],
-   "size": [
-    3.0,
-    12.95,
-    3.0
-   ],
-   "material": "pipe",
-   "sections": 10,
-   "gen": "Pipe_SW",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_SW_Flange",
-   "type": "cylinder",
-   "position": [
-    -48.554,
-    10.0,
-    48.554
-   ],
-   "rotation": [
-    90.0,
-    135.0,
-    0.0
-   ],
-   "size": [
-    3.75,
-    0.45,
-    3.75
-   ],
-   "material": "frame",
-   "sections": 10,
-   "gen": "Pipe_SW",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_SW_Fall",
-   "type": "stream",
-   "position": [
-    -48.222,
-    10.0,
-    48.222
-   ],
-   "rotation": [
-    0.0,
-    135.0,
-    0.0
-   ],
-   "size": [
-    2.58,
-    9.3,
-    2.58
-   ],
-   "material": "hazard",
-   "section": "circle",
-   "speed": 1.95,
-   "pitch": 0,
-   "inset": 0.25,
-   "gen": "Pipe_SW",
    "source": "visible"
   },
   {
@@ -129422,10 +137145,10 @@
   "Arm_4: pose 40/60 -> 16/28 (clear of the objects around it)",
   "Valve_A_Vent: left out - it would hang over the edge of Pipe_Junction_A",
   "Exit_Door: open exit door -> level1_part3",
-  "outlets: removed wall dressing in front of pours: OuterWall_West_01_M01Machine, Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine",
+  "outlets: removed wall dressing in front of pours: Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine",
   "Central: 3 cover crate(s) dropped - no free spot clear of landings",
   "crates: 35 printed crates (accent atlas)",
-  "fixtures: 43 parts cleared out of fans / vents (wall units removed: OuterWall_East_01_M01Vent, OuterWall_West_02_M02Vent, Works_Wall_West_02_M05Fan)",
+  "fixtures: 31 parts cleared out of fans / vents (wall units removed: OuterWall_West_02_M02Vent, Works_Wall_West_02_M05Fan)",
   "corrosion: 30 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 48 lights at the liquid line removed, 20 light strips raised clear of it",
   "corrosion: 1865 wall faces at the liquid line get a corroded band (one mesh, one material)"
@@ -129956,28 +137679,6 @@
   },
   {
    "type": "emits_from",
-   "a": "Pipe_NE_Fall",
-   "b": "Pipe_NE",
-   "b_anchor": "outlet"
-  },
-  {
-   "type": "flows_into",
-   "a": "Pipe_NE_Fall",
-   "b": "HazardFluid"
-  },
-  {
-   "type": "emits_from",
-   "a": "Pipe_SW_Fall",
-   "b": "Pipe_SW",
-   "b_anchor": "outlet"
-  },
-  {
-   "type": "flows_into",
-   "a": "Pipe_SW_Fall",
-   "b": "HazardFluid"
-  },
-  {
-   "type": "emits_from",
    "a": "Pipe_North_Fall",
    "b": "Pipe_North",
    "b_anchor": "outlet"
@@ -130079,12 +137780,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 88936,
-  "objects": 4034,
+  "triangles": 94774,
+  "objects": 4296,
   "materials": 29,
-  "glb_kb": 5885,
-  "nodes": 4572,
-  "draw_calls_unbatched": 4392,
+  "glb_kb": 6124,
+  "nodes": 4860,
+  "draw_calls_unbatched": 4680,
   "draw_calls_batched_min": 31,
   "images": 88,
   "tex_mem_gpu_compressed_mb": 22.95,

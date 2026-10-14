@@ -51,6 +51,8 @@ func _ready() -> void:
 					l.shadow_enabled = false
 					add_child(l)
 					l.global_position = Vector3(e["pos"][0], e["pos"][1], e["pos"][2])
+			"tube_bubbles":  # Stage 48: bubbles up the vat / column tubes (one shader-animated mesh)
+				_bubbles(fx, p)
 			"particles":
 				_particles(fx, p)
 			"transparent_mesh":
@@ -127,6 +129,47 @@ func _material_anim(fx: Dictionary, p: Dictionary) -> void:
 		seen[m] = true
 		m.emission_enabled = true
 		_anims.append([m, m.emission_energy_multiplier, p, fx["type"], 0.0])
+
+
+func _bubbles(fx: Dictionary, p: Dictionary) -> void:
+	var tubes: Array = fx.get("tubes", [])
+	if tubes.is_empty():
+		return
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 48
+	var verts := PackedVector3Array(); var uvs := PackedVector2Array(); var uv2s := PackedVector2Array()
+	var cols := PackedColorArray(); var idx := PackedInt32Array()
+	var lo := Vector3(INF, INF, INF); var hi := -lo
+	var corners := [Vector2(-1, -1), Vector2(1, -1), Vector2(1, 1), Vector2(-1, 1)]
+	for t in tubes:
+		var c := Vector3(t[0], t[1], t[2]); var h := float(t[3]); var r := float(t[4])
+		lo = lo.min(c - Vector3(r, 0, r)); hi = hi.max(c + Vector3(r, h + 1.0, r))
+		var n := clampi(int(round(float(p["density"]) * h * r)), 12, 140)
+		for i in n:
+			var seed := Color(rng.randf(), rng.randf(), rng.randf(), rng.randf())
+			var b := verts.size()
+			for k in 4:
+				verts.append(c); uvs.append(corners[k]); uv2s.append(Vector2(h, r)); cols.append(seed)
+			idx.append_array(PackedInt32Array([b, b + 1, b + 2, b, b + 2, b + 3]))
+	var arr := []
+	arr.resize(Mesh.ARRAY_MAX)
+	arr[Mesh.ARRAY_VERTEX] = verts; arr[Mesh.ARRAY_TEX_UV] = uvs; arr[Mesh.ARRAY_TEX_UV2] = uv2s
+	arr[Mesh.ARRAY_COLOR] = cols; arr[Mesh.ARRAY_INDEX] = idx
+	var mesh := ArrayMesh.new()
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arr)
+	var mat := ShaderMaterial.new()
+	mat.shader = load(_base_dir + "/fx/godot/tube_bubbles.gdshader")
+	mat.render_priority = -1  # drawn before the tinted glass, so the glass shades them
+	for k in ["wobble", "alpha", "nozzles"]:
+		mat.set_shader_parameter(k, float(p[k]))
+	mat.set_shader_parameter("size_range", Vector2(p["size"][0], p["size"][1]))
+	mat.set_shader_parameter("speed_range", Vector2(p["speed"][0], p["speed"][1]))
+	mat.set_shader_parameter("tint", Color(p["color"][0], p["color"][1], p["color"][2]))
+	var mi := MeshInstance3D.new()
+	mi.mesh = mesh; mi.material_override = mat
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	mi.custom_aabb = AABB(lo, hi - lo)  # vertices sit at the tube bottoms; the shader lifts them
+	add_child(mi)
 
 
 func _material_shader(fx: Dictionary, p: Dictionary) -> void:

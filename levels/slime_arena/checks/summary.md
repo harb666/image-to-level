@@ -1,14 +1,15 @@
 # slime_arena: generation summary
 
-Spec: levels/slime_arena/scene_spec.json · 4034 objects · 29 materials · 23 effects
-Checks: PASSED ({'error': 0, 'warning': 1, 'info': 1}) · refine passes: 0
-Mobile (balanced): 3513 KB · 104077 tris · 77 draw calls · ~55.2 visible (estimate) · ~7.28 MB GPU textures (estimate)
-Navigation: 9224.0 m² reachable of 48811.0 m² standable
-Package: dist/slime_arena/package (36 files, 13.88 MB) valid=True
+Spec: levels/slime_arena/scene_spec.json · 4296 objects · 29 materials · 20 effects
+Checks: PASSED ({'error': 0, 'warning': 2, 'info': 2}) · refine passes: 0
+Mobile (balanced): 3728 KB · 110833 tris · 77 draw calls · ~55.2 visible (estimate) · ~7.28 MB GPU textures (estimate)
+Navigation: 9256.0 m² reachable of 48773.0 m² standable
+Package: dist/slime_arena/package (37 files, 14.46 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
-- warning: 110174 triangles (> budget 40000)
+- warning: 1710 particles (> 1500)
+- warning: 116912 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -43,18 +44,18 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - Arm_4: pose 40/60 -> 16/28 (clear of the objects around it)
 - Valve_A_Vent: left out - it would hang over the edge of Pipe_Junction_A
 - Exit_Door: open exit door -> level1_part3
-- outlets: removed wall dressing in front of pours: OuterWall_West_01_M01Machine, Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine
+- outlets: removed wall dressing in front of pours: Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine
 - Central: 3 cover crate(s) dropped - no free spot clear of landings
 - crates: 35 printed crates (accent atlas)
-- fixtures: 43 parts cleared out of fans / vents (wall units removed: OuterWall_East_01_M01Vent, OuterWall_West_02_M02Vent, Works_Wall_West_02_M05Fan)
+- fixtures: 31 parts cleared out of fans / vents (wall units removed: OuterWall_West_02_M02Vent, Works_Wall_West_02_M05Fan)
 - corrosion: 30 lit bodies get a plain skirt at the liquid line (no lights in the slime)
 - corrosion: 48 lights at the liquid line removed, 20 light strips raised clear of it
 - corrosion: 1865 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 5.4 s
-- build (glb, sky, background, effects, mobile): 139.4 s
-- checks (fast): 102.2 s
-- previews: 0.8 s
-- export package: 0.6 s
-- total: 248.4 s
+- spec -> level.json: 5.1 s
+- build (glb, sky, background, effects, mobile): 145.3 s
+- checks (fast): 102.9 s
+- previews: 0.7 s
+- export package: 0.8 s
+- total: 254.8 s

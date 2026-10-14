@@ -3,7 +3,7 @@
  "variant": "game",
  "level": "slime_arena",
  "title": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
- "generated": "2026-10-14 16:06:47",
+ "generated": "2026-10-14 16:58:54",
  "godot_root": "res://levels/slime_arena/",
  "use_in_game": "mobile/level_mobile.glb (+ mobile/background_mobile.glb, mobile/collision.glb)",
  "profile": "balanced",
@@ -104,22 +104,22 @@
  ],
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "b6e7abf725a658c9",
+  "spec_sha": "dafc041abcc2063a",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
  },
  "metrics": {
   "dev": {
-   "glb_kb": 5885,
-   "triangles": 88936,
-   "draw_calls": 4392,
+   "glb_kb": 6124,
+   "triangles": 94774,
+   "draw_calls": 4680,
    "tex_mem_gpu_mb_est": 22.95
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3513,
-   "triangles": 104077,
+   "glb_kb": 3728,
+   "triangles": 110833,
    "draw_calls": 77,
    "visible_draw_calls_est": 55.2,
    "visible_draw_calls_max_est": 77,
@@ -127,17 +127,17 @@
    "materials": 31,
    "nodes": 78,
    "colliders": {
-    "colliders": 790,
-    "hazards": 14,
-    "glb_kb": 415
+    "colliders": 786,
+    "hazards": 12,
+    "glb_kb": 413
    },
    "background_kb": 402
   },
   "effects": {
-   "max_particles": 827,
-   "emitters": 46,
-   "extra_draw_calls": 12,
-   "transparent_area_m2": 31584
+   "max_particles": 1710,
+   "emitters": 42,
+   "extra_draw_calls": 9,
+   "transparent_area_m2": 31624.4
   },
   "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
  },
@@ -145,22 +145,22 @@
   "passed": true,
   "counts": {
    "error": 0,
-   "warning": 1,
-   "info": 1
+   "warning": 2,
+   "info": 2
   }
  },
  "gameplay_config_status": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer.",
  "files": [
   {
    "path": "IMPORT_GODOT.md",
-   "bytes": 9765,
-   "sha1": "1b64d54c3305b7b4cb4c976eba1db8ee9a0f8547",
+   "bytes": 9912,
+   "sha1": "8449f05b82d35ba5d74398f59c75f6c1868f77ff",
    "purpose": "how to import into Construct Error"
   },
   {
    "path": "effects.json",
-   "bytes": 41784,
-   "sha1": "5daa7d8032a15a02cb5f8abcd0c9f6e4657e6fcb",
+   "bytes": 38427,
+   "sha1": "09016626132497aaeef122836b5364d4b9a55087",
    "purpose": "runtime effects metadata (Godot recreates them)"
   },
   {
@@ -177,8 +177,8 @@
   },
   {
    "path": "level.json",
-   "bytes": 20819,
-   "sha1": "1735139a8149717b54193d624fb411a4daca430d",
+   "bytes": 20396,
+   "sha1": "76689868e7470ea2a33d74a070d28e2bd473a81c",
    "purpose": "editable master (source of truth for edits)"
   },
   {
@@ -189,8 +189,8 @@
   },
   {
    "path": "checks/report.md",
-   "bytes": 806,
-   "sha1": "4806e9cc48f266a7e4a49459c1cc26ecabbc68fe",
+   "bytes": 880,
+   "sha1": "aba968ac4fd140f7119f2755f4fa682664e09421",
    "purpose": "validation report"
   },
   {
@@ -231,8 +231,8 @@
   },
   {
    "path": "fx/godot/apply_effects.gd",
-   "bytes": 17463,
-   "sha1": "2771e0d1192d608f350a189a490d2b4681d78619",
+   "bytes": 19636,
+   "sha1": "ec48c1f63572948b09b2c181b40813709c0dcaa2",
    "purpose": "effect sprite / Godot effect kit"
   },
   {
@@ -278,6 +278,12 @@
    "purpose": "effect sprite / Godot effect kit"
   },
   {
+   "path": "fx/godot/tube_bubbles.gdshader",
+   "bytes": 2401,
+   "sha1": "046970393b5f81a28ad8ff131bb3afe36ddb5ad4",
+   "purpose": "effect sprite / Godot effect kit"
+  },
+  {
    "path": "fx/godot/tv_static.gdshader",
    "bytes": 1850,
    "sha1": "8ccdaf285f0d3143aaad6c79b3f628c42e408ec5",
@@ -285,14 +291,14 @@
   },
   {
    "path": "gameplay/hazards.json",
-   "bytes": 1815,
-   "sha1": "dde8307edef504664fdf6d3ed0f355e892eb61d0",
+   "bytes": 1567,
+   "sha1": "03d21554e82a69b3e891abd2cb0d8429526bdcc3",
    "purpose": "hazard volumes (kill / damage areas)"
   },
   {
    "path": "gameplay/navigation.json",
    "bytes": 4504,
-   "sha1": "ef993ab17c8060fe12a4fc76cfdf8f13e8be2099",
+   "sha1": "c950df78dcd470303f67f768b76773876d7169bd",
    "purpose": "reachability summary from the gameplay config (not a navmesh)"
   },
   {
@@ -315,32 +321,32 @@
   },
   {
    "path": "mobile/collision.glb",
-   "bytes": 425088,
-   "sha1": "d8d924316e4880e187de5ec3b4efbcb6bf802227",
+   "bytes": 422432,
+   "sha1": "cd3ea92d7cd0967d3b036599fe4cb49b4858b951",
    "purpose": "collision meshes (-colonly / -convcolonly import suffixes)"
   },
   {
    "path": "mobile/collision.json",
-   "bytes": 119325,
-   "sha1": "f47e312e64e4ead71655e520e87f4d7a510bb739",
+   "bytes": 118521,
+   "sha1": "28d64804b84de051b3133c5616d2d0ad7740c9fc",
    "purpose": "primitive colliders + hazard areas"
   },
   {
    "path": "mobile/effects_mobile.json",
-   "bytes": 27296,
-   "sha1": "e77fbed8def8caccbda7488c7adcc3379680698e",
+   "bytes": 23442,
+   "sha1": "965a865a55034dc9dd6abc140dcade3e61621dcb",
    "purpose": "effects with merged-node targets"
   },
   {
    "path": "mobile/level_mobile.glb",
-   "bytes": 3597360,
-   "sha1": "fb927cd8d14401056afb3d65696e96fa15214102",
+   "bytes": 3817284,
+   "sha1": "ba571fc62f6bbfadffc653128a6b2276e08eb3f3",
    "purpose": "mobile export: merged by cell+material (use in game)"
   },
   {
    "path": "mobile/mobile_manifest.json",
-   "bytes": 13982,
-   "sha1": "3e57c9f3a8b461a796797a7ac9f631d5cc78f20d",
+   "bytes": 13983,
+   "sha1": "fc15052b2e496bee866955189cd786fb84d8e711",
    "purpose": "per-node visibility/shadows + Godot import settings + metrics"
   }
  ],
