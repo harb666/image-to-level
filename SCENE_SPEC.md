@@ -678,3 +678,9 @@ Building blocks usable without the preset:
   (category `light`): one light per fan, 1.2 m under it, `color`, `energy` (1.0), `range` (16 m; 12 on
   performance). Godot: `OmniLight3D` without shadows (apply_effects.gd); preview: a three.js PointLight. Wall fans stay
   green.
+
+## Stage 40: bottomless lift shaft, dark band round it
+- The roof shaft over an `elevator_arrival` fades into pure black above its lit mouth (upside-down accent `void`
+  sleeve, wider than the car so it passes inside it); pilasters stop where it begins; no winch.
+- A plain dark textured band (`frame`) covers the roof between the shaft lip and the glow ring; the insignia plates sit
+  just under it.
