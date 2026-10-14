@@ -26,6 +26,7 @@ ALIEN_CARTOON = {
         "frame":       {"type": "industrial_metal", "color": [0.2, 0.15, 0.26], "tile_m": 3.0, "toon": True},
         "trim":        {"type": "trim_light", "color": [0.22, 0.17, 0.28], "tile_m": 1.2, "accent": [1.0, 0.08, 0.2], "emissive": [1, 1, 1], "toon": True},
         "glow":        {"type": "glow", "color": [1.0, 0.16, 0.3], "tile_m": 2.0, "emissive": [1.0, 0.12, 0.25]},
+        "glow_dim":    {"type": "glow", "color": [0.2, 0.13, 0.24], "tile_m": 2.0, "res": 64, "emissive": [0.22, 0.12, 0.28]},  # Stage 41: wall fans, dark and gloomy
         "glow_yellow": {"type": "glow", "color": [1.0, 0.86, 0.2], "tile_m": 2.0, "res": 64, "emissive": [1.0, 0.82, 0.18]},  # Stage 39: ceiling fan light
         "accent":      {"type": "banner", "color": [0.78, 0.05, 0.1], "tile_m": 2.0, "emissive": [1, 1, 1], "toon": True, "res": 512,
                         # pennant banners with a glowing emblem ("emblem": image path overrides the procedural one) + slime decal cells

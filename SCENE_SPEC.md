@@ -684,3 +684,8 @@ Building blocks usable without the preset:
   sleeve, wider than the car so it passes inside it); pilasters stop where it begins; no winch.
 - A plain dark textured band (`frame`) covers the roof between the shaft lip and the glow ring; the insignia plates sit
   just under it.
+
+## Stage 41: gloomy wall fans, machinery stays on its deck
+- Wall fans glow dark and dim (role `glow_dim`: deep purple, weak emission) instead of green; ceiling fans stay yellow.
+- `machinery` banks placed `on` a platform leave out any part (vent / unit / tank) that would hang over the deck edge
+  (`generator_notes` says which).

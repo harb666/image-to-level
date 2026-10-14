@@ -128,7 +128,7 @@ for _k, _b, _s in (("industrial", "industrial", "realistic"), ("toxic_industrial
     THEMES[_k].setdefault("biome", _b); THEMES[_k].setdefault("style", _s)
 VARIANT_ROLES = ("wall", "structure", "deck", "plaster")
 CORROSION = {"type": "corrosion", "color": [1.0, 1.0, 1.0], "tile_m": 4.0, "res": 128, "toon": True, "emissive": [1.0, 1.0, 1.0], "cutout": 0.5}
-FALLBACK = {"glow_yellow": "glow", "glass_clear": "glass", "bigscreen": "glow", "tv_casing": "structure_b", "screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
+FALLBACK = {"glow_dim": "glow", "glow_yellow": "glow", "glass_clear": "glass", "bigscreen": "glow", "tv_casing": "structure_b", "screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
             "window": "glow", "foliage": "rock", "water": "hazard", "machine": "structure_b", "backdrop": "wall", "structure_b": "structure",
             "frame": "structure_b", "rail": "frame", "grate": "deck", "trim": "structure_b", "accent": "trim", "glow": "accent", "pipe": "frame",
             "hazard": "water", "fall": "water", "stripe": "trim", "ground": "deck", "deck": "ground", "wall": "structure", "structure": "wall", "rock": "structure"}
@@ -493,6 +493,7 @@ def fan_unit(ctx, nm, parent, c, R, depth, wall=True, rpm=None, seed=0, st=None)
         ctx.add(f"{nm}_Clamp_{k + 1}", "box", at(ca * (R + 0.75), sa * (R + 0.75) - (0.4 if wall else 0), -0.15) if wall else [x + ca * (R + 0.75), y - depth - 0.15, z + sa * (R + 0.75)],
                 [1.3, 0.8, depth + 0.3] if wall else [1.3, depth + 0.3, 0.8], "frame", parent, [0, 0, math.degrees(a)] if wall else [0, -math.degrees(a), 0], collision=False, **st)
     gl = "fall" if "fall" in ctx.spec.get("materials", {}).get("roles", {}) else "glow"
+    if wall: gl = ctx.role("glow_dim")  # Stage 41: wall fans - dark, gloomy light behind the blades
     if not wall:  # Stage 39: ceiling fans glow yellow and cast a soft yellow light (effect "point_light")
         gl = ctx.role("glow_yellow"); ctx.fan_lights = getattr(ctx, "fan_lights", []) + [[round(x, 2), round(y - depth - 1.2, 2), round(z, 2), round(R, 2)]]
     ctx.add(nm + "_Glow", "cylinder", at(0, 0, 0.05) if wall else [x, y - 0.12, z], [2 * R - 0.1, 0.05, 2 * R - 0.1], gl, parent, rot, sections=16, collision=False, outline=False, **st)
@@ -1090,8 +1091,18 @@ def wall_struct(ctx, s, x, y, z, yaw):
 
 
 def machinery(ctx, s, x, y, z, yaw):
+    pl = next((p for p in ctx.spec.get("platforms", []) if p["id"] == s.get("on")), None)
+    def on_deck(o):  # Stage 41: parts that would hang over the deck edge are left out (the bank stays where it was put)
+        if not pl or o.get("type") == "group": return True
+        (pcx, pcz), (pw, pd) = pl["center"], pl["size"]; u = o["position"][0]; hw, hd = o["size"][0] / 2, o["size"][2] / 2
+        for a_ in (u - hw, u + hw):
+            for b_ in (-hd, hd):
+                wx, wz = local(a_, b_, yaw)
+                if not (pcx - pw / 2 - 0.05 <= x + wx <= pcx + pw / 2 + 0.05 and pcz - pd / 2 - 0.05 <= z + wz <= pcz + pd / 2 + 0.05): return False
+        return True
     for o in prefabs.machinery_bank(s["id"], [x, y, z], yaw, seed=_h(s["id"]) % 97, material="machine", tank_material="pipe"):
-        _adopt(ctx, o)
+        if on_deck(o): _adopt(ctx, o)
+        else: ctx.notes.append(f"{o['name']}: left out - it would hang over the edge of {pl['id']}")
 
 
 def tank(ctx, s, x, y, z, yaw):

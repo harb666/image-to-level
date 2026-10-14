@@ -125,3 +125,13 @@ class Stage40(unittest.TestCase):
         b = by["Elevator_Shaft_Band"]; self.assertEqual(b["material"], "frame"); self.assertTrue(b.get("hole"))
         v = by["Elevator_Shaft_Void"]; self.assertEqual((v["cut"], v["uv_region"]), ("sleeve", "void")); self.assertNotIn("Elevator_Shaft_Winch", by)
         car_r = next(e for e in L["entrances"] if e["id"] == "Elevator")["radius"]; self.assertGreater(v["size"][0] / 2, car_r)  # the car passes inside it
+
+
+class Stage41(unittest.TestCase):
+    def test_dim_wall_fans_and_no_overhanging_machinery(self):
+        import re
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        wf = [n for n in by if re.search(r"_M\d\dFan_Glow$", n)]
+        self.assertTrue(wf and all(by[n]["material"] == "glow_dim" for n in wf))
+        self.assertLess(max(L["materials"]["glow_dim"]["emissive"]), 0.4)
+        self.assertNotIn("Valve_A_Vent", by); self.assertIn("Valve_A_Unit", by)
