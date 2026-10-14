@@ -672,3 +672,9 @@ Building blocks usable without the preset:
 - Stage 38: a crane runway whose end would meet a window screen, TV, fan, vent, machine, emblem, gallery or outlet mouth
   on the wall is cut back: to 5 m past the last claw on its line (or 2 m clear of the obstacle), with an end-stop
   block. Runways with nothing in the way still run wall to wall.
+
+## Stage 39: yellow ceiling-fan light
+- Ceiling fans glow yellow (role `glow_yellow`, emissive) and cast a soft yellow light: effect `point_light`
+  (category `light`): one light per fan, 1.2 m under it, `color`, `energy` (1.0), `range` (16 m; 12 on
+  performance). Godot: `OmniLight3D` without shadows (apply_effects.gd); preview: a three.js PointLight. Wall fans stay
+  green.

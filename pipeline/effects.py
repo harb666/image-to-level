@@ -39,6 +39,8 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                       glb="the screen picture (static texture)", defaults=dict(amount=0.85, grain=120.0, fps=18.0, signal_every=6.0, signal_len=1.4,
                                                                                roll_speed=0.25, glow=1.0, seed=0.0),
                       quality={"performance": dict(fps=12.0)}),
+    "point_light": dict(category="light", godot="OmniLight3D per position (no shadows): light_color, light_energy, omni_range", glb="nothing",
+                        defaults=dict(color=[1.0, 0.8, 0.3], energy=1.0, range=16.0), quality={"performance": dict(energy=0.8, range=12.0)}),
     "bubbles": dict(category="particles", godot="CPUParticles3D, box emitter on the surface, alpha billboard", glb="nothing",
                     defaults=dict(rate=40.0, lifetime=1.4, speed=[0.3, 0.7], gravity=0.0, size=[0.15, 0.45], alpha=1.0, color=[0.92, 1.0, 0.7], texture="bubble", blend="alpha", spread=10)),
     "splash": dict(category="particles", godot="CPUParticles3D, point emitter, gravity", glb="nothing",

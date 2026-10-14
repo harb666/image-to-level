@@ -231,6 +231,8 @@ def _effects(spec, ctx, plats, env, glow):
                 h = min(i[1] for i in items); r = sum(i[2] for i in items) / len(items); v = 1.6
                 out.append(dict(id=f"Tube_Blobs_{k:02d}", type="tube_blobs", positions=[i[0] for i in items], merge_emitters=True,
                                 lifetime=round(0.72 * (h - 0.6) / v, 2), speed=[v * 0.9, v * 1.1], size=[round(r * 1.3, 2), round(r * 1.0, 2)], radius=round(r * 0.35, 2)))
+        fl = getattr(ctx, "fan_lights", [])
+        if fl: out.append(dict(id="Fan_Lights", type="point_light", positions=[q[:3] for q in fl], color=[1.0, 0.8, 0.3], energy=1.0, range=16.0))  # Stage 39
         spins = [o["name"] for o in ctx.objects if o.get("spin")]
         if spins: out.append(dict(id="Fan_Spin", type="spin", targets=spins))  # Stage 19: rotating fan rotors
         SC = spec.get("screens") or {}

@@ -128,7 +128,7 @@ for _k, _b, _s in (("industrial", "industrial", "realistic"), ("toxic_industrial
     THEMES[_k].setdefault("biome", _b); THEMES[_k].setdefault("style", _s)
 VARIANT_ROLES = ("wall", "structure", "deck", "plaster")
 CORROSION = {"type": "corrosion", "color": [1.0, 1.0, 1.0], "tile_m": 4.0, "res": 128, "toon": True, "emissive": [1.0, 1.0, 1.0], "cutout": 0.5}
-FALLBACK = {"glass_clear": "glass", "bigscreen": "glow", "tv_casing": "structure_b", "screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
+FALLBACK = {"glow_yellow": "glow", "glass_clear": "glass", "bigscreen": "glow", "tv_casing": "structure_b", "screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
             "window": "glow", "foliage": "rock", "water": "hazard", "machine": "structure_b", "backdrop": "wall", "structure_b": "structure",
             "frame": "structure_b", "rail": "frame", "grate": "deck", "trim": "structure_b", "accent": "trim", "glow": "accent", "pipe": "frame",
             "hazard": "water", "fall": "water", "stripe": "trim", "ground": "deck", "deck": "ground", "wall": "structure", "structure": "wall", "rock": "structure"}
@@ -493,6 +493,8 @@ def fan_unit(ctx, nm, parent, c, R, depth, wall=True, rpm=None, seed=0, st=None)
         ctx.add(f"{nm}_Clamp_{k + 1}", "box", at(ca * (R + 0.75), sa * (R + 0.75) - (0.4 if wall else 0), -0.15) if wall else [x + ca * (R + 0.75), y - depth - 0.15, z + sa * (R + 0.75)],
                 [1.3, 0.8, depth + 0.3] if wall else [1.3, depth + 0.3, 0.8], "frame", parent, [0, 0, math.degrees(a)] if wall else [0, -math.degrees(a), 0], collision=False, **st)
     gl = "fall" if "fall" in ctx.spec.get("materials", {}).get("roles", {}) else "glow"
+    if not wall:  # Stage 39: ceiling fans glow yellow and cast a soft yellow light (effect "point_light")
+        gl = ctx.role("glow_yellow"); ctx.fan_lights = getattr(ctx, "fan_lights", []) + [[round(x, 2), round(y - depth - 1.2, 2), round(z, 2), round(R, 2)]]
     ctx.add(nm + "_Glow", "cylinder", at(0, 0, 0.05) if wall else [x, y - 0.12, z], [2 * R - 0.1, 0.05, 2 * R - 0.1], gl, parent, rot, sections=16, collision=False, outline=False, **st)
     nb = 4  # open grille of thin bars in front of the glow (an opaque grate disc hid it): dark blades read against green light
     for k in range(nb):

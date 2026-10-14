@@ -41,6 +41,15 @@ func _ready() -> void:
 				_material_anim(fx, p)
 			"material_shader":  # Stage 26: tv_static on screen materials
 				_material_shader(fx, p)
+			"light":  # Stage 39: soft coloured lights (ceiling fans) - no shadows, mobile friendly
+				for e in fx.get("emitters", []):
+					var l := OmniLight3D.new()
+					l.light_color = Color(p["color"][0], p["color"][1], p["color"][2])
+					l.light_energy = float(p["energy"])
+					l.omni_range = float(p["range"])
+					l.shadow_enabled = false
+					add_child(l)
+					l.global_position = Vector3(e["pos"][0], e["pos"][1], e["pos"][2])
 			"particles":
 				_particles(fx, p)
 			"transparent_mesh":

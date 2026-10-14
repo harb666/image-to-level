@@ -210,7 +210,7 @@ function makeFlyby(fx,p){ // flyby_ships: one InstancedMesh per design; same rou
       const az=(sh.a0+(sh.a1-sh.a0)*k)*D,dir=Math.sign(sh.a1-sh.a0);P.set(sh.r*far*Math.sin(az),sh.y+18*(1-env)+sh.bob*Math.sin(t*0.7+sh.phase),-sh.r*far*Math.cos(az));
       const tx=Math.cos(az)*dir,tz=Math.sin(az)*dir;E.set(0,Math.atan2(-tx,-tz),0.12*dir);Q.setFromEuler(E);S.setScalar(sh.size*env);M.compose(P,Q,S);im.setMatrixAt(i,M);});
       im.instanceMatrix.needsUpdate=true;}};fxUpd.push(up);up.u(performance.now()/1000);}}  // placed immediately (not only on the next frame)
-function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry.dispose();}for(const f of fxUpd)f.reset&&f.reset();fxObjs=[];fxUpd=[];
+function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry.dispose();}for(const f of fxUpd)f.reset&&f.reset();fxObjs=[];fxUpd=[];
   const qn=FXQ[fxq];document.getElementById('fx').textContent='FX: '+qn;if(!FXD||qn==='off')return;
   for(const fx of FXD.effects){const Q=fx.quality[qn];if(!Q||!Q.enabled)continue;const p=Q.params;
     if(fx.category==='surface_shader'){const tg=(fx.targets||[]).map(n=>byName[n]).filter(Boolean);if(!tg.length)continue;
@@ -230,6 +230,7 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry.dispose();}
          vec3 col=mix(pic,vec3(n*ln),mm)*mix(.65,1.,bar);diffuseColor.rgb=col*.15;totalEmissiveRadiance=col*uP2.w;}
         #endif`);};m.customProgramCacheKey=()=>'tvstatic'+fx.id;m.needsUpdate=true;});
       fxUpd.push({reset(){mats.forEach((m,i)=>{m.onBeforeCompile=ob[i];m.customProgramCacheKey=THREE.Material.prototype.customProgramCacheKey;m.needsUpdate=true;});},u(t){U.uT.value=t;}});}
+    else if(fx.category==='light'){for(const e of fx.emitters||[]){const L=new THREE.PointLight(new THREE.Color(...p.color),p.energy*60,p.range,1.6);L.position.set(...e.pos);scene.add(L);fxObjs.push(L);}} // Stage 39: soft coloured lights
     else if(fx.category==='transform_animation'){const tg=(fx.targets||[]).map(n=>[byName[n],(fx.speeds||{})[n]??p.speed_rpm]).filter(a=>a[0]); // spinning fan rotors
       const r0=tg.map(a=>a[0].quaternion.clone());fxUpd.push({reset(){tg.forEach((a,i)=>a[0].quaternion.copy(r0[i]));},u(t,dt){for(const [o,r] of tg)o.rotateY(r*6.2831/60*dt);}});}
     else if(fx.category==='particles')makeParticles(fx,p);

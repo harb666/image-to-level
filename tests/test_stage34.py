@@ -106,3 +106,14 @@ class Stage38(unittest.TestCase):
             for u in units:
                 b = bb(u); b = (b[0] - 2.0, b[1] + 2.0)  # 2 m clear
                 self.assertFalse((np.minimum(a[1], b[1]) - np.maximum(a[0], b[0]) > 0).all(), (r, u))
+
+
+class Stage39(unittest.TestCase):
+    def test_yellow_fan_glow_and_light(self):
+        import re
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        glows = [n for n in by if re.match(r".*Ceil_Fan_\d+_Glow$", n)]
+        self.assertTrue(glows and all(by[n]["material"] == "glow_yellow" for n in glows))
+        self.assertGreater(L["materials"]["glow_yellow"]["color"][1], 0.7)
+        fx = [e for e in L["effects"] if e["type"] == "point_light"]; self.assertEqual(len(fx), 1); self.assertEqual(len(fx[0]["positions"]), len(glows))
+        gd = open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")).read(); self.assertIn("OmniLight3D", gd)
