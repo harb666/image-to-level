@@ -1,15 +1,15 @@
 # slime_arena: generation summary
 
-Spec: levels/slime_arena/scene_spec.json · 3878 objects · 29 materials · 20 effects
+Spec: levels/slime_arena/scene_spec.json · 3833 objects · 29 materials · 20 effects
 Checks: PASSED ({'error': 0, 'warning': 2, 'info': 1}) · refine passes: 0
-Mobile (balanced): 3445 KB · 101473 tris · 92 draw calls · ~58.7 visible (estimate) · ~7.28 MB GPU textures (estimate)
+Mobile (balanced): 3422 KB · 100899 tris · 92 draw calls · ~58.7 visible (estimate) · ~7.28 MB GPU textures (estimate)
 Navigation: 9256.0 m² reachable of 48773.0 m² standable
-Package: dist/slime_arena/package (37 files, 13.66 MB) valid=True
+Package: dist/slime_arena/package (37 files, 13.59 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: mobile draw calls 92 (> 80)
-- warning: 107556 triangles (> budget 40000)
+- warning: 106972 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -51,12 +51,12 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - ducts: Ceil_Duct_3 trimmed to 1 piece(s) clear of 1 standing part(s); Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 3 standing part(s); Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 11 standing part(s)
 - corrosion: 30 lit bodies get a plain skirt at the liquid line (no lights in the slime)
 - corrosion: 48 lights at the liquid line removed, 20 light strips raised clear of it
-- corrosion: 1865 wall faces at the liquid line get a corroded band (one mesh, one material)
+- corrosion: 1849 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 6.1 s
-- build (glb, sky, background, effects, mobile): 128.2 s
-- checks (fast): 91.6 s
+- spec -> level.json: 5.2 s
+- build (glb, sky, background, effects, mobile): 122.2 s
+- checks (fast): 88.7 s
 - previews: 0.7 s
 - export package: 0.6 s
-- total: 227.2 s
+- total: 217.4 s
