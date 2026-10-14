@@ -1,16 +1,16 @@
 {
  "level": "slime_arena",
  "assets_kb": {
-  "level.glb": 6217,
-  "mobile/level_mobile.glb": 3669,
+  "level.glb": 5806,
+  "mobile/level_mobile.glb": 3414,
   "mobile/collision.json": 248,
   "environment.json": 4,
   "background.glb": 474,
   "effects.json": 57
  },
  "complexity": {
-  "triangles": 114024,
-  "nodes": 4633,
+  "triangles": 106732,
+  "nodes": 4178,
   "materials": 29,
   "heaviest": [
    [
@@ -37,21 +37,21 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 6217,
-   "triangles": 91846,
-   "draw_calls": 4633,
+   "glb_kb": 5806,
+   "triangles": 85346,
+   "draw_calls": 4178,
    "tex_mem_gpu_mb_est": 22.95
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3669,
-   "triangles": 107941,
-   "draw_calls": 93,
-   "visible_draw_calls_est": 59.6,
-   "visible_draw_calls_max_est": 93,
+   "glb_kb": 3414,
+   "triangles": 100649,
+   "draw_calls": 92,
+   "visible_draw_calls_est": 58.6,
+   "visible_draw_calls_max_est": 92,
    "tex_mem_gpu_mb_est": 7.28,
    "materials": 31,
-   "nodes": 94,
+   "nodes": 93,
    "colliders": {
     "colliders": 785,
     "hazards": 12,
@@ -438,17 +438,12 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 93 (> 80)"
+   "message": "mobile draw calls 92 (> 80)"
   },
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "114024 triangles (> budget 40000)"
-  },
-  {
-   "kind": "dev_size",
-   "severity": "info",
-   "message": "dev GLB 6217 KB (> 6000)"
+   "message": "106732 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
@@ -465,7 +460,7 @@
  "counts": {
   "error": 0,
   "warning": 2,
-  "info": 2
+  "info": 1
  },
  "passed": true,
  "gameplay_config": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer."
