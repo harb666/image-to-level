@@ -773,3 +773,7 @@ Building blocks usable without the preset:
 ## Stage 54: bare lamp rails
 - Ceiling `"lamp_rails": n` places n lamp rails (I-beams on roof hangers) even when `"pods": 0`; with pods it sets the
   rail count instead of pods / 6. The slime arena keeps its rails on their own for now: 4 in the hall, 1 in the works.
+
+## Stage 55: no maintenance scaffolding
+- `Maint_Lattice` (the 24 m lattice tower of posts, rings, cross braces, ladder and lift cage in the maintenance zone)
+  is removed from the slime arena spec; it was decoration only (no route used it). The `lattice` module stays.

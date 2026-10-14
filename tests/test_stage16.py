@@ -92,7 +92,8 @@ class Level(unittest.TestCase):
         from scene_spec import validate
         s = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "scene_spec.json"))); self.assertEqual(validate(s)[0], [])
         kinds = [x["kind"] for x in s["structures"]]
-        for k in ("vat", "claw", "gallery", "blast_door", "elevator_arrival", "conveyor", "robot_arm", "lattice", "conduit"): self.assertIn(k, kinds)
+        for k in ("vat", "claw", "gallery", "blast_door", "elevator_arrival", "conveyor", "robot_arm", "conduit"): self.assertIn(k, kinds)
+        self.assertNotIn("lattice", kinds)  # Stage 55: the user had the maintenance scaffolding removed
         self.assertEqual(s["arena"]["size"], [112, 112])
         self.assertTrue(all(op["sill"] - s["arena"]["walkway"]["y"] > 3 for op in s["arena"]["walls"]["openings"] if op.get("sill")))  # out of reach
         vats = [tuple(x["size"]) for x in s["structures"] if x["kind"] == "vat"]; self.assertEqual(len(vats), len(set(vats)))  # no two vats alike
