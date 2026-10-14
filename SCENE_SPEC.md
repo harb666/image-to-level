@@ -682,10 +682,16 @@ Building blocks usable without the preset:
 ## Stage 40: bottomless lift shaft, dark band round it
 - The roof shaft over an `elevator_arrival` fades into pure black above its lit mouth (upside-down accent `void`
   sleeve, wider than the car so it passes inside it); pilasters stop where it begins; no winch.
-- A plain dark textured band (`frame`) covers the roof between the shaft lip and the glow ring; the insignia plates sit
-  just under it.
+- A plain dark textured band (`frame`) covers the roof between the shaft mouth and the glow ring (Stage 42 replaced the
+  lip and insignia plates with a collar).
 
 ## Stage 41: gloomy wall fans, machinery stays on its deck
 - Wall fans glow dark and dim (role `glow_dim`: deep purple, weak emission) instead of green; ceiling fans stay yellow.
 - `machinery` banks placed `on` a platform leave out any part (vent / unit / tank) that would hang over the deck edge
   (`generator_notes` says which).
+
+## Stage 42: segmented collar round the roof shaft (user reference)
+- `elevator_arrival`'s roof shaft drops the hull lip and the two insignia plates; a collar (`structure_b`, shaft radius
+  to +2.6 m) rings the mouth instead: 16 seams, four clamp plates (N/E/S/W) with a red light slot and a grille, four dark
+  struts on the diagonals, eight small red triangle lights in dark recesses, and four red slots on plates outside that
+  cross the glow ring. Visual only (no collision), existing roles; the car's floor emblem stays.

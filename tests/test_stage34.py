@@ -48,8 +48,9 @@ class Stage35(unittest.TestCase):
     def test_shaft_like_skyforge_and_real_vents(self):
         import re
         L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
-        self.assertEqual(by["Elevator_Shaft_Lip"]["material"], "structure_b")
-        for n in ("Elevator_Shaft_OuterRing", "Elevator_Shaft_Emblem_1", "Elevator_Shaft_Emblem_2"): self.assertIn(n, by)
+        self.assertEqual(by["Elevator_Shaft_Collar"]["material"], "structure_b")  # Stage 42: collar replaces lip + insignia plates
+        for n in ("Elevator_Shaft_OuterRing", "Elevator_Shaft_Clamp_4", "Elevator_Shaft_Strut_4", "Elevator_Shaft_Tri_8", "Elevator_Shaft_OuterLight_1"): self.assertIn(n, by)
+        self.assertFalse([n for n in by if n.startswith("Elevator_Shaft_Emblem") or n == "Elevator_Shaft_Lip"])
         strips = [o for o in L["objects"] if o["name"].startswith("Elevator_Shaft_Strip_")]
         self.assertTrue(strips and all(o["size"][1] < 2.5 for o in strips))
         vents = [n for n in by if re.search(r"_M\d\dVent$", n)]

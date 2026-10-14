@@ -17,6 +17,33 @@ from modules import structure
 from architecture import local as A_local
 
 
+def _shaft_collar(ctx, n, sg, Rs, cy, cut):
+    """Stage 42 (user reference): a wide collar round the shaft mouth on the roof's underside - plated ring with 16 seams;
+    four clamp plates (N/E/S/W) each with a tapered red light slot and a grille; four dark struts on the diagonals; eight
+    small red triangle lights in dark recesses between them; four red light slots on the plates outside, crossing the
+    glow ring at N/E/S/W. Every part a few cm off its neighbours (no shared planes); visual only, existing materials."""
+    W = 2.6; ro = Rs + W; vis = dict(collision=False, outline=False, **cut)
+    ctx.add(n + "_Shaft_Collar", "cylinder", [0, cy - 0.32, 0], [2 * ro, 0.3, 2 * ro], "structure_b", sg, sections=32, hole=Rs, collision=False, **cut)
+    P = lambda a, r: (math.cos(a) * r, math.sin(a) * r); ry = lambda a: -math.degrees(a) + 90  # box local x tangential, z radial
+    for k in range(16):  # seams
+        a = math.radians(11.25 + 22.5 * k); px, pz = P(a, Rs + W / 2)
+        ctx.add(f"{n}_Shaft_Seam_{k + 1:02d}", "box", [px, cy - 0.34, pz], [0.08, 0.04, W - 0.1], "frame", sg, [0, ry(a), 0], **vis)
+    for k in range(4):
+        a = math.radians(90 * k)
+        px, pz = P(a, Rs + 1.3); ctx.add(f"{n}_Shaft_Clamp_{k + 1}", "box", [px, cy - 0.45, pz], [1.3, 0.14, 2.4], "frame", sg, [0, ry(a), 0], **vis)
+        px, pz = P(a, Rs + 0.75); ctx.add(f"{n}_Shaft_ClampLight_{k + 1}", "box", [px, cy - 0.48, pz], [0.34, 0.05, 0.9], "glow", sg, [0, ry(a), 0], **vis)
+        for j in range(3):
+            px, pz = P(a, Rs + 1.6 + 0.28 * j); ctx.add(f"{n}_Shaft_Grille_{k + 1}{j + 1}", "box", [px, cy - 0.48, pz], [0.8 - 0.12 * j, 0.05, 0.1], "structure_b", sg, [0, ry(a), 0], **vis)
+        px, pz = P(a, Rs + 3.62); ctx.add(f"{n}_Shaft_OuterPlate_{k + 1}", "box", [px, cy - 0.21, pz], [0.75, 0.16, 1.9], "frame", sg, [0, ry(a), 0], **vis)
+        ctx.add(f"{n}_Shaft_OuterLight_{k + 1}", "box", [px, cy - 0.24, pz], [0.24, 0.05, 1.3], "glow", sg, [0, ry(a), 0], **vis)
+        a = math.radians(45 + 90 * k); px, pz = P(a, Rs + 1.85)
+        ctx.add(f"{n}_Shaft_Strut_{k + 1}", "box", [px, cy - 0.52, pz], [0.34, 0.21, 3.5], "frame", sg, [0, ry(a), 0], **vis)
+    for k in range(8):
+        a = math.radians(22.5 + 45 * k); px, pz = P(a, Rs + 1.4)
+        ctx.add(f"{n}_Shaft_Recess_{k + 1}", "box", [px, cy - 0.38, pz], [0.95, 0.07, 1.0], "frame", sg, [0, ry(a), 0], **vis)
+        ctx.add(f"{n}_Shaft_Tri_{k + 1}", "frustum", [px, cy - 0.41, pz], [0.62, 0.05, 0.62], "glow", sg, [0, ry(a) + 30, 0], sections=3, bottom_scale=1.0, **vis)
+
+
 @structure("elevator_shaft", pad=False)
 def elevator_shaft(ctx, s, x, y, z, yaw):
     """Elevator shaft through a platform: open shaft, lit rim, exit trigger to the next level."""
@@ -129,14 +156,10 @@ def elevator_arrival(ctx, s, x, y, z, yaw):
         ctx.add(n + "_Shaft_Cap", "cylinder", [0, shaft_top, 0], [2 * (Rs + 0.6), 0.6, 2 * (Rs + 0.6)], "structure_b", sg, sections=seg, collision=False, outline=False, **cut)
         # Stage 35: the same look as the previous level's shaft (elevator_shaft "minimal"): plain hull lip, a thin glow ring,
         # two insignia plates (not symmetric), pilasters with short light strips of uneven length near the mouth
-        ctx.add(n + "_Shaft_Lip", "cylinder", [0, cy - 0.12, 0], [2 * (Rs + 0.8), 0.14, 2 * (Rs + 0.8)], "structure_b", sg, sections=seg, hole=Rs, collision=False, **cut)
         ctx.add(n + "_Shaft_Band", "cylinder", [0, cy - 0.035, 0], [2 * (Rs + 3.45), 0.085, 2 * (Rs + 3.45)], "frame", sg, sections=32, hole=Rs + 0.75,
-                collision=False, outline=False, **cut)  # Stage 40: plain dark textured ring between lip and glow ring (top sunk into the roof)
+                collision=False, outline=False, **cut)  # Stage 40: plain dark textured ring between collar and glow ring (top sunk into the roof)
         ctx.add(n + "_Shaft_OuterRing", "cylinder", [0, cy - 0.03, 0], [2 * (Rs + 3.75), 0.04, 2 * (Rs + 3.75)], "glow", sg, sections=32, hole=Rs + 3.5, collision=False, outline=False, **cut)
-        for k, deg in enumerate((38.0, 196.0)):  # flat on the roof's underside, between lip and ring, facing down
-            a = math.radians(deg); rr = Rs + 2.1; yw = -deg - 90; ex, ez = A_local(0, 1.1, yw)
-            ctx.add(f"{n}_Shaft_Emblem_{k + 1}", "panel", [math.cos(a) * rr - ex, cy - 0.08, math.sin(a) * rr - ez], [1.3, 2.2, 0], "accent", sg, [90, yw, 0],
-                    collision=False, outline=False, **cut)
+        _shaft_collar(ctx, n, sg, Rs, cy, cut)  # Stage 42: segmented collar from the user's reference (replaces lip + insignia plates)
         for i in range(8):  # pilasters with light strips on every other one, short and uneven, near the mouth (reads lit from the hall)
             a = 2 * math.pi * (i + 0.5) / 8; ca, sa = math.cos(a), math.sin(a); r = Rs - 0.2; ry = -math.degrees(a) + 90
             ctx.add(f"{n}_Shaft_Pilaster_{i + 1}", "box", [ca * r, y0, sa * r], [0.8, min(H, 3.05), 0.4], "structure_b", sg, [0, ry, 0], bevel=0, collision=False, **cut)
