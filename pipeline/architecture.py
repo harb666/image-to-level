@@ -380,6 +380,8 @@ def connection(ctx, c, A, B, floor_y):
             ctx.add(f"{c['id']}_Beam_{side}", "ibeam", [s * (width / 2 - 0.3), y - 0.855, (oa - ob) / 2], [max(0.5, span - oa - ob), 0.45, 0.3], "frame", g, [0, 90, 0])
         if c.get("rails", kind == "catwalk"):
             _rails(ctx, c["id"], g, width, -span / 2 + oa + 0.3, span / 2 - ob - 0.3, lambda z: y)
+        if c.get("lamp_posts"):  # Stage 57: warm lamps along one edge
+            lamp_posts(ctx, c["id"], g, width, -span / 2 + oa + 0.6, span / 2 - ob - 0.6, y, int(c["lamp_posts"]), c.get("lamp_side", 1), (mid[0], mid[1]), yaw)
         if ctx.detail >= 1 and span > 3:  # transverse beams under the deck between the side I-beams (bridge underside)
             for i in range(max(1, int(span / 2.5))):
                 z = -span / 2 + oa + (span - oa - ob) * (i + 0.5) / max(1, int(span / 2.5))
@@ -862,7 +864,8 @@ def dress_ceilings(ctx):
             u = -L / 2 + rng.uniform(3, 10)
             while u < L / 2 - 6:
                 cl = rng.uniform(3, 5.5); v = side * (S / 2 - 1.3); x, z = P2(u, v); caps += 1; cn = f"{n}Capsule_{caps:02d}"
-                ctx.add(cn, "cylinder", [x, y - 1.7, z], [0.9, cl, 0.9], "fall" if "fall" in ctx.spec.get("materials", {}).get("roles", {}) else "glow", None,
+                ctx.add(cn, "cylinder", [x, y - 1.7, z], [0.9, cl, 0.9], ctx.role(C["capsule_role"]) if C.get("capsule_role") else  # Stage 57: e.g. warm "glow_yellow"
+                        ("fall" if "fall" in ctx.spec.get("materials", {}).get("roles", {}) else "glow"), None,
                         [90, 0, 0] if along_z else [0, 0, -90], sections=8, outline=False, **vis)
                 for j, f_ in enumerate((0.1, 0.5, 0.9)):  # bands inside the tube's length (never flush with its end caps)
                     bx, bz = P2(u + f_ * cl - 0.2, v)
@@ -1378,6 +1381,20 @@ def clear_fixtures(ctx, pad=0.05):
         ctx.objects[:] = [o for o in ctx.objects if o["name"] not in drop]; ctx.names -= drop
         ctx.notes.append(f"fixtures: {len(drop)} parts cleared out of fans / vents" + (f" (wall units removed: {', '.join(sorted(gone_units))})" if gone_units else ""))
     return drop
+
+
+def lamp_posts(ctx, n, g, w, z0, z1, y, k, side, origin, yaw):
+    """Stage 57: k warm lamps on posts along one edge (side +1 / -1 = local +x / -x) of a deck in group g (local +z
+    along it, deck top at y): a post from under the deck edge to 2.7 m above it, a hood over the walkway edge and a
+    glow_yellow bulb under it; each adds a soft yellow point light (effect Fan_Lights). Visual only."""
+    sd = 1 if side >= 0 else -1; st = dict(collision=False, mobile={"static": True}); yl = ctx.role("glow_yellow")
+    for i in range(k):
+        lz = z0 + (z1 - z0) * (i + 0.5) / k
+        ctx.add(f"{n}_Lamp_{i + 1}_Post", "box", [sd * (w / 2 + 0.05), y - 0.88, lz], [0.16, 3.55, 0.16], "frame", g, **st)
+        ctx.add(f"{n}_Lamp_{i + 1}_Hood", "box", [sd * (w / 2 - 0.2), y + 2.6, lz], [0.62, 0.13, 0.9], "frame", g, outline=False, **st)
+        ctx.add(f"{n}_Lamp_{i + 1}_Bulb", "box", [sd * (w / 2 - 0.2), y + 2.48, lz], [0.4, 0.14, 0.66], yl, g, outline=False, **st)
+        ox, oz = local(sd * (w / 2 - 0.2), lz, yaw)
+        ctx.fan_lights = getattr(ctx, "fan_lights", []) + [[round(origin[0] + ox, 2), round(y + 2.2, 2), round(origin[1] + oz, 2), 1.0]]
 
 
 def clear_ducts(ctx, gap=0.6, keep=6.0):

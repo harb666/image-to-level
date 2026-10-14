@@ -307,7 +307,8 @@
    "seed": 1,
    "material": "ceiling",
    "pods": 0,
-   "lamp_rails": 4
+   "lamp_rails": 4,
+   "capsule_role": "glow_yellow"
   }
  },
  "platforms": [
@@ -698,6 +699,38 @@
    "cover": 1,
    "source": "visible",
    "notes": "zone 8 + exit"
+  },
+  {
+   "id": "West_Landing_N",
+   "center": [
+    -47.0,
+    -166.0
+   ],
+   "size": [
+    4,
+    6
+   ],
+   "top": 10.0,
+   "style": "industrial_pillar",
+   "cover": 0,
+   "source": "inferred",
+   "notes": "Stage 57: end of the west catwalk (where the rock face was)"
+  },
+  {
+   "id": "West_Landing_S",
+   "center": [
+    -47.0,
+    -224.0
+   ],
+   "size": [
+    4,
+    6
+   ],
+   "top": 10.0,
+   "style": "industrial_pillar",
+   "cover": 0,
+   "source": "inferred",
+   "notes": "Stage 57: far end of the west catwalk"
   }
  ],
  "connections": [
@@ -876,6 +909,27 @@
    "kind": "ramp",
    "width": 4.5,
    "source": "inferred"
+  },
+  {
+   "id": "W_Cat_West_In",
+   "from": "Purification_Deck",
+   "to": "West_Landing_N",
+   "kind": "catwalk",
+   "width": 3.0,
+   "lamp_posts": 3,
+   "lamp_side": 1,
+   "source": "inferred"
+  },
+  {
+   "id": "W_Cat_West",
+   "from": "West_Landing_N",
+   "to": "West_Landing_S",
+   "kind": "catwalk",
+   "width": 3.0,
+   "lamp_posts": 5,
+   "lamp_side": -1,
+   "source": "inferred",
+   "notes": "Stage 57: small catwalk with guardrails along the west wall, warm lamps"
   }
  ],
  "structures": [
@@ -1568,25 +1622,6 @@
    "radius": 2.0,
    "sections": 6,
    "source": "visible"
-  },
-  {
-   "id": "Rock_West",
-   "kind": "rock_face",
-   "from": [
-    -53,
-    -176
-   ],
-   "to": [
-    -53,
-    -228
-   ],
-   "height": 26,
-   "depth": 6,
-   "source": "visible",
-   "notes": "raw rock the factory was cut into (mood board)",
-   "material": "rock_veined",
-   "industrial": true,
-   "spouts": 4
   }
  ],
  "pipes": [
@@ -1885,28 +1920,6 @@
      ]
     ],
     "notes": "Stage 52: two broadcast + two specimen variants"
-   },
-   "rock_veined": {
-    "type": "rock",
-    "color": [
-     0.22,
-     0.17,
-     0.27
-    ],
-    "tile_m": 14.0,
-    "res": 256,
-    "toon": true,
-    "veins": [
-     0.45,
-     1.0,
-     0.15
-    ],
-    "emissive": [
-     1.0,
-     1.0,
-     1.0
-    ],
-    "notes": "Stage 56: rock face with glowing slime veins (user reference)"
    }
   }
  },
@@ -2265,7 +2278,8 @@
     "seed": 2,
     "material": "ceiling_b",
     "pods": 0,
-    "lamp_rails": 1
+    "lamp_rails": 1,
+    "capsule_role": "glow_yellow"
    }
   }
  ],

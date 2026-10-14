@@ -59,6 +59,9 @@ def walkway(ctx, s, x, y, z, yaw):
     "stairs": "from" | "to" | "both" | "none" (default both) adds stair flights down to the ground along its axis."""
     s = dict(s, style="steel", rails=True, width=s.get("width", 3.0), pier_spacing=s.get("pier_spacing", 7.0)); bridge(ctx, s, x, y, z, yaw)
     n = s["id"]; L = _span(s); w = s["width"]; dx, dz = math.sin(math.radians(yaw)), math.cos(math.radians(yaw)); smax = math.radians(min(ctx.G["player"]["max_slope_deg"], 35))
+    if s.get("lamp_posts"):  # Stage 57: warm lamps along one edge (A.lamp_posts; the deck top is the group origin)
+        k_ = int(s["lamp_posts"]); A.lamp_posts(ctx, n, n, w, -L / 2 + 0.6, L / 2 - 0.6, 0.0, k_, s.get("lamp_side", 1), (x, z), yaw)
+        ctx.fan_lights[-k_:] = [[q[0], round(q[1] + y, 2), q[2], q[3]] for q in ctx.fan_lights[-k_:]]  # lights in world height
     deck = n + "_Deck"; ends = {"from": -1, "to": 1}; want = s.get("stairs", "both")
     for e, sg in ends.items():
         if want not in (e, "both"): continue

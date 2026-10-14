@@ -116,7 +116,7 @@ class Stage39(unittest.TestCase):
         glows = [n for n in by if re.match(r".*Ceil_Fan_\d+_Glow$", n)]
         self.assertTrue(glows and all(by[n]["material"] == "glow_yellow" for n in glows))
         self.assertGreater(L["materials"]["glow_yellow"]["color"][1], 0.7)
-        fx = [e for e in L["effects"] if e["type"] == "point_light"]; self.assertEqual(len(fx), 1); self.assertEqual(len(fx[0]["positions"]), len(glows))
+        fx = [e for e in L["effects"] if e["type"] == "point_light"]; self.assertEqual(len(fx), 1); self.assertEqual(len(fx[0]["positions"]), len(glows) + len([n for n in by if re.search(r"_Lamp_\d+_Bulb$", n)]))  # fans + catwalk lamps (Stage 57)
         gd = open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")).read(); self.assertIn("OmniLight3D", gd)
 
 
@@ -174,7 +174,7 @@ class Stage48(unittest.TestCase):
         self.assertFalse([n for n in by if n.startswith(("Pipe_NE", "Pipe_SW"))])
         E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "effects_mobile.json")))
         fx = [e for e in E["effects"] if e["type"] == "tube_bubbles"]
-        self.assertEqual(len(fx), 1); self.assertEqual(len(fx[0]["tubes"]), 18)  # 16 vats + the 2 rock-face tanks (Stage 56); none in the columns (Stage 49)
+        self.assertEqual(len(fx), 1); self.assertEqual(len(fx[0]["tubes"]), 16)  # the 16 vats; none in the columns (Stage 49)
         self.assertFalse([e for e in E["effects"] if e["type"] == "tube_blobs"])
 
 
@@ -211,13 +211,14 @@ class Stage52(unittest.TestCase):
         self.assertTrue(os.path.exists(os.path.join(ROOT, "levels", "slime_arena", "references", "tv_easter_egg.jpg")))
 
 
-class Stage56(unittest.TestCase):
-    def test_industrial_rock_face(self):
+class Stage57(unittest.TestCase):
+    def test_west_catwalk_and_warm_capsules(self):  # Stage 56's industrial rock face was reverted: the rocks are gone
         L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
-        self.assertTrue(L["materials"]["rock_veined"].get("veins"))
-        self.assertTrue(all(o["material"] == "rock_veined" for n, o in by.items() if n.startswith("Rock_West_S") and o["type"] == "cliff"))
-        for k in ("Rock_West_Spire_1", "Rock_West_Tank1_Glass_1", "Rock_West_Tank2_Elbow", "Rock_West_Ledge_1_Light", "Rock_West_Spout_1_Fall"): self.assertIn(k, by)
+        self.assertFalse([n for n in by if n.startswith("Rock_West")])
+        for k in ("W_Cat_West_Deck", "W_Cat_West_In_Deck", "W_Cat_West_Lamp_5_Bulb", "West_Landing_N_Floor"): self.assertIn(k, by)
+        self.assertTrue([n for n in by if n.startswith("W_Cat_West_Rail")])
+        self.assertEqual(by["W_Cat_West_Lamp_1_Bulb"]["material"], "glow_yellow")
+        caps = [o for n, o in by.items() if "Capsule_" in n and not any(t in n for t in ("_Band", "_Hanger"))]
+        self.assertTrue(caps and all(o["material"] == "glow_yellow" for o in caps))
         E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "effects.json")))
-        hz = [e for e in E["effects"] if e["id"] == "Hazard_Surface_2"][0]
-        self.assertGreaterEqual(sum(1 for q in hz["ripples"] if q[2] == 1.0), 4)  # the spouts' falls ripple the pool
-        bub = [e for e in E["effects"] if e["type"] == "tube_bubbles"][0]; self.assertEqual(len(bub["tubes"]), 18)  # 16 vats + 2 rock tanks
+        fl = [e for e in E["effects"] if e["id"] == "Fan_Lights"][0]; self.assertGreaterEqual(len(fl.get("emitters") or fl.get("positions") or []), 8)

@@ -786,3 +786,15 @@ Building blocks usable without the preset:
 - Rock material `veins`: [r, g, b] paints a few long wandering cracks that glow (emissive, kept crisp through the toon
   pass, the rock lit green round them); `vein_width`, `vein_share`. Slime arena role `rock_veined` (256 px).
 - Pipes accept `"mount": false` (no mount block when the base is buried).
+
+## Stage 57: catwalk instead of the rock face, warm capsule lights
+- Stage 56's industrial rock face is reverted and the slime arena's `Rock_West` rocks are gone (the `rock_face`
+  `industrial` / `veins` options stay in the code, unused). In their place: two small pillar landings
+  (`West_Landing_N` / `_S`, 4 x 6 m, top 10) and catwalk connections with guardrails - one from the Purification Deck,
+  one along the west wall - so the walk is reachable (kept > 5 m from the wall TV so its top is not a jump target).
+- Connections (and `walkway` structures) accept `lamp_posts`: n and `lamp_side`: +1 / -1 - warm lamps on posts along
+  one edge (hood + `glow_yellow` bulb), each with a soft yellow point light (effect Fan_Lights).
+- Ceiling `capsule_role`: the material of the capsule tubes under the roof - the slime arena uses `glow_yellow` (like
+  the ceiling fans) instead of green.
+- Corrosion band: thin posts (footprint <= 1.5 m) get their strips 4.5 cm out instead of 2.1 cm (their short faces'
+  strips twist when chained and came within 5 mm of the post).

@@ -137,6 +137,7 @@ def corrosion(ctx, spec):
         occ = [(n, m.bounds, m.face_normals, np.einsum("ij,ij->i", m.face_normals, m.triangles[:, 0])) for n, m in live if m.is_watertight and m.is_convex]
         inside_solid = lambda P, b, fn, off: bool(np.all(b[0] <= P) and np.all(P <= b[1]) and np.all(fn @ P - off <= 0.01))  # convex solids only; within 1 cm of a face counts (no strip lying on another surface)
         for name, m in live:
+            ext = m.bounds[1] - m.bounds[0]; off = cfg["offset"] if max(ext[0], ext[2]) > 1.5 else 0.045  # Stage 57: thin posts - their short faces' strips twist when chained: stand further off
             segs, fi = trimesh.intersections.mesh_plane(m, [0, 1, 0], [0, cut, 0], return_faces=True)
             fn = m.face_normals[fi]; keep = np.abs(fn[:, 1]) < 0.3
             top = min(Ly + cfg["height"], m.bounds[1][1] - 0.05)
@@ -145,10 +146,10 @@ def corrosion(ctx, spec):
                 nn = nrm / (np.linalg.norm(nrm) or 1); mid = (a + b) / 2; q = mid + nn * 0.2
                 if not inside(q): continue  # faces dry ground / outside the pool
                 P = np.array([[q[0], Ly + 0.3, q[1]]])
-                S_ = np.array([mid[0] + nn[0] * cfg["offset"], Ly + 0.3, mid[1] + nn[1] * cfg["offset"]])  # the strip itself
+                S_ = np.array([mid[0] + nn[0] * off, Ly + 0.3, mid[1] + nn[1] * off])  # the strip itself
                 if any(on != name and (inside_solid(P[0], b_, fn_, off_) or inside_solid(S_, b_, fn_, off_)) for on, b_, fn_, off_ in occ): continue  # pressed against / inside a neighbour
                 if (-(b - a)[1]) * nn[0] + (b - a)[0] * nn[1] < 0: a, b = b, a  # strip winding faces out of the solid (left of a->b)
-                o_ = nn * cfg["offset"]
+                o_ = nn * off
                 paths.append(dict(a=[round(float(a[0] + o_[0]), 5), round(float(a[1] + o_[1]), 5)], b=[round(float(b[0] + o_[0]), 5), round(float(b[1] + o_[1]), 5)],  # 0.01 mm: short strips stay parallel to their face
                                   y0=round(Ly - cfg["sink"], 3), y1=round(float(top), 3)))
                 edges += 1
