@@ -646,3 +646,5 @@ Building blocks usable without the preset:
   object already placed (`generator_notes` lists changed poses); pedestals sink 1.2 m below their stated base.
 - Corrosion is ON by default (`"corrosion": false` turns it off) and reaches everything in the liquid or standing on
   its surface.
+- Column plinths are rings too (the pipe reaches down into the slime). Lamp pods: the glass shell's ends sit 5 cm
+  inside base and cap (no flickering lids), the cage is three corner posts outside the glass (no bars through it).

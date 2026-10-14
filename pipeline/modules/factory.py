@@ -344,7 +344,7 @@ def column(ctx, s, x, y, z, yaw):
     n = s["id"]; r = float(s.get("radius", 2.5)); top = float(s.get("height", getattr(ctx, "ceiling_y", 24.0)))
     import random as _r
     rg = _r.Random(n); g = ctx.add(n, "group", [x, 0, z], rot=[0, yaw, 0]); st = dict(mobile={"static": True}); sec = int(s.get("sections", 8))
-    ctx.add(n + "_Plinth", "cylinder", [0, -0.5, 0], [2 * r * 1.35, 4.5, 2 * r * 1.35], "structure_b", g, sections=sec, **st)
+    ctx.add(n + "_Plinth", "cylinder", [0, -0.5, 0], [2 * r * 1.35, 4.5, 2 * r * 1.35], "structure_b", g, sections=sec, hole=round(r * 0.8, 3), hole_res=16, **st)  # the pipe reaches down into the slime
     yy, k = 4.0, 0
     while yy < top - 4:
         k += 1

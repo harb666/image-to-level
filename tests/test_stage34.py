@@ -10,10 +10,17 @@ class Stage34(unittest.TestCase):
         L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
         drums = [o for o in L["objects"] if "_Drum_" in o["name"] and o["name"].startswith("Column")]
         self.assertTrue(drums and all(o.get("hole") for o in drums))
-        caps = [o for o in L["objects"] if o["name"].startswith("Column") and o["name"].endswith(("_Neck", "_Capital"))]
+        caps = [o for o in L["objects"] if o["name"].startswith("Column") and o["name"].endswith(("_Neck", "_Capital", "_Plinth"))]
         self.assertTrue(caps and all(o.get("hole") for o in caps))
         ped = by["Arm_1_Pedestal"]; self.assertLess(7.0 + ped["position"][1], 1.0)  # bottom below the liquid surface (y 1)
         self.assertIn("Corrosion_Band", by)
+        import re
+        for p in [o for o in L["objects"] if re.search(r"Pod_\d+$", o["name"])]:  # pods: no cage bar through the glass, glass lids hidden in cap / base
+            bars = [by[n] for n in by if n.startswith(p["name"] + "_Bar_")]; r = p["size"][0] / 2
+            self.assertTrue(bars and all(abs(b["size"][0] - 0.14) < 1e-6 and abs(b["size"][2] - 0.14) < 1e-6 for b in bars))
+            self.assertTrue(all(((b["position"][0] - p["position"][0]) ** 2 + (b["position"][2] - p["position"][2]) ** 2) ** 0.5 > r for b in bars))
+            cap, base = by[p["name"] + "_Cap"], by[p["name"] + "_Base"]
+            self.assertLess(p["position"][1], base["position"][1] + base["size"][1]); self.assertGreater(p["position"][1] + p["size"][1], cap["position"][1])
 
     def test_corrosion_on_by_default(self):
         import spec_to_level

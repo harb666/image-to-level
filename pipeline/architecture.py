@@ -803,9 +803,12 @@ def dress_ceilings(ctx):
                     placed += 1; nm = f"{n}Pod_{placed:02d}"
                     ctx.add(nm + "_Cable", "box", [x, bot + h, z], [0.1, ry - bot - h + 0.05, 0.1], "frame", None, outline=False, **vis)  # from the rail
                     ctx.add(nm + "_Cap", "cylinder", [x, bot + h - 0.1, z], [2 * r + 0.3, 0.45, 2 * r + 0.3], "structure_b", None, sections=6, **vis)
-                    ctx.add(nm, "cylinder", [x, bot + 0.25, z], [2 * r, h - 0.35, 2 * r], ctx.role("glass_clear"), None, sections=6, outline=False, **vis)  # clear see-through shell (Stage 33)
+                    ctx.add(nm, "cylinder", [x, bot + 0.2, z], [2 * r, h - 0.25, 2 * r], ctx.role("glass_clear"), None, sections=6, outline=False, double_sided=True,
+                            **vis)  # clear shell, ends tucked 5 cm into base and cap (its lids hidden there: no flicker)
                     ctx.add(nm + "_Base", "cylinder", [x, bot, z], [2 * r + 0.2, 0.3, 2 * r + 0.2], "structure_b", None, sections=6, outline=False, **vis)
-                    for b in range(2): ctx.add(f"{nm}_Bar_{b + 1}", "box", [x, bot + 0.2, z], [2 * r + 0.25, h - 0.3, 0.14], "frame", None, [0, 90 * b + 45, 0], outline=False, **vis)  # cage
+                    for b in range(3):  # cage: three posts on the outside corners (nothing through the glass)
+                        a_ = math.radians(120 * b); ctx.add(f"{nm}_Bar_{b + 1}", "box", [x + math.cos(a_) * (r + 0.04), bot + 0.2, z - math.sin(a_) * (r + 0.04)], [0.14, h - 0.25, 0.14],
+                                                           "frame", None, [0, 120 * b, 0], outline=False, **vis)
         for i in range(int(area / 1400)):  # ---- sagging cable runs (4 segments)
             x0, z0 = cx + rng.uniform(-w / 2 + 2, w / 2 - 2), cz + rng.uniform(-d / 2 + 2, d / 2 - 2); a = rng.uniform(0, 2 * math.pi); ln = rng.uniform(8, 20)
             x1, z1 = x0 + math.cos(a) * ln, z0 + math.sin(a) * ln
