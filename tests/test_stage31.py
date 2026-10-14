@@ -44,15 +44,10 @@ if __name__ == "__main__":
 
 
 class LampRails(unittest.TestCase):
-    def test_slime_arena_pods_hang_from_rails_mostly_in_the_hall(self):
+    def test_slime_arena_has_no_ceiling_pods(self):  # Stage 53: the user had the hanging pods removed (ceiling "pods": 0)
         import re
         L = json.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "levels", "slime_arena", "level.json")))
-        by = {o["name"]: o for o in L["objects"]}
-        pods = [o for o in L["objects"] if re.search(r"Pod_\d+$", o["name"])]
-        hall = [o for o in pods if not o["name"].startswith("Works")]; self.assertGreater(len(hall), 2 * (len(pods) - len(hall)))
-        tops = [o["position"][1] for o in L["objects"] if re.search(r"Ceil_LampRail_\d+$", o["name"])]
-        for p in pods:  # every cable ends at a lamp rail's underside
-            c = by[p["name"] + "_Cable"]; self.assertTrue(any(abs(c["position"][1] + c["size"][1] - 0.05 - t) < 0.02 for t in tops), p["name"])
+        self.assertFalse([o["name"] for o in L["objects"] if re.search(r"Ceil_(Pod|LampRail)_\d+", o["name"])])
 
 
 class Stage33(unittest.TestCase):
@@ -63,5 +58,3 @@ class Stage33(unittest.TestCase):
             self.assertIn("Arm_1" + part, by)
         self.assertEqual(by["Arm_1_Link1"]["type"], "frustum")
         self.assertIn("Claw_1_Finger_3_Tip", by); self.assertNotIn("Claw_1_Prong_1", by)
-        pods = [o for o in L["objects"] if o["name"].endswith("Pod_01")]
-        self.assertTrue(pods and all(o["material"] == "glass_clear" and o["name"] + "_Core" not in by for o in pods))  # clear, nothing green inside

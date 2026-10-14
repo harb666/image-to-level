@@ -765,3 +765,7 @@ Building blocks usable without the preset:
   seeds 1-3) and its window screens alternate two broadcast and two specimen variants.
 - Role key `egg`: {"cell", "screen", "every", "len"} - that one screen now and then shows the atlas cell (here TV #2:
   `references/tv_easter_egg.jpg`, the user's GIR picture, ~4 s every 40 s, breaking through the static).
+
+## Stage 53: no hanging pods in the slime arena
+- Both slime-arena ceilings set `"pods": 0`: the glass lamp pods (and the lamp rails that only carried them) are gone.
+  The pod model lives on in the reactor columns (Stage 49).
