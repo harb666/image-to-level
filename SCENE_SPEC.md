@@ -635,3 +635,6 @@ Building blocks usable without the preset:
   housing with a red diamond light and side strips, and a three-finger claw (`claw_fingers`: upper segment angled out,
   tapered tip curling in, red inlays). Ceiling `claw`s get the same head (hoist housing + collar + fingers).
 - Cage lamp pods: see-through `glass` shell with a glowing core from base to cap.
+- Fixes: lights on tapered parts (claw housing, wrist, turret) lie on the faces (`face_light`), link strips are as
+  thick as the taper, fingers have a knuckle joint and their inlays sit on the finger faces - no floating pieces.
+  Lamp pods use a clear `glass_clear` shell with nothing inside.

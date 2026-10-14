@@ -53,8 +53,9 @@ def claw(ctx, s, x, y, z, yaw):
     for k, o in enumerate((-0.18, 0.18)):  # two chain strands
         ctx.add(f"{n}_Chain_{k + 1}", "box", [o, yb, 0], [0.14, ctop - yb, 0.3], "frame", g, outline=False, **st)
     ctx.add(n + "_Block", "frustum", [0, yb - 1.5, 0], [1.9, 1.5, 1.9], "structure_b", g, sections=6, bottom_scale=0.55, **st)  # hoist housing, wide on top (Stage 33)
-    ctx.add(n + "_Light", "box", [0, yb - 0.85, 0.74], [0.4, 0.4, 0.05], "glow", g, [0, 0, 45], outline=False, **st)  # red diamond
-    for sd in (-1, 1): ctx.add(f"{n}_Strip_{sd + 1}", "box", [sd * 0.74, yb - 1.25, 0], [0.05, 0.9, 0.16], "glow", g, outline=False, **st)
+    hc = (0, yb - 1.5, 0)  # lights lie on the housing's flats (it tapers)
+    face_light(ctx, n + "_Light", g, hc, 6, 0.95, 0.95 * 0.55, 1.5, 60, 0.55, 0.95, 0.36, st)
+    for i, th in enumerate((180, 300)): face_light(ctx, f"{n}_Strip_{i + 1}", g, hc, 6, 0.95, 0.95 * 0.55, 1.5, th, 0.2, 1.3, 0.14, st)
     ctx.add(n + "_Collar", "cylinder", [0, yb - 1.85, 0], [0.75, 0.4, 0.75], "machine", g, sections=8, **st)
     claw_fingers(ctx, n, g, 0, yb - 1.84, 0, 1.7, st)
 
@@ -169,13 +170,15 @@ def robot_arm(ctx, s, x, y, z, yaw):
     if s.get("pedestal"): ctx.add(n + "_Pedestal", "cylinder", [0, -float(s["pedestal"]), 0], [1.3 * sc, float(s["pedestal"]), 1.3 * sc], "structure_b", g, sections=10, **st)
     ctx.add(n + "_Base", "frustum", [0, 0, 0], [1.9 * sc, 0.6 * sc, 1.9 * sc], "structure_b", g, sections=8, bottom_scale=1.25, **st)
     ctx.add(n + "_Turret", "frustum", [0, 0.6 * sc, 0], [1.2 * sc, 1.0 * sc, 1.2 * sc], "structure_b", g, sections=8, bottom_scale=1.2, **vis)
-    ctx.add(n + "_TurretLight", "box", [0, 0.75 * sc, 0.62 * sc], [0.14 * sc, 0.7 * sc, 0.06], "glow", g, outline=False, **vis)
+    face_light(ctx, n + "_TurretLight", g, (0, 0.6 * sc, 0), 8, 0.6 * sc, 0.72 * sc, 1.0 * sc, 90, 0.15 * sc, 0.85 * sc, 0.14 * sc, vis)
     py = 1.6 * sc; W1, l1 = 0.62 * sc, 2.7 * sc; a1 = math.radians(sh)
     def link(nm, base, ang, L, W, top):  # tapered angular link (wide at the joint it starts from) + red strips on both sides
         ctx.add(nm, "frustum", base, [W, L, W * 0.8], "structure_b", g, [ang, 0, 0], bottom_scale=1.0 / top, **vis)
         dy, dz = math.cos(math.radians(ang)), math.sin(math.radians(ang))
+        hw = lambda t: W / 2 * (1 / top + (1 - 1 / top) * t)  # half-width along the link (it tapers to W at the end)
+        h0, h1 = hw(0.78), hw(0.18)  # the strip spans 0.18 .. 0.78 of the length: its thickness covers the taper
         for sd in (-1, 1):
-            ctx.add(f"{nm}_Strip_{sd + 1}", "box", [sd * (W * (1 + 1 / top) / 4 + 0.015), base[1] + dy * L * 0.18, base[2] + dz * L * 0.18], [0.05, L * 0.6, 0.14 * sc], "glow", g,
+            ctx.add(f"{nm}_Strip_{sd + 1}", "box", [sd * (h0 + h1) / 2, base[1] + dy * L * 0.18, base[2] + dz * L * 0.18], [h1 - h0 + 0.05, L * 0.6, 0.14 * sc], "glow", g,
                     [ang, 0, 0], outline=False, **vis)
     def joint(nm, cy, cz, r, W):  # axle along x + a glowing red disc on both ends
         ctx.add(nm, "cylinder", [W / 2, cy, cz], [2 * r, W, 2 * r], "structure_b", g, [0, 0, 90], sections=10, **vis)
@@ -191,8 +194,9 @@ def robot_arm(ctx, s, x, y, z, yaw):
     wy, wz = ey + l2 * math.cos(a2), ez + l2 * math.sin(a2)
     hh = 0.95 * sc  # wrist housing hangs under the end of link 2, wide on top
     ctx.add(n + "_Wrist", "frustum", [0, wy - hh + 0.1 * sc, wz], [0.95 * sc, hh, 0.95 * sc], "structure_b", g, sections=6, bottom_scale=0.55, **vis)
-    ctx.add(n + "_Light", "box", [0, wy - hh * 0.55, wz + 0.42 * sc], [0.22 * sc, 0.22 * sc, 0.05], "glow", g, [0, 0, 45], outline=False, **vis)  # red diamond
-    for sd in (-1, 1): ctx.add(f"{n}_WristStrip_{sd + 1}", "box", [sd * 0.38 * sc, wy - hh * 0.75, wz], [0.05, hh * 0.6, 0.12 * sc], "glow", g, outline=False, **vis)
+    wc = (0, wy - hh + 0.1 * sc, wz)  # lights lie on the wrist housing's flats
+    face_light(ctx, n + "_Light", g, wc, 6, 0.475 * sc, 0.475 * sc * 0.55, hh, 60, hh * 0.45, hh * 0.75, 0.2 * sc, vis)
+    for i, th in enumerate((0, 180)): face_light(ctx, f"{n}_WristStrip_{i + 1}", g, wc, 6, 0.475 * sc, 0.475 * sc * 0.55, hh, th, hh * 0.15, hh * 0.85, 0.1 * sc, vis)
     cyl = wy - hh + 0.1 * sc
     ctx.add(n + "_Collar", "cylinder", [0, cyl - 0.25 * sc, wz], [0.45 * sc, 0.28 * sc, 0.45 * sc], "machine", g, sections=8, **vis)
     claw_fingers(ctx, n, g, 0, cyl - 0.24 * sc, wz, sc, vis)
@@ -201,20 +205,42 @@ def robot_arm(ctx, s, x, y, z, yaw):
         cable(ctx, f"{n}_Hose_{k + 1}", g, p0, p1, 0.6 * sc, 0.1 * sc, vis)
 
 
+def face_light(ctx, nm, g, c, n, r_top, r_bot, H, theta, t0, t1, width, vis, mat="glow"):
+    """Stage 33: a light strip lying ON flat `theta` (deg, from +x toward +z) of an n-gon frustum (circumradius r_bot at
+    its base c = (x, y, z), r_top at height H): tilted with the face, half its thickness sunk in -> never floating."""
+    ca = math.cos(math.pi / n); a = lambda t: ca * (r_bot + (r_top - r_bot) * t / H)
+    tilt = math.atan2(a(H) - a(0), H); th = math.radians(theta)
+    return ctx.add(nm, "box", [c[0] + a(t0) * math.cos(th), c[1] + t0, c[2] + a(t0) * math.sin(th)], [width, (t1 - t0) / math.cos(tilt), 0.06], mat, g,
+                   [math.degrees(tilt), 90 - theta, 0], outline=False, **vis)
+
+
+def _R(rot):
+    from trimesh.transformations import euler_matrix
+    return euler_matrix(*[math.radians(v) for v in rot], "sxyz")[:3, :3]
+
+
 def claw_fingers(ctx, n, g, cx, cy, cz, sc, vis, open_deg=38):
-    """Three-finger claw under (cx, cy, cz) in group g (Stage 33): each finger an upper segment angled outwards and a
-    tapered lower segment curling back in to a point, with red light inlays."""
+    """Three-finger claw under (cx, cy, cz) in group g (Stage 33): each finger an upper segment angled outwards, a
+    knuckle, and a tapered tip curling back in to a point; red inlays sit on the fingers' outer faces (computed from
+    each segment's own rotation, half sunk in)."""
+    import numpy as _np
     for k in range(3):
         ph = 120 * k; f = math.radians(ph); ox, oz = math.sin(f), math.cos(f); rr = 0.16 * sc
-        t1, l1 = math.radians(open_deg), 0.85 * sc; bx, by_, bz = cx + ox * rr, cy, cz + oz * rr
-        ctx.add(f"{n}_Finger_{k + 1}", "box", [bx, by_, bz], [0.24 * sc, l1, 0.2 * sc], "structure_b", g, [180 - open_deg, ph, 0], **vis)
-        ex, ey_, ez = bx + ox * math.sin(t1) * l1, by_ - math.cos(t1) * l1, bz + oz * math.sin(t1) * l1
-        t2 = -24; l2 = 1.0 * sc; r2 = math.radians(t2)
-        tx, ty, tz = ex + ox * math.sin(r2) * l2, ey_ - math.cos(r2) * l2, ez + oz * math.sin(r2) * l2
-        ctx.add(f"{n}_Finger_{k + 1}_Tip", "frustum", [tx, ty, tz], [0.24 * sc, l2 + 0.06 * sc, 0.2 * sc], "structure_b", g, [-t2, ph, 0], bottom_scale=0.2, **vis)
-        ctx.add(f"{n}_Finger_{k + 1}_Lit", "box", [tx + ox * 0.1 * sc, ty + 0.15 * sc, tz + oz * 0.1 * sc], [0.06 * sc, l2 * 0.6, 0.07 * sc], "glow", g, [-t2, ph, 0], outline=False, **vis)
-        ctx.add(f"{n}_Finger_{k + 1}_Lit2", "box", [bx + ox * 0.12 * sc, by_ - 0.12 * sc, bz + oz * 0.12 * sc], [0.06 * sc, l1 * 0.6, 0.07 * sc], "glow", g, [180 - open_deg, ph, 0],
-                outline=False, **vis)
+        t1, l1 = math.radians(open_deg), 0.85 * sc; B = _np.array([cx + ox * rr, cy, cz + oz * rr]); r1 = [180 - open_deg, ph, 0]
+        ctx.add(f"{n}_Finger_{k + 1}", "box", B.tolist(), [0.24 * sc, l1, 0.2 * sc], "structure_b", g, r1, **vis)
+        R1 = _R(r1); d1 = R1 @ [0, 1, 0]; out1 = -(R1 @ [0, 0, 1])  # local -z faces outwards / up
+        E = B + d1 * l1
+        ctx.add(f"{n}_Finger_{k + 1}_Knuckle", "box", (E - [0, 0.13 * sc, 0]).tolist(), [0.28 * sc, 0.26 * sc, 0.26 * sc], "machine", g, [0, ph, 0], **vis)
+        t2 = -24; l2 = 1.0 * sc; r2 = [-t2, ph, 0]; R2 = _R(r2); d2 = R2 @ [0, 1, 0]  # tip: base at the point, axis back up to the knuckle
+        T = E - d2 * l2
+        ctx.add(f"{n}_Finger_{k + 1}_Tip", "frustum", T.tolist(), [0.24 * sc, l2 + 0.06 * sc, 0.2 * sc], "structure_b", g, r2, bottom_scale=0.2, **vis)
+        out2 = R2 @ [0, 0, 1]
+        if out2 @ [ox, 0, oz] < 0: out2 = -out2
+        P = B + d1 * l1 * 0.15 + out1 * 0.1 * sc  # upper inlay on the outer face (box: constant half-thickness 0.1 sc)
+        ctx.add(f"{n}_Finger_{k + 1}_Lit2", "box", P.tolist(), [0.07 * sc, l1 * 0.6, 0.06], "glow", g, r1, outline=False, **vis)
+        h0, h1 = 0.1 * sc * (0.2 + 0.8 * 0.45), 0.1 * sc * (0.2 + 0.8 * 0.95)  # tip tapers: thickness spans the taper
+        P2 = T + d2 * l2 * 0.45 + out2 * ((h0 + h1) / 2)
+        ctx.add(f"{n}_Finger_{k + 1}_Lit", "box", P2.tolist(), [0.07 * sc, l2 * 0.5, h1 - h0 + 0.05], "glow", g, r2, outline=False, **vis)
 
 
 def cable(ctx, nm, g, p0, p1, sag, r, vis, segs=4):

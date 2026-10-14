@@ -64,4 +64,4 @@ class Stage33(unittest.TestCase):
         self.assertEqual(by["Arm_1_Link1"]["type"], "frustum")
         self.assertIn("Claw_1_Finger_3_Tip", by); self.assertNotIn("Claw_1_Prong_1", by)
         pods = [o for o in L["objects"] if o["name"].endswith("Pod_01")]
-        self.assertTrue(pods and all(o["material"] == "glass" and o["name"] + "_Core" in by for o in pods))
+        self.assertTrue(pods and all(o["material"] == "glass_clear" and o["name"] + "_Core" not in by for o in pods))  # clear, nothing green inside

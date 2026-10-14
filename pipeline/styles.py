@@ -43,6 +43,7 @@ ALIEN_CARTOON = {
         "bigscreen":   {"type": "screen_atlas", "color": [1, 1, 1], "tile_m": 4.0, "res": 1024, "emissive": [0.9, 0.9, 0.9], "atlas": {"a": [0, 0, 0.5, 1], "b": [0.5, 0, 1, 1]},
                         "left": {"type": "bigscreen", "mode": "broadcast", "aspect": 1.7}, "right": {"type": "bigscreen", "mode": "specimen", "aspect": 1.7}},  # viewscreen + specimen window
         "glass":       {"type": "toxic", "color": [0.55, 1.0, 0.45], "tile_m": 4.0, "res": 64, "alpha": 0.22, "emissive": [0.1, 0.3, 0.08]},
+        "glass_clear": {"type": "concrete", "color": [0.78, 0.84, 0.9], "tile_m": 4.0, "res": 32, "alpha": 0.16},  # Stage 33: lamp pods (no slime tint)
         "rail":        {"type": "painted_metal", "color": [0.85, 0.08, 0.1], "tile_m": 2.0, "res": 128, "wear": 0.02, "toon": True},
         "grate":       {"type": "grating", "color": [0.27, 0.22, 0.35], "tile_m": 2.0, "toon": True},
         "machine":     {"type": "machinery_panel", "color": [0.3, 0.24, 0.38], "tile_m": 2.0, "accent": [0.45, 1.0, 0.2], "emissive": [1, 1, 1], "toon": True},
