@@ -388,7 +388,7 @@ def connection(ctx, c, A, B, floor_y):
             n = max(1, int(span / 9))
             for i in range(n):
                 z = -span / 2 + span * (i + 1) / (n + 1)
-                sup = ctx.add(f"{c['id']}_Support_{i + 1:02d}", "box", [0, floor_y, z], [width * 0.4, y - 0.39 - floor_y, 0.6], "frame", g); ctx.rel("supported_by", deck, sup)
+                sup = pier(ctx, f"{c['id']}_Support_{i + 1:02d}", g, 0, floor_y, z, y - 0.37, width * 0.4, 0.8); ctx.rel("supported_by", deck, sup)
         ctx.rel("walkable_connection", deck, fa, a_anchor="end_a"); ctx.rel("walkable_connection", deck, fb, a_anchor="end_b")
         for p_, t in ((A, (ux, uz)), (B, (-ux, -uz))):
             e = footprint_edge(p_, *t); ctx.landings.append((p_["center"][0] + t[0] * (e - 1.0), p_["center"][1] + t[1] * (e - 1.0), width / 2))
@@ -560,9 +560,6 @@ def _wall_varied(ctx, name, g, L, height, thick, base_y, dress, body="wall"):
             ctx.add(nm + "_Body", "tv_body", [x, y0, f + stand], [W_, H_, depth], "tv_casing", g, border=bf, chin=cf, **st)
             ctx.add(nm + "_Screen", "panel", [x, yy + H_ * 0.003, f + stand + depth - 0.12 + 0.02], [W_ * (1 - 2 * bf) * 0.995, th, 0], "screen", g, uv_region=scr, collision=False, outline=False, **st)
             for k_ in (-1, 1): ctx.add(f"{nm}_Arm_{k_ + 1}", "box", [x + k_ * W_ * 0.2, y0 + H_ * 0.45, f + 0.0], [0.25, 0.3, stand + 0.1], "frame", g, collision=False, outline=False, **st)
-            for cxs, cys in ((-1, -1), (1, -1), (-1, 1), (1, 1)):  # angular red corner caps on the bezel (reference)
-                ctx.add(f"{nm}_Corner_{cxs + 1}{cys + 1}", "box", [x + cxs * (W_ / 2 - 0.3), y0 + (H_ - 0.36 if cys > 0 else 0.2), f + stand + depth + 0.01], [0.6, 0.15, 0.06], "glow", g,
-                        [0, 0, -cxs * cys * 45], collision=False, outline=False, **st)
             ctx.add(nm + "_Cable", "cylinder", [x - W_ * 0.28, y0 + H_ * 0.85, f + 0.15], [0.24, max(0.5, min(3.5, height - (y0 + H_ * 0.85) - 0.5)), 0.24], "frame", g, sections=6, collision=False, outline=False, **st)
         elif m == "door":
             doors += 1; dw = min(sw * 0.6, 3.6); dh = 4.4
@@ -652,9 +649,6 @@ def arena(ctx, a, floor_y, pre=""):
                         ctx.add(tag + "_Back", "box", [mx_, y0_, mz_], [op["width"] - 0.1, hh_, t - 0.04], "frame", None, [0, yaw_, 0], collision=True, outline=False, mobile={"static": True})
                         ctx.add(tag + "_Screen", "panel", [mx_ + ox_, y0_, mz_ + oz_], [op["width"] - 0.4, hh_, 0], "bigscreen", None, [0, yaw_, 0],
                                 uv_region="a" if op["fill"] == "screen" else "b", collision=False, outline=False, mobile={"static": True})
-                        for cxs in (-1, 1):  # angular red caps at the top corners, a light bar along the sill
-                            cx_, cz_ = mx_ + ux * cxs * (op["width"] / 2 - 0.6) - nx * (t / 2 + 0.06), mz_ + uz * cxs * (op["width"] / 2 - 0.6) - nz * (t / 2 + 0.06)
-                            ctx.add(f"{tag}_Cap_{cxs + 1}", "box", [cx_, y0_ + hh_ - 0.6, cz_], [1.6, 0.3, 0.2], "glow", None, [0, yaw_, -cxs * 40], collision=False, outline=False, mobile={"static": True})
                         ctx.add(tag + "_SillLight", "box", [mx_ - nx * (t / 2 + 0.24), op["sill"] + 0.16, mz_ - nz * (t / 2 + 0.24)], [op["width"] * 0.6, 0.18, 0.12], "glow", None, [0, yaw_, 0], collision=False, outline=False, mobile={"static": True})
             segs, u = [], 0.0
             for h0, h1 in cuts + [(SL, SL)]:
@@ -784,10 +778,11 @@ def dress_ceilings(ctx):
                 hx, hz = P2(u0 + 0.5 + (dl - 1.0) * j / max(2, int(dl / 12)), v)
                 ctx.add(f"{n}Duct_{i + 1}_Hanger_{j + 1}", "box", [hx, yy + r - 0.1, hz], [0.18, y - yy - r + 0.1, 0.18], "frame", None, outline=False, **vis)
         for i in range(int(rng.integers(1, 3))):  # ---- ventilation fan rings
-            for _ in range(20):
+            rr = rng.uniform(2.2, 3.6); boxes = _ceiling_boxes(ctx, y, 3.5)
+            for _ in range(60):  # Stage 37: clear of the shaft AND of girders / steps / anything already under the roof
                 x, z = cx + rng.uniform(-w / 2 + 6, w / 2 - 6), cz + rng.uniform(-d / 2 + 6, d / 2 - 6)
-                if clear_of_shaft(x, z, 8): break
-            rr = rng.uniform(2.2, 3.6); fan_unit(ctx, f"{n}Fan_{i + 1}", None, (x, y - 0.12, z), rr, 0.9, wall=False, seed=_h(n + str(i)), st=vis)
+                if clear_of_shaft(x, z, 8) and not any(lo[0] < x + rr + 0.8 and hi[0] > x - rr - 0.8 and lo[2] < z + rr + 0.8 and hi[2] > z - rr - 0.8 for lo, hi in boxes): break
+            fan_unit(ctx, f"{n}Fan_{i + 1}", None, (x, y - 0.12, z), rr, 0.9, wall=False, seed=_h(n + str(i)), st=vis)
         npods = int(area / 800 * C.get("pods", 1.0)); placed = 0  # ---- hanging cage lamps on lamp rails (Stage 32)
         if npods:
             nl = max(1, int(round(npods / 6))); per = int(math.ceil(npods / nl)); ry = y - 3.07  # odd height: never flush with a ceiling step
@@ -1294,6 +1289,68 @@ def outlet_mouth(ctx, n, x, y0, z, yaw, cw, chh, depth=1.4, rise=2.4):
     ctx.add(n + "_Mouth_TrimTop", "box", [0, mh + 0.7, D + 0.06], [mw, 0.4, 0.12], ctx.role("structure_b"), g, outline=False, **st)
     ctx.add(n + "_Mouth_Stripe", "box", [0, mh + 0.2, D + 0.04], [mw - 0.2, 0.36, 0.1], ctx.role("stripe"), g, outline=False, **st)
     return g
+
+
+def _aabb_all(ctx):
+    """{name: (lo, hi)} world boxes of every sized, non-group object."""
+    from anchors import world_matrices
+    W, _ = world_matrices({"objects": ctx.objects}); out = {}
+    for o in ctx.objects:
+        if o["type"] in ("group", "band") or not o.get("size"): continue
+        w_, h_, d_ = o["size"]; C = np.array([[sx * w_ / 2, yy, sz * d_ / 2, 1] for sx in (-1, 1) for yy in (0, h_) for sz in (-1, 1)]) @ W[o["name"]].T
+        out[o["name"]] = (C[:, :3].min(0), C[:, :3].max(0))
+    return out
+
+
+def _ceiling_boxes(ctx, y, depth):
+    """World boxes of the ceiling parts hanging within `depth` m under the roof (y), except the roof slab itself."""
+    return [b for n, b in _aabb_all(ctx).items() if b[1][1] > y - depth and b[0][1] < y - 0.05 and not n.endswith("Ceiling_Slab")]
+
+
+THIN = ("Hanger", "Cable", "Clamp", "Bracket", "Strut", "Rod", "Chain")
+
+
+def clear_fixtures(ctx, pad=0.05):
+    """Stage 37: nothing pokes into fans and vents. For every ceiling fan (<room>Fan_<n>) and wall Fan / Vent module:
+    thin fixtures (hangers, cables, clamps, brackets ...) that cut into it are removed; a wall module that anything
+    else cuts into (crane rail, pipe run, fitting ...) is removed itself - the bigger thing stays."""
+    import re
+    B = _aabb_all(ctx); units = {}
+    for n in B:
+        m_ = re.match(r"^(.*?(?:Fan_\d+|_M\d\d(?:Fan|Vent)))(?:_|$)", n)
+        if m_: units.setdefault(m_.group(1), []).append(n)
+    drop, gone_units = set(), set()
+    for u, parts in units.items():
+        lo = np.min([B[p][0] for p in parts], 0) - pad; hi = np.max([B[p][1] for p in parts], 0) + pad
+        wall_unit = "_M" in u
+        for n, (a, b) in B.items():
+            if n in drop or n.startswith(u) or (np.minimum(hi, b) - np.maximum(lo, a) <= 0.02).any(): continue
+            if re.search(r"(Ceiling_Slab|Ceil_Step|_Body$|_Cap$|_Plate$|_Duct$|Ceil_Beam|_Base$)", n) and not wall_unit: continue
+            if wall_unit and (n.startswith(u.split("_M")[0] + "_") or re.match(r".*_(Body|Cap)$", n)): continue  # its own wall segment
+            if any(t in n for t in THIN): drop.add(n)
+            elif wall_unit: gone_units.add(u); break
+    for u in gone_units: drop |= {n for n in B if n.startswith(u)}
+    if drop:
+        ctx.objects[:] = [o for o in ctx.objects if o["name"] not in drop]; ctx.names -= drop
+        ctx.notes.append(f"fixtures: {len(drop)} parts cleared out of fans / vents" + (f" (wall units removed: {', '.join(sorted(gone_units))})" if gone_units else ""))
+    return drop
+
+
+def pier(ctx, n, g, x, y0, z, top, w, d, rot=(0, 0, 0)):
+    """Stage 37 bridge support instead of a plain block: a flared footing sunk into the floor / liquid, a hull-plated
+    column with two ribs on each broad face, a flared head under the deck and a red light near the top. Returns the
+    head (what the deck rests on)."""
+    H = top - y0
+    ctx.add(n + "_Footing", "frustum", [x, y0 - 0.5, z], [w + 0.5, 1.2, d + 0.5], "structure_b", g, rot, bottom_scale=1.3)
+    ctx.add(n, "box", [x, y0 + 0.6, z], [w, H - 1.4, d], "structure_b", g, rot)
+    for sd in (-1, 1):
+        for fz in (-1, 1):  # ribs on both broad faces (proud 6 cm)
+            ox, oz = local(sd * (w / 2 - 0.22), fz * (d / 2 + 0.03), rot[1])
+            ctx.add(f"{n}_Rib_{sd + 1}{fz + 1}", "box", [x + ox, y0 + 0.65, z + oz], [0.2, H - 1.5, 0.1], "frame", g, rot, outline=False)
+    ctx.add(n + "_Head", "frustum", [x, top - 0.9, z], [w + 0.9, 0.92, d + 0.9], "structure_b", g, rot, bottom_scale=0.55)
+    ox, oz = local(0, d / 2 + 0.04, rot[1])
+    ctx.add(n + "_Light", "box", [x + ox, top - 1.6, z + oz], [w * 0.5, 0.16, 0.08], "glow", g, rot, outline=False, collision=False)
+    return n + "_Head"
 
 
 def clear_outlets(ctx, margin=3.0):

@@ -70,3 +70,22 @@ class Stage36(unittest.TestCase):
             for j in range(i + 1, len(B)):
                 self.assertFalse((np.minimum(B[i][1], B[j][1]) - np.maximum(B[i][0], B[j][0]) > 0.02).all(), (cr[i]["name"], cr[j]["name"]))
         for n in ("Pipe_North_Plate", "Pipe_North_Collar", "Pipe_North_Bolt_4", "Pipe_NE_Boot", "W_Run_North_End1_Plate"): self.assertIn(n, by)
+
+
+class Stage37(unittest.TestCase):
+    def test_fans_vents_clear_piers_and_no_red_caps(self):
+        import re, numpy as np
+        from anchors import world_matrices
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); W, by = world_matrices(L)
+        self.assertFalse([n for n in by if re.search(r"(Monitor_Corner_|_Op\d_Cap_)", n)])
+        heads = [n for n in by if re.search(r"Support_\d\d_Head$", n)]; self.assertTrue(heads)
+        for h in heads: self.assertIn(h[:-5] + "_Footing", by); self.assertIn(h[:-5] + "_Rib_00", by)
+        def bb(o):
+            w, h_, d = o["size"]; C = np.array([[sx * w / 2, y, sz * d / 2, 1] for sx in (-1, 1) for y in (0, h_) for sz in (-1, 1)]) @ W[o["name"]].T
+            return C[:, :3].min(0), C[:, :3].max(0)
+        B = {o["name"]: bb(o) for o in L["objects"] if o.get("size") and o["type"] not in ("group", "band")}
+        thin = [n for n in B if any(t in n for t in ("Hanger", "Cable", "Clamp", "Bracket", "Strut", "Rod"))]
+        for u in [n for n in B if re.search(r"(Ceil_Fan_\d+|_M\d\dFan|_M\d\dVent)$", n)]:
+            parts = [p for p in B if p.startswith(u)]; lo = np.min([B[p][0] for p in parts], 0); hi = np.max([B[p][1] for p in parts], 0)
+            for n in thin:
+                if not n.startswith(u): self.assertTrue((np.minimum(hi, B[n][1]) - np.maximum(lo, B[n][0]) <= 0.07).any(), (u, n))

@@ -661,3 +661,11 @@ Building blocks usable without the preset:
 - Pipes leaving a wall (`pipes` on an arena wall, and `run` ends on a wall face) get a fitting: square mounting plate
   with four bolts, a hazard stripe and a red light, plus a flange collar; corner pipes get a thick boot and the collar.
   `"fitting": false` on a pipe turns it off.
+
+## Stage 37: clean fans and vents, real bridge piers, no red caps on screens
+- Ceiling fans are placed clear of girders / steps / anything under the roof. A clean-up pass (`clear_fixtures`) removes
+  thin fixtures (hangers, cables, clamps, brackets, struts) cutting into a fan or wall vent, and removes a wall Fan /
+  Vent module that anything bigger (crane rail, pipe run, gallery) runs through (`generator_notes` lists them).
+- Bridge supports (`pier`): flared footing sunk into the floor / liquid, hull-plated column with ribs on both broad
+  faces, flared head under the deck, red light near the top - instead of a plain block.
+- Wall TVs and window screens lost their red angled corner caps.

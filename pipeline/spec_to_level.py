@@ -76,6 +76,7 @@ def generate(spec, G, level_dir=None):
     for h in spec.get("hazards", []):
         ctx.element = (h["id"], h.get("source", "visible")); x0, z0, x1, z1 = h["area"]
         ctx.hazards.append(ctx.add(h["id"], "box", [(x0 + x1) / 2, 0, (z0 + z1) / 2], [abs(x1 - x0), h["y"], abs(z1 - z0)], h.get("material", "hazard")))
+    A.clear_fixtures(ctx)  # Stage 37: nothing poking into fans / vents
     weathering.corrosion(ctx, spec)  # Stage 28: corroded band where the liquid meets walls (after the pools exist)
     ctx.element = None
     # materials: only roles in use (+ spec overrides; variants follow their base override)
