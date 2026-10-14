@@ -3,6 +3,106 @@
  "default_quality": "balanced",
  "fluid_attachments": [
   {
+   "stream": "Rock_West_Spout_1_Fall",
+   "source_object": "Rock_West_Spout_1",
+   "outlet_pos": [
+    -49.956,
+    12.36,
+    -213.816
+   ],
+   "outlet_dir": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "outlet_diameter": 0.7,
+   "section": "circle",
+   "stream_width": 0.602,
+   "initial_speed": 1.38,
+   "impact_pos": [
+    -47.828,
+    0.7,
+    -213.816
+   ],
+   "receiving": "HazardFluid_2",
+   "hazard": true
+  },
+  {
+   "stream": "Rock_West_Spout_2_Fall",
+   "source_object": "Rock_West_Spout_2",
+   "outlet_pos": [
+    -49.671,
+    5.38,
+    -189.56
+   ],
+   "outlet_dir": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "outlet_diameter": 0.74,
+   "section": "circle",
+   "stream_width": 0.636,
+   "initial_speed": 1.39,
+   "impact_pos": [
+    -48.313,
+    0.7,
+    -189.56
+   ],
+   "receiving": "HazardFluid_2",
+   "hazard": true
+  },
+  {
+   "stream": "Rock_West_Spout_3_Fall",
+   "source_object": "Rock_West_Spout_3",
+   "outlet_pos": [
+    -49.671,
+    7.5,
+    -179.877
+   ],
+   "outlet_dir": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "outlet_diameter": 0.88,
+   "section": "circle",
+   "stream_width": 0.757,
+   "initial_speed": 1.42,
+   "impact_pos": [
+    -47.999,
+    0.7,
+    -179.877
+   ],
+   "receiving": "HazardFluid_2",
+   "hazard": true
+  },
+  {
+   "stream": "Rock_West_Spout_4_Fall",
+   "source_object": "Rock_West_Spout_4",
+   "outlet_pos": [
+    -49.426,
+    13.93,
+    -221.024
+   ],
+   "outlet_dir": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "outlet_diameter": 0.82,
+   "section": "circle",
+   "stream_width": 0.705,
+   "initial_speed": 1.41,
+   "impact_pos": [
+    -47.11,
+    0.7,
+    -221.024
+   ],
+   "receiving": "HazardFluid_2",
+   "hazard": true
+  },
+  {
    "stream": "Pipe_North_Fall",
    "source_object": "Pipe_North",
    "outlet_pos": [
@@ -213,22 +313,22 @@
  },
  "totals": {
   "performance": {
-   "max_particles": 479,
-   "emitters": 36,
+   "max_particles": 571,
+   "emitters": 46,
    "extra_draw_calls": 7,
-   "transparent_area_m2": 10.3
+   "transparent_area_m2": 11.3
   },
   "balanced": {
-   "max_particles": 1277,
-   "emitters": 36,
+   "max_particles": 1469,
+   "emitters": 46,
    "extra_draw_calls": 9,
-   "transparent_area_m2": 31607.1
+   "transparent_area_m2": 31608.0
   },
   "quality": {
-   "max_particles": 2026,
-   "emitters": 36,
+   "max_particles": 2322,
+   "emitters": 46,
    "extra_draw_calls": 11,
-   "transparent_area_m2": 63204.6
+   "transparent_area_m2": 63205.7
   }
  },
  "effects": [
@@ -667,6 +767,30 @@
    "godot_runtime": "ShaderMaterial liquid_surface.gdshader on target meshes (albedo from the GLB texture)",
    "ripples": [
     [
+     -47.83,
+     -213.82,
+     1.0,
+     0.3
+    ],
+    [
+     -48.31,
+     -189.56,
+     1.0,
+     0.32
+    ],
+    [
+     -48.0,
+     -179.88,
+     1.0,
+     0.38
+    ],
+    [
+     -47.11,
+     -221.02,
+     1.0,
+     0.35
+    ],
+    [
      -48.42,
      -131.0,
      1.0,
@@ -725,6 +849,18 @@
      -205.0,
      0.45,
      2.7
+    ],
+    [
+     -48.96,
+     -217.25,
+     0.45,
+     1.1
+    ],
+    [
+     -48.67,
+     -186.78,
+     0.45,
+     1.1
     ],
     [
      -10.59,
@@ -1037,6 +1173,10 @@
     "Pipe_North_Fall",
     "Pipe_South_Fall",
     "Pipe_West_Fall",
+    "Rock_West_Spout_1_Fall",
+    "Rock_West_Spout_2_Fall",
+    "Rock_West_Spout_3_Fall",
+    "Rock_West_Spout_4_Fall",
     "W_Broken_Fall",
     "W_Drain_Core_Fall",
     "W_Hanging_Fall",
@@ -1044,8 +1184,8 @@
    ],
    "material_tile_m": 6.0,
    "flow_uv": [
-    0.0517,
-    0.9987
+    0.0603,
+    0.9982
    ],
    "quality": {
     "performance": {
@@ -1134,6 +1274,42 @@
     },
     {
      "pos": [
+      -47.83,
+      1.0,
+      -213.82
+     ],
+     "radius": 0.9,
+     "of": "Rock_West_Spout_1_Fall"
+    },
+    {
+     "pos": [
+      -48.31,
+      1.0,
+      -189.56
+     ],
+     "radius": 0.92,
+     "of": "Rock_West_Spout_2_Fall"
+    },
+    {
+     "pos": [
+      -48.0,
+      1.0,
+      -179.88
+     ],
+     "radius": 0.98,
+     "of": "Rock_West_Spout_3_Fall"
+    },
+    {
+     "pos": [
+      -47.11,
+      1.0,
+      -221.02
+     ],
+     "radius": 0.95,
+     "of": "Rock_West_Spout_4_Fall"
+    },
+    {
+     "pos": [
       -47.93,
       1.0,
       -160.0
@@ -1196,8 +1372,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 80,
-      "emitters": 8,
+      "max_particles": 120,
+      "emitters": 12,
       "extra_draw_calls": 1
      }
     },
@@ -1227,8 +1403,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 192,
-      "emitters": 8,
+      "max_particles": 288,
+      "emitters": 12,
       "extra_draw_calls": 1
      }
     },
@@ -1258,8 +1434,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 312,
-      "emitters": 8,
+      "max_particles": 468,
+      "emitters": 12,
       "extra_draw_calls": 1
      }
     }
@@ -1308,6 +1484,42 @@
      ],
      "radius": 1.63,
      "of": "Pipe_West_Fall"
+    },
+    {
+     "pos": [
+      -47.83,
+      1.0,
+      -213.82
+     ],
+     "radius": 0.9,
+     "of": "Rock_West_Spout_1_Fall"
+    },
+    {
+     "pos": [
+      -48.31,
+      1.0,
+      -189.56
+     ],
+     "radius": 0.92,
+     "of": "Rock_West_Spout_2_Fall"
+    },
+    {
+     "pos": [
+      -48.0,
+      1.0,
+      -179.88
+     ],
+     "radius": 0.98,
+     "of": "Rock_West_Spout_3_Fall"
+    },
+    {
+     "pos": [
+      -47.11,
+      1.0,
+      -221.02
+     ],
+     "radius": 0.95,
+     "of": "Rock_West_Spout_4_Fall"
     },
     {
      "pos": [
@@ -1373,8 +1585,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 56,
-      "emitters": 8,
+      "max_particles": 84,
+      "emitters": 12,
       "extra_draw_calls": 1
      }
     },
@@ -1404,8 +1616,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 144,
-      "emitters": 8,
+      "max_particles": 216,
+      "emitters": 12,
       "extra_draw_calls": 1
      }
     },
@@ -1435,8 +1647,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 224,
-      "emitters": 8,
+      "max_particles": 336,
+      "emitters": 12,
       "extra_draw_calls": 1
      }
     }
@@ -1472,10 +1684,10 @@
       "nozzles": 0.7
      },
      "cost_estimate": {
-      "max_particles": 258,
-      "emitters": 16,
+      "max_particles": 282,
+      "emitters": 18,
       "extra_draw_calls": 1,
-      "transparent_area_m2": 10.3
+      "transparent_area_m2": 11.3
      }
     },
     "balanced": {
@@ -1500,10 +1712,10 @@
       "nozzles": 0.7
      },
      "cost_estimate": {
-      "max_particles": 577,
-      "emitters": 16,
+      "max_particles": 601,
+      "emitters": 18,
       "extra_draw_calls": 1,
-      "transparent_area_m2": 23.1
+      "transparent_area_m2": 24.0
      }
     },
     "quality": {
@@ -1528,10 +1740,10 @@
       "nozzles": 0.7
      },
      "cost_estimate": {
-      "max_particles": 914,
-      "emitters": 16,
+      "max_particles": 942,
+      "emitters": 18,
       "extra_draw_calls": 1,
-      "transparent_area_m2": 36.6
+      "transparent_area_m2": 37.7
      }
     }
    },
@@ -1647,6 +1859,20 @@
      -182.0,
      10.47,
      3.0
+    ],
+    [
+     -48.96,
+     2.7,
+     -217.25,
+     6.7,
+     0.8
+    ],
+    [
+     -48.67,
+     2.7,
+     -186.78,
+     6.7,
+     0.8
     ]
    ]
   },
@@ -2029,7 +2255,6 @@
    "godot_runtime": "ShaderMaterial tv_static.gdshader as material_override on every mesh using target_material (picture = the GLB base colour texture): animated snow over the picture, rolling bar, the picture breaks through every few seconds",
    "target_material": "screen",
    "targets": [
-    "Works_Wall_West_03_M02Monitor_Screen",
     "Works_Wall_West_02_M07Monitor_Screen",
     "Works_Wall_West_01_M01Monitor_Screen",
     "Works_Wall_North_02_M02Monitor_Screen",
@@ -2213,6 +2438,9 @@
     "Pipe_East_Light",
     "Pipe_South_Light",
     "Pipe_North_Light",
+    "Rock_West_Ledge_3_Light",
+    "Rock_West_Ledge_2_Light",
+    "Rock_West_Ledge_1_Light",
     "Column_Works_NW_Red_04",
     "Column_Works_SW_Red_06",
     "Column_Works_SW_Red_02",
@@ -2496,7 +2724,6 @@
     "Pipe_Junction_A_Glow_01R",
     "Pipe_Junction_A_Glow_01L",
     "Works_Wall_West_03_M03Pipes_Red",
-    "Works_Wall_West_03_M02Monitor_Red",
     "Works_Wall_West_02_M08Pipes_Red",
     "Works_Wall_West_02_M04Vent_Red",
     "Works_Wall_West_02_M04Vent_Status",
@@ -2588,6 +2815,8 @@
    "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
    "target_material": "trim",
    "targets": [
+    "Rock_West_Tank2_Band",
+    "Rock_West_Tank1_Band",
     "Column_Works_NW_Drum_04",
     "Column_Works_SW_Drum_04",
     "Column_Works_Mid_Drum_04",

@@ -41,23 +41,23 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 5795,
-    "triangles": 106972,
-    "nodes": 4363,
-    "mesh_nodes": 4184,
-    "unique_meshes": 2036,
+    "glb_kb": 5938,
+    "triangles": 109046,
+    "nodes": 4415,
+    "mesh_nodes": 4234,
+    "unique_meshes": 2074,
     "materials": 31,
-    "images": 88,
-    "draw_calls_unbatched": 4184,
+    "images": 89,
+    "draw_calls_unbatched": 4234,
     "draw_calls_batched_min": 31,
-    "tex_mem_uncompressed_mb": 91.79,
-    "tex_mem_gpu_compressed_mb": 22.95,
+    "tex_mem_uncompressed_mb": 92.87,
+    "tex_mem_gpu_compressed_mb": 23.22,
     "texture_slots": {
      "baseColorTexture": 30,
      "metallicRoughnessTexture": 30,
      "normalTexture": 28,
      "occlusionTexture": 30,
-     "emissiveTexture": 18
+     "emissiveTexture": 19
     },
     "image_sizes": [
      "1024x1024 jpeg",
@@ -71,28 +71,28 @@
    },
    "visible": {
     "cameras": 280,
-    "visible_draw_calls_mean": 1393.0,
-    "visible_draw_calls_max": 3937,
-    "visible_triangles_mean": 48948,
-    "visible_triangles_max": 111748
+    "visible_draw_calls_mean": 1408.6,
+    "visible_draw_calls_max": 3987,
+    "visible_triangles_mean": 49703,
+    "visible_triangles_max": 113822
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3422,
-    "triangles": 100899,
+    "glb_kb": 3482,
+    "triangles": 102891,
     "nodes": 93,
     "mesh_nodes": 92,
     "unique_meshes": 92,
     "materials": 31,
-    "images": 56,
+    "images": 57,
     "draw_calls_unbatched": 92,
     "draw_calls_batched_min": 31,
-    "tex_mem_uncompressed_mb": 29.12,
-    "tex_mem_gpu_compressed_mb": 7.28,
+    "tex_mem_uncompressed_mb": 29.7,
+    "tex_mem_gpu_compressed_mb": 7.43,
     "texture_slots": {
      "baseColorTexture": 30,
-     "emissiveTexture": 18,
+     "emissiveTexture": 19,
      "metallicRoughnessTexture": 11,
      "normalTexture": 9,
      "occlusionTexture": 11
@@ -130,19 +130,19 @@
     ]
    },
    "collision": {
-    "colliders": 785,
-    "hazards": 12,
-    "glb_kb": 412
+    "colliders": 798,
+    "hazards": 16,
+    "glb_kb": 420
    },
    "visible": {
     "cameras": 280,
     "visible_draw_calls_mean": 58.7,
     "visible_draw_calls_max": 92,
-    "visible_triangles_mean": 94957,
-    "visible_triangles_max": 111290
+    "visible_triangles_mean": 96652,
+    "visible_triangles_max": 113122
    },
-   "hidden_faces_removed": 2886,
-   "occluded_faces_removed": 3187,
+   "hidden_faces_removed": 2974,
+   "occluded_faces_removed": 3181,
    "occluded_objects": [
     "Assembly_Line_Light_01",
     "OuterWall_East_03_Banner_01",
@@ -154,19 +154,19 @@
     "W_Run_North_Flange_03a"
    ],
    "effects_extra_draw_calls": 9,
-   "effects_max_particles": 1277,
+   "effects_max_particles": 1469,
    "slimmed_kb": {
     "level_mobile.glb": [
-     4887,
-     3422
+     4976,
+     3482
     ],
     "background_mobile.glb": [
      474,
      402
     ],
     "collision.glb": [
-     497,
-     412
+     506,
+     420
     ]
    }
   }
@@ -1901,7 +1901,7 @@
    "node": "Corrosion__corrosion",
    "kind": "group",
    "material": "corrosion",
-   "triangles": 2686,
+   "triangles": 2842,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1995,7 +1995,7 @@
    "node": "M_frame_0_0_props",
    "kind": "props",
    "material": "frame",
-   "triangles": 162,
+   "triangles": 322,
    "visibility_range_end": 70,
    "cast_shadow": false,
    "source_objects": [
@@ -2003,7 +2003,11 @@
     "W_Run_High_Flange_02b",
     "W_Run_High_Flange_02a",
     "W_Run_High_Flange_01b",
-    "W_Run_High_Flange_01a"
+    "W_Run_High_Flange_01a",
+    "Rock_West_Spout_4_Flange",
+    "Rock_West_Spout_3_Flange",
+    "Rock_West_Spout_2_Flange",
+    "Rock_West_Spout_1_Flange"
    ]
   },
   {
@@ -2180,7 +2184,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 4986,
+   "triangles": 5162,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2236,6 +2240,19 @@
     "W_Run_North_Junction_01",
     "W_Run_North_Flange_03b",
     "W_Run_North_Flange_01a",
+    "Rock_West_Ledge_3_Bracket_2",
+    "Rock_West_Ledge_3_Bracket_1",
+    "Rock_West_Ledge_3",
+    "Rock_West_Ledge_2_Bracket_2",
+    "Rock_West_Ledge_2_Bracket_1",
+    "Rock_West_Ledge_2",
+    "Rock_West_Ledge_1_Bracket_2",
+    "Rock_West_Ledge_1_Bracket_1",
+    "Rock_West_Ledge_1",
+    "Rock_West_Tank2_Cap",
+    "Rock_West_Tank2_Plinth",
+    "Rock_West_Tank1_Cap",
+    "Rock_West_Tank1_Plinth",
     "Claw_Proc_Trolley_Side_2",
     "Claw_Proc_Trolley_Side_0",
     "CraneRail_07_Hanger_02",
@@ -2436,9 +2453,6 @@
     "W_Cat_Pipes_Beam_L",
     "Works_Wall_West_03_M03Pipes_Bracket_2",
     "Works_Wall_West_03_M03Pipes_Bracket_1",
-    "Works_Wall_West_03_M02Monitor_Cable",
-    "Works_Wall_West_03_M02Monitor_Arm_2",
-    "Works_Wall_West_03_M02Monitor_Arm_0",
     "Works_Wall_West_03_M01Pipes_Bracket_3",
     "Works_Wall_West_03_M01Pipes_Bracket_2",
     "Works_Wall_West_03_M01Pipes_Bracket_1",
@@ -2539,10 +2553,14 @@
    "node": "M_glass__2s_0_0",
    "kind": "static",
    "material": "glass__2s",
-   "triangles": 568,
+   "triangles": 696,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Rock_West_Tank2_Glass_2",
+    "Rock_West_Tank2_Glass_1",
+    "Rock_West_Tank1_Glass_2",
+    "Rock_West_Tank1_Glass_1",
     "Column_Works_NW_Glass_05",
     "Column_Works_NW_Glass_03",
     "Column_Works_NW_Glass_01",
@@ -2567,7 +2585,7 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 2190,
+   "triangles": 2216,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2575,6 +2593,9 @@
     "W_Run_High_End1_Light",
     "W_Run_North_End2_Light",
     "W_Run_North_End1_Light",
+    "Rock_West_Ledge_3_Light",
+    "Rock_West_Ledge_2_Light",
+    "Rock_West_Ledge_1_Light",
     "Column_Works_NW_Red_04",
     "Column_Works_SW_Red_06",
     "Column_Works_SW_Red_02",
@@ -2701,7 +2722,6 @@
     "Pipe_Junction_B_Glow_01R",
     "Pipe_Junction_B_Glow_01L",
     "Works_Wall_West_03_M03Pipes_Red",
-    "Works_Wall_West_03_M02Monitor_Red",
     "Works_Wall_West_02_M08Pipes_Red",
     "Works_Wall_West_02_M04Vent_Red",
     "Works_Wall_West_02_M04Vent_Status",
@@ -2787,7 +2807,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 19416,
+   "triangles": 19772,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2838,6 +2858,23 @@
     "Pipe_North__ol",
     "Pipe_North_Collar__ol",
     "Pipe_North_Plate__ol",
+    "Rock_West_Spout_4_Flange__ol",
+    "Rock_West_Spout_4__ol",
+    "Rock_West_Spout_3_Flange__ol",
+    "Rock_West_Spout_3__ol",
+    "Rock_West_Spout_2_Flange__ol",
+    "Rock_West_Spout_2__ol",
+    "Rock_West_Spout_1_Flange__ol",
+    "Rock_West_Spout_1__ol",
+    "Rock_West_Ledge_1__ol",
+    "Rock_West_Tank1_Elbow__ol",
+    "Rock_West_Tank1_Cap__ol",
+    "Rock_West_Tank1_Band__ol",
+    "Rock_West_Tank1_Plinth__ol",
+    "Rock_West_Spire_4__ol",
+    "Rock_West_Spire_3__ol",
+    "Rock_West_Spire_2__ol",
+    "Rock_West_Spire_1__ol",
     "Rock_West_Slab_04__ol",
     "Column_Works_NW_Capital__ol",
     "Column_Works_NW_Neck__ol",
@@ -3270,7 +3307,6 @@
     "Platform_North_Floor__ol",
     "Platform_North_Base__ol",
     "Central_Cover_01__ol",
-    "Works_Wall_West_03_M02Monitor_Body__ol",
     "Works_Wall_West_02_M07Monitor_Body__ol",
     "Works_Wall_West_01_M03Machine__ol",
     "Works_Wall_West_01_M03Machine_Bracket__ol",
@@ -3384,7 +3420,7 @@
    "node": "M_pipe_0_0",
    "kind": "static",
    "material": "pipe",
-   "triangles": 984,
+   "triangles": 1208,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3396,6 +3432,12 @@
     "W_Run_North_Seg_03",
     "W_Run_North_Seg_02",
     "W_Run_North_Seg_01",
+    "Rock_West_Spout_4",
+    "Rock_West_Spout_3",
+    "Rock_West_Spout_2",
+    "Rock_West_Spout_1",
+    "Rock_West_Tank2_Elbow",
+    "Rock_West_Tank1_Elbow",
     "Conduit_Spine",
     "Valve_B",
     "Valve_A_Tank",
@@ -3425,13 +3467,17 @@
    ]
   },
   {
-   "node": "M_rock_0_0",
+   "node": "M_rock_veined_0_0",
    "kind": "static",
-   "material": "rock",
-   "triangles": 152,
+   "material": "rock_veined",
+   "triangles": 304,
    "visibility_range_end": 0,
-   "cast_shadow": true,
+   "cast_shadow": false,
    "source_objects": [
+    "Rock_West_Spire_4",
+    "Rock_West_Spire_3",
+    "Rock_West_Spire_2",
+    "Rock_West_Spire_1",
     "Rock_West_Slab_04",
     "Rock_West_Slab_03",
     "Rock_West_Slab_02",
@@ -3442,11 +3488,10 @@
    "node": "M_screen_0_0",
    "kind": "static",
    "material": "screen",
-   "triangles": 6,
+   "triangles": 4,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Works_Wall_West_03_M02Monitor_Screen",
     "Works_Wall_West_02_M07Monitor_Screen",
     "Works_Wall_North_02_M02Monitor_Screen"
    ]
@@ -3736,10 +3781,12 @@
    "node": "M_trim_0_0",
    "kind": "static",
    "material": "trim",
-   "triangles": 1696,
+   "triangles": 1760,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Rock_West_Tank2_Band",
+    "Rock_West_Tank1_Band",
     "Column_Works_NW_Drum_04",
     "Column_Works_SW_Drum_04",
     "Column_Works_Mid_Drum_04",
@@ -3782,11 +3829,10 @@
    "node": "M_tv_casing_0_0",
    "kind": "static",
    "material": "tv_casing",
-   "triangles": 744,
+   "triangles": 496,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Works_Wall_West_03_M02Monitor_Body",
     "Works_Wall_West_02_M07Monitor_Body",
     "Works_Wall_North_02_M02Monitor_Body"
    ]
@@ -5213,7 +5259,7 @@
    "node": "FX_Pour_Flow",
    "kind": "effect_target",
    "material": "hazard",
-   "triangles": 1260,
+   "triangles": 2060,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -5224,7 +5270,11 @@
     "Pipe_West_Fall",
     "Pipe_East_Fall",
     "Pipe_South_Fall",
-    "Pipe_North_Fall"
+    "Pipe_North_Fall",
+    "Rock_West_Spout_4_Fall",
+    "Rock_West_Spout_3_Fall",
+    "Rock_West_Spout_2_Fall",
+    "Rock_West_Spout_1_Fall"
    ],
    "reason": "merged targets of one shader effect"
   },

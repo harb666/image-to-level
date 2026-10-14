@@ -1,21 +1,21 @@
 {
  "level": "slime_arena",
  "assets_kb": {
-  "level.glb": 5795,
-  "mobile/level_mobile.glb": 3422,
-  "mobile/collision.json": 248,
+  "level.glb": 5938,
+  "mobile/level_mobile.glb": 3482,
+  "mobile/collision.json": 251,
   "environment.json": 4,
   "background.glb": 474,
-  "effects.json": 57
+  "effects.json": 60
  },
  "complexity": {
-  "triangles": 106972,
-  "nodes": 4184,
+  "triangles": 109046,
+  "nodes": 4234,
   "materials": 29,
   "heaviest": [
    [
     "Corrosion_Band",
-    2686
+    2842
    ],
    [
     "Works_Ceil_Fan_2_Rotor",
@@ -37,33 +37,33 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 5795,
-   "triangles": 85610,
-   "draw_calls": 4184,
-   "tex_mem_gpu_mb_est": 22.95
+   "glb_kb": 5938,
+   "triangles": 87288,
+   "draw_calls": 4234,
+   "tex_mem_gpu_mb_est": 23.22
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3422,
-   "triangles": 100899,
+   "glb_kb": 3482,
+   "triangles": 102891,
    "draw_calls": 92,
    "visible_draw_calls_est": 58.7,
    "visible_draw_calls_max_est": 92,
-   "tex_mem_gpu_mb_est": 7.28,
+   "tex_mem_gpu_mb_est": 7.43,
    "materials": 31,
    "nodes": 93,
    "colliders": {
-    "colliders": 785,
-    "hazards": 12,
-    "glb_kb": 412
+    "colliders": 798,
+    "hazards": 16,
+    "glb_kb": 420
    },
    "background_kb": 402
   },
   "effects": {
-   "max_particles": 1277,
-   "emitters": 36,
+   "max_particles": 1469,
+   "emitters": 46,
    "extra_draw_calls": 9,
-   "transparent_area_m2": 31607.1
+   "transparent_area_m2": 31608.0
   },
   "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
  },
@@ -74,16 +74,16 @@
    "INTENTIONAL": 0
   },
   "relations": {
-   "explicit": 111,
+   "explicit": 119,
    "inferred": 0
   },
   "repairable": 0,
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 48773.0,
+  "standable_area_m2": 48811.0,
   "reachable_area_m2": 9256.0,
-  "components": 436,
+  "components": 446,
   "spawns": [
    {
     "id": "spawn",
@@ -95,7 +95,7 @@
     "standable": true,
     "clearance_m": 6.5,
     "headroom_m": 99.0,
-    "component": 8,
+    "component": 12,
     "hazard_distance_m": 11.34
    },
    {
@@ -108,7 +108,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 19.79,
-    "component": 8,
+    "component": 12,
     "hazard_distance_m": 5.02
    },
    {
@@ -121,7 +121,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 19.77,
-    "component": 232,
+    "component": 242,
     "hazard_distance_m": 7.52
    },
    {
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 19.8,
-    "component": 8,
+    "component": 12,
     "hazard_distance_m": 6.52
    },
    {
@@ -147,7 +147,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 16.77,
-    "component": 8,
+    "component": 12,
     "hazard_distance_m": 5.61
    },
    {
@@ -160,7 +160,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 16.8,
-    "component": 8,
+    "component": 12,
     "hazard_distance_m": 7.52
    },
    {
@@ -173,7 +173,7 @@
     "standable": true,
     "clearance_m": 4.5,
     "headroom_m": 14.8,
-    "component": 8,
+    "component": 12,
     "hazard_distance_m": 6.26
    },
    {
@@ -186,7 +186,7 @@
     "standable": true,
     "clearance_m": 5.5,
     "headroom_m": 12.8,
-    "component": 61,
+    "component": 70,
     "hazard_distance_m": 6.52
    },
    {
@@ -199,7 +199,7 @@
     "standable": true,
     "clearance_m": 8.5,
     "headroom_m": 18.8,
-    "component": 124,
+    "component": 134,
     "hazard_distance_m": 9.41
    }
   ],
@@ -443,7 +443,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "106972 triangles (> budget 40000)"
+   "message": "109046 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",

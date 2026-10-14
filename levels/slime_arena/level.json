@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "2fdc127a0521afd0",
+  "spec_sha": "101d1968fda46d2f",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -344,6 +344,30 @@
    "pulse_amount": 0.18,
    "ripples": [
     [
+     -47.83,
+     -213.82,
+     1.0,
+     0.3
+    ],
+    [
+     -48.31,
+     -189.56,
+     1.0,
+     0.32
+    ],
+    [
+     -48.0,
+     -179.88,
+     1.0,
+     0.38
+    ],
+    [
+     -47.11,
+     -221.02,
+     1.0,
+     0.35
+    ],
+    [
      -48.42,
      -131.0,
      1.0,
@@ -404,6 +428,18 @@
      2.7
     ],
     [
+     -48.96,
+     -217.25,
+     0.45,
+     1.1
+    ],
+    [
+     -48.67,
+     -186.78,
+     0.45,
+     1.1
+    ],
+    [
      -10.59,
      -105.83,
      0.3,
@@ -451,6 +487,10 @@
    "id": "Pour_Flow",
    "type": "liquid_flow",
    "targets_glob": [
+    "Rock_West_Spout_1_Fall",
+    "Rock_West_Spout_2_Fall",
+    "Rock_West_Spout_3_Fall",
+    "Rock_West_Spout_4_Fall",
     "Pipe_North_Fall",
     "Pipe_South_Fall",
     "Pipe_East_Fall",
@@ -466,6 +506,10 @@
    "id": "Pour_Splash",
    "type": "splash",
    "at_targets_glob": [
+    "Rock_West_Spout_1_Fall",
+    "Rock_West_Spout_2_Fall",
+    "Rock_West_Spout_3_Fall",
+    "Rock_West_Spout_4_Fall",
     "Pipe_North_Fall",
     "Pipe_South_Fall",
     "Pipe_East_Fall",
@@ -481,6 +525,10 @@
    "id": "Pour_Steam",
    "type": "steam",
    "at_targets_glob": [
+    "Rock_West_Spout_1_Fall",
+    "Rock_West_Spout_2_Fall",
+    "Rock_West_Spout_3_Fall",
+    "Rock_West_Spout_4_Fall",
     "Pipe_North_Fall",
     "Pipe_South_Fall",
     "Pipe_East_Fall",
@@ -607,6 +655,20 @@
      -182.0,
      10.47,
      3.0
+    ],
+    [
+     -48.96,
+     2.7,
+     -217.25,
+     6.7,
+     0.8
+    ],
+    [
+     -48.67,
+     2.7,
+     -186.78,
+     6.7,
+     0.8
     ]
    ]
   },
@@ -1949,16 +2011,29 @@
    "wear": 0.02,
    "toon": true
   },
-  "rock": {
+  "rock_veined": {
    "type": "rock",
    "color": [
     0.22,
     0.17,
     0.27
    ],
-   "tile_m": 6.0,
-   "res": 128,
-   "toon": true
+   "tile_m": 14.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 256,
+   "toon": true,
+   "veins": [
+    0.45,
+    1.0,
+    0.15
+   ],
+   "emissive": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "notes": "Stage 56: rock face with glowing slime veins (user reference)"
   },
   "screen": {
    "type": "screen_atlas",
@@ -15328,177 +15403,6 @@
    "collision": false,
    "outline": false,
    "uv_space": "world",
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_03_M02Monitor_Body",
-   "type": "tv_body",
-   "position": [
-    3.292,
-    8.949,
-    2.35
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_03",
-   "size": [
-    4.291,
-    3.432,
-    0.9
-   ],
-   "material": "tv_casing",
-   "border": 0.07,
-   "chin": 0.2,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_03_M02Monitor_Screen",
-   "type": "panel",
-   "position": [
-    3.292,
-    9.646,
-    3.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_03",
-   "size": [
-    3.671,
-    2.378,
-    0.0
-   ],
-   "material": "screen",
-   "uv_region": "a",
-   "uv_shift": 7,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_03_M02Monitor_Arm_0",
-   "type": "box",
-   "position": [
-    2.434,
-    10.494,
-    2.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_03",
-   "size": [
-    0.25,
-    0.3,
-    0.45
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_03_M02Monitor_Arm_2",
-   "type": "box",
-   "position": [
-    4.15,
-    10.494,
-    2.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_03",
-   "size": [
-    0.25,
-    0.3,
-    0.45
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_03_M02Monitor_Cable",
-   "type": "cylinder",
-   "position": [
-    2.091,
-    11.867,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_03",
-   "size": [
-    0.24,
-    3.5,
-    0.24
-   ],
-   "material": "frame",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_West_03_M02Monitor_Red",
-   "type": "box",
-   "position": [
-    3.167,
-    17.519,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_West_03",
-   "size": [
-    0.5,
-    0.35,
-    0.3
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
    "mobile": {
     "static": true
    },
@@ -62655,10 +62559,10 @@
    "parent": "Rock_West",
    "size": [
     16.875,
-    20.923,
+    22.667,
     4.259
    ],
-   "material": "rock",
+   "material": "rock_veined",
    "seed": 731791,
    "step": 3.5,
    "collision": false,
@@ -62684,10 +62588,10 @@
    "parent": "Rock_West",
    "size": [
     15.04,
-    23.854,
+    25.842,
     4.888
    ],
-   "material": "rock",
+   "material": "rock_veined",
    "seed": 914988,
    "step": 3.5,
    "collision": false,
@@ -62713,10 +62617,10 @@
    "parent": "Rock_West",
    "size": [
     15.356,
-    20.659,
+    22.381,
     3.687
    ],
-   "material": "rock",
+   "material": "rock_veined",
    "seed": 132734,
    "step": 3.5,
    "collision": false,
@@ -62742,16 +62646,1133 @@
    "parent": "Rock_West",
    "size": [
     10.73,
-    18.84,
+    20.41,
     4.748
    ],
-   "material": "rock",
+   "material": "rock_veined",
    "seed": 580681,
    "step": 3.5,
    "collision": false,
    "mobile": {
     "static": true
    },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spire_1",
+   "type": "cliff",
+   "position": [
+    -21.804,
+    0.0,
+    1.32
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    3.434,
+    25.078,
+    2.538
+   ],
+   "material": "rock_veined",
+   "seed": 532065,
+   "step": 2.5,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spire_2",
+   "type": "cliff",
+   "position": [
+    -12.017,
+    0.0,
+    1.398
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    3.802,
+    28.776,
+    2.53
+   ],
+   "material": "rock_veined",
+   "seed": 660383,
+   "step": 2.5,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spire_3",
+   "type": "cliff",
+   "position": [
+    -14.611,
+    0.0,
+    1.221
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    3.974,
+    29.833,
+    2.685
+   ],
+   "material": "rock_veined",
+   "seed": 107100,
+   "step": 2.5,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spire_4",
+   "type": "cliff",
+   "position": [
+    -11.086,
+    0.0,
+    1.561
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    3.175,
+    27.139,
+    2.14
+   ],
+   "material": "rock_veined",
+   "seed": 420817,
+   "step": 2.5,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Tank1",
+   "type": "group",
+   "position": [
+    15.253,
+    0.0,
+    4.044
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Tank1_Plinth",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    -0.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West_Tank1",
+   "size": [
+    2.2,
+    3.0,
+    2.2
+   ],
+   "material": "frame",
+   "sections": 8,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Tank1_Glass_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    2.4,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West_Tank1",
+   "size": [
+    1.6,
+    3.2,
+    1.6
+   ],
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Tank1_Glass_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    6.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West_Tank1",
+   "size": [
+    1.6,
+    3.2,
+    1.6
+   ],
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Tank1_Band",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    5.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West_Tank1",
+   "size": [
+    2.0,
+    0.8,
+    2.0
+   ],
+   "material": "trim",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Tank1_Cap",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    9.3,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West_Tank1",
+   "size": [
+    2.1,
+    0.9,
+    2.1
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Tank1_Elbow",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    9.75,
+    0.0
+   ],
+   "rotation": [
+    -90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West_Tank1",
+   "size": [
+    0.7,
+    4.2,
+    0.7
+   ],
+   "material": "pipe",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Tank2",
+   "type": "group",
+   "position": [
+    -15.225,
+    0.0,
+    4.329
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Tank2_Plinth",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    -0.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West_Tank2",
+   "size": [
+    2.2,
+    3.0,
+    2.2
+   ],
+   "material": "frame",
+   "sections": 8,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Tank2_Glass_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    2.4,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West_Tank2",
+   "size": [
+    1.6,
+    3.2,
+    1.6
+   ],
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Tank2_Glass_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    6.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West_Tank2",
+   "size": [
+    1.6,
+    3.2,
+    1.6
+   ],
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Tank2_Band",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    5.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West_Tank2",
+   "size": [
+    2.0,
+    0.8,
+    2.0
+   ],
+   "material": "trim",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Tank2_Cap",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    9.3,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West_Tank2",
+   "size": [
+    2.1,
+    0.9,
+    2.1
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Tank2_Elbow",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    9.75,
+    0.0
+   ],
+   "rotation": [
+    -90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West_Tank2",
+   "size": [
+    0.7,
+    4.2,
+    0.7
+   ],
+   "material": "pipe",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Ledge_1",
+   "type": "box",
+   "position": [
+    -9.369,
+    8.033,
+    2.944
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    3.6,
+    0.35,
+    2.4
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Ledge_1_Light",
+   "type": "box",
+   "position": [
+    -9.369,
+    8.123,
+    4.164
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    2.6,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Ledge_1_Bracket_1",
+   "type": "box",
+   "position": [
+    -10.769,
+    6.663,
+    2.644
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    0.3,
+    1.4,
+    1.6
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Ledge_1_Bracket_2",
+   "type": "box",
+   "position": [
+    -7.969,
+    6.663,
+    2.644
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    0.3,
+    1.4,
+    1.6
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Ledge_2",
+   "type": "box",
+   "position": [
+    4.753,
+    8.603,
+    2.344
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    3.6,
+    0.35,
+    2.4
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Ledge_2_Light",
+   "type": "box",
+   "position": [
+    4.753,
+    8.693,
+    3.564
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    2.6,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Ledge_2_Bracket_1",
+   "type": "box",
+   "position": [
+    3.353,
+    7.233,
+    2.044
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    0.3,
+    1.4,
+    1.6
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Ledge_2_Bracket_2",
+   "type": "box",
+   "position": [
+    6.153,
+    7.233,
+    2.044
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    0.3,
+    1.4,
+    1.6
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Ledge_3",
+   "type": "box",
+   "position": [
+    -1.257,
+    11.579,
+    2.944
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    3.6,
+    0.35,
+    2.4
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Ledge_3_Light",
+   "type": "box",
+   "position": [
+    -1.257,
+    11.669,
+    4.164
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    2.6,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Ledge_3_Bracket_1",
+   "type": "box",
+   "position": [
+    -2.657,
+    10.209,
+    2.644
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    0.3,
+    1.4,
+    1.6
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Ledge_3_Bracket_2",
+   "type": "box",
+   "position": [
+    0.143,
+    10.209,
+    2.644
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Rock_West",
+   "size": [
+    0.3,
+    1.4,
+    1.6
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spout_1",
+   "type": "cylinder",
+   "position": [
+    -52.356,
+    12.36,
+    -213.816
+   ],
+   "rotation": [
+    90.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    2.4,
+    0.7
+   ],
+   "material": "pipe",
+   "sections": 10,
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spout_1_Flange",
+   "type": "cylinder",
+   "position": [
+    -50.426,
+    12.36,
+    -213.816
+   ],
+   "rotation": [
+    90.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.875,
+    0.45,
+    0.875
+   ],
+   "material": "frame",
+   "sections": 10,
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spout_1_Fall",
+   "type": "stream",
+   "position": [
+    -49.956,
+    12.36,
+    -213.816
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.602,
+    11.66,
+    0.602
+   ],
+   "material": "hazard",
+   "section": "circle",
+   "speed": 1.38,
+   "pitch": 0,
+   "inset": 0.25,
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spout_2",
+   "type": "cylinder",
+   "position": [
+    -52.071,
+    5.38,
+    -189.56
+   ],
+   "rotation": [
+    90.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.74,
+    2.4,
+    0.74
+   ],
+   "material": "pipe",
+   "sections": 10,
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spout_2_Flange",
+   "type": "cylinder",
+   "position": [
+    -50.141,
+    5.38,
+    -189.56
+   ],
+   "rotation": [
+    90.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.925,
+    0.45,
+    0.925
+   ],
+   "material": "frame",
+   "sections": 10,
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spout_2_Fall",
+   "type": "stream",
+   "position": [
+    -49.671,
+    5.38,
+    -189.56
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.636,
+    4.68,
+    0.636
+   ],
+   "material": "hazard",
+   "section": "circle",
+   "speed": 1.39,
+   "pitch": 0,
+   "inset": 0.25,
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spout_3",
+   "type": "cylinder",
+   "position": [
+    -52.071,
+    7.5,
+    -179.877
+   ],
+   "rotation": [
+    90.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.88,
+    2.4,
+    0.88
+   ],
+   "material": "pipe",
+   "sections": 10,
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spout_3_Flange",
+   "type": "cylinder",
+   "position": [
+    -50.141,
+    7.5,
+    -179.877
+   ],
+   "rotation": [
+    90.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    1.1,
+    0.45,
+    1.1
+   ],
+   "material": "frame",
+   "sections": 10,
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spout_3_Fall",
+   "type": "stream",
+   "position": [
+    -49.671,
+    7.5,
+    -179.877
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.757,
+    6.8,
+    0.757
+   ],
+   "material": "hazard",
+   "section": "circle",
+   "speed": 1.42,
+   "pitch": 0,
+   "inset": 0.25,
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spout_4",
+   "type": "cylinder",
+   "position": [
+    -51.826,
+    13.93,
+    -221.024
+   ],
+   "rotation": [
+    90.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.82,
+    2.4,
+    0.82
+   ],
+   "material": "pipe",
+   "sections": 10,
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spout_4_Flange",
+   "type": "cylinder",
+   "position": [
+    -49.896,
+    13.93,
+    -221.024
+   ],
+   "rotation": [
+    90.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    1.025,
+    0.45,
+    1.025
+   ],
+   "material": "frame",
+   "sections": 10,
+   "gen": "Rock_West",
+   "source": "visible"
+  },
+  {
+   "name": "Rock_West_Spout_4_Fall",
+   "type": "stream",
+   "position": [
+    -49.426,
+    13.93,
+    -221.024
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.705,
+    13.23,
+    0.705
+   ],
+   "material": "hazard",
+   "section": "circle",
+   "speed": 1.41,
+   "pitch": 0,
+   "inset": 0.25,
    "gen": "Rock_West",
    "source": "visible"
   },
@@ -122813,11 +123834,11 @@
     {
      "pts": [
       [
-       -51.01731,
-       -175.97997
+       -51.01115,
+       -175.92828
       ],
       [
-       -51.29081,
+       -51.28871,
        -179.46989
       ]
      ],
@@ -122827,12 +123848,12 @@
     {
      "pts": [
       [
-       -50.98543,
-       -175.25042
+       -50.98172,
+       -175.25041
       ],
       [
-       -51.01726,
-       -175.97925
+       -51.01111,
+       -175.92755
       ]
      ],
      "y0": 0.85,
@@ -122841,11 +123862,11 @@
     {
      "pts": [
       [
-       -51.23423,
-       -180.32543
+       -51.2361,
+       -180.26546
       ],
       [
-       -50.96524,
+       -50.96232,
        -183.68532
       ]
      ],
@@ -122855,12 +123876,12 @@
     {
      "pts": [
       [
-       -51.29079,
+       -51.28869,
        -179.46687
       ],
       [
-       -51.2342,
-       -180.32573
+       -51.23608,
+       -180.26575
       ]
      ],
      "y0": 0.85,
@@ -122869,11 +123890,11 @@
     {
      "pts": [
       [
-       -50.9711,
-       -184.6415
+       -50.9678,
+       -184.57561
       ],
       [
-       -50.9759,
+       -50.97269,
        -187.90578
       ]
      ],
@@ -122883,12 +123904,12 @@
     {
      "pts": [
       [
-       -50.96518,
+       -50.96225,
        -183.68713
       ],
       [
-       -50.9711,
-       -184.6416
+       -50.9678,
+       -184.57571
       ]
      ],
      "y0": 0.85,
@@ -122897,11 +123918,11 @@
     {
      "pts": [
       [
-       -51.04106,
-       -189.00378
+       -51.03349,
+       -188.92937
       ],
       [
-       -51.22517,
+       -51.22199,
        -192.12574
       ]
      ],
@@ -122911,12 +123932,12 @@
     {
      "pts": [
       [
-       -50.97593,
-       -187.90699
+       -50.97273,
+       -187.907
       ],
       [
-       -51.04106,
-       -189.00379
+       -51.03349,
+       -188.92938
       ]
      ],
      "y0": 0.85,
@@ -122981,11 +124002,11 @@
     {
      "pts": [
       [
-       -51.15188,
+       -51.13738,
        -175.2285
       ],
       [
-       -51.00641,
+       -51.0027,
        -175.2285
       ]
      ],
@@ -122995,11 +124016,11 @@
     {
      "pts": [
       [
-       -51.52918,
+       -51.48751,
        -175.2285
       ],
       [
-       -51.15188,
+       -51.13738,
        -175.2285
       ]
      ],
@@ -123013,7 +124034,7 @@
        -175.2285
       ],
       [
-       -51.52918,
+       -51.48751,
        -175.2285
       ]
      ],
@@ -123023,7 +124044,7 @@
     {
      "pts": [
       [
-       -51.24613,
+       -51.24296,
        -192.1455
       ],
       [
@@ -123037,11 +124058,11 @@
     {
      "pts": [
       [
-       -50.67491,
-       -191.26918
+       -50.67295,
+       -191.22344
       ],
       [
-       -50.60843,
+       -50.60549,
        -194.38455
       ]
      ],
@@ -123051,12 +124072,12 @@
     {
      "pts": [
       [
-       -50.71038,
-       -190.62385
+       -50.70613,
+       -190.62384
       ],
       [
-       -50.67494,
-       -191.26847
+       -50.67298,
+       -191.22273
       ]
      ],
      "y0": 0.85,
@@ -123065,11 +124086,11 @@
     {
      "pts": [
       [
-       -50.67201,
-       -195.06514
+       -50.6646,
+       -195.01724
       ],
       [
-       -50.98177,
+       -50.97918,
        -198.1471
       ]
      ],
@@ -123079,12 +124100,12 @@
     {
      "pts": [
       [
-       -50.60852,
+       -50.60558,
        -194.38696
       ],
       [
-       -50.67199,
-       -195.065
+       -50.66459,
+       -195.0171
       ]
      ],
      "y0": 0.85,
@@ -123093,11 +124114,11 @@
     {
      "pts": [
       [
-       -50.9627,
-       -198.87596
+       -50.96146,
+       -198.82464
       ],
       [
-       -50.8621,
+       -50.85916,
        -201.9043
       ]
      ],
@@ -123107,12 +124128,12 @@
     {
      "pts": [
       [
-       -50.98167,
+       -50.97908,
        -198.14446
       ],
       [
-       -50.9627,
-       -198.87611
+       -50.96145,
+       -198.82479
       ]
      ],
      "y0": 0.85,
@@ -123121,11 +124142,11 @@
     {
      "pts": [
       [
-       -50.87772,
-       -202.76644
+       -50.87375,
+       -202.70708
       ],
       [
-       -50.90834,
+       -50.90499,
        -205.66522
       ]
      ],
@@ -123135,12 +124156,12 @@
     {
      "pts": [
       [
-       -50.8621,
+       -50.85915,
        -201.90538
       ],
       [
-       -50.87772,
-       -202.7666
+       -50.87375,
+       -202.70724
       ]
      ],
      "y0": 0.85,
@@ -123205,11 +124226,11 @@
     {
      "pts": [
       [
-       -50.87002,
+       -50.85538,
        -190.604
       ],
       [
-       -50.73135,
+       -50.7271,
        -190.604
       ]
      ],
@@ -123219,11 +124240,11 @@
     {
      "pts": [
       [
-       -51.29127,
+       -51.24618,
        -190.604
       ],
       [
-       -50.87002,
+       -50.85538,
        -190.604
       ]
      ],
@@ -123237,7 +124258,7 @@
        -190.604
       ],
       [
-       -51.29127,
+       -51.24618,
        -190.604
       ]
      ],
@@ -123247,7 +124268,7 @@
     {
      "pts": [
       [
-       -50.92934,
+       -50.92599,
        -205.686
       ],
       [
@@ -123261,11 +124282,11 @@
     {
      "pts": [
       [
-       -51.29713,
-       -204.93596
+       -51.2943,
+       -204.88199
       ],
       [
-       -51.32313,
+       -51.32075,
        -208.00318
       ]
      ],
@@ -123275,12 +124296,12 @@
     {
      "pts": [
       [
-       -51.30033,
+       -51.29735,
        -204.16391
       ],
       [
-       -51.29713,
-       -204.93569
+       -51.29429,
+       -204.88172
       ]
      ],
      "y0": 0.85,
@@ -123289,11 +124310,11 @@
     {
      "pts": [
       [
-       -51.38226,
-       -208.85139
+       -51.37582,
+       -208.79276
       ],
       [
-       -51.60123,
+       -51.59908,
        -211.84353
       ]
      ],
@@ -123303,12 +124324,12 @@
     {
      "pts": [
       [
-       -51.32318,
+       -51.3208,
        -208.00446
       ],
       [
-       -51.38226,
-       -208.85132
+       -51.37582,
+       -208.79269
       ]
      ],
      "y0": 0.85,
@@ -123317,16 +124338,20 @@
     {
      "pts": [
       [
-       -51.57714,
-       -212.5732
+       -51.57665,
+       -212.52176
       ],
       [
-       -51.48365,
+       -51.48161,
        -215.68037
       ],
       [
-       -51.45146,
-       -216.63584
+       -51.45168,
+       -216.57063
+      ],
+      [
+       -51.31085,
+       -219.519
       ]
      ],
      "y0": 0.85,
@@ -123335,26 +124360,12 @@
     {
      "pts": [
       [
-       -51.60118,
+       -51.59903,
        -211.84131
       ],
       [
-       -51.57714,
-       -212.57314
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -51.45148,
-       -216.63554
-      ],
-      [
-       -51.31376,
-       -219.519
+       -51.57665,
+       -212.5217
       ]
      ],
      "y0": 0.85,
@@ -123378,7 +124389,7 @@
      "pts": [
       [
        -54.8645,
-       -211.40961
+       -211.44119
       ],
       [
        -54.8645,
@@ -123392,7 +124403,7 @@
      "pts": [
       [
        -54.8645,
-       -215.25531
+       -215.28642
       ],
       [
        -54.8645,
@@ -123419,11 +124430,11 @@
     {
      "pts": [
       [
-       -51.4755,
+       -51.46131,
        -204.143
       ],
       [
-       -51.32133,
+       -51.31835,
        -204.143
       ]
      ],
@@ -123433,11 +124444,11 @@
     {
      "pts": [
       [
-       -51.83777,
+       -51.79774,
        -204.143
       ],
       [
-       -51.4755,
+       -51.46131,
        -204.143
       ]
      ],
@@ -123451,7 +124462,7 @@
        -204.143
       ],
       [
-       -51.83777,
+       -51.79774,
        -204.143
       ]
      ],
@@ -123461,7 +124472,7 @@
     {
      "pts": [
       [
-       -51.33473,
+       -51.33183,
        -219.541
       ],
       [
@@ -123475,11 +124486,11 @@
     {
      "pts": [
       [
-       -51.10663,
-       -218.75241
+       -51.1103,
+       -218.70288
       ],
       [
-       -50.80005,
+       -50.79592,
        -220.69923
       ]
      ],
@@ -123489,12 +124500,12 @@
     {
      "pts": [
       [
-       -51.20528,
+       -51.20225,
        -218.01721
       ],
       [
-       -51.10656,
-       -218.75289
+       -51.11023,
+       -218.70336
       ]
      ],
      "y0": 0.85,
@@ -123503,11 +124514,11 @@
     {
      "pts": [
       [
-       -50.80444,
-       -221.34774
+       -50.79991,
+       -221.30356
       ],
       [
-       -50.84736,
+       -50.84377,
        -223.38544
       ]
      ],
@@ -123517,12 +124528,12 @@
     {
      "pts": [
       [
-       -50.7998,
+       -50.79566,
        -220.70265
       ],
       [
-       -50.80443,
-       -221.34745
+       -50.7999,
+       -221.30327
       ]
      ],
      "y0": 0.85,
@@ -123531,11 +124542,11 @@
     {
      "pts": [
       [
-       -50.82849,
-       -224.00189
+       -50.82617,
+       -223.95936
       ],
       [
-       -50.76659,
+       -50.763,
        -226.06687
       ]
      ],
@@ -123545,12 +124556,12 @@
     {
      "pts": [
       [
-       -50.84737,
+       -50.84377,
        -223.38436
       ],
       [
-       -50.82849,
-       -224.00188
+       -50.82617,
+       -223.95934
       ]
      ],
      "y0": 0.85,
@@ -123559,11 +124570,11 @@
     {
      "pts": [
       [
-       -50.82556,
-       -226.70295
+       -50.81794,
+       -226.65946
       ],
       [
-       -51.03242,
+       -51.02918,
        -228.75211
       ]
      ],
@@ -123573,12 +124584,12 @@
     {
      "pts": [
       [
-       -50.76667,
+       -50.76308,
        -226.06944
       ],
       [
-       -50.82555,
-       -226.70279
+       -50.81792,
+       -226.65929
       ]
      ],
      "y0": 0.85,
@@ -123616,7 +124627,7 @@
      "pts": [
       [
        -55.395,
-       -225.69995
+       -225.72647
       ],
       [
        -55.395,
@@ -123643,11 +124654,11 @@
     {
      "pts": [
       [
-       -51.38319,
+       -51.36863,
        -217.999
       ],
       [
-       -51.2261,
+       -51.22307,
        -217.999
       ]
      ],
@@ -123657,11 +124668,11 @@
     {
      "pts": [
       [
-       -51.76549,
+       -51.72342,
        -217.999
       ],
       [
-       -51.38319,
+       -51.36863,
        -217.999
       ]
      ],
@@ -123675,7 +124686,7 @@
        -217.999
       ],
       [
-       -51.76549,
+       -51.72342,
        -217.999
       ]
      ],
@@ -123685,12 +124696,1104 @@
     {
      "pts": [
       [
-       -51.05331,
+       -51.05008,
        -228.771
       ],
       [
        -55.374,
        -228.771
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.47866,
+       -178.65032
+      ],
+      [
+       -50.63465,
+       -179.34212
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.44289,
+       -178.4834
+      ],
+      [
+       -50.47861,
+       -178.6501
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.63014,
+       -179.48807
+      ],
+      [
+       -50.61931,
+       -180.19568
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.63414,
+       -179.33694
+      ],
+      [
+       -50.63014,
+       -179.48783
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.58997,
+       -180.31579
+      ],
+      [
+       -50.41551,
+       -181.04964
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.61989,
+       -180.1911
+      ],
+      [
+       -50.58998,
+       -180.31575
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.48503,
+       -181.26714
+      ],
+      [
+       -50.68549,
+       -181.91917
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.41603,
+       -181.06117
+      ],
+      [
+       -50.48519,
+       -181.26764
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -52.97,
+       -179.3375
+      ],
+      [
+       -52.97,
+       -178.479
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -52.97,
+       -180.196
+      ],
+      [
+       -52.97,
+       -179.3375
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -52.97,
+       -181.0545
+      ],
+      [
+       -52.97,
+       -180.196
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -52.97,
+       -181.913
+      ],
+      [
+       -52.97,
+       -181.0545
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.52175,
+       -178.458
+      ],
+      [
+       -50.46343,
+       -178.458
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.72091,
+       -178.458
+      ],
+      [
+       -50.52175,
+       -178.458
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -52.949,
+       -178.458
+      ],
+      [
+       -50.72091,
+       -178.458
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.70556,
+       -181.934
+      ],
+      [
+       -52.949,
+       -181.934
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.57048,
+       -188.2263
+      ],
+      [
+       -50.58955,
+       -189.033
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.57507,
+       -188.08133
+      ],
+      [
+       -50.57048,
+       -188.22513
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.56227,
+       -189.15754
+      ],
+      [
+       -50.37729,
+       -189.97838
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.59001,
+       -189.0281
+      ],
+      [
+       -50.56222,
+       -189.15776
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.37951,
+       -190.11093
+      ],
+      [
+       -50.40119,
+       -190.93405
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.37678,
+       -189.98345
+      ],
+      [
+       -50.37951,
+       -190.11082
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.42884,
+       -191.10017
+      ],
+      [
+       -50.55125,
+       -191.88723
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.40147,
+       -190.93697
+      ],
+      [
+       -50.42888,
+       -191.10041
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -52.888,
+       -189.0325
+      ],
+      [
+       -52.888,
+       -188.082
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -52.888,
+       -189.983
+      ],
+      [
+       -52.888,
+       -189.0325
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -52.888,
+       -190.9335
+      ],
+      [
+       -52.888,
+       -189.983
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -52.888,
+       -191.884
+      ],
+      [
+       -52.888,
+       -190.9335
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.81332,
+       -188.061
+      ],
+      [
+       -50.61879,
+       -188.061
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -52.867,
+       -188.061
+      ],
+      [
+       -50.81332,
+       -188.061
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.572,
+       -191.905
+      ],
+      [
+       -52.867,
+       -191.905
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.63639,
+       -185.54565
+      ],
+      [
+       -50.67053,
+       -186.39634
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.63515,
+       -185.40218
+      ],
+      [
+       -50.63637,
+       -185.54499
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.68604,
+       -186.59004
+      ],
+      [
+       -50.73146,
+       -187.39019
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.67058,
+       -186.39718
+      ],
+      [
+       -50.68607,
+       -186.59053
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.6921,
+       -187.5343
+      ],
+      [
+       -50.47133,
+       -188.37718
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.73213,
+       -187.38361
+      ],
+      [
+       -50.69212,
+       -187.53423
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.47961,
+       -188.52517
+      ],
+      [
+       -50.54789,
+       -189.37768
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.47069,
+       -188.38382
+      ],
+      [
+       -50.47958,
+       -188.52482
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -53.1425,
+       -186.3955
+      ],
+      [
+       -53.1425,
+       -185.402
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -53.1425,
+       -187.389
+      ],
+      [
+       -53.1425,
+       -186.3955
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -53.1425,
+       -188.3825
+      ],
+      [
+       -53.1425,
+       -187.389
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -53.1425,
+       -189.376
+      ],
+      [
+       -53.1425,
+       -188.3825
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.71171,
+       -185.381
+      ],
+      [
+       -50.65615,
+       -185.381
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.86666,
+       -185.381
+      ],
+      [
+       -50.71171,
+       -185.381
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -53.1215,
+       -185.381
+      ],
+      [
+       -50.86666,
+       -185.381
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.56883,
+       -189.397
+      ],
+      [
+       -53.1215,
+       -189.397
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.48451,
+       -189.48678
+      ],
+      [
+       -50.6274,
+       -190.12484
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.45269,
+       -189.33069
+      ],
+      [
+       -50.48442,
+       -189.48639
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.62496,
+       -190.29389
+      ],
+      [
+       -50.60987,
+       -190.91349
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.62689,
+       -190.12002
+      ],
+      [
+       -50.62495,
+       -190.29417
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.59736,
+       -191.01674
+      ],
+      [
+       -50.55887,
+       -191.70658
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.61001,
+       -190.91149
+      ],
+      [
+       -50.59748,
+       -191.0154
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.55404,
+       -191.84887
+      ],
+      [
+       -50.50786,
+       -192.50001
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.55885,
+       -191.70704
+      ],
+      [
+       -50.554,
+       -191.84964
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -52.53,
+       -190.12025
+      ],
+      [
+       -52.53,
+       -189.3265
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -52.53,
+       -190.914
+      ],
+      [
+       -52.53,
+       -190.12025
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -52.53,
+       -191.70775
+      ],
+      [
+       -52.53,
+       -190.914
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -52.53,
+       -192.5015
+      ],
+      [
+       -52.53,
+       -191.70775
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.68694,
+       -189.3055
+      ],
+      [
+       -50.50576,
+       -189.3055
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -52.509,
+       -189.3055
+      ],
+      [
+       -50.68694,
+       -189.3055
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.56493,
+       -192.5225
+      ],
+      [
+       -52.509,
+       -192.5225
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -48.96404,
+       -218.3724
+      ],
+      [
+       -49.74185,
+       -218.05022
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -49.75322,
+       -218.03885
+      ],
+      [
+       -50.0754,
+       -217.26104
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -50.0754,
+       -217.24496
+      ],
+      [
+       -49.75322,
+       -216.46715
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -49.74185,
+       -216.45578
+      ],
+      [
+       -48.96404,
+       -216.1336
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -48.94796,
+       -216.1336
+      ],
+      [
+       -48.17015,
+       -216.45578
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -48.15878,
+       -216.46715
+      ],
+      [
+       -47.8366,
+       -217.24496
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -47.8366,
+       -217.26104
+      ],
+      [
+       -48.15878,
+       -218.03885
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -48.17015,
+       -218.05022
+      ],
+      [
+       -48.94796,
+       -218.3724
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -48.67904,
+       -187.8944
+      ],
+      [
+       -49.45685,
+       -187.57222
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -49.46822,
+       -187.56085
+      ],
+      [
+       -49.7904,
+       -186.78304
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -49.7904,
+       -186.76696
+      ],
+      [
+       -49.46822,
+       -185.98915
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -49.45685,
+       -185.97778
+      ],
+      [
+       -48.67904,
+       -185.6556
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -48.66296,
+       -185.6556
+      ],
+      [
+       -47.88515,
+       -185.97778
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -47.87378,
+       -185.98915
+      ],
+      [
+       -47.5516,
+       -186.76696
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -47.5516,
+       -186.78304
+      ],
+      [
+       -47.87378,
+       -187.56085
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -47.88515,
+       -187.57222
+      ],
+      [
+       -48.66296,
+       -187.8944
       ]
      ],
      "y0": 0.85,
@@ -124062,14 +126165,14 @@
   "Arm_4: pose 40/60 -> 16/28 (clear of the objects around it)",
   "Valve_A_Vent: left out - it would hang over the edge of Pipe_Junction_A",
   "Exit_Door: open exit door -> level1_part3",
-  "outlets: removed wall dressing in front of pours: Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine",
+  "outlets: removed wall dressing in front of pours: Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine, Works_Wall_West_03_M02Monitor",
   "Central: 3 cover crate(s) dropped - no free spot clear of landings",
   "crates: 35 printed crates (accent atlas)",
   "fixtures: 31 parts cleared out of fans / vents (wall units removed: OuterWall_West_02_M02Vent, Works_Wall_West_02_M05Fan)",
   "ducts: Ceil_Duct_3 trimmed to 1 piece(s) clear of 1 standing part(s); Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 3 standing part(s); Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 11 standing part(s)",
   "corrosion: 30 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 48 lights at the liquid line removed, 20 light strips raised clear of it",
-  "corrosion: 1849 wall faces at the liquid line get a corroded band (one mesh, one material)"
+  "corrosion: 1966 wall faces at the liquid line get a corroded band (one mesh, one material)"
  ],
  "relations": [
   {
@@ -124597,6 +126700,50 @@
   },
   {
    "type": "emits_from",
+   "a": "Rock_West_Spout_1_Fall",
+   "b": "Rock_West_Spout_1",
+   "b_anchor": "outlet"
+  },
+  {
+   "type": "flows_into",
+   "a": "Rock_West_Spout_1_Fall",
+   "b": "HazardFluid_2"
+  },
+  {
+   "type": "emits_from",
+   "a": "Rock_West_Spout_2_Fall",
+   "b": "Rock_West_Spout_2",
+   "b_anchor": "outlet"
+  },
+  {
+   "type": "flows_into",
+   "a": "Rock_West_Spout_2_Fall",
+   "b": "HazardFluid_2"
+  },
+  {
+   "type": "emits_from",
+   "a": "Rock_West_Spout_3_Fall",
+   "b": "Rock_West_Spout_3",
+   "b_anchor": "outlet"
+  },
+  {
+   "type": "flows_into",
+   "a": "Rock_West_Spout_3_Fall",
+   "b": "HazardFluid_2"
+  },
+  {
+   "type": "emits_from",
+   "a": "Rock_West_Spout_4_Fall",
+   "b": "Rock_West_Spout_4",
+   "b_anchor": "outlet"
+  },
+  {
+   "type": "flows_into",
+   "a": "Rock_West_Spout_4_Fall",
+   "b": "HazardFluid_2"
+  },
+  {
+   "type": "emits_from",
    "a": "Pipe_North_Fall",
    "b": "Pipe_North",
    "b_anchor": "outlet"
@@ -124698,16 +126845,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 85610,
-  "objects": 3833,
+  "triangles": 87288,
+  "objects": 3869,
   "materials": 29,
-  "glb_kb": 5795,
-  "nodes": 4363,
-  "draw_calls_unbatched": 4184,
+  "glb_kb": 5938,
+  "nodes": 4415,
+  "draw_calls_unbatched": 4234,
   "draw_calls_batched_min": 31,
-  "images": 88,
-  "tex_mem_gpu_compressed_mb": 22.95,
-  "tex_mem_uncompressed_mb": 91.79,
+  "images": 89,
+  "tex_mem_gpu_compressed_mb": 23.22,
+  "tex_mem_uncompressed_mb": 92.87,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }
