@@ -1,28 +1,24 @@
 {
  "level": "slime_arena",
  "assets_kb": {
-  "level.glb": 5478,
-  "mobile/level_mobile.glb": 3025,
-  "mobile/collision.json": 204,
+  "level.glb": 5828,
+  "mobile/level_mobile.glb": 3462,
+  "mobile/collision.json": 250,
   "environment.json": 4,
   "background.glb": 474,
-  "effects.json": 55
+  "effects.json": 60
  },
  "complexity": {
-  "triangles": 94484,
-  "nodes": 3782,
-  "materials": 26,
+  "triangles": 108974,
+  "nodes": 4292,
+  "materials": 29,
   "heaviest": [
    [
     "Corrosion_Band",
-    1814
+    2718
    ],
    [
     "Works_Ceil_Fan_2_Rotor",
-    758
-   ],
-   [
-    "Works_Wall_West_02_M05Fan_Rotor",
     758
    ],
    [
@@ -32,36 +28,40 @@
    [
     "Works_Ceil_Fan_1_Rotor",
     682
+   ],
+   [
+    "Works_Wall_North_02_M01Fan_Rotor",
+    682
    ]
   ]
  },
  "performance": {
   "dev": {
-   "glb_kb": 5478,
-   "triangles": 76902,
-   "draw_calls": 3782,
-   "tex_mem_gpu_mb_est": 22.91
+   "glb_kb": 5828,
+   "triangles": 87784,
+   "draw_calls": 4292,
+   "tex_mem_gpu_mb_est": 22.95
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3025,
-   "triangles": 89004,
-   "draw_calls": 76,
-   "visible_draw_calls_est": 52.4,
-   "visible_draw_calls_max_est": 76,
-   "tex_mem_gpu_mb_est": 7.24,
-   "materials": 29,
-   "nodes": 77,
+   "glb_kb": 3462,
+   "triangles": 102917,
+   "draw_calls": 77,
+   "visible_draw_calls_est": 55.2,
+   "visible_draw_calls_max_est": 77,
+   "tex_mem_gpu_mb_est": 7.28,
+   "materials": 31,
+   "nodes": 78,
    "colliders": {
-    "colliders": 661,
-    "hazards": 15,
-    "glb_kb": 347
+    "colliders": 790,
+    "hazards": 14,
+    "glb_kb": 415
    },
    "background_kb": 402
   },
   "effects": {
-   "max_particles": 869,
-   "emitters": 48,
+   "max_particles": 827,
+   "emitters": 46,
    "extra_draw_calls": 12,
    "transparent_area_m2": 31584
   },
@@ -74,16 +74,16 @@
    "INTENTIONAL": 0
   },
   "relations": {
-   "explicit": 117,
+   "explicit": 115,
    "inferred": 0
   },
   "repairable": 0,
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 48663.0,
-  "reachable_area_m2": 9100.0,
-  "components": 387,
+  "standable_area_m2": 48811.0,
+  "reachable_area_m2": 9224.0,
+  "components": 438,
   "spawns": [
    {
     "id": "spawn",
@@ -121,7 +121,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 19.77,
-    "component": 217,
+    "component": 233,
     "hazard_distance_m": 7.52
    },
    {
@@ -186,7 +186,7 @@
     "standable": true,
     "clearance_m": 5.5,
     "headroom_m": 12.8,
-    "component": 58,
+    "component": 61,
     "hazard_distance_m": 6.52
    },
    {
@@ -199,7 +199,7 @@
     "standable": true,
     "clearance_m": 8.5,
     "headroom_m": 18.8,
-    "component": 113,
+    "component": 124,
     "hazard_distance_m": 9.41
    }
   ],
@@ -212,7 +212,7 @@
    },
    {
     "name": "Walkway_South",
-    "standable_m2": 526.0,
+    "standable_m2": 540.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -224,7 +224,7 @@
    },
    {
     "name": "Walkway_East",
-    "standable_m2": 502.0,
+    "standable_m2": 503.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -242,7 +242,7 @@
    },
    {
     "name": "Platform_South",
-    "standable_m2": 88.0,
+    "standable_m2": 85.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -438,7 +438,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "94484 triangles (> budget 40000)"
+   "message": "108974 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
@@ -449,7 +449,7 @@
     6.73,
     -54.5
    ],
-   "message": "88 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): Walkway_East_Floor, Walkway_North_Floor, Walkway_South_Floor, Walkway_West_Floor"
+   "message": "76 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): Walkway_East_Floor, Walkway_North_Floor, Walkway_South_Floor, Walkway_West_Floor"
   }
  ],
  "counts": {

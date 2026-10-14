@@ -19,6 +19,7 @@ var _t: float = 0.0
 
 
 var _spins: Array = []  # [rotor node, rad/s]
+var _travel: Array = []  # [node, rest position, speed m/s, spacing m] (Stage 43: barrels up the column bores)
 
 
 func _ready() -> void:
@@ -41,6 +42,15 @@ func _ready() -> void:
 				_material_anim(fx, p)
 			"material_shader":  # Stage 26: tv_static on screen materials
 				_material_shader(fx, p)
+			"light":  # Stage 39: soft coloured lights (ceiling fans) - no shadows, mobile friendly
+				for e in fx.get("emitters", []):
+					var l := OmniLight3D.new()
+					l.light_color = Color(p["color"][0], p["color"][1], p["color"][2])
+					l.light_energy = float(p["energy"])
+					l.omni_range = float(p["range"])
+					l.shadow_enabled = false
+					add_child(l)
+					l.global_position = Vector3(e["pos"][0], e["pos"][1], e["pos"][2])
 			"particles":
 				_particles(fx, p)
 			"transparent_mesh":
@@ -53,6 +63,11 @@ func _ready() -> void:
 				_flyby(fx, p)
 			"environment":
 				_sky_speed = deg_to_rad(float(p.get("speed_deg_s", 0.0)))
+			"translate_loop":  # Stage 43: move up by fmod(t * speed, spacing), all targets in step (wraps out of sight)
+				for n in fx.get("targets", []):
+					var nd := level_root.find_child(String(n), true, false) as Node3D
+					if nd != null:
+						_travel.append([nd, nd.position, float(p["speed"]), float(p["spacing"])])
 			"transform_animation":  # spinning fan rotors (own nodes; origin = rotor centre, local +y = axis)
 				for n in fx.get("targets", []):
 					var nd := level_root.find_child(String(n), true, false) as Node3D
@@ -368,6 +383,8 @@ func _process(delta: float) -> void:
 	_t += delta
 	for sp in _spins:
 		(sp[0] as Node3D).rotate_object_local(Vector3.UP, float(sp[1]) * delta)
+	for tv in _travel:
+		(tv[0] as Node3D).position = (tv[1] as Vector3) + Vector3.UP * fmod(_t * float(tv[2]), float(tv[3]))
 	_update_flyers()
 	for an in _anims:
 		var m: BaseMaterial3D = an[0]

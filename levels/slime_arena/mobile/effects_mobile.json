@@ -28,31 +28,6 @@
    "hazard": true
   },
   {
-   "stream": "Pipe_SE_Fall",
-   "source_object": "Pipe_SE",
-   "outlet_pos": [
-    48.222,
-    10.0,
-    48.222
-   ],
-   "outlet_dir": [
-    -0.707,
-    0.0,
-    -0.707
-   ],
-   "outlet_diameter": 3.0,
-   "section": "circle",
-   "stream_width": 2.58,
-   "initial_speed": 1.95,
-   "impact_pos": [
-    46.323,
-    0.7,
-    46.323
-   ],
-   "receiving": "HazardFluid",
-   "hazard": true
-  },
-  {
    "stream": "Pipe_SW_Fall",
    "source_object": "Pipe_SW",
    "outlet_pos": [
@@ -288,20 +263,20 @@
  },
  "totals": {
   "performance": {
-   "max_particles": 294,
-   "emitters": 48,
+   "max_particles": 277,
+   "emitters": 46,
    "extra_draw_calls": 10,
    "transparent_area_m2": 0
   },
   "balanced": {
-   "max_particles": 869,
-   "emitters": 48,
+   "max_particles": 827,
+   "emitters": 46,
    "extra_draw_calls": 12,
    "transparent_area_m2": 31584
   },
   "quality": {
-   "max_particles": 1363,
-   "emitters": 48,
+   "max_particles": 1296,
+   "emitters": 46,
    "extra_draw_calls": 14,
    "transparent_area_m2": 63168
   }
@@ -838,8 +813,8 @@
    ],
    "material_tile_m": 6.0,
    "flow_uv": [
-    0.0644,
-    0.9979
+    0.061,
+    0.9981
    ],
    "quality": {
     "performance": {
@@ -916,15 +891,6 @@
      ],
      "radius": 1.63,
      "of": "Pipe_North_Fall"
-    },
-    {
-     "pos": [
-      46.32,
-      1.0,
-      46.32
-     ],
-     "radius": 1.89,
-     "of": "Pipe_SE_Fall"
     },
     {
      "pos": [
@@ -1017,8 +983,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 110,
-      "emitters": 11,
+      "max_particles": 100,
+      "emitters": 10,
       "extra_draw_calls": 1
      }
     },
@@ -1048,8 +1014,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 264,
-      "emitters": 11,
+      "max_particles": 240,
+      "emitters": 10,
       "extra_draw_calls": 1
      }
     },
@@ -1079,8 +1045,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 429,
-      "emitters": 11,
+      "max_particles": 390,
+      "emitters": 10,
       "extra_draw_calls": 1
      }
     }
@@ -1120,15 +1086,6 @@
      ],
      "radius": 1.63,
      "of": "Pipe_North_Fall"
-    },
-    {
-     "pos": [
-      46.32,
-      1.0,
-      46.32
-     ],
-     "radius": 1.89,
-     "of": "Pipe_SE_Fall"
     },
     {
      "pos": [
@@ -1221,8 +1178,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 77,
-      "emitters": 11,
+      "max_particles": 70,
+      "emitters": 10,
       "extra_draw_calls": 1
      }
     },
@@ -1252,8 +1209,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 198,
-      "emitters": 11,
+      "max_particles": 180,
+      "emitters": 10,
       "extra_draw_calls": 1
      }
     },
@@ -1283,8 +1240,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 308,
-      "emitters": 11,
+      "max_particles": 280,
+      "emitters": 10,
       "extra_draw_calls": 1
      }
     }
@@ -1865,6 +1822,89 @@
    "merge_emitters": true
   },
   {
+   "id": "Fan_Lights",
+   "type": "point_light",
+   "category": "light",
+   "glb_contains": "nothing",
+   "godot_runtime": "OmniLight3D per position (no shadows): light_color, light_energy, omni_range",
+   "emitters": [
+    {
+     "pos": [
+      -45.35,
+      24.28,
+      48.19
+     ]
+    },
+    {
+     "pos": [
+      -15.66,
+      24.28,
+      -66.28
+     ]
+    },
+    {
+     "pos": [
+      29.76,
+      24.28,
+      -98.54
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "color": [
+       1.0,
+       0.8,
+       0.3
+      ],
+      "energy": 0.8,
+      "range": 12.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "color": [
+       1.0,
+       0.8,
+       0.3
+      ],
+      "energy": 1.0,
+      "range": 16.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "color": [
+       1.0,
+       0.8,
+       0.3
+      ],
+      "energy": 1.0,
+      "range": 16.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Fan_Spin",
    "type": "spin",
    "category": "transform_animation",
@@ -1873,7 +1913,6 @@
    "speeds": {
     "Works_Wall_North_01_M01Fan_Rotor": 31.2,
     "Works_Wall_North_02_M01Fan_Rotor": 22.4,
-    "Works_Wall_West_02_M05Fan_Rotor": -26.7,
     "Ceil_Fan_1_Rotor": -30.8,
     "Works_Ceil_Fan_1_Rotor": -17.2,
     "Works_Ceil_Fan_2_Rotor": -28.1
@@ -1883,8 +1922,7 @@
     "Works_Ceil_Fan_1_Rotor",
     "Works_Ceil_Fan_2_Rotor",
     "Works_Wall_North_01_M01Fan_Rotor",
-    "Works_Wall_North_02_M01Fan_Rotor",
-    "Works_Wall_West_02_M05Fan_Rotor"
+    "Works_Wall_North_02_M01Fan_Rotor"
    ],
    "quality": {
     "performance": {
@@ -1913,6 +1951,55 @@
      "enabled": true,
      "params": {
       "speed_rpm": 20.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Tube_Barrels",
+   "type": "tube_travel",
+   "category": "translate_loop",
+   "glb_contains": "targets at rest, own nodes (mobile group)",
+   "godot_runtime": "script: node.position = rest + Vector3.UP * fmod(t * speed, spacing) - one shared loop for every target; things wrap out of sight (barrels shooting up the column bores, Stage 43)",
+   "targets": [
+    "Tube_Barrels__frame",
+    "Tube_Barrels__hazard"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 9.0,
+      "spacing": 7.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 9.0,
+      "spacing": 7.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 9.0,
+      "spacing": 7.0
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -2070,7 +2157,8 @@
     "Elevator_Car__glow",
     "M_glow_0_0",
     "M_glow_0_0_props",
-    "M_glow_0_1"
+    "M_glow_0_1",
+    "M_glow_0_1_props"
    ],
    "quality": {
     "performance": {
@@ -2122,7 +2210,6 @@
    "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
    "target_material": "trim",
    "targets": [
-    "Ceiling__trim",
     "M_trim_0_0",
     "M_trim_0_1"
    ],

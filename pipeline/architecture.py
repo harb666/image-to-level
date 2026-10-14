@@ -416,7 +416,9 @@ def connection(ctx, c, A, B, floor_y):
         if c.get("rails"):  # posts on the sloped deck top (it passes through (-Lh/2, y0) and (+Lh/2, hi top)), from where it leaves the lower floor
             _rails(ctx, c["id"], g, width, -Lh / 2 + ext + 0.3, Lh / 2 - 0.3, lambda z, y0=y0, Lh=Lh, yh=hi["top"]: y0 + (z + Lh / 2) / Lh * (yh - y0))
         if ym - floor_y > 1.5:
-            sup = ctx.add(c["id"] + "_Support", "box", [0, floor_y, 0], [width * 0.4, ym - t / math.cos(math.radians(pitch)) + 0.02 - floor_y, 0.6], "frame", g); ctx.rel("supported_by", deck, sup)
+            zs = min(1.2, Lh * 0.15)  # Stage 45: a real pier, head tilted to the deck, a little toward the high end (clear of the low landing)
+            sup = pier(ctx, c["id"] + "_Support", g, 0, floor_y, zs, ym - t / math.cos(math.radians(pitch)) + zs * math.tan(math.radians(pitch)), width * 0.4, 0.8, pitch=pitch)
+            ctx.rel("supported_by", deck, sup)
         ends = {"lo": (deck, "end_a"), "hi": (deck, "end_b")}
     else:  # solid ramp / stairs standing on the lower floor (+ a plinth down to the ground when raised)
         lead = 0.3 if run <= gap2 + 1e-6 else 0.0
@@ -1349,10 +1351,14 @@ def clear_fixtures(ctx, pad=0.05):
     return drop
 
 
-def pier(ctx, n, g, x, y0, z, top, w, d, rot=(0, 0, 0)):
+def pier(ctx, n, g, x, y0, z, top, w, d, rot=(0, 0, 0), pitch=0.0):
     """Stage 37 bridge support instead of a plain block: a flared footing sunk into the floor / liquid, a hull-plated
     column with two ribs on each broad face, a flared head under the deck and a red light near the top. Returns the
-    head (what the deck rests on)."""
+    head (what the deck rests on). Stage 45: "pitch" (deg, deck rising toward local +z; rot must be 0) tilts the head so
+    its top lies 6 cm inside a sloped deck whose underside passes through `top` above the pier's axis."""
+    if pitch:
+        p = math.radians(pitch); hb = top + 0.06 - 0.92 / math.cos(p)  # head base centre on the axis, top centre on the underside
+        top = hb + 0.9 + 0.25  # the column reaches 25 cm up into the tilted head (covers its slanted bottom)
     H = top - y0
     ctx.add(n + "_Footing", "frustum", [x, y0 - 0.5, z], [w + 0.5, 1.2, d + 0.5], "structure_b", g, rot, bottom_scale=1.3)
     ctx.add(n, "box", [x, y0 + 0.6, z], [w, H - 1.4, d], "structure_b", g, rot)
@@ -1360,7 +1366,8 @@ def pier(ctx, n, g, x, y0, z, top, w, d, rot=(0, 0, 0)):
         for fz in (-1, 1):  # ribs on both broad faces (proud 6 cm)
             ox, oz = local(sd * (w / 2 - 0.22), fz * (d / 2 + 0.03), rot[1])
             ctx.add(f"{n}_Rib_{sd + 1}{fz + 1}", "box", [x + ox, y0 + 0.65, z + oz], [0.2, H - 1.5, 0.1], "frame", g, rot, outline=False)
-    ctx.add(n + "_Head", "frustum", [x, top - 0.9, z], [w + 0.9, 0.92, d + 0.9], "structure_b", g, rot, bottom_scale=0.55)
+    if pitch: ctx.add(n + "_Head", "frustum", [x, hb, z], [w + 0.9, 0.92, d + 0.9], "structure_b", g, [-pitch, 0, 0], bottom_scale=0.55)
+    else: ctx.add(n + "_Head", "frustum", [x, top - 0.9, z], [w + 0.9, 0.92, d + 0.9], "structure_b", g, rot, bottom_scale=0.55)
     ox, oz = local(0, d / 2 + 0.04, rot[1])
     ctx.add(n + "_Light", "box", [x + ox, top - 1.6, z + oz], [w * 0.5, 0.16, 0.08], "glow", g, rot, outline=False, collision=False)
     return n + "_Head"

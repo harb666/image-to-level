@@ -706,3 +706,8 @@ Building blocks usable without the preset:
 ## Stage 44: no flags on the slime vats
 - The slime arena's vats set `"banner": false` (the flat flag on a ten-sided body sank into its corners); the vat module
   default is unchanged for other levels.
+
+## Stage 45: sloped bridges and ramps stand on real piers
+- The single support under an elevated `ramp` connection (sloped bridge) is now the Stage 37 `pier` (footing, ribbed
+  hull column, flared head, red light) instead of a plain block; its head is tilted to the deck's pitch and sits 6 cm
+  inside the deck. The pier stands min(1.2 m, 15 % of the run) toward the high end, clear of the low landing.
