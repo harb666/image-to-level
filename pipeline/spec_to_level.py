@@ -196,6 +196,27 @@ def _environment(spec, ctx):
     return env, glow
 
 
+def _ripple_points(ctx, hz, cap=24):
+    """Stage 49: where the liquid surface `hz` ripples - [x, z, amplitude, radius]: pour impacts (strong rings) and the
+    plinths / pier footings standing in it (gentle rings from their edge). At most `cap` (shader uniform array)."""
+    from anchors import world_matrices, world_anchor
+    W, by = world_matrices({"objects": ctx.objects}); o = by.get(hz)
+    if not o or not o.get("size"): return []
+    c = W[hz][:3, 3]; hx, hz_ = o["size"][0] / 2, o["size"][2] / 2; top = c[1] + o["size"][1]
+    inside = lambda x, z: abs(x - c[0]) < hx - 0.5 and abs(z - c[2]) < hz_ - 0.5
+    pts = []
+    for st in getattr(ctx, "pours", []):
+        if st in by:
+            k = world_anchor(W, by[st], "sink")["pos"]
+            if inside(k[0], k[2]): pts.append([round(float(k[0]), 2), round(float(k[2]), 2), 1.0, round(by[st]["size"][0] / 2, 2)])
+    for n, ob in by.items():
+        if not (n.endswith("_Plinth") or n.endswith("_Support_Footing")) or not ob.get("size"): continue
+        P = W[n][:3, 3]
+        if P[1] < top < P[1] + ob["size"][1] + 0.5 and inside(P[0], P[2]):
+            pts.append([round(float(P[0]), 2), round(float(P[2]), 2), 0.45 if n.endswith("_Plinth") else 0.3, round(max(ob["size"][0], ob["size"][2]) / 2, 2)])
+    return sorted(pts, key=lambda q: -q[2])[:cap]
+
+
 def _effects(spec, ctx, plats, env, glow):
     E = spec.get("effects", "auto")
     if E == "none": return []
@@ -209,14 +230,15 @@ def _effects(spec, ctx, plats, env, glow):
             fy = float(ctx.TR.height_at(cx, cz))
         for i, hz in enumerate(ctx.hazards):
             sfx = "" if i == 0 else f"_{i + 1}"
-            out += [dict(id="Hazard_Surface" + sfx, type="liquid_surface", target=hz, scroll=[0.03, 0.015], swirl=0.03, pulse_speed=0.2, pulse_amount=0.18)]
+            out += [dict(id="Hazard_Surface" + sfx, type="liquid_surface", target=hz, scroll=[0.03, 0.015], swirl=0.03, pulse_speed=0.2, pulse_amount=0.18,
+                         ripples=_ripple_points(ctx, hz))]
             if toxic: out += [dict(id="Hazard_Bubbles" + sfx, type="bubbles", area_from=hz, rate=45), dict(id="Hazard_Mist" + sfx, type="fog_sheet", area_from=hz, height=0.5, opacity=0.3, color=glow)]
         if ctx.pours:
             out += [dict(id="Pour_Flow", type="liquid_flow", targets_glob=list(ctx.pours), speed=3.0),
                     dict(id="Pour_Splash", type="splash", at_targets_glob=list(ctx.pours), anchor="bottom"),
                     dict(id="Pour_Steam", type="steam", at_targets_glob=list(ctx.pours), anchor="bottom")]
         for f in getattr(ctx, "fountains", []): out.append(dict(id=f + "_Ripple", type="liquid_surface", target=f, scroll=[0.02, 0.01], swirl=0.02, pulse_speed=0.1, pulse_amount=0.05))
-        tubes = [o for o in ctx.objects if o.get("tube")]
+        tubes = [o for o in ctx.objects if o.get("tube") and o.get("bubbles", True)]
         if tubes:  # Stage 48: bubbles rising up the see-through tubes (one shader-animated mesh for all of them; replaces the Stage 20 glow blobs)
             from anchors import world_matrices
             Wm, _ = world_matrices({"objects": ctx.objects}); per = {}
@@ -231,10 +253,11 @@ def _effects(spec, ctx, plats, env, glow):
         if fl: out.append(dict(id="Fan_Lights", type="point_light", positions=[q[:3] for q in fl], color=[1.0, 0.8, 0.3], energy=1.0, range=16.0))  # Stage 39
         spins = [o["name"] for o in ctx.objects if o.get("spin")]
         if spins: out.append(dict(id="Fan_Spin", type="spin", targets=spins))  # Stage 19: rotating fan rotors
-        travel = [o["name"] for o in ctx.objects if o.get("travel")]
-        if travel:  # Stage 43: barrels shooting up the column bores
-            from modules.factory import TUBE_SPACING, TUBE_SPEED
-            out.append(dict(id="Tube_Barrels", type="tube_travel", targets=travel, speed=TUBE_SPEED, spacing=TUBE_SPACING))
+        la = getattr(ctx, "launches", [])
+        if la:  # Stage 49: a slime pod shooting up each column every few seconds (own period / phase per column)
+            from modules.factory import POD_SPEED
+            ln = [dict(l, targets=[o["name"] for o in ctx.objects if o.get("launch") and o.get("mobile", {}).get("group") == l["group"]]) for l in la]
+            out.append(dict(id="Tube_Pods", type="tube_pods", launches=ln, speed=POD_SPEED))
         SC = spec.get("screens") or {}
         for i, sm in enumerate(sorted(r for r in ctx.roles if r in ("screen", "bigscreen"))):  # Stage 23: live screens flicker a little (CRT feel)
             if SC.get("static", 0.85) > 0:  # Stage 26: TV static (snow) over the picture, the picture breaks through now and then

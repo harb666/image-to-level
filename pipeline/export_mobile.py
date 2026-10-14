@@ -327,6 +327,8 @@ def export(level_dir, profile=None):
         for e in FXm["effects"]:
             if e.get("targets"):  # FX-merged node, else the merged cell node that now contains the object
                 e["targets"] = sorted({fx_merge.get(n) or src2node.get(n, n) for n in e["targets"] if n not in gone})
+            for l in e.get("launches", []):  # Stage 49: per-column pods -> their merged group nodes
+                l["targets"] = sorted({src2node.get(n, n) for n in l["targets"] if n not in gone})
         FXm["note"] = "Mobile copy of ../effects.json: targets renamed to merged nodes of level_mobile.glb. " + FX.get("note", "")
         json.dump(FXm, open(os.path.join(out_dir, "effects_mobile.json"), "w"), indent=1)
     bg_src = os.path.join(level_dir, "background.glb"); bg = None

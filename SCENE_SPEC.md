@@ -733,3 +733,14 @@ Building blocks usable without the preset:
   and a funnel hood hanging at the top (ribs, vent grate where the bubbles end). Glass objects may carry
   `bubble_range` [from, to] (m above the glass base).
 - `Pipe_NE` and `Pipe_SW` (the last corner pours) are gone from the slime arena.
+
+## Stage 49: rippling slime, launched pods in the columns
+- `liquid_surface` ripples, procedural in the shader (no textures, no meshes, nothing allocated): rings run out from
+  every pour's impact (strong) and from the plinths / pier footings standing in the liquid (gentle), plus random drop
+  ripples popping across the surface (off at "performance"). Each ring is a bright crest + a darker trough so it reads
+  on the bright slime, and it bends the texture a little. Points come from the level: effect key `ripples`
+  ([x, z, amplitude, radius], at most 24 per surface).
+- Reactor columns: no bubbles (glass `bubbles: false`); the barrel trains are replaced by ONE pod per column - the
+  ceiling lamp-pod model (cap, clear shell, three cage bars, base) full of glowing slime - launched up the bore at
+  28 m/s every 2.6-6.2 s, each column with its own period and phase (effect `tube_pods`, category `launch`). It waits
+  hidden in the plinth and vanishes into the capital. Own mobile group per column (`<column>_Pod`): +3 draw calls each.

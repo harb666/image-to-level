@@ -403,51 +403,42 @@ def column(ctx, s, x, y, z, yaw):
     import random as _r
     rg = _r.Random(n); g = ctx.add(n, "group", [x, 0, z], rot=[0, yaw, 0]); st = dict(mobile={"static": True}); sec = int(s.get("sections", 8))
     ctx.add(n + "_Plinth", "cylinder", [0, -0.5, 0], [2 * r * 1.35, 4.5, 2 * r * 1.35], "structure_b", g, sections=sec, hole=round(r * 0.8, 3), hole_res=16, **st)  # the pipe reaches down into the slime
-    yy, k = 4.0, 0; planes = [-0.5, 4.0, 3.9]  # horizontal faces of the column (barrels keep clear of them at rest)
+    yy, k = 4.0, 0
     while yy < top - 4:
-        k += 1; planes += [yy - 0.1, yy, yy + 0.1]
+        k += 1
         if k % 2:  # glass section
-            hh = min(rg.uniform(3, 7), top - 4 - yy); ctx.add(f"{n}_Glass_{k:02d}", "cylinder", [0, yy - 0.1, 0], [2 * r, hh + 0.2, 2 * r], s.get("material", "glass"), g, sections=sec, collision=True, double_sided=True, tube=True, outline=False, **st)
+            hh = min(rg.uniform(3, 7), top - 4 - yy); ctx.add(f"{n}_Glass_{k:02d}", "cylinder", [0, yy - 0.1, 0], [2 * r, hh + 0.2, 2 * r], s.get("material", "glass"), g, sections=sec, collision=True, double_sided=True, tube=True, outline=False,
+                                                              bubbles=False, **st)  # Stage 49: pods, not bubbles, in the columns
         else:
             hh = min(rg.uniform(1.0, 3.5), top - 4 - yy); ctx.add(f"{n}_Drum_{k:02d}", "cylinder", [0, yy, 0], [2 * r * 1.12, hh, 2 * r * 1.12], "structure_b" if k % 4 else "trim", g, sections=sec,
                                                                     hole=round(r * 0.8, 3), hole_res=16, **st)  # Stage 34: a ring - the liquid runs on through it
             if rg.random() < 0.6 and hh > 0.6:  # set into the drum (centre on the flat face's plane: never floating off a corner)
                 ctx.add(f"{n}_Red_{k:02d}", "box", [0, yy + hh / 2 - 0.15, r * 1.12 * math.cos(math.pi / sec)], [0.6, 0.3, 0.3], "glow", g, collision=False, outline=False, **st)
-        yy += hh; planes += [yy - 0.1, yy, yy + 0.1]
+        yy += hh
     ctx.add(n + "_Neck", "cylinder", [0, yy, 0], [2 * r * 1.05, top - 2.5 - yy, 2 * r * 1.05], "structure_b", g, sections=sec, hole=round(r * 0.8, 3), hole_res=16, **st)
     ctx.add(n + "_Capital", "frustum", [0, top - 2.5, 0], [2 * r * 2.0, 2.5, 2 * r * 2.0], "structure_b", g, sections=sec, bottom_scale=0.55, hole=round(r * 0.8, 3), hole_res=16,
             collision=False, **st)  # the pipe carries on up into the roof
-    if s.get("barrels", True): tube_barrels(ctx, n, g, r, top, rg, planes + [top - 2.5])
+    if s.get("pods", s.get("barrels", True)): tube_pod(ctx, n, g, r, top, rg)
 
 
-TUBE_SPACING, TUBE_SPEED = 7.0, 9.0  # every column's barrels share one loop (one moving mobile group, one effect)
+POD_SPEED = 28.0  # m/s up the bore (Stage 49)
 
 
-def tube_barrels(ctx, n, g, r, top, rg, planes=()):
-    """Stage 43: toxic barrels shooting up a column's bore (effect "tube_travel": every target moves up by
-    (t * speed) mod spacing, then snaps back - the train looks endless). The lowest barrel starts hidden inside the plinth
-    (below the glass), the top one leaves out of sight inside the capital / roof. Slime-green body, three dark hoops;
-    visual only, mobile group "Tube_Barrels" (2 draw calls for all of them)."""
-    rb = round(min(r * 0.5, 1.3), 3); h = round(rb * 1.7, 2); S = TUBE_SPACING
-    mv = dict(collision=False, outline=False, travel=True, mobile={"group": "Tube_Barrels"})
-    HO = (0.06, 0.47, 0.88)
-    def train(y0):
-        ys = [y0]
-        while ys[-1] + S < top - 2.5: ys.append(ys[-1] + S)
-        return ys
-    def faces(y): return [y, y + h] + [y + h * f - 0.09 + d for f in HO for d in (0.0, 0.18)]
-    y0 = rg.uniform(0.3, 3.0 - h)  # inside the plinth, under the glass (3.9)
-    for i in range(41):  # slide the whole train (spacing stays exact) until no barrel face is level with a column face at rest
-        y = round(y0 + 0.037 * ((i + 1) // 2) * (1 if i % 2 else -1), 3)
-        if all(abs(a - b) > 0.03 for yk in train(y) for a in faces(yk) for b in planes): break
-    k = 0
-    while True:
-        k += 1; b = f"{n}_Barrel_{k}"
-        ctx.add(b, "cylinder", [0, y, 0], [2 * rb, h, 2 * rb], "hazard", g, sections=10, **mv)
-        for j, f in enumerate(HO):  # hoops proud of the body by 6 cm, never level with its ends
-            ctx.add(f"{b}_Hoop_{j + 1}", "cylinder", [0, round(y + h * f - 0.09, 3), 0], [2 * rb + 0.12, 0.18, 2 * rb + 0.12], "frame", g, sections=10, **mv)
-        if y + S >= top - 2.5: break  # this one leaves the hall inside the capital
-        y += S
+def tube_pod(ctx, n, g, r, top, rg):
+    """Stage 49: one capsule pod (the ceiling lamp-pod model - frame cap and base, clear shell, three cage bars - but full
+    of glowing slime) launched up the column's bore every few seconds (effect "tube_pods", category "launch"): it waits
+    hidden in the plinth, shoots up at POD_SPEED and vanishes into the capital / roof. Each column has its own period and
+    phase (never in step). Own mobile group "<id>_Pod" (frame / glass_clear / hazard nodes) so it moves on its own."""
+    rp = round(min(r * 0.5, 1.3), 3); h = round(rp * 2.0, 3); bot = round(3.85 - h - 0.35, 3)  # pod top (cap) 15 cm under the plinth top: hidden at rest
+    mv = dict(collision=False, outline=False, launch=True, mobile={"group": n + "_Pod"}); nm = n + "_Pod"
+    ctx.add(nm + "_Cap", "cylinder", [0, bot + h - 0.1, 0], [2 * rp + 0.3, 0.45, 2 * rp + 0.3], "frame", g, sections=6, **mv)
+    ctx.add(nm + "_Shell", "cylinder", [0, bot + 0.2, 0], [2 * rp, h - 0.25, 2 * rp], ctx.role("glass_clear"), g, sections=6, double_sided=True, **mv)
+    ctx.add(nm + "_Fluid", "cylinder", [0, bot + 0.27, 0], [2 * rp - 0.24, h - 0.42, 2 * rp - 0.24], "hazard", g, sections=6, **mv)  # the green inside
+    ctx.add(nm + "_Base", "cylinder", [0, bot, 0], [2 * rp + 0.2, 0.3, 2 * rp + 0.2], "frame", g, sections=6, **mv)
+    for b in range(3):  # cage posts on the outside corners
+        a_ = math.radians(120 * b); ctx.add(f"{nm}_Bar_{b + 1}", "box", [math.cos(a_) * (rp + 0.04), bot + 0.2, -math.sin(a_) * (rp + 0.04)], [0.14, h - 0.25, 0.14], "frame", g, [0, 120 * b, 0], **mv)
+    period = round(rg.uniform(2.6, 6.2), 2)
+    ctx.launches = getattr(ctx, "launches", []) + [dict(group=nm, period=period, phase=round(rg.uniform(0, period), 2), travel=round(top - 2.4 - bot, 2))]
 
 
 @structure("rock_face", pad=False)

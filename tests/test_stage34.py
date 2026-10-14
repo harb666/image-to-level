@@ -139,17 +139,23 @@ class Stage41(unittest.TestCase):
 
 
 class Stage43(unittest.TestCase):
-    def test_barrels_shoot_up_the_columns(self):
+    def test_pods_launch_up_the_columns(self):  # Stage 49 replaced the Stage 43 barrel trains
         L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
         cols = [o["name"] for o in L["objects"] if o["name"].startswith("Column_") and o["type"] == "group"]
         for c in cols:
-            ys = sorted(by[n]["position"][1] for n in by if n.startswith(c + "_Barrel_") and "_Hoop_" not in n)
-            self.assertTrue(len(ys) >= 2 and ys[0] + by[c + "_Barrel_1"]["size"][1] < 3.9, c)  # first one hidden in the plinth
-            self.assertTrue(all(abs(b - a - 7.0) < 1e-3 for a, b in zip(ys, ys[1:])), c)  # exact spacing: the loop is seamless
+            for k in ("_Pod_Cap", "_Pod_Shell", "_Pod_Fluid", "_Pod_Bar_3"): self.assertIn(c + k, by)
+            self.assertEqual(by[c + "_Pod_Fluid"]["material"], "hazard")
+            self.assertLess(by[c + "_Pod_Cap"]["position"][1] + 0.45, 3.9)  # hidden in the plinth at rest
+            self.assertFalse([n for n in by if n.startswith(c + "_Barrel")])
+            self.assertFalse(any(by[n].get("tube") and by[n].get("bubbles", True) for n in by if n.startswith(c + "_Glass")))
         E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "effects_mobile.json")))
-        fx = [e for e in E["effects"] if e["type"] == "tube_travel"]
-        self.assertEqual(fx[0]["category"], "translate_loop"); self.assertTrue(all(t.startswith("Tube_Barrels__") for t in fx[0]["targets"]))
-
+        fx = [e for e in E["effects"] if e["type"] == "tube_pods"][0]
+        self.assertEqual(fx["category"], "launch"); self.assertEqual(len(fx["launches"]), len(cols))
+        self.assertEqual(len({l["period"] for l in fx["launches"]}), len(cols))  # never in step
+        self.assertTrue(all(l["targets"] and all(t.startswith(l["group"] + "__") for t in l["targets"]) for l in fx["launches"]))
+        self.assertGreater(fx["quality"]["balanced"]["params"]["speed"], 20)
+        hz = [e for e in E["effects"] if e["type"] == "liquid_surface" and e["id"] == "Hazard_Surface"][0]
+        self.assertTrue(10 <= len(hz["ripples"]) <= 24 and any(q[2] == 1.0 for q in hz["ripples"]))
 
 class Stage46(unittest.TestCase):
     def test_sloped_bridges_dressed(self):
@@ -168,5 +174,5 @@ class Stage48(unittest.TestCase):
         self.assertFalse([n for n in by if n.startswith(("Pipe_NE", "Pipe_SW"))])
         E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "effects_mobile.json")))
         fx = [e for e in E["effects"] if e["type"] == "tube_bubbles"]
-        self.assertEqual(len(fx), 1); self.assertGreaterEqual(len(fx[0]["tubes"]), 16)
+        self.assertEqual(len(fx), 1); self.assertEqual(len(fx[0]["tubes"]), 16)  # vats only (Stage 49: no bubbles in the columns)
         self.assertFalse([e for e in E["effects"] if e["type"] == "tube_blobs"])

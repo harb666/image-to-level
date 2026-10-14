@@ -15,7 +15,7 @@ class Tubes(unittest.TestCase):
         glass = [o for o in L["objects"] if o.get("tube")]
         self.assertTrue(glass and all(o["material"] == "glass" and o["double_sided"] and o["collision"] for o in glass))
         bub = [e for e in L["effects"] if e["type"] == "tube_bubbles"]  # Stage 48: bubbles replace the glow blobs
-        self.assertEqual(sum(len(e["tubes"]) for e in bub), 2)  # one tube per structure (the column's sections are one shaft)
+        self.assertEqual(sum(len(e["tubes"]) for e in bub), 1)  # the vat; columns carry pods, not bubbles (Stage 49)
         for e in bub: self.assertTrue(all(t[3] > 2.0 and t[4] > 0.5 for t in e["tubes"]))
         self.assertFalse([e for e in L["effects"] if e["type"] == "tube_blobs"])
         import materials

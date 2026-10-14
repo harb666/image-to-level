@@ -117,6 +117,20 @@ function uvAnim(mat){ // clone the material and add a UV offset uniform to every
   m.onBeforeCompile=sh=>{sh.uniforms.uFxOff=m.userData.off;sh.vertexShader='uniform vec2 uFxOff;\n'+sh.vertexShader.replace('#include <uv_vertex>',
     '#include <uv_vertex>\n#ifdef USE_MAP\nvMapUv+=uFxOff;\n#endif\n#ifdef USE_EMISSIVEMAP\nvEmissiveMapUv+=uFxOff;\n#endif\n#ifdef USE_NORMALMAP\nvNormalMapUv+=uFxOff;\n#endif\n#ifdef USE_ROUGHNESSMAP\nvRoughnessMapUv+=uFxOff;\n#endif\n#ifdef USE_METALNESSMAP\nvMetalnessMapUv+=uFxOff;\n#endif');};
   m.customProgramCacheKey=()=>'fxuv';return m;}
+function rippleMat(m,fx,p){ // Stage 49: procedural ripples on a liquid surface (same maths as liquid_surface.gdshader) - no textures
+  const R=(fx.ripples||[]).slice(0,24),pts=[];for(let i=0;i<24;i++){const q=R[i]||[0,0,0,0];pts.push(new THREE.Vector4(...q));}
+  const U={uT:{value:0},uRP:{value:pts},uRN:{value:R.length},uRip:{value:p.ripple??1},uDrops:{value:p.drops??1},uRC:{value:new THREE.Color(...(p.ripple_color||[.92,1,.7]))}};
+  const ob=m.onBeforeCompile;m.onBeforeCompile=sh=>{ob&&ob(sh);Object.assign(sh.uniforms,U);
+    sh.vertexShader='varying vec3 vRipW;\n'+sh.vertexShader.replace('#include <project_vertex>','#include <project_vertex>\nvRipW=(modelMatrix*vec4(transformed,1.)).xyz;');
+    sh.fragmentShader=`varying vec3 vRipW;uniform float uT,uRip,uDrops;uniform int uRN;uniform vec4 uRP[24];uniform vec3 uRC;
+vec3 ripH(vec2 p){vec3 q=fract(vec3(p.xyx)*vec3(.1031,.1030,.0973));q+=dot(q,q.yxz+33.33);return fract((q.xxy+q.yzz)*q.zyx);}
+vec2 ripS(vec2 p,float t){vec2 s=vec2(0.);for(int i=0;i<24;i++){if(i>=uRN)break;vec4 q=uRP[i];float d=length(p-q.xy)-q.w;if(d<0.||d>26.)continue;
+  float wv=sin(d*2.3-t*(2.2+1.6*q.z)),k=q.z*exp(-d*.14)*smoothstep(0.,.8,d);s+=vec2(pow(max(wv,0.),6.),pow(max(-wv,0.),4.))*k;}
+ if(uDrops>0.){vec2 c=floor(p/7.);for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++){vec2 id=c+vec2(float(x),float(y));vec3 h=ripH(id);vec2 ctr=(id+.2+.6*h.xy)*7.;
+  float a=fract(t/(2.4+3.*h.z)+h.x*7.1),d=length(p-ctr),r=a*3.6,f=(1.-a)*(1.-a)*uDrops;s.x+=(smoothstep(.18,0.,abs(d-r))+.6*smoothstep(.13,0.,abs(d-r*.55)))*f;s.y+=smoothstep(.22,0.,abs(d-r+.3))*f*.8;}}
+ return clamp(s,vec2(0.),vec2(1.5));}
+`+sh.fragmentShader.replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\n{vec2 rr=ripS(vRipW.xz,uT)*uRip;float dk=1.-.45*clamp(rr.y,0.,1.);diffuseColor.rgb=diffuseColor.rgb*dk+uRC*rr.x*.35;totalEmissiveRadiance=totalEmissiveRadiance*dk+uRC*rr.x*.9;}');};
+  m.customProgramCacheKey=()=>'fxuv_rip';m.needsUpdate=true;return U;}
 function makeParticles(fx,p){const spots=fx.emitters||(fx.area?[{area:fx.area}]:[]);const isBurst='burst' in p,isCount='count' in p;
   const per=isCount?p.count:isBurst?p.burst:Math.ceil(p.rate*p.lifetime);const N=per*spots.length;if(!N)return;
   const pos=new Float32Array(N*3),size=new Float32Array(N),alpha=new Float32Array(N),vel=new Float32Array(N*3),age=new Float32Array(N).fill(1e9),life=new Float32Array(N).fill(1),own=new Int32Array(N),y0=new Float32Array(N);
@@ -215,7 +229,8 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
   for(const fx of FXD.effects){const Q=fx.quality[qn];if(!Q||!Q.enabled)continue;const p=Q.params;
     if(fx.category==='surface_shader'){const tg=(fx.targets||[]).map(n=>byName[n]).filter(Boolean);if(!tg.length)continue;
       const orig=tg.map(o=>o.material),m=uvAnim(tg[0].material),b=m.emissiveIntensity,tile=fx.material_tile_m||2;tg.forEach(o=>o.material=m);
-      fxUpd.push({reset(){tg.forEach((o,i)=>o.material=orig[i]);},u(t){if(fx.type==='liquid_surface'){m.userData.off.value.set(p.scroll[0]*t+p.swirl*Math.sin(t*.7),p.scroll[1]*t+p.swirl*Math.cos(t*.5));
+      const RU=fx.type==='liquid_surface'?rippleMat(m,fx,p):null;
+      fxUpd.push({reset(){tg.forEach((o,i)=>o.material=orig[i]);},u(t){if(fx.type==='liquid_surface'){RU.uT.value=t;m.userData.off.value.set(p.scroll[0]*t+p.swirl*Math.sin(t*.7),p.scroll[1]*t+p.swirl*Math.cos(t*.5));
         m.emissiveIntensity=b*(1+p.pulse_amount*Math.sin(t*p.pulse_speed*6.2831));}else{const f=fx.flow_uv||[0,1],k=t*p.speed/tile,w=Math.sin(t*3)*p.wobble;m.userData.off.value.set(-f[0]*k-f[1]*w,-f[1]*k+f[0]*w);}}});} // texture moves ALONG the measured flow
     else if(fx.category==='material_animation'){const mats=[...new Set(fx.target_material?Object.values(byName).map(o=>o.material).filter(m=>m.name===fx.target_material||m.name===fx.target_material+'__2s'):(fx.targets||[]).map(n=>byName[n]&&byName[n].material).filter(Boolean))],b=mats.map(m=>m.emissiveIntensity);let nx=0;
       fxUpd.push({reset(){mats.forEach((m,i)=>m.emissiveIntensity=b[i]);},u(t,dt){if(fx.type==='pulse_light')mats.forEach((m,i)=>m.emissiveIntensity=b[i]*(1+p.amount*Math.sin(6.2831*p.speed*t+p.phase)));
@@ -248,6 +263,8 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
             gl_FragColor=vec4(mix(uTint,vec3(1.),clamp(hl+.6*hl2,0.,1.)),clamp(.08+rim*.85+hl*.9+hl2*.55,0.,1.)*fade*uA);}`});
         const me=new THREE.Mesh(g,m);me.frustumCulled=false;me.renderOrder=-1;scene.add(me);fxObjs.push(me);fxUpd.push({u(t){U.uT.value=t;}});}}
     else if(fx.category==='light'){for(const e of fx.emitters||[]){const L=new THREE.PointLight(new THREE.Color(...p.color),p.energy*60,p.range,1.6);L.position.set(...e.pos);scene.add(L);fxObjs.push(L);}} // Stage 39: soft coloured lights
+    else if(fx.category==='launch'){const L=(fx.launches||[]).flatMap(l=>(l.targets||[]).map(n=>[byName[n],l]).filter(a=>a[0])),y0=L.map(a=>a[0].position.y); // Stage 49: pods shooting up the columns
+      fxUpd.push({reset(){L.forEach((a,i)=>a[0].position.y=y0[i]);},u(t){L.forEach((a,i)=>{const l=a[1];a[0].position.y=y0[i]+Math.min(((t+l.phase)%l.period)*p.speed,l.travel);});}});}
     else if(fx.category==='translate_loop'){const tg=(fx.targets||[]).map(n=>byName[n]).filter(Boolean),y0=tg.map(o=>o.position.y); // Stage 43: barrels up the column bores
       fxUpd.push({reset(){tg.forEach((o,i)=>o.position.y=y0[i]);},u(t){const d=(t*p.speed)%p.spacing;tg.forEach((o,i)=>o.position.y=y0[i]+d);}});}
     else if(fx.category==='transform_animation'){const tg=(fx.targets||[]).map(n=>[byName[n],(fx.speeds||{})[n]??p.speed_rpm]).filter(a=>a[0]); // spinning fan rotors

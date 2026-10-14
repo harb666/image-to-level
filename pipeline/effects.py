@@ -26,8 +26,9 @@ QUALITY = {"performance": 0.4, "balanced": 1.0, "quality": 1.6}  # particle coun
 
 TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
     "liquid_surface": dict(category="surface_shader", godot="ShaderMaterial liquid_surface.gdshader on target meshes (albedo from the GLB texture)",
-                           glb="static base colour + emissive texture", defaults=dict(scroll=[0.03, 0.015], swirl=0.025, pulse_speed=0.25, pulse_amount=0.15, glow_energy=1.0),
-                           quality={"performance": dict(swirl=0.0)}),
+                           glb="static base colour + emissive texture", defaults=dict(scroll=[0.03, 0.015], swirl=0.025, pulse_speed=0.25, pulse_amount=0.15, glow_energy=1.0,
+                                                                                  ripple=1.0, drops=1.0, ripple_color=[0.92, 1.0, 0.7]),
+                           quality={"performance": dict(swirl=0.0, drops=0.0)}),  # Stage 49: procedural ripples ('ripples' points + random drops) - maths only, no textures
     "liquid_flow": dict(category="surface_shader", godot="ShaderMaterial liquid_flow.gdshader (UV scroll along the fall/pipe)",
                         glb="static texture", defaults=dict(speed=1.5, glow_energy=1.2, wobble=0.02)),
     "pulse_light": dict(category="material_animation", godot="script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
@@ -82,6 +83,9 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                          "highlights. render_priority -1 so the tinted glass is drawn over it. No CPU work, one draw call",
                          glb="nothing (tube positions in 'tubes': [x, y_bottom, z, height, radius])",
                          defaults=dict(density=1.6, size=[0.07, 0.34], speed=[0.9, 2.4], wobble=0.14, color=[0.82, 1.0, 0.7], alpha=0.85, nozzles=0.7)),
+    "tube_pods": dict(category="launch", godot="script: for each launch entry, every target node: position = rest + UP * min(fmod(t + phase, period) * speed, travel) "
+                      "(waits hidden, shoots up, vanishes into the roof; own period / phase per entry)", glb="pods at rest (hidden), own nodes (mobile group per column)",
+                      defaults=dict(speed=28.0)),
     "spin": dict(category="transform_animation", godot="script: rotor node.rotate_object_local(Vector3.UP, rpm * TAU / 60 * delta); the rotor's node origin is its centre "
                  "and its local +y its axis (per-target rpm in 'speeds', sign = direction)", glb="rotor mesh at rest, own node", defaults=dict(speed_rpm=20.0)),
     "tube_travel": dict(category="translate_loop", godot="script: node.position = rest + Vector3.UP * fmod(t * speed, spacing) - one shared loop for "
@@ -252,6 +256,8 @@ def resolve(level_dir, L=None):
         if e.get("targets_glob"): tg = sorted(n for n in boxes if globmatch(n, e["targets_glob"]))
         if e.get("targets"): tg = [n for n in e["targets"] if n in boxes]
         if e.get("target_material"): tg = _mat_nodes(scene, e["target_material"]); R["target_material"] = e["target_material"]
+        if e.get("ripples") is not None: R["ripples"] = e["ripples"]
+        if e.get("launches"): R["launches"] = [dict(l, targets=[n for n in l["targets"] if n in boxes]) for l in e["launches"]]
         if e["type"] == "spin" and tg: R["speeds"] = {n: by[n].get("spin", prm["speed_rpm"]) for n in tg if n in by}
         if tg: R["targets"] = tg
         if tg and t["category"] == "surface_shader":  # UV speed needs the material's tile size (UVs are metres / tile_m)
