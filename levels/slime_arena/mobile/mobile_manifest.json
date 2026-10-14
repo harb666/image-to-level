@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 6133,
-    "triangles": 113872,
-    "nodes": 4805,
-    "mesh_nodes": 4625,
-    "unique_meshes": 2245,
+    "glb_kb": 6140,
+    "triangles": 114024,
+    "nodes": 4813,
+    "mesh_nodes": 4633,
+    "unique_meshes": 2250,
     "materials": 31,
     "images": 88,
-    "draw_calls_unbatched": 4625,
+    "draw_calls_unbatched": 4633,
     "draw_calls_batched_min": 31,
     "tex_mem_uncompressed_mb": 91.79,
     "tex_mem_gpu_compressed_mb": 22.95,
@@ -71,16 +71,16 @@
    },
    "visible": {
     "cameras": 280,
-    "visible_draw_calls_mean": 1526.2,
-    "visible_draw_calls_max": 4370,
-    "visible_triangles_mean": 51077,
-    "visible_triangles_max": 118776
+    "visible_draw_calls_mean": 1528.7,
+    "visible_draw_calls_max": 4378,
+    "visible_triangles_mean": 51124,
+    "visible_triangles_max": 118928
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3641,
-    "triangles": 107793,
+    "glb_kb": 3646,
+    "triangles": 107941,
     "nodes": 94,
     "mesh_nodes": 93,
     "unique_meshes": 93,
@@ -130,19 +130,19 @@
     ]
    },
    "collision": {
-    "colliders": 786,
+    "colliders": 785,
     "hazards": 12,
-    "glb_kb": 413
+    "glb_kb": 412
    },
    "visible": {
     "cameras": 280,
     "visible_draw_calls_mean": 59.6,
     "visible_draw_calls_max": 93,
-    "visible_triangles_mean": 102337,
-    "visible_triangles_max": 118184
+    "visible_triangles_mean": 102449,
+    "visible_triangles_max": 118332
    },
    "hidden_faces_removed": 2888,
-   "occluded_faces_removed": 3191,
+   "occluded_faces_removed": 3195,
    "occluded_objects": [
     "Assembly_Line_Light_01",
     "OuterWall_East_03_Banner_01",
@@ -157,8 +157,8 @@
    "effects_max_particles": 1277,
    "slimmed_kb": {
     "level_mobile.glb": [
-     5158,
-     3641
+     5164,
+     3646
     ],
     "background_mobile.glb": [
      474,
@@ -166,7 +166,7 @@
     ],
     "collision.glb": [
      497,
-     413
+     412
     ]
    }
   }
@@ -2594,11 +2594,11 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 5186,
+   "triangles": 5182,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "W_Broken_Mount",
+    "W_Broken_Plate",
     "W_Hanging_Flange",
     "W_Hanging_RoofPlate",
     "W_Run_High_Clamp_09",
@@ -2998,10 +2998,11 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 2202,
+   "triangles": 2214,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "W_Broken_Light",
     "W_Run_High_End1_Light",
     "W_Run_North_End2_Light",
     "W_Run_North_End1_Light",
@@ -3220,7 +3221,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 19398,
+   "triangles": 19438,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3230,8 +3231,9 @@
     "W_Drain_Core_Mouth_Jamb_0__ol",
     "W_Drain_Core_Liquid__ol",
     "W_Drain_Core__ol",
-    "W_Broken_Mount__ol",
     "W_Broken__ol",
+    "W_Broken_Collar__ol",
+    "W_Broken_Plate__ol",
     "W_Hanging_Flange__ol",
     "W_Hanging_RoofPlate__ol",
     "W_Hanging_Feed__ol",
@@ -3743,10 +3745,14 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 1908,
+   "triangles": 1956,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "W_Broken_Bolt_4",
+    "W_Broken_Bolt_3",
+    "W_Broken_Bolt_2",
+    "W_Broken_Bolt_1",
     "W_Run_High_End1_Bolt_4",
     "W_Run_High_End1_Bolt_3",
     "W_Run_High_End1_Bolt_2",
@@ -3885,11 +3891,12 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 204,
+   "triangles": 216,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "W_Drain_Core_Mouth_Stripe",
+    "W_Broken_Stripe",
     "W_Spill_Mouth_Stripe",
     "W_Run_High_End1_Stripe",
     "W_Run_North_End2_Stripe",
@@ -3932,7 +3939,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 7039,
+   "triangles": 7079,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3940,6 +3947,7 @@
     "W_Drain_Core_Mouth_Trim_2",
     "W_Drain_Core_Mouth_Trim_0",
     "W_Drain_Core",
+    "W_Broken_Collar",
     "W_Spill_Mouth_TrimTop",
     "W_Spill_Mouth_Trim_2",
     "W_Spill_Mouth_Trim_0",
