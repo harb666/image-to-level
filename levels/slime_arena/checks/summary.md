@@ -1,15 +1,15 @@
 # slime_arena: generation summary
 
-Spec: levels/slime_arena/scene_spec.json · 3826 objects · 29 materials · 20 effects
+Spec: levels/slime_arena/scene_spec.json · 3878 objects · 29 materials · 20 effects
 Checks: PASSED ({'error': 0, 'warning': 2, 'info': 1}) · refine passes: 0
-Mobile (balanced): 3414 KB · 100649 tris · 92 draw calls · ~58.6 visible (estimate) · ~7.28 MB GPU textures (estimate)
+Mobile (balanced): 3445 KB · 101473 tris · 92 draw calls · ~58.7 visible (estimate) · ~7.28 MB GPU textures (estimate)
 Navigation: 9256.0 m² reachable of 48773.0 m² standable
-Package: dist/slime_arena/package (37 files, 13.59 MB) valid=True
+Package: dist/slime_arena/package (37 files, 13.66 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: mobile draw calls 92 (> 80)
-- warning: 106732 triangles (> budget 40000)
+- warning: 107556 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -54,9 +54,9 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - corrosion: 1865 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 5.0 s
-- build (glb, sky, background, effects, mobile): 114.9 s
-- checks (fast): 88.5 s
+- spec -> level.json: 6.1 s
+- build (glb, sky, background, effects, mobile): 128.2 s
+- checks (fast): 91.6 s
 - previews: 0.7 s
 - export package: 0.6 s
-- total: 209.7 s
+- total: 227.2 s
