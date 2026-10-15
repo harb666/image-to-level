@@ -388,7 +388,13 @@ def conduit(ctx, s, x, y, z, yaw):
         k += 1; ctx.add(f"{n}_Rib_{k:02d}", "arch", [0, 0, zz], [w, h, 0.8], "structure_b", g, opening=(w - 1.6) / w, opening_h=(h - 1.0) / h, **st)
         ctx.add(f"{n}_RibLight_{k:02d}", "box", [0, h - 1.15, zz + 0.42], [w * 0.5, 0.18, 0.06], "glow", g, outline=False, **st)
         zz += step
-    ctx.add(n + "_Spine", "cylinder", [0, h + 0.6, -L / 2], [1.2, L, 1.2], "pipe", g, [90, 0, 0], sections=8, **st)
+    out = s.get("spine_out")  # Stage 58: "to" / "from" - the spine runs on past that end, turns down and sinks into the slime
+    ext = float(s.get("spine_ext", 6.0)) if out else 0.0; z0 = -L / 2 - (ext if out == "from" else 0.0)
+    ctx.add(n + "_Spine", "cylinder", [0, h + 0.6, z0], [1.2, L + ext, 1.2], "pipe", g, [90, 0, 0], sections=8, **st)
+    if out:
+        ze = (L / 2 + ext) if out == "to" else (-L / 2 - ext); yb = float(s.get("spine_drop_y", 0.2)) - y  # bottom below the liquid surface: it vanishes into it
+        ctx.add(n + "_SpineJoint", "box", [0, h + 0.6 - 0.84, ze], [1.68, 1.68, 1.68], "frame", g, **st)  # corner block (like pipe-run junctions)
+        ctx.add(n + "_SpineDrop", "cylinder", [0, yb, ze], [1.2, h + 0.6 - yb, 1.2], "pipe", g, sections=8, **st)  # top ends inside the block; corroded at the slime line
     side = float(s.get("channel_side", 0))
     if side: ctx.add(n + "_Channel", "box", [side * (w / 2 + 1.2), -0.6, 0], [2.0, 0.3, L], s.get("material", "hazard"), g, **st)
 

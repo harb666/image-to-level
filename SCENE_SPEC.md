@@ -800,3 +800,9 @@ Building blocks usable without the preset:
   strips twist when chained and came within 5 mm of the post).
 - The corrosion band is double-sided from the start (the validated build's camera check saw its back past the catwalk
   legs and had to repair it).
+
+## Stage 58: conduit spine sinks into the slime
+- `conduit` `"spine_out": "to" | "from"` (+ `spine_ext`, default 6 m; `spine_drop_y`, default 0.2): the spine pipe over
+  the tunnel ribs runs on past that end, out over the slime, meets a corner block and drops straight down into the
+  liquid (its bottom under the surface - it vanishes; the corrosion band marks the slime line). The slime arena's
+  `Conduit` uses "to" (the north end; the south end has the ramp).

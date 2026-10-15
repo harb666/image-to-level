@@ -222,3 +222,17 @@ class Stage57(unittest.TestCase):
         self.assertTrue(caps and all(o["material"] == "glow_yellow" for o in caps))
         E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "effects.json")))
         fl = [e for e in E["effects"] if e["id"] == "Fan_Lights"][0]; self.assertGreaterEqual(len(fl.get("emitters") or fl.get("positions") or []), 8)
+
+
+class Stage58(unittest.TestCase):
+    def test_conduit_spine_drops_into_the_slime(self):
+        import sys
+        sys.path.insert(0, os.path.join(ROOT, "pipeline"))
+        from architecture import _aabb_all
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json")))
+        class C: objects = L["objects"]
+        B = _aabb_all(C)
+        drop, walk = B["Conduit_SpineDrop"], B["Conduit_Walk_Floor"] if "Conduit_Walk_Floor" in B else None
+        self.assertLess(drop[0][1], 1.0)  # its bottom is under the liquid surface (y 1): it vanishes into it
+        self.assertIn("Conduit_SpineJoint", B)
+        if walk: self.assertTrue(drop[0][2] > walk[1][2] or drop[1][2] < walk[0][2])  # outside the walkway's footprint
