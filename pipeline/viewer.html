@@ -95,6 +95,15 @@ if(STY&&STY.toon)for(const g of [gltf,bg]){if(!g)continue;g.scene.traverse(o=>{i
 const ranged=[];gltf.scene.traverse(o=>{const u=o.userData||{};if(o.isMesh&&(u.visibility_range_end>0||u.visibility_range_begin>0)){
   const c=new THREE.Box3().setFromObject(o).getCenter(new THREE.Vector3());ranged.push([o,c,u.visibility_range_begin||0,u.visibility_range_end||0]);}});
 function applyRanges(p){for(const [o,c,b,e] of ranged){const d=p.distanceTo(c);o.visible=d>=b&&(!(e>0)||d<=e);}}
+// Stage 66: robot-arm motion programs - same maths as pipeline/arm_motion.py and apply_effects.gd (_arm_joints)
+const armSmoother=x=>{x=Math.min(1,Math.max(0,x));return x*x*x*(x*(6*x-15)+10);};
+const armKeyed=(keys,tau,v0)=>{let val=v0;for(const [a,b,f,t] of keys){if(tau>=b)val=t;else if(tau>=a)return f+(t-f)*armSmoother((tau-a)/(b-a));}return val;};
+const armTarget=(R,q,tau,v)=>{if(q.k==='bin')return [R.bin[0],R.bin[1]+q.h,R.bin[2]];const e=q.k==='track'?v*tau:q.e;return [R.tip[0]+R.axis[0]*e,R.tip[1]+q.h,R.tip[2]+R.axis[2]*e];};
+const armIK=(R,p)=>{const l1=R.l1,l2=R.l2,dx=p[0]-R.base[0],dz=p[2]-R.base[1],r=Math.hypot(dx,dz),dy=p[1]+R.claw-R.py,
+  D=Math.max(Math.abs(l1-l2)+1e-3,Math.min(Math.hypot(r,dy),l1+l2-1e-3)),b1=Math.atan2(r,dy)-Math.acos(Math.max(-1,Math.min(1,(l1*l1+D*D-l2*l2)/(2*l1*D)))),
+  b2=Math.atan2(r-l1*Math.sin(b1),dy-l1*Math.cos(b1)),T=2*Math.PI,yw=(((Math.atan2(dx,dz)-R.yaw0+Math.PI)%T)+T)%T-Math.PI;return [yw,b1-R.a1,(b2-b1)-(R.a2-R.a1)];};
+const armJoints=(R,G,tau,v,P)=>{for(const [a,b0,mode,A,B] of G.segs){const b=b0<=a?b0+P:b0;if(tau>=a&&tau<b){const w=armSmoother((tau-a)/(b-a)),pa=armTarget(R,A,tau,v),pb=armTarget(R,B,tau,v);
+  if(mode==='lin')return armIK(R,pa.map((c,i)=>c+(pb[i]-c)*w));const ja=armIK(R,pa),jb=armIK(R,pb);return ja.map((c,i)=>c+(jb[i]-c)*w);}}return [0,0,0];};
 const isInk=o=>/__ol$/.test(o.name||'')||(o.material&&o.material.name==='ink'); // cartoon outline shells: never solid / pickable
 const solids=[];gltf.scene.traverse(o=>{if(o.isMesh&&o.visible&&!isInk(o)&&!/^(TRM_|SCN_|TW_)/.test(o.name)&&!/_L[12](_far)?$/.test(o.name))solids.push(o)}); // background, middle zone, grass never collide
 const camSolids=solids.filter(o=>o.material.visible!==false); // camera ignores invisible colliders
@@ -292,18 +301,17 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
             if(s.bin_yaw_deg!=null){const ty=s.turn,wb=s.bin_window,a=W/2,b=a+ty,c=b+wb,pb=s.bin_yaw_deg*Math.PI/180; // turn to the bin, reach in, turn back
               if(tau>=a&&tau<b)psi=pb*sm((tau-a)/ty);else if(tau>=b&&tau<c){psi=pb;kb=0.5-0.5*Math.cos(6.2832*(tau-b)/wb);ang+=s.bin_angle_deg*Math.PI/180*kb;}
               else if(tau>=c&&tau<c+ty)psi=pb*(1-sm((tau-c)/ty));tp=b+wb/2;picked=tau>=tp;}
-            if(x.bones){const R=s.rig,sd=R.seed,calm=(1-k)*(1-kb),ins=s.task==='inspect',D=Math.PI/180,S2=(a,per,ph)=>a*D*Math.sin(6.2832*(t/per+ph)),A={}; // Stage 65: every joint alive - same maths as apply_effects.gd
-              A.yaw=psi+calm*S2(ins?8:5,6.1,sd);A.shoulder=R.dip[0]*k+R.bin[0]*kb+calm*S2(2.5,4.7,sd*1.7);A.elbow=R.dip[1]*k+R.bin[1]*kb+calm*S2(4,3.9,sd*2.9);
-              A.wrist=-(A.shoulder+A.elbow)+calm*S2(3,2.9,sd*3.3);const cyc=Math.floor((t-s.t0+W/2)/P);
-              A.twist=ins?0.5*Math.sin(6.2832*2*u/W)*k+calm*S2(10,5.3,sd*4.1):6.2832/3*(cyc+sm(u<W?u/W:1));
-              const cl=v=>Math.min(1,Math.max(0,v)),op=sm(cl(tau/0.35))*(1-sm(cl((tau-tp)/0.35)));
-              for(let i=0;i<3;i++)A['finger'+(i+1)]=ins?5*D+S2(7,2.3,sd+i/3):16*D*op-5*D*(1-op)+calm*S2(2,1.7,sd+i/3);
-              for(const r in A)if(x.bones[r])x.bones[r].quaternion.setFromAxisAngle(x.axes[r],A[r]);}
+            let held=picked,scanning=Math.abs(u-W/2)<W*0.35,f=Math.min(1,Math.max(0,(u-0.15*W)/(0.7*W))),re=0;
+            if(x.bones){const R=s.rig,G=R.program,v=Ln.speed,s0=G.start,xx=t-s.t0-s0,n=Math.floor(xx/P),tq=xx-n*P+s0,J=armJoints(R,G,tq,v,P),D=Math.PI/180; // Stage 66: motion program - servo moves through the joints only (pipeline/arm_motion.py)
+              const A={yaw:J[0],shoulder:J[1],elbow:J[2],wrist:-(J[1]+J[2]),twist:D*(G.twist_cycle*n+armKeyed(G.twist,tq,0))},fa=D*armKeyed(G.fingers,tq,G.fingers_start);
+              for(let i=0;i<3;i++)A['finger'+(i+1)]=fa;
+              for(const r in A)if(x.bones[r])x.bones[r].quaternion.setFromAxisAngle(x.axes[r],A[r]);
+              const hh=G.held_hidden,sc=G.scan;held=!(hh&&tq>=hh[0]&&tq<hh[1]);scanning=!!(sc&&tq>=sc[0]&&tq<sc[1]);
+              if(sc){re=v*tq;f=Math.min(1,Math.max(0,(tq-sc[0])/(sc[1]-sc[0])));}}
             else{qy.setFromAxisAngle(UPV,psi);q.setFromAxisAngle(x.hg,ang);q.premultiply(qy);tmp.copy(x.pv).applyQuaternion(q);
               for(const o of [...x.arm,...x.held,...x.scan]){o.quaternion.copy(q);o.position.copy(x.pv).sub(tmp);}}
-            const scanning=Math.abs(u-W/2)<W*0.35,f=Math.min(1,Math.max(0,(u-0.15*W)/(0.7*W)));
-            x.held.forEach(o=>o.visible=picked);x.scan.forEach(o=>o.visible=scanning);
-            x.ring.forEach(o=>{o.visible=scanning;o.position.set(0,(s.ring_travel||0.6)*(0.5-0.5*Math.cos(6.2832*(s.sweeps||2)*f)),0);});}}});}
+            x.held.forEach(o=>o.visible=held);x.scan.forEach(o=>o.visible=scanning);
+            x.ring.forEach(o=>{o.visible=scanning;o.position.copy(ax).multiplyScalar(re);o.position.y=(s.ring_travel||0.6)*(0.5-0.5*Math.cos(6.2832*(s.sweeps||2)*f));});}}});}
     else if(fx.category==='launch'){const L=(fx.launches||[]).flatMap(l=>(l.targets||[]).map(n=>[byName[n],l]).filter(a=>a[0])),y0=L.map(a=>a[0].position.y); // Stage 49: pods shooting up the columns
       fxUpd.push({reset(){L.forEach((a,i)=>a[0].position.y=y0[i]);},u(t){L.forEach((a,i)=>{const l=a[1];a[0].position.y=y0[i]+Math.min(((t+l.phase)%l.period)*p.speed,l.travel);});}});}
     else if(fx.category==='translate_loop'){const tg=(fx.targets||[]).map(n=>byName[n]).filter(Boolean),y0=tg.map(o=>o.position.y); // Stage 43: barrels up the column bores

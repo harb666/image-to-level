@@ -271,14 +271,19 @@ def _effects(spec, ctx, plats, env, glow):
                     dropb = (tip[1] + 0.01) - (arm["bin_top"] - 0.35)
                     ex = dict(bin_yaw_deg=arm["bin_yaw"], bin_angle_deg=round(_m.degrees(_m.atan2(dy, r) - _m.asin(max(-1.0, min(1.0, (dy - dropb) / R)))), 3), turn=1.3, bin_window=1.6)
                 if arm.get("ring"): ex = dict(ring=arm["ring"], ring_travel=arm["ring_travel"], sweeps=2)
-                if arm.get("rig"):  # Stage 65: every joint moves - joint-angle offsets (rad) that lower the claw straight down by d, claw kept hanging
-                    rg = arm["rig"]
-                    def _ik(d, rg=rg):
-                        l1, l2 = rg["l1"], rg["l2"]; dz, dy = rg["wrist"][2], rg["wrist"][1] - d; D = max(abs(l1 - l2) + 1e-3, min(_m.hypot(dz, dy), l1 + l2 - 1e-3))
-                        b1 = _m.atan2(dz, dy) - _m.acos(max(-1.0, min(1.0, (l1 * l1 + D * D - l2 * l2) / (2 * l1 * D))))
-                        b2 = _m.atan2(dz - l1 * _m.sin(b1), dy - l1 * _m.cos(b1)); return [round(b1 - rg["a1"], 5), round((b2 - b1) - (rg["a2"] - rg["a1"]), 5)]
-                    ex["rig"] = dict(bones={j["name"].rsplit("_J", 1)[1].lower(): j["name"] for j in rg["joints"]}, axes={j["name"].rsplit("_J", 1)[1].lower(): j["axis"] for j in rg["joints"]},
-                                     dip=_ik(drop), bin=_ik(dropb) if arm.get("bin_yaw") is not None else [0.0, 0.0], seed=rg["seed"])
+                if arm.get("rig"):  # Stage 65/66: a skinned arm run by a motion program (pipeline/arm_motion.py): servo moves through its joints only
+                    import arm_motion
+                    rg = arm["rig"]; bh = None; bn = None
+                    if arm.get("bin_yaw") is not None:  # bin centre: the rest tip turned bin_yaw about the base (as built)
+                        ps = _m.radians(arm["bin_yaw"]); rx, rz = tip[0] - pv[0], tip[2] - pv[2]
+                        bn = [round(pv[0] + rx * _m.cos(ps) + rz * _m.sin(ps), 4), tip[1], round(pv[2] - rx * _m.sin(ps) + rz * _m.cos(ps), 4)]
+                        bh = round((arm["bin_top"] - 0.36) - tip[1], 4)
+                    pr = arm_motion.program(arm["task"], v, round(drop, 4), bh)
+                    need = max(max(sg[0], sg[1]) for sg in pr["segs"]) - pr["start"]
+                    if P < need + 0.3: ctx.notes.append(f"{ln_}: {stn['arm']} motion program needs {need + 0.3:.2f} s, parcels come every {P:.2f} s - slow the belt or space parcels out")
+                    ex["rig"] = dict(bones={j_["name"].rsplit("_J", 1)[1].lower(): j_["name"] for j_ in rg["joints"]}, axes={j_["name"].rsplit("_J", 1)[1].lower(): j_["axis"] for j_ in rg["joints"]},
+                                     base=[pv[0], pv[2]], py=pv[1], yaw0=rg["yaw0"], l1=rg["l1"], l2=rg["l2"], a1=rg["a1"], a2=rg["a2"],
+                                     claw=round(pv[1] + rg["wrist"][1] - tip[1], 4), tip=tip, axis=[u[0], 0.0, u[2]], **({"bin": bn} if bn else {}), program=pr)
                 st_.append(dict(task=arm["task"], arm=stn["arm"], groups=arm["groups"], held=arm["held"], scan=arm["scan"], pivot=pv, hinge=arm["hinge"], **ex,
                                 angle_deg=round(ang, 3), t0=t0, period=round(P, 4), window=round(min(1.8 if arm["task"] == "add" else 2.6, 0.7 * P), 3),
                                 reveal=dict(group=stn["group"], s0=A_["s0"], spacing=S, s_arm=round(sk, 4), id_step=10.0)))

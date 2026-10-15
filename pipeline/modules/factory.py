@@ -448,7 +448,7 @@ def robot_arm(ctx, s, x, y, z, yaw):
             if sfx.startswith("Hose_"): o["mobile"]["joint"] = [J("Shoulder"), J("Wrist")]; o["mobile"]["blend"] = list(hose[int(sfx.split("_")[1])])
             else: o["mobile"]["joint"] = J(next(j for p_, j in part if sfx.startswith(p_)))
         ctx.skeletons = getattr(ctx, "skeletons", {}); ctx.skeletons[n] = dict(groups=grp, joints=joints)
-        rig = dict(joints=joints, l1=round(l1, 4), l2=round(l2, 4), a1=round(a1, 6), a2=round(a2, 6), wrist=[0.0, round(wy - py, 4), round(wz, 4)], seed=round(_r.Random(n + "rig").random(), 4))
+        rig = dict(joints=joints, l1=round(l1, 4), l2=round(l2, 4), a1=round(a1, 6), a2=round(a2, 6), wrist=[0.0, round(wy - py, 4), round(wz, 4)], yaw0=round(math.radians(yaw), 6), seed=round(_r.Random(n + "rig").random(), 4))
         ctx.assembly_arms[n] = dict(task=task, rig=rig, pivot=[round(x, 3), round(y + py, 3), round(z, 3)], hinge=[round(v_, 5) for v_ in (math.cos(math.radians(yaw)), 0.0, -math.sin(math.radians(yaw)))],
                                     tip=[round(v_, 3) for v_ in tipw], groups=[n + "_Upper"], held=[n + "_Held"] if task == "add" else [],
                                     scan=[n + "_Scan"] if task == "inspect" else [], **extra)

@@ -340,7 +340,7 @@ class Stage64(unittest.TestCase):
 class Stage65(unittest.TestCase):
     def test_arms_skinned_and_dip_pose_lowers_claw_straight_down(self):
         """Every joint of the working arms moves: each arm is skinned to an 8-bone skeleton (same draw calls), and the dip
-        pose the effect drives (shoulder / elbow IK offsets, wrist = -(shoulder + elbow)) lowers the claw straight down."""
+        pose the effect drives (IK through the exported skeleton, wrist = -(shoulder + elbow)) puts the canister on the moving parcel."""
         import numpy as np, trimesh, sys
         sys.path.insert(0, os.path.join(ROOT, "pipeline")); import glb_tools
         lv = os.path.join(ROOT, "levels", "slime_arena"); L = json.load(open(os.path.join(lv, "level.json")))
@@ -359,7 +359,8 @@ class Stage65(unittest.TestCase):
             return np.eye(3) + np.sin(a) * K + (1 - np.cos(a)) * K @ K
         s = trimesh.load(os.path.join(lv, "mobile", "level_mobile.glb"), force="scene", process=False)
         for arm in ("Arm_1", "Arm_2"):
-            r = st[arm]["rig"]; ang = dict(shoulder=r["dip"][0], elbow=r["dip"][1]); ang["wrist"] = -(ang["shoulder"] + ang["elbow"])
+            import arm_motion; r = st[arm]["rig"]; v = next(e["line"]["speed"] for e in E["effects"] if e["type"] == "assembly_line" and st[arm] in e["line"]["stations"])
+            ang, _ = arm_motion.pose(r, r["program"], v, st[arm]["period"], st[arm]["t0"] - 0.3, st[arm]["t0"])  # setting the canister in (Stage 66)
             Wm = {}
             for j in SK[arm]["joints"]:  # forward kinematics: joint world = parent world * offset * own rotation
                 role = j["name"].rsplit("_J", 1)[1].lower(); R = rot(r["axes"][role], ang.get(role, 0.0))
@@ -369,4 +370,48 @@ class Stage65(unittest.TestCase):
             Rw, pw, p0 = Wm[arm + "_JTwist"]
             self.assertLess(np.linalg.norm(Rw @ [0, 1, 0] - [0, 1, 0]), 1e-6, arm)  # the claw keeps hanging
             V = s.geometry[s.graph[arm + "_Held__fall"][1]].vertices; d = (pw + (V - p0) @ Rw.T).mean(0) - V.mean(0)
-            self.assertLess(np.hypot(d[0], d[2]), 0.02, arm); self.assertLess(d[1], -0.3, arm)  # straight down onto the parcel
+            want = np.multiply(r["axis"], -0.3 * v); h = next(g_ for g_ in r["program"]["segs"] if g_[0] <= -0.3 < g_[1])[3]["h"]
+            self.assertLess(np.hypot(d[0] - want[0], d[2] - want[2]), 0.01, arm); self.assertLess(abs(d[1] - h), 0.01, arm)  # on the moving parcel
+
+
+class Stage66(unittest.TestCase):
+    """Real-machine arm motion: a program of jerk-limited servo moves through the joints only (no sway), the claw rides
+    along with the parcel while it places / scans, and the preview runs the same maths as pipeline/arm_motion.py."""
+    def _stations(self):
+        lv = os.path.join(ROOT, "levels", "slime_arena")
+        E = json.load(open(os.path.join(lv, "mobile", "effects_mobile.json")))
+        return [(e["line"], s) for e in E["effects"] if e["type"] == "assembly_line" for s in e["line"]["stations"]]
+
+    def test_tracking_smooth_and_still(self):
+        import math, sys
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); import arm_motion as M
+        for ln, s in self._stations():
+            R, G, v, P = s["rig"], s["rig"]["program"], ln["speed"], s["period"]
+            dt = 1 / 240.0; prev = prev2 = None; still = []
+            for i in range(int(P / dt)):
+                t = s["t0"] + G["start"] + i * dt; a, fl = M.pose(R, G, v, P, t, s["t0"]); q = [a[k] for k in ("yaw", "shoulder", "elbow", "wrist")]
+                if prev is not None:
+                    d = [x - y for x, y in zip(q, prev)]; self.assertLess(max(map(abs, d)), 0.03, (s["arm"], fl["tau"]))  # no jumps
+                    if prev2 is not None: self.assertLess(max(abs(x - 2 * y + z) for x, y, z in zip(q, prev, prev2)), 1.5e-3, (s["arm"], fl["tau"]))  # no velocity jumps
+                    if fl["tau"] > G["segs"][-1][0] + 0.01: still.append(max(map(abs, d)))
+                prev2, prev = prev, q
+            self.assertLess(max(still), 1e-9, s["arm"])  # waiting = standing still (no idle sway)
+            if s["task"] == "add":  # while it sets the canister in, the claw tip is exactly over the moving parcel
+                for tau in (-0.6, -0.3, 0.0):
+                    a, _ = M.pose(R, G, v, P, s["t0"] + tau, s["t0"]); seg = next(g for g in G["segs"] if g[0] <= tau < g[1])
+                    want = [R["tip"][0] + R["axis"][0] * v * tau, R["tip"][1] + seg[3]["h"], R["tip"][2] + R["axis"][2] * v * tau]
+                    got = M.ik(R, want); self.assertLess(max(abs(a[k] - g_) for k, g_ in zip(("yaw", "shoulder", "elbow"), got)), 1e-9)
+
+    def test_preview_matches_reference(self):
+        import shutil, subprocess, sys
+        if not shutil.which("node"): self.skipTest("node not installed")
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); import arm_motion as M
+        html = open(os.path.join(ROOT, "pipeline", "viewer.html")).read()
+        js = "\n".join(l for l in html.split("\n") if l.startswith(("const armSmoother", "const armKeyed", "const armTarget", "const armIK", "  D=Math.max", "  b2=Math.atan2", "const armJoints", "  if(mode==='lin')")))
+        ln, s = self._stations()[0]; R, G = s["rig"], s["rig"]["program"]; P = s["period"]
+        taus = [G["start"] + k * P / 50 for k in range(50)]
+        out = subprocess.run(["node", "-e", js + f"\nconst R={json.dumps(R)};console.log(JSON.stringify({json.dumps(taus)}.map(t=>armJoints(R,R.program,t,{ln['speed']},{P}))));"],
+                             capture_output=True, text=True, check=True).stdout
+        for tau, j in zip(taus, json.loads(out)):
+            a, _ = M.pose(R, G, ln["speed"], P, s["t0"] + tau, s["t0"])
+            self.assertLess(max(abs(x - y) for x, y in zip(j, (a["yaw"], a["shoulder"], a["elbow"]))), 1e-9, tau)

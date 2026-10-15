@@ -889,3 +889,18 @@ Building blocks usable without the preset:
   in, open the fingers to let go and close them on the next canister; scanners twist the head to and fro over the
   parcel and flex their fingers; every arm sways a little at turret, shoulder, elbow and wrist between jobs (damped to
   nothing while placing / picking). Measured in the test: at the dip the held canister moves < 2 cm sideways.
+
+## Stage 66: the arms move like real machines
+- No more idle sway or cosine "bobbing": each arm runs a motion program (`pipeline/arm_motion.py`, one cycle per
+  parcel) of servo moves with a smootherstep profile (zero speed and acceleration at both ends of every move:
+  jerk-limited, nothing bounces), holds that stand dead still, and every joint angle solved by inverse kinematics
+  (turret yaw faces the wrist, two-link shoulder / elbow, wrist levels the claw).
+- Adders: wait upstream over the belt -> accelerate to belt speed over the incoming parcel (conveyor tracking) ->
+  straight down onto it -> set the canister in with a third of a turn of the claw, fingers open -> straight up ->
+  brake -> coordinated swing to the bin -> straight down in, fingers close on the next canister -> straight up ->
+  swing back upstream and wait. Scanners: ride along with the parcel, the head sweeping 35 deg each way while the
+  beam and the laser frame (riding with the parcel too) scan it, then return upstream.
+- Belts run at 0.8 m/s so a full adder cycle (7.75 s) fits between parcels; a note warns if a program does not fit.
+- The same maths in Python (reference + tests), apply_effects.gd and viewer.html. Measured in tests: the preview's
+  joint angles equal the reference to 1e-9; through the exported skeleton the canister sits within 1 cm of the
+  moving parcel while it is set in; no joint jumps or velocity jumps at 240 Hz sampling; waiting = no motion at all.
