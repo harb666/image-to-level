@@ -1,16 +1,16 @@
 # slime_arena: generation summary
 
-Spec: levels/slime_arena/scene_spec.json · 4146 objects · 31 materials · 23 effects
+Spec: levels/slime_arena/scene_spec.json · 4380 objects · 31 materials · 23 effects
 Checks: PASSED ({'error': 0, 'warning': 3, 'info': 2}) · refine passes: 0
-Mobile (balanced): 3742 KB · 109272 tris · 125 draw calls · ~69.9 visible (estimate) · ~7.52 MB GPU textures (estimate)
+Mobile (balanced): 3899 KB · 114422 tris · 125 draw calls · ~70.0 visible (estimate) · ~7.52 MB GPU textures (estimate)
 Navigation: 9620.0 m² reachable of 49147.0 m² standable
-Package: dist/slime_arena/package (38 files, 14.68 MB) valid=True
+Package: dist/slime_arena/package (38 files, 15.23 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: mobile draw calls 125 (> 80)
 - warning: ~70 visible draw calls (estimate, > 60)
-- warning: 116100 triangles (> budget 40000)
+- warning: 121602 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -47,18 +47,19 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - Exit_Door: open exit door -> level1_part3
 - outlets: removed wall dressing in front of pours: Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine
 - Central: 3 cover crate(s) dropped - no free spot clear of landings
+- Tunnel_West: HazardFluid_2 reaches on to -56.0 through the bore
 - crates: 35 printed crates (accent atlas)
 - fixtures: 31 parts cleared out of fans / vents (wall units removed: OuterWall_West_02_M02Vent, Works_Wall_West_02_M05Fan)
 - ducts: Ceil_Duct_3 trimmed to 1 piece(s) clear of 1 standing part(s); Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 3 standing part(s); Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 11 standing part(s)
 - portals: 3 thin fixtures covered by a doorway portal removed (Gallery_North_Strut_02, Gallery_North_Strut_03, Gallery_North_Strut_04)
-- corrosion: 32 lit bodies get a plain skirt at the liquid line (no lights in the slime)
+- corrosion: 34 lit bodies get a plain skirt at the liquid line (no lights in the slime)
 - corrosion: 48 lights at the liquid line removed, 28 light strips raised clear of it
-- corrosion: 1908 wall faces at the liquid line get a corroded band (one mesh, one material)
+- corrosion: 2182 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 5.1 s
-- build (glb, sky, background, effects, mobile): 134.4 s
-- checks (fast): 92.3 s
-- previews: 0.7 s
-- export package: 0.7 s
-- total: 233.2 s
+- spec -> level.json: 7.8 s
+- build (glb, sky, background, effects, mobile): 116.3 s
+- checks (fast): 100.7 s
+- previews: 0.6 s
+- export package: 0.6 s
+- total: 226.0 s
