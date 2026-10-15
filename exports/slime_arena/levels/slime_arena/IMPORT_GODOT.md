@@ -34,6 +34,7 @@ Use the mobile files for the game, and the dev files for editing and inspection.
 | Factory backdrop (Stage 16) | `mobile/background_mobile.glb` nodes `BG_Factory_*` | Non-playable factory seen through the windows (no collision). Four nodes / four draw calls; leave them visible (the shell closes the space, no sky). |
 | Animated extras | `mobile/effects_mobile.json` | Built by `apply_effects.gd`: liquid falls (`liquid_flow`: direction measured per mesh as `flow_uv` → shader `flow_dir`, no manual flipping), cloud layers / puffs, fly-by ships behind the skyline (MultiMesh; they grow in / shrink away, never pop). |
 | Spawns | `gameplay/spawns.json` | The `PlayerSpawn` node in the GLB is the first spawn. Extra team or respawn points are listed in the JSON (position, yaw_deg, Stage 9 `team` player / enemy, plus the `spawn_regions` they came from). |
+| Laser gates + waves (Stage 59) | `mobile/collision.json` → `gates`, `encounters` | `apply_mobile.gd` puts a StaticBody3D blocker (group `laser_gate`) in each closed gate. Your wave system reads `encounters` (waves, enemies per wave, spawn ids from `gameplay/spawns.json`, `opens`) and, when the last wave is cleared, calls `open_gate(gate_id)` on the apply_mobile node: the gate's beam nodes (`<group>__*`) stutter out, the blocker goes, `gate_opened(gate_id)` is emitted. |
 | Hazards | `gameplay/hazards.json` | Box Area3Ds in world space. Construct Error decides whether they kill, damage or respawn. `apply_mobile.gd` creates them in the group `hazard`. |
 
 ## 3. Gameplay numbers

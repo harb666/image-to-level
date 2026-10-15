@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "e109568ac54a0416",
+  "spec_sha": "26b1526f4e46b40d",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -168,12 +168,6 @@
    "pulse_amount": 0.18,
    "ripples": [
     [
-     10.0,
-     -44.46,
-     1.0,
-     1.03
-    ],
-    [
      -10.0,
      44.46,
      1.0,
@@ -308,6 +302,12 @@
     [
      27.13,
      -27.13,
+     0.3,
+     1.05
+    ],
+    [
+     -27.48,
+     -27.48,
      0.3,
      1.05
     ]
@@ -451,7 +451,6 @@
    "id": "Pour_Flow",
    "type": "liquid_flow",
    "targets_glob": [
-    "Pipe_North_Fall",
     "Pipe_South_Fall",
     "Pipe_East_Fall",
     "Pipe_West_Fall",
@@ -466,7 +465,6 @@
    "id": "Pour_Splash",
    "type": "splash",
    "at_targets_glob": [
-    "Pipe_North_Fall",
     "Pipe_South_Fall",
     "Pipe_East_Fall",
     "Pipe_West_Fall",
@@ -481,7 +479,6 @@
    "id": "Pour_Steam",
    "type": "steam",
    "at_targets_glob": [
-    "Pipe_North_Fall",
     "Pipe_South_Fall",
     "Pipe_East_Fall",
     "Pipe_West_Fall",
@@ -808,6 +805,13 @@
    ],
    "egg_every": 40.0,
    "egg_len": 4.0
+  },
+  {
+   "id": "Laser_Flicker",
+   "type": "flicker",
+   "target_material": "laser",
+   "rate": 14,
+   "amount": 0.35
   },
   {
    "id": "Glow_Pulse",
@@ -1979,6 +1983,22 @@
     0.92,
     0.7
    ]
+  },
+  "laser": {
+   "type": "glow",
+   "color": [
+    1.0,
+    0.12,
+    0.22
+   ],
+   "tile_m": 2.0,
+   "emissive": [
+    1.0,
+    0.18,
+    0.3
+   ],
+   "res": 32,
+   "notes": "Stage 59: laser gate beams"
   },
   "machine": {
    "type": "machinery_panel",
@@ -47704,87 +47724,6 @@
    "source": "visible"
   },
   {
-   "name": "Gallery_North_Strut_02",
-   "type": "box",
-   "position": [
-    1.2,
-    -2.8,
-    -8.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Gallery_North",
-   "size": [
-    0.4,
-    2.4,
-    0.4
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Gallery_North",
-   "source": "visible"
-  },
-  {
-   "name": "Gallery_North_Strut_03",
-   "type": "box",
-   "position": [
-    1.2,
-    -2.8,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Gallery_North",
-   "size": [
-    0.4,
-    2.4,
-    0.4
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Gallery_North",
-   "source": "visible"
-  },
-  {
-   "name": "Gallery_North_Strut_04",
-   "type": "box",
-   "position": [
-    1.2,
-    -2.8,
-    8.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Gallery_North",
-   "size": [
-    0.4,
-    2.4,
-    0.4
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Gallery_North",
-   "source": "visible"
-  },
-  {
    "name": "Gallery_North_Strut_05",
    "type": "box",
    "position": [
@@ -48176,7 +48115,7 @@
    "parent": "Gate_Works",
    "size": [
     0.8,
-    9.0,
+    7.0,
     0.6
    ],
    "material": "structure_b",
@@ -48202,7 +48141,7 @@
    "parent": "Gate_Works",
    "size": [
     0.8,
-    9.0,
+    7.0,
     0.6
    ],
    "material": "structure_b",
@@ -48217,7 +48156,7 @@
    "type": "box",
    "position": [
     0.0,
-    8.0,
+    6.0,
     0.0
    ],
    "rotation": [
@@ -48239,12 +48178,12 @@
    "source": "inferred"
   },
   {
-   "name": "Gate_Works_Leaf_1",
-   "type": "box",
+   "name": "Gate_Works_Pillar_L",
+   "type": "prism",
    "position": [
-    -9.9,
     0.0,
-    0.42
+    0.0,
+    -0.5
    ],
    "rotation": [
     0.0,
@@ -48253,40 +48192,38 @@
    ],
    "parent": "Gate_Works",
    "size": [
-    5.92,
-    8.0,
-    0.24
+    3.0,
+    3.0,
+    1.6
    ],
-   "material": "wall",
-   "collision": true,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Gate_Works",
-   "source": "inferred"
-  },
-  {
-   "name": "Gate_Works_Stripe_1",
-   "type": "box",
-   "position": [
-    -9.9,
-    0.6,
-    0.55
+   "material": "structure_b",
+   "poly": [
+    [
+     -6.1,
+     0
+    ],
+    [
+     -9.2,
+     0
+    ],
+    [
+     -9.6,
+     1.0
+    ],
+    [
+     -9.6,
+     7.6
+    ],
+    [
+     -8.1,
+     9.3
+    ],
+    [
+     -6.1,
+     8.2
+    ]
    ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Gate_Works",
-   "size": [
-    5.7,
-    0.8,
-    0.04
-   ],
-   "material": "stripe",
    "collision": false,
-   "outline": false,
    "mobile": {
     "static": true
    },
@@ -48294,12 +48231,12 @@
    "source": "inferred"
   },
   {
-   "name": "Gate_Works_Leaf_2",
-   "type": "box",
+   "name": "Gate_Works_Plate_L",
+   "type": "prism",
    "position": [
-    9.9,
     0.0,
-    0.42
+    0.0,
+    1.05
    ],
    "rotation": [
     0.0,
@@ -48308,40 +48245,38 @@
    ],
    "parent": "Gate_Works",
    "size": [
-    5.92,
-    8.0,
-    0.24
+    3.0,
+    3.0,
+    0.25
    ],
-   "material": "wall",
-   "collision": true,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Gate_Works",
-   "source": "inferred"
-  },
-  {
-   "name": "Gate_Works_Stripe_2",
-   "type": "box",
-   "position": [
-    9.9,
-    0.6,
-    0.55
+   "material": "frame",
+   "poly": [
+    [
+     -6.35,
+     0.35
+    ],
+    [
+     -8.9,
+     0.35
+    ],
+    [
+     -9.25,
+     1.15
+    ],
+    [
+     -9.25,
+     7.35
+    ],
+    [
+     -8.0,
+     8.75
+    ],
+    [
+     -6.35,
+     7.85
+    ]
    ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Gate_Works",
-   "size": [
-    5.7,
-    0.8,
-    0.04
-   ],
-   "material": "stripe",
    "collision": false,
-   "outline": false,
    "mobile": {
     "static": true
    },
@@ -48349,12 +48284,12 @@
    "source": "inferred"
   },
   {
-   "name": "Gate_Works_Warning",
-   "type": "box",
+   "name": "Gate_Works_Panel_L1",
+   "type": "prism",
    "position": [
     0.0,
-    8.2,
-    0.4
+    0.0,
+    1.27
    ],
    "rotation": [
     0.0,
@@ -48363,15 +48298,1295 @@
    ],
    "parent": "Gate_Works",
    "size": [
-    1.4,
-    0.4,
-    0.2
+    3.0,
+    3.0,
+    0.08
+   ],
+   "material": "glow",
+   "poly": [
+    [
+     -6.9,
+     3.6
+    ],
+    [
+     -8.6,
+     4.1
+    ],
+    [
+     -8.6,
+     6.9
+    ],
+    [
+     -6.9,
+     6.3
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Panel_L2",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    1.27
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    0.08
+   ],
+   "material": "glow",
+   "poly": [
+    [
+     -6.9,
+     0.9
+    ],
+    [
+     -8.6,
+     0.9
+    ],
+    [
+     -8.6,
+     3.0
+    ],
+    [
+     -6.9,
+     3.35
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Panel_L3",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    1.27
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    0.08
+   ],
+   "material": "glow",
+   "poly": [
+    [
+     -7.3,
+     7.2
+    ],
+    [
+     -8.5,
+     7.5
+    ],
+    [
+     -8.0,
+     8.4
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Fin_L",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    -0.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    1.0
+   ],
+   "material": "structure_b",
+   "poly": [
+    [
+     -9.6,
+     0.5
+    ],
+    [
+     -10.9,
+     1.3
+    ],
+    [
+     -10.9,
+     5.9
+    ],
+    [
+     -9.6,
+     6.9
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_FinLight_L",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    0.47
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    0.08
+   ],
+   "material": "glow",
+   "poly": [
+    [
+     -9.95,
+     1.9
+    ],
+    [
+     -10.55,
+     2.25
+    ],
+    [
+     -10.55,
+     5.3
+    ],
+    [
+     -9.95,
+     5.75
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_JambLight_L",
+   "type": "box",
+   "position": [
+    -6.08,
+    0.8,
+    0.45
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    0.06,
+    4.4,
+    0.6
    ],
    "material": "glow",
    "collision": false,
    "outline": false,
    "mobile": {
     "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_StripePlate_L",
+   "type": "box",
+   "position": [
+    -12.4,
+    1.0,
+    -0.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.2,
+    1.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_StripeBand_L",
+   "type": "box",
+   "position": [
+    -12.4,
+    1.15,
+    -0.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    2.8,
+    0.8,
+    0.04
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Pillar_R",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    -0.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    1.6
+   ],
+   "material": "structure_b",
+   "poly": [
+    [
+     6.1,
+     0
+    ],
+    [
+     9.2,
+     0
+    ],
+    [
+     9.6,
+     1.0
+    ],
+    [
+     9.6,
+     7.6
+    ],
+    [
+     8.1,
+     9.3
+    ],
+    [
+     6.1,
+     8.2
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Plate_R",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    1.05
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    0.25
+   ],
+   "material": "frame",
+   "poly": [
+    [
+     6.35,
+     0.35
+    ],
+    [
+     8.9,
+     0.35
+    ],
+    [
+     9.25,
+     1.15
+    ],
+    [
+     9.25,
+     7.35
+    ],
+    [
+     8.0,
+     8.75
+    ],
+    [
+     6.35,
+     7.85
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Panel_R1",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    1.27
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    0.08
+   ],
+   "material": "glow",
+   "poly": [
+    [
+     6.9,
+     3.6
+    ],
+    [
+     8.6,
+     4.1
+    ],
+    [
+     8.6,
+     6.9
+    ],
+    [
+     6.9,
+     6.3
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Panel_R2",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    1.27
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    0.08
+   ],
+   "material": "glow",
+   "poly": [
+    [
+     6.9,
+     0.9
+    ],
+    [
+     8.6,
+     0.9
+    ],
+    [
+     8.6,
+     3.0
+    ],
+    [
+     6.9,
+     3.35
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Panel_R3",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    1.27
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    0.08
+   ],
+   "material": "glow",
+   "poly": [
+    [
+     7.3,
+     7.2
+    ],
+    [
+     8.5,
+     7.5
+    ],
+    [
+     8.0,
+     8.4
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Fin_R",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    -0.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    1.0
+   ],
+   "material": "structure_b",
+   "poly": [
+    [
+     9.6,
+     0.5
+    ],
+    [
+     10.9,
+     1.3
+    ],
+    [
+     10.9,
+     5.9
+    ],
+    [
+     9.6,
+     6.9
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_FinLight_R",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    0.47
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    0.08
+   ],
+   "material": "glow",
+   "poly": [
+    [
+     9.95,
+     1.9
+    ],
+    [
+     10.55,
+     2.25
+    ],
+    [
+     10.55,
+     5.3
+    ],
+    [
+     9.95,
+     5.75
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_JambLight_R",
+   "type": "box",
+   "position": [
+    6.08,
+    0.8,
+    0.45
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    0.06,
+    4.4,
+    0.6
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_StripePlate_R",
+   "type": "box",
+   "position": [
+    12.4,
+    1.0,
+    -0.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.2,
+    1.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_StripeBand_R",
+   "type": "box",
+   "position": [
+    12.4,
+    1.15,
+    -0.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    2.8,
+    0.8,
+    0.04
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Header",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    -0.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    1.3
+   ],
+   "material": "structure_b",
+   "poly": [
+    [
+     -6.1,
+     5.96
+    ],
+    [
+     6.1,
+     5.96
+    ],
+    [
+     7.0,
+     6.9
+    ],
+    [
+     7.0,
+     8.6
+    ],
+    [
+     6.2,
+     9.35
+    ],
+    [
+     -6.2,
+     9.35
+    ],
+    [
+     -7.0,
+     8.6
+    ],
+    [
+     -7.0,
+     6.9
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Recess_L",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    0.77
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    0.1
+   ],
+   "material": "frame",
+   "poly": [
+    [
+     -2.9,
+     6.6
+    ],
+    [
+     -5.5,
+     6.6
+    ],
+    [
+     -5.5,
+     8.7
+    ],
+    [
+     -2.9,
+     8.7
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Recess_R",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    0.77
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    0.1
+   ],
+   "material": "frame",
+   "poly": [
+    [
+     2.9,
+     6.6
+    ],
+    [
+     5.5,
+     6.6
+    ],
+    [
+     5.5,
+     8.7
+    ],
+    [
+     2.9,
+     8.7
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_TrapFrame",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    0.77
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    0.14
+   ],
+   "material": "frame",
+   "poly": [
+    [
+     -1.8,
+     6.35
+    ],
+    [
+     1.8,
+     6.35
+    ],
+    [
+     2.5,
+     8.95
+    ],
+    [
+     -2.5,
+     8.95
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_TrapLight",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    0.88
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    3.0,
+    3.0,
+    0.07
+   ],
+   "material": "glow",
+   "poly": [
+    [
+     -1.25,
+     6.8
+    ],
+    [
+     1.25,
+     6.8
+    ],
+    [
+     1.85,
+     8.6
+    ],
+    [
+     -1.85,
+     8.6
+    ]
+   ],
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_LampStem",
+   "type": "box",
+   "position": [
+    0.0,
+    5.25,
+    0.45
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    0.3,
+    0.76,
+    0.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_LampHousing",
+   "type": "box",
+   "position": [
+    0.0,
+    4.8,
+    0.45
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    1.6,
+    0.5,
+    0.7
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_LampLight",
+   "type": "box",
+   "position": [
+    0.0,
+    4.92,
+    0.79
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    1.1,
+    0.26,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Laser_Beam_1",
+   "type": "cylinder",
+   "position": [
+    -6.05,
+    0.45,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    0.09,
+    12.1,
+    0.09
+   ],
+   "material": "laser",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Gate_Works_Laser"
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Laser_Beam_2",
+   "type": "cylinder",
+   "position": [
+    -6.05,
+    1.308,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    0.09,
+    12.1,
+    0.09
+   ],
+   "material": "laser",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Gate_Works_Laser"
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Laser_Beam_3",
+   "type": "cylinder",
+   "position": [
+    -6.05,
+    2.167,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    0.09,
+    12.1,
+    0.09
+   ],
+   "material": "laser",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Gate_Works_Laser"
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Laser_Beam_4",
+   "type": "cylinder",
+   "position": [
+    -6.05,
+    3.025,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    0.09,
+    12.1,
+    0.09
+   ],
+   "material": "laser",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Gate_Works_Laser"
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Laser_Beam_5",
+   "type": "cylinder",
+   "position": [
+    -6.05,
+    3.883,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    0.09,
+    12.1,
+    0.09
+   ],
+   "material": "laser",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Gate_Works_Laser"
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Laser_Beam_6",
+   "type": "cylinder",
+   "position": [
+    -6.05,
+    4.742,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    0.09,
+    12.1,
+    0.09
+   ],
+   "material": "laser",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Gate_Works_Laser"
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Laser_Beam_7",
+   "type": "cylinder",
+   "position": [
+    -6.05,
+    5.6,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    0.09,
+    12.1,
+    0.09
+   ],
+   "material": "laser",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Gate_Works_Laser"
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Laser_Emitter_L",
+   "type": "box",
+   "position": [
+    -5.99,
+    0.25,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    0.08,
+    5.6,
+    0.22
+   ],
+   "material": "laser",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Gate_Works_Laser"
+   },
+   "gen": "Gate_Works",
+   "source": "inferred"
+  },
+  {
+   "name": "Gate_Works_Laser_Emitter_R",
+   "type": "box",
+   "position": [
+    5.99,
+    0.25,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gate_Works",
+   "size": [
+    0.08,
+    5.6,
+    0.22
+   ],
+   "material": "laser",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Gate_Works_Laser"
    },
    "gen": "Gate_Works",
    "source": "inferred"
@@ -66314,293 +67529,6 @@
     "group": "Column_Works_NW_Pod"
    },
    "gen": "Column_Works_NW",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_North_Plate",
-   "type": "box",
-   "position": [
-    10.0,
-    8.7,
-    -55.86
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    3.6,
-    3.6,
-    0.32
-   ],
-   "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pipe_North",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_North_Collar",
-   "type": "cylinder",
-   "position": [
-    10.0,
-    10.5,
-    -55.72
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    3.168,
-    0.42,
-    3.168
-   ],
-   "material": "structure_b",
-   "sections": 10,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pipe_North",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_North_Bolt_1",
-   "type": "box",
-   "position": [
-    8.5,
-    8.89,
-    -55.73
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.22,
-    0.22,
-    0.14
-   ],
-   "material": "machine",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pipe_North",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_North_Bolt_2",
-   "type": "box",
-   "position": [
-    11.5,
-    8.89,
-    -55.73
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.22,
-    0.22,
-    0.14
-   ],
-   "material": "machine",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pipe_North",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_North_Bolt_3",
-   "type": "box",
-   "position": [
-    8.5,
-    11.89,
-    -55.73
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.22,
-    0.22,
-    0.14
-   ],
-   "material": "machine",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pipe_North",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_North_Bolt_4",
-   "type": "box",
-   "position": [
-    11.5,
-    11.89,
-    -55.73
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.22,
-    0.22,
-    0.14
-   ],
-   "material": "machine",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pipe_North",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_North_Stripe",
-   "type": "box",
-   "position": [
-    10.0,
-    11.88,
-    -55.71
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    2.6,
-    0.24,
-    0.06
-   ],
-   "material": "stripe",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pipe_North",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_North_Light",
-   "type": "box",
-   "position": [
-    11.5,
-    9.0,
-    -55.71
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.26,
-    0.16,
-    0.06
-   ],
-   "material": "glow",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pipe_North",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_North",
-   "type": "cylinder",
-   "position": [
-    10.0,
-    10.5,
-    -56.4
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    2.4,
-    9.4,
-    2.4
-   ],
-   "material": "pipe",
-   "sections": 10,
-   "gen": "Pipe_North",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_North_Flange",
-   "type": "cylinder",
-   "position": [
-    10.0,
-    10.5,
-    -47.47
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    3.0,
-    0.45,
-    3.0
-   ],
-   "material": "frame",
-   "sections": 10,
-   "gen": "Pipe_North",
-   "source": "visible"
-  },
-  {
-   "name": "Pipe_North_Fall",
-   "type": "stream",
-   "position": [
-    10.0,
-    10.5,
-    -47.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    2.064,
-    9.8,
-    2.064
-   ],
-   "material": "hazard",
-   "section": "circle",
-   "speed": 1.8,
-   "pitch": 0,
-   "inset": 0.25,
-   "gen": "Pipe_North",
    "source": "visible"
   },
   {
@@ -127948,6 +128876,48 @@
    "note": "arrival: move the car node from rest_position + start_offset_y down to rest_position over duration_s with the player standing on it (Godot: apply_mobile.gd play_arrival). Its colliders are exported at the rest position."
   }
  ],
+ "gates": [
+  {
+   "id": "Gate_Works_Laser",
+   "group": "Gate_Works_Laser",
+   "door": "Gate_Works",
+   "center": [
+    0.0,
+    10.0,
+    -55.7
+   ],
+   "size": [
+    12,
+    6.0,
+    0.6
+   ],
+   "yaw_deg": 0,
+   "closed_at_start": true,
+   "opens_on": {
+    "type": "waves_cleared",
+    "encounter": "Hall_Waves"
+   },
+   "note": "Construct Error: a StaticBody3D blocker stands here while closed (apply_mobile.gd); call open_gate(id) when the encounter's last wave is cleared - the beams fade out, the blocker goes, signal gate_opened(id)."
+  }
+ ],
+ "encounters": [
+  {
+   "id": "Hall_Waves",
+   "waves": 3,
+   "enemies_per_wave": [
+    4,
+    6,
+    8
+   ],
+   "spawns": [
+    "enemy_hall_n",
+    "enemy_hall_ne"
+   ],
+   "opens": "Gate_Works_Laser",
+   "trigger": "level_start",
+   "notes": "Stage 59: the player must clear three waves in the slime hall; the last kill opens the laser gate into the Works (Construct Error spawns / counts the enemies)"
+  }
+ ],
  "validation": {
   "ignore_objects": []
  },
@@ -127978,7 +128948,7 @@
   "W_Ramp_Conduit: 0.40 m junction plate where it meets Processing_Deck's angled edge",
   "W_Ramp_Conduit: 0.45 m junction plate where it meets Conduit_Walk's angled edge",
   "Elevator: elevator car r 5.2 m arrives on Central from skyforge_arena, travel 19.8 m",
-  "Gate_Works: open blast door (12 x 8 m)",
+  "Gate_Works: open blast door (12 x 6 m)",
   "Arm_2: pose 50/95 -> 32/71 (clear of the objects around it)",
   "Arm_4: pose 40/60 -> 16/28 (clear of the objects around it)",
   "Valve_A_Vent: left out - it would hang over the edge of Pipe_Junction_A",
@@ -127988,6 +128958,7 @@
   "crates: 35 printed crates (accent atlas)",
   "fixtures: 31 parts cleared out of fans / vents (wall units removed: OuterWall_West_02_M02Vent, Works_Wall_West_02_M05Fan)",
   "ducts: Ceil_Duct_3 trimmed to 1 piece(s) clear of 1 standing part(s); Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 3 standing part(s); Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 11 standing part(s)",
+  "portals: 3 thin fixtures covered by a doorway portal removed (Gallery_North_Strut_02, Gallery_North_Strut_03, Gallery_North_Strut_04)",
   "corrosion: 32 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 48 lights at the liquid line removed, 28 light strips raised clear of it",
   "corrosion: 1876 wall faces at the liquid line get a corroded band (one mesh, one material)"
@@ -128577,17 +129548,6 @@
   },
   {
    "type": "emits_from",
-   "a": "Pipe_North_Fall",
-   "b": "Pipe_North",
-   "b_anchor": "outlet"
-  },
-  {
-   "type": "flows_into",
-   "a": "Pipe_North_Fall",
-   "b": "HazardFluid"
-  },
-  {
-   "type": "emits_from",
    "a": "Pipe_South_Fall",
    "b": "Pipe_South",
    "b_anchor": "outlet"
@@ -128678,16 +129638,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 88610,
-  "objects": 3979,
-  "materials": 27,
-  "glb_kb": 5898,
-  "nodes": 4524,
-  "draw_calls_unbatched": 4342,
-  "draw_calls_batched_min": 29,
-  "images": 82,
-  "tex_mem_gpu_compressed_mb": 22.63,
-  "tex_mem_uncompressed_mb": 90.54,
+  "triangles": 88582,
+  "objects": 3997,
+  "materials": 28,
+  "glb_kb": 5944,
+  "nodes": 4548,
+  "draw_calls_unbatched": 4366,
+  "draw_calls_batched_min": 30,
+  "images": 86,
+  "tex_mem_gpu_compressed_mb": 22.64,
+  "tex_mem_uncompressed_mb": 90.56,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

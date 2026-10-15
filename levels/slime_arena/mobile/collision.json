@@ -19290,12 +19290,12 @@
    "shape": "box",
    "center": [
     -6.4,
-    11.5,
+    10.5,
     -55.7
    ],
    "size": [
     0.8,
-    9.0,
+    7.0,
     0.6
    ],
    "rotation": [
@@ -19311,12 +19311,12 @@
    "shape": "box",
    "center": [
     6.4,
-    11.5,
+    10.5,
     -55.7
    ],
    "size": [
     0.8,
-    9.0,
+    7.0,
     0.6
    ],
    "rotation": [
@@ -19332,55 +19332,13 @@
    "shape": "box",
    "center": [
     0.0,
-    15.5,
+    13.5,
     -55.7
    ],
    "size": [
     12.0,
     1.0,
     0.6
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0,
-    1.0
-   ]
-  },
-  {
-   "name": "Gate_Works_Leaf_1",
-   "source": "Gate_Works_Leaf_1",
-   "shape": "box",
-   "center": [
-    -9.9,
-    11.0,
-    -55.28
-   ],
-   "size": [
-    5.92,
-    8.0,
-    0.24
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0,
-    1.0
-   ]
-  },
-  {
-   "name": "Gate_Works_Leaf_2",
-   "source": "Gate_Works_Leaf_2",
-   "shape": "box",
-   "center": [
-    9.9,
-    11.0,
-    -55.28
-   ],
-   "size": [
-    5.92,
-    8.0,
-    0.24
    ],
    "rotation": [
     0.0,
@@ -21700,42 +21658,6 @@
    ]
   },
   {
-   "name": "Pipe_North",
-   "source": "Pipe_North",
-   "shape": "cylinder",
-   "center": [
-    10.0,
-    10.5,
-    -51.7
-   ],
-   "radius": 1.2,
-   "height": 9.4,
-   "rotation": [
-    0.70711,
-    0.0,
-    0.0,
-    0.70711
-   ]
-  },
-  {
-   "name": "Pipe_North_Flange",
-   "source": "Pipe_North_Flange",
-   "shape": "cylinder",
-   "center": [
-    10.0,
-    10.5,
-    -47.245
-   ],
-   "radius": 1.5,
-   "height": 0.45,
-   "rotation": [
-    0.70711,
-    0.0,
-    0.0,
-    0.70711
-   ]
-  },
-  {
    "name": "Pipe_South",
    "source": "Pipe_South",
    "shape": "cylinder",
@@ -23102,26 +23024,6 @@
    ]
   },
   {
-   "name": "Pipe_North_Fall",
-   "shape": "box_area",
-   "center": [
-    10.0,
-    6.05,
-    -45.565
-   ],
-   "size": [
-    2.477,
-    10.864,
-    3.484
-   ],
-   "rotation": [
-    0,
-    0,
-    0,
-    1
-   ]
-  },
-  {
    "name": "Pipe_South_Fall",
    "shape": "box_area",
    "center": [
@@ -23340,6 +23242,48 @@
    "radius": 5.2,
    "shaft_top_y": 35.8,
    "note": "arrival: move the car node from rest_position + start_offset_y down to rest_position over duration_s with the player standing on it (Godot: apply_mobile.gd play_arrival). Its colliders are exported at the rest position."
+  }
+ ],
+ "gates": [
+  {
+   "id": "Gate_Works_Laser",
+   "group": "Gate_Works_Laser",
+   "door": "Gate_Works",
+   "center": [
+    0.0,
+    10.0,
+    -55.7
+   ],
+   "size": [
+    12,
+    6.0,
+    0.6
+   ],
+   "yaw_deg": 0,
+   "closed_at_start": true,
+   "opens_on": {
+    "type": "waves_cleared",
+    "encounter": "Hall_Waves"
+   },
+   "note": "Construct Error: a StaticBody3D blocker stands here while closed (apply_mobile.gd); call open_gate(id) when the encounter's last wave is cleared - the beams fade out, the blocker goes, signal gate_opened(id)."
+  }
+ ],
+ "encounters": [
+  {
+   "id": "Hall_Waves",
+   "waves": 3,
+   "enemies_per_wave": [
+    4,
+    6,
+    8
+   ],
+   "spawns": [
+    "enemy_hall_n",
+    "enemy_hall_ne"
+   ],
+   "opens": "Gate_Works_Laser",
+   "trigger": "level_start",
+   "notes": "Stage 59: the player must clear three waves in the slime hall; the last kill opens the laser gate into the Works (Construct Error spawns / counts the enemies)"
   }
  ]
 }

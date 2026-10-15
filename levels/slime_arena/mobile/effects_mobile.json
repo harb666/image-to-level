@@ -3,31 +3,6 @@
  "default_quality": "balanced",
  "fluid_attachments": [
   {
-   "stream": "Pipe_North_Fall",
-   "source_object": "Pipe_North",
-   "outlet_pos": [
-    10.0,
-    10.5,
-    -47.0
-   ],
-   "outlet_dir": [
-    0.0,
-    0.0,
-    1.0
-   ],
-   "outlet_diameter": 2.4,
-   "section": "circle",
-   "stream_width": 2.064,
-   "initial_speed": 1.8,
-   "impact_pos": [
-    10.0,
-    0.7,
-    -44.456
-   ],
-   "receiving": "HazardFluid",
-   "hazard": true
-  },
-  {
    "stream": "Pipe_South_Fall",
    "source_object": "Pipe_South",
    "outlet_pos": [
@@ -213,20 +188,20 @@
  },
  "totals": {
   "performance": {
-   "max_particles": 479,
-   "emitters": 36,
+   "max_particles": 462,
+   "emitters": 34,
    "extra_draw_calls": 7,
    "transparent_area_m2": 10.3
   },
   "balanced": {
-   "max_particles": 1277,
-   "emitters": 36,
+   "max_particles": 1235,
+   "emitters": 34,
    "extra_draw_calls": 9,
    "transparent_area_m2": 31607.1
   },
   "quality": {
-   "max_particles": 2026,
-   "emitters": 36,
+   "max_particles": 1959,
+   "emitters": 34,
    "extra_draw_calls": 11,
    "transparent_area_m2": 63204.6
   }
@@ -239,12 +214,6 @@
    "glb_contains": "static base colour + emissive texture",
    "godot_runtime": "ShaderMaterial liquid_surface.gdshader on target meshes (albedo from the GLB texture)",
    "ripples": [
-    [
-     10.0,
-     -44.46,
-     1.0,
-     1.03
-    ],
     [
      -10.0,
      44.46,
@@ -380,6 +349,12 @@
     [
      27.13,
      -27.13,
+     0.3,
+     1.05
+    ],
+    [
+     -27.48,
+     -27.48,
      0.3,
      1.05
     ]
@@ -1037,8 +1012,8 @@
    ],
    "material_tile_m": 6.0,
    "flow_uv": [
-    0.0517,
-    0.9987
+    0.0464,
+    0.9989
    ],
    "quality": {
     "performance": {
@@ -1097,15 +1072,6 @@
      ],
      "radius": 1.63,
      "of": "Pipe_East_Fall"
-    },
-    {
-     "pos": [
-      10.0,
-      1.0,
-      -44.46
-     ],
-     "radius": 1.63,
-     "of": "Pipe_North_Fall"
     },
     {
      "pos": [
@@ -1189,8 +1155,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 80,
-      "emitters": 8,
+      "max_particles": 70,
+      "emitters": 7,
       "extra_draw_calls": 1
      }
     },
@@ -1220,8 +1186,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 192,
-      "emitters": 8,
+      "max_particles": 168,
+      "emitters": 7,
       "extra_draw_calls": 1
      }
     },
@@ -1251,8 +1217,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 312,
-      "emitters": 8,
+      "max_particles": 273,
+      "emitters": 7,
       "extra_draw_calls": 1
      }
     }
@@ -1274,15 +1240,6 @@
      ],
      "radius": 1.63,
      "of": "Pipe_East_Fall"
-    },
-    {
-     "pos": [
-      10.0,
-      1.0,
-      -44.46
-     ],
-     "radius": 1.63,
-     "of": "Pipe_North_Fall"
     },
     {
      "pos": [
@@ -1366,8 +1323,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 56,
-      "emitters": 8,
+      "max_particles": 49,
+      "emitters": 7,
       "extra_draw_calls": 1
      }
     },
@@ -1397,8 +1354,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 144,
-      "emitters": 8,
+      "max_particles": 126,
+      "emitters": 7,
       "extra_draw_calls": 1
      }
     },
@@ -1428,8 +1385,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 224,
-      "emitters": 8,
+      "max_particles": 196,
+      "emitters": 7,
       "extra_draw_calls": 1
      }
     }
@@ -2129,6 +2086,55 @@
       ],
       "egg_every": 40.0,
       "egg_len": 4.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Laser_Flicker",
+   "type": "flicker",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier random flicker (rate Hz)",
+   "target_material": "laser",
+   "targets": [
+    "Gate_Works_Laser__laser"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 14,
+      "amount": 0.35
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 14,
+      "amount": 0.35
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 14,
+      "amount": 0.35
      },
      "cost_estimate": {
       "max_particles": 0,

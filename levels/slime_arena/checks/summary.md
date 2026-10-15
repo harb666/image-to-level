@@ -1,15 +1,15 @@
 # slime_arena: generation summary
 
-Spec: levels/slime_arena/scene_spec.json · 3979 objects · 27 materials · 20 effects
-Checks: PASSED ({'error': 0, 'warning': 2, 'info': 1}) · refine passes: 1
-Mobile (balanced): 3526 KB · 103739 tris · 92 draw calls · ~58.4 visible (estimate) · ~7.01 MB GPU textures (estimate)
-Navigation: 9616.0 m² reachable of 49137.0 m² standable
-Package: dist/slime_arena/package (37 files, 13.96 MB) valid=True
+Spec: levels/slime_arena/scene_spec.json · 3997 objects · 28 materials · 21 effects
+Checks: PASSED ({'error': 0, 'warning': 2, 'info': 1}) · refine passes: 0
+Mobile (balanced): 3533 KB · 103710 tris · 93 draw calls · ~58.8 visible (estimate) · ~7.01 MB GPU textures (estimate)
+Navigation: 9616.0 m² reachable of 49119.0 m² standable
+Package: dist/slime_arena/package (37 files, 14.03 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
-- warning: mobile draw calls 92 (> 80)
-- warning: 110266 triangles (> budget 40000)
+- warning: mobile draw calls 93 (> 80)
+- warning: 110210 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -39,7 +39,7 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - W_Ramp_Conduit: 0.40 m junction plate where it meets Processing_Deck's angled edge
 - W_Ramp_Conduit: 0.45 m junction plate where it meets Conduit_Walk's angled edge
 - Elevator: elevator car r 5.2 m arrives on Central from skyforge_arena, travel 19.8 m
-- Gate_Works: open blast door (12 x 8 m)
+- Gate_Works: open blast door (12 x 6 m)
 - Arm_2: pose 50/95 -> 32/71 (clear of the objects around it)
 - Arm_4: pose 40/60 -> 16/28 (clear of the objects around it)
 - Valve_A_Vent: left out - it would hang over the edge of Pipe_Junction_A
@@ -49,14 +49,15 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - crates: 35 printed crates (accent atlas)
 - fixtures: 31 parts cleared out of fans / vents (wall units removed: OuterWall_West_02_M02Vent, Works_Wall_West_02_M05Fan)
 - ducts: Ceil_Duct_3 trimmed to 1 piece(s) clear of 1 standing part(s); Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 3 standing part(s); Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 11 standing part(s)
+- portals: 3 thin fixtures covered by a doorway portal removed (Gallery_North_Strut_02, Gallery_North_Strut_03, Gallery_North_Strut_04)
 - corrosion: 32 lit bodies get a plain skirt at the liquid line (no lights in the slime)
 - corrosion: 48 lights at the liquid line removed, 28 light strips raised clear of it
 - corrosion: 1876 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 5.5 s
-- build (glb, sky, background, effects, mobile): 123.2 s
-- refine (checks -> safe fixes): 4146.0 s
-- previews: 0.6 s
+- spec -> level.json: 5.4 s
+- build (glb, sky, background, effects, mobile): 111.0 s
+- checks (fast): 84.9 s
+- previews: 0.8 s
 - export package: 0.6 s
-- total: 4276.0 s
+- total: 202.7 s
