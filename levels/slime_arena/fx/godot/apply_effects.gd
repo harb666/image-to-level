@@ -247,46 +247,100 @@ func _update_lines() -> void:
 				t_pick = b + wb * 0.5
 				picked = tau >= t_pick
 			var sk := sa[6] as Skeleton3D
-			if sk:  # Stage 65: every joint alive - dip / bin poses from the IK offsets, idle sway when not placing or picking
+			var held_on := picked
+			var scanning := absf(u - W * 0.5) < W * 0.35
+			var ring_e := 0.0
+			var ring_f := clampf((u - 0.15 * W) / (0.7 * W), 0.0, 1.0)
+			if sk:  # Stage 66: a motion program (pipeline/arm_motion.py) - servo moves through the joints only, no sway
 				var rig: Dictionary = st["rig"]
-				var bones: Dictionary = sa[7]
-				var sd := float(rig["seed"])
-				var calm := (1.0 - k) * (1.0 - kb)
-				var ins := st["task"] == "inspect"
-				var A := {}
-				A["yaw"] = psi + calm * deg_to_rad(8.0 if ins else 5.0) * sin(TAU * (_t / 6.1 + sd))
-				A["shoulder"] = float(rig["dip"][0]) * k + float(rig["bin"][0]) * kb + calm * deg_to_rad(2.5) * sin(TAU * (_t / 4.7 + sd * 1.7))
-				A["elbow"] = float(rig["dip"][1]) * k + float(rig["bin"][1]) * kb + calm * deg_to_rad(4.0) * sin(TAU * (_t / 3.9 + sd * 2.9))
-				A["wrist"] = -(float(A["shoulder"]) + float(A["elbow"])) + calm * deg_to_rad(3.0) * sin(TAU * (_t / 2.9 + sd * 3.3))  # claw keeps hanging
-				var cyc := floor((_t - float(st["t0"]) + W * 0.5) / P)
-				if ins:  # scanner: the head turns to and fro while it scans
-					A["twist"] = 0.5 * sin(TAU * 2.0 * u / W) * k + calm * deg_to_rad(10.0) * sin(TAU * (_t / 5.3 + sd * 4.1))
-				else:  # placing: a third of a turn as it sets the canister in (the claw looks the same every 120 deg)
-					A["twist"] = TAU / 3.0 * (cyc + smoothstep(0.0, 1.0, u / W if u < W else 1.0))
-				var o := smoothstep(0.0, 1.0, clampf(tau / 0.35, 0.0, 1.0)) * (1.0 - smoothstep(0.0, 1.0, clampf((tau - t_pick) / 0.35, 0.0, 1.0)))
+				var pg: Dictionary = rig["program"]
+				var v := float(line["speed"])
+				var s0 := float(pg["start"])
+				var x := _t - float(st["t0"]) - s0
+				var n := floor(x / P)
+				var tq := x - n * P + s0
+				var J := _arm_joints(rig, pg, tq, v, P)
+				var A := {"yaw": J[0], "shoulder": J[1], "elbow": J[2], "wrist": -(J[1] + J[2]),
+					"twist": deg_to_rad(float(pg["twist_cycle"]) * n + _keyed(pg["twist"], tq, 0.0))}
+				var fa := deg_to_rad(_keyed(pg["fingers"], tq, float(pg["fingers_start"])))
 				for i in 3:
-					var fa := deg_to_rad(5.0) + deg_to_rad(7.0) * sin(TAU * (_t / 2.3 + sd + i / 3.0)) if ins else deg_to_rad(16.0) * o - deg_to_rad(5.0) * (1.0 - o) + calm * deg_to_rad(2.0) * sin(TAU * (_t / 1.7 + sd + i / 3.0))
 					A["finger%d" % (i + 1)] = fa
+				var bones: Dictionary = sa[7]
 				for role in A:
 					if bones.has(role) and int(bones[role]) >= 0:
 						var axv: Array = rig["axes"][role]
 						sk.set_bone_pose_rotation(int(bones[role]), Quaternion(Vector3(axv[0], axv[1], axv[2]).normalized(), float(A[role])))
-			var hinge := Vector3(st["hinge"][0], st["hinge"][1], st["hinge"][2]).normalized()
-			var pv := Vector3(st["pivot"][0], st["pivot"][1], st["pivot"][2])
-			var bas := Basis(Vector3.UP, psi) * Basis(hinge, ang)
-			var xf := Transform3D(bas, pv - bas * pv)
+				var hh = pg.get("held_hidden")
+				held_on = not (hh != null and tq >= float(hh[0]) and tq < float(hh[1]))
+				var sc = pg.get("scan")
+				scanning = sc != null and tq >= float(sc[0]) and tq < float(sc[1])
+				if sc != null:  # the laser frame rides along with the parcel it scans
+					ring_e = v * tq
+					ring_f = clampf((tq - float(sc[0])) / (float(sc[1]) - float(sc[0])), 0.0, 1.0)
 			if sk == null:  # no skeleton: the whole upper arm swings as one piece (Stage 61)
 				for nd in sa[1] + sa[2] + sa[3]:
 					(nd as Node3D).transform = xf
 			for nd in sa[2]:  # the held canister: gone from the drop until it is lifted out of the bin
-				(nd as Node3D).visible = picked
-			var scanning := absf(u - W * 0.5) < W * 0.35
+				(nd as Node3D).visible = held_on
 			for nd in sa[3]:  # the scan beam shows while the arm is down
 				(nd as Node3D).visible = scanning
 			for nd in sa[5]:  # the laser frame sweeps up and down the parcel while it scans
 				(nd as Node3D).visible = scanning
-				var f := clampf((u - 0.15 * W) / (0.7 * W), 0.0, 1.0)
-				(nd as Node3D).position = Vector3(0.0, float(st.get("ring_travel", 0.6)) * (0.5 - 0.5 * cos(TAU * float(st.get("sweeps", 2)) * f)), 0.0)
+				(nd as Node3D).position = ax * ring_e + Vector3(0.0, float(st.get("ring_travel", 0.6)) * (0.5 - 0.5 * cos(TAU * float(st.get("sweeps", 2)) * ring_f)), 0.0)
+
+
+static func _smoother(x: float) -> float:
+	x = clampf(x, 0.0, 1.0)
+	return x * x * x * (x * (6.0 * x - 15.0) + 10.0)
+
+
+static func _keyed(keys: Array, tau: float, v0: float) -> float:
+	var val := v0
+	for k in keys:
+		if tau >= float(k[1]):
+			val = float(k[3])
+		elif tau >= float(k[0]):
+			return float(k[2]) + (float(k[3]) - float(k[2])) * _smoother((tau - float(k[0])) / (float(k[1]) - float(k[0])))
+	return val
+
+
+static func _arm_target(rig: Dictionary, q: Dictionary, tau: float, v: float) -> Vector3:
+	if q["k"] == "bin":
+		return Vector3(rig["bin"][0], float(rig["bin"][1]) + float(q["h"]), rig["bin"][2])
+	var e := v * tau if q["k"] == "track" else float(q["e"])
+	return Vector3(float(rig["tip"][0]) + float(rig["axis"][0]) * e, float(rig["tip"][1]) + float(q["h"]), float(rig["tip"][2]) + float(rig["axis"][2]) * e)
+
+
+static func _arm_ik(rig: Dictionary, p: Vector3) -> Array:  # [yaw, shoulder, elbow] offsets from the rest pose (arm_motion.ik)
+	var l1 := float(rig["l1"])
+	var l2 := float(rig["l2"])
+	var dx := p.x - float(rig["base"][0])
+	var dz := p.z - float(rig["base"][1])
+	var r := sqrt(dx * dx + dz * dz)
+	var dy := p.y + float(rig["claw"]) - float(rig["py"])
+	var D := clampf(sqrt(r * r + dy * dy), absf(l1 - l2) + 0.001, l1 + l2 - 0.001)
+	var b1 := atan2(r, dy) - acos(clampf((l1 * l1 + D * D - l2 * l2) / (2.0 * l1 * D), -1.0, 1.0))
+	var b2 := atan2(r - l1 * sin(b1), dy - l1 * cos(b1))
+	var yw := fposmod(atan2(dx, dz) - float(rig["yaw0"]) + PI, TAU) - PI
+	return [yw, b1 - float(rig["a1"]), (b2 - b1) - (float(rig["a2"]) - float(rig["a1"]))]
+
+
+static func _arm_joints(rig: Dictionary, pg: Dictionary, tau: float, v: float, period: float) -> Array:
+	for sg in pg["segs"]:
+		var a := float(sg[0])
+		var b := float(sg[1])
+		if b <= a:
+			b += period
+		if tau >= a and tau < b:
+			var w := _smoother((tau - a) / (b - a))
+			var pa := _arm_target(rig, sg[3], tau, v)
+			var pb := _arm_target(rig, sg[4], tau, v)
+			if sg[2] == "lin":
+				return _arm_ik(rig, pa.lerp(pb, w))
+			var ja := _arm_ik(rig, pa)
+			var jb := _arm_ik(rig, pb)
+			return [lerpf(ja[0], jb[0], w), lerpf(ja[1], jb[1], w), lerpf(ja[2], jb[2], w)]
+	return [0.0, 0.0, 0.0]
 
 
 func _bubbles(fx: Dictionary, p: Dictionary) -> void:
