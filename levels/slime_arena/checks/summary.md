@@ -54,9 +54,9 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - corrosion: 1868 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 8.8 s
-- build (glb, sky, background, effects, mobile): 152.2 s
-- checks (fast): 122.3 s
-- previews: 0.8 s
+- spec -> level.json: 9.4 s
+- build (glb, sky, background, effects, mobile): 169.7 s
+- checks (fast): 128.8 s
+- previews: 1.0 s
 - export package: 0.7 s
-- total: 284.9 s
+- total: 309.7 s

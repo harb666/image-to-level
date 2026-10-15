@@ -437,15 +437,20 @@
   "passed": true
  },
  "camera": {
+  "players": 45,
+  "players_skipped_inside_or_against_walls": 3,
   "cameras": 1080,
   "rays": 95040,
   "void_rays": 0,
+  "void_examples": [],
   "back_face": {
    "Corrosion_Band": 1
   },
   "open_mesh": {},
   "camera_inside": 0,
-  "passed": false
+  "visible_objects": 1763,
+  "passed": false,
+  "stale_note": "from the last full run (--fast skipped it)"
  },
  "render": {
   "views": 16,
@@ -456,17 +461,6 @@
   "note": "browser preview renders (three.js, SwiftShader) - not Godot"
  },
  "issues": [
-  {
-   "kind": "back_face",
-   "severity": "error",
-   "object": "Corrosion_Band",
-   "pos": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "message": "Corrosion_Band: back face visible from 1 camera rays (missing/one-sided geometry)"
-  },
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
@@ -490,10 +484,10 @@
   }
  ],
  "counts": {
-  "error": 1,
+  "error": 0,
   "warning": 2,
   "info": 1
  },
- "passed": false,
+ "passed": true,
  "gameplay_config": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer."
 }
