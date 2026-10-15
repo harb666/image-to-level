@@ -11,7 +11,7 @@ errors 0 · warnings 2 · info 1
 | GPU texture MB (estimate) | 22.63 | 7.01 |
 
 Navigation: reachable 9616.0 of 49137.0 m² standable; components 443.
-Camera: 1080 cameras, void rays 0, back faces 1.
+Camera: 1080 cameras, void rays 0, back faces 0.
 Geometry: {'ERROR': 0, 'WARNING': 0, 'INTENTIONAL': 0} (checks/geometry.md)
 
 ## Issues (highest impact first)
