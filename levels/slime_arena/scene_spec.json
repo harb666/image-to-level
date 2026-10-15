@@ -1224,12 +1224,21 @@
    "facing": "south",
    "size": [
     12,
-    8,
+    6,
     0.6
    ],
    "open": true,
    "source": "inferred",
-   "notes": "open gate into the Works"
+   "notes": "open gate into the Works: armoured portal (user reference), closed by a laser gate until the hall's waves are cleared",
+   "portal": true,
+   "laser_gate": {
+    "id": "Gate_Works_Laser",
+    "beams": 7,
+    "opens_on": {
+     "type": "waves_cleared",
+     "encounter": "Hall_Waves"
+    }
+   }
   },
   {
    "id": "Conv_West",
@@ -1628,16 +1637,6 @@
  ],
  "pipes": [
   {
-   "id": "Pipe_North",
-   "wall": "north",
-   "at": 10,
-   "y": 10.5,
-   "radius": 1.2,
-   "length": 9,
-   "pour": true,
-   "source": "visible"
-  },
-  {
    "id": "Pipe_South",
    "wall": "south",
    "at": -10,
@@ -1922,6 +1921,22 @@
      ]
     ],
     "notes": "Stage 52: two broadcast + two specimen variants"
+   },
+   "laser": {
+    "type": "glow",
+    "color": [
+     1.0,
+     0.12,
+     0.22
+    ],
+    "tile_m": 2.0,
+    "res": 32,
+    "emissive": [
+     1.0,
+     0.18,
+     0.3
+    ],
+    "notes": "Stage 59: laser gate beams"
    }
   }
  },
@@ -2299,5 +2314,23 @@
  },
  "corrosion": {
   "height": 1.2
- }
+ },
+ "encounters": [
+  {
+   "id": "Hall_Waves",
+   "waves": 3,
+   "enemies_per_wave": [
+    4,
+    6,
+    8
+   ],
+   "spawns": [
+    "enemy_hall_n",
+    "enemy_hall_ne"
+   ],
+   "opens": "Gate_Works_Laser",
+   "trigger": "level_start",
+   "notes": "Stage 59: the player must clear three waves in the slime hall; the last kill opens the laser gate into the Works (Construct Error spawns / counts the enemies)"
+  }
+ ]
 }

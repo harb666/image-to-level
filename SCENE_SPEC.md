@@ -806,3 +806,21 @@ Building blocks usable without the preset:
   the tunnel ribs runs on past that end, out over the slime, meets a corner block and drops straight down into the
   liquid (its bottom under the surface - it vanishes; the corrosion band marks the slime line). The slime arena's
   `Conduit` uses "to" (the north end; the south end has the ramp).
+
+## Stage 59: armoured portal + laser gate into the Works (user reference)
+- `blast_door` with `"open": true, "portal": true`: a portal round the doorway drawn from the user's reference -
+  pointed armour pillars (back plate, front plate, slanted red light panels, side fin with a light slit, red strip on the
+  jamb), a header with angled corners, two recessed panels and an inverted red trapezoid light, a red lamp hanging under
+  it, hazard-striped plates low on the wall. Built from the new convex `prism` type (`poly`: [[x, y], ...] extruded
+  along z). Proportions scale with the door height; the slime arena's gate is now 12 x 6 m so the portal fits under
+  the north gallery (its three struts there are removed: `clear_portals`), and `Pipe_North` is gone (it ran through
+  the right pillar; moved it would pour into a vat).
+- `"laser_gate": {"id", "beams", "opens_on"}`: seven red laser beams + emitter strips across the doorway (role `laser`,
+  flickering; own mobile group). Visual only in the level - navigation sees the doorway open - and level.json `gates`
+  (copied to mobile/collision.json) tells the game: a blocker box stands there while closed, `opens_on` names the
+  encounter. Top-level spec `encounters` ([{id, waves, enemies_per_wave, spawns, opens, trigger}]) pass straight to
+  level.json / collision.json: the slime arena's `Hall_Waves` = 3 waves (4 / 6 / 8 enemies) from the hall's enemy spawns,
+  starting with the level; clearing it opens `Gate_Works_Laser`.
+- Godot: `apply_mobile.gd` builds the blockers (StaticBody3D, group `laser_gate`) and offers `open_gate(id)` (beams
+  stutter out, blocker removed, signal `gate_opened(id)`). Construct Error runs the waves and calls it. The preview has a
+  "Gate" button to see it open or closed (the preview never blocks the player).

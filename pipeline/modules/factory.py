@@ -174,24 +174,86 @@ def blast_door(ctx, s, x, y, z, yaw):
     corridor (void panel) and, with "target", a level_exit trigger stands in the doorway (level.json "exits")."""
     n = s["id"]; W, H, D = s.get("size", [6, 7, 0.6]); g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); st = dict(mobile={"static": True})
     op = bool(s.get("open")); fw = 0.8
+    portal = bool(s.get("portal")) and op  # Stage 59: armoured alien portal round an open doorway (user reference)
     if op:  # frame as three bars round the opening + the dark corridor beyond
         for k, sd in enumerate((-1, 1)): ctx.add(f"{n}_Jamb_{k + 1}", "box", [sd * (W / 2 + fw / 2), 0, 0], [fw, H + 1.0, D], "structure_b", g, **st)
         ctx.add(n + "_Head", "box", [0, H, 0], [W, 1.0, D], "structure_b", g, **st)
         roles = ctx.spec.get("materials", {}).get("roles", {}); atl = (roles.get("accent") or {}).get("atlas") or {}
         if s.get("target"): ctx.add(n + "_Dark", "panel", [0, 0.02, -D / 2 + 0.05], [W, H, 0], "accent" if "void" in atl else "void", g, uv_region="void", collision=False, outline=False, **st)
     else: ctx.add(n + "_Frame", "box", [0, 0, 0], [W + 1.6, H + 1.0, D], "structure_b", g, **st)
-    for k, sd in enumerate((-1, 1)):
+    if portal: _portal(ctx, n, g, W, H, s, x, y, z, yaw)
+    for k, sd in enumerate(() if portal else (-1, 1)):
         lx = sd * (W * 0.75 + fw + 0.1) if op else sd * (W / 4 + 0.02)  # open: slid aside along the wall
         ctx.add(f"{n}_Leaf_{k + 1}", "box", [lx, 0, D / 2 + 0.12], [W / 2 - 0.08, H, 0.24], "wall", g, collision=op, **st)
         ctx.add(f"{n}_Stripe_{k + 1}", "box", [lx, 0.6, D / 2 + 0.25], [W / 2 - 0.3, 0.8, 0.04], "stripe", g, collision=False, outline=False, **st)
     if not op: ctx.add(n + "_Seam", "box", [0, 0.3, D / 2 + 0.26], [0.12, H - 0.6, 0.04], "glow", g, collision=False, outline=False, **st)
-    ctx.add(n + "_Warning", "box", [0, H + 0.2, D / 2 + 0.1], [1.4, 0.4, 0.2], "glow", g, collision=False, outline=False, **st)
+    if not portal: ctx.add(n + "_Warning", "box", [0, H + 0.2, D / 2 + 0.1], [1.4, 0.4, 0.2], "glow", g, collision=False, outline=False, **st)
     if op and s.get("target"):
         fx, fz = A_local(0, D / 2 + 0.9, yaw); r = min(W / 2 - 0.3, 2.5)
         ctx.exits.append(dict(id=n + "_Exit", type="level_exit", target=s["target"], shape="cylinder", center=[round(x + fx, 3), round(y + 1.6, 3), round(z + fz, 3)],
                               radius=round(r, 3), height=3.0, note="walking through the open door loads the next level (Construct Error: handle in the level_exit trigger)"))
         ctx.notes.append(f"{n}: open exit door -> {s['target']}")
     else: ctx.notes.append(f"{n}: {'open' if op else 'sealed'} blast door ({W} x {H} m)")
+
+
+def _portal(ctx, n, g, W, H, s, x, y, z, yaw):
+    """Stage 59: the user's doorway reference, sized to the opening (W x H, door floor at the group origin, local +z
+    into the room, wall face at z = -0.3): an armoured pillar each side - a pointed back plate, a front plate, slanted
+    red light panels, a side fin with a light slit and a red strip on the jamb - a header with angled corners, two
+    recessed panels and an inverted red trapezoid light, a red lamp hanging under it, hazard-striped plates low on the
+    wall. All convex "prism" plates (outline in the door plane); visual only. Max height H + 3.4 (fits under a gallery).
+    "laser_gate": {...} also closes the doorway with red laser beams (see _laser_gate)."""
+    st = dict(collision=False, mobile={"static": True}); w2 = W / 2; F = lambda pts, sd: [[sd * px, py] for px, py in pts]
+    P = lambda nm, pts, z0, dep, mat, sd=1: ctx.add(nm, "prism", [0, 0, z0], [3, 3, dep], mat, g, poly=F(pts, sd), **(dict(st, outline=False) if mat == "glow" else st))
+    k = H / 6.0  # the reference proportions were drawn for a 6 m door
+    Y = lambda v: round(v * k, 3); X = lambda v: round(w2 + v, 3)  # x measured out from the jamb, y scaled with the door
+    for i, sd in enumerate((-1, 1)):
+        side = "LR"[i]
+        P(f"{n}_Pillar_{side}", [(X(0.1), 0), (X(3.2), 0), (X(3.6), Y(1.0)), (X(3.6), Y(7.6)), (X(2.1), Y(9.3)), (X(0.1), Y(8.2))], -0.5, 1.6, "structure_b", sd)
+        P(f"{n}_Plate_{side}", [(X(0.35), Y(0.35)), (X(2.9), Y(0.35)), (X(3.25), Y(1.15)), (X(3.25), Y(7.35)), (X(2.0), Y(8.75)), (X(0.35), Y(7.85))], 1.05, 0.25, "frame", sd)
+        for j, pts in enumerate(([(X(0.9), Y(3.6)), (X(2.6), Y(4.1)), (X(2.6), Y(6.9)), (X(0.9), Y(6.3))],
+                                 [(X(0.9), Y(0.9)), (X(2.6), Y(0.9)), (X(2.6), Y(3.0)), (X(0.9), Y(3.35))],
+                                 [(X(1.3), Y(7.2)), (X(2.5), Y(7.5)), (X(2.0), Y(8.4))])):
+            P(f"{n}_Panel_{side}{j + 1}", pts, 1.27, 0.08, "glow", sd)
+        P(f"{n}_Fin_{side}", [(X(3.6), Y(0.5)), (X(4.9), Y(1.3)), (X(4.9), Y(5.9)), (X(3.6), Y(6.9))], -0.5, 1.0, "structure_b", sd)
+        P(f"{n}_FinLight_{side}", [(X(3.95), Y(1.9)), (X(4.55), Y(2.25)), (X(4.55), Y(5.3)), (X(3.95), Y(5.75))], 0.47, 0.08, "glow", sd)
+        ctx.add(f"{n}_JambLight_{side}", "box", [sd * (w2 + 0.08), Y(0.8), 0.45], [0.06, Y(4.4), 0.6], "glow", g, collision=False, outline=False, mobile={"static": True})
+        sx = sd * (w2 + 6.4)  # hazard-striped plate low on the wall beside the pillar
+        ctx.add(f"{n}_StripePlate_{side}", "box", [sx, 1.0, -0.3], [3.2, 1.1, 0.12], "frame", g, collision=False, outline=False, mobile={"static": True})
+        ctx.add(f"{n}_StripeBand_{side}", "box", [sx, 1.15, -0.2], [2.8, 0.8, 0.04], "stripe", g, collision=False, outline=False, mobile={"static": True})
+    hw = w2 + 1.0
+    P(n + "_Header", [(-w2 - 0.1, Y(5.96)), (w2 + 0.1, Y(5.96)), (hw, Y(6.9)), (hw, Y(8.6)), (hw - 0.8, Y(9.35)), (-hw + 0.8, Y(9.35)), (-hw, Y(8.6)), (-hw, Y(6.9))],
+      -0.5, 1.3, "structure_b")
+    for sd in (-1, 1):
+        P(f"{n}_Recess_{'LR'[sd > 0]}", [(2.9, Y(6.6)), (w2 - 0.5, Y(6.6)), (w2 - 0.5, Y(8.7)), (2.9, Y(8.7))], 0.77, 0.1, "frame", sd)
+    P(n + "_TrapFrame", [(-1.8, Y(6.35)), (1.8, Y(6.35)), (2.5, Y(8.95)), (-2.5, Y(8.95))], 0.77, 0.14, "frame")
+    P(n + "_TrapLight", [(-1.25, Y(6.8)), (1.25, Y(6.8)), (1.85, Y(8.6)), (-1.85, Y(8.6))], 0.88, 0.07, "glow")
+    ctx.add(n + "_LampStem", "box", [0, Y(5.96) - 0.71, 0.45], [0.3, 0.76, 0.3], "frame", g, collision=False, outline=False, mobile={"static": True})
+    ctx.add(n + "_LampHousing", "box", [0, Y(5.96) - 1.16, 0.45], [1.6, 0.5, 0.7], "frame", g, collision=False, mobile={"static": True})
+    ctx.add(n + "_LampLight", "box", [0, Y(5.96) - 1.04, 0.79], [1.1, 0.26, 0.06], "glow", g, collision=False, outline=False, mobile={"static": True})
+    hx, hz = A_local(0, 0.6, yaw)
+    ctx.portals = getattr(ctx, "portals", []) + [dict(id=n, center=[x + hx, y, z + hz], half=[hw + 4.0, Y(9.35) + 0.1, 2.5], yaw=yaw)]
+    if s.get("laser_gate"): _laser_gate(ctx, n, g, W, H, s["laser_gate"], x, y, z, yaw)
+
+
+def _laser_gate(ctx, n, g, W, H, lg, x, y, z, yaw):
+    """Stage 59: the doorway starts closed by a laser gate - horizontal red beams from jamb to jamb plus emitter strips,
+    role "laser", own mobile group (so the game can hide it). Visual only in the level (navigation treats the doorway as
+    open); level.json "gates" tells the game to put a blocker there and to open it when lg["opens_on"] is met (e.g. the
+    waves of an encounter are cleared) - apply_mobile.gd: open_gate(id) / signal gate_opened."""
+    gid = lg.get("id", n + "_Laser"); mv = dict(collision=False, outline=False, mobile={"group": gid}); nb = int(lg.get("beams", 7)); w2 = W / 2
+    top = min(H - 0.4, 5.8)
+    for i in range(nb):
+        yb = round(0.45 + (top - 0.45) * i / max(1, nb - 1), 3)
+        ctx.add(f"{gid}_Beam_{i + 1}", "cylinder", [-w2 - 0.05, yb, 0.0], [0.09, W + 0.1, 0.09], ctx.role("laser"), g, [0, 0, -90], sections=6, **mv)
+    for sd in (-1, 1):
+        ctx.add(f"{gid}_Emitter_{'LR'[sd > 0]}", "box", [sd * (w2 - 0.01), 0.25, 0.0], [0.08, top, 0.22], ctx.role("laser"), g, **mv)
+    bx, bz = A_local(0, 0.0, yaw)
+    ctx.gates = getattr(ctx, "gates", []) + [dict(
+        id=gid, group=gid, door=n, center=[round(x + bx, 3), round(y + top / 2 + 0.2, 3), round(z + bz, 3)], size=[round(W, 3), round(top + 0.4, 3), 0.6], yaw_deg=round(yaw, 2),
+        closed_at_start=True, opens_on=lg.get("opens_on", {"type": "waves_cleared", "encounter": lg.get("encounter")}),
+        note="Construct Error: a StaticBody3D blocker stands here while closed (apply_mobile.gd); call open_gate(id) when the "
+             "encounter's last wave is cleared - the beams fade out, the blocker goes, signal gate_opened(id).")]
 
 
 @structure("conveyor", pad=False)

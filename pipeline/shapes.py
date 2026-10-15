@@ -606,7 +606,21 @@ def band(w, h, d, o):
     m.metadata["uv"] = np.array(UV, float); return m
 
 
-SHAPES = dict(tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
+def prism(w, h, d, o):
+    """Stage 59: a flat convex plate - o["poly"] = [[x, y], ...] (convex, counter-clockwise seen from +z, local x/y
+    in metres) extruded from z = 0 to z = d. Angular armour plates, pointed pillars, trapezoid lights. size [w, h, d]
+    is only its bounding size (bookkeeping); the poly sets the shape."""
+    P = np.asarray(o.get("poly") or [[-w / 2, 0], [w / 2, 0], [w / 2, h], [-w / 2, h]], float)  # default: a w x h plate
+    if len(P) < 3: raise ValueError("prism poly needs 3+ points")
+    if np.sum(P[:, 0] * np.roll(P[:, 1], -1) - np.roll(P[:, 0], -1) * P[:, 1]) < 0: P = P[::-1]  # make it counter-clockwise (signed area)
+    n = len(P); V = np.r_[np.c_[P, np.zeros(n)], np.c_[P, np.full(n, float(d))]]
+    F = [[n, n + i, n + i + 1] for i in range(1, n - 1)] + [[0, i + 1, i] for i in range(1, n - 1)]  # front (+z), back (-z): fans (convex)
+    for i in range(n):
+        j = (i + 1) % n; F += [[i, j, n + j], [i, n + j, n + i]]  # sides
+    m = trimesh.Trimesh(V, np.array(F), process=False); m.fix_normals(); return m
+
+
+SHAPES = dict(prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
               stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum)
 

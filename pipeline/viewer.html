@@ -23,7 +23,7 @@ button{background:#0008;color:#fff;border:1px solid #fff4;border-radius:8px;padd
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head><body>
-<div id="hud"><button id="mode">View: 3rd person</button><button id="q">Quality: med</button><button id="fx" hidden>FX</button><button id="statsb">Stats</button><button id="shotb">📷</button><button id="reset">Respawn</button><button id="issb" hidden>⚠</button></div>
+<div id="hud"><button id="mode">View: 3rd person</button><button id="q">Quality: med</button><button id="fx" hidden>FX</button><button id="statsb">Stats</button><button id="shotb">📷</button><button id="reset">Respawn</button><button id="gateb" hidden>Gate: closed</button><button id="issb" hidden>⚠</button></div>
 <div id="stick"></div><div id="info"></div><div id="stats" hidden></div>
 <div id="vert" hidden><button id="upb">▲</button><button id="dnb">▼</button></div><button id="jumpb" hidden>Jump</button>
 <div id="sel" hidden></div><div id="shot" hidden><img id="shotimg" alt="Screenshot of the current view"><p>Press and hold the image to save or share it.</p><button id="shotclose">Close</button></div>
@@ -103,6 +103,9 @@ let FXD=window.FX||null;if(!FXD&&!window.GLB){try{const rq=await fetch(base+'/ef
 const FXQ=['off','performance','balanced','quality'];let fxq=FXD?FXQ.indexOf(FXD.default_quality):0;
 const fxTex={};if(FXD)for(const k in FXD.textures)fxTex[k]=new THREE.TextureLoader().load(window.FXTEX?FXTEX[k]:base+'/'+FXD.textures[k]);
 const byName={};gltf.scene.traverse(o=>{if(o.isMesh)byName[o.name]=o;});
+{const G=meta.gates||[];if(G.length){const b=document.getElementById('gateb');b.hidden=false;let open=false; // Stage 59: laser gates (the game opens them after the waves; here a button)
+  const nodes=Object.values(byName).filter(o=>G.some(g=>o.name.startsWith(g.group+'__')||o.name.startsWith(g.group+'_')));
+  b.onclick=()=>{open=!open;nodes.forEach(o=>o.visible=!open);b.textContent='Gate: '+(open?'open':'closed');};}}
 // roofed levels: the ceiling (objects tagged "cutaway", mobile group nodes) hides while the camera is above it, so orbit / top-down views look in
 const cutN=new Set((meta.objects||[]).filter(o=>o.cutaway).map(o=>o.name)),cutG=new Set((meta.objects||[]).filter(o=>o.cutaway&&o.mobile&&o.mobile.group).map(o=>o.mobile.group));
 const cutY=((meta.environment||{}).indoor||{}).ceiling_y,cutaway=[];if(cutY!=null)gltf.scene.traverse(o=>{if(o.isMesh&&(cutN.has(o.name.split('__')[0])||cutG.has((o.userData||{}).group)))cutaway.push(o);});

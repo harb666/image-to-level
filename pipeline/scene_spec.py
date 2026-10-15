@@ -58,6 +58,8 @@ SCHEMA = {
     "terrain": (LIST, False, dict(ELEMENT, id=(STR, True), area=(("vec", 4), True), height=(V2, False), cell=(NUM, False), seed=(INT, False),
                                   material=(STR, False), top_material=(STR, False), walkable=(BOOL, False), notes=(STR, False))),
     "hazards": (LIST, False, dict(ELEMENT, id=(STR, True), area=(("vec", 4), True), y=(NUM, True), material=(STR, False))),
+    "encounters": (LIST, False, dict(ELEMENT, id=(STR, True), waves=(INT, False), enemies_per_wave=(LIST, False), spawns=(LIST, False), opens=(STR, False),
+                                     trigger=(STR, False))),  # Stage 59: enemy waves (run by the game); "opens": a laser gate id
     "materials": (DICT, False, {"variation": (BOOL, False), "roles": (DICT, False)}),
     "atmosphere": (DICT, False, {"sky": (STR, False), "sky_overrides": (DICT, False), "fog_start": (NUM, False), "fog_end": (NUM, False), "height_fog": (DICT, False),
                                  "fog_color": (("vec", 3), False), "clouds": (DICT, False), "lighting": (DICT, False),

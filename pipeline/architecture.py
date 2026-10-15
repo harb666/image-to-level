@@ -128,7 +128,7 @@ for _k, _b, _s in (("industrial", "industrial", "realistic"), ("toxic_industrial
     THEMES[_k].setdefault("biome", _b); THEMES[_k].setdefault("style", _s)
 VARIANT_ROLES = ("wall", "structure", "deck", "plaster")
 CORROSION = {"type": "corrosion", "color": [1.0, 1.0, 1.0], "tile_m": 4.0, "res": 128, "toon": True, "emissive": [1.0, 1.0, 1.0], "cutout": 0.5}
-FALLBACK = {"glow_dim": "glow", "glow_yellow": "glow", "glass_clear": "glass", "bigscreen": "glow", "tv_casing": "structure_b", "screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
+FALLBACK = {"laser": "glow", "glow_dim": "glow", "glow_yellow": "glow", "glass_clear": "glass", "bigscreen": "glow", "tv_casing": "structure_b", "screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
             "window": "glow", "foliage": "rock", "water": "hazard", "machine": "structure_b", "backdrop": "wall", "structure_b": "structure",
             "frame": "structure_b", "rail": "frame", "grate": "deck", "trim": "structure_b", "accent": "trim", "glow": "accent", "pipe": "frame",
             "hazard": "water", "fall": "water", "stripe": "trim", "ground": "deck", "deck": "ground", "wall": "structure", "structure": "wall", "rock": "structure"}
@@ -1395,6 +1395,25 @@ def lamp_posts(ctx, n, g, w, z0, z1, y, k, side, origin, yaw):
         ctx.add(f"{n}_Lamp_{i + 1}_Bulb", "box", [sd * (w / 2 - 0.2), y + 2.48, lz], [0.4, 0.14, 0.66], yl, g, outline=False, **st)
         ox, oz = local(sd * (w / 2 - 0.2), lz, yaw)
         ctx.fan_lights = getattr(ctx, "fan_lights", []) + [[round(origin[0] + ox, 2), round(y + 2.2, 2), round(origin[1] + oz, 2), 1.0]]
+
+
+def clear_portals(ctx):
+    """Stage 59: thin fixtures (struts, hangers, brackets ...) that a doorway portal now covers are removed - e.g. the
+    gallery struts that dropped down the wall where the portal's pillars and header stand."""
+    P = getattr(ctx, "portals", [])
+    if not P: return set()
+    B = _aabb_all(ctx); drop = set()
+    for p in P:
+        c = np.asarray(p["center"], float); hx, hy, hz = p["half"]
+        if round(p.get("yaw", 0) / 90) % 2: hx, hz = hz, hx
+        lo, hi = c - [hx, 0, hz], c + [hx, 2 * hy, hz]
+        for n, (a, b) in B.items():
+            if n.startswith(p["id"]) or not any(t in n for t in THIN): continue
+            if (np.minimum(hi, b) - np.maximum(lo, a) > 0.01).all(): drop.add(n)
+    if drop:
+        ctx.objects[:] = [o for o in ctx.objects if o["name"] not in drop]; ctx.names -= drop
+        ctx.notes.append(f"portals: {len(drop)} thin fixtures covered by a doorway portal removed ({', '.join(sorted(drop)[:6])})")
+    return drop
 
 
 def clear_ducts(ctx, gap=0.6, keep=6.0):

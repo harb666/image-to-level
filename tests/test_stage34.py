@@ -70,7 +70,7 @@ class Stage36(unittest.TestCase):
         for i in range(len(B)):
             for j in range(i + 1, len(B)):
                 self.assertFalse((np.minimum(B[i][1], B[j][1]) - np.maximum(B[i][0], B[j][0]) > 0.02).all(), (cr[i]["name"], cr[j]["name"]))
-        for n in ("Pipe_North_Plate", "Pipe_North_Collar", "Pipe_North_Bolt_4", "W_Run_North_End1_Plate", "W_Broken_Plate", "W_Broken_Collar"): self.assertIn(n, by)
+        for n in ("Pipe_South_Plate", "Pipe_South_Collar", "Pipe_South_Bolt_4", "W_Run_North_End1_Plate", "W_Broken_Plate", "W_Broken_Collar"): self.assertIn(n, by)
 
 
 class Stage37(unittest.TestCase):
@@ -236,3 +236,18 @@ class Stage58(unittest.TestCase):
         self.assertLess(drop[0][1], 1.0)  # its bottom is under the liquid surface (y 1): it vanishes into it
         self.assertIn("Conduit_SpineJoint", B)
         if walk: self.assertTrue(drop[0][2] > walk[1][2] or drop[1][2] < walk[0][2])  # outside the walkway's footprint
+
+
+class Stage59(unittest.TestCase):
+    def test_portal_and_laser_gate(self):
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        for k in ("Gate_Works_Pillar_L", "Gate_Works_Pillar_R", "Gate_Works_Header", "Gate_Works_TrapLight", "Gate_Works_LampLight", "Gate_Works_Panel_R1"):
+            self.assertIn(k, by)
+        self.assertEqual(by["Gate_Works_Pillar_L"]["type"], "prism")
+        beams = [n for n in by if n.startswith("Gate_Works_Laser_Beam_")]; self.assertEqual(len(beams), 7)
+        self.assertTrue(all(by[n]["collision"] is False and by[n]["mobile"]["group"] == "Gate_Works_Laser" for n in beams))  # navigation sees the doorway open
+        g = L["gates"][0]; self.assertEqual(g["opens_on"]["encounter"], "Hall_Waves"); self.assertTrue(g["closed_at_start"])
+        self.assertEqual(L["encounters"][0]["opens"], "Gate_Works_Laser")
+        self.assertFalse([n for n in by if n.startswith("Gallery_North_Strut_0") and n[-1] in "234"])  # struts the portal covers
+        C = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "collision.json"))); self.assertEqual(C["gates"][0]["id"], "Gate_Works_Laser")
+        gd = open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_mobile.gd")).read(); self.assertIn("func open_gate", gd); self.assertIn("signal gate_opened", gd)

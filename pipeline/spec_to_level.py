@@ -78,6 +78,7 @@ def generate(spec, G, level_dir=None):
         ctx.hazards.append(ctx.add(h["id"], "box", [(x0 + x1) / 2, 0, (z0 + z1) / 2], [abs(x1 - x0), h["y"], abs(z1 - z0)], h.get("material", "hazard")))
     A.clear_fixtures(ctx)  # Stage 37: nothing poking into fans / vents
     A.clear_ducts(ctx)  # Stage 50: ceiling ducts end before columns / vats instead of running through them
+    A.clear_portals(ctx)  # Stage 59: no strut through a doorway portal
     weathering.corrosion(ctx, spec)  # Stage 28: corroded band where the liquid meets walls (after the pools exist)
     ctx.element = None
     # materials: only roles in use (+ spec overrides; variants follow their base override)
@@ -114,7 +115,7 @@ def generate(spec, G, level_dir=None):
              generator=dict(tool="pipeline/spec_to_level.py", spec_sha=H(spec), theme=theme, detail=spec.get("detail", "medium")),
              interpretation=spec.get("interpretation", {}), sky_color=PRESETS[env["sky"]["preset"]]["horizon"],
              spawn=spawn, spawns=spawns, hazards=ctx.hazards, effects=_effects(spec, ctx, plats, env, glow), environment=env,
-             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})), **({"style": spec["style"]} if spec.get("style") else {}), **({"exits": ctx.exits} if ctx.exits else {}), **({"entrances": ctx.entrances} if ctx.entrances else {}),
+             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})), **({"style": spec["style"]} if spec.get("style") else {}), **({"exits": ctx.exits} if ctx.exits else {}), **({"entrances": ctx.entrances} if ctx.entrances else {}), **({"gates": ctx.gates} if getattr(ctx, "gates", None) else {}), **({"encounters": spec["encounters"]} if spec.get("encounters") else {}),
              validation=dict(ignore_objects=[]), generator_notes=ctx.notes, relations=ctx.relations)
     if spec.get("gameplay"): L["gameplay"] = spec["gameplay"]
     if spec.get("campaign"): L["campaign"] = spec["campaign"]  # where this level sits in a multi-part level (previous / next part)
@@ -270,6 +271,7 @@ def _effects(spec, ctx, plats, env, glow):
                 out.append(dict(id=f"Screen_Static_{sm}", type="tv_static", target_material=sm, amount=SC.get("static", 0.85), seed=float(i * 2.3),
                                 **{k: SC[k] for k in ("signal_every", "signal_len") if k in SC}, **egg))
             else: out.append(dict(id=f"Screen_Flicker_{sm}", type="flicker", target_material=sm, rate=5, amount=0.12))
+        if "laser" in ctx.roles: out.append(dict(id="Laser_Flicker", type="flicker", target_material="laser", rate=14, amount=0.35))  # Stage 59: crackling gate beams
         if "glow" in ctx.roles: out.append(dict(id="Glow_Pulse", type="pulse_light", target_material="glow", speed=0.9, amount=0.4))
         if "trim" in ctx.roles and A.role_material(spec.get("theme", "industrial"), "trim").get("emissive"): out.append(dict(id="Trim_Pulse", type="pulse_light", target_material="trim", speed=0.35, amount=0.35))
         if "structure" in ctx.roles and A.role_material(spec.get("theme", "industrial"), "structure").get("emissive"): out.append(dict(id="Machinery_Flicker", type="flicker", target_material="structure", rate=6, amount=0.2))
@@ -351,7 +353,7 @@ def _merge(new, cur, state, key, rep, label):
     return out
 
 
-TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions", "style", "exits", "entrances")
+TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions", "style", "exits", "entrances", "gates", "encounters")
 
 
 def merge(Lnew, Lcur, state):
