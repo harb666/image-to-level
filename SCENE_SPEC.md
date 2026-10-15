@@ -966,3 +966,8 @@ Building blocks usable without the preset:
 - slime_arena: the W_Cat_Pipes catwalk is gone; `Crusher_A` stands between Assembly_Line (7 m) and Pipe_Junction_A
   (9 m): pad top 7.8 m (the deck's trim lip is 6.67 m: a 1.13 m jump up, then 1.2 m up to the junction - the nav
   check finds both jumps both ways), every 4.5 s, 1.9 s of safe time per cycle before the warning.
+
+## Stage 73: purifiers spaced out, green down to the deck
+- `vat` takes `base` (plinth height, default 3 m); a lower plinth hands its height to the glass (same overall height).
+- slime_arena: Purifier_1 / Purifier_2 moved apart (centres 7.3 m, plinths 2.8 m clear) and given a 0.8 m collar - the
+  green glass with its bubbles now starts 1.7 m over the deck instead of a 3 m dark plinth.

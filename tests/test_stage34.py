@@ -519,3 +519,17 @@ class Stage72(unittest.TestCase):
         t0 = C["period"] - C["warn"] - C["down"] - C["hold"] - C["rise"]; self.assertGreater(t0, 1.5)  # time to jump on and off
         self.assertIn('set_deferred("disabled", tr + off > 1.8)', open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")).read())  # same rule in both runtimes
         self.assertIn("KB.on=C.travel+off<=1.8", open(os.path.join(ROOT, "pipeline", "viewer.html")).read())
+
+
+class Stage73(unittest.TestCase):
+    def test_purifiers_spaced_and_glass_low(self):
+        """Purifier_1 / Purifier_2 stand apart (plinths >= 2.5 m clear) and their green glass starts just over a low collar."""
+        import sys, numpy as np
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from anchors import world_matrices
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); W, by = world_matrices(L)
+        p1, p2 = (np.asarray(W[f"Purifier_{i}_Plinth"])[:3, 3] for i in (1, 2))
+        gap = np.hypot(*(p1 - p2)[[0, 2]]) - (by["Purifier_1_Plinth"]["size"][0] + by["Purifier_2_Plinth"]["size"][0]) / 2
+        self.assertGreater(gap, 2.5)
+        for i in (1, 2):
+            pl = np.asarray(W[f"Purifier_{i}_Plinth"])[:3, 3]; gl = np.asarray(W[f"Purifier_{i}_Glass"])[:3, 3]
+            self.assertLess(gl[1] - (pl[1] + 1.0), 2.0)  # glass starts under 2 m above the deck (plinth sunk 1 m into it)

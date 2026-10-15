@@ -19,7 +19,7 @@ def vat(ctx, s, x, y, z, yaw):
     """Slime vat: plinth, red-lit bands, glowing slime glass section, dark upper body with a banner, rimmed cap."""
     n = s["id"]; D, H, _ = s.get("size", [8, 20, 8]); st = dict(mobile={"static": True}); seg = int(s.get("sections", 10))
     g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); y0 = -1.0  # plinth reaches into the slime: no visible gap at its foot
-    gh = H * 0.5; base = 3.0; uh = max(1.5, H - base - 1.0 - gh - 1.0 - 0.8)
+    base = float(s.get("base", 3.0)); gh = H * 0.5 + (3.0 - base); uh = max(1.5, H - base - 1.0 - gh - 1.0 - 0.8)  # Stage 73: "base" = plinth height (a low one gives the glass its height)
     ctx.add(n + "_Plinth", "cylinder", [0, y0, 0], [D + 1.2, base - y0, D + 1.2], "structure_b", g, sections=seg, **st)
     ctx.add(n + "_BandLow", "cylinder", [0, base, 0], [D + 0.6, 1.0, D + 0.6], "trim", g, sections=seg, collision=False, **st)
     ctx.add(n + "_Glass", "cylinder", [0, base + 0.9, 0], [D, gh + 0.2, D], s.get("material", "glass"), g, sections=seg, collision=True, double_sided=True, tube=True,
