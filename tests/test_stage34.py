@@ -477,3 +477,14 @@ class Stage69(unittest.TestCase):
                 M = np.asarray(W[o["name"]]); (cx, cy, cz), (w, h, d) = M[:3, 3], o["size"]
                 if np.allclose(M[:3, :3], np.eye(3)) and abs(cx - x) < w / 2 + 3.0 and cz - d / 2 < -51.1 and cz + d / 2 > -59.9 and cy < 4.0 and cy + h > 1.2:
                     self.fail(f"{o['name']} blocks {tid}")
+
+
+class Stage70(unittest.TestCase):
+    def test_omit_and_big_tank(self):
+        """spec "omit" drops named generated pieces (the east wall's red strip and red lamp); a large domed barrel tank
+        stands in the Works pool in front of that wall."""
+        lv = os.path.join(ROOT, "levels", "slime_arena"); L = json.load(open(os.path.join(lv, "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        self.assertNotIn("Works_Wall_East_03_M03Plain_Strip", by); self.assertNotIn("Works_Wall_East_03_M02Emblem_Red", by)
+        self.assertIn("Works_Wall_East_03_M02Emblem", by)  # the banner stays
+        t = by["Tank_Slime_East"]; self.assertEqual(t["type"], "tank"); self.assertGreaterEqual(min(t["size"]), 7.0)
+        self.assertLess(t["position"][1], 1.0)  # stands in the liquid (surface y 1)

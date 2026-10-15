@@ -939,3 +939,10 @@ Building blocks usable without the preset:
 - slime_arena: Tunnel_West (x -28, under window Op1) and Tunnel_East (x 28, under Op3), 6.6 m wide, crown 4.95 m,
   9 m long (wall + hall walkway base). The walkway's floor / trim / walkable area are unchanged (measured: same
   walkable entry, same reachable area 9620 m2); the arena-side dressing stays under its trim (top 5.85 m).
+
+## Stage 70: omit list, big domed tank in the Works pool
+- Spec `omit`: names / fnmatch patterns of generated objects to leave out (children go too; a note lists patterns
+  that matched nothing). slime_arena drops the red light strip of Works_Wall_East_03's plain stretch and the small red
+  lamp beside its banner.
+- `Tank_Slime_East`: the domed barrel tank (same model as Tank_North / Tank_South), 7 m across and 11 m tall,
+  standing in the Works pool in front of that wall (corroded at the waterline like everything else in the slime).

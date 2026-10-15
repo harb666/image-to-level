@@ -73,6 +73,13 @@ def generate(spec, G, level_dir=None):
     A.place_covers(ctx)  # after connections: cover never stands in a landing (Stage 8)
     A.dress_ceilings(ctx)  # Stage 18: "varied" ceilings, after every deck exists (lamp pods keep headroom)
     A.bore_tunnels(ctx, spec)  # Stage 69: arched water tunnels through walls (before the slime decals / corrosion see the walls)
+    if spec.get("omit"):  # Stage 70: generated pieces the level does without (e.g. one wall light strip), children included
+        import fnmatch
+        gone = {o["name"] for o in ctx.objects if any(fnmatch.fnmatchcase(o["name"], p_) for p_ in spec["omit"])}; n0 = -1
+        while len(gone) != n0: n0 = len(gone); gone |= {o["name"] for o in ctx.objects if o.get("parent") in gone}
+        ctx.objects[:] = [o for o in ctx.objects if o["name"] not in gone]
+        miss = [p_ for p_ in spec["omit"] if not any(fnmatch.fnmatchcase(n_, p_) for n_ in gone)]
+        if miss: ctx.notes.append(f"omit: nothing matched {miss}")
     import weathering; weathering.leaks(ctx, spec); weathering.crate_skin(ctx, spec)  # slime decals, printed crates (visual only)
     for h in spec.get("hazards", []):
         ctx.element = (h["id"], h.get("source", "visible")); x0, z0, x1, z1 = h["area"]
