@@ -852,3 +852,19 @@ Building blocks usable without the preset:
   parcel) and the shader shows the whole part at the instant its parcel's centre reaches the arm - the same instant the
   arm's held canister disappears at the bottom of its dip (and the scan beam lands). Reveal data: `s0`, `spacing`,
   `s_arm`, `id_step`; the slide offset is fed in every frame. Dips are slower (1.8 s add, 2.2 s inspect).
+
+## Stage 63: wider walkway, canister bins, real scanners, rust that updates
+- The assembly-line conveyors moved out to x = +-4.7 (7.4 m of walkway between them instead of 5.4); the machines are
+  narrower so they stay on the deck.
+- `robot_arm` "task": "add" + `bin_yaw` (deg): a small bin stands beside the arm, the same reach away, turned bin_yaw about
+  its base - ring body on a post down into the slime, glowing rim, hazard band, black floor deep inside (reads
+  bottomless) and canisters waiting in it. After each drop the arm turns to the bin, reaches in (canister back in the
+  claw at the bottom of that dip) and turns back before the next parcel (effect keys `bin_yaw_deg`, `bin_angle_deg`,
+  `turn`, `bin_window`).
+- "inspect" arms: a yellow lens under the wrist, the scan beam, and a laser frame round the parcel that sweeps up and
+  down twice while it scans (`ring`, `ring_travel`, `sweeps`; scan window 2.6 s).
+- Repairs no longer freeze generated objects: `refine.adopt_repairs` records the repaired state in gen_state.json, so the
+  next generation rebuilds them (and the repairs run again). The corrosion band had been frozen since an old camera
+  repair - so the moved arm pedestals had no rust; 27 such objects were reset. Two generator-level overlaps the repairs
+  had been hiding are fixed at the source: ramp / stair junction blocks are 6 cm wider than their deck, wall-pipe
+  brackets stand 6 cm proud of the pipes.

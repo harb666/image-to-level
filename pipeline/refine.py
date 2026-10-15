@@ -110,8 +110,24 @@ def refine(d, max_passes=None, render=True, verbose=True):
     log = dict(passes=passes, max_passes=max_passes, seconds=round(time.time() - t0, 1), passed=R["passed"], counts=R["counts"], needs_claude=needs,
                visual_review="checks/views/contact_sheet.jpg + checks/inspect/contact_sheet.jpg must be LOOKED AT by Claude and compared with the reference before calling the level done" if render else "renders skipped")
     json.dump(log, open(os.path.join(d, "checks", "refine_log.json"), "w"), indent=1)
+    adopt_repairs(d)
     if verbose: print(json.dumps(dict(passed=log["passed"], counts=log["counts"], passes=len(passes), seconds=log["seconds"])))
     return log
+
+
+def adopt_repairs(d):
+    """Stage 63: automatic repairs (camera double_sided, geometry nudges, moved lights ...) edit GENERATED objects; record
+    their new state in gen_state.json so the next spec_to_level run does not mistake them for hand edits and freeze
+    them (a frozen object - e.g. the corrosion band - would never update again). The generator stays the source of truth;
+    the repairs simply run again after the next generation. Hand edits (edit_level.py, between runs) are untouched."""
+    sp = os.path.join(d, "gen_state.json")
+    if not os.path.exists(sp): return 0
+    from spec_to_level import H
+    L = json.load(open(os.path.join(d, "level.json"))); st = json.load(open(sp)); objs = st.get("objects", {}); n = 0
+    for o in L["objects"]:
+        if o["name"] in objs and objs[o["name"]] != H(o): objs[o["name"]] = H(o); n += 1
+    if n: json.dump(st, open(sp, "w"), indent=0)
+    return n
 
 
 if __name__ == "__main__":

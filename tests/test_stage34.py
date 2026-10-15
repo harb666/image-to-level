@@ -288,3 +288,26 @@ class Stage61(unittest.TestCase):
         self.assertTrue(any(n["node"].startswith("Conv_East_Parcels__") for n in M["nodes"]))
         self.assertEqual(by["Conv_East_Item1_02"]["uv_shift"], 20)  # parcel number in the part's UVs
         for f in ("assembly_reveal.gdshader", "apply_effects.gd"): self.assertTrue(os.path.exists(os.path.join(ROOT, "pipeline", "godot_fx", f)))
+
+
+class Stage63(unittest.TestCase):
+    def test_bins_scanners_wider_walkway_and_rust(self):
+        import numpy as np
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        self.assertEqual(abs(by["Conv_East"]["position"][0]), 4.7); self.assertEqual(abs(by["Conv_West"]["position"][0]), 4.7)  # 7.4 m between the belts
+        for a in ("Arm_1", "Arm_2"):
+            for k in ("_Bin_Body", "_Bin_Rim", "_Bin_Void", "_Bin_Can_5", "_Bin_Post"): self.assertIn(a + k, by)
+        for a in ("Arm_3", "Arm_4"):
+            for k in ("_Lens", "_Scan", "_Ring_4"): self.assertIn(a + k, by)
+        E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "effects_mobile.json")))
+        st = {s["arm"]: s for e in E["effects"] if e["type"] == "assembly_line" for s in e["line"]["stations"]}
+        for a in ("Arm_1", "Arm_2"):
+            s = st[a]; self.assertTrue(s["bin_angle_deg"] > 0 and abs(s["bin_yaw_deg"]) == 90)
+            self.assertLess(s["window"] + 2 * s["turn"] + s["bin_window"], s["period"])  # the whole pick fits between parcels
+        for a in ("Arm_3", "Arm_4"): self.assertEqual(st[a]["ring"], [a + "_Ring"])
+        band = by["Corrosion_Band"]; pts = np.array([q for sg in band["segments"] for q in sg["pts"]])
+        for a in ("Arm_1", "Arm_2", "Arm_3", "Arm_4"):  # rust round every arm pedestal in the slime (Stage 63: no frozen band)
+            P = by[a]["position"]; self.assertLess(float(np.min(np.hypot(pts[:, 0] - P[0], pts[:, 1] - P[2]))), 1.0, a)
+        G = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "gen_state.json")))["objects"]
+        import sys; sys.path.insert(0, os.path.join(ROOT, "pipeline")); from spec_to_level import H
+        self.assertFalse([o["name"] for o in L["objects"] if o["name"] in G and G[o["name"]] != H(o) and o["name"] == "Corrosion_Band"])

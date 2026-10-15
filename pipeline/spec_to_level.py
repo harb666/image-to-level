@@ -266,8 +266,13 @@ def _effects(spec, ctx, plats, env, glow):
                 gap = tip[1] - A_["top"]; drop = gap + 0.025 if arm["task"] == "add" else gap - 0.4
                 r = _m.hypot(tip[0] - pv[0], tip[2] - pv[2]); dy = tip[1] - pv[1]; R = _m.hypot(r, dy)
                 ang = _m.degrees(_m.atan2(dy, r) - _m.asin(max(-1.0, min(1.0, (dy - drop) / R))))
-                st_.append(dict(task=arm["task"], arm=stn["arm"], groups=arm["groups"], held=arm["held"], scan=arm["scan"], pivot=pv, hinge=arm["hinge"],
-                                angle_deg=round(ang, 3), t0=t0, period=round(P, 4), window=round(min(1.8 if arm["task"] == "add" else 2.2, 0.7 * P), 3),
+                ex = {}
+                if arm.get("bin_yaw") is not None:  # Stage 63: after the drop it turns to its bin, reaches in for the next canister, turns back
+                    dropb = (tip[1] + 0.01) - (arm["bin_top"] - 0.35)
+                    ex = dict(bin_yaw_deg=arm["bin_yaw"], bin_angle_deg=round(_m.degrees(_m.atan2(dy, r) - _m.asin(max(-1.0, min(1.0, (dy - dropb) / R)))), 3), turn=1.3, bin_window=1.6)
+                if arm.get("ring"): ex = dict(ring=arm["ring"], ring_travel=arm["ring_travel"], sweeps=2)
+                st_.append(dict(task=arm["task"], arm=stn["arm"], groups=arm["groups"], held=arm["held"], scan=arm["scan"], pivot=pv, hinge=arm["hinge"], **ex,
+                                angle_deg=round(ang, 3), t0=t0, period=round(P, 4), window=round(min(1.8 if arm["task"] == "add" else 2.6, 0.7 * P), 3),
                                 reveal=dict(group=stn["group"], s0=A_["s0"], spacing=S, s_arm=round(sk, 4), id_step=10.0)))
             out.append(dict(id=ln_ + "_Line", type="assembly_line", line=dict(move=[ln_ + "_Parcels"] + [s_["group"] for s_ in A_["stations"]], axis=u, speed=v, spacing=S,
                                                                              stations=st_)))

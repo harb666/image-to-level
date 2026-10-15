@@ -170,6 +170,9 @@ func _assembly(line: Dictionary) -> void:
 		var scan: Array = []
 		for gname in st["scan"]:
 			scan.append_array(_group_nodes(String(gname)))
+		var ring: Array = []
+		for gname in st.get("ring", []):
+			ring.append_array(_group_nodes(String(gname)))
 		var rv: Dictionary = st["reveal"]
 		var mats: Array = []
 		for nd in _group_nodes(String(rv["group"])):  # a part shows whole once its parcel reaches the arm
@@ -186,7 +189,7 @@ func _assembly(line: Dictionary) -> void:
 				sm.set_shader_parameter(k, float(rv[k]))
 			mi.material_override = sm
 			mats.append(sm)
-		stations.append([st, arm, held, scan, mats])
+		stations.append([st, arm, held, scan, mats, ring])
 	_lines.append([line, mv, stations])
 
 
@@ -204,19 +207,42 @@ func _update_lines() -> void:
 				(sm as ShaderMaterial).set_shader_parameter("offset", d)
 			var P := float(st["period"])
 			var W := float(st["window"])
+			var tau := fposmod(_t - float(st["t0"]), P)
 			var u := fposmod(_t - float(st["t0"]) + W * 0.5, P)
-			var k := 0.5 - 0.5 * cos(TAU * u / W) if u < W else 0.0  # smooth dip, deepest when the parcel is under the claw
+			var k := 0.5 - 0.5 * cos(TAU * u / W) if u < W else 0.0  # dip to the parcel, deepest when it is under the claw
+			var ang := deg_to_rad(float(st["angle_deg"])) * k
+			var psi := 0.0
+			var picked := tau > 0.6 * P
+			if st.has("bin_yaw_deg"):  # Stage 63: turn to the bin, reach in for the next canister, turn back
+				var ty := float(st["turn"])
+				var wb := float(st["bin_window"])
+				var a := W * 0.5
+				var b := a + ty
+				var c := b + wb
+				var pb := deg_to_rad(float(st["bin_yaw_deg"]))
+				if tau >= a and tau < b:
+					psi = pb * smoothstep(0.0, 1.0, (tau - a) / ty)
+				elif tau >= b and tau < c:
+					psi = pb
+					ang += deg_to_rad(float(st["bin_angle_deg"])) * (0.5 - 0.5 * cos(TAU * (tau - b) / wb))
+				elif tau >= c and tau < c + ty:
+					psi = pb * (1.0 - smoothstep(0.0, 1.0, (tau - c) / ty))
+				picked = tau >= b + wb * 0.5
 			var hinge := Vector3(st["hinge"][0], st["hinge"][1], st["hinge"][2]).normalized()
 			var pv := Vector3(st["pivot"][0], st["pivot"][1], st["pivot"][2])
-			var b := Basis(hinge, deg_to_rad(float(st["angle_deg"])) * k)
-			var xf := Transform3D(b, pv - b * pv)
+			var bas := Basis(Vector3.UP, psi) * Basis(hinge, ang)
+			var xf := Transform3D(bas, pv - bas * pv)
 			for nd in sa[1] + sa[2] + sa[3]:
 				(nd as Node3D).transform = xf
-			var ph := fposmod(_t - float(st["t0"]), P)
-			for nd in sa[2]:  # the held canister is gone from the drop until the arm has "reloaded"
-				(nd as Node3D).visible = ph > 0.6 * P
+			for nd in sa[2]:  # the held canister: gone from the drop until it is lifted out of the bin
+				(nd as Node3D).visible = picked
+			var scanning := absf(u - W * 0.5) < W * 0.35
 			for nd in sa[3]:  # the scan beam shows while the arm is down
-				(nd as Node3D).visible = absf(u - W * 0.5) < W * 0.35
+				(nd as Node3D).visible = scanning
+			for nd in sa[5]:  # the laser frame sweeps up and down the parcel while it scans
+				(nd as Node3D).visible = scanning
+				var f := clampf((u - 0.15 * W) / (0.7 * W), 0.0, 1.0)
+				(nd as Node3D).position = Vector3(0.0, float(st.get("ring_travel", 0.6)) * (0.5 - 0.5 * cos(TAU * float(st.get("sweeps", 2)) * f)), 0.0)
 
 
 func _bubbles(fx: Dictionary, p: Dictionary) -> void:

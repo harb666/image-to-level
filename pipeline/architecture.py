@@ -456,7 +456,7 @@ def connection(ctx, c, A, B, floor_y):
         if jd and jd - 0.1 > 0.15:  # junction plate (support_depth includes the 0.1 m inset): flat piece just under the floor, in the floor's material, filling the corner gaps
             jc = (pt[0] + t[0] * jd / 2, pt[1] + t[1] * jd / 2)
             fmat = next((o["material"] for o in ctx.objects if o["name"] == fl_ and o.get("material")), "grate")  # the platform's own floor:
-            target = ctx.add(f"{c['id']}_Junction_{'Hi' if pl is hi else 'Lo'}", "box", [jc[0], yy - 0.43, jc[1]], [width, 0.4, jd + 0.1], None, rot=[0, yaw, 0],
+            target = ctx.add(f"{c['id']}_Junction_{'Hi' if pl is hi else 'Lo'}", "box", [jc[0], yy - 0.43, jc[1]], [width + 0.06, 0.4, jd + 0.1], None, rot=[0, yaw, 0],
                              connector=False, material=fmat)  # 3 cm under it: hidden where it overlaps, reads as the deck continuing where it fills the gap
             ctx.rel("supported_by", target, fl_); ctx.notes.append(f"{c['id']}: {jd:.2f} m junction plate where it meets {pl['id']}'s {'corner' if jd > width / 3 else 'angled edge'}")
         ctx.rel("walkable_connection", ends[key][0], target, a_anchor=ends[key][1])
@@ -547,7 +547,7 @@ def _wall_varied(ctx, name, g, L, height, thick, base_y, dress, body="wall"):
                 px = x + (i - (nps - 1) / 2) * (2 * r + 0.25)
                 ctx.add(f"{nm}_Pipe_{i + 1}", "cylinder", [px, base_y + 0.5, f + r + 0.1], [2 * r, y1 - base_y - 0.5, 2 * r], "pipe", g, sections=6, outline=False, **st)  # solid: it stands on walkways
             for j, yy in enumerate(sorted(rng.uniform(fy + 2, y1 - 1, int(rng.integers(2, 4))))):
-                ctx.add(f"{nm}_Bracket_{j + 1}", "box", [x, yy, f + 0.3], [nps * (2 * r + 0.25) + 0.3, 0.35, 2 * r + 0.5], "frame", g, collision=False, outline=False, **st)
+                ctx.add(f"{nm}_Bracket_{j + 1}", "box", [x, yy, f + 0.09 + r], [nps * (2 * r + 0.25) + 0.3, 0.35, 2 * r + 0.14], "frame", g, collision=False, outline=False, **st)  # 6 cm proud of the pipes, never level with a hex face
         elif m == "machine":
             mw, mh = sw * rng.uniform(0.5, 0.8), rng.uniform(3, 6.5); my = fy + 3.3  # hung above head height: walkways along the wall stay clear
             ctx.add(nm + "_Bracket", "box", [x, my - 0.8, f + 0.7], [mw * 0.8, 0.8, 1.4], "frame", g, collision=False, **st)

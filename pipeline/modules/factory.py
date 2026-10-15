@@ -293,8 +293,8 @@ def _assembly_line(ctx, s, n, g, L, w, h, x, y, z, yaw):
     hz = h - 0.03  # parcel base (belt top)
     for e_, zc, sg in (("In", -L / 2 + mL / 2, 1), ("Out", L / 2 - mL / 2, -1)):  # sg: the side the mouth faces (+z for the intake)
         m_ = f"{n}_{e_}"; fz = zc + sg * mL / 2  # mouth face
-        ctx.add(m_ + "_Housing", "box", [0, -0.03, zc - sg * 0.05], [w + 1.0, 2.33, mL + 0.1], "machine", g, **st)  # 3 cm into the deck, 10 cm past the bed end: no shared faces
-        ctx.add(m_ + "_Roof", "box", [0, 2.3, zc], [w + 1.3, 0.22, mL + 0.3], "structure_b", g, collision=False, **st)
+        ctx.add(m_ + "_Housing", "box", [0, -0.03, zc - sg * 0.05], [w + 0.56, 2.33, mL + 0.1], "machine", g, **st)  # 3 cm into the deck, 10 cm past the bed end: no shared faces
+        ctx.add(m_ + "_Roof", "box", [0, 2.3, zc], [w + 0.8, 0.22, mL + 0.3], "structure_b", g, collision=False, **st)
         roles = ctx.spec.get("materials", {}).get("roles", {}); atl = (roles.get("accent") or {}).get("atlas") or {}
         ctx.add(m_ + "_Mouth", "panel", [0, hz - 0.05, fz + sg * 0.02], [w - 0.1, 1.05, 0], "accent" if "void" in atl else "void", g, [0, 0 if sg > 0 else 180, 0],
                 uv_region="void", collision=False, outline=False, **st)
@@ -306,7 +306,7 @@ def _assembly_line(ctx, s, n, g, L, w, h, x, y, z, yaw):
         lamp = ctx.role("glow_yellow") if e_ == "In" else "glow"
         ctx.add(m_ + "_Lamp", "box", [0, hz + 1.38, fz + sg * 0.05], [0.9, 0.22, 0.08], lamp, g, collision=False, outline=False, **st)
         for sd in (-1, 1):  # side vents
-            ctx.add(f"{m_}_Vent_{'LR'[sd > 0]}", "box", [sd * (w / 2 + 0.52), 0.9, zc], [0.06, 0.9, mL * 0.6], "frame", g, collision=False, outline=False, **st)
+            ctx.add(f"{m_}_Vent_{'LR'[sd > 0]}", "box", [sd * (w / 2 + 0.3), 0.9, zc], [0.06, 0.9, mL * 0.6], "frame", g, collision=False, outline=False, **st)
         if e_ == "In":  # hopper feeding the intake, glowing slime in it
             ctx.add(m_ + "_Hopper", "frustum", [0, 2.5, zc], [w + 0.6, 1.1, mL - 0.4], "structure_b", g, sections=4, bottom_scale=0.55, collision=False, **st)
             ctx.add(m_ + "_HopperFill", "box", [0, 3.48, zc], [w + 0.2, 0.06, mL - 0.8], ctx.role("fall") if "fall" in roles else "glow", g, collision=False, outline=False, **st)
@@ -393,19 +393,43 @@ def robot_arm(ctx, s, x, y, z, yaw):
     for k, sd in enumerate((-1, 1)):  # hose cables: link 1 side -> wrist, sagging
         p0 = (sd * 0.3 * sc, py + math.cos(a1) * l1 * 0.45, math.sin(a1) * l1 * 0.45); p1 = (sd * 0.25 * sc, wy - 0.2 * sc, wz - 0.3 * sc)
         cable(ctx, f"{n}_Hose_{k + 1}", g, p0, p1, 0.6 * sc, 0.1 * sc, vis)
-    if task:  # Stage 61: what the moving arm carries (rotates with it; the effect shows / hides it in time with the parcels)
-        tip = cyl - 0.24 * sc - 1.58 * sc; ctx.assembly_arms = getattr(ctx, "assembly_arms", {})
-        if task == "add":  # a canister held between the finger tips (radius 0.26: the tips touch it), hidden after the drop
-            ctx.add(n + "_Held", "cylinder", [0, tip + 0.01, wz], [0.52, 0.5, 0.52], ctx.role("fall") if "fall" in ctx.spec.get("materials", {}).get("roles", {}) else "glow", g,
-                    sections=8, collision=False, outline=False, mobile={"group": n + "_Held"})
-        else:  # a scan beam from the collar down past the finger tips (shown while it inspects)
+    if task:  # Stage 61/63: what the moving arm carries (rotates with it; the effect shows / hides it in time with the parcels)
+        tip = cyl - 0.24 * sc - 1.58 * sc; ctx.assembly_arms = getattr(ctx, "assembly_arms", {}); roles = ctx.spec.get("materials", {}).get("roles", {})
+        fall = ctx.role("fall") if "fall" in roles else "glow"; tipw = [x + math.sin(math.radians(yaw)) * wz, y + tip, z + math.cos(math.radians(yaw)) * wz]
+        extra = {}
+        if task == "add":  # a canister held between the finger tips (radius 0.26: the tips touch it)
+            ctx.add(n + "_Held", "cylinder", [0, tip + 0.01, wz], [0.52, 0.5, 0.52], fall, g, sections=8, collision=False, outline=False, mobile={"group": n + "_Held"})
+            # Stage 63: the bin it takes them from - beside the arm, the same reach away, turned "bin_yaw" deg about the base
+            psi = math.radians(float(s.get("bin_yaw", 90))); rx, rz = tipw[0] - x, tipw[2] - z
+            bx, bz = x + rx * math.cos(psi) + rz * math.sin(psi), z - rx * math.sin(psi) + rz * math.cos(psi)
+            bt = float(s.get("bin_top", rch[1] - 0.5)); bst = dict(mobile={"static": True}); bg = ctx.add(n + "_Bin", "group", [round(bx, 3), 0, round(bz, 3)])
+            ctx.add(n + "_Bin_Body", "cylinder", [0, bt - 1.1, 0], [1.6, 1.1, 1.6], "structure_b", bg, sections=10, hole=0.62, hole_res=10, **bst)
+            ctx.add(n + "_Bin_Rim", "cylinder", [0, bt - 0.04, 0], [1.72, 0.12, 1.72], "glow", bg, sections=10, hole=0.66, hole_res=10, collision=False, outline=False, **bst)
+            ctx.add(n + "_Bin_Band", "cylinder", [0, bt - 0.62, 0], [1.66, 0.3, 1.66], "stripe", bg, sections=10, hole=0.7, hole_res=10, collision=False, outline=False, **bst)
+            ctx.add(n + "_Bin_Void", "cylinder", [0, bt - 1.09, 0], [1.26, 0.05, 1.26], "accent" if "void" in ((roles.get("accent") or {}).get("atlas") or {}) else "void", bg,
+                    sections=10, uv_region="void", collision=False, outline=False, **bst)  # black floor deep inside: reads bottomless
+            for k_ in range(5):  # canisters waiting in it (tops well under the claw's reach)
+                a_ = math.radians(72 * k_ + 18); rr_ = 0.0 if k_ == 4 else 0.36
+                ctx.add(f"{n}_Bin_Can_{k_ + 1}", "cylinder", [math.cos(a_) * rr_, bt - 1.06 - 0.01 * (k_ % 2), math.sin(a_) * rr_], [0.34 if k_ < 4 else 0.46, 0.48, 0.34 if k_ < 4 else 0.46],
+                        fall, bg, sections=8, collision=False, outline=False, **bst)
+            ped = (bt - 1.1) + 1.4  # down into the slime
+            ctx.add(n + "_Bin_Post", "cylinder", [0, bt - 1.1 - ped, 0], [0.7, ped + 0.03, 0.7], "structure_b", bg, sections=8, **bst)
+            extra = dict(bin_yaw=round(float(s.get("bin_yaw", 90)), 3), bin_top=round(bt, 3))
+        else:  # scanner: a yellow lens under the wrist, a scan beam, and a laser frame that sweeps up and down the parcel
+            ctx.add(n + "_Lens", "cylinder", [0, cyl - 0.36 * sc, wz], [0.36 * sc, 0.13 * sc, 0.36 * sc], ctx.role("glow_yellow"), g, sections=8, collision=False, outline=False,
+                    mobile={"group": n + "_Upper"})
             ctx.add(n + "_Scan", "frustum", [0, tip + 1.56 * sc, wz], [0.95, 1.56 * sc + 0.42, 0.95], ctx.role("scan"), g, [180, 0, 0], sections=4, bottom_scale=0.12,
                     collision=False, outline=False, double_sided=True, mobile={"group": n + "_Scan"})
+            ry = float(s.get("ring_base", rch[1] - 0.9 - 0.62))  # parcel base on the belt
+            rg_ = ctx.add(n + "_Ring", "group", [round(tipw[0], 3), 0, round(tipw[2], 3)], rot=[0, yaw, 0])
+            for k_, (ox, oz, sx, sz) in enumerate(((0, 0.55, 1.16, 0.05), (0, -0.55, 1.16, 0.05), (0.55, 0, 0.05, 1.06), (-0.55, 0, 0.05, 1.06))):
+                ctx.add(f"{n}_Ring_{k_ + 1}", "box", [ox, ry + 0.04, oz], [sx, 0.05, sz], ctx.role("glow_yellow"), rg_, collision=False, outline=False, mobile={"group": n + "_Ring"})
+            extra = dict(ring=[n + "_Ring"], ring_travel=0.6)
         for o in ctx.objects:  # the moving arm in 3 materials (hull, lights, ink): fewer draw calls
             if (o.get("mobile") or {}).get("group") == n + "_Upper" and o.get("material") in ("machine", "frame"): o["material"] = "structure_b"
         ctx.assembly_arms[n] = dict(task=task, pivot=[round(x, 3), round(y + py, 3), round(z, 3)], hinge=[round(v_, 5) for v_ in (math.cos(math.radians(yaw)), 0.0, -math.sin(math.radians(yaw)))],
-                                    tip=[round(x + math.sin(math.radians(yaw)) * wz, 3), round(y + tip, 3), round(z + math.cos(math.radians(yaw)) * wz, 3)],
-                                    groups=[n + "_Upper"], held=[n + "_Held"] if task == "add" else [], scan=[n + "_Scan"] if task == "inspect" else [])
+                                    tip=[round(v_, 3) for v_ in tipw], groups=[n + "_Upper"], held=[n + "_Held"] if task == "add" else [],
+                                    scan=[n + "_Scan"] if task == "inspect" else [], **extra)
 
 
 def face_light(ctx, nm, g, c, n, r_top, r_bot, H, theta, t0, t1, width, vis, mat="glow"):
