@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "7906fcc7d30d093c",
+  "spec_sha": "5829f869fc278eed",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -681,6 +681,8 @@
    "targets": [
     "Works_Wall_North_01_M01Fan_Rotor",
     "Works_Wall_North_02_M01Fan_Rotor",
+    "Lintel_Fans_Fan_1_Rotor",
+    "Lintel_Fans_Fan_2_Rotor",
     "Ceil_Fan_1_Rotor",
     "Works_Ceil_Fan_1_Rotor",
     "Works_Ceil_Fan_2_Rotor"
@@ -1244,7 +1246,14 @@
        "id_step": 10.0
       }
      }
-    ]
+    ],
+    "belt": {
+     "material": "belt",
+     "scroll": [
+      -0.0,
+      0.4
+     ]
+    }
    }
   },
   {
@@ -1805,7 +1814,14 @@
        "id_step": 10.0
       }
      }
-    ]
+    ],
+    "belt": {
+     "material": "belt",
+     "scroll": [
+      -0.0,
+      0.4
+     ]
+    }
    }
   },
   {
@@ -2843,6 +2859,15 @@
     0.27
    ],
    "void_black": 0.45
+  },
+  "belt": {
+   "type": "grating",
+   "color": [
+    0.3,
+    0.31,
+    0.3
+   ],
+   "tile_m": 2.0
   },
   "bigscreen": {
    "type": "screen_atlas",
@@ -50745,6 +50770,1362 @@
    "source": "inferred"
   },
   {
+   "name": "Lintel_Fans",
+   "type": "group",
+   "position": [
+    0.0,
+    0.0,
+    -60.0
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_1",
+   "type": "cylinder",
+   "position": [
+    -3.1,
+    22.2,
+    0.0
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    4.6,
+    1.0,
+    4.6
+   ],
+   "material": "structure_b",
+   "sections": 20,
+   "hole": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_1_Clamp_1",
+   "type": "box",
+   "position": [
+    -1.368,
+    23.532,
+    -0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    45.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_1_Clamp_2",
+   "type": "box",
+   "position": [
+    -4.832,
+    23.532,
+    -0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    135.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_1_Clamp_3",
+   "type": "box",
+   "position": [
+    -4.832,
+    20.068,
+    -0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    225.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_1_Clamp_4",
+   "type": "box",
+   "position": [
+    -1.368,
+    20.068,
+    -0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    315.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_1_Glow",
+   "type": "cylinder",
+   "position": [
+    -3.1,
+    22.2,
+    0.05
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    3.3,
+    0.05,
+    3.3
+   ],
+   "material": "glow_dim",
+   "sections": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_1_Grille_01",
+   "type": "box",
+   "position": [
+    -3.1,
+    20.925,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    2.204,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_1_Grille_11",
+   "type": "box",
+   "position": [
+    -4.375,
+    22.2,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    0.12,
+    2.204,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_1_Grille_02",
+   "type": "box",
+   "position": [
+    -3.1,
+    21.775,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    3.226,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_1_Grille_12",
+   "type": "box",
+   "position": [
+    -3.525,
+    22.2,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    0.12,
+    3.226,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_1_Grille_03",
+   "type": "box",
+   "position": [
+    -3.1,
+    22.625,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    3.226,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_1_Grille_13",
+   "type": "box",
+   "position": [
+    -2.675,
+    22.2,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    0.12,
+    3.226,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_1_Grille_04",
+   "type": "box",
+   "position": [
+    -3.1,
+    23.475,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    2.204,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_1_Grille_14",
+   "type": "box",
+   "position": [
+    -1.825,
+    22.2,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    0.12,
+    2.204,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_1_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    -3.1,
+    22.2,
+    0.62
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    3.23,
+    0.45,
+    3.23
+   ],
+   "material": "frame",
+   "blades": 8,
+   "sweep": 22.25648762531892,
+   "collision": false,
+   "outline": false,
+   "spin": 27.1,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_1",
+   "type": "box",
+   "position": [
+    -3.1,
+    19.2,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    3.23,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_1_FrameLow",
+   "type": "box",
+   "position": [
+    -3.1,
+    17.7,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    3.23,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_1_FrameSide_1",
+   "type": "box",
+   "position": [
+    -4.565,
+    17.98,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    0.3,
+    1.24,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_1_FrameSide_2",
+   "type": "box",
+   "position": [
+    -1.635,
+    17.98,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    0.3,
+    1.24,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_1_Duct",
+   "type": "panel",
+   "position": [
+    -3.1,
+    17.98,
+    0.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    2.67,
+    1.24,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_1_Slat_1",
+   "type": "box",
+   "position": [
+    -3.1,
+    18.05,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    2.67,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_1_Slat_2",
+   "type": "box",
+   "position": [
+    -3.1,
+    18.45,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    2.67,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_1_Slat_3",
+   "type": "box",
+   "position": [
+    -3.1,
+    18.85,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    2.67,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_1_Status",
+   "type": "box",
+   "position": [
+    -1.935,
+    19.27,
+    0.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_2",
+   "type": "cylinder",
+   "position": [
+    3.1,
+    22.2,
+    0.0
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    4.6,
+    1.0,
+    4.6
+   ],
+   "material": "structure_b",
+   "sections": 20,
+   "hole": 1.7,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_2_Clamp_1",
+   "type": "box",
+   "position": [
+    4.832,
+    23.532,
+    -0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    45.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_2_Clamp_2",
+   "type": "box",
+   "position": [
+    1.368,
+    23.532,
+    -0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    135.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_2_Clamp_3",
+   "type": "box",
+   "position": [
+    1.368,
+    20.068,
+    -0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    225.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_2_Clamp_4",
+   "type": "box",
+   "position": [
+    4.832,
+    20.068,
+    -0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    315.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_2_Glow",
+   "type": "cylinder",
+   "position": [
+    3.1,
+    22.2,
+    0.05
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    3.3,
+    0.05,
+    3.3
+   ],
+   "material": "glow_dim",
+   "sections": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_2_Grille_01",
+   "type": "box",
+   "position": [
+    3.1,
+    20.925,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    2.204,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_2_Grille_11",
+   "type": "box",
+   "position": [
+    1.825,
+    22.2,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    0.12,
+    2.204,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_2_Grille_02",
+   "type": "box",
+   "position": [
+    3.1,
+    21.775,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    3.226,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_2_Grille_12",
+   "type": "box",
+   "position": [
+    2.675,
+    22.2,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    0.12,
+    3.226,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_2_Grille_03",
+   "type": "box",
+   "position": [
+    3.1,
+    22.625,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    3.226,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_2_Grille_13",
+   "type": "box",
+   "position": [
+    3.525,
+    22.2,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    0.12,
+    3.226,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_2_Grille_04",
+   "type": "box",
+   "position": [
+    3.1,
+    23.475,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    2.204,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_2_Grille_14",
+   "type": "box",
+   "position": [
+    4.375,
+    22.2,
+    0.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    0.12,
+    2.204,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Fan_2_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    3.1,
+    22.2,
+    0.62
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    3.23,
+    0.45,
+    3.23
+   ],
+   "material": "frame",
+   "blades": 8,
+   "sweep": 20.367645703747097,
+   "collision": false,
+   "outline": false,
+   "spin": 23.8,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_2",
+   "type": "box",
+   "position": [
+    3.1,
+    19.2,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    3.23,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_2_FrameLow",
+   "type": "box",
+   "position": [
+    3.1,
+    17.7,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    3.23,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_2_FrameSide_1",
+   "type": "box",
+   "position": [
+    1.635,
+    17.98,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    0.3,
+    1.24,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_2_FrameSide_2",
+   "type": "box",
+   "position": [
+    4.565,
+    17.98,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    0.3,
+    1.24,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_2_Duct",
+   "type": "panel",
+   "position": [
+    3.1,
+    17.98,
+    0.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    2.67,
+    1.24,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_2_Slat_1",
+   "type": "box",
+   "position": [
+    3.1,
+    18.05,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    2.67,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_2_Slat_2",
+   "type": "box",
+   "position": [
+    3.1,
+    18.45,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    2.67,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_2_Slat_3",
+   "type": "box",
+   "position": [
+    3.1,
+    18.85,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    2.67,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
+   "name": "Lintel_Fans_Vent_2_Status",
+   "type": "box",
+   "position": [
+    4.265,
+    19.27,
+    0.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Lintel_Fans",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Lintel_Fans",
+   "source": "visible"
+  },
+  {
    "name": "Conv_West",
    "type": "group",
    "position": [
@@ -50805,7 +52186,7 @@
     0.12,
     31.8
    ],
-   "material": "grate",
+   "material": "belt",
    "collision": false,
    "mobile": {
     "static": true
@@ -52506,7 +53887,7 @@
     0.12,
     31.8
    ],
-   "material": "grate",
+   "material": "belt",
    "collision": false,
    "mobile": {
     "static": true
@@ -134564,16 +135945,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 90914,
-  "objects": 4097,
-  "materials": 30,
-  "glb_kb": 6040,
-  "nodes": 4662,
-  "draw_calls_unbatched": 4476,
-  "draw_calls_batched_min": 32,
-  "images": 91,
-  "tex_mem_gpu_compressed_mb": 22.89,
-  "tex_mem_uncompressed_mb": 91.57,
+  "triangles": 93692,
+  "objects": 4146,
+  "materials": 31,
+  "glb_kb": 6186,
+  "nodes": 4713,
+  "draw_calls_unbatched": 4526,
+  "draw_calls_batched_min": 33,
+  "images": 94,
+  "tex_mem_gpu_compressed_mb": 23.14,
+  "tex_mem_uncompressed_mb": 92.57,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

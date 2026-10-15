@@ -1,17 +1,17 @@
 {
  "level": "slime_arena",
  "assets_kb": {
-  "level.glb": 6040,
-  "mobile/level_mobile.glb": 3643,
+  "level.glb": 6186,
+  "mobile/level_mobile.glb": 3742,
   "mobile/collision.json": 281,
   "environment.json": 4,
   "background.glb": 474,
-  "effects.json": 80
+  "effects.json": 81
  },
  "complexity": {
-  "triangles": 112990,
-  "nodes": 4476,
-  "materials": 30,
+  "triangles": 116100,
+  "nodes": 4526,
+  "materials": 31,
   "heaviest": [
    [
     "Corrosion_Band",
@@ -22,36 +22,36 @@
     758
    ],
    [
-    "Works_Wall_North_01_M01Fan_Rotor",
+    "Lintel_Fans_Fan_2_Rotor",
     758
    ],
    [
-    "Works_Ceil_Fan_1_Rotor",
-    682
+    "Lintel_Fans_Fan_1_Rotor",
+    758
    ],
    [
-    "Works_Wall_North_02_M01Fan_Rotor",
-    682
+    "Works_Wall_North_01_M01Fan_Rotor",
+    758
    ]
   ]
  },
  "performance": {
   "dev": {
-   "glb_kb": 6040,
-   "triangles": 90914,
-   "draw_calls": 4476,
-   "tex_mem_gpu_mb_est": 22.89
+   "glb_kb": 6186,
+   "triangles": 93692,
+   "draw_calls": 4526,
+   "tex_mem_gpu_mb_est": 23.14
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3643,
-   "triangles": 106354,
-   "draw_calls": 121,
-   "visible_draw_calls_est": 68.6,
-   "visible_draw_calls_max_est": 122,
-   "tex_mem_gpu_mb_est": 7.27,
-   "materials": 32,
-   "nodes": 154,
+   "glb_kb": 3742,
+   "triangles": 109272,
+   "draw_calls": 125,
+   "visible_draw_calls_est": 69.9,
+   "visible_draw_calls_max_est": 126,
+   "tex_mem_gpu_mb_est": 7.52,
+   "materials": 33,
+   "nodes": 158,
    "colliders": {
     "colliders": 889,
     "hazards": 11,
@@ -462,22 +462,22 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 121 (> 80)"
+   "message": "mobile draw calls 125 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~69 visible draw calls (estimate, > 60)"
+   "message": "~70 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "112990 triangles (> budget 40000)"
+   "message": "116100 triangles (> budget 40000)"
   },
   {
    "kind": "dev_size",
    "severity": "info",
-   "message": "dev GLB 6040 KB (> 6000)"
+   "message": "dev GLB 6186 KB (> 6000)"
   },
   {
    "kind": "low_ceiling",

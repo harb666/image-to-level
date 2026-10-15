@@ -204,7 +204,16 @@ func _assembly(line: Dictionary) -> void:
 			for nd in arm + held + scan:  # bounds are the rest pose: never culled while the arm is swung out
 				(nd as GeometryInstance3D).extra_cull_margin = 6.0
 		stations.append([st, arm, held, scan, mats, ring, sk, bones])
-	_lines.append([line, mv, stations])
+	var belts: Array = []  # Stage 68: the belt surface runs with the parcels (UV offset on the belt's own material)
+	if line.has("belt"):
+		var bn := String(line["belt"]["material"])
+		for node in level_root.find_children("*", "MeshInstance3D", true, false):
+			var mi := node as MeshInstance3D
+			for si in mi.get_surface_override_material_count():
+				var bm := mi.get_active_material(si) as BaseMaterial3D
+				if bm and (bm.resource_name == bn or bm.resource_name.begins_with(bn + "__")) and not belts.has(bm):
+					belts.append(bm)
+	_lines.append([line, mv, stations, belts])
 
 
 func _update_lines() -> void:
@@ -215,6 +224,10 @@ func _update_lines() -> void:
 		var off := ax * d
 		for nd in ln[1]:
 			(nd as Node3D).position = off
+		if line.has("belt"):
+			var sc: Array = line["belt"]["scroll"]
+			for bm in ln[3]:
+				(bm as BaseMaterial3D).uv1_offset = Vector3(fposmod(float(sc[0]) * _t, 1.0), fposmod(float(sc[1]) * _t, 1.0), 0.0)
 		for sa in ln[2]:
 			var st: Dictionary = sa[0]
 			for sm in sa[4]:
