@@ -251,3 +251,17 @@ class Stage59(unittest.TestCase):
         self.assertFalse([n for n in by if n.startswith("Gallery_North_Strut_0") and n[-1] in "234"])  # struts the portal covers
         C = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "collision.json"))); self.assertEqual(C["gates"][0]["id"], "Gate_Works_Laser")
         gd = open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_mobile.gd")).read(); self.assertIn("func open_gate", gd); self.assertIn("signal gate_opened", gd)
+
+
+class Stage60(unittest.TestCase):
+    def test_conveyor_rollers_face_the_pool(self):
+        import sys
+        sys.path.insert(0, os.path.join(ROOT, "pipeline"))
+        from architecture import _aabb_all
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json")))
+        class C: objects = L["objects"]
+        B = _aabb_all(C)
+        for conv, out in (("Conv_West", -1), ("Conv_East", 1)):  # rollers stick out on the pool side, away from the walkway (x = 0)
+            for k in (1, 2):
+                lo, hi = B[f"{conv}_Roller_{k}"]; bed_lo, bed_hi = B[conv + "_Bed"]
+                self.assertTrue(lo[0] < bed_lo[0] - 0.5 if out < 0 else hi[0] > bed_hi[0] + 0.5, (conv, k))

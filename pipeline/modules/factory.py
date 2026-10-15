@@ -267,8 +267,9 @@ def conveyor(ctx, s, x, y, z, yaw):
     for k, sd in enumerate((-1, 1)):
         ctx.add(f"{n}_Side_{k + 1}", "box", [sd * (w / 2 - 0.06), h - 0.2, 0], [0.16, 0.35, L - 0.04], "frame", g, collision=False, **st)  # 2 cm proud of the bed
         ctx.add(f"{n}_Edge_{k + 1}", "box", [sd * (w / 2 + 0.01), h - 0.45, 0], [0.04, 0.1, L - 0.6], "glow", g, collision=False, outline=False, **st)
+    rs = 1 if float(s.get("roller_side", -1)) > 0 else -1  # Stage 60: which local side (x) the end rollers stick out of the bed (+1 / -1)
     for k, sd in enumerate((-1, 1)):
-        ctx.add(f"{n}_Roller_{k + 1}", "cylinder", [0, h - 0.5, sd * (L / 2 - 0.1)], [0.5, w, 0.5], "machine", g, [0, 0, 90], sections=8, collision=False, **st)
+        ctx.add(f"{n}_Roller_{k + 1}", "cylinder", [0, h - 0.5, sd * (L / 2 - 0.1)], [0.5, w, 0.5], "machine", g, [0, 0, -90 * rs], sections=8, collision=False, **st)
     import random as _r
     rg = _r.Random(n); k = 0
     for zz in [(-L / 2 + 1.2 + i * 2.6) for i in range(int((L - 2) / 2.6))]:

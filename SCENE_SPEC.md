@@ -824,3 +824,7 @@ Building blocks usable without the preset:
 - Godot: `apply_mobile.gd` builds the blockers (StaticBody3D, group `laser_gate`) and offers `open_gate(id)` (beams
   stutter out, blocker removed, signal `gate_opened(id)`). Construct Error runs the waves and calls it. The preview has a
   "Gate" button to see it open or closed (the preview never blocks the player).
+
+## Stage 60: conveyor rollers on the pool side
+- `conveyor` `"roller_side": +1 | -1` - which local side (x) the end rollers stick out of the bed (default -1, as
+  before). The slime arena's `Conv_West` uses +1, so both assembly-line conveyors show their rollers towards the slime.
