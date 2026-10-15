@@ -273,6 +273,18 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
             gl_FragColor=vec4(mix(uTint,vec3(1.),clamp(hl+.6*hl2,0.,1.)),clamp(.08+rim*.85+hl*.9+hl2*.55,0.,1.)*fade*uA);}`});
         const me=new THREE.Mesh(g,m);me.frustumCulled=false;me.renderOrder=-1;scene.add(me);fxObjs.push(me);fxUpd.push({u(t){U.uT.value=t;}});}}
     else if(fx.category==='light'){for(const e of fx.emitters||[]){const L=new THREE.PointLight(new THREE.Color(...p.color),p.energy*60,p.range,1.6);L.position.set(...e.pos);scene.add(L);fxObjs.push(L);}} // Stage 39: soft coloured lights
+    else if(fx.category==='assembly'){const Ln=fx.line,grp=g=>Object.values(byName).filter(o=>o.name.startsWith(g+'__')),ax=new THREE.Vector3(...Ln.axis); // Stage 61: working assembly line
+      const mv=Ln.move.flatMap(grp),ST=Ln.stations.map(st=>({st,arm:st.groups.flatMap(grp),held:st.held.flatMap(grp),scan:st.scan.flatMap(grp),
+        pv:new THREE.Vector3(...st.pivot),hg:new THREE.Vector3(...st.hinge).normalize()}));r.localClippingEnabled=true;const swapped=[];
+      for(const st of Ln.stations){const pl=st.reveal.plane,P=new THREE.Plane(new THREE.Vector3(pl[0],pl[1],pl[2]),-pl[3]);
+        for(const o of grp(st.reveal.group)){const m0=o.material,m=m0.clone();m.clippingPlanes=[P];o.material=m;swapped.push([o,m0]);}}
+      const all=[...mv,...ST.flatMap(x=>[...x.arm,...x.held,...x.scan])],q=new THREE.Quaternion(),tmp=new THREE.Vector3(),fp=(a,b)=>((a%b)+b)%b;
+      fxUpd.push({reset(){all.forEach(o=>{o.position.set(0,0,0);o.quaternion.identity();o.visible=true;});swapped.forEach(([o,m])=>o.material=m);},
+        u(t){const d=fp(t*Ln.speed,Ln.spacing);mv.forEach(o=>o.position.copy(ax).multiplyScalar(d));
+          for(const x of ST){const s=x.st,P=s.period,W=s.window,u=fp(t-s.t0+W/2,P),k=u<W?0.5-0.5*Math.cos(6.2832*u/W):0;
+            q.setFromAxisAngle(x.hg,s.angle_deg*Math.PI/180*k);tmp.copy(x.pv).applyQuaternion(q);
+            for(const o of [...x.arm,...x.held,...x.scan]){o.quaternion.copy(q);o.position.copy(x.pv).sub(tmp);}
+            const ph=fp(t-s.t0,P);x.held.forEach(o=>o.visible=ph>0.6*P);x.scan.forEach(o=>o.visible=Math.abs(u-W/2)<W*0.35);}}});}
     else if(fx.category==='launch'){const L=(fx.launches||[]).flatMap(l=>(l.targets||[]).map(n=>[byName[n],l]).filter(a=>a[0])),y0=L.map(a=>a[0].position.y); // Stage 49: pods shooting up the columns
       fxUpd.push({reset(){L.forEach((a,i)=>a[0].position.y=y0[i]);},u(t){L.forEach((a,i)=>{const l=a[1];a[0].position.y=y0[i]+Math.min(((t+l.phase)%l.period)*p.speed,l.travel);});}});}
     else if(fx.category==='translate_loop'){const tg=(fx.targets||[]).map(n=>byName[n]).filter(Boolean),y0=tg.map(o=>o.position.y); // Stage 43: barrels up the column bores

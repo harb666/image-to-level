@@ -828,3 +828,20 @@ Building blocks usable without the preset:
 ## Stage 60: conveyor rollers on the pool side
 - `conveyor` `"roller_side": +1 | -1` - which local side (x) the end rollers stick out of the bed (default -1, as
   before). The slime arena's `Conv_West` uses +1, so both assembly-line conveyors show their rollers towards the slime.
+
+## Stage 61: working assembly lines
+- `conveyor` `"working": {"speed", "spacing", "machine", "stations": [{"arm", "task": "add" | "inspect", "at"}]}`: an
+  intake machine over the start of the belt (housing, dark mouth with rubber curtain strips, hazard-striped frame,
+  yellow lamp, hopper of glowing slime) and an output machine over its end (red lamp, vent stack with a red ring).
+  Identical parcels (11 per line here) ride the belt; effect `assembly_line` slides them by (t * speed) mod spacing, so a
+  new parcel pushes out of the intake curtains as the last one disappears into the output (both inside the housings).
+- `robot_arm` `"reach": [x, y, z]` turns the arm to that point and solves its pose (two-link IK, elbow up) so the claw
+  tips rest there; `"task"` makes the upper arm its own moving group (3 materials). An "add" arm holds a glowing
+  canister between its finger tips; an "inspect" arm carries a translucent yellow scan beam (role `scan`).
+- Per station, every parcel carries the station's part - a canister set into its lid (add) or yellow approval lights on
+  both sides (inspect) - revealed by a world clip plane at the arm: the part appears exactly as its parcel passes under
+  the arm, which dips at that moment (angle solved so the canister lands on the lid / the beam reaches it), its held
+  canister vanishes at the drop and returns before the next parcel; the scan beam shows only while the arm is down.
+- Godot: `apply_effects.gd` (category `assembly`) moves the `<group>__*` nodes and puts
+  `fx/godot/assembly_reveal.gdshader` on the parts; the preview does the same with three.js clipping planes. Cost: ~22
+  extra draw calls for both lines (moving groups), ~2.7k triangles.

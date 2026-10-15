@@ -255,6 +255,22 @@ def _effects(spec, ctx, plats, env, glow):
         if fl: out.append(dict(id="Fan_Lights", type="point_light", positions=[q[:3] for q in fl], color=[1.0, 0.8, 0.3], energy=1.0, range=16.0))  # Stage 39
         spins = [o["name"] for o in ctx.objects if o.get("spin")]
         if spins: out.append(dict(id="Fan_Spin", type="spin", targets=spins))  # Stage 19: rotating fan rotors
+        for ln_, A_ in getattr(ctx, "assembly", {}).items():  # Stage 61: working assembly lines (parcels, arm dips, part reveals)
+            import math as _m
+            u = A_["axis"]; S, v = A_["spacing"], A_["speed"]; P = S / v; st_ = []
+            for stn in A_["stations"]:
+                arm = getattr(ctx, "assembly_arms", {}).get(stn["arm"])
+                if not arm: ctx.notes.append(f"{ln_}: station arm {stn['arm']} missing / has no task - skipped"); continue
+                tip, pv = arm["tip"], arm["pivot"]; sk = (tip[0] - A_["start"][0]) * u[0] + (tip[2] - A_["start"][2]) * u[2]
+                t0 = round(((sk - A_["s0"]) % S) / v, 4)  # a parcel's centre is under the claw at t0 (+ k * P)
+                gap = tip[1] - A_["top"]; drop = gap + 0.025 if arm["task"] == "add" else gap - 0.4
+                r = _m.hypot(tip[0] - pv[0], tip[2] - pv[2]); dy = tip[1] - pv[1]; R = _m.hypot(r, dy)
+                ang = _m.degrees(_m.atan2(dy, r) - _m.asin(max(-1.0, min(1.0, (dy - drop) / R))))
+                st_.append(dict(task=arm["task"], arm=stn["arm"], groups=arm["groups"], held=arm["held"], scan=arm["scan"], pivot=pv, hinge=arm["hinge"],
+                                angle_deg=round(ang, 3), t0=t0, period=round(P, 4), window=round(min(1.1 if arm["task"] == "add" else 1.4, 0.7 * P), 3),
+                                reveal=dict(group=stn["group"], plane=[u[0], 0.0, u[2], round(tip[0] * u[0] + tip[2] * u[2], 4)])))
+            out.append(dict(id=ln_ + "_Line", type="assembly_line", line=dict(move=[ln_ + "_Parcels"] + [s_["group"] for s_ in A_["stations"]], axis=u, speed=v, spacing=S,
+                                                                             stations=st_)))
         la = getattr(ctx, "launches", [])
         if la:  # Stage 49: a slime pod shooting up each column every few seconds (own period / phase per column)
             from modules.factory import POD_SPEED

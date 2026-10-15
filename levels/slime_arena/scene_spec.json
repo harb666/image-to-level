@@ -1253,9 +1253,24 @@
    ],
    "y": 7.0,
    "width": 2.0,
-   "parcels": 0.45,
    "source": "visible",
-   "roller_side": 1
+   "roller_side": 1,
+   "working": {
+    "speed": 1.0,
+    "spacing": 2.6,
+    "stations": [
+     {
+      "arm": "Arm_2",
+      "task": "add",
+      "at": 9.0
+     },
+     {
+      "arm": "Arm_4",
+      "task": "inspect",
+      "at": 21.0
+     }
+    ]
+   }
   },
   {
    "id": "Conv_East",
@@ -1270,76 +1285,103 @@
    ],
    "y": 7.0,
    "width": 2.0,
-   "parcels": 0.3,
-   "source": "visible"
+   "source": "visible",
+   "working": {
+    "speed": 1.0,
+    "spacing": 2.6,
+    "stations": [
+     {
+      "arm": "Arm_1",
+      "task": "add",
+      "at": 9.0
+     },
+     {
+      "arm": "Arm_3",
+      "task": "inspect",
+      "at": 21.0
+     }
+    ]
+   }
   },
   {
    "id": "Arm_1",
    "kind": "robot_arm",
    "position": [
-    9.5,
+    7.4,
     7.0,
-    -70
+    -76
    ],
    "yaw": -90,
-   "pose": [
-    30,
-    70
-   ],
    "pedestal": 6.0,
-   "scale": 1.0,
-   "source": "visible"
+   "scale": 1.05,
+   "source": "visible",
+   "task": "add",
+   "reach": [
+    3.7,
+    9.01,
+    -76
+   ],
+   "notes": "Stage 61: adds a canister to every parcel on Conv_East"
   },
   {
    "id": "Arm_2",
    "kind": "robot_arm",
    "position": [
-    -9.5,
+    -7.4,
     7.0,
-    -78
+    -70
    ],
    "yaw": 90,
-   "pose": [
-    50,
-    95
-   ],
    "pedestal": 6.0,
-   "scale": 1.1,
-   "source": "visible"
+   "scale": 1.05,
+   "source": "visible",
+   "task": "add",
+   "reach": [
+    -3.7,
+    9.01,
+    -70
+   ],
+   "notes": "Stage 61: adds a canister to every parcel on Conv_West"
   },
   {
    "id": "Arm_3",
    "kind": "robot_arm",
    "position": [
-    9.5,
+    7.4,
     7.0,
-    -92
+    -88
    ],
    "yaw": -90,
-   "pose": [
-    22,
-    40
-   ],
    "pedestal": 6.0,
-   "scale": 1.0,
-   "source": "visible"
+   "scale": 1.1,
+   "source": "visible",
+   "task": "inspect",
+   "reach": [
+    3.7,
+    9.41,
+    -88
+   ],
+   "notes": "Stage 61: scans every parcel on Conv_East"
   },
   {
    "id": "Arm_4",
    "kind": "robot_arm",
    "position": [
-    -9.5,
+    -7.4,
     7.0,
-    -99
+    -82
    ],
    "yaw": 90,
-   "pose": [
-    40,
-    60
-   ],
    "pedestal": 6.0,
    "scale": 1.1,
-   "source": "visible"
+   "source": "visible",
+   "task": "inspect",
+   "reach": [
+    -3.7,
+    9.41,
+    -82
+   ],
+   "notes": "Stage 61: scans every parcel on Conv_West"
   },
   {
    "id": "Valve_A",
@@ -1938,6 +1980,23 @@
      0.3
     ],
     "notes": "Stage 59: laser gate beams"
+   },
+   "scan": {
+    "type": "glow",
+    "color": [
+     1.0,
+     0.88,
+     0.3
+    ],
+    "tile_m": 2.0,
+    "res": 32,
+    "alpha": 0.4,
+    "emissive": [
+     1.0,
+     0.85,
+     0.3
+    ],
+    "notes": "Stage 61: inspection scan beam"
    }
   }
  },

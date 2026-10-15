@@ -265,3 +265,23 @@ class Stage60(unittest.TestCase):
             for k in (1, 2):
                 lo, hi = B[f"{conv}_Roller_{k}"]; bed_lo, bed_hi = B[conv + "_Bed"]
                 self.assertTrue(lo[0] < bed_lo[0] - 0.5 if out < 0 else hi[0] > bed_hi[0] + 0.5, (conv, k))
+
+
+class Stage61(unittest.TestCase):
+    def test_working_assembly_lines(self):
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        for c in ("Conv_East", "Conv_West"):
+            for k in ("_In_Housing", "_In_Mouth", "_In_Hopper", "_Out_Housing", "_Out_Stack", "_Parcel_01", "_Item1_01", "_Item2_01_L"): self.assertIn(c + k, by)
+            ps = [o for n, o in by.items() if n.startswith(c + "_Parcel_")]
+            self.assertTrue(len({tuple(o["size"]) for o in ps}) == 1 and all(not any(o.get("rotation", [0, 0, 0])) for o in ps))  # identical: the loop is seamless
+        for a, t in (("Arm_1", "add"), ("Arm_2", "add"), ("Arm_3", "inspect"), ("Arm_4", "inspect")):
+            self.assertEqual(by[a + "_Link1"]["mobile"]["group"], a + "_Upper"); self.assertIn(a + ("_Held" if t == "add" else "_Scan"), by)
+        E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "effects_mobile.json")))
+        lines = [e for e in E["effects"] if e["type"] == "assembly_line"]; self.assertEqual(len(lines), 2)
+        for e in lines:
+            l = e["line"]; self.assertEqual(len(l["stations"]), 2)
+            for st in l["stations"]:
+                self.assertTrue(3 < st["angle_deg"] < 15 and 0 <= st["t0"] < st["period"] and st["window"] <= 0.7 * st["period"] + 1e-6)
+        M = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "mobile_manifest.json")))
+        self.assertTrue(any(n["node"].startswith("Conv_East_Parcels__") for n in M["nodes"]))
+        for f in ("assembly_reveal.gdshader", "apply_effects.gd"): self.assertTrue(os.path.exists(os.path.join(ROOT, "pipeline", "godot_fx", f)))

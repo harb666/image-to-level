@@ -89,6 +89,11 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                       defaults=dict(speed=28.0)),
     "spin": dict(category="transform_animation", godot="script: rotor node.rotate_object_local(Vector3.UP, rpm * TAU / 60 * delta); the rotor's node origin is its centre "
                  "and its local +y its axis (per-target rpm in 'speeds', sign = direction)", glb="rotor mesh at rest, own node", defaults=dict(speed_rpm=20.0)),
+    "assembly_line": dict(category="assembly", godot="script (apply_effects.gd _assembly): every node of the line's 'move' groups (<group>__*) slides along 'axis' by "
+                          "fmod(t * speed, spacing); per station the arm's groups turn about 'hinge' through 'pivot' by angle_deg * bump(t - t0, window) every "
+                          "'period' s, 'held' groups hide from t0 to t0 + 0.6 period, 'scan' groups show only during the dip, and the 'reveal' group gets "
+                          "assembly_reveal.gdshader (fragments with dot(world, plane.xyz) < plane.w discarded: parts appear once the parcel passes the arm)",
+                          glb="parcels, parts and arms at rest (own nodes: mobile groups)", defaults=dict(speed=1.0)),
     "tube_travel": dict(category="translate_loop", godot="script: node.position = rest + Vector3.UP * fmod(t * speed, spacing) - one shared loop for "
                         "every target; things wrap out of sight (barrels shooting up the column bores, Stage 43)", glb="targets at rest, own nodes (mobile group)",
                         defaults=dict(speed=9.0, spacing=7.0)),
@@ -258,6 +263,7 @@ def resolve(level_dir, L=None):
         if e.get("targets"): tg = [n for n in e["targets"] if n in boxes]
         if e.get("target_material"): tg = _mat_nodes(scene, e["target_material"]); R["target_material"] = e["target_material"]
         if e.get("ripples") is not None: R["ripples"] = e["ripples"]
+        if e.get("line"): R["line"] = e["line"]
         if e.get("launches"): R["launches"] = [dict(l, targets=[n for n in l["targets"] if n in boxes]) for l in e["launches"]]
         if e["type"] == "spin" and tg: R["speeds"] = {n: by[n].get("spin", prm["speed_rpm"]) for n in tg if n in by}
         if tg: R["targets"] = tg

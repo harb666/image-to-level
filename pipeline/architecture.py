@@ -128,7 +128,7 @@ for _k, _b, _s in (("industrial", "industrial", "realistic"), ("toxic_industrial
     THEMES[_k].setdefault("biome", _b); THEMES[_k].setdefault("style", _s)
 VARIANT_ROLES = ("wall", "structure", "deck", "plaster")
 CORROSION = {"type": "corrosion", "color": [1.0, 1.0, 1.0], "tile_m": 4.0, "res": 128, "toon": True, "emissive": [1.0, 1.0, 1.0], "cutout": 0.5}
-FALLBACK = {"laser": "glow", "glow_dim": "glow", "glow_yellow": "glow", "glass_clear": "glass", "bigscreen": "glow", "tv_casing": "structure_b", "screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
+FALLBACK = {"scan": "glow_yellow", "laser": "glow", "glow_dim": "glow", "glow_yellow": "glow", "glass_clear": "glass", "bigscreen": "glow", "tv_casing": "structure_b", "screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
             "window": "glow", "foliage": "rock", "water": "hazard", "machine": "structure_b", "backdrop": "wall", "structure_b": "structure",
             "frame": "structure_b", "rail": "frame", "grate": "deck", "trim": "structure_b", "accent": "trim", "glow": "accent", "pipe": "frame",
             "hazard": "water", "fall": "water", "stripe": "trim", "ground": "deck", "deck": "ground", "wall": "structure", "structure": "wall", "rock": "structure"}

@@ -270,6 +270,7 @@ def conveyor(ctx, s, x, y, z, yaw):
     rs = 1 if float(s.get("roller_side", -1)) > 0 else -1  # Stage 60: which local side (x) the end rollers stick out of the bed (+1 / -1)
     for k, sd in enumerate((-1, 1)):
         ctx.add(f"{n}_Roller_{k + 1}", "cylinder", [0, h - 0.5, sd * (L / 2 - 0.1)], [0.5, w, 0.5], "machine", g, [0, 0, -90 * rs], sections=8, collision=False, **st)
+    if s.get("working"): return _assembly_line(ctx, s, n, g, L, w, h, x, y, z, yaw)
     import random as _r
     rg = _r.Random(n); k = 0
     for zz in [(-L / 2 + 1.2 + i * 2.6) for i in range(int((L - 2) / 2.6))]:
@@ -278,22 +279,87 @@ def conveyor(ctx, s, x, y, z, yaw):
                                                                   collision=False, **st)
 
 
+def _assembly_line(ctx, s, n, g, L, w, h, x, y, z, yaw):
+    """Stage 61: a working assembly line. Intake machine over the start of the belt, output machine over its end (each a
+    housing with a dark mouth, rubber curtain strips, hazard-striped frame, status light; hopper on the intake, vent stack
+    on the output). Identical parcels ride the belt at a fixed spacing (mobile group "<id>_Parcels", effect
+    "assembly_line": it slides them along by (t * speed) mod spacing - a new parcel comes out of the intake mouth as the
+    last one goes into the output, both hidden inside the housings). Per station (working["stations"]: arm, task
+    "add" | "inspect", "at" m from the start) every parcel carries the station's part - a glowing canister on top (add)
+    or a yellow approval light on its side (inspect) - in its own group, revealed by a world clip plane once the parcel
+    passes the station's arm (which dips at that very moment, see robot_arm "task"). Local +z runs from -> to."""
+    W_ = s["working"]; st = dict(mobile={"static": True}); v = float(W_.get("speed", 1.0)); mL = float(W_.get("machine", 2.6))
+    hz = h - 0.03  # parcel base (belt top)
+    for e_, zc, sg in (("In", -L / 2 + mL / 2, 1), ("Out", L / 2 - mL / 2, -1)):  # sg: the side the mouth faces (+z for the intake)
+        m_ = f"{n}_{e_}"; fz = zc + sg * mL / 2  # mouth face
+        ctx.add(m_ + "_Housing", "box", [0, -0.03, zc - sg * 0.05], [w + 1.0, 2.33, mL + 0.1], "machine", g, **st)  # 3 cm into the deck, 10 cm past the bed end: no shared faces
+        ctx.add(m_ + "_Roof", "box", [0, 2.3, zc], [w + 1.3, 0.22, mL + 0.3], "structure_b", g, collision=False, **st)
+        roles = ctx.spec.get("materials", {}).get("roles", {}); atl = (roles.get("accent") or {}).get("atlas") or {}
+        ctx.add(m_ + "_Mouth", "panel", [0, hz - 0.05, fz + sg * 0.02], [w - 0.1, 1.05, 0], "accent" if "void" in atl else "void", g, [0, 0 if sg > 0 else 180, 0],
+                uv_region="void", collision=False, outline=False, **st)
+        for j in range(7):  # rubber curtain strips hanging in the mouth (the parcels push through them)
+            cx = -(w - 0.3) / 2 + (w - 0.3) * (j + 0.5) / 7
+            ctx.add(f"{m_}_Strip_{j + 1}", "box", [cx, hz + 0.25, fz + sg * 0.07], [(w - 0.3) / 7 - 0.03, 0.75, 0.025], "frame", g, collision=False, outline=False, **st)
+        for k_, (ox, oy, sx, sy) in enumerate(((0, hz + 1.03, w + 0.3, 0.2), (-(w / 2 + 0.05), hz - 0.05, 0.2, 1.08), (w / 2 + 0.05, hz - 0.05, 0.2, 1.08))):
+            ctx.add(f"{m_}_Frame_{k_ + 1}", "box", [ox, oy, fz + sg * 0.06], [sx, sy, 0.1], "stripe", g, collision=False, outline=False, **st)
+        lamp = ctx.role("glow_yellow") if e_ == "In" else "glow"
+        ctx.add(m_ + "_Lamp", "box", [0, hz + 1.38, fz + sg * 0.05], [0.9, 0.22, 0.08], lamp, g, collision=False, outline=False, **st)
+        for sd in (-1, 1):  # side vents
+            ctx.add(f"{m_}_Vent_{'LR'[sd > 0]}", "box", [sd * (w / 2 + 0.52), 0.9, zc], [0.06, 0.9, mL * 0.6], "frame", g, collision=False, outline=False, **st)
+        if e_ == "In":  # hopper feeding the intake, glowing slime in it
+            ctx.add(m_ + "_Hopper", "frustum", [0, 2.5, zc], [w + 0.6, 1.1, mL - 0.4], "structure_b", g, sections=4, bottom_scale=0.55, collision=False, **st)
+            ctx.add(m_ + "_HopperFill", "box", [0, 3.48, zc], [w + 0.2, 0.06, mL - 0.8], ctx.role("fall") if "fall" in roles else "glow", g, collision=False, outline=False, **st)
+        else:  # vent stack with a red ring
+            ctx.add(m_ + "_Stack", "cylinder", [0.35, 2.5, zc], [0.7, 1.6, 0.7], "structure_b", g, sections=8, collision=False, **st)
+            ctx.add(m_ + "_StackRing", "cylinder", [0.35, 3.3, zc], [0.82, 0.18, 0.82], "glow", g, sections=8, collision=False, outline=False, **st)
+    s0, s1 = mL / 2, L - mL / 2; N = max(2, int(round((s1 - s0) / float(W_.get("spacing", 2.6))))); S = (s1 - s0) / N
+    PS = 0.8; mv = dict(collision=False, mobile={"group": n + "_Parcels"})
+    for i in range(N):
+        ctx.add(f"{n}_Parcel_{i + 1:02d}", "box", [0, hz, -L / 2 + s0 + i * S], [PS, PS * 0.8, PS], "accent", g, **mv)
+    stations = []
+    for k_, stn in enumerate(W_.get("stations", [])):
+        ig = f"{n}_Item{k_ + 1}"; it = dict(collision=False, outline=False, mobile={"group": ig})
+        for i in range(N):
+            zp = -L / 2 + s0 + i * S
+            if stn["task"] == "add":  # glowing canister set into the lid (base 2 cm under it)
+                ctx.add(f"{ig}_{i + 1:02d}", "cylinder", [0, hz + PS * 0.8 - 0.02, zp], [0.5, 0.5, 0.5], ctx.role("fall") if "fall" in ctx.spec.get("materials", {}).get("roles", {}) else "glow", g, sections=8, **it)
+            else:  # approval light on both sides of the parcel (1 cm proud)
+                for sd in (-1, 1):
+                    ctx.add(f"{ig}_{i + 1:02d}_{'LR'[sd > 0]}", "box", [sd * (PS / 2 + 0.005), hz + PS * 0.55, zp], [0.02, 0.12, PS * 0.7], ctx.role("glow_yellow"), g, **it)
+        stations.append(dict(stn, group=ig))
+    ux, uz = math.sin(math.radians(yaw)), math.cos(math.radians(yaw)); ax_, az_ = x - ux * L / 2, z - uz * L / 2
+    ctx.assembly = getattr(ctx, "assembly", {}); ctx.assembly[n] = dict(start=[round(ax_, 3), round(y, 3), round(az_, 3)], axis=[round(ux, 5), 0.0, round(uz, 5)], speed=v,
+                                                                      spacing=round(S, 4), s0=round(s0, 3), parcels=N, stations=stations, top=round(y + hz + PS * 0.8, 3))
+    ctx.notes.append(f"{n}: working assembly line - {N} parcels {S:.2f} m apart at {v} m/s, {len(stations)} station(s)")
+
+
 @structure("robot_arm", pad=False)
 def robot_arm(ctx, s, x, y, z, yaw):
     """Industrial robot arm on a deck (Stage 33, from the user's reference): tapered base and turret, shoulder and elbow
     joints with glowing red discs, angular tapered links with red light strips on both sides, a spike on the elbow,
     sagging hose cables, a tapered wrist housing with a red diamond light and a three-finger claw with lit fingers.
     Pose "pose" deg [shoulder, elbow] (default from the id so neighbours differ). Solid base, visual arm."""
-    n = s["id"]; sc = float(s.get("scale", 1.0)); g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); st = dict(mobile={"static": True})
-    vis = dict(collision=False, **st)
+    n = s["id"]; sc = float(s.get("scale", 1.0)); st = dict(mobile={"static": True})
+    rch = s.get("reach")  # Stage 61: [x, y, z] world point the claw tips rest at (the arm turns to face it, pose solved)
+    if rch: yaw = math.degrees(math.atan2(rch[0] - x, rch[2] - z))
+    g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0])
+    task = s.get("task") if rch else None  # "add" | "inspect": the upper arm moves (own mobile group) - effect "assembly_line"
+    vis = dict(collision=False, **(dict(mobile={"group": n + "_Upper"}) if task else st))
     import random as _r
     rg = _r.Random(n); sh, el = s.get("pose", [rg.uniform(20, 55), rg.uniform(40, 100)])
     if s.get("pedestal"):  # sunk 1.2 m deeper than asked: it stands IN what is below (liquid / deck), never on its surface
         pd = float(s["pedestal"]) + 1.2; ctx.add(n + "_Pedestal", "cylinder", [0, -pd, 0], [1.3 * sc, pd, 1.3 * sc], "structure_b", g, sections=10, **st)
-    sh, el = _clear_pose(ctx, n, (x, y, z), yaw, sc, sh, el)
+    if rch:  # two-link IK, elbow up: wrist joint = claw tips + 2.674 sc (the claw hangs straight down under it)
+        l1, l2, py_ = 2.7 * sc, 2.2 * sc, 1.6 * sc; dz = math.hypot(rch[0] - x, rch[2] - z); dy = rch[1] + 2.674 * sc - y - py_
+        D = min(math.hypot(dz, dy), l1 + l2 - 0.01); phi = math.atan2(dz, dy); al = math.acos((l1 * l1 + D * D - l2 * l2) / (2 * l1 * D))
+        a1 = phi - al; ey_, ez_ = l1 * math.cos(a1), l1 * math.sin(a1); a2 = math.atan2(dz - ez_, dy - ey_)
+        sh, el = math.degrees(a1), math.degrees(a2 - a1)
+        if math.hypot(dz, dy) > l1 + l2: ctx.notes.append(f"{n}: reach point out of range ({math.hypot(dz, dy):.2f} > {l1 + l2:.2f} m) - arm fully stretched")
+    else: sh, el = _clear_pose(ctx, n, (x, y, z), yaw, sc, sh, el)
     ctx.add(n + "_Base", "frustum", [0, 0, 0], [1.9 * sc, 0.6 * sc, 1.9 * sc], "structure_b", g, sections=8, bottom_scale=1.25, **st)
-    ctx.add(n + "_Turret", "frustum", [0, 0.6 * sc, 0], [1.2 * sc, 1.0 * sc, 1.2 * sc], "structure_b", g, sections=8, bottom_scale=1.2, **vis)
-    face_light(ctx, n + "_TurretLight", g, (0, 0.6 * sc, 0), 8, 0.6 * sc, 0.72 * sc, 1.0 * sc, 90, 0.15 * sc, 0.85 * sc, 0.14 * sc, vis)
+    vst = dict(collision=False, **st)  # the turret stays put
+    ctx.add(n + "_Turret", "frustum", [0, 0.6 * sc, 0], [1.2 * sc, 1.0 * sc, 1.2 * sc], "structure_b", g, sections=8, bottom_scale=1.2, **vst)
+    face_light(ctx, n + "_TurretLight", g, (0, 0.6 * sc, 0), 8, 0.6 * sc, 0.72 * sc, 1.0 * sc, 90, 0.15 * sc, 0.85 * sc, 0.14 * sc, vst)
     py = 1.6 * sc; W1, l1 = 0.62 * sc, 2.7 * sc; a1 = math.radians(sh)
     def link(nm, base, ang, L, W, top):  # tapered angular link (wide at the joint it starts from) + red strips on both sides
         ctx.add(nm, "frustum", base, [W, L, W * 0.8], "structure_b", g, [ang, 0, 0], bottom_scale=1.0 / top, **vis)
@@ -326,6 +392,19 @@ def robot_arm(ctx, s, x, y, z, yaw):
     for k, sd in enumerate((-1, 1)):  # hose cables: link 1 side -> wrist, sagging
         p0 = (sd * 0.3 * sc, py + math.cos(a1) * l1 * 0.45, math.sin(a1) * l1 * 0.45); p1 = (sd * 0.25 * sc, wy - 0.2 * sc, wz - 0.3 * sc)
         cable(ctx, f"{n}_Hose_{k + 1}", g, p0, p1, 0.6 * sc, 0.1 * sc, vis)
+    if task:  # Stage 61: what the moving arm carries (rotates with it; the effect shows / hides it in time with the parcels)
+        tip = cyl - 0.24 * sc - 1.58 * sc; ctx.assembly_arms = getattr(ctx, "assembly_arms", {})
+        if task == "add":  # a canister held between the finger tips (radius 0.26: the tips touch it), hidden after the drop
+            ctx.add(n + "_Held", "cylinder", [0, tip + 0.01, wz], [0.52, 0.5, 0.52], ctx.role("fall") if "fall" in ctx.spec.get("materials", {}).get("roles", {}) else "glow", g,
+                    sections=8, collision=False, outline=False, mobile={"group": n + "_Held"})
+        else:  # a scan beam from the collar down past the finger tips (shown while it inspects)
+            ctx.add(n + "_Scan", "frustum", [0, tip + 1.56 * sc, wz], [0.95, 1.56 * sc + 0.42, 0.95], ctx.role("scan"), g, [180, 0, 0], sections=4, bottom_scale=0.12,
+                    collision=False, outline=False, double_sided=True, mobile={"group": n + "_Scan"})
+        for o in ctx.objects:  # the moving arm in 3 materials (hull, lights, ink): fewer draw calls
+            if (o.get("mobile") or {}).get("group") == n + "_Upper" and o.get("material") in ("machine", "frame"): o["material"] = "structure_b"
+        ctx.assembly_arms[n] = dict(task=task, pivot=[round(x, 3), round(y + py, 3), round(z, 3)], hinge=[round(v_, 5) for v_ in (math.cos(math.radians(yaw)), 0.0, -math.sin(math.radians(yaw)))],
+                                    tip=[round(x + math.sin(math.radians(yaw)) * wz, 3), round(y + tip, 3), round(z + math.cos(math.radians(yaw)) * wz, 3)],
+                                    groups=[n + "_Upper"], held=[n + "_Held"] if task == "add" else [], scan=[n + "_Scan"] if task == "inspect" else [])
 
 
 def face_light(ctx, nm, g, c, n, r_top, r_bot, H, theta, t0, t1, width, vis, mat="glow"):
