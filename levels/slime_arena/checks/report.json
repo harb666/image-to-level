@@ -1,21 +1,21 @@
 {
  "level": "slime_arena",
  "assets_kb": {
-  "level.glb": 6005,
-  "mobile/level_mobile.glb": 3584,
-  "mobile/collision.json": 280,
+  "level.glb": 6052,
+  "mobile/level_mobile.glb": 3627,
+  "mobile/collision.json": 281,
   "environment.json": 4,
   "background.glb": 474,
   "effects.json": 64
  },
  "complexity": {
-  "triangles": 111974,
-  "nodes": 4472,
+  "triangles": 113350,
+  "nodes": 4506,
   "materials": 30,
   "heaviest": [
    [
     "Corrosion_Band",
-    2722
+    2770
    ],
    [
     "Works_Ceil_Fan_2_Rotor",
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 6005,
-   "triangles": 90146,
-   "draw_calls": 4472,
+   "glb_kb": 6052,
+   "triangles": 91298,
+   "draw_calls": 4506,
    "tex_mem_gpu_mb_est": 22.89
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3584,
-   "triangles": 105370,
-   "draw_calls": 117,
-   "visible_draw_calls_est": 67.0,
-   "visible_draw_calls_max_est": 117,
+   "glb_kb": 3627,
+   "triangles": 106714,
+   "draw_calls": 121,
+   "visible_draw_calls_est": 68.6,
+   "visible_draw_calls_max_est": 122,
    "tex_mem_gpu_mb_est": 7.27,
    "materials": 32,
-   "nodes": 118,
+   "nodes": 122,
    "colliders": {
-    "colliders": 885,
+    "colliders": 889,
     "hazards": 11,
-    "glb_kb": 459
+    "glb_kb": 462
    },
    "background_kb": 402
   },
@@ -81,8 +81,8 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 49107.0,
-  "reachable_area_m2": 9540.0,
+  "standable_area_m2": 49113.0,
+  "reachable_area_m2": 9586.0,
   "components": 447,
   "spawns": [
    {
@@ -132,7 +132,7 @@
      -82.0
     ],
     "standable": true,
-    "clearance_m": 1.5,
+    "clearance_m": 2.5,
     "headroom_m": 19.8,
     "component": 6,
     "hazard_distance_m": 6.67
@@ -186,7 +186,7 @@
     "standable": true,
     "clearance_m": 5.5,
     "headroom_m": 12.8,
-    "component": 64,
+    "component": 63,
     "hazard_distance_m": 6.52
    },
    {
@@ -199,7 +199,7 @@
     "standable": true,
     "clearance_m": 8.5,
     "headroom_m": 18.8,
-    "component": 131,
+    "component": 130,
     "hazard_distance_m": 9.41
    }
   ],
@@ -332,7 +332,7 @@
    },
    {
     "name": "Assembly_Line",
-    "standable_m2": 399.0,
+    "standable_m2": 415.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -462,22 +462,22 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 117 (> 80)"
+   "message": "mobile draw calls 121 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~67 visible draw calls (estimate, > 60)"
+   "message": "~69 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "111974 triangles (> budget 40000)"
+   "message": "113350 triangles (> budget 40000)"
   },
   {
    "kind": "dev_size",
    "severity": "info",
-   "message": "dev GLB 6005 KB (> 6000)"
+   "message": "dev GLB 6052 KB (> 6000)"
   },
   {
    "kind": "low_ceiling",

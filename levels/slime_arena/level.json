@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "bfb1d1545e91b6ea",
+  "spec_sha": "00cdd4445bb9314f",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -723,7 +723,11 @@
        0.0,
        -1.0
       ],
-      "angle_deg": 8.167,
+      "bin_yaw_deg": -90.0,
+      "bin_angle_deg": 18.286,
+      "turn": 1.3,
+      "bin_window": 1.6,
+      "angle_deg": 11.162,
       "t0": 0.35,
       "period": 7.35,
       "window": 1.8,
@@ -755,10 +759,15 @@
        0.0,
        -1.0
       ],
-      "angle_deg": 7.736,
+      "ring": [
+       "Arm_4_Ring"
+      ],
+      "ring_travel": 0.6,
+      "sweeps": 2,
+      "angle_deg": 10.521,
       "t0": 5.0,
       "period": 7.35,
-      "window": 2.2,
+      "window": 2.6,
       "reveal": {
        "group": "Conv_West_Item2",
        "s0": 1.3,
@@ -807,7 +816,11 @@
        0.0,
        1.0
       ],
-      "angle_deg": 8.167,
+      "bin_yaw_deg": 90.0,
+      "bin_angle_deg": 18.286,
+      "turn": 1.3,
+      "bin_window": 1.6,
+      "angle_deg": 11.162,
       "t0": 0.35,
       "period": 7.35,
       "window": 1.8,
@@ -839,10 +852,15 @@
        0.0,
        1.0
       ],
-      "angle_deg": 7.736,
+      "ring": [
+       "Arm_3_Ring"
+      ],
+      "ring_travel": 0.6,
+      "sweeps": 2,
+      "angle_deg": 10.521,
       "t0": 5.0,
       "period": 7.35,
-      "window": 2.2,
+      "window": 2.6,
       "reveal": {
        "group": "Conv_East_Item2",
        "s0": 1.3,
@@ -3578,7 +3596,7 @@
    "position": [
     -1.223,
     9.905,
-    2.3
+    2.407
    ],
    "rotation": [
     0.0,
@@ -3589,7 +3607,7 @@
    "size": [
     2.951,
     0.35,
-    1.134
+    0.774
    ],
    "material": "frame",
    "collision": false,
@@ -3606,7 +3624,7 @@
    "position": [
     -1.223,
     20.124,
-    2.3
+    2.407
    ],
    "rotation": [
     0.0,
@@ -3617,7 +3635,7 @@
    "size": [
     2.951,
     0.35,
-    1.134
+    0.774
    ],
    "material": "frame",
    "collision": false,
@@ -6407,7 +6425,7 @@
    "position": [
     6.298,
     11.559,
-    2.3
+    2.388
    ],
    "rotation": [
     0.0,
@@ -6418,7 +6436,7 @@
    "size": [
     1.991,
     0.35,
-    1.095
+    0.735
    ],
    "material": "frame",
    "collision": false,
@@ -6435,7 +6453,7 @@
    "position": [
     6.298,
     14.06,
-    2.3
+    2.388
    ],
    "rotation": [
     0.0,
@@ -6446,7 +6464,7 @@
    "size": [
     1.991,
     0.35,
-    1.095
+    0.735
    ],
    "material": "frame",
    "collision": false,
@@ -6463,7 +6481,7 @@
    "position": [
     6.298,
     16.455,
-    2.3
+    2.388
    ],
    "rotation": [
     0.0,
@@ -6474,7 +6492,7 @@
    "size": [
     1.991,
     0.35,
-    1.095
+    0.735
    ],
    "material": "frame",
    "collision": false,
@@ -7590,7 +7608,7 @@
    "position": [
     -6.576,
     12.825,
-    2.3
+    2.438
    ],
    "rotation": [
     0.0,
@@ -7601,7 +7619,7 @@
    "size": [
     4.087,
     0.35,
-    1.197
+    0.837
    ],
    "material": "frame",
    "collision": false,
@@ -7618,7 +7636,7 @@
    "position": [
     -6.576,
     22.24,
-    2.3
+    2.438
    ],
    "rotation": [
     0.0,
@@ -7629,7 +7647,7 @@
    "size": [
     4.087,
     0.35,
-    1.197
+    0.837
    ],
    "material": "frame",
    "collision": false,
@@ -10622,7 +10640,7 @@
    "position": [
     0.413,
     16.878,
-    2.3
+    2.624
    ],
    "rotation": [
     0.0,
@@ -10633,7 +10651,7 @@
    "size": [
     2.937,
     0.35,
-    1.569
+    1.209
    ],
    "material": "frame",
    "collision": false,
@@ -10650,7 +10668,7 @@
    "position": [
     0.413,
     18.222,
-    2.3
+    2.624
    ],
    "rotation": [
     0.0,
@@ -10661,7 +10679,7 @@
    "size": [
     2.937,
     0.35,
-    1.569
+    1.209
    ],
    "material": "frame",
    "collision": false,
@@ -10678,7 +10696,7 @@
    "position": [
     0.413,
     20.38,
-    2.3
+    2.624
    ],
    "rotation": [
     0.0,
@@ -10689,7 +10707,7 @@
    "size": [
     2.937,
     0.35,
-    1.569
+    1.209
    ],
    "material": "frame",
    "collision": false,
@@ -11393,7 +11411,7 @@
    "position": [
     -2.613,
     10.341,
-    2.3
+    2.382
    ],
    "rotation": [
     0.0,
@@ -11404,7 +11422,7 @@
    "size": [
     2.803,
     0.35,
-    1.084
+    0.724
    ],
    "material": "frame",
    "collision": false,
@@ -11421,7 +11439,7 @@
    "position": [
     -2.613,
     16.201,
-    2.3
+    2.382
    ],
    "rotation": [
     0.0,
@@ -11432,7 +11450,7 @@
    "size": [
     2.803,
     0.35,
-    1.084
+    0.724
    ],
    "material": "frame",
    "collision": false,
@@ -11449,7 +11467,7 @@
    "position": [
     -2.613,
     16.797,
-    2.3
+    2.382
    ],
    "rotation": [
     0.0,
@@ -11460,7 +11478,7 @@
    "size": [
     2.803,
     0.35,
-    1.084
+    0.724
    ],
    "material": "frame",
    "collision": false,
@@ -11736,8 +11754,8 @@
    "name": "Works_Wall_East_02_M02Door",
    "type": "box",
    "position": [
-    -5.518,
-    8.01,
+    -1.518,
+    8.02,
     2.25
    ],
    "rotation": [
@@ -11748,7 +11766,7 @@
    "parent": "Works_Wall_East_02",
    "size": [
     3.6,
-    4.4,
+    4.38,
     0.3
    ],
    "material": "structure_b",
@@ -12085,7 +12103,7 @@
    "position": [
     -20.252,
     12.062,
-    2.3
+    2.464
    ],
    "rotation": [
     0.0,
@@ -12096,7 +12114,7 @@
    "size": [
     2.296,
     0.35,
-    1.248
+    0.888
    ],
    "material": "frame",
    "collision": false,
@@ -12113,7 +12131,7 @@
    "position": [
     -20.252,
     15.353,
-    2.3
+    2.464
    ],
    "rotation": [
     0.0,
@@ -12124,7 +12142,7 @@
    "size": [
     2.296,
     0.35,
-    1.248
+    0.888
    ],
    "material": "frame",
    "collision": false,
@@ -12402,7 +12420,7 @@
    "position": [
     9.962,
     10.103,
-    2.3
+    2.431
    ],
    "rotation": [
     0.0,
@@ -12413,7 +12431,7 @@
    "size": [
     3.096,
     0.35,
-    1.182
+    0.822
    ],
    "material": "frame",
    "collision": false,
@@ -12430,7 +12448,7 @@
    "position": [
     9.962,
     11.268,
-    2.3
+    2.431
    ],
    "rotation": [
     0.0,
@@ -12441,7 +12459,7 @@
    "size": [
     3.096,
     0.35,
-    1.182
+    0.822
    ],
    "material": "frame",
    "collision": false,
@@ -12458,7 +12476,7 @@
    "position": [
     9.962,
     11.627,
-    2.3
+    2.431
    ],
    "rotation": [
     0.0,
@@ -12469,7 +12487,7 @@
    "size": [
     3.096,
     0.35,
-    1.182
+    0.822
    ],
    "material": "frame",
    "collision": false,
@@ -12791,7 +12809,7 @@
    "position": [
     23.529,
     14.933,
-    2.3
+    2.518
    ],
    "rotation": [
     0.0,
@@ -12802,7 +12820,7 @@
    "size": [
     2.511,
     0.35,
-    1.355
+    0.995
    ],
    "material": "frame",
    "collision": false,
@@ -12819,7 +12837,7 @@
    "position": [
     23.529,
     17.431,
-    2.3
+    2.518
    ],
    "rotation": [
     0.0,
@@ -12830,7 +12848,7 @@
    "size": [
     2.511,
     0.35,
-    1.355
+    0.995
    ],
    "material": "frame",
    "collision": false,
@@ -14402,7 +14420,7 @@
    "position": [
     -21.631,
     10.317,
-    2.3
+    2.492
    ],
    "rotation": [
     0.0,
@@ -14413,7 +14431,7 @@
    "size": [
     4.517,
     0.35,
-    1.304
+    0.944
    ],
    "material": "frame",
    "collision": false,
@@ -14430,7 +14448,7 @@
    "position": [
     -21.631,
     13.342,
-    2.3
+    2.492
    ],
    "rotation": [
     0.0,
@@ -14441,7 +14459,7 @@
    "size": [
     4.517,
     0.35,
-    1.304
+    0.944
    ],
    "material": "frame",
    "collision": false,
@@ -14458,7 +14476,7 @@
    "position": [
     -21.631,
     22.382,
-    2.3
+    2.492
    ],
    "rotation": [
     0.0,
@@ -14469,7 +14487,7 @@
    "size": [
     4.517,
     0.35,
-    1.304
+    0.944
    ],
    "material": "frame",
    "collision": false,
@@ -14932,9 +14950,9 @@
    "name": "Works_Wall_West_02_M06Pipes_Bracket_1",
    "type": "box",
    "position": [
-    10.069,
+    11.891,
     11.894,
-    2.29
+    2.609
    ],
    "rotation": [
     0.0,
@@ -14945,7 +14963,7 @@
    "size": [
     2.878,
     0.35,
-    1.539
+    1.179
    ],
    "material": "frame",
    "collision": false,
@@ -14960,9 +14978,9 @@
    "name": "Works_Wall_West_02_M06Pipes_Bracket_2",
    "type": "box",
    "position": [
-    10.069,
+    11.891,
     19.902,
-    2.29
+    2.609
    ],
    "rotation": [
     0.0,
@@ -14973,7 +14991,7 @@
    "size": [
     2.878,
     0.35,
-    1.539
+    1.179
    ],
    "material": "frame",
    "collision": false,
@@ -14988,9 +15006,9 @@
    "name": "Works_Wall_West_02_M06Pipes_Bracket_3",
    "type": "box",
    "position": [
-    10.069,
+    11.891,
     22.044,
-    2.29
+    2.609
    ],
    "rotation": [
     0.0,
@@ -15001,7 +15019,7 @@
    "size": [
     2.878,
     0.35,
-    1.539
+    1.179
    ],
    "material": "frame",
    "collision": false,
@@ -15248,7 +15266,7 @@
    "position": [
     23.75,
     17.328,
-    2.3
+    2.55
    ],
    "rotation": [
     0.0,
@@ -15259,7 +15277,7 @@
    "size": [
     2.641,
     0.35,
-    1.42
+    1.06
    ],
    "material": "frame",
    "collision": false,
@@ -15276,7 +15294,7 @@
    "position": [
     23.75,
     23.107,
-    2.3
+    2.55
    ],
    "rotation": [
     0.0,
@@ -15287,7 +15305,7 @@
    "size": [
     2.641,
     0.35,
-    1.42
+    1.06
    ],
    "material": "frame",
    "collision": false,
@@ -15507,7 +15525,7 @@
    "position": [
     -4.657,
     12.078,
-    2.3
+    2.589
    ],
    "rotation": [
     0.0,
@@ -15518,7 +15536,7 @@
    "size": [
     5.289,
     0.35,
-    1.497
+    1.137
    ],
    "material": "frame",
    "collision": false,
@@ -15535,7 +15553,7 @@
    "position": [
     -4.657,
     18.512,
-    2.3
+    2.589
    ],
    "rotation": [
     0.0,
@@ -15546,7 +15564,7 @@
    "size": [
     5.289,
     0.35,
-    1.497
+    1.137
    ],
    "material": "frame",
    "collision": false,
@@ -15563,7 +15581,7 @@
    "position": [
     -4.657,
     20.171,
-    2.3
+    2.589
    ],
    "rotation": [
     0.0,
@@ -15574,7 +15592,7 @@
    "size": [
     5.289,
     0.35,
-    1.497
+    1.137
    ],
    "material": "frame",
    "collision": false,
@@ -15821,7 +15839,7 @@
    "position": [
     8.096,
     15.535,
-    2.3
+    2.55
    ],
    "rotation": [
     0.0,
@@ -15832,7 +15850,7 @@
    "size": [
     1.47,
     0.35,
-    1.42
+    1.06
    ],
    "material": "frame",
    "collision": false,
@@ -15849,7 +15867,7 @@
    "position": [
     8.096,
     17.021,
-    2.3
+    2.55
    ],
    "rotation": [
     0.0,
@@ -15860,7 +15878,7 @@
    "size": [
     1.47,
     0.35,
-    1.42
+    1.06
    ],
    "material": "frame",
    "collision": false,
@@ -18879,9 +18897,7 @@
    ],
    "material": "accent",
    "gen": "Round_SW",
-   "source": "visible",
-   "double_sided": true,
-   "autofix": "back face visible from the third-person camera"
+   "source": "visible"
   },
   {
    "name": "Assembly_Line",
@@ -23415,7 +23431,7 @@
    "name": "Ramp_NE_Deck",
    "type": "box",
    "position": [
-    0.01,
+    0.0,
     6.069,
     0.151
    ],
@@ -23836,7 +23852,7 @@
     0.0
    ],
    "size": [
-    4.0,
+    4.06,
     0.4,
     2.25
    ],
@@ -23865,7 +23881,7 @@
    "name": "Ramp_NW_Deck",
    "type": "box",
    "position": [
-    0.01,
+    0.0,
     6.069,
     0.151
    ],
@@ -24286,7 +24302,7 @@
     0.0
    ],
    "size": [
-    4.0,
+    4.06,
     0.4,
     2.25
    ],
@@ -24315,7 +24331,7 @@
    "name": "Ramp_SE_Deck",
    "type": "box",
    "position": [
-    0.01,
+    0.0,
     6.069,
     0.151
    ],
@@ -24736,7 +24752,7 @@
     0.0
    ],
    "size": [
-    4.0,
+    4.06,
     0.4,
     2.25
    ],
@@ -24765,7 +24781,7 @@
    "name": "Ramp_SW_Deck",
    "type": "box",
    "position": [
-    0.01,
+    0.0,
     6.069,
     0.151
    ],
@@ -25186,7 +25202,7 @@
     0.0
    ],
    "size": [
-    4.0,
+    4.06,
     0.4,
     2.25
    ],
@@ -26699,7 +26715,7 @@
    "name": "RampOut_NE_Deck",
    "type": "box",
    "position": [
-    0.01,
+    0.0,
     5.584,
     0.05
    ],
@@ -27120,7 +27136,7 @@
     0.0
    ],
    "size": [
-    4.0,
+    4.06,
     0.4,
     0.45
    ],
@@ -27143,7 +27159,7 @@
     0.0
    ],
    "size": [
-    4.0,
+    4.06,
     0.4,
     2.25
    ],
@@ -27172,7 +27188,7 @@
    "name": "RampOut_NW_Deck",
    "type": "box",
    "position": [
-    0.01,
+    0.0,
     6.08,
     0.07
    ],
@@ -27593,7 +27609,7 @@
     0.0
    ],
    "size": [
-    4.0,
+    4.06,
     0.4,
     0.5
    ],
@@ -27616,7 +27632,7 @@
     0.0
    ],
    "size": [
-    4.0,
+    4.06,
     0.4,
     2.25
    ],
@@ -27645,7 +27661,7 @@
    "name": "RampOut_SE_Deck",
    "type": "box",
    "position": [
-    0.01,
+    0.0,
     5.337,
     0.04
    ],
@@ -28066,7 +28082,7 @@
     0.0
    ],
    "size": [
-    4.0,
+    4.06,
     0.4,
     0.45
    ],
@@ -28089,7 +28105,7 @@
     0.0
    ],
    "size": [
-    4.0,
+    4.06,
     0.4,
     2.25
    ],
@@ -28118,7 +28134,7 @@
    "name": "RampOut_SW_Deck",
    "type": "box",
    "position": [
-    0.01,
+    0.0,
     5.832,
     0.06
    ],
@@ -28539,7 +28555,7 @@
     0.0
    ],
    "size": [
-    4.0,
+    4.06,
     0.4,
     0.5
    ],
@@ -28562,7 +28578,7 @@
     0.0
    ],
    "size": [
-    4.0,
+    4.06,
     0.4,
     2.25
    ],
@@ -28591,7 +28607,7 @@
    "name": "W_Cat_Pipes_Deck",
    "type": "box",
    "position": [
-    0.01,
+    0.0,
     7.587,
     0.04
    ],
@@ -29012,7 +29028,7 @@
     0.0
    ],
    "size": [
-    3.5,
+    3.56,
     0.4,
     0.95
    ],
@@ -29035,7 +29051,7 @@
     0.0
    ],
    "size": [
-    3.5,
+    3.56,
     0.4,
     4.3
    ],
@@ -29064,7 +29080,7 @@
    "name": "W_Cat_Junction_Deck",
    "type": "box",
    "position": [
-    0.01,
+    0.0,
     9.093,
     0.022
    ],
@@ -29485,7 +29501,7 @@
     0.0
    ],
    "size": [
-    3.0,
+    3.06,
     0.4,
     0.4
    ],
@@ -29508,7 +29524,7 @@
     0.0
    ],
    "size": [
-    3.0,
+    3.06,
     0.4,
     1.6
    ],
@@ -30192,7 +30208,7 @@
    "name": "W_Ramp_Core_Deck",
    "type": "box",
    "position": [
-    0.01,
+    0.0,
     10.584,
     0.052
    ],
@@ -30613,7 +30629,7 @@
     0.0
    ],
    "size": [
-    5.0,
+    5.06,
     0.4,
     0.4
    ],
@@ -30636,7 +30652,7 @@
     0.0
    ],
    "size": [
-    5.0,
+    5.06,
     0.4,
     1.8
    ],
@@ -30649,9 +30665,9 @@
    "name": "W_Stairs_Maint",
    "type": "stairs",
    "position": [
-    21.871,
+    21.876,
     11.9,
-    -207.2696
+    -207.261
    ],
    "rotation": [
     0.0,
@@ -30704,7 +30720,7 @@
     0.0
    ],
    "size": [
-    3.0,
+    3.06,
     0.4,
     1.05
    ],
@@ -30717,9 +30733,9 @@
    "name": "W_Stairs_Shaft",
    "type": "stairs",
    "position": [
-    35.8781,
+    35.871,
     15.0,
-    -206.1361
+    -206.129
    ],
    "rotation": [
     0.0,
@@ -30750,7 +30766,7 @@
     0.0
    ],
    "size": [
-    3.0,
+    3.06,
     0.4,
     1.7
    ],
@@ -30773,7 +30789,7 @@
     0.0
    ],
    "size": [
-    3.0,
+    3.06,
     0.4,
     1.75
    ],
@@ -30847,7 +30863,7 @@
    "name": "W_Ramp_Conduit_Deck",
    "type": "box",
    "position": [
-    0.01,
+    0.0,
     10.567,
     0.193
    ],
@@ -31268,7 +31284,7 @@
     0.0
    ],
    "size": [
-    4.5,
+    4.56,
     0.4,
     0.5
    ],
@@ -31291,7 +31307,7 @@
     0.0
    ],
    "size": [
-    4.5,
+    4.56,
     0.4,
     0.55
    ],
@@ -49796,7 +49812,7 @@
    "name": "Conv_West",
    "type": "group",
    "position": [
-    -3.7,
+    -4.7,
     7.0,
     -77.0
    ],
@@ -50042,7 +50058,7 @@
    ],
    "parent": "Conv_West",
    "size": [
-    3.0,
+    2.56,
     2.33,
     2.7
    ],
@@ -50068,7 +50084,7 @@
    ],
    "parent": "Conv_West",
    "size": [
-    3.3,
+    2.8,
     0.22,
     2.9
    ],
@@ -50421,7 +50437,7 @@
    "name": "Conv_West_In_Vent_L",
    "type": "box",
    "position": [
-    -1.52,
+    -1.3,
     0.9,
     -14.7
    ],
@@ -50449,7 +50465,7 @@
    "name": "Conv_West_In_Vent_R",
    "type": "box",
    "position": [
-    1.52,
+    1.3,
     0.9,
     -14.7
    ],
@@ -50545,7 +50561,7 @@
    ],
    "parent": "Conv_West",
    "size": [
-    3.0,
+    2.56,
     2.33,
     2.7
    ],
@@ -50571,7 +50587,7 @@
    ],
    "parent": "Conv_West",
    "size": [
-    3.3,
+    2.8,
     0.22,
     2.9
    ],
@@ -50924,7 +50940,7 @@
    "name": "Conv_West_Out_Vent_L",
    "type": "box",
    "position": [
-    -1.52,
+    -1.3,
     0.9,
     14.7
    ],
@@ -50952,7 +50968,7 @@
    "name": "Conv_West_Out_Vent_R",
    "type": "box",
    "position": [
-    1.52,
+    1.3,
     0.9,
     14.7
    ],
@@ -51497,7 +51513,7 @@
    "name": "Conv_East",
    "type": "group",
    "position": [
-    3.7,
+    4.7,
     7.0,
     -83.0
    ],
@@ -51743,7 +51759,7 @@
    ],
    "parent": "Conv_East",
    "size": [
-    3.0,
+    2.56,
     2.33,
     2.7
    ],
@@ -51769,7 +51785,7 @@
    ],
    "parent": "Conv_East",
    "size": [
-    3.3,
+    2.8,
     0.22,
     2.9
    ],
@@ -52122,7 +52138,7 @@
    "name": "Conv_East_In_Vent_L",
    "type": "box",
    "position": [
-    -1.52,
+    -1.3,
     0.9,
     -14.7
    ],
@@ -52150,7 +52166,7 @@
    "name": "Conv_East_In_Vent_R",
    "type": "box",
    "position": [
-    1.52,
+    1.3,
     0.9,
     -14.7
    ],
@@ -52246,7 +52262,7 @@
    ],
    "parent": "Conv_East",
    "size": [
-    3.0,
+    2.56,
     2.33,
     2.7
    ],
@@ -52272,7 +52288,7 @@
    ],
    "parent": "Conv_East",
    "size": [
-    3.3,
+    2.8,
     0.22,
     2.9
    ],
@@ -52625,7 +52641,7 @@
    "name": "Conv_East_Out_Vent_L",
    "type": "box",
    "position": [
-    -1.52,
+    -1.3,
     0.9,
     14.7
    ],
@@ -52653,7 +52669,7 @@
    "name": "Conv_East_Out_Vent_R",
    "type": "box",
    "position": [
-    1.52,
+    1.3,
     0.9,
     14.7
    ],
@@ -53388,7 +53404,7 @@
     0.0
    ],
    "rotation": [
-    32.22,
+    8.4,
     0.0,
     0.0
    ],
@@ -53412,11 +53428,11 @@
    "type": "box",
    "position": [
     -0.373,
-    2.112,
-    0.272
+    2.185,
+    0.075
    ],
    "rotation": [
-    32.22,
+    8.4,
     0.0,
     0.0
    ],
@@ -53440,11 +53456,11 @@
    "type": "box",
    "position": [
     0.373,
-    2.112,
-    0.272
+    2.185,
+    0.075
    ],
    "rotation": [
-    32.22,
+    8.4,
     0.0,
     0.0
    ],
@@ -53468,8 +53484,8 @@
    "type": "cylinder",
    "position": [
     0.42,
-    4.078,
-    1.511
+    4.485,
+    0.414
    ],
    "rotation": [
     0.0,
@@ -53496,8 +53512,8 @@
    "type": "cylinder",
    "position": [
     0.47,
-    4.078,
-    1.511
+    4.485,
+    0.414
    ],
    "rotation": [
     0.0,
@@ -53525,11 +53541,11 @@
    "type": "frustum",
    "position": [
     0.0,
-    3.575,
-    2.311
+    4.347,
+    1.349
    ],
    "rotation": [
-    -57.78,
+    -81.6,
     0.0,
     0.0
    ],
@@ -53554,11 +53570,11 @@
    "type": "frustum",
    "position": [
     0.0,
-    4.078,
-    1.511
+    4.485,
+    0.414
    ],
    "rotation": [
-    71.34,
+    81.71,
     0.0,
     0.0
    ],
@@ -53582,11 +53598,11 @@
    "type": "box",
    "position": [
     -0.308,
-    4.212,
-    1.905
+    4.545,
+    0.826
    ],
    "rotation": [
-    71.34,
+    81.71,
     0.0,
     0.0
    ],
@@ -53610,11 +53626,11 @@
    "type": "box",
    "position": [
     0.308,
-    4.212,
-    1.905
+    4.545,
+    0.826
    ],
    "rotation": [
-    71.34,
+    81.71,
     0.0,
     0.0
    ],
@@ -53639,7 +53655,7 @@
    "position": [
     0.0,
     3.925,
-    3.7
+    2.7
    ],
    "rotation": [
     0.0,
@@ -53668,7 +53684,7 @@
    "position": [
     0.163,
     4.374,
-    3.981
+    2.981
    ],
    "rotation": [
     11.03,
@@ -53696,7 +53712,7 @@
    "position": [
     0.267,
     4.075,
-    3.7
+    2.7
    ],
    "rotation": [
     11.03,
@@ -53724,7 +53740,7 @@
    "position": [
     -0.267,
     4.075,
-    3.7
+    2.7
    ],
    "rotation": [
     11.03,
@@ -53752,7 +53768,7 @@
    "position": [
     0.0,
     3.663,
-    3.7
+    2.7
    ],
    "rotation": [
     0.0,
@@ -53780,7 +53796,7 @@
    "position": [
     0.0,
     3.673,
-    3.868
+    2.868
    ],
    "rotation": [
     142.0,
@@ -53807,7 +53823,7 @@
    "position": [
     0.0,
     2.833,
-    4.417
+    3.417
    ],
    "rotation": [
     0.0,
@@ -53834,7 +53850,7 @@
    "position": [
     0.0,
     2.011,
-    3.99
+    2.99
    ],
    "rotation": [
     24.0,
@@ -53862,7 +53878,7 @@
    "position": [
     0.0,
     3.632,
-    4.033
+    3.033
    ],
    "rotation": [
     142.0,
@@ -53890,7 +53906,7 @@
    "position": [
     0.0,
     2.41,
-    4.255
+    3.255
    ],
    "rotation": [
     24.0,
@@ -53918,7 +53934,7 @@
    "position": [
     0.145,
     3.673,
-    3.616
+    2.616
    ],
    "rotation": [
     142.0,
@@ -53945,7 +53961,7 @@
    "position": [
     0.621,
     2.833,
-    3.341
+    2.341
    ],
    "rotation": [
     0.0,
@@ -53972,7 +53988,7 @@
    "position": [
     0.251,
     2.011,
-    3.555
+    2.555
    ],
    "rotation": [
     24.0,
@@ -54000,7 +54016,7 @@
    "position": [
     0.289,
     3.632,
-    3.533
+    2.533
    ],
    "rotation": [
     142.0,
@@ -54028,7 +54044,7 @@
    "position": [
     0.481,
     2.41,
-    3.422
+    2.422
    ],
    "rotation": [
     24.0,
@@ -54056,7 +54072,7 @@
    "position": [
     -0.145,
     3.673,
-    3.616
+    2.616
    ],
    "rotation": [
     142.0,
@@ -54083,7 +54099,7 @@
    "position": [
     -0.621,
     2.833,
-    3.341
+    2.341
    ],
    "rotation": [
     0.0,
@@ -54110,7 +54126,7 @@
    "position": [
     -0.251,
     2.011,
-    3.555
+    2.555
    ],
    "rotation": [
     24.0,
@@ -54138,7 +54154,7 @@
    "position": [
     -0.289,
     3.632,
-    3.533
+    2.533
    ],
    "rotation": [
     142.0,
@@ -54166,7 +54182,7 @@
    "position": [
     -0.481,
     2.41,
-    3.422
+    2.422
    ],
    "rotation": [
     24.0,
@@ -54193,19 +54209,19 @@
    "type": "box",
    "position": [
     -0.308,
-    2.702,
-    1.018
+    2.862,
+    0.461
    ],
    "rotation": [
-    0.88,
-    1.11,
+    5.83,
+    1.37,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
     0.21,
     0.21,
-    0.736
+    0.613
    ],
    "material": "structure_b",
    "outline": false,
@@ -54221,19 +54237,19 @@
    "type": "box",
    "position": [
     -0.295,
-    2.849,
-    1.694
+    2.963,
+    1.011
    ],
    "rotation": [
-    -24.25,
-    1.11,
+    -25.22,
+    1.37,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
     0.21,
     0.21,
-    0.802
+    0.668
    ],
    "material": "structure_b",
    "outline": false,
@@ -54249,19 +54265,19 @@
    "type": "box",
    "position": [
     -0.282,
-    3.311,
-    2.371
+    3.379,
+    1.561
    ],
    "rotation": [
-    -42.49,
-    1.11,
+    -46.23,
+    1.37,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
     0.21,
     0.21,
-    0.977
+    0.855
    ],
    "material": "structure_b",
    "outline": false,
@@ -54277,19 +54293,19 @@
    "type": "box",
    "position": [
     -0.269,
-    4.088,
-    3.047
+    4.111,
+    2.11
    ],
    "rotation": [
-    -54.11,
-    1.11,
+    -58.26,
+    1.37,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
     0.21,
     0.21,
-    1.214
+    1.105
    ],
    "material": "structure_b",
    "outline": false,
@@ -54305,19 +54321,19 @@
    "type": "box",
    "position": [
     0.308,
-    2.702,
-    1.018
+    2.862,
+    0.461
    ],
    "rotation": [
-    0.88,
-    -1.11,
+    5.83,
+    -1.37,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
     0.21,
     0.21,
-    0.736
+    0.613
    ],
    "material": "structure_b",
    "outline": false,
@@ -54333,19 +54349,19 @@
    "type": "box",
    "position": [
     0.295,
-    2.849,
-    1.694
+    2.963,
+    1.011
    ],
    "rotation": [
-    -24.25,
-    -1.11,
+    -25.22,
+    -1.37,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
     0.21,
     0.21,
-    0.802
+    0.668
    ],
    "material": "structure_b",
    "outline": false,
@@ -54361,19 +54377,19 @@
    "type": "box",
    "position": [
     0.282,
-    3.311,
-    2.371
+    3.379,
+    1.561
    ],
    "rotation": [
-    -42.49,
-    -1.11,
+    -46.23,
+    -1.37,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
     0.21,
     0.21,
-    0.977
+    0.855
    ],
    "material": "structure_b",
    "outline": false,
@@ -54389,19 +54405,19 @@
    "type": "box",
    "position": [
     0.269,
-    4.088,
-    3.047
+    4.111,
+    2.11
    ],
    "rotation": [
-    -54.11,
-    -1.11,
+    -58.26,
+    -1.37,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
     0.21,
     0.21,
-    1.214
+    1.105
    ],
    "material": "structure_b",
    "outline": false,
@@ -54418,7 +54434,7 @@
    "position": [
     0.0,
     2.024,
-    3.7
+    2.7
    ],
    "rotation": [
     0.0,
@@ -54437,6 +54453,315 @@
    "outline": false,
    "mobile": {
     "group": "Arm_1_Held"
+   },
+   "gen": "Arm_1",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_1_Bin",
+   "type": "group",
+   "position": [
+    7.4,
+    0.0,
+    -73.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Arm_1",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_1_Bin_Body",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    7.41,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_1_Bin",
+   "size": [
+    1.6,
+    1.1,
+    1.6
+   ],
+   "material": "structure_b",
+   "sections": 10,
+   "hole": 0.62,
+   "hole_res": 10,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_1",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_1_Bin_Rim",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    8.47,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_1_Bin",
+   "size": [
+    1.72,
+    0.12,
+    1.72
+   ],
+   "material": "glow",
+   "sections": 10,
+   "hole": 0.66,
+   "hole_res": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_1",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_1_Bin_Band",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    7.89,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_1_Bin",
+   "size": [
+    1.66,
+    0.3,
+    1.66
+   ],
+   "material": "stripe",
+   "sections": 10,
+   "hole": 0.7,
+   "hole_res": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_1",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_1_Bin_Void",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    7.42,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_1_Bin",
+   "size": [
+    1.26,
+    0.05,
+    1.26
+   ],
+   "material": "accent",
+   "sections": 10,
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_1",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_1_Bin_Can_1",
+   "type": "cylinder",
+   "position": [
+    0.342,
+    7.45,
+    0.111
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_1_Bin",
+   "size": [
+    0.34,
+    0.48,
+    0.34
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_1",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_1_Bin_Can_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    7.44,
+    0.36
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_1_Bin",
+   "size": [
+    0.34,
+    0.48,
+    0.34
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_1",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_1_Bin_Can_3",
+   "type": "cylinder",
+   "position": [
+    -0.342,
+    7.45,
+    0.111
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_1_Bin",
+   "size": [
+    0.34,
+    0.48,
+    0.34
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_1",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_1_Bin_Can_4",
+   "type": "cylinder",
+   "position": [
+    -0.212,
+    7.44,
+    -0.291
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_1_Bin",
+   "size": [
+    0.34,
+    0.48,
+    0.34
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_1",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_1_Bin_Can_5",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    7.45,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_1_Bin",
+   "size": [
+    0.46,
+    0.48,
+    0.46
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_1",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_1_Bin_Post",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    -1.4,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_1_Bin",
+   "size": [
+    0.7,
+    8.84,
+    0.7
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "mobile": {
+    "static": true
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -54635,7 +54960,7 @@
     0.0
    ],
    "rotation": [
-    32.22,
+    8.4,
     0.0,
     0.0
    ],
@@ -54659,11 +54984,11 @@
    "type": "box",
    "position": [
     -0.373,
-    2.112,
-    0.272
+    2.185,
+    0.075
    ],
    "rotation": [
-    32.22,
+    8.4,
     0.0,
     0.0
    ],
@@ -54687,11 +55012,11 @@
    "type": "box",
    "position": [
     0.373,
-    2.112,
-    0.272
+    2.185,
+    0.075
    ],
    "rotation": [
-    32.22,
+    8.4,
     0.0,
     0.0
    ],
@@ -54715,8 +55040,8 @@
    "type": "cylinder",
    "position": [
     0.42,
-    4.078,
-    1.511
+    4.485,
+    0.414
    ],
    "rotation": [
     0.0,
@@ -54743,8 +55068,8 @@
    "type": "cylinder",
    "position": [
     0.47,
-    4.078,
-    1.511
+    4.485,
+    0.414
    ],
    "rotation": [
     0.0,
@@ -54772,11 +55097,11 @@
    "type": "frustum",
    "position": [
     0.0,
-    3.575,
-    2.311
+    4.347,
+    1.349
    ],
    "rotation": [
-    -57.78,
+    -81.6,
     0.0,
     0.0
    ],
@@ -54801,11 +55126,11 @@
    "type": "frustum",
    "position": [
     0.0,
-    4.078,
-    1.511
+    4.485,
+    0.414
    ],
    "rotation": [
-    71.34,
+    81.71,
     0.0,
     0.0
    ],
@@ -54829,11 +55154,11 @@
    "type": "box",
    "position": [
     -0.308,
-    4.212,
-    1.905
+    4.545,
+    0.826
    ],
    "rotation": [
-    71.34,
+    81.71,
     0.0,
     0.0
    ],
@@ -54857,11 +55182,11 @@
    "type": "box",
    "position": [
     0.308,
-    4.212,
-    1.905
+    4.545,
+    0.826
    ],
    "rotation": [
-    71.34,
+    81.71,
     0.0,
     0.0
    ],
@@ -54886,7 +55211,7 @@
    "position": [
     0.0,
     3.925,
-    3.7
+    2.7
    ],
    "rotation": [
     0.0,
@@ -54915,7 +55240,7 @@
    "position": [
     0.163,
     4.374,
-    3.981
+    2.981
    ],
    "rotation": [
     11.03,
@@ -54943,7 +55268,7 @@
    "position": [
     0.267,
     4.075,
-    3.7
+    2.7
    ],
    "rotation": [
     11.03,
@@ -54971,7 +55296,7 @@
    "position": [
     -0.267,
     4.075,
-    3.7
+    2.7
    ],
    "rotation": [
     11.03,
@@ -54999,7 +55324,7 @@
    "position": [
     0.0,
     3.663,
-    3.7
+    2.7
    ],
    "rotation": [
     0.0,
@@ -55027,7 +55352,7 @@
    "position": [
     0.0,
     3.673,
-    3.868
+    2.868
    ],
    "rotation": [
     142.0,
@@ -55054,7 +55379,7 @@
    "position": [
     0.0,
     2.833,
-    4.417
+    3.417
    ],
    "rotation": [
     0.0,
@@ -55081,7 +55406,7 @@
    "position": [
     0.0,
     2.011,
-    3.99
+    2.99
    ],
    "rotation": [
     24.0,
@@ -55109,7 +55434,7 @@
    "position": [
     0.0,
     3.632,
-    4.033
+    3.033
    ],
    "rotation": [
     142.0,
@@ -55137,7 +55462,7 @@
    "position": [
     0.0,
     2.41,
-    4.255
+    3.255
    ],
    "rotation": [
     24.0,
@@ -55165,7 +55490,7 @@
    "position": [
     0.145,
     3.673,
-    3.616
+    2.616
    ],
    "rotation": [
     142.0,
@@ -55192,7 +55517,7 @@
    "position": [
     0.621,
     2.833,
-    3.341
+    2.341
    ],
    "rotation": [
     0.0,
@@ -55219,7 +55544,7 @@
    "position": [
     0.251,
     2.011,
-    3.555
+    2.555
    ],
    "rotation": [
     24.0,
@@ -55247,7 +55572,7 @@
    "position": [
     0.289,
     3.632,
-    3.533
+    2.533
    ],
    "rotation": [
     142.0,
@@ -55275,7 +55600,7 @@
    "position": [
     0.481,
     2.41,
-    3.422
+    2.422
    ],
    "rotation": [
     24.0,
@@ -55303,7 +55628,7 @@
    "position": [
     -0.145,
     3.673,
-    3.616
+    2.616
    ],
    "rotation": [
     142.0,
@@ -55330,7 +55655,7 @@
    "position": [
     -0.621,
     2.833,
-    3.341
+    2.341
    ],
    "rotation": [
     0.0,
@@ -55357,7 +55682,7 @@
    "position": [
     -0.251,
     2.011,
-    3.555
+    2.555
    ],
    "rotation": [
     24.0,
@@ -55385,7 +55710,7 @@
    "position": [
     -0.289,
     3.632,
-    3.533
+    2.533
    ],
    "rotation": [
     142.0,
@@ -55413,7 +55738,7 @@
    "position": [
     -0.481,
     2.41,
-    3.422
+    2.422
    ],
    "rotation": [
     24.0,
@@ -55440,19 +55765,19 @@
    "type": "box",
    "position": [
     -0.308,
-    2.702,
-    1.018
+    2.862,
+    0.461
    ],
    "rotation": [
-    0.88,
-    1.11,
+    5.83,
+    1.37,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
     0.21,
     0.21,
-    0.736
+    0.613
    ],
    "material": "structure_b",
    "outline": false,
@@ -55468,19 +55793,19 @@
    "type": "box",
    "position": [
     -0.295,
-    2.849,
-    1.694
+    2.963,
+    1.011
    ],
    "rotation": [
-    -24.25,
-    1.11,
+    -25.22,
+    1.37,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
     0.21,
     0.21,
-    0.802
+    0.668
    ],
    "material": "structure_b",
    "outline": false,
@@ -55496,19 +55821,19 @@
    "type": "box",
    "position": [
     -0.282,
-    3.311,
-    2.371
+    3.379,
+    1.561
    ],
    "rotation": [
-    -42.49,
-    1.11,
+    -46.23,
+    1.37,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
     0.21,
     0.21,
-    0.977
+    0.855
    ],
    "material": "structure_b",
    "outline": false,
@@ -55524,19 +55849,19 @@
    "type": "box",
    "position": [
     -0.269,
-    4.088,
-    3.047
+    4.111,
+    2.11
    ],
    "rotation": [
-    -54.11,
-    1.11,
+    -58.26,
+    1.37,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
     0.21,
     0.21,
-    1.214
+    1.105
    ],
    "material": "structure_b",
    "outline": false,
@@ -55552,19 +55877,19 @@
    "type": "box",
    "position": [
     0.308,
-    2.702,
-    1.018
+    2.862,
+    0.461
    ],
    "rotation": [
-    0.88,
-    -1.11,
+    5.83,
+    -1.37,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
     0.21,
     0.21,
-    0.736
+    0.613
    ],
    "material": "structure_b",
    "outline": false,
@@ -55580,19 +55905,19 @@
    "type": "box",
    "position": [
     0.295,
-    2.849,
-    1.694
+    2.963,
+    1.011
    ],
    "rotation": [
-    -24.25,
-    -1.11,
+    -25.22,
+    -1.37,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
     0.21,
     0.21,
-    0.802
+    0.668
    ],
    "material": "structure_b",
    "outline": false,
@@ -55608,19 +55933,19 @@
    "type": "box",
    "position": [
     0.282,
-    3.311,
-    2.371
+    3.379,
+    1.561
    ],
    "rotation": [
-    -42.49,
-    -1.11,
+    -46.23,
+    -1.37,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
     0.21,
     0.21,
-    0.977
+    0.855
    ],
    "material": "structure_b",
    "outline": false,
@@ -55636,19 +55961,19 @@
    "type": "box",
    "position": [
     0.269,
-    4.088,
-    3.047
+    4.111,
+    2.11
    ],
    "rotation": [
-    -54.11,
-    -1.11,
+    -58.26,
+    -1.37,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
     0.21,
     0.21,
-    1.214
+    1.105
    ],
    "material": "structure_b",
    "outline": false,
@@ -55665,7 +55990,7 @@
    "position": [
     0.0,
     2.024,
-    3.7
+    2.7
    ],
    "rotation": [
     0.0,
@@ -55684,6 +56009,315 @@
    "outline": false,
    "mobile": {
     "group": "Arm_2_Held"
+   },
+   "gen": "Arm_2",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_2_Bin",
+   "type": "group",
+   "position": [
+    -7.4,
+    0.0,
+    -67.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Arm_2",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_2_Bin_Body",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    7.41,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_2_Bin",
+   "size": [
+    1.6,
+    1.1,
+    1.6
+   ],
+   "material": "structure_b",
+   "sections": 10,
+   "hole": 0.62,
+   "hole_res": 10,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_2",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_2_Bin_Rim",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    8.47,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_2_Bin",
+   "size": [
+    1.72,
+    0.12,
+    1.72
+   ],
+   "material": "glow",
+   "sections": 10,
+   "hole": 0.66,
+   "hole_res": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_2",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_2_Bin_Band",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    7.89,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_2_Bin",
+   "size": [
+    1.66,
+    0.3,
+    1.66
+   ],
+   "material": "stripe",
+   "sections": 10,
+   "hole": 0.7,
+   "hole_res": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_2",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_2_Bin_Void",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    7.42,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_2_Bin",
+   "size": [
+    1.26,
+    0.05,
+    1.26
+   ],
+   "material": "accent",
+   "sections": 10,
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_2",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_2_Bin_Can_1",
+   "type": "cylinder",
+   "position": [
+    0.342,
+    7.45,
+    0.111
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_2_Bin",
+   "size": [
+    0.34,
+    0.48,
+    0.34
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_2",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_2_Bin_Can_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    7.44,
+    0.36
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_2_Bin",
+   "size": [
+    0.34,
+    0.48,
+    0.34
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_2",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_2_Bin_Can_3",
+   "type": "cylinder",
+   "position": [
+    -0.342,
+    7.45,
+    0.111
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_2_Bin",
+   "size": [
+    0.34,
+    0.48,
+    0.34
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_2",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_2_Bin_Can_4",
+   "type": "cylinder",
+   "position": [
+    -0.212,
+    7.44,
+    -0.291
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_2_Bin",
+   "size": [
+    0.34,
+    0.48,
+    0.34
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_2",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_2_Bin_Can_5",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    7.45,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_2_Bin",
+   "size": [
+    0.46,
+    0.48,
+    0.46
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arm_2",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_2_Bin_Post",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    -1.4,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_2_Bin",
+   "size": [
+    0.7,
+    8.84,
+    0.7
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "mobile": {
+    "static": true
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -55882,7 +56516,7 @@
     0.0
    ],
    "rotation": [
-    30.62,
+    7.1,
     0.0,
     0.0
    ],
@@ -55906,11 +56540,11 @@
    "type": "box",
    "position": [
     -0.391,
-    2.22,
-    0.272
+    2.29,
+    0.066
    ],
    "rotation": [
-    30.62,
+    7.1,
     0.0,
     0.0
    ],
@@ -55934,11 +56568,11 @@
    "type": "box",
    "position": [
     0.391,
-    2.22,
-    0.272
+    2.29,
+    0.066
    ],
    "rotation": [
-    30.62,
+    7.1,
     0.0,
     0.0
    ],
@@ -55962,8 +56596,8 @@
    "type": "cylinder",
    "position": [
     0.44,
-    4.316,
-    1.513
+    4.707,
+    0.367
    ],
    "rotation": [
     0.0,
@@ -55990,8 +56624,8 @@
    "type": "cylinder",
    "position": [
     0.49,
-    4.316,
-    1.513
+    4.707,
+    0.367
    ],
    "rotation": [
     0.0,
@@ -56019,11 +56653,11 @@
    "type": "frustum",
    "position": [
     0.0,
-    3.812,
-    2.365
+    4.585,
+    1.35
    ],
    "rotation": [
-    -59.38,
+    -82.9,
     0.0,
     0.0
    ],
@@ -56048,11 +56682,11 @@
    "type": "frustum",
    "position": [
     0.0,
-    4.316,
-    1.513
+    4.707,
+    0.367
    ],
    "rotation": [
-    64.67,
+    74.56,
     0.0,
     0.0
    ],
@@ -56076,11 +56710,11 @@
    "type": "box",
    "position": [
     -0.323,
-    4.502,
-    1.906
+    4.823,
+    0.787
    ],
    "rotation": [
-    64.67,
+    74.56,
     0.0,
     0.0
    ],
@@ -56104,11 +56738,11 @@
    "type": "box",
    "position": [
     0.323,
-    4.502,
-    1.906
+    4.823,
+    0.787
    ],
    "rotation": [
-    64.67,
+    74.56,
     0.0,
     0.0
    ],
@@ -56133,7 +56767,7 @@
    "position": [
     0.0,
     4.416,
-    3.7
+    2.7
    ],
    "rotation": [
     0.0,
@@ -56162,7 +56796,7 @@
    "position": [
     0.17,
     4.887,
-    3.995
+    2.995
    ],
    "rotation": [
     11.03,
@@ -56190,7 +56824,7 @@
    "position": [
     0.279,
     4.573,
-    3.7
+    2.7
    ],
    "rotation": [
     11.03,
@@ -56218,7 +56852,7 @@
    "position": [
     -0.279,
     4.573,
-    3.7
+    2.7
    ],
    "rotation": [
     11.03,
@@ -56246,7 +56880,7 @@
    "position": [
     0.0,
     4.141,
-    3.7
+    2.7
    ],
    "rotation": [
     0.0,
@@ -56274,7 +56908,7 @@
    "position": [
     0.0,
     4.152,
-    3.876
+    2.876
    ],
    "rotation": [
     142.0,
@@ -56301,7 +56935,7 @@
    "position": [
     0.0,
     3.273,
-    4.452
+    3.452
    ],
    "rotation": [
     0.0,
@@ -56328,7 +56962,7 @@
    "position": [
     0.0,
     2.411,
-    4.004
+    3.004
    ],
    "rotation": [
     24.0,
@@ -56356,7 +56990,7 @@
    "position": [
     0.0,
     4.11,
-    4.049
+    3.049
    ],
    "rotation": [
     142.0,
@@ -56384,7 +57018,7 @@
    "position": [
     0.0,
     2.829,
-    4.282
+    3.282
    ],
    "rotation": [
     24.0,
@@ -56412,7 +57046,7 @@
    "position": [
     0.152,
     4.152,
-    3.612
+    2.612
    ],
    "rotation": [
     142.0,
@@ -56439,7 +57073,7 @@
    "position": [
     0.651,
     3.273,
-    3.324
+    2.324
    ],
    "rotation": [
     0.0,
@@ -56466,7 +57100,7 @@
    "position": [
     0.263,
     2.411,
-    3.548
+    2.548
    ],
    "rotation": [
     24.0,
@@ -56494,7 +57128,7 @@
    "position": [
     0.302,
     4.11,
-    3.525
+    2.525
    ],
    "rotation": [
     142.0,
@@ -56522,7 +57156,7 @@
    "position": [
     0.504,
     2.829,
-    3.409
+    2.409
    ],
    "rotation": [
     24.0,
@@ -56550,7 +57184,7 @@
    "position": [
     -0.152,
     4.152,
-    3.612
+    2.612
    ],
    "rotation": [
     142.0,
@@ -56577,7 +57211,7 @@
    "position": [
     -0.651,
     3.273,
-    3.324
+    2.324
    ],
    "rotation": [
     0.0,
@@ -56604,7 +57238,7 @@
    "position": [
     -0.263,
     2.411,
-    3.548
+    2.548
    ],
    "rotation": [
     24.0,
@@ -56632,7 +57266,7 @@
    "position": [
     -0.302,
     4.11,
-    3.525
+    2.525
    ],
    "rotation": [
     142.0,
@@ -56660,7 +57294,7 @@
    "position": [
     -0.504,
     2.829,
-    3.409
+    2.409
    ],
    "rotation": [
     24.0,
@@ -56687,19 +57321,19 @@
    "type": "box",
    "position": [
     -0.323,
-    2.885,
-    1.017
+    3.039,
+    0.441
    ],
    "rotation": [
-    -5.13,
-    1.17,
+    -1.69,
+    1.43,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
     0.22,
     0.22,
-    0.735
+    0.612
    ],
    "material": "structure_b",
    "outline": false,
@@ -56715,19 +57349,19 @@
    "type": "box",
    "position": [
     -0.309,
-    3.111,
-    1.689
+    3.221,
+    0.992
    ],
    "rotation": [
-    -30.13,
-    1.17,
+    -32.13,
+    1.43,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
     0.22,
     0.22,
-    0.838
+    0.711
    ],
    "material": "structure_b",
    "outline": false,
@@ -56743,19 +57377,19 @@
    "type": "box",
    "position": [
     -0.296,
-    3.666,
-    2.362
+    3.732,
+    1.543
    ],
    "rotation": [
-    -46.97,
-    1.17,
+    -50.81,
+    1.43,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
     0.22,
     0.22,
-    1.045
+    0.933
    ],
    "material": "structure_b",
    "outline": false,
@@ -56771,19 +57405,19 @@
    "type": "box",
    "position": [
     -0.282,
-    4.551,
-    3.034
+    4.573,
+    2.094
    ],
    "rotation": [
-    -57.37,
-    1.17,
+    -61.28,
+    1.43,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
     0.22,
     0.22,
-    1.307
+    1.207
    ],
    "material": "structure_b",
    "outline": false,
@@ -56799,19 +57433,19 @@
    "type": "box",
    "position": [
     0.323,
-    2.885,
-    1.017
+    3.039,
+    0.441
    ],
    "rotation": [
-    -5.13,
-    -1.17,
+    -1.69,
+    -1.43,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
     0.22,
     0.22,
-    0.735
+    0.612
    ],
    "material": "structure_b",
    "outline": false,
@@ -56827,19 +57461,19 @@
    "type": "box",
    "position": [
     0.309,
-    3.111,
-    1.689
+    3.221,
+    0.992
    ],
    "rotation": [
-    -30.13,
-    -1.17,
+    -32.13,
+    -1.43,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
     0.22,
     0.22,
-    0.838
+    0.711
    ],
    "material": "structure_b",
    "outline": false,
@@ -56855,19 +57489,19 @@
    "type": "box",
    "position": [
     0.296,
-    3.666,
-    2.362
+    3.732,
+    1.543
    ],
    "rotation": [
-    -46.97,
-    -1.17,
+    -50.81,
+    -1.43,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
     0.22,
     0.22,
-    1.045
+    0.933
    ],
    "material": "structure_b",
    "outline": false,
@@ -56883,23 +57517,52 @@
    "type": "box",
    "position": [
     0.282,
-    4.551,
-    3.034
+    4.573,
+    2.094
    ],
    "rotation": [
-    -57.37,
-    -1.17,
+    -61.28,
+    -1.43,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
     0.22,
     0.22,
-    1.307
+    1.207
    ],
    "material": "structure_b",
    "outline": false,
    "collision": false,
+   "mobile": {
+    "group": "Arm_3_Upper"
+   },
+   "gen": "Arm_3",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_3_Lens",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.02,
+    2.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_3",
+   "size": [
+    0.396,
+    0.143,
+    0.396
+   ],
+   "material": "glow_yellow",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "group": "Arm_3_Upper"
    },
@@ -56912,7 +57575,7 @@
    "position": [
     0.0,
     4.13,
-    3.7
+    2.7
    ],
    "rotation": [
     180.0,
@@ -56933,6 +57596,134 @@
    "double_sided": true,
    "mobile": {
     "group": "Arm_3_Scan"
+   },
+   "gen": "Arm_3",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_3_Ring",
+   "type": "group",
+   "position": [
+    4.7,
+    0.0,
+    -88.0
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "gen": "Arm_3",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_3_Ring_1",
+   "type": "box",
+   "position": [
+    0.0,
+    7.93,
+    0.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_3_Ring",
+   "size": [
+    1.16,
+    0.05,
+    0.05
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Arm_3_Ring"
+   },
+   "gen": "Arm_3",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_3_Ring_2",
+   "type": "box",
+   "position": [
+    0.0,
+    7.93,
+    -0.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_3_Ring",
+   "size": [
+    1.16,
+    0.05,
+    0.05
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Arm_3_Ring"
+   },
+   "gen": "Arm_3",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_3_Ring_3",
+   "type": "box",
+   "position": [
+    0.55,
+    7.93,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_3_Ring",
+   "size": [
+    0.05,
+    0.05,
+    1.06
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Arm_3_Ring"
+   },
+   "gen": "Arm_3",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_3_Ring_4",
+   "type": "box",
+   "position": [
+    -0.55,
+    7.93,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_3_Ring",
+   "size": [
+    0.05,
+    0.05,
+    1.06
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Arm_3_Ring"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -57131,7 +57922,7 @@
     0.0
    ],
    "rotation": [
-    30.62,
+    7.1,
     0.0,
     0.0
    ],
@@ -57155,11 +57946,11 @@
    "type": "box",
    "position": [
     -0.391,
-    2.22,
-    0.272
+    2.29,
+    0.066
    ],
    "rotation": [
-    30.62,
+    7.1,
     0.0,
     0.0
    ],
@@ -57183,11 +57974,11 @@
    "type": "box",
    "position": [
     0.391,
-    2.22,
-    0.272
+    2.29,
+    0.066
    ],
    "rotation": [
-    30.62,
+    7.1,
     0.0,
     0.0
    ],
@@ -57211,8 +58002,8 @@
    "type": "cylinder",
    "position": [
     0.44,
-    4.316,
-    1.513
+    4.707,
+    0.367
    ],
    "rotation": [
     0.0,
@@ -57239,8 +58030,8 @@
    "type": "cylinder",
    "position": [
     0.49,
-    4.316,
-    1.513
+    4.707,
+    0.367
    ],
    "rotation": [
     0.0,
@@ -57268,11 +58059,11 @@
    "type": "frustum",
    "position": [
     0.0,
-    3.812,
-    2.365
+    4.585,
+    1.35
    ],
    "rotation": [
-    -59.38,
+    -82.9,
     0.0,
     0.0
    ],
@@ -57297,11 +58088,11 @@
    "type": "frustum",
    "position": [
     0.0,
-    4.316,
-    1.513
+    4.707,
+    0.367
    ],
    "rotation": [
-    64.67,
+    74.56,
     0.0,
     0.0
    ],
@@ -57325,11 +58116,11 @@
    "type": "box",
    "position": [
     -0.323,
-    4.502,
-    1.906
+    4.823,
+    0.787
    ],
    "rotation": [
-    64.67,
+    74.56,
     0.0,
     0.0
    ],
@@ -57353,11 +58144,11 @@
    "type": "box",
    "position": [
     0.323,
-    4.502,
-    1.906
+    4.823,
+    0.787
    ],
    "rotation": [
-    64.67,
+    74.56,
     0.0,
     0.0
    ],
@@ -57382,7 +58173,7 @@
    "position": [
     0.0,
     4.416,
-    3.7
+    2.7
    ],
    "rotation": [
     0.0,
@@ -57411,7 +58202,7 @@
    "position": [
     0.17,
     4.887,
-    3.995
+    2.995
    ],
    "rotation": [
     11.03,
@@ -57439,7 +58230,7 @@
    "position": [
     0.279,
     4.573,
-    3.7
+    2.7
    ],
    "rotation": [
     11.03,
@@ -57467,7 +58258,7 @@
    "position": [
     -0.279,
     4.573,
-    3.7
+    2.7
    ],
    "rotation": [
     11.03,
@@ -57495,7 +58286,7 @@
    "position": [
     0.0,
     4.141,
-    3.7
+    2.7
    ],
    "rotation": [
     0.0,
@@ -57523,7 +58314,7 @@
    "position": [
     0.0,
     4.152,
-    3.876
+    2.876
    ],
    "rotation": [
     142.0,
@@ -57550,7 +58341,7 @@
    "position": [
     0.0,
     3.273,
-    4.452
+    3.452
    ],
    "rotation": [
     0.0,
@@ -57577,7 +58368,7 @@
    "position": [
     0.0,
     2.411,
-    4.004
+    3.004
    ],
    "rotation": [
     24.0,
@@ -57605,7 +58396,7 @@
    "position": [
     0.0,
     4.11,
-    4.049
+    3.049
    ],
    "rotation": [
     142.0,
@@ -57633,7 +58424,7 @@
    "position": [
     0.0,
     2.829,
-    4.282
+    3.282
    ],
    "rotation": [
     24.0,
@@ -57661,7 +58452,7 @@
    "position": [
     0.152,
     4.152,
-    3.612
+    2.612
    ],
    "rotation": [
     142.0,
@@ -57688,7 +58479,7 @@
    "position": [
     0.651,
     3.273,
-    3.324
+    2.324
    ],
    "rotation": [
     0.0,
@@ -57715,7 +58506,7 @@
    "position": [
     0.263,
     2.411,
-    3.548
+    2.548
    ],
    "rotation": [
     24.0,
@@ -57743,7 +58534,7 @@
    "position": [
     0.302,
     4.11,
-    3.525
+    2.525
    ],
    "rotation": [
     142.0,
@@ -57771,7 +58562,7 @@
    "position": [
     0.504,
     2.829,
-    3.409
+    2.409
    ],
    "rotation": [
     24.0,
@@ -57799,7 +58590,7 @@
    "position": [
     -0.152,
     4.152,
-    3.612
+    2.612
    ],
    "rotation": [
     142.0,
@@ -57826,7 +58617,7 @@
    "position": [
     -0.651,
     3.273,
-    3.324
+    2.324
    ],
    "rotation": [
     0.0,
@@ -57853,7 +58644,7 @@
    "position": [
     -0.263,
     2.411,
-    3.548
+    2.548
    ],
    "rotation": [
     24.0,
@@ -57881,7 +58672,7 @@
    "position": [
     -0.302,
     4.11,
-    3.525
+    2.525
    ],
    "rotation": [
     142.0,
@@ -57909,7 +58700,7 @@
    "position": [
     -0.504,
     2.829,
-    3.409
+    2.409
    ],
    "rotation": [
     24.0,
@@ -57936,19 +58727,19 @@
    "type": "box",
    "position": [
     -0.323,
-    2.885,
-    1.017
+    3.039,
+    0.441
    ],
    "rotation": [
-    -5.13,
-    1.17,
+    -1.69,
+    1.43,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    0.735
+    0.612
    ],
    "material": "structure_b",
    "outline": false,
@@ -57964,19 +58755,19 @@
    "type": "box",
    "position": [
     -0.309,
-    3.111,
-    1.689
+    3.221,
+    0.992
    ],
    "rotation": [
-    -30.13,
-    1.17,
+    -32.13,
+    1.43,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    0.838
+    0.711
    ],
    "material": "structure_b",
    "outline": false,
@@ -57992,19 +58783,19 @@
    "type": "box",
    "position": [
     -0.296,
-    3.666,
-    2.362
+    3.732,
+    1.543
    ],
    "rotation": [
-    -46.97,
-    1.17,
+    -50.81,
+    1.43,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    1.045
+    0.933
    ],
    "material": "structure_b",
    "outline": false,
@@ -58020,19 +58811,19 @@
    "type": "box",
    "position": [
     -0.282,
-    4.551,
-    3.034
+    4.573,
+    2.094
    ],
    "rotation": [
-    -57.37,
-    1.17,
+    -61.28,
+    1.43,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    1.307
+    1.207
    ],
    "material": "structure_b",
    "outline": false,
@@ -58048,19 +58839,19 @@
    "type": "box",
    "position": [
     0.323,
-    2.885,
-    1.017
+    3.039,
+    0.441
    ],
    "rotation": [
-    -5.13,
-    -1.17,
+    -1.69,
+    -1.43,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    0.735
+    0.612
    ],
    "material": "structure_b",
    "outline": false,
@@ -58076,19 +58867,19 @@
    "type": "box",
    "position": [
     0.309,
-    3.111,
-    1.689
+    3.221,
+    0.992
    ],
    "rotation": [
-    -30.13,
-    -1.17,
+    -32.13,
+    -1.43,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    0.838
+    0.711
    ],
    "material": "structure_b",
    "outline": false,
@@ -58104,19 +58895,19 @@
    "type": "box",
    "position": [
     0.296,
-    3.666,
-    2.362
+    3.732,
+    1.543
    ],
    "rotation": [
-    -46.97,
-    -1.17,
+    -50.81,
+    -1.43,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    1.045
+    0.933
    ],
    "material": "structure_b",
    "outline": false,
@@ -58132,23 +58923,52 @@
    "type": "box",
    "position": [
     0.282,
-    4.551,
-    3.034
+    4.573,
+    2.094
    ],
    "rotation": [
-    -57.37,
-    -1.17,
+    -61.28,
+    -1.43,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    1.307
+    1.207
    ],
    "material": "structure_b",
    "outline": false,
    "collision": false,
+   "mobile": {
+    "group": "Arm_4_Upper"
+   },
+   "gen": "Arm_4",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_4_Lens",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.02,
+    2.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_4",
+   "size": [
+    0.396,
+    0.143,
+    0.396
+   ],
+   "material": "glow_yellow",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "group": "Arm_4_Upper"
    },
@@ -58161,7 +58981,7 @@
    "position": [
     0.0,
     4.13,
-    3.7
+    2.7
    ],
    "rotation": [
     180.0,
@@ -58182,6 +59002,134 @@
    "double_sided": true,
    "mobile": {
     "group": "Arm_4_Scan"
+   },
+   "gen": "Arm_4",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_4_Ring",
+   "type": "group",
+   "position": [
+    -4.7,
+    0.0,
+    -82.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "gen": "Arm_4",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_4_Ring_1",
+   "type": "box",
+   "position": [
+    0.0,
+    7.93,
+    0.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_4_Ring",
+   "size": [
+    1.16,
+    0.05,
+    0.05
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Arm_4_Ring"
+   },
+   "gen": "Arm_4",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_4_Ring_2",
+   "type": "box",
+   "position": [
+    0.0,
+    7.93,
+    -0.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_4_Ring",
+   "size": [
+    1.16,
+    0.05,
+    0.05
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Arm_4_Ring"
+   },
+   "gen": "Arm_4",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_4_Ring_3",
+   "type": "box",
+   "position": [
+    0.55,
+    7.93,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_4_Ring",
+   "size": [
+    0.05,
+    0.05,
+    1.06
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Arm_4_Ring"
+   },
+   "gen": "Arm_4",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_4_Ring_4",
+   "type": "box",
+   "position": [
+    -0.55,
+    7.93,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_4_Ring",
+   "size": [
+    0.05,
+    0.05,
+    1.06
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Arm_4_Ring"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -90968,9 +91916,9 @@
    "name": "Ceil_Red_05_1",
    "type": "box",
    "position": [
-    -17.607,
-    26.24,
-    -25.584
+    32.773,
+    26.23,
+    8.068
    ],
    "rotation": [
     0.0,
@@ -90996,9 +91944,9 @@
    "name": "Ceil_Red_05_2",
    "type": "box",
    "position": [
-    -17.607,
-    26.24,
-    -26.284
+    32.773,
+    26.23,
+    7.368
    ],
    "rotation": [
     0.0,
@@ -91024,13 +91972,13 @@
    "name": "Ceil_Red_06_1",
    "type": "box",
    "position": [
-    -9.466,
-    26.24,
-    -30.622
+    41.06,
+    26.23,
+    -15.063
    ],
    "rotation": [
     0.0,
-    90.0,
+    0.0,
     0.0
    ],
    "size": [
@@ -91052,13 +92000,13 @@
    "name": "Ceil_Red_06_2",
    "type": "box",
    "position": [
-    -9.466,
-    26.24,
-    -31.322
+    41.76,
+    26.23,
+    -15.063
    ],
    "rotation": [
     0.0,
-    90.0,
+    0.0,
     0.0
    ],
    "size": [
@@ -110848,9 +111796,9 @@
    "name": "Works_Ceil_Red_20_2",
    "type": "box",
    "position": [
-    -32.558,
-    26.24,
-    -118.922
+    -45.264,
+    26.23,
+    -131.321
    ],
    "rotation": [
     0.0,
@@ -110988,9 +111936,9 @@
    "name": "Works_Ceil_Red_24_1",
    "type": "box",
    "position": [
-    -9.258,
-    26.24,
-    -144.369
+    -52.301,
+    26.23,
+    -189.356
    ],
    "rotation": [
     0.0,
@@ -111016,9 +111964,9 @@
    "name": "Works_Ceil_Red_24_2",
    "type": "box",
    "position": [
-    -8.558,
-    26.24,
-    -144.369
+    -51.601,
+    26.23,
+    -189.356
    ],
    "rotation": [
     0.0,
@@ -112471,6 +113419,7 @@
    "material": "corrosion",
    "collision": false,
    "outline": false,
+   "double_sided": true,
    "segments": [
     {
      "pts": [
@@ -128533,12 +129482,12 @@
     {
      "pts": [
       [
-       9.51391,
-       -69.3072
+       7.41391,
+       -75.2747
       ],
       [
-       9.89597,
-       -69.43134
+       7.81507,
+       -75.40505
       ]
      ],
      "y0": 0.85,
@@ -128547,12 +129496,12 @@
     {
      "pts": [
       [
-       9.91847,
-       -69.44769
+       7.83757,
+       -75.4214
       ],
       [
-       10.15459,
-       -69.77269
+       8.0855,
+       -75.76265
       ]
      ],
      "y0": 0.85,
@@ -128561,12 +129510,12 @@
     {
      "pts": [
       [
-       10.16319,
-       -69.79914
+       8.0941,
+       -75.7891
       ],
       [
-       10.16319,
-       -70.20086
+       8.0941,
+       -76.2109
       ]
      ],
      "y0": 0.85,
@@ -128575,12 +129524,12 @@
     {
      "pts": [
       [
-       10.15459,
-       -70.22731
+       8.0855,
+       -76.23735
       ],
       [
-       9.91847,
-       -70.55231
+       7.83757,
+       -76.5786
       ]
      ],
      "y0": 0.85,
@@ -128589,12 +129538,12 @@
     {
      "pts": [
       [
-       9.89597,
-       -70.56866
+       7.81507,
+       -76.59495
       ],
       [
-       9.51391,
-       -70.6928
+       7.41391,
+       -76.7253
       ]
      ],
      "y0": 0.85,
@@ -128603,12 +129552,12 @@
     {
      "pts": [
       [
-       9.48609,
-       -70.6928
+       7.38609,
+       -76.7253
       ],
       [
-       9.10403,
-       -70.56866
+       6.98493,
+       -76.59495
       ]
      ],
      "y0": 0.85,
@@ -128617,12 +129566,12 @@
     {
      "pts": [
       [
-       9.08153,
-       -70.55231
+       6.96243,
+       -76.5786
       ],
       [
-       8.84541,
-       -70.22731
+       6.7145,
+       -76.23735
       ]
      ],
      "y0": 0.85,
@@ -128631,12 +129580,12 @@
     {
      "pts": [
       [
-       8.83681,
-       -70.20086
+       6.7059,
+       -76.2109
       ],
       [
-       8.83681,
-       -69.79914
+       6.7059,
+       -75.7891
       ]
      ],
      "y0": 0.85,
@@ -128645,12 +129594,12 @@
     {
      "pts": [
       [
-       8.84541,
-       -69.77269
+       6.7145,
+       -75.76265
       ],
       [
-       9.08153,
-       -69.44769
+       6.96243,
+       -75.4214
       ]
      ],
      "y0": 0.85,
@@ -128659,12 +129608,12 @@
     {
      "pts": [
       [
-       9.10403,
-       -69.43134
+       6.98493,
+       -75.40505
       ],
       [
-       9.48609,
-       -69.3072
+       7.38609,
+       -75.2747
       ]
      ],
      "y0": 0.85,
@@ -128673,12 +129622,12 @@
     {
      "pts": [
       [
-       -9.51391,
-       -78.7578
+       7.79157,
+       -73.31722
       ],
       [
-       -9.93417,
-       -78.62124
+       7.68906,
+       -73.56471
       ]
      ],
      "y0": 0.85,
@@ -128687,12 +129636,12 @@
     {
      "pts": [
       [
-       -9.95667,
-       -78.6049
+       7.66471,
+       -73.58906
       ],
       [
-       -10.21641,
-       -78.2474
+       7.41722,
+       -73.69157
       ]
      ],
      "y0": 0.85,
@@ -128701,12 +129650,12 @@
     {
      "pts": [
       [
-       -10.22501,
-       -78.22095
+       7.38278,
+       -73.69157
       ],
       [
-       -10.22501,
-       -77.77905
+       7.13529,
+       -73.58906
       ]
      ],
      "y0": 0.85,
@@ -128715,12 +129664,12 @@
     {
      "pts": [
       [
-       -10.21641,
-       -77.7526
+       7.11094,
+       -73.56471
       ],
       [
-       -9.95667,
-       -77.3951
+       7.00843,
+       -73.31722
       ]
      ],
      "y0": 0.85,
@@ -128729,12 +129678,12 @@
     {
      "pts": [
       [
-       -9.93417,
-       -77.37876
+       7.00843,
+       -73.28278
       ],
       [
-       -9.51391,
-       -77.2422
+       7.11094,
+       -73.03529
       ]
      ],
      "y0": 0.85,
@@ -128743,12 +129692,12 @@
     {
      "pts": [
       [
-       -9.48609,
-       -77.2422
+       7.13529,
+       -73.01094
       ],
       [
-       -9.06583,
-       -77.37876
+       7.38278,
+       -72.90843
       ]
      ],
      "y0": 0.85,
@@ -128757,12 +129706,12 @@
     {
      "pts": [
       [
-       -9.04333,
-       -77.3951
+       7.41722,
+       -72.90843
       ],
       [
-       -8.78359,
-       -77.7526
+       7.66471,
+       -73.01094
       ]
      ],
      "y0": 0.85,
@@ -128771,12 +129720,12 @@
     {
      "pts": [
       [
-       -8.77499,
-       -77.77905
+       7.68906,
+       -73.03529
       ],
       [
-       -8.77499,
-       -78.22095
+       7.79157,
+       -73.28278
       ]
      ],
      "y0": 0.85,
@@ -128785,12 +129734,12 @@
     {
      "pts": [
       [
-       -8.78359,
-       -78.2474
+       -7.41391,
+       -70.7253
       ],
       [
-       -9.04333,
-       -78.6049
+       -7.81507,
+       -70.59495
       ]
      ],
      "y0": 0.85,
@@ -128799,12 +129748,12 @@
     {
      "pts": [
       [
-       -9.06583,
-       -78.62124
+       -7.83757,
+       -70.5786
       ],
       [
-       -9.48609,
-       -78.7578
+       -8.0855,
+       -70.23735
       ]
      ],
      "y0": 0.85,
@@ -128813,12 +129762,12 @@
     {
      "pts": [
       [
-       9.51391,
-       -91.3072
+       -8.0941,
+       -70.2109
       ],
       [
-       9.89597,
-       -91.43134
+       -8.0941,
+       -69.7891
       ]
      ],
      "y0": 0.85,
@@ -128827,12 +129776,12 @@
     {
      "pts": [
       [
-       9.91847,
-       -91.44769
+       -8.0855,
+       -69.76265
       ],
       [
-       10.15459,
-       -91.77269
+       -7.83757,
+       -69.4214
       ]
      ],
      "y0": 0.85,
@@ -128841,12 +129790,12 @@
     {
      "pts": [
       [
-       10.16319,
-       -91.79914
+       -7.81507,
+       -69.40505
       ],
       [
-       10.16319,
-       -92.20086
+       -7.41391,
+       -69.2747
       ]
      ],
      "y0": 0.85,
@@ -128855,12 +129804,12 @@
     {
      "pts": [
       [
-       10.15459,
-       -92.22731
+       -7.38609,
+       -69.2747
       ],
       [
-       9.91847,
-       -92.55231
+       -6.98493,
+       -69.40505
       ]
      ],
      "y0": 0.85,
@@ -128869,12 +129818,12 @@
     {
      "pts": [
       [
-       9.89597,
-       -92.56866
+       -6.96243,
+       -69.4214
       ],
       [
-       9.51391,
-       -92.6928
+       -6.7145,
+       -69.76265
       ]
      ],
      "y0": 0.85,
@@ -128883,12 +129832,12 @@
     {
      "pts": [
       [
-       9.48609,
-       -92.6928
+       -6.7059,
+       -69.7891
       ],
       [
-       9.10403,
-       -92.56866
+       -6.7059,
+       -70.2109
       ]
      ],
      "y0": 0.85,
@@ -128897,12 +129846,12 @@
     {
      "pts": [
       [
-       9.08153,
-       -92.55231
+       -6.7145,
+       -70.23735
       ],
       [
-       8.84541,
-       -92.22731
+       -6.96243,
+       -70.5786
       ]
      ],
      "y0": 0.85,
@@ -128911,12 +129860,12 @@
     {
      "pts": [
       [
-       8.83681,
-       -92.20086
+       -6.98493,
+       -70.59495
       ],
       [
-       8.83681,
-       -91.79914
+       -7.38609,
+       -70.7253
       ]
      ],
      "y0": 0.85,
@@ -128925,12 +129874,12 @@
     {
      "pts": [
       [
-       8.84541,
-       -91.77269
+       -7.00843,
+       -67.31722
       ],
       [
-       9.08153,
-       -91.44769
+       -7.11094,
+       -67.56471
       ]
      ],
      "y0": 0.85,
@@ -128939,12 +129888,12 @@
     {
      "pts": [
       [
-       9.10403,
-       -91.43134
+       -7.13529,
+       -67.58906
       ],
       [
-       9.48609,
-       -91.3072
+       -7.38278,
+       -67.69157
       ]
      ],
      "y0": 0.85,
@@ -128953,12 +129902,12 @@
     {
      "pts": [
       [
-       -9.51391,
-       -99.7578
+       -7.41722,
+       -67.69157
       ],
       [
-       -9.93417,
-       -99.62124
+       -7.66471,
+       -67.58906
       ]
      ],
      "y0": 0.85,
@@ -128967,12 +129916,12 @@
     {
      "pts": [
       [
-       -9.95667,
-       -99.6049
+       -7.68906,
+       -67.56471
       ],
       [
-       -10.21641,
-       -99.2474
+       -7.79157,
+       -67.31722
       ]
      ],
      "y0": 0.85,
@@ -128981,12 +129930,12 @@
     {
      "pts": [
       [
-       -10.22501,
-       -99.22095
+       -7.79157,
+       -67.28278
       ],
       [
-       -10.22501,
-       -98.77905
+       -7.68906,
+       -67.03529
       ]
      ],
      "y0": 0.85,
@@ -128995,12 +129944,12 @@
     {
      "pts": [
       [
-       -10.21641,
-       -98.7526
+       -7.66471,
+       -67.01094
       ],
       [
-       -9.95667,
-       -98.3951
+       -7.41722,
+       -66.90843
       ]
      ],
      "y0": 0.85,
@@ -129009,12 +129958,12 @@
     {
      "pts": [
       [
-       -9.93417,
-       -98.37876
+       -7.38278,
+       -66.90843
       ],
       [
-       -9.51391,
-       -98.2422
+       -7.13529,
+       -67.01094
       ]
      ],
      "y0": 0.85,
@@ -129023,12 +129972,12 @@
     {
      "pts": [
       [
-       -9.48609,
-       -98.2422
+       -7.11094,
+       -67.03529
       ],
       [
-       -9.06583,
-       -98.37876
+       -7.00843,
+       -67.28278
       ]
      ],
      "y0": 0.85,
@@ -129037,12 +129986,12 @@
     {
      "pts": [
       [
-       -9.04333,
-       -98.3951
+       7.41391,
+       -87.2422
       ],
       [
-       -8.78359,
-       -98.7526
+       7.83417,
+       -87.37876
       ]
      ],
      "y0": 0.85,
@@ -129051,12 +130000,12 @@
     {
      "pts": [
       [
-       -8.77499,
-       -98.77905
+       7.85667,
+       -87.3951
       ],
       [
-       -8.77499,
-       -99.22095
+       8.11641,
+       -87.7526
       ]
      ],
      "y0": 0.85,
@@ -129065,12 +130014,12 @@
     {
      "pts": [
       [
-       -8.78359,
-       -99.2474
+       8.12501,
+       -87.77905
       ],
       [
-       -9.04333,
-       -99.6049
+       8.12501,
+       -88.22095
       ]
      ],
      "y0": 0.85,
@@ -129079,12 +130028,236 @@
     {
      "pts": [
       [
-       -9.06583,
-       -99.62124
+       8.11641,
+       -88.2474
       ],
       [
-       -9.48609,
-       -99.7578
+       7.85667,
+       -88.6049
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       7.83417,
+       -88.62124
+      ],
+      [
+       7.41391,
+       -88.7578
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       7.38609,
+       -88.7578
+      ],
+      [
+       6.96583,
+       -88.62124
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       6.94333,
+       -88.6049
+      ],
+      [
+       6.68359,
+       -88.2474
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       6.67499,
+       -88.22095
+      ],
+      [
+       6.67499,
+       -87.77905
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       6.68359,
+       -87.7526
+      ],
+      [
+       6.94333,
+       -87.3951
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       6.96583,
+       -87.37876
+      ],
+      [
+       7.38609,
+       -87.2422
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -7.41391,
+       -82.7578
+      ],
+      [
+       -7.83417,
+       -82.62124
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -7.85667,
+       -82.6049
+      ],
+      [
+       -8.11641,
+       -82.2474
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -8.12501,
+       -82.22095
+      ],
+      [
+       -8.12501,
+       -81.77905
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -8.11641,
+       -81.7526
+      ],
+      [
+       -7.85667,
+       -81.3951
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -7.83417,
+       -81.37876
+      ],
+      [
+       -7.41391,
+       -81.2422
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -7.38609,
+       -81.2422
+      ],
+      [
+       -6.96583,
+       -81.37876
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -6.94333,
+       -81.3951
+      ],
+      [
+       -6.68359,
+       -81.7526
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -6.67499,
+       -81.77905
+      ],
+      [
+       -6.67499,
+       -82.22095
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -6.68359,
+       -82.2474
+      ],
+      [
+       -6.94333,
+       -82.6049
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -6.96583,
+       -82.62124
+      ],
+      [
+       -7.38609,
+       -82.7578
       ]
      ],
      "y0": 0.85,
@@ -129421,6 +130594,118 @@
       [
        31.57605,
        -181.44146
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       46.64157,
+       -106.01722
+      ],
+      [
+       46.47554,
+       -106.41807
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       46.44148,
+       -106.46584
+      ],
+      [
+       46.04064,
+       -106.63187
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       45.98278,
+       -106.64157
+      ],
+      [
+       45.58193,
+       -106.47554
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       45.53416,
+       -106.44148
+      ],
+      [
+       45.36813,
+       -106.04064
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       45.35843,
+       -105.98278
+      ],
+      [
+       45.52446,
+       -105.58193
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       45.55852,
+       -105.53416
+      ],
+      [
+       45.95936,
+       -105.36813
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       46.01722,
+       -105.35843
+      ],
+      [
+       46.41807,
+       -105.52446
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       46.46584,
+       -105.55852
+      ],
+      [
+       46.63187,
+       -105.95936
       ]
      ],
      "y0": 0.85,
@@ -131533,9 +132818,7 @@
     "group": "Corrosion"
    },
    "gen": "corrosion",
-   "source": "inferred",
-   "double_sided": true,
-   "autofix": "back face visible from the third-person camera"
+   "source": "inferred"
   },
   {
    "name": "OuterWall_South_03_M01Tank_Red",
@@ -131944,7 +133227,7 @@
   "portals: 3 thin fixtures covered by a doorway portal removed (Gallery_North_Strut_02, Gallery_North_Strut_03, Gallery_North_Strut_04)",
   "corrosion: 32 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 48 lights at the liquid line removed, 28 light strips raised clear of it",
-  "corrosion: 1876 wall faces at the liquid line get a corroded band (one mesh, one material)"
+  "corrosion: 1908 wall faces at the liquid line get a corroded band (one mesh, one material)"
  ],
  "relations": [
   {
@@ -132621,12 +133904,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 90146,
-  "objects": 4095,
+  "triangles": 91298,
+  "objects": 4129,
   "materials": 30,
-  "glb_kb": 6005,
-  "nodes": 4654,
-  "draw_calls_unbatched": 4472,
+  "glb_kb": 6052,
+  "nodes": 4692,
+  "draw_calls_unbatched": 4506,
   "draw_calls_batched_min": 32,
   "images": 91,
   "tex_mem_gpu_compressed_mb": 22.89,
