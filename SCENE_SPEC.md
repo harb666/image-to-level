@@ -904,3 +904,13 @@ Building blocks usable without the preset:
 - The same maths in Python (reference + tests), apply_effects.gd and viewer.html. Measured in tests: the preview's
   joint angles equal the reference to 1e-9; through the exported skeleton the canister sits within 1 cm of the
   moving parcel while it is set in; no joint jumps or velocity jumps at 240 Hz sampling; waiting = no motion at all.
+
+## Stage 67: rigid links - no more stretching
+- Cause of the "compressing / uncompressing": the arm parts were all built with one shared `mobile` dict, so the joint
+  written last went to every part. In Stage 65/66 that was the hose cable's blend (shoulder -> wrist), so the whole
+  upper arm was skinned as a blend between shoulder and wrist and stretched like a piston as the arm moved. Each part
+  now gets its own copy: links, discs, wrist, claw and fingers each sit rigidly on their own joint (weight 1).
+- The hose cables are gone from the working arms (a cable spanning a moving joint has to stretch); static arms keep them.
+- The arms stand 1.2 m further back (x +-8.6) and are larger (adders 1.2, scanners 1.3) so the moves come from big,
+  readable shoulder / elbow / turret rotations at a comfortable reach: measured max 92 % of full stretch over the cycle
+  (`arm_motion.reach`; spec_to_level notes any arm over 93 %).

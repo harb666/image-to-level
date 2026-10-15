@@ -284,6 +284,8 @@ def _effects(spec, ctx, plats, env, glow):
                     ex["rig"] = dict(bones={j_["name"].rsplit("_J", 1)[1].lower(): j_["name"] for j_ in rg["joints"]}, axes={j_["name"].rsplit("_J", 1)[1].lower(): j_["axis"] for j_ in rg["joints"]},
                                      base=[pv[0], pv[2]], py=pv[1], yaw0=rg["yaw0"], l1=rg["l1"], l2=rg["l2"], a1=rg["a1"], a2=rg["a2"],
                                      claw=round(pv[1] + rg["wrist"][1] - tip[1], 4), tip=tip, axis=[u[0], 0.0, u[2]], **({"bin": bn} if bn else {}), program=pr)
+                    rr = arm_motion.reach(ex["rig"], pr, v, P)
+                    if rr > 0.93: ctx.notes.append(f"{ln_}: {stn['arm']} works at {rr:.0%} of its reach - move it closer or scale it up (near full stretch the elbow swings hard)")
                 st_.append(dict(task=arm["task"], arm=stn["arm"], groups=arm["groups"], held=arm["held"], scan=arm["scan"], pivot=pv, hinge=arm["hinge"], **ex,
                                 angle_deg=round(ang, 3), t0=t0, period=round(P, 4), window=round(min(1.8 if arm["task"] == "add" else 2.6, 0.7 * P), 3),
                                 reveal=dict(group=stn["group"], s0=A_["s0"], spacing=S, s_arm=round(sk, 4), id_step=10.0)))

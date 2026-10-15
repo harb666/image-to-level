@@ -415,3 +415,27 @@ class Stage66(unittest.TestCase):
         for tau, j in zip(taus, json.loads(out)):
             a, _ = M.pose(R, G, ln["speed"], P, s["t0"] + tau, s["t0"])
             self.assertLess(max(abs(x - y) for x, y in zip(j, (a["yaw"], a["shoulder"], a["elbow"]))), 1e-9, tau)
+
+
+class Stage67(unittest.TestCase):
+    def test_every_arm_part_rigid_on_its_own_joint(self):
+        """The arm parts shared one `mobile` dict, so the last joint written (the hose blend shoulder -> wrist) went to
+        every part: the whole arm stretched like a piston. Each part now sits rigidly on its own joint - in level.json
+        and in the exported vertex weights (one joint, weight 1)."""
+        import numpy as np, sys
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); import glb_tools
+        lv = os.path.join(ROOT, "levels", "slime_arena"); L = json.load(open(os.path.join(lv, "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        want = {"Turret": "Yaw", "Shoulder": "Shoulder", "Link1": "Shoulder", "Elbow": "Elbow", "Link2": "Elbow", "Spike": "Elbow", "Wrist": "Wrist",
+                "Collar": "Twist", "Finger_1": "Finger1", "Finger_2_Tip": "Finger2", "Finger_3_Knuckle": "Finger3"}
+        for a in ("Arm_1", "Arm_2", "Arm_3", "Arm_4"):
+            for p, j in want.items(): self.assertEqual(by[f"{a}_{p}"]["mobile"]["joint"], f"{a}_J{j}", (a, p))
+            self.assertFalse([n for n in by if n.startswith(a + "_Hose")])  # no cable across a moving joint
+        g, b = glb_tools._read(os.path.join(lv, "mobile", "level_mobile.glb"))
+        def acc(i, dt, nc):
+            a = g["accessors"][i]; bv = g["bufferViews"][a["bufferView"]]; o = bv.get("byteOffset", 0) + a.get("byteOffset", 0)
+            return np.frombuffer(b[o:o + a["count"] * nc * np.dtype(dt).itemsize], dtype=dt).reshape(-1, nc)
+        for n in g["nodes"]:
+            if "skin" in n:
+                p = g["meshes"][n["mesh"]]["primitives"][0]["attributes"]; W = acc(p["WEIGHTS_0"], "<f4", 4); J = acc(p["JOINTS_0"], "<u1", 4)
+                self.assertTrue(np.allclose(W[:, 0], 1.0), n["name"])
+                if n["name"].endswith("Upper__structure_b"): self.assertGreaterEqual(len(set(J[:, 0].tolist())), 7, n["name"])  # yaw .. fingers all used

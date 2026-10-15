@@ -390,7 +390,7 @@ def robot_arm(ctx, s, x, y, z, yaw):
     cyl = wy - hh + 0.1 * sc
     ctx.add(n + "_Collar", "cylinder", [0, cyl - 0.25 * sc, wz], [0.45 * sc, 0.28 * sc, 0.45 * sc], "machine", g, sections=8, **vis)
     claw_fingers(ctx, n, g, 0, cyl - 0.24 * sc, wz, sc, vis)
-    for k, sd in enumerate((-1, 1)):  # hose cables: link 1 side -> wrist, sagging
+    for k, sd in enumerate((-1, 1) if not task else ()):  # hose cables: link 1 side -> wrist, sagging (Stage 67: not on working arms - a cable across a moving joint would stretch)
         p0 = (sd * 0.3 * sc, py + math.cos(a1) * l1 * 0.45, math.sin(a1) * l1 * 0.45); p1 = (sd * 0.25 * sc, wy - 0.2 * sc, wz - 0.3 * sc)
         cable(ctx, f"{n}_Hose_{k + 1}", g, p0, p1, 0.6 * sc, 0.1 * sc, vis)
     if task:  # Stage 61/63: what the moving arm carries (rotates with it; the effect shows / hides it in time with the parcels)
@@ -440,13 +440,11 @@ def robot_arm(ctx, s, x, y, z, yaw):
             joints.append(dict(name=J(f"Finger{k + 1}"), parent=J("Twist"), pivot=Wp(ox * 0.16 * sc, cyf, wz + oz * 0.16 * sc), axis=Wv(-oz, ox)))
         part = (("Turret", "Yaw"), ("Shoulder", "Shoulder"), ("Link1", "Shoulder"), ("Elbow", "Elbow"), ("Spike", "Elbow"), ("Link2", "Elbow"), ("Wrist", "Wrist"),
                 ("Light", "Wrist"), ("Collar", "Twist"), ("Lens", "Twist"), ("Held", "Twist"), ("Scan", "Twist"), ("Finger_1", "Finger1"), ("Finger_2", "Finger2"), ("Finger_3", "Finger3"))
-        hose = {k + 1: (Wp(sd * 0.3 * sc, py + math.cos(a1) * l1 * 0.45, math.sin(a1) * l1 * 0.45), Wp(sd * 0.25 * sc, wy - 0.2 * sc, wz - 0.3 * sc)) for k, sd in enumerate((-1, 1))}
         grp = [n + "_Upper"] + ([n + "_Held"] if task == "add" else [n + "_Scan"])
         for o in ctx.objects:
             if (o.get("mobile") or {}).get("group") not in grp: continue
             sfx = o["name"][len(n) + 1:]
-            if sfx.startswith("Hose_"): o["mobile"]["joint"] = [J("Shoulder"), J("Wrist")]; o["mobile"]["blend"] = list(hose[int(sfx.split("_")[1])])
-            else: o["mobile"]["joint"] = J(next(j for p_, j in part if sfx.startswith(p_)))
+            o["mobile"] = dict(o["mobile"], joint=J(next(j for p_, j in part if sfx.startswith(p_))))  # every part rigid on one joint (own dict: the parts share one)
         ctx.skeletons = getattr(ctx, "skeletons", {}); ctx.skeletons[n] = dict(groups=grp, joints=joints)
         rig = dict(joints=joints, l1=round(l1, 4), l2=round(l2, 4), a1=round(a1, 6), a2=round(a2, 6), wrist=[0.0, round(wy - py, 4), round(wz, 4)], yaw0=round(math.radians(yaw), 6), seed=round(_r.Random(n + "rig").random(), 4))
         ctx.assembly_arms[n] = dict(task=task, rig=rig, pivot=[round(x, 3), round(y + py, 3), round(z, 3)], hinge=[round(v_, 5) for v_ in (math.cos(math.radians(yaw)), 0.0, -math.sin(math.radians(yaw)))],

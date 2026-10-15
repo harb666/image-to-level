@@ -57,7 +57,7 @@ class Stage33(unittest.TestCase):
     def test_arm_claw_and_glass_pods(self):
         L = json.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "levels", "slime_arena", "level.json")))
         by = {o["name"]: o for o in L["objects"]}
-        for part in ("_Shoulder_Disc", "_Elbow_Disc", "_Spike", "_Wrist", "_Finger_1_Tip", "_Hose_1_1", "_Link1_Strip_0"):
+        for part in ("_Shoulder_Disc", "_Elbow_Disc", "_Spike", "_Wrist", "_Finger_1_Tip", "_Link1_Strip_0"):  # (Stage 67: working arms carry no hose cables)
             self.assertIn("Arm_1" + part, by)
         self.assertEqual(by["Arm_1_Link1"]["type"], "frustum")
         self.assertIn("Claw_1_Finger_3_Tip", by); self.assertNotIn("Claw_1_Prong_1", by)

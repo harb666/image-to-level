@@ -92,3 +92,18 @@ def pose(rig, prog, v, period, t, t0):
     for i in range(3): out[f"finger{i + 1}"] = f
     hh, sc = prog.get("held_hidden"), prog.get("scan")
     return out, dict(tau=tau, held=not (hh and hh[0] <= tau < hh[1]), scan=bool(sc and sc[0] <= tau < sc[1]))
+
+
+def reach(rig, prog, v, period, samples=400):
+    """Largest wrist distance from the shoulder over the cycle / (l1 + l2): near 1 the arm is nearly straight and small
+    claw moves need big elbow swings (it looks like it is compressing); keep it under ~0.93."""
+    best = 0.0; L = rig["l1"] + rig["l2"]
+    for k in range(samples):
+        tau = prog["start"] + period * k / samples
+        for a, b, mode, A, B in prog["segs"]:
+            b_ = b if b > a else b + period
+            if a <= tau < b_:
+                for q in (A, B):
+                    p = _target(rig, q, tau, v); r = math.hypot(p[0] - rig["base"][0], p[2] - rig["base"][1])
+                    best = max(best, math.hypot(r, p[1] + rig["claw"] - rig["py"]) / L)
+    return best
