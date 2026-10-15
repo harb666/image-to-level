@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "e353e7c28ba4cdcf",
+  "spec_sha": "e109568ac54a0416",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -62816,7 +62816,62 @@
    "parent": "Conduit",
    "size": [
     1.2,
-    36.0,
+    42.0,
+    1.2
+   ],
+   "material": "pipe",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conduit",
+   "source": "visible"
+  },
+  {
+   "name": "Conduit_SpineJoint",
+   "type": "box",
+   "position": [
+    0.0,
+    6.76,
+    24.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conduit",
+   "size": [
+    1.68,
+    1.68,
+    1.68
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conduit",
+   "source": "visible"
+  },
+  {
+   "name": "Conduit_SpineDrop",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    -7.8,
+    24.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conduit",
+   "size": [
+    1.2,
+    15.4,
     1.2
    ],
    "material": "pipe",
@@ -127935,7 +127990,7 @@
   "ducts: Ceil_Duct_3 trimmed to 1 piece(s) clear of 1 standing part(s); Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 3 standing part(s); Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 11 standing part(s)",
   "corrosion: 32 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 48 lights at the liquid line removed, 28 light strips raised clear of it",
-  "corrosion: 1868 wall faces at the liquid line get a corroded band (one mesh, one material)"
+  "corrosion: 1876 wall faces at the liquid line get a corroded band (one mesh, one material)"
  ],
  "relations": [
   {
@@ -128623,12 +128678,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 88566,
-  "objects": 3977,
+  "triangles": 88610,
+  "objects": 3979,
   "materials": 27,
-  "glb_kb": 5893,
-  "nodes": 4520,
-  "draw_calls_unbatched": 4338,
+  "glb_kb": 5898,
+  "nodes": 4524,
+  "draw_calls_unbatched": 4342,
   "draw_calls_batched_min": 29,
   "images": 82,
   "tex_mem_gpu_compressed_mb": 22.63,

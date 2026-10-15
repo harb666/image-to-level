@@ -1,15 +1,15 @@
 # slime_arena: generation summary
 
-Spec: levels/slime_arena/scene_spec.json · 3977 objects · 27 materials · 20 effects
-Checks: PASSED ({'error': 0, 'warning': 2, 'info': 1}) · refine passes: 1
-Mobile (balanced): 3524 KB · 103667 tris · 92 draw calls · ~58.4 visible (estimate) · ~7.01 MB GPU textures (estimate)
+Spec: levels/slime_arena/scene_spec.json · 3979 objects · 27 materials · 20 effects
+Checks: PASSED ({'error': 0, 'warning': 2, 'info': 1}) · refine passes: 0
+Mobile (balanced): 3526 KB · 103739 tris · 92 draw calls · ~58.4 visible (estimate) · ~7.01 MB GPU textures (estimate)
 Navigation: 9616.0 m² reachable of 49137.0 m² standable
 Package: dist/slime_arena/package (37 files, 13.96 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: mobile draw calls 92 (> 80)
-- warning: 110178 triangles (> budget 40000)
+- warning: 110266 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -51,12 +51,12 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - ducts: Ceil_Duct_3 trimmed to 1 piece(s) clear of 1 standing part(s); Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 3 standing part(s); Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 11 standing part(s)
 - corrosion: 32 lit bodies get a plain skirt at the liquid line (no lights in the slime)
 - corrosion: 48 lights at the liquid line removed, 28 light strips raised clear of it
-- corrosion: 1868 wall faces at the liquid line get a corroded band (one mesh, one material)
+- corrosion: 1876 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 9.0 s
-- build (glb, sky, background, effects, mobile): 166.5 s
-- refine (checks -> safe fixes): 4248.9 s
-- previews: 0.9 s
-- export package: 0.7 s
-- total: 4426.0 s
+- spec -> level.json: 5.0 s
+- build (glb, sky, background, effects, mobile): 151.6 s
+- checks (fast): 85.7 s
+- previews: 1.7 s
+- export package: 0.6 s
+- total: 244.6 s
