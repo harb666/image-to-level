@@ -953,3 +953,16 @@ Building blocks usable without the preset:
   ceiling, flange rings every 2.6 m (`_Duct_Rib_<k>`), a boot 2 cm into the slab and four hangers.
 - slime_arena: `Tank_Slime_East_2` (7 x 11 m) beside `Tank_Slime_East` in the Works pool; both ducted up to the
   Works ceiling slab (26.5 m).
+
+## Stage 72: the crusher - jump across, don't get flattened
+- New structure `crusher` (`modules/factory.py`): a hydraulic column out of the pool (flared foot, ribs, brace) to a
+  square pad (`top`, `pad` m, hazard-striped rim, side lamps; walkable), a ram housing hung from the ceiling
+  (`ceiling` = underside y; mount plate, ribs, red warning lamps in group `<id>_Warn`) and the ram (press head with
+  striped sides + rod, mobile group `<id>_Ram`, rest gap `travel` m over the pad).
+- Effect `crusher` (same timing in apply_effects.gd and viewer.html): per `period` s - rest, `warn` s of blinking
+  lamps, a 0.22 s accelerating slam, 0.45 s pressed, a 1.2 s eased climb back. Kill zone = the pad's footprint up to
+  2 m above it (level.json / collision.json `crushers[].kill`); it is deadly while the head is lower than 1.8 m over
+  the pad (Godot: an Area3D in the `hazard_group`, its shape enabled only then; preview: respawn + "Crushed!").
+- slime_arena: the W_Cat_Pipes catwalk is gone; `Crusher_A` stands between Assembly_Line (7 m) and Pipe_Junction_A
+  (9 m): pad top 7.8 m (the deck's trim lip is 6.67 m: a 1.13 m jump up, then 1.2 m up to the junction - the nav
+  check finds both jumps both ways), every 4.5 s, 1.9 s of safe time per cycle before the warning.

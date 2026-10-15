@@ -10,6 +10,7 @@ extends Node3D
 @export_enum("off", "performance", "balanced", "quality") var quality: String = "balanced"
 @export var level_root: Node3D
 @export var environment: WorldEnvironment
+@export var hazard_group: StringName = &"hazard"  # Stage 72: crusher kill zones join this group while the ram is down (same as apply_mobile.gd)
 
 var _base_dir: String = ""
 var _anims: Array = []    # [material, base_energy, params, kind, next_change]
@@ -21,6 +22,7 @@ var _t: float = 0.0
 var _spins: Array = []  # [rotor node, rad/s]
 var _travel: Array = []  # [node, rest position, speed m/s, spacing m] (Stage 43: barrels up the column bores)
 var _launch: Array = []  # [node, rest position, speed, period, phase, travel] (Stage 49: pods shooting up the columns)
+var _crushers: Array = []  # Stage 72: [crusher dict, ram nodes, warning lamps, kill CollisionShape3D]
 var _lines: Array = []  # Stage 61: working assembly lines - [line dict, move nodes, [[station, arm nodes, held nodes, scan nodes]]]
 
 
@@ -69,6 +71,8 @@ func _ready() -> void:
 				_sky_speed = deg_to_rad(float(p.get("speed_deg_s", 0.0)))
 			"assembly":  # Stage 61: conveyors with parcels, dipping arms and parts revealed past each arm
 				_assembly(fx["line"])
+			"crusher":  # Stage 72: a ram slamming down onto a pad - kills whatever stands there
+				_crusher(fx["crusher"])
 			"launch":  # Stage 49: each entry's nodes wait, shoot up `travel` m at `speed`, repeat every `period` s (own phase)
 				for l in fx.get("launches", []):
 					for n in l.get("targets", []):
@@ -300,6 +304,50 @@ func _update_lines() -> void:
 			for nd in sa[5]:  # the laser frame sweeps up and down the parcel while it scans
 				(nd as Node3D).visible = scanning
 				(nd as Node3D).position = ax * ring_e + Vector3(0.0, float(st.get("ring_travel", 0.6)) * (0.5 - 0.5 * cos(TAU * float(st.get("sweeps", 2)) * ring_f)), 0.0)
+
+
+func _crusher(c: Dictionary) -> void:
+	var lo := Vector3(c["kill"][0][0], c["kill"][0][1], c["kill"][0][2])
+	var hi := Vector3(c["kill"][1][0], c["kill"][1][1], c["kill"][1][2])
+	var area := Area3D.new()
+	area.name = String(c["id"]) + "_Kill"
+	var cs := CollisionShape3D.new()
+	var bx := BoxShape3D.new()
+	bx.size = hi - lo
+	cs.shape = bx
+	cs.position = (lo + hi) * 0.5
+	cs.disabled = true  # only while the ram is down
+	area.add_child(cs)
+	level_root.add_child(area)
+	area.add_to_group(hazard_group)
+	_crushers.append([c, _group_nodes(String(c["group"])), _group_nodes(String(c["warn_group"])), cs])
+
+
+func _update_crushers() -> void:
+	for cr in _crushers:
+		var c: Dictionary = cr[0]
+		var P := float(c["period"])
+		var tr := float(c["travel"])
+		var wa := float(c["warn"])
+		var dn := float(c["down"])
+		var ho := float(c["hold"])
+		var ri := float(c["rise"])
+		var t0 := P - wa - dn - ho - ri
+		var u := fposmod(_t + float(c["phase"]), P)
+		var off := 0.0
+		var warn := u >= t0 and u < t0 + wa
+		if u >= t0 + wa and u < t0 + wa + dn:  # slam: accelerating
+			var f := (u - t0 - wa) / dn
+			off = -tr * f * f
+		elif u >= t0 + wa + dn and u < t0 + wa + dn + ho:
+			off = -tr
+		elif u >= t0 + wa + dn + ho:  # climb back, eased
+			off = -tr * (1.0 - smoothstep(0.0, 1.0, (u - t0 - wa - dn - ho) / ri))
+		for nd in cr[1]:
+			(nd as Node3D).position = Vector3(0.0, off, 0.0)
+		for nd in cr[2]:  # warning lamps blink before the slam
+			(nd as Node3D).visible = not warn or int(_t * 8.0) % 2 == 0
+		(cr[3] as CollisionShape3D).set_deferred("disabled", tr + off > 1.8)  # deadly once the head is lower than a player
 
 
 static func _smoother(x: float) -> float:
@@ -657,6 +705,7 @@ func _process(delta: float) -> void:
 	for sp in _spins:
 		(sp[0] as Node3D).rotate_object_local(Vector3.UP, float(sp[1]) * delta)
 	_update_lines()
+	_update_crushers()
 	for la in _launch:
 		(la[0] as Node3D).position = (la[1] as Vector3) + Vector3.UP * minf(fmod(_t + float(la[4]), float(la[3])) * float(la[2]), float(la[5]))
 	for tv in _travel:

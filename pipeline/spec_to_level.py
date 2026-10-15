@@ -124,7 +124,7 @@ def generate(spec, G, level_dir=None):
              generator=dict(tool="pipeline/spec_to_level.py", spec_sha=H(spec), theme=theme, detail=spec.get("detail", "medium")),
              interpretation=spec.get("interpretation", {}), sky_color=PRESETS[env["sky"]["preset"]]["horizon"],
              spawn=spawn, spawns=spawns, hazards=ctx.hazards, effects=_effects(spec, ctx, plats, env, glow), environment=env,
-             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})), **({"style": spec["style"]} if spec.get("style") else {}), **({"exits": ctx.exits} if ctx.exits else {}), **({"entrances": ctx.entrances} if ctx.entrances else {}), **({"gates": ctx.gates} if getattr(ctx, "gates", None) else {}), **({"skeletons": ctx.skeletons} if getattr(ctx, "skeletons", None) else {}), **({"encounters": spec["encounters"]} if spec.get("encounters") else {}),
+             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})), **({"style": spec["style"]} if spec.get("style") else {}), **({"exits": ctx.exits} if ctx.exits else {}), **({"entrances": ctx.entrances} if ctx.entrances else {}), **({"gates": ctx.gates} if getattr(ctx, "gates", None) else {}), **({"skeletons": ctx.skeletons} if getattr(ctx, "skeletons", None) else {}), **({"crushers": ctx.crushers} if getattr(ctx, "crushers", None) else {}), **({"encounters": spec["encounters"]} if spec.get("encounters") else {}),
              validation=dict(ignore_objects=[]), generator_notes=ctx.notes, relations=ctx.relations)
     if spec.get("gameplay"): L["gameplay"] = spec["gameplay"]
     if spec.get("campaign"): L["campaign"] = spec["campaign"]  # where this level sits in a multi-part level (previous / next part)
@@ -302,6 +302,8 @@ def _effects(spec, ctx, plats, env, glow):
             belt = dict(material="belt", scroll=[round(-u[0] * v / tile, 5), round(-u[2] * v / tile, 5)])  # top-face UVs = world (x, z) / tile - measured in the preview)
             out.append(dict(id=ln_ + "_Line", type="assembly_line", line=dict(move=[ln_ + "_Parcels"] + [s_["group"] for s_ in A_["stations"]], axis=u, speed=v, spacing=S,
                                                                              stations=st_, belt=belt)))
+        for c_ in getattr(ctx, "crushers", []):  # Stage 72: rams slamming onto their pads (kill box while pressed)
+            out.append(dict(id=c_["id"] + "_Slam", type="crusher", crusher=c_))
         la = getattr(ctx, "launches", [])
         if la:  # Stage 49: a slime pod shooting up each column every few seconds (own period / phase per column)
             from modules.factory import POD_SPEED
@@ -400,7 +402,7 @@ def _merge(new, cur, state, key, rep, label):
     return out
 
 
-TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions", "style", "exits", "entrances", "gates", "encounters", "skeletons")
+TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions", "style", "exits", "entrances", "gates", "encounters", "skeletons", "crushers")
 
 
 def merge(Lnew, Lcur, state):

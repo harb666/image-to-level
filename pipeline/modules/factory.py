@@ -706,3 +706,43 @@ def wall_fans(ctx, s, x, y, z, yaw):
         if s.get("vents", True):  # under the housing ring (R + 0.6) and its clamps
             vh = float(s.get("vent_height", 1.8)); vw = 2 * R * 0.95
             A.louvred_vent(ctx, f"{n}_Vent_{i + 1}", g, fx, fy - R - 1.0 - vh, vw, vh, 0.0, st)
+
+
+@structure("crusher", pad=False)
+def crusher(ctx, s, x, y, z, yaw):
+    """Stage 72: industrial crusher the player has to cross: a hydraulic column rises out of the pool to a pad ("top",
+    square "pad" m, hazard-striped edge, walkable), a ram housing hangs from the ceiling ("ceiling" = underside y) and
+    the ram (press head + rod, own mobile group "<id>_Ram") slams down onto the pad every "period" s (effect "crusher"):
+    whatever stands on the pad then dies (kill box). Rest gap between head and pad = "travel" m (head clear of a player)."""
+    n = s["id"]; top = float(s.get("top", 8.0)); ceil = float(s["ceiling"]); P = float(s.get("pad", 3.2)); R = float(s.get("radius", 1.0))
+    up = float(s.get("travel", 5.4)); hh = 0.8; Lr = up + 1.2; st = dict(mobile={"static": True}); vs = dict(collision=False, **st)
+    g = ctx.add(n, "group", [x, 0, z], rot=[0, yaw, 0]); ram = dict(collision=False, mobile={"group": n + "_Ram"})
+    # base: flared foot in the slime, banded hydraulic column, brace under the pad
+    ctx.add(n + "_Foot", "frustum", [0, 0, 0], [2.2 * R, 1.8, 2.2 * R], "structure_b", g, sections=12, bottom_scale=1.45, **st)
+    ctx.add(n + "_Column", "cylinder", [0, 1.7, 0], [2 * R, top - 1.6 - 1.7 + 0.05, 2 * R], "pipe", g, sections=12, **st)
+    for k, by_ in enumerate((2.6, 4.2)): ctx.add(f"{n}_Rib_{k + 1}", "cylinder", [0, by_, 0], [2 * R + 0.24, 0.3, 2 * R + 0.24], "structure_b", g, sections=12, outline=False, **vs)
+    ctx.add(n + "_Brace", "frustum", [0, top - 1.6, 0], [P - 0.2, 1.0, P - 0.2], "structure_b", g, sections=4, bottom_scale=0.45, **st)
+    ctx.add(n + "_Pad", "box", [0, top - 0.6, 0], [P, 0.6, P], "structure_b", g, **st)
+    for k, (ox, oz, sx, sz) in enumerate(((0, P / 2 - 0.17, P - 0.04, 0.3), (0, -P / 2 + 0.17, P - 0.04, 0.3), (P / 2 - 0.17, 0, 0.3, P - 0.64), (-P / 2 + 0.17, 0, 0.3, P - 0.64))):
+        ctx.add(f"{n}_Pad_Stripe_{k + 1}", "box", [ox, top - 0.02, oz], [sx, 0.04, sz], "stripe", g, outline=False, **vs)  # hazard-striped rim (2 cm proud, 2 cm in from the edges)
+    for k, sd in enumerate((-1, 1)): ctx.add(f"{n}_Pad_Lamp_{k + 1}", "box", [sd * (P / 2 + 0.03), top - 0.35, 0], [0.06, 0.18, P * 0.6], "glow", g, outline=False, **vs)
+    # ceiling housing: mounting plate, cylinder with bands, warning lamps on its lip
+    hb = top + hh + Lr - 0.3  # housing bottom: the rod stays 30 cm inside it at full stroke
+    ctx.add(n + "_Mount", "box", [0, ceil - 0.42, 0], [2 * R + 1.6, 0.44, 2 * R + 1.6], "structure_b", g, **vs)  # 2 cm into the ceiling
+    ctx.add(n + "_Housing", "cylinder", [0, hb, 0], [2.5 * R, ceil - 0.4 - hb + 0.02, 2.5 * R], "machine", g, sections=12, **vs)
+    for k, by_ in enumerate((hb + 0.25, (hb + ceil) / 2)): ctx.add(f"{n}_Housing_Rib_{k + 1}", "cylinder", [0, round(by_, 3), 0], [2.5 * R + 0.24, 0.3, 2.5 * R + 0.24], "structure_b", g, sections=12, outline=False, **vs)
+    for k in range(4):
+        a = math.radians(45 + 90 * k); ctx.add(f"{n}_Warn_{k + 1}", "box", [math.cos(a) * (1.25 * R + 0.02), hb + 0.75, math.sin(a) * (1.25 * R + 0.02)], [0.3, 0.3, 0.3], ctx.role("laser"), g,
+                                                [0, -math.degrees(a), 0], outline=False, **dict(vs, mobile={"group": n + "_Warn"}))
+    # the ram (moves): press head with striped sides, rod, collar
+    hy = top + up
+    ctx.add(n + "_Head", "box", [0, hy, 0], [P - 0.2, hh, P - 0.2], "machine", g, **ram)
+    for k, (ox, oz, sx, sz) in enumerate(((0, (P - 0.2) / 2 + 0.01, P - 0.2, 0.04), (0, -(P - 0.2) / 2 - 0.01, P - 0.2, 0.04), ((P - 0.2) / 2 + 0.01, 0, 0.04, P - 0.2), (-(P - 0.2) / 2 - 0.01, 0, 0.04, P - 0.2))):
+        ctx.add(f"{n}_Head_Stripe_{k + 1}", "box", [ox, hy + 0.15, oz], [sx, 0.5, sz], "stripe", g, outline=False, **ram)
+    ctx.add(n + "_Rod", "cylinder", [0, hy + hh - 0.05, 0], [0.9, Lr + 0.05, 0.9], "rail", g, sections=12, **ram)
+    ctx.add(n + "_Collar", "cylinder", [0, hy + hh - 0.02, 0], [1.5, 0.35, 1.5], "structure_b", g, sections=12, **ram)
+    a = math.radians(yaw); hx, hz = abs(math.cos(a)) * P / 2 + abs(math.sin(a)) * P / 2, abs(math.sin(a)) * P / 2 + abs(math.cos(a)) * P / 2
+    ctx.crushers = getattr(ctx, "crushers", []) + [dict(id=n, group=n + "_Ram", warn_group=n + "_Warn", travel=up, period=float(s.get("period", 4.5)), phase=float(s.get("phase", 0.0)),
+                                                        warn=0.7, down=0.22, hold=0.45, rise=1.2,
+                                                        kill=[[round(x - hx + 0.05, 3), top, round(z - hz + 0.05, 3)], [round(x + hx - 0.05, 3), round(top + 2.0, 3), round(z + hz - 0.05, 3)]])]
+    ctx.walkable.append(dict(name=n + "_Pad", min=[round(x - hx, 3), round(z - hz, 3)], max=[round(x + hx, 3), round(z + hz, 3)], y=top))

@@ -314,6 +314,12 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
               for(const o of [...x.arm,...x.held,...x.scan]){o.quaternion.copy(q);o.position.copy(x.pv).sub(tmp);}}
             x.held.forEach(o=>o.visible=held);x.scan.forEach(o=>o.visible=scanning);
             x.ring.forEach(o=>{o.visible=scanning;o.position.copy(ax).multiplyScalar(re);o.position.y=(s.ring_travel||0.6)*(0.5-0.5*Math.cos(6.2832*(s.sweeps||2)*f));});}}});}
+    else if(fx.category==='crusher'){const C=fx.crusher,rm=Object.values(byName).filter(o=>o.name.startsWith(C.group+'__')),wn=Object.values(byName).filter(o=>o.name.startsWith(C.warn_group+'__')); // Stage 72: ram slamming onto its pad (same timing as apply_effects.gd)
+      const KB={min:C.kill[0],max:C.kill[1],on:false};(window.crushKill=window.crushKill||[]).push(KB);const T0=C.period-C.warn-C.down-C.hold-C.rise;
+      fxUpd.push({reset(){rm.forEach(o=>o.position.set(0,0,0));wn.forEach(o=>o.visible=true);KB.on=false;},u(t){const u=((t+C.phase)%C.period+C.period)%C.period;let off=0;const warn=u>=T0&&u<T0+C.warn;
+        if(u>=T0+C.warn&&u<T0+C.warn+C.down){const f=(u-T0-C.warn)/C.down;off=-C.travel*f*f;}else if(u>=T0+C.warn+C.down&&u<T0+C.warn+C.down+C.hold)off=-C.travel;
+        else if(u>=T0+C.warn+C.down+C.hold){const f=Math.min(1,(u-T0-C.warn-C.down-C.hold)/C.rise);off=-C.travel*(1-f*f*(3-2*f));}
+        rm.forEach(o=>o.position.set(0,off,0));wn.forEach(o=>o.visible=!warn||Math.floor(t*8)%2===0);KB.on=C.travel+off<=1.8;}});}
     else if(fx.category==='launch'){const L=(fx.launches||[]).flatMap(l=>(l.targets||[]).map(n=>[byName[n],l]).filter(a=>a[0])),y0=L.map(a=>a[0].position.y); // Stage 49: pods shooting up the columns
       fxUpd.push({reset(){L.forEach((a,i)=>a[0].position.y=y0[i]);},u(t){L.forEach((a,i)=>{const l=a[1];a[0].position.y=y0[i]+Math.min(((t+l.phase)%l.period)*p.speed,l.travel);});}});}
     else if(fx.category==='translate_loop'){const tg=(fx.targets||[]).map(n=>byName[n]).filter(Boolean),y0=tg.map(o=>o.position.y); // Stage 43: barrels up the column bores
@@ -453,6 +459,7 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
     ray.set(new THREE.Vector3(pos.x,pos.y+0.5,pos.z),down);ray.far=100;const h=ray.intersectObjects(solids)[0];
     const ground=h?h.point.y:-50;if(h&&h.object.name.startsWith('Hazard')&&pos.y-meta.eye_height<h.point.y+0.3){spawn();}if(jumpReq&&pos.y<=ground+meta.eye_height+0.05)vy=Math.sqrt(2*GP.player.gravity*GP.player.jump_height);jumpReq=false;vy-=GP.player.gravity*dt;pos.y+=vy*dt;
     if(pos.y<ground+meta.eye_height){pos.y=ground+meta.eye_height;vy=0;}if(pos.y<((GP.design||{}).kill_y??-40))spawn();
+    for(const k of (window.crushKill||[]))if(k.on){const fy=pos.y-meta.eye_height;if(pos.x>k.min[0]&&pos.x<k.max[0]&&pos.z>k.min[2]&&pos.z<k.max[2]&&fy>k.min[1]-0.3&&fy<k.max[1]){spawn();const b=document.getElementById('info');if(b)b.textContent='💥 Crushed!';}} // Stage 72
   for(const ex of (meta.exits||[])){const dx=pos.x-ex.center[0],dz=pos.z-ex.center[2],fy=pos.y-meta.eye_height;
     if(dx*dx+dz*dz<ex.radius*ex.radius&&Math.abs(fy-ex.center[1])<ex.height/2&&!exitT){exitT=1;const b=document.getElementById('info');
       b.textContent='⬇ '+ex.id.replace(/_/g,' ')+' → '+ex.target+' (Construct Error loads the next level here)';setTimeout(()=>{spawn();exitT=0;},1800);}}

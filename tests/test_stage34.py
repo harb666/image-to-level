@@ -501,3 +501,21 @@ class Stage71(unittest.TestCase):
             self.assertGreater(d["position"][1] + g["position"][1] + d["size"][1], 26.5)  # ends inside the ceiling
             self.assertIn(t + "_Duct_Rib_1", by)
         self.assertGreater(abs(by["Tank_Slime_East"]["position"][2] - by["Tank_Slime_East_2"]["position"][2]), 7.5)  # side by side, not touching
+
+
+class Stage72(unittest.TestCase):
+    def test_crusher_replaces_the_pipes_catwalk(self):
+        """The catwalk Assembly_Line -> Pipe_Junction_A is gone; a crusher pad between them is the way across (jumps the
+        nav check accepts both ways), and its ram kills on the pad only while the head is lower than a player."""
+        lv = os.path.join(ROOT, "levels", "slime_arena"); L = json.load(open(os.path.join(lv, "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        self.assertFalse([n for n in by if n.startswith("W_Cat_Pipes")])
+        for k in ("Crusher_A_Pad", "Crusher_A_Column", "Crusher_A_Housing", "Crusher_A_Head", "Crusher_A_Rod"): self.assertIn(k, by)
+        self.assertEqual(by["Crusher_A_Head"]["mobile"]["group"], "Crusher_A_Ram")
+        N = json.load(open(os.path.join(lv, "checks", "navigation.json")))
+        self.assertFalse([i for i in N["issues"] if i.get("object") in ("Pipe_Junction_A", "Crusher_A_Pad") or "connected both ways" in i.get("message", "")])
+        C = json.load(open(os.path.join(lv, "mobile", "collision.json")))["crushers"][0]
+        (x0, y0, z0), (x1, y1, z1) = C["kill"]; pad = by["Crusher_A_Pad"]
+        self.assertAlmostEqual(y0, 7.8); self.assertAlmostEqual(x1 - x0, pad["size"][0] - 0.1, places=2)
+        t0 = C["period"] - C["warn"] - C["down"] - C["hold"] - C["rise"]; self.assertGreater(t0, 1.5)  # time to jump on and off
+        self.assertIn('set_deferred("disabled", tr + off > 1.8)', open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")).read())  # same rule in both runtimes
+        self.assertIn("KB.on=C.travel+off<=1.8", open(os.path.join(ROOT, "pipeline", "viewer.html")).read())
