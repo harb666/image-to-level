@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "0b079b08a5f908b1",
+  "spec_sha": "e9f1cd005ef6f9aa",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -72919,6 +72919,734 @@
    "source": "visible"
   },
   {
+   "name": "Tank_Slime_East_Ductwork",
+   "type": "group",
+   "position": [
+    49.0,
+    0.0,
+    -87.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Tank_Slime_East",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_Duct_Collar",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    10.55,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_Ductwork",
+   "size": [
+    2.24,
+    0.75,
+    2.24
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_Duct",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    10.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_Ductwork",
+   "size": [
+    1.54,
+    16.0,
+    1.54
+   ],
+   "material": "pipe",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_Duct_Rib_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    12.6,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_Ductwork",
+   "size": [
+    1.78,
+    0.2,
+    1.78
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_Duct_Rib_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    15.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_Ductwork",
+   "size": [
+    1.78,
+    0.2,
+    1.78
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_Duct_Rib_3",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    17.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_Ductwork",
+   "size": [
+    1.78,
+    0.2,
+    1.78
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_Duct_Rib_4",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    20.4,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_Ductwork",
+   "size": [
+    1.78,
+    0.2,
+    1.78
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_Duct_Rib_5",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_Ductwork",
+   "size": [
+    1.78,
+    0.2,
+    1.78
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_Duct_Boot",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    26.02,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_Ductwork",
+   "size": [
+    2.44,
+    0.5,
+    2.44
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_Duct_Hanger_1",
+   "type": "box",
+   "position": [
+    0.969,
+    24.9,
+    0.969
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_Ductwork",
+   "size": [
+    0.16,
+    1.62,
+    0.16
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_Duct_Hanger_2",
+   "type": "box",
+   "position": [
+    -0.969,
+    24.9,
+    0.969
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_Ductwork",
+   "size": [
+    0.16,
+    1.62,
+    0.16
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_Duct_Hanger_3",
+   "type": "box",
+   "position": [
+    -0.969,
+    24.9,
+    -0.969
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_Ductwork",
+   "size": [
+    0.16,
+    1.62,
+    0.16
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_Duct_Hanger_4",
+   "type": "box",
+   "position": [
+    0.969,
+    24.9,
+    -0.969
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_Ductwork",
+   "size": [
+    0.16,
+    1.62,
+    0.16
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_2",
+   "type": "tank",
+   "position": [
+    49.0,
+    0.0,
+    -78.4
+   ],
+   "rotation": [
+    0.0,
+    -32.01,
+    0.0
+   ],
+   "size": [
+    7.0,
+    11.0,
+    7.0
+   ],
+   "material": "pipe",
+   "gen": "Tank_Slime_East_2",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_2_Ductwork",
+   "type": "group",
+   "position": [
+    49.0,
+    0.0,
+    -78.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Tank_Slime_East_2",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_2_Duct_Collar",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    10.55,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_2_Ductwork",
+   "size": [
+    2.24,
+    0.75,
+    2.24
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East_2",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_2_Duct",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    10.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_2_Ductwork",
+   "size": [
+    1.54,
+    16.0,
+    1.54
+   ],
+   "material": "pipe",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East_2",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_2_Duct_Rib_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    12.6,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_2_Ductwork",
+   "size": [
+    1.78,
+    0.2,
+    1.78
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East_2",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_2_Duct_Rib_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    15.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_2_Ductwork",
+   "size": [
+    1.78,
+    0.2,
+    1.78
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East_2",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_2_Duct_Rib_3",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    17.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_2_Ductwork",
+   "size": [
+    1.78,
+    0.2,
+    1.78
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East_2",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_2_Duct_Rib_4",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    20.4,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_2_Ductwork",
+   "size": [
+    1.78,
+    0.2,
+    1.78
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East_2",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_2_Duct_Rib_5",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_2_Ductwork",
+   "size": [
+    1.78,
+    0.2,
+    1.78
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East_2",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_2_Duct_Boot",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    26.02,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_2_Ductwork",
+   "size": [
+    2.44,
+    0.5,
+    2.44
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East_2",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_2_Duct_Hanger_1",
+   "type": "box",
+   "position": [
+    0.969,
+    24.9,
+    0.969
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_2_Ductwork",
+   "size": [
+    0.16,
+    1.62,
+    0.16
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East_2",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_2_Duct_Hanger_2",
+   "type": "box",
+   "position": [
+    -0.969,
+    24.9,
+    0.969
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_2_Ductwork",
+   "size": [
+    0.16,
+    1.62,
+    0.16
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East_2",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_2_Duct_Hanger_3",
+   "type": "box",
+   "position": [
+    -0.969,
+    24.9,
+    -0.969
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_2_Ductwork",
+   "size": [
+    0.16,
+    1.62,
+    0.16
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East_2",
+   "source": "visible"
+  },
+  {
+   "name": "Tank_Slime_East_2_Duct_Hanger_4",
+   "type": "box",
+   "position": [
+    0.969,
+    24.9,
+    -0.969
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Tank_Slime_East_2_Ductwork",
+   "size": [
+    0.16,
+    1.62,
+    0.16
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Tank_Slime_East_2",
+   "source": "visible"
+  },
+  {
    "name": "Pipe_South_Plate",
    "type": "box",
    "position": [
@@ -145015,6 +145743,174 @@
     {
      "pts": [
       [
+       51.98793,
+       -76.53862
+      ],
+      [
+       52.51793,
+       -78.2711
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       52.51831,
+       -78.28196
+      ],
+      [
+       52.11107,
+       -80.04733
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       52.10596,
+       -80.05693
+      ],
+      [
+       50.8706,
+       -81.38216
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       50.86138,
+       -81.38793
+      ],
+      [
+       49.1289,
+       -81.91793
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       49.11804,
+       -81.91831
+      ],
+      [
+       47.35267,
+       -81.51107
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       47.34307,
+       -81.50596
+      ],
+      [
+       46.01784,
+       -80.2706
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       46.01207,
+       -80.26138
+      ],
+      [
+       45.48207,
+       -78.5289
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       45.48169,
+       -78.51804
+      ],
+      [
+       45.88893,
+       -76.75267
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       45.89404,
+       -76.74307
+      ],
+      [
+       47.1294,
+       -75.41784
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       47.13862,
+       -75.41207
+      ],
+      [
+       48.8711,
+       -74.88207
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       48.88196,
+       -74.88169
+      ],
+      [
+       50.64733,
+       -75.28893
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       50.65693,
+       -75.29404
+      ],
+      [
+       51.98216,
+       -76.5294
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
        -33.21591,
        -60.021
       ],
@@ -147521,7 +148417,7 @@
   "portals: 3 thin fixtures covered by a doorway portal removed (Gallery_North_Strut_02, Gallery_North_Strut_03, Gallery_North_Strut_04)",
   "corrosion: 34 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 48 lights at the liquid line removed, 28 light strips raised clear of it",
-  "corrosion: 2206 wall faces at the liquid line get a corroded band (one mesh, one material)"
+  "corrosion: 2230 wall faces at the liquid line get a corroded band (one mesh, one material)"
  ],
  "relations": [
   {
@@ -148198,12 +149094,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 97924,
-  "objects": 4379,
+  "triangles": 98962,
+  "objects": 4406,
   "materials": 31,
-  "glb_kb": 6394,
-  "nodes": 5000,
-  "draw_calls_unbatched": 4801,
+  "glb_kb": 6422,
+  "nodes": 5034,
+  "draw_calls_unbatched": 4833,
   "draw_calls_batched_min": 33,
   "images": 94,
   "tex_mem_gpu_compressed_mb": 23.14,

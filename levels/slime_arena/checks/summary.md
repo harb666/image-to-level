@@ -1,16 +1,16 @@
 # slime_arena: generation summary
 
-Spec: levels/slime_arena/scene_spec.json · 4379 objects · 31 materials · 23 effects
+Spec: levels/slime_arena/scene_spec.json · 4406 objects · 31 materials · 23 effects
 Checks: PASSED ({'error': 0, 'warning': 3, 'info': 2}) · refine passes: 0
-Mobile (balanced): 3905 KB · 114702 tris · 125 draw calls · ~70.0 visible (estimate) · ~7.52 MB GPU textures (estimate)
-Navigation: 9620.0 m² reachable of 49194.0 m² standable
-Package: dist/slime_arena/package (38 files, 15.26 MB) valid=True
+Mobile (balanced): 3943 KB · 116154 tris · 125 draw calls · ~70.0 visible (estimate) · ~7.52 MB GPU textures (estimate)
+Navigation: 9620.0 m² reachable of 49241.0 m² standable
+Package: dist/slime_arena/package (38 files, 15.36 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: mobile draw calls 125 (> 80)
 - warning: ~70 visible draw calls (estimate, > 60)
-- warning: 121902 triangles (> budget 40000)
+- warning: 123378 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -54,12 +54,12 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - portals: 3 thin fixtures covered by a doorway portal removed (Gallery_North_Strut_02, Gallery_North_Strut_03, Gallery_North_Strut_04)
 - corrosion: 34 lit bodies get a plain skirt at the liquid line (no lights in the slime)
 - corrosion: 48 lights at the liquid line removed, 28 light strips raised clear of it
-- corrosion: 2206 wall faces at the liquid line get a corroded band (one mesh, one material)
+- corrosion: 2230 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 6.9 s
-- build (glb, sky, background, effects, mobile): 117.4 s
+- spec -> level.json: 6.8 s
+- build (glb, sky, background, effects, mobile): 113.6 s
 - checks (fast): 95.0 s
 - previews: 0.6 s
-- export package: 0.9 s
-- total: 220.9 s
+- export package: 0.6 s
+- total: 216.6 s
