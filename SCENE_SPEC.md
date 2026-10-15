@@ -868,3 +868,12 @@ Building blocks usable without the preset:
   repair - so the moved arm pedestals had no rust; 27 such objects were reset. Two generator-level overlaps the repairs
   had been hiding are fixed at the source: ramp / stair junction blocks are 6 cm wider than their deck, wall-pipe
   brackets stand 6 cm proud of the pipes.
+
+## Stage 64: no black slabs on the west crane arms
+- Cause: the mobile export stores identical index lists once (trimesh), and the mirrored east / west arms' outline
+  shells (`Arm_N_Upper__ink`) have the same triangle list. `glb_tools.slim` welds untextured (ink) primitives; welding
+  the east arm rewrote the shared list in place, so the west arm kept its own vertices with the east arm's new
+  indices: scrambled triangles, some facing out = dark slabs over the moving arms (preview and Godot alike).
+- Fix: `slim` gives a primitive its own accessor + buffer view before rewriting data another primitive still uses;
+  originals nobody reads any more are dropped. Measured: all 121 nodes of level_mobile.glb have the same oriented
+  triangles before and after `slim`, and each arm's outline matches its level.glb shells exactly.

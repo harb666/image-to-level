@@ -311,3 +311,27 @@ class Stage63(unittest.TestCase):
         G = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "gen_state.json")))["objects"]
         import sys; sys.path.insert(0, os.path.join(ROOT, "pipeline")); from spec_to_level import H
         self.assertFalse([o["name"] for o in L["objects"] if o["name"] in G and G[o["name"]] != H(o) and o["name"] == "Corrosion_Band"])
+
+
+class Stage64(unittest.TestCase):
+    def test_slim_weld_keeps_shared_index_lists_apart(self):
+        """trimesh stores identical index lists once: two mirrored ink shells shared one. Welding the first rewrote the
+        shared list and scrambled the second (black slabs on the west crane arms). Each primitive keeps its own triangles."""
+        import tempfile, numpy as np, trimesh, sys
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); import glb_tools
+        ink = trimesh.visual.material.PBRMaterial(name="ink", baseColorFactor=[10, 0, 10, 255])
+        sc = trimesh.Scene()
+        for k, sx in enumerate((1, -1)):  # the same index list twice, the second mirrored in x (other vertex order after a weld)
+            m = trimesh.creation.box((0.6, 2.8, 0.5)); m.unmerge_vertices(); m.vertices[:, 0] = m.vertices[:, 0] * sx + 3 * k
+            m.visual = trimesh.visual.TextureVisuals(uv=np.zeros((len(m.vertices), 2)), material=ink)
+            sc.add_geometry(m, node_name=f"S{k}__ink", geom_name=f"S{k}__ink")
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, "t.glb"); sc.export(p)
+            before = trimesh.load(p, force="scene", process=False)
+            canon = lambda m: sorted(tuple(np.roll(t, -int(np.lexsort(t.T[::-1])[0]), 0).round(4).ravel()) for t in m.triangles)
+            ref = {n: canon(before.geometry[before.graph[n][1]]) for n in ("S0__ink", "S1__ink")}
+            glb_tools.slim(p)
+            after = trimesh.load(p, force="scene", process=False)
+            for n in ref:
+                m = after.geometry[after.graph[n][1]]
+                self.assertEqual(canon(m), ref[n], n); self.assertEqual(len(m.vertices), 8, n)  # welded, triangles unchanged

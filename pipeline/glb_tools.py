@@ -168,18 +168,35 @@ def slim(path, plain_materials=(), drop_extras=(), weld_untextured=True, webp=No
     for me in g.get("meshes", []):
         me.pop("extras", None)  # trimesh metadata (units, per-vertex uv copies of shapes): nothing reads it
         if not mesh_meta: me.pop("name", None)
+    orphans = set()
     if weld_untextured:
+        users = {}  # accessor -> primitives using it; trimesh stores identical index lists once (two mirrored arms' outlines share one)
+        for me in g.get("meshes", []):
+            for p in me["primitives"]:
+                for ai in [*p["attributes"].values(), p.get("indices")]:
+                    if ai is not None: users[ai] = users.get(ai, 0) + 1
+        view_users = {}
+        for a in g.get("accessors", []): view_users[a.get("bufferView")] = view_users.get(a.get("bufferView"), 0) + 1
+
+        def own(ai):  # an accessor + view only this primitive uses: rewritten in place, else a fresh copy (rewriting shared data scrambles the others)
+            a = g["accessors"][ai]
+            if users[ai] == 1 and view_users[a["bufferView"]] == 1: return ai
+            users[ai] -= 1
+            if not users[ai]: orphans.add(ai); view_users[a["bufferView"]] -= 1  # nothing reads the original any more
+            bv = dict(g["bufferViews"][a["bufferView"]]); bv.pop("byteStride", None); g["bufferViews"].append(bv)
+            a = dict(a, bufferView=len(g["bufferViews"]) - 1); g["accessors"].append(a); return len(g["accessors"]) - 1
         for me in g.get("meshes", []):
             for p in me["primitives"]:
                 mat = g["materials"][p["material"]] if "material" in p else {}
                 if _tex_refs(mat) or "TEXCOORD_0" not in p["attributes"] or set(p["attributes"]) - {"POSITION", "TEXCOORD_0"} or "indices" not in p: continue
                 pa, ia = g["accessors"][p["attributes"]["POSITION"]], g["accessors"][p["indices"]]
                 if g["bufferViews"][pa["bufferView"]].get("byteStride") or pa["bufferView"] in views or ia["bufferView"] in views: continue
-                if sum(a.get("bufferView") in (pa["bufferView"], ia["bufferView"]) for a in g["accessors"]) != 2: continue  # views shared with other data
                 P_ = np.frombuffer(_view(binary, g["bufferViews"][pa["bufferView"]]), dtype="<f4", count=pa["count"] * 3, offset=pa.get("byteOffset", 0)).reshape(-1, 3)
                 dt = {5121: "<u1", 5123: "<u2", 5125: "<u4"}[ia["componentType"]]
                 I_ = np.frombuffer(_view(binary, g["bufferViews"][ia["bufferView"]]), dtype=dt, count=ia["count"], offset=ia.get("byteOffset", 0))
                 uq, inv = np.unique(P_, axis=0, return_inverse=True); inv = inv.ravel()
+                p["attributes"]["POSITION"] = own(p["attributes"]["POSITION"]); p["indices"] = own(p["indices"])
+                pa, ia = g["accessors"][p["attributes"]["POSITION"]], g["accessors"][p["indices"]]
                 views[pa["bufferView"]] = uq.astype("<f4").tobytes(); pa["count"] = len(uq); pa.pop("byteOffset", None)
                 views[ia["bufferView"]] = inv[I_].astype("<u4").tobytes(); ia["componentType"] = 5125; ia.pop("byteOffset", None)
                 p["attributes"].pop("TEXCOORD_0")
@@ -206,7 +223,7 @@ def slim(path, plain_materials=(), drop_extras=(), weld_untextured=True, webp=No
             if t.get("source") in wi: t.setdefault("extensions", {})["EXT_texture_webp"] = {"source": t.pop("source")}
         if wi:
             for k in ("extensionsUsed", "extensionsRequired"): g[k] = sorted(set(g.get(k, [])) | {"EXT_texture_webp"})
-    keep = sorted({a["bufferView"] for a in g.get("accessors", []) if "bufferView" in a} | {i["bufferView"] for i in g.get("images", []) if "bufferView" in i})
+    keep = sorted({a["bufferView"] for ai, a in enumerate(g.get("accessors", [])) if "bufferView" in a and ai not in orphans} | {i["bufferView"] for i in g.get("images", []) if "bufferView" in i})
     vmap, out, seen = {}, bytearray(), {}  # identical buffer views (e.g. every box collider's index list) are stored once
     for vi in keep:
         bv = dict(g["bufferViews"][vi]); data = views.get(vi, _view(binary, g["bufferViews"][vi]))
@@ -216,12 +233,13 @@ def slim(path, plain_materials=(), drop_extras=(), weld_untextured=True, webp=No
         out += b"\0" * (-len(out) % 4); bv["byteOffset"] = len(out); bv["byteLength"] = len(data); bv["buffer"] = 0
         out += data; vmap[vi] = seen[key] = len(g.setdefault("_nv", [])); g["_nv"].append(bv)
     g["bufferViews"] = g.pop("_nv", [])
-    for a in g.get("accessors", []):
-        if "bufferView" in a: a["bufferView"] = vmap[a["bufferView"]]
+    for ai, a in enumerate(g.get("accessors", [])):
+        if "bufferView" in a and ai not in orphans: a["bufferView"] = vmap[a["bufferView"]]
     for i in g.get("images", []):
         if "bufferView" in i: i["bufferView"] = vmap[i["bufferView"]]
     amap, uniq, akey = {}, [], {}  # ... and so are accessors that became identical
     for ai, a in enumerate(g.get("accessors", [])):
+        if ai in orphans: continue
         k = json.dumps(a, sort_keys=True); amap[ai] = akey.setdefault(k, len(uniq))
         if amap[ai] == len(uniq): uniq.append(a)
     if g.get("accessors"):
