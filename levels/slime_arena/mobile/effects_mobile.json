@@ -1799,8 +1799,8 @@
    "id": "Conv_West_Line",
    "type": "assembly_line",
    "category": "assembly",
-   "glb_contains": "parcels, parts and arms at rest (own nodes: mobile groups)",
-   "godot_runtime": "script (apply_effects.gd _assembly): every node of the line's 'move' groups (<group>__*) slides along 'axis' by fmod(t * speed, spacing); per station the arm's groups turn about 'hinge' through 'pivot' by angle_deg * bump(t - t0, window) every 'period' s, 'held' groups hide from t0 to t0 + 0.6 period, 'scan' groups show only during the dip, and the 'reveal' group gets assembly_reveal.gdshader (fragments with dot(world, plane.xyz) < plane.w discarded: parts appear once the parcel passes the arm)",
+   "glb_contains": "parcels, parts and arms at rest (own nodes: mobile groups; arms skinned to one skeleton each)",
+   "godot_runtime": "script (apply_effects.gd _assembly): every node of the line's 'move' groups (<group>__*) slides along 'axis' by fmod(t * speed, spacing); per station the arm's groups turn about 'hinge' through 'pivot' by angle_deg * bump(t - t0, window) every 'period' s, 'held' groups hide from t0 to t0 + 0.6 period, 'scan' groups show only during the dip, and the 'reveal' group gets assembly_reveal.gdshader (fragments with dot(world, plane.xyz) < plane.w discarded: parts appear once the parcel passes the arm). Stage 65: a station with 'rig' drives the arm's Skeleton3D instead - bone pose rotation about each joint's rest axis (turret yaw, shoulder, elbow, wrist = -(shoulder + elbow), claw twist, 3 fingers), dip / bin poses from the IK offsets + idle sway",
    "line": {
     "move": [
      "Conv_West_Parcels",
@@ -1839,6 +1839,69 @@
       "bin_angle_deg": 18.286,
       "turn": 1.3,
       "bin_window": 1.6,
+      "rig": {
+       "bones": {
+        "yaw": "Arm_2_JYaw",
+        "shoulder": "Arm_2_JShoulder",
+        "elbow": "Arm_2_JElbow",
+        "wrist": "Arm_2_JWrist",
+        "twist": "Arm_2_JTwist",
+        "finger1": "Arm_2_JFinger1",
+        "finger2": "Arm_2_JFinger2",
+        "finger3": "Arm_2_JFinger3"
+       },
+       "axes": {
+        "yaw": [
+         0.0,
+         1.0,
+         0.0
+        ],
+        "shoulder": [
+         0.0,
+         0.0,
+         -1.0
+        ],
+        "elbow": [
+         0.0,
+         0.0,
+         -1.0
+        ],
+        "wrist": [
+         0.0,
+         0.0,
+         -1.0
+        ],
+        "twist": [
+         0.0,
+         1.0,
+         0.0
+        ],
+        "finger1": [
+         -0.0,
+         0.0,
+         1.0
+        ],
+        "finger2": [
+         0.86603,
+         0.0,
+         -0.5
+        ],
+        "finger3": [
+         -0.86603,
+         0.0,
+         -0.5
+        ]
+       },
+       "dip": [
+        -0.00557,
+        0.23616
+       ],
+       "bin": [
+        0.01298,
+        0.36113
+       ],
+       "seed": 0.7954
+      },
       "angle_deg": 11.162,
       "t0": 0.35,
       "period": 7.35,
@@ -1876,6 +1939,69 @@
       ],
       "ring_travel": 0.6,
       "sweeps": 2,
+      "rig": {
+       "bones": {
+        "yaw": "Arm_4_JYaw",
+        "shoulder": "Arm_4_JShoulder",
+        "elbow": "Arm_4_JElbow",
+        "wrist": "Arm_4_JWrist",
+        "twist": "Arm_4_JTwist",
+        "finger1": "Arm_4_JFinger1",
+        "finger2": "Arm_4_JFinger2",
+        "finger3": "Arm_4_JFinger3"
+       },
+       "axes": {
+        "yaw": [
+         0.0,
+         1.0,
+         0.0
+        ],
+        "shoulder": [
+         0.0,
+         0.0,
+         -1.0
+        ],
+        "elbow": [
+         0.0,
+         0.0,
+         -1.0
+        ],
+        "wrist": [
+         0.0,
+         0.0,
+         -1.0
+        ],
+        "twist": [
+         0.0,
+         1.0,
+         0.0
+        ],
+        "finger1": [
+         -0.0,
+         0.0,
+         1.0
+        ],
+        "finger2": [
+         0.86603,
+         0.0,
+         -0.5
+        ],
+        "finger3": [
+         -0.86603,
+         0.0,
+         -0.5
+        ]
+       },
+       "dip": [
+        -0.02838,
+        0.24368
+       ],
+       "bin": [
+        0.0,
+        0.0
+       ],
+       "seed": 0.681
+      },
       "angle_deg": 10.521,
       "t0": 5.0,
       "period": 7.35,
@@ -1930,8 +2056,8 @@
    "id": "Conv_East_Line",
    "type": "assembly_line",
    "category": "assembly",
-   "glb_contains": "parcels, parts and arms at rest (own nodes: mobile groups)",
-   "godot_runtime": "script (apply_effects.gd _assembly): every node of the line's 'move' groups (<group>__*) slides along 'axis' by fmod(t * speed, spacing); per station the arm's groups turn about 'hinge' through 'pivot' by angle_deg * bump(t - t0, window) every 'period' s, 'held' groups hide from t0 to t0 + 0.6 period, 'scan' groups show only during the dip, and the 'reveal' group gets assembly_reveal.gdshader (fragments with dot(world, plane.xyz) < plane.w discarded: parts appear once the parcel passes the arm)",
+   "glb_contains": "parcels, parts and arms at rest (own nodes: mobile groups; arms skinned to one skeleton each)",
+   "godot_runtime": "script (apply_effects.gd _assembly): every node of the line's 'move' groups (<group>__*) slides along 'axis' by fmod(t * speed, spacing); per station the arm's groups turn about 'hinge' through 'pivot' by angle_deg * bump(t - t0, window) every 'period' s, 'held' groups hide from t0 to t0 + 0.6 period, 'scan' groups show only during the dip, and the 'reveal' group gets assembly_reveal.gdshader (fragments with dot(world, plane.xyz) < plane.w discarded: parts appear once the parcel passes the arm). Stage 65: a station with 'rig' drives the arm's Skeleton3D instead - bone pose rotation about each joint's rest axis (turret yaw, shoulder, elbow, wrist = -(shoulder + elbow), claw twist, 3 fingers), dip / bin poses from the IK offsets + idle sway",
    "line": {
     "move": [
      "Conv_East_Parcels",
@@ -1970,6 +2096,69 @@
       "bin_angle_deg": 18.286,
       "turn": 1.3,
       "bin_window": 1.6,
+      "rig": {
+       "bones": {
+        "yaw": "Arm_1_JYaw",
+        "shoulder": "Arm_1_JShoulder",
+        "elbow": "Arm_1_JElbow",
+        "wrist": "Arm_1_JWrist",
+        "twist": "Arm_1_JTwist",
+        "finger1": "Arm_1_JFinger1",
+        "finger2": "Arm_1_JFinger2",
+        "finger3": "Arm_1_JFinger3"
+       },
+       "axes": {
+        "yaw": [
+         0.0,
+         1.0,
+         0.0
+        ],
+        "shoulder": [
+         0.0,
+         0.0,
+         1.0
+        ],
+        "elbow": [
+         0.0,
+         0.0,
+         1.0
+        ],
+        "wrist": [
+         0.0,
+         0.0,
+         1.0
+        ],
+        "twist": [
+         0.0,
+         1.0,
+         0.0
+        ],
+        "finger1": [
+         -0.0,
+         0.0,
+         -1.0
+        ],
+        "finger2": [
+         -0.86603,
+         0.0,
+         0.5
+        ],
+        "finger3": [
+         0.86603,
+         0.0,
+         0.5
+        ]
+       },
+       "dip": [
+        -0.00557,
+        0.23616
+       ],
+       "bin": [
+        0.01298,
+        0.36113
+       ],
+       "seed": 0.8747
+      },
       "angle_deg": 11.162,
       "t0": 0.35,
       "period": 7.35,
@@ -2007,6 +2196,69 @@
       ],
       "ring_travel": 0.6,
       "sweeps": 2,
+      "rig": {
+       "bones": {
+        "yaw": "Arm_3_JYaw",
+        "shoulder": "Arm_3_JShoulder",
+        "elbow": "Arm_3_JElbow",
+        "wrist": "Arm_3_JWrist",
+        "twist": "Arm_3_JTwist",
+        "finger1": "Arm_3_JFinger1",
+        "finger2": "Arm_3_JFinger2",
+        "finger3": "Arm_3_JFinger3"
+       },
+       "axes": {
+        "yaw": [
+         0.0,
+         1.0,
+         0.0
+        ],
+        "shoulder": [
+         0.0,
+         0.0,
+         1.0
+        ],
+        "elbow": [
+         0.0,
+         0.0,
+         1.0
+        ],
+        "wrist": [
+         0.0,
+         0.0,
+         1.0
+        ],
+        "twist": [
+         0.0,
+         1.0,
+         0.0
+        ],
+        "finger1": [
+         -0.0,
+         0.0,
+         -1.0
+        ],
+        "finger2": [
+         -0.86603,
+         0.0,
+         0.5
+        ],
+        "finger3": [
+         0.86603,
+         0.0,
+         0.5
+        ]
+       },
+       "dip": [
+        -0.02838,
+        0.24368
+       ],
+       "bin": [
+        0.0,
+        0.0
+       ],
+       "seed": 0.5116
+      },
       "angle_deg": 10.521,
       "t0": 5.0,
       "period": 7.35,

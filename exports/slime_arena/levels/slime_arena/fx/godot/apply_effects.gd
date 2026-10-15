@@ -189,7 +189,21 @@ func _assembly(line: Dictionary) -> void:
 				sm.set_shader_parameter(k, float(rv[k]))
 			mi.material_override = sm
 			mats.append(sm)
-		stations.append([st, arm, held, scan, mats, ring])
+		var sk: Skeleton3D = null  # Stage 65: a skinned arm - one bone per joint (turret, shoulder, elbow, wrist, twist, 3 fingers)
+		var bones := {}
+		if st.has("rig"):
+			for nd in arm:
+				var mi := nd as MeshInstance3D
+				if mi and mi.skin != null:
+					sk = mi.get_node_or_null(mi.skeleton) as Skeleton3D
+					if sk:
+						break
+			if sk:
+				for role in st["rig"]["bones"]:
+					bones[role] = sk.find_bone(String(st["rig"]["bones"][role]))
+			for nd in arm + held + scan:  # bounds are the rest pose: never culled while the arm is swung out
+				(nd as GeometryInstance3D).extra_cull_margin = 6.0
+		stations.append([st, arm, held, scan, mats, ring, sk, bones])
 	_lines.append([line, mv, stations])
 
 
@@ -212,6 +226,8 @@ func _update_lines() -> void:
 			var k := 0.5 - 0.5 * cos(TAU * u / W) if u < W else 0.0  # dip to the parcel, deepest when it is under the claw
 			var ang := deg_to_rad(float(st["angle_deg"])) * k
 			var psi := 0.0
+			var kb := 0.0
+			var t_pick := 0.6 * P
 			var picked := tau > 0.6 * P
 			if st.has("bin_yaw_deg"):  # Stage 63: turn to the bin, reach in for the next canister, turn back
 				var ty := float(st["turn"])
@@ -224,16 +240,44 @@ func _update_lines() -> void:
 					psi = pb * smoothstep(0.0, 1.0, (tau - a) / ty)
 				elif tau >= b and tau < c:
 					psi = pb
-					ang += deg_to_rad(float(st["bin_angle_deg"])) * (0.5 - 0.5 * cos(TAU * (tau - b) / wb))
+					kb = 0.5 - 0.5 * cos(TAU * (tau - b) / wb)
+					ang += deg_to_rad(float(st["bin_angle_deg"])) * kb
 				elif tau >= c and tau < c + ty:
 					psi = pb * (1.0 - smoothstep(0.0, 1.0, (tau - c) / ty))
-				picked = tau >= b + wb * 0.5
+				t_pick = b + wb * 0.5
+				picked = tau >= t_pick
+			var sk := sa[6] as Skeleton3D
+			if sk:  # Stage 65: every joint alive - dip / bin poses from the IK offsets, idle sway when not placing or picking
+				var rig: Dictionary = st["rig"]
+				var bones: Dictionary = sa[7]
+				var sd := float(rig["seed"])
+				var calm := (1.0 - k) * (1.0 - kb)
+				var ins := st["task"] == "inspect"
+				var A := {}
+				A["yaw"] = psi + calm * deg_to_rad(8.0 if ins else 5.0) * sin(TAU * (_t / 6.1 + sd))
+				A["shoulder"] = float(rig["dip"][0]) * k + float(rig["bin"][0]) * kb + calm * deg_to_rad(2.5) * sin(TAU * (_t / 4.7 + sd * 1.7))
+				A["elbow"] = float(rig["dip"][1]) * k + float(rig["bin"][1]) * kb + calm * deg_to_rad(4.0) * sin(TAU * (_t / 3.9 + sd * 2.9))
+				A["wrist"] = -(float(A["shoulder"]) + float(A["elbow"])) + calm * deg_to_rad(3.0) * sin(TAU * (_t / 2.9 + sd * 3.3))  # claw keeps hanging
+				var cyc := floor((_t - float(st["t0"]) + W * 0.5) / P)
+				if ins:  # scanner: the head turns to and fro while it scans
+					A["twist"] = 0.5 * sin(TAU * 2.0 * u / W) * k + calm * deg_to_rad(10.0) * sin(TAU * (_t / 5.3 + sd * 4.1))
+				else:  # placing: a third of a turn as it sets the canister in (the claw looks the same every 120 deg)
+					A["twist"] = TAU / 3.0 * (cyc + smoothstep(0.0, 1.0, u / W if u < W else 1.0))
+				var o := smoothstep(0.0, 1.0, clampf(tau / 0.35, 0.0, 1.0)) * (1.0 - smoothstep(0.0, 1.0, clampf((tau - t_pick) / 0.35, 0.0, 1.0)))
+				for i in 3:
+					var fa := deg_to_rad(5.0) + deg_to_rad(7.0) * sin(TAU * (_t / 2.3 + sd + i / 3.0)) if ins else deg_to_rad(16.0) * o - deg_to_rad(5.0) * (1.0 - o) + calm * deg_to_rad(2.0) * sin(TAU * (_t / 1.7 + sd + i / 3.0))
+					A["finger%d" % (i + 1)] = fa
+				for role in A:
+					if bones.has(role) and int(bones[role]) >= 0:
+						var axv: Array = rig["axes"][role]
+						sk.set_bone_pose_rotation(int(bones[role]), Quaternion(Vector3(axv[0], axv[1], axv[2]).normalized(), float(A[role])))
 			var hinge := Vector3(st["hinge"][0], st["hinge"][1], st["hinge"][2]).normalized()
 			var pv := Vector3(st["pivot"][0], st["pivot"][1], st["pivot"][2])
 			var bas := Basis(Vector3.UP, psi) * Basis(hinge, ang)
 			var xf := Transform3D(bas, pv - bas * pv)
-			for nd in sa[1] + sa[2] + sa[3]:
-				(nd as Node3D).transform = xf
+			if sk == null:  # no skeleton: the whole upper arm swings as one piece (Stage 61)
+				for nd in sa[1] + sa[2] + sa[3]:
+					(nd as Node3D).transform = xf
 			for nd in sa[2]:  # the held canister: gone from the drop until it is lifted out of the bin
 				(nd as Node3D).visible = picked
 			var scanning := absf(u - W * 0.5) < W * 0.35
