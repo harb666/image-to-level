@@ -92,8 +92,10 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
     "assembly_line": dict(category="assembly", godot="script (apply_effects.gd _assembly): every node of the line's 'move' groups (<group>__*) slides along 'axis' by "
                           "fmod(t * speed, spacing); per station the arm's groups turn about 'hinge' through 'pivot' by angle_deg * bump(t - t0, window) every "
                           "'period' s, 'held' groups hide from t0 to t0 + 0.6 period, 'scan' groups show only during the dip, and the 'reveal' group gets "
-                          "assembly_reveal.gdshader (fragments with dot(world, plane.xyz) < plane.w discarded: parts appear once the parcel passes the arm)",
-                          glb="parcels, parts and arms at rest (own nodes: mobile groups)", defaults=dict(speed=1.0)),
+                          "assembly_reveal.gdshader (fragments with dot(world, plane.xyz) < plane.w discarded: parts appear once the parcel passes the arm). "
+                          "Stage 65: a station with 'rig' drives the arm's Skeleton3D instead - bone pose rotation about each joint's rest axis "
+                          "(turret yaw, shoulder, elbow, wrist = -(shoulder + elbow), claw twist, 3 fingers), dip / bin poses from the IK offsets + idle sway",
+                          glb="parcels, parts and arms at rest (own nodes: mobile groups; arms skinned to one skeleton each)", defaults=dict(speed=1.0)),
     "tube_travel": dict(category="translate_loop", godot="script: node.position = rest + Vector3.UP * fmod(t * speed, spacing) - one shared loop for "
                         "every target; things wrap out of sight (barrels shooting up the column bores, Stage 43)", glb="targets at rest, own nodes (mobile group)",
                         defaults=dict(speed=9.0, spacing=7.0)),

@@ -115,7 +115,7 @@ def generate(spec, G, level_dir=None):
              generator=dict(tool="pipeline/spec_to_level.py", spec_sha=H(spec), theme=theme, detail=spec.get("detail", "medium")),
              interpretation=spec.get("interpretation", {}), sky_color=PRESETS[env["sky"]["preset"]]["horizon"],
              spawn=spawn, spawns=spawns, hazards=ctx.hazards, effects=_effects(spec, ctx, plats, env, glow), environment=env,
-             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})), **({"style": spec["style"]} if spec.get("style") else {}), **({"exits": ctx.exits} if ctx.exits else {}), **({"entrances": ctx.entrances} if ctx.entrances else {}), **({"gates": ctx.gates} if getattr(ctx, "gates", None) else {}), **({"encounters": spec["encounters"]} if spec.get("encounters") else {}),
+             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})), **({"style": spec["style"]} if spec.get("style") else {}), **({"exits": ctx.exits} if ctx.exits else {}), **({"entrances": ctx.entrances} if ctx.entrances else {}), **({"gates": ctx.gates} if getattr(ctx, "gates", None) else {}), **({"skeletons": ctx.skeletons} if getattr(ctx, "skeletons", None) else {}), **({"encounters": spec["encounters"]} if spec.get("encounters") else {}),
              validation=dict(ignore_objects=[]), generator_notes=ctx.notes, relations=ctx.relations)
     if spec.get("gameplay"): L["gameplay"] = spec["gameplay"]
     if spec.get("campaign"): L["campaign"] = spec["campaign"]  # where this level sits in a multi-part level (previous / next part)
@@ -271,6 +271,14 @@ def _effects(spec, ctx, plats, env, glow):
                     dropb = (tip[1] + 0.01) - (arm["bin_top"] - 0.35)
                     ex = dict(bin_yaw_deg=arm["bin_yaw"], bin_angle_deg=round(_m.degrees(_m.atan2(dy, r) - _m.asin(max(-1.0, min(1.0, (dy - dropb) / R)))), 3), turn=1.3, bin_window=1.6)
                 if arm.get("ring"): ex = dict(ring=arm["ring"], ring_travel=arm["ring_travel"], sweeps=2)
+                if arm.get("rig"):  # Stage 65: every joint moves - joint-angle offsets (rad) that lower the claw straight down by d, claw kept hanging
+                    rg = arm["rig"]
+                    def _ik(d, rg=rg):
+                        l1, l2 = rg["l1"], rg["l2"]; dz, dy = rg["wrist"][2], rg["wrist"][1] - d; D = max(abs(l1 - l2) + 1e-3, min(_m.hypot(dz, dy), l1 + l2 - 1e-3))
+                        b1 = _m.atan2(dz, dy) - _m.acos(max(-1.0, min(1.0, (l1 * l1 + D * D - l2 * l2) / (2 * l1 * D))))
+                        b2 = _m.atan2(dz - l1 * _m.sin(b1), dy - l1 * _m.cos(b1)); return [round(b1 - rg["a1"], 5), round((b2 - b1) - (rg["a2"] - rg["a1"]), 5)]
+                    ex["rig"] = dict(bones={j["name"].rsplit("_J", 1)[1].lower(): j["name"] for j in rg["joints"]}, axes={j["name"].rsplit("_J", 1)[1].lower(): j["axis"] for j in rg["joints"]},
+                                     dip=_ik(drop), bin=_ik(dropb) if arm.get("bin_yaw") is not None else [0.0, 0.0], seed=rg["seed"])
                 st_.append(dict(task=arm["task"], arm=stn["arm"], groups=arm["groups"], held=arm["held"], scan=arm["scan"], pivot=pv, hinge=arm["hinge"], **ex,
                                 angle_deg=round(ang, 3), t0=t0, period=round(P, 4), window=round(min(1.8 if arm["task"] == "add" else 2.6, 0.7 * P), 3),
                                 reveal=dict(group=stn["group"], s0=A_["s0"], spacing=S, s_arm=round(sk, 4), id_step=10.0)))
@@ -374,7 +382,7 @@ def _merge(new, cur, state, key, rep, label):
     return out
 
 
-TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions", "style", "exits", "entrances", "gates", "encounters")
+TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions", "style", "exits", "entrances", "gates", "encounters", "skeletons")
 
 
 def merge(Lnew, Lcur, state):

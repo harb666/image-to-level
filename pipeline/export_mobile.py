@@ -18,7 +18,7 @@ Writes levels/<name>/mobile/:
 """
 import json, math, os, shutil, sys, numpy as np, trimesh
 from trimesh.transformations import quaternion_from_matrix
-from glb_tools import dedupe_images, downscale_images, set_node_extras, restore_images
+from glb_tools import dedupe_images, downscale_images, set_node_extras, restore_images, add_skins
 from glb_stats import stats
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -235,6 +235,16 @@ def _hidden(m, occ, own, gap=0.03, eps=0.005):
 
 
 # ---------------------------------------------------------------- export
+def _joint_weights(o, V, joints):
+    """Stage 65: (N, 4) joint indices + weights for an object's vertices. mobile.joint = joint name (rigid), or [a, b] with
+    mobile.blend = [p0, p1] (world): weights slide from a to b along p0 -> p1 (hose cables bend with the arm)."""
+    names = [j["name"] for j in joints]; mb = o.get("mobile") or {}; j = mb.get("joint", names[0]); n = len(V)
+    J = np.zeros((n, 4), int); W = np.zeros((n, 4))
+    if isinstance(j, str): J[:, 0] = names.index(j); W[:, 0] = 1.0; return J, W
+    p0, p1 = np.asarray(mb["blend"], float); d = p1 - p0; t = np.clip((np.asarray(V) - p0) @ d / max(d @ d, 1e-9), 0, 1)
+    J[:, 0], J[:, 1] = names.index(j[0]), names.index(j[1]); W[:, 0], W[:, 1] = 1 - t, t; return J, W
+
+
 def export(level_dir, profile=None):
     L = json.load(open(os.path.join(level_dir, "level.json"))); mob = L.get("mobile", {})
     profile = profile or mob.get("profile") or L.get("environment", {}).get("quality", "balanced")
@@ -286,10 +296,17 @@ def export(level_dir, profile=None):
         groups.setdefault(key, []).append((node, m))
     manifest_nodes, ranges, extras, pick = [], {}, {}, {}
     glow = {k for k, v in L["materials"].items() if v.get("emissive")}
+    SK = L.get("skeletons") or {}; sk_of = {gr: k for k, v in SK.items() for gr in v["groups"]}; skinned = {}
     for (kind, ix, iz, mat), items in sorted(groups.items()):
         name = f"{kind[2:]}__{mat}" if kind.startswith("G:") else f"M_{mat}_{ix}_{iz}" + ("_props" if kind == "P" else "")
-        m = trimesh.util.concatenate([i[1] for i in items])
-        m.merge_vertices(merge_tex=False, merge_norm=False)  # weld only identical position+UV (flat shading kept)
+        skn = sk_of.get(kind[2:]) if kind.startswith("G:") else None
+        if skn:  # Stage 65: skinned group (robot arm): welded per part only - every vertex keeps its own joint
+            for i in items: i[1].merge_vertices(merge_tex=False, merge_norm=False)
+            m = trimesh.util.concatenate([i[1] for i in items]); JW = [_joint_weights(by.get(nd.split("__")[0], {}), mm.vertices, SK[skn]["joints"]) for nd, mm in items]
+            skinned[name] = (skn, np.concatenate([a for a, _ in JW]), np.concatenate([b for _, b in JW]), np.asarray(m.vertices, float).copy())
+        else:
+            m = trimesh.util.concatenate([i[1] for i in items])
+            m.merge_vertices(merge_tex=False, merge_norm=False)  # weld only identical position+UV (flat shading kept)
         scene.add_geometry(m, node_name=name, geom_name=name)
         rng = P["prop_range"] if kind == "P" else 0; ranges[name] = rng
         info = dict(node=name, kind="group" if kind.startswith("G:") else "props" if kind == "P" else "static", material=mat, triangles=int(len(m.faces)),
@@ -317,7 +334,9 @@ def export(level_dir, profile=None):
     if terrain_nodes: _terrain_mobile(L, level_dir, src, terrain_nodes, scene, manifest_nodes, ranges, extras, glow)
     sp = L["spawn"]; scene.graph.update(frame_from=scene.graph.base_frame, frame_to="PlayerSpawn",
                                         matrix=trimesh.transformations.translation_matrix(sp["position"]) @ trimesh.transformations.euler_matrix(0, math.radians(sp["yaw_deg"]), 0))
-    lg = os.path.join(out_dir, "level_mobile.glb"); scene.export(lg); restore_images(lg, os.path.join(level_dir, "level.glb")); dedupe_images(lg)
+    lg = os.path.join(out_dir, "level_mobile.glb"); scene.export(lg)
+    if skinned: add_skins(lg, {k: v["joints"] for k, v in SK.items()}, skinned)
+    restore_images(lg, os.path.join(level_dir, "level.glb")); dedupe_images(lg)
     downscale_images(lg, P["tex_max"]); set_node_extras(lg, extras)
     if terrain_nodes:
         from glb_tools import far_material

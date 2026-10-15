@@ -877,3 +877,15 @@ Building blocks usable without the preset:
 - Fix: `slim` gives a primitive its own accessor + buffer view before rewriting data another primitive still uses;
   originals nobody reads any more are dropped. Measured: all 121 nodes of level_mobile.glb have the same oriented
   triangles before and after `slim`, and each arm's outline matches its level.glb shells exactly.
+
+## Stage 65: every joint of the working arms moves
+- Each working arm is skinned to its own skeleton (level.json `skeletons`): turret yaw, shoulder, elbow, wrist pitch,
+  claw twist and three fingers. Parts carry `mobile.joint` (rigid) or a joint pair + `blend` line (the hose cables
+  bend with the arm). The mobile export welds skinned groups per part only and writes JOINTS_0 / WEIGHTS_0 + the
+  skin (`glb_tools.add_skins`); same draw calls as before (121), the turret now turns with the arm.
+- The effect's station `rig`: bone names, rest-world axes, IK offsets [shoulder, elbow] that lower the claw straight
+  down to the parcel (`dip`) and into the bin (`bin`), and an idle seed. Runtime (apply_effects.gd = viewer.html):
+  wrist = -(shoulder + elbow) so the claw always hangs; adders twist the claw a third of a turn as they set a canister
+  in, open the fingers to let go and close them on the next canister; scanners twist the head to and fro over the
+  parcel and flex their fingers; every arm sways a little at turret, shoulder, elbow and wrist between jobs (damped to
+  nothing while placing / picking). Measured in the test: at the dip the held canister moves < 2 cm sideways.

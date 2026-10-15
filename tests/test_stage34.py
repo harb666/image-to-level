@@ -335,3 +335,38 @@ class Stage64(unittest.TestCase):
             for n in ref:
                 m = after.geometry[after.graph[n][1]]
                 self.assertEqual(canon(m), ref[n], n); self.assertEqual(len(m.vertices), 8, n)  # welded, triangles unchanged
+
+
+class Stage65(unittest.TestCase):
+    def test_arms_skinned_and_dip_pose_lowers_claw_straight_down(self):
+        """Every joint of the working arms moves: each arm is skinned to an 8-bone skeleton (same draw calls), and the dip
+        pose the effect drives (shoulder / elbow IK offsets, wrist = -(shoulder + elbow)) lowers the claw straight down."""
+        import numpy as np, trimesh, sys
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); import glb_tools
+        lv = os.path.join(ROOT, "levels", "slime_arena"); L = json.load(open(os.path.join(lv, "level.json")))
+        SK = L["skeletons"]; self.assertEqual(sorted(SK), ["Arm_1", "Arm_2", "Arm_3", "Arm_4"])
+        for o in L["objects"]:
+            if (o.get("mobile") or {}).get("group") in {gr for v in SK.values() for gr in v["groups"]}: self.assertIn("joint", o["mobile"], o["name"])
+        g, b = glb_tools._read(os.path.join(lv, "mobile", "level_mobile.glb"))
+        self.assertEqual(len(g["skins"]), 4); self.assertTrue(all(len(s["joints"]) == 8 for s in g["skins"]))
+        for n in g["nodes"]:
+            if "skin" in n:
+                a = g["meshes"][n["mesh"]]["primitives"][0]["attributes"]; self.assertEqual(g["accessors"][a["JOINTS_0"]]["count"], g["accessors"][a["POSITION"]]["count"])
+        E = json.load(open(os.path.join(lv, "mobile", "effects_mobile.json")))
+        st = {s["arm"]: s for e in E["effects"] if e["type"] == "assembly_line" for s in e["line"]["stations"]}
+        def rot(ax, a):
+            ax = np.asarray(ax, float); ax /= np.linalg.norm(ax); K = np.array([[0, -ax[2], ax[1]], [ax[2], 0, -ax[0]], [-ax[1], ax[0], 0]])
+            return np.eye(3) + np.sin(a) * K + (1 - np.cos(a)) * K @ K
+        s = trimesh.load(os.path.join(lv, "mobile", "level_mobile.glb"), force="scene", process=False)
+        for arm in ("Arm_1", "Arm_2"):
+            r = st[arm]["rig"]; ang = dict(shoulder=r["dip"][0], elbow=r["dip"][1]); ang["wrist"] = -(ang["shoulder"] + ang["elbow"])
+            Wm = {}
+            for j in SK[arm]["joints"]:  # forward kinematics: joint world = parent world * offset * own rotation
+                role = j["name"].rsplit("_J", 1)[1].lower(); R = rot(r["axes"][role], ang.get(role, 0.0))
+                if j["parent"]: PR, Pp, pp = Wm[j["parent"]]; Rw, pw = PR @ R, Pp + PR @ (np.subtract(j["pivot"], pp))
+                else: Rw, pw = R, np.asarray(j["pivot"], float)
+                Wm[j["name"]] = (Rw, pw, np.asarray(j["pivot"], float))
+            Rw, pw, p0 = Wm[arm + "_JTwist"]
+            self.assertLess(np.linalg.norm(Rw @ [0, 1, 0] - [0, 1, 0]), 1e-6, arm)  # the claw keeps hanging
+            V = s.geometry[s.graph[arm + "_Held__fall"][1]].vertices; d = (pw + (V - p0) @ Rw.T).mean(0) - V.mean(0)
+            self.assertLess(np.hypot(d[0], d[2]), 0.02, arm); self.assertLess(d[1], -0.3, arm)  # straight down onto the parcel

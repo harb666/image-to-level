@@ -358,7 +358,7 @@ def robot_arm(ctx, s, x, y, z, yaw):
         if math.hypot(dz, dy) > l1 + l2: ctx.notes.append(f"{n}: reach point out of range ({math.hypot(dz, dy):.2f} > {l1 + l2:.2f} m) - arm fully stretched")
     else: sh, el = _clear_pose(ctx, n, (x, y, z), yaw, sc, sh, el)
     ctx.add(n + "_Base", "frustum", [0, 0, 0], [1.9 * sc, 0.6 * sc, 1.9 * sc], "structure_b", g, sections=8, bottom_scale=1.25, **st)
-    vst = dict(collision=False, **st)  # the turret stays put
+    vst = dict(collision=False, **(dict(mobile={"group": n + "_Upper"}) if task else st))  # Stage 65: a working arm's turret turns with it
     ctx.add(n + "_Turret", "frustum", [0, 0.6 * sc, 0], [1.2 * sc, 1.0 * sc, 1.2 * sc], "structure_b", g, sections=8, bottom_scale=1.2, **vst)
     face_light(ctx, n + "_TurretLight", g, (0, 0.6 * sc, 0), 8, 0.6 * sc, 0.72 * sc, 1.0 * sc, 90, 0.15 * sc, 0.85 * sc, 0.14 * sc, vst)
     py = 1.6 * sc; W1, l1 = 0.62 * sc, 2.7 * sc; a1 = math.radians(sh)
@@ -427,7 +427,29 @@ def robot_arm(ctx, s, x, y, z, yaw):
             extra = dict(ring=[n + "_Ring"], ring_travel=0.6)
         for o in ctx.objects:  # the moving arm in 3 materials (hull, lights, ink): fewer draw calls
             if (o.get("mobile") or {}).get("group") == n + "_Upper" and o.get("material") in ("machine", "frame"): o["material"] = "structure_b"
-        ctx.assembly_arms[n] = dict(task=task, pivot=[round(x, 3), round(y + py, 3), round(z, 3)], hinge=[round(v_, 5) for v_ in (math.cos(math.radians(yaw)), 0.0, -math.sin(math.radians(yaw)))],
+        # Stage 65: a skeleton - turret yaw, shoulder, elbow, wrist pitch, claw twist, 3 fingers - every part skinned to one joint
+        cy_, sy_ = math.cos(math.radians(yaw)), math.sin(math.radians(yaw))
+        Wp = lambda lx, ly, lz: [round(x + lx * cy_ + lz * sy_, 4), round(y + ly, 4), round(z - lx * sy_ + lz * cy_, 4)]
+        Wv = lambda lx, lz: [round(lx * cy_ + lz * sy_, 5), 0.0, round(-lx * sy_ + lz * cy_, 5)]
+        J = lambda k: f"{n}_J{k}"; hx = Wv(1, 0); up = [0.0, 1.0, 0.0]; cyf = cyl - 0.24 * sc
+        joints = [dict(name=J("Yaw"), parent=None, pivot=Wp(0, 0.6 * sc, 0), axis=up), dict(name=J("Shoulder"), parent=J("Yaw"), pivot=Wp(0, py, 0), axis=hx),
+                  dict(name=J("Elbow"), parent=J("Shoulder"), pivot=Wp(0, ey, ez), axis=hx), dict(name=J("Wrist"), parent=J("Elbow"), pivot=Wp(0, wy, wz), axis=hx),
+                  dict(name=J("Twist"), parent=J("Wrist"), pivot=Wp(0, wy, wz), axis=up)]
+        for k in range(3):  # each finger hinges at its root on the collar, about the tangent (+ = opens outwards)
+            f = math.radians(120 * k); ox, oz = math.sin(f), math.cos(f)
+            joints.append(dict(name=J(f"Finger{k + 1}"), parent=J("Twist"), pivot=Wp(ox * 0.16 * sc, cyf, wz + oz * 0.16 * sc), axis=Wv(-oz, ox)))
+        part = (("Turret", "Yaw"), ("Shoulder", "Shoulder"), ("Link1", "Shoulder"), ("Elbow", "Elbow"), ("Spike", "Elbow"), ("Link2", "Elbow"), ("Wrist", "Wrist"),
+                ("Light", "Wrist"), ("Collar", "Twist"), ("Lens", "Twist"), ("Held", "Twist"), ("Scan", "Twist"), ("Finger_1", "Finger1"), ("Finger_2", "Finger2"), ("Finger_3", "Finger3"))
+        hose = {k + 1: (Wp(sd * 0.3 * sc, py + math.cos(a1) * l1 * 0.45, math.sin(a1) * l1 * 0.45), Wp(sd * 0.25 * sc, wy - 0.2 * sc, wz - 0.3 * sc)) for k, sd in enumerate((-1, 1))}
+        grp = [n + "_Upper"] + ([n + "_Held"] if task == "add" else [n + "_Scan"])
+        for o in ctx.objects:
+            if (o.get("mobile") or {}).get("group") not in grp: continue
+            sfx = o["name"][len(n) + 1:]
+            if sfx.startswith("Hose_"): o["mobile"]["joint"] = [J("Shoulder"), J("Wrist")]; o["mobile"]["blend"] = list(hose[int(sfx.split("_")[1])])
+            else: o["mobile"]["joint"] = J(next(j for p_, j in part if sfx.startswith(p_)))
+        ctx.skeletons = getattr(ctx, "skeletons", {}); ctx.skeletons[n] = dict(groups=grp, joints=joints)
+        rig = dict(joints=joints, l1=round(l1, 4), l2=round(l2, 4), a1=round(a1, 6), a2=round(a2, 6), wrist=[0.0, round(wy - py, 4), round(wz, 4)], seed=round(_r.Random(n + "rig").random(), 4))
+        ctx.assembly_arms[n] = dict(task=task, rig=rig, pivot=[round(x, 3), round(y + py, 3), round(z, 3)], hinge=[round(v_, 5) for v_ in (math.cos(math.radians(yaw)), 0.0, -math.sin(math.radians(yaw)))],
                                     tip=[round(v_, 3) for v_ in tipw], groups=[n + "_Upper"], held=[n + "_Held"] if task == "add" else [],
                                     scan=[n + "_Scan"] if task == "inspect" else [], **extra)
 

@@ -257,6 +257,48 @@ def slim(path, plain_materials=(), drop_extras=(), weld_untextured=True, webp=No
     _write(path, g, bytes(out)); return before, os.path.getsize(path)
 
 
+def add_skins(path, skeletons, skinned):
+    """Stage 65: skeletons for moving machines (robot arms bending at every joint) - one draw call per material still.
+    skeletons: {name: [{"name", "parent" (joint name | None), "pivot" [x, y, z] world}]} - joint nodes with identity rest
+    rotation, so a joint's local axes are the world axes at rest (the runtime turns bone k about its rest-world axis).
+    skinned: {mesh node name: (skeleton name, joints (N, 4) int, weights (N, 4) float, positions (N, 3) float)}: the node's
+    vertices in order (checked against POSITION). Mesh nodes keep an identity transform (glTF ignores it once skinned)."""
+    import numpy as np
+    g, binary = _read(path); binary = bytearray(binary); nodes = g["nodes"]; idx = {n.get("name"): i for i, n in enumerate(nodes)}
+    def put(arr, typ, ctype, target=None):
+        nonlocal binary
+        binary += b"\0" * (-len(binary) % 4); data = arr.tobytes(); bv = dict(buffer=0, byteOffset=len(binary), byteLength=len(data))
+        if target: bv["target"] = target
+        binary += data; g["bufferViews"].append(bv)
+        a = dict(bufferView=len(g["bufferViews"]) - 1, componentType=ctype, count=int(arr.shape[0]), type=typ)
+        g["accessors"].append(a); return len(g["accessors"]) - 1
+    skin_of, roots = {}, g["scenes"][g.get("scene", 0)]["nodes"]
+    for sk, joints in skeletons.items():
+        jidx, piv = [], {}
+        for j in joints:  # parents listed before children
+            p = j.get("parent"); local = np.subtract(j["pivot"], piv[p]) if p else np.asarray(j["pivot"], float)
+            nodes.append(dict(name=j["name"], translation=[round(float(v), 5) for v in local])); k = len(nodes) - 1; jidx.append(k); piv[j["name"]] = np.asarray(j["pivot"], float)
+            if p: nodes[jidx[[q["name"] for q in joints].index(p)]].setdefault("children", []).append(k)
+            else: roots.append(k)
+        ibm = np.array([np.eye(4) for _ in joints], "<f4")
+        for i, j in enumerate(joints): ibm[i][:3, 3] = -np.asarray(j["pivot"], float)
+        ibm = np.ascontiguousarray(np.transpose(ibm, (0, 2, 1))).reshape(-1, 16)  # glTF matrices are column-major
+        g.setdefault("skins", []).append(dict(name=sk, joints=jidx, skeleton=jidx[0], inverseBindMatrices=put(ibm.astype("<f4"), "MAT4", 5126)))
+        skin_of[sk] = len(g["skins"]) - 1
+    for name, (sk, J, Wt, P) in skinned.items():
+        n = nodes[idx[name]]; me = g["meshes"][n["mesh"]]
+        if len(me["primitives"]) != 1: raise ValueError(f"{name}: skinned node needs one primitive")
+        pr = me["primitives"][0]; pa = g["accessors"][pr["attributes"]["POSITION"]]
+        P0 = np.frombuffer(_view(bytes(binary), g["bufferViews"][pa["bufferView"]]), dtype="<f4", count=pa["count"] * 3, offset=pa.get("byteOffset", 0)).reshape(-1, 3)
+        if len(P0) != len(J) or not np.allclose(P0, P, atol=1e-3): raise ValueError(f"{name}: vertex order changed on export - cannot skin")
+        pr["attributes"]["JOINTS_0"] = put(np.asarray(J, "<u1").reshape(-1, 4), "VEC4", 5121, 34962)
+        pr["attributes"]["WEIGHTS_0"] = put(np.asarray(Wt, "<f4").reshape(-1, 4), "VEC4", 5126, 34962)
+        n["skin"] = skin_of[sk]
+        for k in ("translation", "rotation", "scale", "matrix"): n.pop(k, None)
+    g["buffers"] = [{"byteLength": len(binary) + (-len(binary) % 4)}]
+    _write(path, g, bytes(binary))
+
+
 def _tex_refs(m):
     pbr = m.get("pbrMetallicRoughness", {})
     return [t for t in (pbr.get("baseColorTexture"), pbr.get("metallicRoughnessTexture"), m.get("normalTexture"), m.get("occlusionTexture"), m.get("emissiveTexture")) if t]

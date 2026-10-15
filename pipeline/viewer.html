@@ -275,22 +275,32 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
     else if(fx.category==='light'){for(const e of fx.emitters||[]){const L=new THREE.PointLight(new THREE.Color(...p.color),p.energy*60,p.range,1.6);L.position.set(...e.pos);scene.add(L);fxObjs.push(L);}} // Stage 39: soft coloured lights
     else if(fx.category==='assembly'){const Ln=fx.line,grp=g=>Object.values(byName).filter(o=>o.name.startsWith(g+'__')),ax=new THREE.Vector3(...Ln.axis); // Stage 61: working assembly line
       const mv=Ln.move.flatMap(grp),ST=Ln.stations.map(st=>({st,arm:st.groups.flatMap(grp),held:st.held.flatMap(grp),scan:st.scan.flatMap(grp),ring:(st.ring||[]).flatMap(grp),
-        pv:new THREE.Vector3(...st.pivot),hg:new THREE.Vector3(...st.hinge).normalize()}));const swapped=[],RU=[]; // parts show whole once their parcel (number in the UVs) reaches the arm - same maths as assembly_reveal.gdshader
+        pv:new THREE.Vector3(...st.pivot),hg:new THREE.Vector3(...st.hinge).normalize(),
+        bones:st.rig?Object.fromEntries(Object.entries(st.rig.bones).map(([r,n])=>[r,gltf.scene.getObjectByName(n)]).filter(a=>a[1]&&a[1].isBone)):null,
+        axes:st.rig?Object.fromEntries(Object.entries(st.rig.axes).map(([r,a])=>[r,new THREE.Vector3(...a).normalize()])):null}));
+      ST.forEach(x=>{if(x.bones&&Object.keys(x.bones).length)[...x.arm,...x.held,...x.scan].forEach(o=>o.frustumCulled=false);else x.bones=null;}); /* Stage 65: skinned arms (bounds = rest pose) */const swapped=[],RU=[]; // parts show whole once their parcel (number in the UVs) reaches the arm - same maths as assembly_reveal.gdshader
       for(const st of Ln.stations){const rv=st.reveal,U={uOff:{value:0},uR:{value:new THREE.Vector4(rv.s0,rv.spacing,rv.s_arm,rv.id_step)}};RU.push(U);
         for(const o of grp(rv.group)){const m0=o.material,m=m0.clone();m.onBeforeCompile=sh=>{Object.assign(sh.uniforms,U);
             sh.vertexShader=sh.vertexShader.replace('#include <uv_vertex>','#include <uv_vertex>\nvPid=floor((uv.x+uR.w*0.5)/uR.w)-1.0;').replace('void main() {','uniform vec4 uR;varying float vPid;\nvoid main() {');
             sh.fragmentShader='uniform float uOff;uniform vec4 uR;varying float vPid;\n'+sh.fragmentShader.replace('void main() {','void main() {\nif(uR.x+vPid*uR.y+uOff<uR.z-0.001)discard;');};
           m.customProgramCacheKey=()=>'asmrev'+rv.group;o.material=m;swapped.push([o,m0]);}}
       const all=[...mv,...ST.flatMap(x=>[...x.arm,...x.held,...x.scan,...x.ring])],q=new THREE.Quaternion(),qy=new THREE.Quaternion(),UPV=new THREE.Vector3(0,1,0),tmp=new THREE.Vector3(),fp=(a,b)=>((a%b)+b)%b,sm=x=>x*x*(3-2*x);
-      fxUpd.push({reset(){all.forEach(o=>{o.position.set(0,0,0);o.quaternion.identity();o.visible=true;});swapped.forEach(([o,m])=>o.material=m);},
+      fxUpd.push({reset(){all.forEach(o=>{o.position.set(0,0,0);o.quaternion.identity();o.visible=true;});ST.forEach(x=>x.bones&&Object.values(x.bones).forEach(b=>b.quaternion.identity()));swapped.forEach(([o,m])=>o.material=m);},
         u(t){const d=fp(t*Ln.speed,Ln.spacing);mv.forEach(o=>o.position.copy(ax).multiplyScalar(d));RU.forEach(U=>U.uOff.value=d);
           for(const x of ST){const s=x.st,P=s.period,W=s.window,u=fp(t-s.t0+W/2,P),k=u<W?0.5-0.5*Math.cos(6.2832*u/W):0,tau=fp(t-s.t0,P);
-            let ang=s.angle_deg*Math.PI/180*k,psi=0,picked=tau>0.6*P;
+            let ang=s.angle_deg*Math.PI/180*k,psi=0,picked=tau>0.6*P,kb=0,tp=0.6*P;
             if(s.bin_yaw_deg!=null){const ty=s.turn,wb=s.bin_window,a=W/2,b=a+ty,c=b+wb,pb=s.bin_yaw_deg*Math.PI/180; // turn to the bin, reach in, turn back
-              if(tau>=a&&tau<b)psi=pb*sm((tau-a)/ty);else if(tau>=b&&tau<c){psi=pb;ang+=s.bin_angle_deg*Math.PI/180*(0.5-0.5*Math.cos(6.2832*(tau-b)/wb));}
-              else if(tau>=c&&tau<c+ty)psi=pb*(1-sm((tau-c)/ty));picked=tau>=b+wb/2;}
-            qy.setFromAxisAngle(UPV,psi);q.setFromAxisAngle(x.hg,ang);q.premultiply(qy);tmp.copy(x.pv).applyQuaternion(q);
-            for(const o of [...x.arm,...x.held,...x.scan]){o.quaternion.copy(q);o.position.copy(x.pv).sub(tmp);}
+              if(tau>=a&&tau<b)psi=pb*sm((tau-a)/ty);else if(tau>=b&&tau<c){psi=pb;kb=0.5-0.5*Math.cos(6.2832*(tau-b)/wb);ang+=s.bin_angle_deg*Math.PI/180*kb;}
+              else if(tau>=c&&tau<c+ty)psi=pb*(1-sm((tau-c)/ty));tp=b+wb/2;picked=tau>=tp;}
+            if(x.bones){const R=s.rig,sd=R.seed,calm=(1-k)*(1-kb),ins=s.task==='inspect',D=Math.PI/180,S2=(a,per,ph)=>a*D*Math.sin(6.2832*(t/per+ph)),A={}; // Stage 65: every joint alive - same maths as apply_effects.gd
+              A.yaw=psi+calm*S2(ins?8:5,6.1,sd);A.shoulder=R.dip[0]*k+R.bin[0]*kb+calm*S2(2.5,4.7,sd*1.7);A.elbow=R.dip[1]*k+R.bin[1]*kb+calm*S2(4,3.9,sd*2.9);
+              A.wrist=-(A.shoulder+A.elbow)+calm*S2(3,2.9,sd*3.3);const cyc=Math.floor((t-s.t0+W/2)/P);
+              A.twist=ins?0.5*Math.sin(6.2832*2*u/W)*k+calm*S2(10,5.3,sd*4.1):6.2832/3*(cyc+sm(u<W?u/W:1));
+              const cl=v=>Math.min(1,Math.max(0,v)),op=sm(cl(tau/0.35))*(1-sm(cl((tau-tp)/0.35)));
+              for(let i=0;i<3;i++)A['finger'+(i+1)]=ins?5*D+S2(7,2.3,sd+i/3):16*D*op-5*D*(1-op)+calm*S2(2,1.7,sd+i/3);
+              for(const r in A)if(x.bones[r])x.bones[r].quaternion.setFromAxisAngle(x.axes[r],A[r]);}
+            else{qy.setFromAxisAngle(UPV,psi);q.setFromAxisAngle(x.hg,ang);q.premultiply(qy);tmp.copy(x.pv).applyQuaternion(q);
+              for(const o of [...x.arm,...x.held,...x.scan]){o.quaternion.copy(q);o.position.copy(x.pv).sub(tmp);}}
             const scanning=Math.abs(u-W/2)<W*0.35,f=Math.min(1,Math.max(0,(u-0.15*W)/(0.7*W)));
             x.held.forEach(o=>o.visible=picked);x.scan.forEach(o=>o.visible=scanning);
             x.ring.forEach(o=>{o.visible=scanning;o.position.set(0,(s.ring_travel||0.6)*(0.5-0.5*Math.cos(6.2832*(s.sweeps||2)*f)),0);});}}});}
