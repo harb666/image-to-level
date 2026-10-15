@@ -286,8 +286,9 @@ def _assembly_line(ctx, s, n, g, L, w, h, x, y, z, yaw):
     "assembly_line": it slides them along by (t * speed) mod spacing - a new parcel comes out of the intake mouth as the
     last one goes into the output, both hidden inside the housings). Per station (working["stations"]: arm, task
     "add" | "inspect", "at" m from the start) every parcel carries the station's part - a glowing canister on top (add)
-    or a yellow approval light on its side (inspect) - in its own group, revealed by a world clip plane once the parcel
-    passes the station's arm (which dips at that very moment, see robot_arm "task"). Local +z runs from -> to."""
+    or a yellow approval light on its side (inspect) - in its own group. Each part carries its parcel's number in its UVs
+    (u shifted by 10 per parcel), so the shader shows the whole part at once the moment its parcel's centre reaches the
+    station's arm - when the arm's canister lets go (see robot_arm "task"). Local +z runs from -> to."""
     W_ = s["working"]; st = dict(mobile={"static": True}); v = float(W_.get("speed", 1.0)); mL = float(W_.get("machine", 2.6))
     hz = h - 0.03  # parcel base (belt top)
     for e_, zc, sg in (("In", -L / 2 + mL / 2, 1), ("Out", L / 2 - mL / 2, -1)):  # sg: the side the mouth faces (+z for the intake)
@@ -318,9 +319,9 @@ def _assembly_line(ctx, s, n, g, L, w, h, x, y, z, yaw):
         ctx.add(f"{n}_Parcel_{i + 1:02d}", "box", [0, hz, -L / 2 + s0 + i * S], [PS, PS * 0.8, PS], "accent", g, **mv)
     stations = []
     for k_, stn in enumerate(W_.get("stations", [])):
-        ig = f"{n}_Item{k_ + 1}"; it = dict(collision=False, outline=False, mobile={"group": ig})
+        ig = f"{n}_Item{k_ + 1}"
         for i in range(N):
-            zp = -L / 2 + s0 + i * S
+            zp = -L / 2 + s0 + i * S; it = dict(collision=False, outline=False, uv_shift=10 * (i + 1), mobile={"group": ig})  # parcel number in the UVs (10 per parcel)
             if stn["task"] == "add":  # glowing canister set into the lid (base 2 cm under it)
                 ctx.add(f"{ig}_{i + 1:02d}", "cylinder", [0, hz + PS * 0.8 - 0.02, zp], [0.5, 0.5, 0.5], ctx.role("fall") if "fall" in ctx.spec.get("materials", {}).get("roles", {}) else "glow", g, sections=8, **it)
             else:  # approval light on both sides of the parcel (1 cm proud)

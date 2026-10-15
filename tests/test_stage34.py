@@ -280,8 +280,11 @@ class Stage61(unittest.TestCase):
         lines = [e for e in E["effects"] if e["type"] == "assembly_line"]; self.assertEqual(len(lines), 2)
         for e in lines:
             l = e["line"]; self.assertEqual(len(l["stations"]), 2)
+            self.assertGreater(l["spacing"], 6.0)  # scarce parcels (Stage 62)
             for st in l["stations"]:
                 self.assertTrue(3 < st["angle_deg"] < 15 and 0 <= st["t0"] < st["period"] and st["window"] <= 0.7 * st["period"] + 1e-6)
+                rv = st["reveal"]; self.assertAlmostEqual(((rv["s_arm"] - rv["s0"]) % rv["spacing"]) / l["speed"], st["t0"], places=3)  # the part shows as the claw lets go
         M = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "mobile_manifest.json")))
         self.assertTrue(any(n["node"].startswith("Conv_East_Parcels__") for n in M["nodes"]))
+        self.assertEqual(by["Conv_East_Item1_02"]["uv_shift"], 20)  # parcel number in the part's UVs
         for f in ("assembly_reveal.gdshader", "apply_effects.gd"): self.assertTrue(os.path.exists(os.path.join(ROOT, "pipeline", "godot_fx", f)))

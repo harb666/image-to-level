@@ -267,8 +267,8 @@ def _effects(spec, ctx, plats, env, glow):
                 r = _m.hypot(tip[0] - pv[0], tip[2] - pv[2]); dy = tip[1] - pv[1]; R = _m.hypot(r, dy)
                 ang = _m.degrees(_m.atan2(dy, r) - _m.asin(max(-1.0, min(1.0, (dy - drop) / R))))
                 st_.append(dict(task=arm["task"], arm=stn["arm"], groups=arm["groups"], held=arm["held"], scan=arm["scan"], pivot=pv, hinge=arm["hinge"],
-                                angle_deg=round(ang, 3), t0=t0, period=round(P, 4), window=round(min(1.1 if arm["task"] == "add" else 1.4, 0.7 * P), 3),
-                                reveal=dict(group=stn["group"], plane=[u[0], 0.0, u[2], round(tip[0] * u[0] + tip[2] * u[2], 4)])))
+                                angle_deg=round(ang, 3), t0=t0, period=round(P, 4), window=round(min(1.8 if arm["task"] == "add" else 2.2, 0.7 * P), 3),
+                                reveal=dict(group=stn["group"], s0=A_["s0"], spacing=S, s_arm=round(sk, 4), id_step=10.0)))
             out.append(dict(id=ln_ + "_Line", type="assembly_line", line=dict(move=[ln_ + "_Parcels"] + [s_["group"] for s_ in A_["stations"]], axis=u, speed=v, spacing=S,
                                                                              stations=st_)))
         la = getattr(ctx, "launches", [])

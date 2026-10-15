@@ -275,12 +275,15 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
     else if(fx.category==='light'){for(const e of fx.emitters||[]){const L=new THREE.PointLight(new THREE.Color(...p.color),p.energy*60,p.range,1.6);L.position.set(...e.pos);scene.add(L);fxObjs.push(L);}} // Stage 39: soft coloured lights
     else if(fx.category==='assembly'){const Ln=fx.line,grp=g=>Object.values(byName).filter(o=>o.name.startsWith(g+'__')),ax=new THREE.Vector3(...Ln.axis); // Stage 61: working assembly line
       const mv=Ln.move.flatMap(grp),ST=Ln.stations.map(st=>({st,arm:st.groups.flatMap(grp),held:st.held.flatMap(grp),scan:st.scan.flatMap(grp),
-        pv:new THREE.Vector3(...st.pivot),hg:new THREE.Vector3(...st.hinge).normalize()}));r.localClippingEnabled=true;const swapped=[];
-      for(const st of Ln.stations){const pl=st.reveal.plane,P=new THREE.Plane(new THREE.Vector3(pl[0],pl[1],pl[2]),-pl[3]);
-        for(const o of grp(st.reveal.group)){const m0=o.material,m=m0.clone();m.clippingPlanes=[P];o.material=m;swapped.push([o,m0]);}}
+        pv:new THREE.Vector3(...st.pivot),hg:new THREE.Vector3(...st.hinge).normalize()}));const swapped=[],RU=[]; // parts show whole once their parcel (number in the UVs) reaches the arm - same maths as assembly_reveal.gdshader
+      for(const st of Ln.stations){const rv=st.reveal,U={uOff:{value:0},uR:{value:new THREE.Vector4(rv.s0,rv.spacing,rv.s_arm,rv.id_step)}};RU.push(U);
+        for(const o of grp(rv.group)){const m0=o.material,m=m0.clone();m.onBeforeCompile=sh=>{Object.assign(sh.uniforms,U);
+            sh.vertexShader=sh.vertexShader.replace('#include <uv_vertex>','#include <uv_vertex>\nvPid=floor((uv.x+uR.w*0.5)/uR.w)-1.0;').replace('void main() {','uniform vec4 uR;varying float vPid;\nvoid main() {');
+            sh.fragmentShader='uniform float uOff;uniform vec4 uR;varying float vPid;\n'+sh.fragmentShader.replace('void main() {','void main() {\nif(uR.x+vPid*uR.y+uOff<uR.z-0.001)discard;');};
+          m.customProgramCacheKey=()=>'asmrev'+rv.group;o.material=m;swapped.push([o,m0]);}}
       const all=[...mv,...ST.flatMap(x=>[...x.arm,...x.held,...x.scan])],q=new THREE.Quaternion(),tmp=new THREE.Vector3(),fp=(a,b)=>((a%b)+b)%b;
       fxUpd.push({reset(){all.forEach(o=>{o.position.set(0,0,0);o.quaternion.identity();o.visible=true;});swapped.forEach(([o,m])=>o.material=m);},
-        u(t){const d=fp(t*Ln.speed,Ln.spacing);mv.forEach(o=>o.position.copy(ax).multiplyScalar(d));
+        u(t){const d=fp(t*Ln.speed,Ln.spacing);mv.forEach(o=>o.position.copy(ax).multiplyScalar(d));RU.forEach(U=>U.uOff.value=d);
           for(const x of ST){const s=x.st,P=s.period,W=s.window,u=fp(t-s.t0+W/2,P),k=u<W?0.5-0.5*Math.cos(6.2832*u/W):0;
             q.setFromAxisAngle(x.hg,s.angle_deg*Math.PI/180*k);tmp.copy(x.pv).applyQuaternion(q);
             for(const o of [...x.arm,...x.held,...x.scan]){o.quaternion.copy(q);o.position.copy(x.pv).sub(tmp);}

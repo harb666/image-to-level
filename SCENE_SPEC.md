@@ -845,3 +845,10 @@ Building blocks usable without the preset:
 - Godot: `apply_effects.gd` (category `assembly`) moves the `<group>__*` nodes and puts
   `fx/godot/assembly_reveal.gdshader` on the parts; the preview does the same with three.js clipping planes. Cost: ~22
   extra draw calls for both lines (moving groups), ~2.7k triangles.
+
+## Stage 62: scarce parcels, parts placed rather than conjured
+- The slime arena's lines use `"spacing": 7.0` (4 parcels per line, ~7.35 m apart, one every 7.35 s).
+- Parts no longer sweep into view through a clip plane: each part's UVs carry its parcel's number (u shifted by 10 per
+  parcel) and the shader shows the whole part at the instant its parcel's centre reaches the arm - the same instant the
+  arm's held canister disappears at the bottom of its dip (and the scan beam lands). Reveal data: `s0`, `spacing`,
+  `s_arm`, `id_step`; the slide offset is fed in every frame. Dips are slower (1.8 s add, 2.2 s inspect).
