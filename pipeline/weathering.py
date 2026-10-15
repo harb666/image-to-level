@@ -155,7 +155,7 @@ def corrosion(ctx, spec):
                 edges += 1
     if not paths: return 0
     ctx.element = ("corrosion", "inferred")
-    ctx.add("Corrosion_Band", "band", [0, 0, 0], [1, 1, 1], ctx.role(cfg["material"]), None, collision=False, outline=False,
+    ctx.add("Corrosion_Band", "band", [0, 0, 0], [1, 1, 1], ctx.role(cfg["material"]), None, collision=False, outline=False, double_sided=True,  # Stage 57: seen from behind past thin posts
             segments=_chain(paths), band_top=round(float(max(p[0] for p in pools) + cfg["height"]), 3), tile=cfg["tile"],
             mobile={"group": "Corrosion"})
     ctx.notes.append(f"corrosion: {edges} wall faces at the liquid line get a corroded band (one mesh, one material)")

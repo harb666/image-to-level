@@ -798,3 +798,5 @@ Building blocks usable without the preset:
   the ceiling fans) instead of green.
 - Corrosion band: thin posts (footprint <= 1.5 m) get their strips 4.5 cm out instead of 2.1 cm (their short faces'
   strips twist when chained and came within 5 mm of the post).
+- The corrosion band is double-sided from the start (the validated build's camera check saw its back past the catwalk
+  legs and had to repair it).
