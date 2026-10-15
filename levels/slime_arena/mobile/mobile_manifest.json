@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 6052,
-    "triangles": 113350,
-    "nodes": 4692,
-    "mesh_nodes": 4506,
-    "unique_meshes": 2183,
+    "glb_kb": 6040,
+    "triangles": 112990,
+    "nodes": 4662,
+    "mesh_nodes": 4476,
+    "unique_meshes": 2209,
     "materials": 32,
     "images": 91,
-    "draw_calls_unbatched": 4506,
+    "draw_calls_unbatched": 4476,
     "draw_calls_batched_min": 32,
     "tex_mem_uncompressed_mb": 91.57,
     "tex_mem_gpu_compressed_mb": 22.89,
@@ -71,16 +71,16 @@
    },
    "visible": {
     "cameras": 312,
-    "visible_draw_calls_mean": 1496.7,
-    "visible_draw_calls_max": 4422,
-    "visible_triangles_mean": 51137,
-    "visible_triangles_max": 120586
+    "visible_draw_calls_mean": 1486.9,
+    "visible_draw_calls_max": 4392,
+    "visible_triangles_mean": 51019,
+    "visible_triangles_max": 120226
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3676,
-    "triangles": 106714,
+    "glb_kb": 3643,
+    "triangles": 106354,
     "nodes": 154,
     "mesh_nodes": 121,
     "unique_meshes": 121,
@@ -138,8 +138,8 @@
     "cameras": 312,
     "visible_draw_calls_mean": 68.6,
     "visible_draw_calls_max": 122,
-    "visible_triangles_mean": 96750,
-    "visible_triangles_max": 117014
+    "visible_triangles_mean": 96645,
+    "visible_triangles_max": 116654
    },
    "hidden_faces_removed": 2998,
    "occluded_faces_removed": 3638,
@@ -157,8 +157,8 @@
    "effects_max_particles": 1235,
    "slimmed_kb": {
     "level_mobile.glb": [
-     5229,
-     3676
+     5201,
+     3643
     ],
     "background_mobile.glb": [
      474,
@@ -232,18 +232,10 @@
    "node": "Arm_1_Upper__structure_b",
    "kind": "group",
    "material": "structure_b",
-   "triangles": 400,
+   "triangles": 304,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Arm_1_Hose_2_4",
-    "Arm_1_Hose_2_3",
-    "Arm_1_Hose_2_2",
-    "Arm_1_Hose_2_1",
-    "Arm_1_Hose_1_4",
-    "Arm_1_Hose_1_3",
-    "Arm_1_Hose_1_2",
-    "Arm_1_Hose_1_1",
     "Arm_1_Finger_3_Tip",
     "Arm_1_Finger_3_Knuckle",
     "Arm_1_Finger_3",
@@ -324,18 +316,10 @@
    "node": "Arm_2_Upper__structure_b",
    "kind": "group",
    "material": "structure_b",
-   "triangles": 400,
+   "triangles": 304,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Arm_2_Hose_2_4",
-    "Arm_2_Hose_2_3",
-    "Arm_2_Hose_2_2",
-    "Arm_2_Hose_2_1",
-    "Arm_2_Hose_1_4",
-    "Arm_2_Hose_1_3",
-    "Arm_2_Hose_1_2",
-    "Arm_2_Hose_1_1",
     "Arm_2_Finger_3_Tip",
     "Arm_2_Finger_3_Knuckle",
     "Arm_2_Finger_3",
@@ -426,12 +410,13 @@
    "node": "Arm_3_Upper__ink",
    "kind": "group",
    "material": "ink",
-   "triangles": 152,
+   "triangles": 164,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
     "Arm_3_Wrist__ol",
     "Arm_3_Link2__ol",
+    "Arm_3_Spike__ol",
     "Arm_3_Elbow__ol",
     "Arm_3_Link1__ol",
     "Arm_3_Shoulder__ol",
@@ -443,18 +428,10 @@
    "node": "Arm_3_Upper__structure_b",
    "kind": "group",
    "material": "structure_b",
-   "triangles": 400,
+   "triangles": 304,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Arm_3_Hose_2_4",
-    "Arm_3_Hose_2_3",
-    "Arm_3_Hose_2_2",
-    "Arm_3_Hose_2_1",
-    "Arm_3_Hose_1_4",
-    "Arm_3_Hose_1_3",
-    "Arm_3_Hose_1_2",
-    "Arm_3_Hose_1_1",
     "Arm_3_Finger_3_Tip",
     "Arm_3_Finger_3_Knuckle",
     "Arm_3_Finger_3",
@@ -545,12 +522,13 @@
    "node": "Arm_4_Upper__ink",
    "kind": "group",
    "material": "ink",
-   "triangles": 152,
+   "triangles": 164,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
     "Arm_4_Wrist__ol",
     "Arm_4_Link2__ol",
+    "Arm_4_Spike__ol",
     "Arm_4_Elbow__ol",
     "Arm_4_Link1__ol",
     "Arm_4_Shoulder__ol",
@@ -562,18 +540,10 @@
    "node": "Arm_4_Upper__structure_b",
    "kind": "group",
    "material": "structure_b",
-   "triangles": 400,
+   "triangles": 304,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Arm_4_Hose_2_4",
-    "Arm_4_Hose_2_3",
-    "Arm_4_Hose_2_2",
-    "Arm_4_Hose_2_1",
-    "Arm_4_Hose_1_4",
-    "Arm_4_Hose_1_3",
-    "Arm_4_Hose_1_2",
-    "Arm_4_Hose_1_1",
     "Arm_4_Finger_3_Tip",
     "Arm_4_Finger_3_Knuckle",
     "Arm_4_Finger_3",
@@ -2709,15 +2679,12 @@
    "node": "M_fall_0_0",
    "kind": "static",
    "material": "fall",
-   "triangles": 160,
+   "triangles": 64,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
     "Arm_1_Bin_Can_5",
-    "Arm_1_Bin_Can_4",
-    "Arm_1_Bin_Can_3",
-    "Arm_1_Bin_Can_2",
-    "Arm_1_Bin_Can_1"
+    "Arm_1_Bin_Can_4"
    ]
   },
   {
@@ -4566,7 +4533,7 @@
    "node": "M_fall_0_1",
    "kind": "static",
    "material": "fall",
-   "triangles": 184,
+   "triangles": 280,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4575,6 +4542,9 @@
     "Arm_2_Bin_Can_3",
     "Arm_2_Bin_Can_2",
     "Arm_2_Bin_Can_1",
+    "Arm_1_Bin_Can_3",
+    "Arm_1_Bin_Can_2",
+    "Arm_1_Bin_Can_1",
     "Conv_East_In_HopperFill",
     "Conv_West_In_HopperFill"
    ]
