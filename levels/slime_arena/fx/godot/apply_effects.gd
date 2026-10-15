@@ -21,6 +21,7 @@ var _t: float = 0.0
 var _spins: Array = []  # [rotor node, rad/s]
 var _travel: Array = []  # [node, rest position, speed m/s, spacing m] (Stage 43: barrels up the column bores)
 var _launch: Array = []  # [node, rest position, speed, period, phase, travel] (Stage 49: pods shooting up the columns)
+var _lines: Array = []  # Stage 61: working assembly lines - [line dict, move nodes, [[station, arm nodes, held nodes, scan nodes]]]
 
 
 func _ready() -> void:
@@ -66,6 +67,8 @@ func _ready() -> void:
 				_flyby(fx, p)
 			"environment":
 				_sky_speed = deg_to_rad(float(p.get("speed_deg_s", 0.0)))
+			"assembly":  # Stage 61: conveyors with parcels, dipping arms and parts revealed past each arm
+				_assembly(fx["line"])
 			"launch":  # Stage 49: each entry's nodes wait, shoot up `travel` m at `speed`, repeat every `period` s (own phase)
 				for l in fx.get("launches", []):
 					for n in l.get("targets", []):
@@ -145,6 +148,69 @@ func _material_anim(fx: Dictionary, p: Dictionary) -> void:
 		seen[m] = true
 		m.emission_enabled = true
 		_anims.append([m, m.emission_energy_multiplier, p, fx["type"], 0.0])
+
+
+func _group_nodes(group: String) -> Array:
+	return level_root.find_children(group + "__*", "Node3D", true, false)
+
+
+func _assembly(line: Dictionary) -> void:
+	var mv: Array = []
+	for gname in line["move"]:
+		mv.append_array(_group_nodes(String(gname)))
+	var stations: Array = []
+	var reveal_shader: Shader = load(_base_dir + "/fx/godot/assembly_reveal.gdshader")
+	for st in line["stations"]:
+		var arm: Array = []
+		for gname in st["groups"]:
+			arm.append_array(_group_nodes(String(gname)))
+		var held: Array = []
+		for gname in st["held"]:
+			held.append_array(_group_nodes(String(gname)))
+		var scan: Array = []
+		for gname in st["scan"]:
+			scan.append_array(_group_nodes(String(gname)))
+		var pl: Array = st["reveal"]["plane"]
+		for nd in _group_nodes(String(st["reveal"]["group"])):  # parts show only past the arm
+			var mi := nd as MeshInstance3D
+			if mi == null:
+				continue
+			var src := mi.get_active_material(0) as BaseMaterial3D
+			var sm := ShaderMaterial.new()
+			sm.shader = reveal_shader
+			if src:
+				sm.set_shader_parameter("albedo_tex", src.albedo_texture if src.albedo_texture else src.emission_texture)
+				sm.set_shader_parameter("tint", src.albedo_color)
+			sm.set_shader_parameter("plane", Vector4(pl[0], pl[1], pl[2], pl[3]))
+			mi.material_override = sm
+		stations.append([st, arm, held, scan])
+	_lines.append([line, mv, stations])
+
+
+func _update_lines() -> void:
+	for ln in _lines:
+		var line: Dictionary = ln[0]
+		var ax := Vector3(line["axis"][0], line["axis"][1], line["axis"][2])
+		var off := ax * fmod(_t * float(line["speed"]), float(line["spacing"]))
+		for nd in ln[1]:
+			(nd as Node3D).position = off
+		for sa in ln[2]:
+			var st: Dictionary = sa[0]
+			var P := float(st["period"])
+			var W := float(st["window"])
+			var u := fposmod(_t - float(st["t0"]) + W * 0.5, P)
+			var k := 0.5 - 0.5 * cos(TAU * u / W) if u < W else 0.0  # smooth dip, deepest when the parcel is under the claw
+			var hinge := Vector3(st["hinge"][0], st["hinge"][1], st["hinge"][2]).normalized()
+			var pv := Vector3(st["pivot"][0], st["pivot"][1], st["pivot"][2])
+			var b := Basis(hinge, deg_to_rad(float(st["angle_deg"])) * k)
+			var xf := Transform3D(b, pv - b * pv)
+			for nd in sa[1] + sa[2] + sa[3]:
+				(nd as Node3D).transform = xf
+			var ph := fposmod(_t - float(st["t0"]), P)
+			for nd in sa[2]:  # the held canister is gone from the drop until the arm has "reloaded"
+				(nd as Node3D).visible = ph > 0.6 * P
+			for nd in sa[3]:  # the scan beam shows while the arm is down
+				(nd as Node3D).visible = absf(u - W * 0.5) < W * 0.35
 
 
 func _bubbles(fx: Dictionary, p: Dictionary) -> void:
@@ -447,6 +513,7 @@ func _process(delta: float) -> void:
 	_t += delta
 	for sp in _spins:
 		(sp[0] as Node3D).rotate_object_local(Vector3.UP, float(sp[1]) * delta)
+	_update_lines()
 	for la in _launch:
 		(la[0] as Node3D).position = (la[1] as Vector3) + Vector3.UP * minf(fmod(_t + float(la[4]), float(la[3])) * float(la[2]), float(la[5]))
 	for tv in _travel:

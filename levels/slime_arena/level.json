@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "aa9fc4d6d106f141",
+  "spec_sha": "874abd49a46dd297",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -685,6 +685,182 @@
     "Works_Ceil_Fan_1_Rotor",
     "Works_Ceil_Fan_2_Rotor"
    ]
+  },
+  {
+   "id": "Conv_West_Line",
+   "type": "assembly_line",
+   "line": {
+    "move": [
+     "Conv_West_Parcels",
+     "Conv_West_Item1",
+     "Conv_West_Item2"
+    ],
+    "axis": [
+     0.0,
+     0.0,
+     -1.0
+    ],
+    "speed": 1.0,
+    "spacing": 2.6727,
+    "stations": [
+     {
+      "task": "add",
+      "arm": "Arm_2",
+      "groups": [
+       "Arm_2_Upper"
+      ],
+      "held": [
+       "Arm_2_Held"
+      ],
+      "scan": [],
+      "pivot": [
+       -7.4,
+       8.68,
+       -70
+      ],
+      "hinge": [
+       0.0,
+       0.0,
+       -1.0
+      ],
+      "angle_deg": 8.167,
+      "t0": 2.3546,
+      "period": 2.6727,
+      "window": 1.1,
+      "reveal": {
+       "group": "Conv_West_Item1",
+       "plane": [
+        0.0,
+        0.0,
+        -1.0,
+        70.0
+       ]
+      }
+     },
+     {
+      "task": "inspect",
+      "arm": "Arm_4",
+      "groups": [
+       "Arm_4_Upper"
+      ],
+      "held": [],
+      "scan": [
+       "Arm_4_Scan"
+      ],
+      "pivot": [
+       -7.4,
+       8.76,
+       -82
+      ],
+      "hinge": [
+       0.0,
+       0.0,
+       -1.0
+      ],
+      "angle_deg": 7.736,
+      "t0": 0.9911,
+      "period": 2.6727,
+      "window": 1.4,
+      "reveal": {
+       "group": "Conv_West_Item2",
+       "plane": [
+        0.0,
+        0.0,
+        -1.0,
+        82.0
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "Conv_East_Line",
+   "type": "assembly_line",
+   "line": {
+    "move": [
+     "Conv_East_Parcels",
+     "Conv_East_Item1",
+     "Conv_East_Item2"
+    ],
+    "axis": [
+     0.0,
+     0.0,
+     -1.0
+    ],
+    "speed": 1.0,
+    "spacing": 2.6727,
+    "stations": [
+     {
+      "task": "add",
+      "arm": "Arm_1",
+      "groups": [
+       "Arm_1_Upper"
+      ],
+      "held": [
+       "Arm_1_Held"
+      ],
+      "scan": [],
+      "pivot": [
+       7.4,
+       8.68,
+       -76
+      ],
+      "hinge": [
+       0.0,
+       0.0,
+       1.0
+      ],
+      "angle_deg": 8.167,
+      "t0": 2.3546,
+      "period": 2.6727,
+      "window": 1.1,
+      "reveal": {
+       "group": "Conv_East_Item1",
+       "plane": [
+        0.0,
+        0.0,
+        -1.0,
+        76.0
+       ]
+      }
+     },
+     {
+      "task": "inspect",
+      "arm": "Arm_3",
+      "groups": [
+       "Arm_3_Upper"
+      ],
+      "held": [],
+      "scan": [
+       "Arm_3_Scan"
+      ],
+      "pivot": [
+       7.4,
+       8.76,
+       -88
+      ],
+      "hinge": [
+       0.0,
+       0.0,
+       1.0
+      ],
+      "angle_deg": 7.736,
+      "t0": 0.9911,
+      "period": 2.6727,
+      "window": 1.4,
+      "reveal": {
+       "group": "Conv_East_Item2",
+       "plane": [
+        0.0,
+        0.0,
+        -1.0,
+        88.0
+       ]
+      }
+     }
+    ]
+   }
   },
   {
    "id": "Tube_Pods",
@@ -1859,6 +2035,22 @@
    "toon": true,
    "toon_flatten": 0.05
   },
+  "fall": {
+   "type": "toxic",
+   "color": [
+    0.42,
+    1.0,
+    0.2
+   ],
+   "tile_m": 3.0,
+   "emissive": [
+    0.5,
+    1.0,
+    0.2
+   ],
+   "streaks": true,
+   "res": 256
+  },
   "frame": {
    "type": "industrial_metal",
    "color": [
@@ -2040,6 +2232,23 @@
    "res": 128,
    "wear": 0.02,
    "toon": true
+  },
+  "scan": {
+   "type": "glow",
+   "color": [
+    1.0,
+    0.88,
+    0.3
+   ],
+   "tile_m": 2.0,
+   "emissive": [
+    1.0,
+    0.85,
+    0.3
+   ],
+   "res": 32,
+   "alpha": 0.4,
+   "notes": "Stage 61: inspection scan beam"
   },
   "screen": {
    "type": "screen_atlas",
@@ -49827,124 +50036,1022 @@
    "source": "visible"
   },
   {
+   "name": "Conv_West_In_Housing",
+   "type": "box",
+   "position": [
+    0.0,
+    -0.03,
+    -14.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    3.0,
+    2.33,
+    2.7
+   ],
+   "material": "machine",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Roof",
+   "type": "box",
+   "position": [
+    0.0,
+    2.3,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    3.3,
+    0.22,
+    2.9
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Mouth",
+   "type": "panel",
+   "position": [
+    0.0,
+    0.82,
+    -13.38
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    1.9,
+    1.05,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Strip_1",
+   "type": "box",
+   "position": [
+    -0.729,
+    1.12,
+    -13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Strip_2",
+   "type": "box",
+   "position": [
+    -0.486,
+    1.12,
+    -13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Strip_3",
+   "type": "box",
+   "position": [
+    -0.243,
+    1.12,
+    -13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Strip_4",
+   "type": "box",
+   "position": [
+    0.0,
+    1.12,
+    -13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Strip_5",
+   "type": "box",
+   "position": [
+    0.243,
+    1.12,
+    -13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Strip_6",
+   "type": "box",
+   "position": [
+    0.486,
+    1.12,
+    -13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Strip_7",
+   "type": "box",
+   "position": [
+    0.729,
+    1.12,
+    -13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Frame_1",
+   "type": "box",
+   "position": [
+    0.0,
+    1.9,
+    -13.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    2.3,
+    0.2,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Frame_2",
+   "type": "box",
+   "position": [
+    -1.05,
+    0.82,
+    -13.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.2,
+    1.08,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Frame_3",
+   "type": "box",
+   "position": [
+    1.05,
+    0.82,
+    -13.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.2,
+    1.08,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Lamp",
+   "type": "box",
+   "position": [
+    0.0,
+    2.25,
+    -13.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.9,
+    0.22,
+    0.08
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Vent_L",
+   "type": "box",
+   "position": [
+    -1.52,
+    0.9,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.06,
+    0.9,
+    1.56
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Vent_R",
+   "type": "box",
+   "position": [
+    1.52,
+    0.9,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.06,
+    0.9,
+    1.56
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_Hopper",
+   "type": "frustum",
+   "position": [
+    0.0,
+    2.5,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    2.6,
+    1.1,
+    2.2
+   ],
+   "material": "structure_b",
+   "sections": 4,
+   "bottom_scale": 0.55,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_In_HopperFill",
+   "type": "box",
+   "position": [
+    0.0,
+    3.48,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    2.2,
+    0.06,
+    1.8
+   ],
+   "material": "fall",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Housing",
+   "type": "box",
+   "position": [
+    0.0,
+    -0.03,
+    14.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    3.0,
+    2.33,
+    2.7
+   ],
+   "material": "machine",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Roof",
+   "type": "box",
+   "position": [
+    0.0,
+    2.3,
+    14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    3.3,
+    0.22,
+    2.9
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Mouth",
+   "type": "panel",
+   "position": [
+    0.0,
+    0.82,
+    13.38
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    1.9,
+    1.05,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Strip_1",
+   "type": "box",
+   "position": [
+    -0.729,
+    1.12,
+    13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Strip_2",
+   "type": "box",
+   "position": [
+    -0.486,
+    1.12,
+    13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Strip_3",
+   "type": "box",
+   "position": [
+    -0.243,
+    1.12,
+    13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Strip_4",
+   "type": "box",
+   "position": [
+    0.0,
+    1.12,
+    13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Strip_5",
+   "type": "box",
+   "position": [
+    0.243,
+    1.12,
+    13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Strip_6",
+   "type": "box",
+   "position": [
+    0.486,
+    1.12,
+    13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Strip_7",
+   "type": "box",
+   "position": [
+    0.729,
+    1.12,
+    13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Frame_1",
+   "type": "box",
+   "position": [
+    0.0,
+    1.9,
+    13.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    2.3,
+    0.2,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Frame_2",
+   "type": "box",
+   "position": [
+    -1.05,
+    0.82,
+    13.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.2,
+    1.08,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Frame_3",
+   "type": "box",
+   "position": [
+    1.05,
+    0.82,
+    13.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.2,
+    1.08,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Lamp",
+   "type": "box",
+   "position": [
+    0.0,
+    2.25,
+    13.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.9,
+    0.22,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Vent_L",
+   "type": "box",
+   "position": [
+    -1.52,
+    0.9,
+    14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.06,
+    0.9,
+    1.56
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Vent_R",
+   "type": "box",
+   "position": [
+    1.52,
+    0.9,
+    14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.06,
+    0.9,
+    1.56
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_Stack",
+   "type": "cylinder",
+   "position": [
+    0.35,
+    2.5,
+    14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.7,
+    1.6,
+    0.7
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Out_StackRing",
+   "type": "cylinder",
+   "position": [
+    0.35,
+    3.3,
+    14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.82,
+    0.18,
+    0.82
+   ],
+   "material": "glow",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
    "name": "Conv_West_Parcel_01",
    "type": "box",
    "position": [
-    -0.085,
+    0.0,
     0.87,
-    -14.8
+    -14.7
    ],
    "rotation": [
     0.0,
-    -13.17,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.9,
-    0.72,
-    0.9
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Parcel_02",
-   "type": "box",
-   "position": [
-    0.023,
-    0.87,
-    -12.2
-   ],
-   "rotation": [
     0.0,
-    9.86,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.9,
-    0.72,
-    0.9
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Parcel_03",
-   "type": "box",
-   "position": [
-    -0.157,
-    0.87,
-    -7.0
-   ],
-   "rotation": [
-    0.0,
-    9.6,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.7,
-    0.56,
-    0.7
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Parcel_04",
-   "type": "box",
-   "position": [
-    -0.063,
-    0.87,
-    8.6
-   ],
-   "rotation": [
-    0.0,
-    -5.45,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.7,
-    0.56,
-    0.7
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Parcel_05",
-   "type": "box",
-   "position": [
-    0.058,
-    0.87,
-    11.2
-   ],
-   "rotation": [
-    0.0,
-    -4.32,
     0.0
    ],
    "parent": "Conv_West",
@@ -49956,7 +51063,1212 @@
    "material": "accent",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Conv_West_Parcels"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Parcel_02",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    -12.027
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_West_Parcels"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Parcel_03",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    -9.355
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_West_Parcels"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Parcel_04",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    -6.682
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_West_Parcels"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Parcel_05",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    -4.009
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_West_Parcels"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Parcel_06",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    -1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_West_Parcels"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Parcel_07",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_West_Parcels"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Parcel_08",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    4.009
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_West_Parcels"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Parcel_09",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    6.682
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_West_Parcels"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Parcel_10",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    9.355
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_West_Parcels"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Parcel_11",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    12.027
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_West_Parcels"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item1_01",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item1"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item1_02",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    -12.027
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item1"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item1_03",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    -9.355
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item1"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item1_04",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    -6.682
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item1"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item1_05",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    -4.009
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item1"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item1_06",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    -1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item1"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item1_07",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item1"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item1_08",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    4.009
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item1"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item1_09",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    6.682
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item1"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item1_10",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    9.355
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item1"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item1_11",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    12.027
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item1"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_01_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_01_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_02_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    -12.027
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_02_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    -12.027
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_03_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    -9.355
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_03_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    -9.355
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_04_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    -6.682
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_04_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    -6.682
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_05_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    -4.009
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_05_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    -4.009
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_06_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    -1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_06_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    -1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_07_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_07_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_08_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    4.009
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_08_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    4.009
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_09_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    6.682
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_09_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    6.682
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_10_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    9.355
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_10_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    9.355
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_11_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    12.027
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
+   },
+   "gen": "Conv_West",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_West_Item2_11_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    12.027
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_West",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_West_Item2"
    },
    "gen": "Conv_West",
    "source": "visible"
@@ -50197,16 +52509,1022 @@
    "source": "visible"
   },
   {
-   "name": "Conv_East_Parcel_01",
+   "name": "Conv_East_In_Housing",
    "type": "box",
    "position": [
-    -0.039,
-    0.87,
-    -14.8
+    0.0,
+    -0.03,
+    -14.75
    ],
    "rotation": [
     0.0,
-    4.96,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    3.0,
+    2.33,
+    2.7
+   ],
+   "material": "machine",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Roof",
+   "type": "box",
+   "position": [
+    0.0,
+    2.3,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    3.3,
+    0.22,
+    2.9
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Mouth",
+   "type": "panel",
+   "position": [
+    0.0,
+    0.82,
+    -13.38
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    1.9,
+    1.05,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Strip_1",
+   "type": "box",
+   "position": [
+    -0.729,
+    1.12,
+    -13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Strip_2",
+   "type": "box",
+   "position": [
+    -0.486,
+    1.12,
+    -13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Strip_3",
+   "type": "box",
+   "position": [
+    -0.243,
+    1.12,
+    -13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Strip_4",
+   "type": "box",
+   "position": [
+    0.0,
+    1.12,
+    -13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Strip_5",
+   "type": "box",
+   "position": [
+    0.243,
+    1.12,
+    -13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Strip_6",
+   "type": "box",
+   "position": [
+    0.486,
+    1.12,
+    -13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Strip_7",
+   "type": "box",
+   "position": [
+    0.729,
+    1.12,
+    -13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Frame_1",
+   "type": "box",
+   "position": [
+    0.0,
+    1.9,
+    -13.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    2.3,
+    0.2,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Frame_2",
+   "type": "box",
+   "position": [
+    -1.05,
+    0.82,
+    -13.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.2,
+    1.08,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Frame_3",
+   "type": "box",
+   "position": [
+    1.05,
+    0.82,
+    -13.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.2,
+    1.08,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Lamp",
+   "type": "box",
+   "position": [
+    0.0,
+    2.25,
+    -13.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.9,
+    0.22,
+    0.08
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Vent_L",
+   "type": "box",
+   "position": [
+    -1.52,
+    0.9,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.06,
+    0.9,
+    1.56
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Vent_R",
+   "type": "box",
+   "position": [
+    1.52,
+    0.9,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.06,
+    0.9,
+    1.56
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_Hopper",
+   "type": "frustum",
+   "position": [
+    0.0,
+    2.5,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    2.6,
+    1.1,
+    2.2
+   ],
+   "material": "structure_b",
+   "sections": 4,
+   "bottom_scale": 0.55,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_In_HopperFill",
+   "type": "box",
+   "position": [
+    0.0,
+    3.48,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    2.2,
+    0.06,
+    1.8
+   ],
+   "material": "fall",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Housing",
+   "type": "box",
+   "position": [
+    0.0,
+    -0.03,
+    14.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    3.0,
+    2.33,
+    2.7
+   ],
+   "material": "machine",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Roof",
+   "type": "box",
+   "position": [
+    0.0,
+    2.3,
+    14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    3.3,
+    0.22,
+    2.9
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Mouth",
+   "type": "panel",
+   "position": [
+    0.0,
+    0.82,
+    13.38
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    1.9,
+    1.05,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Strip_1",
+   "type": "box",
+   "position": [
+    -0.729,
+    1.12,
+    13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Strip_2",
+   "type": "box",
+   "position": [
+    -0.486,
+    1.12,
+    13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Strip_3",
+   "type": "box",
+   "position": [
+    -0.243,
+    1.12,
+    13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Strip_4",
+   "type": "box",
+   "position": [
+    0.0,
+    1.12,
+    13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Strip_5",
+   "type": "box",
+   "position": [
+    0.243,
+    1.12,
+    13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Strip_6",
+   "type": "box",
+   "position": [
+    0.486,
+    1.12,
+    13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Strip_7",
+   "type": "box",
+   "position": [
+    0.729,
+    1.12,
+    13.33
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.213,
+    0.75,
+    0.025
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Frame_1",
+   "type": "box",
+   "position": [
+    0.0,
+    1.9,
+    13.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    2.3,
+    0.2,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Frame_2",
+   "type": "box",
+   "position": [
+    -1.05,
+    0.82,
+    13.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.2,
+    1.08,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Frame_3",
+   "type": "box",
+   "position": [
+    1.05,
+    0.82,
+    13.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.2,
+    1.08,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Lamp",
+   "type": "box",
+   "position": [
+    0.0,
+    2.25,
+    13.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.9,
+    0.22,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Vent_L",
+   "type": "box",
+   "position": [
+    -1.52,
+    0.9,
+    14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.06,
+    0.9,
+    1.56
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Vent_R",
+   "type": "box",
+   "position": [
+    1.52,
+    0.9,
+    14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.06,
+    0.9,
+    1.56
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_Stack",
+   "type": "cylinder",
+   "position": [
+    0.35,
+    2.5,
+    14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.7,
+    1.6,
+    0.7
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Out_StackRing",
+   "type": "cylinder",
+   "position": [
+    0.35,
+    3.3,
+    14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.82,
+    0.18,
+    0.82
+   ],
+   "material": "glow",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Parcel_01",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
     0.0
    ],
    "parent": "Conv_East",
@@ -50218,7 +53536,7 @@
    "material": "accent",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Conv_East_Parcels"
    },
    "gen": "Conv_East",
    "source": "visible"
@@ -50227,25 +53545,25 @@
    "name": "Conv_East_Parcel_02",
    "type": "box",
    "position": [
-    -0.126,
+    0.0,
     0.87,
-    -9.6
+    -12.027
    ],
    "rotation": [
     0.0,
-    2.37,
+    0.0,
     0.0
    ],
    "parent": "Conv_East",
    "size": [
-    0.9,
-    0.72,
-    0.9
+    0.8,
+    0.64,
+    0.8
    ],
    "material": "accent",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Conv_East_Parcels"
    },
    "gen": "Conv_East",
    "source": "visible"
@@ -50254,25 +53572,25 @@
    "name": "Conv_East_Parcel_03",
    "type": "box",
    "position": [
-    -0.152,
+    0.0,
     0.87,
-    -4.4
+    -9.355
    ],
    "rotation": [
     0.0,
-    9.87,
+    0.0,
     0.0
    ],
    "parent": "Conv_East",
    "size": [
-    0.9,
-    0.72,
-    0.9
+    0.8,
+    0.64,
+    0.8
    ],
    "material": "accent",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Conv_East_Parcels"
    },
    "gen": "Conv_East",
    "source": "visible"
@@ -50281,25 +53599,25 @@
    "name": "Conv_East_Parcel_04",
    "type": "box",
    "position": [
-    -0.168,
+    0.0,
     0.87,
-    8.6
+    -6.682
    ],
    "rotation": [
     0.0,
-    18.69,
+    0.0,
     0.0
    ],
    "parent": "Conv_East",
    "size": [
-    0.9,
-    0.72,
-    0.9
+    0.8,
+    0.64,
+    0.8
    ],
    "material": "accent",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Conv_East_Parcels"
    },
    "gen": "Conv_East",
    "source": "visible"
@@ -50308,25 +53626,1122 @@
    "name": "Conv_East_Parcel_05",
    "type": "box",
    "position": [
-    0.115,
+    0.0,
     0.87,
-    11.2
+    -4.009
    ],
    "rotation": [
     0.0,
-    11.44,
+    0.0,
     0.0
    ],
    "parent": "Conv_East",
    "size": [
-    0.7,
-    0.56,
-    0.7
+    0.8,
+    0.64,
+    0.8
    ],
    "material": "accent",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Conv_East_Parcels"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Parcel_06",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    -1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_East_Parcels"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Parcel_07",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_East_Parcels"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Parcel_08",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    4.009
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_East_Parcels"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Parcel_09",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    6.682
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_East_Parcels"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Parcel_10",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    9.355
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_East_Parcels"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Parcel_11",
+   "type": "box",
+   "position": [
+    0.0,
+    0.87,
+    12.027
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.8,
+    0.64,
+    0.8
+   ],
+   "material": "accent",
+   "collision": false,
+   "mobile": {
+    "group": "Conv_East_Parcels"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item1_01",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item1"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item1_02",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    -12.027
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item1"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item1_03",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    -9.355
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item1"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item1_04",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    -6.682
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item1"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item1_05",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    -4.009
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item1"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item1_06",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    -1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item1"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item1_07",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item1"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item1_08",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    4.009
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item1"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item1_09",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    6.682
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item1"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item1_10",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    9.355
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item1"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item1_11",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.49,
+    12.027
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item1"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_01_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_01_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    -14.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_02_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    -12.027
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_02_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    -12.027
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_03_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    -9.355
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_03_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    -9.355
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_04_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    -6.682
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_04_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    -6.682
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_05_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    -4.009
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_05_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    -4.009
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_06_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    -1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_06_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    -1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_07_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_07_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    1.336
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_08_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    4.009
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_08_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    4.009
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_09_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    6.682
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_09_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    6.682
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_10_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    9.355
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_10_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    9.355
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_11_L",
+   "type": "box",
+   "position": [
+    -0.405,
+    1.31,
+    12.027
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
+   },
+   "gen": "Conv_East",
+   "source": "visible"
+  },
+  {
+   "name": "Conv_East_Item2_11_R",
+   "type": "box",
+   "position": [
+    0.405,
+    1.31,
+    12.027
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Conv_East",
+   "size": [
+    0.02,
+    0.12,
+    0.56
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Conv_East_Item2"
    },
    "gen": "Conv_East",
    "source": "visible"
@@ -50335,9 +54750,9 @@
    "name": "Arm_1",
    "type": "group",
    "position": [
-    9.5,
+    7.4,
     7.0,
-    -70.0
+    -76.0
    ],
    "rotation": [
     0.0,
@@ -50362,9 +54777,9 @@
    ],
    "parent": "Arm_1",
    "size": [
-    1.3,
+    1.365,
     7.2,
-    1.3
+    1.365
    ],
    "material": "structure_b",
    "sections": 10,
@@ -50389,9 +54804,9 @@
    ],
    "parent": "Arm_1",
    "size": [
-    1.9,
-    0.6,
-    1.9
+    1.995,
+    0.63,
+    1.995
    ],
    "material": "structure_b",
    "sections": 8,
@@ -50407,7 +54822,7 @@
    "type": "frustum",
    "position": [
     0.0,
-    0.6,
+    0.63,
     0.0
    ],
    "rotation": [
@@ -50417,9 +54832,9 @@
    ],
    "parent": "Arm_1",
    "size": [
-    1.2,
-    1.0,
-    1.2
+    1.26,
+    1.05,
+    1.26
    ],
    "material": "structure_b",
    "sections": 8,
@@ -50436,8 +54851,8 @@
    "type": "box",
    "position": [
     0.0,
-    0.75,
-    0.649
+    0.787,
+    0.681
    ],
    "rotation": [
     -6.33,
@@ -50446,8 +54861,8 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.14,
-    0.704,
+    0.147,
+    0.74,
     0.06
    ],
    "material": "glow",
@@ -50463,8 +54878,8 @@
    "name": "Arm_1_Shoulder",
    "type": "cylinder",
    "position": [
-    0.475,
-    1.6,
+    0.499,
+    1.68,
     0.0
    ],
    "rotation": [
@@ -50474,15 +54889,15 @@
    ],
    "parent": "Arm_1",
    "size": [
-    1.0,
-    0.95,
-    1.0
+    1.05,
+    0.997,
+    1.05
    ],
    "material": "structure_b",
    "sections": 10,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50491,8 +54906,8 @@
    "name": "Arm_1_Shoulder_Disc",
    "type": "cylinder",
    "position": [
-    0.525,
-    1.6,
+    0.549,
+    1.68,
     0.0
    ],
    "rotation": [
@@ -50502,16 +54917,16 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.6,
-    1.05,
-    0.6
+    0.63,
+    1.097,
+    0.63
    ],
    "material": "glow",
    "sections": 10,
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50521,25 +54936,25 @@
    "type": "frustum",
    "position": [
     0.0,
-    1.6,
+    1.68,
     0.0
    ],
    "rotation": [
-    30.0,
+    32.22,
     0.0,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
-    0.62,
-    2.7,
-    0.496
+    0.651,
+    2.835,
+    0.521
    ],
    "material": "structure_b",
    "bottom_scale": 1.282051282051282,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50548,26 +54963,26 @@
    "name": "Arm_1_Link1_Strip_0",
    "type": "box",
    "position": [
-    -0.355,
-    2.021,
-    0.243
+    -0.373,
+    2.112,
+    0.272
    ],
    "rotation": [
-    30.0,
+    32.22,
     0.0,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
-    0.102,
-    1.62,
-    0.14
+    0.105,
+    1.701,
+    0.147
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50576,26 +54991,26 @@
    "name": "Arm_1_Link1_Strip_2",
    "type": "box",
    "position": [
-    0.355,
-    2.021,
-    0.243
+    0.373,
+    2.112,
+    0.272
    ],
    "rotation": [
-    30.0,
+    32.22,
     0.0,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
-    0.102,
-    1.62,
-    0.14
+    0.105,
+    1.701,
+    0.147
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50604,9 +55019,9 @@
    "name": "Arm_1_Elbow",
    "type": "cylinder",
    "position": [
-    0.4,
-    3.938,
-    1.35
+    0.42,
+    4.078,
+    1.511
    ],
    "rotation": [
     0.0,
@@ -50615,15 +55030,15 @@
    ],
    "parent": "Arm_1",
    "size": [
+    0.882,
     0.84,
-    0.8,
-    0.84
+    0.882
    ],
    "material": "structure_b",
    "sections": 10,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50632,9 +55047,9 @@
    "name": "Arm_1_Elbow_Disc",
    "type": "cylinder",
    "position": [
-    0.45,
-    3.938,
-    1.35
+    0.47,
+    4.078,
+    1.511
    ],
    "rotation": [
     0.0,
@@ -50643,16 +55058,16 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.504,
-    0.9,
-    0.504
+    0.529,
+    0.94,
+    0.529
    ],
    "material": "glow",
    "sections": 10,
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50662,26 +55077,26 @@
    "type": "frustum",
    "position": [
     0.0,
-    3.488,
-    2.129
+    3.575,
+    2.311
    ],
    "rotation": [
-    -60.0,
+    -57.78,
     0.0,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
-    0.36,
-    0.9,
-    0.36
+    0.378,
+    0.945,
+    0.378
    ],
    "material": "structure_b",
    "sections": 4,
    "bottom_scale": 0.05,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50691,25 +55106,25 @@
    "type": "frustum",
    "position": [
     0.0,
-    3.938,
-    1.35
+    4.078,
+    1.511
    ],
    "rotation": [
-    100.0,
+    71.34,
     0.0,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
-    0.5,
-    2.2,
-    0.4
+    0.525,
+    2.31,
+    0.42
    ],
    "material": "structure_b",
    "bottom_scale": 1.3333333333333333,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50718,26 +55133,26 @@
    "name": "Arm_1_Link2_Strip_0",
    "type": "box",
    "position": [
-    -0.293,
-    3.87,
-    1.74
+    -0.308,
+    4.212,
+    1.905
    ],
    "rotation": [
-    100.0,
+    71.34,
     0.0,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
-    0.1,
-    1.32,
-    0.14
+    0.102,
+    1.386,
+    0.147
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50746,26 +55161,26 @@
    "name": "Arm_1_Link2_Strip_2",
    "type": "box",
    "position": [
-    0.293,
-    3.87,
-    1.74
+    0.308,
+    4.212,
+    1.905
    ],
    "rotation": [
-    100.0,
+    71.34,
     0.0,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
-    0.1,
-    1.32,
-    0.14
+    0.102,
+    1.386,
+    0.147
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50775,8 +55190,8 @@
    "type": "frustum",
    "position": [
     0.0,
-    2.706,
-    3.517
+    3.925,
+    3.7
    ],
    "rotation": [
     0.0,
@@ -50785,16 +55200,16 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.95,
-    0.95,
-    0.95
+    0.997,
+    0.997,
+    0.997
    ],
    "material": "structure_b",
    "sections": 6,
    "bottom_scale": 0.55,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50803,9 +55218,9 @@
    "name": "Arm_1_Light",
    "type": "box",
    "position": [
-    0.155,
-    3.134,
-    3.785
+    0.163,
+    4.374,
+    3.981
    ],
    "rotation": [
     11.03,
@@ -50814,15 +55229,15 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.2,
-    0.29,
+    0.21,
+    0.305,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50831,9 +55246,9 @@
    "name": "Arm_1_WristStrip_1",
    "type": "box",
    "position": [
-    0.254,
-    2.849,
-    3.517
+    0.267,
+    4.075,
+    3.7
    ],
    "rotation": [
     11.03,
@@ -50842,15 +55257,15 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.1,
-    0.678,
+    0.105,
+    0.711,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50859,9 +55274,9 @@
    "name": "Arm_1_WristStrip_2",
    "type": "box",
    "position": [
-    -0.254,
-    2.849,
-    3.517
+    -0.267,
+    4.075,
+    3.7
    ],
    "rotation": [
     11.03,
@@ -50870,15 +55285,15 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.1,
-    0.678,
+    0.105,
+    0.711,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50888,8 +55303,8 @@
    "type": "cylinder",
    "position": [
     0.0,
-    2.456,
-    3.517
+    3.663,
+    3.7
    ],
    "rotation": [
     0.0,
@@ -50898,15 +55313,15 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.45,
-    0.28,
-    0.45
+    0.473,
+    0.294,
+    0.473
    ],
-   "material": "machine",
+   "material": "structure_b",
    "sections": 8,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50916,8 +55331,8 @@
    "type": "box",
    "position": [
     0.0,
-    2.466,
-    3.677
+    3.673,
+    3.868
    ],
    "rotation": [
     142.0,
@@ -50926,14 +55341,14 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.24,
-    0.85,
-    0.2
+    0.252,
+    0.892,
+    0.21
    ],
    "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50943,8 +55358,8 @@
    "type": "box",
    "position": [
     0.0,
-    1.666,
-    4.2
+    2.833,
+    4.417
    ],
    "rotation": [
     0.0,
@@ -50953,14 +55368,14 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.28,
-    0.26,
-    0.26
+    0.294,
+    0.273,
+    0.273
    ],
-   "material": "machine",
+   "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50970,8 +55385,8 @@
    "type": "frustum",
    "position": [
     0.0,
-    0.883,
-    3.793
+    2.011,
+    3.99
    ],
    "rotation": [
     24.0,
@@ -50980,15 +55395,15 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.24,
-    1.06,
-    0.2
+    0.252,
+    1.113,
+    0.21
    ],
    "material": "structure_b",
    "bottom_scale": 0.2,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -50998,8 +55413,8 @@
    "type": "box",
    "position": [
     0.0,
-    2.427,
-    3.834
+    3.632,
+    4.033
    ],
    "rotation": [
     142.0,
@@ -51008,15 +55423,15 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.07,
-    0.51,
+    0.074,
+    0.535,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51026,8 +55441,8 @@
    "type": "box",
    "position": [
     0.0,
-    1.263,
-    4.046
+    2.41,
+    4.255
    ],
    "rotation": [
     24.0,
@@ -51036,15 +55451,15 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.07,
-    0.5,
-    0.09
+    0.074,
+    0.525,
+    0.092
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51053,9 +55468,9 @@
    "name": "Arm_1_Finger_2",
    "type": "box",
    "position": [
-    0.139,
-    2.466,
-    3.437
+    0.145,
+    3.673,
+    3.616
    ],
    "rotation": [
     142.0,
@@ -51064,14 +55479,14 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.24,
-    0.85,
-    0.2
+    0.252,
+    0.892,
+    0.21
    ],
    "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51080,9 +55495,9 @@
    "name": "Arm_1_Finger_2_Knuckle",
    "type": "box",
    "position": [
-    0.592,
-    1.666,
-    3.175
+    0.621,
+    2.833,
+    3.341
    ],
    "rotation": [
     0.0,
@@ -51091,14 +55506,14 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.28,
-    0.26,
-    0.26
+    0.294,
+    0.273,
+    0.273
    ],
-   "material": "machine",
+   "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51107,9 +55522,9 @@
    "name": "Arm_1_Finger_2_Tip",
    "type": "frustum",
    "position": [
-    0.24,
-    0.883,
-    3.378
+    0.251,
+    2.011,
+    3.555
    ],
    "rotation": [
     24.0,
@@ -51118,15 +55533,15 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.24,
-    1.06,
-    0.2
+    0.252,
+    1.113,
+    0.21
    ],
    "material": "structure_b",
    "bottom_scale": 0.2,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51135,9 +55550,9 @@
    "name": "Arm_1_Finger_2_Lit2",
    "type": "box",
    "position": [
-    0.275,
-    2.427,
-    3.358
+    0.289,
+    3.632,
+    3.533
    ],
    "rotation": [
     142.0,
@@ -51146,15 +55561,15 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.07,
-    0.51,
+    0.074,
+    0.535,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51163,9 +55578,9 @@
    "name": "Arm_1_Finger_2_Lit",
    "type": "box",
    "position": [
-    0.458,
-    1.263,
-    3.252
+    0.481,
+    2.41,
+    3.422
    ],
    "rotation": [
     24.0,
@@ -51174,15 +55589,15 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.07,
-    0.5,
-    0.09
+    0.074,
+    0.525,
+    0.092
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51191,9 +55606,9 @@
    "name": "Arm_1_Finger_3",
    "type": "box",
    "position": [
-    -0.139,
-    2.466,
-    3.437
+    -0.145,
+    3.673,
+    3.616
    ],
    "rotation": [
     142.0,
@@ -51202,14 +55617,14 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.24,
-    0.85,
-    0.2
+    0.252,
+    0.892,
+    0.21
    ],
    "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51218,9 +55633,9 @@
    "name": "Arm_1_Finger_3_Knuckle",
    "type": "box",
    "position": [
-    -0.592,
-    1.666,
-    3.175
+    -0.621,
+    2.833,
+    3.341
    ],
    "rotation": [
     0.0,
@@ -51229,14 +55644,14 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.28,
-    0.26,
-    0.26
+    0.294,
+    0.273,
+    0.273
    ],
-   "material": "machine",
+   "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51245,9 +55660,9 @@
    "name": "Arm_1_Finger_3_Tip",
    "type": "frustum",
    "position": [
-    -0.24,
-    0.883,
-    3.378
+    -0.251,
+    2.011,
+    3.555
    ],
    "rotation": [
     24.0,
@@ -51256,15 +55671,15 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.24,
-    1.06,
-    0.2
+    0.252,
+    1.113,
+    0.21
    ],
    "material": "structure_b",
    "bottom_scale": 0.2,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51273,9 +55688,9 @@
    "name": "Arm_1_Finger_3_Lit2",
    "type": "box",
    "position": [
-    -0.275,
-    2.427,
-    3.358
+    -0.289,
+    3.632,
+    3.533
    ],
    "rotation": [
     142.0,
@@ -51284,15 +55699,15 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.07,
-    0.51,
+    0.074,
+    0.535,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51301,9 +55716,9 @@
    "name": "Arm_1_Finger_3_Lit",
    "type": "box",
    "position": [
-    -0.458,
-    1.263,
-    3.252
+    -0.481,
+    2.41,
+    3.422
    ],
    "rotation": [
     24.0,
@@ -51312,15 +55727,15 @@
    ],
    "parent": "Arm_1",
    "size": [
-    0.07,
-    0.5,
-    0.09
+    0.074,
+    0.525,
+    0.092
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51329,26 +55744,26 @@
    "name": "Arm_1_Hose_1_1",
    "type": "box",
    "position": [
-    -0.294,
-    2.465,
-    0.934
+    -0.308,
+    2.702,
+    1.018
    ],
    "rotation": [
-    22.78,
-    1.1,
+    0.88,
+    1.11,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
-    0.2,
-    0.2,
-    0.768
+    0.21,
+    0.21,
+    0.736
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51357,26 +55772,26 @@
    "name": "Arm_1_Hose_1_2",
    "type": "box",
    "position": [
-    -0.281,
-    2.341,
-    1.586
+    -0.295,
+    2.849,
+    1.694
    ],
    "rotation": [
-    -2.28,
-    1.1,
+    -24.25,
+    1.11,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
-    0.2,
-    0.2,
-    0.713
+    0.21,
+    0.21,
+    0.802
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51385,26 +55800,26 @@
    "name": "Arm_1_Hose_1_3",
    "type": "box",
    "position": [
-    -0.269,
-    2.517,
-    2.238
+    -0.282,
+    3.311,
+    2.371
    ],
    "rotation": [
-    -26.55,
-    1.1,
+    -42.49,
+    1.11,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
-    0.2,
-    0.2,
-    0.789
+    0.21,
+    0.21,
+    0.977
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51413,26 +55828,26 @@
    "name": "Arm_1_Hose_1_4",
    "type": "box",
    "position": [
-    -0.256,
-    2.993,
-    2.89
+    -0.269,
+    4.088,
+    3.047
    ],
    "rotation": [
-    -43.82,
-    1.1,
+    -54.11,
+    1.11,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
-    0.2,
-    0.2,
-    0.964
+    0.21,
+    0.21,
+    1.214
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51441,26 +55856,26 @@
    "name": "Arm_1_Hose_2_1",
    "type": "box",
    "position": [
-    0.294,
-    2.465,
-    0.934
+    0.308,
+    2.702,
+    1.018
    ],
    "rotation": [
-    22.78,
-    -1.1,
+    0.88,
+    -1.11,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
-    0.2,
-    0.2,
-    0.768
+    0.21,
+    0.21,
+    0.736
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51469,26 +55884,26 @@
    "name": "Arm_1_Hose_2_2",
    "type": "box",
    "position": [
-    0.281,
-    2.341,
-    1.586
+    0.295,
+    2.849,
+    1.694
    ],
    "rotation": [
-    -2.28,
-    -1.1,
+    -24.25,
+    -1.11,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
-    0.2,
-    0.2,
-    0.713
+    0.21,
+    0.21,
+    0.802
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51497,26 +55912,26 @@
    "name": "Arm_1_Hose_2_3",
    "type": "box",
    "position": [
-    0.269,
-    2.517,
-    2.238
+    0.282,
+    3.311,
+    2.371
    ],
    "rotation": [
-    -26.55,
-    -1.1,
+    -42.49,
+    -1.11,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
-    0.2,
-    0.2,
-    0.789
+    0.21,
+    0.21,
+    0.977
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51525,26 +55940,55 @@
    "name": "Arm_1_Hose_2_4",
    "type": "box",
    "position": [
-    0.256,
-    2.993,
-    2.89
+    0.269,
+    4.088,
+    3.047
    ],
    "rotation": [
-    -43.82,
-    -1.1,
+    -54.11,
+    -1.11,
     0.0
    ],
    "parent": "Arm_1",
    "size": [
-    0.2,
-    0.2,
-    0.964
+    0.21,
+    0.21,
+    1.214
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_1_Upper"
+   },
+   "gen": "Arm_1",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_1_Held",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    2.024,
+    3.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_1",
+   "size": [
+    0.52,
+    0.5,
+    0.52
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Arm_1_Held"
    },
    "gen": "Arm_1",
    "source": "visible"
@@ -51553,9 +55997,9 @@
    "name": "Arm_2",
    "type": "group",
    "position": [
-    -9.5,
+    -7.4,
     7.0,
-    -78.0
+    -70.0
    ],
    "rotation": [
     0.0,
@@ -51580,9 +56024,9 @@
    ],
    "parent": "Arm_2",
    "size": [
-    1.43,
+    1.365,
     7.2,
-    1.43
+    1.365
    ],
    "material": "structure_b",
    "sections": 10,
@@ -51607,9 +56051,9 @@
    ],
    "parent": "Arm_2",
    "size": [
-    2.09,
-    0.66,
-    2.09
+    1.995,
+    0.63,
+    1.995
    ],
    "material": "structure_b",
    "sections": 8,
@@ -51625,7 +56069,7 @@
    "type": "frustum",
    "position": [
     0.0,
-    0.66,
+    0.63,
     0.0
    ],
    "rotation": [
@@ -51635,9 +56079,9 @@
    ],
    "parent": "Arm_2",
    "size": [
-    1.32,
-    1.1,
-    1.32
+    1.26,
+    1.05,
+    1.26
    ],
    "material": "structure_b",
    "sections": 8,
@@ -51654,8 +56098,8 @@
    "type": "box",
    "position": [
     0.0,
-    0.825,
-    0.713
+    0.787,
+    0.681
    ],
    "rotation": [
     -6.33,
@@ -51664,8 +56108,8 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.154,
-    0.775,
+    0.147,
+    0.74,
     0.06
    ],
    "material": "glow",
@@ -51681,8 +56125,8 @@
    "name": "Arm_2_Shoulder",
    "type": "cylinder",
    "position": [
-    0.522,
-    1.76,
+    0.499,
+    1.68,
     0.0
    ],
    "rotation": [
@@ -51692,15 +56136,15 @@
    ],
    "parent": "Arm_2",
    "size": [
-    1.1,
-    1.045,
-    1.1
+    1.05,
+    0.997,
+    1.05
    ],
    "material": "structure_b",
    "sections": 10,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -51709,8 +56153,8 @@
    "name": "Arm_2_Shoulder_Disc",
    "type": "cylinder",
    "position": [
-    0.573,
-    1.76,
+    0.549,
+    1.68,
     0.0
    ],
    "rotation": [
@@ -51720,16 +56164,16 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.66,
-    1.145,
-    0.66
+    0.63,
+    1.097,
+    0.63
    ],
    "material": "glow",
    "sections": 10,
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -51739,25 +56183,25 @@
    "type": "frustum",
    "position": [
     0.0,
-    1.76,
+    1.68,
     0.0
    ],
    "rotation": [
-    32.0,
+    32.22,
     0.0,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
-    0.682,
-    2.97,
-    0.546
+    0.651,
+    2.835,
+    0.521
    ],
    "material": "structure_b",
    "bottom_scale": 1.282051282051282,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -51766,26 +56210,26 @@
    "name": "Arm_2_Link1_Strip_0",
    "type": "box",
    "position": [
-    -0.391,
-    2.213,
-    0.283
+    -0.373,
+    2.112,
+    0.272
    ],
    "rotation": [
-    32.0,
+    32.22,
     0.0,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
-    0.108,
-    1.782,
-    0.154
+    0.105,
+    1.701,
+    0.147
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -51794,26 +56238,26 @@
    "name": "Arm_2_Link1_Strip_2",
    "type": "box",
    "position": [
-    0.391,
-    2.213,
-    0.283
+    0.373,
+    2.112,
+    0.272
    ],
    "rotation": [
-    32.0,
+    32.22,
     0.0,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
-    0.108,
-    1.782,
-    0.154
+    0.105,
+    1.701,
+    0.147
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -51822,9 +56266,9 @@
    "name": "Arm_2_Elbow",
    "type": "cylinder",
    "position": [
-    0.44,
-    4.279,
-    1.574
+    0.42,
+    4.078,
+    1.511
    ],
    "rotation": [
     0.0,
@@ -51833,15 +56277,15 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.924,
-    0.88,
-    0.924
+    0.882,
+    0.84,
+    0.882
    ],
    "material": "structure_b",
    "sections": 10,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -51850,9 +56294,9 @@
    "name": "Arm_2_Elbow_Disc",
    "type": "cylinder",
    "position": [
-    0.49,
-    4.279,
-    1.574
+    0.47,
+    4.078,
+    1.511
    ],
    "rotation": [
     0.0,
@@ -51861,16 +56305,16 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.554,
-    0.98,
-    0.554
+    0.529,
+    0.94,
+    0.529
    ],
    "material": "glow",
    "sections": 10,
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -51880,26 +56324,26 @@
    "type": "frustum",
    "position": [
     0.0,
-    3.754,
-    2.413
+    3.575,
+    2.311
    ],
    "rotation": [
-    -58.0,
+    -57.78,
     0.0,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
-    0.396,
-    0.99,
-    0.396
+    0.378,
+    0.945,
+    0.378
    ],
    "material": "structure_b",
    "sections": 4,
    "bottom_scale": 0.05,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -51909,25 +56353,25 @@
    "type": "frustum",
    "position": [
     0.0,
-    4.279,
-    1.574
+    4.078,
+    1.511
    ],
    "rotation": [
-    103.0,
+    71.34,
     0.0,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
-    0.55,
-    2.42,
-    0.44
+    0.525,
+    2.31,
+    0.42
    ],
    "material": "structure_b",
    "bottom_scale": 1.3333333333333333,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -51936,26 +56380,26 @@
    "name": "Arm_2_Link2_Strip_0",
    "type": "box",
    "position": [
-    -0.323,
-    4.181,
-    1.998
+    -0.308,
+    4.212,
+    1.905
    ],
    "rotation": [
-    103.0,
+    71.34,
     0.0,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
-    0.105,
-    1.452,
-    0.154
+    0.102,
+    1.386,
+    0.147
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -51964,26 +56408,26 @@
    "name": "Arm_2_Link2_Strip_2",
    "type": "box",
    "position": [
-    0.323,
-    4.181,
-    1.998
+    0.308,
+    4.212,
+    1.905
    ],
    "rotation": [
-    103.0,
+    71.34,
     0.0,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
-    0.105,
-    1.452,
-    0.154
+    0.102,
+    1.386,
+    0.147
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -51993,8 +56437,8 @@
    "type": "frustum",
    "position": [
     0.0,
-    2.799,
-    3.932
+    3.925,
+    3.7
    ],
    "rotation": [
     0.0,
@@ -52003,16 +56447,16 @@
    ],
    "parent": "Arm_2",
    "size": [
-    1.045,
-    1.045,
-    1.045
+    0.997,
+    0.997,
+    0.997
    ],
    "material": "structure_b",
    "sections": 6,
    "bottom_scale": 0.55,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52021,9 +56465,9 @@
    "name": "Arm_2_Light",
    "type": "box",
    "position": [
-    0.17,
-    3.27,
-    4.227
+    0.163,
+    4.374,
+    3.981
    ],
    "rotation": [
     11.03,
@@ -52032,15 +56476,15 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.22,
-    0.319,
+    0.21,
+    0.305,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52049,9 +56493,9 @@
    "name": "Arm_2_WristStrip_1",
    "type": "box",
    "position": [
-    0.279,
-    2.956,
-    3.932
+    0.267,
+    4.075,
+    3.7
    ],
    "rotation": [
     11.03,
@@ -52060,15 +56504,15 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.11,
-    0.745,
+    0.105,
+    0.711,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52077,9 +56521,9 @@
    "name": "Arm_2_WristStrip_2",
    "type": "box",
    "position": [
-    -0.279,
-    2.956,
-    3.932
+    -0.267,
+    4.075,
+    3.7
    ],
    "rotation": [
     11.03,
@@ -52088,15 +56532,15 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.11,
-    0.745,
+    0.105,
+    0.711,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52106,8 +56550,8 @@
    "type": "cylinder",
    "position": [
     0.0,
-    2.524,
-    3.932
+    3.663,
+    3.7
    ],
    "rotation": [
     0.0,
@@ -52116,15 +56560,15 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.495,
-    0.308,
-    0.495
+    0.473,
+    0.294,
+    0.473
    ],
-   "material": "machine",
+   "material": "structure_b",
    "sections": 8,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52134,8 +56578,8 @@
    "type": "box",
    "position": [
     0.0,
-    2.535,
-    4.108
+    3.673,
+    3.868
    ],
    "rotation": [
     142.0,
@@ -52144,14 +56588,14 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.264,
-    0.935,
-    0.22
+    0.252,
+    0.892,
+    0.21
    ],
    "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52161,8 +56605,8 @@
    "type": "box",
    "position": [
     0.0,
-    1.656,
-    4.683
+    2.833,
+    4.417
    ],
    "rotation": [
     0.0,
@@ -52171,14 +56615,14 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.308,
-    0.286,
-    0.286
+    0.294,
+    0.273,
+    0.273
    ],
-   "material": "machine",
+   "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52188,8 +56632,8 @@
    "type": "frustum",
    "position": [
     0.0,
-    0.794,
-    4.236
+    2.011,
+    3.99
    ],
    "rotation": [
     24.0,
@@ -52198,15 +56642,15 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.264,
-    1.166,
-    0.22
+    0.252,
+    1.113,
+    0.21
    ],
    "material": "structure_b",
    "bottom_scale": 0.2,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52216,8 +56660,8 @@
    "type": "box",
    "position": [
     0.0,
-    2.493,
-    4.281
+    3.632,
+    4.033
    ],
    "rotation": [
     142.0,
@@ -52226,15 +56670,15 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.077,
-    0.561,
+    0.074,
+    0.535,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52244,8 +56688,8 @@
    "type": "box",
    "position": [
     0.0,
-    1.212,
-    4.514
+    2.41,
+    4.255
    ],
    "rotation": [
     24.0,
@@ -52254,15 +56698,15 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.077,
-    0.55,
-    0.094
+    0.074,
+    0.525,
+    0.092
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52271,9 +56715,9 @@
    "name": "Arm_2_Finger_2",
    "type": "box",
    "position": [
-    0.152,
-    2.535,
-    3.844
+    0.145,
+    3.673,
+    3.616
    ],
    "rotation": [
     142.0,
@@ -52282,14 +56726,14 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.264,
-    0.935,
-    0.22
+    0.252,
+    0.892,
+    0.21
    ],
    "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52298,9 +56742,9 @@
    "name": "Arm_2_Finger_2_Knuckle",
    "type": "box",
    "position": [
-    0.651,
-    1.656,
-    3.556
+    0.621,
+    2.833,
+    3.341
    ],
    "rotation": [
     0.0,
@@ -52309,14 +56753,14 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.308,
-    0.286,
-    0.286
+    0.294,
+    0.273,
+    0.273
    ],
-   "material": "machine",
+   "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52325,9 +56769,9 @@
    "name": "Arm_2_Finger_2_Tip",
    "type": "frustum",
    "position": [
-    0.263,
-    0.794,
-    3.78
+    0.251,
+    2.011,
+    3.555
    ],
    "rotation": [
     24.0,
@@ -52336,15 +56780,15 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.264,
-    1.166,
-    0.22
+    0.252,
+    1.113,
+    0.21
    ],
    "material": "structure_b",
    "bottom_scale": 0.2,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52353,9 +56797,9 @@
    "name": "Arm_2_Finger_2_Lit2",
    "type": "box",
    "position": [
-    0.302,
-    2.493,
-    3.757
+    0.289,
+    3.632,
+    3.533
    ],
    "rotation": [
     142.0,
@@ -52364,15 +56808,15 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.077,
-    0.561,
+    0.074,
+    0.535,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52381,9 +56825,9 @@
    "name": "Arm_2_Finger_2_Lit",
    "type": "box",
    "position": [
-    0.504,
-    1.212,
-    3.641
+    0.481,
+    2.41,
+    3.422
    ],
    "rotation": [
     24.0,
@@ -52392,15 +56836,15 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.077,
-    0.55,
-    0.094
+    0.074,
+    0.525,
+    0.092
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52409,9 +56853,9 @@
    "name": "Arm_2_Finger_3",
    "type": "box",
    "position": [
-    -0.152,
-    2.535,
-    3.844
+    -0.145,
+    3.673,
+    3.616
    ],
    "rotation": [
     142.0,
@@ -52420,14 +56864,14 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.264,
-    0.935,
-    0.22
+    0.252,
+    0.892,
+    0.21
    ],
    "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52436,9 +56880,9 @@
    "name": "Arm_2_Finger_3_Knuckle",
    "type": "box",
    "position": [
-    -0.651,
-    1.656,
-    3.556
+    -0.621,
+    2.833,
+    3.341
    ],
    "rotation": [
     0.0,
@@ -52447,14 +56891,14 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.308,
-    0.286,
-    0.286
+    0.294,
+    0.273,
+    0.273
    ],
-   "material": "machine",
+   "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52463,9 +56907,9 @@
    "name": "Arm_2_Finger_3_Tip",
    "type": "frustum",
    "position": [
-    -0.263,
-    0.794,
-    3.78
+    -0.251,
+    2.011,
+    3.555
    ],
    "rotation": [
     24.0,
@@ -52474,15 +56918,15 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.264,
-    1.166,
-    0.22
+    0.252,
+    1.113,
+    0.21
    ],
    "material": "structure_b",
    "bottom_scale": 0.2,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52491,9 +56935,9 @@
    "name": "Arm_2_Finger_3_Lit2",
    "type": "box",
    "position": [
-    -0.302,
-    2.493,
-    3.757
+    -0.289,
+    3.632,
+    3.533
    ],
    "rotation": [
     142.0,
@@ -52502,15 +56946,15 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.077,
-    0.561,
+    0.074,
+    0.535,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52519,9 +56963,9 @@
    "name": "Arm_2_Finger_3_Lit",
    "type": "box",
    "position": [
-    -0.504,
-    1.212,
-    3.641
+    -0.481,
+    2.41,
+    3.422
    ],
    "rotation": [
     24.0,
@@ -52530,15 +56974,15 @@
    ],
    "parent": "Arm_2",
    "size": [
-    0.077,
-    0.55,
-    0.094
+    0.074,
+    0.525,
+    0.092
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52547,26 +56991,26 @@
    "name": "Arm_2_Hose_1_1",
    "type": "box",
    "position": [
-    -0.323,
-    2.669,
-    1.07
+    -0.308,
+    2.702,
+    1.018
    ],
    "rotation": [
-    25.16,
-    1.09,
+    0.88,
+    1.11,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
-    0.22,
-    0.22,
-    0.859
+    0.21,
+    0.21,
+    0.736
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52575,26 +57019,26 @@
    "name": "Arm_2_Hose_1_2",
    "type": "box",
    "position": [
-    -0.309,
-    2.494,
-    1.793
+    -0.295,
+    2.849,
+    1.694
    ],
    "rotation": [
-    0.77,
-    1.09,
+    -24.25,
+    1.11,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
-    0.22,
-    0.22,
-    0.784
+    0.21,
+    0.21,
+    0.802
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52603,26 +57047,26 @@
    "name": "Arm_2_Hose_1_3",
    "type": "box",
    "position": [
-    -0.296,
-    2.649,
-    2.517
+    -0.282,
+    3.311,
+    2.371
    ],
    "rotation": [
-    -23.87,
-    1.09,
+    -42.49,
+    1.11,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
-    0.22,
-    0.22,
-    0.851
+    0.21,
+    0.21,
+    0.977
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52631,26 +57075,26 @@
    "name": "Arm_2_Hose_1_4",
    "type": "box",
    "position": [
-    -0.282,
-    3.134,
-    3.24
+    -0.269,
+    4.088,
+    3.047
    ],
    "rotation": [
-    -41.95,
-    1.09,
+    -54.11,
+    1.11,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
-    0.22,
-    0.22,
-    1.033
+    0.21,
+    0.21,
+    1.214
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52659,26 +57103,26 @@
    "name": "Arm_2_Hose_2_1",
    "type": "box",
    "position": [
-    0.323,
-    2.669,
-    1.07
+    0.308,
+    2.702,
+    1.018
    ],
    "rotation": [
-    25.16,
-    -1.09,
+    0.88,
+    -1.11,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
-    0.22,
-    0.22,
-    0.859
+    0.21,
+    0.21,
+    0.736
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52687,26 +57131,26 @@
    "name": "Arm_2_Hose_2_2",
    "type": "box",
    "position": [
-    0.309,
-    2.494,
-    1.793
+    0.295,
+    2.849,
+    1.694
    ],
    "rotation": [
-    0.77,
-    -1.09,
+    -24.25,
+    -1.11,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
-    0.22,
-    0.22,
-    0.784
+    0.21,
+    0.21,
+    0.802
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52715,26 +57159,26 @@
    "name": "Arm_2_Hose_2_3",
    "type": "box",
    "position": [
-    0.296,
-    2.649,
-    2.517
+    0.282,
+    3.311,
+    2.371
    ],
    "rotation": [
-    -23.87,
-    -1.09,
+    -42.49,
+    -1.11,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
-    0.22,
-    0.22,
-    0.851
+    0.21,
+    0.21,
+    0.977
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52743,26 +57187,55 @@
    "name": "Arm_2_Hose_2_4",
    "type": "box",
    "position": [
-    0.282,
-    3.134,
-    3.24
+    0.269,
+    4.088,
+    3.047
    ],
    "rotation": [
-    -41.95,
-    -1.09,
+    -54.11,
+    -1.11,
     0.0
    ],
    "parent": "Arm_2",
    "size": [
-    0.22,
-    0.22,
-    1.033
+    0.21,
+    0.21,
+    1.214
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_2_Upper"
+   },
+   "gen": "Arm_2",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_2_Held",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    2.024,
+    3.7
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_2",
+   "size": [
+    0.52,
+    0.5,
+    0.52
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Arm_2_Held"
    },
    "gen": "Arm_2",
    "source": "visible"
@@ -52771,9 +57244,9 @@
    "name": "Arm_3",
    "type": "group",
    "position": [
-    9.5,
+    7.4,
     7.0,
-    -92.0
+    -88.0
    ],
    "rotation": [
     0.0,
@@ -52798,9 +57271,9 @@
    ],
    "parent": "Arm_3",
    "size": [
-    1.3,
+    1.43,
     7.2,
-    1.3
+    1.43
    ],
    "material": "structure_b",
    "sections": 10,
@@ -52825,9 +57298,9 @@
    ],
    "parent": "Arm_3",
    "size": [
-    1.9,
-    0.6,
-    1.9
+    2.09,
+    0.66,
+    2.09
    ],
    "material": "structure_b",
    "sections": 8,
@@ -52843,7 +57316,7 @@
    "type": "frustum",
    "position": [
     0.0,
-    0.6,
+    0.66,
     0.0
    ],
    "rotation": [
@@ -52853,9 +57326,9 @@
    ],
    "parent": "Arm_3",
    "size": [
-    1.2,
-    1.0,
-    1.2
+    1.32,
+    1.1,
+    1.32
    ],
    "material": "structure_b",
    "sections": 8,
@@ -52872,8 +57345,8 @@
    "type": "box",
    "position": [
     0.0,
-    0.75,
-    0.649
+    0.825,
+    0.713
    ],
    "rotation": [
     -6.33,
@@ -52882,8 +57355,8 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.14,
-    0.704,
+    0.154,
+    0.775,
     0.06
    ],
    "material": "glow",
@@ -52899,8 +57372,8 @@
    "name": "Arm_3_Shoulder",
    "type": "cylinder",
    "position": [
-    0.475,
-    1.6,
+    0.522,
+    1.76,
     0.0
    ],
    "rotation": [
@@ -52910,15 +57383,15 @@
    ],
    "parent": "Arm_3",
    "size": [
-    1.0,
-    0.95,
-    1.0
+    1.1,
+    1.045,
+    1.1
    ],
    "material": "structure_b",
    "sections": 10,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -52927,8 +57400,8 @@
    "name": "Arm_3_Shoulder_Disc",
    "type": "cylinder",
    "position": [
-    0.525,
-    1.6,
+    0.573,
+    1.76,
     0.0
    ],
    "rotation": [
@@ -52938,16 +57411,16 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.6,
-    1.05,
-    0.6
+    0.66,
+    1.145,
+    0.66
    ],
    "material": "glow",
    "sections": 10,
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -52957,25 +57430,25 @@
    "type": "frustum",
    "position": [
     0.0,
-    1.6,
+    1.76,
     0.0
    ],
    "rotation": [
-    22.0,
+    30.62,
     0.0,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
-    0.62,
-    2.7,
-    0.496
+    0.682,
+    2.97,
+    0.546
    ],
    "material": "structure_b",
    "bottom_scale": 1.282051282051282,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -52984,26 +57457,26 @@
    "name": "Arm_3_Link1_Strip_0",
    "type": "box",
    "position": [
-    -0.355,
-    2.051,
-    0.182
+    -0.391,
+    2.22,
+    0.272
    ],
    "rotation": [
-    22.0,
+    30.62,
     0.0,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
-    0.102,
-    1.62,
-    0.14
+    0.108,
+    1.782,
+    0.154
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53012,26 +57485,26 @@
    "name": "Arm_3_Link1_Strip_2",
    "type": "box",
    "position": [
-    0.355,
-    2.051,
-    0.182
+    0.391,
+    2.22,
+    0.272
    ],
    "rotation": [
-    22.0,
+    30.62,
     0.0,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
-    0.102,
-    1.62,
-    0.14
+    0.108,
+    1.782,
+    0.154
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53040,9 +57513,9 @@
    "name": "Arm_3_Elbow",
    "type": "cylinder",
    "position": [
-    0.4,
-    4.103,
-    1.011
+    0.44,
+    4.316,
+    1.513
    ],
    "rotation": [
     0.0,
@@ -53051,15 +57524,15 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.84,
-    0.8,
-    0.84
+    0.924,
+    0.88,
+    0.924
    ],
    "material": "structure_b",
    "sections": 10,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53068,9 +57541,9 @@
    "name": "Arm_3_Elbow_Disc",
    "type": "cylinder",
    "position": [
-    0.45,
-    4.103,
-    1.011
+    0.49,
+    4.316,
+    1.513
    ],
    "rotation": [
     0.0,
@@ -53079,16 +57552,16 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.504,
-    0.9,
-    0.504
+    0.554,
+    0.98,
+    0.554
    ],
    "material": "glow",
    "sections": 10,
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53098,26 +57571,26 @@
    "type": "frustum",
    "position": [
     0.0,
-    3.766,
-    1.846
+    3.812,
+    2.365
    ],
    "rotation": [
-    -68.0,
+    -59.38,
     0.0,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
-    0.36,
-    0.9,
-    0.36
+    0.396,
+    0.99,
+    0.396
    ],
    "material": "structure_b",
    "sections": 4,
    "bottom_scale": 0.05,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53127,25 +57600,25 @@
    "type": "frustum",
    "position": [
     0.0,
-    4.103,
-    1.011
+    4.316,
+    1.513
    ],
    "rotation": [
-    62.0,
+    64.67,
     0.0,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
-    0.5,
-    2.2,
-    0.4
+    0.55,
+    2.42,
+    0.44
    ],
    "material": "structure_b",
    "bottom_scale": 1.3333333333333333,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53154,26 +57627,26 @@
    "name": "Arm_3_Link2_Strip_0",
    "type": "box",
    "position": [
-    -0.293,
-    4.289,
-    1.361
+    -0.323,
+    4.502,
+    1.906
    ],
    "rotation": [
-    62.0,
+    64.67,
     0.0,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
-    0.1,
-    1.32,
-    0.14
+    0.105,
+    1.452,
+    0.154
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53182,26 +57655,26 @@
    "name": "Arm_3_Link2_Strip_2",
    "type": "box",
    "position": [
-    0.293,
-    4.289,
-    1.361
+    0.323,
+    4.502,
+    1.906
    ],
    "rotation": [
-    62.0,
+    64.67,
     0.0,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
-    0.1,
-    1.32,
-    0.14
+    0.105,
+    1.452,
+    0.154
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53211,8 +57684,8 @@
    "type": "frustum",
    "position": [
     0.0,
-    4.286,
-    2.954
+    4.416,
+    3.7
    ],
    "rotation": [
     0.0,
@@ -53221,16 +57694,16 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.95,
-    0.95,
-    0.95
+    1.045,
+    1.045,
+    1.045
    ],
    "material": "structure_b",
    "sections": 6,
    "bottom_scale": 0.55,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53239,9 +57712,9 @@
    "name": "Arm_3_Light",
    "type": "box",
    "position": [
-    0.155,
-    4.714,
-    3.222
+    0.17,
+    4.887,
+    3.995
    ],
    "rotation": [
     11.03,
@@ -53250,15 +57723,15 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.2,
-    0.29,
+    0.22,
+    0.319,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53267,9 +57740,9 @@
    "name": "Arm_3_WristStrip_1",
    "type": "box",
    "position": [
-    0.254,
-    4.429,
-    2.954
+    0.279,
+    4.573,
+    3.7
    ],
    "rotation": [
     11.03,
@@ -53278,15 +57751,15 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.1,
-    0.678,
+    0.11,
+    0.745,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53295,9 +57768,9 @@
    "name": "Arm_3_WristStrip_2",
    "type": "box",
    "position": [
-    -0.254,
-    4.429,
-    2.954
+    -0.279,
+    4.573,
+    3.7
    ],
    "rotation": [
     11.03,
@@ -53306,15 +57779,15 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.1,
-    0.678,
+    0.11,
+    0.745,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53324,8 +57797,8 @@
    "type": "cylinder",
    "position": [
     0.0,
-    4.036,
-    2.954
+    4.141,
+    3.7
    ],
    "rotation": [
     0.0,
@@ -53334,15 +57807,15 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.45,
-    0.28,
-    0.45
+    0.495,
+    0.308,
+    0.495
    ],
-   "material": "machine",
+   "material": "structure_b",
    "sections": 8,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53352,8 +57825,8 @@
    "type": "box",
    "position": [
     0.0,
-    4.046,
-    3.114
+    4.152,
+    3.876
    ],
    "rotation": [
     142.0,
@@ -53362,14 +57835,14 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.24,
-    0.85,
-    0.2
+    0.264,
+    0.935,
+    0.22
    ],
    "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53379,8 +57852,8 @@
    "type": "box",
    "position": [
     0.0,
-    3.246,
-    3.637
+    3.273,
+    4.452
    ],
    "rotation": [
     0.0,
@@ -53389,14 +57862,14 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.28,
-    0.26,
-    0.26
+    0.308,
+    0.286,
+    0.286
    ],
-   "material": "machine",
+   "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53406,8 +57879,8 @@
    "type": "frustum",
    "position": [
     0.0,
-    2.463,
-    3.23
+    2.411,
+    4.004
    ],
    "rotation": [
     24.0,
@@ -53416,15 +57889,15 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.24,
-    1.06,
-    0.2
+    0.264,
+    1.166,
+    0.22
    ],
    "material": "structure_b",
    "bottom_scale": 0.2,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53434,8 +57907,8 @@
    "type": "box",
    "position": [
     0.0,
-    4.007,
-    3.271
+    4.11,
+    4.049
    ],
    "rotation": [
     142.0,
@@ -53444,15 +57917,15 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.07,
-    0.51,
+    0.077,
+    0.561,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53462,8 +57935,8 @@
    "type": "box",
    "position": [
     0.0,
-    2.843,
-    3.483
+    2.829,
+    4.282
    ],
    "rotation": [
     24.0,
@@ -53472,15 +57945,15 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.07,
-    0.5,
-    0.09
+    0.077,
+    0.55,
+    0.094
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53489,9 +57962,9 @@
    "name": "Arm_3_Finger_2",
    "type": "box",
    "position": [
-    0.139,
-    4.046,
-    2.874
+    0.152,
+    4.152,
+    3.612
    ],
    "rotation": [
     142.0,
@@ -53500,14 +57973,14 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.24,
-    0.85,
-    0.2
+    0.264,
+    0.935,
+    0.22
    ],
    "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53516,9 +57989,9 @@
    "name": "Arm_3_Finger_2_Knuckle",
    "type": "box",
    "position": [
-    0.592,
-    3.246,
-    2.612
+    0.651,
+    3.273,
+    3.324
    ],
    "rotation": [
     0.0,
@@ -53527,14 +58000,14 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.28,
-    0.26,
-    0.26
+    0.308,
+    0.286,
+    0.286
    ],
-   "material": "machine",
+   "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53543,9 +58016,9 @@
    "name": "Arm_3_Finger_2_Tip",
    "type": "frustum",
    "position": [
-    0.24,
-    2.463,
-    2.816
+    0.263,
+    2.411,
+    3.548
    ],
    "rotation": [
     24.0,
@@ -53554,15 +58027,15 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.24,
-    1.06,
-    0.2
+    0.264,
+    1.166,
+    0.22
    ],
    "material": "structure_b",
    "bottom_scale": 0.2,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53571,9 +58044,9 @@
    "name": "Arm_3_Finger_2_Lit2",
    "type": "box",
    "position": [
-    0.275,
-    4.007,
-    2.795
+    0.302,
+    4.11,
+    3.525
    ],
    "rotation": [
     142.0,
@@ -53582,15 +58055,15 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.07,
-    0.51,
+    0.077,
+    0.561,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53599,9 +58072,9 @@
    "name": "Arm_3_Finger_2_Lit",
    "type": "box",
    "position": [
-    0.458,
-    2.843,
-    2.689
+    0.504,
+    2.829,
+    3.409
    ],
    "rotation": [
     24.0,
@@ -53610,15 +58083,15 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.07,
-    0.5,
-    0.09
+    0.077,
+    0.55,
+    0.094
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53627,9 +58100,9 @@
    "name": "Arm_3_Finger_3",
    "type": "box",
    "position": [
-    -0.139,
-    4.046,
-    2.874
+    -0.152,
+    4.152,
+    3.612
    ],
    "rotation": [
     142.0,
@@ -53638,14 +58111,14 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.24,
-    0.85,
-    0.2
+    0.264,
+    0.935,
+    0.22
    ],
    "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53654,9 +58127,9 @@
    "name": "Arm_3_Finger_3_Knuckle",
    "type": "box",
    "position": [
-    -0.592,
-    3.246,
-    2.612
+    -0.651,
+    3.273,
+    3.324
    ],
    "rotation": [
     0.0,
@@ -53665,14 +58138,14 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.28,
-    0.26,
-    0.26
+    0.308,
+    0.286,
+    0.286
    ],
-   "material": "machine",
+   "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53681,9 +58154,9 @@
    "name": "Arm_3_Finger_3_Tip",
    "type": "frustum",
    "position": [
-    -0.24,
-    2.463,
-    2.816
+    -0.263,
+    2.411,
+    3.548
    ],
    "rotation": [
     24.0,
@@ -53692,15 +58165,15 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.24,
-    1.06,
-    0.2
+    0.264,
+    1.166,
+    0.22
    ],
    "material": "structure_b",
    "bottom_scale": 0.2,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53709,9 +58182,9 @@
    "name": "Arm_3_Finger_3_Lit2",
    "type": "box",
    "position": [
-    -0.275,
-    4.007,
-    2.795
+    -0.302,
+    4.11,
+    3.525
    ],
    "rotation": [
     142.0,
@@ -53720,15 +58193,15 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.07,
-    0.51,
+    0.077,
+    0.561,
     0.06
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53737,9 +58210,9 @@
    "name": "Arm_3_Finger_3_Lit",
    "type": "box",
    "position": [
-    -0.458,
-    2.843,
-    2.689
+    -0.504,
+    2.829,
+    3.409
    ],
    "rotation": [
     24.0,
@@ -53748,15 +58221,15 @@
    ],
    "parent": "Arm_3",
    "size": [
-    0.07,
-    0.5,
-    0.09
+    0.077,
+    0.55,
+    0.094
    ],
    "material": "glow",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53765,26 +58238,26 @@
    "name": "Arm_3_Hose_1_1",
    "type": "box",
    "position": [
-    -0.294,
-    2.728,
-    0.73
+    -0.323,
+    2.885,
+    1.017
    ],
    "rotation": [
-    -10.55,
-    1.3,
+    -5.13,
+    1.17,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
-    0.2,
-    0.2,
-    0.619
+    0.22,
+    0.22,
+    0.735
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53793,26 +58266,26 @@
    "name": "Arm_3_Hose_1_2",
    "type": "box",
    "position": [
-    -0.281,
-    2.98,
-    1.28
+    -0.309,
+    3.111,
+    1.689
    ],
    "rotation": [
-    -36.2,
-    1.3,
+    -30.13,
+    1.17,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
-    0.2,
-    0.2,
-    0.741
+    0.22,
+    0.22,
+    0.838
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53821,26 +58294,26 @@
    "name": "Arm_3_Hose_1_3",
    "type": "box",
    "position": [
-    -0.269,
-    3.533,
-    1.829
+    -0.296,
+    3.666,
+    2.362
    ],
    "rotation": [
-    -51.95,
-    1.3,
+    -46.97,
+    1.17,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
-    0.2,
-    0.2,
-    0.952
+    0.22,
+    0.22,
+    1.045
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53849,26 +58322,26 @@
    "name": "Arm_3_Hose_1_4",
    "type": "box",
    "position": [
-    -0.256,
-    4.385,
-    2.379
+    -0.282,
+    4.551,
+    3.034
    ],
    "rotation": [
-    -61.26,
-    1.3,
+    -57.37,
+    1.17,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
-    0.2,
-    0.2,
-    1.203
+    0.22,
+    0.22,
+    1.307
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53877,26 +58350,26 @@
    "name": "Arm_3_Hose_2_1",
    "type": "box",
    "position": [
-    0.294,
-    2.728,
-    0.73
+    0.323,
+    2.885,
+    1.017
    ],
    "rotation": [
-    -10.55,
-    -1.3,
+    -5.13,
+    -1.17,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
-    0.2,
-    0.2,
-    0.619
+    0.22,
+    0.22,
+    0.735
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53905,26 +58378,26 @@
    "name": "Arm_3_Hose_2_2",
    "type": "box",
    "position": [
-    0.281,
-    2.98,
-    1.28
+    0.309,
+    3.111,
+    1.689
    ],
    "rotation": [
-    -36.2,
-    -1.3,
+    -30.13,
+    -1.17,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
-    0.2,
-    0.2,
-    0.741
+    0.22,
+    0.22,
+    0.838
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53933,26 +58406,26 @@
    "name": "Arm_3_Hose_2_3",
    "type": "box",
    "position": [
-    0.269,
-    3.533,
-    1.829
+    0.296,
+    3.666,
+    2.362
    ],
    "rotation": [
-    -51.95,
-    -1.3,
+    -46.97,
+    -1.17,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
-    0.2,
-    0.2,
-    0.952
+    0.22,
+    0.22,
+    1.045
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53961,26 +58434,57 @@
    "name": "Arm_3_Hose_2_4",
    "type": "box",
    "position": [
-    0.256,
-    4.385,
-    2.379
+    0.282,
+    4.551,
+    3.034
    ],
    "rotation": [
-    -61.26,
-    -1.3,
+    -57.37,
+    -1.17,
     0.0
    ],
    "parent": "Arm_3",
    "size": [
-    0.2,
-    0.2,
-    1.203
+    0.22,
+    0.22,
+    1.307
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_3_Upper"
+   },
+   "gen": "Arm_3",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_3_Scan",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.13,
+    3.7
+   ],
+   "rotation": [
+    180.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_3",
+   "size": [
+    0.95,
+    2.136,
+    0.95
+   ],
+   "material": "scan",
+   "sections": 4,
+   "bottom_scale": 0.12,
+   "collision": false,
+   "outline": false,
+   "double_sided": true,
+   "mobile": {
+    "group": "Arm_3_Scan"
    },
    "gen": "Arm_3",
    "source": "visible"
@@ -53989,9 +58493,9 @@
    "name": "Arm_4",
    "type": "group",
    "position": [
-    -9.5,
+    -7.4,
     7.0,
-    -99.0
+    -82.0
    ],
    "rotation": [
     0.0,
@@ -54136,7 +58640,7 @@
    "sections": 10,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54165,7 +58669,7 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54179,7 +58683,7 @@
     0.0
    ],
    "rotation": [
-    16.0,
+    30.62,
     0.0,
     0.0
    ],
@@ -54193,7 +58697,7 @@
    "bottom_scale": 1.282051282051282,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54203,11 +58707,11 @@
    "type": "box",
    "position": [
     -0.391,
-    2.274,
-    0.147
+    2.22,
+    0.272
    ],
    "rotation": [
-    16.0,
+    30.62,
     0.0,
     0.0
    ],
@@ -54221,7 +58725,7 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54231,11 +58735,11 @@
    "type": "box",
    "position": [
     0.391,
-    2.274,
-    0.147
+    2.22,
+    0.272
    ],
    "rotation": [
-    16.0,
+    30.62,
     0.0,
     0.0
    ],
@@ -54249,7 +58753,7 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54259,8 +58763,8 @@
    "type": "cylinder",
    "position": [
     0.44,
-    4.615,
-    0.819
+    4.316,
+    1.513
    ],
    "rotation": [
     0.0,
@@ -54277,7 +58781,7 @@
    "sections": 10,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54287,8 +58791,8 @@
    "type": "cylinder",
    "position": [
     0.49,
-    4.615,
-    0.819
+    4.316,
+    1.513
    ],
    "rotation": [
     0.0,
@@ -54306,7 +58810,7 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54316,11 +58820,11 @@
    "type": "frustum",
    "position": [
     0.0,
-    4.342,
-    1.77
+    3.812,
+    2.365
    ],
    "rotation": [
-    -74.0,
+    -59.38,
     0.0,
     0.0
    ],
@@ -54335,7 +58839,7 @@
    "bottom_scale": 0.05,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54345,11 +58849,11 @@
    "type": "frustum",
    "position": [
     0.0,
-    4.615,
-    0.819
+    4.316,
+    1.513
    ],
    "rotation": [
-    44.0,
+    64.67,
     0.0,
     0.0
    ],
@@ -54363,7 +58867,7 @@
    "bottom_scale": 1.3333333333333333,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54373,11 +58877,11 @@
    "type": "box",
    "position": [
     -0.323,
-    4.928,
-    1.121
+    4.502,
+    1.906
    ],
    "rotation": [
-    44.0,
+    64.67,
     0.0,
     0.0
    ],
@@ -54391,7 +58895,7 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54401,11 +58905,11 @@
    "type": "box",
    "position": [
     0.323,
-    4.928,
-    1.121
+    4.502,
+    1.906
    ],
    "rotation": [
-    44.0,
+    64.67,
     0.0,
     0.0
    ],
@@ -54419,7 +58923,7 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54429,8 +58933,8 @@
    "type": "frustum",
    "position": [
     0.0,
-    5.421,
-    2.5
+    4.416,
+    3.7
    ],
    "rotation": [
     0.0,
@@ -54448,7 +58952,7 @@
    "bottom_scale": 0.55,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54458,8 +58962,8 @@
    "type": "box",
    "position": [
     0.17,
-    5.891,
-    2.795
+    4.887,
+    3.995
    ],
    "rotation": [
     11.03,
@@ -54476,7 +58980,7 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54486,8 +58990,8 @@
    "type": "box",
    "position": [
     0.279,
-    5.577,
-    2.5
+    4.573,
+    3.7
    ],
    "rotation": [
     11.03,
@@ -54504,7 +59008,7 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54514,8 +59018,8 @@
    "type": "box",
    "position": [
     -0.279,
-    5.577,
-    2.5
+    4.573,
+    3.7
    ],
    "rotation": [
     11.03,
@@ -54532,7 +59036,7 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54542,8 +59046,8 @@
    "type": "cylinder",
    "position": [
     0.0,
-    5.146,
-    2.5
+    4.141,
+    3.7
    ],
    "rotation": [
     0.0,
@@ -54556,11 +59060,11 @@
     0.308,
     0.495
    ],
-   "material": "machine",
+   "material": "structure_b",
    "sections": 8,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54570,8 +59074,8 @@
    "type": "box",
    "position": [
     0.0,
-    5.157,
-    2.676
+    4.152,
+    3.876
    ],
    "rotation": [
     142.0,
@@ -54587,7 +59091,7 @@
    "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54597,8 +59101,8 @@
    "type": "box",
    "position": [
     0.0,
-    4.277,
-    3.251
+    3.273,
+    4.452
    ],
    "rotation": [
     0.0,
@@ -54611,10 +59115,10 @@
     0.286,
     0.286
    ],
-   "material": "machine",
+   "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54624,8 +59128,8 @@
    "type": "frustum",
    "position": [
     0.0,
-    3.415,
-    2.804
+    2.411,
+    4.004
    ],
    "rotation": [
     24.0,
@@ -54642,7 +59146,7 @@
    "bottom_scale": 0.2,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54652,8 +59156,8 @@
    "type": "box",
    "position": [
     0.0,
-    5.114,
-    2.849
+    4.11,
+    4.049
    ],
    "rotation": [
     142.0,
@@ -54670,7 +59174,7 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54680,8 +59184,8 @@
    "type": "box",
    "position": [
     0.0,
-    3.833,
-    3.082
+    2.829,
+    4.282
    ],
    "rotation": [
     24.0,
@@ -54698,7 +59202,7 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54708,8 +59212,8 @@
    "type": "box",
    "position": [
     0.152,
-    5.157,
-    2.412
+    4.152,
+    3.612
    ],
    "rotation": [
     142.0,
@@ -54725,7 +59229,7 @@
    "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54735,8 +59239,8 @@
    "type": "box",
    "position": [
     0.651,
-    4.277,
-    2.124
+    3.273,
+    3.324
    ],
    "rotation": [
     0.0,
@@ -54749,10 +59253,10 @@
     0.286,
     0.286
    ],
-   "material": "machine",
+   "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54762,8 +59266,8 @@
    "type": "frustum",
    "position": [
     0.263,
-    3.415,
-    2.348
+    2.411,
+    3.548
    ],
    "rotation": [
     24.0,
@@ -54780,7 +59284,7 @@
    "bottom_scale": 0.2,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54790,8 +59294,8 @@
    "type": "box",
    "position": [
     0.302,
-    5.114,
-    2.325
+    4.11,
+    3.525
    ],
    "rotation": [
     142.0,
@@ -54808,7 +59312,7 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54818,8 +59322,8 @@
    "type": "box",
    "position": [
     0.504,
-    3.833,
-    2.209
+    2.829,
+    3.409
    ],
    "rotation": [
     24.0,
@@ -54836,7 +59340,7 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54846,8 +59350,8 @@
    "type": "box",
    "position": [
     -0.152,
-    5.157,
-    2.412
+    4.152,
+    3.612
    ],
    "rotation": [
     142.0,
@@ -54863,7 +59367,7 @@
    "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54873,8 +59377,8 @@
    "type": "box",
    "position": [
     -0.651,
-    4.277,
-    2.124
+    3.273,
+    3.324
    ],
    "rotation": [
     0.0,
@@ -54887,10 +59391,10 @@
     0.286,
     0.286
    ],
-   "material": "machine",
+   "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54900,8 +59404,8 @@
    "type": "frustum",
    "position": [
     -0.263,
-    3.415,
-    2.348
+    2.411,
+    3.548
    ],
    "rotation": [
     24.0,
@@ -54918,7 +59422,7 @@
    "bottom_scale": 0.2,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54928,8 +59432,8 @@
    "type": "box",
    "position": [
     -0.302,
-    5.114,
-    2.325
+    4.11,
+    3.525
    ],
    "rotation": [
     142.0,
@@ -54946,7 +59450,7 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54956,8 +59460,8 @@
    "type": "box",
    "position": [
     -0.504,
-    3.833,
-    2.209
+    2.829,
+    3.409
    ],
    "rotation": [
     24.0,
@@ -54974,7 +59478,7 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -54984,25 +59488,25 @@
    "type": "box",
    "position": [
     -0.323,
-    3.129,
-    0.594
+    2.885,
+    1.017
    ],
    "rotation": [
-    -31.65,
-    1.75,
+    -5.13,
+    1.17,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    0.589
+    0.735
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -55012,25 +59516,25 @@
    "type": "box",
    "position": [
     -0.309,
-    3.571,
-    1.044
+    3.111,
+    1.689
    ],
    "rotation": [
-    -53.45,
-    1.75,
+    -30.13,
+    1.17,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    0.817
+    0.838
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -55040,25 +59544,25 @@
    "type": "box",
    "position": [
     -0.296,
-    4.344,
-    1.494
+    3.666,
+    2.362
    ],
    "rotation": [
-    -64.34,
-    1.75,
+    -46.97,
+    1.17,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    1.1
+    1.045
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -55068,25 +59572,25 @@
    "type": "box",
    "position": [
     -0.282,
-    5.447,
-    1.945
+    4.551,
+    3.034
    ],
    "rotation": [
-    -70.44,
-    1.75,
+    -57.37,
+    1.17,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    1.405
+    1.307
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -55096,25 +59600,25 @@
    "type": "box",
    "position": [
     0.323,
-    3.129,
-    0.594
+    2.885,
+    1.017
    ],
    "rotation": [
-    -31.65,
-    -1.75,
+    -5.13,
+    -1.17,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    0.589
+    0.735
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -55124,25 +59628,25 @@
    "type": "box",
    "position": [
     0.309,
-    3.571,
-    1.044
+    3.111,
+    1.689
    ],
    "rotation": [
-    -53.45,
-    -1.75,
+    -30.13,
+    -1.17,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    0.817
+    0.838
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -55152,25 +59656,25 @@
    "type": "box",
    "position": [
     0.296,
-    4.344,
-    1.494
+    3.666,
+    2.362
    ],
    "rotation": [
-    -64.34,
-    -1.75,
+    -46.97,
+    -1.17,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    1.1
+    1.045
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -55180,25 +59684,56 @@
    "type": "box",
    "position": [
     0.282,
-    5.447,
-    1.945
+    4.551,
+    3.034
    ],
    "rotation": [
-    -70.44,
-    -1.75,
+    -57.37,
+    -1.17,
     0.0
    ],
    "parent": "Arm_4",
    "size": [
     0.22,
     0.22,
-    1.405
+    1.307
    ],
-   "material": "frame",
+   "material": "structure_b",
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Arm_4_Upper"
+   },
+   "gen": "Arm_4",
+   "source": "visible"
+  },
+  {
+   "name": "Arm_4_Scan",
+   "type": "frustum",
+   "position": [
+    0.0,
+    4.13,
+    3.7
+   ],
+   "rotation": [
+    180.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Arm_4",
+   "size": [
+    0.95,
+    2.136,
+    0.95
+   ],
+   "material": "scan",
+   "sections": 4,
+   "bottom_scale": 0.12,
+   "collision": false,
+   "outline": false,
+   "double_sided": true,
+   "mobile": {
+    "group": "Arm_4_Scan"
    },
    "gen": "Arm_4",
    "source": "visible"
@@ -128949,8 +133484,8 @@
   "W_Ramp_Conduit: 0.45 m junction plate where it meets Conduit_Walk's angled edge",
   "Elevator: elevator car r 5.2 m arrives on Central from skyforge_arena, travel 19.8 m",
   "Gate_Works: open blast door (12 x 6 m)",
-  "Arm_2: pose 50/95 -> 32/71 (clear of the objects around it)",
-  "Arm_4: pose 40/60 -> 16/28 (clear of the objects around it)",
+  "Conv_West: working assembly line - 11 parcels 2.67 m apart at 1.0 m/s, 2 station(s)",
+  "Conv_East: working assembly line - 11 parcels 2.67 m apart at 1.0 m/s, 2 station(s)",
   "Valve_A_Vent: left out - it would hang over the edge of Pipe_Junction_A",
   "Exit_Door: open exit door -> level1_part3",
   "outlets: removed wall dressing in front of pours: Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine",
@@ -129638,16 +134173,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 88582,
-  "objects": 3997,
-  "materials": 28,
-  "glb_kb": 5944,
-  "nodes": 4548,
-  "draw_calls_unbatched": 4366,
-  "draw_calls_batched_min": 30,
-  "images": 86,
-  "tex_mem_gpu_compressed_mb": 22.64,
-  "tex_mem_uncompressed_mb": 90.56,
+  "triangles": 91098,
+  "objects": 4151,
+  "materials": 30,
+  "glb_kb": 6006,
+  "nodes": 4710,
+  "draw_calls_unbatched": 4528,
+  "draw_calls_batched_min": 32,
+  "images": 91,
+  "tex_mem_gpu_compressed_mb": 22.89,
+  "tex_mem_uncompressed_mb": 91.57,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

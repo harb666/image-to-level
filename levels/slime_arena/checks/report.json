@@ -1,17 +1,17 @@
 {
  "level": "slime_arena",
  "assets_kb": {
-  "level.glb": 5944,
-  "mobile/level_mobile.glb": 3533,
-  "mobile/collision.json": 279,
+  "level.glb": 6006,
+  "mobile/level_mobile.glb": 3611,
+  "mobile/collision.json": 280,
   "environment.json": 4,
   "background.glb": 474,
-  "effects.json": 59
+  "effects.json": 64
  },
  "complexity": {
-  "triangles": 110210,
-  "nodes": 4366,
-  "materials": 28,
+  "triangles": 112926,
+  "nodes": 4528,
+  "materials": 30,
   "heaviest": [
    [
     "Corrosion_Band",
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 5944,
-   "triangles": 88582,
-   "draw_calls": 4366,
-   "tex_mem_gpu_mb_est": 22.64
+   "glb_kb": 6006,
+   "triangles": 91098,
+   "draw_calls": 4528,
+   "tex_mem_gpu_mb_est": 22.89
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3533,
-   "triangles": 103710,
-   "draw_calls": 93,
-   "visible_draw_calls_est": 58.8,
-   "visible_draw_calls_max_est": 93,
-   "tex_mem_gpu_mb_est": 7.01,
-   "materials": 30,
-   "nodes": 94,
+   "glb_kb": 3611,
+   "triangles": 106322,
+   "draw_calls": 117,
+   "visible_draw_calls_est": 67.0,
+   "visible_draw_calls_max_est": 117,
+   "tex_mem_gpu_mb_est": 7.27,
+   "materials": 32,
+   "nodes": 118,
    "colliders": {
-    "colliders": 881,
+    "colliders": 885,
     "hazards": 11,
-    "glb_kb": 457
+    "glb_kb": 459
    },
    "background_kb": 402
   },
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 49119.0,
-  "reachable_area_m2": 9616.0,
-  "components": 442,
+  "standable_area_m2": 49107.0,
+  "reachable_area_m2": 9540.0,
+  "components": 447,
   "spawns": [
    {
     "id": "spawn",
@@ -121,7 +121,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 19.77,
-    "component": 238,
+    "component": 243,
     "hazard_distance_m": 7.52
    },
    {
@@ -135,7 +135,7 @@
     "clearance_m": 1.5,
     "headroom_m": 19.8,
     "component": 6,
-    "hazard_distance_m": 6.52
+    "hazard_distance_m": 6.67
    },
    {
     "id": "enemy_pipes",
@@ -332,7 +332,7 @@
    },
    {
     "name": "Assembly_Line",
-    "standable_m2": 421.0,
+    "standable_m2": 399.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -462,12 +462,22 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 93 (> 80)"
+   "message": "mobile draw calls 117 (> 80)"
+  },
+  {
+   "kind": "mobile_visible_draw_calls",
+   "severity": "warning",
+   "message": "~67 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "110210 triangles (> budget 40000)"
+   "message": "112926 triangles (> budget 40000)"
+  },
+  {
+   "kind": "dev_size",
+   "severity": "info",
+   "message": "dev GLB 6006 KB (> 6000)"
   },
   {
    "kind": "low_ceiling",
@@ -483,8 +493,8 @@
  ],
  "counts": {
   "error": 0,
-  "warning": 2,
-  "info": 1
+  "warning": 3,
+  "info": 2
  },
  "passed": true,
  "gameplay_config": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer."

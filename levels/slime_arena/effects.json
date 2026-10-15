@@ -1802,6 +1802,258 @@
    }
   },
   {
+   "id": "Conv_West_Line",
+   "type": "assembly_line",
+   "category": "assembly",
+   "glb_contains": "parcels, parts and arms at rest (own nodes: mobile groups)",
+   "godot_runtime": "script (apply_effects.gd _assembly): every node of the line's 'move' groups (<group>__*) slides along 'axis' by fmod(t * speed, spacing); per station the arm's groups turn about 'hinge' through 'pivot' by angle_deg * bump(t - t0, window) every 'period' s, 'held' groups hide from t0 to t0 + 0.6 period, 'scan' groups show only during the dip, and the 'reveal' group gets assembly_reveal.gdshader (fragments with dot(world, plane.xyz) < plane.w discarded: parts appear once the parcel passes the arm)",
+   "line": {
+    "move": [
+     "Conv_West_Parcels",
+     "Conv_West_Item1",
+     "Conv_West_Item2"
+    ],
+    "axis": [
+     0.0,
+     0.0,
+     -1.0
+    ],
+    "speed": 1.0,
+    "spacing": 2.6727,
+    "stations": [
+     {
+      "task": "add",
+      "arm": "Arm_2",
+      "groups": [
+       "Arm_2_Upper"
+      ],
+      "held": [
+       "Arm_2_Held"
+      ],
+      "scan": [],
+      "pivot": [
+       -7.4,
+       8.68,
+       -70
+      ],
+      "hinge": [
+       0.0,
+       0.0,
+       -1.0
+      ],
+      "angle_deg": 8.167,
+      "t0": 2.3546,
+      "period": 2.6727,
+      "window": 1.1,
+      "reveal": {
+       "group": "Conv_West_Item1",
+       "plane": [
+        0.0,
+        0.0,
+        -1.0,
+        70.0
+       ]
+      }
+     },
+     {
+      "task": "inspect",
+      "arm": "Arm_4",
+      "groups": [
+       "Arm_4_Upper"
+      ],
+      "held": [],
+      "scan": [
+       "Arm_4_Scan"
+      ],
+      "pivot": [
+       -7.4,
+       8.76,
+       -82
+      ],
+      "hinge": [
+       0.0,
+       0.0,
+       -1.0
+      ],
+      "angle_deg": 7.736,
+      "t0": 0.9911,
+      "period": 2.6727,
+      "window": 1.4,
+      "reveal": {
+       "group": "Conv_West_Item2",
+       "plane": [
+        0.0,
+        0.0,
+        -1.0,
+        82.0
+       ]
+      }
+     }
+    ]
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 1.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 1.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 1.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Conv_East_Line",
+   "type": "assembly_line",
+   "category": "assembly",
+   "glb_contains": "parcels, parts and arms at rest (own nodes: mobile groups)",
+   "godot_runtime": "script (apply_effects.gd _assembly): every node of the line's 'move' groups (<group>__*) slides along 'axis' by fmod(t * speed, spacing); per station the arm's groups turn about 'hinge' through 'pivot' by angle_deg * bump(t - t0, window) every 'period' s, 'held' groups hide from t0 to t0 + 0.6 period, 'scan' groups show only during the dip, and the 'reveal' group gets assembly_reveal.gdshader (fragments with dot(world, plane.xyz) < plane.w discarded: parts appear once the parcel passes the arm)",
+   "line": {
+    "move": [
+     "Conv_East_Parcels",
+     "Conv_East_Item1",
+     "Conv_East_Item2"
+    ],
+    "axis": [
+     0.0,
+     0.0,
+     -1.0
+    ],
+    "speed": 1.0,
+    "spacing": 2.6727,
+    "stations": [
+     {
+      "task": "add",
+      "arm": "Arm_1",
+      "groups": [
+       "Arm_1_Upper"
+      ],
+      "held": [
+       "Arm_1_Held"
+      ],
+      "scan": [],
+      "pivot": [
+       7.4,
+       8.68,
+       -76
+      ],
+      "hinge": [
+       0.0,
+       0.0,
+       1.0
+      ],
+      "angle_deg": 8.167,
+      "t0": 2.3546,
+      "period": 2.6727,
+      "window": 1.1,
+      "reveal": {
+       "group": "Conv_East_Item1",
+       "plane": [
+        0.0,
+        0.0,
+        -1.0,
+        76.0
+       ]
+      }
+     },
+     {
+      "task": "inspect",
+      "arm": "Arm_3",
+      "groups": [
+       "Arm_3_Upper"
+      ],
+      "held": [],
+      "scan": [
+       "Arm_3_Scan"
+      ],
+      "pivot": [
+       7.4,
+       8.76,
+       -88
+      ],
+      "hinge": [
+       0.0,
+       0.0,
+       1.0
+      ],
+      "angle_deg": 7.736,
+      "t0": 0.9911,
+      "period": 2.6727,
+      "window": 1.4,
+      "reveal": {
+       "group": "Conv_East_Item2",
+       "plane": [
+        0.0,
+        0.0,
+        -1.0,
+        88.0
+       ]
+      }
+     }
+    ]
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 1.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 1.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 1.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Tube_Pods",
    "type": "tube_pods",
    "category": "launch",
@@ -2397,8 +2649,12 @@
     "Arm_1_Link1_Strip_0",
     "Arm_1_Shoulder_Disc",
     "Arm_1_TurretLight",
+    "Conv_East_Out_StackRing",
+    "Conv_East_Out_Lamp",
     "Conv_East_Edge_2",
     "Conv_East_Edge_1",
+    "Conv_West_Out_StackRing",
+    "Conv_West_Out_Lamp",
     "Conv_West_Edge_2",
     "Conv_West_Edge_1",
     "Gate_Works_LampLight",
