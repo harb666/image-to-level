@@ -1515,3 +1515,85 @@ def clear_outlets(ctx, margin=3.0):
 # ------------------------------------------------------------------ Stage 9: pluggable modules (pipeline/modules/*.py register more kinds)
 from modules import load_all as _load_modules
 _load_modules()
+
+
+def bore_tunnels(ctx, spec):
+    """Stage 69: arched water tunnels bored along z through whatever solid boxes stand in the way (walls, walkway bases).
+    spec "tunnels": [{id, x, z: [z_from, z_to], width (6.6), crown (4.95, top of the opening), floor (0), liquid (1)}].
+    Every unrotated box crossing the bore is split at x +- (width / 2 + pier) and the middle refilled with a round_arch
+    of the same depth (an opening of `width`, round top at `crown`) - boxes lying wholly in the opening's height band
+    (skirts, trims under the crown) are only split; boxes above the crown (walkway trim / floor) are not touched, so a
+    walkway over the tunnel stays exactly as walkable. A gap between two pools inside the bore is closed by stretching
+    the nearer pool box. Both mouths get an arch of voussoirs with a lit keystone, a glowing halo, impost blocks, jambs
+    and pilasters with lanterns; ribs with lamps run through the bore (visual only)."""
+    from anchors import world_matrices
+    for t in spec.get("tunnels", []):
+        ctx.element = (t["id"], t.get("source", "visible"))
+        x = float(t["x"]); za, zb = sorted(map(float, t["z"])); B = float(t.get("width", 6.6)); crown = float(t.get("crown", 4.95))
+        y0 = float(t.get("floor", 0.0)); liq = float(t.get("liquid", 1.0)); r0 = B / 2; spring = crown - r0; M = B + 2.4; hz = set(ctx.hazards)
+        W, by = world_matrices({"objects": ctx.objects})
+        for o in list(ctx.objects):
+            if o["type"] != "box" or o["name"] in hz or not o.get("size") or (o.get("mobile") or {}).get("group"): continue
+            Mw = np.asarray(W[o["name"]]); 
+            if not np.allclose(Mw[:3, :3], np.eye(3), atol=1e-6): continue
+            (cx, cy, cz), (w, h, d) = Mw[:3, 3], o["size"]
+            if not (cx - w / 2 < x + M / 2 - 0.01 and cx + w / 2 > x - M / 2 + 0.01 and cz - d / 2 < zb - 0.01 and cz + d / 2 > za + 0.01 and cy < crown + 0.4 and cy + h > y0 + 0.01): continue
+            lx = o["position"][0] - cx  # world -> parent-frame x offset
+            parts = [(cx - w / 2, x - M / 2), (x + M / 2, cx + w / 2)]; parts = [p for p in parts if p[1] - p[0] > 0.05]
+            ctx.objects.remove(o)
+            for k, (a, b) in enumerate(parts):
+                q = dict(o, name=o["name"] if k == 0 else o["name"] + "_R", position=[round(lx + (a + b) / 2, 3)] + list(o["position"][1:]), size=[round(b - a, 3), h, d])
+                if k: ctx.names.add(q["name"])
+                ctx.objects.append(q)
+            if cy <= y0 + 0.05 and cy + h >= crown + 0.3:  # solid down to the floor and over the crown: refill round the opening
+                mat = "structure_b" if o.get("material") in ("structure", "machine") else o.get("material")  # (no lit panels in the slime)
+                ha = min(h, crown - cy + 0.9)  # the arch block ends just over the crown, a plain box fills the rest (a box: hidden-face culling / coplanar checks see it)
+                ctx.add(f"{t['id']}_Bore_{o['name']}", "round_arch", [round(lx + x, 3)] + list(o["position"][1:]), [M, round(ha, 3), d], mat, o.get("parent"),
+                        opening=round(B / M, 4), opening_h=round((crown - cy) / ha, 4), segments=12, waterway=True)
+                if h - ha > 0.02: ctx.add(f"{t['id']}_Bore_{o['name']}_Top", "box", [round(lx + x, 3), round(o["position"][1] + ha, 3), o["position"][2]], [M, round(h - ha, 3), d], o.get("material"), o.get("parent"))
+        # close the pool gap inside the bore (the nearer pool box grows)
+        pools = []
+        for n in ctx.hazards:
+            p = next((q for q in ctx.objects if q["name"] == n), None)
+            if p and p["type"] == "box" and not p.get("parent") and not p.get("rotation", [0, 0, 0])[1] and p["position"][0] - p["size"][0] / 2 < x < p["position"][0] + p["size"][0] / 2:
+                pools.append(p)
+        for p in pools:
+            z0, z1 = p["position"][2] - p["size"][2] / 2, p["position"][2] + p["size"][2] / 2
+            others = [(q["position"][2] - q["size"][2] / 2, q["position"][2] + q["size"][2] / 2) for q in pools if q is not p]
+            for o0, o1 in others:
+                if za - 0.01 <= z1 < o0 <= zb + 0.01:  # p ends inside the bore, the other pool starts further on
+                    p["size"][2] = round(o0 - z0, 3); p["position"][2] = round((z0 + o0) / 2, 3); ctx.notes.append(f"{t['id']}: {p['name']} reaches on to {o0} through the bore")
+        st = dict(collision=False, mobile={"static": True}); gy = ctx.role("glow_yellow")
+        arc = lambda ra, rb, a0, a1: [[ra * math.cos(a0), spring + ra * math.sin(a0)], [rb * math.cos(a0), spring + rb * math.sin(a0)],
+                                     [rb * math.cos(a1), spring + rb * math.sin(a1)], [ra * math.cos(a1), spring + ra * math.sin(a1)]]
+        top_of = {za: float(t.get("top_from", crown + 3.0)), zb: float(t.get("top_to", crown + 0.9))}  # how high the dressing may reach on each face
+        for zf, sg, tag in ((za, -1, "A"), (zb, 1, "B")):  # mouths: local +z = out of the face
+            g = ctx.add(f"{t['id']}_Mouth{tag}", "group", [x, 0, zf], rot=[0, 0 if sg > 0 else 180, 0]); top = top_of[zf]
+            r1 = min(r0 + 0.7, top - 0.2 - spring); N = 9
+            for i in range(N):
+                a0, a1 = math.pi * i / N + 0.012, math.pi * (i + 1) / N - 0.012; key = i == N // 2
+                rr = min(r1 + (0.15 if key else 0.0), top - 0.03 - spring)
+                ctx.add(f"{t['id']}_Mouth{tag}_Voussoir_{i + 1}", "prism", [0, 0, 0], [2 * rr, rr, 0.5 if key else 0.32], "trim" if key else "structure_b", g,
+                        poly=[[round(u, 4), round(v, 4)] for u, v in arc(r0, rr, a0, a1)], **st)
+                if key:  # lit inlay on the keystone
+                    ctx.add(f"{t['id']}_Mouth{tag}_Keylight", "prism", [0, 0, 0.5], [0.4, 0.4, 0.03], gy, g,
+                            poly=[[round(u, 4), round(v, 4)] for u, v in arc(r0 + 0.18, rr - 0.15, a0 + 0.06, a1 - 0.06)], outline=False, **st)
+                if not key: ctx.add(f"{t['id']}_Mouth{tag}_Halo_{i + 1}", "prism", [0, 0, 0], [2 * r1, r1, 0.12], gy, g,  # glowing ring round the stones
+                                    poly=[[round(u, 4), round(v, 4)] for u, v in arc(r1 + 0.02, min(r1 + 0.14, top - 0.01 - spring), math.pi * i / N, math.pi * (i + 1) / N)], outline=False, **st)
+            for sd in (-1, 1):
+                jx = sd * (r0 + (r1 - r0) / 2)
+                ctx.add(f"{t['id']}_Mouth{tag}_Jamb_{sd + 2}", "box", [jx, y0, 0.16], [r1 - r0, spring - y0, 0.32], "structure_b", g, **st)
+                ctx.add(f"{t['id']}_Mouth{tag}_Impost_{sd + 2}", "box", [jx, spring - 0.1, 0.2], [r1 - r0 + 0.3, 0.22, 0.42], "trim", g, **st)
+                px = sd * (r1 + 0.6); ph = top - y0 - 0.3
+                ctx.add(f"{t['id']}_Mouth{tag}_Pilaster_{sd + 2}", "box", [px, y0, 0.22], [0.8, ph, 0.44], "structure_b", g, **st)
+                ctx.add(f"{t['id']}_Mouth{tag}_Capital_{sd + 2}", "box", [px, y0 + ph, 0.3], [1.05, 0.3, 0.6], "trim", g, **st)
+                ctx.add(f"{t['id']}_Mouth{tag}_Lantern_{sd + 2}", "box", [px, max(liq + 1.2, top - 1.45), 0.44 + 0.13], [0.34, 0.6, 0.26], gy, g, outline=False, **st)
+        n_r = max(1, int((zb - za - 1.6) // 2.4) + 1)
+        for k in range(n_r):  # ribs through the bore, a lamp under each crown
+            zr = za + (zb - za) * (k + 1) / (n_r + 1); g = ctx.add(f"{t['id']}_Rib_{k + 1}", "group", [x, 0, round(zr - 0.2, 3)])
+            for i in range(9):
+                a0, a1 = math.pi * i / 9, math.pi * (i + 1) / 9
+                ctx.add(f"{t['id']}_Rib_{k + 1}_{i + 1}", "prism", [0, 0, 0], [B, r0, 0.4], "structure_b", g, poly=[[round(u, 4), round(v, 4)] for u, v in arc(r0 - 0.22, r0 + 0.01, a0, a1)], **st)
+            for sd in (-1, 1): ctx.add(f"{t['id']}_Rib_{k + 1}_Jamb_{sd + 2}", "box", [sd * (r0 - 0.105), y0, 0.2], [0.23, spring - y0, 0.4], "structure_b", g, **st)
+            ctx.add(f"{t['id']}_Rib_{k + 1}_Lamp", "box", [0, crown - 0.22 - 0.1, 0.2], [0.7, 0.1, 0.26], gy, g, outline=False, **st)
+    ctx.element = None

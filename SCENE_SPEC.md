@@ -925,3 +925,17 @@ Building blocks usable without the preset:
   `uv1_offset`, preview `map.offset` on its own texture object) - the surface runs with the parcels instead of the
   parcels gliding over a still belt. scroll = -axis * speed / tile on world (x, z) UVs; measured in the preview: belt
   pattern and parcel move the same way by the same amount (5 vs 6 px in 0.06 s, top-down; the parcel top is nearer).
+
+## Stage 69: arched slime tunnels through the north wall
+- Spec `tunnels`: [{id, x, z: [z_from, z_to], width, crown, floor, liquid}] -> `architecture.bore_tunnels` (after the
+  modules, before slime decals / corrosion). Every unrotated box crossing the bore is split at x +- (width / 2 + 1.2);
+  boxes reaching from the floor over the crown are refilled with a `round_arch` (opening `width`, round top at
+  `crown`, flagged `waterway`: the openings check accepts liquid in it) + a plain box above; boxes in the opening's
+  height band are only split; boxes above the crown are untouched. A pool gap inside the bore is closed by stretching
+  the nearer pool box (slime_arena: HazardFluid_2 now reaches z -56 - the two pools join through the bores).
+- Dressing (visual only): each mouth - 9 voussoirs with a raised keystone (lit inlay), a glowing yellow halo round the
+  stones, jambs, impost blocks, pilasters with capitals and lanterns; ribs with a lamp under each crown through the
+  bore; the corrosion pass dresses the inner waterline like every other wall.
+- slime_arena: Tunnel_West (x -28, under window Op1) and Tunnel_East (x 28, under Op3), 6.6 m wide, crown 4.95 m,
+  9 m long (wall + hall walkway base). The walkway's floor / trim / walkable area are unchanged (measured: same
+  walkable entry, same reachable area 9620 m2); the arena-side dressing stays under its trim (top 5.85 m).

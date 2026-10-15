@@ -456,3 +456,24 @@ class Stage68(unittest.TestCase):
                 ln = e["line"]; tile = L["materials"]["belt"]["tile_m"]
                 self.assertAlmostEqual(ln["belt"]["scroll"][1], -ln["axis"][2] * ln["speed"] / tile, places=4)
         self.assertIn("uv1_offset", open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")).read())
+
+
+class Stage69(unittest.TestCase):
+    def test_slime_tunnels_through_the_north_wall(self):
+        """Two arched slime tunnels (x -28 / +28) through the north wall and the hall walkway base under it: the bore is
+        open (no solid box left across it below the crown), liquid runs through it, the walkway deck / walkable area
+        is untouched and both mouths are dressed."""
+        import sys, numpy as np
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from anchors import world_matrices
+        lv = os.path.join(ROOT, "levels", "slime_arena"); L = json.load(open(os.path.join(lv, "level.json"))); W, by = world_matrices(L)
+        self.assertIn({"name": "Walkway_North", "min": [-56.0, -56.0], "max": [56.0, -51.0], "y": 7.0}, L["walkable"])
+        self.assertEqual(by["Walkway_North_Floor"]["size"], [112.3, 0.3, 5.3])
+        pool = by["HazardFluid_2"]; self.assertAlmostEqual(pool["position"][2] + pool["size"][2] / 2, -56.0, places=2)  # reaches the hall pool
+        for tid, x in (("Tunnel_West", -28.0), ("Tunnel_East", 28.0)):
+            for k in ("_MouthA_Voussoir_5", "_MouthB_Voussoir_5", "_MouthA_Keylight", "_Rib_1_Lamp"): self.assertIn(tid + k, by)
+            self.assertTrue(by[f"{tid}_Bore_Walkway_North_Base" + ("" if x < 0 else "_R")]["waterway"])
+            for o in L["objects"]:  # nothing solid left in the bore below the crown (3.3 m half width, crown 4.95)
+                if o["type"] != "box" or o["name"] in L["hazards"] or o.get("collision") is False: continue
+                M = np.asarray(W[o["name"]]); (cx, cy, cz), (w, h, d) = M[:3, 3], o["size"]
+                if np.allclose(M[:3, :3], np.eye(3)) and abs(cx - x) < w / 2 + 3.0 and cz - d / 2 < -51.1 and cz + d / 2 > -59.9 and cy < 4.0 and cy + h > 1.2:
+                    self.fail(f"{o['name']} blocks {tid}")

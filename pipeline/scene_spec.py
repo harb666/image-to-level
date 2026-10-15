@@ -58,6 +58,8 @@ SCHEMA = {
     "terrain": (LIST, False, dict(ELEMENT, id=(STR, True), area=(("vec", 4), True), height=(V2, False), cell=(NUM, False), seed=(INT, False),
                                   material=(STR, False), top_material=(STR, False), walkable=(BOOL, False), notes=(STR, False))),
     "hazards": (LIST, False, dict(ELEMENT, id=(STR, True), area=(("vec", 4), True), y=(NUM, True), material=(STR, False))),
+    "tunnels": (LIST, False, dict(ELEMENT, id=(STR, True), x=(NUM, True), z=(("vec", 2), True), width=(NUM, False), crown=(NUM, False), floor=(NUM, False),
+                                  liquid=(NUM, False), notes=(STR, False))),  # Stage 69: arched water tunnels bored through walls / walkway bases (along z)
     "encounters": (LIST, False, dict(ELEMENT, id=(STR, True), waves=(INT, False), enemies_per_wave=(LIST, False), spawns=(LIST, False), opens=(STR, False),
                                      trigger=(STR, False))),  # Stage 59: enemy waves (run by the game); "opens": a laser gate id
     "materials": (DICT, False, {"variation": (BOOL, False), "roles": (DICT, False)}),

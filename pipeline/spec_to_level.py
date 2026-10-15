@@ -72,6 +72,7 @@ def generate(spec, G, level_dir=None):
     A.party_walls(ctx)
     A.place_covers(ctx)  # after connections: cover never stands in a landing (Stage 8)
     A.dress_ceilings(ctx)  # Stage 18: "varied" ceilings, after every deck exists (lamp pods keep headroom)
+    A.bore_tunnels(ctx, spec)  # Stage 69: arched water tunnels through walls (before the slime decals / corrosion see the walls)
     import weathering; weathering.leaks(ctx, spec); weathering.crate_skin(ctx, spec)  # slime decals, printed crates (visual only)
     for h in spec.get("hazards", []):
         ctx.element = (h["id"], h.get("source", "visible")); x0, z0, x1, z1 = h["area"]

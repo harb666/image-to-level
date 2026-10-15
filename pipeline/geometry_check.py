@@ -510,6 +510,7 @@ def check_openings(g, L, W, out):
         if o["type"] not in ("arch", "round_arch") or not o.get("size"): continue
         w, h, d = o["size"]; M = W[o["name"]]; oh = h * o.get("opening_h", 0.75 if o["type"] == "arch" else 0.75)
         fam = g.family(o.get("parent") or o["name"]) | {o["name"]}
+        if o.get("waterway"): fam |= set(L.get("hazards", []))  # Stage 69: a water tunnel is meant to have liquid in it
         for yy in (1.0, min(1.8, oh * 0.6)):
             O = (M @ [0, yy, -d / 2 - 0.6, 1])[:3]; E = (M @ [0, yy, d / 2 + 0.6, 1])[:3]; D = (E - O) / np.linalg.norm(E - O)
             nb = g.near(np.minimum(O, E) - 0.1, np.maximum(O, E) + 0.1, {o["name"]})
