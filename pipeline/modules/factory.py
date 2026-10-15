@@ -263,7 +263,7 @@ def conveyor(ctx, s, x, y, z, yaw):
     n = s["id"]; (ax, az), (bx, bz) = s["from"], s["to"]; L = math.hypot(bx - ax, bz - az); w = float(s.get("width", 2.0)); h = 0.9
     g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); st = dict(mobile={"static": True})
     ctx.add(n + "_Bed", "box", [0, 0, 0], [w, h - 0.15, L], "structure_b", g, **st)
-    ctx.add(n + "_Belt", "box", [0, h - 0.15, 0], [w - 0.3, 0.12, L - 0.2], "grate", g, collision=False, **st)
+    ctx.add(n + "_Belt", "box", [0, h - 0.15, 0], [w - 0.3, 0.12, L - 0.2], "belt" if s.get("working") else "grate", g, collision=False, **st)  # Stage 68: a working belt has its own material (it scrolls)
     for k, sd in enumerate((-1, 1)):
         ctx.add(f"{n}_Side_{k + 1}", "box", [sd * (w / 2 - 0.06), h - 0.2, 0], [0.16, 0.35, L - 0.04], "frame", g, collision=False, **st)  # 2 cm proud of the bed
         ctx.add(f"{n}_Edge_{k + 1}", "box", [sd * (w / 2 + 0.01), h - 0.45, 0], [0.04, 0.1, L - 0.6], "glow", g, collision=False, outline=False, **st)
@@ -692,3 +692,17 @@ def _rock_industry(ctx, s, n, g, x, z, gy, L, H, D, slabs, rg):
         f_ = front(u_); y_ = round(rg.uniform(3.5, min(14.0, top(u_) - 3.0)), 2); bx, bz = _loc(u_, f_ - 1.2, gy); nx, nz = _loc(0, 1, gy)
         _pipe(ctx, dict(id=f"{n}_Spout_{i + 1}", position=[round(x + bx, 3), y_, round(z + bz, 3)], yaw=round(math.degrees(math.atan2(nx, nz)), 2), outlet="circle",
                         radius=round(rg.uniform(0.3, 0.45), 2), length=2.4, pour=True, fitting=False, mount=False), getattr(ctx, "floor_y", 0.0), {})  # base buried in the rock
+
+
+@structure("wall_fans", pad=False)
+def wall_fans(ctx, s, x, y, z, yaw):
+    """Stage 68: big fans set into a wall face, a louvred vent under each. Place the group ON the wall face, local +z out
+    of it ("yaw"); "fans": [[x, y, radius], ...] in the group's frame (y = height of the fan centre above the group);
+    "rpm" (default random 14 - 34 per fan, own direction). Each rotor is its own node and spins (effect "spin")."""
+    import architecture as A
+    n = s["id"]; g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); st = dict(mobile={"static": True})
+    for i, (fx, fy, R) in enumerate(s.get("fans", [])):
+        nm = f"{n}_Fan_{i + 1}"; A.fan_unit(ctx, nm, g, (fx, fy, 0.0), R, float(s.get("depth", 1.0)), wall=True, rpm=s.get("rpm"), seed=A._h(nm), st=st)
+        if s.get("vents", True):  # under the housing ring (R + 0.6) and its clamps
+            vh = float(s.get("vent_height", 1.8)); vw = 2 * R * 0.95
+            A.louvred_vent(ctx, f"{n}_Vent_{i + 1}", g, fx, fy - R - 1.0 - vh, vw, vh, 0.0, st)

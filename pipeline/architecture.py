@@ -128,7 +128,7 @@ for _k, _b, _s in (("industrial", "industrial", "realistic"), ("toxic_industrial
     THEMES[_k].setdefault("biome", _b); THEMES[_k].setdefault("style", _s)
 VARIANT_ROLES = ("wall", "structure", "deck", "plaster")
 CORROSION = {"type": "corrosion", "color": [1.0, 1.0, 1.0], "tile_m": 4.0, "res": 128, "toon": True, "emissive": [1.0, 1.0, 1.0], "cutout": 0.5}
-FALLBACK = {"scan": "glow_yellow", "laser": "glow", "glow_dim": "glow", "glow_yellow": "glow", "glass_clear": "glass", "bigscreen": "glow", "tv_casing": "structure_b", "screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
+FALLBACK = {"belt": "grate", "scan": "glow_yellow", "laser": "glow", "glow_dim": "glow", "glow_yellow": "glow", "glass_clear": "glass", "bigscreen": "glow", "tv_casing": "structure_b", "screen": "glow", "screen_b": "glow", "ceiling": "frame", "ceiling_b": "frame", "lamp": "glow", "glass": "hazard", "wall_works": "wall", "wall_slimed": "wall", "foundation": "structure_b", "timber": "frame", "stone": "structure", "plaster": "wall", "roof": "structure_b", "roof_slate": "structure_b", "door": "structure_b",
             "window": "glow", "foliage": "rock", "water": "hazard", "machine": "structure_b", "backdrop": "wall", "structure_b": "structure",
             "frame": "structure_b", "rail": "frame", "grate": "deck", "trim": "structure_b", "accent": "trim", "glow": "accent", "pipe": "frame",
             "hazard": "water", "fall": "water", "stripe": "trim", "ground": "deck", "deck": "ground", "wall": "structure", "structure": "wall", "rock": "structure"}
@@ -524,6 +524,22 @@ def fan_unit(ctx, nm, parent, c, R, depth, wall=True, rpm=None, seed=0, st=None)
             **dict(st, mobile={"merge": False}))  # own node: it spins
 
 
+def louvred_vent(ctx, nm, g, x, yy, vw, vh, f, st):
+    """Stage 35 louvred wall vent (Stage 68: shared helper): frame, dark duct behind, louvres tilted 35 deg (ends 2 cm into
+    the side frames), status light. (x, yy) = bottom centre on the wall face at local z = f, facing +z."""
+    fw = 0.3
+    ctx.add(nm, "box", [x, yy + vh - fw, f + 0.15], [vw, fw, 0.3], "structure_b", g, collision=False, **st)  # top of the frame
+    ctx.add(nm + "_FrameLow", "box", [x, yy, f + 0.15], [vw, fw, 0.3], "structure_b", g, collision=False, **st)
+    for k_, sd in enumerate((-1, 1)): ctx.add(f"{nm}_FrameSide_{k_ + 1}", "box", [x + sd * (vw / 2 - fw / 2), yy + fw - 0.02, f + 0.15], [fw, vh - 2 * fw + 0.04, 0.3], "structure_b", g,
+                                              collision=False, **st)
+    ctx.add(nm + "_Duct", "panel", [x, yy + fw - 0.02, f + 0.02], [vw - 2 * fw + 0.04, vh - 2 * fw + 0.04, 0], ctx.role("accent"), g, uv_region="void", collision=False, outline=False, **st)
+    nl = max(3, int((vh - 2 * fw) / 0.42))
+    for j in range(nl):
+        ly = yy + fw + (vh - 2 * fw) * (j + 0.5) / nl - 0.15
+        ctx.add(f"{nm}_Slat_{j + 1}", "box", [x, ly, f + 0.2], [vw - 2 * fw + 0.04, 0.3, 0.07], "frame", g, [35, 0, 0], collision=False, outline=False, **st)
+    ctx.add(nm + "_Status", "box", [x + vw / 2 - 0.45, yy + vh - fw + 0.07, f + 0.31], [0.3, 0.16, 0.06], "glow", g, collision=False, outline=False, **st)
+
+
 WALL_MODULES = (("pipes", 3), ("machine", 2), ("fan", 1.5), ("emblem", 1.5), ("vent", 1.5), ("monitor", 2), ("door", 0.7), ("plain", 1.2))
 
 
@@ -561,17 +577,7 @@ def _wall_varied(ctx, name, g, L, height, thick, base_y, dress, body="wall"):
             if eh > 3: ctx.add(nm, "panel", [x, fy + 2.5, f + 0.03], [ew, eh, 0], "accent", g, collision=False, outline=False, **st)
         elif m == "vent":
             vw = sw * rng.uniform(0.4, 0.7); yy = rng.uniform(fy + 1, fy + 8); vh = rng.uniform(2, 4)  # framed louvred vent (boxes: cheap)
-            fw = 0.3  # Stage 35: a real louvred vent - framed opening, dark duct behind, angled louvres, status light
-            ctx.add(nm, "box", [x, yy + vh - fw, f + 0.15], [vw, fw, 0.3], "structure_b", g, collision=False, **st)  # top of the frame
-            ctx.add(nm + "_FrameLow", "box", [x, yy, f + 0.15], [vw, fw, 0.3], "structure_b", g, collision=False, **st)
-            for k_, sd in enumerate((-1, 1)): ctx.add(f"{nm}_FrameSide_{k_ + 1}", "box", [x + sd * (vw / 2 - fw / 2), yy + fw - 0.02, f + 0.15], [fw, vh - 2 * fw + 0.04, 0.3], "structure_b", g,
-                                                      collision=False, **st)
-            ctx.add(nm + "_Duct", "panel", [x, yy + fw - 0.02, f + 0.02], [vw - 2 * fw + 0.04, vh - 2 * fw + 0.04, 0], ctx.role("accent"), g, uv_region="void", collision=False, outline=False, **st)
-            nl = max(3, int((vh - 2 * fw) / 0.42))
-            for j in range(nl):  # louvres tilted 35 deg, ends 2 cm into the side frames
-                ly = yy + fw + (vh - 2 * fw) * (j + 0.5) / nl - 0.15
-                ctx.add(f"{nm}_Slat_{j + 1}", "box", [x, ly, f + 0.2], [vw - 2 * fw + 0.04, 0.3, 0.07], "frame", g, [35, 0, 0], collision=False, outline=False, **st)
-            ctx.add(nm + "_Status", "box", [x + vw / 2 - 0.45, yy + vh - fw + 0.07, f + 0.31], [0.3, 0.16, 0.06], "glow", g, collision=False, outline=False, **st)
+            louvred_vent(ctx, nm, g, x, yy, vw, vh, f, st)
         elif m == "monitor":  # Stage 22-23: wall TV - moulded tv_body (casing texture: screws, vents, speaker grille, knobs, LED), glass screen, mount arms
             tw = min(sw * rng.uniform(0.5, 0.7), rng.uniform(3.2, 5.2)); th = tw * 0.74; yy = fy + rng.uniform(1.4, 2.6); scr = "a" if rng.random() < 0.5 else "b"  # which of the two layouts
             scr, sid = screen_slot(ctx, "screen", scr)  # Stage 52: own picture variant + id (flicker timing / easter egg)

@@ -914,3 +914,14 @@ Building blocks usable without the preset:
 - The arms stand 1.2 m further back (x +-8.6) and are larger (adders 1.2, scanners 1.3) so the moves come from big,
   readable shoulder / elbow / turret rotations at a comfortable reach: measured max 92 % of full stretch over the cycle
   (`arm_motion.reach`; spec_to_level notes any arm over 93 %).
+
+## Stage 68: wall fans over the Works gate, running belts
+- New structure `wall_fans` (`modules/factory.py`): big fans set into a wall face (group on the face, local +z out of
+  it, "yaw"), "fans": [[x, y, radius], ...], a louvred vent under each (`architecture.louvred_vent`, now shared with the
+  wall dressing's vent module). Each rotor is its own node and spins (effect `spin`). slime_arena: `Lintel_Fans`, two
+  1.7 m fans in the hall-side face of the wall block above Gate_Works (+2 draw calls for the rotors).
+- Working conveyors give their belt its own material `belt` (falls back to the grate look); the assembly line effect
+  carries `belt: {material, scroll}` and the runtimes move that material's UV offset by scroll * t (Godot
+  `uv1_offset`, preview `map.offset` on its own texture object) - the surface runs with the parcels instead of the
+  parcels gliding over a still belt. scroll = -axis * speed / tile on world (x, z) UVs; measured in the preview: belt
+  pattern and parcel move the same way by the same amount (5 vs 6 px in 0.06 s, top-down; the parcel top is nearer).

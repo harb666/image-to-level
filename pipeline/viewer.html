@@ -294,8 +294,10 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
             sh.fragmentShader='uniform float uOff;uniform vec4 uR;varying float vPid;\n'+sh.fragmentShader.replace('void main() {','void main() {\nif(uR.x+vPid*uR.y+uOff<uR.z-0.001)discard;');};
           m.customProgramCacheKey=()=>'asmrev'+rv.group;o.material=m;swapped.push([o,m0]);}}
       const all=[...mv,...ST.flatMap(x=>[...x.arm,...x.held,...x.scan,...x.ring])],q=new THREE.Quaternion(),qy=new THREE.Quaternion(),UPV=new THREE.Vector3(0,1,0),tmp=new THREE.Vector3(),fp=(a,b)=>((a%b)+b)%b,sm=x=>x*x*(3-2*x);
-      fxUpd.push({reset(){all.forEach(o=>{o.position.set(0,0,0);o.quaternion.identity();o.visible=true;});ST.forEach(x=>x.bones&&Object.values(x.bones).forEach(b=>b.quaternion.identity()));swapped.forEach(([o,m])=>o.material=m);},
-        u(t){const d=fp(t*Ln.speed,Ln.spacing);mv.forEach(o=>o.position.copy(ax).multiplyScalar(d));RU.forEach(U=>U.uOff.value=d);
+      const BM=Ln.belt?[...new Set(Object.values(byName).map(o=>o.material).filter(m=>m&&m.map&&(m.name===Ln.belt.material||m.name.startsWith(Ln.belt.material+'__'))))]:[]; // Stage 68: the belt surface runs with the parcels
+      BM.forEach(m=>{if(!m.userData.beltMap){m.map=m.map.clone();m.map.needsUpdate=true;m.userData.beltMap=1;}}); // own texture object (the image is shared with the grate floors)
+      fxUpd.push({reset(){BM.forEach(m=>m.map.offset.set(0,0));all.forEach(o=>{o.position.set(0,0,0);o.quaternion.identity();o.visible=true;});ST.forEach(x=>x.bones&&Object.values(x.bones).forEach(b=>b.quaternion.identity()));swapped.forEach(([o,m])=>o.material=m);},
+        u(t){const d=fp(t*Ln.speed,Ln.spacing);mv.forEach(o=>o.position.copy(ax).multiplyScalar(d));if(Ln.belt)BM.forEach(m=>m.map.offset.set(fp(Ln.belt.scroll[0]*t,1),fp(Ln.belt.scroll[1]*t,1)));RU.forEach(U=>U.uOff.value=d);
           for(const x of ST){const s=x.st,P=s.period,W=s.window,u=fp(t-s.t0+W/2,P),k=u<W?0.5-0.5*Math.cos(6.2832*u/W):0,tau=fp(t-s.t0,P);
             let ang=s.angle_deg*Math.PI/180*k,psi=0,picked=tau>0.6*P,kb=0,tp=0.6*P;
             if(s.bin_yaw_deg!=null){const ty=s.turn,wb=s.bin_window,a=W/2,b=a+ty,c=b+wb,pb=s.bin_yaw_deg*Math.PI/180; // turn to the bin, reach in, turn back

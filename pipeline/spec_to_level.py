@@ -89,6 +89,7 @@ def generate(spec, G, level_dir=None):
             m = dict(m, **over[base])
             if r != base and "color" in over[base]: m["color"] = [round(min(1, c * f), 3) for c, f in zip(over[base]["color"], (0.92, 0.95, 0.9))]
         mats[r] = m
+    ctx.mats = mats
     regions = None
     if W and not spec.get("spawns"):  # Stage 9: player / enemy spawn regions on open terrain
         blocked = [(o["position"][0], o["position"][2], max(o["size"][0], o["size"][2]) / 2) for o in ctx.objects
@@ -289,8 +290,10 @@ def _effects(spec, ctx, plats, env, glow):
                 st_.append(dict(task=arm["task"], arm=stn["arm"], groups=arm["groups"], held=arm["held"], scan=arm["scan"], pivot=pv, hinge=arm["hinge"], **ex,
                                 angle_deg=round(ang, 3), t0=t0, period=round(P, 4), window=round(min(1.8 if arm["task"] == "add" else 2.6, 0.7 * P), 3),
                                 reveal=dict(group=stn["group"], s0=A_["s0"], spacing=S, s_arm=round(sk, 4), id_step=10.0)))
+            tile = float((getattr(ctx, "mats", {}).get("belt") or {}).get("tile_m", 2.0))  # Stage 68: the belt surface runs with the parcels (UV offset / s:
+            belt = dict(material="belt", scroll=[round(-u[0] * v / tile, 5), round(-u[2] * v / tile, 5)])  # top-face UVs = world (x, z) / tile - measured in the preview)
             out.append(dict(id=ln_ + "_Line", type="assembly_line", line=dict(move=[ln_ + "_Parcels"] + [s_["group"] for s_ in A_["stations"]], axis=u, speed=v, spacing=S,
-                                                                             stations=st_)))
+                                                                             stations=st_, belt=belt)))
         la = getattr(ctx, "launches", [])
         if la:  # Stage 49: a slime pod shooting up each column every few seconds (own period / phase per column)
             from modules.factory import POD_SPEED

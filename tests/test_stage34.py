@@ -439,3 +439,20 @@ class Stage67(unittest.TestCase):
                 p = g["meshes"][n["mesh"]]["primitives"][0]["attributes"]; W = acc(p["WEIGHTS_0"], "<f4", 4); J = acc(p["JOINTS_0"], "<u1", 4)
                 self.assertTrue(np.allclose(W[:, 0], 1.0), n["name"])
                 if n["name"].endswith("Upper__structure_b"): self.assertGreaterEqual(len(set(J[:, 0].tolist())), 7, n["name"])  # yaw .. fingers all used
+
+
+class Stage68(unittest.TestCase):
+    def test_wall_fans_and_running_belts(self):
+        """Two spinning fans (own rotor nodes, effect spin) with a louvred vent under each in the wall block over the Works
+        gate; the working belts have their own material whose UVs scroll with the parcels (speed / tile, along the axis)."""
+        lv = os.path.join(ROOT, "levels", "slime_arena"); L = json.load(open(os.path.join(lv, "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        for i in (1, 2):
+            self.assertTrue(by[f"Lintel_Fans_Fan_{i}_Rotor"].get("spin")); self.assertIn(f"Lintel_Fans_Vent_{i}_Slat_1", by)
+        E = json.load(open(os.path.join(lv, "mobile", "effects_mobile.json")))
+        self.assertTrue(all(any(t == f"Lintel_Fans_Fan_{i}_Rotor" for e in E["effects"] if e["type"] == "spin" for t in e["targets"]) for i in (1, 2)))
+        self.assertEqual(by["Conv_East_Belt"]["material"], "belt"); self.assertIn("belt", L["materials"])
+        for e in E["effects"]:
+            if e["type"] == "assembly_line":
+                ln = e["line"]; tile = L["materials"]["belt"]["tile_m"]
+                self.assertAlmostEqual(ln["belt"]["scroll"][1], -ln["axis"][2] * ln["speed"] / tile, places=4)
+        self.assertIn("uv1_offset", open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")).read())
