@@ -946,3 +946,10 @@ Building blocks usable without the preset:
   lamp beside its banner.
 - `Tank_Slime_East`: the domed barrel tank (same model as Tank_North / Tank_South), 7 m across and 11 m tall,
   standing in the Works pool in front of that wall (corroded at the waterline like everything else in the slime).
+
+## Stage 71: twin domed tanks with ductwork to the ceiling
+- `tank` structures take `duct`: {"to": ceiling underside y, "radius", "flange_every"} -> group `<id>_Ductwork`: a
+  collar seated in the dome, a round duct (pipe material, like the ceiling ducts) from the crown 30 cm into the
+  ceiling, flange rings every 2.6 m (`_Duct_Rib_<k>`), a boot 2 cm into the slab and four hangers.
+- slime_arena: `Tank_Slime_East_2` (7 x 11 m) beside `Tank_Slime_East` in the Works pool; both ducted up to the
+  Works ceiling slab (26.5 m).

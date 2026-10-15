@@ -1132,6 +1132,18 @@ def machinery(ctx, s, x, y, z, yaw):
 
 def tank(ctx, s, x, y, z, yaw):
     w, h, d = s.get("size", [3, 5, 3]); ctx.add(s["id"], "tank", [x, y, z], [w, h, d], s.get("material", "pipe"), rot=[0, yaw, 0])
+    du = s.get("duct")
+    if du:  # Stage 71: a round duct from the dome's crown up into the ceiling ({"to": underside y, "radius", "flange_every"}) - one group
+        n = s["id"]; r = float(du.get("radius", min(w, d) * 0.11)); top = h; to = float(du["to"]) - y; st = dict(collision=False, mobile={"static": True})
+        g = ctx.add(n + "_Ductwork", "group", [x, y, z])
+        ctx.add(n + "_Duct_Collar", "cylinder", [0, top - 0.45, 0], [2 * r + 0.7, 0.75, 2 * r + 0.7], "structure_b", g, sections=12, **st)  # seated in the dome
+        ctx.add(n + "_Duct", "cylinder", [0, top - 0.2, 0], [2 * r, to - top + 0.5, 2 * r], s.get("duct_material", "pipe"), g, sections=12, **st)  # 30 cm into the ceiling
+        k, every = 1, float(du.get("flange_every", 2.6)); fy = top + 0.3 + every * 0.5
+        while fy < to - 1.0:  # bolted flange rings ("_Rib_": bands round the duct, not loose props)
+            ctx.add(f"{n}_Duct_Rib_{k}", "cylinder", [0, round(fy, 3), 0], [2 * r + 0.24, 0.2, 2 * r + 0.24], "structure_b", g, sections=12, outline=False, **st); k += 1; fy += every
+        ctx.add(n + "_Duct_Boot", "cylinder", [0, to - 0.48, 0], [2 * r + 0.9, 0.5, 2 * r + 0.9], "structure_b", g, sections=12, **st)  # 2 cm into the slab: no shared face
+        for j in range(4):  # ceiling hangers round the boot
+            a = math.radians(45 + 90 * j); ctx.add(f"{n}_Duct_Hanger_{j + 1}", "box", [math.cos(a) * (r + 0.6), to - 1.6, math.sin(a) * (r + 0.6)], [0.16, 1.62, 0.16], "frame", g, **st)
 
 
 def pillar(ctx, s, x, y, z, yaw):

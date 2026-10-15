@@ -488,3 +488,16 @@ class Stage70(unittest.TestCase):
         self.assertIn("Works_Wall_East_03_M02Emblem", by)  # the banner stays
         t = by["Tank_Slime_East"]; self.assertEqual(t["type"], "tank"); self.assertGreaterEqual(min(t["size"]), 7.0)
         self.assertLess(t["position"][1], 1.0)  # stands in the liquid (surface y 1)
+
+
+class Stage71(unittest.TestCase):
+    def test_second_tank_and_ducts(self):
+        """Two big domed tanks side by side in the Works pool, each with a round flanged duct from its crown into the
+        ceiling slab (underside y 26.5)."""
+        lv = os.path.join(ROOT, "levels", "slime_arena"); L = json.load(open(os.path.join(lv, "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        for t in ("Tank_Slime_East", "Tank_Slime_East_2"):
+            o = by[t]; d = by[t + "_Duct"]; g = by[t + "_Ductwork"]
+            self.assertLess(d["position"][1] + g["position"][1], o["position"][1] + o["size"][1])  # starts inside the dome
+            self.assertGreater(d["position"][1] + g["position"][1] + d["size"][1], 26.5)  # ends inside the ceiling
+            self.assertIn(t + "_Duct_Rib_1", by)
+        self.assertGreater(abs(by["Tank_Slime_East"]["position"][2] - by["Tank_Slime_East_2"]["position"][2]), 7.5)  # side by side, not touching
