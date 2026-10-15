@@ -170,8 +170,9 @@ func _assembly(line: Dictionary) -> void:
 		var scan: Array = []
 		for gname in st["scan"]:
 			scan.append_array(_group_nodes(String(gname)))
-		var pl: Array = st["reveal"]["plane"]
-		for nd in _group_nodes(String(st["reveal"]["group"])):  # parts show only past the arm
+		var rv: Dictionary = st["reveal"]
+		var mats: Array = []
+		for nd in _group_nodes(String(rv["group"])):  # a part shows whole once its parcel reaches the arm
 			var mi := nd as MeshInstance3D
 			if mi == null:
 				continue
@@ -181,9 +182,11 @@ func _assembly(line: Dictionary) -> void:
 			if src:
 				sm.set_shader_parameter("albedo_tex", src.albedo_texture if src.albedo_texture else src.emission_texture)
 				sm.set_shader_parameter("tint", src.albedo_color)
-			sm.set_shader_parameter("plane", Vector4(pl[0], pl[1], pl[2], pl[3]))
+			for k in ["s0", "spacing", "s_arm", "id_step"]:
+				sm.set_shader_parameter(k, float(rv[k]))
 			mi.material_override = sm
-		stations.append([st, arm, held, scan])
+			mats.append(sm)
+		stations.append([st, arm, held, scan, mats])
 	_lines.append([line, mv, stations])
 
 
@@ -191,11 +194,14 @@ func _update_lines() -> void:
 	for ln in _lines:
 		var line: Dictionary = ln[0]
 		var ax := Vector3(line["axis"][0], line["axis"][1], line["axis"][2])
-		var off := ax * fmod(_t * float(line["speed"]), float(line["spacing"]))
+		var d := fmod(_t * float(line["speed"]), float(line["spacing"]))
+		var off := ax * d
 		for nd in ln[1]:
 			(nd as Node3D).position = off
 		for sa in ln[2]:
 			var st: Dictionary = sa[0]
+			for sm in sa[4]:
+				(sm as ShaderMaterial).set_shader_parameter("offset", d)
 			var P := float(st["period"])
 			var W := float(st["window"])
 			var u := fposmod(_t - float(st["t0"]) + W * 0.5, P)

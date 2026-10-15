@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "874abd49a46dd297",
+  "spec_sha": "bfb1d1545e91b6ea",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -701,7 +701,7 @@
      -1.0
     ],
     "speed": 1.0,
-    "spacing": 2.6727,
+    "spacing": 7.35,
     "stations": [
      {
       "task": "add",
@@ -724,17 +724,15 @@
        -1.0
       ],
       "angle_deg": 8.167,
-      "t0": 2.3546,
-      "period": 2.6727,
-      "window": 1.1,
+      "t0": 0.35,
+      "period": 7.35,
+      "window": 1.8,
       "reveal": {
        "group": "Conv_West_Item1",
-       "plane": [
-        0.0,
-        0.0,
-        -1.0,
-        70.0
-       ]
+       "s0": 1.3,
+       "spacing": 7.35,
+       "s_arm": 9.0,
+       "id_step": 10.0
       }
      },
      {
@@ -758,17 +756,15 @@
        -1.0
       ],
       "angle_deg": 7.736,
-      "t0": 0.9911,
-      "period": 2.6727,
-      "window": 1.4,
+      "t0": 5.0,
+      "period": 7.35,
+      "window": 2.2,
       "reveal": {
        "group": "Conv_West_Item2",
-       "plane": [
-        0.0,
-        0.0,
-        -1.0,
-        82.0
-       ]
+       "s0": 1.3,
+       "spacing": 7.35,
+       "s_arm": 21.0,
+       "id_step": 10.0
       }
      }
     ]
@@ -789,7 +785,7 @@
      -1.0
     ],
     "speed": 1.0,
-    "spacing": 2.6727,
+    "spacing": 7.35,
     "stations": [
      {
       "task": "add",
@@ -812,17 +808,15 @@
        1.0
       ],
       "angle_deg": 8.167,
-      "t0": 2.3546,
-      "period": 2.6727,
-      "window": 1.1,
+      "t0": 0.35,
+      "period": 7.35,
+      "window": 1.8,
       "reveal": {
        "group": "Conv_East_Item1",
-       "plane": [
-        0.0,
-        0.0,
-        -1.0,
-        76.0
-       ]
+       "s0": 1.3,
+       "spacing": 7.35,
+       "s_arm": 9.0,
+       "id_step": 10.0
       }
      },
      {
@@ -846,17 +840,15 @@
        1.0
       ],
       "angle_deg": 7.736,
-      "t0": 0.9911,
-      "period": 2.6727,
-      "window": 1.4,
+      "t0": 5.0,
+      "period": 7.35,
+      "window": 2.2,
       "reveal": {
        "group": "Conv_East_Item2",
-       "plane": [
-        0.0,
-        0.0,
-        -1.0,
-        88.0
-       ]
+       "s0": 1.3,
+       "spacing": 7.35,
+       "s_arm": 21.0,
+       "id_step": 10.0
       }
      }
     ]
@@ -51074,7 +51066,7 @@
    "position": [
     0.0,
     0.87,
-    -12.027
+    -7.35
    ],
    "rotation": [
     0.0,
@@ -51101,7 +51093,7 @@
    "position": [
     0.0,
     0.87,
-    -9.355
+    0.0
    ],
    "rotation": [
     0.0,
@@ -51128,196 +51120,7 @@
    "position": [
     0.0,
     0.87,
-    -6.682
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.8,
-    0.64,
-    0.8
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "group": "Conv_West_Parcels"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Parcel_05",
-   "type": "box",
-   "position": [
-    0.0,
-    0.87,
-    -4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.8,
-    0.64,
-    0.8
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "group": "Conv_West_Parcels"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Parcel_06",
-   "type": "box",
-   "position": [
-    0.0,
-    0.87,
-    -1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.8,
-    0.64,
-    0.8
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "group": "Conv_West_Parcels"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Parcel_07",
-   "type": "box",
-   "position": [
-    0.0,
-    0.87,
-    1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.8,
-    0.64,
-    0.8
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "group": "Conv_West_Parcels"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Parcel_08",
-   "type": "box",
-   "position": [
-    0.0,
-    0.87,
-    4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.8,
-    0.64,
-    0.8
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "group": "Conv_West_Parcels"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Parcel_09",
-   "type": "box",
-   "position": [
-    0.0,
-    0.87,
-    6.682
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.8,
-    0.64,
-    0.8
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "group": "Conv_West_Parcels"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Parcel_10",
-   "type": "box",
-   "position": [
-    0.0,
-    0.87,
-    9.355
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.8,
-    0.64,
-    0.8
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "group": "Conv_West_Parcels"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Parcel_11",
-   "type": "box",
-   "position": [
-    0.0,
-    0.87,
-    12.027
+    7.35
    ],
    "rotation": [
     0.0,
@@ -51361,6 +51164,7 @@
    "sections": 8,
    "collision": false,
    "outline": false,
+   "uv_shift": 10,
    "mobile": {
     "group": "Conv_West_Item1"
    },
@@ -51373,7 +51177,7 @@
    "position": [
     0.0,
     1.49,
-    -12.027
+    -7.35
    ],
    "rotation": [
     0.0,
@@ -51390,6 +51194,7 @@
    "sections": 8,
    "collision": false,
    "outline": false,
+   "uv_shift": 20,
    "mobile": {
     "group": "Conv_West_Item1"
    },
@@ -51402,7 +51207,7 @@
    "position": [
     0.0,
     1.49,
-    -9.355
+    0.0
    ],
    "rotation": [
     0.0,
@@ -51419,6 +51224,7 @@
    "sections": 8,
    "collision": false,
    "outline": false,
+   "uv_shift": 30,
    "mobile": {
     "group": "Conv_West_Item1"
    },
@@ -51431,7 +51237,7 @@
    "position": [
     0.0,
     1.49,
-    -6.682
+    7.35
    ],
    "rotation": [
     0.0,
@@ -51448,209 +51254,7 @@
    "sections": 8,
    "collision": false,
    "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item1"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item1_05",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    1.49,
-    -4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.5,
-    0.5,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item1"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item1_06",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    1.49,
-    -1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.5,
-    0.5,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item1"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item1_07",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    1.49,
-    1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.5,
-    0.5,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item1"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item1_08",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    1.49,
-    4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.5,
-    0.5,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item1"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item1_09",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    1.49,
-    6.682
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.5,
-    0.5,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item1"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item1_10",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    1.49,
-    9.355
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.5,
-    0.5,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item1"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item1_11",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    1.49,
-    12.027
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.5,
-    0.5,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
+   "uv_shift": 40,
    "mobile": {
     "group": "Conv_West_Item1"
    },
@@ -51679,6 +51283,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
+   "uv_shift": 10,
    "mobile": {
     "group": "Conv_West_Item2"
    },
@@ -51707,6 +51312,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
+   "uv_shift": 10,
    "mobile": {
     "group": "Conv_West_Item2"
    },
@@ -51719,7 +51325,7 @@
    "position": [
     -0.405,
     1.31,
-    -12.027
+    -7.35
    ],
    "rotation": [
     0.0,
@@ -51735,6 +51341,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
+   "uv_shift": 20,
    "mobile": {
     "group": "Conv_West_Item2"
    },
@@ -51747,7 +51354,7 @@
    "position": [
     0.405,
     1.31,
-    -12.027
+    -7.35
    ],
    "rotation": [
     0.0,
@@ -51763,6 +51370,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
+   "uv_shift": 20,
    "mobile": {
     "group": "Conv_West_Item2"
    },
@@ -51775,7 +51383,7 @@
    "position": [
     -0.405,
     1.31,
-    -9.355
+    0.0
    ],
    "rotation": [
     0.0,
@@ -51791,6 +51399,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
+   "uv_shift": 30,
    "mobile": {
     "group": "Conv_West_Item2"
    },
@@ -51803,7 +51412,7 @@
    "position": [
     0.405,
     1.31,
-    -9.355
+    0.0
    ],
    "rotation": [
     0.0,
@@ -51819,6 +51428,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
+   "uv_shift": 30,
    "mobile": {
     "group": "Conv_West_Item2"
    },
@@ -51831,7 +51441,7 @@
    "position": [
     -0.405,
     1.31,
-    -6.682
+    7.35
    ],
    "rotation": [
     0.0,
@@ -51847,6 +51457,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
+   "uv_shift": 40,
    "mobile": {
     "group": "Conv_West_Item2"
    },
@@ -51859,7 +51470,7 @@
    "position": [
     0.405,
     1.31,
-    -6.682
+    7.35
    ],
    "rotation": [
     0.0,
@@ -51875,398 +51486,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item2"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item2_05_L",
-   "type": "box",
-   "position": [
-    -0.405,
-    1.31,
-    -4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item2"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item2_05_R",
-   "type": "box",
-   "position": [
-    0.405,
-    1.31,
-    -4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item2"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item2_06_L",
-   "type": "box",
-   "position": [
-    -0.405,
-    1.31,
-    -1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item2"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item2_06_R",
-   "type": "box",
-   "position": [
-    0.405,
-    1.31,
-    -1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item2"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item2_07_L",
-   "type": "box",
-   "position": [
-    -0.405,
-    1.31,
-    1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item2"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item2_07_R",
-   "type": "box",
-   "position": [
-    0.405,
-    1.31,
-    1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item2"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item2_08_L",
-   "type": "box",
-   "position": [
-    -0.405,
-    1.31,
-    4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item2"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item2_08_R",
-   "type": "box",
-   "position": [
-    0.405,
-    1.31,
-    4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item2"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item2_09_L",
-   "type": "box",
-   "position": [
-    -0.405,
-    1.31,
-    6.682
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item2"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item2_09_R",
-   "type": "box",
-   "position": [
-    0.405,
-    1.31,
-    6.682
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item2"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item2_10_L",
-   "type": "box",
-   "position": [
-    -0.405,
-    1.31,
-    9.355
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item2"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item2_10_R",
-   "type": "box",
-   "position": [
-    0.405,
-    1.31,
-    9.355
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item2"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item2_11_L",
-   "type": "box",
-   "position": [
-    -0.405,
-    1.31,
-    12.027
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_West_Item2"
-   },
-   "gen": "Conv_West",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_West_Item2_11_R",
-   "type": "box",
-   "position": [
-    0.405,
-    1.31,
-    12.027
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_West",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
+   "uv_shift": 40,
    "mobile": {
     "group": "Conv_West_Item2"
    },
@@ -53547,7 +52767,7 @@
    "position": [
     0.0,
     0.87,
-    -12.027
+    -7.35
    ],
    "rotation": [
     0.0,
@@ -53574,7 +52794,7 @@
    "position": [
     0.0,
     0.87,
-    -9.355
+    0.0
    ],
    "rotation": [
     0.0,
@@ -53601,196 +52821,7 @@
    "position": [
     0.0,
     0.87,
-    -6.682
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.8,
-    0.64,
-    0.8
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "group": "Conv_East_Parcels"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Parcel_05",
-   "type": "box",
-   "position": [
-    0.0,
-    0.87,
-    -4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.8,
-    0.64,
-    0.8
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "group": "Conv_East_Parcels"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Parcel_06",
-   "type": "box",
-   "position": [
-    0.0,
-    0.87,
-    -1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.8,
-    0.64,
-    0.8
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "group": "Conv_East_Parcels"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Parcel_07",
-   "type": "box",
-   "position": [
-    0.0,
-    0.87,
-    1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.8,
-    0.64,
-    0.8
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "group": "Conv_East_Parcels"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Parcel_08",
-   "type": "box",
-   "position": [
-    0.0,
-    0.87,
-    4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.8,
-    0.64,
-    0.8
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "group": "Conv_East_Parcels"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Parcel_09",
-   "type": "box",
-   "position": [
-    0.0,
-    0.87,
-    6.682
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.8,
-    0.64,
-    0.8
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "group": "Conv_East_Parcels"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Parcel_10",
-   "type": "box",
-   "position": [
-    0.0,
-    0.87,
-    9.355
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.8,
-    0.64,
-    0.8
-   ],
-   "material": "accent",
-   "collision": false,
-   "mobile": {
-    "group": "Conv_East_Parcels"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Parcel_11",
-   "type": "box",
-   "position": [
-    0.0,
-    0.87,
-    12.027
+    7.35
    ],
    "rotation": [
     0.0,
@@ -53834,6 +52865,7 @@
    "sections": 8,
    "collision": false,
    "outline": false,
+   "uv_shift": 10,
    "mobile": {
     "group": "Conv_East_Item1"
    },
@@ -53846,7 +52878,7 @@
    "position": [
     0.0,
     1.49,
-    -12.027
+    -7.35
    ],
    "rotation": [
     0.0,
@@ -53863,6 +52895,7 @@
    "sections": 8,
    "collision": false,
    "outline": false,
+   "uv_shift": 20,
    "mobile": {
     "group": "Conv_East_Item1"
    },
@@ -53875,7 +52908,7 @@
    "position": [
     0.0,
     1.49,
-    -9.355
+    0.0
    ],
    "rotation": [
     0.0,
@@ -53892,6 +52925,7 @@
    "sections": 8,
    "collision": false,
    "outline": false,
+   "uv_shift": 30,
    "mobile": {
     "group": "Conv_East_Item1"
    },
@@ -53904,7 +52938,7 @@
    "position": [
     0.0,
     1.49,
-    -6.682
+    7.35
    ],
    "rotation": [
     0.0,
@@ -53921,209 +52955,7 @@
    "sections": 8,
    "collision": false,
    "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item1"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item1_05",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    1.49,
-    -4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.5,
-    0.5,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item1"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item1_06",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    1.49,
-    -1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.5,
-    0.5,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item1"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item1_07",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    1.49,
-    1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.5,
-    0.5,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item1"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item1_08",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    1.49,
-    4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.5,
-    0.5,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item1"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item1_09",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    1.49,
-    6.682
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.5,
-    0.5,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item1"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item1_10",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    1.49,
-    9.355
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.5,
-    0.5,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item1"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item1_11",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    1.49,
-    12.027
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.5,
-    0.5,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
+   "uv_shift": 40,
    "mobile": {
     "group": "Conv_East_Item1"
    },
@@ -54152,6 +52984,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
+   "uv_shift": 10,
    "mobile": {
     "group": "Conv_East_Item2"
    },
@@ -54180,6 +53013,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
+   "uv_shift": 10,
    "mobile": {
     "group": "Conv_East_Item2"
    },
@@ -54192,7 +53026,7 @@
    "position": [
     -0.405,
     1.31,
-    -12.027
+    -7.35
    ],
    "rotation": [
     0.0,
@@ -54208,6 +53042,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
+   "uv_shift": 20,
    "mobile": {
     "group": "Conv_East_Item2"
    },
@@ -54220,7 +53055,7 @@
    "position": [
     0.405,
     1.31,
-    -12.027
+    -7.35
    ],
    "rotation": [
     0.0,
@@ -54236,6 +53071,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
+   "uv_shift": 20,
    "mobile": {
     "group": "Conv_East_Item2"
    },
@@ -54248,7 +53084,7 @@
    "position": [
     -0.405,
     1.31,
-    -9.355
+    0.0
    ],
    "rotation": [
     0.0,
@@ -54264,6 +53100,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
+   "uv_shift": 30,
    "mobile": {
     "group": "Conv_East_Item2"
    },
@@ -54276,7 +53113,7 @@
    "position": [
     0.405,
     1.31,
-    -9.355
+    0.0
    ],
    "rotation": [
     0.0,
@@ -54292,6 +53129,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
+   "uv_shift": 30,
    "mobile": {
     "group": "Conv_East_Item2"
    },
@@ -54304,7 +53142,7 @@
    "position": [
     -0.405,
     1.31,
-    -6.682
+    7.35
    ],
    "rotation": [
     0.0,
@@ -54320,6 +53158,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
+   "uv_shift": 40,
    "mobile": {
     "group": "Conv_East_Item2"
    },
@@ -54332,7 +53171,7 @@
    "position": [
     0.405,
     1.31,
-    -6.682
+    7.35
    ],
    "rotation": [
     0.0,
@@ -54348,398 +53187,7 @@
    "material": "glow_yellow",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item2"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item2_05_L",
-   "type": "box",
-   "position": [
-    -0.405,
-    1.31,
-    -4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item2"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item2_05_R",
-   "type": "box",
-   "position": [
-    0.405,
-    1.31,
-    -4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item2"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item2_06_L",
-   "type": "box",
-   "position": [
-    -0.405,
-    1.31,
-    -1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item2"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item2_06_R",
-   "type": "box",
-   "position": [
-    0.405,
-    1.31,
-    -1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item2"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item2_07_L",
-   "type": "box",
-   "position": [
-    -0.405,
-    1.31,
-    1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item2"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item2_07_R",
-   "type": "box",
-   "position": [
-    0.405,
-    1.31,
-    1.336
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item2"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item2_08_L",
-   "type": "box",
-   "position": [
-    -0.405,
-    1.31,
-    4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item2"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item2_08_R",
-   "type": "box",
-   "position": [
-    0.405,
-    1.31,
-    4.009
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item2"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item2_09_L",
-   "type": "box",
-   "position": [
-    -0.405,
-    1.31,
-    6.682
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item2"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item2_09_R",
-   "type": "box",
-   "position": [
-    0.405,
-    1.31,
-    6.682
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item2"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item2_10_L",
-   "type": "box",
-   "position": [
-    -0.405,
-    1.31,
-    9.355
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item2"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item2_10_R",
-   "type": "box",
-   "position": [
-    0.405,
-    1.31,
-    9.355
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item2"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item2_11_L",
-   "type": "box",
-   "position": [
-    -0.405,
-    1.31,
-    12.027
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "group": "Conv_East_Item2"
-   },
-   "gen": "Conv_East",
-   "source": "visible"
-  },
-  {
-   "name": "Conv_East_Item2_11_R",
-   "type": "box",
-   "position": [
-    0.405,
-    1.31,
-    12.027
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Conv_East",
-   "size": [
-    0.02,
-    0.12,
-    0.56
-   ],
-   "material": "glow_yellow",
-   "collision": false,
-   "outline": false,
+   "uv_shift": 40,
    "mobile": {
     "group": "Conv_East_Item2"
    },
@@ -133484,8 +131932,8 @@
   "W_Ramp_Conduit: 0.45 m junction plate where it meets Conduit_Walk's angled edge",
   "Elevator: elevator car r 5.2 m arrives on Central from skyforge_arena, travel 19.8 m",
   "Gate_Works: open blast door (12 x 6 m)",
-  "Conv_West: working assembly line - 11 parcels 2.67 m apart at 1.0 m/s, 2 station(s)",
-  "Conv_East: working assembly line - 11 parcels 2.67 m apart at 1.0 m/s, 2 station(s)",
+  "Conv_West: working assembly line - 4 parcels 7.35 m apart at 1.0 m/s, 2 station(s)",
+  "Conv_East: working assembly line - 4 parcels 7.35 m apart at 1.0 m/s, 2 station(s)",
   "Valve_A_Vent: left out - it would hang over the edge of Pipe_Junction_A",
   "Exit_Door: open exit door -> level1_part3",
   "outlets: removed wall dressing in front of pours: Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine",
@@ -134173,12 +132621,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 91098,
-  "objects": 4151,
+  "triangles": 90146,
+  "objects": 4095,
   "materials": 30,
-  "glb_kb": 6006,
-  "nodes": 4710,
-  "draw_calls_unbatched": 4528,
+  "glb_kb": 6005,
+  "nodes": 4654,
+  "draw_calls_unbatched": 4472,
   "draw_calls_batched_min": 32,
   "images": 91,
   "tex_mem_gpu_compressed_mb": 22.89,

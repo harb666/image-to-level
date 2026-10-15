@@ -1,16 +1,16 @@
 # slime_arena: generation summary
 
-Spec: levels/slime_arena/scene_spec.json · 4151 objects · 30 materials · 23 effects
+Spec: levels/slime_arena/scene_spec.json · 4095 objects · 30 materials · 23 effects
 Checks: PASSED ({'error': 0, 'warning': 3, 'info': 2}) · refine passes: 0
-Mobile (balanced): 3611 KB · 106322 tris · 117 draw calls · ~67.0 visible (estimate) · ~7.27 MB GPU textures (estimate)
+Mobile (balanced): 3584 KB · 105370 tris · 117 draw calls · ~67.0 visible (estimate) · ~7.27 MB GPU textures (estimate)
 Navigation: 9540.0 m² reachable of 49107.0 m² standable
-Package: dist/slime_arena/package (38 files, 14.29 MB) valid=True
+Package: dist/slime_arena/package (38 files, 14.23 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: mobile draw calls 117 (> 80)
 - warning: ~67 visible draw calls (estimate, > 60)
-- warning: 112926 triangles (> budget 40000)
+- warning: 111974 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -41,8 +41,8 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - W_Ramp_Conduit: 0.45 m junction plate where it meets Conduit_Walk's angled edge
 - Elevator: elevator car r 5.2 m arrives on Central from skyforge_arena, travel 19.8 m
 - Gate_Works: open blast door (12 x 6 m)
-- Conv_West: working assembly line - 11 parcels 2.67 m apart at 1.0 m/s, 2 station(s)
-- Conv_East: working assembly line - 11 parcels 2.67 m apart at 1.0 m/s, 2 station(s)
+- Conv_West: working assembly line - 4 parcels 7.35 m apart at 1.0 m/s, 2 station(s)
+- Conv_East: working assembly line - 4 parcels 7.35 m apart at 1.0 m/s, 2 station(s)
 - Valve_A_Vent: left out - it would hang over the edge of Pipe_Junction_A
 - Exit_Door: open exit door -> level1_part3
 - outlets: removed wall dressing in front of pours: Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine
@@ -56,9 +56,9 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - corrosion: 1876 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 6.6 s
-- build (glb, sky, background, effects, mobile): 126.5 s
-- checks (fast): 94.5 s
+- spec -> level.json: 6.1 s
+- build (glb, sky, background, effects, mobile): 124.0 s
+- checks (fast): 91.0 s
 - previews: 0.7 s
-- export package: 0.8 s
-- total: 229.1 s
+- export package: 0.7 s
+- total: 222.5 s
