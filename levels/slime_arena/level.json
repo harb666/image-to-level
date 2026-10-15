@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "e9f1cd005ef6f9aa",
+  "spec_sha": "a1c73781be9b978c",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -402,12 +402,6 @@
      -205.0,
      0.45,
      2.7
-    ],
-    [
-     -10.59,
-     -105.83,
-     0.3,
-     0.95
     ],
     [
      -26.72,
@@ -1825,6 +1819,34 @@
    }
   },
   {
+   "id": "Crusher_A_Slam",
+   "type": "crusher",
+   "crusher": {
+    "id": "Crusher_A",
+    "group": "Crusher_A_Ram",
+    "warn_group": "Crusher_A_Warn",
+    "travel": 5.4,
+    "period": 4.5,
+    "phase": 0.0,
+    "warn": 0.7,
+    "down": 0.22,
+    "hold": 0.45,
+    "rise": 1.2,
+    "kill": [
+     [
+      -11.55,
+      7.8,
+      -112.35
+     ],
+     [
+      -8.45,
+      9.8,
+      -109.25
+     ]
+    ]
+   }
+  },
+  {
    "id": "Tube_Pods",
    "type": "tube_pods",
    "launches": [
@@ -2780,6 +2802,18 @@
     -168.85
    ],
    "y": 9.99
+  },
+  {
+   "name": "Crusher_A_Pad",
+   "min": [
+    -11.6,
+    -112.4
+   ],
+   "max": [
+    -8.4,
+    -109.2
+   ],
+   "y": 7.8
   }
  ],
  "materials": {
@@ -29422,479 +29456,6 @@
    "material": "deck",
    "gen": "RampOut_SW",
    "source": "inferred"
-  },
-  {
-   "name": "W_Cat_Pipes",
-   "type": "group",
-   "position": [
-    -10.102,
-    0.0,
-    -104.73
-   ],
-   "rotation": [
-    0.0,
-    -156.04,
-    0.0
-   ],
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Deck",
-   "type": "box",
-   "position": [
-    0.0,
-    7.587,
-    0.04
-   ],
-   "rotation": [
-    -5.78,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    3.5,
-    0.4,
-    20.164
-   ],
-   "material": "grate",
-   "connector": true,
-   "axis": "z",
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Beam_L",
-   "type": "box",
-   "position": [
-    -1.45,
-    7.125,
-    0.0
-   ],
-   "rotation": [
-    -5.78,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    0.3,
-    0.45,
-    18.147
-   ],
-   "material": "frame",
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Clad_L",
-   "type": "box",
-   "position": [
-    -1.78,
-    7.022,
-    0.22
-   ],
-   "rotation": [
-    -5.78,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    0.12,
-    0.95,
-    19.874
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_CladLight_L",
-   "type": "box",
-   "position": [
-    -1.855,
-    7.574,
-    0.011
-   ],
-   "rotation": [
-    -5.78,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    0.05,
-    0.11,
-    18.564
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Beam_R",
-   "type": "box",
-   "position": [
-    1.45,
-    7.125,
-    0.0
-   ],
-   "rotation": [
-    -5.78,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    0.3,
-    0.45,
-    18.147
-   ],
-   "material": "frame",
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Clad_R",
-   "type": "box",
-   "position": [
-    1.78,
-    7.022,
-    0.22
-   ],
-   "rotation": [
-    -5.78,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    0.12,
-    0.95,
-    19.874
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_CladLight_R",
-   "type": "box",
-   "position": [
-    1.855,
-    7.574,
-    0.011
-   ],
-   "rotation": [
-    -5.78,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    0.05,
-    0.11,
-    18.564
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Threshold_Lo",
-   "type": "box",
-   "position": [
-    0.0,
-    7.01,
-    -10.181
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    3.0,
-    0.03,
-    0.8
-   ],
-   "material": "stripe",
-   "collision": false,
-   "outline": false,
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Threshold_Hi",
-   "type": "box",
-   "position": [
-    0.0,
-    8.955,
-    9.484
-   ],
-   "rotation": [
-    -5.78,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    3.0,
-    0.03,
-    0.8
-   ],
-   "material": "stripe",
-   "collision": false,
-   "outline": false,
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Support_Footing",
-   "type": "frustum",
-   "position": [
-    0.0,
-    0.5,
-    1.2
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    1.9,
-    1.2,
-    1.3
-   ],
-   "material": "structure_b",
-   "bottom_scale": 1.3,
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Support",
-   "type": "box",
-   "position": [
-    0.0,
-    1.6,
-    1.2
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    1.4,
-    5.59,
-    0.8
-   ],
-   "material": "structure_b",
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Support_Rib_00",
-   "type": "box",
-   "position": [
-    -0.48,
-    1.65,
-    0.77
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    0.2,
-    5.49,
-    0.1
-   ],
-   "material": "frame",
-   "outline": false,
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Support_Rib_02",
-   "type": "box",
-   "position": [
-    -0.48,
-    1.65,
-    1.63
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    0.2,
-    5.49,
-    0.1
-   ],
-   "material": "frame",
-   "outline": false,
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Support_Rib_20",
-   "type": "box",
-   "position": [
-    0.48,
-    1.65,
-    0.77
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    0.2,
-    5.49,
-    0.1
-   ],
-   "material": "frame",
-   "outline": false,
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Support_Rib_22",
-   "type": "box",
-   "position": [
-    0.48,
-    1.65,
-    1.63
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    0.2,
-    5.49,
-    0.1
-   ],
-   "material": "frame",
-   "outline": false,
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Support_Head",
-   "type": "frustum",
-   "position": [
-    0.0,
-    6.84,
-    1.2
-   ],
-   "rotation": [
-    -5.78,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    2.3,
-    0.92,
-    1.7
-   ],
-   "material": "structure_b",
-   "bottom_scale": 0.55,
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Support_Light",
-   "type": "box",
-   "position": [
-    0.0,
-    6.39,
-    1.64
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "W_Cat_Pipes",
-   "size": [
-    0.7,
-    0.16,
-    0.08
-   ],
-   "material": "glow",
-   "outline": false,
-   "collision": false,
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Junction_Hi",
-   "type": "box",
-   "position": [
-    -14.348,
-    8.57,
-    -114.284
-   ],
-   "rotation": [
-    0.0,
-    -156.04,
-    0.0
-   ],
-   "size": [
-    3.56,
-    0.4,
-    0.95
-   ],
-   "connector": false,
-   "material": "deck",
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
-  },
-  {
-   "name": "W_Cat_Pipes_Junction_Lo",
-   "type": "box",
-   "position": [
-    -5.297,
-    6.57,
-    -93.918
-   ],
-   "rotation": [
-    0.0,
-    -156.04,
-    0.0
-   ],
-   "size": [
-    3.56,
-    0.4,
-    4.3
-   ],
-   "connector": false,
-   "material": "deck",
-   "gen": "W_Cat_Pipes",
-   "source": "visible"
   },
   {
    "name": "W_Cat_Junction",
@@ -73647,6 +73208,777 @@
    "source": "visible"
   },
   {
+   "name": "Crusher_A",
+   "type": "group",
+   "position": [
+    -10.0,
+    0.0,
+    -110.8
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Foot",
+   "type": "frustum",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    2.2,
+    1.8,
+    2.2
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "bottom_scale": 1.45,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Column",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    2.0,
+    4.55,
+    2.0
+   ],
+   "material": "pipe",
+   "sections": 12,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Rib_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    2.6,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    2.24,
+    0.3,
+    2.24
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Rib_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    4.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    2.24,
+    0.3,
+    2.24
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Brace",
+   "type": "frustum",
+   "position": [
+    0.0,
+    6.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    3.0,
+    1.0,
+    3.0
+   ],
+   "material": "structure_b",
+   "sections": 4,
+   "bottom_scale": 0.45,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Pad",
+   "type": "box",
+   "position": [
+    0.0,
+    7.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    3.2,
+    0.6,
+    3.2
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Pad_Stripe_1",
+   "type": "box",
+   "position": [
+    0.0,
+    7.78,
+    1.43
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    3.16,
+    0.04,
+    0.3
+   ],
+   "material": "stripe",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Pad_Stripe_2",
+   "type": "box",
+   "position": [
+    0.0,
+    7.78,
+    -1.43
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    3.16,
+    0.04,
+    0.3
+   ],
+   "material": "stripe",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Pad_Stripe_3",
+   "type": "box",
+   "position": [
+    1.43,
+    7.78,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    0.3,
+    0.04,
+    2.56
+   ],
+   "material": "stripe",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Pad_Stripe_4",
+   "type": "box",
+   "position": [
+    -1.43,
+    7.78,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    0.3,
+    0.04,
+    2.56
+   ],
+   "material": "stripe",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Pad_Lamp_1",
+   "type": "box",
+   "position": [
+    -1.63,
+    7.45,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    0.06,
+    0.18,
+    1.92
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Pad_Lamp_2",
+   "type": "box",
+   "position": [
+    1.63,
+    7.45,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    0.06,
+    0.18,
+    1.92
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Mount",
+   "type": "box",
+   "position": [
+    0.0,
+    22.48,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    3.6,
+    0.44,
+    3.6
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Housing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    14.9,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    2.5,
+    7.62,
+    2.5
+   ],
+   "material": "machine",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Housing_Rib_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    15.15,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    2.74,
+    0.3,
+    2.74
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Housing_Rib_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    18.9,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    2.74,
+    0.3,
+    2.74
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Warn_1",
+   "type": "box",
+   "position": [
+    0.898,
+    15.65,
+    0.898
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    0.3,
+    0.3,
+    0.3
+   ],
+   "material": "laser",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Crusher_A_Warn"
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Warn_2",
+   "type": "box",
+   "position": [
+    -0.898,
+    15.65,
+    0.898
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    0.3,
+    0.3,
+    0.3
+   ],
+   "material": "laser",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Crusher_A_Warn"
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Warn_3",
+   "type": "box",
+   "position": [
+    -0.898,
+    15.65,
+    -0.898
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    0.3,
+    0.3,
+    0.3
+   ],
+   "material": "laser",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Crusher_A_Warn"
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Warn_4",
+   "type": "box",
+   "position": [
+    0.898,
+    15.65,
+    -0.898
+   ],
+   "rotation": [
+    0.0,
+    -315.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    0.3,
+    0.3,
+    0.3
+   ],
+   "material": "laser",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Crusher_A_Warn"
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Head",
+   "type": "box",
+   "position": [
+    0.0,
+    13.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    3.0,
+    0.8,
+    3.0
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Crusher_A_Ram"
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Head_Stripe_1",
+   "type": "box",
+   "position": [
+    0.0,
+    13.35,
+    1.51
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    3.0,
+    0.5,
+    0.04
+   ],
+   "material": "stripe",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Crusher_A_Ram"
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Head_Stripe_2",
+   "type": "box",
+   "position": [
+    0.0,
+    13.35,
+    -1.51
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    3.0,
+    0.5,
+    0.04
+   ],
+   "material": "stripe",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Crusher_A_Ram"
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Head_Stripe_3",
+   "type": "box",
+   "position": [
+    1.51,
+    13.35,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    0.04,
+    0.5,
+    3.0
+   ],
+   "material": "stripe",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Crusher_A_Ram"
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Head_Stripe_4",
+   "type": "box",
+   "position": [
+    -1.51,
+    13.35,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    0.04,
+    0.5,
+    3.0
+   ],
+   "material": "stripe",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Crusher_A_Ram"
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Rod",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    13.95,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    0.9,
+    6.65,
+    0.9
+   ],
+   "material": "rail",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Crusher_A_Ram"
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
+   "name": "Crusher_A_Collar",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    13.98,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Crusher_A",
+   "size": [
+    1.5,
+    0.35,
+    1.5
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Crusher_A_Ram"
+   },
+   "gen": "Crusher_A",
+   "source": "visible"
+  },
+  {
    "name": "Pipe_South_Plate",
    "type": "box",
    "position": [
@@ -79016,7 +79348,7 @@
    "position": [
     2.5,
     9.0,
-    -2.0
+    2.0
    ],
    "rotation": [
     0.0,
@@ -141053,90 +141385,6 @@
     {
      "pts": [
       [
-       -11.28314,
-       -104.66841
-      ],
-      [
-       -9.26472,
-       -105.56538
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 1.65
-    },
-    {
-     "pts": [
-      [
-       -9.49603,
-       -106.13759
-      ],
-      [
-       -9.86778,
-       -106.97412
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 1.65
-    },
-    {
-     "pts": [
-      [
-       -9.25406,
-       -105.5931
-      ],
-      [
-       -9.49603,
-       -106.13759
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 1.65
-    },
-    {
-     "pts": [
-      [
-       -11.92458,
-       -106.06009
-      ],
-      [
-       -11.31086,
-       -104.67907
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 1.65
-    },
-    {
-     "pts": [
-      [
-       -10.69129,
-       -106.63114
-      ],
-      [
-       -11.91392,
-       -106.08781
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 1.65
-    },
-    {
-     "pts": [
-      [
-       -9.89549,
-       -106.98478
-      ],
-      [
-       -10.69129,
-       -106.63114
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 1.65
-    },
-    {
-     "pts": [
-      [
        -26.93197,
        -128.55665
       ],
@@ -145911,6 +146159,258 @@
     {
      "pts": [
       [
+       -10.64651,
+       -109.69208
+      ],
+      [
+       -10.34858,
+       -109.52007
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -10.93416,
+       -109.85816
+      ],
+      [
+       -10.64651,
+       -109.69208
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -10.33808,
+       -109.51726
+      ],
+      [
+       -9.66192,
+       -109.51726
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -9.05816,
+       -109.86584
+      ],
+      [
+       -8.72007,
+       -110.45142
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -9.36377,
+       -109.68615
+      ],
+      [
+       -9.06584,
+       -109.85816
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -9.65142,
+       -109.52007
+      ],
+      [
+       -9.36377,
+       -109.68615
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -11.27993,
+       -110.45142
+      ],
+      [
+       -10.94184,
+       -109.86584
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -11.28274,
+       -110.80593
+      ],
+      [
+       -11.28274,
+       -110.46192
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -11.28274,
+       -111.13808
+      ],
+      [
+       -11.28274,
+       -110.80593
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -10.63623,
+       -111.91385
+      ],
+      [
+       -10.93416,
+       -111.74184
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -10.34858,
+       -112.07993
+      ],
+      [
+       -10.63623,
+       -111.91385
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -10.94184,
+       -111.73416
+      ],
+      [
+       -11.27993,
+       -111.14858
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -8.71726,
+       -110.79407
+      ],
+      [
+       -8.71726,
+       -111.13808
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -8.71726,
+       -110.46192
+      ],
+      [
+       -8.71726,
+       -110.79407
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -8.72007,
+       -111.14858
+      ],
+      [
+       -9.05816,
+       -111.73416
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -9.66192,
+       -112.08274
+      ],
+      [
+       -10.33808,
+       -112.08274
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -9.35349,
+       -111.90792
+      ],
+      [
+       -9.65142,
+       -112.07993
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
+       -9.06584,
+       -111.74184
+      ],
+      [
+       -9.35349,
+       -111.90792
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.75
+    },
+    {
+     "pts": [
+      [
        -33.21591,
        -60.021
       ],
@@ -148355,6 +148855,32 @@
    ]
   }
  },
+ "crushers": [
+  {
+   "id": "Crusher_A",
+   "group": "Crusher_A_Ram",
+   "warn_group": "Crusher_A_Warn",
+   "travel": 5.4,
+   "period": 4.5,
+   "phase": 0.0,
+   "warn": 0.7,
+   "down": 0.22,
+   "hold": 0.45,
+   "rise": 1.2,
+   "kill": [
+    [
+     -11.55,
+     7.8,
+     -112.35
+    ],
+    [
+     -8.45,
+     9.8,
+     -109.25
+    ]
+   ]
+  }
+ ],
  "encounters": [
   {
    "id": "Hall_Waves",
@@ -148391,8 +148917,6 @@
   "RampOut_SE: 2.15 m junction plate where it meets Platform_SE's corner",
   "RampOut_SW: 0.40 m junction plate where it meets Round_SW's angled edge",
   "RampOut_SW: 2.15 m junction plate where it meets Platform_SW's corner",
-  "W_Cat_Pipes: 0.85 m junction plate where it meets Pipe_Junction_A's angled edge",
-  "W_Cat_Pipes: 4.20 m junction plate where it meets Assembly_Line's corner",
   "W_Cat_Junction: 0.30 m junction plate where it meets Pipe_Junction_B's angled edge",
   "W_Cat_Junction: 1.50 m junction plate where it meets Pipe_Junction_A's corner",
   "W_Ramp_Core: 0.30 m junction plate where it meets Core_Ring's angled edge",
@@ -148417,7 +148941,7 @@
   "portals: 3 thin fixtures covered by a doorway portal removed (Gallery_North_Strut_02, Gallery_North_Strut_03, Gallery_North_Strut_04)",
   "corrosion: 34 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 48 lights at the liquid line removed, 28 light strips raised clear of it",
-  "corrosion: 2230 wall faces at the liquid line get a corroded band (one mesh, one material)"
+  "corrosion: 2246 wall faces at the liquid line get a corroded band (one mesh, one material)"
  ],
  "relations": [
   {
@@ -148754,33 +149278,6 @@
   },
   {
    "type": "supported_by",
-   "a": "W_Cat_Pipes_Deck",
-   "b": "W_Cat_Pipes_Support_Head"
-  },
-  {
-   "type": "supported_by",
-   "a": "W_Cat_Pipes_Junction_Hi",
-   "b": "Pipe_Junction_A_Floor"
-  },
-  {
-   "type": "walkable_connection",
-   "a": "W_Cat_Pipes_Deck",
-   "b": "W_Cat_Pipes_Junction_Hi",
-   "a_anchor": "end_b"
-  },
-  {
-   "type": "supported_by",
-   "a": "W_Cat_Pipes_Junction_Lo",
-   "b": "Assembly_Line_Floor"
-  },
-  {
-   "type": "walkable_connection",
-   "a": "W_Cat_Pipes_Deck",
-   "b": "W_Cat_Pipes_Junction_Lo",
-   "a_anchor": "end_a"
-  },
-  {
-   "type": "supported_by",
    "a": "W_Cat_Junction_Deck",
    "b": "W_Cat_Junction_Support_Head"
   },
@@ -149094,12 +149591,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 98962,
-  "objects": 4406,
+  "triangles": 99466,
+  "objects": 4414,
   "materials": 31,
-  "glb_kb": 6422,
-  "nodes": 5034,
-  "draw_calls_unbatched": 4833,
+  "glb_kb": 6456,
+  "nodes": 5046,
+  "draw_calls_unbatched": 4845,
   "draw_calls_batched_min": 33,
   "images": 94,
   "tex_mem_gpu_compressed_mb": 23.14,

@@ -702,12 +702,6 @@
      2.7
     ],
     [
-     -10.59,
-     -105.83,
-     0.3,
-     0.95
-    ],
-    [
      -26.72,
      -129.8,
      0.3,
@@ -3018,6 +3012,72 @@
    }
   },
   {
+   "id": "Crusher_A_Slam",
+   "type": "crusher",
+   "category": "crusher",
+   "glb_contains": "ram (head + rod) at rest, own nodes (mobile group); pad, column and housing static",
+   "godot_runtime": "script (apply_effects.gd _crushers): the ram's group nodes (<group>__*) sit at rest raised 'travel' m; every 'period' s (offset 'phase'): 'warn' s of warning (lamps pulse), a 'down' s slam onto the pad (accelerating), 'hold' s pressed, a 'rise' s climb back (eased). While pressed an Area3D over the pad ('kill' box, world) is enabled in the hazard group: anything standing there dies",
+   "crusher": {
+    "id": "Crusher_A",
+    "group": "Crusher_A_Ram",
+    "warn_group": "Crusher_A_Warn",
+    "travel": 5.4,
+    "period": 4.5,
+    "phase": 0.0,
+    "warn": 0.7,
+    "down": 0.22,
+    "hold": 0.45,
+    "rise": 1.2,
+    "kill": [
+     [
+      -11.55,
+      7.8,
+      -112.35
+     ],
+     [
+      -8.45,
+      9.8,
+      -109.25
+     ]
+    ]
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "period": 4.5
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "period": 4.5
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "period": 4.5
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Tube_Pods",
    "type": "tube_pods",
    "category": "launch",
@@ -3356,6 +3416,10 @@
    "godot_runtime": "script: emission_energy_multiplier random flicker (rate Hz)",
    "target_material": "laser",
    "targets": [
+    "Crusher_A_Warn_4",
+    "Crusher_A_Warn_3",
+    "Crusher_A_Warn_2",
+    "Crusher_A_Warn_1",
     "Gate_Works_Laser_Emitter_R",
     "Gate_Works_Laser_Emitter_L",
     "Gate_Works_Laser_Beam_7",
@@ -3497,6 +3561,8 @@
     "Pipe_West_Light",
     "Pipe_East_Light",
     "Pipe_South_Light",
+    "Crusher_A_Pad_Lamp_2",
+    "Crusher_A_Pad_Lamp_1",
     "Column_Works_NW_Red_04",
     "Column_Works_SW_Red_06",
     "Column_Works_SW_Red_02",
@@ -3742,9 +3808,6 @@
     "W_Cat_Junction_Support_Light",
     "W_Cat_Junction_CladLight_R",
     "W_Cat_Junction_CladLight_L",
-    "W_Cat_Pipes_Support_Light",
-    "W_Cat_Pipes_CladLight_R",
-    "W_Cat_Pipes_CladLight_L",
     "RampOut_SW_Support_Light",
     "RampOut_SW_CladLight_R",
     "RampOut_SW_CladLight_L",

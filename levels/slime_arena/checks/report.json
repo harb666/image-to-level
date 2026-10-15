@@ -1,21 +1,21 @@
 {
  "level": "slime_arena",
  "assets_kb": {
-  "level.glb": 6422,
-  "mobile/level_mobile.glb": 3943,
-  "mobile/collision.json": 288,
+  "level.glb": 6456,
+  "mobile/level_mobile.glb": 3966,
+  "mobile/collision.json": 287,
   "environment.json": 4,
   "background.glb": 474,
-  "effects.json": 81
+  "effects.json": 83
  },
  "complexity": {
-  "triangles": 123378,
-  "nodes": 4833,
+  "triangles": 124170,
+  "nodes": 4845,
   "materials": 31,
   "heaviest": [
    [
     "Corrosion_Band",
-    3292
+    3316
    ],
    [
     "Works_Ceil_Fan_2_Rotor",
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 6422,
-   "triangles": 98962,
-   "draw_calls": 4833,
+   "glb_kb": 6456,
+   "triangles": 99466,
+   "draw_calls": 4845,
    "tex_mem_gpu_mb_est": 23.14
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3943,
-   "triangles": 116154,
-   "draw_calls": 125,
-   "visible_draw_calls_est": 70.0,
-   "visible_draw_calls_max_est": 126,
+   "glb_kb": 3966,
+   "triangles": 116936,
+   "draw_calls": 131,
+   "visible_draw_calls_est": 72.1,
+   "visible_draw_calls_max_est": 132,
    "tex_mem_gpu_mb_est": 7.52,
    "materials": 33,
-   "nodes": 158,
+   "nodes": 164,
    "colliders": {
-    "colliders": 903,
+    "colliders": 895,
     "hazards": 11,
-    "glb_kb": 470
+    "glb_kb": 466
    },
    "background_kb": 402
   },
@@ -74,16 +74,16 @@
    "INTENTIONAL": 0
   },
   "relations": {
-   "explicit": 120,
+   "explicit": 115,
    "inferred": 0
   },
   "repairable": 0,
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 49241.0,
-  "reachable_area_m2": 9620.0,
-  "components": 468,
+  "standable_area_m2": 49181.0,
+  "reachable_area_m2": 9560.0,
+  "components": 471,
   "spawns": [
    {
     "id": "spawn",
@@ -95,7 +95,7 @@
     "standable": true,
     "clearance_m": 6.5,
     "headroom_m": 99.0,
-    "component": 6,
+    "component": 186,
     "hazard_distance_m": 11.34
    },
    {
@@ -108,7 +108,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 19.79,
-    "component": 6,
+    "component": 186,
     "hazard_distance_m": 5.02
    },
    {
@@ -121,7 +121,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 19.77,
-    "component": 264,
+    "component": 267,
     "hazard_distance_m": 7.52
    },
    {
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 2.5,
     "headroom_m": 19.8,
-    "component": 6,
+    "component": 186,
     "hazard_distance_m": 6.52
    },
    {
@@ -338,7 +338,7 @@
    },
    {
     "name": "Pipe_Junction_A",
-    "standable_m2": 49.0,
+    "standable_m2": 51.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -431,6 +431,12 @@
     "standable_m2": 104.0,
     "reachable_fraction": 1.0,
     "one_way": false
+   },
+   {
+    "name": "Crusher_A_Pad",
+    "standable_m2": 12.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
    }
   ],
   "narrow_connectors": [],
@@ -462,22 +468,22 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 125 (> 80)"
+   "message": "mobile draw calls 131 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~70 visible draw calls (estimate, > 60)"
+   "message": "~72 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "123378 triangles (> budget 40000)"
+   "message": "124170 triangles (> budget 40000)"
   },
   {
    "kind": "dev_size",
    "severity": "info",
-   "message": "dev GLB 6422 KB (> 6000)"
+   "message": "dev GLB 6456 KB (> 6000)"
   },
   {
    "kind": "low_ceiling",
