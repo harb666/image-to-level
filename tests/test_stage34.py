@@ -533,3 +533,19 @@ class Stage73(unittest.TestCase):
         for i in (1, 2):
             pl = np.asarray(W[f"Purifier_{i}_Plinth"])[:3, 3]; gl = np.asarray(W[f"Purifier_{i}_Glass"])[:3, 3]
             self.assertLess(gl[1] - (pl[1] + 1.0), 2.0)  # glass starts under 2 m above the deck (plinth sunk 1 m into it)
+
+
+class Stage74(unittest.TestCase):
+    def test_background_towers_reach_their_bases_and_stand_apart(self):
+        """factory_interior tank towers: the glowing sections start on top of the dark base (no 8 m gap) and no two
+        towers overlap (the overlapping pair is pushed apart without new random draws)."""
+        import sys, inspect, numpy as np
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); import backdrop
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); lay = [l for l in L["environment"]["background"] if l["id"] == "Factory_Glass"][0]
+        src = inspect.getsource(backdrop.factory_interior).replace('    for _ in range(int(L.get("decks", 16) * den)):', '    return towers, G\n    for _ in range(int(L.get("decks", 16) * den)):', 1)
+        ns = dict(backdrop.__dict__); exec(src, ns); T, G = ns["factory_interior"](lay, {"density": 1.0}); T = np.array(T)
+        for i in range(len(T)):
+            for j in range(i + 1, len(T)): self.assertGreater(np.hypot(*(T[i, :2] - T[j, :2])), (T[i, 2] + T[j, 2]) * 1.15 + 3.0)
+        fy = float(lay.get("floor_y", -8.0))
+        low = [g for g in G if abs(float(g.bounds[0][1]) - (fy + 6 - 0.05)) < 1e-3]  # a glowing section standing on each base top
+        self.assertEqual(len(low), len(T))

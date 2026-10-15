@@ -299,7 +299,16 @@ def factory_interior(L, q):
     towers = []
     for _ in range(int(L.get("towers", 14) * den)):  # tank towers: base, stacked glowing sections between bands, cap, top pipe
         x, z = spot(inner + 10, outer - 8); r = rng.uniform(3.5, 8.0); top = rng.uniform(min(24.0, ry * 0.5), ry - 6); y = fy
+        for _k in range(6):  # Stage 74: towers never overlap - pushed straight away from the one they hit (no extra rng draws)
+            hit = next(((tx, tz, tr) for tx, tz, tr in towers if np.hypot(x - tx, z - tz) < (r + tr) * 1.15 + 3.0), None)
+            if hit is None: break
+            tx, tz, tr = hit; d = np.hypot(x - tx, z - tz) or 1e-3; need = (r + tr) * 1.15 + 3.5
+            nx, nz = tx + (x - tx) / d * need, tz + (z - tz) / d * need
+            if not free(nx - r, nz - r, nx + r, nz + r, 2.0): nx, nz = tx - (x - tx) / d * need, tz - (z - tz) / d * need  # other side
+            x, z = float(nx), float(nz)
         H.append(_cyl(r * 1.15, 6 - fy + y, x, y, z)); y = 6.0
+        if fy + 6 < 6.0 - 1.4 - 1.0:  # Stage 74: glowing section from the base's top up to the first band (no gap: no extra rng draws, layout unchanged)
+            G.append(_cyl(r, (6.0 - 1.4) - (fy + 6) + 0.05, x, fy + 6 - 0.05, z)); H.append(_cyl(r * 1.12, 1.4, x, 6.0 - 1.4, z))
         while y < top - 6:
             g = rng.uniform(6, 11); G.append(_cyl(r, g, x, y, z)); y += g
             H.append(_cyl(r * 1.12, 1.4, x, y, z)); Li.append(_box(r * 0.5, 0.35, 0.3, x, y + 0.5, z + r * 1.12)); y += 1.4

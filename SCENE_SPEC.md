@@ -971,3 +971,11 @@ Building blocks usable without the preset:
 - `vat` takes `base` (plinth height, default 3 m); a lower plinth hands its height to the glass (same overall height).
 - slime_arena: Purifier_1 / Purifier_2 moved apart (centres 7.3 m, plinths 2.8 m clear) and given a 0.8 m collar - the
   green glass with its bubbles now starts 1.7 m over the deck instead of a 3 m dark plinth.
+
+## Stage 74: background tank towers reach their bases, none overlap
+- `backdrop.factory_interior` towers: the dark base stands from the slime sea to 6 m over it, but the first glowing
+  section started at y 6 - an 8 m gap (the tubes floated over their bases). A glowing section + band now fill it, so
+  the green runs down onto the base. Towers that would overlap an earlier one are pushed straight away from it (or to
+  its other side if that spot is not free). Both changes draw no extra random numbers: the rest of the backdrop
+  (decks, gantries, pillars, pipes, lamps) keeps its layout. slime_arena: the overlapping pair east of the Works
+  (bases 1.8 m into each other) now stands 3.5 m apart.
