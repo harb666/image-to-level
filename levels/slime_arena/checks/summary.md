@@ -3,7 +3,7 @@
 Spec: levels/slime_arena/scene_spec.json · 4414 objects · 31 materials · 24 effects
 Checks: PASSED ({'error': 0, 'warning': 3, 'info': 2}) · refine passes: 0
 Mobile (balanced): 3966 KB · 116936 tris · 131 draw calls · ~72.1 visible (estimate) · ~7.52 MB GPU textures (estimate)
-Navigation: 9560.0 m² reachable of 49181.0 m² standable
+Navigation: 9568.0 m² reachable of 49184.0 m² standable
 Package: dist/slime_arena/package (38 files, 15.43 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
@@ -48,16 +48,16 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - Tunnel_West: HazardFluid_2 reaches on to -56.0 through the bore
 - crates: 35 printed crates (accent atlas)
 - fixtures: 31 parts cleared out of fans / vents (wall units removed: OuterWall_West_02_M02Vent, Works_Wall_West_02_M05Fan)
-- ducts: Ceil_Duct_3 trimmed to 1 piece(s) clear of 1 standing part(s); Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 3 standing part(s); Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 11 standing part(s)
+- ducts: Ceil_Duct_3 trimmed to 1 piece(s) clear of 1 standing part(s); Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 3 standing part(s); Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 7 standing part(s)
 - portals: 3 thin fixtures covered by a doorway portal removed (Gallery_North_Strut_02, Gallery_North_Strut_03, Gallery_North_Strut_04)
 - corrosion: 34 lit bodies get a plain skirt at the liquid line (no lights in the slime)
 - corrosion: 48 lights at the liquid line removed, 28 light strips raised clear of it
 - corrosion: 2246 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 7.4 s
-- build (glb, sky, background, effects, mobile): 119.3 s
-- checks (fast): 99.9 s
+- spec -> level.json: 6.8 s
+- build (glb, sky, background, effects, mobile): 128.5 s
+- checks (fast): 96.8 s
 - previews: 0.7 s
 - export package: 0.6 s
-- total: 227.8 s
+- total: 233.3 s
