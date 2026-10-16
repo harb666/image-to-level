@@ -1038,3 +1038,8 @@ Building blocks usable without the preset:
 - Skin weights are stored as normalized bytes (4 B / vertex instead of 16; glTF-valid) - every skinned mesh.
 - slime_arena: the long west catwalk is gone; `Pads_West` rise from the Works pool between West_Landing_N and
   West_Landing_S (gaps <= 2.6 m, steps <= 0.6 m), `Works_Terminal` at West_Landing_S opens `Exit_Hall_Laser`.
+
+## Stage 81: easier pad route
+- `rising_pads` spaces pads with EQUAL gaps (between pads and to both floors) instead of evenly spaced centres.
+- slime_arena `Pads_West`: 11 pads, 3.4 m across, all at y 10, zig-zag 0.7 m: every hop is ~1.4 m edge to edge
+  (floors -> first / last pad 1.2 m) - was up to ~2.7 m with 0.6 m height steps.

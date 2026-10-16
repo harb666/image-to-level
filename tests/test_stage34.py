@@ -645,19 +645,20 @@ class Stage79(unittest.TestCase):
 
 class Stage80(unittest.TestCase):
     def test_rising_pads_terminal_and_exit_gate(self):
-        """The west catwalk is gone; 10 pads (one skeleton: a bone per pad + per surge ring, all parts in ONE skinned
+        """The west catwalk is gone; 11 pads (one skeleton: a bone per pad + per surge ring, all parts in ONE skinned
         group) rise out of the slime on a trigger at West_Landing_N; jumps between them stay within the player's jump;
         the terminal at West_Landing_S opens the exit doorway's laser gate."""
         import math
         L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
         self.assertNotIn("W_Cat_West_Deck", by)
-        (R,) = L["risers"]; sk = L["skeletons"]["Pads_West"]; self.assertEqual(len(R["pads"]), 10); self.assertEqual(len(sk["joints"]), 21)
+        (R,) = L["risers"]; sk = L["skeletons"]["Pads_West"]; self.assertEqual(len(R["pads"]), 11); self.assertEqual(len(sk["joints"]), 23)
+        self.assertEqual({p["center"][1] for p in R["pads"]}, {10.0})  # Stage 81: all level (easier)
         parts = [o for n, o in by.items() if n.startswith("Pads_West_Pad_")]
         self.assertTrue(all(o["mobile"]["group"] == "Pads_West_Rig" for o in parts))
         G = json.load(open(os.path.join(ROOT, "config", "gameplay.json")))["player"]; P = R["pads"]
         for a, b in zip(P, P[1:]):  # edge gap within the jump distance, rise within the jump height
             gap = math.hypot(a["center"][0] - b["center"][0], a["center"][2] - b["center"][2]) - a["size"]
-            self.assertLess(gap, G["jump_distance"] - 0.8); self.assertLess(abs(a["center"][1] - b["center"][1]), G["jump_height"] - 0.4)
+            self.assertLess(gap, 1.6); self.assertLess(abs(a["center"][1] - b["center"][1]), G["jump_height"] - 0.4)  # Stage 81: short, easy hops
         self.assertTrue(all(p["center"][1] - p["rise"] < R["liquid"] - 0.5 for p in P))  # fully under the surface before they rise
         (T,) = L["terminals"]; self.assertEqual(T["activates"], ["Exit_Hall_Laser"])
         gate = next(g for g in L["gates"] if g["id"] == "Exit_Hall_Laser"); self.assertEqual(gate["opens_on"], {"type": "terminal", "terminal": "Works_Terminal"})

@@ -807,9 +807,9 @@ def exit_hall(ctx, s, x, y, z, yaw):
 
 @structure("rising_pads", pad=False)
 def rising_pads(ctx, s, x, y, z, yaw):
-    """Stage 80: stepping-stone pads that rise out of the liquid - a jump route from "from" to "to" ([x, z], pad centres
-    spaced evenly between them, zig-zagging "zigzag" m to the sides), tops at "y" (+ small height steps, all within a
-    jump). Each pad: a hexagonal column, an octagonal deck cap, a glowing rim, plus a glowing surge ring at the liquid surface.
+    """Stage 80: stepping-stone pads that rise out of the liquid - a jump route from "from" to "to" ([x, z], the two floor
+    edges; EQUAL gaps between pads and to both floors, zig-zagging "zigzag" m to the sides), tops at "y" (+ "steps"
+    height offsets, all within a jump). Each pad: a hexagonal column, an octagonal deck cap, a glowing rim, plus a glowing surge ring at the liquid surface.
     All pads are ONE skinned mesh per material (skeleton: one bone per pad + one per surge ring): memory and draw calls
     stay those of a single static prop. They start under the liquid ("liquid" y); when a player comes within
     "trigger_radius" of "trigger" ([x, y, z], default: before the first pad) they surge up one after another
@@ -818,11 +818,12 @@ def rising_pads(ctx, s, x, y, z, yaw):
     The colliders in collision.glb stand at the raised position (what the checks see)."""
     n = s["id"]; (ax, az), (bx, bz) = s["from"], s["to"]; N = int(s.get("count", 10)); D = float(s.get("pad_size", 2.8)); zz = float(s.get("zigzag", 1.2))
     liq = float(s.get("liquid", 1.0)); top0 = float(s.get("y", y)); steps = s.get("steps") or [0.0, 0.3, -0.2, 0.4, 0.0, -0.3, 0.3, 0.0, 0.4, 0.0]
-    L = math.hypot(bx - ax, bz - az); ux, uz = (bx - ax) / L, (bz - az) / L; px, pz = -uz, ux
+    L = math.hypot(bx - ax, bz - az); ux, uz = (bx - ax) / L, (bz - az) / L; px, pz = -uz, ux; gap = (L - N * D) / (N + 1)
     grp = n + "_Rig"; st = dict(collision=False, outline=False); joints = [dict(name=n + "_JRoot", parent=None, pivot=[round(ax, 3), round(liq, 3), round(az, 3)], axis=[0.0, 1.0, 0.0])]
     rings, pads = [], []
     for k in range(N):
-        f = (k + 1) / (N + 1); cx, cz = ax + ux * L * f + px * zz * (1 if k % 2 else -1), az + uz * L * f + pz * zz * (1 if k % 2 else -1)
+        e = gap * (k + 1) + D * (k + 0.5)  # equal gaps everywhere: first / last pad as far from the floors as from each other
+        cx, cz = ax + ux * e + px * zz * (1 if k % 2 else -1), az + uz * e + pz * zz * (1 if k % 2 else -1)
         top = round(top0 + float(steps[k % len(steps)]) if 0 < k < N - 1 else top0, 3); jn, rn = f"{n}_J{k + 1}", f"{n}_R{k + 1}"
         joints.append(dict(name=jn, parent=n + "_JRoot", pivot=[round(cx, 3), round(liq, 3), round(cz, 3)], axis=[0.0, 1.0, 0.0])); rings.append(dict(name=rn, parent=n + "_JRoot", pivot=[round(cx, 3), round(liq + 0.03, 3), round(cz, 3)], axis=[0.0, 1.0, 0.0]))
         pj, rj = dict(group=grp, joint=jn), dict(group=grp, joint=rn); pre = f"{n}_Pad_{k + 1}"
