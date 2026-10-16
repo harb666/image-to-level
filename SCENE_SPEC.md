@@ -985,3 +985,10 @@ Building blocks usable without the preset:
 - Pipe_Junction_A: Valve_A (machine unit + tank) pushed into the corner along the north edge; the platform's cover crate
   replaced by one `crates` crate tucked into the far (south-east) corner; the deck is open from the crusher landing to
   the catwalk to Pipe_Junction_B (nothing within 1 m of that line), the crate is there to jump on.
+
+## Stage 76: the pipe leaves through the window; no dome on the junction
+- W_Run_North no longer stops at a plate in window Op1 of the Works' west wall: it runs out through the opening
+  (y 16: between the sill at 13.5 and the transom at 19; z -112: between the opening edge and the first mullion),
+  turns down outside the building and ends in the background slime sea (y -9), below the window line - out of view.
+  Pipe runs no longer hang rods outside the arena / annex footprints (no roof there).
+- Valve_A_Tank (the domed barrel on Pipe_Junction_A) is omitted (spec `omit`).

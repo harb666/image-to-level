@@ -1214,8 +1214,13 @@ def pipe(ctx, p, floor_y, arena_spec):
                 v = b_ - a_; Ls = float(np.linalg.norm(v))
                 if Ls < 1 or abs(v[1]) > 0.1 * Ls or cy_ - a_[1] < r_ + 0.5: continue  # horizontal segments under the roof only
                 m = max(1, int(Ls // 8))
+                rooms = [((ar.get("center") or [0, 0])[0] - ar["size"][0] / 2, (ar.get("center") or [0, 0])[1] - ar["size"][1] / 2,
+                          (ar.get("center") or [0, 0])[0] + ar["size"][0] / 2, (ar.get("center") or [0, 0])[1] + ar["size"][1] / 2)
+                         for ar in [ctx.spec.get("arena") or {}] + list(ctx.spec.get("annexes", [])) if ar.get("size")]
                 for i in range(m):
-                    q = a_ + v * (i + 0.5) / m; k += 1; y0 = q[1] + r_ - 0.05
+                    q = a_ + v * (i + 0.5) / m
+                    if rooms and not any(x0 < q[0] < x1 and z0 < q[2] < z1 for x0, z0, x1, z1 in rooms): continue  # Stage 76: outside the building - no roof to hang from
+                    k += 1; y0 = q[1] + r_ - 0.05
                     ctx.add(f"{p['id']}_Hanger_{k:02d}", "box", [q[0], y0, q[2]], [0.18, cy_ - y0 + 0.05, 0.18], "frame", collision=False, outline=False, mobile={"static": True})
                     ctx.add(f"{p['id']}_Clamp_{k:02d}", "box", [q[0], q[1] - r_ - 0.08, q[2]], [0.3, 2 * r_ + 0.16, 2 * r_ + 0.16] if abs(v[0]) > abs(v[2]) else [2 * r_ + 0.16, 2 * r_ + 0.16, 0.3],
                             "frame", collision=False, outline=False, mobile={"static": True})

@@ -70,7 +70,7 @@ class Stage36(unittest.TestCase):
         for i in range(len(B)):
             for j in range(i + 1, len(B)):
                 self.assertFalse((np.minimum(B[i][1], B[j][1]) - np.maximum(B[i][0], B[j][0]) > 0.02).all(), (cr[i]["name"], cr[j]["name"]))
-        for n in ("Pipe_South_Plate", "Pipe_South_Collar", "Pipe_South_Bolt_4", "W_Run_North_End1_Plate", "W_Broken_Plate", "W_Broken_Collar"): self.assertIn(n, by)
+        for n in ("Pipe_South_Plate", "Pipe_South_Collar", "Pipe_South_Bolt_4", "W_Run_North_End2_Plate", "W_Broken_Plate", "W_Broken_Collar"): self.assertIn(n, by)
 
 
 class Stage37(unittest.TestCase):
@@ -564,4 +564,21 @@ class Stage75(unittest.TestCase):
             t = np.clip((p - a) @ (b - a) / ((b - a) @ (b - a)), 0, 1); d = np.linalg.norm(p - (a + t * (b - a)))
             self.assertGreater(d - r, 1.0, n)  # nothing within 1 m of the walking line
         self.assertFalse([n for n in by if n.startswith("Pipe_Junction_A_Cover_")])
-        t = np.asarray(W["Valve_A_Tank"])[:3, 3]; self.assertGreater(t[2], -116.5)  # the tank stands along the north edge
+        self.assertNotIn("Valve_A_Tank", by)  # Stage 76: the dome tank is gone
+
+
+class Stage76(unittest.TestCase):
+    def test_pipe_leaves_through_window_and_dome_gone(self):
+        """W_Run_North leaves the Works through window Op1 (y 16 between sill 13.5 and transom 19, z -112 between the
+        opening edge -115 and mullion -110), drops outside and ends below the slime sea; no hanger outside; no tank on
+        Pipe_Junction_A."""
+        S = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "scene_spec.json")))
+        pts = next(p for p in S["pipes"] if p["id"] == "W_Run_North")["points"]
+        self.assertLess(pts[0][0], -60); self.assertLess(pts[0][1], -8)  # end outside, under the background sea (y -8)
+        self.assertEqual(pts[1][1], 16); self.assertTrue(-115 + 0.9 < pts[1][2] < -110.2 - 0.9)
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        self.assertNotIn("Valve_A_Tank", by); self.assertNotIn("W_Run_North_End1_Plate", by)
+        import sys, numpy as np
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from anchors import world_matrices
+        W, _ = world_matrices(L)
+        self.assertTrue(all(np.asarray(W[n])[0, 3] > -56 for n in by if n.startswith("W_Run_North_Hanger")))
