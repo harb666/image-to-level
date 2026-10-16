@@ -72,6 +72,7 @@ def generate(spec, G, level_dir=None):
     A.party_walls(ctx)
     A.place_covers(ctx)  # after connections: cover never stands in a landing (Stage 8)
     A.dress_ceilings(ctx)  # Stage 18: "varied" ceilings, after every deck exists (lamp pods keep headroom)
+    A.cut_doorways(ctx)  # Stage 77: doorways cut through walls built earlier (exit hall)
     A.bore_tunnels(ctx, spec)  # Stage 69: arched water tunnels through walls (before the slime decals / corrosion see the walls)
     if spec.get("omit"):  # Stage 70: generated pieces the level does without (e.g. one wall light strip), children included
         import fnmatch

@@ -1534,6 +1534,68 @@ from modules import load_all as _load_modules
 _load_modules()
 
 
+def arch_dressing(ctx, pre, g, r0, spring, y0, top, lantern_y=None, st=None):
+    """Stage 69/77: the dressing of an arched opening on a wall face (group g: face at local z = 0, local +z out of it,
+    opening centred on x = 0, round top of radius r0 springing at `spring`, floor y0; nothing above `top`): 9 voussoirs
+    with a raised keystone (lit inlay), a glowing yellow halo round the stones, jambs, impost blocks, pilasters with
+    capitals and lanterns. Visual only."""
+    st = st or dict(collision=False, mobile={"static": True}); gy = ctx.role("glow_yellow")
+    arc = lambda ra, rb, a0, a1: [[ra * math.cos(a0), spring + ra * math.sin(a0)], [rb * math.cos(a0), spring + rb * math.sin(a0)],
+                                 [rb * math.cos(a1), spring + rb * math.sin(a1)], [ra * math.cos(a1), spring + ra * math.sin(a1)]]
+    r1 = min(r0 + 0.7, top - 0.2 - spring); N = 9
+    for i in range(N):
+        a0, a1 = math.pi * i / N + 0.012, math.pi * (i + 1) / N - 0.012; key = i == N // 2
+        rr = min(r1 + (0.15 if key else 0.0), top - 0.03 - spring)
+        ctx.add(f"{pre}_Voussoir_{i + 1}", "prism", [0, 0, 0], [2 * rr, rr, 0.5 if key else 0.32], "trim" if key else "structure_b", g,
+                poly=[[round(u, 4), round(v, 4)] for u, v in arc(r0, rr, a0, a1)], **st)
+        if key:  # lit inlay on the keystone
+            ctx.add(f"{pre}_Keylight", "prism", [0, 0, 0.5], [0.4, 0.4, 0.03], gy, g,
+                    poly=[[round(u, 4), round(v, 4)] for u, v in arc(r0 + 0.18, rr - 0.15, a0 + 0.06, a1 - 0.06)], outline=False, **st)
+        if not key: ctx.add(f"{pre}_Halo_{i + 1}", "prism", [0, 0, 0], [2 * r1, r1, 0.12], gy, g,  # glowing ring round the stones
+                            poly=[[round(u, 4), round(v, 4)] for u, v in arc(r1 + 0.02, min(r1 + 0.14, top - 0.01 - spring), math.pi * i / N, math.pi * (i + 1) / N)], outline=False, **st)
+    for sd in (-1, 1):
+        jx = sd * (r0 + (r1 - r0) / 2)
+        ctx.add(f"{pre}_Jamb_{sd + 2}", "box", [jx, y0, 0.16], [r1 - r0, spring - y0, 0.32], "structure_b", g, **st)
+        ctx.add(f"{pre}_Impost_{sd + 2}", "box", [jx, spring - 0.1, 0.2], [r1 - r0 + 0.3, 0.22, 0.42], "trim", g, **st)
+        px = sd * (r1 + 0.6); ph = top - y0 - 0.3
+        ctx.add(f"{pre}_Pilaster_{sd + 2}", "box", [px, y0, 0.22], [0.8, ph, 0.44], "structure_b", g, **st)
+        ctx.add(f"{pre}_Capital_{sd + 2}", "box", [px, y0 + ph, 0.3], [1.05, 0.3, 0.6], "trim", g, **st)
+        ctx.add(f"{pre}_Lantern_{sd + 2}", "box", [px, max(lantern_y if lantern_y is not None else y0 + 1.2, top - 1.45), 0.44 + 0.13], [0.34, 0.6, 0.26], gy, g, outline=False, **st)
+    return r1
+
+
+def cut_doorways(ctx):
+    """Stage 77: openings cut through walls built before them (ctx.cuts: {"min": [x, y, z], "max": [...], "keep": prefix}
+    world boxes). Boxes turned only about y that cross a cut are split round it along their long horizontal axis (the
+    parts beside it, plus the parts under / over it); smaller dressing pieces standing in the cut are removed."""
+    from anchors import world_matrices
+    for c in getattr(ctx, "cuts", []):
+        lo, hi = np.asarray(c["min"], float), np.asarray(c["max"], float); keep = c.get("keep", "~"); hz = set(ctx.hazards)
+        W, _ = world_matrices({"objects": ctx.objects})
+        for o in list(ctx.objects):
+            if o["name"].startswith(keep) or o["name"] in hz or not o.get("size") or o["type"] in ("group", "boundary"): continue
+            M = np.asarray(W[o["name"]]); w, h, d = o["size"]
+            corners = np.array([[sx * w / 2, sy * h, sz * d / 2, 1] for sx in (-1, 1) for sy in (0, 1) for sz in (-1, 1)]) @ M.T
+            blo, bhi = corners[:, :3].min(0), corners[:, :3].max(0)
+            if np.any(bhi <= lo + 0.01) or np.any(blo >= hi - 0.01): continue  # not in the cut
+            if o["type"] != "box" or not abs(M[1, 1] - 1) < 1e-6 or max(w, d) < 6:  # dressing in the doorway: gone
+                ctx.objects.remove(o); continue
+            Mi = np.linalg.inv(M); cl = (np.array([[x_, y_, z_, 1] for x_ in (lo[0], hi[0]) for y_ in (lo[1], hi[1]) for z_ in (lo[2], hi[2])]) @ Mi.T)[:, :3]
+            clo, chi = cl.min(0), cl.max(0); ax = 0 if w >= d else 2; L_ = w if ax == 0 else d
+            from trimesh.transformations import euler_matrix; R = euler_matrix(*[math.radians(v) for v in o.get("rotation", [0, 0, 0])], "sxyz")[:3, :3]; pos = np.asarray(o["position"], float); parts = []
+            a0, a1 = max(-L_ / 2, clo[ax]), min(L_ / 2, chi[ax])
+            for u0, u1 in ((-L_ / 2, a0), (a1, L_ / 2)): parts.append((u0, u1, 0.0, h))  # beside the cut, full height
+            if clo[1] > 0.05: parts.append((a0, a1, 0.0, min(h, clo[1])))  # under it
+            if chi[1] < h - 0.05: parts.append((a0, a1, max(0.0, chi[1]), h))  # over it
+            ctx.objects.remove(o); k = 0
+            for u0, u1, y0_, y1_ in parts:
+                if u1 - u0 < 0.05 or y1_ - y0_ < 0.05: continue
+                off = np.zeros(3); off[ax] = (u0 + u1) / 2; off[1] = y0_; sz = [w, y1_ - y0_, d]; sz[ax] = u1 - u0
+                q = dict(o, name=o["name"] if k == 0 else f"{o['name']}_C{k}", position=[round(float(v), 3) for v in pos + R @ off], size=[round(float(v), 3) for v in sz])
+                if k: ctx.names.add(q["name"])
+                ctx.objects.append(q); k += 1
+
+
 def bore_tunnels(ctx, spec):
     """Stage 69: arched water tunnels bored along z through whatever solid boxes stand in the way (walls, walkway bases).
     spec "tunnels": [{id, x, z: [z_from, z_to], width (6.6), crown (4.95, top of the opening), floor (0), liquid (1)}].
@@ -1585,26 +1647,8 @@ def bore_tunnels(ctx, spec):
                                      [rb * math.cos(a1), spring + rb * math.sin(a1)], [ra * math.cos(a1), spring + ra * math.sin(a1)]]
         top_of = {za: float(t.get("top_from", crown + 3.0)), zb: float(t.get("top_to", crown + 0.9))}  # how high the dressing may reach on each face
         for zf, sg, tag in ((za, -1, "A"), (zb, 1, "B")):  # mouths: local +z = out of the face
-            g = ctx.add(f"{t['id']}_Mouth{tag}", "group", [x, 0, zf], rot=[0, 0 if sg > 0 else 180, 0]); top = top_of[zf]
-            r1 = min(r0 + 0.7, top - 0.2 - spring); N = 9
-            for i in range(N):
-                a0, a1 = math.pi * i / N + 0.012, math.pi * (i + 1) / N - 0.012; key = i == N // 2
-                rr = min(r1 + (0.15 if key else 0.0), top - 0.03 - spring)
-                ctx.add(f"{t['id']}_Mouth{tag}_Voussoir_{i + 1}", "prism", [0, 0, 0], [2 * rr, rr, 0.5 if key else 0.32], "trim" if key else "structure_b", g,
-                        poly=[[round(u, 4), round(v, 4)] for u, v in arc(r0, rr, a0, a1)], **st)
-                if key:  # lit inlay on the keystone
-                    ctx.add(f"{t['id']}_Mouth{tag}_Keylight", "prism", [0, 0, 0.5], [0.4, 0.4, 0.03], gy, g,
-                            poly=[[round(u, 4), round(v, 4)] for u, v in arc(r0 + 0.18, rr - 0.15, a0 + 0.06, a1 - 0.06)], outline=False, **st)
-                if not key: ctx.add(f"{t['id']}_Mouth{tag}_Halo_{i + 1}", "prism", [0, 0, 0], [2 * r1, r1, 0.12], gy, g,  # glowing ring round the stones
-                                    poly=[[round(u, 4), round(v, 4)] for u, v in arc(r1 + 0.02, min(r1 + 0.14, top - 0.01 - spring), math.pi * i / N, math.pi * (i + 1) / N)], outline=False, **st)
-            for sd in (-1, 1):
-                jx = sd * (r0 + (r1 - r0) / 2)
-                ctx.add(f"{t['id']}_Mouth{tag}_Jamb_{sd + 2}", "box", [jx, y0, 0.16], [r1 - r0, spring - y0, 0.32], "structure_b", g, **st)
-                ctx.add(f"{t['id']}_Mouth{tag}_Impost_{sd + 2}", "box", [jx, spring - 0.1, 0.2], [r1 - r0 + 0.3, 0.22, 0.42], "trim", g, **st)
-                px = sd * (r1 + 0.6); ph = top - y0 - 0.3
-                ctx.add(f"{t['id']}_Mouth{tag}_Pilaster_{sd + 2}", "box", [px, y0, 0.22], [0.8, ph, 0.44], "structure_b", g, **st)
-                ctx.add(f"{t['id']}_Mouth{tag}_Capital_{sd + 2}", "box", [px, y0 + ph, 0.3], [1.05, 0.3, 0.6], "trim", g, **st)
-                ctx.add(f"{t['id']}_Mouth{tag}_Lantern_{sd + 2}", "box", [px, max(liq + 1.2, top - 1.45), 0.44 + 0.13], [0.34, 0.6, 0.26], gy, g, outline=False, **st)
+            g = ctx.add(f"{t['id']}_Mouth{tag}", "group", [x, 0, zf], rot=[0, 0 if sg > 0 else 180, 0])
+            arch_dressing(ctx, f"{t['id']}_Mouth{tag}", g, r0, spring, y0, top_of[zf], lantern_y=liq + 1.2)
         n_r = max(1, int((zb - za - 1.6) // 2.4) + 1)
         for k in range(n_r):  # ribs through the bore, a lamp under each crown
             zr = za + (zb - za) * (k + 1) / (n_r + 1); g = ctx.add(f"{t['id']}_Rib_{k + 1}", "group", [x, 0, round(zr - 0.2, 3)])

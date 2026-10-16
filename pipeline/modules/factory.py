@@ -750,3 +750,54 @@ def crusher(ctx, s, x, y, z, yaw):
         if pl.get("shape", "rect") != "rect" or abs(float(pl.get("top", 0)) - top) > 2.5: continue
         (cx, cz), (w, d) = pl["center"], pl["size"]; lx, lz = min(max(x, cx - w / 2 + 1.0), cx + w / 2 - 1.0), min(max(z, cz - d / 2 + 1.0), cz + d / 2 - 1.0)
         if max(abs(lx - x) - hx, abs(lz - z) - hz) <= ctx.G["player"]["jump_distance"] + 1.0: ctx.landings.append((round(lx, 3), round(lz, 3), 2.5))
+
+
+@structure("exit_hall", pad=False)
+def exit_hall(ctx, s, x, y, z, yaw):
+    """Stage 77: the level's way out - an arched doorway cut through the wall (group on the wall's room face at floor
+    y, local +z into the room, local -z through the wall: "wall" m thick) into a short hallway ("length" m) that fades
+    to pure black like the elevator shafts: walls, floor and ceiling carry the "void" fade (wall colour at the door end
+    -> black over the far part), the end wall is black. Walking into the dark is the level exit ("target").
+    Doorway "width" x "height"."""
+    import architecture as A
+    n = s["id"]; T = float(s.get("wall", 4.0)); Lh = float(s.get("length", 14.0))
+    W = float(s.get("width", 6.0)); H = float(s.get("height", 7.0)); r0 = W / 2 - 0.7; spring = H - 0.8 - r0; Wi = W + 0.4; Hc = H + 1.0
+    st = dict(mobile={"static": True}); vs = dict(collision=False, **st); gy = ctx.role("glow_yellow"); red = ctx.role("laser")
+    hs = dict(outline=False, bevel=False, **st)  # the hall's shell: plain (no ink shell / bevel - smaller mobile GLB)
+    g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); a = math.radians(yaw)
+    Wp = lambda lx, ly, lz: [x + lx * math.cos(a) + lz * math.sin(a), y + ly, z - lx * math.sin(a) + lz * math.cos(a)]
+    pts = [Wp(sx * (W / 2 - 0.05), sy, sz) for sx in (-1, 1) for sy in (-0.3, H - 0.05) for sz in (0.3, -T - 0.05)]  # (5 cm inside the frame: it bites into the wall, no flush faces)
+    ctx.cuts = getattr(ctx, "cuts", []) + [dict(min=[min(p[i] for p in pts) for i in range(3)], max=[max(p[i] for p in pts) for i in range(3)], keep=n)]
+    # the doorway: an arched frame filling the cut, dressed on the room face
+    ctx.add(n + "_Arch", "round_arch", [0, 0, -T / 2], [W, H, T + 0.1], "structure_b", g, opening=round(2 * r0 / W, 4), opening_h=round((spring + r0) / H, 4), segments=10)
+    A.arch_dressing(ctx, n + "_Mouth", g, r0, spring, 0.0, H + 0.8)
+    ctx.add(n + "_Sill", "box", [0, -0.3, -T / 2 + 0.1], [W - 0.1, 0.3, T + 0.3], "deck", g, bevel=False, **st)  # the doorway floor, through the wall
+    ctx.add(n + "_Threshold", "box", [0, 0.0, -0.6], [2 * r0, 0.04, 1.0], "stripe", g, outline=False, **vs)
+    # the hallway: floor, walls, ceiling, end wall
+    z0, ze = -T, -T - Lh; zm = (z0 + ze) / 2
+    ctx.add(n + "_Floor", "box", [0, -0.6, zm], [Wi, 0.6, Lh], "deck", g, **hs)
+    for k, sd in enumerate((-1, 1)): ctx.add(f"{n}_Wall_{k + 1}", "box", [sd * (Wi / 2 + 0.5), -0.6, zm], [1.0, Hc + 1.5, Lh], "wall", g, **hs)
+    ctx.add(n + "_Ceiling", "box", [0, Hc, zm], [Wi + 1.8, 0.8, Lh], "structure_b", g, **hs)
+    ctx.add(n + "_EndWall", "box", [0, -0.6, ze - 0.5], [Wi + 2.0, Hc + 1.5, 1.0], "wall", g, **hs)
+    # the endless dark: "void" fade panels (panel v: 0 far end, black over its lower 45% .. 1 wall colour towards the door)
+    P = round(Lh * 0.85, 3); vd = dict(cut="rect", uv_region="void", outline=False, **vs)
+    for nm, pos, rot, wd in ((n + "_Fade_Floor", [0, 0.02, ze + 0.02], [90, 0, 180], Wi), (n + "_Fade_Ceiling", [0, Hc - 0.02, ze + 0.02], [90, 0, 0], Wi),
+                             (n + "_Fade_1", [-Wi / 2 + 0.02, Hc / 2, ze + 0.02], [90, 0, 90], Hc), (n + "_Fade_2", [Wi / 2 - 0.02, Hc / 2, ze + 0.02], [90, 0, -90], Hc)):
+        ctx.add(nm, "panel", pos, [wd, P, 0], "accent", g, rot, **vd)
+    ctx.add(n + "_Fade_End", "panel", [0, 0.0, ze + 0.03], [Wi, round(Hc / 0.44, 3), 0], "accent", g, **vd)  # its black part covers the whole end
+    # ribs + lamps and red floor-edge strips, in the lit part only (the dark part stays pure black)
+    zb = ze + P * 0.5; k = 0; zr = z0 - 1.6
+    while zr > zb + 0.5:
+        k += 1
+        for sd in (-1, 1): ctx.add(f"{n}_Rib_{k}_Post_{sd + 2}", "box", [sd * (Wi / 2 - 0.2), 0.0, zr], [0.4, Hc, 0.5], "structure_b", g, outline=False, **vs)
+        ctx.add(f"{n}_Rib_{k}_Beam", "box", [0, Hc - 0.45, zr], [Wi, 0.45, 0.5], "structure_b", g, outline=False, **vs)
+        ctx.add(f"{n}_Rib_{k}_Lamp", "box", [0, Hc - 0.57, zr], [0.9, 0.12, 0.3], gy, g, outline=False, **vs)
+        zr -= 3.2
+    for k, sd in enumerate((-1, 1)): ctx.add(f"{n}_Edge_{k + 1}", "box", [sd * (Wi / 2 - 0.06), 0.02, (z0 + zb) / 2], [0.1, 0.1, z0 - zb], red, g, outline=False, **vs)
+    ex, ey, ez = Wp(0, 2.0, ze + 2.5)
+    ctx.exits.append(dict(id=n + "_Exit", type="level_exit", target=s.get("target", "next_level"), shape="cylinder", center=[round(ex, 3), round(ey, 3), round(ez, 3)],
+                          radius=round(Wi / 2 - 0.3, 3), height=4.0, note="walking into the black at the end of the exit hallway loads the next level (Construct Error: handle in the level_exit trigger)"))
+    c0, c1 = Wp(-Wi / 2, 0, z0), Wp(Wi / 2, 0, ze)
+    ctx.walkable.append(dict(name=n + "_Floor", min=[round(min(c0[0], c1[0]), 3), round(min(c0[2], c1[2]), 3)], max=[round(max(c0[0], c1[0]), 3), round(max(c0[2], c1[2]), 3)], y=y))
+    fx_, _, fz_ = Wp(0, 0, ze - 1.0); ctx.add(n + "_Far", "group", [round(fx_, 3), 0, round(fz_, 3)])  # (root marker: the level bounds reach the hall's end)
+    ctx.notes.append(f"{n}: exit hallway {Lh:.0f} m fading to black -> {s.get('target')}")

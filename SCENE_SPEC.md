@@ -992,3 +992,16 @@ Building blocks usable without the preset:
   turns down outside the building and ends in the background slime sea (y -9), below the window line - out of view.
   Pipe runs no longer hang rods outside the arena / annex footprints (no roof there).
 - Valve_A_Tank (the domed barrel on Pipe_Junction_A) is omitted (spec `omit`).
+
+## Stage 77: exit hallway, raised bigscreen
+- Structure `exit_hall` {id, position (on the wall's room face, floor y), yaw (local +z into the room), wall (thickness, 4),
+  length (14), width (6), height (7), target}: an arched doorway is CUT through the wall (`ctx.cuts` ->
+  `architecture.cut_doorways`: y-turned boxes crossing it are split beside / under / over it, small dressing in it is
+  removed) and framed by a round arch + the tunnel-mouth dressing (`architecture.arch_dressing`: voussoirs, lit
+  keystone, glowing halo, jambs, imposts, pilasters, lanterns). Behind it a short floored hallway fades to pure black
+  like the elevator shafts: "void"-region fade panels on the floor, walls and ceiling (wall colour at the door end ->
+  black at the far end) and a black end wall; ribs with lamps in the lit part only. Walking into the dark end is the
+  `level_exit` trigger. Panels take `cut: "rect"` (plain rectangle with its own UVs) where the material cuts panels.
+- Objects may set `bevel: false` (no bevel whatever the material says).
+- slime_arena: `Exit_Hall` replaces the old Exit_Door (-> level1_part3); the Works' east bigscreen opening sits 2 m
+  higher (sill 16) so the screen clears the wall decals.

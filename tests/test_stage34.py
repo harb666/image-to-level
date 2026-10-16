@@ -582,3 +582,27 @@ class Stage76(unittest.TestCase):
         sys.path.insert(0, os.path.join(ROOT, "pipeline")); from anchors import world_matrices
         W, _ = world_matrices(L)
         self.assertTrue(all(np.asarray(W[n])[0, 3] > -56 for n in by if n.startswith("W_Run_North_Hanger")))
+
+
+class Stage77(unittest.TestCase):
+    def test_exit_hallway_and_raised_screen(self):
+        """Exit_Hall: the Works' east wall is cut for an arched doorway (no wall piece left in it) into a short floored
+        hallway that fades to black (void-region panels, plain rect cut); its exit trigger is in the dark end; the
+        bigscreen sits 2 m higher (sill 16)."""
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        self.assertNotIn("Exit_Door", by); self.assertIn("Exit_Hall_Arch", by); self.assertIn("Exit_Hall_Mouth_Keylight", by)
+        for nm in ("Exit_Hall_Fade_Floor", "Exit_Hall_Fade_Ceiling", "Exit_Hall_Fade_1", "Exit_Hall_Fade_2", "Exit_Hall_Fade_End"):
+            self.assertEqual((by[nm]["uv_region"], by[nm]["cut"]), ("void", "rect"))
+        (ex,) = L["exits"]; self.assertEqual((ex["id"], ex["target"]), ("Exit_Hall_Exit", "level1_part3"))
+        self.assertGreater(ex["center"][0], 70)  # at the dark end (door at x 56, wall 4 m, hallway 14 m)
+        self.assertIn("Exit_Hall_Floor", {w["name"] for w in L["walkable"]})
+        import sys, numpy as np
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from anchors import world_matrices
+        W, _ = world_matrices(L)
+        for n, o in by.items():  # nothing of the wall stands in the doorway (x 56..60, z -118.95..-113.05, y 7.7..15)
+            if not n.startswith("Works_Wall_East") or o["type"] != "box": continue
+            M = np.asarray(W[n]); w, h, d = o["size"]
+            c = np.array([[sx * w / 2, sy * h, sz * d / 2, 1] for sx in (-1, 1) for sy in (0, 1) for sz in (-1, 1)]) @ M.T
+            lo, hi = c[:, :3].min(0), c[:, :3].max(0)
+            self.assertFalse(lo[0] < 59.9 and hi[0] > 56.1 and lo[2] < -113.1 and hi[2] > -118.9 and lo[1] < 14.9 and hi[1] > 8.1, n)
+        self.assertAlmostEqual(by["Works_Wall_East_Op2_Screen"]["position"][1], 16.25, 2)

@@ -296,7 +296,8 @@ def cut_panel(w, h, cut, seed=0, layout=None):
     "drip": liquid running down a wall: a band along the top edge with 2-4 tongues of random length.
     "ragged": worn wall plate - the rectangle with irregularly eaten-away edges (Stage 29).
     "blob": irregular puddle (in the panel plane; lay it flat with rotation [-90, yaw, 0]).
-    "sleeve": inward-facing open cylinder + bottom disc (bottomless-shaft darkness, atlas cell "void")."""
+    "sleeve": inward-facing open cylinder + bottom disc (bottomless-shaft darkness, atlas cell "void").
+    "rect": the plain rectangle, u across / v = y / h (an atlas cell on a panel of a material that cuts its panels)."""
     rng = np.random.default_rng(seed); P, T = [], []
     if cut == "pennant":
         ea, (b0, b1), at = (tuple(layout) + (None,))[:3] if layout else (1.3, (0.2, 0.8), None); notch = min(0.9 * w, 0.18 * h)
@@ -338,6 +339,9 @@ def cut_panel(w, h, cut, seed=0, layout=None):
         P = [(0.0, h / 2)] + [(w * rr * np.cos(q), h / 2 + h * rr * np.sin(q)) for q, rr in zip(a, r)]
         T = [[0, 1 + i, 1 + (i + 1) % n] for i in range(n)]
         uv = [((x + w / 2) / w, y / h) for x, y in P]
+    elif cut == "rect":  # Stage 77: e.g. "void" fade panels in the accent material (whose panels are banners otherwise)
+        m = trimesh.Trimesh([[-w / 2, 0, 0], [w / 2, 0, 0], [w / 2, h, 0], [-w / 2, h, 0]], [[0, 1, 2], [0, 2, 3]], process=False)
+        m.metadata["uv"] = np.array([[0, 0], [1, 0], [1, 1], [0, 1]], float); return m
     elif cut == "sleeve":  # open cylinder (diameter w, height h) seen from INSIDE + bottom disc; u fixed at 0.5, v = y / h
         n = 24; a = np.linspace(0, 2 * np.pi, n, endpoint=False); r = w / 2; ca, sa = np.cos(a), np.sin(a)
         V = np.r_[np.c_[r * ca, np.zeros(n), r * sa], np.c_[r * ca, np.full(n, h), r * sa], [[0, 0, 0]], np.c_[r * ca, np.zeros(n), r * sa]]; F = []

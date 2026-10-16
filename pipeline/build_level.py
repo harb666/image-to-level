@@ -136,6 +136,7 @@ def build(level_dir):
             mk = mk + "__2s"
         bevel = L["materials"].get(o.get("material"), {}).get("bevel", 0.0)
         if bevel and o["type"] == "box" and sorted(o.get("size") or [0, 0, 0])[1] < (L.get("style") or {}).get("bevel_min", 0.0): bevel = 0.0  # thin / small: a bevel never reads (x3.7 triangles)
+        if o.get("bevel") is False: bevel = 0.0  # Stage 77: per part (e.g. the dark exit hall's shell - never seen up close)
         key = json.dumps([{k: v for k, v in o.items() if k not in ("name", "position", "rotation", "parent")}, mk, bevel], sort_keys=True)
         if o.get("uv_space") == "world": key += "|" + o["name"]  # Stage 29: UVs depend on where it stands - never shared
         if key in geoms:  # identical part (window/door/...) -> reuse the same mesh (glTF instancing)
