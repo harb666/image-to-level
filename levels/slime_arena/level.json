@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "4ef0124a31ffe315",
+  "spec_sha": "1f1530685d6fc5ab",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -60170,29 +60170,6 @@
    "source": "inferred"
   },
   {
-   "name": "Valve_A_Tank",
-   "type": "tank",
-   "position": [
-    3.6,
-    0.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Valve_A",
-   "size": [
-    2.4,
-    4.0,
-    2.4
-   ],
-   "material": "pipe",
-   "gen": "Valve_A",
-   "source": "inferred"
-  },
-  {
    "name": "Junction_A_Crate",
    "type": "group",
    "position": [
@@ -74923,19 +74900,19 @@
    "name": "W_Run_North_Seg_01",
    "type": "cylinder",
    "position": [
-    -56.0,
-    16.0,
+    -75.0,
+    -9.0,
     -112.0
    ],
    "rotation": [
-    90.0,
-    90.0,
+    0.0,
+    0.0,
     0.0
    ],
    "parent": "W_Run_North",
    "size": [
     1.8,
-    32.0,
+    25.0,
     1.8
    ],
    "material": "pipe",
@@ -74947,7 +74924,79 @@
    "name": "W_Run_North_Flange_01a",
    "type": "cylinder",
    "position": [
-    -55.99,
+    -75.0,
+    -8.99,
+    -112.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "W_Run_North",
+   "size": [
+    2.34,
+    0.25,
+    2.34
+   ],
+   "material": "frame",
+   "sections": 10,
+   "gen": "W_Run_North",
+   "source": "visible"
+  },
+  {
+   "name": "W_Run_North_Flange_01b",
+   "type": "cylinder",
+   "position": [
+    -75.0,
+    15.74,
+    -112.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "W_Run_North",
+   "size": [
+    2.34,
+    0.25,
+    2.34
+   ],
+   "material": "frame",
+   "sections": 10,
+   "gen": "W_Run_North",
+   "source": "visible"
+  },
+  {
+   "name": "W_Run_North_Seg_02",
+   "type": "cylinder",
+   "position": [
+    -75.0,
+    16.0,
+    -112.0
+   ],
+   "rotation": [
+    90.0,
+    90.0,
+    0.0
+   ],
+   "parent": "W_Run_North",
+   "size": [
+    1.8,
+    51.0,
+    1.8
+   ],
+   "material": "pipe",
+   "sections": 10,
+   "gen": "W_Run_North",
+   "source": "visible"
+  },
+  {
+   "name": "W_Run_North_Flange_02a",
+   "type": "cylinder",
+   "position": [
+    -74.99,
     16.0,
     -112.0
    ],
@@ -74968,7 +75017,7 @@
    "source": "visible"
   },
   {
-   "name": "W_Run_North_Flange_01b",
+   "name": "W_Run_North_Flange_02b",
    "type": "cylinder",
    "position": [
     -24.26,
@@ -74992,7 +75041,7 @@
    "source": "visible"
   },
   {
-   "name": "W_Run_North_Seg_02",
+   "name": "W_Run_North_Seg_03",
    "type": "cylinder",
    "position": [
     -24.0,
@@ -75016,7 +75065,7 @@
    "source": "visible"
   },
   {
-   "name": "W_Run_North_Flange_02a",
+   "name": "W_Run_North_Flange_03a",
    "type": "cylinder",
    "position": [
     -24.0,
@@ -75040,7 +75089,7 @@
    "source": "visible"
   },
   {
-   "name": "W_Run_North_Flange_02b",
+   "name": "W_Run_North_Flange_03b",
    "type": "cylinder",
    "position": [
     -24.0,
@@ -75064,7 +75113,7 @@
    "source": "visible"
   },
   {
-   "name": "W_Run_North_Seg_03",
+   "name": "W_Run_North_Seg_04",
    "type": "cylinder",
    "position": [
     -24.0,
@@ -75088,7 +75137,7 @@
    "source": "visible"
   },
   {
-   "name": "W_Run_North_Flange_03a",
+   "name": "W_Run_North_Flange_04a",
    "type": "cylinder",
    "position": [
     -24.01,
@@ -75112,7 +75161,7 @@
    "source": "visible"
   },
   {
-   "name": "W_Run_North_Flange_03b",
+   "name": "W_Run_North_Flange_04b",
    "type": "cylinder",
    "position": [
     -55.74,
@@ -75139,7 +75188,7 @@
    "name": "W_Run_North_Junction_01",
    "type": "box",
    "position": [
-    -24.0,
+    -75.0,
     14.74,
     -112.0
    ],
@@ -75164,7 +75213,7 @@
    "position": [
     -24.0,
     14.74,
-    -150.0
+    -112.0
    ],
    "rotation": [
     0.0,
@@ -75182,217 +75231,25 @@
    "source": "visible"
   },
   {
-   "name": "W_Run_North_End1_Plate",
+   "name": "W_Run_North_Junction_03",
    "type": "box",
    "position": [
-    -55.86,
-    14.5,
-    -112.0
+    -24.0,
+    14.74,
+    -150.0
    ],
    "rotation": [
     0.0,
-    90.0,
+    0.0,
     0.0
    ],
+   "parent": "W_Run_North",
    "size": [
-    3.0,
-    3.0,
-    0.32
+    2.52,
+    2.52,
+    2.52
    ],
    "material": "frame",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "W_Run_North",
-   "source": "visible"
-  },
-  {
-   "name": "W_Run_North_End1_Collar",
-   "type": "cylinder",
-   "position": [
-    -55.72,
-    16.0,
-    -112.0
-   ],
-   "rotation": [
-    90.0,
-    90.0,
-    0.0
-   ],
-   "size": [
-    2.376,
-    0.42,
-    2.376
-   ],
-   "material": "structure_b",
-   "sections": 10,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "W_Run_North",
-   "source": "visible"
-  },
-  {
-   "name": "W_Run_North_End1_Bolt_1",
-   "type": "box",
-   "position": [
-    -55.73,
-    14.69,
-    -110.8
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    0.0
-   ],
-   "size": [
-    0.22,
-    0.22,
-    0.14
-   ],
-   "material": "machine",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "W_Run_North",
-   "source": "visible"
-  },
-  {
-   "name": "W_Run_North_End1_Bolt_2",
-   "type": "box",
-   "position": [
-    -55.73,
-    14.69,
-    -113.2
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    0.0
-   ],
-   "size": [
-    0.22,
-    0.22,
-    0.14
-   ],
-   "material": "machine",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "W_Run_North",
-   "source": "visible"
-  },
-  {
-   "name": "W_Run_North_End1_Bolt_3",
-   "type": "box",
-   "position": [
-    -55.73,
-    17.09,
-    -110.8
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    0.0
-   ],
-   "size": [
-    0.22,
-    0.22,
-    0.14
-   ],
-   "material": "machine",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "W_Run_North",
-   "source": "visible"
-  },
-  {
-   "name": "W_Run_North_End1_Bolt_4",
-   "type": "box",
-   "position": [
-    -55.73,
-    17.09,
-    -113.2
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    0.0
-   ],
-   "size": [
-    0.22,
-    0.22,
-    0.14
-   ],
-   "material": "machine",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "W_Run_North",
-   "source": "visible"
-  },
-  {
-   "name": "W_Run_North_End1_Stripe",
-   "type": "box",
-   "position": [
-    -55.71,
-    17.08,
-    -112.0
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    0.0
-   ],
-   "size": [
-    2.0,
-    0.24,
-    0.06
-   ],
-   "material": "stripe",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "W_Run_North",
-   "source": "visible"
-  },
-  {
-   "name": "W_Run_North_End1_Light",
-   "type": "box",
-   "position": [
-    -55.71,
-    14.8,
-    -113.2
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    0.0
-   ],
-   "size": [
-    0.26,
-    0.16,
-    0.06
-   ],
-   "material": "glow",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "W_Run_North",
    "source": "visible"
   },
@@ -75615,7 +75472,7 @@
    "name": "W_Run_North_Hanger_01",
    "type": "box",
    "position": [
-    -52.0,
+    -53.75,
     16.85,
     -112.0
    ],
@@ -75642,7 +75499,7 @@
    "name": "W_Run_North_Clamp_01",
    "type": "box",
    "position": [
-    -52.0,
+    -53.75,
     15.02,
     -112.0
    ],
@@ -75669,7 +75526,7 @@
    "name": "W_Run_North_Hanger_02",
    "type": "box",
    "position": [
-    -44.0,
+    -45.25,
     16.85,
     -112.0
    ],
@@ -75696,7 +75553,7 @@
    "name": "W_Run_North_Clamp_02",
    "type": "box",
    "position": [
-    -44.0,
+    -45.25,
     15.02,
     -112.0
    ],
@@ -75723,7 +75580,7 @@
    "name": "W_Run_North_Hanger_03",
    "type": "box",
    "position": [
-    -36.0,
+    -36.75,
     16.85,
     -112.0
    ],
@@ -75750,7 +75607,7 @@
    "name": "W_Run_North_Clamp_03",
    "type": "box",
    "position": [
-    -36.0,
+    -36.75,
     15.02,
     -112.0
    ],
@@ -75777,7 +75634,7 @@
    "name": "W_Run_North_Hanger_04",
    "type": "box",
    "position": [
-    -28.0,
+    -28.25,
     16.85,
     -112.0
    ],
@@ -75804,7 +75661,7 @@
    "name": "W_Run_North_Clamp_04",
    "type": "box",
    "position": [
-    -28.0,
+    -28.25,
     15.02,
     -112.0
    ],
@@ -149607,12 +149464,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 99466,
-  "objects": 4415,
+  "triangles": 99324,
+  "objects": 4410,
   "materials": 31,
-  "glb_kb": 6457,
-  "nodes": 5047,
-  "draw_calls_unbatched": 4845,
+  "glb_kb": 6453,
+  "nodes": 5043,
+  "draw_calls_unbatched": 4841,
   "draw_calls_batched_min": 33,
   "images": 94,
   "tex_mem_gpu_compressed_mb": 23.14,

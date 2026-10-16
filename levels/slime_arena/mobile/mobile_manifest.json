@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 6457,
-    "triangles": 124170,
-    "nodes": 5047,
-    "mesh_nodes": 4845,
-    "unique_meshes": 2389,
+    "glb_kb": 6453,
+    "triangles": 123958,
+    "nodes": 5043,
+    "mesh_nodes": 4841,
+    "unique_meshes": 2391,
     "materials": 33,
     "images": 94,
-    "draw_calls_unbatched": 4845,
+    "draw_calls_unbatched": 4841,
     "draw_calls_batched_min": 33,
     "tex_mem_uncompressed_mb": 92.57,
     "tex_mem_gpu_compressed_mb": 23.14,
@@ -71,22 +71,22 @@
    },
    "visible": {
     "cameras": 320,
-    "visible_draw_calls_mean": 1609.5,
-    "visible_draw_calls_max": 4761,
-    "visible_triangles_mean": 56356,
-    "visible_triangles_max": 132686
+    "visible_draw_calls_mean": 1608.2,
+    "visible_draw_calls_max": 4753,
+    "visible_triangles_mean": 56283,
+    "visible_triangles_max": 132306
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3966,
-    "triangles": 116936,
-    "nodes": 164,
-    "mesh_nodes": 131,
-    "unique_meshes": 131,
+    "glb_kb": 3957,
+    "triangles": 116536,
+    "nodes": 166,
+    "mesh_nodes": 133,
+    "unique_meshes": 133,
     "materials": 33,
     "images": 64,
-    "draw_calls_unbatched": 131,
+    "draw_calls_unbatched": 133,
     "draw_calls_batched_min": 33,
     "tex_mem_uncompressed_mb": 30.07,
     "tex_mem_gpu_compressed_mb": 7.52,
@@ -130,19 +130,19 @@
     ]
    },
    "collision": {
-    "colliders": 895,
+    "colliders": 898,
     "hazards": 11,
-    "glb_kb": 466
+    "glb_kb": 467
    },
    "visible": {
     "cameras": 320,
-    "visible_draw_calls_mean": 72.1,
-    "visible_draw_calls_max": 132,
-    "visible_triangles_mean": 105885,
-    "visible_triangles_max": 128526
+    "visible_draw_calls_mean": 72.8,
+    "visible_draw_calls_max": 134,
+    "visible_triangles_mean": 105560,
+    "visible_triangles_max": 128126
    },
-   "hidden_faces_removed": 3252,
-   "occluded_faces_removed": 3982,
+   "hidden_faces_removed": 3352,
+   "occluded_faces_removed": 4070,
    "occluded_objects": [
     "Assembly_Line_Light_01",
     "OuterWall_East_03_Banner_01",
@@ -151,22 +151,24 @@
     "W_Run_North_Flange_01b",
     "W_Run_North_Flange_02a",
     "W_Run_North_Flange_02b",
-    "W_Run_North_Flange_03a"
+    "W_Run_North_Flange_03a",
+    "W_Run_North_Flange_03b",
+    "W_Run_North_Flange_04a"
    ],
    "effects_extra_draw_calls": 9,
    "effects_max_particles": 1246,
    "slimmed_kb": {
     "level_mobile.glb": [
-     5653,
-     3966
+     5641,
+     3957
     ],
     "background_mobile.glb": [
      522,
      442
     ],
     "collision.glb": [
-     562,
-     466
+     563,
+     467
     ]
    }
   }
@@ -2667,6 +2669,28 @@
    ]
   },
   {
+   "node": "M_frame_-1_0",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "W_Run_North_Junction_01"
+   ]
+  },
+  {
+   "node": "M_pipe_-1_0",
+   "kind": "static",
+   "material": "pipe",
+   "triangles": 20,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "W_Run_North_Seg_01"
+   ]
+  },
+  {
    "node": "M_accent_0_0",
    "kind": "static",
    "material": "accent",
@@ -2780,7 +2804,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 5802,
+   "triangles": 5718,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2831,11 +2855,9 @@
     "W_Run_North_Clamp_01",
     "W_Run_North_Hanger_01",
     "W_Run_North_End2_Plate",
-    "W_Run_North_End1_Plate",
+    "W_Run_North_Junction_03",
     "W_Run_North_Junction_02",
-    "W_Run_North_Junction_01",
-    "W_Run_North_Flange_03b",
-    "W_Run_North_Flange_01a",
+    "W_Run_North_Flange_04b",
     "Tank_Slime_East_2_Duct_Hanger_4",
     "Tank_Slime_East_2_Duct_Hanger_3",
     "Tank_Slime_East_2_Duct_Hanger_2",
@@ -3239,14 +3261,13 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 1590,
+   "triangles": 1578,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
     "W_Broken_Light",
     "W_Run_High_End1_Light",
     "W_Run_North_End2_Light",
-    "W_Run_North_End1_Light",
     "Crusher_A_Pad_Lamp_2",
     "Crusher_A_Pad_Lamp_1",
     "Column_Works_NW_Red_04",
@@ -3439,7 +3460,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 21904,
+   "triangles": 21784,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3512,11 +3533,12 @@
     "W_Run_High_Seg_02__ol",
     "W_Run_High_Flange_01a__ol",
     "W_Run_High_Seg_01__ol",
-    "W_Run_North_End1_Collar__ol",
-    "W_Run_North_End1_Plate__ol",
+    "W_Run_North_End2_Collar__ol",
+    "W_Run_North_End2_Plate__ol",
     "W_Run_North_Junction_01__ol",
+    "W_Run_North_Seg_04__ol",
+    "W_Run_North_Seg_03__ol",
     "W_Run_North_Seg_02__ol",
-    "W_Run_North_Flange_01a__ol",
     "W_Run_North_Seg_01__ol",
     "Pipe_West_Flange__ol",
     "Pipe_West__ol",
@@ -3650,7 +3672,6 @@
     "Purifier_1_Plinth__ol",
     "Valve_B__ol",
     "Junction_A_Crate_01__ol",
-    "Valve_A_Tank__ol",
     "Valve_A_Unit__ol",
     "Arm_4_Base__ol",
     "Arm_4_Pedestal__ol",
@@ -4034,7 +4055,7 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 1816,
+   "triangles": 1768,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4050,10 +4071,6 @@
     "W_Run_North_End2_Bolt_3",
     "W_Run_North_End2_Bolt_2",
     "W_Run_North_End2_Bolt_1",
-    "W_Run_North_End1_Bolt_4",
-    "W_Run_North_End1_Bolt_3",
-    "W_Run_North_End1_Bolt_2",
-    "W_Run_North_End1_Bolt_1",
     "Crusher_A_Housing",
     "Claw_Proc_Trolley_Body",
     "Claw_Proc_Finger_3_Knuckle",
@@ -4100,7 +4117,7 @@
    "node": "M_pipe_0_0",
    "kind": "static",
    "material": "pipe",
-   "triangles": 1428,
+   "triangles": 1280,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -4109,9 +4126,9 @@
     "W_Hanging",
     "W_Run_High_Seg_02",
     "W_Run_High_Seg_01",
+    "W_Run_North_Seg_04",
     "W_Run_North_Seg_03",
     "W_Run_North_Seg_02",
-    "W_Run_North_Seg_01",
     "Crusher_A_Column",
     "Tank_Slime_East_2_Duct",
     "Tank_Slime_East_2",
@@ -4120,7 +4137,6 @@
     "Conduit_SpineDrop",
     "Conduit_Spine",
     "Valve_B",
-    "Valve_A_Tank",
     "Works_Wall_West_03_M03Pipes_Pipe_1",
     "Works_Wall_West_03_M01Pipes_Pipe_4",
     "Works_Wall_West_03_M01Pipes_Pipe_3",
@@ -4177,7 +4193,7 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 374,
+   "triangles": 362,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -4186,7 +4202,6 @@
     "W_Spill_Mouth_Stripe",
     "W_Run_High_End1_Stripe",
     "W_Run_North_End2_Stripe",
-    "W_Run_North_End1_Stripe",
     "Crusher_A_Pad_Stripe_4",
     "Crusher_A_Pad_Stripe_3",
     "Crusher_A_Pad_Stripe_2",
@@ -4236,7 +4251,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 7617,
+   "triangles": 7577,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -4251,7 +4266,6 @@
     "W_Spill",
     "W_Run_High_End1_Collar",
     "W_Run_North_End2_Collar",
-    "W_Run_North_End1_Collar",
     "Crusher_A_Housing_Rib_2",
     "Crusher_A_Housing_Rib_1",
     "Crusher_A_Mount",

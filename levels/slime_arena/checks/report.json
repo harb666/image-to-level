@@ -1,16 +1,16 @@
 {
  "level": "slime_arena",
  "assets_kb": {
-  "level.glb": 6457,
-  "mobile/level_mobile.glb": 3966,
-  "mobile/collision.json": 287,
+  "level.glb": 6453,
+  "mobile/level_mobile.glb": 3957,
+  "mobile/collision.json": 286,
   "environment.json": 4,
   "background.glb": 522,
   "effects.json": 83
  },
  "complexity": {
-  "triangles": 124170,
-  "nodes": 4845,
+  "triangles": 123958,
+  "nodes": 4841,
   "materials": 31,
   "heaviest": [
    [
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 6457,
-   "triangles": 99466,
-   "draw_calls": 4845,
+   "glb_kb": 6453,
+   "triangles": 99324,
+   "draw_calls": 4841,
    "tex_mem_gpu_mb_est": 23.14
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3966,
-   "triangles": 116936,
-   "draw_calls": 131,
-   "visible_draw_calls_est": 72.1,
-   "visible_draw_calls_max_est": 132,
+   "glb_kb": 3957,
+   "triangles": 116536,
+   "draw_calls": 133,
+   "visible_draw_calls_est": 72.8,
+   "visible_draw_calls_max_est": 134,
    "tex_mem_gpu_mb_est": 7.52,
    "materials": 33,
-   "nodes": 164,
+   "nodes": 166,
    "colliders": {
-    "colliders": 895,
+    "colliders": 898,
     "hazards": 11,
-    "glb_kb": 466
+    "glb_kb": 467
    },
    "background_kb": 442
   },
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 49182.0,
-  "reachable_area_m2": 9566.0,
-  "components": 471,
+  "standable_area_m2": 49196.0,
+  "reachable_area_m2": 9576.0,
+  "components": 470,
   "spawns": [
    {
     "id": "spawn",
@@ -95,7 +95,7 @@
     "standable": true,
     "clearance_m": 6.5,
     "headroom_m": 99.0,
-    "component": 186,
+    "component": 185,
     "hazard_distance_m": 11.34
    },
    {
@@ -108,7 +108,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 19.79,
-    "component": 186,
+    "component": 185,
     "hazard_distance_m": 5.02
    },
    {
@@ -121,7 +121,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 19.77,
-    "component": 267,
+    "component": 266,
     "hazard_distance_m": 7.52
    },
    {
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 2.5,
     "headroom_m": 19.8,
-    "component": 186,
+    "component": 185,
     "hazard_distance_m": 6.52
    },
    {
@@ -338,7 +338,7 @@
    },
    {
     "name": "Pipe_Junction_A",
-    "standable_m2": 49.0,
+    "standable_m2": 59.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -468,22 +468,22 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 131 (> 80)"
+   "message": "mobile draw calls 133 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~72 visible draw calls (estimate, > 60)"
+   "message": "~73 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "124170 triangles (> budget 40000)"
+   "message": "123958 triangles (> budget 40000)"
   },
   {
    "kind": "dev_size",
    "severity": "info",
-   "message": "dev GLB 6457 KB (> 6000)"
+   "message": "dev GLB 6453 KB (> 6000)"
   },
   {
    "kind": "low_ceiling",
