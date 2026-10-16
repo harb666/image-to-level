@@ -1,21 +1,21 @@
 {
  "level": "slime_arena",
  "assets_kb": {
-  "level.glb": 6453,
-  "mobile/level_mobile.glb": 3957,
-  "mobile/collision.json": 286,
+  "level.glb": 6503,
+  "mobile/level_mobile.glb": 3967,
+  "mobile/collision.json": 282,
   "environment.json": 4,
-  "background.glb": 522,
-  "effects.json": 83
+  "background.glb": 518,
+  "effects.json": 87
  },
  "complexity": {
-  "triangles": 123958,
-  "nodes": 4841,
+  "triangles": 125080,
+  "nodes": 4913,
   "materials": 31,
   "heaviest": [
    [
     "Corrosion_Band",
-    3316
+    3252
    ],
    [
     "Works_Ceil_Fan_2_Rotor",
@@ -37,27 +37,27 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 6453,
-   "triangles": 99324,
-   "draw_calls": 4841,
+   "glb_kb": 6503,
+   "triangles": 99818,
+   "draw_calls": 4913,
    "tex_mem_gpu_mb_est": 23.14
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3957,
-   "triangles": 116536,
-   "draw_calls": 133,
-   "visible_draw_calls_est": 72.8,
-   "visible_draw_calls_max_est": 134,
+   "glb_kb": 3967,
+   "triangles": 117800,
+   "draw_calls": 140,
+   "visible_draw_calls_est": 75.0,
+   "visible_draw_calls_max_est": 140,
    "tex_mem_gpu_mb_est": 7.52,
    "materials": 33,
-   "nodes": 166,
+   "nodes": 194,
    "colliders": {
-    "colliders": 898,
+    "colliders": 877,
     "hazards": 11,
-    "glb_kb": 467
+    "glb_kb": 462
    },
-   "background_kb": 442
+   "background_kb": 439
   },
   "effects": {
    "max_particles": 1246,
@@ -74,16 +74,16 @@
    "INTENTIONAL": 0
   },
   "relations": {
-   "explicit": 115,
+   "explicit": 109,
    "inferred": 0
   },
   "repairable": 0,
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 49196.0,
-  "reachable_area_m2": 9576.0,
-  "components": 470,
+  "standable_area_m2": 49443.0,
+  "reachable_area_m2": 9596.0,
+  "components": 486,
   "spawns": [
    {
     "id": "spawn",
@@ -95,7 +95,7 @@
     "standable": true,
     "clearance_m": 6.5,
     "headroom_m": 99.0,
-    "component": 185,
+    "component": 201,
     "hazard_distance_m": 11.34
    },
    {
@@ -108,7 +108,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 19.79,
-    "component": 185,
+    "component": 201,
     "hazard_distance_m": 5.02
    },
    {
@@ -121,7 +121,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 19.77,
-    "component": 266,
+    "component": 282,
     "hazard_distance_m": 7.52
    },
    {
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 2.5,
     "headroom_m": 19.8,
-    "component": 185,
+    "component": 201,
     "hazard_distance_m": 6.52
    },
    {
@@ -147,7 +147,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 16.77,
-    "component": 6,
+    "component": 12,
     "hazard_distance_m": 5.61
    },
    {
@@ -160,7 +160,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 16.8,
-    "component": 6,
+    "component": 12,
     "hazard_distance_m": 7.52
    },
    {
@@ -173,7 +173,7 @@
     "standable": true,
     "clearance_m": 4.5,
     "headroom_m": 14.8,
-    "component": 6,
+    "component": 12,
     "hazard_distance_m": 6.26
    },
    {
@@ -186,7 +186,7 @@
     "standable": true,
     "clearance_m": 5.5,
     "headroom_m": 12.8,
-    "component": 63,
+    "component": 77,
     "hazard_distance_m": 6.52
    },
    {
@@ -199,7 +199,7 @@
     "standable": true,
     "clearance_m": 8.5,
     "headroom_m": 18.8,
-    "component": 128,
+    "component": 143,
     "hazard_distance_m": 9.41
    }
   ],
@@ -380,7 +380,7 @@
    },
    {
     "name": "Conduit_Walk",
-    "standable_m2": 628.0,
+    "standable_m2": 632.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -392,7 +392,7 @@
    },
    {
     "name": "West_Landing_S",
-    "standable_m2": 24.0,
+    "standable_m2": 20.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -427,8 +427,8 @@
     "one_way": false
    },
    {
-    "name": "W_Cat_West",
-    "standable_m2": 104.0,
+    "name": "Exit_Hall_Floor",
+    "standable_m2": 82.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -442,24 +442,29 @@
   "narrow_connectors": [],
   "passed": true
  },
+ "traverse": {
+  "connectors": 24,
+  "passed": true,
+  "findings": 0
+ },
  "camera": {
-  "players": 44,
-  "players_skipped_inside_or_against_walls": 4,
-  "cameras": 1056,
-  "rays": 92928,
+  "players": 41,
+  "players_skipped_inside_or_against_walls": 7,
+  "cameras": 984,
+  "rays": 86592,
   "void_rays": 0,
   "void_examples": [],
   "back_face": {},
   "open_mesh": {},
   "camera_inside": 0,
-  "visible_objects": 1833,
+  "visible_objects": 1839,
   "passed": true,
   "stale_note": "from the last full run (--fast skipped it)"
  },
  "render": {
   "views": 16,
   "errors": [],
-  "load_seconds": 8.981,
+  "load_seconds": 14.007,
   "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
   "contact_sheet": "checks/views/contact_sheet.jpg",
   "note": "browser preview renders (three.js, SwiftShader) - not Godot"
@@ -468,22 +473,22 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 133 (> 80)"
+   "message": "mobile draw calls 140 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~73 visible draw calls (estimate, > 60)"
+   "message": "~75 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "123958 triangles (> budget 40000)"
+   "message": "125080 triangles (> budget 40000)"
   },
   {
    "kind": "dev_size",
    "severity": "info",
-   "message": "dev GLB 6453 KB (> 6000)"
+   "message": "dev GLB 6503 KB (> 6000)"
   },
   {
    "kind": "low_ceiling",

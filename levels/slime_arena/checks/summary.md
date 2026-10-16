@@ -1,16 +1,16 @@
 # slime_arena: generation summary
 
-Spec: levels/slime_arena/scene_spec.json · 4410 objects · 31 materials · 24 effects
-Checks: PASSED ({'error': 0, 'warning': 3, 'info': 2}) · refine passes: 0
-Mobile (balanced): 3957 KB · 116536 tris · 133 draw calls · ~72.8 visible (estimate) · ~7.52 MB GPU textures (estimate)
-Navigation: 9576.0 m² reachable of 49196.0 m² standable
-Package: dist/slime_arena/package (38 files, 15.5 MB) valid=True
+Spec: levels/slime_arena/scene_spec.json · 4454 objects · 31 materials · 25 effects
+Checks: PASSED ({'error': 0, 'warning': 3, 'info': 2}) · refine passes: 1
+Mobile (balanced): 3967 KB · 117800 tris · 140 draw calls · ~75.0 visible (estimate) · ~7.52 MB GPU textures (estimate)
+Navigation: 9596.0 m² reachable of 49443.0 m² standable
+Package: dist/slime_arena/package (38 files, 15.62 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
-- warning: mobile draw calls 133 (> 80)
-- warning: ~73 visible draw calls (estimate, > 60)
-- warning: 123958 triangles (> budget 40000)
+- warning: mobile draw calls 140 (> 80)
+- warning: ~75 visible draw calls (estimate, > 60)
+- warning: 125080 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -42,7 +42,8 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - Conv_West: working assembly line - 4 parcels 7.35 m apart at 0.8 m/s, 2 station(s)
 - Conv_East: working assembly line - 4 parcels 7.35 m apart at 0.8 m/s, 2 station(s)
 - Valve_A_Vent: left out - it would hang over the edge of Pipe_Junction_A
-- Exit_Door: open exit door -> level1_part3
+- Exit_Hall: exit hallway 14 m fading to black -> level1_part3
+- Pads_West: 10 pads rising out of the liquid (one skinned mesh per material, 21 bones)
 - outlets: removed wall dressing in front of pours: Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine
 - Central: 3 cover crate(s) dropped - no free spot clear of landings
 - Tunnel_West: HazardFluid_2 reaches on to -56.0 through the bore
@@ -52,12 +53,12 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - portals: 3 thin fixtures covered by a doorway portal removed (Gallery_North_Strut_02, Gallery_North_Strut_03, Gallery_North_Strut_04)
 - corrosion: 34 lit bodies get a plain skirt at the liquid line (no lights in the slime)
 - corrosion: 48 lights at the liquid line removed, 28 light strips raised clear of it
-- corrosion: 2246 wall faces at the liquid line get a corroded band (one mesh, one material)
+- corrosion: 2206 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 11.5 s
-- build (glb, sky, background, effects, mobile): 175.3 s
-- checks (fast): 136.1 s
-- previews: 0.9 s
-- export package: 0.8 s
-- total: 324.5 s
+- spec -> level.json: 12.1 s
+- build (glb, sky, background, effects, mobile): 192.0 s
+- refine (checks -> safe fixes): 3544.6 s
+- previews: 1.1 s
+- export package: 1.0 s
+- total: 3750.9 s

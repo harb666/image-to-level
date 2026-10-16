@@ -2,24 +2,13 @@
  "passes": [
   {
    "n": 1,
-   "errors": 1,
-   "warnings": 3,
-   "top_errors": [
-    "Round_SW_Light_02: back face visible from 1 camera rays (missing/one-sided geometry)"
-   ],
-   "fixes": [
-    "camera: Round_SW_Light_02: double_sided"
-   ]
-  },
-  {
-   "n": 2,
    "errors": 0,
    "warnings": 3,
    "top_errors": []
   }
  ],
  "max_passes": 3,
- "seconds": 5673.1,
+ "seconds": 3544.5,
  "passed": true,
  "counts": {
   "error": 0,
@@ -29,17 +18,17 @@
  "needs_claude": [
   {
    "severity": "warning",
-   "message": "mobile draw calls 132 (> 80)",
+   "message": "mobile draw calls 140 (> 80)",
    "object": null
   },
   {
    "severity": "warning",
-   "message": "~72 visible draw calls (estimate, > 60)",
+   "message": "~75 visible draw calls (estimate, > 60)",
    "object": null
   },
   {
    "severity": "warning",
-   "message": "124170 triangles (> budget 40000)",
+   "message": "125080 triangles (> budget 40000)",
    "object": null
   }
  ],
