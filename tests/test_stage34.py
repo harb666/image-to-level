@@ -549,3 +549,19 @@ class Stage74(unittest.TestCase):
         fy = float(lay.get("floor_y", -8.0))
         low = [g for g in G if abs(float(g.bounds[0][1]) - (fy + 6 - 0.05)) < 1e-3]  # a glowing section standing on each base top
         self.assertEqual(len(low), len(T))
+
+
+class Stage75(unittest.TestCase):
+    def test_junction_a_has_room(self):
+        """Pipe_Junction_A: machinery pushed to the corner away from the crusher landing, the crate out of the landing
+        (the crusher records landings), a clear 3 m stripe from the crusher corner to the catwalk to Junction B."""
+        import sys, numpy as np
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from anchors import world_matrices
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); W, by = world_matrices(L)
+        a, b = np.array([-11.8, -114.8]), np.array([-19.3, -121.2])  # crusher landing corner -> catwalk end
+        for n in ("Valve_A_Unit", "Junction_A_Crate_01"):
+            p = np.asarray(W[n])[:3, 3][[0, 2]]; s = by[n]["size"]; r = np.hypot(s[0], s[2]) / 2
+            t = np.clip((p - a) @ (b - a) / ((b - a) @ (b - a)), 0, 1); d = np.linalg.norm(p - (a + t * (b - a)))
+            self.assertGreater(d - r, 1.0, n)  # nothing within 1 m of the walking line
+        self.assertFalse([n for n in by if n.startswith("Pipe_Junction_A_Cover_")])
+        t = np.asarray(W["Valve_A_Tank"])[:3, 3]; self.assertGreater(t[2], -116.5)  # the tank stands along the north edge

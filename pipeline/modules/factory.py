@@ -746,3 +746,7 @@ def crusher(ctx, s, x, y, z, yaw):
                                                         warn=0.7, down=0.22, hold=0.45, rise=1.2,
                                                         kill=[[round(x - hx + 0.05, 3), top, round(z - hz + 0.05, 3)], [round(x + hx - 0.05, 3), round(top + 2.0, 3), round(z + hz - 0.05, 3)]])]
     ctx.walkable.append(dict(name=n + "_Pad", min=[round(x - hx, 3), round(z - hz, 3)], max=[round(x + hx, 3), round(z + hz, 3)], y=top))
+    for pl in ctx.spec.get("platforms", []):  # Stage 75: where players land from / take off for the pad - kept clear of cover crates
+        if pl.get("shape", "rect") != "rect" or abs(float(pl.get("top", 0)) - top) > 2.5: continue
+        (cx, cz), (w, d) = pl["center"], pl["size"]; lx, lz = min(max(x, cx - w / 2 + 1.0), cx + w / 2 - 1.0), min(max(z, cz - d / 2 + 1.0), cz + d / 2 - 1.0)
+        if max(abs(lx - x) - hx, abs(lz - z) - hz) <= ctx.G["player"]["jump_distance"] + 1.0: ctx.landings.append((round(lx, 3), round(lz, 3), 2.5))

@@ -979,3 +979,9 @@ Building blocks usable without the preset:
   its other side if that spot is not free). Both changes draw no extra random numbers: the rest of the backdrop
   (decks, gantries, pillars, pipes, lamps) keeps its layout. slime_arena: the overlapping pair east of the Works
   (bases 1.8 m into each other) now stands 3.5 m apart.
+
+## Stage 75: room to move on Pipe_Junction_A
+- The crusher records a landing on every deck within a jump of its pad (cover crates keep out of it).
+- Pipe_Junction_A: Valve_A (machine unit + tank) pushed into the corner along the north edge; the platform's cover crate
+  replaced by one `crates` crate tucked into the far (south-east) corner; the deck is open from the crusher landing to
+  the catwalk to Pipe_Junction_B (nothing within 1 m of that line), the crate is there to jump on.
