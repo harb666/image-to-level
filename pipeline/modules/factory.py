@@ -767,7 +767,7 @@ def exit_hall(ctx, s, x, y, z, yaw):
     g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); a = math.radians(yaw)
     Wp = lambda lx, ly, lz: [x + lx * math.cos(a) + lz * math.sin(a), y + ly, z - lx * math.sin(a) + lz * math.cos(a)]
     pts = [Wp(sx * (W / 2 - 0.05), sy, sz) for sx in (-1, 1) for sy in (-0.3, H - 0.05) for sz in (0.3, -T - 0.05)]  # (5 cm inside the frame: it bites into the wall, no flush faces)
-    ctx.cuts = getattr(ctx, "cuts", []) + [dict(min=[min(p[i] for p in pts) for i in range(3)], max=[max(p[i] for p in pts) for i in range(3)], keep=n)]
+    ctx.cuts = getattr(ctx, "cuts", []) + [dict(min=[min(p[i] for p in pts) for i in range(3)], max=[max(p[i] for p in pts) for i in range(3)], keep=n, floor=y)]
     # the doorway: an arched frame filling the cut, dressed on the room face
     ctx.add(n + "_Arch", "round_arch", [0, 0, -T / 2], [W, H, T + 0.1], "structure_b", g, opening=round(2 * r0 / W, 4), opening_h=round((spring + r0) / H, 4), segments=10)
     A.arch_dressing(ctx, n + "_Mouth", g, r0, spring, 0.0, H + 0.8)

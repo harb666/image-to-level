@@ -1566,7 +1566,7 @@ def arch_dressing(ctx, pre, g, r0, spring, y0, top, lantern_y=None, st=None):
 
 def cut_doorways(ctx):
     """Stage 77: openings cut through walls built before them (ctx.cuts: {"min": [x, y, z], "max": [...], "keep": prefix}
-    world boxes). Boxes turned only about y that cross a cut are split round it along their long horizontal axis (the
+    world boxes; optional "floor": y of the floor at the door - decks whose top is at / under it are left alone). Boxes turned only about y that cross a cut are split round it along their long horizontal axis (the
     parts beside it, plus the parts under / over it); smaller dressing pieces standing in the cut are removed."""
     from anchors import world_matrices
     for c in getattr(ctx, "cuts", []):
@@ -1578,6 +1578,7 @@ def cut_doorways(ctx):
             corners = np.array([[sx * w / 2, sy * h, sz * d / 2, 1] for sx in (-1, 1) for sy in (0, 1) for sz in (-1, 1)]) @ M.T
             blo, bhi = corners[:, :3].min(0), corners[:, :3].max(0)
             if np.any(bhi <= lo + 0.01) or np.any(blo >= hi - 0.01): continue  # not in the cut
+            if "floor" in c and bhi[1] <= c["floor"] + 0.05: continue  # the room's floor deck reaching the wall: stays whole
             if o["type"] != "box" or not abs(M[1, 1] - 1) < 1e-6 or max(w, d) < 6:  # dressing in the doorway: gone
                 ctx.objects.remove(o); continue
             Mi = np.linalg.inv(M); cl = (np.array([[x_, y_, z_, 1] for x_ in (lo[0], hi[0]) for y_ in (lo[1], hi[1]) for z_ in (lo[2], hi[2])]) @ Mi.T)[:, :3]

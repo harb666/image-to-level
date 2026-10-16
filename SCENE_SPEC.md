@@ -1005,3 +1005,8 @@ Building blocks usable without the preset:
 - Objects may set `bevel: false` (no bevel whatever the material says).
 - slime_arena: `Exit_Hall` replaces the old Exit_Door (-> level1_part3); the Works' east bigscreen opening sits 2 m
   higher (sill 16) so the screen clears the wall decals.
+
+## Stage 78: conduit arches removed, its pipe into the ceiling
+- slime_arena: the `Conduit` arches over Conduit_Walk are gone; their spine is now the pipe run `W_Conduit_Pipe` at the
+  same height (y 15.6), hung from the ceiling, rising straight up into the roof slab at both ends (nothing drops into
+  the slime). Doorway cuts take an optional `floor` y: floor decks reaching the wall are not split by the cut.

@@ -225,17 +225,15 @@ class Stage57(unittest.TestCase):
 
 
 class Stage58(unittest.TestCase):
-    def test_conduit_spine_drops_into_the_slime(self):
-        import sys
-        sys.path.insert(0, os.path.join(ROOT, "pipeline"))
-        from architecture import _aabb_all
-        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json")))
-        class C: objects = L["objects"]
-        B = _aabb_all(C)
-        drop, walk = B["Conduit_SpineDrop"], B["Conduit_Walk_Floor"] if "Conduit_Walk_Floor" in B else None
-        self.assertLess(drop[0][1], 1.0)  # its bottom is under the liquid surface (y 1): it vanishes into it
-        self.assertIn("Conduit_SpineJoint", B)
-        if walk: self.assertTrue(drop[0][2] > walk[1][2] or drop[1][2] < walk[0][2])  # outside the walkway's footprint
+    def test_conduit_pipe_rises_into_the_ceiling(self):
+        """Stage 78: the Conduit arches are gone; their spine pipe is a ceiling-hung run whose ends rise into the roof
+        slab (y 26.5) - nothing drops into the slime."""
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        self.assertFalse(any(n.startswith(("Conduit_Rib", "Conduit_Spine")) for n in by))
+        for k in ("01", "03"):
+            sg = by[f"W_Conduit_Pipe_Seg_{k}"]; self.assertGreater(max(sg["position"][1], sg["position"][1] + sg["size"][1]) if k == "03" else sg["position"][1], 26.5)
+        self.assertTrue(any(n.startswith("W_Conduit_Pipe_Hanger") for n in by))
+        self.assertIn("Conduit_Walk_Floor", by); self.assertNotIn("Conduit_Walk_Floor_C1", by)  # the exit doorway cut leaves the deck whole
 
 
 class Stage59(unittest.TestCase):
