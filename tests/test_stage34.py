@@ -604,3 +604,38 @@ class Stage77(unittest.TestCase):
             lo, hi = c[:, :3].min(0), c[:, :3].max(0)
             self.assertFalse(lo[0] < 59.9 and hi[0] > 56.1 and lo[2] < -113.1 and hi[2] > -118.9 and lo[1] < 14.9 and hi[1] > 8.1, n)
         self.assertAlmostEqual(by["Works_Wall_East_Op2_Screen"]["position"][1], 16.25, 2)
+
+
+class Stage79(unittest.TestCase):
+    def test_ramp_between_maintenance_towers_and_walk_check(self):
+        """W_Stairs_Shaft is a ramp (sloped deck, girders under the open span only); every connector walks clean with the
+        capsule up and down (checks/traverse.json); the stale banner beside the bigscreen is gone."""
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        self.assertIn("W_Stairs_Shaft_Deck", by); self.assertNotIn("stairs", {by[n]["type"] for n in by if n.startswith("W_Stairs_Shaft")})
+        self.assertNotIn("Works_Wall_East_02_Banner_02", by)
+        T = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "checks", "traverse.json")))
+        self.assertEqual(T["connectors"], len([o for o in L["objects"] if o.get("connector")])); self.assertEqual(T["findings"], [])
+
+    def test_walk_simulator_catches_problems(self):
+        import sys, numpy as np, trimesh
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); import traverse_check as tc
+        P = dict(radius=0.35, height=1.8, step_height=0.4, max_slope_deg=40)
+        floor = trimesh.creation.box([20, 1, 4]); floor.apply_translation([0, -0.5, 0]); pts = [np.array([x, 0.0]) for x in np.arange(-8, 3.9, 0.1)]
+        def walk(*extra):
+            m = trimesh.util.concatenate([floor, *extra]); return tc._walk(pts, 0.0, m.triangles, m.face_normals, P)[0]
+        def wedge(deg):
+            h = 4 * np.tan(np.radians(deg))
+            w = trimesh.Trimesh([[0, 0, -2], [4, h, -2], [4, 0, -2], [0, 0, 2], [4, h, 2], [4, 0, 2]], [[0, 1, 2], [3, 5, 4], [0, 3, 4], [0, 4, 1], [1, 4, 5], [1, 5, 2], [0, 2, 5], [0, 5, 3]])
+            w.fix_normals(); return w
+        lip = trimesh.creation.box([0.2, 0.6, 4]); lip.apply_translation([0, 0.3, 0])
+        post = trimesh.creation.box([0.1, 1, 0.1]); post.apply_translation([0, 0.5, 0.25])
+        self.assertEqual(walk(), {}); self.assertEqual(walk(wedge(35)), {})
+        self.assertIn("blocked", walk(lip)); self.assertIn("scrape", walk(post)); self.assertIn("steep", walk(wedge(45)))
+
+    def test_merge_drops_stale_auto_repaired_pieces(self):
+        import sys
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from spec_to_level import _merge, H
+        cur = {"Old_Banner": {"name": "Old_Banner", "gen": "walls", "autofix": "back face", "double_sided": True}, "Mine": {"name": "Mine", "type": "box"}}
+        rep = dict(kept_edited=[], kept_manual=[], kept_deleted=[])
+        out = _merge({}, cur, {"Old_Banner": H(dict(cur["Old_Banner"], double_sided=False))}, "name", rep, "object")
+        self.assertNotIn("Old_Banner", out); self.assertIn("Mine", out)  # a hand-made object stays

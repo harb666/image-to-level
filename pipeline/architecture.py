@@ -416,8 +416,10 @@ def connection(ctx, c, A, B, floor_y):
         cp, sp_ = math.cos(math.radians(pitch)), math.sin(math.radians(pitch))
         def on_slope(x, z, down, h):  # base centre of a pitched box whose top centre sits `down` m (along the deck normal) under the deck top above (x, z)
             yt = ym + z * math.tan(math.radians(pitch)) - down / cp; return [x, yt - h * cp, z + h * sp_]
+        zl, zr = -Lh * 0.45 + max(0.0, run - gap2), Lh * 0.45  # girders under the open span only (a ramp that starts ON the lower floor: not inside it)
         for s, side in ((-1, "L"), (1, "R")):
-            ctx.add(f"{c['id']}_Beam_{side}", "box", [s * (width / 2 - 0.3), ym - 0.86, 0], [0.3, 0.45, Ls * 0.9], "frame", g, [-pitch, 0, 0])
+            ctx.add(f"{c['id']}_Beam_{side}", "box", [s * (width / 2 - 0.3), ym - 0.86 + (zl + zr) / 2 * math.tan(math.radians(pitch)), (zl + zr) / 2],
+                    [0.3, 0.45, (zr - zl) / math.cos(math.radians(pitch))], "frame", g, [-pitch, 0, 0])
             # Stage 46: hull cladding over the deck edge and girder (top 3 cm under the walking surface; hides the
             # girder ends - no V-notch at the floors; stops 25 cm short of the low end, clear of its landing), a red light strip along it
             ctx.add(f"{c['id']}_Clad_{side}", "box", on_slope(s * (width / 2 + 0.03), 0.125 * cp, 0.03, 0.95), [0.12, 0.95, Ls - 0.29], "structure_b", g, [-pitch, 0, 0], collision=False)

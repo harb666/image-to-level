@@ -398,6 +398,8 @@ def _merge(new, cur, state, key, rep, label):
         else: out[n] = it
     for n, it in cur.items():
         if n in out: continue
+        if isinstance(it, dict) and it.get("gen") and it.get("autofix"):  # Stage 79: a generated piece the generator no longer makes, changed only by an
+            rep.setdefault("dropped_stale", []).append(f"{label}:{n}"); continue  # automatic repair (not a hand edit): it goes too
         if n not in state: out[n] = it; rep["kept_manual"].append(f"{label}:{n}")
         elif H(it) != state[n]: out[n] = it; rep["kept_edited"].append(f"{label}:{n} (no longer generated)")
     return out

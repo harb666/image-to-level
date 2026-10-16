@@ -1010,3 +1010,15 @@ Building blocks usable without the preset:
 - slime_arena: the `Conduit` arches over Conduit_Walk are gone; their spine is now the pipe run `W_Conduit_Pipe` at the
   same height (y 15.6), hung from the ceiling, rising straight up into the roof slab at both ends (nothing drops into
   the slime). Doorway cuts take an optional `floor` y: floor decks reaching the wall are not split by the cut.
+
+## Stage 79: walk check on every connector, shaft ramp, stale pieces dropped
+- `pipeline/traverse_check.py` (run by checks.py, report kinds `traverse_*`, output `checks/traverse.json`): walks every
+  connector (ramp, stairs, bridge, catwalk) with the player capsule in 0.1 m steps, up AND down, on
+  `mobile/collision.glb`: blocked (edge / lip above step height), steep (> max_slope_deg for 0.2 m), fall (gap), head
+  (headroom), scrape (side contact). Centre lane problems are errors, edge lanes (hugging the rail) warnings.
+  Measured on slime_arena: all 25 connectors pass both ways (PLACEHOLDER player values from gameplay.json).
+- slime_arena: `W_Stairs_Shaft` (between the maintenance towers) is a ramp (35 deg). Elevated ramps that start ON the
+  lower floor put their girders under the open span only (none inside the floor / in its landing).
+- Regeneration merge: a generated object the generator no longer makes, changed only by an automatic repair
+  (`autofix`), is dropped instead of kept as a hand edit (stale banners left by older wall layouts - incl. the one
+  beside the Works bigscreen - are gone).

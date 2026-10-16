@@ -183,6 +183,9 @@ def run(d, fast=False, verbose=True):
             I.append(dict(kind="geo_" + f["check"], severity="error" if f["cls"] == "ERROR" else "warning", object=(f["objects"] or [None])[0], pos=f["pos"],
                           message=f["message"] + (" [auto-repairable]" if f["repair"] and not f["ambiguous"] else "")))
         R["navigation"] = {k: N[k] for k in ("standable_area_m2", "reachable_area_m2", "components", "spawns", "intended_areas", "narrow_connectors", "passed")}
+        import traverse_check  # Stage 79: walk every ramp / stairs / bridge with the player capsule, up and down, on the collision mesh
+        TR = traverse_check.run(d, verbose=False); R["traverse"] = dict(connectors=TR.get("connectors", 0), passed=TR["passed"], findings=len(TR["findings"]))
+        for f in TR["findings"]: I.append(dict(kind="traverse_" + f["kind"], severity=f["severity"], object=f["object"], pos=f["pos"], message=f["message"]))
         if not fast:
             from validate_level import validate
             V = validate(d, verbose=False); R["camera"] = {k: V[k] for k in ("cameras", "rays", "void_rays", "back_face", "open_mesh", "camera_inside", "passed")}
