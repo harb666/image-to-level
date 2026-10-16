@@ -41,23 +41,23 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 6503,
-    "triangles": 125080,
-    "nodes": 5117,
-    "mesh_nodes": 4913,
-    "unique_meshes": 2504,
-    "materials": 33,
+    "glb_kb": 6496,
+    "triangles": 125232,
+    "nodes": 5122,
+    "mesh_nodes": 4918,
+    "unique_meshes": 2508,
+    "materials": 32,
     "images": 94,
-    "draw_calls_unbatched": 4913,
-    "draw_calls_batched_min": 33,
+    "draw_calls_unbatched": 4918,
+    "draw_calls_batched_min": 32,
     "tex_mem_uncompressed_mb": 92.57,
     "tex_mem_gpu_compressed_mb": 23.14,
     "texture_slots": {
-     "baseColorTexture": 32,
-     "metallicRoughnessTexture": 32,
-     "normalTexture": 30,
-     "occlusionTexture": 32,
-     "emissiveTexture": 20
+     "baseColorTexture": 31,
+     "metallicRoughnessTexture": 31,
+     "normalTexture": 29,
+     "occlusionTexture": 31,
+     "emissiveTexture": 19
     },
     "image_sizes": [
      "1024x1024 jpeg",
@@ -71,31 +71,31 @@
    },
    "visible": {
     "cameras": 320,
-    "visible_draw_calls_mean": 1633.7,
-    "visible_draw_calls_max": 4825,
-    "visible_triangles_mean": 56499,
-    "visible_triangles_max": 133356
+    "visible_draw_calls_mean": 1635.4,
+    "visible_draw_calls_max": 4829,
+    "visible_triangles_mean": 56550,
+    "visible_triangles_max": 133476
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3967,
-    "triangles": 117800,
-    "nodes": 194,
-    "mesh_nodes": 140,
-    "unique_meshes": 140,
-    "materials": 33,
+    "glb_kb": 3973,
+    "triangles": 117952,
+    "nodes": 195,
+    "mesh_nodes": 139,
+    "unique_meshes": 139,
+    "materials": 32,
     "images": 64,
-    "draw_calls_unbatched": 140,
-    "draw_calls_batched_min": 33,
+    "draw_calls_unbatched": 139,
+    "draw_calls_batched_min": 32,
     "tex_mem_uncompressed_mb": 30.07,
     "tex_mem_gpu_compressed_mb": 7.52,
     "texture_slots": {
-     "baseColorTexture": 32,
+     "baseColorTexture": 31,
      "metallicRoughnessTexture": 14,
      "normalTexture": 12,
      "occlusionTexture": 14,
-     "emissiveTexture": 20
+     "emissiveTexture": 19
     },
     "image_sizes": [
      "128x128 webp",
@@ -130,16 +130,16 @@
     ]
    },
    "collision": {
-    "colliders": 877,
+    "colliders": 878,
     "hazards": 11,
     "glb_kb": 462
    },
    "visible": {
     "cameras": 320,
-    "visible_draw_calls_mean": 75.0,
+    "visible_draw_calls_mean": 74.9,
     "visible_draw_calls_max": 140,
-    "visible_triangles_mean": 105917,
-    "visible_triangles_max": 129087
+    "visible_triangles_mean": 105987,
+    "visible_triangles_max": 129246
    },
    "hidden_faces_removed": 3364,
    "occluded_faces_removed": 3916,
@@ -156,15 +156,15 @@
    "effects_max_particles": 1246,
    "slimmed_kb": {
     "level_mobile.glb": [
-     5623,
-     3967
+     5631,
+     3973
     ],
     "background_mobile.glb": [
      518,
      439
     ],
     "collision.glb": [
-     556,
+     557,
      462
     ]
    }
@@ -2571,10 +2571,11 @@
    "node": "Pads_West_Rig__deck",
    "kind": "group",
    "material": "deck",
-   "triangles": 320,
+   "triangles": 352,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Pads_West_Pad_11_Cap",
     "Pads_West_Pad_10_Cap",
     "Pads_West_Pad_9_Cap",
     "Pads_West_Pad_8_Cap",
@@ -2592,10 +2593,11 @@
    "node": "Pads_West_Rig__fall",
    "kind": "group",
    "material": "fall",
-   "triangles": 320,
+   "triangles": 352,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Pads_West_Pad_11_Surge",
     "Pads_West_Pad_10_Surge",
     "Pads_West_Pad_9_Surge",
     "Pads_West_Pad_8_Surge",
@@ -2613,10 +2615,11 @@
    "node": "Pads_West_Rig__glow",
    "kind": "group",
    "material": "glow",
-   "triangles": 320,
+   "triangles": 352,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Pads_West_Pad_11_Rim",
     "Pads_West_Pad_10_Rim",
     "Pads_West_Pad_9_Rim",
     "Pads_West_Pad_8_Rim",
@@ -2634,10 +2637,11 @@
    "node": "Pads_West_Rig__ink",
    "kind": "group",
    "material": "ink",
-   "triangles": 320,
+   "triangles": 352,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Pads_West_Pad_11_Cap__ol",
     "Pads_West_Pad_10_Cap__ol",
     "Pads_West_Pad_9_Cap__ol",
     "Pads_West_Pad_8_Cap__ol",
@@ -2655,10 +2659,11 @@
    "node": "Pads_West_Rig__structure_b",
    "kind": "group",
    "material": "structure_b",
-   "triangles": 240,
+   "triangles": 264,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Pads_West_Pad_11_Column",
     "Pads_West_Pad_10_Column",
     "Pads_West_Pad_9_Column",
     "Pads_West_Pad_8_Column",
@@ -2745,10 +2750,11 @@
    "node": "M_accent_0_1_props",
    "kind": "props",
    "material": "accent",
-   "triangles": 112,
+   "triangles": 119,
    "visibility_range_end": 70,
    "cast_shadow": false,
    "source_objects": [
+    "Round_SW_Light_02",
     "Round_SW_Light_01",
     "Round_SE_Light_02",
     "Round_SE_Light_01",
@@ -2765,17 +2771,6 @@
     "Platform_South_Light_01",
     "Platform_North_Light_01",
     "Central_Light_01"
-   ]
-  },
-  {
-   "node": "M_accent__2s_0_1_props",
-   "kind": "props",
-   "material": "accent__2s",
-   "triangles": 7,
-   "visibility_range_end": 70,
-   "cast_shadow": false,
-   "source_objects": [
-    "Round_SW_Light_02"
    ]
   },
   {

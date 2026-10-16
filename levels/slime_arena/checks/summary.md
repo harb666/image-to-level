@@ -1,16 +1,16 @@
 # slime_arena: generation summary
 
-Spec: levels/slime_arena/scene_spec.json · 4454 objects · 31 materials · 25 effects
+Spec: levels/slime_arena/scene_spec.json · 4458 objects · 31 materials · 25 effects
 Checks: PASSED ({'error': 0, 'warning': 3, 'info': 2}) · refine passes: 1
-Mobile (balanced): 3967 KB · 117800 tris · 140 draw calls · ~75.0 visible (estimate) · ~7.52 MB GPU textures (estimate)
-Navigation: 9596.0 m² reachable of 49443.0 m² standable
+Mobile (balanced): 3973 KB · 117952 tris · 139 draw calls · ~74.9 visible (estimate) · ~7.52 MB GPU textures (estimate)
+Navigation: 9651.0 m² reachable of 49498.0 m² standable
 Package: dist/slime_arena/package (38 files, 15.62 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
-- warning: mobile draw calls 140 (> 80)
+- warning: mobile draw calls 139 (> 80)
 - warning: ~75 visible draw calls (estimate, > 60)
-- warning: 125080 triangles (> budget 40000)
+- warning: 125232 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -43,7 +43,7 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - Conv_East: working assembly line - 4 parcels 7.35 m apart at 0.8 m/s, 2 station(s)
 - Valve_A_Vent: left out - it would hang over the edge of Pipe_Junction_A
 - Exit_Hall: exit hallway 14 m fading to black -> level1_part3
-- Pads_West: 10 pads rising out of the liquid (one skinned mesh per material, 21 bones)
+- Pads_West: 11 pads rising out of the liquid (one skinned mesh per material, 23 bones)
 - outlets: removed wall dressing in front of pours: Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine
 - Central: 3 cover crate(s) dropped - no free spot clear of landings
 - Tunnel_West: HazardFluid_2 reaches on to -56.0 through the bore
@@ -56,9 +56,9 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - corrosion: 2206 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 12.1 s
-- build (glb, sky, background, effects, mobile): 192.0 s
-- refine (checks -> safe fixes): 3544.6 s
-- previews: 1.1 s
-- export package: 1.0 s
-- total: 3750.9 s
+- spec -> level.json: 8.6 s
+- build (glb, sky, background, effects, mobile): 126.9 s
+- refine (checks -> safe fixes): 3815.5 s
+- previews: 0.8 s
+- export package: 0.7 s
+- total: 3952.4 s

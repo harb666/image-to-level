@@ -1,16 +1,16 @@
 {
  "level": "slime_arena",
  "assets_kb": {
-  "level.glb": 6503,
-  "mobile/level_mobile.glb": 3967,
+  "level.glb": 6496,
+  "mobile/level_mobile.glb": 3973,
   "mobile/collision.json": 282,
   "environment.json": 4,
   "background.glb": 518,
-  "effects.json": 87
+  "effects.json": 88
  },
  "complexity": {
-  "triangles": 125080,
-  "nodes": 4913,
+  "triangles": 125232,
+  "nodes": 4918,
   "materials": 31,
   "heaviest": [
    [
@@ -37,23 +37,23 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 6503,
-   "triangles": 99818,
-   "draw_calls": 4913,
+   "glb_kb": 6496,
+   "triangles": 99938,
+   "draw_calls": 4918,
    "tex_mem_gpu_mb_est": 23.14
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3967,
-   "triangles": 117800,
-   "draw_calls": 140,
-   "visible_draw_calls_est": 75.0,
+   "glb_kb": 3973,
+   "triangles": 117952,
+   "draw_calls": 139,
+   "visible_draw_calls_est": 74.9,
    "visible_draw_calls_max_est": 140,
    "tex_mem_gpu_mb_est": 7.52,
-   "materials": 33,
-   "nodes": 194,
+   "materials": 32,
+   "nodes": 195,
    "colliders": {
-    "colliders": 877,
+    "colliders": 878,
     "hazards": 11,
     "glb_kb": 462
    },
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 49443.0,
-  "reachable_area_m2": 9596.0,
-  "components": 486,
+  "standable_area_m2": 49498.0,
+  "reachable_area_m2": 9651.0,
+  "components": 477,
   "spawns": [
    {
     "id": "spawn",
@@ -95,7 +95,7 @@
     "standable": true,
     "clearance_m": 6.5,
     "headroom_m": 99.0,
-    "component": 201,
+    "component": 192,
     "hazard_distance_m": 11.34
    },
    {
@@ -108,7 +108,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 19.79,
-    "component": 201,
+    "component": 192,
     "hazard_distance_m": 5.02
    },
    {
@@ -121,7 +121,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 19.77,
-    "component": 282,
+    "component": 273,
     "hazard_distance_m": 7.52
    },
    {
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 2.5,
     "headroom_m": 19.8,
-    "component": 201,
+    "component": 192,
     "hazard_distance_m": 6.52
    },
    {
@@ -147,7 +147,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 16.77,
-    "component": 12,
+    "component": 11,
     "hazard_distance_m": 5.61
    },
    {
@@ -160,7 +160,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 16.8,
-    "component": 12,
+    "component": 11,
     "hazard_distance_m": 7.52
    },
    {
@@ -173,7 +173,7 @@
     "standable": true,
     "clearance_m": 4.5,
     "headroom_m": 14.8,
-    "component": 12,
+    "component": 11,
     "hazard_distance_m": 6.26
    },
    {
@@ -186,7 +186,7 @@
     "standable": true,
     "clearance_m": 5.5,
     "headroom_m": 12.8,
-    "component": 77,
+    "component": 70,
     "hazard_distance_m": 6.52
    },
    {
@@ -199,7 +199,7 @@
     "standable": true,
     "clearance_m": 8.5,
     "headroom_m": 18.8,
-    "component": 143,
+    "component": 134,
     "hazard_distance_m": 9.41
    }
   ],
@@ -457,14 +457,14 @@
   "back_face": {},
   "open_mesh": {},
   "camera_inside": 0,
-  "visible_objects": 1839,
+  "visible_objects": 1841,
   "passed": true,
   "stale_note": "from the last full run (--fast skipped it)"
  },
  "render": {
   "views": 16,
   "errors": [],
-  "load_seconds": 14.007,
+  "load_seconds": 9.358,
   "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
   "contact_sheet": "checks/views/contact_sheet.jpg",
   "note": "browser preview renders (three.js, SwiftShader) - not Godot"
@@ -473,7 +473,7 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 140 (> 80)"
+   "message": "mobile draw calls 139 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
@@ -483,12 +483,12 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "125080 triangles (> budget 40000)"
+   "message": "125232 triangles (> budget 40000)"
   },
   {
    "kind": "dev_size",
    "severity": "info",
-   "message": "dev GLB 6503 KB (> 6000)"
+   "message": "dev GLB 6496 KB (> 6000)"
   },
   {
    "kind": "low_ceiling",
