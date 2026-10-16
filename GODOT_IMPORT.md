@@ -93,3 +93,12 @@ The browser preview approximates all of these with three.js. It is close to Godo
 - Game exports (`--game`) are minified and drop editor-only data: `level.json` without `objects` / `relations` /
   `generator_notes`, `gameplay/navigation.json` without `links`, manifest nodes without `source_objects`, no
   `scene_spec.json`. What was left out is counted under `"omitted"`. Numbers are rounded to 0.0001.
+
+## Rising pads, control terminals (Stage 80)
+- effects.json `emerge` (apply_effects.gd `_riser`): finds the skinned `<group>__*` meshes' Skeleton3D, keeps every pad
+  under the liquid, and starts the sequence when a `CharacterBody3D` enters the trigger sphere (Area3D on the default
+  layer/mask - match your player's layers) or when you call `raise_pads(id)`. The pads' colliders from collision.glb
+  (nodes whose names start with the cap names, e.g. `Pads_West_Pad_1_Cap*`) are disabled until each pad is up.
+- collision.json `terminals` (apply_mobile.gd): an Area3D per terminal in group `terminal` (meta `terminal_id`); call
+  `activate_terminal(id)` from your interact action: the listed gates open (`open_gate`), then `terminal_activated(id)`.
+  `Exit_Hall_Laser` (gates, `opens_on: terminal`) closes the exit doorway until then.

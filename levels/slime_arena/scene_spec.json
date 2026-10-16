@@ -912,17 +912,6 @@
    "lamp_posts": 3,
    "lamp_side": 1,
    "source": "inferred"
-  },
-  {
-   "id": "W_Cat_West",
-   "from": "West_Landing_N",
-   "to": "West_Landing_S",
-   "kind": "catwalk",
-   "width": 3.0,
-   "lamp_posts": 5,
-   "lamp_side": -1,
-   "source": "inferred",
-   "notes": "Stage 57: small catwalk with guardrails along the west wall, warm lamps"
   }
  ],
  "structures": [
@@ -1628,7 +1617,60 @@
    "width": 6,
    "height": 7,
    "source": "visible",
-   "notes": "Stage 77: the level's end - an arched doorway through the Works' east wall into a short hallway that fades to black like the elevator shafts; walking into the dark loads part 3"
+   "notes": "Stage 77: the level's end - an arched doorway through the Works' east wall into a short hallway that fades to black like the elevator shafts; walking into the dark loads part 3",
+   "laser_gate": {
+    "id": "Exit_Hall_Laser",
+    "beams": 7,
+    "opens_on": {
+     "type": "terminal",
+     "terminal": "Works_Terminal"
+    }
+   }
+  },
+  {
+   "id": "Pads_West",
+   "kind": "rising_pads",
+   "position": [
+    -47,
+    10,
+    -169
+   ],
+   "from": [
+    -47,
+    -169
+   ],
+   "to": [
+    -47,
+    -221
+   ],
+   "y": 10,
+   "count": 10,
+   "pad_size": 2.8,
+   "zigzag": 1.2,
+   "liquid": 1.0,
+   "trigger": [
+    -47,
+    10,
+    -166
+   ],
+   "trigger_radius": 6,
+   "source": "visible",
+   "notes": "Stage 80: replaces the west catwalk - pads surge up out of the slime when a player reaches West_Landing_N; jump across to the terminal"
+  },
+  {
+   "id": "Works_Terminal",
+   "kind": "control_terminal",
+   "position": [
+    -47,
+    10,
+    -225.6
+   ],
+   "yaw": 0,
+   "activates": [
+    "Exit_Hall_Laser"
+   ],
+   "source": "visible",
+   "notes": "Stage 80: the control terminal at the end of the pad route - using it opens the laser gate on the exit doorway"
   },
   {
    "id": "Column_Hall_W",

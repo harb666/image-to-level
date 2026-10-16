@@ -215,13 +215,13 @@ class Stage57(unittest.TestCase):
     def test_west_catwalk_and_warm_capsules(self):  # Stage 56's industrial rock face was reverted: the rocks are gone
         L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
         self.assertFalse([n for n in by if n.startswith("Rock_West")])
-        for k in ("W_Cat_West_Deck", "W_Cat_West_In_Deck", "W_Cat_West_Lamp_5_Bulb", "West_Landing_N_Floor"): self.assertIn(k, by)
-        self.assertTrue([n for n in by if n.startswith("W_Cat_West_Rail")])
-        self.assertEqual(by["W_Cat_West_Lamp_1_Bulb"]["material"], "glow_yellow")
+        for k in ("W_Cat_West_In_Deck", "West_Landing_N_Floor"): self.assertIn(k, by)  # (Stage 80: the long west catwalk became the rising pads)
+        self.assertTrue([n for n in by if n.startswith("W_Cat_West_In_Rail")])
+        self.assertEqual(by["W_Cat_West_In_Lamp_1_Bulb"]["material"], "glow_yellow")
         caps = [o for n, o in by.items() if "Capsule_" in n and not any(t in n for t in ("_Band", "_Hanger"))]
         self.assertTrue(caps and all(o["material"] == "glow_yellow" for o in caps))
         E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "effects.json")))
-        fl = [e for e in E["effects"] if e["id"] == "Fan_Lights"][0]; self.assertGreaterEqual(len(fl.get("emitters") or fl.get("positions") or []), 8)
+        fl = [e for e in E["effects"] if e["id"] == "Fan_Lights"][0]; self.assertGreaterEqual(len(fl.get("emitters") or fl.get("positions") or []), 6)  # (Stage 80: the long catwalk's lamps went with it)
 
 
 class Stage58(unittest.TestCase):
@@ -342,11 +342,11 @@ class Stage65(unittest.TestCase):
         import numpy as np, trimesh, sys
         sys.path.insert(0, os.path.join(ROOT, "pipeline")); import glb_tools
         lv = os.path.join(ROOT, "levels", "slime_arena"); L = json.load(open(os.path.join(lv, "level.json")))
-        SK = L["skeletons"]; self.assertEqual(sorted(SK), ["Arm_1", "Arm_2", "Arm_3", "Arm_4"])
+        SK = {k: v for k, v in L["skeletons"].items() if k.startswith("Arm_")}; self.assertEqual(sorted(SK), ["Arm_1", "Arm_2", "Arm_3", "Arm_4"])
         for o in L["objects"]:
             if (o.get("mobile") or {}).get("group") in {gr for v in SK.values() for gr in v["groups"]}: self.assertIn("joint", o["mobile"], o["name"])
         g, b = glb_tools._read(os.path.join(lv, "mobile", "level_mobile.glb"))
-        self.assertEqual(len(g["skins"]), 4); self.assertTrue(all(len(s["joints"]) == 8 for s in g["skins"]))
+        arms = [s for s in g["skins"] if s["name"].startswith("Arm_")]; self.assertEqual(len(arms), 4); self.assertTrue(all(len(s["joints"]) == 8 for s in arms))  # (+ the rising pads' skin, Stage 80)
         for n in g["nodes"]:
             if "skin" in n:
                 a = g["meshes"][n["mesh"]]["primitives"][0]["attributes"]; self.assertEqual(g["accessors"][a["JOINTS_0"]]["count"], g["accessors"][a["POSITION"]]["count"])
@@ -434,8 +434,10 @@ class Stage67(unittest.TestCase):
             return np.frombuffer(b[o:o + a["count"] * nc * np.dtype(dt).itemsize], dtype=dt).reshape(-1, nc)
         for n in g["nodes"]:
             if "skin" in n:
-                p = g["meshes"][n["mesh"]]["primitives"][0]["attributes"]; W = acc(p["WEIGHTS_0"], "<f4", 4); J = acc(p["JOINTS_0"], "<u1", 4)
-                self.assertTrue(np.allclose(W[:, 0], 1.0), n["name"])
+                p = g["meshes"][n["mesh"]]["primitives"][0]["attributes"]; wa = g["accessors"][p["WEIGHTS_0"]]; self.assertEqual((wa["componentType"], wa.get("normalized")), (5121, True))  # Stage 80: normalized bytes
+                W = acc(p["WEIGHTS_0"], "<u1", 4) / 255.0; J = acc(p["JOINTS_0"], "<u1", 4)
+                self.assertTrue(np.allclose(W.sum(1), 1.0), n["name"])
+                if "Arm_" in n["name"]: self.assertTrue(np.allclose(W[:, 0], 1.0), n["name"])
                 if n["name"].endswith("Upper__structure_b"): self.assertGreaterEqual(len(set(J[:, 0].tolist())), 7, n["name"])  # yaw .. fingers all used
 
 
@@ -639,3 +641,27 @@ class Stage79(unittest.TestCase):
         rep = dict(kept_edited=[], kept_manual=[], kept_deleted=[])
         out = _merge({}, cur, {"Old_Banner": H(dict(cur["Old_Banner"], double_sided=False))}, "name", rep, "object")
         self.assertNotIn("Old_Banner", out); self.assertIn("Mine", out)  # a hand-made object stays
+
+
+class Stage80(unittest.TestCase):
+    def test_rising_pads_terminal_and_exit_gate(self):
+        """The west catwalk is gone; 10 pads (one skeleton: a bone per pad + per surge ring, all parts in ONE skinned
+        group) rise out of the slime on a trigger at West_Landing_N; jumps between them stay within the player's jump;
+        the terminal at West_Landing_S opens the exit doorway's laser gate."""
+        import math
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        self.assertNotIn("W_Cat_West_Deck", by)
+        (R,) = L["risers"]; sk = L["skeletons"]["Pads_West"]; self.assertEqual(len(R["pads"]), 10); self.assertEqual(len(sk["joints"]), 21)
+        parts = [o for n, o in by.items() if n.startswith("Pads_West_Pad_")]
+        self.assertTrue(all(o["mobile"]["group"] == "Pads_West_Rig" for o in parts))
+        G = json.load(open(os.path.join(ROOT, "config", "gameplay.json")))["player"]; P = R["pads"]
+        for a, b in zip(P, P[1:]):  # edge gap within the jump distance, rise within the jump height
+            gap = math.hypot(a["center"][0] - b["center"][0], a["center"][2] - b["center"][2]) - a["size"]
+            self.assertLess(gap, G["jump_distance"] - 0.8); self.assertLess(abs(a["center"][1] - b["center"][1]), G["jump_height"] - 0.4)
+        self.assertTrue(all(p["center"][1] - p["rise"] < R["liquid"] - 0.5 for p in P))  # fully under the surface before they rise
+        (T,) = L["terminals"]; self.assertEqual(T["activates"], ["Exit_Hall_Laser"])
+        gate = next(g for g in L["gates"] if g["id"] == "Exit_Hall_Laser"); self.assertEqual(gate["opens_on"], {"type": "terminal", "terminal": "Works_Terminal"})
+        E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "effects.json"))); self.assertIn("Pads_West_Emerge", {e["id"] for e in E["effects"] if e["category"] == "emerge"})
+        N = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "checks", "navigation.json")))
+        self.assertEqual({a["name"]: a["reachable_fraction"] for a in N["intended_areas"]}["West_Landing_S"], 1.0)
+        C = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "collision.json"))); self.assertEqual(len(C["terminals"]), 1); self.assertEqual(len(C["risers"]), 1)

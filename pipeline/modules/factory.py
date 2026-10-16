@@ -773,6 +773,7 @@ def exit_hall(ctx, s, x, y, z, yaw):
     A.arch_dressing(ctx, n + "_Mouth", g, r0, spring, 0.0, H + 0.8)
     ctx.add(n + "_Sill", "box", [0, -0.3, -T / 2 + 0.1], [W - 0.1, 0.3, T + 0.3], "deck", g, bevel=False, **st)  # the doorway floor, through the wall
     ctx.add(n + "_Threshold", "box", [0, 0.0, -0.6], [2 * r0, 0.04, 1.0], "stripe", g, outline=False, **vs)
+    if s.get("laser_gate"): _laser_gate(ctx, n, g, 2 * r0 + 0.2, H, s["laser_gate"], x, y, z, yaw)  # Stage 80: beams across the arch until e.g. a terminal opens it
     # the hallway: floor, walls, ceiling, end wall
     z0, ze = -T, -T - Lh; zm = (z0 + ze) / 2
     ctx.add(n + "_Floor", "box", [0, -0.6, zm], [Wi, 0.6, Lh], "deck", g, **hs)
@@ -801,3 +802,63 @@ def exit_hall(ctx, s, x, y, z, yaw):
     ctx.walkable.append(dict(name=n + "_Floor", min=[round(min(c0[0], c1[0]), 3), round(min(c0[2], c1[2]), 3)], max=[round(max(c0[0], c1[0]), 3), round(max(c0[2], c1[2]), 3)], y=y))
     fx_, _, fz_ = Wp(0, 0, ze - 1.0); ctx.add(n + "_Far", "group", [round(fx_, 3), 0, round(fz_, 3)])  # (root marker: the level bounds reach the hall's end)
     ctx.notes.append(f"{n}: exit hallway {Lh:.0f} m fading to black -> {s.get('target')}")
+
+
+
+@structure("rising_pads", pad=False)
+def rising_pads(ctx, s, x, y, z, yaw):
+    """Stage 80: stepping-stone pads that rise out of the liquid - a jump route from "from" to "to" ([x, z], pad centres
+    spaced evenly between them, zig-zagging "zigzag" m to the sides), tops at "y" (+ small height steps, all within a
+    jump). Each pad: a hexagonal column, an octagonal deck cap, a glowing rim, plus a glowing surge ring at the liquid surface.
+    All pads are ONE skinned mesh per material (skeleton: one bone per pad + one per surge ring): memory and draw calls
+    stay those of a single static prop. They start under the liquid ("liquid" y); when a player comes within
+    "trigger_radius" of "trigger" ([x, y, z], default: before the first pad) they surge up one after another
+    ("stagger" s apart, "rise_s" s each: fast, decelerating, a damped bob as they settle) while the surge ring bursts
+    out and sinks back; a pad's collider is enabled once it is up (Godot: apply_effects.gd; preview: viewer.html).
+    The colliders in collision.glb stand at the raised position (what the checks see)."""
+    n = s["id"]; (ax, az), (bx, bz) = s["from"], s["to"]; N = int(s.get("count", 10)); D = float(s.get("pad_size", 2.8)); zz = float(s.get("zigzag", 1.2))
+    liq = float(s.get("liquid", 1.0)); top0 = float(s.get("y", y)); steps = s.get("steps") or [0.0, 0.3, -0.2, 0.4, 0.0, -0.3, 0.3, 0.0, 0.4, 0.0]
+    L = math.hypot(bx - ax, bz - az); ux, uz = (bx - ax) / L, (bz - az) / L; px, pz = -uz, ux
+    grp = n + "_Rig"; st = dict(collision=False, outline=False); joints = [dict(name=n + "_JRoot", parent=None, pivot=[round(ax, 3), round(liq, 3), round(az, 3)], axis=[0.0, 1.0, 0.0])]
+    rings, pads = [], []
+    for k in range(N):
+        f = (k + 1) / (N + 1); cx, cz = ax + ux * L * f + px * zz * (1 if k % 2 else -1), az + uz * L * f + pz * zz * (1 if k % 2 else -1)
+        top = round(top0 + float(steps[k % len(steps)]) if 0 < k < N - 1 else top0, 3); jn, rn = f"{n}_J{k + 1}", f"{n}_R{k + 1}"
+        joints.append(dict(name=jn, parent=n + "_JRoot", pivot=[round(cx, 3), round(liq, 3), round(cz, 3)], axis=[0.0, 1.0, 0.0])); rings.append(dict(name=rn, parent=n + "_JRoot", pivot=[round(cx, 3), round(liq + 0.03, 3), round(cz, 3)], axis=[0.0, 1.0, 0.0]))
+        pj, rj = dict(group=grp, joint=jn), dict(group=grp, joint=rn); pre = f"{n}_Pad_{k + 1}"
+        ctx.add(pre + "_Column", "cylinder", [cx, 0.0, cz], [D * 0.6, top - 0.4, D * 0.6], "structure_b", sections=6, mobile=pj, **st)
+        ctx.add(pre + "_Cap", "cylinder", [cx, top - 0.4, cz], [D, 0.4, D], "deck", sections=8, mobile=pj)
+        ctx.add(pre + "_Rim", "cylinder", [cx, top - 0.36, cz], [D + 0.14, 0.12, D + 0.14], ctx.role("glow"), sections=8, mobile=pj, **st)  # a disc: the cap hides its middle (32 tris, not a holed ring)
+        ctx.add(pre + "_Surge", "cylinder", [cx, liq + 0.03, cz], [D * 1.25, 0.04, D * 1.25], "fall", sections=8, mobile=rj, **st)  # glowing slime burst on the surface
+        pads.append(dict(joint=jn, ring=rn, center=[round(cx, 3), round(top, 3), round(cz, 3)], size=D, rise=round(top - liq + 1.0, 3), colliders=[pre + "_Cap"]))
+        ctx.landings.append((round(cx, 3), round(cz, 3), D / 2))  # nothing of the cover / dressing passes stand on a pad
+    tr = s.get("trigger") or [round(ax - ux * 1.0, 3), round(top0, 3), round(az - uz * 1.0, 3)]
+    ctx.skeletons = getattr(ctx, "skeletons", {}); ctx.skeletons[n] = dict(groups=[grp], joints=joints + rings, kind="emerge")
+    ctx.risers = getattr(ctx, "risers", []) + [dict(id=n, group=grp, skeleton=n, pads=pads, trigger=dict(center=tr, radius=float(s.get("trigger_radius", 7.0))),
+                                                     stagger=float(s.get("stagger", 0.32)), rise_s=float(s.get("rise_s", 2.0)), liquid=liq,
+                                                     note="pads start under the liquid; they surge up in order when a player enters the trigger sphere")]
+    ctx.notes.append(f"{n}: {N} pads rising out of the liquid (one skinned mesh per material, {len(joints + rings)} bones)")
+
+
+@structure("control_terminal", pad=False)
+def control_terminal(ctx, s, x, y, z, yaw):
+    """Stage 80: a control console on a deck (local +z: the side the player stands at): plinth, slanted desk with a lit
+    screen and a big glowing button, a beacon on a mast. level.json "terminals": the game puts an interaction area
+    there ("radius") and, when the player uses it, opens the gates listed in "activates" (apply_mobile.gd:
+    activate_terminal(id) -> open_gate for each, signal terminal_activated)."""
+    n = s["id"]; g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); st = dict(mobile={"static": True}); vs = dict(collision=False, outline=False, **st)
+    ctx.add(n + "_Plinth", "box", [0, 0, -0.1], [1.7, 1.0, 0.9], "machine", g, **st)
+    ctx.add(n + "_Desk", "box", [0, 0.92, 0.0], [1.9, 0.14, 1.0], "structure_b", g, [-22, 0, 0], **st)
+    from architecture import screen_slot
+    scr, sid = screen_slot(ctx, "screen", "a")  # own picture variant + id (the screens' static / flicker differ)
+    ctx.add(n + "_Screen", "panel", [0, 1.2, -0.48], [1.4, 0.78, 0], "screen", g, uv_region=scr, uv_shift=sid, **vs)  # upright monitor on the back panel, facing the player
+    ctx.add(n + "_Bezel", "box", [0, 1.12, -0.52], [1.56, 0.94, 0.04], "frame", g, **vs)
+    ctx.add(n + "_Keys", "box", [-0.15, 1.02, 0.02], [1.0, 0.04, 0.5], "glow_dim", g, [-22, 0, 0], **vs)
+    ctx.add(n + "_Button", "cylinder", [0.62, 1.0, 0.32], [0.26, 0.1, 0.26], ctx.role("glow"), g, sections=8, **vs)
+    ctx.add(n + "_Back", "box", [0, 0, -0.62], [1.8, 2.1, 0.22], "structure_b", g, **st)
+    ctx.add(n + "_Mast", "cylinder", [0.7, 2.1, -0.62], [0.12, 0.9, 0.12], "frame", g, sections=6, collision=False, **st)
+    ctx.add(n + "_Beacon", "cylinder", [0.7, 3.0, -0.62], [0.32, 0.3, 0.32], ctx.role("glow"), g, sections=8, **vs)
+    ctx.add(n + "_Stripe", "box", [0, 0.0, 0.75], [1.9, 0.03, 0.6], "stripe", g, **vs)
+    dx, dz = A_local(0, 0.9, yaw); fx, fz = x + dx, z + dz  # in front of the desk
+    ctx.terminals = getattr(ctx, "terminals", []) + [dict(id=n, center=[round(fx, 3), round(y + 1.0, 3), round(fz, 3)], radius=float(s.get("radius", 1.8)), activates=list(s.get("activates", [])),
+                                                           screen=n + "_Screen", note="use it (interact) within radius: opens the gates in 'activates'")]

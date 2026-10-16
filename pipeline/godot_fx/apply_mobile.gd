@@ -15,7 +15,11 @@ signal arrival_finished(entrance_id: String)
 ## Stage 59: emitted when a laser gate (collision.json "gates") has opened (call open_gate(id) when its encounter is cleared)
 signal gate_opened(gate_id: String)
 
+## Stage 80: emitted when a control terminal (collision.json "terminals") is used - after its gates were told to open
+signal terminal_activated(terminal_id: String)
+
 var _gates := {}  # id -> {"data": gate dict, "blocker": StaticBody3D}
+var _terminals := {}  # id -> terminal dict (Stage 80)
 
 var _entrances := {}  # id -> {"data": entrance dict, "pivot": Node3D holding the car's merged nodes}
 
@@ -70,6 +74,19 @@ func _ready() -> void:
 		_gates[String(gt["id"])] = {"data": gt, "blocker": sb}
 		if not bool(gt.get("closed_at_start", true)):
 			open_gate.call_deferred(String(gt["id"]), 0.0)
+	for tm in col.get("terminals", []):  # Stage 80: control terminals - an interaction area (group "terminal", meta "terminal_id")
+		var ia := Area3D.new()
+		ia.name = String(tm["id"]) + "_Use"
+		var ics := CollisionShape3D.new()
+		var isp := SphereShape3D.new()
+		isp.radius = float(tm.get("radius", 1.8))
+		ics.shape = isp
+		ia.add_child(ics)
+		ia.position = Vector3(tm["center"][0], tm["center"][1], tm["center"][2])
+		ia.set_meta("terminal_id", tm["id"])
+		ia.add_to_group(&"terminal")
+		add_child(ia)
+		_terminals[String(tm["id"])] = tm
 	for h in col["hazards"]:
 		var area := Area3D.new()
 		area.name = String(h["name"]) + "_Area"
@@ -120,6 +137,19 @@ func play_arrival(entrance_id: String, player: Node3D = null) -> void:
 
 ## Stage 59: open a laser gate - its beams (merged nodes "<group>__<material>") stutter out over `fade` seconds, the
 ## blocker is removed, then gate_opened(id) is emitted. Call it when the gate's encounter (level.json "encounters") is cleared.
+## Stage 80: use a control terminal (call it when the player presses interact inside its "terminal" area): every gate in
+## its "activates" list opens (open_gate), then terminal_activated(id) is emitted. Used once.
+func activate_terminal(terminal_id: String) -> void:
+	if not _terminals.has(terminal_id):
+		return
+	var tm: Dictionary = _terminals[terminal_id]
+	_terminals.erase(terminal_id)
+	for gid in tm.get("activates", []):
+		if _gates.has(String(gid)):
+			open_gate(String(gid))
+	terminal_activated.emit(terminal_id)
+
+
 func open_gate(gate_id: String, fade: float = 0.6) -> void:
 	if not _gates.has(gate_id):
 		push_warning("unknown gate " + gate_id)

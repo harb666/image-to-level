@@ -1022,3 +1022,19 @@ Building blocks usable without the preset:
 - Regeneration merge: a generated object the generator no longer makes, changed only by an automatic repair
   (`autofix`), is dropped instead of kept as a hand edit (stale banners left by older wall layouts - incl. the one
   beside the Works bigscreen - are gone).
+
+## Stage 80: pads rising out of the slime, control terminal, gated exit
+- Structure `rising_pads` {id, position, from / to ([x, z], the two floor edges), y (pad tops), count (10), pad_size (2.8),
+  zigzag (1.2), steps (height offsets), liquid (surface y), trigger ([x, y, z]), trigger_radius, stagger, rise_s}:
+  stepping-stone pads (hex column, octagonal deck cap, glowing rim, a slime surge disc at the surface). ALL pads are
+  one skinned mesh per material (skeleton `L.skeletons[id]`: one bone per pad + one per surge disc) - the memory and
+  draw calls of a single prop. They start under the liquid; a player entering the trigger sphere makes them surge up
+  one after another (effect `emerge`, data `L.risers`: same timing in apply_effects.gd and viewer.html), each pad's
+  collider is enabled once it is up. collision.glb / the checks see the raised pads.
+- Structure `control_terminal` {id, position, yaw (front = local +z), activates [gate ids], radius}: console with a
+  monitor (own screen id), button, beacon; `L.terminals` -> collision.json; apply_mobile.gd `activate_terminal(id)`
+  opens its gates (signal `terminal_activated`). The preview uses it when the player walks up to it.
+- `exit_hall` takes `laser_gate` {id, beams, opens_on} (beams across the arch, closed at start).
+- Skin weights are stored as normalized bytes (4 B / vertex instead of 16; glTF-valid) - every skinned mesh.
+- slime_arena: the long west catwalk is gone; `Pads_West` rise from the Works pool between West_Landing_N and
+  West_Landing_S (gaps <= 2.6 m, steps <= 0.6 m), `Works_Terminal` at West_Landing_S opens `Exit_Hall_Laser`.

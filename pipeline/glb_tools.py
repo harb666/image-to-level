@@ -292,7 +292,9 @@ def add_skins(path, skeletons, skinned):
         P0 = np.frombuffer(_view(bytes(binary), g["bufferViews"][pa["bufferView"]]), dtype="<f4", count=pa["count"] * 3, offset=pa.get("byteOffset", 0)).reshape(-1, 3)
         if len(P0) != len(J) or not np.allclose(P0, P, atol=1e-3): raise ValueError(f"{name}: vertex order changed on export - cannot skin")
         pr["attributes"]["JOINTS_0"] = put(np.asarray(J, "<u1").reshape(-1, 4), "VEC4", 5121, 34962)
-        pr["attributes"]["WEIGHTS_0"] = put(np.asarray(Wt, "<f4").reshape(-1, 4), "VEC4", 5126, 34962)
+        Wq = np.rint(np.asarray(Wt, float).reshape(-1, 4) * 255.0).astype(int)  # Stage 80: normalized bytes (4 B / vertex, not 16; glTF allows it)
+        Wq[:, 0] += 255 - Wq.sum(1)  # each vertex's weights sum to exactly 255 (= 1.0)
+        pr["attributes"]["WEIGHTS_0"] = put(Wq.astype("<u1"), "VEC4", 5121, 34962); g["accessors"][-1]["normalized"] = True
         n["skin"] = skin_of[sk]
         for k in ("translation", "rotation", "scale", "matrix"): n.pop(k, None)
     g["buffers"] = [{"byteLength": len(binary) + (-len(binary) % 4)}]

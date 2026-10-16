@@ -97,6 +97,12 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                           "(turret yaw, shoulder, elbow, wrist = -(shoulder + elbow), claw twist, 3 fingers) from the rig's motion program "
                           "(pipeline/arm_motion.py: jerk-limited servo moves, conveyor tracking, inverse kinematics every frame; no sway)",
                           glb="parcels, parts and arms at rest (own nodes: mobile groups; arms skinned to one skeleton each)", defaults=dict(speed=1.0)),
+    "emerge": dict(category="emerge", godot="script (apply_effects.gd _risers): pads skinned to one skeleton (bone <id>_J<k> per pad, <id>_R<k> per surge "
+                   "ring); all start 'rise' m under the liquid (rings hidden under it). When a CharacterBody3D enters the trigger sphere pad k starts after "
+                   "k * stagger s: offset = -rise * (1 - u)^3 over rise_s s (u = t / rise_s: bursts up, decelerates), then a damped bob "
+                   "0.22 sin(9 t') e^(-4 t') for 1.4 s; its surge ring bursts out from 35 % of the rise (scale 0.4 -> 3.0 over 1.6 s, ease-out) while "
+                   "sinking 0.9 m back under the surface. The pad's colliders (collision.glb nodes named after 'colliders') are disabled until 85 % of "
+                   "its rise", glb="pads at the RAISED position (skinned, one mesh per material); colliders at the raised position", defaults=dict()),
     "crusher": dict(category="crusher", godot="script (apply_effects.gd _crushers): the ram's group nodes (<group>__*) sit at rest raised 'travel' m; "
                     "every 'period' s (offset 'phase'): 'warn' s of warning (lamps pulse), a 'down' s slam onto the pad (accelerating), 'hold' s "
                     "pressed, a 'rise' s climb back (eased). While pressed an Area3D over the pad ('kill' box, world) is enabled in the hazard "
@@ -273,6 +279,7 @@ def resolve(level_dir, L=None):
         if e.get("ripples") is not None: R["ripples"] = e["ripples"]
         if e.get("line"): R["line"] = e["line"]
         if e.get("crusher"): R["crusher"] = e["crusher"]
+        if e.get("riser"): R["riser"] = e["riser"]
         if e.get("launches"): R["launches"] = [dict(l, targets=[n for n in l["targets"] if n in boxes]) for l in e["launches"]]
         if e["type"] == "spin" and tg: R["speeds"] = {n: by[n].get("spin", prm["speed_rpm"]) for n in tg if n in by}
         if tg: R["targets"] = tg

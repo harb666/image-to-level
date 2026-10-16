@@ -23,6 +23,7 @@ var _spins: Array = []  # [rotor node, rad/s]
 var _travel: Array = []  # [node, rest position, speed m/s, spacing m] (Stage 43: barrels up the column bores)
 var _launch: Array = []  # [node, rest position, speed, period, phase, travel] (Stage 49: pods shooting up the columns)
 var _crushers: Array = []  # Stage 72: [crusher dict, ram nodes, warning lamps, kill CollisionShape3D]
+var _risers: Array = []  # Stage 80: [riser dict, Skeleton3D, {bone name: index}, [[CollisionShape3D...] per pad], start time (-1: waiting)]
 var _lines: Array = []  # Stage 61: working assembly lines - [line dict, move nodes, [[station, arm nodes, held nodes, scan nodes]]]
 
 
@@ -73,6 +74,8 @@ func _ready() -> void:
 				_assembly(fx["line"])
 			"crusher":  # Stage 72: a ram slamming down onto a pad - kills whatever stands there
 				_crusher(fx["crusher"])
+			"emerge":  # Stage 80: pads surging up out of the liquid when a player comes near
+				_riser(fx["riser"])
 			"launch":  # Stage 49: each entry's nodes wait, shoot up `travel` m at `speed`, repeat every `period` s (own phase)
 				for l in fx.get("launches", []):
 					for n in l.get("targets", []):
@@ -321,6 +324,91 @@ func _crusher(c: Dictionary) -> void:
 	level_root.add_child(area)
 	area.add_to_group(hazard_group)
 	_crushers.append([c, _group_nodes(String(c["group"])), _group_nodes(String(c["warn_group"])), cs])
+
+
+func _riser(r: Dictionary) -> void:
+	var sk: Skeleton3D = null
+	for nd in _group_nodes(String(r["group"])):
+		var mi := nd as MeshInstance3D
+		if mi and mi.skin != null:
+			sk = mi.get_node_or_null(mi.skeleton) as Skeleton3D
+			(mi as GeometryInstance3D).extra_cull_margin = float(r["pads"][0]["rise"]) + 2.0  # bounds are the raised pose
+	if sk == null:
+		push_warning("rising pads " + String(r["id"]) + ": no skinned mesh / skeleton found")
+		return
+	var bones := {}
+	for i in sk.get_bone_count():
+		bones[sk.get_bone_name(i)] = i
+	var cols: Array = []  # each pad's colliders (collision.glb nodes named after the cap) stay off until it is up
+	for pd in r["pads"]:
+		var cs: Array = []
+		for cn in pd["colliders"]:
+			for c in get_tree().root.find_children(String(cn) + "*", "CollisionShape3D", true, false):
+				(c as CollisionShape3D).disabled = true
+				cs.append(c)
+		cols.append(cs)
+	var tr: Dictionary = r["trigger"]  # a player entering this sphere starts the sequence
+	var area := Area3D.new()
+	area.name = String(r["id"]) + "_Trigger"
+	var sh := CollisionShape3D.new()
+	var sp := SphereShape3D.new()
+	sp.radius = float(tr["radius"])
+	sh.shape = sp
+	sh.position = Vector3(tr["center"][0], tr["center"][1], tr["center"][2])
+	area.add_child(sh)
+	level_root.add_child(area)
+	var rec := [r, sk, bones, cols, -1.0]
+	area.body_entered.connect(func(b: Node3D) -> void:
+		if rec[4] < 0.0 and b is CharacterBody3D:
+			rec[4] = _t)
+	_risers.append(rec)
+	_pose_riser(rec, -1.0)
+
+
+## Stage 80: start a riser sequence from game code (e.g. a cutscene) instead of the trigger sphere.
+func raise_pads(riser_id: String) -> void:
+	for rec in _risers:
+		if String(rec[0]["id"]) == riser_id and rec[4] < 0.0:
+			rec[4] = _t
+
+
+func _pose_riser(rec: Array, t: float) -> void:  # t: seconds since the trigger (< 0: still waiting)
+	var r: Dictionary = rec[0]
+	var sk: Skeleton3D = rec[1]
+	var bones: Dictionary = rec[2]
+	var D := float(r["rise_s"])
+	for k in r["pads"].size():
+		var pd: Dictionary = r["pads"][k]
+		var tk := t - k * float(r["stagger"]) if t >= 0.0 else -1.0
+		var off := -float(pd["rise"])
+		if tk >= 0.0 and tk < D:
+			off = -float(pd["rise"]) * pow(1.0 - tk / D, 3.0)  # bursts up, decelerates
+		elif tk >= D:
+			var tb := tk - D
+			off = 0.22 * sin(9.0 * tb) * exp(-4.0 * tb) if tb < 1.4 else 0.0  # settles with a damped bob
+		var rs := 0.4
+		var ry := -3.0
+		var r0 := 0.35 * D
+		if tk >= r0:  # surge ring bursts out where the pad breaks the surface, sinking back under it
+			var f := clampf((tk - r0) / 1.6, 0.0, 1.0)
+			var e := 1.0 - pow(1.0 - f, 2.0)
+			rs = 0.4 + 2.6 * e
+			ry = -0.9 * f * f if f < 1.0 else -3.0
+		var bi: int = bones.get(String(pd["joint"]), -1)
+		if bi >= 0:
+			sk.set_bone_pose_position(bi, sk.get_bone_rest(bi).origin + Vector3(0.0, off, 0.0))
+		var ri: int = bones.get(String(pd["ring"]), -1)
+		if ri >= 0:
+			sk.set_bone_pose_position(ri, sk.get_bone_rest(ri).origin + Vector3(0.0, ry, 0.0))
+			sk.set_bone_pose_scale(ri, Vector3(rs, 1.0, rs))
+		for c in rec[3][k]:
+			(c as CollisionShape3D).disabled = tk < 0.85 * D
+
+
+func _update_risers() -> void:
+	for rec in _risers:
+		if rec[4] >= 0.0 and _t - rec[4] < 60.0:
+			_pose_riser(rec, _t - rec[4])
 
 
 func _update_crushers() -> void:
@@ -706,6 +794,7 @@ func _process(delta: float) -> void:
 		(sp[0] as Node3D).rotate_object_local(Vector3.UP, float(sp[1]) * delta)
 	_update_lines()
 	_update_crushers()
+	_update_risers()
 	for la in _launch:
 		(la[0] as Node3D).position = (la[1] as Vector3) + Vector3.UP * minf(fmod(_t + float(la[4]), float(la[3])) * float(la[2]), float(la[5]))
 	for tv in _travel:
