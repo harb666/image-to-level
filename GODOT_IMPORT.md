@@ -102,3 +102,10 @@ The browser preview approximates all of these with three.js. It is close to Godo
 - collision.json `terminals` (apply_mobile.gd): an Area3D per terminal in group `terminal` (meta `terminal_id`); call
   `activate_terminal(id)` from your interact action: the listed gates open (`open_gate`), then `terminal_activated(id)`.
   `Exit_Hall_Laser` (gates, `opens_on: terminal`) closes the exit doorway until then.
+
+## Turbine wind (Stage 82)
+- effects.json `wind` (apply_effects.gd `_wind`): an Area3D over the cone; in `_physics_process` every overlapping
+  CharacterBody3D inside the cone gets `move_and_collide(dir * push * strength)` and, while not on the floor,
+  `velocity.y += lift * strength * delta`. If your player script overwrites `velocity` each frame that is fine (the
+  push is a move, not a velocity); if it zeroes `velocity.y` in the air, apply `lift` in your own gravity code instead.
+  The rotor node `<id>_Rotor` turns with the cycle; streaks are a CPUParticles3D. collision.json `winds` has the data.

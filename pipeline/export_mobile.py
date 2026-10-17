@@ -361,7 +361,7 @@ def export(level_dir, profile=None):
     cols, haz = colliders(L, level_dir)
     json.dump(dict(note="World-space colliders generated from level.json shapes. Godot: BoxShape3D / CylinderShape3D / ConvexPolygonShape3D / "
                         "HeightMapShape3D (cell size = 'cell'). Hazards are areas (Area3D), not solid. Triggers (level exits) are areas too.",
-                        colliders=cols, hazards=haz, triggers=L.get("exits", []), entrances=L.get("entrances", []), gates=L.get("gates", []), encounters=L.get("encounters", []), crushers=L.get("crushers", []), terminals=L.get("terminals", []), risers=L.get("risers", [])),
+                        colliders=cols, hazards=haz, triggers=L.get("exits", []), entrances=L.get("entrances", []), gates=L.get("gates", []), encounters=L.get("encounters", []), crushers=L.get("crushers", []), terminals=L.get("terminals", []), risers=L.get("risers", []), winds=L.get("winds", [])),
               open(os.path.join(out_dir, "collision.json"), "w"), indent=1)
     cs = trimesh.Scene()
     for c in cols:

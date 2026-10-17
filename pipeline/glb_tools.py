@@ -188,6 +188,10 @@ def slim(path, plain_materials=(), drop_extras=(), weld_untextured=True, webp=No
         for me in g.get("meshes", []):
             for p in me["primitives"]:
                 mat = g["materials"][p["material"]] if "material" in p else {}
+                if not _tex_refs(mat) and "TEXCOORD_0" in p["attributes"] and "JOINTS_0" in p["attributes"]:  # Stage 82: skinned + untextured (ink shells
+                    ai = p["attributes"].pop("TEXCOORD_0"); users[ai] -= 1  # of arms / pads): the UVs are never read - dropped (not welded: joints per vertex)
+                    if not users[ai]: orphans.add(ai)
+                    continue
                 if _tex_refs(mat) or "TEXCOORD_0" not in p["attributes"] or set(p["attributes"]) - {"POSITION", "TEXCOORD_0"} or "indices" not in p: continue
                 pa, ia = g["accessors"][p["attributes"]["POSITION"]], g["accessors"][p["indices"]]
                 if g["bufferViews"][pa["bufferView"]].get("byteStride") or pa["bufferView"] in views or ia["bufferView"] in views: continue

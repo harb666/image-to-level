@@ -97,6 +97,11 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                           "(turret yaw, shoulder, elbow, wrist = -(shoulder + elbow), claw twist, 3 fingers) from the rig's motion program "
                           "(pipeline/arm_motion.py: jerk-limited servo moves, conveyor tracking, inverse kinematics every frame; no sway)",
                           glb="parcels, parts and arms at rest (own nodes: mobile groups; arms skinned to one skeleton each)", defaults=dict(speed=1.0)),
+    "wind": dict(category="wind", godot="script (apply_effects.gd _winds): cycle of period ramp + blast + ramp + calm (offset 'phase'): strength s rises "
+                 "(smoothstep) over 'ramp' s, holds 1 for 'blast' s, falls over 'ramp' s, 0 for 'calm' s. The rotor node turns at rpm * (idle + (1 - idle) s). "
+                 "A CharacterBody3D inside the cone (from 'origin' along 'dir', radius 'radius' + 'spread' * distance, 'length' m) is moved "
+                 "(move_and_collide) push * s * (1 - 0.35 d / length) m/s along dir and, while airborne, velocity.y += lift * s * delta. "
+                 "Wind streaks: CPUParticles3D along dir while s > 0.25", glb="the turbine (rotor on its own node)", defaults=dict()),
     "emerge": dict(category="emerge", godot="script (apply_effects.gd _risers): pads skinned to one skeleton (bone <id>_J<k> per pad, <id>_R<k> per surge "
                    "ring); all start 'rise' m under the liquid (rings hidden under it). When a CharacterBody3D enters the trigger sphere pad k starts after "
                    "k * stagger s: offset = -rise * (1 - u)^3 over rise_s s (u = t / rise_s: bursts up, decelerates), then a damped bob "
@@ -280,6 +285,7 @@ def resolve(level_dir, L=None):
         if e.get("line"): R["line"] = e["line"]
         if e.get("crusher"): R["crusher"] = e["crusher"]
         if e.get("riser"): R["riser"] = e["riser"]
+        if e.get("wind"): R["wind"] = e["wind"]
         if e.get("launches"): R["launches"] = [dict(l, targets=[n for n in l["targets"] if n in boxes]) for l in e["launches"]]
         if e["type"] == "spin" and tg: R["speeds"] = {n: by[n].get("spin", prm["speed_rpm"]) for n in tg if n in by}
         if tg: R["targets"] = tg

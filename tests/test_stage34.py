@@ -666,3 +666,23 @@ class Stage80(unittest.TestCase):
         N = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "checks", "navigation.json")))
         self.assertEqual({a["name"]: a["reachable_fraction"] for a in N["intended_areas"]}["West_Landing_S"], 1.0)
         C = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "collision.json"))); self.assertEqual(len(C["terminals"]), 1); self.assertEqual(len(C["risers"]), 1)
+
+
+class Stage82(unittest.TestCase):
+    def test_turbine_fan_under_the_works_screen(self):
+        """Turbine_East sits in the Works' east wall under the bigscreen (Op2, z -133..-117, sill 16) over Conduit_Walk,
+        clear of the exit arch; its cycled wind pushes faster than walking, reaches across the walkway, and leaves a calm
+        long enough to cross the wind lane on foot (the exit stays reachable)."""
+        import math
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        for k in ("Turbine_East_Rotor", "Turbine_East_Housing", "Turbine_East_Plate", "Turbine_East_Furnace"): self.assertIn(k, by)
+        self.assertIs(by["Turbine_East_Rotor"]["mobile"]["merge"], False); self.assertNotIn("spin", by["Turbine_East_Rotor"])  # driven by the wind effect
+        (w,) = L["winds"]; G = json.load(open(os.path.join(ROOT, "config", "gameplay.json")))["player"]
+        self.assertTrue(-133 < w["origin"][2] - w["radius"] and w["origin"][2] + w["radius"] + 1.0 < -119.6)  # under the screen, clear of the arch pilaster
+        self.assertLess(w["origin"][1] + w["radius"], 16.0); self.assertAlmostEqual(w["dir"][0], -1.0, 3)  # out of the east wall, across the walkway
+        self.assertGreater(w["push"] * 0.65, G["walk_speed"])  # even at the far end the wind beats walking
+        self.assertGreater(w["origin"][0] - w["length"], 40.0 - 1.0 - 4.0)  # reaches past the walkway's far edge (x 40)
+        lane = 2 * (w["radius"] + w["spread"] * (w["origin"][0] - 48.0))
+        self.assertLess(lane / G["walk_speed"], w["calm"])  # crossable on foot in one calm
+        E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "effects.json"))); self.assertIn("Turbine_East_Wind", {e["id"] for e in E["effects"] if e["category"] == "wind"})
+        C = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "collision.json"))); self.assertEqual(len(C["winds"]), 1)

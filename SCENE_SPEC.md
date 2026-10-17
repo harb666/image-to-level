@@ -1043,3 +1043,15 @@ Building blocks usable without the preset:
 - `rising_pads` spaces pads with EQUAL gaps (between pads and to both floors) instead of evenly spaced centres.
 - slime_arena `Pads_West`: 11 pads, 3.4 m across, all at y 10, zig-zag 0.7 m: every hop is ~1.4 m edge to edge
   (floors -> first / last pad 1.2 m) - was up to ~2.7 m with 0.6 m height steps.
+
+## Stage 82: turbine fan under the Works bigscreen
+- Structure `turbine_fan` {id, position (wall face, floor y), yaw (local +z into the room), diameter (5.2), depth (1.4),
+  length / spread (wind cone), push (m/s), lift (m/s^2 while airborne), ramp / blast / calm (s), phase, rpm, blades}:
+  hazard-framed plate, deep housing with clamps and a solid plinth, red furnace glow, broad rotor (own node), guard bars;
+  wall dressing in its footprint is cleared. `L.winds` / effect `wind` (apply_effects.gd `_wind`, viewer.html): the
+  blast cycles (spin-up, blast, spin-down, calm); in the cone a CharacterBody3D is moved along the wind faster than it
+  walks and lifted while airborne (a jump / double jump only carries it further out); streak particles while it blows.
+- slime_arena `Turbine_East`: under the east bigscreen over Conduit_Walk (z -125.5), 18 m cone, 9 m/s, 3 s blasts and
+  2.5 s calms - time the dash past it to the exit. (A preview-only fan another session had put in the main arena's
+  south wall is replaced by this pipeline one.)
+- Mobile: skinned untextured primitives (ink shells of arms / pads) drop their unused UVs.
