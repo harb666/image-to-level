@@ -24,6 +24,7 @@ var _travel: Array = []  # [node, rest position, speed m/s, spacing m] (Stage 43
 var _launch: Array = []  # [node, rest position, speed, period, phase, travel] (Stage 49: pods shooting up the columns)
 var _crushers: Array = []  # Stage 72: [crusher dict, ram nodes, warning lamps, kill CollisionShape3D]
 var _winds: Array = []  # Stage 82: [wind dict, rotor node, Area3D, CPUParticles3D streaks]
+var _bobs: Array = []  # Stage 92: [bob dict, [[Node3D, rest Transform3D]...]]
 var _risers: Array = []  # Stage 80: [riser dict, Skeleton3D, {bone name: index}, [[CollisionShape3D...] per pad], start time (-1: waiting)]
 var _lines: Array = []  # Stage 61: working assembly lines - [line dict, move nodes, [[station, arm nodes, held nodes, scan nodes]]]
 
@@ -79,6 +80,12 @@ func _ready() -> void:
 				_riser(fx["riser"])
 			"wind":  # Stage 82: a turbine fan whose cycled blast blows players off the platform
 				_wind(fx["wind"])
+			"bob":  # Stage 92: a specimen drifting in its tank (rest transforms kept, turned about the pivot)
+				var bb: Dictionary = fx["bob"]
+				var bn: Array = []
+				for nd in _group_nodes(String(bb["group"])):
+					bn.append([nd, (nd as Node3D).transform])
+				_bobs.append([bb, bn])
 			"launch":  # Stage 49: each entry's nodes wait, shoot up `travel` m at `speed`, repeat every `period` s (own phase)
 				for l in fx.get("launches", []):
 					for n in l.get("targets", []):
@@ -963,6 +970,16 @@ func _process(delta: float) -> void:
 	_update_crushers()
 	_update_risers()
 	_update_winds(delta)
+	for br in _bobs:  # Stage 92: lift + sway about the pivot (world)
+		var b: Dictionary = br[0]
+		var P := float(b["period"])
+		var sw := deg_to_rad(float(b["sway"]))
+		var tp := _t + float(b["phase"])
+		var basis := Basis.from_euler(Vector3(sw * sin(TAU * tp / (P * 1.3)), sw * 0.6 * sin(TAU * tp / (P * 2.3)), sw * cos(TAU * tp / (P * 1.7))))
+		var pv := Vector3(b["pivot"][0], b["pivot"][1], b["pivot"][2])
+		var tr := Transform3D(basis, pv - basis * pv + Vector3(0.0, float(b["amp"]) * sin(TAU * tp / P), 0.0))
+		for nr in br[1]:
+			(nr[0] as Node3D).transform = tr * (nr[1] as Transform3D)
 	for la in _launch:
 		(la[0] as Node3D).position = (la[1] as Vector3) + Vector3.UP * minf(fmod(_t + float(la[4]), float(la[3])) * float(la[2]), float(la[5]))
 	for tv in _travel:

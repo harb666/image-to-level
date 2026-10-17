@@ -113,6 +113,10 @@ The browser preview approximates all of these with three.js. It is close to Godo
   (`Shotgun_Pickup`, item `shotgun`, over the pedestal). A pickup with `riser` stays off (monitoring false) until its
   platform is up. The level has no weapon mesh: spawn your own shotgun model at `center`.
 
+## Specimen bob (Stage 92)
+- effects.json `bob` (apply_effects.gd `_bobs`): the group's nodes (`Gir_Specimen_Float__*`) keep their rest transform
+  and are turned / lifted about `pivot` every frame (amp, period, sway) - GIR drifting in Core_Vat.
+
 ## Turbine wind (Stage 82)
 - effects.json `wind` (apply_effects.gd `_wind`): an Area3D over the cone; in `_physics_process` every overlapping
   CharacterBody3D inside the cone gets `move_and_collide(dir * push * strength)` and, while not on the floor,

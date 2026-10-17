@@ -9,7 +9,7 @@ Built for small files: few parts, 10-sided cylinders, existing material roles on
 slime material - no new texture), visual-only parts without colliders, "mobile": {"static": true} so they merge into
 the static cells (no extra draw calls). Vat glass keeps a solid collider (not a hazard area: touching a vat is safe).
 """
-import math
+import math, os
 from modules import structure
 from architecture import local as A_local, local
 
@@ -894,6 +894,22 @@ def rising_platform(ctx, s, x, y, z, yaw):
         ctx.pickups = getattr(ctx, "pickups", []) + [dict(id=pk.get("id", n + "_Pickup"), item=pk.get("item", "weapon"), center=[round(x, 3), round(T + 1.6, 3), round(z, 3)],
                                                            radius=float(pk.get("radius", 1.4)), riser=n, note="live once the riser is up: pickup_reached(id, item)")]
     ctx.notes.append(f"{n}: round platform {D:.1f} m rising out of the liquid" + (f", {pk.get('item', 'weapon')} pickup" if pk else "") + f", {nd} drips")
+
+
+@structure("specimen", pad=False)
+def specimen(ctx, s, x, y, z, yaw):
+    """Stage 92: a model floating in a tank (cryostasis): an external "model" (parts GLB from pipeline/model_asset.py)
+    placed with its feet at [x, y, z], "height" m tall, turned "yaw"; "parts" {part: material role} (e.g. eyes on a red
+    glow role). All parts are one mobile group "<id>_Float" (own nodes) that the "bob" effect drifts: up and down
+    "amp" m over "period" s, with a slow sway of "sway" degrees round its middle. Visual only (no collision), declared
+    floating for the support check."""
+    n = s["id"]; H = float(s.get("height", 3.0)); f = s["model"]; grp = n + "_Float"
+    for part, rl in s["parts"].items():
+        ctx.add(f"{n}_{part.title()}", "model", [x, y, z], [H, H, H], ctx.role(rl), rot=[0, yaw, 0], file=f, part=part, collision=False, outline=False, bevel=False,
+                intentional=["floating"], mobile={"group": grp})
+    ctx.bobs = getattr(ctx, "bobs", []) + [dict(id=n, group=grp, pivot=[round(x, 3), round(y + H / 2, 3), round(z, 3)], amp=float(s.get("amp", 0.22)),
+                                                 period=float(s.get("period", 5.5)), sway=float(s.get("sway", 4.0)), phase=float(s.get("phase", 0.0)))]
+    ctx.notes.append(f"{n}: {os.path.basename(f)} floating {H:.1f} m tall (bob {s.get('amp', 0.22)} m / {s.get('period', 5.5)} s)")
 
 
 @structure("control_terminal", pad=False)

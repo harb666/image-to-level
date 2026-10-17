@@ -1120,3 +1120,17 @@ Building blocks usable without the preset:
   to their bottom) and thin out; the falling drops stop (preview: they fade). Spec `goo_hold`, `goo_fade`.
 - The glowing band runs round the deck edge above the lip (diameter D + 0.06, inside the lip's D + 0.36): it no longer
   sticks out in front of the slime.
+
+## Stage 92: GIR in cryostasis (external models), plain materials
+- Object type `model` (`file`: a parts GLB, `part`: its mesh name; height = size[1]) and structure `specimen`
+  (`model`, `parts` {part: material role}, `height`, `position` = feet, `yaw`, `amp`, `period`, `sway`): a model
+  floating in a tank; its parts are one mobile group `<id>_Float` the `bob` effect drifts (up / down + slow sway round
+  its middle; apply_effects.gd and the preview). Visual only, `intentional: ["floating"]`; the shell checks skip `model`.
+- `pipeline/model_asset.py`: source GLB -> static parts GLB (rest pose, feet at 0, unit height, parts grouped by source
+  material, decimated per part). For a skinned source bake the pose first (the skin is ignored).
+- `Gir_Specimen` in the middle of Core_Vat (3.6 m, red eyes): `levels/slime_arena/assets/gir_parts.glb` (~3.7k tris,
+  credits in `assets/CREDITS.md`).
+- Material roles with `"plain": true`: a flat colour (+ emissive), no textures - the mobile slim then drops their UVs
+  and welds the vertices.
+- Mobile budget: ceiling conduit trays every other one (same random draws); GLB accessor min / max written as the
+  shortest decimal of the float32 value (lossless).

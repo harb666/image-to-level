@@ -1030,6 +1030,10 @@ def make_material(name, m):
     """Returns (trimesh PBRMaterial, [pixel counts of the images it embeds])."""
     if name == "_invisible":
         return trimesh.visual.material.PBRMaterial(name="Collider_invisible", baseColorFactor=[1, 0, 0, 0], alphaMode="BLEND"), []
+    if m.get("plain"):  # Stage 92: a flat colour, no textures (the mobile slim then drops the UVs and welds the vertices)
+        kw = dict(name=name, baseColorFactor=list(m.get("color", [0.5, 0.5, 0.5])[:3]) + [1.0], metallicFactor=float(m.get("metal", 0.2)), roughnessFactor=float(m.get("rough", 0.55)))
+        if m.get("emissive"): kw["emissiveFactor"] = list(m["emissive"][:3])
+        return trimesh.visual.material.PBRMaterial(**kw), []
     d = maps(m); alb = np.clip(d["alb"], 0, 1)
     ao = _ao(d["h"]) if d["nstr"] > 0 else np.ones_like(d["rough"])
     if d.get("ao_mul") is not None: ao = ao * d["ao_mul"]  # e.g. bottomless-shaft cell: no sky light / reflections at all

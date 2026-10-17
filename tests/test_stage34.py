@@ -750,6 +750,29 @@ class Stage87(unittest.TestCase):
         self.assertFalse([f for f in G["findings"] if any(o.startswith(("Works_Terminal", "Turbine_East")) for o in f["objects"])])
 
 
+class Stage92(unittest.TestCase):
+    def test_gir_specimen_in_core_vat(self):
+        """GIR floats in the middle of Core_Vat (inside its glass, clear of floor and top), red eyes, one mobile group the
+        "bob" effect drifts; the parts GLB is small and static; accessor bounds are written as short float32 values."""
+        import sys, numpy as np
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from anchors import world_matrices; import glb_tools
+        lv = os.path.join(ROOT, "levels", "slime_arena"); L = json.load(open(os.path.join(lv, "level.json"))); W, by = world_matrices(L)
+        parts = [n for n in by if n.startswith("Gir_Specimen_")]; self.assertEqual(len(parts), 4)
+        self.assertTrue(all(by[n]["type"] == "model" and by[n]["mobile"]["group"] == "Gir_Specimen_Float" and "floating" in by[n]["intentional"] for n in parts))
+        eye = L["materials"][by["Gir_Specimen_Eye"]["material"]]; self.assertTrue(eye["plain"] and eye["color"][0] > 0.6 > max(eye["color"][1:]))
+        g = np.asarray(W["Core_Vat_Glass"])[:3, 3]; gs = by["Core_Vat_Glass"]["size"]; p = np.asarray(W["Gir_Specimen_Body"])[:3, 3]; H = by["Gir_Specimen_Body"]["size"][1]
+        self.assertLess(np.hypot(p[0] - g[0], p[2] - g[2]), 0.1)  # centred
+        self.assertTrue(g[1] + 0.8 < p[1] and p[1] + H < g[1] + gs[1] - 0.8)  # floating clear of the floor and the top (bob 0.22 m)
+        E = json.load(open(os.path.join(lv, "effects.json"))); bob = next(e for e in E["effects"] if e["type"] == "bob")
+        self.assertEqual(bob["bob"]["group"], "Gir_Specimen_Float"); self.assertLess(bob["bob"]["amp"], 0.5)
+        M = json.load(open(os.path.join(lv, "mobile", "mobile_manifest.json"))); self.assertTrue(any(n["node"].startswith("Gir_Specimen_Float__") for n in M["nodes"]))
+        self.assertLess(os.path.getsize(os.path.join(lv, "assets", "gir_parts.glb")), 150 * 1024)
+        self.assertTrue(os.path.exists(os.path.join(lv, "assets", "CREDITS.md")))
+        self.assertEqual(glb_tools._f32(4.960000038146973), 4.96); self.assertEqual(np.float32(glb_tools._f32(-75.73999786376953)), np.float32(-75.74))
+        with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: self.assertIn('"bob":', f.read())
+        with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: self.assertIn("fx.category==='bob'", f.read())
+
+
 class Stage89(unittest.TestCase):
     def test_shotgun_platform(self):
         """Stage 89/90: a round platform rises out of the pool at the end of the conveyor platform (a jump off its south

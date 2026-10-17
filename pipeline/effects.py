@@ -110,6 +110,9 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                    "sinking 0.9 m back under the surface. The pad's colliders (collision.glb nodes named after 'colliders') are disabled until 85 % of "
                    "its rise. Stage 89/91: a pad with 'drips' drops goo (CPUParticles3D) once up; with 'goo' {drips, strands, hold, fade} those bones "
                    "drain away 'hold' s after it is up over 'fade' s (smoothstep: drips scale y -> 0 sliding 0.6 m down, strands scale -> 0) and the drops stop", glb="pads at the RAISED position (skinned, one mesh per material); colliders at the raised position", defaults=dict()),
+    "bob": dict(category="bob", godot="script (apply_effects.gd _bobs): every node of the group (<group>__*) is turned and lifted about 'pivot' "
+                "(world): y offset amp * sin(2 pi (t + phase) / period), a sway of 'sway' deg about x (sin, period * 1.3) and z (cos, period * 1.7) "
+                "and a slow yaw drift (sway * 0.6 deg, period * 2.3) - a body drifting in liquid (Stage 92)", glb="the model parts at rest, own nodes (mobile group)", defaults=dict()),
     "crusher": dict(category="crusher", godot="script (apply_effects.gd _crushers): the ram's group nodes (<group>__*) sit at rest raised 'travel' m; "
                     "every 'period' s (offset 'phase'): 'warn' s of warning (lamps pulse), a 'down' s slam onto the pad (accelerating), 'hold' s "
                     "pressed, a 'rise' s climb back (eased). While pressed an Area3D over the pad ('kill' box, world) is enabled in the hazard "
@@ -288,6 +291,7 @@ def resolve(level_dir, L=None):
         if e.get("crusher"): R["crusher"] = e["crusher"]
         if e.get("riser"): R["riser"] = e["riser"]
         if e.get("wind"): R["wind"] = e["wind"]
+        if e.get("bob"): R["bob"] = e["bob"]
         if e.get("launches"): R["launches"] = [dict(l, targets=[n for n in l["targets"] if n in boxes]) for l in e["launches"]]
         if e["type"] == "spin" and tg: R["speeds"] = {n: by[n].get("spin", prm["speed_rpm"]) for n in tg if n in by}
         if tg: R["targets"] = tg

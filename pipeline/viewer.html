@@ -349,6 +349,10 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
           if(on){d.st.forEach((q,i)=>{const u=(tk+q.ph)%d.T,p=d.pd.drips[q.s];d.a.set([p[0],p[1]-4.9*u*u,p[2]],i*3);});d.g.attributes.position.needsUpdate=true;}});
       pose(-1);fxUpd.push({reset(){ts=null;pose(-1);drip(-1);},u(t){if(ts===null){const wk=walking()&&!fixedCam,e=wk?pos:cam.position,c=R.trigger.center,dx=e.x-c[0],dz=e.z-c[2],rr=R.trigger.radius+(wk?0:8);
           if(dx*dx+dz*dz<rr*rr&&Math.abs(e.y-c[1])<12)ts=t;}if(ts!==null&&t-ts<60)pose(t-ts);drip(ts===null?-1:t-ts);}});}
+    else if(fx.category==='bob'){const B=fx.bob,nd=Object.values(byName).filter(o=>o.name.startsWith(B.group+'__')),pv=new THREE.Vector3(...B.pivot),m=new THREE.Matrix4(),e=new THREE.Euler(),q=new THREE.Quaternion(),v=new THREE.Vector3(); // Stage 92: a specimen drifting in its tank (same as apply_effects.gd)
+      nd.forEach(o=>{o.userData.rest=o.userData.rest||o.matrix.clone();o.matrixAutoUpdate=false;});const T=6.2832,P=B.period,sw=B.sway*Math.PI/180;
+      fxUpd.push({reset(){nd.forEach(o=>{o.matrix.copy(o.userData.rest);o.matrixWorldNeedsUpdate=true;});},u(t){const tp=t+B.phase;e.set(sw*Math.sin(T*tp/(P*1.3)),sw*0.6*Math.sin(T*tp/(P*2.3)),sw*Math.cos(T*tp/(P*1.7)),'YXZ');q.setFromEuler(e);
+        v.copy(pv).applyQuaternion(q).negate().add(pv);v.y+=B.amp*Math.sin(T*tp/P);m.compose(v,q,new THREE.Vector3(1,1,1));nd.forEach(o=>{o.matrix.multiplyMatrices(m,o.userData.rest);o.matrixWorldNeedsUpdate=true;});}});}
     else if(fx.category==='crusher'){const C=fx.crusher,rm=Object.values(byName).filter(o=>o.name.startsWith(C.group+'__')),wn=Object.values(byName).filter(o=>o.name.startsWith(C.warn_group+'__')); // Stage 72: ram slamming onto its pad (same timing as apply_effects.gd)
       const KB={min:C.kill[0],max:C.kill[1],on:false};(window.crushKill=window.crushKill||[]).push(KB);const T0=C.period-C.warn-C.down-C.hold-C.rise;
       fxUpd.push({reset(){rm.forEach(o=>o.position.set(0,0,0));wn.forEach(o=>o.visible=true);KB.on=false;},u(t){const u=((t+C.phase)%C.period+C.period)%C.period;let off=0;const warn=u>=T0&&u<T0+C.warn;

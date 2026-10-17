@@ -10,7 +10,17 @@ def _read(path):
     return json.loads(data[20:20 + jlen]), data[20 + jlen + 8:]
 
 
+def _f32(v):
+    """Shortest decimal that reads back as the same float32 (accessor min / max are float32 values; their double repr
+    "4.960000038146973" costs 3-4x the characters of "4.96") - Stage 92, lossless for float32 readers."""
+    import numpy as np
+    return float(np.format_float_positional(np.float32(v), unique=True, trim="-")) if isinstance(v, float) else v
+
+
 def _write(path, g, binary):
+    for a in g.get("accessors", []):
+        for k in ("min", "max"):
+            if k in a: a[k] = [_f32(v) for v in a[k]]
     j = json.dumps(g, separators=(",", ":")).encode(); j += b" " * (-len(j) % 4); binary += b"\0" * (-len(binary) % 4)
     total = 12 + 8 + len(j) + 8 + len(binary)
     open(path, "wb").write(struct.pack("<III", 0x46546C67, 2, total) + struct.pack("<II", len(j), 0x4E4F534A) + j

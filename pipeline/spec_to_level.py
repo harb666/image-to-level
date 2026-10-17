@@ -307,6 +307,8 @@ def _effects(spec, ctx, plats, env, glow):
             out.append(dict(id=c_["id"] + "_Slam", type="crusher", crusher=c_))
         for w_ in getattr(ctx, "winds", []):  # Stage 82: turbine fans blowing players off (cycled)
             out.append(dict(id=w_["id"] + "_Wind", type="wind", wind=w_))
+        for b_ in getattr(ctx, "bobs", []):  # Stage 92: a specimen drifting in its tank
+            out.append(dict(id=b_["id"] + "_Bob", type="bob", bob=b_))
         for r_ in getattr(ctx, "risers", []):  # Stage 80: pads surging up out of the liquid when a player comes near
             out.append(dict(id=r_["id"] + "_Emerge", type="emerge", riser=r_))
         la = getattr(ctx, "launches", [])

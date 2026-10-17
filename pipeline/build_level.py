@@ -14,6 +14,17 @@ def material(name, m):
     return make_material(name, m)[0]
 
 
+_MODELS = {}
+
+
+def _model_part(path, part):
+    """A part mesh of a model_asset.py parts GLB (unit height, feet at y 0), path relative to the repo root."""
+    if path not in _MODELS:
+        full = path if os.path.isabs(path) else os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), path)
+        _MODELS[path] = {k: g for k, g in trimesh.load(full, force="scene").geometry.items()}
+    return _MODELS[path][part]
+
+
 def shape(o, bevel=0.0):
     t = o["type"]
     if t == "terrain":
@@ -34,6 +45,9 @@ def shape(o, bevel=0.0):
             out = np.einsum("ij,ij->i", m.face_normals[sk_f], m.triangles_center[sk_f] - cen) < 0
             f[sk_f[out]] = f[sk_f[out]][:, ::-1]; m = trimesh.Trimesh(v, f, process=False)
         return m
+    if t == "model":  # Stage 92: one part of an external model (pipeline/model_asset.py parts GLB), height = size[1]
+        m = _model_part(o["file"], o["part"]).copy(); m.apply_scale(float(o["size"][1]))
+        m.metadata["uv"] = np.full((len(m.vertices), 2), 0.5); return m  # plain colour: the centre of the material's texture
     m = shapes.make(o, bevel)  # Stage 3 primitives (bevelled boxes, railings, rocks, cliffs, arches, ...)
     if m is not None: return m
     w, h, d = o["size"]
