@@ -23,6 +23,7 @@ var _spins: Array = []  # [rotor node, rad/s]
 var _travel: Array = []  # [node, rest position, speed m/s, spacing m] (Stage 43: barrels up the column bores)
 var _launch: Array = []  # [node, rest position, speed, period, phase, travel] (Stage 49: pods shooting up the columns)
 var _crushers: Array = []  # Stage 72: [crusher dict, ram nodes, warning lamps, kill CollisionShape3D]
+var _winds: Array = []  # Stage 82: [wind dict, rotor node, Area3D, CPUParticles3D streaks]
 var _risers: Array = []  # Stage 80: [riser dict, Skeleton3D, {bone name: index}, [[CollisionShape3D...] per pad], start time (-1: waiting)]
 var _lines: Array = []  # Stage 61: working assembly lines - [line dict, move nodes, [[station, arm nodes, held nodes, scan nodes]]]
 
@@ -76,6 +77,8 @@ func _ready() -> void:
 				_crusher(fx["crusher"])
 			"emerge":  # Stage 80: pads surging up out of the liquid when a player comes near
 				_riser(fx["riser"])
+			"wind":  # Stage 82: a turbine fan whose cycled blast blows players off the platform
+				_wind(fx["wind"])
 			"launch":  # Stage 49: each entry's nodes wait, shoot up `travel` m at `speed`, repeat every `period` s (own phase)
 				for l in fx.get("launches", []):
 					for n in l.get("targets", []):
@@ -409,6 +412,117 @@ func _update_risers() -> void:
 	for rec in _risers:
 		if rec[4] >= 0.0 and _t - rec[4] < 60.0:
 			_pose_riser(rec, _t - rec[4])
+
+
+func _wind(w: Dictionary) -> void:
+	var o := Vector3(w["origin"][0], w["origin"][1], w["origin"][2])
+	var d := Vector3(w["dir"][0], w["dir"][1], w["dir"][2]).normalized()
+	var L := float(w["length"])
+	var rmax := float(w["radius"]) + float(w["spread"]) * L
+	var area := Area3D.new()  # bounding box of the cone: bodies inside are tested against the cone each frame
+	area.name = String(w["id"]) + "_Wind"
+	var cs := CollisionShape3D.new()
+	var bx := BoxShape3D.new()
+	bx.size = Vector3(2.0 * rmax, 2.0 * rmax, L)
+	cs.shape = bx
+	area.add_child(cs)
+	level_root.add_child(area)
+	area.global_transform = Transform3D(Basis.looking_at(-d, Vector3.UP), o + d * (L * 0.5))
+	var pr := CPUParticles3D.new()  # wind streaks
+	pr.amount = 70
+	pr.lifetime = L / 20.0
+	pr.emission_shape = CPUParticles3D.EMISSION_SHAPE_SPHERE
+	pr.emission_sphere_radius = float(w["radius"]) * 0.8
+	pr.direction = Vector3(0, 0, -1)
+	pr.spread = rad_to_deg(atan(float(w["spread"])))
+	pr.gravity = Vector3.ZERO
+	pr.initial_velocity_min = 16.0
+	pr.initial_velocity_max = 22.0
+	pr.particle_flag_align_y = true
+	var qm := QuadMesh.new()
+	qm.size = Vector2(0.05, 1.1)
+	var sm := StandardMaterial3D.new()
+	sm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	sm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	sm.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	sm.albedo_color = Color(0.85, 1.0, 0.8, 0.28)
+	sm.billboard_mode = BaseMaterial3D.BILLBOARD_PARTICLES
+	qm.material = sm
+	pr.mesh = qm
+	pr.emitting = false
+	level_root.add_child(pr)
+	pr.global_transform = Transform3D(Basis.looking_at(d, Vector3.UP), o)
+	var rotor := level_root.find_child(String(w["rotor"]), true, false) as Node3D
+	var rec := [w, rotor, area, pr, -1.0]  # [4]: time the stop trigger fired (-1: still blowing)
+	if w.has("trigger"):  # Stage 85: full force until a player reaches the trigger sphere, then it spins down for good
+		var ta := Area3D.new()
+		ta.name = String(w["id"]) + "_Stop"
+		var tcs := CollisionShape3D.new()
+		var tsp := SphereShape3D.new()
+		tsp.radius = float(w["trigger"]["radius"])
+		tcs.shape = tsp
+		tcs.position = Vector3(w["trigger"]["center"][0], w["trigger"]["center"][1], w["trigger"]["center"][2])
+		ta.add_child(tcs)
+		level_root.add_child(ta)
+		ta.body_entered.connect(func(b: Node3D) -> void:
+			if rec[4] < 0.0 and b is CharacterBody3D:
+				rec[4] = _t)
+	_winds.append(rec)
+
+
+## Stage 85: stop a turbine's wind from game code (it spins down over spin_down s).
+func stop_wind(wind_id: String) -> void:
+	for wr in _winds:
+		if String(wr[0]["id"]) == wind_id and wr[4] < 0.0:
+			wr[4] = _t
+
+
+func _wind_strength(wr: Array, t: float) -> float:  # 0..1: triggered - 1 until the stop, then down over spin_down; else the cycle
+	var w: Dictionary = wr[0]
+	if w.has("trigger"):
+		return 1.0 if wr[4] < 0.0 else 1.0 - smoothstep(0.0, float(w["spin_down"]), t - wr[4])
+	var ra := float(w["ramp"])
+	var bl := float(w["blast"])
+	var u := fposmod(t + float(w["phase"]), 2.0 * ra + bl + float(w["calm"]))
+	if u < ra:
+		return smoothstep(0.0, ra, u)
+	if u < ra + bl:
+		return 1.0
+	if u < 2.0 * ra + bl:
+		return 1.0 - smoothstep(0.0, ra, u - ra - bl)
+	return 0.0
+
+
+func _physics_process(delta: float) -> void:
+	for wr in _winds:
+		var w: Dictionary = wr[0]
+		var s := _wind_strength(wr, _t)
+		if s <= 0.01:
+			continue
+		var o := Vector3(w["origin"][0], w["origin"][1], w["origin"][2])
+		var d := Vector3(w["dir"][0], w["dir"][1], w["dir"][2]).normalized()
+		for b in (wr[2] as Area3D).get_overlapping_bodies():
+			var cb := b as CharacterBody3D
+			if cb == null:
+				continue
+			var rel := cb.global_position + Vector3(0.0, 0.9, 0.0) - o
+			var along := rel.dot(d)
+			if along < 0.0 or along > float(w["length"]):
+				continue
+			if (rel - d * along).length() > float(w["radius"]) + float(w["spread"]) * along:
+				continue
+			cb.move_and_collide(d * float(w["push"]) * s * (1.0 - 0.35 * along / float(w["length"])) * delta)
+			if not cb.is_on_floor():
+				cb.velocity.y += float(w["lift"]) * s * delta  # airborne: lifted - a jump only carries them further out
+
+
+func _update_winds(delta: float) -> void:
+	for wr in _winds:
+		var w: Dictionary = wr[0]
+		var s := _wind_strength(wr, _t)
+		if wr[1] != null:
+			(wr[1] as Node3D).rotate_object_local(Vector3.UP, float(w["rpm"]) * TAU / 60.0 * (float(w["idle"]) + (1.0 - float(w["idle"])) * s) * delta)
+		(wr[3] as CPUParticles3D).emitting = s > 0.25
 
 
 func _update_crushers() -> void:
@@ -795,6 +909,7 @@ func _process(delta: float) -> void:
 	_update_lines()
 	_update_crushers()
 	_update_risers()
+	_update_winds(delta)
 	for la in _launch:
 		(la[0] as Node3D).position = (la[1] as Vector3) + Vector3.UP * minf(fmod(_t + float(la[4]), float(la[3])) * float(la[2]), float(la[5]))
 	for tv in _travel:

@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 6496,
-    "triangles": 125232,
-    "nodes": 5122,
-    "mesh_nodes": 4918,
-    "unique_meshes": 2508,
+    "glb_kb": 6560,
+    "triangles": 126526,
+    "nodes": 5148,
+    "mesh_nodes": 4943,
+    "unique_meshes": 2526,
     "materials": 32,
     "images": 94,
-    "draw_calls_unbatched": 4918,
+    "draw_calls_unbatched": 4943,
     "draw_calls_batched_min": 32,
     "tex_mem_uncompressed_mb": 92.57,
     "tex_mem_gpu_compressed_mb": 23.14,
@@ -71,22 +71,22 @@
    },
    "visible": {
     "cameras": 320,
-    "visible_draw_calls_mean": 1635.4,
-    "visible_draw_calls_max": 4829,
-    "visible_triangles_mean": 56550,
-    "visible_triangles_max": 133476
+    "visible_draw_calls_mean": 1643.9,
+    "visible_draw_calls_max": 4854,
+    "visible_triangles_mean": 56986,
+    "visible_triangles_max": 134770
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3973,
-    "triangles": 117952,
-    "nodes": 195,
-    "mesh_nodes": 139,
-    "unique_meshes": 139,
+    "glb_kb": 4000,
+    "triangles": 119205,
+    "nodes": 196,
+    "mesh_nodes": 140,
+    "unique_meshes": 140,
     "materials": 32,
     "images": 64,
-    "draw_calls_unbatched": 139,
+    "draw_calls_unbatched": 140,
     "draw_calls_batched_min": 32,
     "tex_mem_uncompressed_mb": 30.07,
     "tex_mem_gpu_compressed_mb": 7.52,
@@ -130,19 +130,19 @@
     ]
    },
    "collision": {
-    "colliders": 878,
+    "colliders": 889,
     "hazards": 11,
-    "glb_kb": 462
+    "glb_kb": 468
    },
    "visible": {
     "cameras": 320,
-    "visible_draw_calls_mean": 74.9,
-    "visible_draw_calls_max": 140,
-    "visible_triangles_mean": 105987,
-    "visible_triangles_max": 129246
+    "visible_draw_calls_mean": 75.2,
+    "visible_draw_calls_max": 141,
+    "visible_triangles_mean": 106794,
+    "visible_triangles_max": 130499
    },
-   "hidden_faces_removed": 3364,
-   "occluded_faces_removed": 3916,
+   "hidden_faces_removed": 3394,
+   "occluded_faces_removed": 3927,
    "occluded_objects": [
     "Assembly_Line_Light_01",
     "W_Run_North_Flange_01b",
@@ -156,16 +156,16 @@
    "effects_max_particles": 1246,
    "slimmed_kb": {
     "level_mobile.glb": [
-     5631,
-     3973
+     5677,
+     4000
     ],
     "background_mobile.glb": [
      518,
      439
     ],
     "collision.glb": [
-     557,
-     462
+     564,
+     468
     ]
    }
   }
@@ -614,7 +614,7 @@
    "node": "Ceiling__frame",
    "kind": "group",
    "material": "frame",
-   "triangles": 9484,
+   "triangles": 9460,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -626,10 +626,16 @@
     "Works_Ceil_Duct_1_Hanger_3",
     "Works_Ceil_Duct_1_Hanger_2",
     "Works_Ceil_Duct_1_Hanger_1",
-    "Ceil_Duct_3_Hanger_4",
     "Ceil_Duct_3_Hanger_3",
     "Ceil_Duct_3_Hanger_2",
     "Ceil_Duct_3_Hanger_1",
+    "Ceil_Duct_2_Hanger_4",
+    "Ceil_Duct_2_Hanger_3",
+    "Ceil_Duct_2_Hanger_2",
+    "Ceil_Duct_2_Hanger_1",
+    "Ceil_Duct_1_Hanger_3",
+    "Ceil_Duct_1_Hanger_2",
+    "Ceil_Duct_1_Hanger_1",
     "Works_Ceil_Capsule_25_Hanger",
     "Works_Ceil_Capsule_24_Hanger",
     "Works_Ceil_Capsule_23_Hanger",
@@ -1188,14 +1194,6 @@
     "Ceil_Fan_1_Clamp_3",
     "Ceil_Fan_1_Clamp_2",
     "Ceil_Fan_1_Clamp_1",
-    "Ceil_Duct_2_Hanger_4",
-    "Ceil_Duct_2_Hanger_3",
-    "Ceil_Duct_2_Hanger_2",
-    "Ceil_Duct_2_Hanger_1",
-    "Ceil_Duct_1_Hanger_4",
-    "Ceil_Duct_1_Hanger_3",
-    "Ceil_Duct_1_Hanger_2",
-    "Ceil_Duct_1_Hanger_1",
     "Ceil_Beam_08_1_W35",
     "Ceil_Beam_08_1_W34",
     "Ceil_Beam_08_1_W33",
@@ -2825,12 +2823,13 @@
    "node": "M_accent_0_0",
    "kind": "static",
    "material": "accent",
-   "triangles": 226,
+   "triangles": 262,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
     "W_Drain_Core_Mouth_Dark",
     "W_Spill_Mouth_Dark",
+    "Turbine_East_Duct",
     "Exit_Hall_Fade_End",
     "Exit_Hall_Fade_2",
     "Exit_Hall_Fade_1",
@@ -2929,7 +2928,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 5334,
+   "triangles": 5488,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3003,6 +3002,19 @@
     "Tank_Slime_East_Duct_Hanger_1",
     "Works_Terminal_Mast",
     "Works_Terminal_Bezel",
+    "Turbine_East_GuardV",
+    "Turbine_East_Guard_2",
+    "Turbine_East_Guard_1",
+    "Turbine_East_Clamp_6",
+    "Turbine_East_Clamp_5",
+    "Turbine_East_Clamp_4",
+    "Turbine_East_Clamp_3",
+    "Turbine_East_Clamp_2",
+    "Turbine_East_Clamp_1",
+    "Turbine_East_Frame_4",
+    "Turbine_East_Frame_3",
+    "Turbine_East_Frame_2",
+    "Turbine_East_Frame_1",
     "Claw_Proc_Trolley_Side_2",
     "Claw_Proc_Trolley_Side_0",
     "CraneRail_07_Hanger_02",
@@ -3555,7 +3567,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 22080,
+   "triangles": 22372,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3699,6 +3711,7 @@
     "Works_Terminal_Back__ol",
     "Works_Terminal_Desk__ol",
     "Works_Terminal_Plinth__ol",
+    "Turbine_East_Housing__ol",
     "Exit_Hall_Sill__ol",
     "Exit_Hall_Mouth_Capital_1__ol",
     "Exit_Hall_Mouth_Pilaster_1__ol",
@@ -4131,6 +4144,8 @@
     "Works_Wall_East_02_M02Door__ol",
     "Works_Wall_East_01_M02Machine__ol",
     "Works_Wall_East_01_M02Machine_Bracket__ol",
+    "Works_Wall_East_Op2_Sill_Body_C3__ol",
+    "Works_Wall_East_Op2_Sill_Body__ol",
     "Works_Wall_East_Op2_Sill_Body_C2__ol",
     "Works_Wall_East_Op2_Sill_Body_C1__ol",
     "Works_Wall_East_Op1_Frame_Mullion_01__ol",
@@ -4170,10 +4185,12 @@
    "node": "M_laser_0_0",
    "kind": "static",
    "material": "laser",
-   "triangles": 12,
+   "triangles": 36,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Turbine_East_Lamp_3",
+    "Turbine_East_Lamp_1",
     "Exit_Hall_Edge_2",
     "Exit_Hall_Edge_1"
    ]
@@ -4182,7 +4199,7 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 1777,
+   "triangles": 1969,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4200,6 +4217,7 @@
     "W_Run_North_End2_Bolt_1",
     "Crusher_A_Housing",
     "Works_Terminal_Plinth",
+    "Turbine_East_Housing",
     "Claw_Proc_Trolley_Body",
     "Claw_Proc_Finger_3_Knuckle",
     "Claw_Proc_Finger_2_Knuckle",
@@ -4381,7 +4399,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 7603,
+   "triangles": 7709,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -4433,6 +4451,11 @@
     "Column_Works_Mid_Plinth",
     "Works_Terminal_Back",
     "Works_Terminal_Desk",
+    "Turbine_East_Plinth",
+    "Turbine_East_Corner_4",
+    "Turbine_East_Corner_3",
+    "Turbine_East_Corner_2",
+    "Turbine_East_Corner_1",
     "Exit_Hall_Rib_2_Beam",
     "Exit_Hall_Rib_2_Post_3",
     "Exit_Hall_Rib_2_Post_1",
@@ -4697,7 +4720,7 @@
    "node": "M_wall_0_0",
    "kind": "static",
    "material": "wall",
-   "triangles": 449,
+   "triangles": 508,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -4712,9 +4735,10 @@
     "Works_Wall_East_03_Body_C2",
     "Works_Wall_East_03_Body_C1",
     "Works_Wall_East_03_Body",
+    "Works_Wall_East_Op2_Sill_Body_C3",
+    "Works_Wall_East_Op2_Sill_Body",
     "Works_Wall_East_Op2_Sill_Body_C2",
     "Works_Wall_East_Op2_Sill_Body_C1",
-    "Works_Wall_East_Op2_Sill_Body",
     "Works_Wall_East_Op2_Lintel_Body",
     "Works_Wall_East_Op1_Sill_Body",
     "Works_Wall_East_Op1_Lintel_Body",
@@ -6479,6 +6503,18 @@
    "cast_shadow": true,
    "source_objects": [
     "Ceil_Fan_1_Rotor"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Turbine_East_Rotor",
+   "kind": "separate",
+   "material": "frame",
+   "triangles": 414,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Turbine_East_Rotor"
    ],
    "reason": "animated by an effect / merge disabled"
   },

@@ -3043,6 +3043,77 @@
    }
   },
   {
+   "id": "Turbine_East_Wind",
+   "type": "wind",
+   "category": "wind",
+   "glb_contains": "the turbine (rotor on its own node)",
+   "godot_runtime": "script (apply_effects.gd _winds): with a 'trigger' sphere strength s = 1 until a CharacterBody3D enters it (or stop_wind(id)), then 1 - smoothstep over 'spin_down' s, for good; without one, a cycle of period ramp + blast + ramp + calm (offset 'phase'): strength s rises (smoothstep) over 'ramp' s, holds 1 for 'blast' s, falls over 'ramp' s, 0 for 'calm' s. The rotor node turns at rpm * (idle + (1 - idle) s). A CharacterBody3D inside the cone (from 'origin' along 'dir', radius 'radius' + 'spread' * distance, 'length' m) is moved (move_and_collide) push * s * (1 - 0.35 d / length) m/s along dir and, while airborne, velocity.y += lift * s * delta. Wind streaks: CPUParticles3D along dir while s > 0.25",
+   "wind": {
+    "id": "Turbine_East",
+    "rotor": "Turbine_East_Rotor",
+    "origin": [
+     54.3,
+     11.8,
+     -125.5
+    ],
+    "dir": [
+     -1.0,
+     0.0,
+     0.0
+    ],
+    "radius": 2.9,
+    "spread": 0.22,
+    "length": 18.0,
+    "push": 9.0,
+    "lift": 16.0,
+    "ramp": 1.0,
+    "blast": 3.0,
+    "calm": 2.5,
+    "phase": 0.0,
+    "rpm": 160.0,
+    "idle": 0.06,
+    "note": "force = push along dir (x strength), lift while airborne; inside the cone only",
+    "trigger": {
+     "center": [
+      -47.0,
+      10.0,
+      -224.0
+     ],
+     "radius": 4.0
+    },
+    "spin_down": 4.0
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Pads_West_Emerge",
    "type": "emerge",
    "category": "emerge",

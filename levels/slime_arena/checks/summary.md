@@ -1,16 +1,16 @@
 # slime_arena: generation summary
 
-Spec: levels/slime_arena/scene_spec.json · 4458 objects · 31 materials · 25 effects
-Checks: PASSED ({'error': 0, 'warning': 3, 'info': 2}) · refine passes: 1
-Mobile (balanced): 3973 KB · 117952 tris · 139 draw calls · ~74.9 visible (estimate) · ~7.52 MB GPU textures (estimate)
-Navigation: 9651.0 m² reachable of 49498.0 m² standable
-Package: dist/slime_arena/package (38 files, 15.62 MB) valid=True
+Spec: levels/slime_arena/scene_spec.json · 4481 objects · 31 materials · 26 effects
+Checks: PASSED ({'error': 0, 'warning': 3, 'info': 2}) · refine passes: 0
+Mobile (balanced): 4000 KB · 119205 tris · 140 draw calls · ~75.2 visible (estimate) · ~7.52 MB GPU textures (estimate)
+Navigation: 9635.0 m² reachable of 49516.0 m² standable
+Package: dist/slime_arena/package (38 files, 15.75 MB) valid=True
 Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/slime_arena/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
-- warning: mobile draw calls 139 (> 80)
+- warning: mobile draw calls 140 (> 80)
 - warning: ~75 visible draw calls (estimate, > 60)
-- warning: 125232 triangles (> budget 40000)
+- warning: 126526 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -43,22 +43,23 @@ Previews: dist/slime_arena/preview.html, preview_mobile.html · renders: levels/
 - Conv_East: working assembly line - 4 parcels 7.35 m apart at 0.8 m/s, 2 station(s)
 - Valve_A_Vent: left out - it would hang over the edge of Pipe_Junction_A
 - Exit_Hall: exit hallway 14 m fading to black -> level1_part3
+- Turbine_East: turbine fan 5.2 m, wind 18 m cone, blows until a player reaches [-47.0, 10.0, -224.0]
 - Pads_West: 11 pads rising out of the liquid (one skinned mesh per material, 23 bones)
 - outlets: removed wall dressing in front of pours: Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine
 - Central: 3 cover crate(s) dropped - no free spot clear of landings
 - Tunnel_West: HazardFluid_2 reaches on to -56.0 through the bore
 - crates: 35 printed crates (accent atlas)
 - fixtures: 31 parts cleared out of fans / vents (wall units removed: OuterWall_West_02_M02Vent, Works_Wall_West_02_M05Fan)
-- ducts: Ceil_Duct_3 trimmed to 1 piece(s) clear of 1 standing part(s); Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 3 standing part(s); Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 7 standing part(s)
+- ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 2.7 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 0 crane runway(s), ends at beams 1.7 m; Ceil_Duct_3 trimmed to 1 piece(s) clear of 1 standing part(s), 0 crane runway(s), ends at beams 2.4 m; Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 3 standing part(s), 0 crane runway(s), ends at beams 1.7 m; Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 7 standing part(s), 1 crane runway(s), ends at beams 0.0 m
 - portals: 3 thin fixtures covered by a doorway portal removed (Gallery_North_Strut_02, Gallery_North_Strut_03, Gallery_North_Strut_04)
 - corrosion: 34 lit bodies get a plain skirt at the liquid line (no lights in the slime)
 - corrosion: 48 lights at the liquid line removed, 28 light strips raised clear of it
 - corrosion: 2206 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 8.6 s
-- build (glb, sky, background, effects, mobile): 126.9 s
-- refine (checks -> safe fixes): 3815.5 s
-- previews: 0.8 s
+- spec -> level.json: 8.4 s
+- build (glb, sky, background, effects, mobile): 105.0 s
+- checks (fast): 120.0 s
+- previews: 0.7 s
 - export package: 0.7 s
-- total: 3952.4 s
+- total: 234.9 s

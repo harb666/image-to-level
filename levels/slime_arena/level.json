@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "d94320bae0d08f7f",
+  "spec_sha": "730b387c79d047ff",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -1825,6 +1825,45 @@
       -109.25
      ]
     ]
+   }
+  },
+  {
+   "id": "Turbine_East_Wind",
+   "type": "wind",
+   "wind": {
+    "id": "Turbine_East",
+    "rotor": "Turbine_East_Rotor",
+    "origin": [
+     54.3,
+     11.8,
+     -125.5
+    ],
+    "dir": [
+     -1.0,
+     0.0,
+     0.0
+    ],
+    "radius": 2.9,
+    "spread": 0.22,
+    "length": 18.0,
+    "push": 9.0,
+    "lift": 16.0,
+    "ramp": 1.0,
+    "blast": 3.0,
+    "calm": 2.5,
+    "phase": 0.0,
+    "rpm": 160.0,
+    "idle": 0.06,
+    "note": "force = push along dir (x strength), lift while airborne; inside the cone only",
+    "trigger": {
+     "center": [
+      -47.0,
+      10.0,
+      -224.0
+     ],
+     "radius": 4.0
+    },
+    "spin_down": 4.0
    }
   },
   {
@@ -69203,6 +69242,788 @@
    "source": "visible"
   },
   {
+   "name": "Turbine_East",
+   "type": "group",
+   "position": [
+    56.0,
+    8.0,
+    -125.5
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Frame_1",
+   "type": "box",
+   "position": [
+    0.0,
+    6.95,
+    -0.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    7.3,
+    0.45,
+    0.4
+   ],
+   "material": "frame",
+   "bevel": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Frame_2",
+   "type": "box",
+   "position": [
+    0.0,
+    0.2,
+    -0.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    7.3,
+    0.45,
+    0.4
+   ],
+   "material": "frame",
+   "bevel": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Frame_3",
+   "type": "box",
+   "position": [
+    -3.4,
+    0.65,
+    -0.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    0.45,
+    6.3,
+    0.4
+   ],
+   "material": "frame",
+   "bevel": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Frame_4",
+   "type": "box",
+   "position": [
+    3.4,
+    0.65,
+    -0.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    0.45,
+    6.3,
+    0.4
+   ],
+   "material": "frame",
+   "bevel": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Corner_1",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    6.6,
+    6.6,
+    0.3
+   ],
+   "material": "structure_b",
+   "poly": [
+    [
+     3.3,
+     3.8
+    ],
+    [
+     3.3,
+     7.1
+    ],
+    [
+     0.0,
+     7.1
+    ],
+    [
+     0.0,
+     6.6975
+    ],
+    [
+     1.4488,
+     6.3093
+    ],
+    [
+     2.5093,
+     5.2487
+    ],
+    [
+     2.8975,
+     3.8
+    ]
+   ],
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Corner_2",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    6.6,
+    6.6,
+    0.3
+   ],
+   "material": "structure_b",
+   "poly": [
+    [
+     -2.8975,
+     3.8
+    ],
+    [
+     -2.5093,
+     5.2487
+    ],
+    [
+     -1.4488,
+     6.3093
+    ],
+    [
+     -0.0,
+     6.6975
+    ],
+    [
+     0.0,
+     7.1
+    ],
+    [
+     -3.3,
+     7.1
+    ],
+    [
+     -3.3,
+     3.8
+    ]
+   ],
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Corner_3",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    6.6,
+    6.6,
+    0.3
+   ],
+   "material": "structure_b",
+   "poly": [
+    [
+     -3.3,
+     3.8
+    ],
+    [
+     -3.3,
+     0.5
+    ],
+    [
+     0.0,
+     0.5
+    ],
+    [
+     -0.0,
+     0.9025
+    ],
+    [
+     -1.4488,
+     1.2907
+    ],
+    [
+     -2.5093,
+     2.3513
+    ],
+    [
+     -2.8975,
+     3.8
+    ]
+   ],
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Corner_4",
+   "type": "prism",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    6.6,
+    6.6,
+    0.3
+   ],
+   "material": "structure_b",
+   "poly": [
+    [
+     2.8975,
+     3.8
+    ],
+    [
+     2.5093,
+     2.3513
+    ],
+    [
+     1.4488,
+     1.2907
+    ],
+    [
+     0.0,
+     0.9025
+    ],
+    [
+     0.0,
+     0.5
+    ],
+    [
+     3.3,
+     0.5
+    ],
+    [
+     3.3,
+     3.8
+    ]
+   ],
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Duct",
+   "type": "panel",
+   "position": [
+    0.0,
+    3.8,
+    -3.9
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    5.26,
+    4.2,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "sleeve12",
+   "uv_region": "void",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Housing",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.8,
+    -0.05
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    6.1,
+    1.75,
+    6.1
+   ],
+   "material": "machine",
+   "sections": 12,
+   "hole": 2.62,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Plinth",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    5.6,
+    1.0,
+    1.3
+   ],
+   "material": "structure_b",
+   "bevel": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Clamp_1",
+   "type": "box",
+   "position": [
+    2.728,
+    5.025,
+    1.08
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -60.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    0.9,
+    0.7,
+    1.5
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Clamp_2",
+   "type": "box",
+   "position": [
+    0.0,
+    6.6,
+    1.08
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    0.9,
+    0.7,
+    1.5
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Clamp_3",
+   "type": "box",
+   "position": [
+    -2.728,
+    5.025,
+    1.08
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    60.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    0.9,
+    0.7,
+    1.5
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Clamp_4",
+   "type": "box",
+   "position": [
+    -2.728,
+    1.875,
+    1.08
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    120.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    0.9,
+    0.7,
+    1.5
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Clamp_5",
+   "type": "box",
+   "position": [
+    -0.0,
+    0.3,
+    1.08
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    180.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    0.9,
+    0.7,
+    1.5
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Clamp_6",
+   "type": "box",
+   "position": [
+    2.728,
+    1.875,
+    1.08
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    240.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    0.9,
+    0.7,
+    1.5
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    0.0,
+    3.8,
+    0.93
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    4.888,
+    0.5,
+    4.888
+   ],
+   "material": "frame",
+   "blades": 6,
+   "sweep": 30.0,
+   "solidity": 0.62,
+   "detail": "low",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Guard_1",
+   "type": "box",
+   "position": [
+    0.0,
+    2.57,
+    1.72
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    4.744,
+    0.12,
+    0.12
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Guard_2",
+   "type": "box",
+   "position": [
+    0.0,
+    4.91,
+    1.72
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    4.744,
+    0.12,
+    0.12
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_GuardV",
+   "type": "box",
+   "position": [
+    0.0,
+    1.15,
+    1.72
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    0.12,
+    5.3,
+    0.12
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Lamp_1",
+   "type": "box",
+   "position": [
+    -2.85,
+    6.35,
+    0.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    0.4,
+    0.4,
+    0.25
+   ],
+   "material": "laser",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
+   "name": "Turbine_East_Lamp_3",
+   "type": "box",
+   "position": [
+    2.85,
+    6.35,
+    0.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Turbine_East",
+   "size": [
+    0.4,
+    0.4,
+    0.25
+   ],
+   "material": "laser",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Turbine_East",
+   "source": "visible"
+  },
+  {
    "name": "Pads_West_Pad_1_Column",
    "type": "cylinder",
    "position": [
@@ -88374,123 +89195,11 @@
    ],
    "size": [
     2.237,
-    39.2,
+    34.918,
     2.237
    ],
    "material": "pipe",
    "sections": 8,
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Duct_1_Hanger_1",
-   "type": "box",
-   "position": [
-    -16.025,
-    24.204,
-    -30.65
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.18,
-    2.296,
-    0.18
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Duct_1_Hanger_2",
-   "type": "box",
-   "position": [
-    -16.025,
-    24.204,
-    -17.916
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.18,
-    2.296,
-    0.18
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Duct_1_Hanger_3",
-   "type": "box",
-   "position": [
-    -16.025,
-    24.204,
-    -5.183
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.18,
-    2.296,
-    0.18
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Duct_1_Hanger_4",
-   "type": "box",
-   "position": [
-    -16.025,
-    24.204,
-    7.55
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.18,
-    2.296,
-    0.18
-   ],
-   "material": "frame",
    "outline": false,
    "collision": false,
    "cutaway": true,
@@ -88515,123 +89224,11 @@
    ],
    "size": [
     1.406,
-    39.2,
+    37.48,
     1.406
    ],
    "material": "pipe",
    "sections": 8,
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Duct_2_Hanger_1",
-   "type": "box",
-   "position": [
-    -15.957,
-    23.945,
-    -19.246
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.18,
-    2.555,
-    0.18
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Duct_2_Hanger_2",
-   "type": "box",
-   "position": [
-    -15.957,
-    23.945,
-    -6.513
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.18,
-    2.555,
-    0.18
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Duct_2_Hanger_3",
-   "type": "box",
-   "position": [
-    -15.957,
-    23.945,
-    6.22
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.18,
-    2.555,
-    0.18
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Duct_2_Hanger_4",
-   "type": "box",
-   "position": [
-    -15.957,
-    23.945,
-    18.954
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.18,
-    2.555,
-    0.18
-   ],
-   "material": "frame",
    "outline": false,
    "collision": false,
    "cutaway": true,
@@ -88647,7 +89244,7 @@
    "position": [
     22.679,
     23.379,
-    1.057
+    3.428
    ],
    "rotation": [
     90.0,
@@ -88656,7 +89253,7 @@
    ],
    "size": [
     1.298,
-    36.909,
+    34.537,
     1.298
    ],
    "material": "pipe",
@@ -104876,7 +105473,7 @@
    "position": [
     -23.133,
     22.408,
-    -189.026
+    -184.45
    ],
    "rotation": [
     90.0,
@@ -104885,7 +105482,7 @@
    ],
    "size": [
     2.075,
-    15.915,
+    11.339,
     2.075
    ],
    "material": "pipe",
@@ -116518,33 +117115,10 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_East_Op2_Sill_Body",
-   "type": "box",
-   "position": [
-    -0.975,
-    0.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_East_Op2_Sill",
-   "size": [
-    14.05,
-    16.0,
-    4.0
-   ],
-   "material": "wall",
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
    "name": "Works_Wall_East_Op2_Sill_Body_C1",
    "type": "box",
    "position": [
-    7.025,
+    4.525,
     0.0,
     0.0
    ],
@@ -116555,8 +117129,8 @@
    ],
    "parent": "Works_Wall_East_Op2_Sill",
    "size": [
-    1.95,
-    7.7,
+    3.05,
+    16.0,
     4.0
    ],
    "material": "wall",
@@ -116567,8 +117141,8 @@
    "name": "Works_Wall_East_Op2_Sill_Body_C2",
    "type": "box",
    "position": [
-    7.025,
-    14.95,
+    -0.5,
+    0.0,
     0.0
    ],
    "rotation": [
@@ -116578,8 +117152,8 @@
    ],
    "parent": "Works_Wall_East_Op2_Sill",
    "size": [
-    1.95,
-    1.05,
+    7.0,
+    8.3,
     4.0
    ],
    "material": "wall",
@@ -116655,6 +117229,52 @@
    ],
    "material": "wall",
    "uv_space": "world",
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_East_Op2_Sill_Body",
+   "type": "box",
+   "position": [
+    -6.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_East_Op2_Sill",
+   "size": [
+    4.0,
+    16.0,
+    4.0
+   ],
+   "material": "wall",
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_East_Op2_Sill_Body_C3",
+   "type": "box",
+   "position": [
+    -0.5,
+    15.3,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_East_Op2_Sill",
+   "size": [
+    7.0,
+    0.7,
+    4.0
+   ],
+   "material": "wall",
    "gen": "Works.walls",
    "source": "visible"
   },
@@ -125472,12 +126092,194 @@
    "source": "visible"
   },
   {
+   "name": "Ceil_Duct_1_Hanger_1",
+   "type": "box",
+   "position": [
+    -16.025,
+    24.204,
+    -30.65
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.18,
+    2.296,
+    0.18
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "cutaway": true
+  },
+  {
+   "name": "Ceil_Duct_1_Hanger_2",
+   "type": "box",
+   "position": [
+    -16.025,
+    24.204,
+    -13.691
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.18,
+    2.296,
+    0.18
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "cutaway": true
+  },
+  {
+   "name": "Ceil_Duct_1_Hanger_3",
+   "type": "box",
+   "position": [
+    -16.025,
+    24.204,
+    3.268
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.18,
+    2.296,
+    0.18
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "cutaway": true
+  },
+  {
+   "name": "Ceil_Duct_2_Hanger_1",
+   "type": "box",
+   "position": [
+    -15.957,
+    23.945,
+    -19.246
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.18,
+    2.555,
+    0.18
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "cutaway": true
+  },
+  {
+   "name": "Ceil_Duct_2_Hanger_2",
+   "type": "box",
+   "position": [
+    -15.957,
+    23.945,
+    -7.086
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.18,
+    2.555,
+    0.18
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "cutaway": true
+  },
+  {
+   "name": "Ceil_Duct_2_Hanger_3",
+   "type": "box",
+   "position": [
+    -15.957,
+    23.945,
+    5.074
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.18,
+    2.555,
+    0.18
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "cutaway": true
+  },
+  {
+   "name": "Ceil_Duct_2_Hanger_4",
+   "type": "box",
+   "position": [
+    -15.957,
+    23.945,
+    17.234
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.18,
+    2.555,
+    0.18
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "cutaway": true
+  },
+  {
    "name": "Ceil_Duct_3_Hanger_1",
    "type": "box",
    "position": [
     22.679,
     23.928,
-    1.557
+    3.928
    ],
    "rotation": [
     0.0,
@@ -125503,7 +126305,7 @@
    "position": [
     22.679,
     23.928,
-    13.527
+    20.697
    ],
    "rotation": [
     0.0,
@@ -125525,32 +126327,6 @@
   },
   {
    "name": "Ceil_Duct_3_Hanger_3",
-   "type": "box",
-   "position": [
-    22.679,
-    23.928,
-    25.496
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.18,
-    2.572,
-    0.18
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "cutaway": true
-  },
-  {
-   "name": "Ceil_Duct_3_Hanger_4",
    "type": "box",
    "position": [
     22.679,
@@ -125685,7 +126461,7 @@
    "position": [
     -23.133,
     23.345,
-    -188.526
+    -183.95
    ],
    "rotation": [
     0.0,
@@ -150837,6 +151613,43 @@
    "note": "use it (interact) within radius: opens the gates in 'activates'"
   }
  ],
+ "winds": [
+  {
+   "id": "Turbine_East",
+   "rotor": "Turbine_East_Rotor",
+   "origin": [
+    54.3,
+    11.8,
+    -125.5
+   ],
+   "dir": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "radius": 2.9,
+   "spread": 0.22,
+   "length": 18.0,
+   "push": 9.0,
+   "lift": 16.0,
+   "ramp": 1.0,
+   "blast": 3.0,
+   "calm": 2.5,
+   "phase": 0.0,
+   "rpm": 160.0,
+   "idle": 0.06,
+   "note": "force = push along dir (x strength), lift while airborne; inside the cone only",
+   "trigger": {
+    "center": [
+     -47.0,
+     10.0,
+     -224.0
+    ],
+    "radius": 4.0
+   },
+   "spin_down": 4.0
+  }
+ ],
  "encounters": [
   {
    "id": "Hall_Waves",
@@ -150888,13 +151701,14 @@
   "Conv_East: working assembly line - 4 parcels 7.35 m apart at 0.8 m/s, 2 station(s)",
   "Valve_A_Vent: left out - it would hang over the edge of Pipe_Junction_A",
   "Exit_Hall: exit hallway 14 m fading to black -> level1_part3",
+  "Turbine_East: turbine fan 5.2 m, wind 18 m cone, blows until a player reaches [-47.0, 10.0, -224.0]",
   "Pads_West: 11 pads rising out of the liquid (one skinned mesh per material, 23 bones)",
   "outlets: removed wall dressing in front of pours: Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine",
   "Central: 3 cover crate(s) dropped - no free spot clear of landings",
   "Tunnel_West: HazardFluid_2 reaches on to -56.0 through the bore",
   "crates: 35 printed crates (accent atlas)",
   "fixtures: 31 parts cleared out of fans / vents (wall units removed: OuterWall_West_02_M02Vent, Works_Wall_West_02_M05Fan)",
-  "ducts: Ceil_Duct_3 trimmed to 1 piece(s) clear of 1 standing part(s); Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 3 standing part(s); Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 7 standing part(s)",
+  "ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 2.7 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 0 crane runway(s), ends at beams 1.7 m; Ceil_Duct_3 trimmed to 1 piece(s) clear of 1 standing part(s), 0 crane runway(s), ends at beams 2.4 m; Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 3 standing part(s), 0 crane runway(s), ends at beams 1.7 m; Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 7 standing part(s), 1 crane runway(s), ends at beams 0.0 m",
   "portals: 3 thin fixtures covered by a doorway portal removed (Gallery_North_Strut_02, Gallery_North_Strut_03, Gallery_North_Strut_04)",
   "corrosion: 34 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 48 lights at the liquid line removed, 28 light strips raised clear of it",
@@ -151516,12 +152330,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 99938,
-  "objects": 4458,
+  "triangles": 100920,
+  "objects": 4481,
   "materials": 31,
-  "glb_kb": 6496,
-  "nodes": 5122,
-  "draw_calls_unbatched": 4918,
+  "glb_kb": 6560,
+  "nodes": 5148,
+  "draw_calls_unbatched": 4943,
   "draw_calls_batched_min": 32,
   "images": 94,
   "tex_mem_gpu_compressed_mb": 23.14,

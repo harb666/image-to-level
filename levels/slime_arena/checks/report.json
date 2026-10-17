@@ -1,16 +1,16 @@
 {
  "level": "slime_arena",
  "assets_kb": {
-  "level.glb": 6496,
-  "mobile/level_mobile.glb": 3973,
-  "mobile/collision.json": 282,
+  "level.glb": 6560,
+  "mobile/level_mobile.glb": 4000,
+  "mobile/collision.json": 287,
   "environment.json": 4,
   "background.glb": 518,
-  "effects.json": 88
+  "effects.json": 90
  },
  "complexity": {
-  "triangles": 125232,
-  "nodes": 4918,
+  "triangles": 126526,
+  "nodes": 4943,
   "materials": 31,
   "heaviest": [
    [
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 6496,
-   "triangles": 99938,
-   "draw_calls": 4918,
+   "glb_kb": 6560,
+   "triangles": 100920,
+   "draw_calls": 4943,
    "tex_mem_gpu_mb_est": 23.14
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3973,
-   "triangles": 117952,
-   "draw_calls": 139,
-   "visible_draw_calls_est": 74.9,
-   "visible_draw_calls_max_est": 140,
+   "glb_kb": 4000,
+   "triangles": 119205,
+   "draw_calls": 140,
+   "visible_draw_calls_est": 75.2,
+   "visible_draw_calls_max_est": 141,
    "tex_mem_gpu_mb_est": 7.52,
    "materials": 32,
-   "nodes": 195,
+   "nodes": 196,
    "colliders": {
-    "colliders": 878,
+    "colliders": 889,
     "hazards": 11,
-    "glb_kb": 462
+    "glb_kb": 468
    },
    "background_kb": 439
   },
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 49498.0,
-  "reachable_area_m2": 9651.0,
-  "components": 477,
+  "standable_area_m2": 49516.0,
+  "reachable_area_m2": 9635.0,
+  "components": 480,
   "spawns": [
    {
     "id": "spawn",
@@ -95,7 +95,7 @@
     "standable": true,
     "clearance_m": 6.5,
     "headroom_m": 99.0,
-    "component": 192,
+    "component": 195,
     "hazard_distance_m": 11.34
    },
    {
@@ -108,7 +108,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 19.79,
-    "component": 192,
+    "component": 195,
     "hazard_distance_m": 5.02
    },
    {
@@ -121,7 +121,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 19.77,
-    "component": 273,
+    "component": 276,
     "hazard_distance_m": 7.52
    },
    {
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 2.5,
     "headroom_m": 19.8,
-    "component": 192,
+    "component": 195,
     "hazard_distance_m": 6.52
    },
    {
@@ -380,7 +380,7 @@
    },
    {
     "name": "Conduit_Walk",
-    "standable_m2": 632.0,
+    "standable_m2": 616.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -473,7 +473,7 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 139 (> 80)"
+   "message": "mobile draw calls 140 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
@@ -483,12 +483,12 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "125232 triangles (> budget 40000)"
+   "message": "126526 triangles (> budget 40000)"
   },
   {
    "kind": "dev_size",
    "severity": "info",
-   "message": "dev GLB 6496 KB (> 6000)"
+   "message": "dev GLB 6560 KB (> 6000)"
   },
   {
    "kind": "low_ceiling",
