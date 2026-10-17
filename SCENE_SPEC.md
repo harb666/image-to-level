@@ -1060,3 +1060,8 @@ Building blocks usable without the preset:
 - `clear_ducts`: a crane runway beam crossing within 5 m of a ceiling duct's end shortens the duct to stop 1.2 m
   before it (mid-span crossings stay). slime_arena: Works_Ceil_Duct_2 no longer runs into CraneRail_06 (and the
   arena's Ceil_Duct_1 ends 1.2 m before CraneRail_02).
+
+## Stage 84: duct ends finish at a beam
+- `clear_ducts`: a ceiling duct end sticking out 0.3 - 3.5 m past the last ceiling beam it passes under is cut back to
+  end at that beam (no short stub hanging in the air). slime_arena: Works_Ceil_Duct_1 (-1.7 m) and the arena's
+  Ceil_Duct_1 / 2 / 3 ends (-2.7 / -1.7 / -2.4 m).

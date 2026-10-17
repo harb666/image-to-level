@@ -703,3 +703,20 @@ class Stage83(unittest.TestCase):
                 a, b = B[rn]
                 if all(min(hi[i], b[i]) > max(lo[i], a[i]) for i in range(3)):  # touching: only mid-span crossings are allowed
                     self.assertTrue(min(a[ax] - lo[ax], hi[ax] - b[ax]) > 5.0, (dn, rn))
+
+
+class Stage84(unittest.TestCase):
+    def test_duct_ends_finish_at_a_beam(self):
+        """No ceiling duct end sticks out past the last ceiling beam it passes under by 0.3 - 3.5 m: short stubs are cut
+        back to end at the beam."""
+        import sys, re
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from architecture import _aabb_all
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json")))
+        class C: objects = L["objects"]
+        B = _aabb_all(C)
+        for dn in [n for n in B if re.search(r"Ceil_Duct_\d+[a-z]?$", n)]:
+            lo, hi = B[dn]; ax = 2 if hi[2] - lo[2] > hi[0] - lo[0] else 0; pre = dn.split("Duct_")[0]
+            bs = [(B[n][0][ax], B[n][1][ax]) for n in B if re.search(r"Ceil_Beam_\d+_\d+$", n) and n.startswith(pre) and min(hi[2 - ax], B[n][1][2 - ax]) > max(lo[2 - ax], B[n][0][2 - ax])
+                  and B[n][0][1] < hi[1] + 1.5 and B[n][0][ax] > lo[ax] - 0.05 and B[n][1][ax] < hi[ax] + 0.05]
+            if not bs: continue
+            self.assertFalse(0.3 < min(bs)[0] - lo[ax] < 3.5, dn); self.assertFalse(0.3 < hi[ax] - max(bs)[1] < 3.5, dn)

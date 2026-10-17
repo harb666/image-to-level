@@ -1441,11 +1441,12 @@ def clear_portals(ctx):
     return drop
 
 
-def clear_ducts(ctx, gap=0.6, keep=6.0, end_trim=5.0):
+def clear_ducts(ctx, gap=0.6, keep=6.0, end_trim=5.0, overhang=3.5):
     """Stage 50: ceiling ducts (<room>Ceil_Duct_<n>) never run through something standing up from below (columns, vats,
     towers, machinery): the duct ends `gap` m before it; the pieces either side stay as separate ducts if at least `keep`
     m long. Hangers outside the kept pieces go; every piece keeps a hanger near each end. Stage 83: a crane runway beam
-    crossing within `end_trim` m of a duct end shortens the duct to stop 2 * `gap` m before the runway."""
+    crossing within `end_trim` m of a duct end shortens the duct to stop 2 * `gap` m before the runway. Stage 84: a duct
+    end sticking out less than `overhang` m past the last ceiling beam it passes under is cut back to end at that beam."""
     import re
     B = _aabb_all(ctx); by = {o["name"]: o for o in ctx.objects}; drop, notes = set(), []
     def root(n):
@@ -1464,12 +1465,20 @@ def clear_ducts(ctx, gap=0.6, keep=6.0, end_trim=5.0):
         for n, (a, b) in B.items():
             if not re.search(r"CraneRail_\d+_Beam$", n) or (np.minimum(hi + 0.1, b) - np.maximum(lo - 0.1, a) <= 0).any(): continue
             if min(a[ax] - lo[ax], hi[ax] - b[ax]) <= end_trim: rails.append((a[ax] - 2 * gap, b[ax] + 2 * gap))  # (a clear gap seen from below)
-        if not blocked and not rails: continue
+        beams = [(float(a[ax]), float(b[ax])) for n, (a, b) in B.items() if re.search(r"Ceil_Beam_\d+_\d+$", n) and n.startswith(pre)
+                 and min(hi[2 - ax], b[2 - ax]) > max(lo[2 - ax], a[2 - ax]) and a[1] < hi[1] + 1.5]  # ceiling beams the duct passes under
         segs = [(lo[ax], hi[ax])]
         for a, b in sorted(blocked):
             segs = [q for s0, s1 in segs for q in ((s0, min(s1, a)), (max(s0, b), s1)) if q[1] - q[0] > 0.01]
         for a, b in rails:  # shorten the end it is near
             segs = [((b if a - s0 <= end_trim and b < s1 else s0), (a if s1 - b <= end_trim and a > s0 else s1)) if a < s1 and b > s0 else (s0, s1) for s0, s1 in segs]
+        def to_beam(s0, s1):  # Stage 84: an end sticking out < `overhang` m past the last beam it hangs under is cut back to that beam
+            ins = [(a, b) for a, b in beams if a > s0 - 0.05 and b < s1 + 0.05]
+            if not ins: return s0, s1
+            a0, b0 = min(ins); a1, b1 = max(ins)
+            return (a0 + 0.15 if 0.3 < a0 - s0 < overhang else s0), (b1 - 0.15 if 0.3 < s1 - b1 < overhang else s1)
+        new = [to_beam(s0, s1) for s0, s1 in segs]; cut = sum(abs(p_[0] - q_[0]) + abs(p_[1] - q_[1]) for p_, q_ in zip(segs, new)); segs = new
+        if not blocked and not rails and cut < 0.01: continue
         segs = [q for q in segs if q[1] - q[0] >= keep]
         hangers = [n for n in by if n.startswith(dn + "_Hanger_")]; y = dict(by[hangers[0]]) if hangers else None
         ctx.objects[:] = [q for q in ctx.objects if q["name"] not in hangers]; ctx.names -= set(hangers)  # re-hung below
@@ -1486,7 +1495,7 @@ def clear_ducts(ctx, gap=0.6, keep=6.0, end_trim=5.0):
                     hp = list(y["position"]); hp[ax] = round(s0 + 0.5 + (s1 - s0 - 1.0) * j / m, 3)
                     ctx.add(f"{nm}_Hanger_{j + 1}", "box", hp, y["size"], y["material"], None, outline=False, collision=y.get("collision", False),
                             **({"mobile": y["mobile"]} if y.get("mobile") else {}), **({"cutaway": y["cutaway"]} if y.get("cutaway") else {}))
-        notes.append(f"{dn} trimmed to {len(segs)} piece(s) clear of {len(blocked)} standing part(s), {len(rails)} crane runway(s)")
+        notes.append(f"{dn} trimmed to {len(segs)} piece(s) clear of {len(blocked)} standing part(s), {len(rails)} crane runway(s), ends at beams {cut:.1f} m")
     if drop: ctx.objects[:] = [o for o in ctx.objects if o["name"] not in drop]; ctx.names -= drop
     if notes: ctx.notes.append("ducts: " + "; ".join(notes))
 
