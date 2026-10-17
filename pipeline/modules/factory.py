@@ -861,7 +861,7 @@ def rising_platform(ctx, s, x, y, z, yaw):
     ctx.add(n + "_Band", "cylinder", [x, T - 0.58, z], [D + 0.42, 0.08, D + 0.42], gl, sections=16, mobile=pj, **st)  # glowing band round the lip
     ctx.add(n + "_Bowl", "dome", [x, T - 0.72, z], [D + 0.1, 2.6, D + 0.1], "structure_b", rot=[180, 0, 0], sections=16, mobile=pj, **st)  # rounded underside
     ctx.add(n + "_Column", "cylinder", [x, 0.0, z], [D * 0.3, T - 2.9, D * 0.3], "structure_b", sections=8, mobile=pj, **st)
-    ctx.add(n + "_PedestalBase", "cylinder", [x, T - 0.05, z], [2.4, 0.25, 2.4], "frame", sections=8, mobile=pj, outline=False)  # weapon pedestal
+    ctx.add(n + "_PedestalBase", "cylinder", [x, T - 0.05, z], [2.4, 0.17, 2.4], "frame", sections=8, mobile=pj, **st)  # weapon pedestal (12 cm plate: not a ledge to walk round)
     ctx.add(n + "_Pedestal", "cylinder", [x, T + 0.2, z], [0.95, 0.82, 0.95], "frame", sections=8, mobile=pj, bevel=False, outline=False)
     ctx.add(n + "_PedestalTop", "cylinder", [x, T + 1.02, z], [1.4, 0.14, 1.4], "frame", sections=8, mobile=pj, bevel=False, outline=False)
     ctx.add(n + "_PedestalGlow", "cylinder", [x, T + 1.1, z], [1.16, 0.08, 1.16], gl, sections=8, mobile=pj, **st)  # lit top (the item hovers over it)

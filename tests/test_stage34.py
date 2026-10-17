@@ -515,7 +515,7 @@ class Stage72(unittest.TestCase):
         self.assertFalse([i for i in N["issues"] if i.get("object") in ("Pipe_Junction_A", "Crusher_A_Pad") or "connected both ways" in i.get("message", "")])
         C = json.load(open(os.path.join(lv, "mobile", "collision.json")))["crushers"][0]
         (x0, y0, z0), (x1, y1, z1) = C["kill"]; pad = by["Crusher_A_Pad"]
-        self.assertAlmostEqual(y0, 7.8); self.assertAlmostEqual(x1 - x0, pad["size"][0] - 0.1, places=2)
+        self.assertAlmostEqual(y0, 8.0); self.assertAlmostEqual(x1 - x0, pad["size"][0] - 0.1, places=2)
         t0 = C["period"] - C["warn"] - C["down"] - C["hold"] - C["rise"]; self.assertGreater(t0, 1.5)  # time to jump on and off
         self.assertIn('set_deferred("disabled", tr + off > 1.8)', open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")).read())  # same rule in both runtimes
         self.assertIn("KB.on=C.travel+off<=1.8", open(os.path.join(ROOT, "pipeline", "viewer.html")).read())
@@ -558,7 +558,7 @@ class Stage75(unittest.TestCase):
         import sys, numpy as np
         sys.path.insert(0, os.path.join(ROOT, "pipeline")); from anchors import world_matrices
         L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); W, by = world_matrices(L)
-        a, b = np.array([-11.8, -114.8]), np.array([-19.3, -121.2])  # crusher landing corner -> catwalk end
+        a, b = np.array([-8.6, -121.5]), np.array([-18.5, -127.9])  # crusher landing (Stage 90 layout) -> catwalk end
         for n in ("Valve_A_Unit", "Junction_A_Crate_01"):
             p = np.asarray(W[n])[:3, 3][[0, 2]]; s = by[n]["size"]; r = np.hypot(s[0], s[2]) / 2
             t = np.clip((p - a) @ (b - a) / ((b - a) @ (b - a)), 0, 1); d = np.linalg.norm(p - (a + t * (b - a)))
@@ -752,22 +752,33 @@ class Stage87(unittest.TestCase):
 
 class Stage89(unittest.TestCase):
     def test_shotgun_platform(self):
-        """A round platform rises out of the pool next to Pipe_Junction_A (within a jump of its edge, deck level with it),
-        drips goo off its lip, and carries the shotgun pickup (live once it is up)."""
-        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        """Stage 89/90: a round platform rises out of the pool at the end of the conveyor platform (a jump off its south
+        edge), drips goo off its lip and carries the shotgun pickup (live once it is up). The route goes on over the
+        crusher pad to Pipe_Junction_A: each hop within a jump, no hop straight from the platform to the junction."""
+        import sys, numpy as np
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from anchors import world_matrices
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); W, by = world_matrices(L)
         r = next(x for x in L["risers"] if x["id"] == "Shotgun_Platform"); pd = r["pads"][0]
         self.assertEqual(pd["pickup"], "Shotgun_Pickup"); self.assertGreaterEqual(len(pd["drips"]), 8)
         self.assertGreater(pd["rise"], pd["center"][1] + 1.18 - r["liquid"])  # the pedestal top starts under the surface
-        cx, ty, cz = pd["center"]; R = pd["size"] / 2; j = by["Pipe_Junction_A_Floor"]; g = by["Pipe_Junction_A"]["position"]  # floor local to its group
-        gap = cx - R - (g[0] + j["position"][0] + j["size"][0] / 2); self.assertTrue(0.5 < gap < 2.5, gap)
-        self.assertAlmostEqual(ty, g[1] + j["position"][1] + j["size"][1], 1)
+        cx, ty, cz = pd["center"]; R = pd["size"] / 2; jd = 4.0
+        rect = lambda n: (np.asarray(W[n])[:3, 3], by[n]["size"])  # box centre (x, base y, z), size
+        def gap_circle_rect(n):
+            (px, py, pz), (w, h, d) = rect(n); qx, qz = np.clip(cx, px - w / 2, px + w / 2), np.clip(cz, pz - d / 2, pz + d / 2)
+            return float(np.hypot(qx - cx, qz - cz)) - R, py + h
+        g, top = gap_circle_rect("Assembly_Line_Floor"); self.assertTrue(0.5 < g < 2.5, g); self.assertTrue(0 <= ty - top <= 1.0)  # end of the conveyor platform
+        g, top = gap_circle_rect("Crusher_A_Pad"); self.assertTrue(0.5 < g < 2.5, g); self.assertTrue(0 <= top - ty <= 1.0)
+        g, _ = gap_circle_rect("Pipe_Junction_A_Floor"); self.assertGreater(g, jd)  # no shortcut past the crusher
+        (px, _, pz), (w, _, d) = rect("Crusher_A_Pad"); (jx, _, jz), (jw, _, jdd) = rect("Pipe_Junction_A_Floor")
+        self.assertLess(max(abs(px - jx) - (w + jw) / 2, abs(pz - jz) - (d + jdd) / 2), 2.5)  # pad -> junction: a short hop
         self.assertEqual(by["Shotgun_Platform_Deck"]["type"], "cylinder"); self.assertEqual(by["Shotgun_Platform_Bowl"]["type"], "dome")
         self.assertGreaterEqual(sum(1 for n in by if n.startswith("Shotgun_Platform_Drip_")), 8)
         self.assertTrue(all(o.get("mobile", {}).get("group") == "Shotgun_Platform_Rig" for n, o in by.items() if n.startswith("Shotgun_Platform_") and o.get("mobile")))
+        tr = r["trigger"]["center"]; self.assertLess(abs(tr[2] - (cz + R + 6)), 6)  # rises as the player walks to the conveyor's end
         C = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "collision.json")))
         pk = next(p for p in C["pickups"] if p["id"] == "Shotgun_Pickup"); self.assertEqual((pk["item"], pk["riser"]), ("shotgun", "Shotgun_Platform"))
-        self.assertIn("pickup_reached", open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_mobile.gd")).read())
-        self.assertIn("func _drips", open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")).read())
+        with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_mobile.gd")) as f: self.assertIn("pickup_reached", f.read())
+        with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: self.assertIn("func _drips", f.read())
 
 
 class Stage88(unittest.TestCase):

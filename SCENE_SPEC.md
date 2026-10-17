@@ -1101,7 +1101,14 @@ Building blocks usable without the preset:
   lit top in the middle, slime drips (accent atlas `drip`) on the lip's flats and goo strands pouring into the pool.
   Its riser pad lists `drips` (rim points: falling drops once it is up) and `pickup`. level.json / collision.json
   `pickups`: [{id, item, center, radius, riser}].
-- `Shotgun_Platform` (8.4 m, deck at 9 m) beside Pipe_Junction_A's east edge (~1.5 m jump), rising when a player
-  reaches the junction; `Shotgun_Pickup` (shotgun) over its pedestal. The preview drops goo and shows a yellow marker
+- `Shotgun_Platform` (8.4 m) with `Shotgun_Pickup` (shotgun) over its pedestal - placed in Stage 90 (below). The preview drops goo and shows a yellow marker
   where the item goes (the marker is preview-only).
 - Mobile budget: small wall / ceiling fan rotors use `detail: "low"` (lighter blades and hub).
+
+## Stage 90: conveyor -> shotgun platform -> crusher -> Pipe_Junction_A
+- `Shotgun_Platform` rises at the south end of Assembly_Line (deck 7.5 m, 1.8 m jump off the conveyor platform's
+  edge) when the player walks to the end of it (trigger [0, 7, -102], r 6).
+- `Crusher_A` moved to [-5.2, -121] (pad 8 m, 1.6 m from the platform), hanging from the roof slab (ceiling 26.5)
+  clear of the W_Run_High pipe and the ceiling conduits; `Pipe_Junction_A` moved to [-13.6, -124.5] (1.8 m hop
+  west of the pad, > 5 m from the platform: the crusher can't be skipped); its catwalk to Junction B follows.
+- The pedestal's base plate is visual only (12 cm, no collider): not a narrow ledge for the nav check.
