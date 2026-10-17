@@ -1074,3 +1074,9 @@ Building blocks usable without the preset:
   for good (apply_effects.gd also has `stop_wind(id)`). slime_arena: Turbine_East stops when a player reaches
   West_Landing_S (the rising pads crossed) - until then the walkway past the screen is blown clear.
 - Panel cut `sleeve<n>`: n-sided sleeve; `fan_rotor` `detail: "low"`: coarser blades for big fast rotors (memory).
+
+## Stage 86: exit doorway stands out
+- `arch_dressing(look=...)`: stone / pilaster material, voussoir depth, halo width. The exit doorway uses machinery-panel
+  stones, jambs and pilasters, a dark metal frame and a 0.24 m halo - in the wall's own hull plating the stones read as
+  a see-through outline. Jambs keep 2 cm off the frame's faces (no flicker). Red guide strips along the hall walls
+  replace the floor-edge strips; the doorway hazard mat and the turbine's red lamps are gone (mobile budget).

@@ -1552,31 +1552,33 @@ from modules import load_all as _load_modules
 _load_modules()
 
 
-def arch_dressing(ctx, pre, g, r0, spring, y0, top, lantern_y=None, st=None):
+def arch_dressing(ctx, pre, g, r0, spring, y0, top, lantern_y=None, st=None, look=None):
     """Stage 69/77: the dressing of an arched opening on a wall face (group g: face at local z = 0, local +z out of it,
     opening centred on x = 0, round top of radius r0 springing at `spring`, floor y0; nothing above `top`): 9 voussoirs
     with a raised keystone (lit inlay), a glowing yellow halo round the stones, jambs, impost blocks, pilasters with
-    capitals and lanterns. Visual only."""
-    st = st or dict(collision=False, mobile={"static": True}); gy = ctx.role("glow_yellow")
+    capitals and lanterns. Visual only. Stage 86 `look`: {"stone": material of voussoirs / jambs, "pilaster": material,
+    "depth": voussoir depth (0.32), "halo": halo width (0.12)} - e.g. the exit doorway's machinery-panel stones stand
+    out from the hull-plated wall (same material as the wall read as an outline only)."""
+    st = st or dict(collision=False, mobile={"static": True}); gy = ctx.role("glow_yellow"); lk = dict(dict(stone="structure_b", pilaster="structure_b", depth=0.32, halo=0.12), **(look or {}))
     arc = lambda ra, rb, a0, a1: [[ra * math.cos(a0), spring + ra * math.sin(a0)], [rb * math.cos(a0), spring + rb * math.sin(a0)],
                                  [rb * math.cos(a1), spring + rb * math.sin(a1)], [ra * math.cos(a1), spring + ra * math.sin(a1)]]
     r1 = min(r0 + 0.7, top - 0.2 - spring); N = 9
     for i in range(N):
         a0, a1 = math.pi * i / N + 0.012, math.pi * (i + 1) / N - 0.012; key = i == N // 2
         rr = min(r1 + (0.15 if key else 0.0), top - 0.03 - spring)
-        ctx.add(f"{pre}_Voussoir_{i + 1}", "prism", [0, 0, 0], [2 * rr, rr, 0.5 if key else 0.32], "trim" if key else "structure_b", g,
+        ctx.add(f"{pre}_Voussoir_{i + 1}", "prism", [0, 0, 0], [2 * rr, rr, lk["depth"] + 0.18 if key else lk["depth"]], "trim" if key else lk["stone"], g,
                 poly=[[round(u, 4), round(v, 4)] for u, v in arc(r0, rr, a0, a1)], **st)
         if key:  # lit inlay on the keystone
-            ctx.add(f"{pre}_Keylight", "prism", [0, 0, 0.5], [0.4, 0.4, 0.03], gy, g,
+            ctx.add(f"{pre}_Keylight", "prism", [0, 0, lk["depth"] + 0.18], [0.4, 0.4, 0.03], gy, g,
                     poly=[[round(u, 4), round(v, 4)] for u, v in arc(r0 + 0.18, rr - 0.15, a0 + 0.06, a1 - 0.06)], outline=False, **st)
         if not key: ctx.add(f"{pre}_Halo_{i + 1}", "prism", [0, 0, 0], [2 * r1, r1, 0.12], gy, g,  # glowing ring round the stones
-                            poly=[[round(u, 4), round(v, 4)] for u, v in arc(r1 + 0.02, min(r1 + 0.14, top - 0.01 - spring), math.pi * i / N, math.pi * (i + 1) / N)], outline=False, **st)
+                            poly=[[round(u, 4), round(v, 4)] for u, v in arc(r1 + 0.02, min(r1 + 0.02 + lk["halo"], top - 0.01 - spring), math.pi * i / N, math.pi * (i + 1) / N)], outline=False, **st)
     for sd in (-1, 1):
         jx = sd * (r0 + (r1 - r0) / 2)
-        ctx.add(f"{pre}_Jamb_{sd + 2}", "box", [jx, y0, 0.16], [r1 - r0, spring - y0, 0.32], "structure_b", g, **st)
-        ctx.add(f"{pre}_Impost_{sd + 2}", "box", [jx, spring - 0.1, 0.2], [r1 - r0 + 0.3, 0.22, 0.42], "trim", g, **st)
+        ctx.add(f"{pre}_Jamb_{sd + 2}", "box", [jx, y0 + 0.01, lk["depth"] / 2], [r1 - r0 - 0.04, spring - y0 - 0.01, lk["depth"]], lk["stone"], g, **st)  # 2 cm clear of the opening's / frame's faces
+        ctx.add(f"{pre}_Impost_{sd + 2}", "box", [jx, spring - 0.1, lk["depth"] / 2 + 0.04], [r1 - r0 + 0.3, 0.22, lk["depth"] + 0.1], "trim", g, **st)
         px = sd * (r1 + 0.6); ph = top - y0 - 0.3
-        ctx.add(f"{pre}_Pilaster_{sd + 2}", "box", [px, y0, 0.22], [0.8, ph, 0.44], "structure_b", g, **st)
+        ctx.add(f"{pre}_Pilaster_{sd + 2}", "box", [px, y0, 0.22], [0.8, ph, 0.44], lk["pilaster"], g, **st)
         ctx.add(f"{pre}_Capital_{sd + 2}", "box", [px, y0 + ph, 0.3], [1.05, 0.3, 0.6], "trim", g, **st)
         ctx.add(f"{pre}_Lantern_{sd + 2}", "box", [px, max(lantern_y if lantern_y is not None else y0 + 1.2, top - 1.45), 0.44 + 0.13], [0.34, 0.6, 0.26], gy, g, outline=False, **st)
     return r1

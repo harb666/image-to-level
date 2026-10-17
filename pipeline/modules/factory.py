@@ -769,10 +769,9 @@ def exit_hall(ctx, s, x, y, z, yaw):
     pts = [Wp(sx * (W / 2 - 0.05), sy, sz) for sx in (-1, 1) for sy in (-0.3, H - 0.05) for sz in (0.3, -T - 0.05)]  # (5 cm inside the frame: it bites into the wall, no flush faces)
     ctx.cuts = getattr(ctx, "cuts", []) + [dict(min=[min(p[i] for p in pts) for i in range(3)], max=[max(p[i] for p in pts) for i in range(3)], keep=n, floor=y)]
     # the doorway: an arched frame filling the cut, dressed on the room face
-    ctx.add(n + "_Arch", "round_arch", [0, 0, -T / 2], [W, H, T + 0.1], "structure_b", g, opening=round(2 * r0 / W, 4), opening_h=round((spring + r0) / H, 4), segments=10)
-    A.arch_dressing(ctx, n + "_Mouth", g, r0, spring, 0.0, H + 0.8)
+    ctx.add(n + "_Arch", "round_arch", [0, 0, -T / 2], [W, H, T + 0.1], "frame", g, opening=round(2 * r0 / W, 4), opening_h=round((spring + r0) / H, 4), segments=10)
+    A.arch_dressing(ctx, n + "_Mouth", g, r0, spring, 0.0, H + 0.8, look=dict(stone="machine", pilaster="machine", depth=0.45, halo=0.24))  # stands out from the wall
     ctx.add(n + "_Sill", "box", [0, -0.3, -T / 2 + 0.1], [W - 0.1, 0.3, T + 0.3], "deck", g, bevel=False, **st)  # the doorway floor, through the wall
-    ctx.add(n + "_Threshold", "box", [0, 0.0, -0.6], [2 * r0, 0.04, 1.0], "stripe", g, outline=False, **vs)
     if s.get("laser_gate"): _laser_gate(ctx, n, g, 2 * r0 + 0.2, H, s["laser_gate"], x, y, z, yaw)  # Stage 80: beams across the arch until e.g. a terminal opens it
     # the hallway: floor, walls, ceiling, end wall
     z0, ze = -T, -T - Lh; zm = (z0 + ze) / 2
@@ -794,7 +793,7 @@ def exit_hall(ctx, s, x, y, z, yaw):
         ctx.add(f"{n}_Rib_{k}_Beam", "box", [0, Hc - 0.45, zr], [Wi, 0.45, 0.5], "structure_b", g, outline=False, **vs)
         ctx.add(f"{n}_Rib_{k}_Lamp", "box", [0, Hc - 0.57, zr], [0.9, 0.12, 0.3], gy, g, outline=False, **vs)
         zr -= 3.2
-    for k, sd in enumerate((-1, 1)): ctx.add(f"{n}_Edge_{k + 1}", "box", [sd * (Wi / 2 - 0.06), 0.02, (z0 + zb) / 2], [0.1, 0.1, z0 - zb], red, g, outline=False, **vs)
+    for k, sd in enumerate((-1, 1)): ctx.add(f"{n}_Guide_{k + 1}", "box", [sd * (Wi / 2 - 0.03), 2.4, (z0 + zb) / 2], [0.06, 0.08, z0 - zb], red, g, outline=False, **vs)  # red guide strips on the walls
     ex, ey, ez = Wp(0, 2.0, ze + 2.5)
     ctx.exits.append(dict(id=n + "_Exit", type="level_exit", target=s.get("target", "next_level"), shape="cylinder", center=[round(ex, 3), round(ey, 3), round(ez, 3)],
                           radius=round(Wi / 2 - 0.3, 3), height=4.0, note="walking into the black at the end of the exit hallway loads the next level (Construct Error: handle in the level_exit trigger)"))
@@ -871,8 +870,7 @@ def turbine_fan(ctx, s, x, y, z, yaw):
     +z out into the room). The wall ("wall" m thick) is cut behind it; the duct is a sleeve lined with the "void" fade
     (wall colour at the mouth -> pure black deep in: it reads endless, like the elevator shafts). In front: a steel
     trim frame with corner plates up to a deep housing ring sticking "depth" m out with heavy clamps and a solid plinth,
-    a broad 6-bladed rotor (own node, turned by the wind effect - not the generic spin), guard bars, two red warning
-    lamps. Its WIND (L.winds, effect "wind"): a cone along local +z ("length" m, radius growing "spread" m per m); a
+    a broad 6-bladed rotor (own node, turned by the wind effect - not the generic spin), guard bars. Its WIND (L.winds, effect "wind"): a cone along local +z ("length" m, radius growing "spread" m per m); a
     player in it is pushed along at "push" m/s (more than walking speed) and lifted "lift" m/s^2 while airborne, so a
     jump (or double jump) only carries them further out. With "stop_at" ([x, y, z]) it blows at full force until a
     player enters that sphere ("stop_radius"), then spins down over "spin_down" s and stays slow; without it, it
@@ -904,7 +902,6 @@ def turbine_fan(ctx, s, x, y, z, yaw):
     for k, o_ in enumerate((-R * 0.45, R * 0.45)):  # guard bars across the mouth
         ctx.add(f"{n}_Guard_{k + 1}", "box", [0, yc + o_ - 0.06, 0.3 + dep + 0.02], [2 * math.sqrt(R * R - o_ * o_) + 0.1, 0.12, 0.12], "frame", g, outline=False, **vs)
     ctx.add(n + "_GuardV", "box", [0, yc - R - 0.05, 0.3 + dep + 0.02], [0.12, D + 0.1, 0.12], "frame", g, outline=False, **vs)
-    for sd in (-1, 1): ctx.add(f"{n}_Lamp_{sd + 2}", "box", [sd * (F - 0.75), yc + F - 1.05, 0.3], [0.4, 0.4, 0.25], ctx.role("laser"), g, outline=False, **vs)
     o = Wp(0, yc, 0.3 + dep); d = [math.sin(a), 0.0, math.cos(a)]  # local +z in the world
     w = dict(id=n, rotor=n + "_Rotor", origin=[round(v, 3) for v in o], dir=[round(v, 4) for v in d], radius=round(R + 0.3, 3),
              spread=float(s.get("spread", 0.22)), length=float(s.get("length", 18.0)), push=float(s.get("push", 9.0)), lift=float(s.get("lift", 16.0)),

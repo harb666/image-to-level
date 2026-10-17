@@ -722,3 +722,15 @@ class Stage84(unittest.TestCase):
                   and B[n][0][1] < hi[1] + 1.5 and B[n][0][ax] > lo[ax] - 0.05 and B[n][1][ax] < hi[ax] + 0.05]
             if not bs: continue
             self.assertFalse(0.3 < min(bs)[0] - lo[ax] < 3.5, dn); self.assertFalse(0.3 < hi[ax] - max(bs)[1] < 3.5, dn)
+
+
+class Stage86(unittest.TestCase):
+    def test_exit_doorway_stands_out_from_the_wall(self):
+        """The exit arch is dark metal, its stones / jambs / pilasters machinery panels (not the wall's hull plating,
+        which read as a see-through outline), the halo is wider, and the jambs keep 2 cm off the frame (no flicker)."""
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        self.assertEqual(by["Exit_Hall_Arch"]["material"], "frame")
+        for n in ("Exit_Hall_Mouth_Voussoir_1", "Exit_Hall_Mouth_Jamb_1", "Exit_Hall_Mouth_Pilaster_1"): self.assertEqual(by[n]["material"], "machine", n)
+        self.assertEqual(by["Tunnel_East_MouthA_Voussoir_1"]["material"], "structure_b")  # the pool tunnels keep their look
+        G = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "checks", "geometry.json")))
+        self.assertFalse([f for f in G["findings"] if any(o.startswith("Exit_Hall") for o in f["objects"])])
