@@ -867,41 +867,50 @@ def control_terminal(ctx, s, x, y, z, yaw):
 
 @structure("turbine_fan", pad=False)
 def turbine_fan(ctx, s, x, y, z, yaw):
-    """Stage 82: a huge turbine fan set in a wall (group on the wall face at floor y; local +z out into the room): a
-    hazard-framed back plate, a deep housing ring sticking "depth" m out of the wall with heavy clamps, a red furnace glow
-    behind a broad 6-bladed rotor (own node, driven by the wind effect - not the generic spin), guard bars. Dressing on the wall
-    face in its footprint is cleared (ctx.cuts, floor kept). Its WIND (L.winds, effect "wind"): a cone along local +z
-    ("length" m, radius growing "spread" m per m) that cycles - spin-up "ramp" s, "blast" s at full force, spin-down "ramp" s,
-    "calm" s - so a route past it is timed, never closed. While it blows, a player in the cone is pushed along it at
-    "push" m/s (more than walking speed) and lifted "lift" m/s^2 while airborne: jumping (or double jumping) only
-    carries them further out. Collision: the plate and the housing (the duct can't be entered)."""
+    """Stage 82/85: a huge turbine fan at the mouth of an endless duct in a wall (group on the wall face at floor y; local
+    +z out into the room). The wall ("wall" m thick) is cut behind it; the duct is a sleeve lined with the "void" fade
+    (wall colour at the mouth -> pure black deep in: it reads endless, like the elevator shafts). In front: a steel
+    trim frame with corner plates up to a deep housing ring sticking "depth" m out with heavy clamps and a solid plinth,
+    a broad 6-bladed rotor (own node, turned by the wind effect - not the generic spin), guard bars, two red warning
+    lamps. Its WIND (L.winds, effect "wind"): a cone along local +z ("length" m, radius growing "spread" m per m); a
+    player in it is pushed along at "push" m/s (more than walking speed) and lifted "lift" m/s^2 while airborne, so a
+    jump (or double jump) only carries them further out. With "stop_at" ([x, y, z]) it blows at full force until a
+    player enters that sphere ("stop_radius"), then spins down over "spin_down" s and stays slow; without it, it
+    cycles ("ramp" / "blast" / "calm" s). Collision: the frame, the housing (the duct can't be entered), the plinth."""
     n = s["id"]; D = float(s.get("diameter", 5.2)); R = D / 2; dep = float(s.get("depth", 1.4)); yc = R + float(s.get("lift_off", 1.2)); F = R + 1.0
+    T = float(s.get("wall", 4.0)); Rh = (D + 0.9) / 2
     st = dict(mobile={"static": True}); vs = dict(collision=False, **st)
     g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); a = math.radians(yaw)
     Wp = lambda lx, ly, lz: [x + lx * math.cos(a) + lz * math.sin(a), y + ly, z - lx * math.sin(a) + lz * math.cos(a)]
-    pts = [Wp(sx * (F + 0.1), sy, sz) for sx in (-1, 1) for sy in (yc - F - 0.1, yc + F + 0.1) for sz in (0.01, dep + 0.5)]
+    pts = [Wp(sx * (F - 0.1), sy, sz) for sx in (-1, 1) for sy in (yc - F + 0.1, yc + F - 0.1) for sz in (dep + 0.5, -T - 0.05)]  # through the wall
     ctx.cuts = getattr(ctx, "cuts", []) + [dict(min=[min(p[i] for p in pts) for i in range(3)], max=[max(p[i] for p in pts) for i in range(3)], keep=n, floor=y)]
-    ax = [0, 0, 1]  # (local) axis of the fan: out of the wall
-    ctx.add(n + "_Plate", "box", [0, yc - F, 0.0], [2 * F, 2 * F, 0.3], "structure_b", g, bevel=False, **st)
-    for k, (px, py, w, h) in enumerate(((0, yc + F - 0.4, 2 * F, 0.4), (0, yc - F, 2 * F, 0.4), (-F + 0.2, yc - F + 0.4, 0.4, 2 * F - 0.8), (F - 0.2, yc - F + 0.4, 0.4, 2 * F - 0.8))):
-        ctx.add(f"{n}_Hazard_{k + 1}", "box", [px, py, 0.3], [w, h, 0.06], "stripe", g, outline=False, **vs)  # hazard-striped frame
-    ctx.add(n + "_Housing", "cylinder", [0, yc, 0.3], [D + 0.9, dep, D + 0.9], "machine", g, [90, 0, 0], sections=12, hole=R + 0.02, **st)
-    hb = yc - (D + 0.9) / 2  # solid plinth under the housing: no low gap to crawl into
-    ctx.add(n + "_Plinth", "box", [0, 0.0, 0.3 + dep / 2], [D + 0.4, hb + 0.25, dep - 0.1], "structure_b", g, bevel=False, **st)
+    for k, (px, py, w, h) in enumerate(((0, yc + F - 0.45, 2 * F + 0.1, 0.45), (0, yc - F, 2 * F + 0.1, 0.45), (-F + 0.2, yc - F + 0.45, 0.45, 2 * F - 0.9), (F - 0.2, yc - F + 0.45, 0.45, 2 * F - 0.9))):
+        ctx.add(f"{n}_Frame_{k + 1}", "box", [px, py, -0.02], [w, h, 0.4], "frame", g, bevel=False, outline=False, **st)  # plain dark steel frame round the cut
+    ri = Rh * 0.95; ci = F - 0.3  # corner plates: frame corner -> housing ring (arc a little inside the ring's 12-gon)
+    for k, (sx, sy) in enumerate(((1, 1), (-1, 1), (-1, -1), (1, -1))):
+        arc = [[round(sx * ri * math.cos(t), 4), round(yc + sy * ri * math.sin(t), 4)] for t in [math.pi / 2 * q / 3 for q in range(3, -1, -1)]]
+        poly = [[round(sx * ci, 4), round(yc, 4)], [round(sx * ci, 4), round(yc + sy * ci, 4)], [0.0, round(yc + sy * ci, 4)]] + arc
+        if sx * sy < 0: poly = poly[::-1]  # same winding in every quadrant
+        ctx.add(f"{n}_Corner_{k + 1}", "prism", [0, 0, 0.0], [2 * ci, 2 * ci, 0.3], "structure_b", g, poly=poly, outline=False, **st)
+    ctx.add(n + "_Duct", "panel", [0, yc, 0.3 - (T + 0.2)], [2 * R + 0.06, T + 0.2, 0], "accent", g, [90, 0, 0], cut="sleeve12", uv_region="void", outline=False, **vs)  # endless black duct
+    ctx.add(n + "_Housing", "cylinder", [0, yc, -0.05], [D + 0.9, dep + 0.35, D + 0.9], "machine", g, [90, 0, 0], sections=12, hole=R + 0.02, **st)
+    hb = yc - Rh  # solid plinth under the housing: no low gap to crawl into
+    ctx.add(n + "_Plinth", "box", [0, 0.0, 0.3 + dep / 2], [D + 0.4, hb + 0.25, dep - 0.1], "structure_b", g, bevel=False, outline=False, **st)
     for k in range(6):  # heavy clamps round the housing
         b = math.radians(30 + 60 * k); ca, sa = math.cos(b), math.sin(b)
-        ctx.add(f"{n}_Clamp_{k + 1}", "box", [ca * (R + 0.55), yc + sa * (R + 0.55) - 0.35, 0.2], [0.9, 0.7, dep + 0.25], "frame", g, [0, 0, math.degrees(b) - 90], **vs)
-    ctx.add(n + "_Furnace", "cylinder", [0, yc, 0.32], [D - 0.1, 0.05, D - 0.1], ctx.role("laser"), g, [90, 0, 0], sections=12, outline=False, **vs)  # red glow behind the blades
-    ctx.add(n + "_Rotor", "fan_rotor", [0, yc, 0.3 + dep * 0.45], [D * 0.94, 0.5, D * 0.94], "frame", g, [90, 0, 0], blades=int(s.get("blades", 6)), sweep=30.0, solidity=0.62, collision=False, outline=False,
+        ctx.add(f"{n}_Clamp_{k + 1}", "box", [ca * (R + 0.55), yc + sa * (R + 0.55) - 0.35, 0.33 + (dep + 0.1) / 2], [0.9, 0.7, dep + 0.1], "frame", g, [0, 0, math.degrees(b) - 90], outline=False, **vs)  # in front of the cut
+    ctx.add(n + "_Rotor", "fan_rotor", [0, yc, 0.3 + dep * 0.45], [D * 0.94, 0.5, D * 0.94], "frame", g, [90, 0, 0], blades=int(s.get("blades", 6)), sweep=30.0, solidity=0.62, detail="low", collision=False, outline=False,
             **dict(st, mobile={"merge": False}))  # own node: the wind effect turns it
     for k, o_ in enumerate((-R * 0.45, R * 0.45)):  # guard bars across the mouth
         ctx.add(f"{n}_Guard_{k + 1}", "box", [0, yc + o_ - 0.06, 0.3 + dep + 0.02], [2 * math.sqrt(R * R - o_ * o_) + 0.1, 0.12, 0.12], "frame", g, outline=False, **vs)
     ctx.add(n + "_GuardV", "box", [0, yc - R - 0.05, 0.3 + dep + 0.02], [0.12, D + 0.1, 0.12], "frame", g, outline=False, **vs)
-    for sd in (-1, 1): ctx.add(f"{n}_Lamp_{sd + 2}", "box", [sd * (F - 0.6), yc + F - 0.95, 0.3], [0.4, 0.4, 0.25], ctx.role("laser"), g, outline=False, **vs)
+    for sd in (-1, 1): ctx.add(f"{n}_Lamp_{sd + 2}", "box", [sd * (F - 0.75), yc + F - 1.05, 0.3], [0.4, 0.4, 0.25], ctx.role("laser"), g, outline=False, **vs)
     o = Wp(0, yc, 0.3 + dep); d = [math.sin(a), 0.0, math.cos(a)]  # local +z in the world
-    ctx.winds = getattr(ctx, "winds", []) + [dict(id=n, rotor=n + "_Rotor", origin=[round(v, 3) for v in o], dir=[round(v, 4) for v in d], radius=round(R + 0.3, 3),
-                                                   spread=float(s.get("spread", 0.22)), length=float(s.get("length", 18.0)), push=float(s.get("push", 9.0)), lift=float(s.get("lift", 16.0)),
-                                                   ramp=float(s.get("ramp", 1.0)), blast=float(s.get("blast", 3.0)), calm=float(s.get("calm", 2.5)), phase=float(s.get("phase", 0.0)),
-                                                   rpm=float(s.get("rpm", 160.0)), idle=0.12,
-                                                   note="cycle: ramp up, blast, ramp down, calm; force = push along dir (x strength), lift while airborne; inside the cone only")]
-    ctx.notes.append(f"{n}: turbine fan {D:.1f} m, wind {s.get('length', 18.0)} m cone, {s.get('blast', 3.0)} s blasts")
+    w = dict(id=n, rotor=n + "_Rotor", origin=[round(v, 3) for v in o], dir=[round(v, 4) for v in d], radius=round(R + 0.3, 3),
+             spread=float(s.get("spread", 0.22)), length=float(s.get("length", 18.0)), push=float(s.get("push", 9.0)), lift=float(s.get("lift", 16.0)),
+             ramp=float(s.get("ramp", 1.0)), blast=float(s.get("blast", 3.0)), calm=float(s.get("calm", 2.5)), phase=float(s.get("phase", 0.0)),
+             rpm=float(s.get("rpm", 160.0)), idle=0.12, note="force = push along dir (x strength), lift while airborne; inside the cone only")
+    if s.get("stop_at"):  # Stage 85: full force until a player reaches this sphere, then it spins down for good
+        w.update(trigger=dict(center=[float(v) for v in s["stop_at"]], radius=float(s.get("stop_radius", 4.0))), spin_down=float(s.get("spin_down", 4.0)), idle=0.06)
+    ctx.winds = getattr(ctx, "winds", []) + [w]
+    ctx.notes.append(f"{n}: turbine fan {D:.1f} m, wind {s.get('length', 18.0)} m cone, " + ("blows until a player reaches " + str(s["stop_at"]) if s.get("stop_at") else f"{s.get('blast', 3.0)} s blasts"))

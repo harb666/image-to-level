@@ -671,8 +671,8 @@ class Stage80(unittest.TestCase):
 class Stage82(unittest.TestCase):
     def test_turbine_fan_under_the_works_screen(self):
         """Turbine_East sits in the Works' east wall under the bigscreen (Op2, z -133..-117, sill 16) over Conduit_Walk,
-        clear of the exit arch; its cycled wind pushes faster than walking, reaches across the walkway, and leaves a calm
-        long enough to cross the wind lane on foot (the exit stays reachable)."""
+        clear of the exit arch; its wind pushes faster than walking and reaches across the walkway until a player reaches
+        West_Landing_S (the rising pads crossed), then it spins down; behind it an endless black duct."""
         import math
         L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
         for k in ("Turbine_East_Rotor", "Turbine_East_Housing", "Turbine_East_Plate", "Turbine_East_Furnace"): self.assertIn(k, by)
@@ -682,8 +682,10 @@ class Stage82(unittest.TestCase):
         self.assertLess(w["origin"][1] + w["radius"], 16.0); self.assertAlmostEqual(w["dir"][0], -1.0, 3)  # out of the east wall, across the walkway
         self.assertGreater(w["push"] * 0.65, G["walk_speed"])  # even at the far end the wind beats walking
         self.assertGreater(w["origin"][0] - w["length"], 40.0 - 1.0 - 4.0)  # reaches past the walkway's far edge (x 40)
-        lane = 2 * (w["radius"] + w["spread"] * (w["origin"][0] - 48.0))
-        self.assertLess(lane / G["walk_speed"], w["calm"])  # crossable on foot in one calm
+        self.assertEqual(w["trigger"]["center"], [-47.0, 10.0, -224.0]); self.assertGreater(w["spin_down"], 0)  # Stage 85: blows until the pads are crossed
+        for k in ("Turbine_East_Furnace", "Turbine_East_Plate"): self.assertNotIn(k, by)  # no red glow, no plate: an endless black duct behind it
+        self.assertFalse([n for n in by if n.startswith("Turbine_East_Hazard")])
+        self.assertEqual((by["Turbine_East_Duct"]["cut"], by["Turbine_East_Duct"]["uv_region"]), ("sleeve12", "void"))
         E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "effects.json"))); self.assertIn("Turbine_East_Wind", {e["id"] for e in E["effects"] if e["category"] == "wind"})
         C = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "collision.json"))); self.assertEqual(len(C["winds"]), 1)
 

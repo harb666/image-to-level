@@ -97,7 +97,8 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                           "(turret yaw, shoulder, elbow, wrist = -(shoulder + elbow), claw twist, 3 fingers) from the rig's motion program "
                           "(pipeline/arm_motion.py: jerk-limited servo moves, conveyor tracking, inverse kinematics every frame; no sway)",
                           glb="parcels, parts and arms at rest (own nodes: mobile groups; arms skinned to one skeleton each)", defaults=dict(speed=1.0)),
-    "wind": dict(category="wind", godot="script (apply_effects.gd _winds): cycle of period ramp + blast + ramp + calm (offset 'phase'): strength s rises "
+    "wind": dict(category="wind", godot="script (apply_effects.gd _winds): with a 'trigger' sphere strength s = 1 until a CharacterBody3D enters it "
+                 "(or stop_wind(id)), then 1 - smoothstep over 'spin_down' s, for good; without one, a cycle of period ramp + blast + ramp + calm (offset 'phase'): strength s rises "
                  "(smoothstep) over 'ramp' s, holds 1 for 'blast' s, falls over 'ramp' s, 0 for 'calm' s. The rotor node turns at rpm * (idle + (1 - idle) s). "
                  "A CharacterBody3D inside the cone (from 'origin' along 'dir', radius 'radius' + 'spread' * distance, 'length' m) is moved "
                  "(move_and_collide) push * s * (1 - 0.35 d / length) m/s along dir and, while airborne, velocity.y += lift * s * delta. "

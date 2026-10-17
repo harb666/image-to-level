@@ -296,7 +296,7 @@ def cut_panel(w, h, cut, seed=0, layout=None):
     "drip": liquid running down a wall: a band along the top edge with 2-4 tongues of random length.
     "ragged": worn wall plate - the rectangle with irregularly eaten-away edges (Stage 29).
     "blob": irregular puddle (in the panel plane; lay it flat with rotation [-90, yaw, 0]).
-    "sleeve": inward-facing open cylinder + bottom disc (bottomless-shaft darkness, atlas cell "void").
+    "sleeve" / "sleeve<n>": inward-facing open cylinder (24 / n sides) + bottom disc (bottomless-shaft darkness, atlas cell "void").
     "rect": the plain rectangle, u across / v = y / h (an atlas cell on a panel of a material that cuts its panels)."""
     rng = np.random.default_rng(seed); P, T = [], []
     if cut == "pennant":
@@ -342,8 +342,8 @@ def cut_panel(w, h, cut, seed=0, layout=None):
     elif cut == "rect":  # Stage 77: e.g. "void" fade panels in the accent material (whose panels are banners otherwise)
         m = trimesh.Trimesh([[-w / 2, 0, 0], [w / 2, 0, 0], [w / 2, h, 0], [-w / 2, h, 0]], [[0, 1, 2], [0, 2, 3]], process=False)
         m.metadata["uv"] = np.array([[0, 0], [1, 0], [1, 1], [0, 1]], float); return m
-    elif cut == "sleeve":  # open cylinder (diameter w, height h) seen from INSIDE + bottom disc; u fixed at 0.5, v = y / h
-        n = 24; a = np.linspace(0, 2 * np.pi, n, endpoint=False); r = w / 2; ca, sa = np.cos(a), np.sin(a)
+    elif cut.startswith("sleeve"):  # open cylinder (diameter w, height h) seen from INSIDE + bottom disc; u fixed at 0.5, v = y / h ("sleeve12": 12 sides)
+        n = int(cut[6:] or 24); a = np.linspace(0, 2 * np.pi, n, endpoint=False); r = w / 2; ca, sa = np.cos(a), np.sin(a)
         V = np.r_[np.c_[r * ca, np.zeros(n), r * sa], np.c_[r * ca, np.full(n, h), r * sa], [[0, 0, 0]], np.c_[r * ca, np.zeros(n), r * sa]]; F = []
         for i in range(n):  # wall faces the axis; the disc has its own rim vertices (flat normal, no shading from the wall)
             j = (i + 1) % n; F += [[i, j, n + j], [i, n + j, n + i], [2 * n, 2 * n + 1 + j, 2 * n + 1 + i]]
@@ -527,7 +527,7 @@ def fan_rotor(w, h, d, o):
     """Smooth fan rotor (Stage 19, from the user's wall-fan reference): o["blades"] (8) swept, twisted blades that are
     narrow at the hub and broad at the tip, rounded tip corners, a stepped hub with a domed cap. Axis +y, centred on
     the origin (spins about its node's local y). Vertices are shared, so normals are smooth; own planar UVs."""
-    n = int(o.get("blades", 8)); R = w / 2; r0 = R * o.get("hub", 0.2); T = h * 0.22; ns, nc = 5, 4; parts = []
+    n = int(o.get("blades", 8)); R = w / 2; r0 = R * o.get("hub", 0.2); T = h * 0.22; ns, nc = (5, 4) if o.get("detail", "high") == "high" else (4, 3); parts = []  # (Stage 85: "low" for big fast rotors)
     sweep = math.radians(o.get("sweep", 22)); p0, p1 = math.radians(o.get("pitch_root", 38)), math.radians(o.get("pitch_tip", 16))
     gap = 2 * math.pi / n * o.get("solidity", 0.5)  # angular width at the tip
     for b in range(n):

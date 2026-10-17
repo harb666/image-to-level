@@ -1065,3 +1065,12 @@ Building blocks usable without the preset:
 - `clear_ducts`: a ceiling duct end sticking out 0.3 - 3.5 m past the last ceiling beam it passes under is cut back to
   end at that beam (no short stub hanging in the air). slime_arena: Works_Ceil_Duct_1 (-1.7 m) and the arena's
   Ceil_Duct_1 / 2 / 3 ends (-2.7 / -1.7 / -2.4 m).
+
+## Stage 85: turbine = mouth of an endless duct; blows until the pads are crossed
+- `turbine_fan`: the wall ("wall" m) is cut behind it and lined with a `sleeve12` void panel (wall colour at the mouth
+  -> pure black): the fan reads as the end of a huge endless duct. Plain dark steel frame + corner plates instead of
+  the hazard stripes and back plate; no red furnace glow (two small red warning lamps stay).
+- `stop_at` [x, y, z] (+ `stop_radius`, `spin_down`): full force until a player enters that sphere, then it spins down
+  for good (apply_effects.gd also has `stop_wind(id)`). slime_arena: Turbine_East stops when a player reaches
+  West_Landing_S (the rising pads crossed) - until then the walkway past the screen is blown clear.
+- Panel cut `sleeve<n>`: n-sided sleeve; `fan_rotor` `detail: "low"`: coarser blades for big fast rotors (memory).

@@ -453,10 +453,34 @@ func _wind(w: Dictionary) -> void:
 	level_root.add_child(pr)
 	pr.global_transform = Transform3D(Basis.looking_at(d, Vector3.UP), o)
 	var rotor := level_root.find_child(String(w["rotor"]), true, false) as Node3D
-	_winds.append([w, rotor, area, pr])
+	var rec := [w, rotor, area, pr, -1.0]  # [4]: time the stop trigger fired (-1: still blowing)
+	if w.has("trigger"):  # Stage 85: full force until a player reaches the trigger sphere, then it spins down for good
+		var ta := Area3D.new()
+		ta.name = String(w["id"]) + "_Stop"
+		var tcs := CollisionShape3D.new()
+		var tsp := SphereShape3D.new()
+		tsp.radius = float(w["trigger"]["radius"])
+		tcs.shape = tsp
+		tcs.position = Vector3(w["trigger"]["center"][0], w["trigger"]["center"][1], w["trigger"]["center"][2])
+		ta.add_child(tcs)
+		level_root.add_child(ta)
+		ta.body_entered.connect(func(b: Node3D) -> void:
+			if rec[4] < 0.0 and b is CharacterBody3D:
+				rec[4] = _t)
+	_winds.append(rec)
 
 
-func _wind_strength(w: Dictionary, t: float) -> float:  # 0..1 over the cycle ramp up / blast / ramp down / calm
+## Stage 85: stop a turbine's wind from game code (it spins down over spin_down s).
+func stop_wind(wind_id: String) -> void:
+	for wr in _winds:
+		if String(wr[0]["id"]) == wind_id and wr[4] < 0.0:
+			wr[4] = _t
+
+
+func _wind_strength(wr: Array, t: float) -> float:  # 0..1: triggered - 1 until the stop, then down over spin_down; else the cycle
+	var w: Dictionary = wr[0]
+	if w.has("trigger"):
+		return 1.0 if wr[4] < 0.0 else 1.0 - smoothstep(0.0, float(w["spin_down"]), t - wr[4])
 	var ra := float(w["ramp"])
 	var bl := float(w["blast"])
 	var u := fposmod(t + float(w["phase"]), 2.0 * ra + bl + float(w["calm"]))
@@ -472,7 +496,7 @@ func _wind_strength(w: Dictionary, t: float) -> float:  # 0..1 over the cycle ra
 func _physics_process(delta: float) -> void:
 	for wr in _winds:
 		var w: Dictionary = wr[0]
-		var s := _wind_strength(w, _t)
+		var s := _wind_strength(wr, _t)
 		if s <= 0.01:
 			continue
 		var o := Vector3(w["origin"][0], w["origin"][1], w["origin"][2])
@@ -495,7 +519,7 @@ func _physics_process(delta: float) -> void:
 func _update_winds(delta: float) -> void:
 	for wr in _winds:
 		var w: Dictionary = wr[0]
-		var s := _wind_strength(w, _t)
+		var s := _wind_strength(wr, _t)
 		if wr[1] != null:
 			(wr[1] as Node3D).rotate_object_local(Vector3.UP, float(w["rpm"]) * TAU / 60.0 * (float(w["idle"]) + (1.0 - float(w["idle"])) * s) * delta)
 		(wr[3] as CPUParticles3D).emitting = s > 0.25

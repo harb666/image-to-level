@@ -322,7 +322,9 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
       const lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.BufferAttribute(sp,3));
       const ln=new THREE.LineSegments(lg,new THREE.LineBasicMaterial({color:0xd8ffc8,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false}));ln.frustumCulled=false;scene.add(ln);fxObjs.push(ln);
       const up=new THREE.Vector3(0,1,0),sd=new THREE.Vector3().crossVectors(d,up).normalize(),P=2*w.ramp+w.blast+w.calm,ss=x=>x*x*(3-2*x);
-      fxUpd.push({reset(){W.s=0;},u(t,dt){const u=(((t+w.phase)%P)+P)%P;W.s=u<w.ramp?ss(u/w.ramp):u<w.ramp+w.blast?1:u<2*w.ramp+w.blast?1-ss((u-w.ramp-w.blast)/w.ramp):0;
+      let tsW=null;fxUpd.push({reset(){W.s=0;tsW=null;},u(t,dt){if(w.trigger){if(tsW===null){const wk=walking()&&!fixedCam,e=wk?pos:cam.position,c=w.trigger.center,dx=e.x-c[0],dz=e.z-c[2],rr=w.trigger.radius; // Stage 85: until a player reaches the far landing
+            if(wk&&dx*dx+dz*dz<rr*rr&&Math.abs(e.y-meta.eye_height-c[1])<3)tsW=t;}W.s=tsW===null?1:1-ss(Math.min(1,(t-tsW)/w.spin_down));}
+        else{const u=(((t+w.phase)%P)+P)%P;W.s=u<w.ramp?ss(u/w.ramp):u<w.ramp+w.blast?1:u<2*w.ramp+w.blast?1-ss((u-w.ramp-w.blast)/w.ramp):0;}
         if(ro)ro.rotateY(w.rpm*6.2832/60*(w.idle+(1-w.idle)*W.s)*dt);ln.material.opacity=0.32*W.s;
         for(let i=0;i<N;i++){const q=st[i];q.a+=dt*q.v*1.1;if(q.a>1){q.a=0;q.r=Math.random();q.q=Math.random()*6.283;}
           const L=q.a*w.length,rr=(w.radius*.9+L*w.spread)*Math.sqrt(q.r),x=Math.cos(q.q)*rr,y=Math.sin(q.q)*rr,k=.6+q.v*.8;
