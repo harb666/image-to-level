@@ -109,3 +109,5 @@ The browser preview approximates all of these with three.js. It is close to Godo
   `velocity.y += lift * strength * delta`. If your player script overwrites `velocity` each frame that is fine (the
   push is a move, not a velocity); if it zeroes `velocity.y` in the air, apply `lift` in your own gravity code instead.
   The rotor node `<id>_Rotor` turns with the cycle; streaks are a CPUParticles3D. collision.json `winds` has the data.
+- Stage 85: a wind with `trigger` blows at full force until a CharacterBody3D enters that sphere (Turbine_East: at
+  West_Landing_S, after the rising pads), then spins down for good; `stop_wind(id)` does the same from code.
