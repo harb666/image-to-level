@@ -1148,3 +1148,13 @@ Building blocks usable without the preset:
 - Mobile budget: ceiling conduit trays every fourth one.
 - Stage 94: `Gir_Monitor` is built onto Core_Vat - its back flush with a flat of the 12-sided base (yaw -15, still
   facing the ramp arrival); no floor cables.
+
+## Stage 95: background drone swarm
+- `flyby_ships` effect options: `designs` (ship meshes to use; new `drone` - the reference drone, ~270 triangles: pink
+  body, yellow eye disc on a black rim, yellow / pink wing blades, antennas, a spike, a side gun), `accent` (colour for
+  glow flag 2), `routes` - groups of `lanes` [[x0, z0, x1, z1], ...] (near-straight patrols both ways, `spread`, fading in
+  / out at the ends, `recede` m) or `spots` [[x, z, r], ...] (orbited for good: `loop`), each with count / height /
+  speed / gap / size. Ships carry cx / cz / loop / recede; the preview and apply_effects.gd share the formula.
+- `Drone_Swarm` (spec effects.extra): 28 drones at balanced (performance ~6, quality ~60) patrolling between the outer
+  walls and the factory hall (west / east lanes, beyond the north and south ends) and circling 7 spots outside the
+  windows - one MultiMesh, unshaded vertex colours, nothing in the level GLB.

@@ -73,7 +73,8 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
     "flyby_ships": dict(category="flyby", godot="one MultiMeshInstance3D per ship design (ArrayMesh from effects.json, unshaded vertex colours); "
                         "apply_effects.gd moves them along their arcs (same formula as the preview)", glb="nothing",
                         defaults=dict(count=4, radius=[440.0, 540.0], height=[40.0, 130.0], azimuth_deg=[-70.0, 70.0], arc_deg=[45.0, 90.0],
-                                      speed=[30.0, 55.0], gap=[10.0, 28.0], size=[7.0, 14.0], color=[0.12, 0.07, 0.16], glow=[1.0, 0.3, 0.62]),
+                                      speed=[30.0, 55.0], gap=[10.0, 28.0], size=[7.0, 14.0], color=[0.12, 0.07, 0.16], glow=[1.0, 0.3, 0.62],
+                                      accent=[1.0, 0.1, 0.55], designs=None, routes=None),
                         quality={"performance": dict(count_mult=0.5), "quality": dict(count_mult=1.5)}),
     "tube_blobs": dict(category="particles", godot="CPUParticles3D, one system for every tube of the group (emission points at the tube bottoms), slow rise, additive glow",
                        glb="nothing (the tubes are see-through glass)", defaults=dict(rate=0.3, lifetime=6.0, speed=[1.4, 1.8], gravity=0.0, size=[1.6, 1.2], alpha=0.95,
@@ -199,7 +200,34 @@ def ship_meshes():
                          (hull([[0, 0.12, 0.0], [0, 0.32, 0.4], [0, 0.12, 0.42], [0.02, 0.12, 0.2]]), 0),
                          (trimesh.creation.box([0.26, 0.16, 0.03]).apply_translation([0, 0.01, 0.46]), 1),
                          (trimesh.creation.box([0.5, 0.02, 0.12]).apply_translation([0, 0.0, 0.15]), 0)])
+    # Stage 95: swarm drone (the reference drone, low poly): pink ball body, yellow eye disc on a black rim at the front (-z),
+    # yellow / pink wing blades on top, two antennas, a spike underneath, a side gun. glow flag 0 = body colour, 1 = glow, 2 = accent
+    def cyl(r, h, n, ax="z"):
+        c = trimesh.creation.cylinder(radius=r, height=h, sections=n)
+        if ax == "x": c.apply_transform(trimesh.transformations.rotation_matrix(np.pi / 2, [0, 1, 0]))
+        return c
+    def box(s, at, rz=0.0):
+        b_ = trimesh.creation.box(s); b_.apply_transform(trimesh.transformations.rotation_matrix(rz, [0, 0, 1])); return b_.apply_translation(at)
+    def blade(P, w=0.012): return hull([[x + dx, y, z] for x, y, z in P for dx in (-w, w)])
+    out["drone"] = add([(trimesh.creation.icosphere(subdivisions=1, radius=0.27), 2),
+                        (cyl(0.25, 0.08, 10).apply_translation([0, 0, -0.24]), 0), (cyl(0.18, 0.04, 10).apply_translation([0, 0, -0.29]), 1),
+                        (blade([[0.08, 0.18, 0.02], [0.5, 0.62, 0.18], [0.62, 0.42, 0.36], [0.14, 0.12, 0.24]]), 1),
+                        (blade([[0.1, 0.12, 0.0], [0.56, 0.36, 0.06], [0.6, 0.2, 0.24], [0.14, 0.06, 0.18]]), 2),
+                        (blade([[-0.08, 0.16, 0.04], [-0.32, 0.46, 0.16], [-0.38, 0.3, 0.3], [-0.12, 0.1, 0.22]]), 1),
+                        (box([0.035, 0.36, 0.035], [0.07, 0.42, 0.06], -0.18), 2), (box([0.035, 0.3, 0.035], [-0.05, 0.38, 0.1], 0.12), 2),
+                        (hull([[-0.08, -0.2, 0], [0.08, -0.2, 0], [0, -0.2, 0.08], [0, -0.2, -0.08], [0, -0.56, 0.02]]), 2),
+                        (cyl(0.04, 0.42, 6, "x").apply_translation([0.42, 0, 0]), 2), (cyl(0.05, 0.06, 6, "x").apply_translation([0.64, 0, 0]), 0)])
     return out
+
+
+def _line_route(x0, z0, x1, z1, D=5000.0):
+    """A near-straight lane x0,z0 -> x1,z1 as an arc of a big circle (centre D m off the lane's middle; sag L^2 / 8D): the runtime only
+    knows arcs (centre, radius, azimuths)."""
+    mx, mz = (x0 + x1) / 2, (z0 + z1) / 2; L = float(np.hypot(x1 - x0, z1 - z0)); ux, uz = (x1 - x0) / L, (z1 - z0) / L
+    cx, cz = mx - uz * D, mz + ux * D  # centre to the lane's left
+    az = lambda x, z: float(np.degrees(np.arctan2(x - cx, -(z - cz))))  # level convention: pos = (cx + r sin az, cz - r cos az)
+    a0, a1 = az(x0, z0), az(x1, z1); a1 += -360.0 if a1 - a0 > 180 else (360.0 if a1 - a0 < -180 else 0.0)  # the short way round (no wrap at +-180)
+    return cx, cz, float(np.hypot(x0 - cx, z0 - cz)), a0, a1
 
 
 def flyby_paths(eid, p, n):
@@ -208,13 +236,32 @@ def flyby_paths(eid, p, n):
       cycle = travel + gap, travel = |a1 - a0| * pi/180 * r / speed, u = ((t + phase) mod cycle) / travel
       visible while u < 1: az = a0 + (a1 - a0) * u, env = smoothstep(0, .2, u) * (1 - smoothstep(.8, 1, u)),
       far = 1 + 0.5 (1 - env), pos = (r far sin az, y + 18 (1 - env) + bob sin(t * 0.7 + phase), -r far cos az),
-      scale = size * env  -> ships grow in from / shrink away into the distance (never pop in or out)."""
+      scale = size * env  -> ships grow in from / shrink away into the distance (never pop in or out).
+    Stage 95: a ship may carry cx / cz (route centre, added to pos), recede (m: pos radius = r + recede (1 - env) instead
+    of r far) and loop (1: u = ((t + phase) mod travel) / travel, env = 1 - circling for good)."""
     import zlib
-    rng = np.random.default_rng(zlib.crc32(eid.encode())); out = []
+    rng = np.random.default_rng(zlib.crc32(eid.encode())); out = []; des = p.get("designs") or SHIP_DESIGNS
+    if p.get("routes"):  # Stage 95: route groups - "lanes" [[x0, z0, x1, z1], ...] (both ways, fading in / out at the ends) or
+        k = n / max(1, int(p["count"]))  # "spots" [[x, z, r], ...] orbited for good ("loop": the drones never leave); count scales with quality
+        for gi, G in enumerate(p["routes"]):
+            for i in range(max(1, int(round(G["count"] * k)))):
+                y = float(rng.uniform(*G["height"])); sp = float(rng.uniform(*G["speed"])); size = float(rng.uniform(*G["size"])); bob = float(rng.uniform(0.3, 1.5))
+                if G.get("spots"):
+                    x, z, rr = G["spots"][i % len(G["spots"])]; r = float(rr) * rng.uniform(0.8, 1.2); cx, cz = float(x), float(z)
+                    a0 = float(rng.uniform(0, 360)); a1 = a0 + 360.0 * rng.choice([-1, 1]); travel = 2 * np.pi * r / sp; gap = 0.0; loop = 1
+                else:
+                    x0, z0, x1, z1 = G["lanes"][i % len(G["lanes"])]
+                    if rng.random() < 0.5: x0, z0, x1, z1 = x1, z1, x0, z0
+                    j = float(rng.uniform(-G.get("spread", 12.0), G.get("spread", 12.0))); L_ = np.hypot(x1 - x0, z1 - z0); nx, nz = -(z1 - z0) / L_ * j, (x1 - x0) / L_ * j
+                    cx, cz, r, a0, a1 = _line_route(x0 + nx, z0 + nz, x1 + nx, z1 + nz); travel = abs(a1 - a0) * np.pi / 180 * r / sp; gap = float(rng.uniform(*G["gap"])); loop = 0
+                out.append(dict(design=des[(gi + i) % len(des)], r=round(r, 1), y=round(y, 1), a0=round(a0, 3), a1=round(a1, 3), travel=round(float(travel), 2), gap=round(gap, 2),
+                                phase=round(float(rng.uniform(0, travel + gap)), 2), size=round(size, 2), bob=round(bob, 2), cx=round(cx, 1), cz=round(cz, 1), loop=loop,
+                                recede=float(G.get("recede", 40.0))))
+        return out
     for i in range(n):
         r = rng.uniform(*p["radius"]); arc = rng.uniform(*p["arc_deg"]) * rng.choice([-1, 1]); c = rng.uniform(*p["azimuth_deg"])
         a0, a1 = c - arc / 2, c + arc / 2; sp = rng.uniform(*p["speed"]); travel = abs(arc) * np.pi / 180 * r / sp; gap = rng.uniform(*p["gap"])
-        out.append(dict(design=SHIP_DESIGNS[i % len(SHIP_DESIGNS)], r=round(float(r), 1), y=round(float(rng.uniform(*p["height"])), 1), a0=round(float(a0), 2),
+        out.append(dict(design=des[i % len(des)], r=round(float(r), 1), y=round(float(rng.uniform(*p["height"])), 1), a0=round(float(a0), 2),
                         a1=round(float(a1), 2), travel=round(float(travel), 2), gap=round(float(gap), 2), phase=round(float(rng.uniform(0, travel + gap)), 2),
                         size=round(float(rng.uniform(*p["size"])), 2), bob=round(float(rng.uniform(0.5, 2.5)), 2)))
     return out

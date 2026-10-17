@@ -750,6 +750,27 @@ class Stage87(unittest.TestCase):
         self.assertFalse([f for f in G["findings"] if any(o.startswith(("Works_Terminal", "Turbine_East")) for o in f["objects"])])
 
 
+class Stage95(unittest.TestCase):
+    def test_drone_swarm(self):
+        """A background swarm of the reference drones (effects only - nothing in the level GLB): lanes between the outer walls
+        and the factory hall plus drones circling objective spots, all outside the playable boxes and inside the hall."""
+        import sys, numpy as np
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); import effects
+        lv = os.path.join(ROOT, "levels", "slime_arena"); E = json.load(open(os.path.join(lv, "effects.json")))
+        d = next(e for e in E["effects"] if e["id"] == "Drone_Swarm"); self.assertEqual(d["type"], "flyby_ships")
+        g = d["meshes"]["drone"]; self.assertLess(len(g["f"]), 400); self.assertEqual(set(g["glow"]), {0, 1, 2})  # body / glow / accent
+        S = d["quality"]["balanced"]["params"]["ships"]; self.assertGreaterEqual(len(S), 20)
+        self.assertTrue(any(s["loop"] for s in S) and any(not s["loop"] for s in S))
+        self.assertLess(len(d["quality"]["performance"]["params"]["ships"]), len(S))
+        for s in S:  # sample each route (fully grown part) - outside the level, inside the hall
+            for u in np.linspace(0.2 if not s["loop"] else 0, 0.8 if not s["loop"] else 1, 7):
+                az = np.radians(s["a0"] + (s["a1"] - s["a0"]) * u); x, z = s["cx"] + s["r"] * np.sin(az), s["cz"] - s["r"] * np.cos(az)
+                self.assertFalse(-62 < x < 62 and -236 < z < 62, (s, x, z)); self.assertTrue(-160 < x < 160 and -330 < z < 160, (x, z))
+        L = json.load(open(os.path.join(lv, "level.json"))); self.assertFalse([o for o in L["objects"] if "Drone" in o["name"]])
+        with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: self.assertIn("sh.loop", f.read())
+        with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: self.assertIn('sh.get("loop", 0)', f.read())
+
+
 class Stage93(unittest.TestCase):
     def test_gir_schematic_monitor(self):
         """A small display console in front of Core_Vat: its screen uses the schematic picture (whole texture, no TV static,

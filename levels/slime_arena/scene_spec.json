@@ -2554,7 +2554,213 @@
    }
   ]
  },
- "effects": "auto",
+ "effects": {
+  "auto": true,
+  "extra": [
+   {
+    "id": "Drone_Swarm",
+    "type": "flyby_ships",
+    "count": 28,
+    "designs": [
+     "drone"
+    ],
+    "color": [
+     0.05,
+     0.03,
+     0.06
+    ],
+    "glow": [
+     0.85,
+     1.0,
+     0.12
+    ],
+    "accent": [
+     1.0,
+     0.08,
+     0.52
+    ],
+    "routes": [
+     {
+      "lanes": [
+       [
+        -100,
+        -300,
+        -100,
+        120
+       ],
+       [
+        -126,
+        120,
+        -126,
+        -300
+       ]
+      ],
+      "count": 6,
+      "height": [
+       8,
+       40
+      ],
+      "speed": [
+       14,
+       24
+      ],
+      "gap": [
+       2,
+       8
+      ],
+      "size": [
+       3.5,
+       5.5
+      ],
+      "spread": 10
+     },
+     {
+      "lanes": [
+       [
+        100,
+        -300,
+        100,
+        120
+       ],
+       [
+        126,
+        120,
+        126,
+        -300
+       ]
+      ],
+      "count": 6,
+      "height": [
+       8,
+       40
+      ],
+      "speed": [
+       14,
+       24
+      ],
+      "gap": [
+       2,
+       8
+      ],
+      "size": [
+       3.5,
+       5.5
+      ],
+      "spread": 10
+     },
+     {
+      "lanes": [
+       [
+        -140,
+        -278,
+        140,
+        -278
+       ]
+      ],
+      "count": 4,
+      "height": [
+       10,
+       45
+      ],
+      "speed": [
+       14,
+       22
+      ],
+      "gap": [
+       2,
+       8
+      ],
+      "size": [
+       3.5,
+       5.5
+      ],
+      "spread": 14
+     },
+     {
+      "lanes": [
+       [
+        -140,
+        102,
+        140,
+        102
+       ]
+      ],
+      "count": 3,
+      "height": [
+       10,
+       45
+      ],
+      "speed": [
+       14,
+       22
+      ],
+      "gap": [
+       2,
+       8
+      ],
+      "size": [
+       3.5,
+       5.5
+      ],
+      "spread": 14
+     },
+     {
+      "spots": [
+       [
+        -96,
+        -105,
+        14
+       ],
+       [
+        100,
+        -195,
+        16
+       ],
+       [
+        30,
+        -282,
+        12
+       ],
+       [
+        -100,
+        -28,
+        12
+       ],
+       [
+        100,
+        -28,
+        14
+       ],
+       [
+        -28,
+        102,
+        12
+       ],
+       [
+        -96,
+        -190,
+        15
+       ]
+      ],
+      "count": 9,
+      "height": [
+       10,
+       32
+      ],
+      "speed": [
+       6,
+       10
+      ],
+      "size": [
+       3.0,
+       4.5
+      ]
+     }
+    ],
+    "notes": "Stage 95: background drone swarm (the pink / black / yellow reference drone, ~200 triangles, one MultiMesh) patrolling lanes between the outer walls and the factory hall and circling objective spots outside the windows - effects only, nothing in the level GLB"
+   }
+  ]
+ },
  "spawns": [
   {
    "id": "player",

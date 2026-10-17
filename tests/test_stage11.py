@@ -71,8 +71,8 @@ class SkyTraffic(unittest.TestCase):
         self.assertEqual(a, b)
         for sh in a:
             self.assertTrue(D["radius"][0] <= sh["r"] <= D["radius"][1]); self.assertGreater(sh["gap"], 0)  # hidden between passes
-        M = effects.ship_meshes(); self.assertEqual(set(M), set(effects.SHIP_DESIGNS))
-        for k, g in M.items(): self.assertEqual(len(g["v"]), len(g["glow"])); self.assertLess(len(g["f"]), 80)
+        M = effects.ship_meshes(); self.assertTrue(set(effects.SHIP_DESIGNS) <= set(M))  # + Stage 95 "drone"
+        for k, g in M.items(): self.assertEqual(len(g["v"]), len(g["glow"])); self.assertLess(len(g["f"]), 80 if k in effects.SHIP_DESIGNS else 400)  # the Stage 95 drone is ~270
 
 
 @unittest.skipUnless(FULL, "QUICK=1")

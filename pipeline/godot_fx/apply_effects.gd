@@ -929,11 +929,12 @@ func _flyby(fx: Dictionary, p: Dictionary) -> void:
 		by[sh["design"]].append(sh)
 	var hc := Color(p["color"][0], p["color"][1], p["color"][2])
 	var gc := Color(p["glow"][0], p["glow"][1], p["glow"][2])
+	var ac := Color(p["accent"][0], p["accent"][1], p["accent"][2]) if p.get("accent") != null else gc  # Stage 95: glow flag 2
 	for d in by.keys():
 		var g: Dictionary = fx["meshes"][d]
 		var verts := PackedVector3Array(); var cols := PackedColorArray(); var idx := PackedInt32Array()
 		for i in range(g["v"].size()):
-			verts.append(Vector3(g["v"][i][0], g["v"][i][1], g["v"][i][2])); cols.append(gc if int(g["glow"][i]) == 1 else hc)
+			verts.append(Vector3(g["v"][i][0], g["v"][i][1], g["v"][i][2])); cols.append(ac if int(g["glow"][i]) == 2 else (gc if int(g["glow"][i]) == 1 else hc))
 		for f in g["f"]:
 			idx.append(int(f[0])); idx.append(int(f[2])); idx.append(int(f[1]))  # Godot front faces are clockwise
 		var arr := []; arr.resize(Mesh.ARRAY_MAX); arr[Mesh.ARRAY_VERTEX] = verts; arr[Mesh.ARRAY_COLOR] = cols; arr[Mesh.ARRAY_INDEX] = idx
@@ -951,13 +952,14 @@ func _update_flyers() -> void:
 		for i in range(f[1].size()):
 			var sh: Dictionary = f[1][i]
 			var cyc: float = sh["travel"] + sh["gap"]
-			var k: float = fmod(_t + sh["phase"], cyc) / sh["travel"]
+			var lp: bool = int(sh.get("loop", 0)) == 1  # Stage 95: circling a spot for good
+			var k: float = (fposmod(_t + sh["phase"], sh["travel"]) if lp else fmod(_t + sh["phase"], cyc)) / sh["travel"]
 			if k >= 1.0:
 				mm.set_instance_transform(i, Transform3D(Basis().scaled(Vector3.ZERO), Vector3.ZERO)); continue
-			var env: float = smoothstep(0.0, 0.2, k) * (1.0 - smoothstep(0.8, 1.0, k))  # grow + approach / shrink + recede
-			var far: float = 1.0 + 0.5 * (1.0 - env)
+			var env: float = 1.0 if lp else smoothstep(0.0, 0.2, k) * (1.0 - smoothstep(0.8, 1.0, k))  # grow + approach / shrink + recede
+			var R: float = sh["r"] + float(sh["recede"]) * (1.0 - env) if sh.has("recede") else sh["r"] * (1.0 + 0.5 * (1.0 - env))
 			var az: float = deg_to_rad(sh["a0"] + (sh["a1"] - sh["a0"]) * k); var dir: float = sign(sh["a1"] - sh["a0"])
-			var pos := Vector3(sh["r"] * far * sin(az), sh["y"] + 18.0 * (1.0 - env) + sh["bob"] * sin(_t * 0.7 + sh["phase"]), -sh["r"] * far * cos(az))
+			var pos := Vector3(float(sh.get("cx", 0.0)) + R * sin(az), sh["y"] + (0.0 if lp else 18.0 * (1.0 - env)) + sh["bob"] * sin(_t * 0.7 + sh["phase"]), float(sh.get("cz", 0.0)) - R * cos(az))
 			var b := Basis.from_euler(Vector3(0.0, atan2(-cos(az) * dir, -sin(az) * dir), 0.12 * dir)).scaled(Vector3.ONE * max(float(sh["size"]) * env, 0.001))
 			mm.set_instance_transform(i, Transform3D(b, pos))
 

@@ -113,6 +113,10 @@ The browser preview approximates all of these with three.js. It is close to Godo
   (`Shotgun_Pickup`, item `shotgun`, over the pedestal). A pickup with `riser` stays off (monitoring false) until its
   platform is up. The level has no weapon mesh: spawn your own shotgun model at `center`.
 
+## Drone swarm (Stage 95)
+- effects.json `flyby_ships` `Drone_Swarm`: same MultiMesh flyers as before; ships may carry `cx` / `cz` (route centre),
+  `recede` and `loop` (circle for good), and vertex glow flag 2 takes the effect's `accent` colour.
+
 ## Specimen bob (Stage 92)
 - effects.json `bob` (apply_effects.gd `_bobs`): the group's nodes (`Gir_Specimen_Float__*`) keep their rest transform
   and are turned / lifted about `pivot` every frame (amp, period, sway) - GIR drifting in Core_Vat.

@@ -231,15 +231,15 @@ function makeCloudPuffs(fx,p,qn){const ix=(fx.emitters_by_quality||{})[qn]||(fx.
     const cp=cam.position,d=E.map(e=>(e.pos[0]-cp.x)**2+(e.pos[1]-cp.y)**2+(e.pos[2]-cp.z)**2);ord=[...Array(N).keys()].sort((a,b2)=>d[b2]-d[a]);fill();}});}
 function makeFlyby(fx,p){ // flyby_ships: one InstancedMesh per design; same route formula as effects.flyby_paths / apply_effects.gd
   const byD={};for(const sh of p.ships)(byD[sh.design]=byD[sh.design]||[]).push(sh);
-  const hc=lin(p.color),gc=lin(p.glow),M=new THREE.Matrix4(),Q=new THREE.Quaternion(),E=new THREE.Euler(),P=new THREE.Vector3(),S=new THREE.Vector3(),D=Math.PI/180;
+  const hc=lin(p.color),gc=lin(p.glow),ac=lin(p.accent||p.glow),M=new THREE.Matrix4(),Q=new THREE.Quaternion(),E=new THREE.Euler(),P=new THREE.Vector3(),S=new THREE.Vector3(),D=Math.PI/180;
   for(const d in byD){const g=fx.meshes[d],geo=new THREE.BufferGeometry(),col=[];
-    for(const f of g.glow){const c=f?gc:hc;col.push(c.r,c.g,c.b);}
+    for(const f of g.glow){const c=f===2?ac:f?gc:hc;col.push(c.r,c.g,c.b);} // Stage 95: 2 = accent
     geo.setAttribute('position',new THREE.Float32BufferAttribute(g.v.flat(),3));geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));geo.setIndex(g.f.flat());
     const im=new THREE.InstancedMesh(geo,new THREE.MeshBasicMaterial({vertexColors:true,fog:true}),byD[d].length);im.frustumCulled=false;scene.add(im);fxObjs.push(im);
-    const L=byD[d],up={u(t){L.forEach((sh,i)=>{const cyc=sh.travel+sh.gap,k=((t+sh.phase)%cyc)/sh.travel;
+    const L=byD[d],up={u(t){L.forEach((sh,i)=>{const cyc=sh.travel+sh.gap,k=sh.loop?((t+sh.phase)%sh.travel+sh.travel)%sh.travel/sh.travel:((t+sh.phase)%cyc)/sh.travel;
       if(k>=1){M.makeScale(0,0,0);im.setMatrixAt(i,M);return;}
-      const ss=x=>x<=0?0:x>=1?1:x*x*(3-2*x),env=ss(k/0.2)*(1-ss((k-0.8)/0.2)),far=1+0.5*(1-env); // fly in / out of the distance: grow + approach, shrink + recede
-      const az=(sh.a0+(sh.a1-sh.a0)*k)*D,dir=Math.sign(sh.a1-sh.a0);P.set(sh.r*far*Math.sin(az),sh.y+18*(1-env)+sh.bob*Math.sin(t*0.7+sh.phase),-sh.r*far*Math.cos(az));
+      const ss=x=>x<=0?0:x>=1?1:x*x*(3-2*x),env=sh.loop?1:ss(k/0.2)*(1-ss((k-0.8)/0.2)),R=sh.recede!=null?sh.r+sh.recede*(1-env):sh.r*(1+0.5*(1-env)); // fly in / out of the distance: grow + approach, shrink + recede
+      const az=(sh.a0+(sh.a1-sh.a0)*k)*D,dir=Math.sign(sh.a1-sh.a0);P.set((sh.cx||0)+R*Math.sin(az),sh.y+(sh.loop?0:18*(1-env))+sh.bob*Math.sin(t*0.7+sh.phase),(sh.cz||0)-R*Math.cos(az));
       const tx=Math.cos(az)*dir,tz=Math.sin(az)*dir;E.set(0,Math.atan2(-tx,-tz),0.12*dir);Q.setFromEuler(E);S.setScalar(sh.size*env);M.compose(P,Q,S);im.setMatrixAt(i,M);});
       im.instanceMatrix.needsUpdate=true;}};fxUpd.push(up);up.u(performance.now()/1000);}}  // placed immediately (not only on the next frame)
 function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry.dispose();}for(const f of fxUpd)f.reset&&f.reset();fxObjs=[];fxUpd=[];
