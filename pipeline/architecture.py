@@ -666,6 +666,9 @@ def arena(ctx, a, floor_y, pre=""):
                 if op.get("sill"):  # window: wall kept below the sill (out of reach), frame bars across the opening
                     wall_segment(ctx, tag + "_Sill", m0, m1, op["sill"], t, 0.0, style, (cx, cz), decor=False)
                     if op.get("frame", True): window_frame(ctx, tag + "_Frame", m0, m1, op["sill"], op.get("height") or W["height"], t, (cx, cz))
+                    if not op.get("fill"):  # Stage 88: a plain window leads out of the map - an invisible barrier fills it
+                        mx_, mz_ = (m0[0] + m1[0]) / 2, (m0[1] + m1[1]) / 2; top_ = op.get("height") or W["height"]
+                        ctx.add(tag + "_Barrier", "boundary", [mx_, op["sill"], mz_], [op["width"], top_ - op["sill"], 0.5], rot=[0, yaw_to(ux, uz) - 90, 0])
                     if op.get("fill") == "slime":  # Stage 18: a giant slime-tank window instead of a view out (glowing glass in the wall)
                         mx_, mz_ = (m0[0] + m1[0]) / 2, (m0[1] + m1[1]) / 2; yaw_ = yaw_to(ux, uz) - 90
                         ctx.add(tag + "_Slime", "box", [mx_, op["sill"] + 0.25, mz_], [op["width"] - 0.1, (op.get("height") or W["height"]) - op["sill"] - 0.25, 0.6], "hazard", None, [0, yaw_, 0],

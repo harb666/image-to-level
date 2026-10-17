@@ -106,6 +106,9 @@ const armJoints=(R,G,tau,v,P)=>{for(const [a,b0,mode,A,B] of G.segs){const b=b0<
   if(mode==='lin')return armIK(R,pa.map((c,i)=>c+(pb[i]-c)*w));const ja=armIK(R,pa),jb=armIK(R,pb);return ja.map((c,i)=>c+(jb[i]-c)*w);}}return [0,0,0];};
 const isInk=o=>/__ol$/.test(o.name||'')||(o.material&&o.material.name==='ink'); // cartoon outline shells: never solid / pickable
 const solids=[];gltf.scene.traverse(o=>{if(o.isMesh&&o.visible&&!isInk(o)&&!/^(TRM_|SCN_|TW_)/.test(o.name)&&!/_L[12](_far)?$/.test(o.name))solids.push(o)}); // background, middle zone, grass never collide
+{const bm=new THREE.MeshBasicMaterial({visible:false}),E=THREE.MathUtils.degToRad; // Stage 88: invisible barriers (level.json "boundary" objects, e.g. windows out of the map) block the player
+  for(const o of (meta.objects||[]))if(o.type==='boundary'&&!o.parent){const [w,h,d]=o.size,m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),bm);const r=o.rotation||[0,0,0];
+    m.position.set(o.position[0],o.position[1]+h/2,o.position[2]);m.rotation.set(E(r[0]),E(r[1]),E(r[2]),'ZYX');m.name='Barrier_'+o.name;scene.add(m);m.updateMatrixWorld(true);solids.push(m);}}
 const camSolids=solids.filter(o=>o.material.visible!==false); // camera ignores invisible colliders
 // ---- Stage 4 effects PREVIEW: approximates effects.json in three.js (Godot uses fx/godot/apply_effects.gd; not identical)
 let FXD=window.FX||null;if(!FXD&&!window.GLB){try{const rq=await fetch(base+'/effects.json');if(rq.ok)FXD=await rq.json();}catch(e){}}

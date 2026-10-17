@@ -511,6 +511,15 @@ def holed(w, h, d, hole, sections=0, phase=0.0, k=1.0, res=24):
     return tube(sx * f, sx * f * k, float(hole), h, m, phase, sz * f, sz * f * k)
 
 
+def dome(w, h, d, o):
+    """Stage 88: a closed faceted dome - "sections" sides (8), base ellipse w x d at y = 0, apex at y = h; 3 rings of
+    latitude (0, 30, 60 deg) (a smooth cap for the vat tops instead of a flat striped lid)."""
+    n = int(o.get("sections", 8) or 8); a = np.linspace(0, 2 * np.pi, n, endpoint=False); P = [[0.0, h, 0.0]]
+    for k in range(3):
+        phi = np.pi / 2 * k / 3; P += np.c_[w / 2 * np.cos(phi) * np.cos(a), np.full(n, h * np.sin(phi)), d / 2 * np.cos(phi) * np.sin(a)].tolist()
+    return trimesh.convex.convex_hull(np.array(P))
+
+
 def frustum(w, h, d, o):
     """Tapered block: full w x d footprint at the top (y=h), "bottom_scale" x at the base (y=0). "sections" 0 = rectangular,
     n = regular n-gon (flats facing the axes, like the rotated platform cylinders). Closed (Stage 9 sky-pylon underframes).
@@ -626,7 +635,7 @@ def prism(w, h, d, o):
 
 SHAPES = dict(prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
-              stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum)
+              stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum, dome=dome)
 
 
 def box_faces(w, h, d, side, top, front=None, front_axis="z"):

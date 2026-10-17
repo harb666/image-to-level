@@ -1087,3 +1087,9 @@ Building blocks usable without the preset:
 - `control_terminal`: one sculpted body - side profile (pedestal tapering forward, sloped desk with a nose, a screen
   tower leaning in) as three convex machinery-panel prisms over the full width; screen set into the tower, glowing edge
   lines, lit hand plate in the desk slope, a light bar crown, an octagonal floor plate with a glowing rim.
+
+## Stage 88: domed vat tops, invisible window barriers
+- Shape `dome` (faceted spherical cap, `sections`, 3 rings). `vat` tops: a dark `frame` rim under a dome (no striped
+  trim lid seen from above) - every vat, purifier and processing tower.
+- Every plain arena window (`sill`, no `fill`) gets an invisible `boundary` collider filling the opening
+  (`<wall>_Op<k>_Barrier`, in collision.json); the preview's player collides with level.json `boundary` objects.

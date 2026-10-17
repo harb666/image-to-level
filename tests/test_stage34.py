@@ -748,3 +748,18 @@ class Stage87(unittest.TestCase):
         self.assertEqual(by["Works_Terminal_Screen"]["material"], "screen")
         G = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "checks", "geometry.json")))
         self.assertFalse([f for f in G["findings"] if any(o.startswith(("Works_Terminal", "Turbine_East")) for o in f["objects"])])
+
+
+class Stage88(unittest.TestCase):
+    def test_domed_vats_and_window_barriers(self):
+        """Every vat / purifier / tower ends in a dark rim under a dome (no striped trim lid on top), and every plain
+        window to the outside has an invisible barrier filling it (in collision.json too)."""
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        caps = [n for n in by if n.endswith("_Cap") and n.replace("_Cap", "_Dome") in by]
+        self.assertGreaterEqual(len(caps), 16)
+        for n in caps: self.assertEqual((by[n]["material"], by[n.replace("_Cap", "_Dome")]["type"]), ("frame", "dome"))
+        bars = [o for o in L["objects"] if o["name"].endswith("_Barrier")]; self.assertGreaterEqual(len(bars), 9)
+        self.assertTrue(all(o["type"] == "boundary" for o in bars))
+        C = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "collision.json")))
+        self.assertEqual({c["name"] for c in C["colliders"]} >= {o["name"] for o in bars}, True)
+        self.assertIn("type==='boundary'", open(os.path.join(ROOT, "pipeline", "viewer.html")).read())  # the preview's player collides with them too

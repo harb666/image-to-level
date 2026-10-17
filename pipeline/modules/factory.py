@@ -16,7 +16,7 @@ from architecture import local as A_local, local
 
 @structure("vat", pad=False)
 def vat(ctx, s, x, y, z, yaw):
-    """Slime vat: plinth, red-lit bands, glowing slime glass section, dark upper body with a banner, rimmed cap."""
+    """Slime vat: plinth, red-lit bands, glowing slime glass section, dark upper body with a banner, a dark rim under a domed top."""
     n = s["id"]; D, H, _ = s.get("size", [8, 20, 8]); st = dict(mobile={"static": True}); seg = int(s.get("sections", 10))
     g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); y0 = -1.0  # plinth reaches into the slime: no visible gap at its foot
     base = float(s.get("base", 3.0)); gh = H * 0.5 + (3.0 - base); uh = max(1.5, H - base - 1.0 - gh - 1.0 - 0.8)  # Stage 73: "base" = plinth height (a low one gives the glass its height)
@@ -28,7 +28,8 @@ def vat(ctx, s, x, y, z, yaw):
     _vat_insides(ctx, n, g, D, base + 1.0, base + 1.0 + gh, seg, st)
     yu = base + 2.0 + gh
     ctx.add(n + "_Body", "cylinder", [0, yu, 0], [D + 0.3, uh, D + 0.3], "structure_b", g, sections=seg, **st)
-    ctx.add(n + "_Cap", "cylinder", [0, yu + uh, 0], [D + 0.9, 0.8, D + 0.9], "trim", g, sections=seg, collision=False, **st)
+    ctx.add(n + "_Cap", "cylinder", [0, yu + uh, 0], [D + 0.9, 0.4, D + 0.9], "frame", g, sections=seg, collision=False, outline=False, **st)  # Stage 88: a dark rim ...
+    ctx.add(n + "_Dome", "dome", [0, yu + uh + 0.38, 0], [D + 0.4, round((D + 0.4) * 0.24, 3), D + 0.4], "structure_b", g, sections=seg, collision=False, outline=False, **st)  # ... under a domed top
     if s.get("banner", True) and uh > 3:  # banner on the side facing the hall centre
         bw = min(3.0, D * 0.4); r = (D + 0.3) / 2 * math.cos(math.pi / seg) + 0.05
         ctx.add(n + "_Banner", "panel", [0, yu + uh * 0.08, r], [bw, uh * 0.8, 0], "accent", g, collision=False, outline=False, **st)
