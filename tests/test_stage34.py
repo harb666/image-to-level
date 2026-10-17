@@ -675,7 +675,7 @@ class Stage82(unittest.TestCase):
         West_Landing_S (the rising pads crossed), then it spins down; behind it an endless black duct."""
         import math
         L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
-        for k in ("Turbine_East_Rotor", "Turbine_East_Housing", "Turbine_East_Plate", "Turbine_East_Furnace"): self.assertIn(k, by)
+        for k in ("Turbine_East_Rotor", "Turbine_East_Housing", "Turbine_East_Duct", "Turbine_East_Frame_1"): self.assertIn(k, by)
         self.assertIs(by["Turbine_East_Rotor"]["mobile"]["merge"], False); self.assertNotIn("spin", by["Turbine_East_Rotor"])  # driven by the wind effect
         (w,) = L["winds"]; G = json.load(open(os.path.join(ROOT, "config", "gameplay.json")))["player"]
         self.assertTrue(-133 < w["origin"][2] - w["radius"] and w["origin"][2] + w["radius"] + 1.0 < -119.6)  # under the screen, clear of the arch pilaster
