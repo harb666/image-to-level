@@ -5,3 +5,5 @@
   harb666/timesplitters-clone (`src/models/gir.glb.js`, branch `claude/fir-vale-fps-prototype-gfca0d`), rest pose baked
   and decimated to ~3.7k triangles by `pipeline/model_asset.py` (static, no textures; colours are level materials).
   Fan asset for private, non-commercial use.
+- `../references/gir_schematic.png` - the Gir_Monitor screen (Stage 93): line renders (feature edges + wire mesh) of the
+  same GIR model, composed into a schematic sheet with glyphs and readouts.

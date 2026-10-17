@@ -1548,6 +1548,24 @@
    "notes": "Stage 92: GIR in cryostasis - floating in the middle of Core_Vat with red eyes, drifting slowly up and down. Model: 'Robot Gir - Invader Zim' by Rui Barbosa (CC BY 4.0), rigged in harb666/timesplitters-clone, baked static + decimated by pipeline/model_asset.py; Stage 92b: all his lights red like the eyes (one material), no tongue, pieces decimated one by one (chest panel intact)"
   },
   {
+   "id": "Gir_Monitor",
+   "kind": "control_terminal",
+   "position": [
+    6.0,
+    12.0,
+    -189.6
+   ],
+   "yaw": -25,
+   "screen": "schematic",
+   "interactive": false,
+   "cables_to": [
+    6.0,
+    -192.5
+   ],
+   "source": "visible",
+   "notes": "Stage 93: small monitoring console in front of Core_Vat (screen faces the ramp arrival, GIR floating behind it): its screen shows his wireframe schematics; cables run to the tank's base"
+  },
+  {
    "id": "Claw_Core_W",
    "kind": "claw",
    "position": [
@@ -2263,6 +2281,41 @@
      0.0
     ],
     "notes": "Stage 92: GIR specimen - red eyes and lights (duty mode)"
+   },
+   "schematic": {
+    "type": "screen_atlas",
+    "color": [
+     1,
+     1,
+     1
+    ],
+    "tile_m": 4.0,
+    "res": 512,
+    "emissive": [
+     0.95,
+     0.95,
+     0.95
+    ],
+    "atlas": {
+     "a": [
+      0,
+      0,
+      1,
+      1
+     ]
+    },
+    "grid": [
+     [
+      {
+       "image": "levels/slime_arena/references/gir_schematic.png"
+      }
+     ]
+    ],
+    "flicker": {
+     "rate": 3,
+     "amount": 0.08
+    },
+    "notes": "Stage 93: GIR schematic monitor - wireframe vector views of the specimen with alien glyphs (no text), no TV static; generated from the GIR model"
    }
   }
  },

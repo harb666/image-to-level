@@ -929,15 +929,26 @@ def control_terminal(ctx, s, x, y, z, yaw):
     for nm, P in prof.items():  # prism: poly in its x / y, extruded along its z; turned 90 deg about y its x = -local z, its z = local x
         ctx.add(f"{n}_{nm}", "prism", [-Wd / 2, 0, 0], [1.3, 2.4, Wd], "machine", g, [0, 90, 0], poly=[[round(-zz, 4), round(yy, 4)] for zz, yy in P], **st)
     from architecture import screen_slot
-    scr, sid = screen_slot(ctx, "screen", "a")  # own picture variant + id (the screens' static / flicker differ)
-    ctx.add(n + "_Screen", "panel", [0, 1.46, -0.28], [1.36, 0.66, 0], "screen", g, uv_region=scr, uv_shift=sid, **vs)  # set into the tower face
+    if s.get("screen"):  # Stage 93: own picture material (e.g. "schematic": one image, no TV static) - whole texture on the panel
+        ctx.add(n + "_Screen", "panel", [0, 1.46, -0.28], [1.36, 0.66, 0], ctx.role(s["screen"]), g, uv_region="a", **vs)
+    else:
+        scr, sid = screen_slot(ctx, "screen", "a")  # own picture variant + id (the screens' static / flicker differ)
+        ctx.add(n + "_Screen", "panel", [0, 1.46, -0.28], [1.36, 0.66, 0], "screen", g, uv_region=scr, uv_shift=sid, **vs)  # set into the tower face
     gy = ctx.role("glow_yellow"); sl = math.degrees(math.atan2(1.38 - 1.1, 0.58 + 0.48))  # desk slope
     ctx.add(n + "_NoseLight", "box", [0, 1.02, 0.6], [Wd - 0.12, 0.05, 0.03], gy, g, **vs)  # edge lines
     for sd in (-1, 1): ctx.add(f"{n}_TowerLight_{sd + 2}", "box", [sd * (Wd / 2 - 0.05), 1.42, -0.29], [0.04, 0.82, 0.03], gy, g, **vs)
     ctx.add(n + "_Crown", "box", [0, 2.36, -0.55], [Wd - 0.3, 0.07, 0.16], gy, g, **vs)
-    ctx.add(n + "_HandPlate", "box", [0.45, 1.232, 0.02], [0.42, 0.03, 0.34], ctx.role("glow"), g, [sl, 0, 0], **vs)  # lit, in the desk slope
+    ctx.add(n + "_HandPlate", "box", [0.45, 1.245, 0.02], [0.42, 0.03, 0.34], ctx.role("glow"), g, [sl, 0, 0], **vs)  # lit, in the desk slope
     ctx.add(n + "_Floor", "cylinder", [0, 0.0, -0.05], [2.7, 0.06, 2.7], "frame", g, sections=8, **st)  # octagonal plate it stands on
     ctx.add(n + "_FloorRim", "cylinder", [0, 0.0, -0.05], [2.86, 0.035, 2.86], gy, g, sections=8, **vs)  # glowing rim under its edge
+    if s.get("cables_to"):  # Stage 93: two cables from the back of the console along the floor to a point (e.g. a tank's base)
+        tx, tz = s["cables_to"]
+        for k, off in enumerate((-0.28, 0.24)):
+            bx, bz = A_local(off, -0.62, yaw); ax_, az_ = x + bx, z + bz; L_ = math.hypot(tx - ax_, tz - az_)
+            if L_ < 0.3: continue
+            ctx.add(f"{n}_Cable_{k + 1}", "cylinder", [ax_, y + 0.07, az_], [0.14, L_ + 0.1, 0.14], "pipe", None, [90, math.degrees(math.atan2(tx - ax_, tz - az_)), 0],
+                    sections=6, collision=False, outline=False, mobile={"static": True})
+    if s.get("interactive") is False: return  # Stage 93: a display only - no use area
     dx, dz = A_local(0, 0.9, yaw); fx, fz = x + dx, z + dz  # in front of the desk
     ctx.terminals = getattr(ctx, "terminals", []) + [dict(id=n, center=[round(fx, 3), round(y + 1.0, 3), round(fz, 3)], radius=float(s.get("radius", 1.8)), activates=list(s.get("activates", [])),
                                                            screen=n + "_Screen", note="use it (interact) within radius: opens the gates in 'activates'")]

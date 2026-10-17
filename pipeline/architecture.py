@@ -866,7 +866,7 @@ def dress_ceilings(ctx):
             uu = u0 + 2; kb = 0
             while uu < u1 - 1:
                 x, z = P2(uu, v - 0.17); bwid = npipe * 0.34 + 0.3; bn = f"{n}Conduit_{i + 1}_Br_{int(uu) + 1000}"  # tray the pipes rest on, hung from the roof
-                if kb % 2 == 0:  # Stage 92: every other tray - 26 m up nobody counts them (mobile budget); same random draws as before
+                if kb % 4 == 0:  # Stage 92/93: every fourth tray - 26 m up nobody counts them (mobile budget); same random draws as before
                     ctx.add(bn, "box", [x, y - 0.85, z], [bwid, 0.12, 0.25] if along_z else [0.25, 0.12, bwid], "frame", None, outline=False, **vis)
                     for hs in (-1, 1):
                         hx, hz = P2(uu, v - 0.17 + hs * (bwid / 2 - 0.06)); ctx.add(f"{bn}_H{hs + 1}", "box", [hx, y - 0.74, hz], [0.08, 0.72, 0.08], "frame", None, outline=False, **vis)

@@ -1137,3 +1137,12 @@ Building blocks usable without the preset:
 - Stage 92b: GIR's lights are red like his eyes (parts body / dark / eye; teal joints, antenna and chest panel on the
   eye material), no tongue; model_asset.py decimates each source piece on its own ("keep": pieces this small stay as
   they are, the rest share the budget by surface area, "agg" 4) - no more melted chest panel or torn shells.
+
+## Stage 93: GIR schematic monitor
+- `control_terminal` options: `screen` (a material role whose whole texture fills the screen - no TV static),
+  `interactive: false` (display only, no use area), `cables_to` [x, z] (two cables along the floor from its back).
+- Material roles can ask for a soft `flicker` {rate, amount} (flicker effect on that material).
+- `Gir_Monitor`: a small console 3 m in front of Core_Vat, screen facing the ramp arrival with GIR floating behind it;
+  role `schematic` = `references/gir_schematic.png` - wireframe vector views of GIR (three-quarter, front, side, a
+  head close-up), dimension lines, readout bars, a trace and alien glyphs (no human text), rendered from the GIR model.
+- Mobile budget: ceiling conduit trays every fourth one.

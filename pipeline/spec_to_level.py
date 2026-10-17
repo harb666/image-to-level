@@ -327,6 +327,8 @@ def _effects(spec, ctx, plats, env, glow):
                 out.append(dict(id=f"Screen_Static_{sm}", type="tv_static", target_material=sm, amount=SC.get("static", 0.85), seed=float(i * 2.3),
                                 **{k: SC[k] for k in ("signal_every", "signal_len") if k in SC}, **egg))
             else: out.append(dict(id=f"Screen_Flicker_{sm}", type="flicker", target_material=sm, rate=5, amount=0.12))
+        for rl, R_ in sorted((spec.get("materials", {}).get("roles") or {}).items()):  # Stage 93: a role asking for a soft flicker (e.g. the schematic monitor)
+            if rl in ctx.roles and R_.get("flicker"): out.append(dict(id=f"Flicker_{rl}", type="flicker", target_material=rl, rate=float(R_["flicker"].get("rate", 4)), amount=float(R_["flicker"].get("amount", 0.1))))
         if "laser" in ctx.roles: out.append(dict(id="Laser_Flicker", type="flicker", target_material="laser", rate=14, amount=0.35))  # Stage 59: crackling gate beams
         if "glow" in ctx.roles: out.append(dict(id="Glow_Pulse", type="pulse_light", target_material="glow", speed=0.9, amount=0.4))
         if "trim" in ctx.roles and A.role_material(spec.get("theme", "industrial"), "trim").get("emissive"): out.append(dict(id="Trim_Pulse", type="pulse_light", target_material="trim", speed=0.35, amount=0.35))
