@@ -24,6 +24,7 @@ var _travel: Array = []  # [node, rest position, speed m/s, spacing m] (Stage 43
 var _launch: Array = []  # [node, rest position, speed, period, phase, travel] (Stage 49: pods shooting up the columns)
 var _crushers: Array = []  # Stage 72: [crusher dict, ram nodes, warning lamps, kill CollisionShape3D]
 var _winds: Array = []  # Stage 82: [wind dict, rotor node, Area3D, CPUParticles3D streaks]
+var _bobs: Array = []  # Stage 92: [bob dict, [[Node3D, rest Transform3D]...]]
 var _risers: Array = []  # Stage 80: [riser dict, Skeleton3D, {bone name: index}, [[CollisionShape3D...] per pad], start time (-1: waiting)]
 var _lines: Array = []  # Stage 61: working assembly lines - [line dict, move nodes, [[station, arm nodes, held nodes, scan nodes]]]
 
@@ -79,6 +80,12 @@ func _ready() -> void:
 				_riser(fx["riser"])
 			"wind":  # Stage 82: a turbine fan whose cycled blast blows players off the platform
 				_wind(fx["wind"])
+			"bob":  # Stage 92: a specimen drifting in its tank (rest transforms kept, turned about the pivot)
+				var bb: Dictionary = fx["bob"]
+				var bn: Array = []
+				for nd in _group_nodes(String(bb["group"])):
+					bn.append([nd, (nd as Node3D).transform])
+				_bobs.append([bb, bn])
 			"launch":  # Stage 49: each entry's nodes wait, shoot up `travel` m at `speed`, repeat every `period` s (own phase)
 				for l in fx.get("launches", []):
 					for n in l.get("targets", []):
@@ -360,7 +367,10 @@ func _riser(r: Dictionary) -> void:
 	sh.position = Vector3(tr["center"][0], tr["center"][1], tr["center"][2])
 	area.add_child(sh)
 	level_root.add_child(area)
-	var rec := [r, sk, bones, cols, -1.0]
+	var drips: Array = []  # Stage 89: goo dripping off a platform's rim once it is up (falling drops into the pool)
+	for pd in r["pads"]:
+		drips.append(_drips(pd) if pd.has("drips") else null)
+	var rec := [r, sk, bones, cols, -1.0, drips]
 	area.body_entered.connect(func(b: Node3D) -> void:
 		if rec[4] < 0.0 and b is CharacterBody3D:
 			rec[4] = _t)
@@ -406,6 +416,56 @@ func _pose_riser(rec: Array, t: float) -> void:  # t: seconds since the trigger 
 			sk.set_bone_pose_scale(ri, Vector3(rs, 1.0, rs))
 		for c in rec[3][k]:
 			(c as CollisionShape3D).disabled = tk < 0.85 * D
+		var gf := 0.0  # Stage 91: the goo drains away "hold" s after the pad is up, over "fade" s (smoothstep)
+		if pd.has("goo"):
+			var go: Dictionary = pd["goo"]
+			gf = clampf((tk - D - float(go["hold"])) / float(go["fade"]), 0.0, 1.0) if tk >= 0.0 else 0.0
+			gf = gf * gf * (3.0 - 2.0 * gf)
+			var gi: int = bones.get(String(go["drips"]), -1)
+			if gi >= 0:  # drips shrink up into the lip while sliding down a little
+				sk.set_bone_pose_position(gi, sk.get_bone_rest(gi).origin + Vector3(0.0, -0.6 * gf, 0.0))
+				sk.set_bone_pose_scale(gi, Vector3(1.0, maxf(1.0 - gf, 0.001), 1.0))
+			var si: int = bones.get(String(go["strands"]), -1)
+			if si >= 0:  # strands fall into the pool (shrink to their bottom at the surface) and thin out
+				sk.set_bone_pose_scale(si, Vector3(maxf(1.0 - 0.6 * gf, 0.001), maxf(1.0 - gf, 0.001), maxf(1.0 - 0.6 * gf, 0.001)))
+		var dp = rec[5][k]
+		if dp != null:
+			(dp as CPUParticles3D).emitting = tk >= D and gf < 0.5
+		if pd.has("pickup"):  # Stage 89: the item area (apply_mobile.gd) is live once the platform is up
+			for pa in get_tree().root.find_children(String(pd["pickup"]) + "_Pickup", "Area3D", true, false):
+				(pa as Area3D).set_deferred("monitoring", tk >= 0.85 * D)
+
+
+func _drips(pd: Dictionary) -> CPUParticles3D:  # drops falling from the rim points to the liquid
+	var pts := PackedVector3Array()
+	for q in pd["drips"]:
+		pts.append(Vector3(q[0], q[1], q[2]))
+	var h := maxf(pts[0].y - float(pd["drip_to"]), 0.5)
+	var p := CPUParticles3D.new()
+	p.name = String(pd["joint"]) + "_Drips"
+	p.emission_shape = CPUParticles3D.EMISSION_SHAPE_POINTS
+	p.emission_points = pts
+	p.amount = maxi(8, pts.size() * 2)
+	p.lifetime = sqrt(2.0 * h / 9.8) + 0.1
+	p.gravity = Vector3(0.0, -9.8, 0.0)
+	p.initial_velocity_min = 0.0
+	p.initial_velocity_max = 0.3
+	p.scale_amount_min = 0.7
+	p.scale_amount_max = 1.3
+	p.local_coords = false
+	var m := SphereMesh.new()
+	m.radius = 0.06
+	m.height = 0.2
+	m.radial_segments = 6
+	m.rings = 3
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.albedo_color = Color(0.55, 1.0, 0.2)
+	m.material = mat
+	p.mesh = m
+	p.emitting = false
+	level_root.add_child(p)
+	return p
 
 
 func _update_risers() -> void:
@@ -869,11 +929,12 @@ func _flyby(fx: Dictionary, p: Dictionary) -> void:
 		by[sh["design"]].append(sh)
 	var hc := Color(p["color"][0], p["color"][1], p["color"][2])
 	var gc := Color(p["glow"][0], p["glow"][1], p["glow"][2])
+	var ac := Color(p["accent"][0], p["accent"][1], p["accent"][2]) if p.get("accent") != null else gc  # Stage 95: glow flag 2
 	for d in by.keys():
 		var g: Dictionary = fx["meshes"][d]
 		var verts := PackedVector3Array(); var cols := PackedColorArray(); var idx := PackedInt32Array()
 		for i in range(g["v"].size()):
-			verts.append(Vector3(g["v"][i][0], g["v"][i][1], g["v"][i][2])); cols.append(gc if int(g["glow"][i]) == 1 else hc)
+			verts.append(Vector3(g["v"][i][0], g["v"][i][1], g["v"][i][2])); cols.append(ac if int(g["glow"][i]) == 2 else (gc if int(g["glow"][i]) == 1 else hc))
 		for f in g["f"]:
 			idx.append(int(f[0])); idx.append(int(f[2])); idx.append(int(f[1]))  # Godot front faces are clockwise
 		var arr := []; arr.resize(Mesh.ARRAY_MAX); arr[Mesh.ARRAY_VERTEX] = verts; arr[Mesh.ARRAY_COLOR] = cols; arr[Mesh.ARRAY_INDEX] = idx
@@ -891,13 +952,14 @@ func _update_flyers() -> void:
 		for i in range(f[1].size()):
 			var sh: Dictionary = f[1][i]
 			var cyc: float = sh["travel"] + sh["gap"]
-			var k: float = fmod(_t + sh["phase"], cyc) / sh["travel"]
+			var lp: bool = int(sh.get("loop", 0)) == 1  # Stage 95: circling a spot for good
+			var k: float = (fposmod(_t + sh["phase"], sh["travel"]) if lp else fmod(_t + sh["phase"], cyc)) / sh["travel"]
 			if k >= 1.0:
 				mm.set_instance_transform(i, Transform3D(Basis().scaled(Vector3.ZERO), Vector3.ZERO)); continue
-			var env: float = smoothstep(0.0, 0.2, k) * (1.0 - smoothstep(0.8, 1.0, k))  # grow + approach / shrink + recede
-			var far: float = 1.0 + 0.5 * (1.0 - env)
+			var env: float = 1.0 if lp else smoothstep(0.0, 0.2, k) * (1.0 - smoothstep(0.8, 1.0, k))  # grow + approach / shrink + recede
+			var R: float = sh["r"] + float(sh["recede"]) * (1.0 - env) if sh.has("recede") else sh["r"] * (1.0 + 0.5 * (1.0 - env))
 			var az: float = deg_to_rad(sh["a0"] + (sh["a1"] - sh["a0"]) * k); var dir: float = sign(sh["a1"] - sh["a0"])
-			var pos := Vector3(sh["r"] * far * sin(az), sh["y"] + 18.0 * (1.0 - env) + sh["bob"] * sin(_t * 0.7 + sh["phase"]), -sh["r"] * far * cos(az))
+			var pos := Vector3(float(sh.get("cx", 0.0)) + R * sin(az), sh["y"] + (0.0 if lp else 18.0 * (1.0 - env)) + sh["bob"] * sin(_t * 0.7 + sh["phase"]), float(sh.get("cz", 0.0)) - R * cos(az))
 			var b := Basis.from_euler(Vector3(0.0, atan2(-cos(az) * dir, -sin(az) * dir), 0.12 * dir)).scaled(Vector3.ONE * max(float(sh["size"]) * env, 0.001))
 			mm.set_instance_transform(i, Transform3D(b, pos))
 
@@ -910,6 +972,16 @@ func _process(delta: float) -> void:
 	_update_crushers()
 	_update_risers()
 	_update_winds(delta)
+	for br in _bobs:  # Stage 92: lift + sway about the pivot (world)
+		var b: Dictionary = br[0]
+		var P := float(b["period"])
+		var sw := deg_to_rad(float(b["sway"]))
+		var tp := _t + float(b["phase"])
+		var basis := Basis.from_euler(Vector3(sw * sin(TAU * tp / (P * 1.3)), sw * 0.6 * sin(TAU * tp / (P * 2.3)), sw * cos(TAU * tp / (P * 1.7))))
+		var pv := Vector3(b["pivot"][0], b["pivot"][1], b["pivot"][2])
+		var tr := Transform3D(basis, pv - basis * pv + Vector3(0.0, float(b["amp"]) * sin(TAU * tp / P), 0.0))
+		for nr in br[1]:
+			(nr[0] as Node3D).transform = tr * (nr[1] as Transform3D)
 	for la in _launch:
 		(la[0] as Node3D).position = (la[1] as Vector3) + Vector3.UP * minf(fmod(_t + float(la[4]), float(la[3])) * float(la[2]), float(la[5]))
 	for tv in _travel:

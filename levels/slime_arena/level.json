@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Slime Arena / Toxic Works (Level 1 - Part 2 of 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "730b387c79d047ff",
+  "spec_sha": "306e6357ef70f57d",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -404,8 +404,8 @@
      2.7
     ],
     [
-     -26.72,
-     -129.8,
+     -25.95,
+     -133.04,
      0.3,
      0.85
     ],
@@ -1815,14 +1815,14 @@
     "rise": 1.2,
     "kill": [
      [
-      -11.55,
-      7.8,
-      -112.35
+      -6.75,
+      8.0,
+      -122.55
      ],
      [
-      -8.45,
-      9.8,
-      -109.25
+      -3.65,
+      10.0,
+      -119.45
      ]
     ]
    }
@@ -1864,6 +1864,23 @@
      "radius": 4.0
     },
     "spin_down": 4.0
+   }
+  },
+  {
+   "id": "Gir_Specimen_Bob",
+   "type": "bob",
+   "bob": {
+    "id": "Gir_Specimen",
+    "group": "Gir_Specimen_Float",
+    "pivot": [
+     6.0,
+     19.4,
+     -198.0
+    ],
+    "amp": 0.22,
+    "period": 5.5,
+    "sway": 4.0,
+    "phase": 0.0
    }
   },
   {
@@ -2044,6 +2061,104 @@
    }
   },
   {
+   "id": "Shotgun_Platform_Emerge",
+   "type": "emerge",
+   "riser": {
+    "id": "Shotgun_Platform",
+    "group": "Shotgun_Platform_Rig",
+    "skeleton": "Shotgun_Platform",
+    "pads": [
+     {
+      "joint": "Shotgun_Platform_J1",
+      "ring": "Shotgun_Platform_R1",
+      "center": [
+       -1.5,
+       7.5,
+       -114.0
+      ],
+      "size": 8.4,
+      "rise": 8.1,
+      "colliders": [
+       "Shotgun_Platform_Deck",
+       "Shotgun_Platform_Pedestal"
+      ],
+      "drips": [
+       [
+        2.717,
+        6.3,
+        -113.161
+       ],
+       [
+        2.075,
+        6.3,
+        -111.611
+       ],
+       [
+        -0.661,
+        6.3,
+        -109.783
+       ],
+       [
+        -2.339,
+        6.3,
+        -109.783
+       ],
+       [
+        -5.075,
+        6.3,
+        -111.611
+       ],
+       [
+        -5.717,
+        6.3,
+        -114.839
+       ],
+       [
+        -5.075,
+        6.3,
+        -116.389
+       ],
+       [
+        -2.339,
+        6.3,
+        -118.217
+       ],
+       [
+        -0.661,
+        6.3,
+        -118.217
+       ],
+       [
+        2.075,
+        6.3,
+        -116.389
+       ]
+      ],
+      "drip_to": 1.0,
+      "goo": {
+       "drips": "Shotgun_Platform_GD",
+       "strands": "Shotgun_Platform_GS",
+       "hold": 4.0,
+       "fade": 2.5
+      },
+      "pickup": "Shotgun_Pickup"
+     }
+    ],
+    "trigger": {
+     "center": [
+      0.0,
+      7.0,
+      -102.0
+     ],
+     "radius": 6.0
+    },
+    "stagger": 0.0,
+    "rise_s": 3.2,
+    "liquid": 1.0,
+    "note": "the platform starts under the liquid; it surges up when a player enters the trigger sphere"
+   }
+  },
+  {
    "id": "Tube_Pods",
    "type": "tube_pods",
    "launches": [
@@ -2164,6 +2279,13 @@
    "egg_len": 4.0
   },
   {
+   "id": "Flicker_schematic",
+   "type": "flicker",
+   "target_material": "schematic",
+   "rate": 3.0,
+   "amount": 0.08
+  },
+  {
    "id": "Laser_Flicker",
    "type": "flicker",
    "target_material": "laser",
@@ -2196,9 +2318,9 @@
    "type": "sparks",
    "positions": [
     [
-     -17.2,
+     -14.8,
      9.4,
-     -114.6
+     -121.1
     ]
    ]
   },
@@ -2219,6 +2341,208 @@
     1.0,
     0.25
    ]
+  },
+  {
+   "id": "Drone_Swarm",
+   "type": "flyby_ships",
+   "count": 28,
+   "designs": [
+    "drone"
+   ],
+   "color": [
+    0.05,
+    0.04,
+    0.06
+   ],
+   "glow": [
+    0.42,
+    0.48,
+    0.14
+   ],
+   "accent": [
+    0.46,
+    0.13,
+    0.3
+   ],
+   "routes": [
+    {
+     "lanes": [
+      [
+       -136,
+       -310,
+       -136,
+       140
+      ],
+      [
+       -142,
+       140,
+       -142,
+       -310
+      ]
+     ],
+     "count": 6,
+     "height": [
+      10,
+      45
+     ],
+     "speed": [
+      12,
+      20
+     ],
+     "gap": [
+      2,
+      8
+     ],
+     "size": [
+      2.2,
+      3.4
+     ],
+     "spread": 5
+    },
+    {
+     "lanes": [
+      [
+       136,
+       -310,
+       136,
+       140
+      ],
+      [
+       142,
+       140,
+       142,
+       -310
+      ]
+     ],
+     "count": 6,
+     "height": [
+      10,
+      45
+     ],
+     "speed": [
+      12,
+      20
+     ],
+     "gap": [
+      2,
+      8
+     ],
+     "size": [
+      2.2,
+      3.4
+     ],
+     "spread": 5
+    },
+    {
+     "lanes": [
+      [
+       -140,
+       -308,
+       140,
+       -308
+      ]
+     ],
+     "count": 4,
+     "height": [
+      12,
+      48
+     ],
+     "speed": [
+      12,
+      20
+     ],
+     "gap": [
+      2,
+      8
+     ],
+     "size": [
+      2.2,
+      3.4
+     ],
+     "spread": 6
+    },
+    {
+     "lanes": [
+      [
+       -140,
+       138,
+       140,
+       138
+      ]
+     ],
+     "count": 3,
+     "height": [
+      12,
+      48
+     ],
+     "speed": [
+      12,
+      20
+     ],
+     "gap": [
+      2,
+      8
+     ],
+     "size": [
+      2.2,
+      3.4
+     ],
+     "spread": 6
+    },
+    {
+     "spots": [
+      [
+       -128,
+       -105,
+       10
+      ],
+      [
+       128,
+       -195,
+       10
+      ],
+      [
+       30,
+       -300,
+       9
+      ],
+      [
+       -128,
+       -28,
+       9
+      ],
+      [
+       128,
+       -28,
+       10
+      ],
+      [
+       -28,
+       130,
+       9
+      ],
+      [
+       -128,
+       -190,
+       10
+      ]
+     ],
+     "count": 9,
+     "height": [
+      14,
+      40
+     ],
+     "speed": [
+      5,
+      8
+     ],
+     "size": [
+      2.0,
+      3.0
+     ]
+    }
+   ],
+   "notes": "Stage 95/96: background drone swarm (the reference drone, ~270 triangles, one MultiMesh, muted colours) far out by the factory hall's walls - lanes ~80-90 m beyond the outer walls and drones circling spots out there; effects only"
   }
  ],
  "environment": {
@@ -2835,12 +3159,12 @@
   {
    "name": "Pipe_Junction_A",
    "min": [
-    -21.0,
-    -122.0
+    -18.6,
+    -128.5
    ],
    "max": [
-    -11.0,
-    -114.0
+    -8.6,
+    -120.5
    ],
    "y": 9.0
   },
@@ -3027,14 +3351,14 @@
   {
    "name": "Crusher_A_Pad",
    "min": [
-    -11.6,
-    -112.4
+    -6.8,
+    -122.6
    ],
    "max": [
-    -8.4,
-    -109.2
+    -3.6,
+    -119.4
    ],
-   "y": 7.8
+   "y": 8.0
   }
  ],
  "materials": {
@@ -3288,6 +3612,57 @@
    "bevel": 0.03,
    "toon": true
   },
+  "gir_body": {
+   "type": "concrete",
+   "color": [
+    0.36,
+    0.41,
+    0.48
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 32,
+   "plain": true,
+   "metal": 0.35,
+   "rough": 0.45,
+   "notes": "Stage 92: GIR specimen - grey metal (plain colour, no texture)"
+  },
+  "gir_dark": {
+   "type": "concrete",
+   "color": [
+    0.05,
+    0.055,
+    0.065
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 32,
+   "plain": true,
+   "metal": 0.2,
+   "rough": 0.6,
+   "notes": "Stage 92: GIR specimen - black joints / mouth"
+  },
+  "gir_eye": {
+   "type": "concrete",
+   "color": [
+    0.85,
+    0.0,
+    0.0
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 32,
+   "plain": true,
+   "emissive": [
+    0.9,
+    0.0,
+    0.0
+   ],
+   "notes": "Stage 92: GIR specimen - red eyes and lights (duty mode)"
+  },
   "glass": {
    "type": "toxic",
    "color": [
@@ -3475,6 +3850,43 @@
    "res": 32,
    "alpha": 0.4,
    "notes": "Stage 61: inspection scan beam"
+  },
+  "schematic": {
+   "type": "screen_atlas",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 512,
+   "emissive": [
+    0.95,
+    0.95,
+    0.95
+   ],
+   "atlas": {
+    "a": [
+     0,
+     0,
+     1,
+     1
+    ]
+   },
+   "grid": [
+    [
+     {
+      "image": "levels/slime_arena/references/gir_schematic.png"
+     }
+    ]
+   ],
+   "flicker": {
+    "rate": 3,
+    "amount": 0.08
+   },
+   "notes": "Stage 93: GIR schematic monitor - wireframe vector views of the specimen with alien glyphs (no text), no TV static; generated from the GIR model"
   },
   "screen": {
    "type": "screen_atlas",
@@ -3969,6 +4381,27 @@
    "source": "inferred"
   },
   {
+   "name": "OuterWall_North_Op1_Barrier",
+   "type": "boundary",
+   "position": [
+    -28.0,
+    11.0,
+    -58.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    24.0,
+    14.0,
+    0.5
+   ],
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
    "name": "OuterWall_North_Op2_Lintel",
    "type": "group",
    "position": [
@@ -4279,6 +4712,27 @@
    "mobile": {
     "static": true
    },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_North_Op3_Barrier",
+   "type": "boundary",
+   "position": [
+    28.0,
+    11.0,
+    -58.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    24.0,
+    14.0,
+    0.5
+   ],
    "gen": "arena.walls",
    "source": "inferred"
   },
@@ -5119,6 +5573,27 @@
    "mobile": {
     "static": true
    },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_Op1_Barrier",
+   "type": "boundary",
+   "position": [
+    58.0,
+    11.0,
+    -28.0
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    24.0,
+    14.0,
+    0.5
+   ],
    "gen": "arena.walls",
    "source": "inferred"
   },
@@ -6988,6 +7463,27 @@
    "source": "inferred"
   },
   {
+   "name": "OuterWall_South_Op2_Barrier",
+   "type": "boundary",
+   "position": [
+    -28.0,
+    11.0,
+    58.0
+   ],
+   "rotation": [
+    0.0,
+    -180.0,
+    0.0
+   ],
+   "size": [
+    24.0,
+    14.0,
+    0.5
+   ],
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
    "name": "OuterWall_South_01",
    "type": "group",
    "position": [
@@ -8420,6 +8916,27 @@
    "mobile": {
     "static": true
    },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_West_Op2_Barrier",
+   "type": "boundary",
+   "position": [
+    -58.0,
+    11.0,
+    -28.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    24.0,
+    14.0,
+    0.5
+   ],
    "gen": "arena.walls",
    "source": "inferred"
   },
@@ -10316,6 +10833,27 @@
    "source": "visible"
   },
   {
+   "name": "Works_Wall_North_Op2_Barrier",
+   "type": "boundary",
+   "position": [
+    30.0,
+    13.0,
+    -232.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    22.0,
+    12.0,
+    0.5
+   ],
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
    "name": "Works_Wall_North_01",
    "type": "group",
    "position": [
@@ -10790,6 +11328,7 @@
    "material": "frame",
    "blades": 8,
    "sweep": 25.113448584701185,
+   "detail": "low",
    "collision": false,
    "outline": false,
    "spin": 31.2,
@@ -11392,6 +11931,7 @@
    "material": "frame",
    "blades": 7,
    "sweep": 25.615740688741667,
+   "detail": "low",
    "collision": false,
    "outline": false,
    "spin": 22.4,
@@ -12195,6 +12735,27 @@
    "mobile": {
     "static": true
    },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_East_Op1_Barrier",
+   "type": "boundary",
+   "position": [
+    58.0,
+    13.0,
+    -195.0
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    30.0,
+    11.0,
+    0.5
+   ],
    "gen": "Works.walls",
    "source": "visible"
   },
@@ -14183,6 +14744,27 @@
    "source": "visible"
   },
   {
+   "name": "Works_Wall_West_Op1_Barrier",
+   "type": "boundary",
+   "position": [
+    -58.0,
+    13.0,
+    -105.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    20.0,
+    11.0,
+    0.5
+   ],
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
    "name": "Works_Wall_West_Op2_Lintel",
    "type": "group",
    "position": [
@@ -14481,6 +15063,27 @@
    "mobile": {
     "static": true
    },
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_West_Op2_Barrier",
+   "type": "boundary",
+   "position": [
+    -58.0,
+    12.0,
+    -190.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    28.0,
+    13.0,
+    0.5
+   ],
    "gen": "Works.walls",
    "source": "visible"
   },
@@ -20147,9 +20750,9 @@
    "name": "Pipe_Junction_A",
    "type": "group",
    "position": [
-    -16.0,
+    -13.6,
     0.0,
-    -118.0
+    -124.5
    ],
    "rotation": [
     0.0,
@@ -29635,13 +30238,13 @@
    "name": "W_Cat_Junction",
    "type": "group",
    "position": [
-    -25.916,
+    -24.961,
     0.0,
-    -128.908
+    -132.362
    ],
    "rotation": [
     0.0,
-    -137.73,
+    -124.68,
     0.0
    ],
    "gen": "W_Cat_Junction",
@@ -29652,11 +30255,11 @@
    "type": "box",
    "position": [
     0.0,
-    9.093,
-    0.022
+    9.091,
+    0.026
    ],
    "rotation": [
-    -3.08,
+    -3.71,
     0.0,
     0.0
    ],
@@ -29664,7 +30267,7 @@
    "size": [
     3.0,
     0.4,
-    18.893
+    15.74
    ],
    "material": "grate",
    "connector": true,
@@ -29677,11 +30280,11 @@
    "type": "box",
    "position": [
     -1.2,
-    8.632,
+    8.63,
     0.0
    ],
    "rotation": [
-    -3.08,
+    -3.71,
     0.0,
     0.0
    ],
@@ -29689,7 +30292,7 @@
    "size": [
     0.3,
     0.45,
-    17.004
+    14.166
    ],
    "material": "frame",
    "gen": "W_Cat_Junction",
@@ -29701,10 +30304,10 @@
    "position": [
     -1.53,
     8.52,
-    0.176
+    0.186
    ],
    "rotation": [
-    -3.08,
+    -3.71,
     0.0,
     0.0
    ],
@@ -29712,7 +30315,7 @@
    "size": [
     0.12,
     0.95,
-    18.603
+    15.45
    ],
    "material": "structure_b",
    "collision": false,
@@ -29724,11 +30327,11 @@
    "type": "box",
    "position": [
     -1.605,
-    9.082,
-    0.006
+    9.08,
+    0.007
    ],
    "rotation": [
-    -3.08,
+    -3.71,
     0.0,
     0.0
    ],
@@ -29736,7 +30339,7 @@
    "size": [
     0.05,
     0.11,
-    17.293
+    14.14
    ],
    "material": "glow",
    "collision": false,
@@ -29749,11 +30352,11 @@
    "type": "box",
    "position": [
     1.2,
-    8.632,
+    8.63,
     0.0
    ],
    "rotation": [
-    -3.08,
+    -3.71,
     0.0,
     0.0
    ],
@@ -29761,7 +30364,7 @@
    "size": [
     0.3,
     0.45,
-    17.004
+    14.166
    ],
    "material": "frame",
    "gen": "W_Cat_Junction",
@@ -29773,10 +30376,10 @@
    "position": [
     1.53,
     8.52,
-    0.176
+    0.186
    ],
    "rotation": [
-    -3.08,
+    -3.71,
     0.0,
     0.0
    ],
@@ -29784,7 +30387,7 @@
    "size": [
     0.12,
     0.95,
-    18.603
+    15.45
    ],
    "material": "structure_b",
    "collision": false,
@@ -29796,11 +30399,11 @@
    "type": "box",
    "position": [
     1.605,
-    9.082,
-    0.006
+    9.08,
+    0.007
    ],
    "rotation": [
-    -3.08,
+    -3.71,
     0.0,
     0.0
    ],
@@ -29808,7 +30411,7 @@
    "size": [
     0.05,
     0.11,
-    17.293
+    14.14
    ],
    "material": "glow",
    "collision": false,
@@ -29822,7 +30425,7 @@
    "position": [
     0.0,
     9.01,
-    -9.583
+    -8.003
    ],
    "rotation": [
     0.0,
@@ -29846,11 +30449,11 @@
    "type": "box",
    "position": [
     0.0,
-    9.98,
-    8.884
+    9.974,
+    7.305
    ],
    "rotation": [
-    -3.08,
+    -3.71,
     0.0,
     0.0
    ],
@@ -29906,7 +30509,7 @@
    "parent": "W_Cat_Junction",
    "size": [
     1.2,
-    7.045,
+    7.055,
     0.8
    ],
    "material": "structure_b",
@@ -29929,7 +30532,7 @@
    "parent": "W_Cat_Junction",
    "size": [
     0.2,
-    6.945,
+    6.955,
     0.1
    ],
    "material": "frame",
@@ -29953,7 +30556,7 @@
    "parent": "W_Cat_Junction",
    "size": [
     0.2,
-    6.945,
+    6.955,
     0.1
    ],
    "material": "frame",
@@ -29977,7 +30580,7 @@
    "parent": "W_Cat_Junction",
    "size": [
     0.2,
-    6.945,
+    6.955,
     0.1
    ],
    "material": "frame",
@@ -30001,7 +30604,7 @@
    "parent": "W_Cat_Junction",
    "size": [
     0.2,
-    6.945,
+    6.955,
     0.1
    ],
    "material": "frame",
@@ -30014,11 +30617,11 @@
    "type": "frustum",
    "position": [
     0.0,
-    8.295,
+    8.305,
     1.2
    ],
    "rotation": [
-    -3.08,
+    -3.71,
     0.0,
     0.0
    ],
@@ -30038,7 +30641,7 @@
    "type": "box",
    "position": [
     0.0,
-    7.845,
+    7.855,
     1.64
    ],
    "rotation": [
@@ -30062,13 +30665,13 @@
    "name": "W_Cat_Junction_Junction_Hi",
    "type": "box",
    "position": [
-    -32.362,
+    -31.543,
     9.57,
-    -135.998
+    -136.916
    ],
    "rotation": [
     0.0,
-    -137.73,
+    -124.68,
     0.0
    ],
    "size": [
@@ -30085,19 +30688,19 @@
    "name": "W_Cat_Junction_Junction_Lo",
    "type": "box",
    "position": [
-    -19.268,
+    -18.195,
     8.57,
-    -121.595
+    -127.68
    ],
    "rotation": [
     0.0,
-    -137.73,
+    -124.68,
     0.0
    ],
    "size": [
     3.06,
     0.4,
-    1.6
+    1.45
    ],
    "connector": false,
    "material": "deck",
@@ -42191,12 +42794,42 @@
    "parent": "Vat_01",
    "size": [
     8.9,
-    0.8,
+    0.4,
     8.9
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 8,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_01",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_01_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    19.58,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_01",
+   "size": [
+    8.4,
+    2.016,
+    8.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -42847,12 +43480,42 @@
    "parent": "Vat_02",
    "size": [
     6.9,
-    0.8,
+    0.4,
     6.9
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 8,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_02",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_02_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    15.58,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_02",
+   "size": [
+    6.4,
+    1.536,
+    6.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -43503,12 +44166,42 @@
    "parent": "Vat_03",
    "size": [
     9.9,
-    0.8,
+    0.4,
     9.9
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 8,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_03",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_03_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    21.58,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_03",
+   "size": [
+    9.4,
+    2.256,
+    9.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -44159,12 +44852,42 @@
    "parent": "Vat_04",
    "size": [
     7.9,
-    0.8,
+    0.4,
     7.9
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 8,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_04",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_04_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    13.88,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_04",
+   "size": [
+    7.4,
+    1.776,
+    7.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -44815,12 +45538,42 @@
    "parent": "Vat_05",
    "size": [
     8.9,
-    0.8,
+    0.4,
     8.9
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 8,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_05",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_05_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    17.58,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_05",
+   "size": [
+    8.4,
+    2.016,
+    8.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -45471,12 +46224,42 @@
    "parent": "Vat_06",
    "size": [
     6.9,
-    0.8,
+    0.4,
     6.9
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 8,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_06",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_06_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    20.58,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_06",
+   "size": [
+    6.4,
+    1.536,
+    6.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -46127,12 +46910,42 @@
    "parent": "Vat_07",
    "size": [
     7.9,
-    0.8,
+    0.4,
     7.9
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 8,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_07",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_07_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    16.58,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_07",
+   "size": [
+    7.4,
+    1.776,
+    7.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -46783,12 +47596,42 @@
    "parent": "Vat_08",
    "size": [
     9.9,
-    0.8,
+    0.4,
     9.9
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 8,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Vat_08",
+   "source": "visible"
+  },
+  {
+   "name": "Vat_08_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    14.58,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Vat_08",
+   "size": [
+    9.4,
+    2.256,
+    9.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -49217,6 +50060,7 @@
    "material": "frame",
    "blades": 8,
    "sweep": 22.25648762531892,
+   "detail": "low",
    "collision": false,
    "outline": false,
    "spin": 27.1,
@@ -49887,6 +50731,7 @@
    "material": "frame",
    "blades": 8,
    "sweep": 20.367645703747097,
+   "detail": "low",
    "collision": false,
    "outline": false,
    "spin": 23.8,
@@ -58717,13 +59562,13 @@
    "name": "Valve_A",
    "type": "group",
    "position": [
-    -18.6,
+    -16.2,
     9.0,
-    -115.6
+    -122.1
    ],
    "rotation": [
     0.0,
-    9.14,
+    7.56,
     0.0
    ],
    "gen": "Valve_A",
@@ -58757,9 +59602,9 @@
    "name": "Junction_A_Crate",
    "type": "group",
    "position": [
-    -12.0,
+    -9.6,
     9.0,
-    -121.0
+    -127.5
    ],
    "rotation": [
     0.0,
@@ -59483,12 +60328,42 @@
    "parent": "Purifier_1",
    "size": [
     3.9,
-    0.8,
+    0.4,
     3.9
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 8,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Purifier_1",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_1_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    12.88,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_1",
+   "size": [
+    3.4,
+    0.816,
+    3.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -60139,12 +61014,42 @@
    "parent": "Purifier_2",
    "size": [
     4.5,
-    0.8,
+    0.4,
     4.5
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 8,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Purifier_2",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_2_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    14.58,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_2",
+   "size": [
+    4.0,
+    0.96,
+    4.0
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -60795,12 +61700,42 @@
    "parent": "Purifier_3",
    "size": [
     3.5,
-    0.8,
+    0.4,
     3.5
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 8,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Purifier_3",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_3_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    11.38,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_3",
+   "size": [
+    3.0,
+    0.72,
+    3.0
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -61451,12 +62386,42 @@
    "parent": "Purifier_4",
    "size": [
     4.3,
-    0.8,
+    0.4,
     4.3
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 8,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Purifier_4",
+   "source": "visible"
+  },
+  {
+   "name": "Purifier_4_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    13.38,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Purifier_4",
+   "size": [
+    3.8,
+    0.912,
+    3.8
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -62107,16 +63072,526 @@
    "parent": "Core_Vat",
    "size": [
     10.9,
-    0.8,
+    0.4,
     10.9
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 12,
    "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
    "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Core_Vat_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    13.63,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Core_Vat",
+   "size": [
+    10.4,
+    2.496,
+    10.4
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Core_Vat",
+   "source": "visible"
+  },
+  {
+   "name": "Gir_Specimen_Body",
+   "type": "model",
+   "position": [
+    6.0,
+    17.6,
+    -198.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.6,
+    3.6,
+    3.6
+   ],
+   "material": "gir_body",
+   "file": "levels/slime_arena/assets/gir_parts.glb",
+   "part": "body",
+   "collision": false,
+   "outline": false,
+   "bevel": false,
+   "intentional": [
+    "floating"
+   ],
+   "mobile": {
+    "group": "Gir_Specimen_Float"
+   },
+   "gen": "Gir_Specimen",
+   "source": "visible"
+  },
+  {
+   "name": "Gir_Specimen_Dark",
+   "type": "model",
+   "position": [
+    6.0,
+    17.6,
+    -198.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.6,
+    3.6,
+    3.6
+   ],
+   "material": "gir_dark",
+   "file": "levels/slime_arena/assets/gir_parts.glb",
+   "part": "dark",
+   "collision": false,
+   "outline": false,
+   "bevel": false,
+   "intentional": [
+    "floating"
+   ],
+   "mobile": {
+    "group": "Gir_Specimen_Float"
+   },
+   "gen": "Gir_Specimen",
+   "source": "visible"
+  },
+  {
+   "name": "Gir_Specimen_Eye",
+   "type": "model",
+   "position": [
+    6.0,
+    17.6,
+    -198.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.6,
+    3.6,
+    3.6
+   ],
+   "material": "gir_eye",
+   "file": "levels/slime_arena/assets/gir_parts.glb",
+   "part": "eye",
+   "collision": false,
+   "outline": false,
+   "bevel": false,
+   "intentional": [
+    "floating"
+   ],
+   "mobile": {
+    "group": "Gir_Specimen_Float"
+   },
+   "gen": "Gir_Specimen",
+   "source": "visible"
+  },
+  {
+   "name": "Gir_Monitor",
+   "type": "group",
+   "position": [
+    4.432,
+    12.0,
+    -192.147
+   ],
+   "rotation": [
+    0.0,
+    -15.0,
+    0.0
+   ],
+   "gen": "Gir_Monitor",
+   "source": "visible"
+  },
+  {
+   "name": "Gir_Monitor_Pedestal",
+   "type": "prism",
+   "position": [
+    -0.9,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Gir_Monitor",
+   "size": [
+    1.3,
+    2.4,
+    1.8
+   ],
+   "material": "machine",
+   "poly": [
+    [
+     0.55,
+     0.06
+    ],
+    [
+     -0.42,
+     0.06
+    ],
+    [
+     -0.3,
+     0.94
+    ],
+    [
+     0.48,
+     0.94
+    ]
+   ],
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gir_Monitor",
+   "source": "visible"
+  },
+  {
+   "name": "Gir_Monitor_Desk",
+   "type": "prism",
+   "position": [
+    -0.9,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Gir_Monitor",
+   "size": [
+    1.3,
+    2.4,
+    1.8
+   ],
+   "material": "machine",
+   "poly": [
+    [
+     0.48,
+     0.92
+    ],
+    [
+     -0.3,
+     0.92
+    ],
+    [
+     -0.6,
+     1.0
+    ],
+    [
+     -0.58,
+     1.1
+    ],
+    [
+     0.48,
+     1.38
+    ]
+   ],
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gir_Monitor",
+   "source": "visible"
+  },
+  {
+   "name": "Gir_Monitor_Tower",
+   "type": "prism",
+   "position": [
+    -0.9,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Gir_Monitor",
+   "size": [
+    1.3,
+    2.4,
+    1.8
+   ],
+   "material": "machine",
+   "poly": [
+    [
+     0.66,
+     0.9
+    ],
+    [
+     0.3,
+     0.9
+    ],
+    [
+     0.3,
+     2.2
+    ],
+    [
+     0.44,
+     2.36
+    ],
+    [
+     0.66,
+     2.36
+    ]
+   ],
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gir_Monitor",
+   "source": "visible"
+  },
+  {
+   "name": "Gir_Monitor_Screen",
+   "type": "panel",
+   "position": [
+    0.0,
+    1.46,
+    -0.28
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gir_Monitor",
+   "size": [
+    1.36,
+    0.66,
+    0.0
+   ],
+   "material": "schematic",
+   "uv_region": "a",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gir_Monitor",
+   "source": "visible"
+  },
+  {
+   "name": "Gir_Monitor_NoseLight",
+   "type": "box",
+   "position": [
+    0.0,
+    1.02,
+    0.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gir_Monitor",
+   "size": [
+    1.68,
+    0.05,
+    0.03
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gir_Monitor",
+   "source": "visible"
+  },
+  {
+   "name": "Gir_Monitor_TowerLight_1",
+   "type": "box",
+   "position": [
+    -0.85,
+    1.42,
+    -0.29
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gir_Monitor",
+   "size": [
+    0.04,
+    0.82,
+    0.03
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gir_Monitor",
+   "source": "visible"
+  },
+  {
+   "name": "Gir_Monitor_TowerLight_3",
+   "type": "box",
+   "position": [
+    0.85,
+    1.42,
+    -0.29
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gir_Monitor",
+   "size": [
+    0.04,
+    0.82,
+    0.03
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gir_Monitor",
+   "source": "visible"
+  },
+  {
+   "name": "Gir_Monitor_Crown",
+   "type": "box",
+   "position": [
+    0.0,
+    2.36,
+    -0.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gir_Monitor",
+   "size": [
+    1.5,
+    0.07,
+    0.16
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gir_Monitor",
+   "source": "visible"
+  },
+  {
+   "name": "Gir_Monitor_HandPlate",
+   "type": "box",
+   "position": [
+    0.45,
+    1.245,
+    0.02
+   ],
+   "rotation": [
+    14.8,
+    0.0,
+    0.0
+   ],
+   "parent": "Gir_Monitor",
+   "size": [
+    0.42,
+    0.03,
+    0.34
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gir_Monitor",
+   "source": "visible"
+  },
+  {
+   "name": "Gir_Monitor_Floor",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    0.0,
+    -0.05
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gir_Monitor",
+   "size": [
+    2.7,
+    0.06,
+    2.7
+   ],
+   "material": "frame",
+   "sections": 8,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gir_Monitor",
+   "source": "visible"
+  },
+  {
+   "name": "Gir_Monitor_FloorRim",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    0.0,
+    -0.05
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Gir_Monitor",
+   "size": [
+    2.86,
+    0.035,
+    2.86
+   ],
+   "material": "glow_yellow",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Gir_Monitor",
    "source": "visible"
   },
   {
@@ -64975,12 +66450,42 @@
    "parent": "Proc_Tower_A",
    "size": [
     7.9,
-    0.8,
+    0.4,
     7.9
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 8,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Proc_Tower_A",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_A_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    19.58,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_A",
+   "size": [
+    7.4,
+    1.776,
+    7.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -65631,12 +67136,42 @@
    "parent": "Proc_Tower_B",
    "size": [
     5.9,
-    0.8,
+    0.4,
     5.9
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 8,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Proc_Tower_B",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_B_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    15.58,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_B",
+   "size": [
+    5.4,
+    1.296,
+    5.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -66287,12 +67822,42 @@
    "parent": "Proc_Tower_C",
    "size": [
     6.9,
-    0.8,
+    0.4,
     6.9
    ],
-   "material": "trim",
+   "material": "frame",
    "sections": 8,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Proc_Tower_C",
+   "source": "visible"
+  },
+  {
+   "name": "Proc_Tower_C_Dome",
+   "type": "dome",
+   "position": [
+    0.0,
+    23.58,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Proc_Tower_C",
+   "size": [
+    6.4,
+    1.536,
+    6.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -67243,7 +68808,7 @@
     7.0,
     4.1
    ],
-   "material": "structure_b",
+   "material": "frame",
    "opening": 0.7667,
    "opening_h": 0.8857,
    "segments": 10,
@@ -67267,9 +68832,9 @@
    "size": [
     6.0,
     3.0,
-    0.32
+    0.45
    ],
-   "material": "structure_b",
+   "material": "machine",
    "poly": [
     [
      2.2998,
@@ -67321,12 +68886,12 @@
      3.9
     ],
     [
-     3.14,
+     3.26,
      3.9
     ],
     [
-     2.9506,
-     4.9739
+     3.0634,
+     5.015
     ],
     [
      2.8379,
@@ -67358,9 +68923,9 @@
    "size": [
     6.0,
     3.0,
-    0.32
+    0.45
    ],
-   "material": "structure_b",
+   "material": "machine",
    "poly": [
     [
      2.1517,
@@ -67412,12 +68977,12 @@
      4.9329
     ],
     [
-     2.9506,
-     4.9739
+     3.0634,
+     5.015
     ],
     [
-     2.4054,
-     5.9184
+     2.4973,
+     5.9955
     ],
     [
      2.3135,
@@ -67449,9 +69014,9 @@
    "size": [
     6.0,
     3.0,
-    0.32
+    0.45
    ],
-   "material": "structure_b",
+   "material": "machine",
    "poly": [
     [
      1.744,
@@ -67503,12 +69068,12 @@
      5.8412
     ],
     [
-     2.4054,
-     5.9184
+     2.4973,
+     5.9955
     ],
     [
-     1.57,
-     6.6193
+     1.63,
+     6.7232
     ],
     [
      1.51,
@@ -67540,9 +69105,9 @@
    "size": [
     6.0,
     3.0,
-    0.32
+    0.45
    ],
-   "material": "structure_b",
+   "material": "machine",
    "poly": [
     [
      1.126,
@@ -67594,12 +69159,12 @@
      6.5154
     ],
     [
-     1.57,
-     6.6193
+     1.63,
+     6.7232
     ],
     [
-     0.5453,
-     6.9923
+     0.5661,
+     7.1105
     ],
     [
      0.5244,
@@ -67631,7 +69196,7 @@
    "size": [
     6.3,
     3.15,
-    0.5
+    0.63
    ],
    "material": "trim",
    "poly": [
@@ -67665,7 +69230,7 @@
    "position": [
     0.0,
     0.0,
-    0.5
+    0.63
    ],
    "rotation": [
     0.0,
@@ -67722,9 +69287,9 @@
    "size": [
     6.0,
     3.0,
-    0.32
+    0.45
    ],
-   "material": "structure_b",
+   "material": "machine",
    "poly": [
     [
      -0.4265,
@@ -67776,12 +69341,12 @@
      6.8741
     ],
     [
-     -0.5453,
-     6.9923
+     -0.5661,
+     7.1105
     ],
     [
-     -1.57,
-     6.6193
+     -1.63,
+     6.7232
     ],
     [
      -1.51,
@@ -67813,9 +69378,9 @@
    "size": [
     6.0,
     3.0,
-    0.32
+    0.45
    ],
-   "material": "structure_b",
+   "material": "machine",
    "poly": [
     [
      -1.1738,
@@ -67867,12 +69432,12 @@
      6.5154
     ],
     [
-     -1.57,
-     6.6193
+     -1.63,
+     6.7232
     ],
     [
-     -2.4054,
-     5.9184
+     -2.4973,
+     5.9955
     ],
     [
      -2.3135,
@@ -67904,9 +69469,9 @@
    "size": [
     6.0,
     3.0,
-    0.32
+    0.45
    ],
-   "material": "structure_b",
+   "material": "machine",
    "poly": [
     [
      -1.7795,
@@ -67958,12 +69523,12 @@
      5.8412
     ],
     [
-     -2.4054,
-     5.9184
+     -2.4973,
+     5.9955
     ],
     [
-     -2.9506,
-     4.9739
+     -3.0634,
+     5.015
     ],
     [
      -2.8379,
@@ -67995,9 +69560,9 @@
    "size": [
     6.0,
     3.0,
-    0.32
+    0.45
    ],
-   "material": "structure_b",
+   "material": "machine",
    "poly": [
     [
      -2.1706,
@@ -68049,11 +69614,11 @@
      4.9329
     ],
     [
-     -2.9506,
-     4.9739
+     -3.0634,
+     5.015
     ],
     [
-     -3.14,
+     -3.26,
      3.9
     ],
     [
@@ -68074,8 +69639,8 @@
    "type": "box",
    "position": [
     -2.65,
-    0.0,
-    0.16
+    0.01,
+    0.225
    ],
    "rotation": [
     0.0,
@@ -68084,11 +69649,11 @@
    ],
    "parent": "Exit_Hall",
    "size": [
-    0.7,
-    3.9,
-    0.32
+    0.66,
+    3.89,
+    0.45
    ],
-   "material": "structure_b",
+   "material": "machine",
    "collision": false,
    "mobile": {
     "static": true
@@ -68102,7 +69667,7 @@
    "position": [
     -2.65,
     3.8,
-    0.2
+    0.265
    ],
    "rotation": [
     0.0,
@@ -68113,7 +69678,7 @@
    "size": [
     1.0,
     0.22,
-    0.42
+    0.55
    ],
    "material": "trim",
    "collision": false,
@@ -68142,7 +69707,7 @@
     7.5,
     0.44
    ],
-   "material": "structure_b",
+   "material": "machine",
    "collision": false,
    "mobile": {
     "static": true
@@ -68210,8 +69775,8 @@
    "type": "box",
    "position": [
     2.65,
-    0.0,
-    0.16
+    0.01,
+    0.225
    ],
    "rotation": [
     0.0,
@@ -68220,11 +69785,11 @@
    ],
    "parent": "Exit_Hall",
    "size": [
-    0.7,
-    3.9,
-    0.32
+    0.66,
+    3.89,
+    0.45
    ],
-   "material": "structure_b",
+   "material": "machine",
    "collision": false,
    "mobile": {
     "static": true
@@ -68238,7 +69803,7 @@
    "position": [
     2.65,
     3.8,
-    0.2
+    0.265
    ],
    "rotation": [
     0.0,
@@ -68249,7 +69814,7 @@
    "size": [
     1.0,
     0.22,
-    0.42
+    0.55
    ],
    "material": "trim",
    "collision": false,
@@ -68278,7 +69843,7 @@
     7.5,
     0.44
    ],
-   "material": "structure_b",
+   "material": "machine",
    "collision": false,
    "mobile": {
     "static": true
@@ -68362,34 +69927,6 @@
    ],
    "material": "deck",
    "bevel": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Exit_Hall",
-   "source": "visible"
-  },
-  {
-   "name": "Exit_Hall_Threshold",
-   "type": "box",
-   "position": [
-    0.0,
-    0.0,
-    -0.6
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Exit_Hall",
-   "size": [
-    4.6,
-    0.04,
-    1.0
-   ],
-   "material": "stripe",
-   "outline": false,
-   "collision": false,
    "mobile": {
     "static": true
    },
@@ -69170,11 +70707,11 @@
    "source": "visible"
   },
   {
-   "name": "Exit_Hall_Edge_1",
+   "name": "Exit_Hall_Guide_1",
    "type": "box",
    "position": [
-    -3.14,
-    0.02,
+    -3.17,
+    2.4,
     -8.025
    ],
    "rotation": [
@@ -69184,8 +70721,8 @@
    ],
    "parent": "Exit_Hall",
    "size": [
-    0.1,
-    0.1,
+    0.06,
+    0.08,
     8.05
    ],
    "material": "laser",
@@ -69198,11 +70735,11 @@
    "source": "visible"
   },
   {
-   "name": "Exit_Hall_Edge_2",
+   "name": "Exit_Hall_Guide_2",
    "type": "box",
    "position": [
-    3.14,
-    0.02,
+    3.17,
+    2.4,
     -8.025
    ],
    "rotation": [
@@ -69212,8 +70749,8 @@
    ],
    "parent": "Exit_Hall",
    "size": [
-    0.1,
-    0.1,
+    0.06,
+    0.08,
     8.05
    ],
    "material": "laser",
@@ -69258,339 +70795,27 @@
    "source": "visible"
   },
   {
-   "name": "Turbine_East_Frame_1",
-   "type": "box",
+   "name": "Turbine_East_Housing",
+   "type": "cylinder",
    "position": [
     0.0,
-    6.95,
-    -0.02
+    3.8,
+    0.0
    ],
    "rotation": [
-    0.0,
+    90.0,
     0.0,
     0.0
    ],
    "parent": "Turbine_East",
    "size": [
-    7.3,
-    0.45,
-    0.4
+    6.1,
+    1.7,
+    6.1
    ],
-   "material": "frame",
-   "bevel": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Turbine_East",
-   "source": "visible"
-  },
-  {
-   "name": "Turbine_East_Frame_2",
-   "type": "box",
-   "position": [
-    0.0,
-    0.2,
-    -0.02
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Turbine_East",
-   "size": [
-    7.3,
-    0.45,
-    0.4
-   ],
-   "material": "frame",
-   "bevel": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Turbine_East",
-   "source": "visible"
-  },
-  {
-   "name": "Turbine_East_Frame_3",
-   "type": "box",
-   "position": [
-    -3.4,
-    0.65,
-    -0.02
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Turbine_East",
-   "size": [
-    0.45,
-    6.3,
-    0.4
-   ],
-   "material": "frame",
-   "bevel": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Turbine_East",
-   "source": "visible"
-  },
-  {
-   "name": "Turbine_East_Frame_4",
-   "type": "box",
-   "position": [
-    3.4,
-    0.65,
-    -0.02
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Turbine_East",
-   "size": [
-    0.45,
-    6.3,
-    0.4
-   ],
-   "material": "frame",
-   "bevel": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Turbine_East",
-   "source": "visible"
-  },
-  {
-   "name": "Turbine_East_Corner_1",
-   "type": "prism",
-   "position": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Turbine_East",
-   "size": [
-    6.6,
-    6.6,
-    0.3
-   ],
-   "material": "structure_b",
-   "poly": [
-    [
-     3.3,
-     3.8
-    ],
-    [
-     3.3,
-     7.1
-    ],
-    [
-     0.0,
-     7.1
-    ],
-    [
-     0.0,
-     6.6975
-    ],
-    [
-     1.4488,
-     6.3093
-    ],
-    [
-     2.5093,
-     5.2487
-    ],
-    [
-     2.8975,
-     3.8
-    ]
-   ],
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Turbine_East",
-   "source": "visible"
-  },
-  {
-   "name": "Turbine_East_Corner_2",
-   "type": "prism",
-   "position": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Turbine_East",
-   "size": [
-    6.6,
-    6.6,
-    0.3
-   ],
-   "material": "structure_b",
-   "poly": [
-    [
-     -2.8975,
-     3.8
-    ],
-    [
-     -2.5093,
-     5.2487
-    ],
-    [
-     -1.4488,
-     6.3093
-    ],
-    [
-     -0.0,
-     6.6975
-    ],
-    [
-     0.0,
-     7.1
-    ],
-    [
-     -3.3,
-     7.1
-    ],
-    [
-     -3.3,
-     3.8
-    ]
-   ],
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Turbine_East",
-   "source": "visible"
-  },
-  {
-   "name": "Turbine_East_Corner_3",
-   "type": "prism",
-   "position": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Turbine_East",
-   "size": [
-    6.6,
-    6.6,
-    0.3
-   ],
-   "material": "structure_b",
-   "poly": [
-    [
-     -3.3,
-     3.8
-    ],
-    [
-     -3.3,
-     0.5
-    ],
-    [
-     0.0,
-     0.5
-    ],
-    [
-     -0.0,
-     0.9025
-    ],
-    [
-     -1.4488,
-     1.2907
-    ],
-    [
-     -2.5093,
-     2.3513
-    ],
-    [
-     -2.8975,
-     3.8
-    ]
-   ],
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Turbine_East",
-   "source": "visible"
-  },
-  {
-   "name": "Turbine_East_Corner_4",
-   "type": "prism",
-   "position": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Turbine_East",
-   "size": [
-    6.6,
-    6.6,
-    0.3
-   ],
-   "material": "structure_b",
-   "poly": [
-    [
-     2.8975,
-     3.8
-    ],
-    [
-     2.5093,
-     2.3513
-    ],
-    [
-     1.4488,
-     1.2907
-    ],
-    [
-     0.0,
-     0.9025
-    ],
-    [
-     0.0,
-     0.5
-    ],
-    [
-     3.3,
-     0.5
-    ],
-    [
-     3.3,
-     3.8
-    ]
-   ],
-   "outline": false,
+   "material": "machine",
+   "sections": 12,
+   "hole": 2.62,
    "mobile": {
     "static": true
    },
@@ -69603,7 +70828,7 @@
    "position": [
     0.0,
     3.8,
-    -3.9
+    0.02
    ],
    "rotation": [
     90.0,
@@ -69612,8 +70837,8 @@
    ],
    "parent": "Turbine_East",
    "size": [
-    5.26,
-    4.2,
+    5.22,
+    1.67,
     0.0
    ],
    "material": "accent",
@@ -69621,34 +70846,6 @@
    "uv_region": "void",
    "outline": false,
    "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Turbine_East",
-   "source": "visible"
-  },
-  {
-   "name": "Turbine_East_Housing",
-   "type": "cylinder",
-   "position": [
-    0.0,
-    3.8,
-    -0.05
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Turbine_East",
-   "size": [
-    6.1,
-    1.75,
-    6.1
-   ],
-   "material": "machine",
-   "sections": 12,
-   "hole": 2.62,
    "mobile": {
     "static": true
    },
@@ -69670,7 +70867,7 @@
    ],
    "parent": "Turbine_East",
    "size": [
-    5.6,
+    2.86,
     1.0,
     1.3
    ],
@@ -69689,7 +70886,7 @@
    "position": [
     2.728,
     5.025,
-    1.08
+    0.87
    ],
    "rotation": [
     0.0,
@@ -69700,7 +70897,7 @@
    "size": [
     0.9,
     0.7,
-    1.5
+    1.7
    ],
    "material": "frame",
    "outline": false,
@@ -69717,7 +70914,7 @@
    "position": [
     0.0,
     6.6,
-    1.08
+    0.87
    ],
    "rotation": [
     0.0,
@@ -69728,7 +70925,7 @@
    "size": [
     0.9,
     0.7,
-    1.5
+    1.7
    ],
    "material": "frame",
    "outline": false,
@@ -69745,7 +70942,7 @@
    "position": [
     -2.728,
     5.025,
-    1.08
+    0.87
    ],
    "rotation": [
     0.0,
@@ -69756,7 +70953,7 @@
    "size": [
     0.9,
     0.7,
-    1.5
+    1.7
    ],
    "material": "frame",
    "outline": false,
@@ -69773,7 +70970,7 @@
    "position": [
     -2.728,
     1.875,
-    1.08
+    0.87
    ],
    "rotation": [
     0.0,
@@ -69784,7 +70981,7 @@
    "size": [
     0.9,
     0.7,
-    1.5
+    1.7
    ],
    "material": "frame",
    "outline": false,
@@ -69801,7 +70998,7 @@
    "position": [
     -0.0,
     0.3,
-    1.08
+    0.87
    ],
    "rotation": [
     0.0,
@@ -69812,7 +71009,7 @@
    "size": [
     0.9,
     0.7,
-    1.5
+    1.7
    ],
    "material": "frame",
    "outline": false,
@@ -69829,7 +71026,7 @@
    "position": [
     2.728,
     1.875,
-    1.08
+    0.87
    ],
    "rotation": [
     0.0,
@@ -69840,7 +71037,7 @@
    "size": [
     0.9,
     0.7,
-    1.5
+    1.7
    ],
    "material": "frame",
    "outline": false,
@@ -69968,62 +71165,6 @@
    "source": "visible"
   },
   {
-   "name": "Turbine_East_Lamp_1",
-   "type": "box",
-   "position": [
-    -2.85,
-    6.35,
-    0.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Turbine_East",
-   "size": [
-    0.4,
-    0.4,
-    0.25
-   ],
-   "material": "laser",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Turbine_East",
-   "source": "visible"
-  },
-  {
-   "name": "Turbine_East_Lamp_3",
-   "type": "box",
-   "position": [
-    2.85,
-    6.35,
-    0.3
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Turbine_East",
-   "size": [
-    0.4,
-    0.4,
-    0.25
-   ],
-   "material": "laser",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Turbine_East",
-   "source": "visible"
-  },
-  {
    "name": "Pads_West_Pad_1_Column",
    "type": "cylinder",
    "position": [
@@ -70127,7 +71268,7 @@
     4.25
    ],
    "material": "fall",
-   "sections": 8,
+   "sections": 6,
    "mobile": {
     "group": "Pads_West_Rig",
     "joint": "Pads_West_R1"
@@ -70241,7 +71382,7 @@
     4.25
    ],
    "material": "fall",
-   "sections": 8,
+   "sections": 6,
    "mobile": {
     "group": "Pads_West_Rig",
     "joint": "Pads_West_R2"
@@ -70355,7 +71496,7 @@
     4.25
    ],
    "material": "fall",
-   "sections": 8,
+   "sections": 6,
    "mobile": {
     "group": "Pads_West_Rig",
     "joint": "Pads_West_R3"
@@ -70469,7 +71610,7 @@
     4.25
    ],
    "material": "fall",
-   "sections": 8,
+   "sections": 6,
    "mobile": {
     "group": "Pads_West_Rig",
     "joint": "Pads_West_R4"
@@ -70583,7 +71724,7 @@
     4.25
    ],
    "material": "fall",
-   "sections": 8,
+   "sections": 6,
    "mobile": {
     "group": "Pads_West_Rig",
     "joint": "Pads_West_R5"
@@ -70697,7 +71838,7 @@
     4.25
    ],
    "material": "fall",
-   "sections": 8,
+   "sections": 6,
    "mobile": {
     "group": "Pads_West_Rig",
     "joint": "Pads_West_R6"
@@ -70811,7 +71952,7 @@
     4.25
    ],
    "material": "fall",
-   "sections": 8,
+   "sections": 6,
    "mobile": {
     "group": "Pads_West_Rig",
     "joint": "Pads_West_R7"
@@ -70925,7 +72066,7 @@
     4.25
    ],
    "material": "fall",
-   "sections": 8,
+   "sections": 6,
    "mobile": {
     "group": "Pads_West_Rig",
     "joint": "Pads_West_R8"
@@ -71039,7 +72180,7 @@
     4.25
    ],
    "material": "fall",
-   "sections": 8,
+   "sections": 6,
    "mobile": {
     "group": "Pads_West_Rig",
     "joint": "Pads_West_R9"
@@ -71153,7 +72294,7 @@
     4.25
    ],
    "material": "fall",
-   "sections": 8,
+   "sections": 6,
    "mobile": {
     "group": "Pads_West_Rig",
     "joint": "Pads_West_R10"
@@ -71267,7 +72408,7 @@
     4.25
    ],
    "material": "fall",
-   "sections": 8,
+   "sections": 6,
    "mobile": {
     "group": "Pads_West_Rig",
     "joint": "Pads_West_R11"
@@ -71294,25 +72435,43 @@
    "source": "visible"
   },
   {
-   "name": "Works_Terminal_Plinth",
-   "type": "box",
+   "name": "Works_Terminal_Pedestal",
+   "type": "prism",
    "position": [
+    -0.9,
     0.0,
-    0.0,
-    -0.1
+    0.0
    ],
    "rotation": [
     0.0,
-    0.0,
+    90.0,
     0.0
    ],
    "parent": "Works_Terminal",
    "size": [
-    1.7,
-    1.0,
-    0.9
+    1.3,
+    2.4,
+    1.8
    ],
    "material": "machine",
+   "poly": [
+    [
+     0.55,
+     0.06
+    ],
+    [
+     -0.42,
+     0.06
+    ],
+    [
+     -0.3,
+     0.94
+    ],
+    [
+     0.48,
+     0.94
+    ]
+   ],
    "mobile": {
     "static": true
    },
@@ -71321,24 +72480,94 @@
   },
   {
    "name": "Works_Terminal_Desk",
-   "type": "box",
+   "type": "prism",
    "position": [
+    -0.9,
     0.0,
-    0.92,
     0.0
    ],
    "rotation": [
-    -22.0,
     0.0,
+    90.0,
     0.0
    ],
    "parent": "Works_Terminal",
    "size": [
-    1.9,
-    0.14,
-    1.0
+    1.3,
+    2.4,
+    1.8
    ],
-   "material": "structure_b",
+   "material": "machine",
+   "poly": [
+    [
+     0.48,
+     0.92
+    ],
+    [
+     -0.3,
+     0.92
+    ],
+    [
+     -0.6,
+     1.0
+    ],
+    [
+     -0.58,
+     1.1
+    ],
+    [
+     0.48,
+     1.38
+    ]
+   ],
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works_Terminal",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Terminal_Tower",
+   "type": "prism",
+   "position": [
+    -0.9,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Works_Terminal",
+   "size": [
+    1.3,
+    2.4,
+    1.8
+   ],
+   "material": "machine",
+   "poly": [
+    [
+     0.66,
+     0.9
+    ],
+    [
+     0.3,
+     0.9
+    ],
+    [
+     0.3,
+     2.2
+    ],
+    [
+     0.44,
+     2.36
+    ],
+    [
+     0.66,
+     2.36
+    ]
+   ],
    "mobile": {
     "static": true
    },
@@ -71350,8 +72579,8 @@
    "type": "panel",
    "position": [
     0.0,
-    1.2,
-    -0.48
+    1.46,
+    -0.28
    ],
    "rotation": [
     0.0,
@@ -71360,8 +72589,8 @@
    ],
    "parent": "Works_Terminal",
    "size": [
-    1.4,
-    0.78,
+    1.36,
+    0.66,
     0.0
    ],
    "material": "screen",
@@ -71376,12 +72605,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Terminal_Bezel",
+   "name": "Works_Terminal_NoseLight",
    "type": "box",
    "position": [
     0.0,
-    1.12,
-    -0.52
+    1.02,
+    0.6
    ],
    "rotation": [
     0.0,
@@ -71390,11 +72619,11 @@
    ],
    "parent": "Works_Terminal",
    "size": [
-    1.56,
-    0.94,
-    0.04
+    1.68,
+    0.05,
+    0.03
    ],
-   "material": "frame",
+   "material": "glow_yellow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -71404,54 +72633,109 @@
    "source": "visible"
   },
   {
-   "name": "Works_Terminal_Keys",
+   "name": "Works_Terminal_TowerLight_1",
    "type": "box",
    "position": [
-    -0.15,
-    1.02,
+    -0.85,
+    1.42,
+    -0.29
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Terminal",
+   "size": [
+    0.04,
+    0.82,
+    0.03
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works_Terminal",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Terminal_TowerLight_3",
+   "type": "box",
+   "position": [
+    0.85,
+    1.42,
+    -0.29
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Terminal",
+   "size": [
+    0.04,
+    0.82,
+    0.03
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works_Terminal",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Terminal_Crown",
+   "type": "box",
+   "position": [
+    0.0,
+    2.36,
+    -0.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Terminal",
+   "size": [
+    1.5,
+    0.07,
+    0.16
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Works_Terminal",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Terminal_HandPlate",
+   "type": "box",
+   "position": [
+    0.45,
+    1.245,
     0.02
    ],
    "rotation": [
-    -22.0,
+    14.8,
     0.0,
     0.0
    ],
    "parent": "Works_Terminal",
    "size": [
-    1.0,
-    0.04,
-    0.5
-   ],
-   "material": "glow_dim",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works_Terminal",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Terminal_Button",
-   "type": "cylinder",
-   "position": [
-    0.62,
-    1.0,
-    0.32
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Terminal",
-   "size": [
-    0.26,
-    0.1,
-    0.26
+    0.42,
+    0.03,
+    0.34
    ],
    "material": "glow",
-   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -71461,38 +72745,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Terminal_Back",
-   "type": "box",
-   "position": [
-    0.0,
-    0.0,
-    -0.62
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Terminal",
-   "size": [
-    1.8,
-    2.1,
-    0.22
-   ],
-   "material": "structure_b",
-   "mobile": {
-    "static": true
-   },
-   "gen": "Works_Terminal",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Terminal_Mast",
+   "name": "Works_Terminal_Floor",
    "type": "cylinder",
    "position": [
-    0.7,
-    2.1,
-    -0.62
+    0.0,
+    0.0,
+    -0.05
    ],
    "rotation": [
     0.0,
@@ -71501,13 +72759,12 @@
    ],
    "parent": "Works_Terminal",
    "size": [
-    0.12,
-    0.9,
-    0.12
+    2.7,
+    0.06,
+    2.7
    ],
    "material": "frame",
-   "sections": 6,
-   "collision": false,
+   "sections": 8,
    "mobile": {
     "static": true
    },
@@ -71515,12 +72772,12 @@
    "source": "visible"
   },
   {
-   "name": "Works_Terminal_Beacon",
+   "name": "Works_Terminal_FloorRim",
    "type": "cylinder",
    "position": [
-    0.7,
-    3.0,
-    -0.62
+    0.0,
+    0.0,
+    -0.05
    ],
    "rotation": [
     0.0,
@@ -71529,11 +72786,11 @@
    ],
    "parent": "Works_Terminal",
    "size": [
-    0.32,
-    0.3,
-    0.32
+    2.86,
+    0.035,
+    2.86
    ],
-   "material": "glow",
+   "material": "glow_yellow",
    "sections": 8,
    "collision": false,
    "outline": false,
@@ -71544,31 +72801,718 @@
    "source": "visible"
   },
   {
-   "name": "Works_Terminal_Stripe",
-   "type": "box",
+   "name": "Shotgun_Platform_Deck",
+   "type": "cylinder",
    "position": [
-    0.0,
-    0.0,
-    0.75
+    -1.5,
+    7.0,
+    -114.0
    ],
    "rotation": [
     0.0,
     0.0,
     0.0
    ],
-   "parent": "Works_Terminal",
    "size": [
-    1.9,
-    0.03,
-    0.6
+    8.4,
+    0.5,
+    8.4
    ],
-   "material": "stripe",
+   "material": "deck",
+   "sections": 16,
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_J1"
+   },
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Lip",
+   "type": "cylinder",
+   "position": [
+    -1.5,
+    6.78,
+    -114.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    8.76,
+    0.4,
+    8.76
+   ],
+   "material": "frame",
+   "sections": 16,
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_J1"
+   },
    "collision": false,
    "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Band",
+   "type": "cylinder",
+   "position": [
+    -1.5,
+    7.26,
+    -114.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    8.46,
+    0.08,
+    8.46
+   ],
+   "material": "glow",
+   "sections": 16,
    "mobile": {
-    "static": true
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_J1"
    },
-   "gen": "Works_Terminal",
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Bowl",
+   "type": "dome",
+   "position": [
+    -1.5,
+    6.78,
+    -114.0
+   ],
+   "rotation": [
+    180.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    8.5,
+    2.6,
+    8.5
+   ],
+   "material": "structure_b",
+   "sections": 16,
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_J1"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Column",
+   "type": "cylinder",
+   "position": [
+    -1.5,
+    0.0,
+    -114.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.52,
+    4.6,
+    2.52
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_J1"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_PedestalBase",
+   "type": "cylinder",
+   "position": [
+    -1.5,
+    7.45,
+    -114.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.4,
+    0.17,
+    2.4
+   ],
+   "material": "frame",
+   "sections": 8,
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_J1"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Pedestal",
+   "type": "cylinder",
+   "position": [
+    -1.5,
+    7.7,
+    -114.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.95,
+    0.82,
+    0.95
+   ],
+   "material": "frame",
+   "sections": 8,
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_J1"
+   },
+   "bevel": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_PedestalTop",
+   "type": "cylinder",
+   "position": [
+    -1.5,
+    8.52,
+    -114.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    0.14,
+    1.4
+   ],
+   "material": "frame",
+   "sections": 8,
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_J1"
+   },
+   "bevel": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_PedestalGlow",
+   "type": "cylinder",
+   "position": [
+    -1.5,
+    8.6,
+    -114.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.16,
+    0.08,
+    1.16
+   ],
+   "material": "glow",
+   "sections": 8,
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_J1"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Drip_01",
+   "type": "panel",
+   "position": [
+    2.725,
+    5.799,
+    -113.16
+   ],
+   "rotation": [
+    0.0,
+    78.75,
+    0.0
+   ],
+   "size": [
+    1.01,
+    1.36,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 12600342,
+   "uv_region": "drip",
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_GD"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Drip_02",
+   "type": "panel",
+   "position": [
+    2.082,
+    6.244,
+    -111.607
+   ],
+   "rotation": [
+    0.0,
+    56.25,
+    0.0
+   ],
+   "size": [
+    0.92,
+    0.92,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 785033276,
+   "uv_region": "drip",
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_GD"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Drip_03",
+   "type": "panel",
+   "position": [
+    -0.66,
+    5.539,
+    -109.775
+   ],
+   "rotation": [
+    0.0,
+    11.25,
+    0.0
+   ],
+   "size": [
+    1.01,
+    1.62,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 78139137,
+   "uv_region": "drip",
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_GD"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Drip_04",
+   "type": "panel",
+   "position": [
+    -2.34,
+    6.023,
+    -109.775
+   ],
+   "rotation": [
+    0.0,
+    -11.25,
+    0.0
+   ],
+   "size": [
+    0.77,
+    1.14,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 709812839,
+   "uv_region": "drip",
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_GD"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Drip_05",
+   "type": "panel",
+   "position": [
+    -5.082,
+    5.864,
+    -111.607
+   ],
+   "rotation": [
+    0.0,
+    -56.25,
+    0.0
+   ],
+   "size": [
+    1.08,
+    1.3,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 382040209,
+   "uv_region": "drip",
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_GD"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Drip_06",
+   "type": "panel",
+   "position": [
+    -5.725,
+    6.059,
+    -114.84
+   ],
+   "rotation": [
+    0.0,
+    -101.25,
+    0.0
+   ],
+   "size": [
+    1.07,
+    1.1,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 958345090,
+   "uv_region": "drip",
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_GD"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Drip_07",
+   "type": "panel",
+   "position": [
+    -5.082,
+    6.139,
+    -116.393
+   ],
+   "rotation": [
+    0.0,
+    -123.75,
+    0.0
+   ],
+   "size": [
+    1.0,
+    1.02,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 504355936,
+   "uv_region": "drip",
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_GD"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Drip_08",
+   "type": "panel",
+   "position": [
+    -2.34,
+    6.048,
+    -118.225
+   ],
+   "rotation": [
+    0.0,
+    -168.75,
+    0.0
+   ],
+   "size": [
+    0.82,
+    1.11,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 352510669,
+   "uv_region": "drip",
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_GD"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Drip_09",
+   "type": "panel",
+   "position": [
+    -0.66,
+    5.666,
+    -118.225
+   ],
+   "rotation": [
+    0.0,
+    168.75,
+    0.0
+   ],
+   "size": [
+    0.83,
+    1.49,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 666778953,
+   "uv_region": "drip",
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_GD"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Drip_10",
+   "type": "panel",
+   "position": [
+    2.082,
+    5.952,
+    -116.393
+   ],
+   "rotation": [
+    0.0,
+    123.75,
+    0.0
+   ],
+   "size": [
+    0.82,
+    1.21,
+    0.0
+   ],
+   "material": "accent",
+   "cut": "drip",
+   "seed": 385338003,
+   "uv_region": "drip",
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_GD"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Strand_1",
+   "type": "cylinder",
+   "position": [
+    0.915,
+    0.7,
+    -111.131
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.16,
+    6.05,
+    0.16
+   ],
+   "material": "fall",
+   "sections": 5,
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_GS"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Strand_2",
+   "type": "cylinder",
+   "position": [
+    -4.369,
+    0.7,
+    -111.585
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.26,
+    6.05,
+    0.26
+   ],
+   "material": "fall",
+   "sections": 5,
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_GS"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Strand_3",
+   "type": "cylinder",
+   "position": [
+    -3.915,
+    0.7,
+    -116.869
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    6.05,
+    0.2
+   ],
+   "material": "fall",
+   "sections": 5,
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_GS"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Strand_4",
+   "type": "cylinder",
+   "position": [
+    1.369,
+    0.7,
+    -116.415
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.3,
+    6.05,
+    0.3
+   ],
+   "material": "fall",
+   "sections": 5,
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_GS"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
+   "source": "visible"
+  },
+  {
+   "name": "Shotgun_Platform_Surge",
+   "type": "cylinder",
+   "position": [
+    -1.5,
+    1.03,
+    -114.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    10.08,
+    0.04,
+    10.08
+   ],
+   "material": "fall",
+   "sections": 12,
+   "mobile": {
+    "group": "Shotgun_Platform_Rig",
+    "joint": "Shotgun_Platform_R1"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Shotgun_Platform",
    "source": "visible"
   },
   {
@@ -75497,9 +77441,9 @@
    "name": "Crusher_A",
    "type": "group",
    "position": [
-    -10.0,
+    -5.2,
     0.0,
-    -110.8
+    -121.0
    ],
    "rotation": [
     0.0,
@@ -75553,7 +77497,7 @@
    "parent": "Crusher_A",
    "size": [
     2.0,
-    4.55,
+    4.75,
     2.0
    ],
    "material": "pipe",
@@ -75627,7 +77571,7 @@
    "type": "frustum",
    "position": [
     0.0,
-    6.2,
+    6.4,
     0.0
    ],
    "rotation": [
@@ -75655,7 +77599,7 @@
    "type": "box",
    "position": [
     0.0,
-    7.2,
+    7.4,
     0.0
    ],
    "rotation": [
@@ -75681,7 +77625,7 @@
    "type": "box",
    "position": [
     0.0,
-    7.78,
+    7.98,
     1.43
    ],
    "rotation": [
@@ -75709,7 +77653,7 @@
    "type": "box",
    "position": [
     0.0,
-    7.78,
+    7.98,
     -1.43
    ],
    "rotation": [
@@ -75737,7 +77681,7 @@
    "type": "box",
    "position": [
     1.43,
-    7.78,
+    7.98,
     0.0
    ],
    "rotation": [
@@ -75765,7 +77709,7 @@
    "type": "box",
    "position": [
     -1.43,
-    7.78,
+    7.98,
     0.0
    ],
    "rotation": [
@@ -75793,7 +77737,7 @@
    "type": "box",
    "position": [
     -1.63,
-    7.45,
+    7.65,
     0.0
    ],
    "rotation": [
@@ -75821,7 +77765,7 @@
    "type": "box",
    "position": [
     1.63,
-    7.45,
+    7.65,
     0.0
    ],
    "rotation": [
@@ -75849,7 +77793,7 @@
    "type": "box",
    "position": [
     0.0,
-    22.48,
+    26.08,
     0.0
    ],
    "rotation": [
@@ -75876,7 +77820,7 @@
    "type": "cylinder",
    "position": [
     0.0,
-    14.9,
+    15.1,
     0.0
    ],
    "rotation": [
@@ -75887,7 +77831,7 @@
    "parent": "Crusher_A",
    "size": [
     2.5,
-    7.62,
+    11.02,
     2.5
    ],
    "material": "machine",
@@ -75904,7 +77848,7 @@
    "type": "cylinder",
    "position": [
     0.0,
-    15.15,
+    15.35,
     0.0
    ],
    "rotation": [
@@ -75933,7 +77877,7 @@
    "type": "cylinder",
    "position": [
     0.0,
-    18.9,
+    20.8,
     0.0
    ],
    "rotation": [
@@ -75962,7 +77906,7 @@
    "type": "box",
    "position": [
     0.898,
-    15.65,
+    15.85,
     0.898
    ],
    "rotation": [
@@ -75990,7 +77934,7 @@
    "type": "box",
    "position": [
     -0.898,
-    15.65,
+    15.85,
     0.898
    ],
    "rotation": [
@@ -76018,7 +77962,7 @@
    "type": "box",
    "position": [
     -0.898,
-    15.65,
+    15.85,
     -0.898
    ],
    "rotation": [
@@ -76046,7 +77990,7 @@
    "type": "box",
    "position": [
     0.898,
-    15.65,
+    15.85,
     -0.898
    ],
    "rotation": [
@@ -76074,7 +78018,7 @@
    "type": "box",
    "position": [
     0.0,
-    13.2,
+    13.4,
     0.0
    ],
    "rotation": [
@@ -76101,7 +78045,7 @@
    "type": "box",
    "position": [
     0.0,
-    13.35,
+    13.55,
     1.51
    ],
    "rotation": [
@@ -76129,7 +78073,7 @@
    "type": "box",
    "position": [
     0.0,
-    13.35,
+    13.55,
     -1.51
    ],
    "rotation": [
@@ -76157,7 +78101,7 @@
    "type": "box",
    "position": [
     1.51,
-    13.35,
+    13.55,
     0.0
    ],
    "rotation": [
@@ -76185,7 +78129,7 @@
    "type": "box",
    "position": [
     -1.51,
-    13.35,
+    13.55,
     0.0
    ],
    "rotation": [
@@ -76213,7 +78157,7 @@
    "type": "cylinder",
    "position": [
     0.0,
-    13.95,
+    14.15,
     0.0
    ],
    "rotation": [
@@ -76241,7 +78185,7 @@
    "type": "cylinder",
    "position": [
     0.0,
-    13.98,
+    14.18,
     0.0
    ],
    "rotation": [
@@ -89678,6 +91622,7 @@
    "material": "frame",
    "blades": 6,
    "sweep": 24.680054435389835,
+   "detail": "low",
    "collision": false,
    "outline": false,
    "spin": -30.8,
@@ -92013,258 +93958,6 @@
    "source": "inferred"
   },
   {
-   "name": "Ceil_Conduit_2_Br_956",
-   "type": "box",
-   "position": [
-    -52.851,
-    25.65,
-    -44.782
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_956_H0",
-   "type": "box",
-   "position": [
-    -53.621,
-    25.76,
-    -44.782
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_956_H2",
-   "type": "box",
-   "position": [
-    -52.081,
-    25.76,
-    -44.782
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_963",
-   "type": "box",
-   "position": [
-    -52.851,
-    25.65,
-    -37.51
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_963_H0",
-   "type": "box",
-   "position": [
-    -53.621,
-    25.76,
-    -37.51
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_963_H2",
-   "type": "box",
-   "position": [
-    -52.081,
-    25.76,
-    -37.51
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_971",
-   "type": "box",
-   "position": [
-    -52.851,
-    25.65,
-    -29.984
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_971_H0",
-   "type": "box",
-   "position": [
-    -53.621,
-    25.76,
-    -29.984
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_971_H2",
-   "type": "box",
-   "position": [
-    -52.081,
-    25.76,
-    -29.984
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
    "name": "Ceil_Conduit_2_Br_976",
    "type": "box",
    "position": [
@@ -92327,258 +94020,6 @@
     -52.081,
     25.76,
     -24.273
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_983",
-   "type": "box",
-   "position": [
-    -52.851,
-    25.65,
-    -17.873
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_983_H0",
-   "type": "box",
-   "position": [
-    -53.621,
-    25.76,
-    -17.873
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_983_H2",
-   "type": "box",
-   "position": [
-    -52.081,
-    25.76,
-    -17.873
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_991",
-   "type": "box",
-   "position": [
-    -52.851,
-    25.65,
-    -9.228
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_991_H0",
-   "type": "box",
-   "position": [
-    -53.621,
-    25.76,
-    -9.228
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_991_H2",
-   "type": "box",
-   "position": [
-    -52.081,
-    25.76,
-    -9.228
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_998",
-   "type": "box",
-   "position": [
-    -52.851,
-    25.65,
-    -2.487
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_998_H0",
-   "type": "box",
-   "position": [
-    -53.621,
-    25.76,
-    -2.487
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_998_H2",
-   "type": "box",
-   "position": [
-    -52.081,
-    25.76,
-    -2.487
    ],
    "rotation": [
     0.0,
@@ -92685,258 +94126,6 @@
    "source": "inferred"
   },
   {
-   "name": "Ceil_Conduit_2_Br_1011",
-   "type": "box",
-   "position": [
-    -52.851,
-    25.65,
-    11.856
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1011_H0",
-   "type": "box",
-   "position": [
-    -53.621,
-    25.76,
-    11.856
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1011_H2",
-   "type": "box",
-   "position": [
-    -52.081,
-    25.76,
-    11.856
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1016",
-   "type": "box",
-   "position": [
-    -52.851,
-    25.65,
-    16.673
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1016_H0",
-   "type": "box",
-   "position": [
-    -53.621,
-    25.76,
-    16.673
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1016_H2",
-   "type": "box",
-   "position": [
-    -52.081,
-    25.76,
-    16.673
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1025",
-   "type": "box",
-   "position": [
-    -52.851,
-    25.65,
-    25.476
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1025_H0",
-   "type": "box",
-   "position": [
-    -53.621,
-    25.76,
-    25.476
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1025_H2",
-   "type": "box",
-   "position": [
-    -52.081,
-    25.76,
-    25.476
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
    "name": "Ceil_Conduit_2_Br_1032",
    "type": "box",
    "position": [
@@ -92999,174 +94188,6 @@
     -52.081,
     25.76,
     32.531
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1036",
-   "type": "box",
-   "position": [
-    -52.851,
-    25.65,
-    36.967
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1036_H0",
-   "type": "box",
-   "position": [
-    -53.621,
-    25.76,
-    36.967
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1036_H2",
-   "type": "box",
-   "position": [
-    -52.081,
-    25.76,
-    36.967
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1044",
-   "type": "box",
-   "position": [
-    -52.851,
-    25.65,
-    44.048
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1044_H0",
-   "type": "box",
-   "position": [
-    -53.621,
-    25.76,
-    44.048
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1044_H2",
-   "type": "box",
-   "position": [
-    -52.081,
-    25.76,
-    44.048
    ],
    "rotation": [
     0.0,
@@ -93360,258 +94381,6 @@
    "source": "inferred"
   },
   {
-   "name": "Ceil_Conduit_3_Br_953",
-   "type": "box",
-   "position": [
-    28.741,
-    25.65,
-    -47.206
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.32,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_953_H0",
-   "type": "box",
-   "position": [
-    28.141,
-    25.76,
-    -47.206
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_953_H2",
-   "type": "box",
-   "position": [
-    29.341,
-    25.76,
-    -47.206
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_959",
-   "type": "box",
-   "position": [
-    28.741,
-    25.65,
-    -41.439
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.32,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_959_H0",
-   "type": "box",
-   "position": [
-    28.141,
-    25.76,
-    -41.439
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_959_H2",
-   "type": "box",
-   "position": [
-    29.341,
-    25.76,
-    -41.439
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_967",
-   "type": "box",
-   "position": [
-    28.741,
-    25.65,
-    -33.121
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.32,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_967_H0",
-   "type": "box",
-   "position": [
-    28.141,
-    25.76,
-    -33.121
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_967_H2",
-   "type": "box",
-   "position": [
-    29.341,
-    25.76,
-    -33.121
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
    "name": "Ceil_Conduit_3_Br_973",
    "type": "box",
    "position": [
@@ -93674,258 +94443,6 @@
     29.341,
     25.76,
     -27.385
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_979",
-   "type": "box",
-   "position": [
-    28.741,
-    25.65,
-    -21.653
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.32,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_979_H0",
-   "type": "box",
-   "position": [
-    28.141,
-    25.76,
-    -21.653
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_979_H2",
-   "type": "box",
-   "position": [
-    29.341,
-    25.76,
-    -21.653
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_987",
-   "type": "box",
-   "position": [
-    28.741,
-    25.65,
-    -13.32
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.32,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_987_H0",
-   "type": "box",
-   "position": [
-    28.141,
-    25.76,
-    -13.32
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_987_H2",
-   "type": "box",
-   "position": [
-    29.341,
-    25.76,
-    -13.32
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_994",
-   "type": "box",
-   "position": [
-    28.741,
-    25.65,
-    -6.275
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.32,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_994_H0",
-   "type": "box",
-   "position": [
-    28.141,
-    25.76,
-    -6.275
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_994_H2",
-   "type": "box",
-   "position": [
-    29.341,
-    25.76,
-    -6.275
    ],
    "rotation": [
     0.0,
@@ -94032,258 +94549,6 @@
    "source": "inferred"
   },
   {
-   "name": "Ceil_Conduit_3_Br_1006",
-   "type": "box",
-   "position": [
-    28.741,
-    25.65,
-    6.471
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.32,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_1006_H0",
-   "type": "box",
-   "position": [
-    28.141,
-    25.76,
-    6.471
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_1006_H2",
-   "type": "box",
-   "position": [
-    29.341,
-    25.76,
-    6.471
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_1015",
-   "type": "box",
-   "position": [
-    28.741,
-    25.65,
-    15.144
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.32,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_1015_H0",
-   "type": "box",
-   "position": [
-    28.141,
-    25.76,
-    15.144
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_1015_H2",
-   "type": "box",
-   "position": [
-    29.341,
-    25.76,
-    15.144
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_1022",
-   "type": "box",
-   "position": [
-    28.741,
-    25.65,
-    22.227
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.32,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_1022_H0",
-   "type": "box",
-   "position": [
-    28.141,
-    25.76,
-    22.227
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_1022_H2",
-   "type": "box",
-   "position": [
-    29.341,
-    25.76,
-    22.227
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
    "name": "Ceil_Conduit_3_Br_1030",
    "type": "box",
    "position": [
@@ -94346,174 +94611,6 @@
     29.341,
     25.76,
     30.702
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_1038",
-   "type": "box",
-   "position": [
-    28.741,
-    25.65,
-    38.265
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.32,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_1038_H0",
-   "type": "box",
-   "position": [
-    28.141,
-    25.76,
-    38.265
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_1038_H2",
-   "type": "box",
-   "position": [
-    29.341,
-    25.76,
-    38.265
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_1044",
-   "type": "box",
-   "position": [
-    28.741,
-    25.65,
-    44.136
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.32,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_1044_H0",
-   "type": "box",
-   "position": [
-    28.141,
-    25.76,
-    44.136
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_3_Br_1044_H2",
-   "type": "box",
-   "position": [
-    29.341,
-    25.76,
-    44.136
    ],
    "rotation": [
     0.0,
@@ -105444,7 +105541,7 @@
    "position": [
     22.522,
     22.688,
-    -168.8
+    -159.742
    ],
    "rotation": [
     90.0,
@@ -105453,7 +105550,7 @@
    ],
    "size": [
     2.061,
-    40.669,
+    31.612,
     2.061
    ],
    "material": "pipe",
@@ -105907,6 +106004,7 @@
    "material": "frame",
    "blades": 7,
    "sweep": 18.47054150832527,
+   "detail": "low",
    "collision": false,
    "outline": false,
    "spin": -17.2,
@@ -106328,6 +106426,7 @@
    "material": "frame",
    "blades": 8,
    "sweep": 27.49698029135622,
+   "detail": "low",
    "collision": false,
    "outline": false,
    "spin": -28.1,
@@ -108106,258 +108205,6 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Conduit_1_Br_932",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -213.276
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_932_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -213.276
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_932_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -213.276
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_938",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -207.788
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_938_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -207.788
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_938_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -207.788
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_944",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -201.473
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_944_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -201.473
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_944_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -201.473
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
    "name": "Works_Ceil_Conduit_1_Br_952",
    "type": "box",
    "position": [
@@ -108420,258 +108267,6 @@
     37.133,
     25.76,
     -193.557
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_960",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -185.835
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_960_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -185.835
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_960_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -185.835
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_967",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -178.228
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_967_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -178.228
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_967_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -178.228
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_976",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -169.579
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_976_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -169.579
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_976_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -169.579
    ],
    "rotation": [
     0.0,
@@ -108778,258 +108373,6 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Conduit_1_Br_988",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -157.773
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_988_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -157.773
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_988_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -157.773
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_994",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -151.701
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_994_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -151.701
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_994_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -151.701
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1000",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -144.481
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1000_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -144.481
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1000_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -144.481
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
    "name": "Works_Ceil_Conduit_1_Br_1005",
    "type": "box",
    "position": [
@@ -109092,258 +108435,6 @@
     37.133,
     25.76,
     -139.836
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1011",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -133.745
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1011_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -133.745
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1011_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -133.745
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1019",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -125.509
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1019_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -125.509
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1019_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -125.509
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1025",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -119.312
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1025_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -119.312
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1025_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -119.312
    ],
    "rotation": [
     0.0,
@@ -109450,258 +108541,6 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Conduit_1_Br_1041",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -103.873
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1041_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -103.873
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1041_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -103.873
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1047",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -97.302
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1047_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -97.302
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1047_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -97.302
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1055",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -89.596
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1055_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -89.596
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1055_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -89.596
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
    "name": "Works_Ceil_Conduit_1_Br_1063",
    "type": "box",
    "position": [
@@ -109764,174 +108603,6 @@
     37.133,
     25.76,
     -81.503
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1068",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -76.701
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1068_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -76.701
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1068_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -76.701
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1074",
-   "type": "box",
-   "position": [
-    36.363,
-    25.65,
-    -70.316
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1074_H0",
-   "type": "box",
-   "position": [
-    35.593,
-    25.76,
-    -70.316
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_1_Br_1074_H2",
-   "type": "box",
-   "position": [
-    37.133,
-    25.76,
-    -70.316
    ],
    "rotation": [
     0.0,
@@ -110154,258 +108825,6 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Conduit_2_Br_934",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -211.362
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_934_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -211.362
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_934_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -211.362
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_942",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -203.941
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_942_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -203.941
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_942_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -203.941
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_950",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -195.173
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_950_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -195.173
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_950_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -195.173
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
    "name": "Works_Ceil_Conduit_2_Br_958",
    "type": "box",
    "position": [
@@ -110468,258 +108887,6 @@
     -1.568,
     25.76,
     -187.754
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_964",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -181.739
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_964_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -181.739
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_964_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -181.739
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_971",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -174.523
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_971_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -174.523
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_971_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -174.523
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_976",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -169.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_976_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -169.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_976_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -169.15
    ],
    "rotation": [
     0.0,
@@ -110826,258 +108993,6 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Conduit_2_Br_989",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -156.543
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_989_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -156.543
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_989_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -156.543
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_994",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -151.936
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_994_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -151.936
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_994_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -151.936
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_998",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -147.38
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_998_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -147.38
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_998_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -147.38
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
    "name": "Works_Ceil_Conduit_2_Br_1003",
    "type": "box",
    "position": [
@@ -111140,258 +109055,6 @@
     -1.568,
     25.76,
     -141.064
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1009",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -135.014
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1009_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -135.014
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1009_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -135.014
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1014",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -130.413
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1014_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -130.413
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1014_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -130.413
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1020",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -124.698
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1020_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -124.698
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1020_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -124.698
    ],
    "rotation": [
     0.0,
@@ -111498,258 +109161,6 @@
    "source": "visible"
   },
   {
-   "name": "Works_Ceil_Conduit_2_Br_1031",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -113.162
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1031_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -113.162
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1031_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -113.162
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1039",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -105.091
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1039_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -105.091
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1039_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -105.091
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1048",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -96.207
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1048_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -96.207
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1048_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -96.207
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
    "name": "Works_Ceil_Conduit_2_Br_1056",
    "type": "box",
    "position": [
@@ -111812,258 +109223,6 @@
     -1.568,
     25.76,
     -88.412
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1060",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -84.051
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1060_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -84.051
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1060_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -84.051
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1067",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -77.546
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1067_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -77.546
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1067_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -77.546
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1074",
-   "type": "box",
-   "position": [
-    -2.338,
-    25.65,
-    -70.559
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1074_H0",
-   "type": "box",
-   "position": [
-    -3.108,
-    25.76,
-    -70.559
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "Works.ceiling",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Ceil_Conduit_2_Br_1074_H2",
-   "type": "box",
-   "position": [
-    -1.568,
-    25.76,
-    -70.559
    ],
    "rotation": [
     0.0,
@@ -117115,10 +114274,10 @@
    "source": "visible"
   },
   {
-   "name": "Works_Wall_East_Op2_Sill_Body_C1",
+   "name": "Works_Wall_East_Op2_Sill_Body",
    "type": "box",
    "position": [
-    4.525,
+    -0.975,
     0.0,
     0.0
    ],
@@ -117129,8 +114288,31 @@
    ],
    "parent": "Works_Wall_East_Op2_Sill",
    "size": [
-    3.05,
+    14.05,
     16.0,
+    4.0
+   ],
+   "material": "wall",
+   "gen": "Works.walls",
+   "source": "visible"
+  },
+  {
+   "name": "Works_Wall_East_Op2_Sill_Body_C1",
+   "type": "box",
+   "position": [
+    7.025,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Works_Wall_East_Op2_Sill",
+   "size": [
+    1.95,
+    7.7,
     4.0
    ],
    "material": "wall",
@@ -117141,8 +114323,8 @@
    "name": "Works_Wall_East_Op2_Sill_Body_C2",
    "type": "box",
    "position": [
-    -0.5,
-    0.0,
+    7.025,
+    14.95,
     0.0
    ],
    "rotation": [
@@ -117152,8 +114334,8 @@
    ],
    "parent": "Works_Wall_East_Op2_Sill",
    "size": [
-    7.0,
-    8.3,
+    1.95,
+    1.05,
     4.0
    ],
    "material": "wall",
@@ -117229,52 +114411,6 @@
    ],
    "material": "wall",
    "uv_space": "world",
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_Op2_Sill_Body",
-   "type": "box",
-   "position": [
-    -6.0,
-    0.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_East_Op2_Sill",
-   "size": [
-    4.0,
-    16.0,
-    4.0
-   ],
-   "material": "wall",
-   "gen": "Works.walls",
-   "source": "visible"
-  },
-  {
-   "name": "Works_Wall_East_Op2_Sill_Body_C3",
-   "type": "box",
-   "position": [
-    -0.5,
-    15.3,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Works_Wall_East_Op2_Sill",
-   "size": [
-    7.0,
-    0.7,
-    4.0
-   ],
-   "material": "wall",
    "gen": "Works.walls",
    "source": "visible"
   },
@@ -118287,7 +115423,7 @@
    "type": "box",
    "position": [
     -3.65,
-    0.0,
+    0.01,
     0.16
    ],
    "rotation": [
@@ -118297,8 +115433,8 @@
    ],
    "parent": "Tunnel_West_MouthA",
    "size": [
-    0.7,
-    1.65,
+    0.66,
+    1.64,
     0.32
    ],
    "material": "structure_b",
@@ -118423,7 +115559,7 @@
    "type": "box",
    "position": [
     3.65,
-    0.0,
+    0.01,
     0.16
    ],
    "rotation": [
@@ -118433,8 +115569,8 @@
    ],
    "parent": "Tunnel_West_MouthA",
    "size": [
-    0.7,
-    1.65,
+    0.66,
+    1.64,
     0.32
    ],
    "material": "structure_b",
@@ -119394,7 +116530,7 @@
    "type": "box",
    "position": [
     -3.65,
-    0.0,
+    0.01,
     0.16
    ],
    "rotation": [
@@ -119404,8 +116540,8 @@
    ],
    "parent": "Tunnel_West_MouthB",
    "size": [
-    0.7,
-    1.65,
+    0.66,
+    1.64,
     0.32
    ],
    "material": "structure_b",
@@ -119530,7 +116666,7 @@
    "type": "box",
    "position": [
     3.65,
-    0.0,
+    0.01,
     0.16
    ],
    "rotation": [
@@ -119540,8 +116676,8 @@
    ],
    "parent": "Tunnel_West_MouthB",
    "size": [
-    0.7,
-    1.65,
+    0.66,
+    1.64,
     0.32
    ],
    "material": "structure_b",
@@ -122705,7 +119841,7 @@
    "type": "box",
    "position": [
     -3.65,
-    0.0,
+    0.01,
     0.16
    ],
    "rotation": [
@@ -122715,8 +119851,8 @@
    ],
    "parent": "Tunnel_East_MouthA",
    "size": [
-    0.7,
-    1.65,
+    0.66,
+    1.64,
     0.32
    ],
    "material": "structure_b",
@@ -122841,7 +119977,7 @@
    "type": "box",
    "position": [
     3.65,
-    0.0,
+    0.01,
     0.16
    ],
    "rotation": [
@@ -122851,8 +119987,8 @@
    ],
    "parent": "Tunnel_East_MouthA",
    "size": [
-    0.7,
-    1.65,
+    0.66,
+    1.64,
     0.32
    ],
    "material": "structure_b",
@@ -123812,7 +120948,7 @@
    "type": "box",
    "position": [
     -3.65,
-    0.0,
+    0.01,
     0.16
    ],
    "rotation": [
@@ -123822,8 +120958,8 @@
    ],
    "parent": "Tunnel_East_MouthB",
    "size": [
-    0.7,
-    1.65,
+    0.66,
+    1.64,
     0.32
    ],
    "material": "structure_b",
@@ -123948,7 +121084,7 @@
    "type": "box",
    "position": [
     3.65,
-    0.0,
+    0.01,
     0.16
    ],
    "rotation": [
@@ -123958,8 +121094,8 @@
    ],
    "parent": "Tunnel_East_MouthB",
    "size": [
-    0.7,
-    1.65,
+    0.66,
+    1.64,
     0.32
    ],
    "material": "structure_b",
@@ -126357,7 +123493,7 @@
    "position": [
     22.522,
     23.619,
-    -168.3
+    -159.242
    ],
    "rotation": [
     0.0,
@@ -126383,7 +123519,7 @@
    "position": [
     22.522,
     23.619,
-    -155.077
+    -143.937
    ],
    "rotation": [
     0.0,
@@ -126405,32 +123541,6 @@
   },
   {
    "name": "Works_Ceil_Duct_1_Hanger_3",
-   "type": "box",
-   "position": [
-    22.522,
-    23.619,
-    -141.854
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.18,
-    2.881,
-    0.18
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "cutaway": true
-  },
-  {
-   "name": "Works_Ceil_Duct_1_Hanger_4",
    "type": "box",
    "position": [
     22.522,
@@ -137427,11 +134537,39 @@
     {
      "pts": [
       [
-       -31.74545,
+       -32.025,
+       -50.79707
+      ],
+      [
+       -32.025,
+       -50.68
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.6
+    },
+    {
+     "pts": [
+      [
+       -32.025,
+       -51.0
+      ],
+      [
+       -32.025,
+       -50.79707
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.6
+    },
+    {
+     "pts": [
+      [
+       -31.73854,
        -51.045
       ],
       [
-       -32.0,
+       -31.98,
        -51.045
       ]
      ],
@@ -137441,11 +134579,11 @@
     {
      "pts": [
       [
-       -32.0,
+       -31.98,
        -50.635
       ],
       [
-       -31.3,
+       -31.32,
        -50.635
       ]
      ],
@@ -137455,11 +134593,11 @@
     {
      "pts": [
       [
-       -31.3,
+       -31.32,
        -51.045
       ],
       [
-       -31.74545,
+       -31.73854,
        -51.045
       ]
      ],
@@ -137469,11 +134607,11 @@
     {
      "pts": [
       [
-       -31.255,
-       -50.88364
+       -31.275,
+       -50.88293
       ],
       [
-       -31.255,
+       -31.275,
        -51.0
       ]
      ],
@@ -137483,12 +134621,12 @@
     {
      "pts": [
       [
-       -31.255,
+       -31.275,
        -50.68
       ],
       [
-       -31.255,
-       -50.88364
+       -31.275,
+       -50.88293
       ]
      ],
      "y0": 0.85,
@@ -137554,6 +134692,20 @@
      "pts": [
       [
        -32.155,
+       -50.64324
+      ],
+      [
+       -32.155,
+       -51.0
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -32.155,
        -50.56
       ],
       [
@@ -137567,11 +134719,11 @@
     {
      "pts": [
       [
-       -24.745,
-       -50.79636
+       -24.725,
+       -50.79707
       ],
       [
-       -24.745,
+       -24.725,
        -50.68
       ]
      ],
@@ -137581,12 +134733,12 @@
     {
      "pts": [
       [
-       -24.745,
+       -24.725,
        -51.0
       ],
       [
-       -24.745,
-       -50.79636
+       -24.725,
+       -50.79707
       ]
      ],
      "y0": 0.85,
@@ -137595,11 +134747,11 @@
     {
      "pts": [
       [
-       -24.44545,
+       -24.43854,
        -51.045
       ],
       [
-       -24.7,
+       -24.68,
        -51.045
       ]
      ],
@@ -137609,11 +134761,11 @@
     {
      "pts": [
       [
-       -24.7,
+       -24.68,
        -50.635
       ],
       [
-       -24.0,
+       -24.02,
        -50.635
       ]
      ],
@@ -137623,11 +134775,11 @@
     {
      "pts": [
       [
-       -24.0,
+       -24.02,
        -51.045
       ],
       [
-       -24.44545,
+       -24.43854,
        -51.045
       ]
      ],
@@ -137637,11 +134789,11 @@
     {
      "pts": [
       [
-       -23.955,
-       -50.88364
+       -23.975,
+       -50.88293
       ],
       [
-       -23.955,
+       -23.975,
        -51.0
       ]
      ],
@@ -137651,12 +134803,12 @@
     {
      "pts": [
       [
-       -23.955,
+       -23.975,
        -50.68
       ],
       [
-       -23.955,
-       -50.88364
+       -23.975,
+       -50.88293
       ]
      ],
      "y0": 0.85,
@@ -138323,11 +135475,11 @@
     {
      "pts": [
       [
-       23.955,
-       -50.79636
+       23.975,
+       -50.79707
       ],
       [
-       23.955,
+       23.975,
        -50.68
       ]
      ],
@@ -138337,12 +135489,12 @@
     {
      "pts": [
       [
-       23.955,
+       23.975,
        -51.0
       ],
       [
-       23.955,
-       -50.79636
+       23.975,
+       -50.79707
       ]
      ],
      "y0": 0.85,
@@ -138351,11 +135503,11 @@
     {
      "pts": [
       [
-       24.25455,
+       24.26146,
        -51.045
       ],
       [
-       24.0,
+       24.02,
        -51.045
       ]
      ],
@@ -138365,11 +135517,11 @@
     {
      "pts": [
       [
-       24.0,
+       24.02,
        -50.635
       ],
       [
-       24.7,
+       24.68,
        -50.635
       ]
      ],
@@ -138379,11 +135531,11 @@
     {
      "pts": [
       [
-       24.7,
+       24.68,
        -51.045
       ],
       [
-       24.25455,
+       24.26146,
        -51.045
       ]
      ],
@@ -138393,11 +135545,11 @@
     {
      "pts": [
       [
-       24.745,
-       -50.88364
+       24.725,
+       -50.88293
       ],
       [
-       24.745,
+       24.725,
        -51.0
       ]
      ],
@@ -138407,12 +135559,12 @@
     {
      "pts": [
       [
-       24.745,
+       24.725,
        -50.68
       ],
       [
-       24.745,
-       -50.88364
+       24.725,
+       -50.88293
       ]
      ],
      "y0": 0.85,
@@ -138505,11 +135657,11 @@
     {
      "pts": [
       [
-       31.255,
-       -50.79636
+       31.275,
+       -50.79707
       ],
       [
-       31.255,
+       31.275,
        -50.68
       ]
      ],
@@ -138519,12 +135671,12 @@
     {
      "pts": [
       [
-       31.255,
+       31.275,
        -51.0
       ],
       [
-       31.255,
-       -50.79636
+       31.275,
+       -50.79707
       ]
      ],
      "y0": 0.85,
@@ -138533,11 +135685,11 @@
     {
      "pts": [
       [
-       31.55455,
+       31.56146,
        -51.045
       ],
       [
-       31.3,
+       31.32,
        -51.045
       ]
      ],
@@ -138547,11 +135699,11 @@
     {
      "pts": [
       [
-       31.3,
+       31.32,
        -50.635
       ],
       [
-       32.0,
+       31.98,
        -50.635
       ]
      ],
@@ -138561,16 +135713,72 @@
     {
      "pts": [
       [
-       32.0,
+       31.98,
        -51.045
       ],
       [
-       31.55455,
+       31.56146,
        -51.045
       ]
      ],
      "y0": 0.85,
      "y1": 1.6
+    },
+    {
+     "pts": [
+      [
+       32.025,
+       -50.88293
+      ],
+      [
+       32.025,
+       -51.0
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.6
+    },
+    {
+     "pts": [
+      [
+       32.025,
+       -50.68
+      ],
+      [
+       32.025,
+       -50.88293
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.6
+    },
+    {
+     "pts": [
+      [
+       32.155,
+       -50.91676
+      ],
+      [
+       32.155,
+       -50.56
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.155,
+       -51.0
+      ],
+      [
+       32.155,
+       -50.91676
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
     },
     {
      "pts": [
@@ -141165,12 +138373,12 @@
     {
      "pts": [
       [
-       -21.021,
-       -121.03448
+       -18.621,
+       -127.53448
       ],
       [
-       -21.021,
-       -114.0
+       -18.621,
+       -120.5
       ]
      ],
      "y0": 0.85,
@@ -141179,12 +138387,12 @@
     {
      "pts": [
       [
-       -12.2069,
-       -122.021
+       -9.8069,
+       -128.521
       ],
       [
-       -21.0,
-       -122.021
+       -18.6,
+       -128.521
       ]
      ],
      "y0": 0.85,
@@ -141193,12 +138401,12 @@
     {
      "pts": [
       [
-       -21.0,
-       -113.979
+       -18.6,
+       -120.479
       ],
       [
-       -11.0,
-       -113.979
+       -8.6,
+       -120.479
       ]
      ],
      "y0": 0.85,
@@ -141207,12 +138415,12 @@
     {
      "pts": [
       [
-       -11.0,
-       -122.021
+       -8.6,
+       -128.521
       ],
       [
-       -12.2069,
-       -122.021
+       -9.8069,
+       -128.521
       ]
      ],
      "y0": 0.85,
@@ -141221,12 +138429,12 @@
     {
      "pts": [
       [
-       -10.979,
-       -114.96552
+       -8.579,
+       -121.46552
       ],
       [
-       -10.979,
-       -122.0
+       -8.579,
+       -128.5
       ]
      ],
      "y0": 0.85,
@@ -141235,12 +138443,12 @@
     {
      "pts": [
       [
-       -21.295,
-       -122.13493
+       -18.895,
+       -128.63493
       ],
       [
-       -21.295,
-       -121.45
+       -18.895,
+       -127.95
       ]
      ],
      "y0": 0.85,
@@ -141249,12 +138457,12 @@
     {
      "pts": [
       [
-       -21.295,
-       -122.25
+       -18.895,
+       -128.75
       ],
       [
-       -21.295,
-       -122.13493
+       -18.895,
+       -128.63493
       ]
      ],
      "y0": 0.85,
@@ -141263,12 +138471,12 @@
     {
      "pts": [
       [
-       -20.56507,
-       -122.295
+       -18.16507,
+       -128.795
       ],
       [
-       -21.25,
-       -122.295
+       -18.85,
+       -128.795
       ]
      ],
      "y0": 0.85,
@@ -141277,12 +138485,12 @@
     {
      "pts": [
       [
-       -21.25,
-       -121.405
+       -18.85,
+       -127.905
       ],
       [
-       -21.13493,
-       -121.405
+       -18.73493,
+       -127.905
       ]
      ],
      "y0": 0.85,
@@ -141291,12 +138499,12 @@
     {
      "pts": [
       [
-       -20.45,
-       -122.295
+       -18.05,
+       -128.795
       ],
       [
-       -20.56507,
-       -122.295
+       -18.16507,
+       -128.795
       ]
      ],
      "y0": 0.85,
@@ -141305,12 +138513,12 @@
     {
      "pts": [
       [
-       -11.595,
-       -122.25
+       -9.195,
+       -128.75
       ],
       [
-       -11.595,
-       -122.13493
+       -9.195,
+       -128.63493
       ]
      ],
      "y0": 0.85,
@@ -141319,12 +138527,12 @@
     {
      "pts": [
       [
-       -10.86507,
-       -122.295
+       -8.46507,
+       -128.795
       ],
       [
-       -11.55,
-       -122.295
+       -9.15,
+       -128.795
       ]
      ],
      "y0": 0.85,
@@ -141333,12 +138541,12 @@
     {
      "pts": [
       [
-       -10.75,
-       -122.295
+       -8.35,
+       -128.795
       ],
       [
-       -10.86507,
-       -122.295
+       -8.46507,
+       -128.795
       ]
      ],
      "y0": 0.85,
@@ -141347,12 +138555,12 @@
     {
      "pts": [
       [
-       -10.705,
-       -121.56507
+       -8.305,
+       -128.06507
       ],
       [
-       -10.705,
-       -122.25
+       -8.305,
+       -128.75
       ]
      ],
      "y0": 0.85,
@@ -141361,12 +138569,12 @@
     {
      "pts": [
       [
-       -10.705,
-       -121.45
+       -8.305,
+       -127.95
       ],
       [
-       -10.705,
-       -121.56507
+       -8.305,
+       -128.06507
       ]
      ],
      "y0": 0.85,
@@ -141375,12 +138583,12 @@
     {
      "pts": [
       [
-       -11.55,
-       -113.705
+       -9.15,
+       -120.205
       ],
       [
-       -10.75,
-       -113.705
+       -8.35,
+       -120.205
       ]
      ],
      "y0": 0.85,
@@ -141389,12 +138597,12 @@
     {
      "pts": [
       [
-       -10.75,
-       -114.595
+       -8.35,
+       -121.095
       ],
       [
-       -10.86507,
-       -114.595
+       -8.46507,
+       -121.095
       ]
      ],
      "y0": 0.85,
@@ -141403,12 +138611,12 @@
     {
      "pts": [
       [
-       -10.705,
-       -113.86507
+       -8.305,
+       -120.36507
       ],
       [
-       -10.705,
-       -114.55
+       -8.305,
+       -121.05
       ]
      ],
      "y0": 0.85,
@@ -141417,12 +138625,12 @@
     {
      "pts": [
       [
-       -10.705,
-       -113.75
+       -8.305,
+       -120.25
       ],
       [
-       -10.705,
-       -113.86507
+       -8.305,
+       -120.36507
       ]
      ],
      "y0": 0.85,
@@ -141431,12 +138639,12 @@
     {
      "pts": [
       [
-       -21.295,
-       -114.43493
+       -18.895,
+       -120.93493
       ],
       [
-       -21.295,
-       -113.75
+       -18.895,
+       -120.25
       ]
      ],
      "y0": 0.85,
@@ -141445,12 +138653,12 @@
     {
      "pts": [
       [
-       -21.295,
-       -114.55
+       -18.895,
+       -121.05
       ],
       [
-       -21.295,
-       -114.43493
+       -18.895,
+       -120.93493
       ]
      ],
      "y0": 0.85,
@@ -141459,12 +138667,12 @@
     {
      "pts": [
       [
-       -21.25,
-       -113.705
+       -18.85,
+       -120.205
       ],
       [
-       -20.45,
-       -113.705
+       -18.05,
+       -120.205
       ]
      ],
      "y0": 0.85,
@@ -141473,12 +138681,12 @@
     {
      "pts": [
       [
-       -20.405,
-       -113.75
+       -18.005,
+       -120.25
       ],
       [
-       -20.405,
-       -113.86507
+       -18.005,
+       -120.36507
       ]
      ],
      "y0": 0.85,
@@ -144133,12 +141341,12 @@
     {
      "pts": [
       [
-       -26.93197,
-       -128.55665
+       -25.8714,
+       -131.79032
       ],
       [
-       -25.46958,
-       -129.88593
+       -24.74692,
+       -133.41547
       ]
      ],
      "y0": 0.85,
@@ -144147,12 +141355,12 @@
     {
      "pts": [
       [
-       -25.86893,
-       -130.3565
+       -25.24222,
+       -133.78372
       ],
       [
-       -26.48467,
-       -131.03389
+       -25.99501,
+       -134.30458
       ]
      ],
      "y0": 0.85,
@@ -144161,12 +141369,12 @@
     {
      "pts": [
       [
-       -25.46816,
-       -129.91559
+       -24.75224,
+       -133.44469
       ],
       [
-       -25.86893,
-       -130.3565
+       -25.24222,
+       -133.78372
       ]
      ],
      "y0": 0.85,
@@ -144175,12 +141383,12 @@
     {
      "pts": [
       [
-       -27.97814,
-       -129.67637
+       -27.14338,
+       -132.64489
       ],
       [
-       -26.96163,
-       -128.55807
+       -25.90061,
+       -131.785
       ]
      ],
      "y0": 0.85,
@@ -144189,12 +141397,12 @@
     {
      "pts": [
       [
-       -27.0909,
-       -130.51122
+       -26.46757,
+       -133.65852
       ],
       [
-       -27.97672,
-       -129.70603
+       -27.1487,
+       -132.67411
       ]
      ],
      "y0": 0.85,
@@ -144203,12 +141411,12 @@
     {
      "pts": [
       [
-       -26.51433,
-       -131.03531
+       -26.02423,
+       -134.29926
       ],
       [
-       -27.0909,
-       -130.51122
+       -26.46757,
+       -133.65852
       ]
      ],
      "y0": 0.85,
@@ -148459,12 +145667,12 @@
     {
      "pts": [
       [
-       -10.64651,
-       -109.69208
+       -5.84651,
+       -119.89208
       ],
       [
-       -10.34858,
-       -109.52007
+       -5.54858,
+       -119.72007
       ]
      ],
      "y0": 0.85,
@@ -148473,12 +145681,12 @@
     {
      "pts": [
       [
-       -10.93416,
-       -109.85816
+       -6.13416,
+       -120.05816
       ],
       [
-       -10.64651,
-       -109.69208
+       -5.84651,
+       -119.89208
       ]
      ],
      "y0": 0.85,
@@ -148487,12 +145695,12 @@
     {
      "pts": [
       [
-       -10.33808,
-       -109.51726
+       -5.53808,
+       -119.71726
       ],
       [
-       -9.66192,
-       -109.51726
+       -4.86192,
+       -119.71726
       ]
      ],
      "y0": 0.85,
@@ -148501,12 +145709,12 @@
     {
      "pts": [
       [
-       -9.05816,
-       -109.86584
+       -4.25816,
+       -120.06584
       ],
       [
-       -8.72007,
-       -110.45142
+       -3.92007,
+       -120.65142
       ]
      ],
      "y0": 0.85,
@@ -148515,12 +145723,12 @@
     {
      "pts": [
       [
-       -9.36377,
-       -109.68615
+       -4.56377,
+       -119.88615
       ],
       [
-       -9.06584,
-       -109.85816
+       -4.26584,
+       -120.05816
       ]
      ],
      "y0": 0.85,
@@ -148529,12 +145737,12 @@
     {
      "pts": [
       [
-       -9.65142,
-       -109.52007
+       -4.85142,
+       -119.72007
       ],
       [
-       -9.36377,
-       -109.68615
+       -4.56377,
+       -119.88615
       ]
      ],
      "y0": 0.85,
@@ -148543,12 +145751,12 @@
     {
      "pts": [
       [
-       -11.27993,
-       -110.45142
+       -6.47993,
+       -120.65142
       ],
       [
-       -10.94184,
-       -109.86584
+       -6.14184,
+       -120.06584
       ]
      ],
      "y0": 0.85,
@@ -148557,12 +145765,12 @@
     {
      "pts": [
       [
-       -11.28274,
-       -110.80593
+       -6.48274,
+       -121.00593
       ],
       [
-       -11.28274,
-       -110.46192
+       -6.48274,
+       -120.66192
       ]
      ],
      "y0": 0.85,
@@ -148571,12 +145779,12 @@
     {
      "pts": [
       [
-       -11.28274,
-       -111.13808
+       -6.48274,
+       -121.33808
       ],
       [
-       -11.28274,
-       -110.80593
+       -6.48274,
+       -121.00593
       ]
      ],
      "y0": 0.85,
@@ -148585,12 +145793,12 @@
     {
      "pts": [
       [
-       -10.63623,
-       -111.91385
+       -5.83623,
+       -122.11385
       ],
       [
-       -10.93416,
-       -111.74184
+       -6.13416,
+       -121.94184
       ]
      ],
      "y0": 0.85,
@@ -148599,12 +145807,12 @@
     {
      "pts": [
       [
-       -10.34858,
-       -112.07993
+       -5.54858,
+       -122.27993
       ],
       [
-       -10.63623,
-       -111.91385
+       -5.83623,
+       -122.11385
       ]
      ],
      "y0": 0.85,
@@ -148613,12 +145821,12 @@
     {
      "pts": [
       [
-       -10.94184,
-       -111.73416
+       -6.14184,
+       -121.93416
       ],
       [
-       -11.27993,
-       -111.14858
+       -6.47993,
+       -121.34858
       ]
      ],
      "y0": 0.85,
@@ -148627,12 +145835,12 @@
     {
      "pts": [
       [
-       -8.71726,
-       -110.79407
+       -3.91726,
+       -120.99407
       ],
       [
-       -8.71726,
-       -111.13808
+       -3.91726,
+       -121.33808
       ]
      ],
      "y0": 0.85,
@@ -148641,12 +145849,12 @@
     {
      "pts": [
       [
-       -8.71726,
-       -110.46192
+       -3.91726,
+       -120.66192
       ],
       [
-       -8.71726,
-       -110.79407
+       -3.91726,
+       -120.99407
       ]
      ],
      "y0": 0.85,
@@ -148655,12 +145863,12 @@
     {
      "pts": [
       [
-       -8.72007,
-       -111.14858
+       -3.92007,
+       -121.34858
       ],
       [
-       -9.05816,
-       -111.73416
+       -4.25816,
+       -121.93416
       ]
      ],
      "y0": 0.85,
@@ -148669,12 +145877,12 @@
     {
      "pts": [
       [
-       -9.66192,
-       -112.08274
+       -4.86192,
+       -122.28274
       ],
       [
-       -10.33808,
-       -112.08274
+       -5.53808,
+       -122.28274
       ]
      ],
      "y0": 0.85,
@@ -148683,12 +145891,12 @@
     {
      "pts": [
       [
-       -9.35349,
-       -111.90792
+       -4.55349,
+       -122.10792
       ],
       [
-       -9.65142,
-       -112.07993
+       -4.85142,
+       -122.27993
       ]
      ],
      "y0": 0.85,
@@ -148697,12 +145905,12 @@
     {
      "pts": [
       [
-       -9.06584,
-       -111.74184
+       -4.26584,
+       -121.94184
       ],
       [
-       -9.35349,
-       -111.90792
+       -4.55349,
+       -122.10792
       ]
      ],
      "y0": 0.85,
@@ -148865,11 +146073,11 @@
     {
      "pts": [
       [
-       -23.955,
-       -60.20364
+       -23.975,
+       -60.20293
       ],
       [
-       -23.955,
+       -23.975,
        -60.32
       ]
      ],
@@ -148879,12 +146087,12 @@
     {
      "pts": [
       [
-       -23.955,
+       -23.975,
        -60.0
       ],
       [
-       -23.955,
-       -60.20364
+       -23.975,
+       -60.20293
       ]
      ],
      "y0": 0.85,
@@ -148893,11 +146101,11 @@
     {
      "pts": [
       [
-       -24.25455,
+       -24.26146,
        -59.955
       ],
       [
-       -24.0,
+       -24.02,
        -59.955
       ]
      ],
@@ -148907,11 +146115,11 @@
     {
      "pts": [
       [
-       -24.0,
+       -24.02,
        -60.365
       ],
       [
-       -24.7,
+       -24.68,
        -60.365
       ]
      ],
@@ -148921,11 +146129,11 @@
     {
      "pts": [
       [
-       -24.7,
+       -24.68,
        -59.955
       ],
       [
-       -24.25455,
+       -24.26146,
        -59.955
       ]
      ],
@@ -148935,11 +146143,11 @@
     {
      "pts": [
       [
-       -24.745,
-       -60.11636
+       -24.725,
+       -60.11707
       ],
       [
-       -24.745,
+       -24.725,
        -60.0
       ]
      ],
@@ -148949,12 +146157,12 @@
     {
      "pts": [
       [
-       -24.745,
+       -24.725,
        -60.32
       ],
       [
-       -24.745,
-       -60.11636
+       -24.725,
+       -60.11707
       ]
      ],
      "y0": 0.85,
@@ -149047,11 +146255,11 @@
     {
      "pts": [
       [
-       -31.255,
-       -60.20364
+       -31.275,
+       -60.20293
       ],
       [
-       -31.255,
+       -31.275,
        -60.32
       ]
      ],
@@ -149061,12 +146269,12 @@
     {
      "pts": [
       [
-       -31.255,
+       -31.275,
        -60.0
       ],
       [
-       -31.255,
-       -60.20364
+       -31.275,
+       -60.20293
       ]
      ],
      "y0": 0.85,
@@ -149075,11 +146283,11 @@
     {
      "pts": [
       [
-       -31.55455,
+       -31.56146,
        -59.955
       ],
       [
-       -31.3,
+       -31.32,
        -59.955
       ]
      ],
@@ -149089,11 +146297,11 @@
     {
      "pts": [
       [
-       -31.3,
+       -31.32,
        -60.365
       ],
       [
-       -32.0,
+       -31.98,
        -60.365
       ]
      ],
@@ -149103,16 +146311,72 @@
     {
      "pts": [
       [
-       -32.0,
+       -31.98,
        -59.955
       ],
       [
-       -31.55455,
+       -31.56146,
        -59.955
       ]
      ],
      "y0": 0.85,
      "y1": 1.6
+    },
+    {
+     "pts": [
+      [
+       -32.025,
+       -60.11707
+      ],
+      [
+       -32.025,
+       -60.0
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.6
+    },
+    {
+     "pts": [
+      [
+       -32.025,
+       -60.32
+      ],
+      [
+       -32.025,
+       -60.11707
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.6
+    },
+    {
+     "pts": [
+      [
+       -32.155,
+       -60.06039
+      ],
+      [
+       -32.155,
+       -60.44
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -32.155,
+       -60.0
+      ],
+      [
+       -32.155,
+       -60.06039
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
     },
     {
      "pts": [
@@ -149663,11 +146927,39 @@
     {
      "pts": [
       [
-       31.74545,
+       32.025,
+       -60.20293
+      ],
+      [
+       32.025,
+       -60.32
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.6
+    },
+    {
+     "pts": [
+      [
+       32.025,
+       -60.0
+      ],
+      [
+       32.025,
+       -60.20293
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.6
+    },
+    {
+     "pts": [
+      [
+       31.73854,
        -59.955
       ],
       [
-       32.0,
+       31.98,
        -59.955
       ]
      ],
@@ -149677,11 +146969,11 @@
     {
      "pts": [
       [
-       32.0,
+       31.98,
        -60.365
       ],
       [
-       31.3,
+       31.32,
        -60.365
       ]
      ],
@@ -149691,11 +146983,11 @@
     {
      "pts": [
       [
-       31.3,
+       31.32,
        -59.955
       ],
       [
-       31.74545,
+       31.73854,
        -59.955
       ]
      ],
@@ -149705,11 +146997,11 @@
     {
      "pts": [
       [
-       31.255,
-       -60.11636
+       31.275,
+       -60.11707
       ],
       [
-       31.255,
+       31.275,
        -60.0
       ]
      ],
@@ -149719,12 +147011,12 @@
     {
      "pts": [
       [
-       31.255,
+       31.275,
        -60.32
       ],
       [
-       31.255,
-       -60.11636
+       31.275,
+       -60.11707
       ]
      ],
      "y0": 0.85,
@@ -149790,6 +147082,20 @@
      "pts": [
       [
        32.155,
+       -60.37961
+      ],
+      [
+       32.155,
+       -60.0
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.155,
        -60.44
       ],
       [
@@ -149803,11 +147109,11 @@
     {
      "pts": [
       [
-       24.745,
-       -60.20364
+       24.725,
+       -60.20293
       ],
       [
-       24.745,
+       24.725,
        -60.32
       ]
      ],
@@ -149817,12 +147123,12 @@
     {
      "pts": [
       [
-       24.745,
+       24.725,
        -60.0
       ],
       [
-       24.745,
-       -60.20364
+       24.725,
+       -60.20293
       ]
      ],
      "y0": 0.85,
@@ -149831,11 +147137,11 @@
     {
      "pts": [
       [
-       24.44545,
+       24.43854,
        -59.955
       ],
       [
-       24.7,
+       24.68,
        -59.955
       ]
      ],
@@ -149845,11 +147151,11 @@
     {
      "pts": [
       [
-       24.7,
+       24.68,
        -60.365
       ],
       [
-       24.0,
+       24.02,
        -60.365
       ]
      ],
@@ -149859,11 +147165,11 @@
     {
      "pts": [
       [
-       24.0,
+       24.02,
        -59.955
       ],
       [
-       24.44545,
+       24.43854,
        -59.955
       ]
      ],
@@ -149873,11 +147179,11 @@
     {
      "pts": [
       [
-       23.955,
-       -60.11636
+       23.975,
+       -60.11707
       ],
       [
-       23.955,
+       23.975,
        -60.0
       ]
      ],
@@ -149887,12 +147193,12 @@
     {
      "pts": [
       [
-       23.955,
+       23.975,
        -60.32
       ],
       [
-       23.955,
-       -60.11636
+       23.975,
+       -60.11707
       ]
      ],
      "y0": 0.85,
@@ -151394,6 +148700,84 @@
     }
    ],
    "kind": "emerge"
+  },
+  "Shotgun_Platform": {
+   "groups": [
+    "Shotgun_Platform_Rig"
+   ],
+   "joints": [
+    {
+     "name": "Shotgun_Platform_JRoot",
+     "parent": null,
+     "pivot": [
+      -1.5,
+      1.0,
+      -114.0
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Shotgun_Platform_J1",
+     "parent": "Shotgun_Platform_JRoot",
+     "pivot": [
+      -1.5,
+      1.0,
+      -114.0
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Shotgun_Platform_R1",
+     "parent": "Shotgun_Platform_JRoot",
+     "pivot": [
+      -1.5,
+      1.03,
+      -114.0
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Shotgun_Platform_GD",
+     "parent": "Shotgun_Platform_J1",
+     "pivot": [
+      -1.5,
+      7.16,
+      -114.0
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Shotgun_Platform_GS",
+     "parent": "Shotgun_Platform_J1",
+     "pivot": [
+      -1.5,
+      0.7,
+      -114.0
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    }
+   ],
+   "kind": "emerge"
   }
  },
  "crushers": [
@@ -151410,14 +148794,14 @@
    "rise": 1.2,
    "kill": [
     [
-     -11.55,
-     7.8,
-     -112.35
+     -6.75,
+     8.0,
+     -122.55
     ],
     [
-     -8.45,
-     9.8,
-     -109.25
+     -3.65,
+     10.0,
+     -119.45
     ]
    ]
   }
@@ -151595,6 +148979,100 @@
    "rise_s": 2.0,
    "liquid": 1.0,
    "note": "pads start under the liquid; they surge up in order when a player enters the trigger sphere"
+  },
+  {
+   "id": "Shotgun_Platform",
+   "group": "Shotgun_Platform_Rig",
+   "skeleton": "Shotgun_Platform",
+   "pads": [
+    {
+     "joint": "Shotgun_Platform_J1",
+     "ring": "Shotgun_Platform_R1",
+     "center": [
+      -1.5,
+      7.5,
+      -114.0
+     ],
+     "size": 8.4,
+     "rise": 8.1,
+     "colliders": [
+      "Shotgun_Platform_Deck",
+      "Shotgun_Platform_Pedestal"
+     ],
+     "drips": [
+      [
+       2.717,
+       6.3,
+       -113.161
+      ],
+      [
+       2.075,
+       6.3,
+       -111.611
+      ],
+      [
+       -0.661,
+       6.3,
+       -109.783
+      ],
+      [
+       -2.339,
+       6.3,
+       -109.783
+      ],
+      [
+       -5.075,
+       6.3,
+       -111.611
+      ],
+      [
+       -5.717,
+       6.3,
+       -114.839
+      ],
+      [
+       -5.075,
+       6.3,
+       -116.389
+      ],
+      [
+       -2.339,
+       6.3,
+       -118.217
+      ],
+      [
+       -0.661,
+       6.3,
+       -118.217
+      ],
+      [
+       2.075,
+       6.3,
+       -116.389
+      ]
+     ],
+     "drip_to": 1.0,
+     "goo": {
+      "drips": "Shotgun_Platform_GD",
+      "strands": "Shotgun_Platform_GS",
+      "hold": 4.0,
+      "fade": 2.5
+     },
+     "pickup": "Shotgun_Pickup"
+    }
+   ],
+   "trigger": {
+    "center": [
+     0.0,
+     7.0,
+     -102.0
+    ],
+    "radius": 6.0
+   },
+   "stagger": 0.0,
+   "rise_s": 3.2,
+   "liquid": 1.0,
+   "note": "the platform starts under the liquid; it surges up when a player enters the trigger sphere"
   }
  ],
  "terminals": [
@@ -151650,6 +149128,20 @@
    "spin_down": 4.0
   }
  ],
+ "pickups": [
+  {
+   "id": "Shotgun_Pickup",
+   "item": "shotgun",
+   "center": [
+    -1.5,
+    9.1,
+    -114.0
+   ],
+   "radius": 1.4,
+   "riser": "Shotgun_Platform",
+   "note": "live once the riser is up: pickup_reached(id, item)"
+  }
+ ],
  "encounters": [
   {
    "id": "Hall_Waves",
@@ -151687,7 +149179,7 @@
   "RampOut_SW: 0.40 m junction plate where it meets Round_SW's angled edge",
   "RampOut_SW: 2.15 m junction plate where it meets Platform_SW's corner",
   "W_Cat_Junction: 0.30 m junction plate where it meets Pipe_Junction_B's angled edge",
-  "W_Cat_Junction: 1.50 m junction plate where it meets Pipe_Junction_A's corner",
+  "W_Cat_Junction: 1.35 m junction plate where it meets Pipe_Junction_A's corner",
   "W_Ramp_Core: 0.30 m junction plate where it meets Core_Ring's angled edge",
   "W_Ramp_Core: 1.70 m junction plate where it meets Purification_Deck's corner",
   "W_Stairs_Maint: 0.95 m junction plate where it meets Maint_Low's angled edge",
@@ -151700,19 +149192,21 @@
   "Conv_West: working assembly line - 4 parcels 7.35 m apart at 0.8 m/s, 2 station(s)",
   "Conv_East: working assembly line - 4 parcels 7.35 m apart at 0.8 m/s, 2 station(s)",
   "Valve_A_Vent: left out - it would hang over the edge of Pipe_Junction_A",
+  "Gir_Specimen: gir_parts.glb floating 3.6 m tall (bob 0.22 m / 5.5 s)",
   "Exit_Hall: exit hallway 14 m fading to black -> level1_part3",
   "Turbine_East: turbine fan 5.2 m, wind 18 m cone, blows until a player reaches [-47.0, 10.0, -224.0]",
   "Pads_West: 11 pads rising out of the liquid (one skinned mesh per material, 23 bones)",
+  "Shotgun_Platform: round platform 8.4 m rising out of the liquid, shotgun pickup, 10 drips",
   "outlets: removed wall dressing in front of pours: Works_Wall_West_02_M02Monitor, Works_Wall_West_02_M03Machine",
   "Central: 3 cover crate(s) dropped - no free spot clear of landings",
   "Tunnel_West: HazardFluid_2 reaches on to -56.0 through the bore",
   "crates: 35 printed crates (accent atlas)",
   "fixtures: 31 parts cleared out of fans / vents (wall units removed: OuterWall_West_02_M02Vent, Works_Wall_West_02_M05Fan)",
-  "ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 2.7 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 0 crane runway(s), ends at beams 1.7 m; Ceil_Duct_3 trimmed to 1 piece(s) clear of 1 standing part(s), 0 crane runway(s), ends at beams 2.4 m; Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 3 standing part(s), 0 crane runway(s), ends at beams 1.7 m; Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 7 standing part(s), 1 crane runway(s), ends at beams 0.0 m",
+  "ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 2.7 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 0 crane runway(s), ends at beams 1.7 m; Ceil_Duct_3 trimmed to 1 piece(s) clear of 2 standing part(s), 0 crane runway(s), ends at beams 2.4 m; Works_Ceil_Duct_1 trimmed to 1 piece(s) clear of 4 standing part(s), 0 crane runway(s), ends at beams 3.1 m; Works_Ceil_Duct_2 trimmed to 2 piece(s) clear of 8 standing part(s), 1 crane runway(s), ends at beams 0.0 m",
   "portals: 3 thin fixtures covered by a doorway portal removed (Gallery_North_Strut_02, Gallery_North_Strut_03, Gallery_North_Strut_04)",
   "corrosion: 34 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 48 lights at the liquid line removed, 28 light strips raised clear of it",
-  "corrosion: 2206 wall faces at the liquid line get a corroded band (one mesh, one material)"
+  "corrosion: 2220 wall faces at the liquid line get a corroded band (one mesh, one material)"
  ],
  "relations": [
   {
@@ -152330,16 +149824,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 100920,
-  "objects": 4481,
-  "materials": 31,
-  "glb_kb": 6560,
-  "nodes": 5148,
-  "draw_calls_unbatched": 4943,
-  "draw_calls_batched_min": 32,
-  "images": 94,
-  "tex_mem_gpu_compressed_mb": 23.14,
-  "tex_mem_uncompressed_mb": 92.57,
+  "triangles": 101519,
+  "objects": 4362,
+  "materials": 35,
+  "glb_kb": 6538,
+  "nodes": 5017,
+  "draw_calls_unbatched": 4811,
+  "draw_calls_batched_min": 37,
+  "images": 96,
+  "tex_mem_gpu_compressed_mb": 23.81,
+  "tex_mem_uncompressed_mb": 95.23,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

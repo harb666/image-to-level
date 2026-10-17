@@ -1,68 +1,68 @@
 {
  "level": "slime_arena",
  "assets_kb": {
-  "level.glb": 6560,
-  "mobile/level_mobile.glb": 4000,
-  "mobile/collision.json": 287,
+  "level.glb": 6538,
+  "mobile/level_mobile.glb": 3996,
+  "mobile/collision.json": 291,
   "environment.json": 4,
   "background.glb": 518,
-  "effects.json": 90
+  "effects.json": 169
  },
  "complexity": {
-  "triangles": 126526,
-  "nodes": 4943,
-  "materials": 31,
+  "triangles": 126665,
+  "nodes": 4811,
+  "materials": 35,
   "heaviest": [
    [
     "Corrosion_Band",
-    3252
+    3280
+   ],
+   [
+    "Gir_Specimen_Body",
+    2523
+   ],
+   [
+    "Gir_Specimen_Eye",
+    802
    ],
    [
     "Works_Ceil_Fan_2_Rotor",
-    758
+    432
    ],
    [
     "Lintel_Fans_Fan_2_Rotor",
-    758
-   ],
-   [
-    "Lintel_Fans_Fan_1_Rotor",
-    758
-   ],
-   [
-    "Works_Wall_North_01_M01Fan_Rotor",
-    758
+    432
    ]
   ]
  },
  "performance": {
   "dev": {
-   "glb_kb": 6560,
-   "triangles": 100920,
-   "draw_calls": 4943,
-   "tex_mem_gpu_mb_est": 23.14
+   "glb_kb": 6538,
+   "triangles": 101519,
+   "draw_calls": 4811,
+   "tex_mem_gpu_mb_est": 23.81
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 4000,
-   "triangles": 119205,
-   "draw_calls": 140,
-   "visible_draw_calls_est": 75.2,
-   "visible_draw_calls_max_est": 141,
-   "tex_mem_gpu_mb_est": 7.52,
-   "materials": 32,
-   "nodes": 196,
+   "glb_kb": 3996,
+   "triangles": 119239,
+   "draw_calls": 150,
+   "visible_draw_calls_est": 78.8,
+   "visible_draw_calls_max_est": 151,
+   "tex_mem_gpu_mb_est": 8.18,
+   "materials": 36,
+   "nodes": 211,
    "colliders": {
-    "colliders": 889,
+    "colliders": 897,
     "hazards": 11,
-    "glb_kb": 468
+    "glb_kb": 428
    },
    "background_kb": 439
   },
   "effects": {
    "max_particles": 1246,
    "emitters": 34,
-   "extra_draw_calls": 9,
+   "extra_draw_calls": 10,
    "transparent_area_m2": 32055.5
   },
   "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 49516.0,
-  "reachable_area_m2": 9635.0,
-  "components": 480,
+  "standable_area_m2": 49109.0,
+  "reachable_area_m2": 9671.0,
+  "components": 494,
   "spawns": [
    {
     "id": "spawn",
@@ -95,7 +95,7 @@
     "standable": true,
     "clearance_m": 6.5,
     "headroom_m": 99.0,
-    "component": 195,
+    "component": 204,
     "hazard_distance_m": 11.34
    },
    {
@@ -108,7 +108,7 @@
     "standable": true,
     "clearance_m": 1.5,
     "headroom_m": 19.79,
-    "component": 195,
+    "component": 204,
     "hazard_distance_m": 5.02
    },
    {
@@ -121,7 +121,7 @@
     "standable": true,
     "clearance_m": 3.5,
     "headroom_m": 19.77,
-    "component": 276,
+    "component": 287,
     "hazard_distance_m": 7.52
    },
    {
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 2.5,
     "headroom_m": 19.8,
-    "component": 195,
+    "component": 204,
     "hazard_distance_m": 6.52
    },
    {
@@ -171,7 +171,7 @@
      -191.93
     ],
     "standable": true,
-    "clearance_m": 4.5,
+    "clearance_m": 3.5,
     "headroom_m": 14.8,
     "component": 11,
     "hazard_distance_m": 6.26
@@ -186,7 +186,7 @@
     "standable": true,
     "clearance_m": 5.5,
     "headroom_m": 12.8,
-    "component": 70,
+    "component": 73,
     "hazard_distance_m": 6.52
    },
    {
@@ -199,7 +199,7 @@
     "standable": true,
     "clearance_m": 8.5,
     "headroom_m": 18.8,
-    "component": 134,
+    "component": 137,
     "hazard_distance_m": 9.41
    }
   ],
@@ -338,7 +338,7 @@
    },
    {
     "name": "Pipe_Junction_A",
-    "standable_m2": 59.0,
+    "standable_m2": 65.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -356,7 +356,7 @@
    },
    {
     "name": "Core_Ring",
-    "standable_m2": 270.0,
+    "standable_m2": 267.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -380,7 +380,7 @@
    },
    {
     "name": "Conduit_Walk",
-    "standable_m2": 616.0,
+    "standable_m2": 622.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -392,7 +392,7 @@
    },
    {
     "name": "West_Landing_S",
-    "standable_m2": 20.0,
+    "standable_m2": 18.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -473,33 +473,33 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 140 (> 80)"
+   "message": "mobile draw calls 150 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~75 visible draw calls (estimate, > 60)"
+   "message": "~79 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "126526 triangles (> budget 40000)"
+   "message": "126665 triangles (> budget 40000)"
   },
   {
    "kind": "dev_size",
    "severity": "info",
-   "message": "dev GLB 6560 KB (> 6000)"
+   "message": "dev GLB 6538 KB (> 6000)"
   },
   {
    "kind": "low_ceiling",
    "severity": "info",
-   "object": "Walkway_East_Floor",
+   "object": "Conduit_Walk_Floor",
    "pos": [
-    50.5,
-    6.75,
-    -10.5
+    54.5,
+    7.73,
+    -128.5
    ],
-   "message": "44 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): Walkway_East_Floor, Walkway_South_Floor, Walkway_West_Floor"
+   "message": "48 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): Conduit_Walk_Floor, Walkway_East_Floor, Walkway_South_Floor, Walkway_West_Floor"
   }
  ],
  "counts": {
