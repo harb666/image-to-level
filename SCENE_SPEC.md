@@ -1134,3 +1134,6 @@ Building blocks usable without the preset:
   and welds the vertices.
 - Mobile budget: ceiling conduit trays every other one (same random draws); GLB accessor min / max written as the
   shortest decimal of the float32 value (lossless).
+- Stage 92b: GIR's lights are red like his eyes (parts body / dark / eye; teal joints, antenna and chest panel on the
+  eye material), no tongue; model_asset.py decimates each source piece on its own ("keep": pieces this small stay as
+  they are, the rest share the budget by surface area, "agg" 4) - no more melted chest panel or torn shells.

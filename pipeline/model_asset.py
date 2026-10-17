@@ -21,12 +21,21 @@ def bake(src, out, parts):
     for name, p in parts.items():
         gs = [g for g in geoms if getattr(getattr(g.visual, "material", None), "name", None) in p["materials"]]
         if not gs: continue
-        m = trimesh.util.concatenate([trimesh.Trimesh(g.vertices, g.faces, process=False) for g in gs]); m.merge_vertices(merge_tex=True, merge_norm=True)
-        n0 = len(m.faces); tgt = int(p.get("tris", n0))
-        if tgt < n0:
+        pcs = []
+        for g in gs:  # each source piece on its own (Stage 92b): a small piece (a 20-triangle chest panel) never melts into a big one
+            m = trimesh.Trimesh(g.vertices, g.faces, process=False); m.merge_vertices(merge_tex=True, merge_norm=True); pcs.append(m)
+        n0 = sum(len(m.faces) for m in pcs); tgt = int(p.get("tris", n0)); keep = int(p.get("keep", 120))
+        if tgt < n0:  # budget left after the kept pieces, shared by surface area (big flat shells need more than tiny dense claws)
             import fast_simplification
-            v, f = fast_simplification.simplify(m.vertices.astype(np.float32), m.faces.astype(np.int32), target_reduction=1.0 - tgt / n0)
-            m = trimesh.Trimesh(v, f, process=True)
+            big = [m for m in pcs if len(m.faces) > keep]; left = max(tgt - sum(len(m.faces) for m in pcs if len(m.faces) <= keep), len(big) * keep)
+            A = sum(m.area for m in big) or 1.0
+            for i, m in enumerate(pcs):
+                if len(m.faces) <= keep: continue
+                k = int(np.clip(left * m.area / A, keep, len(m.faces)))
+                if k < len(m.faces):
+                    v, f = fast_simplification.simplify(m.vertices.astype(np.float32), m.faces.astype(np.int32), target_reduction=1.0 - k / len(m.faces), agg=float(p.get("agg", 4)))
+                    pcs[i] = trimesh.Trimesh(v, f, process=True)
+        m = trimesh.util.concatenate(pcs)
         m.apply_translation([-cx, -y0, -cz]); m.apply_scale(1.0 / H)  # unit height, feet at y 0, centred on x / z
         m.fix_normals(); res.add_geometry(m, geom_name=name, node_name=name); stats[name] = [n0, len(m.faces)]
     res.export(out); return stats

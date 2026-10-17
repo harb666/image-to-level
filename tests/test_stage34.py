@@ -757,7 +757,7 @@ class Stage92(unittest.TestCase):
         import sys, numpy as np
         sys.path.insert(0, os.path.join(ROOT, "pipeline")); from anchors import world_matrices; import glb_tools
         lv = os.path.join(ROOT, "levels", "slime_arena"); L = json.load(open(os.path.join(lv, "level.json"))); W, by = world_matrices(L)
-        parts = [n for n in by if n.startswith("Gir_Specimen_")]; self.assertEqual(len(parts), 4)
+        parts = [n for n in by if n.startswith("Gir_Specimen_")]; self.assertEqual(sorted(parts), ["Gir_Specimen_Body", "Gir_Specimen_Dark", "Gir_Specimen_Eye"])  # 92b: lights on the red eye material
         self.assertTrue(all(by[n]["type"] == "model" and by[n]["mobile"]["group"] == "Gir_Specimen_Float" and "floating" in by[n]["intentional"] for n in parts))
         eye = L["materials"][by["Gir_Specimen_Eye"]["material"]]; self.assertTrue(eye["plain"] and eye["color"][0] > 0.6 > max(eye["color"][1:]))
         g = np.asarray(W["Core_Vat_Glass"])[:3, 3]; gs = by["Core_Vat_Glass"]["size"]; p = np.asarray(W["Gir_Specimen_Body"])[:3, 3]; H = by["Gir_Specimen_Body"]["size"][1]
@@ -767,6 +767,11 @@ class Stage92(unittest.TestCase):
         self.assertEqual(bob["bob"]["group"], "Gir_Specimen_Float"); self.assertLess(bob["bob"]["amp"], 0.5)
         M = json.load(open(os.path.join(lv, "mobile", "mobile_manifest.json"))); self.assertTrue(any(n["node"].startswith("Gir_Specimen_Float__") for n in M["nodes"]))
         self.assertLess(os.path.getsize(os.path.join(lv, "assets", "gir_parts.glb")), 150 * 1024)
+        import trimesh; G = trimesh.load(os.path.join(lv, "assets", "gir_parts.glb"), force="scene").geometry; eyep = G["eye"]
+        self.assertEqual(sorted(G), ["body", "dark", "eye"])
+        chest = eyep.vertices[(np.abs(eyep.vertices[:, 0]) < 0.06) & (eyep.vertices[:, 1] > 0.25) & (eyep.vertices[:, 1] < 0.37)]  # the chest light (unit height)
+        self.assertGreater(len(chest), 6); self.assertGreater(np.ptp(chest[:, 0]), 0.06)  # a full panel, not a sliver
+        self.assertFalse(any(abs(v[0]) < 0.03 and 0.44 < v[1] < 0.48 and v[2] > 0.1 for v in eyep.vertices))  # no tongue under the mouth
         self.assertTrue(os.path.exists(os.path.join(lv, "assets", "CREDITS.md")))
         self.assertEqual(glb_tools._f32(4.960000038146973), 4.96); self.assertEqual(np.float32(glb_tools._f32(-75.73999786376953)), np.float32(-75.74))
         with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: self.assertIn('"bob":', f.read())
