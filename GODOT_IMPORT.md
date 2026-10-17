@@ -106,7 +106,8 @@ The browser preview approximates all of these with three.js. It is close to Godo
 ## Shotgun platform, pickups (Stage 89)
 - `Shotgun_Platform` is a riser with one pad (same `emerge` effect, `raise_pads(id)` works): it surges up out of the pool
   when a CharacterBody3D reaches Pipe_Junction_A. Its pad has `drips` (world points on the rim): once it is up a
-  CPUParticles3D drops green goo from them into the pool (`<id>_J1_Drips`).
+  CPUParticles3D drops green goo from them into the pool (`<id>_J1_Drips`). Stage 91: `goo` - `hold` s after it is up
+  the goo drains away over `fade` s (bones `<id>_GD` / `<id>_GS` scaled down) and the drops stop.
 - collision.json `pickups` (apply_mobile.gd): an Area3D per pickup (`<id>_Pickup`, group `pickup`, metas `pickup_id`,
   `item`); a CharacterBody3D entering it emits `pickup_reached(pickup_id, item)` once - give the player the item there
   (`Shotgun_Pickup`, item `shotgun`, over the pedestal). A pickup with `riser` stays off (monitoring false) until its

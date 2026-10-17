@@ -773,6 +773,10 @@ class Stage89(unittest.TestCase):
         self.assertLess(max(abs(px - jx) - (w + jw) / 2, abs(pz - jz) - (d + jdd) / 2), 2.5)  # pad -> junction: a short hop
         self.assertEqual(by["Shotgun_Platform_Deck"]["type"], "cylinder"); self.assertEqual(by["Shotgun_Platform_Bowl"]["type"], "dome")
         self.assertGreaterEqual(sum(1 for n in by if n.startswith("Shotgun_Platform_Drip_")), 8)
+        go = pd["goo"]; self.assertTrue(2.0 <= go["hold"] <= 6.0 and go["fade"] >= 1.5)  # Stage 91: the goo drains away smoothly after a few seconds
+        self.assertTrue(all(by[n]["mobile"]["joint"] == go["drips"] for n in by if n.startswith("Shotgun_Platform_Drip_")))
+        self.assertTrue(all(by[n]["mobile"]["joint"] == go["strands"] for n in by if n.startswith("Shotgun_Platform_Strand_")))
+        self.assertLess(by["Shotgun_Platform_Band"]["size"][0], by["Shotgun_Platform_Lip"]["size"][0])  # the red band sits back behind the lip, not in front of the drips
         self.assertTrue(all(o.get("mobile", {}).get("group") == "Shotgun_Platform_Rig" for n, o in by.items() if n.startswith("Shotgun_Platform_") and o.get("mobile")))
         tr = r["trigger"]["center"]; self.assertLess(abs(tr[2] - (cz + R + 6)), 6)  # rises as the player walks to the conveyor's end
         C = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "collision.json")))

@@ -409,9 +409,21 @@ func _pose_riser(rec: Array, t: float) -> void:  # t: seconds since the trigger 
 			sk.set_bone_pose_scale(ri, Vector3(rs, 1.0, rs))
 		for c in rec[3][k]:
 			(c as CollisionShape3D).disabled = tk < 0.85 * D
+		var gf := 0.0  # Stage 91: the goo drains away "hold" s after the pad is up, over "fade" s (smoothstep)
+		if pd.has("goo"):
+			var go: Dictionary = pd["goo"]
+			gf = clampf((tk - D - float(go["hold"])) / float(go["fade"]), 0.0, 1.0) if tk >= 0.0 else 0.0
+			gf = gf * gf * (3.0 - 2.0 * gf)
+			var gi: int = bones.get(String(go["drips"]), -1)
+			if gi >= 0:  # drips shrink up into the lip while sliding down a little
+				sk.set_bone_pose_position(gi, sk.get_bone_rest(gi).origin + Vector3(0.0, -0.6 * gf, 0.0))
+				sk.set_bone_pose_scale(gi, Vector3(1.0, maxf(1.0 - gf, 0.001), 1.0))
+			var si: int = bones.get(String(go["strands"]), -1)
+			if si >= 0:  # strands fall into the pool (shrink to their bottom at the surface) and thin out
+				sk.set_bone_pose_scale(si, Vector3(maxf(1.0 - 0.6 * gf, 0.001), maxf(1.0 - gf, 0.001), maxf(1.0 - 0.6 * gf, 0.001)))
 		var dp = rec[5][k]
 		if dp != null:
-			(dp as CPUParticles3D).emitting = tk >= D
+			(dp as CPUParticles3D).emitting = tk >= D and gf < 0.5
 		if pd.has("pickup"):  # Stage 89: the item area (apply_mobile.gd) is live once the platform is up
 			for pa in get_tree().root.find_children(String(pd["pickup"]) + "_Pickup", "Area3D", true, false):
 				(pa as Area3D).set_deferred("monitoring", tk >= 0.85 * D)

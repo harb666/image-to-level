@@ -1112,3 +1112,11 @@ Building blocks usable without the preset:
   clear of the W_Run_High pipe and the ceiling conduits; `Pipe_Junction_A` moved to [-13.6, -124.5] (1.8 m hop
   west of the pad, > 5 m from the platform: the crusher can't be skipped); its catwalk to Junction B follows.
 - The pedestal's base plate is visual only (12 cm, no collider): not a narrow ledge for the nav check.
+
+## Stage 91: the platform's goo drains away, red band set back
+- `rising_platform`: the drips and strands hang on their own bones (`<id>_GD`, `<id>_GS`, children of the platform
+  bone); riser pad `goo` {drips, strands, hold, fade}: `hold` s (4) after the platform is up the goo drains away over
+  `fade` s (2.5, smoothstep) - drips shrink up off the lip while sliding 0.6 m down, strands fall into the pool (shrink
+  to their bottom) and thin out; the falling drops stop (preview: they fade). Spec `goo_hold`, `goo_fade`.
+- The glowing band runs round the deck edge above the lip (diameter D + 0.06, inside the lip's D + 0.36): it no longer
+  sticks out in front of the slime.

@@ -108,7 +108,8 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                    "k * stagger s: offset = -rise * (1 - u)^3 over rise_s s (u = t / rise_s: bursts up, decelerates), then a damped bob "
                    "0.22 sin(9 t') e^(-4 t') for 1.4 s; its surge ring bursts out from 35 % of the rise (scale 0.4 -> 3.0 over 1.6 s, ease-out) while "
                    "sinking 0.9 m back under the surface. The pad's colliders (collision.glb nodes named after 'colliders') are disabled until 85 % of "
-                   "its rise", glb="pads at the RAISED position (skinned, one mesh per material); colliders at the raised position", defaults=dict()),
+                   "its rise. Stage 89/91: a pad with 'drips' drops goo (CPUParticles3D) once up; with 'goo' {drips, strands, hold, fade} those bones "
+                   "drain away 'hold' s after it is up over 'fade' s (smoothstep: drips scale y -> 0 sliding 0.6 m down, strands scale -> 0) and the drops stop", glb="pads at the RAISED position (skinned, one mesh per material); colliders at the raised position", defaults=dict()),
     "crusher": dict(category="crusher", godot="script (apply_effects.gd _crushers): the ram's group nodes (<group>__*) sit at rest raised 'travel' m; "
                     "every 'period' s (offset 'phase'): 'warn' s of warning (lamps pulse), a 'down' s slam onto the pad (accelerating), 'hold' s "
                     "pressed, a 'rise' s climb back (eased). While pressed an Area3D over the pad ('kill' box, world) is enabled in the hazard "
