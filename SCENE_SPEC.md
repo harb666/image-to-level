@@ -1158,3 +1158,6 @@ Building blocks usable without the preset:
 - `Drone_Swarm` (spec effects.extra): 28 drones at balanced (performance ~6, quality ~60) patrolling between the outer
   walls and the factory hall (west / east lanes, beyond the north and south ends) and circling 7 spots outside the
   windows - one MultiMesh, unshaded vertex colours, nothing in the level GLB.
+- Stage 96: the swarm is far away and duller - lanes and orbit spots out by the factory hall's walls (|x| 128-145,
+  z -300..-310 / 130-140: ~75-90 m beyond the windows), drones 2-3.4 m, muted colours (glow [0.42, 0.48, 0.14],
+  accent [0.46, 0.13, 0.3]).

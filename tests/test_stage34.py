@@ -766,6 +766,8 @@ class Stage95(unittest.TestCase):
             for u in np.linspace(0.2 if not s["loop"] else 0, 0.8 if not s["loop"] else 1, 7):
                 az = np.radians(s["a0"] + (s["a1"] - s["a0"]) * u); x, z = s["cx"] + s["r"] * np.sin(az), s["cz"] - s["r"] * np.cos(az)
                 self.assertFalse(-62 < x < 62 and -236 < z < 62, (s, x, z)); self.assertTrue(-160 < x < 160 and -330 < z < 160, (x, z))
+                self.assertTrue(abs(x) > 115 or z < -285 or z > 115, (x, z))  # Stage 96: far out by the hall's walls, never close to a window
+        self.assertTrue(all(s["size"] <= 3.5 for s in S)); self.assertLess(max(d["quality"]["balanced"]["params"]["accent"]), 0.6)  # small, muted
         L = json.load(open(os.path.join(lv, "level.json"))); self.assertFalse([o for o in L["objects"] if "Drone" in o["name"]])
         with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: self.assertIn("sh.loop", f.read())
         with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: self.assertIn('sh.get("loop", 0)', f.read())
