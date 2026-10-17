@@ -675,7 +675,8 @@ class Stage82(unittest.TestCase):
         West_Landing_S (the rising pads crossed), then it spins down; behind it an endless black duct."""
         import math
         L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
-        for k in ("Turbine_East_Rotor", "Turbine_East_Housing", "Turbine_East_Duct", "Turbine_East_Frame_1"): self.assertIn(k, by)
+        for k in ("Turbine_East_Rotor", "Turbine_East_Housing", "Turbine_East_Duct"): self.assertIn(k, by)
+        self.assertFalse([n for n in by if n.startswith(("Turbine_East_Frame", "Turbine_East_Corner"))])  # Stage 87: round, nothing square round it
         self.assertIs(by["Turbine_East_Rotor"]["mobile"]["merge"], False); self.assertNotIn("spin", by["Turbine_East_Rotor"])  # driven by the wind effect
         (w,) = L["winds"]; G = json.load(open(os.path.join(ROOT, "config", "gameplay.json")))["player"]
         self.assertTrue(-133 < w["origin"][2] - w["radius"] and w["origin"][2] + w["radius"] + 1.0 < -119.6)  # under the screen, clear of the arch pilaster
@@ -734,3 +735,16 @@ class Stage86(unittest.TestCase):
         self.assertEqual(by["Tunnel_East_MouthA_Voussoir_1"]["material"], "structure_b")  # the pool tunnels keep their look
         G = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "checks", "geometry.json")))
         self.assertFalse([f for f in G["findings"] if any(o.startswith("Exit_Hall") for o in f["objects"])])
+
+
+class Stage87(unittest.TestCase):
+    def test_terminal_is_one_sculpted_body(self):
+        """Works_Terminal: pedestal / desk / tower are prisms of one material extruded over the full width (all lights
+        and the hand plate sit on it), the screen is set into the tower, no loose mast / beacon / stripe mat."""
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        for k in ("Pedestal", "Desk", "Tower"):
+            o = by["Works_Terminal_" + k]; self.assertEqual((o["type"], o["material"], o["size"][2]), ("prism", "machine", 1.8))
+        for k in ("Mast", "Beacon", "Stripe", "Back", "Plinth"): self.assertNotIn("Works_Terminal_" + k, by)
+        self.assertEqual(by["Works_Terminal_Screen"]["material"], "screen")
+        G = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "checks", "geometry.json")))
+        self.assertFalse([f for f in G["findings"] if any(o.startswith(("Works_Terminal", "Turbine_East")) for o in f["objects"])])

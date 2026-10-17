@@ -1080,3 +1080,10 @@ Building blocks usable without the preset:
   stones, jambs and pilasters, a dark metal frame and a 0.24 m halo - in the wall's own hull plating the stones read as
   a see-through outline. Jambs keep 2 cm off the frame's faces (no flicker). Red guide strips along the hall walls
   replace the floor-edge strips; the doorway hazard mat and the turbine's red lamps are gone (mobile budget).
+
+## Stage 87: round turbine, sculpted terminal
+- `turbine_fan`: no wall cut, frame or corner plates - just the round housing (lined inside with the `sleeve12` void
+  fade, black at the back: the end of an endless duct), clamps from the wall to the rim and a narrow pedestal.
+- `control_terminal`: one sculpted body - side profile (pedestal tapering forward, sloped desk with a nose, a screen
+  tower leaning in) as three convex machinery-panel prisms over the full width; screen set into the tower, glowing edge
+  lines, lit hand plate in the desk slope, a light bar crown, an octagonal floor plate with a glowing rim.

@@ -842,23 +842,30 @@ def rising_pads(ctx, s, x, y, z, yaw):
 
 @structure("control_terminal", pad=False)
 def control_terminal(ctx, s, x, y, z, yaw):
-    """Stage 80: a control console on a deck (local +z: the side the player stands at): plinth, slanted desk with a lit
-    screen and a big glowing button, a beacon on a mast. level.json "terminals": the game puts an interaction area
-    there ("radius") and, when the player uses it, opens the gates listed in "activates" (apply_mobile.gd:
-    activate_terminal(id) -> open_gate for each, signal terminal_activated)."""
+    """Stage 80/87: a control console (local +z: the side the player stands at) shaped as ONE sculpted body - its side
+    profile (pedestal tapering to the front, a sloped desk with a rounded nose, a screen tower leaning in) is three convex
+    prisms of the same machinery-panel material extruded across its width, so it reads as one piece. The screen is set
+    into the tower (own picture id), glowing edge lines trace the desk nose and the tower, a lit hand plate sits in the
+    desk, a light bar crowns the tower, and it stands on an octagonal floor plate with a glowing rim. level.json
+    "terminals": the game puts an interaction area there ("radius") and, when the player uses it, opens the gates in
+    "activates" (apply_mobile.gd: activate_terminal(id) -> open_gate for each, signal terminal_activated)."""
     n = s["id"]; g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); st = dict(mobile={"static": True}); vs = dict(collision=False, outline=False, **st)
-    ctx.add(n + "_Plinth", "box", [0, 0, -0.1], [1.7, 1.0, 0.9], "machine", g, **st)
-    ctx.add(n + "_Desk", "box", [0, 0.92, 0.0], [1.9, 0.14, 1.0], "structure_b", g, [-22, 0, 0], **st)
+    Wd = 1.8  # width (local x)
+    prof = {"Pedestal": [(-0.55, 0.06), (0.42, 0.06), (0.3, 0.94), (-0.48, 0.94)],  # side profiles (z, y): convex pieces of one silhouette
+            "Desk": [(-0.48, 0.92), (0.3, 0.92), (0.6, 1.0), (0.58, 1.1), (-0.48, 1.38)],
+            "Tower": [(-0.66, 0.9), (-0.3, 0.9), (-0.3, 2.2), (-0.44, 2.36), (-0.66, 2.36)]}
+    for nm, P in prof.items():  # prism: poly in its x / y, extruded along its z; turned 90 deg about y its x = -local z, its z = local x
+        ctx.add(f"{n}_{nm}", "prism", [-Wd / 2, 0, 0], [1.3, 2.4, Wd], "machine", g, [0, 90, 0], poly=[[round(-zz, 4), round(yy, 4)] for zz, yy in P], **st)
     from architecture import screen_slot
     scr, sid = screen_slot(ctx, "screen", "a")  # own picture variant + id (the screens' static / flicker differ)
-    ctx.add(n + "_Screen", "panel", [0, 1.2, -0.48], [1.4, 0.78, 0], "screen", g, uv_region=scr, uv_shift=sid, **vs)  # upright monitor on the back panel, facing the player
-    ctx.add(n + "_Bezel", "box", [0, 1.12, -0.52], [1.56, 0.94, 0.04], "frame", g, **vs)
-    ctx.add(n + "_Keys", "box", [-0.15, 1.02, 0.02], [1.0, 0.04, 0.5], "glow_dim", g, [-22, 0, 0], **vs)
-    ctx.add(n + "_Button", "cylinder", [0.62, 1.0, 0.32], [0.26, 0.1, 0.26], ctx.role("glow"), g, sections=8, **vs)
-    ctx.add(n + "_Back", "box", [0, 0, -0.62], [1.8, 2.1, 0.22], "structure_b", g, **st)
-    ctx.add(n + "_Mast", "cylinder", [0.7, 2.1, -0.62], [0.12, 0.9, 0.12], "frame", g, sections=6, collision=False, **st)
-    ctx.add(n + "_Beacon", "cylinder", [0.7, 3.0, -0.62], [0.32, 0.3, 0.32], ctx.role("glow"), g, sections=8, **vs)
-    ctx.add(n + "_Stripe", "box", [0, 0.0, 0.75], [1.9, 0.03, 0.6], "stripe", g, **vs)
+    ctx.add(n + "_Screen", "panel", [0, 1.46, -0.28], [1.36, 0.66, 0], "screen", g, uv_region=scr, uv_shift=sid, **vs)  # set into the tower face
+    gy = ctx.role("glow_yellow"); sl = math.degrees(math.atan2(1.38 - 1.1, 0.58 + 0.48))  # desk slope
+    ctx.add(n + "_NoseLight", "box", [0, 1.02, 0.6], [Wd - 0.12, 0.05, 0.03], gy, g, **vs)  # edge lines
+    for sd in (-1, 1): ctx.add(f"{n}_TowerLight_{sd + 2}", "box", [sd * (Wd / 2 - 0.05), 1.42, -0.29], [0.04, 0.82, 0.03], gy, g, **vs)
+    ctx.add(n + "_Crown", "box", [0, 2.36, -0.55], [Wd - 0.3, 0.07, 0.16], gy, g, **vs)
+    ctx.add(n + "_HandPlate", "box", [0.45, 1.232, 0.02], [0.42, 0.03, 0.34], ctx.role("glow"), g, [sl, 0, 0], **vs)  # lit, in the desk slope
+    ctx.add(n + "_Floor", "cylinder", [0, 0.0, -0.05], [2.7, 0.06, 2.7], "frame", g, sections=8, **st)  # octagonal plate it stands on
+    ctx.add(n + "_FloorRim", "cylinder", [0, 0.0, -0.05], [2.86, 0.035, 2.86], gy, g, sections=8, **vs)  # glowing rim under its edge
     dx, dz = A_local(0, 0.9, yaw); fx, fz = x + dx, z + dz  # in front of the desk
     ctx.terminals = getattr(ctx, "terminals", []) + [dict(id=n, center=[round(fx, 3), round(y + 1.0, 3), round(fz, 3)], radius=float(s.get("radius", 1.8)), activates=list(s.get("activates", [])),
                                                            screen=n + "_Screen", note="use it (interact) within radius: opens the gates in 'activates'")]
@@ -866,10 +873,10 @@ def control_terminal(ctx, s, x, y, z, yaw):
 
 @structure("turbine_fan", pad=False)
 def turbine_fan(ctx, s, x, y, z, yaw):
-    """Stage 82/85: a huge turbine fan at the mouth of an endless duct in a wall (group on the wall face at floor y; local
-    +z out into the room). The wall ("wall" m thick) is cut behind it; the duct is a sleeve lined with the "void" fade
-    (wall colour at the mouth -> pure black deep in: it reads endless, like the elevator shafts). In front: a steel
-    trim frame with corner plates up to a deep housing ring sticking "depth" m out with heavy clamps and a solid plinth,
+    """Stage 82/85/87: a huge round turbine fan on a wall (group on the wall face at floor y; local +z out into the room):
+    a deep housing ring sticking "depth" m out, lined inside with the "void" fade (wall colour at the mouth -> pure
+    black at the back: it reads as the end of an endless duct, like the elevator shafts) - nothing square round it -
+    heavy clamps and a narrow pedestal,
     a broad 6-bladed rotor (own node, turned by the wind effect - not the generic spin), guard bars. Its WIND (L.winds, effect "wind"): a cone along local +z ("length" m, radius growing "spread" m per m); a
     player in it is pushed along at "push" m/s (more than walking speed) and lifted "lift" m/s^2 while airborne, so a
     jump (or double jump) only carries them further out. With "stop_at" ([x, y, z]) it blows at full force until a
@@ -880,23 +887,15 @@ def turbine_fan(ctx, s, x, y, z, yaw):
     st = dict(mobile={"static": True}); vs = dict(collision=False, **st)
     g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); a = math.radians(yaw)
     Wp = lambda lx, ly, lz: [x + lx * math.cos(a) + lz * math.sin(a), y + ly, z - lx * math.sin(a) + lz * math.cos(a)]
-    pts = [Wp(sx * (F - 0.1), sy, sz) for sx in (-1, 1) for sy in (yc - F + 0.1, yc + F - 0.1) for sz in (dep + 0.5, -T - 0.05)]  # through the wall
+    pts = [Wp(sx * (F + 0.1), sy, sz) for sx in (-1, 1) for sy in (yc - F - 0.1, yc + F + 0.1) for sz in (0.01, dep + 0.5)]  # wall dressing in front of it goes
     ctx.cuts = getattr(ctx, "cuts", []) + [dict(min=[min(p[i] for p in pts) for i in range(3)], max=[max(p[i] for p in pts) for i in range(3)], keep=n, floor=y)]
-    for k, (px, py, w, h) in enumerate(((0, yc + F - 0.45, 2 * F + 0.1, 0.45), (0, yc - F, 2 * F + 0.1, 0.45), (-F + 0.2, yc - F + 0.45, 0.45, 2 * F - 0.9), (F - 0.2, yc - F + 0.45, 0.45, 2 * F - 0.9))):
-        ctx.add(f"{n}_Frame_{k + 1}", "box", [px, py, -0.02], [w, h, 0.4], "frame", g, bevel=False, outline=False, **st)  # plain dark steel frame round the cut
-    ri = Rh * 0.95; ci = F - 0.3  # corner plates: frame corner -> housing ring (arc a little inside the ring's 12-gon)
-    for k, (sx, sy) in enumerate(((1, 1), (-1, 1), (-1, -1), (1, -1))):
-        arc = [[round(sx * ri * math.cos(t), 4), round(yc + sy * ri * math.sin(t), 4)] for t in [math.pi / 2 * q / 3 for q in range(3, -1, -1)]]
-        poly = [[round(sx * ci, 4), round(yc, 4)], [round(sx * ci, 4), round(yc + sy * ci, 4)], [0.0, round(yc + sy * ci, 4)]] + arc
-        if sx * sy < 0: poly = poly[::-1]  # same winding in every quadrant
-        ctx.add(f"{n}_Corner_{k + 1}", "prism", [0, 0, 0.0], [2 * ci, 2 * ci, 0.3], "structure_b", g, poly=poly, outline=False, **st)
-    ctx.add(n + "_Duct", "panel", [0, yc, 0.3 - (T + 0.2)], [2 * R + 0.06, T + 0.2, 0], "accent", g, [90, 0, 0], cut="sleeve12", uv_region="void", outline=False, **vs)  # endless black duct
-    ctx.add(n + "_Housing", "cylinder", [0, yc, -0.05], [D + 0.9, dep + 0.35, D + 0.9], "machine", g, [90, 0, 0], sections=12, hole=R + 0.02, **st)
+    ctx.add(n + "_Housing", "cylinder", [0, yc, 0.0], [D + 0.9, dep + 0.3, D + 0.9], "machine", g, [90, 0, 0], sections=12, hole=R + 0.02, **st)  # round: nothing square round it
+    ctx.add(n + "_Duct", "panel", [0, yc, 0.02], [2 * R + 0.02, dep + 0.27, 0], "accent", g, [90, 0, 0], cut="sleeve12", uv_region="void", outline=False, **vs)  # black, endless-looking
     hb = yc - Rh  # solid plinth under the housing: no low gap to crawl into
-    ctx.add(n + "_Plinth", "box", [0, 0.0, 0.3 + dep / 2], [D + 0.4, hb + 0.25, dep - 0.1], "structure_b", g, bevel=False, outline=False, **st)
+    ctx.add(n + "_Plinth", "box", [0, 0.0, 0.3 + dep / 2], [D * 0.55, hb + 0.25, dep - 0.1], "structure_b", g, bevel=False, outline=False, **st)
     for k in range(6):  # heavy clamps round the housing
         b = math.radians(30 + 60 * k); ca, sa = math.cos(b), math.sin(b)
-        ctx.add(f"{n}_Clamp_{k + 1}", "box", [ca * (R + 0.55), yc + sa * (R + 0.55) - 0.35, 0.33 + (dep + 0.1) / 2], [0.9, 0.7, dep + 0.1], "frame", g, [0, 0, math.degrees(b) - 90], outline=False, **vs)  # in front of the cut
+        ctx.add(f"{n}_Clamp_{k + 1}", "box", [ca * (R + 0.55), yc + sa * (R + 0.55) - 0.35, 0.02 + (dep + 0.3) / 2], [0.9, 0.7, dep + 0.3], "frame", g, [0, 0, math.degrees(b) - 90], outline=False, **vs)  # wall to rim
     ctx.add(n + "_Rotor", "fan_rotor", [0, yc, 0.3 + dep * 0.45], [D * 0.94, 0.5, D * 0.94], "frame", g, [90, 0, 0], blades=int(s.get("blades", 6)), sweep=30.0, solidity=0.62, detail="low", collision=False, outline=False,
             **dict(st, mobile={"merge": False}))  # own node: the wind effect turns it
     for k, o_ in enumerate((-R * 0.45, R * 0.45)):  # guard bars across the mouth
