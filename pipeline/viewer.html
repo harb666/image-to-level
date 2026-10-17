@@ -339,8 +339,14 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
           if(tk>=0&&tk<D)off=-pd.rise*Math.pow(1-tk/D,3);else if(tk>=D){const tb=tk-D;off=tb<1.4?0.22*Math.sin(9*tb)*Math.exp(-4*tb):0;}
           let rs=0.4,ry=-3;const r0=0.35*D;if(tk>=r0){const f=Math.min(1,Math.max(0,(tk-r0)/1.6)),e=1-(1-f)*(1-f);rs=0.4+2.6*e;ry=f<1?-0.9*f*f:-3;}
           const J=bn[pd.joint],Rg=bn[pd.ring];if(J)J[0].position.set(J[1].x,J[1].y+off,J[1].z);if(Rg){Rg[0].position.set(Rg[1].x,Rg[1].y+ry,Rg[1].z);Rg[0].scale.set(rs,1,rs);}});};
-      pose(-1);fxUpd.push({reset(){ts=null;pose(-1);},u(t){if(ts===null){const wk=walking()&&!fixedCam,e=wk?pos:cam.position,c=R.trigger.center,dx=e.x-c[0],dz=e.z-c[2],rr=R.trigger.radius+(wk?0:8);
-          if(dx*dx+dz*dz<rr*rr&&Math.abs(e.y-c[1])<12)ts=t;}if(ts!==null&&t-ts<60)pose(t-ts);}});}
+      const DR=R.pads.map((pd,k)=>{if(!pd.drips)return null;const n=pd.drips.length*2,a=new Float32Array(n*3),g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3)); // Stage 89: goo dripping off the rim once it is up (same as apply_effects.gd _drips)
+          const P=new THREE.Points(g,new THREE.PointsMaterial({color:0x8cff3a,size:0.17}));P.frustumCulled=false;P.visible=false;scene.add(P);fxObjs.push(P);const T=Math.sqrt(2*Math.max(0.5,pd.drips[0][1]-pd.drip_to)/9.8);
+          let mk=null;if(pd.pickup){mk=new THREE.Mesh(new THREE.OctahedronGeometry(0.32),new THREE.MeshBasicMaterial({color:0xffd23a,wireframe:true}));mk.position.set(pd.center[0],pd.center[1]+1.6,pd.center[2]);mk.visible=false;scene.add(mk);fxObjs.push(mk);} // preview-only marker: the item the game gives here
+          return {P,a,g,T,pd,k,mk,st:[...Array(n)].map((_,i)=>({s:i%pd.drips.length,ph:Math.random()*T}))};}).filter(Boolean);
+      const drip=t=>DR.forEach(d=>{const tk=t-d.k*R.stagger,on=t>=0&&tk>=R.rise_s;d.P.visible=on;if(d.mk){d.mk.visible=t>=0&&tk>=0.85*R.rise_s;d.mk.rotation.y=t*1.5;d.mk.position.y=d.pd.center[1]+1.6+0.12*Math.sin(t*2);}
+          if(on){d.st.forEach((q,i)=>{const u=(tk+q.ph)%d.T,p=d.pd.drips[q.s];d.a.set([p[0],p[1]-4.9*u*u,p[2]],i*3);});d.g.attributes.position.needsUpdate=true;}});
+      pose(-1);fxUpd.push({reset(){ts=null;pose(-1);drip(-1);},u(t){if(ts===null){const wk=walking()&&!fixedCam,e=wk?pos:cam.position,c=R.trigger.center,dx=e.x-c[0],dz=e.z-c[2],rr=R.trigger.radius+(wk?0:8);
+          if(dx*dx+dz*dz<rr*rr&&Math.abs(e.y-c[1])<12)ts=t;}if(ts!==null&&t-ts<60)pose(t-ts);drip(ts===null?-1:t-ts);}});}
     else if(fx.category==='crusher'){const C=fx.crusher,rm=Object.values(byName).filter(o=>o.name.startsWith(C.group+'__')),wn=Object.values(byName).filter(o=>o.name.startsWith(C.warn_group+'__')); // Stage 72: ram slamming onto its pad (same timing as apply_effects.gd)
       const KB={min:C.kill[0],max:C.kill[1],on:false};(window.crushKill=window.crushKill||[]).push(KB);const T0=C.period-C.warn-C.down-C.hold-C.rise;
       fxUpd.push({reset(){rm.forEach(o=>o.position.set(0,0,0));wn.forEach(o=>o.visible=true);KB.on=false;},u(t){const u=((t+C.phase)%C.period+C.period)%C.period;let off=0;const warn=u>=T0&&u<T0+C.warn;

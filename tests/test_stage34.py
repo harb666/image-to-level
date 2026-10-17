@@ -651,7 +651,7 @@ class Stage80(unittest.TestCase):
         import math
         L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
         self.assertNotIn("W_Cat_West_Deck", by)
-        (R,) = L["risers"]; sk = L["skeletons"]["Pads_West"]; self.assertEqual(len(R["pads"]), 11); self.assertEqual(len(sk["joints"]), 23)
+        R = next(r for r in L["risers"] if r["id"] == "Pads_West"); sk = L["skeletons"]["Pads_West"]; self.assertEqual(len(R["pads"]), 11); self.assertEqual(len(sk["joints"]), 23)
         self.assertEqual({p["center"][1] for p in R["pads"]}, {10.0})  # Stage 81: all level (easier)
         parts = [o for n, o in by.items() if n.startswith("Pads_West_Pad_")]
         self.assertTrue(all(o["mobile"]["group"] == "Pads_West_Rig" for o in parts))
@@ -665,7 +665,7 @@ class Stage80(unittest.TestCase):
         E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "effects.json"))); self.assertIn("Pads_West_Emerge", {e["id"] for e in E["effects"] if e["category"] == "emerge"})
         N = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "checks", "navigation.json")))
         self.assertEqual({a["name"]: a["reachable_fraction"] for a in N["intended_areas"]}["West_Landing_S"], 1.0)
-        C = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "collision.json"))); self.assertEqual(len(C["terminals"]), 1); self.assertEqual(len(C["risers"]), 1)
+        C = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "collision.json"))); self.assertEqual(len(C["terminals"]), 1); self.assertEqual(len(C["risers"]), 2)  # + Stage 89 Shotgun_Platform
 
 
 class Stage82(unittest.TestCase):
@@ -748,6 +748,26 @@ class Stage87(unittest.TestCase):
         self.assertEqual(by["Works_Terminal_Screen"]["material"], "screen")
         G = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "checks", "geometry.json")))
         self.assertFalse([f for f in G["findings"] if any(o.startswith(("Works_Terminal", "Turbine_East")) for o in f["objects"])])
+
+
+class Stage89(unittest.TestCase):
+    def test_shotgun_platform(self):
+        """A round platform rises out of the pool next to Pipe_Junction_A (within a jump of its edge, deck level with it),
+        drips goo off its lip, and carries the shotgun pickup (live once it is up)."""
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        r = next(x for x in L["risers"] if x["id"] == "Shotgun_Platform"); pd = r["pads"][0]
+        self.assertEqual(pd["pickup"], "Shotgun_Pickup"); self.assertGreaterEqual(len(pd["drips"]), 8)
+        self.assertGreater(pd["rise"], pd["center"][1] + 1.18 - r["liquid"])  # the pedestal top starts under the surface
+        cx, ty, cz = pd["center"]; R = pd["size"] / 2; j = by["Pipe_Junction_A_Floor"]; g = by["Pipe_Junction_A"]["position"]  # floor local to its group
+        gap = cx - R - (g[0] + j["position"][0] + j["size"][0] / 2); self.assertTrue(0.5 < gap < 2.5, gap)
+        self.assertAlmostEqual(ty, g[1] + j["position"][1] + j["size"][1], 1)
+        self.assertEqual(by["Shotgun_Platform_Deck"]["type"], "cylinder"); self.assertEqual(by["Shotgun_Platform_Bowl"]["type"], "dome")
+        self.assertGreaterEqual(sum(1 for n in by if n.startswith("Shotgun_Platform_Drip_")), 8)
+        self.assertTrue(all(o.get("mobile", {}).get("group") == "Shotgun_Platform_Rig" for n, o in by.items() if n.startswith("Shotgun_Platform_") and o.get("mobile")))
+        C = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "collision.json")))
+        pk = next(p for p in C["pickups"] if p["id"] == "Shotgun_Pickup"); self.assertEqual((pk["item"], pk["riser"]), ("shotgun", "Shotgun_Platform"))
+        self.assertIn("pickup_reached", open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_mobile.gd")).read())
+        self.assertIn("func _drips", open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")).read())
 
 
 class Stage88(unittest.TestCase):

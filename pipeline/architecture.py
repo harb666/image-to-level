@@ -522,7 +522,7 @@ def fan_unit(ctx, nm, parent, c, R, depth, wall=True, rpm=None, seed=0, st=None)
             if not wall: pos = [x, y - depth * 0.22 - 0.1, z + o_] if j == 0 else [x + o_, y - depth * 0.22 - 0.1, z]
             ctx.add(f"{nm}_Grille_{j}{k + 1}", "box", pos, [bw, bh, 0.1] if wall else ([bw, 0.1, bh] if j == 0 else [bh, 0.1, bw]), "frame", parent, collision=False, outline=False, **st)
     ctx.add(nm + "_Rotor", "fan_rotor", at(0, 0, depth * 0.62) if wall else [x, y - depth * 0.62, z], [2 * R * 0.95, depth * 0.45, 2 * R * 0.95], "frame", parent, rot,
-            blades=int(rng.choice([6, 7, 8, 8])), sweep=float(rng.uniform(15, 28)), collision=False, outline=False, spin=round(float(rpm or rng.uniform(14, 34)) * float(rng.choice([1, -1])), 1),
+            blades=int(rng.choice([6, 7, 8, 8])), sweep=float(rng.uniform(15, 28)), detail="low", collision=False, outline=False, spin=round(float(rpm or rng.uniform(14, 34)) * float(rng.choice([1, -1])), 1),
             **dict(st, mobile={"merge": False}))  # own node: it spins
 
 

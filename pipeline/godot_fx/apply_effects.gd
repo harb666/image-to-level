@@ -360,7 +360,10 @@ func _riser(r: Dictionary) -> void:
 	sh.position = Vector3(tr["center"][0], tr["center"][1], tr["center"][2])
 	area.add_child(sh)
 	level_root.add_child(area)
-	var rec := [r, sk, bones, cols, -1.0]
+	var drips: Array = []  # Stage 89: goo dripping off a platform's rim once it is up (falling drops into the pool)
+	for pd in r["pads"]:
+		drips.append(_drips(pd) if pd.has("drips") else null)
+	var rec := [r, sk, bones, cols, -1.0, drips]
 	area.body_entered.connect(func(b: Node3D) -> void:
 		if rec[4] < 0.0 and b is CharacterBody3D:
 			rec[4] = _t)
@@ -406,6 +409,44 @@ func _pose_riser(rec: Array, t: float) -> void:  # t: seconds since the trigger 
 			sk.set_bone_pose_scale(ri, Vector3(rs, 1.0, rs))
 		for c in rec[3][k]:
 			(c as CollisionShape3D).disabled = tk < 0.85 * D
+		var dp = rec[5][k]
+		if dp != null:
+			(dp as CPUParticles3D).emitting = tk >= D
+		if pd.has("pickup"):  # Stage 89: the item area (apply_mobile.gd) is live once the platform is up
+			for pa in get_tree().root.find_children(String(pd["pickup"]) + "_Pickup", "Area3D", true, false):
+				(pa as Area3D).set_deferred("monitoring", tk >= 0.85 * D)
+
+
+func _drips(pd: Dictionary) -> CPUParticles3D:  # drops falling from the rim points to the liquid
+	var pts := PackedVector3Array()
+	for q in pd["drips"]:
+		pts.append(Vector3(q[0], q[1], q[2]))
+	var h := maxf(pts[0].y - float(pd["drip_to"]), 0.5)
+	var p := CPUParticles3D.new()
+	p.name = String(pd["joint"]) + "_Drips"
+	p.emission_shape = CPUParticles3D.EMISSION_SHAPE_POINTS
+	p.emission_points = pts
+	p.amount = maxi(8, pts.size() * 2)
+	p.lifetime = sqrt(2.0 * h / 9.8) + 0.1
+	p.gravity = Vector3(0.0, -9.8, 0.0)
+	p.initial_velocity_min = 0.0
+	p.initial_velocity_max = 0.3
+	p.scale_amount_min = 0.7
+	p.scale_amount_max = 1.3
+	p.local_coords = false
+	var m := SphereMesh.new()
+	m.radius = 0.06
+	m.height = 0.2
+	m.radial_segments = 6
+	m.rings = 3
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.albedo_color = Color(0.55, 1.0, 0.2)
+	m.material = mat
+	p.mesh = m
+	p.emitting = false
+	level_root.add_child(p)
+	return p
 
 
 func _update_risers() -> void:

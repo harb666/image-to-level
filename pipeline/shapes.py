@@ -564,8 +564,9 @@ def fan_rotor(w, h, d, o):
                 a, b_ = idx(i, j), idx(i, j + 1)
                 F += ([[a, b_, b_ + off], [a, b_ + off, a + off]] if s_ > 0 else [[a, b_ + off, b_], [a, a + off, b_ + off]])
         m = trimesh.Trimesh(V + [0, T / 2, 0], np.array(F), process=False); m.fix_normals(); parts.append(m)
-    hub = _cyl(r0 * 1.2, h, y=-h / 2, sections=12); cap = trimesh.creation.icosphere(subdivisions=1, radius=r0 * 0.95); cap.vertices[:, 1] = np.maximum(cap.vertices[:, 1], 0) * 0.45
-    cap.apply_translation([0, h / 2, 0]); ring = _cyl(r0 * 1.45, h * 0.35, y=-h / 2, sections=12)
+    hs = 12 if o.get("detail", "high") == "high" else 8  # Stage 89: lighter hub on "low"
+    hub = _cyl(r0 * 1.2, h, y=-h / 2, sections=hs); cap = trimesh.creation.icosphere(subdivisions=1 if hs == 12 else 0, radius=r0 * 0.95); cap.vertices[:, 1] = np.maximum(cap.vertices[:, 1], 0) * 0.45
+    cap.apply_translation([0, h / 2, 0]); ring = _cyl(r0 * 1.45, h * 0.35, y=-h / 2, sections=hs)
     m = trimesh.util.concatenate(parts + [hub, trimesh.convex.convex_hull(cap.vertices), ring])
     m.metadata["uv"] = (m.vertices[:, [0, 2]] / w + 0.5); return m
 

@@ -830,7 +830,7 @@ def rising_pads(ctx, s, x, y, z, yaw):
         ctx.add(pre + "_Column", "cylinder", [cx, 0.0, cz], [D * 0.6, top - 0.4, D * 0.6], "structure_b", sections=6, mobile=pj, **st)
         ctx.add(pre + "_Cap", "cylinder", [cx, top - 0.4, cz], [D, 0.4, D], "deck", sections=8, mobile=pj)
         ctx.add(pre + "_Rim", "cylinder", [cx, top - 0.36, cz], [D + 0.14, 0.12, D + 0.14], ctx.role("glow"), sections=8, mobile=pj, **st)  # a disc: the cap hides its middle (32 tris, not a holed ring)
-        ctx.add(pre + "_Surge", "cylinder", [cx, liq + 0.03, cz], [D * 1.25, 0.04, D * 1.25], "fall", sections=8, mobile=rj, **st)  # glowing slime burst on the surface
+        ctx.add(pre + "_Surge", "cylinder", [cx, liq + 0.03, cz], [D * 1.25, 0.04, D * 1.25], "fall", sections=6, mobile=rj, **st)  # glowing slime burst on the surface
         pads.append(dict(joint=jn, ring=rn, center=[round(cx, 3), round(top, 3), round(cz, 3)], size=D, rise=round(top - liq + 1.0, 3), colliders=[pre + "_Cap"]))
         ctx.landings.append((round(cx, 3), round(cz, 3), D / 2))  # nothing of the cover / dressing passes stand on a pad
     tr = s.get("trigger") or [round(ax - ux * 1.0, 3), round(top0, 3), round(az - uz * 1.0, 3)]
@@ -839,6 +839,57 @@ def rising_pads(ctx, s, x, y, z, yaw):
                                                      stagger=float(s.get("stagger", 0.32)), rise_s=float(s.get("rise_s", 2.0)), liquid=liq,
                                                      note="pads start under the liquid; they surge up in order when a player enters the trigger sphere")]
     ctx.notes.append(f"{n}: {N} pads rising out of the liquid (one skinned mesh per material, {len(joints + rings)} bones)")
+
+
+@structure("rising_platform", pad=False)
+def rising_platform(ctx, s, x, y, z, yaw):
+    """Stage 89: one big ROUND platform that surges up out of the liquid (the same skinned "emerge" rig as rising_pads:
+    one bone + one surge ring) - e.g. where the player receives a weapon. Deck top at y, diameter "diameter": a round
+    deck with a heavy lip and a glowing band, a rounded bowl underneath on a thick column, a pedestal in the middle with a
+    lit top (the "pickup" item sits above it: level.json "pickups"), slime drips hanging off the lip (accent atlas
+    "drip" cells) and goo strands pouring from under the lip back into the pool. Once up, goo keeps dripping off the rim
+    ("drips": world points, falling drops - apply_effects.gd / viewer). Starts under the liquid; rises when a player
+    enters the trigger sphere ("trigger", "trigger_radius") or on raise_pads(id)."""
+    n = s["id"]; D = float(s.get("diameter", 8.4)); R = D / 2; liq = float(s.get("liquid", 1.0)); T = float(s.get("y", y))
+    grp = n + "_Rig"; jn, rn = n + "_J1", n + "_R1"; pj, rj = dict(group=grp, joint=jn), dict(group=grp, joint=rn)
+    st = dict(collision=False, outline=False); gl = ctx.role("glow"); fall = ctx.role("fall")
+    joints = [dict(name=n + "_JRoot", parent=None, pivot=[round(x, 3), round(liq, 3), round(z, 3)], axis=[0.0, 1.0, 0.0]),
+              dict(name=jn, parent=n + "_JRoot", pivot=[round(x, 3), round(liq, 3), round(z, 3)], axis=[0.0, 1.0, 0.0]),
+              dict(name=rn, parent=n + "_JRoot", pivot=[round(x, 3), round(liq + 0.03, 3), round(z, 3)], axis=[0.0, 1.0, 0.0])]
+    ctx.add(n + "_Deck", "cylinder", [x, T - 0.5, z], [D, 0.5, D], "deck", sections=16, mobile=pj, outline=False)  # the lip + band draw its edge
+    ctx.add(n + "_Lip", "cylinder", [x, T - 0.72, z], [D + 0.36, 0.4, D + 0.36], "frame", sections=16, mobile=pj, **st)  # heavy rim under the deck edge
+    ctx.add(n + "_Band", "cylinder", [x, T - 0.58, z], [D + 0.42, 0.08, D + 0.42], gl, sections=16, mobile=pj, **st)  # glowing band round the lip
+    ctx.add(n + "_Bowl", "dome", [x, T - 0.72, z], [D + 0.1, 2.6, D + 0.1], "structure_b", rot=[180, 0, 0], sections=16, mobile=pj, **st)  # rounded underside
+    ctx.add(n + "_Column", "cylinder", [x, 0.0, z], [D * 0.3, T - 2.9, D * 0.3], "structure_b", sections=8, mobile=pj, **st)
+    ctx.add(n + "_PedestalBase", "cylinder", [x, T - 0.05, z], [2.4, 0.25, 2.4], "frame", sections=8, mobile=pj, outline=False)  # weapon pedestal
+    ctx.add(n + "_Pedestal", "cylinder", [x, T + 0.2, z], [0.95, 0.82, 0.95], "frame", sections=8, mobile=pj, bevel=False, outline=False)
+    ctx.add(n + "_PedestalTop", "cylinder", [x, T + 1.02, z], [1.4, 0.14, 1.4], "frame", sections=8, mobile=pj, bevel=False, outline=False)
+    ctx.add(n + "_PedestalGlow", "cylinder", [x, T + 1.1, z], [1.16, 0.08, 1.16], gl, sections=8, mobile=pj, **st)  # lit top (the item hovers over it)
+    import numpy as np
+    rng = np.random.default_rng(int(s.get("seed", 89))); nd = int(s.get("drip_count", 10)); drips = []
+    for k in range(nd):  # slime hanging off the lip: drip decals facing out, tongues running below it
+        a = math.radians(11.25 + 22.5 * ((k * 16) // nd)); ca, sa = math.cos(a), math.sin(a); r_ = (R + 0.18) * math.cos(math.pi / 16) + 0.012  # on a flat of the 16-sided lip
+        L_ = float(rng.uniform(0.9, 1.7))
+        ctx.add(f"{n}_Drip_{k + 1:02d}", "panel", [x + ca * r_, T - 0.34 - L_, z + sa * r_], [round(float(rng.uniform(0.7, 1.1)), 2), round(L_, 2), 0], "accent",
+                rot=[0, math.degrees(math.atan2(ca, sa)), 0], cut="drip", seed=int(rng.integers(1 << 30)), uv_region="drip", mobile=pj, **st)
+        drips.append([round(x + ca * (R + 0.1), 3), round(T - 1.2, 3), round(z + sa * (R + 0.1), 3)])
+    for k in range(int(s.get("strands", 4))):  # goo pouring from under the lip back into the pool
+        a = 2 * math.pi * (k + 0.3) / int(s.get("strands", 4)) + 0.4; ca, sa = math.cos(a), math.sin(a); r_ = R - 0.45; th = (0.16, 0.26, 0.2, 0.3, 0.18)[k % 5]
+        ctx.add(f"{n}_Strand_{k + 1}", "cylinder", [x + ca * r_, liq - 0.3, z + sa * r_], [th, T - 0.75 - liq + 0.3, th], fall, sections=5, mobile=pj, **st)
+    ctx.add(n + "_Surge", "cylinder", [x, liq + 0.03, z], [D * 1.2, 0.04, D * 1.2], fall, sections=12, mobile=rj, **st)
+    ctx.landings.append((round(x, 3), round(z, 3), R))
+    pk = s.get("pickup")
+    pad = dict(joint=jn, ring=rn, center=[round(x, 3), round(T, 3), round(z, 3)], size=D, rise=round(T - liq + 1.6, 3), colliders=[n + "_Deck", n + "_Pedestal"],
+               drips=drips, drip_to=liq, **({"pickup": pk.get("id", n + "_Pickup")} if pk else {}))
+    tr = s.get("trigger") or [round(x, 3), round(T, 3), round(z, 3)]
+    ctx.skeletons = getattr(ctx, "skeletons", {}); ctx.skeletons[n] = dict(groups=[grp], joints=joints, kind="emerge")
+    ctx.risers = getattr(ctx, "risers", []) + [dict(id=n, group=grp, skeleton=n, pads=[pad], trigger=dict(center=[float(v) for v in tr], radius=float(s.get("trigger_radius", 7.0))),
+                                                     stagger=0.0, rise_s=float(s.get("rise_s", 3.2)), liquid=liq,
+                                                     note="the platform starts under the liquid; it surges up when a player enters the trigger sphere")]
+    if pk:  # Stage 89: the item the player receives here (the game spawns / gives it; the area is live once the platform is up)
+        ctx.pickups = getattr(ctx, "pickups", []) + [dict(id=pk.get("id", n + "_Pickup"), item=pk.get("item", "weapon"), center=[round(x, 3), round(T + 1.6, 3), round(z, 3)],
+                                                           radius=float(pk.get("radius", 1.4)), riser=n, note="live once the riser is up: pickup_reached(id, item)")]
+    ctx.notes.append(f"{n}: round platform {D:.1f} m rising out of the liquid" + (f", {pk.get('item', 'weapon')} pickup" if pk else "") + f", {nd} drips")
 
 
 @structure("control_terminal", pad=False)

@@ -1093,3 +1093,15 @@ Building blocks usable without the preset:
   trim lid seen from above) - every vat, purifier and processing tower.
 - Every plain arena window (`sill`, no `fill`) gets an invisible `boundary` collider filling the opening
   (`<wall>_Op<k>_Barrier`, in collision.json); the preview's player collides with level.json `boundary` objects.
+
+## Stage 89: rising shotgun platform
+- Structure `rising_platform` (`position`, `y` deck top, `diameter`, `liquid`, `trigger` [x, y, z], `trigger_radius`,
+  `rise_s`, `pickup` {id, item, radius}, `drip_count`, `strands`): one round platform on the `emerge` rig (one bone + a
+  surge ring) - 16-sided deck, a heavy lip with a glowing band, a rounded bowl underneath on a column, a pedestal with a
+  lit top in the middle, slime drips (accent atlas `drip`) on the lip's flats and goo strands pouring into the pool.
+  Its riser pad lists `drips` (rim points: falling drops once it is up) and `pickup`. level.json / collision.json
+  `pickups`: [{id, item, center, radius, riser}].
+- `Shotgun_Platform` (8.4 m, deck at 9 m) beside Pipe_Junction_A's east edge (~1.5 m jump), rising when a player
+  reaches the junction; `Shotgun_Pickup` (shotgun) over its pedestal. The preview drops goo and shows a yellow marker
+  where the item goes (the marker is preview-only).
+- Mobile budget: small wall / ceiling fan rotors use `detail: "low"` (lighter blades and hub).
