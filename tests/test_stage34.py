@@ -753,7 +753,7 @@ class Stage87(unittest.TestCase):
 class Stage93(unittest.TestCase):
     def test_gir_schematic_monitor(self):
         """A small display console in front of Core_Vat: its screen uses the schematic picture (whole texture, no TV static,
-        a soft flicker), it is not a usable terminal, and its cables reach the tank's base."""
+        a soft flicker), it is not a usable terminal, and it is built onto the tank's base (Stage 94)."""
         import sys, numpy as np
         sys.path.insert(0, os.path.join(ROOT, "pipeline")); from anchors import world_matrices
         lv = os.path.join(ROOT, "levels", "slime_arena"); L = json.load(open(os.path.join(lv, "level.json"))); W, by = world_matrices(L)
@@ -764,11 +764,9 @@ class Stage93(unittest.TestCase):
         self.assertFalse([e for e in E if e["type"] == "tv_static" and e.get("target_material") == "schematic"])
         self.assertTrue([e for e in E if e["type"] == "flicker" and e.get("target_material") == "schematic"])
         self.assertNotIn("Gir_Monitor", [t["id"] for t in L.get("terminals", [])])
-        g = np.asarray(W["Core_Vat_Plinth"])[:3, 3]; R = by["Core_Vat_Plinth"]["size"][0] / 2
-        for k in (1, 2):
-            M = np.asarray(W[f"Gir_Monitor_Cable_{k}"]); e = (M @ [0, by[f"Gir_Monitor_Cable_{k}"]["size"][1], 0, 1])[:3]
-            self.assertLess(np.hypot(e[0] - g[0], e[2] - g[2]), R + 0.05)  # ends inside the plinth
-        mon = np.asarray(W["Gir_Monitor"])[:3, 3]; self.assertLess(np.hypot(mon[0] - g[0], mon[2] - g[2]) - R, 4.0)  # right by the tank
+        g = np.asarray(W["Core_Vat_Plinth"])[:3, 3]; R = by["Core_Vat_Plinth"]["size"][0] / 2; flat = R * np.cos(np.pi / 12)  # 12-sided base
+        back = (np.asarray(W["Gir_Monitor"]) @ [0, 0, -0.66, 1])[:3]  # the back of the console's screen tower
+        self.assertLess(abs(np.hypot(back[0] - g[0], back[2] - g[2]) - flat), 0.03)  # Stage 94: built onto the tank's base (no gap)
 
 
 class Stage92(unittest.TestCase):

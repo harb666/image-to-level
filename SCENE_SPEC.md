@@ -1146,3 +1146,5 @@ Building blocks usable without the preset:
   role `schematic` = `references/gir_schematic.png` - wireframe vector views of GIR (three-quarter, front, side, a
   head close-up), dimension lines, readout bars, a trace and alien glyphs (no human text), rendered from the GIR model.
 - Mobile budget: ceiling conduit trays every fourth one.
+- Stage 94: `Gir_Monitor` is built onto Core_Vat - its back flush with a flat of the 12-sided base (yaw -15, still
+  facing the ramp arrival); no floor cables.
