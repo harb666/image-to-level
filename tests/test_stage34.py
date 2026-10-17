@@ -686,3 +686,20 @@ class Stage82(unittest.TestCase):
         self.assertLess(lane / G["walk_speed"], w["calm"])  # crossable on foot in one calm
         E = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "effects.json"))); self.assertIn("Turbine_East_Wind", {e["id"] for e in E["effects"] if e["category"] == "wind"})
         C = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "mobile", "collision.json"))); self.assertEqual(len(C["winds"]), 1)
+
+
+class Stage83(unittest.TestCase):
+    def test_duct_ends_clear_of_crane_runways(self):
+        """No ceiling duct END runs into a crane runway beam: Works_Ceil_Duct_2 now stops > 1 m short of CraneRail_06."""
+        import sys, re
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from architecture import _aabb_all
+        L = json.load(open(os.path.join(ROOT, "levels", "slime_arena", "level.json")))
+        class C: objects = L["objects"]
+        B = _aabb_all(C)
+        d0, d1 = B["Works_Ceil_Duct_2"]; r0, r1 = B["CraneRail_06_Beam"]; self.assertGreater(d0[2] - r1[2], 1.0)
+        for dn in [n for n in B if re.search(r"Ceil_Duct_\d+[a-z]?$", n)]:
+            lo, hi = B[dn]; ax = 2 if hi[2] - lo[2] > hi[0] - lo[0] else 0
+            for rn in [n for n in B if re.search(r"CraneRail_\d+_Beam$", n)]:
+                a, b = B[rn]
+                if all(min(hi[i], b[i]) > max(lo[i], a[i]) for i in range(3)):  # touching: only mid-span crossings are allowed
+                    self.assertTrue(min(a[ax] - lo[ax], hi[ax] - b[ax]) > 5.0, (dn, rn))

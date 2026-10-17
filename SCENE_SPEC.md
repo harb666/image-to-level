@@ -1055,3 +1055,8 @@ Building blocks usable without the preset:
   2.5 s calms - time the dash past it to the exit. (A preview-only fan another session had put in the main arena's
   south wall is replaced by this pipeline one.)
 - Mobile: skinned untextured primitives (ink shells of arms / pads) drop their unused UVs.
+
+## Stage 83: ducts stop short of crane runways
+- `clear_ducts`: a crane runway beam crossing within 5 m of a ceiling duct's end shortens the duct to stop 1.2 m
+  before it (mid-span crossings stay). slime_arena: Works_Ceil_Duct_2 no longer runs into CraneRail_06 (and the
+  arena's Ceil_Duct_1 ends 1.2 m before CraneRail_02).
