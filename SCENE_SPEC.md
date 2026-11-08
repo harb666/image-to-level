@@ -1205,3 +1205,11 @@ Building blocks usable without the preset:
 - Stage 100: the slots are 0.9 m (jumped, timing the blade) and the yellow / black caution stripes sit on both lips of
   each opening instead of at the bridge's ends (`<deck>_SlotEdge_*`; the slotted walkway's `_Threshold_*` are removed).
   traverse_check treats a saw slot as a jump (level.json `saws[].slot`): the walk keeps its height across it.
+
+## Stage 101: jointed saw arms
+- `saw_arm` is three moving links - upper arm (`<id>_Arm`), forearm + elbow (`<id>_Fore`), wrist hub + blade
+  (`<id>_Blade`) - each pivoting about the hinge axis at its own joint (shoulder, elbow, wrist): joint k turns its link
+  and every later one by `amp_k sin(2 pi (t + phase) / period - lag_k)`; `amp` (shoulder, 38), `elbow_amp` (0.7 amp),
+  `wrist_amp` (0.55 amp), `elbow_lag` (0.9), `wrist_lag` (1.7) - the outer joints follow through, so the arm whips
+  instead of swinging stiff. All hinges are parallel, so the blade stays in its slot's plane. level.json
+  `saws[].joints`. The yard saws use amp 34.

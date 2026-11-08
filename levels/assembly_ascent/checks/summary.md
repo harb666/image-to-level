@@ -2,9 +2,9 @@
 
 Spec: levels/assembly_ascent/scene_spec.json · 1606 objects · 30 materials · 17 effects
 Checks: PASSED ({'error': 0, 'warning': 3, 'info': 1}) · refine passes: 0
-Mobile (balanced): 1430 KB · 37821 tris · 65 draw calls · ~46.0 visible (estimate) · ~7.06 MB GPU textures (estimate)
+Mobile (balanced): 1432 KB · 37757 tris · 71 draw calls · ~48.2 visible (estimate) · ~7.06 MB GPU textures (estimate)
 Navigation: 3249.0 m² reachable of 19185.0 m² standable
-Package: dist/assembly_ascent/package (38 files, 6.65 MB) valid=True
+Package: dist/assembly_ascent/package (38 files, 6.66 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
@@ -21,8 +21,8 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Exit_Stairs: 0.75 m junction plate where it meets Upper_Deck's angled edge
 - Exit_Stairs: stairs run 5.7 m > gap 4.0 m - extends 1.7 m onto Upper_Deck
 - Entry_Door: entrance hallway 10 m out of the black (from slime_arena)
-- Saw_West: saw 4.4 m chopping +-52 deg every 3.2 s across [-31.95, 26.5]
-- Saw_East: saw 4.4 m chopping +-52 deg every 3.2 s across [-31.95, 20.5]
+- Saw_West: saw 4.4 m chopping +-34 deg every 3.2 s across [-31.95, 26.5]
+- Saw_East: saw 4.4 m chopping +-34 deg every 3.2 s across [-31.95, 20.5]
 - Pillars: 7 striped pillars on truss legs
 - Belt_A: conveyor ramp 16.5 m at 21 deg, belt -2.4 m/s, spike pit at the foot
 - Belt_B: conveyor ramp 16.5 m at 21 deg, belt -3.4 m/s, spike pit at the foot
@@ -37,8 +37,8 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 
 ## Timing
 - spec -> level.json: 0.9 s
-- build (glb, sky, background, effects, mobile): 18.1 s
-- checks (fast): 21.7 s
-- previews: 0.4 s
+- build (glb, sky, background, effects, mobile): 20.7 s
+- checks (fast): 19.7 s
+- previews: 0.3 s
 - export package: 0.2 s
-- total: 41.3 s
+- total: 41.8 s

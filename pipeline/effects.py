@@ -111,8 +111,8 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                    "sinking 0.9 m back under the surface. The pad's colliders (collision.glb nodes named after 'colliders') are disabled until 85 % of "
                    "its rise. Stage 89/91: a pad with 'drips' drops goo (CPUParticles3D) once up; with 'goo' {drips, strands, hold, fade} those bones "
                    "drain away 'hold' s after it is up over 'fade' s (smoothstep: drips scale y -> 0 sliding 0.6 m down, strands scale -> 0) and the drops stop", glb="pads at the RAISED position (skinned, one mesh per material); colliders at the raised position", defaults=dict()),
-    "saw": dict(category="saw", godot="script (apply_effects.gd _saws): the arm and blade groups (<arm>__*, <blade>__*) turn about 'axis' through 'pivot' by "
-                "angle(t) = amp * sin(2 pi (t + phase) / period) degrees; the blade also spins rpm about the same axis through its centre. A kill zone (hazard group) "
+    "saw": dict(category="saw", godot="script (apply_effects.gd _saws): Stage 101 jointed arm - 'joints' shoulder / elbow / wrist, each turning its group and every later "
+                "one about 'axis' through its own (moved) pivot by amp_k * sin(2 pi (t + phase) / period - lag_k) degrees; the blade also spins rpm about the same axis through its centre. A kill zone (hazard group) "
                 "follows the blade centre: within 'radius' of it and 0.7 m either side of its plane (normal = axis)", glb="arm + blade at angle 0, own nodes (mobile groups)", defaults=dict()),
     "sweeper": dict(category="sweeper", godot="script (apply_effects.gd _sweepers): the rotor group (<group>__*) turns about the vertical axis through 'center' "
                     "at rpm (angle = rpm * 6 * (t + phase) degrees, clockwise seen from above like a positive level yaw); per arm a box Area3D (r0..r1 at bar_y +- bar_half) "

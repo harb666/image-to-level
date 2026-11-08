@@ -574,11 +574,43 @@
    "type": "saw",
    "category": "saw",
    "glb_contains": "arm + blade at angle 0, own nodes (mobile groups)",
-   "godot_runtime": "script (apply_effects.gd _saws): the arm and blade groups (<arm>__*, <blade>__*) turn about 'axis' through 'pivot' by angle(t) = amp * sin(2 pi (t + phase) / period) degrees; the blade also spins rpm about the same axis through its centre. A kill zone (hazard group) follows the blade centre: within 'radius' of it and 0.7 m either side of its plane (normal = axis)",
+   "godot_runtime": "script (apply_effects.gd _saws): Stage 101 jointed arm - 'joints' shoulder / elbow / wrist, each turning its group and every later one about 'axis' through its own (moved) pivot by amp_k * sin(2 pi (t + phase) / period - lag_k) degrees; the blade also spins rpm about the same axis through its centre. A kill zone (hazard group) follows the blade centre: within 'radius' of it and 0.7 m either side of its plane (normal = axis)",
    "saw": {
     "id": "Saw_West",
     "arm": "Saw_West_Arm",
     "blade": "Saw_West_Blade",
+    "joints": [
+     {
+      "group": "Saw_West_Arm",
+      "pivot": [
+       -40.0,
+       13.8,
+       26.5
+      ],
+      "amp": 34.0,
+      "lag": 0.0
+     },
+     {
+      "group": "Saw_West_Fore",
+      "pivot": [
+       -35.975,
+       15.6,
+       26.5
+      ],
+      "amp": 23.799999999999997,
+      "lag": 0.9
+     },
+     {
+      "group": "Saw_West_Blade",
+      "pivot": [
+       -32.3,
+       8.7,
+       26.5
+      ],
+      "amp": 18.700000000000003,
+      "lag": 1.7
+     }
+    ],
     "slots": [
      "Yard_Bridge"
     ],
@@ -593,7 +625,7 @@
      0.0,
      1.0
     ],
-    "amp": 52.0,
+    "amp": 34.0,
     "period": 3.2,
     "phase": 0.0,
     "center": [
@@ -603,7 +635,7 @@
     ],
     "radius": 2.2,
     "rpm": 240.0,
-    "note": "angle(t) = amp sin(2 pi (t + phase) / period) about axis through pivot; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
+    "note": "joint k turns its group and every later one about axis through its pivot by amp_k sin(2 pi (t + phase) / period - lag_k) degrees; the blade also spins; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
    },
    "quality": {
     "performance": {
@@ -640,11 +672,43 @@
    "type": "saw",
    "category": "saw",
    "glb_contains": "arm + blade at angle 0, own nodes (mobile groups)",
-   "godot_runtime": "script (apply_effects.gd _saws): the arm and blade groups (<arm>__*, <blade>__*) turn about 'axis' through 'pivot' by angle(t) = amp * sin(2 pi (t + phase) / period) degrees; the blade also spins rpm about the same axis through its centre. A kill zone (hazard group) follows the blade centre: within 'radius' of it and 0.7 m either side of its plane (normal = axis)",
+   "godot_runtime": "script (apply_effects.gd _saws): Stage 101 jointed arm - 'joints' shoulder / elbow / wrist, each turning its group and every later one about 'axis' through its own (moved) pivot by amp_k * sin(2 pi (t + phase) / period - lag_k) degrees; the blade also spins rpm about the same axis through its centre. A kill zone (hazard group) follows the blade centre: within 'radius' of it and 0.7 m either side of its plane (normal = axis)",
    "saw": {
     "id": "Saw_East",
     "arm": "Saw_East_Arm",
     "blade": "Saw_East_Blade",
+    "joints": [
+     {
+      "group": "Saw_East_Arm",
+      "pivot": [
+       -24.0,
+       14.2,
+       20.5
+      ],
+      "amp": 34.0,
+      "lag": 0.0
+     },
+     {
+      "group": "Saw_East_Fore",
+      "pivot": [
+       -27.975,
+       16.0,
+       20.5
+      ],
+      "amp": 23.799999999999997,
+      "lag": 0.9
+     },
+     {
+      "group": "Saw_East_Blade",
+      "pivot": [
+       -31.6,
+       9.2,
+       20.5
+      ],
+      "amp": 18.700000000000003,
+      "lag": 1.7
+     }
+    ],
     "slots": [
      "Yard_Bridge"
     ],
@@ -659,7 +723,7 @@
      0.0,
      1.0
     ],
-    "amp": 52.0,
+    "amp": 34.0,
     "period": 3.2,
     "phase": 1.6,
     "center": [
@@ -669,7 +733,7 @@
     ],
     "radius": 2.2,
     "rpm": 240.0,
-    "note": "angle(t) = amp sin(2 pi (t + phase) / period) about axis through pivot; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
+    "note": "joint k turns its group and every later one about axis through its pivot by amp_k sin(2 pi (t + phase) / period - lag_k) degrees; the blade also spins; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
    },
    "quality": {
     "performance": {

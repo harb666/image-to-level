@@ -92,8 +92,8 @@ def saw_arm(ctx, s, x, y, z, yaw):
     ([x, z]) at "height". The blade kills anyone it touches (level.json "saws": the runtimes move a kill zone with it)."""
     n = s["id"]; D = float(s.get("blade", 4.4)); R = D / 2; ax_, az_ = s["aim"]; yc = float(s["height"]); ph = float(s.get("pivot_height", yc + 4.0))
     ay = float(s.get("axis_yaw", 0.0)); A = [round(math.sin(math.radians(ay)), 4), 0.0, round(math.cos(math.radians(ay)), 4)]
-    arm = ctx.role("arm_yellow"); st = dict(mobile={"static": True}); ga, gb = n + "_Arm", n + "_Blade"
-    mv = dict(collision=False, mobile={"group": ga}); mb = dict(collision=False, outline=False, mobile={"group": gb})
+    arm = ctx.role("arm_yellow"); st = dict(mobile={"static": True}); ga, gf, gb = n + "_Arm", n + "_Fore", n + "_Blade"  # Stage 101: three moving links
+    mv = dict(collision=False, mobile={"group": ga}); mf = dict(collision=False, mobile={"group": gf}); mb = dict(collision=False, outline=False, mobile={"group": gb})
     ctx.add(n + "_Foot", "frustum", [x, y - 0.6, z], [3.2, 1.2, 3.2], "structure_b", sections=8, bottom_scale=1.3, **st)
     ctx.add(n + "_Pedestal", "cylinder", [x, y + 0.6, z], [2.0, ph - y - 1.6, 2.0], "machine", sections=10, **st)
     ctx.add(n + "_Collar", "cylinder", [x, ph - 1.4, z], [2.5, 0.45, 2.5], ctx.role("stripe"), sections=10, outline=False, **st)
@@ -101,17 +101,20 @@ def saw_arm(ctx, s, x, y, z, yaw):
     ctx.add(n + "_Hinge", "cylinder", [x, ph, z], [1.5, 2.2, 1.5], "machine", rot=[90, ay, 0], sections=10, **dict(st, outline=False))  # along the hinge axis (centred: 1.1 m each way)
     hx, hz = ax_ - x, az_ - z; Ld = math.hypot(hx, hz); ux, uz = hx / Ld, hz / Ld  # from the pedestal towards the walkway
     P0 = [x, ph, z]; C = [ax_, yc, az_]; E = [x + hx * 0.5, ph + 1.8, z + hz * 0.5]; Hb = [ax_ - ux * 0.35, yc, az_ - uz * 0.35]
-    for nm, a, b, t_ in (("Upper", P0, E, 1.1), ("Fore", E, Hb, 0.85)):
+    for nm, a, b, t_, kw_ in (("Upper", P0, E, 1.1, mv), ("Fore", E, Hb, 0.85, mf)):
         L = math.dist(a, b); m = [(a[i] + b[i]) / 2 for i in range(3)]; pitch = math.degrees(math.atan2(b[1] - a[1], math.hypot(b[0] - a[0], b[2] - a[2])))
-        ctx.add(f"{n}_{nm}", "box", [m[0], m[1] - t_ / 2, m[2]], [t_, t_, L + 0.4], arm, rot=[-pitch, _yaw_to(b[0] - a[0], b[2] - a[2]), 0], **mv)
-    ctx.add(n + "_Elbow", "cylinder", [E[0] - A[0] * 0.6, E[1], E[2] - A[2] * 0.6], [1.2, 1.2, 1.2], "machine", rot=[90, ay, 0], sections=10, **mv)
-    ctx.add(n + "_Hub", "cylinder", [Hb[0] - A[0] * 0.5, Hb[1], Hb[2] - A[2] * 0.5], [0.9, 1.0, 0.9], "machine", rot=[90, ay, 0], sections=8, **mv)
+        ctx.add(f"{n}_{nm}", "box", [m[0], m[1] - t_ / 2, m[2]], [t_, t_, L + 0.4], arm, rot=[-pitch, _yaw_to(b[0] - a[0], b[2] - a[2]), 0], **kw_)
+    ctx.add(n + "_Elbow", "cylinder", [E[0] - A[0] * 0.6, E[1], E[2] - A[2] * 0.6], [1.2, 1.2, 1.2], "machine", rot=[90, ay, 0], sections=10, **mf)  # rides on the forearm, centred on its hinge
+    ctx.add(n + "_Hub", "cylinder", [Hb[0] - A[0] * 0.5, Hb[1], Hb[2] - A[2] * 0.5], [0.9, 1.0, 0.9], "machine", rot=[90, ay, 0], sections=8, **mb)  # the wrist: turns with the blade
     ctx.add(n + "_Saw", "saw_blade", C, [D, 0.12, D], ctx.role("blade"), rot=[90, ay, 0], teeth=int(s.get("teeth", 28)), **mb)
     ctx.add(n + "_SawHub", "cylinder", [C[0] - A[0] * 0.12, C[1], C[2] - A[2] * 0.12], [D * 0.28, 0.24, D * 0.28], ctx.role("stripe"), rot=[90, ay, 0], sections=10, **mb)
     slots = _slot_walkways(ctx, C, A, R + 2.0, float(s.get("slot", 0.9))) if s.get("slot", 0.9) else []  # Stage 99: a slot through the walkway it chops across: the blade swings through the deck
-    ctx.saws = getattr(ctx, "saws", []) + [dict(id=n, arm=ga, blade=gb, slots=slots, slot=float(s.get("slot", 0.9)), pivot=[round(v, 3) for v in P0], axis=A, amp=float(s.get("amp", 50.0)), period=float(s.get("period", 3.2)),
+    amp = float(s.get("amp", 38.0)); J = [dict(group=ga, pivot=[round(v, 3) for v in P0], amp=amp, lag=0.0),  # Stage 101: shoulder, elbow, wrist - each pivots,
+         dict(group=gf, pivot=[round(v, 3) for v in E], amp=float(s.get("elbow_amp", amp * 0.7)), lag=float(s.get("elbow_lag", 0.9))),  # the outer joints lagging behind
+         dict(group=gb, pivot=[round(v, 3) for v in Hb], amp=float(s.get("wrist_amp", amp * 0.55)), lag=float(s.get("wrist_lag", 1.7)))]  # (follow-through: it whips, not swings stiff)
+    ctx.saws = getattr(ctx, "saws", []) + [dict(id=n, arm=ga, blade=gb, joints=J, slots=slots, slot=float(s.get("slot", 0.9)), pivot=[round(v, 3) for v in P0], axis=A, amp=amp, period=float(s.get("period", 3.2)),
                                                phase=float(s.get("phase", 0.0)), center=[round(v, 3) for v in C], radius=round(R, 3), rpm=float(s.get("rpm", 240.0)),
-                                               note="angle(t) = amp sin(2 pi (t + phase) / period) about axis through pivot; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)")]
+                                               note="joint k turns its group and every later one about axis through its pivot by amp_k sin(2 pi (t + phase) / period - lag_k) degrees; the blade also spins; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)")]
     ctx.notes.append(f"{n}: saw {D:.1f} m chopping +-{s.get('amp', 50)} deg every {s.get('period', 3.2)} s across [{ax_}, {az_}]")
 
 

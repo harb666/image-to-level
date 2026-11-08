@@ -4,10 +4,10 @@ errors 0 · warnings 3 · info 1
 
 | metric | dev | mobile |
 |---|---|---|
-| file KB | 2766 | 1430 |
-| triangles | 32773 | 37821 |
-| draw calls (measured) | 1728 | 65 |
-| visible draw calls (estimate) | - | 46.0 |
+| file KB | 2765 | 1432 |
+| triangles | 32773 | 37757 |
+| draw calls (measured) | 1726 | 71 |
+| visible draw calls (estimate) | - | 48.2 |
 | GPU texture MB (estimate) | 17.88 | 7.06 |
 
 Navigation: reachable 3249.0 of 19185.0 m² standable; components 98.

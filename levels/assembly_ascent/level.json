@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "4548c1de11b65086",
+  "spec_sha": "cc772eb24f51bbe7",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -184,6 +184,38 @@
     "id": "Saw_West",
     "arm": "Saw_West_Arm",
     "blade": "Saw_West_Blade",
+    "joints": [
+     {
+      "group": "Saw_West_Arm",
+      "pivot": [
+       -40.0,
+       13.8,
+       26.5
+      ],
+      "amp": 34.0,
+      "lag": 0.0
+     },
+     {
+      "group": "Saw_West_Fore",
+      "pivot": [
+       -35.975,
+       15.6,
+       26.5
+      ],
+      "amp": 23.799999999999997,
+      "lag": 0.9
+     },
+     {
+      "group": "Saw_West_Blade",
+      "pivot": [
+       -32.3,
+       8.7,
+       26.5
+      ],
+      "amp": 18.700000000000003,
+      "lag": 1.7
+     }
+    ],
     "slots": [
      "Yard_Bridge"
     ],
@@ -198,7 +230,7 @@
      0.0,
      1.0
     ],
-    "amp": 52.0,
+    "amp": 34.0,
     "period": 3.2,
     "phase": 0.0,
     "center": [
@@ -208,7 +240,7 @@
     ],
     "radius": 2.2,
     "rpm": 240.0,
-    "note": "angle(t) = amp sin(2 pi (t + phase) / period) about axis through pivot; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
+    "note": "joint k turns its group and every later one about axis through its pivot by amp_k sin(2 pi (t + phase) / period - lag_k) degrees; the blade also spins; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
    }
   },
   {
@@ -218,6 +250,38 @@
     "id": "Saw_East",
     "arm": "Saw_East_Arm",
     "blade": "Saw_East_Blade",
+    "joints": [
+     {
+      "group": "Saw_East_Arm",
+      "pivot": [
+       -24.0,
+       14.2,
+       20.5
+      ],
+      "amp": 34.0,
+      "lag": 0.0
+     },
+     {
+      "group": "Saw_East_Fore",
+      "pivot": [
+       -27.975,
+       16.0,
+       20.5
+      ],
+      "amp": 23.799999999999997,
+      "lag": 0.9
+     },
+     {
+      "group": "Saw_East_Blade",
+      "pivot": [
+       -31.6,
+       9.2,
+       20.5
+      ],
+      "amp": 18.700000000000003,
+      "lag": 1.7
+     }
+    ],
     "slots": [
      "Yard_Bridge"
     ],
@@ -232,7 +296,7 @@
      0.0,
      1.0
     ],
-    "amp": 52.0,
+    "amp": 34.0,
     "period": 3.2,
     "phase": 1.6,
     "center": [
@@ -242,7 +306,7 @@
     ],
     "radius": 2.2,
     "rpm": 240.0,
-    "note": "angle(t) = amp sin(2 pi (t + phase) / period) about axis through pivot; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
+    "note": "joint k turns its group and every later one about axis through its pivot by amp_k sin(2 pi (t + phase) / period - lag_k) degrees; the blade also spins; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
    }
   },
   {
@@ -14495,7 +14559,7 @@
    "material": "arm_yellow",
    "collision": false,
    "mobile": {
-    "group": "Saw_West_Arm"
+    "group": "Saw_West_Fore"
    },
    "gen": "Saw_West",
    "source": "visible"
@@ -14522,7 +14586,7 @@
    "sections": 10,
    "collision": false,
    "mobile": {
-    "group": "Saw_West_Arm"
+    "group": "Saw_West_Fore"
    },
    "gen": "Saw_West",
    "source": "visible"
@@ -14548,8 +14612,9 @@
    "material": "machine",
    "sections": 8,
    "collision": false,
+   "outline": false,
    "mobile": {
-    "group": "Saw_West_Arm"
+    "group": "Saw_West_Blade"
    },
    "gen": "Saw_West",
    "source": "visible"
@@ -15014,7 +15079,7 @@
    "material": "arm_yellow",
    "collision": false,
    "mobile": {
-    "group": "Saw_East_Arm"
+    "group": "Saw_East_Fore"
    },
    "gen": "Saw_East",
    "source": "visible"
@@ -15041,7 +15106,7 @@
    "sections": 10,
    "collision": false,
    "mobile": {
-    "group": "Saw_East_Arm"
+    "group": "Saw_East_Fore"
    },
    "gen": "Saw_East",
    "source": "visible"
@@ -15067,8 +15132,9 @@
    "material": "machine",
    "sections": 8,
    "collision": false,
+   "outline": false,
    "mobile": {
-    "group": "Saw_East_Arm"
+    "group": "Saw_East_Blade"
    },
    "gen": "Saw_East",
    "source": "visible"
@@ -52783,6 +52849,38 @@
    "id": "Saw_West",
    "arm": "Saw_West_Arm",
    "blade": "Saw_West_Blade",
+   "joints": [
+    {
+     "group": "Saw_West_Arm",
+     "pivot": [
+      -40.0,
+      13.8,
+      26.5
+     ],
+     "amp": 34.0,
+     "lag": 0.0
+    },
+    {
+     "group": "Saw_West_Fore",
+     "pivot": [
+      -35.975,
+      15.6,
+      26.5
+     ],
+     "amp": 23.799999999999997,
+     "lag": 0.9
+    },
+    {
+     "group": "Saw_West_Blade",
+     "pivot": [
+      -32.3,
+      8.7,
+      26.5
+     ],
+     "amp": 18.700000000000003,
+     "lag": 1.7
+    }
+   ],
    "slots": [
     "Yard_Bridge"
    ],
@@ -52797,7 +52895,7 @@
     0.0,
     1.0
    ],
-   "amp": 52.0,
+   "amp": 34.0,
    "period": 3.2,
    "phase": 0.0,
    "center": [
@@ -52807,12 +52905,44 @@
    ],
    "radius": 2.2,
    "rpm": 240.0,
-   "note": "angle(t) = amp sin(2 pi (t + phase) / period) about axis through pivot; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
+   "note": "joint k turns its group and every later one about axis through its pivot by amp_k sin(2 pi (t + phase) / period - lag_k) degrees; the blade also spins; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
   },
   {
    "id": "Saw_East",
    "arm": "Saw_East_Arm",
    "blade": "Saw_East_Blade",
+   "joints": [
+    {
+     "group": "Saw_East_Arm",
+     "pivot": [
+      -24.0,
+      14.2,
+      20.5
+     ],
+     "amp": 34.0,
+     "lag": 0.0
+    },
+    {
+     "group": "Saw_East_Fore",
+     "pivot": [
+      -27.975,
+      16.0,
+      20.5
+     ],
+     "amp": 23.799999999999997,
+     "lag": 0.9
+    },
+    {
+     "group": "Saw_East_Blade",
+     "pivot": [
+      -31.6,
+      9.2,
+      20.5
+     ],
+     "amp": 18.700000000000003,
+     "lag": 1.7
+    }
+   ],
    "slots": [
     "Yard_Bridge"
    ],
@@ -52827,7 +52957,7 @@
     0.0,
     1.0
    ],
-   "amp": 52.0,
+   "amp": 34.0,
    "period": 3.2,
    "phase": 1.6,
    "center": [
@@ -52837,7 +52967,7 @@
    ],
    "radius": 2.2,
    "rpm": 240.0,
-   "note": "angle(t) = amp sin(2 pi (t + phase) / period) about axis through pivot; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
+   "note": "joint k turns its group and every later one about axis through its pivot by amp_k sin(2 pi (t + phase) / period - lag_k) degrees; the blade also spins; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
   }
  ],
  "belts": [
@@ -53011,8 +53141,8 @@
   "Exit_Stairs: 0.75 m junction plate where it meets Upper_Deck's angled edge",
   "Exit_Stairs: stairs run 5.7 m > gap 4.0 m - extends 1.7 m onto Upper_Deck",
   "Entry_Door: entrance hallway 10 m out of the black (from slime_arena)",
-  "Saw_West: saw 4.4 m chopping +-52 deg every 3.2 s across [-31.95, 26.5]",
-  "Saw_East: saw 4.4 m chopping +-52 deg every 3.2 s across [-31.95, 20.5]",
+  "Saw_West: saw 4.4 m chopping +-34 deg every 3.2 s across [-31.95, 26.5]",
+  "Saw_East: saw 4.4 m chopping +-34 deg every 3.2 s across [-31.95, 20.5]",
   "Pillars: 7 striped pillars on truss legs",
   "Belt_A: conveyor ramp 16.5 m at 21 deg, belt -2.4 m/s, spike pit at the foot",
   "Belt_B: conveyor ramp 16.5 m at 21 deg, belt -3.4 m/s, spike pit at the foot",
@@ -53110,9 +53240,9 @@
   "triangles": 32773,
   "objects": 1606,
   "materials": 30,
-  "glb_kb": 2766,
-  "nodes": 1760,
-  "draw_calls_unbatched": 1728,
+  "glb_kb": 2765,
+  "nodes": 1758,
+  "draw_calls_unbatched": 1726,
   "draw_calls_batched_min": 30,
   "images": 82,
   "tex_mem_gpu_compressed_mb": 17.88,

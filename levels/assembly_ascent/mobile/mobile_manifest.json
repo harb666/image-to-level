@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 2766,
-    "triangles": 39741,
-    "nodes": 1760,
-    "mesh_nodes": 1728,
-    "unique_meshes": 705,
+    "glb_kb": 2765,
+    "triangles": 39677,
+    "nodes": 1758,
+    "mesh_nodes": 1726,
+    "unique_meshes": 703,
     "materials": 30,
     "images": 82,
-    "draw_calls_unbatched": 1728,
+    "draw_calls_unbatched": 1726,
     "draw_calls_batched_min": 30,
     "tex_mem_uncompressed_mb": 71.51,
     "tex_mem_gpu_compressed_mb": 17.88,
@@ -71,22 +71,22 @@
    },
    "visible": {
     "cameras": 80,
-    "visible_draw_calls_mean": 573.7,
-    "visible_draw_calls_max": 1722,
-    "visible_triangles_mean": 24980,
-    "visible_triangles_max": 50397
+    "visible_draw_calls_mean": 573.0,
+    "visible_draw_calls_max": 1720,
+    "visible_triangles_mean": 24957,
+    "visible_triangles_max": 50333
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 1430,
-    "triangles": 37821,
-    "nodes": 66,
-    "mesh_nodes": 65,
-    "unique_meshes": 65,
+    "glb_kb": 1432,
+    "triangles": 37757,
+    "nodes": 72,
+    "mesh_nodes": 71,
+    "unique_meshes": 71,
     "materials": 30,
     "images": 52,
-    "draw_calls_unbatched": 65,
+    "draw_calls_unbatched": 71,
     "draw_calls_batched_min": 30,
     "tex_mem_uncompressed_mb": 28.26,
     "tex_mem_gpu_compressed_mb": 7.06,
@@ -136,10 +136,10 @@
    },
    "visible": {
     "cameras": 80,
-    "visible_draw_calls_mean": 46.0,
-    "visible_draw_calls_max": 69,
-    "visible_triangles_mean": 43608,
-    "visible_triangles_max": 48665
+    "visible_draw_calls_mean": 48.2,
+    "visible_draw_calls_max": 75,
+    "visible_triangles_mean": 43576,
+    "visible_triangles_max": 48601
    },
    "hidden_faces_removed": 911,
    "occluded_faces_removed": 1009,
@@ -150,8 +150,8 @@
    "effects_max_particles": 283,
    "slimmed_kb": {
     "level_mobile.glb": [
-     2292,
-     1430
+     2295,
+     1432
     ],
     "background_mobile.glb": [
      477,
@@ -846,11 +846,10 @@
    "node": "Saw_East_Arm__arm_yellow",
    "kind": "group",
    "material": "arm_yellow",
-   "triangles": 24,
+   "triangles": 12,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Saw_East_Fore",
     "Saw_East_Upper"
    ],
    "group": "Saw_East_Arm"
@@ -859,27 +858,11 @@
    "node": "Saw_East_Arm__ink",
    "kind": "group",
    "material": "ink",
-   "triangles": 96,
+   "triangles": 12,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Saw_East_Hub__ol",
-    "Saw_East_Elbow__ol",
-    "Saw_East_Fore__ol",
     "Saw_East_Upper__ol"
-   ],
-   "group": "Saw_East_Arm"
-  },
-  {
-   "node": "Saw_East_Arm__machine",
-   "kind": "group",
-   "material": "machine",
-   "triangles": 72,
-   "visibility_range_end": 0,
-   "cast_shadow": false,
-   "source_objects": [
-    "Saw_East_Hub",
-    "Saw_East_Elbow"
    ],
    "group": "Saw_East_Arm"
   },
@@ -896,6 +879,18 @@
    "group": "Saw_East_Blade"
   },
   {
+   "node": "Saw_East_Blade__machine",
+   "kind": "group",
+   "material": "machine",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Saw_East_Hub"
+   ],
+   "group": "Saw_East_Blade"
+  },
+  {
    "node": "Saw_East_Blade__stripe",
    "kind": "group",
    "material": "stripe",
@@ -908,14 +903,50 @@
    "group": "Saw_East_Blade"
   },
   {
-   "node": "Saw_West_Arm__arm_yellow",
+   "node": "Saw_East_Fore__arm_yellow",
    "kind": "group",
    "material": "arm_yellow",
-   "triangles": 24,
+   "triangles": 12,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Saw_West_Fore",
+    "Saw_East_Fore"
+   ],
+   "group": "Saw_East_Fore"
+  },
+  {
+   "node": "Saw_East_Fore__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 52,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Saw_East_Elbow__ol",
+    "Saw_East_Fore__ol"
+   ],
+   "group": "Saw_East_Fore"
+  },
+  {
+   "node": "Saw_East_Fore__machine",
+   "kind": "group",
+   "material": "machine",
+   "triangles": 40,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Saw_East_Elbow"
+   ],
+   "group": "Saw_East_Fore"
+  },
+  {
+   "node": "Saw_West_Arm__arm_yellow",
+   "kind": "group",
+   "material": "arm_yellow",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
     "Saw_West_Upper"
    ],
    "group": "Saw_West_Arm"
@@ -924,27 +955,11 @@
    "node": "Saw_West_Arm__ink",
    "kind": "group",
    "material": "ink",
-   "triangles": 96,
+   "triangles": 12,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Saw_West_Hub__ol",
-    "Saw_West_Elbow__ol",
-    "Saw_West_Fore__ol",
     "Saw_West_Upper__ol"
-   ],
-   "group": "Saw_West_Arm"
-  },
-  {
-   "node": "Saw_West_Arm__machine",
-   "kind": "group",
-   "material": "machine",
-   "triangles": 72,
-   "visibility_range_end": 0,
-   "cast_shadow": false,
-   "source_objects": [
-    "Saw_West_Hub",
-    "Saw_West_Elbow"
    ],
    "group": "Saw_West_Arm"
   },
@@ -961,6 +976,18 @@
    "group": "Saw_West_Blade"
   },
   {
+   "node": "Saw_West_Blade__machine",
+   "kind": "group",
+   "material": "machine",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Saw_West_Hub"
+   ],
+   "group": "Saw_West_Blade"
+  },
+  {
    "node": "Saw_West_Blade__stripe",
    "kind": "group",
    "material": "stripe",
@@ -971,6 +998,43 @@
     "Saw_West_SawHub"
    ],
    "group": "Saw_West_Blade"
+  },
+  {
+   "node": "Saw_West_Fore__arm_yellow",
+   "kind": "group",
+   "material": "arm_yellow",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Saw_West_Fore"
+   ],
+   "group": "Saw_West_Fore"
+  },
+  {
+   "node": "Saw_West_Fore__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 52,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Saw_West_Elbow__ol",
+    "Saw_West_Fore__ol"
+   ],
+   "group": "Saw_West_Fore"
+  },
+  {
+   "node": "Saw_West_Fore__machine",
+   "kind": "group",
+   "material": "machine",
+   "triangles": 40,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Saw_West_Elbow"
+   ],
+   "group": "Saw_West_Fore"
   },
   {
    "node": "Spike_Press_Ram__ink",

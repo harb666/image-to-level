@@ -24,7 +24,7 @@ var _travel: Array = []  # [node, rest position, speed m/s, spacing m] (Stage 43
 var _launch: Array = []  # [node, rest position, speed, period, phase, travel] (Stage 49: pods shooting up the columns)
 var _crushers: Array = []  # Stage 72: [crusher dict, ram nodes, warning lamps, kill CollisionShape3D]
 var _winds: Array = []  # Stage 82: [wind dict, rotor node, Area3D, CPUParticles3D streaks]
-var _saws: Array = []  # Stage 97: [saw dict, [[arm node, rest]...], [[blade node, rest]...], kill Area3D]
+var _saws: Array = []  # Stage 97/101: [saw dict, [[joint, [[node, rest]...]]...], kill Area3D]
 var _sweepers: Array = []  # Stage 98: [sweeper dict, [[rotor node, rest]...], pivot Node3D carrying the kill areas]
 var _belts: Array = []  # Stage 97: [belt dict, [[chevron node, rest position]...], rider Area3D]
 var _bobs: Array = []  # Stage 92: [bob dict, [[Node3D, rest Transform3D]...]]
@@ -346,12 +346,13 @@ func _crusher(c: Dictionary) -> void:
 
 
 func _saw(w: Dictionary) -> void:
-	var arm: Array = []
-	for nd in _group_nodes(String(w["arm"])):
-		arm.append([nd, (nd as Node3D).transform])
-	var blade: Array = []
-	for nd in _group_nodes(String(w["blade"])):
-		blade.append([nd, (nd as Node3D).transform])
+	var links: Array = []  # Stage 101: [joint dict, [[node, rest]...]] shoulder -> elbow -> wrist (the last one also spins the blade)
+	var J: Array = w.get("joints", [{"group": w["arm"], "pivot": w["pivot"], "amp": w["amp"], "lag": 0.0}, {"group": w["blade"], "pivot": w["center"], "amp": 0.0, "lag": 0.0}])
+	for j in J:
+		var nodes: Array = []
+		for nd in _group_nodes(String(j["group"])):
+			nodes.append([nd, (nd as Node3D).transform])
+		links.append([j, nodes])
 	var area := Area3D.new()
 	area.name = String(w["id"]) + "_Kill"
 	var cs := CollisionShape3D.new()
@@ -362,7 +363,7 @@ func _saw(w: Dictionary) -> void:
 	area.add_child(cs)
 	level_root.add_child(area)
 	area.add_to_group(hazard_group)
-	_saws.append([w, arm, blade, area])
+	_saws.append([w, links, area])
 
 
 func _sweeper(sw: Dictionary) -> void:
@@ -425,17 +426,22 @@ func _update_saws() -> void:
 	for sr in _saws:
 		var w: Dictionary = sr[0]
 		var A := Vector3(w["axis"][0], w["axis"][1], w["axis"][2]).normalized()
-		var P := Vector3(w["pivot"][0], w["pivot"][1], w["pivot"][2])
 		var C := Vector3(w["center"][0], w["center"][1], w["center"][2])
-		var q := Basis(A, deg_to_rad(float(w["amp"])) * sin(TAU * (_t + float(w["phase"])) / float(w["period"])))
-		var swing := Transform3D(q, P - q * P)
-		var qs := Basis(A, float(w["rpm"]) * TAU / 60.0 * _t)
-		var spin := Transform3D(qs, C - qs * C)
-		for nr in sr[1]:
-			(nr[0] as Node3D).transform = swing * (nr[1] as Transform3D)
-		for nr in sr[2]:
-			(nr[0] as Node3D).transform = swing * spin * (nr[1] as Transform3D)
-		(sr[3] as Area3D).global_transform = Transform3D(Basis(Quaternion(Vector3.UP, A)), swing * C)  # the kill cylinder's axis = the blade's
+		var ph := TAU * (_t + float(w["phase"])) / float(w["period"])
+		var M := Transform3D.IDENTITY
+		var links: Array = sr[1]
+		for k in links.size():
+			var j: Dictionary = links[k][0]
+			var P := Vector3(j["pivot"][0], j["pivot"][1], j["pivot"][2])
+			var q := Basis(A, deg_to_rad(float(j["amp"])) * sin(ph - float(j["lag"])))
+			M = M * Transform3D(q, P - q * P)  # each joint turns about its own (already moved) hinge
+			var T := M
+			if k == links.size() - 1:  # the blade also spins about its axis through its centre
+				var qs := Basis(A, float(w["rpm"]) * TAU / 60.0 * _t)
+				T = M * Transform3D(qs, C - qs * C)
+			for nr in links[k][1]:
+				(nr[0] as Node3D).transform = T * (nr[1] as Transform3D)
+		(sr[2] as Area3D).global_transform = Transform3D(Basis(Quaternion(Vector3.UP, A)), M * C)  # the kill cylinder's axis = the blade's
 
 
 func _riser(r: Dictionary) -> void:

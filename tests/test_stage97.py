@@ -35,6 +35,10 @@ class AssemblyAscent(unittest.TestCase):
             self.assertTrue(0.0 < s["center"][1] - s["radius"] - 6.0 < 1.8)  # the blade's lower edge is within a player's height of the deck
             self.assertAlmostEqual(math.hypot(*s["axis"]), 1.0, places=3)
         self.assertAlmostEqual(abs(S["Saw_West"]["phase"] - S["Saw_East"]["phase"]), S["Saw_West"]["period"] / 2, places=3)
+        for s in S.values():  # Stage 101: jointed - shoulder, elbow, wrist each pivot (own groups), the outer ones lagging
+            J = s["joints"]; self.assertEqual(len(J), 3); self.assertEqual([j["group"] for j in J], [s["id"] + "_Arm", s["id"] + "_Fore", s["id"] + "_Blade"])
+            self.assertTrue(J[0]["lag"] < J[1]["lag"] < J[2]["lag"]); self.assertTrue(all(j["amp"] > 0 for j in J))
+            self.assertEqual(self.by[s["id"] + "_Elbow"]["mobile"]["group"], s["id"] + "_Fore")
         for s in S.values(): self.assertEqual(s["slots"], ["Yard_Bridge"]); self.assertGreaterEqual(s["slot"], 0.8)  # Stage 99/100: each blade cuts its own (jumped) slot
         self.assertEqual(sum(1 for n in self.by if "_SlotEdge_" in n), 4)  # hazard stripes on both lips of both openings
         self.assertFalse([n for n in self.by if n.startswith("Yard_Bridge_Threshold")])  # ... instead of at the bridge's ends
