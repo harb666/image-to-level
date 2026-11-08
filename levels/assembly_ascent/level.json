@@ -184,6 +184,9 @@
     "id": "Saw_West",
     "arm": "Saw_West_Arm",
     "blade": "Saw_West_Blade",
+    "slots": [
+     "Yard_Bridge"
+    ],
     "pivot": [
      -40.0,
      13.8,
@@ -214,6 +217,9 @@
     "id": "Saw_East",
     "arm": "Saw_East_Arm",
     "blade": "Saw_East_Blade",
+    "slots": [
+     "Yard_Bridge"
+    ],
     "pivot": [
      -24.0,
      14.2,
@@ -11636,8 +11642,8 @@
    "type": "box",
    "position": [
     0.0,
-    6.09,
-    0.031
+    5.713,
+    -4.863
    ],
    "rotation": [
     -4.4,
@@ -11648,7 +11654,7 @@
    "size": [
     4.5,
     0.4,
-    13.328
+    3.512
    ],
    "material": "grate",
    "connector": true,
@@ -11661,8 +11667,8 @@
    "type": "box",
    "position": [
     -1.95,
-    5.629,
-    0.0
+    5.29,
+    -4.411
    ],
    "rotation": [
     -4.4,
@@ -11673,7 +11679,7 @@
    "size": [
     0.3,
     0.45,
-    11.996
+    3.149
    ],
    "material": "frame",
    "gen": "Yard_Bridge",
@@ -11684,8 +11690,8 @@
    "type": "box",
    "position": [
     -2.28,
-    5.521,
-    0.198
+    5.156,
+    -4.548
    ],
    "rotation": [
     -4.4,
@@ -11696,7 +11702,7 @@
    "size": [
     0.12,
     0.95,
-    13.038
+    3.517
    ],
    "material": "structure_b",
    "collision": false,
@@ -11708,8 +11714,8 @@
    "type": "box",
    "position": [
     -2.355,
-    6.078,
-    0.008
+    5.746,
+    -4.312
    ],
    "rotation": [
     -4.4,
@@ -11720,7 +11726,7 @@
    "size": [
     0.05,
     0.11,
-    11.728
+    3.063
    ],
    "material": "glow",
    "collision": false,
@@ -11733,8 +11739,8 @@
    "type": "box",
    "position": [
     1.95,
-    5.629,
-    0.0
+    5.269,
+    -4.681
    ],
    "rotation": [
     -4.4,
@@ -11745,7 +11751,7 @@
    "size": [
     0.3,
     0.45,
-    11.996
+    2.605
    ],
    "material": "frame",
    "gen": "Yard_Bridge",
@@ -11756,8 +11762,8 @@
    "type": "box",
    "position": [
     2.28,
-    5.521,
-    0.198
+    5.131,
+    -4.865
    ],
    "rotation": [
     -4.4,
@@ -11768,7 +11774,7 @@
    "size": [
     0.12,
     0.95,
-    13.038
+    2.882
    ],
    "material": "structure_b",
    "collision": false,
@@ -11780,8 +11786,8 @@
    "type": "box",
    "position": [
     2.355,
-    6.078,
-    0.008
+    5.72,
+    -4.639
    ],
    "rotation": [
     -4.4,
@@ -11792,7 +11798,7 @@
    "size": [
     0.05,
     0.11,
-    11.728
+    2.407
    ],
    "material": "glow",
    "collision": false,
@@ -14653,6 +14659,175 @@
    "source": "visible"
   },
   {
+   "name": "Yard_Bridge_Deck_b",
+   "type": "box",
+   "position": [
+    0.0,
+    6.093,
+    0.066
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    4.5,
+    0.4,
+    5.776
+   ],
+   "material": "grate",
+   "connector": true,
+   "axis": "z",
+   "gen": "Yard_Bridge",
+   "source": "visible"
+  },
+  {
+   "name": "Yard_Bridge_Beam_L_b",
+   "type": "box",
+   "position": [
+    -1.95,
+    5.655,
+    0.337
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    0.3,
+    0.45,
+    5.776
+   ],
+   "material": "frame",
+   "gen": "Yard_Bridge",
+   "source": "visible"
+  },
+  {
+   "name": "Yard_Bridge_Clad_L_b",
+   "type": "box",
+   "position": [
+    -2.28,
+    5.535,
+    0.383
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    0.12,
+    0.95,
+    5.776
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "gen": "Yard_Bridge",
+   "source": "visible"
+  },
+  {
+   "name": "Yard_Bridge_CladLight_L_b",
+   "type": "box",
+   "position": [
+    -2.355,
+    6.108,
+    0.394
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    0.05,
+    0.11,
+    5.775
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "gen": "Yard_Bridge",
+   "source": "visible"
+  },
+  {
+   "name": "Yard_Bridge_Beam_R_b",
+   "type": "box",
+   "position": [
+    1.95,
+    5.613,
+    -0.205
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    0.3,
+    0.45,
+    5.776
+   ],
+   "material": "frame",
+   "gen": "Yard_Bridge",
+   "source": "visible"
+  },
+  {
+   "name": "Yard_Bridge_Clad_R_b",
+   "type": "box",
+   "position": [
+    2.28,
+    5.486,
+    -0.25
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    0.12,
+    0.95,
+    5.776
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "gen": "Yard_Bridge",
+   "source": "visible"
+  },
+  {
+   "name": "Yard_Bridge_CladLight_R_b",
+   "type": "box",
+   "position": [
+    2.355,
+    6.058,
+    -0.261
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    0.05,
+    0.11,
+    5.776
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "gen": "Yard_Bridge",
+   "source": "visible"
+  },
+  {
    "name": "Saw_East_Foot",
    "type": "frustum",
    "position": [
@@ -14944,6 +15119,175 @@
     "group": "Saw_East_Blade"
    },
    "gen": "Saw_East",
+   "source": "visible"
+  },
+  {
+   "name": "Yard_Bridge_Deck_b_b",
+   "type": "box",
+   "position": [
+    0.0,
+    6.469,
+    4.96
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    4.5,
+    0.4,
+    3.44
+   ],
+   "material": "grate",
+   "connector": true,
+   "axis": "z",
+   "gen": "Yard_Bridge",
+   "source": "visible"
+  },
+  {
+   "name": "Yard_Bridge_Beam_L_b_b",
+   "type": "box",
+   "position": [
+    -1.95,
+    5.994,
+    4.748
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    0.3,
+    0.45,
+    2.471
+   ],
+   "material": "frame",
+   "gen": "Yard_Bridge",
+   "source": "visible"
+  },
+  {
+   "name": "Yard_Bridge_Clad_L_b_b",
+   "type": "box",
+   "position": [
+    -2.28,
+    5.9,
+    5.13
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    0.12,
+    0.95,
+    3.145
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "gen": "Yard_Bridge",
+   "source": "visible"
+  },
+  {
+   "name": "Yard_Bridge_CladLight_L_b_b",
+   "type": "box",
+   "position": [
+    -2.355,
+    6.44,
+    4.714
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    0.05,
+    0.11,
+    2.29
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "gen": "Yard_Bridge",
+   "source": "visible"
+  },
+  {
+   "name": "Yard_Bridge_Beam_R_b_b",
+   "type": "box",
+   "position": [
+    1.95,
+    5.973,
+    4.477
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    0.3,
+    0.45,
+    3.015
+   ],
+   "material": "frame",
+   "gen": "Yard_Bridge",
+   "source": "visible"
+  },
+  {
+   "name": "Yard_Bridge_Clad_R_b_b",
+   "type": "box",
+   "position": [
+    2.28,
+    5.876,
+    4.813
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    0.12,
+    0.95,
+    3.78
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "gen": "Yard_Bridge",
+   "source": "visible"
+  },
+  {
+   "name": "Yard_Bridge_CladLight_R_b_b",
+   "type": "box",
+   "position": [
+    2.355,
+    6.415,
+    4.386
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    0.05,
+    0.11,
+    2.945
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "gen": "Yard_Bridge",
    "source": "visible"
   },
   {
@@ -52375,6 +52719,9 @@
    "id": "Saw_West",
    "arm": "Saw_West_Arm",
    "blade": "Saw_West_Blade",
+   "slots": [
+    "Yard_Bridge"
+   ],
    "pivot": [
     -40.0,
     13.8,
@@ -52401,6 +52748,9 @@
    "id": "Saw_East",
    "arm": "Saw_East_Arm",
    "blade": "Saw_East_Blade",
+   "slots": [
+    "Yard_Bridge"
+   ],
    "pivot": [
     -24.0,
     14.2,
@@ -52612,7 +52962,7 @@
  "relations": [
   {
    "type": "supported_by",
-   "a": "Yard_Bridge_Deck",
+   "a": "Yard_Bridge_Deck_b",
    "b": "Yard_Bridge_Support_Head"
   },
   {
@@ -52622,7 +52972,7 @@
   },
   {
    "type": "walkable_connection",
-   "a": "Yard_Bridge_Deck",
+   "a": "Yard_Bridge_Deck_b_b",
    "b": "Yard_Bridge_Junction_Hi",
    "a_anchor": "end_b"
   },
@@ -52691,12 +53041,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 32581,
-  "objects": 1590,
+  "triangles": 32749,
+  "objects": 1604,
   "materials": 30,
-  "glb_kb": 2733,
-  "nodes": 1731,
-  "draw_calls_unbatched": 1699,
+  "glb_kb": 2763,
+  "nodes": 1757,
+  "draw_calls_unbatched": 1725,
   "draw_calls_batched_min": 30,
   "images": 82,
   "tex_mem_gpu_compressed_mb": 17.88,

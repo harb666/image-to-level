@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 2733,
-    "triangles": 39393,
-    "nodes": 1731,
-    "mesh_nodes": 1699,
-    "unique_meshes": 675,
+    "glb_kb": 2763,
+    "triangles": 39705,
+    "nodes": 1757,
+    "mesh_nodes": 1725,
+    "unique_meshes": 702,
     "materials": 30,
     "images": 82,
-    "draw_calls_unbatched": 1699,
+    "draw_calls_unbatched": 1725,
     "draw_calls_batched_min": 30,
     "tex_mem_uncompressed_mb": 71.51,
     "tex_mem_gpu_compressed_mb": 17.88,
@@ -71,16 +71,16 @@
    },
    "visible": {
     "cameras": 80,
-    "visible_draw_calls_mean": 562.8,
-    "visible_draw_calls_max": 1693,
-    "visible_triangles_mean": 24850,
-    "visible_triangles_max": 50049
+    "visible_draw_calls_mean": 572.6,
+    "visible_draw_calls_max": 1719,
+    "visible_triangles_mean": 24967,
+    "visible_triangles_max": 50361
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 1418,
-    "triangles": 37478,
+    "glb_kb": 1429,
+    "triangles": 37790,
     "nodes": 66,
     "mesh_nodes": 65,
     "unique_meshes": 65,
@@ -130,16 +130,16 @@
     ]
    },
    "collision": {
-    "colliders": 295,
+    "colliders": 301,
     "hazards": 1,
-    "glb_kb": 141
+    "glb_kb": 144
    },
    "visible": {
     "cameras": 80,
     "visible_draw_calls_mean": 46.0,
     "visible_draw_calls_max": 69,
-    "visible_triangles_mean": 43279,
-    "visible_triangles_max": 48322
+    "visible_triangles_mean": 43586,
+    "visible_triangles_max": 48634
    },
    "hidden_faces_removed": 911,
    "occluded_faces_removed": 1004,
@@ -150,16 +150,16 @@
    "effects_max_particles": 283,
    "slimmed_kb": {
     "level_mobile.glb": [
-     2278,
-     1418
+     2291,
+     1429
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     190,
-     141
+     193,
+     144
     ]
    }
   }
@@ -1346,7 +1346,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 3825,
+   "triangles": 3873,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -1498,6 +1498,10 @@
     "Spinner_Ramp_Support_Rib_00",
     "Spinner_Ramp_Beam_R",
     "Spinner_Ramp_Beam_L",
+    "Yard_Bridge_Beam_R_b_b",
+    "Yard_Bridge_Beam_L_b_b",
+    "Yard_Bridge_Beam_R_b",
+    "Yard_Bridge_Beam_L_b",
     "Yard_Bridge_Support_Rib_22",
     "Yard_Bridge_Support_Rib_20",
     "Yard_Bridge_Support_Rib_02",
@@ -1643,7 +1647,7 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 1358,
+   "triangles": 1406,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1683,6 +1687,10 @@
     "Yard_Mark_Ring_3",
     "Spinner_Ramp_CladLight_R",
     "Spinner_Ramp_CladLight_L",
+    "Yard_Bridge_CladLight_R_b_b",
+    "Yard_Bridge_CladLight_L_b_b",
+    "Yard_Bridge_CladLight_R_b",
+    "Yard_Bridge_CladLight_L_b",
     "Yard_Bridge_CladLight_R",
     "Yard_Bridge_CladLight_L",
     "Exit_Deck_Glow_02R",
@@ -1786,7 +1794,7 @@
    "node": "M_grate_0_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 258,
+   "triangles": 282,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -1796,6 +1804,8 @@
     "Spinner_Pad_1_Bridge",
     "Spinner_Ramp_Deck",
     "Exit_Stairs",
+    "Yard_Bridge_Deck_b_b",
+    "Yard_Bridge_Deck_b",
     "Yard_Bridge_Deck"
    ]
   },
@@ -1803,7 +1813,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 5878,
+   "triangles": 6022,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1887,10 +1897,22 @@
     "Exit_Stairs__ol",
     "Yard_Bridge_Junction_Lo__ol",
     "Yard_Bridge_Junction_Hi__ol",
+    "Yard_Bridge_Clad_R_b_b__ol",
+    "Yard_Bridge_Beam_R_b_b__ol",
+    "Yard_Bridge_Clad_L_b_b__ol",
+    "Yard_Bridge_Beam_L_b_b__ol",
+    "Yard_Bridge_Deck_b_b__ol",
+    "Yard_Bridge_Clad_L_b__ol",
+    "Yard_Bridge_Beam_L_b__ol",
+    "Yard_Bridge_Deck_b__ol",
     "Yard_Bridge_Support_Head__ol",
     "Yard_Bridge_Support__ol",
     "Yard_Bridge_Support_Footing__ol",
+    "Yard_Bridge_Clad_R__ol",
+    "Yard_Bridge_Beam_R__ol",
+    "Yard_Bridge_Clad_L__ol",
     "Yard_Bridge_Beam_L__ol",
+    "Yard_Bridge_Deck__ol",
     "Exit_Deck_Rib_01__ol",
     "Exit_Deck_Base__ol",
     "Upper_Deck_Rib_01__ol",
@@ -2285,7 +2307,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 2756,
+   "triangles": 2804,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2332,6 +2354,10 @@
     "Spinner_Ramp_Support_Footing",
     "Spinner_Ramp_Clad_R",
     "Spinner_Ramp_Clad_L",
+    "Yard_Bridge_Clad_R_b_b",
+    "Yard_Bridge_Clad_L_b_b",
+    "Yard_Bridge_Clad_R_b",
+    "Yard_Bridge_Clad_L_b",
     "Yard_Bridge_Support_Head",
     "Yard_Bridge_Support",
     "Yard_Bridge_Support_Footing",

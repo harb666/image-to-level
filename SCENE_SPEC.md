@@ -1196,3 +1196,9 @@ Building blocks usable without the preset:
 - `Spinner_Deck` (22 m octagon, deck 7.5 m) east of Start_Deck, reached by `Spinner_Ramp`. The control terminal
   `Spinner_Terminal` on the far (north-east) pad opens `Yard_Laser`: the player crosses the spinner before the yard
   gate unlocks. Yard_Waves now starts when the player enters the yard and gates nothing.
+
+## Stage 99: saw slots through the yard ramp
+- `saw_arm` cuts a slot (`slot` m, 0.3) through any walkway it chops across: the blade's plane splits the walkway's
+  long boxes (deck, girders, side cladding, light strips) and the blade swings through the opening instead of the
+  deck. The near piece keeps the name and `end_a`, the far piece (`<name>_b`) takes `end_b` and the support resting
+  under it, so the connection checks still see the real ends. 0.3 m is narrower than the player: walked over.
