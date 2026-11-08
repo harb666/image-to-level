@@ -1,10 +1,10 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 1473 objects · 29 materials · 16 effects
+Spec: levels/assembly_ascent/scene_spec.json · 1590 objects · 30 materials · 17 effects
 Checks: PASSED ({'error': 0, 'warning': 3, 'info': 1}) · refine passes: 0
-Mobile (balanced): 1307 KB · 33935 tris · 59 draw calls · ~43.2 visible (estimate) · ~7.06 MB GPU textures (estimate)
-Navigation: 2460.0 m² reachable of 18414.0 m² standable
-Package: dist/assembly_ascent/package (38 files, 6.16 MB) valid=True
+Mobile (balanced): 1418 KB · 37478 tris · 65 draw calls · ~46.0 visible (estimate) · ~7.06 MB GPU textures (estimate)
+Navigation: 3249.0 m² reachable of 19185.0 m² standable
+Package: dist/assembly_ascent/package (38 files, 6.59 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
@@ -27,17 +27,18 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Belt_A: conveyor ramp 16.5 m at 21 deg, belt -2.4 m/s, spike pit at the foot
 - Belt_B: conveyor ramp 16.5 m at 21 deg, belt -3.4 m/s, spike pit at the foot
 - Exit_Door: exit hallway 12 m fading to black -> level2_part1
+- Spinner: spinner, 4 arms at 6.0 rpm, 4 hovering pads
 - crates: 5 printed crates (accent atlas)
 - fixtures: 62 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_North_M02Fan, OuterWall_West_M02Fan)
 - ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 1 standing part(s), 0 crane runway(s), ends at beams 0.0 m
-- corrosion: 5 lit bodies get a plain skirt at the liquid line (no lights in the slime)
-- corrosion: 6 lights at the liquid line removed, 12 light strips raised clear of it
-- corrosion: 539 wall faces at the liquid line get a corroded band (one mesh, one material)
+- corrosion: 6 lit bodies get a plain skirt at the liquid line (no lights in the slime)
+- corrosion: 8 lights at the liquid line removed, 12 light strips raised clear of it
+- corrosion: 563 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 0.8 s
-- build (glb, sky, background, effects, mobile): 17.9 s
-- checks (fast): 18.5 s
+- spec -> level.json: 0.9 s
+- build (glb, sky, background, effects, mobile): 18.3 s
+- checks (fast): 20.7 s
 - previews: 0.4 s
 - export package: 0.2 s
-- total: 37.7 s
+- total: 40.4 s

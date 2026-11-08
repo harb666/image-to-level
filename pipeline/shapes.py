@@ -620,6 +620,17 @@ def band(w, h, d, o):
     m.metadata["uv"] = np.array(UV, float); return m
 
 
+def spike_ball(w, h, d, o):
+    """Stage 98: a mace head - a ball (diameter w * 0.62, icosphere) with a pyramid spike out of each of its 12 icosahedron
+    corners reaching to w / 2, centred on the origin."""
+    R = w / 2; rb = R * 0.62; ball = trimesh.creation.icosphere(subdivisions=1, radius=rb); parts = [ball]
+    for v in trimesh.creation.icosahedron().vertices:
+        u = v / np.linalg.norm(v); a = np.cross(u, [0, 1, 0] if abs(u[1]) < 0.9 else [1, 0, 0]); a /= np.linalg.norm(a); b_ = np.cross(u, a); s = rb * 0.32
+        base = [u * rb * 0.9 + (a * np.cos(k) + b_ * np.sin(k)) * s for k in np.linspace(0, 2 * np.pi, 4, endpoint=False)]
+        parts.append(trimesh.convex.convex_hull(np.array(base + [u * R])))
+    return trimesh.util.concatenate(parts)
+
+
 def saw_blade(w, h, d, o):
     """Stage 97: circular saw blade - a flat disc (diameter w, thickness h along +y, centred on the origin) whose rim is
     "teeth" hooked sawteeth (each rises from 0.84 R to R then drops back), a fan from the centre on both faces."""
@@ -648,7 +659,7 @@ def prism(w, h, d, o):
     m = trimesh.Trimesh(V, np.array(F), process=False); m.fix_normals(); return m
 
 
-SHAPES = dict(saw_blade=saw_blade, prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
+SHAPES = dict(spike_ball=spike_ball, saw_blade=saw_blade, prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
               stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum, dome=dome)
 

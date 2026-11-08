@@ -43,6 +43,12 @@
      22.38,
      0.3,
      1.15
+    ],
+    [
+     -11.5,
+     40.83,
+     0.3,
+     1.15
     ]
    ],
    "targets": [
@@ -504,6 +510,66 @@
    }
   },
   {
+   "id": "Spinner_Sweep",
+   "type": "sweeper",
+   "category": "sweeper",
+   "glb_contains": "the rotor (collar, arms, spiked balls) at angle 0, own nodes (mobile group)",
+   "godot_runtime": "script (apply_effects.gd _sweepers): the rotor group (<group>__*) turns about the vertical axis through 'center' at rpm (angle = rpm * 6 * (t + phase) degrees, clockwise seen from above like a positive level yaw); per arm a box Area3D (r0..r1 at bar_y +- bar_half) and a sphere Area3D (ball_r at r1, ball_y) ride on a pivot node in the hazard group: a bar can be jumped, a ball cannot",
+   "sweeper": {
+    "id": "Spinner",
+    "group": "Spinner_Rotor",
+    "center": [
+     5.0,
+     7.5,
+     40.0
+    ],
+    "rpm": 6.0,
+    "phase": 0.0,
+    "arms": [
+     20.0,
+     110.0,
+     200.0,
+     290.0
+    ],
+    "r0": 1.3,
+    "r1": 9.2,
+    "bar_y": 0.6,
+    "bar_half": 0.25,
+    "ball_r": 0.9,
+    "ball_y": 0.95,
+    "note": "angle(t) = arm + rpm * 6 * t deg (level yaw convention: direction (sin, cos)); a bar kills a body it overlaps (jump over it), a ball kills within ball_r"
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Saw_West_Swing",
    "type": "saw",
    "category": "saw",
@@ -926,7 +992,8 @@
    "targets": [
     "Ceiling__glow",
     "M_glow_0_0",
-    "M_glow_0_0_props"
+    "M_glow_0_0_props",
+    "Spinner_Rotor__glow"
    ],
    "quality": {
     "performance": {

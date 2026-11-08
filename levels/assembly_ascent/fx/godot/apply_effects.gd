@@ -25,6 +25,7 @@ var _launch: Array = []  # [node, rest position, speed, period, phase, travel] (
 var _crushers: Array = []  # Stage 72: [crusher dict, ram nodes, warning lamps, kill CollisionShape3D]
 var _winds: Array = []  # Stage 82: [wind dict, rotor node, Area3D, CPUParticles3D streaks]
 var _saws: Array = []  # Stage 97: [saw dict, [[arm node, rest]...], [[blade node, rest]...], kill Area3D]
+var _sweepers: Array = []  # Stage 98: [sweeper dict, [[rotor node, rest]...], pivot Node3D carrying the kill areas]
 var _belts: Array = []  # Stage 97: [belt dict, [[chevron node, rest position]...], rider Area3D]
 var _bobs: Array = []  # Stage 92: [bob dict, [[Node3D, rest Transform3D]...]]
 var _risers: Array = []  # Stage 80: [riser dict, Skeleton3D, {bone name: index}, [[CollisionShape3D...] per pad], start time (-1: waiting)]
@@ -84,6 +85,8 @@ func _ready() -> void:
 				_wind(fx["wind"])
 			"saw":  # Stage 97: a saw blade chopping across a walkway (kill zone follows the blade)
 				_saw(fx["saw"])
+			"sweeper":  # Stage 98: spinner arms sweeping a deck (bars to jump, spiked balls to dodge)
+				_sweeper(fx["sweeper"])
 			"belt":  # Stage 97: a conveyor ramp - chevrons slide, riders are carried
 				_belt(fx["belt"])
 			"bob":  # Stage 92: a specimen drifting in its tank (rest transforms kept, turned about the pivot)
@@ -360,6 +363,41 @@ func _saw(w: Dictionary) -> void:
 	level_root.add_child(area)
 	area.add_to_group(hazard_group)
 	_saws.append([w, arm, blade, area])
+
+
+func _sweeper(sw: Dictionary) -> void:
+	var rot: Array = []
+	for nd in _group_nodes(String(sw["group"])):
+		rot.append([nd, (nd as Node3D).transform])
+	var piv := Node3D.new()
+	piv.name = String(sw["id"]) + "_KillPivot"
+	piv.position = Vector3(sw["center"][0], sw["center"][1], sw["center"][2])
+	level_root.add_child(piv)
+	var r0 := float(sw["r0"])
+	var r1 := float(sw["r1"])
+	for a0 in sw["arms"]:
+		var a := deg_to_rad(float(a0))
+		var d := Vector3(sin(a), 0.0, cos(a))
+		var bar := Area3D.new()
+		var bcs := CollisionShape3D.new()
+		var bb := BoxShape3D.new()
+		bb.size = Vector3(0.5, 2.0 * float(sw["bar_half"]), r1 - r0)
+		bcs.shape = bb
+		bar.add_child(bcs)
+		bar.position = d * ((r0 + r1) * 0.5) + Vector3(0.0, float(sw["bar_y"]), 0.0)
+		bar.rotation.y = a
+		bar.add_to_group(hazard_group)
+		piv.add_child(bar)
+		var ball := Area3D.new()
+		var scs := CollisionShape3D.new()
+		var sp := SphereShape3D.new()
+		sp.radius = float(sw["ball_r"])
+		scs.shape = sp
+		ball.add_child(scs)
+		ball.position = d * r1 + Vector3(0.0, float(sw["ball_y"]), 0.0)
+		ball.add_to_group(hazard_group)
+		piv.add_child(ball)
+	_sweepers.append([sw, rot, piv])
 
 
 func _belt(b: Dictionary) -> void:
@@ -1044,6 +1082,15 @@ func _process(delta: float) -> void:
 	_update_risers()
 	_update_winds(delta)
 	_update_saws()
+	for sr in _sweepers:  # Stage 98: turn the rotor and its kill areas about the tower's axis
+		var sw: Dictionary = sr[0]
+		var th := deg_to_rad(float(sw["rpm"]) * 6.0 * (_t + float(sw["phase"])))
+		var C := Vector3(sw["center"][0], sw["center"][1], sw["center"][2])
+		var q := Basis(Vector3.UP, th)
+		var tr := Transform3D(q, C - q * C)
+		for nr in sr[1]:
+			(nr[0] as Node3D).transform = tr * (nr[1] as Transform3D)
+		(sr[2] as Node3D).rotation.y = th
 	for br in _belts:  # Stage 97: chevrons slide 0..-spacing along the belt (wrapping)
 		var b: Dictionary = br[0]
 		var u := Vector3(b["axis"][0], b["axis"][1], b["axis"][2]).normalized()

@@ -125,7 +125,7 @@ def generate(spec, G, level_dir=None):
              generator=dict(tool="pipeline/spec_to_level.py", spec_sha=H(spec), theme=theme, detail=spec.get("detail", "medium")),
              interpretation=spec.get("interpretation", {}), sky_color=PRESETS[env["sky"]["preset"]]["horizon"],
              spawn=spawn, spawns=spawns, hazards=ctx.hazards, effects=_effects(spec, ctx, plats, env, glow), environment=env,
-             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})), **({"style": spec["style"]} if spec.get("style") else {}), **({"exits": ctx.exits} if ctx.exits else {}), **({"entrances": ctx.entrances} if ctx.entrances else {}), **({"gates": ctx.gates} if getattr(ctx, "gates", None) else {}), **({"skeletons": ctx.skeletons} if getattr(ctx, "skeletons", None) else {}), **({"crushers": ctx.crushers} if getattr(ctx, "crushers", None) else {}), **({"risers": ctx.risers} if getattr(ctx, "risers", None) else {}), **({"terminals": ctx.terminals} if getattr(ctx, "terminals", None) else {}), **({"winds": ctx.winds} if getattr(ctx, "winds", None) else {}), **({"pickups": ctx.pickups} if getattr(ctx, "pickups", None) else {}), **({k_: getattr(ctx, k_) for k_ in ("saws", "belts", "kills") if getattr(ctx, k_, None)}), **({"encounters": spec["encounters"]} if spec.get("encounters") else {}),
+             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})), **({"style": spec["style"]} if spec.get("style") else {}), **({"exits": ctx.exits} if ctx.exits else {}), **({"entrances": ctx.entrances} if ctx.entrances else {}), **({"gates": ctx.gates} if getattr(ctx, "gates", None) else {}), **({"skeletons": ctx.skeletons} if getattr(ctx, "skeletons", None) else {}), **({"crushers": ctx.crushers} if getattr(ctx, "crushers", None) else {}), **({"risers": ctx.risers} if getattr(ctx, "risers", None) else {}), **({"terminals": ctx.terminals} if getattr(ctx, "terminals", None) else {}), **({"winds": ctx.winds} if getattr(ctx, "winds", None) else {}), **({"pickups": ctx.pickups} if getattr(ctx, "pickups", None) else {}), **({k_: getattr(ctx, k_) for k_ in ("saws", "belts", "kills", "sweepers") if getattr(ctx, k_, None)}), **({"encounters": spec["encounters"]} if spec.get("encounters") else {}),
              validation=dict(ignore_objects=[]), generator_notes=ctx.notes, relations=ctx.relations)
     if spec.get("gameplay"): L["gameplay"] = spec["gameplay"]
     if spec.get("campaign"): L["campaign"] = spec["campaign"]  # where this level sits in a multi-part level (previous / next part)
@@ -307,6 +307,8 @@ def _effects(spec, ctx, plats, env, glow):
             out.append(dict(id=c_["id"] + "_Slam", type="crusher", crusher=c_))
         for w_ in getattr(ctx, "winds", []):  # Stage 82: turbine fans blowing players off (cycled)
             out.append(dict(id=w_["id"] + "_Wind", type="wind", wind=w_))
+        for sp_ in getattr(ctx, "sweepers", []):  # Stage 98: spinner arms sweeping a deck
+            out.append(dict(id=sp_["id"] + "_Sweep", type="sweeper", sweeper=sp_))
         for sw_ in getattr(ctx, "saws", []):  # Stage 97: saw blades swinging out over walkways
             out.append(dict(id=sw_["id"] + "_Swing", type="saw", saw=sw_))
         for bl_ in getattr(ctx, "belts", []):  # Stage 97: conveyor ramps (chevrons slide, riders are carried)
@@ -417,7 +419,7 @@ def _merge(new, cur, state, key, rep, label):
     return out
 
 
-TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions", "style", "exits", "entrances", "gates", "encounters", "skeletons", "crushers", "risers", "terminals", "winds", "pickups", "saws", "belts", "kills")
+TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions", "style", "exits", "entrances", "gates", "encounters", "skeletons", "crushers", "risers", "terminals", "winds", "pickups", "saws", "belts", "kills", "sweepers")
 
 
 def merge(Lnew, Lcur, state):

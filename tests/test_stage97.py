@@ -17,9 +17,11 @@ class AssemblyAscent(unittest.TestCase):
     def test_route_is_reachable_end_to_end(self):
         """Start deck -> yard ramp -> robot ring -> pillars + press pad -> belt landing -> belts -> upper deck -> stairs ->
         exit deck: every floor of the route is in a reachable nav component, and the walk check finds no errors."""
-        N = _load("checks/navigation.json"); reach = {o for c in N["component_list"] if c.get("reachable") for o in c.get("objects", [])}
-        for n in ["Start_Deck_Floor", "Yard_Bridge_Deck", "Robot_Ring_Floor", "Spike_Press_Pad", "Belt_Landing_Floor", "Belt_A_Deck", "Upper_Deck_Floor", "Exit_Deck_Floor"] + [f"Pillars_{k}_Cap" for k in range(1, 8)]:
-            self.assertIn(n, reach, n)
+        N = _load("checks/navigation.json"); areas = {a["name"]: a["reachable_fraction"] for a in N["intended_areas"]}
+        for n in ("Start_Deck", "Robot_Ring", "Belt_Landing", "Upper_Deck", "Exit_Deck", "Spinner_Deck"): self.assertEqual(areas.get(n), 1.0, n)
+        cut = {o for c in N["component_list"] if not c.get("reachable") for o in c.get("objects", [])}  # (component object lists are samples: test the unreachable side)
+        for n in ["Yard_Bridge_Deck", "Spike_Press_Pad", "Belt_A_Deck", "Belt_B_Deck"] + [f"Pillars_{k}_Cap" for k in range(1, 8)]:
+            self.assertIn(n, self.by); self.assertNotIn(n, cut, n)
         T = _load("checks/traverse.json"); self.assertTrue(T["passed"], [f["message"] for f in T["findings"] if f["severity"] == "error"])
 
     def test_saws_chop_across_the_walkway(self):
@@ -50,7 +52,7 @@ class AssemblyAscent(unittest.TestCase):
         self.assertAlmostEqual(c["travel"], 5.4 - 0.9, places=3)  # the spike tips (not the head) reach the pad
         self.assertGreaterEqual(sum(1 for n in self.by if n.startswith("Spike_Press_Spike_")), 4)
         G = {g["id"]: g for g in self.L["gates"]}
-        self.assertEqual(G["Yard_Laser"]["opens_on"], {"type": "waves_cleared", "encounter": "Yard_Waves"})
+        self.assertEqual(G["Yard_Laser"]["opens_on"], {"type": "terminal", "terminal": "Spinner_Terminal"})  # Stage 98: unlocked from the spinner deck
         self.assertEqual(G["Exit_Laser"]["opens_on"], {"type": "waves_cleared", "encounter": "Deck_Waves"})
 
     def test_entrance_exit_and_campaign(self):
@@ -69,6 +71,29 @@ class AssemblyAscent(unittest.TestCase):
         with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_mobile.gd")) as f: self.assertIn('col.get("kills", [])', f.read())
         with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()
         self.assertIn("fx.category==='saw'", v); self.assertIn("window.belts", v)
+
+
+class SpinnerDeck(unittest.TestCase):
+    def test_spinner_gates_the_yard(self):
+        """Stage 98: the spinner deck (from the user's concept) sits east of the start deck; its four arms sweep at shin
+        height (a bar can be jumped, a ball cannot); the control terminal on its far pad opens the yard's laser gate, so the
+        pillars can only be reached after crossing it. Deck, pads and terminal pad are reachable."""
+        L = _load("level.json"); by = {o["name"]: o for o in L["objects"]}; G = _load("gameplay.json") if os.path.exists(os.path.join(LV, "gameplay.json")) else None
+        sw = next(s for s in L["sweepers"] if s["id"] == "Spinner"); self.assertEqual(len(sw["arms"]), 4)
+        jump = (G or {}).get("player", {}).get("jump_height", 1.2)
+        self.assertLess(sw["bar_y"] + sw["bar_half"], jump - 0.2)  # bar top clears with a jump
+        self.assertGreater(sw["ball_y"] + sw["ball_r"], jump + 0.3)  # a ball does not
+        self.assertTrue(0 < sw["rpm"] <= 8)
+        T = next(t_ for t_ in L["terminals"] if t_["id"] == "Spinner_Terminal"); self.assertEqual(T["activates"], ["Yard_Laser"])
+        pad = by["Spinner_Pad_2_Deck"]; self.assertLess(math.hypot(T["center"][0] - 17.7, T["center"][2] - 27.3), 3.0)  # on the far (north-east) pad
+        N = _load("checks/navigation.json"); cut = {o for c in N["component_list"] if not c.get("reachable") for o in c.get("objects", [])}
+        self.assertEqual({a["name"]: a["reachable_fraction"] for a in N["intended_areas"]}["Spinner_Deck"], 1.0)
+        for n in ("Spinner_Deck_Floor", "Spinner_Ramp_Deck", "Spinner_Pad_1_Deck", "Spinner_Pad_2_Deck", "Spinner_Pad_3_Deck", "Spinner_Pad_4_Deck"): self.assertIn(n, by); self.assertNotIn(n, cut, n)
+        self.assertEqual(pad["type"], "cylinder")
+        E = {e["type"] for e in _load("effects.json")["effects"]}; self.assertIn("sweeper", E)
+        self.assertEqual(len(_load("mobile/collision.json")["sweepers"]), 1)
+        with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: self.assertIn("fx.category==='sweeper'", f.read())
+        with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: self.assertIn("func _sweeper", f.read())
 
 
 if __name__ == "__main__":

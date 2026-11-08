@@ -1186,3 +1186,13 @@ Building blocks usable without the preset:
   spawn.
 - Look: roles `stripe` and `trim` are yellow / black chevrons (striped rims), `rail` pink, `arm_yellow`, plain
   `blade` / `spike`, `signs` (screen atlas, no TV static). Mobile GLB ~1.3 MB.
+
+## Stage 98: the spinner deck (Assembly Ascent)
+- Structure `spinner` (on an octagonal platform, position y = deck top; `radius`, `rpm`, `arms` [deg], `bar_y`,
+  `bar_half`, `ball`, `pads`, `bridge`, `ramp_yaw`): a central tower (base with a glowing ring, a glowing core in a glass
+  shell, a cap with four pipes curling out and down) and a rotor of hazard-striped arms at shin height ending in spiked
+  balls (`spike_ball` shape). The bars can be jumped, the balls must be dodged. Four hovering pads with pink thrusters
+  on the diagonals, each on a grate catwalk; lamp posts round the rim. level.json `sweepers`; effect `sweeper`.
+- `Spinner_Deck` (22 m octagon, deck 7.5 m) east of Start_Deck, reached by `Spinner_Ramp`. The control terminal
+  `Spinner_Terminal` on the far (north-east) pad opens `Yard_Laser`: the player crosses the spinner before the yard
+  gate unlocks. Yard_Waves now starts when the player enters the yard and gates nothing.

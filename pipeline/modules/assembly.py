@@ -64,6 +64,67 @@ def saw_arm(ctx, s, x, y, z, yaw):
     ctx.notes.append(f"{n}: saw {D:.1f} m chopping +-{s.get('amp', 50)} deg every {s.get('period', 3.2)} s across [{ax_}, {az_}]")
 
 
+@structure("spinner", pad=False)
+def spinner(ctx, s, x, y, z, yaw):
+    """Stage 98: the spinner deck (on a round / octagonal platform whose top is position y, deck radius "radius"): a
+    central tower (machine base with a glowing ring, a glowing core in a glass shell, a cap with four pipes curling out
+    and down) and a rotor of "arms" hazard-striped bars at shin height ending in spiked balls, sweeping round the deck
+    at "rpm". A bar is low enough to jump over; the balls are not. Four hovering pads with pink thrusters sit off the
+    deck on the diagonals ("pads": diameter, "bridge": catwalk length), each joined by a grate catwalk. level.json
+    "sweepers": the runtimes turn the rotor and kill whoever a bar or a ball hits (effect "sweeper")."""
+    n = s["id"]; R = float(s.get("radius", 11.0)); T = y; st = dict(mobile={"static": True}); vs = dict(collision=False, outline=False, **st)
+    gl = ctx.role("glow"); stripe = ctx.role("stripe"); W = _W(x, 0, z, yaw)
+    # --- tower (static)
+    ctx.add(n + "_HubBase", "cylinder", [x, T, z], [3.9, 1.0, 3.9], "machine", sections=12, **st)
+    ctx.add(n + "_HubRing", "cylinder", [x, T + 0.62, z], [4.0, 0.22, 4.0], gl, sections=12, **vs)
+    ctx.add(n + "_Neck", "cylinder", [x, T + 1.0, z], [2.5, 1.05, 2.5], "structure_b", sections=12, **st)
+    ctx.add(n + "_Core", "cylinder", [x, T + 2.0, z], [1.5, 2.9, 1.5], gl, sections=10, **dict(st, outline=False))
+    ctx.add(n + "_Glass", "cylinder", [x, T + 2.0, z], [2.3, 2.9, 2.3], ctx.role("glass_clear"), sections=10, double_sided=True, outline=False, collision=False, **st)
+    for k, yy in enumerate((T + 2.0, T + 4.75)): ctx.add(f"{n}_Band_{k + 1}", "cylinder", [x, yy - 0.12, z], [2.65, 0.3, 2.65], "machine", sections=12, **dict(st, outline=False))
+    ctx.add(n + "_Cap", "cylinder", [x, T + 4.9, z], [3.0, 0.9, 3.0], "machine", sections=12, **st)
+    for k in range(4):  # pipes: up out of the cap, across, down into a valve box
+        a = yaw + 45 + 90 * k; P0 = _W(x, 0, z, a)
+        ctx.add(f"{n}_PipeUp_{k + 1}", "cylinder", P0(0, T + 5.7, 0.9), [0.5, 1.0, 0.5], "pipe", sections=8, **vs)
+        q = P0(0, T + 6.45, 0.9); ctx.add(f"{n}_PipeOut_{k + 1}", "cylinder", q, [0.5, 2.4, 0.5], "pipe", rot=[90, a, 0], sections=8, **vs)
+        ctx.add(f"{n}_PipeBand_{k + 1}", "cylinder", P0(0, T + 6.45, 2.1), [0.62, 0.3, 0.62], gl, rot=[90, a, 0], sections=8, **vs)
+        ctx.add(f"{n}_PipeDown_{k + 1}", "cylinder", P0(0, T + 5.1, 3.3), [0.5, 1.6, 0.5], "pipe", sections=8, **vs)
+        ctx.add(f"{n}_Valve_{k + 1}", "box", P0(0, T + 4.2, 3.3), [0.9, 0.9, 0.9], "machine", rot=[0, a, 0], **vs)
+    # --- rotor (moves): collar + arms + spiked balls
+    gr = n + "_Rotor"; mr = dict(collision=False, mobile={"group": gr}); arms = [float(v) for v in s.get("arms", [0, 90, 180, 270])]
+    by = float(s.get("bar_y", 0.6)); bh = float(s.get("bar_half", 0.25)); r0 = 1.3; br = float(s.get("ball", 1.8)) / 2; r1 = R - 0.4 - br; bly = by + 0.35
+    ctx.add(gr + "_Collar", "cylinder", [x, T + by - 0.35, z], [3.0, 0.7, 3.0], "machine", sections=12, **mr)
+    for k, a0 in enumerate(arms):
+        a = yaw + a0; P0 = _W(x, 0, z, a); L = r1 - r0
+        c = P0(0, T + by - bh, r0 + L / 2); ctx.add(f"{gr}_Arm_{k + 1}", "box", c, [0.5, 2 * bh, L], stripe, rot=[0, a, 0], bevel=False, **mr)
+        ctx.add(f"{gr}_Ball_{k + 1}", "spike_ball", P0(0, T + bly, r1), [2 * br, 2 * br, 2 * br], ctx.role("spike"), **dict(mr, outline=False))
+        ctx.add(f"{gr}_BallGlow_{k + 1}", "cylinder", P0(0, T + bly - 0.1, r1 - br * 0.9), [0.5, 0.2, 0.5], gl, rot=[90, a, 0], sections=6, **dict(mr, outline=False))
+    ctx.sweepers = getattr(ctx, "sweepers", []) + [dict(id=n, group=gr, center=[round(x, 3), round(T, 3), round(z, 3)], rpm=float(s.get("rpm", 6.0)), phase=float(s.get("phase", 0.0)),
+                                                       arms=[round(yaw + a, 2) for a in arms], r0=r0, r1=round(r1, 3), bar_y=by, bar_half=bh, ball_r=round(br, 3), ball_y=round(bly, 3),
+                                                       note="angle(t) = arm + rpm * 6 * t deg (level yaw convention: direction (sin, cos)); a bar kills a body it overlaps (jump over it), a ball kills within ball_r")]
+    # --- hovering pads on the diagonals + grate catwalks
+    pd = float(s.get("pads", 8.0)); bl = float(s.get("bridge", 3.5)); Dp = R + bl + pd / 2; ctx.spinner_pads = getattr(ctx, "spinner_pads", {})
+    for k in range(4):
+        a = yaw + 45 + 90 * k; P0 = _W(x, 0, z, a); c = P0(0, 0, Dp); pre = f"{n}_Pad_{k + 1}"; ctx.spinner_pads[f"{n}_{k + 1}"] = [c[0], T, c[2]]
+        ctx.add(pre + "_Deck", "cylinder", [c[0], T - 0.6, c[2]], [pd, 0.6, pd], "deck", sections=8, **st)
+        ctx.add(pre + "_Rim", "cylinder", [c[0], T - 0.95, c[2]], [pd + 0.16, 0.42, pd + 0.16], stripe, sections=8, **vs)
+        ctx.add(pre + "_Hull", "frustum", [c[0], T - 3.0, c[2]], [pd - 0.4, 2.05, pd - 0.4], "structure_b", sections=8, bottom_scale=0.42, **st)
+        ctx.add(pre + "_GlowBand", "frustum", [c[0], T - 2.1, c[2]], [pd * 0.8, 0.35, pd * 0.8], gl, sections=8, bottom_scale=0.92, **vs)
+        ctx.add(pre + "_Thruster", "cylinder", [c[0], T - 3.7, c[2]], [1.4, 0.75, 1.4], "machine", sections=8, **vs)
+        ctx.add(pre + "_Jet", "frustum", [c[0], T - 4.7, c[2]], [1.1, 1.0, 1.1], gl, sections=8, bottom_scale=0.15, **vs)
+        q0 = P0(0, 0, R - 0.5); q1 = P0(0, 0, Dp - pd / 2 + 0.6); m = [(q0[i] + q1[i]) / 2 for i in range(3)]; L = math.dist(q0, q1)
+        ctx.add(pre + "_Bridge", "box", [m[0], T - 0.33, m[2]], [2.6, 0.3, L], "grate", rot=[0, a, 0], **st)  # 3 cm under the decks: no shared faces
+        for sd in (-1, 1):
+            dx, dz = A_local(sd * 1.38, 0, a); ctx.add(f"{pre}_BridgeRail_{'LR'[sd > 0]}", "box", [m[0] + dx, T - 0.03, m[2] + dz], [0.08, 0.7, L - 1.4], "rail", rot=[0, a, 0], **dict(st, outline=False))
+        ctx.landings.append((round(c[0], 3), round(c[2], 3), pd / 2))
+    for k in range(8):  # lamp posts round the rim, between the catwalks
+        a = yaw + 22.5 + 45 * k
+        if s.get("ramp_yaw") is not None and abs(((a - float(s["ramp_yaw"]) + 180) % 360) - 180) < 30: continue
+        P0 = _W(x, 0, z, a); q = P0(0, 0, R - 0.55)
+        ctx.add(f"{n}_Post_{k + 1}", "box", [q[0], T, q[2]], [0.45, 1.1, 0.45], "machine", rot=[0, a, 0], **st)
+        ctx.add(f"{n}_PostLamp_{k + 1}", "box", [q[0], T + 1.1, q[2]], [0.5, 0.35, 0.5], gl, rot=[0, a, 0], **vs)
+    ctx.notes.append(f"{n}: spinner, {len(arms)} arms at {s.get('rpm', 6.0)} rpm, 4 hovering pads")
+
+
 @structure("pillar_path", pad=False)
 def pillar_path(ctx, s, x, y, z, yaw):
     """Stepping pillars over the slime: "points" [[x, z, top], ...], square caps "pillar_size" m with a hazard-striped band

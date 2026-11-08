@@ -43,6 +43,12 @@
      22.38,
      0.3,
      1.15
+    ],
+    [
+     -11.5,
+     40.83,
+     0.3,
+     1.15
     ]
    ],
    "targets": [
@@ -504,6 +510,66 @@
    }
   },
   {
+   "id": "Spinner_Sweep",
+   "type": "sweeper",
+   "category": "sweeper",
+   "glb_contains": "the rotor (collar, arms, spiked balls) at angle 0, own nodes (mobile group)",
+   "godot_runtime": "script (apply_effects.gd _sweepers): the rotor group (<group>__*) turns about the vertical axis through 'center' at rpm (angle = rpm * 6 * (t + phase) degrees, clockwise seen from above like a positive level yaw); per arm a box Area3D (r0..r1 at bar_y +- bar_half) and a sphere Area3D (ball_r at r1, ball_y) ride on a pivot node in the hazard group: a bar can be jumped, a ball cannot",
+   "sweeper": {
+    "id": "Spinner",
+    "group": "Spinner_Rotor",
+    "center": [
+     5.0,
+     7.5,
+     40.0
+    ],
+    "rpm": 6.0,
+    "phase": 0.0,
+    "arms": [
+     20.0,
+     110.0,
+     200.0,
+     290.0
+    ],
+    "r0": 1.3,
+    "r1": 9.2,
+    "bar_y": 0.6,
+    "bar_half": 0.25,
+    "ball_r": 0.9,
+    "ball_y": 0.95,
+    "note": "angle(t) = arm + rpm * 6 * t deg (level yaw convention: direction (sin, cos)); a bar kills a body it overlaps (jump over it), a ball kills within ball_r"
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Saw_West_Swing",
    "type": "saw",
    "category": "saw",
@@ -779,6 +845,7 @@
    "godot_runtime": "ShaderMaterial tv_static.gdshader as material_override on every mesh using target_material (picture = the GLB base colour texture): animated snow over the picture, rolling bar, the picture breaks through every few seconds",
    "target_material": "screen",
    "targets": [
+    "Spinner_Terminal_Screen",
     "OuterWall_West_M11Monitor_Screen",
     "OuterWall_West_M08Monitor_Screen",
     "OuterWall_South_M12Monitor_Screen",
@@ -980,6 +1047,31 @@
     "Ceil_Step_03_Strip",
     "Ceil_Step_02_Strip",
     "Ceil_Step_01_Strip",
+    "Spinner_Terminal_HandPlate",
+    "Spinner_PostLamp_8",
+    "Spinner_PostLamp_5",
+    "Spinner_PostLamp_4",
+    "Spinner_PostLamp_3",
+    "Spinner_PostLamp_2",
+    "Spinner_PostLamp_1",
+    "Spinner_Pad_4_Jet",
+    "Spinner_Pad_4_GlowBand",
+    "Spinner_Pad_3_Jet",
+    "Spinner_Pad_3_GlowBand",
+    "Spinner_Pad_2_Jet",
+    "Spinner_Pad_2_GlowBand",
+    "Spinner_Pad_1_Jet",
+    "Spinner_Pad_1_GlowBand",
+    "Spinner_Rotor_BallGlow_4",
+    "Spinner_Rotor_BallGlow_3",
+    "Spinner_Rotor_BallGlow_2",
+    "Spinner_Rotor_BallGlow_1",
+    "Spinner_PipeBand_4",
+    "Spinner_PipeBand_3",
+    "Spinner_PipeBand_2",
+    "Spinner_PipeBand_1",
+    "Spinner_Core",
+    "Spinner_HubRing",
     "Claw_Hang_Finger_3_Lit",
     "Claw_Hang_Finger_3_Lit2",
     "Claw_Hang_Finger_2_Lit",
@@ -993,6 +1085,9 @@
     "Spike_Press_Pad_Lamp_1",
     "Yard_Mark_Ring_4",
     "Yard_Mark_Ring_3",
+    "Spinner_Ramp_Support_Light",
+    "Spinner_Ramp_CladLight_R",
+    "Spinner_Ramp_CladLight_L",
     "Yard_Bridge_Support_Light",
     "Yard_Bridge_CladLight_R",
     "Yard_Bridge_CladLight_L",
@@ -1111,6 +1206,7 @@
     "Entry_Door_Mouth_Capital_1",
     "Entry_Door_Mouth_Impost_1",
     "Entry_Door_Mouth_Voussoir_5",
+    "Spinner_Deck_Trim",
     "Exit_Deck_Trim",
     "Upper_Deck_Trim",
     "Belt_Landing_Trim",
@@ -1167,6 +1263,7 @@
    "godot_runtime": "script: emission_energy_multiplier random flicker (rate Hz)",
    "target_material": "structure",
    "targets": [
+    "Spinner_Deck_Base",
     "Exit_Deck_Base",
     "Upper_Deck_Base",
     "Belt_Landing_Base",

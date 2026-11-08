@@ -121,6 +121,9 @@ The browser preview approximates all of these with three.js. It is close to Godo
   CharacterBody3D standing on it `speed * axis` m/s (move_and_collide in `_physics_process`). If your player script
   overwrites its position each frame, add the belt velocity there instead.
 - collision.json `kills` (apply_mobile.gd): static spike boxes (yaw-turned) in the hazard group.
+- Stage 98: effects.json `sweeper` (`_sweeper`): the rotor group (`Spinner_Rotor__*`) turns about the tower's vertical
+  axis at `rpm`; per arm a box Area3D (the bar) and a sphere Area3D (the spiked ball) ride on a pivot node in the hazard
+  group. `Spinner_Terminal` (collision.json `terminals`) activates `Yard_Laser`.
 - level.json `entrances`: `type: doorway` with a `spawn` point - the player starts there, walking out of the black
   hallway (no elevator in this map).
 

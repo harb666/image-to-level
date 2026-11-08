@@ -1,21 +1,21 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 2589,
-  "mobile/level_mobile.glb": 1307,
-  "mobile/collision.json": 83,
+  "level.glb": 2733,
+  "mobile/level_mobile.glb": 1418,
+  "mobile/collision.json": 99,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 28
+  "effects.json": 30
  },
  "complexity": {
-  "triangles": 35816,
-  "nodes": 1569,
-  "materials": 29,
+  "triangles": 39393,
+  "nodes": 1699,
+  "materials": 30,
   "heaviest": [
    [
     "Corrosion_Band",
-    972
+    1000
    ],
    [
     "Ceil_Fan_1_Rotor",
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 2589,
-   "triangles": 29404,
-   "draw_calls": 1569,
-   "tex_mem_gpu_mb_est": 17.87
+   "glb_kb": 2733,
+   "triangles": 32581,
+   "draw_calls": 1699,
+   "tex_mem_gpu_mb_est": 17.88
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 1307,
-   "triangles": 33935,
-   "draw_calls": 59,
-   "visible_draw_calls_est": 43.2,
-   "visible_draw_calls_max_est": 63,
+   "glb_kb": 1418,
+   "triangles": 37478,
+   "draw_calls": 65,
+   "visible_draw_calls_est": 46.0,
+   "visible_draw_calls_max_est": 69,
    "tex_mem_gpu_mb_est": 7.06,
-   "materials": 29,
-   "nodes": 60,
+   "materials": 30,
+   "nodes": 66,
    "colliders": {
-    "colliders": 254,
+    "colliders": 295,
     "hazards": 1,
-    "glb_kb": 120
+    "glb_kb": 141
    },
    "background_kb": 404
   },
@@ -74,16 +74,16 @@
    "INTENTIONAL": 0
   },
   "relations": {
-   "explicit": 9,
+   "explicit": 12,
    "inferred": 0
   },
   "repairable": 2,
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 18414.0,
-  "reachable_area_m2": 2460.0,
-  "components": 51,
+  "standable_area_m2": 19185.0,
+  "reachable_area_m2": 3249.0,
+  "components": 98,
   "spawns": [
    {
     "id": "spawn",
@@ -128,7 +128,7 @@
   "intended_areas": [
    {
     "name": "Start_Deck",
-    "standable_m2": 641.0,
+    "standable_m2": 646.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -157,6 +157,12 @@
     "one_way": false
    },
    {
+    "name": "Spinner_Deck",
+    "standable_m2": 240.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
     "name": "Entry_Door_Floor",
     "standable_m2": 34.0,
     "reachable_fraction": 1.0,
@@ -179,7 +185,7 @@
   "passed": true
  },
  "traverse": {
-  "connectors": 4,
+  "connectors": 5,
   "passed": true,
   "findings": 1
  },

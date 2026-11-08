@@ -356,6 +356,10 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
       fxUpd.push({reset(){[...arm,...bl].forEach(o=>{o.matrix.copy(o.userData.rest);o.matrixWorldNeedsUpdate=true;});K.c.copy(C);},u(t){
         about(W.amp*Math.PI/180*Math.sin(6.2832*(t+W.phase)/W.period),P,m);about(W.rpm*6.2832/60*t,C,ms);mb.multiplyMatrices(m,ms);
         arm.forEach(o=>{o.matrix.multiplyMatrices(m,o.userData.rest);o.matrixWorldNeedsUpdate=true;});bl.forEach(o=>{o.matrix.multiplyMatrices(mb,o.userData.rest);o.matrixWorldNeedsUpdate=true;});K.c.copy(C).applyMatrix4(m);}});}
+    else if(fx.category==='sweeper'){const SW=fx.sweeper,rot=Object.values(byName).filter(o=>o.name.startsWith(SW.group+'__')),C=new THREE.Vector3(...SW.center),Y=new THREE.Vector3(0,1,0),one=new THREE.Vector3(1,1,1),v=new THREE.Vector3(),m=new THREE.Matrix4(); // Stage 98: spinner arms (same as apply_effects.gd)
+      const K={s:SW,th:0};(window.sweepers=window.sweepers||{})[SW.id]=K;rot.forEach(o=>{o.userData.rest=o.userData.rest||o.matrix.clone();o.matrixAutoUpdate=false;});
+      fxUpd.push({reset(){rot.forEach(o=>{o.matrix.copy(o.userData.rest);o.matrixWorldNeedsUpdate=true;});K.th=0;},u(t){K.th=SW.rpm*6*(t+SW.phase);const q=new THREE.Quaternion().setFromAxisAngle(Y,K.th*Math.PI/180);
+        v.copy(C).applyQuaternion(q).negate().add(C);m.compose(v,q,one);rot.forEach(o=>{o.matrix.multiplyMatrices(m,o.userData.rest);o.matrixWorldNeedsUpdate=true;});}});}
     else if(fx.category==='belt'){const B=fx.belt,ch=Object.values(byName).filter(o=>o.name.startsWith(B.chevrons+'__')),u=new THREE.Vector3(...B.axis).normalize(); // Stage 97: conveyor ramp (same as apply_effects.gd)
       ch.forEach(o=>{o.userData.rest=o.userData.rest||o.position.clone();});(window.belts=window.belts||{})[B.id]={b:B,u,c:new THREE.Vector3(...B.center),side:new THREE.Vector3(u.z,0,-u.x).normalize()};
       fxUpd.push({reset(){ch.forEach(o=>o.position.copy(o.userData.rest));},u(t){const d=(((t*B.speed)%B.spacing)+B.spacing)%B.spacing-B.spacing;ch.forEach(o=>o.position.copy(o.userData.rest).addScaledVector(u,d));}});}
@@ -518,6 +522,10 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
         if(!blocked(h,Math.abs(st)))pos.addScaledVector(K.u,st);}}
       const P=K.b.kill;if(P){const a=-P.yaw*Math.PI/180,dx=pos.x-P.center[0],dz=pos.z-P.center[2],lx=dx*Math.cos(a)+dz*Math.sin(a),lz=-dx*Math.sin(a)+dz*Math.cos(a);
         if(Math.abs(lx)<P.size[0]/2&&Math.abs(lz)<P.size[2]/2&&fy<P.center[1]+P.size[1]/2&&fy>P.center[1]-P.size[1]/2-0.5){spawn();say('🔺 Spiked!');}}}
+    for(const K of Object.values(window.sweepers||{})){const S_=K.s,fy=pos.y-meta.eye_height,rx=pos.x-S_.center[0],rz=pos.z-S_.center[2],rad=GP.player.radius,H_=GP.player.height; // Stage 98: spinner bars (jump them) and balls
+      for(const a0 of S_.arms){const A=(a0+K.th)*Math.PI/180,dx=Math.sin(A),dz=Math.cos(A),al=rx*dx+rz*dz,lat=Math.abs(rx*dz-rz*dx),by=S_.center[1]+S_.bar_y,bly=S_.center[1]+S_.ball_y;
+        if(al>S_.r0-0.4&&al<S_.r1&&lat<0.25+rad&&fy<by+S_.bar_half&&fy+H_>by-S_.bar_half){spawn();say('🌀 Swept!');break;}
+        const bx=rx-dx*S_.r1,bz=rz-dz*S_.r1;if(bx*bx+bz*bz<(S_.ball_r+rad)**2&&fy<bly+S_.ball_r&&fy+H_>bly-S_.ball_r){spawn();say('💥 Spiked!');break;}}}
     for(const K of Object.values(window.sawKill||{})){const p=new THREE.Vector3(pos.x,pos.y-meta.eye_height+0.9,pos.z).sub(K.c),ax=Math.abs(p.dot(K.a));p.addScaledVector(K.a,-p.dot(K.a)); // Stage 97: saw blades
       if(ax<0.7+GP.player.radius&&p.length()<K.r+0.6){spawn();say('🪚 Sliced!');}}
     for(const k of (window.crushKill||[]))if(k.on){const fy=pos.y-meta.eye_height;if(pos.x>k.min[0]&&pos.x<k.max[0]&&pos.z>k.min[2]&&pos.z<k.max[2]&&fy>k.min[1]-0.3&&fy<k.max[1]){spawn();const b=document.getElementById('info');if(b)b.textContent='💥 Crushed!';}} // Stage 72
