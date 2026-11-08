@@ -4,13 +4,13 @@ errors 0 · warnings 3 · info 1
 
 | metric | dev | mobile |
 |---|---|---|
-| file KB | 2763 | 1429 |
-| triangles | 32749 | 37790 |
-| draw calls (measured) | 1725 | 65 |
+| file KB | 2766 | 1430 |
+| triangles | 32773 | 37821 |
+| draw calls (measured) | 1728 | 65 |
 | visible draw calls (estimate) | - | 46.0 |
 | GPU texture MB (estimate) | 17.88 | 7.06 |
 
-Navigation: reachable 3247.0 of 19183.0 m² standable; components 98.
+Navigation: reachable 3249.0 of 19185.0 m² standable; components 98.
 Camera: - cameras, void rays -, back faces -.
 Geometry: {'ERROR': 0, 'WARNING': 2, 'INTENTIONAL': 0} (checks/geometry.md)
 

@@ -1202,3 +1202,6 @@ Building blocks usable without the preset:
   long boxes (deck, girders, side cladding, light strips) and the blade swings through the opening instead of the
   deck. The near piece keeps the name and `end_a`, the far piece (`<name>_b`) takes `end_b` and the support resting
   under it, so the connection checks still see the real ends. 0.3 m is narrower than the player: walked over.
+- Stage 100: the slots are 0.9 m (jumped, timing the blade) and the yellow / black caution stripes sit on both lips of
+  each opening instead of at the bridge's ends (`<deck>_SlotEdge_*`; the slotted walkway's `_Threshold_*` are removed).
+  traverse_check treats a saw slot as a jump (level.json `saws[].slot`): the walk keeps its height across it.

@@ -187,6 +187,7 @@
     "slots": [
      "Yard_Bridge"
     ],
+    "slot": 0.9,
     "pivot": [
      -40.0,
      13.8,
@@ -220,6 +221,7 @@
     "slots": [
      "Yard_Bridge"
     ],
+    "slot": 0.9,
     "pivot": [
      -24.0,
      14.2,
@@ -11642,8 +11644,8 @@
    "type": "box",
    "position": [
     0.0,
-    5.713,
-    -4.863
+    5.702,
+    -5.012
    ],
    "rotation": [
     -4.4,
@@ -11654,7 +11656,7 @@
    "size": [
     4.5,
     0.4,
-    3.512
+    3.212
    ],
    "material": "grate",
    "connector": true,
@@ -11667,8 +11669,8 @@
    "type": "box",
    "position": [
     -1.95,
-    5.29,
-    -4.411
+    5.278,
+    -4.56
    ],
    "rotation": [
     -4.4,
@@ -11679,7 +11681,7 @@
    "size": [
     0.3,
     0.45,
-    3.149
+    2.849
    ],
    "material": "frame",
    "gen": "Yard_Bridge",
@@ -11690,8 +11692,8 @@
    "type": "box",
    "position": [
     -2.28,
-    5.156,
-    -4.548
+    5.144,
+    -4.698
    ],
    "rotation": [
     -4.4,
@@ -11702,7 +11704,7 @@
    "size": [
     0.12,
     0.95,
-    3.517
+    3.217
    ],
    "material": "structure_b",
    "collision": false,
@@ -11714,8 +11716,8 @@
    "type": "box",
    "position": [
     -2.355,
-    5.746,
-    -4.312
+    5.734,
+    -4.461
    ],
    "rotation": [
     -4.4,
@@ -11726,7 +11728,7 @@
    "size": [
     0.05,
     0.11,
-    3.063
+    2.763
    ],
    "material": "glow",
    "collision": false,
@@ -11739,8 +11741,8 @@
    "type": "box",
    "position": [
     1.95,
-    5.269,
-    -4.681
+    5.257,
+    -4.831
    ],
    "rotation": [
     -4.4,
@@ -11751,7 +11753,7 @@
    "size": [
     0.3,
     0.45,
-    2.605
+    2.305
    ],
    "material": "frame",
    "gen": "Yard_Bridge",
@@ -11762,8 +11764,8 @@
    "type": "box",
    "position": [
     2.28,
-    5.131,
-    -4.865
+    5.12,
+    -5.015
    ],
    "rotation": [
     -4.4,
@@ -11774,7 +11776,7 @@
    "size": [
     0.12,
     0.95,
-    2.882
+    2.582
    ],
    "material": "structure_b",
    "collision": false,
@@ -11786,8 +11788,8 @@
    "type": "box",
    "position": [
     2.355,
-    5.72,
-    -4.639
+    5.709,
+    -4.788
    ],
    "rotation": [
     -4.4,
@@ -11798,59 +11800,9 @@
    "size": [
     0.05,
     0.11,
-    2.407
+    2.107
    ],
    "material": "glow",
-   "collision": false,
-   "outline": false,
-   "gen": "Yard_Bridge",
-   "source": "visible"
-  },
-  {
-   "name": "Yard_Bridge_Threshold_Lo",
-   "type": "box",
-   "position": [
-    0.0,
-    6.01,
-    -6.795
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Yard_Bridge",
-   "size": [
-    4.0,
-    0.03,
-    0.8
-   ],
-   "material": "stripe",
-   "collision": false,
-   "outline": false,
-   "gen": "Yard_Bridge",
-   "source": "visible"
-  },
-  {
-   "name": "Yard_Bridge_Threshold_Hi",
-   "type": "box",
-   "position": [
-    0.0,
-    6.968,
-    6.097
-   ],
-   "rotation": [
-    -4.4,
-    0.0,
-    0.0
-   ],
-   "parent": "Yard_Bridge",
-   "size": [
-    4.0,
-    0.03,
-    0.8
-   ],
-   "material": "stripe",
    "collision": false,
    "outline": false,
    "gen": "Yard_Bridge",
@@ -14664,7 +14616,7 @@
    "position": [
     0.0,
     6.093,
-    0.066
+    0.067
    ],
    "rotation": [
     -4.4,
@@ -14675,7 +14627,7 @@
    "size": [
     4.5,
     0.4,
-    5.776
+    5.175
    ],
    "material": "grate",
    "connector": true,
@@ -14684,12 +14636,68 @@
    "source": "visible"
   },
   {
+   "name": "Yard_Bridge_Deck_SlotEdge_1a",
+   "type": "box",
+   "position": [
+    0.0,
+    6.207,
+    -3.661
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    4.3,
+    0.03,
+    0.4
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Saw_West",
+   "source": "visible"
+  },
+  {
+   "name": "Yard_Bridge_Deck_SlotEdge_1b",
+   "type": "box",
+   "position": [
+    0.0,
+    6.31,
+    -2.325
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    4.3,
+    0.03,
+    0.4
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Saw_West",
+   "source": "visible"
+  },
+  {
    "name": "Yard_Bridge_Beam_L_b",
    "type": "box",
    "position": [
     -1.95,
     5.655,
-    0.337
+    0.338
    ],
    "rotation": [
     -4.4,
@@ -14700,7 +14708,7 @@
    "size": [
     0.3,
     0.45,
-    5.776
+    5.175
    ],
    "material": "frame",
    "gen": "Yard_Bridge",
@@ -14712,7 +14720,7 @@
    "position": [
     -2.28,
     5.535,
-    0.383
+    0.384
    ],
    "rotation": [
     -4.4,
@@ -14723,7 +14731,7 @@
    "size": [
     0.12,
     0.95,
-    5.776
+    5.175
    ],
    "material": "structure_b",
    "collision": false,
@@ -14747,7 +14755,7 @@
    "size": [
     0.05,
     0.11,
-    5.775
+    5.176
    ],
    "material": "glow",
    "collision": false,
@@ -14761,7 +14769,7 @@
    "position": [
     1.95,
     5.613,
-    -0.205
+    -0.204
    ],
    "rotation": [
     -4.4,
@@ -14772,7 +14780,7 @@
    "size": [
     0.3,
     0.45,
-    5.776
+    5.176
    ],
    "material": "frame",
    "gen": "Yard_Bridge",
@@ -14783,7 +14791,7 @@
    "type": "box",
    "position": [
     2.28,
-    5.486,
+    5.487,
     -0.25
    ],
    "rotation": [
@@ -14795,7 +14803,7 @@
    "size": [
     0.12,
     0.95,
-    5.776
+    5.175
    ],
    "material": "structure_b",
    "collision": false,
@@ -14807,7 +14815,7 @@
    "type": "box",
    "position": [
     2.355,
-    6.058,
+    6.057,
     -0.261
    ],
    "rotation": [
@@ -14819,7 +14827,7 @@
    "size": [
     0.05,
     0.11,
-    5.776
+    5.175
    ],
    "material": "glow",
    "collision": false,
@@ -15126,8 +15134,8 @@
    "type": "box",
    "position": [
     0.0,
-    6.469,
-    4.96
+    6.481,
+    5.11
    ],
    "rotation": [
     -4.4,
@@ -15138,7 +15146,7 @@
    "size": [
     4.5,
     0.4,
-    3.44
+    3.141
    ],
    "material": "grate",
    "connector": true,
@@ -15147,12 +15155,68 @@
    "source": "visible"
   },
   {
+   "name": "Yard_Bridge_Deck_b_SlotEdge_1a",
+   "type": "box",
+   "position": [
+    0.0,
+    6.673,
+    2.397
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    4.3,
+    0.03,
+    0.4
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Saw_East",
+   "source": "visible"
+  },
+  {
+   "name": "Yard_Bridge_Deck_b_SlotEdge_1b",
+   "type": "box",
+   "position": [
+    0.0,
+    6.776,
+    3.733
+   ],
+   "rotation": [
+    -4.4,
+    0.0,
+    0.0
+   ],
+   "parent": "Yard_Bridge",
+   "size": [
+    4.3,
+    0.03,
+    0.4
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Saw_East",
+   "source": "visible"
+  },
+  {
    "name": "Yard_Bridge_Beam_L_b_b",
    "type": "box",
    "position": [
     -1.95,
-    5.994,
-    4.748
+    6.006,
+    4.898
    ],
    "rotation": [
     -4.4,
@@ -15163,7 +15227,7 @@
    "size": [
     0.3,
     0.45,
-    2.471
+    2.172
    ],
    "material": "frame",
    "gen": "Yard_Bridge",
@@ -15174,8 +15238,8 @@
    "type": "box",
    "position": [
     -2.28,
-    5.9,
-    5.13
+    5.912,
+    5.28
    ],
    "rotation": [
     -4.4,
@@ -15186,7 +15250,7 @@
    "size": [
     0.12,
     0.95,
-    3.145
+    2.846
    ],
    "material": "structure_b",
    "collision": false,
@@ -15198,8 +15262,8 @@
    "type": "box",
    "position": [
     -2.355,
-    6.44,
-    4.714
+    6.452,
+    4.863
    ],
    "rotation": [
     -4.4,
@@ -15210,7 +15274,7 @@
    "size": [
     0.05,
     0.11,
-    2.29
+    1.989
    ],
    "material": "glow",
    "collision": false,
@@ -15223,8 +15287,8 @@
    "type": "box",
    "position": [
     1.95,
-    5.973,
-    4.477
+    5.985,
+    4.627
    ],
    "rotation": [
     -4.4,
@@ -15235,7 +15299,7 @@
    "size": [
     0.3,
     0.45,
-    3.015
+    2.715
    ],
    "material": "frame",
    "gen": "Yard_Bridge",
@@ -15246,8 +15310,8 @@
    "type": "box",
    "position": [
     2.28,
-    5.876,
-    4.813
+    5.888,
+    4.963
    ],
    "rotation": [
     -4.4,
@@ -15258,7 +15322,7 @@
    "size": [
     0.12,
     0.95,
-    3.78
+    3.481
    ],
    "material": "structure_b",
    "collision": false,
@@ -15270,8 +15334,8 @@
    "type": "box",
    "position": [
     2.355,
-    6.415,
-    4.386
+    6.426,
+    4.536
    ],
    "rotation": [
     -4.4,
@@ -15282,7 +15346,7 @@
    "size": [
     0.05,
     0.11,
-    2.945
+    2.646
    ],
    "material": "glow",
    "collision": false,
@@ -52722,6 +52786,7 @@
    "slots": [
     "Yard_Bridge"
    ],
+   "slot": 0.9,
    "pivot": [
     -40.0,
     13.8,
@@ -52751,6 +52816,7 @@
    "slots": [
     "Yard_Bridge"
    ],
+   "slot": 0.9,
    "pivot": [
     -24.0,
     14.2,
@@ -53041,12 +53107,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 32749,
-  "objects": 1604,
+  "triangles": 32773,
+  "objects": 1606,
   "materials": 30,
-  "glb_kb": 2763,
-  "nodes": 1757,
-  "draw_calls_unbatched": 1725,
+  "glb_kb": 2766,
+  "nodes": 1760,
+  "draw_calls_unbatched": 1728,
   "draw_calls_batched_min": 30,
   "images": 82,
   "tex_mem_gpu_compressed_mb": 17.88,

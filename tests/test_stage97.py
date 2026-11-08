@@ -35,7 +35,9 @@ class AssemblyAscent(unittest.TestCase):
             self.assertTrue(0.0 < s["center"][1] - s["radius"] - 6.0 < 1.8)  # the blade's lower edge is within a player's height of the deck
             self.assertAlmostEqual(math.hypot(*s["axis"]), 1.0, places=3)
         self.assertAlmostEqual(abs(S["Saw_West"]["phase"] - S["Saw_East"]["phase"]), S["Saw_West"]["period"] / 2, places=3)
-        for s in S.values(): self.assertEqual(s["slots"], ["Yard_Bridge"])  # Stage 99: each blade cuts its own slot through the ramp
+        for s in S.values(): self.assertEqual(s["slots"], ["Yard_Bridge"]); self.assertGreaterEqual(s["slot"], 0.8)  # Stage 99/100: each blade cuts its own (jumped) slot
+        self.assertEqual(sum(1 for n in self.by if "_SlotEdge_" in n), 4)  # hazard stripes on both lips of both openings
+        self.assertFalse([n for n in self.by if n.startswith("Yard_Bridge_Threshold")])  # ... instead of at the bridge's ends
         decks = sorted(n for n in self.by if n.startswith("Yard_Bridge_Deck")); self.assertEqual(len(decks), 3)
         ends = sorted(abs(self.by[n]["position"][2]) for n in decks); self.assertTrue(all(self.by[n]["size"][2] > 1.0 for n in decks))
         self.assertEqual(ramp["type"], "box")

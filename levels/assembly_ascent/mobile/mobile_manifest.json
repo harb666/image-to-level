@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 2763,
-    "triangles": 39705,
-    "nodes": 1757,
-    "mesh_nodes": 1725,
-    "unique_meshes": 702,
+    "glb_kb": 2766,
+    "triangles": 39741,
+    "nodes": 1760,
+    "mesh_nodes": 1728,
+    "unique_meshes": 705,
     "materials": 30,
     "images": 82,
-    "draw_calls_unbatched": 1725,
+    "draw_calls_unbatched": 1728,
     "draw_calls_batched_min": 30,
     "tex_mem_uncompressed_mb": 71.51,
     "tex_mem_gpu_compressed_mb": 17.88,
@@ -71,16 +71,16 @@
    },
    "visible": {
     "cameras": 80,
-    "visible_draw_calls_mean": 572.6,
-    "visible_draw_calls_max": 1719,
-    "visible_triangles_mean": 24967,
-    "visible_triangles_max": 50361
+    "visible_draw_calls_mean": 573.7,
+    "visible_draw_calls_max": 1722,
+    "visible_triangles_mean": 24980,
+    "visible_triangles_max": 50397
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 1429,
-    "triangles": 37790,
+    "glb_kb": 1430,
+    "triangles": 37821,
     "nodes": 66,
     "mesh_nodes": 65,
     "unique_meshes": 65,
@@ -138,11 +138,11 @@
     "cameras": 80,
     "visible_draw_calls_mean": 46.0,
     "visible_draw_calls_max": 69,
-    "visible_triangles_mean": 43586,
-    "visible_triangles_max": 48634
+    "visible_triangles_mean": 43608,
+    "visible_triangles_max": 48665
    },
    "hidden_faces_removed": 911,
-   "occluded_faces_removed": 1004,
+   "occluded_faces_removed": 1009,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate"
    ],
@@ -150,8 +150,8 @@
    "effects_max_particles": 283,
    "slimmed_kb": {
     "level_mobile.glb": [
-     2291,
-     1429
+     2292,
+     1430
     ],
     "background_mobile.glb": [
      477,
@@ -1193,11 +1193,12 @@
    "node": "M_glow_0_0_props",
    "kind": "props",
    "material": "glow",
-   "triangles": 20,
+   "triangles": 32,
    "visibility_range_end": 70,
    "cast_shadow": false,
    "source_objects": [
     "Spinner_Ramp_Support_Light",
+    "Yard_Bridge_CladLight_L_b_b",
     "Yard_Bridge_Support_Light"
    ]
   },
@@ -1647,7 +1648,7 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 1406,
+   "triangles": 1394,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1688,7 +1689,6 @@
     "Spinner_Ramp_CladLight_R",
     "Spinner_Ramp_CladLight_L",
     "Yard_Bridge_CladLight_R_b_b",
-    "Yard_Bridge_CladLight_L_b_b",
     "Yard_Bridge_CladLight_R_b",
     "Yard_Bridge_CladLight_L_b",
     "Yard_Bridge_CladLight_R",
@@ -1813,7 +1813,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 6022,
+   "triangles": 6034,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1902,6 +1902,7 @@
     "Yard_Bridge_Clad_L_b_b__ol",
     "Yard_Bridge_Beam_L_b_b__ol",
     "Yard_Bridge_Deck_b_b__ol",
+    "Yard_Bridge_Beam_R_b__ol",
     "Yard_Bridge_Clad_L_b__ol",
     "Yard_Bridge_Beam_L_b__ol",
     "Yard_Bridge_Deck_b__ol",
@@ -2234,7 +2235,7 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 687,
+   "triangles": 706,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2283,8 +2284,10 @@
     "Saw_West_Collar",
     "Spinner_Ramp_Threshold_Hi",
     "Spinner_Ramp_Threshold_Lo",
-    "Yard_Bridge_Threshold_Hi",
-    "Yard_Bridge_Threshold_Lo"
+    "Yard_Bridge_Deck_b_SlotEdge_1b",
+    "Yard_Bridge_Deck_b_SlotEdge_1a",
+    "Yard_Bridge_Deck_SlotEdge_1b",
+    "Yard_Bridge_Deck_SlotEdge_1a"
    ]
   },
   {

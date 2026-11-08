@@ -29,7 +29,7 @@ def _cast(O, D, T):
     t = np.where(hit, t, np.inf); i = t.argmin(1); return t[np.arange(len(O)), i], np.where(np.isfinite(t.min(1)), i, -1)
 
 
-def _walk(pts, y0, T, N, P):
+def _walk(pts, y0, T, N, P, jumps=()):
     """Capsule walk along xz points (0.1 m apart) starting with feet at y0. Returns the first problem per kind."""
     r, sh, H, smax = P["radius"], P["step_height"], P["height"], P["max_slope_deg"]
     y = y0; out = {}; steep_run = 0; ring = [(0, 0)] + [(0.25 * math.cos(a), 0.25 * math.sin(a)) for a in np.linspace(0, 2 * math.pi, 6, endpoint=False)]
@@ -42,7 +42,9 @@ def _walk(pts, y0, T, N, P):
         Og = np.array([[b[0] + ox, y + sh + 0.05, b[1] + oz] for ox, oz in ring]); tg, ig = _cast(Og, np.repeat([[0.0, -1.0, 0.0]], len(ring), 0), T)
         hg = np.where(np.isfinite(tg), y + sh + 0.05 - tg, -np.inf)
         g = float(hg.max())
-        if not np.isfinite(g) or g < y - (sh + 0.35):
+        if (not np.isfinite(g) or g < y - 0.2) and any(abs((b[0] - c[0]) * ax[0] + (b[1] - c[2]) * ax[2]) < w for c, ax, w in jumps):
+            g = y  # Stage 100: a saw slot - jumped over, not walked into (the player keeps their height)
+        elif not np.isfinite(g) or g < y - (sh + 0.35):
             out.setdefault("fall", [round(float(b[0]), 2), round(y, 2), round(float(b[1]), 2)])
             Od = np.array([[b[0], y + sh, b[1]]]); td, _ = _cast(Od, np.array([[0.0, -1.0, 0.0]]), T)
             if not np.isfinite(td[0]): break
@@ -73,6 +75,7 @@ def run(d, verbose=True, write=True):
     keep = np.array([not (n in soft or n.startswith("Hazard") or n.endswith("_Trigger")) for n in names]); T = T[keep]
     nrm = np.cross(T[:, 1] - T[:, 0], T[:, 2] - T[:, 0]); nrm /= np.maximum(np.linalg.norm(nrm, axis=1), 1e-12)[:, None]
     W, _ = world_matrices(L); res, findings = [], []
+    jumps = [(s["center"], s["axis"], s.get("slot", 0.3) / 2 + 0.6) for s in L.get("saws", []) if s.get("slots")]  # Stage 100: saw slots across walkways are jumps
     for o in L["objects"]:
         if not o.get("connector") or not o.get("size"): continue
         M = np.asarray(W[o["name"]]); w, h, dd = o["size"]; top = h if o["type"] == "box" else 0.0
@@ -88,7 +91,7 @@ def run(d, verbose=True, write=True):
                 ys = e0[1] if pts is base else e1[1]
                 t0, _ = _cast(np.array([[pts[0][0], ys + 2.0, pts[0][1]]]), np.array([[0.0, -1.0, 0.0]]), Tl)
                 if not np.isfinite(t0[0]): rec["lanes"][f"{lane}_{way}"] = {"start": "no floor"}; continue
-                prob, _ = _walk(pts, ys + 2.0 - float(t0[0]), Tl, Nl, P); rec["lanes"][f"{lane}_{way}"] = prob
+                prob, _ = _walk(pts, ys + 2.0 - float(t0[0]), Tl, Nl, P, jumps); rec["lanes"][f"{lane}_{way}"] = prob
                 for kind, pos in prob.items():
                     findings.append(dict(object=o["name"], lane=lane, way=way, kind=kind, pos=pos[:3], severity="error" if lane == "centre" and kind != "scrape" else "warning",
                                          message=f"{o['name']}: walking {way} the {lane} lane the player is {dict(blocked='stopped by an edge / lip', steep='on a slope steeper than the max', fall='dropping through a gap', head='hitting its head', scrape='scraping the side')[kind]}"

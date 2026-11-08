@@ -33,7 +33,7 @@ def _spikes(ctx, n, cx, cz, y, w, d, yaw, mat, length=0.7, pitch=0.7, mobile=Non
     return k
 
 
-def _slot_walkways(ctx, C, A, reach, gap=0.3):
+def _slot_walkways(ctx, C, A, reach, gap=0.9):
     """Stage 99: cut a slot through every walkway a saw blade chops across - the blade's plane (point C, horizontal
     normal A) splits the long boxes of any connector group (deck, girders, side cladding, light strips) under C,
     leaving a `gap` m slot the blade passes through (narrower than the player: walked straight over). The near piece
@@ -70,6 +70,15 @@ def _slot_walkways(ctx, C, A, reach, gap=0.3):
                 if r["type"] == "supported_by" and r.get("a") == nm:
                     sup = by.get(r["b"]) or {}; sp = sup.get("position")
                     if sp is not None and sup.get("parent") == gname and sp[2] > zcut: r["a"] = o2["name"]
+            if o.get("connector"):  # Stage 100: hazard stripes on both lips of the opening (on the deck top, 3 cm proud)
+                th_ = o["size"][1]; nrm = (0.0, u[2], -u[1])
+                for k_, (q, s_) in enumerate(((o, 1), (o2, -1))):
+                    off = s_ * (q["size"][2] / 2 - 0.22); b_ = q["position"]
+                    ctx.add(f"{nm}_SlotEdge_{len(cut) + 1}{'ab'[k_]}", "box", [b_[0] + u[0] * off + nrm[0] * th_, b_[1] + u[1] * off + nrm[1] * th_, b_[2] + u[2] * off + nrm[2] * th_],
+                            [o["size"][0] - 0.2, 0.03, 0.4], ctx.role("stripe"), gname, o["rotation"], collision=False, outline=False, mobile={"static": True})
+        for th_n in (gname + "_Threshold_Lo", gname + "_Threshold_Hi"):  # Stage 100: the caution stripes move from the bridge ends to the openings
+            q = by.get(th_n)
+            if q in ctx.objects: ctx.objects.remove(q); ctx.names.discard(th_n)
         cut.append(gname)
     return cut
 
@@ -99,8 +108,8 @@ def saw_arm(ctx, s, x, y, z, yaw):
     ctx.add(n + "_Hub", "cylinder", [Hb[0] - A[0] * 0.5, Hb[1], Hb[2] - A[2] * 0.5], [0.9, 1.0, 0.9], "machine", rot=[90, ay, 0], sections=8, **mv)
     ctx.add(n + "_Saw", "saw_blade", C, [D, 0.12, D], ctx.role("blade"), rot=[90, ay, 0], teeth=int(s.get("teeth", 28)), **mb)
     ctx.add(n + "_SawHub", "cylinder", [C[0] - A[0] * 0.12, C[1], C[2] - A[2] * 0.12], [D * 0.28, 0.24, D * 0.28], ctx.role("stripe"), rot=[90, ay, 0], sections=10, **mb)
-    slots = _slot_walkways(ctx, C, A, R + 2.0, float(s.get("slot", 0.3))) if s.get("slot", 0.3) else []  # Stage 99: a slot through the walkway it chops across: the blade swings through the deck
-    ctx.saws = getattr(ctx, "saws", []) + [dict(id=n, arm=ga, blade=gb, slots=slots, pivot=[round(v, 3) for v in P0], axis=A, amp=float(s.get("amp", 50.0)), period=float(s.get("period", 3.2)),
+    slots = _slot_walkways(ctx, C, A, R + 2.0, float(s.get("slot", 0.9))) if s.get("slot", 0.9) else []  # Stage 99: a slot through the walkway it chops across: the blade swings through the deck
+    ctx.saws = getattr(ctx, "saws", []) + [dict(id=n, arm=ga, blade=gb, slots=slots, slot=float(s.get("slot", 0.9)), pivot=[round(v, 3) for v in P0], axis=A, amp=float(s.get("amp", 50.0)), period=float(s.get("period", 3.2)),
                                                phase=float(s.get("phase", 0.0)), center=[round(v, 3) for v in C], radius=round(R, 3), rpm=float(s.get("rpm", 240.0)),
                                                note="angle(t) = amp sin(2 pi (t + phase) / period) about axis through pivot; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)")]
     ctx.notes.append(f"{n}: saw {D:.1f} m chopping +-{s.get('amp', 50)} deg every {s.get('period', 3.2)} s across [{ax_}, {az_}]")
