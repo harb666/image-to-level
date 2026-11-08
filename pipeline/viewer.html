@@ -349,6 +349,16 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
           if(on){d.st.forEach((q,i)=>{const u=(tk+q.ph)%d.T,p=d.pd.drips[q.s];d.a.set([p[0],p[1]-4.9*u*u,p[2]],i*3);});d.g.attributes.position.needsUpdate=true;}});
       pose(-1);fxUpd.push({reset(){ts=null;pose(-1);drip(-1);},u(t){if(ts===null){const wk=walking()&&!fixedCam,e=wk?pos:cam.position,c=R.trigger.center,dx=e.x-c[0],dz=e.z-c[2],rr=R.trigger.radius+(wk?0:8);
           if(dx*dx+dz*dz<rr*rr&&Math.abs(e.y-c[1])<12)ts=t;}if(ts!==null&&t-ts<60)pose(t-ts);drip(ts===null?-1:t-ts);}});}
+    else if(fx.category==='saw'){const W=fx.saw,arm=Object.values(byName).filter(o=>o.name.startsWith(W.arm+'__')),bl=Object.values(byName).filter(o=>o.name.startsWith(W.blade+'__')); // Stage 97: saw chopping across a walkway (same as apply_effects.gd)
+      const A=new THREE.Vector3(...W.axis).normalize(),P=new THREE.Vector3(...W.pivot),C=new THREE.Vector3(...W.center),one=new THREE.Vector3(1,1,1),v=new THREE.Vector3(),m=new THREE.Matrix4(),ms=new THREE.Matrix4(),mb=new THREE.Matrix4();
+      const K={c:C.clone(),a:A,r:W.radius};(window.sawKill=window.sawKill||{})[W.id]=K;[...arm,...bl].forEach(o=>{o.userData.rest=o.userData.rest||o.matrix.clone();o.matrixAutoUpdate=false;});
+      const about=(ang,pt,out)=>{const q=new THREE.Quaternion().setFromAxisAngle(A,ang);v.copy(pt).applyQuaternion(q).negate().add(pt);return out.compose(v,q,one);};
+      fxUpd.push({reset(){[...arm,...bl].forEach(o=>{o.matrix.copy(o.userData.rest);o.matrixWorldNeedsUpdate=true;});K.c.copy(C);},u(t){
+        about(W.amp*Math.PI/180*Math.sin(6.2832*(t+W.phase)/W.period),P,m);about(W.rpm*6.2832/60*t,C,ms);mb.multiplyMatrices(m,ms);
+        arm.forEach(o=>{o.matrix.multiplyMatrices(m,o.userData.rest);o.matrixWorldNeedsUpdate=true;});bl.forEach(o=>{o.matrix.multiplyMatrices(mb,o.userData.rest);o.matrixWorldNeedsUpdate=true;});K.c.copy(C).applyMatrix4(m);}});}
+    else if(fx.category==='belt'){const B=fx.belt,ch=Object.values(byName).filter(o=>o.name.startsWith(B.chevrons+'__')),u=new THREE.Vector3(...B.axis).normalize(); // Stage 97: conveyor ramp (same as apply_effects.gd)
+      ch.forEach(o=>{o.userData.rest=o.userData.rest||o.position.clone();});(window.belts=window.belts||{})[B.id]={b:B,u,c:new THREE.Vector3(...B.center),side:new THREE.Vector3(u.z,0,-u.x).normalize()};
+      fxUpd.push({reset(){ch.forEach(o=>o.position.copy(o.userData.rest));},u(t){const d=(((t*B.speed)%B.spacing)+B.spacing)%B.spacing-B.spacing;ch.forEach(o=>o.position.copy(o.userData.rest).addScaledVector(u,d));}});}
     else if(fx.category==='bob'){const B=fx.bob,nd=Object.values(byName).filter(o=>o.name.startsWith(B.group+'__')),pv=new THREE.Vector3(...B.pivot),m=new THREE.Matrix4(),e=new THREE.Euler(),q=new THREE.Quaternion(),v=new THREE.Vector3(); // Stage 92: a specimen drifting in its tank (same as apply_effects.gd)
       nd.forEach(o=>{o.userData.rest=o.userData.rest||o.matrix.clone();o.matrixAutoUpdate=false;});const T=6.2832,P=B.period,sw=B.sway*Math.PI/180;
       fxUpd.push({reset(){nd.forEach(o=>{o.matrix.copy(o.userData.rest);o.matrixWorldNeedsUpdate=true;});},u(t){const tp=t+B.phase;e.set(sw*Math.sin(T*tp/(P*1.3)),sw*0.6*Math.sin(T*tp/(P*2.3)),sw*Math.cos(T*tp/(P*1.7)),'YXZ');q.setFromEuler(e);
@@ -502,6 +512,14 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
         if(pos.y>ground+meta.eye_height+0.05)vy+=W.w.lift*W.s*dt;}}
     if(pos.y<ground+meta.eye_height){pos.y=ground+meta.eye_height;vy=0;}if(pos.y<((GP.design||{}).kill_y??-40))spawn();
     if(window.termCheck)termCheck(pos.x,pos.y-meta.eye_height,pos.z);
+    const say=s=>{const b=document.getElementById('info');if(b)b.textContent=s;};
+    for(const K of Object.values(window.belts||{})){const fy=pos.y-meta.eye_height,r=new THREE.Vector3(pos.x,fy,pos.z).sub(K.c),al=r.dot(K.u),la=r.dot(K.side); // Stage 97: ride the belt; its spike pit kills
+      if(Math.abs(al)<K.b.length/2&&Math.abs(la)<K.b.width/2){const dy=fy-(K.c.y+K.u.y*al);if(dy>-0.3&&dy<0.45){const st=K.b.speed*dt,h=new THREE.Vector3(K.u.x,0,K.u.z).normalize().multiplyScalar(Math.sign(st));
+        if(!blocked(h,Math.abs(st)))pos.addScaledVector(K.u,st);}}
+      const P=K.b.kill;if(P){const a=-P.yaw*Math.PI/180,dx=pos.x-P.center[0],dz=pos.z-P.center[2],lx=dx*Math.cos(a)+dz*Math.sin(a),lz=-dx*Math.sin(a)+dz*Math.cos(a);
+        if(Math.abs(lx)<P.size[0]/2&&Math.abs(lz)<P.size[2]/2&&fy<P.center[1]+P.size[1]/2&&fy>P.center[1]-P.size[1]/2-0.5){spawn();say('🔺 Spiked!');}}}
+    for(const K of Object.values(window.sawKill||{})){const p=new THREE.Vector3(pos.x,pos.y-meta.eye_height+0.9,pos.z).sub(K.c),ax=Math.abs(p.dot(K.a));p.addScaledVector(K.a,-p.dot(K.a)); // Stage 97: saw blades
+      if(ax<0.7+GP.player.radius&&p.length()<K.r+0.6){spawn();say('🪚 Sliced!');}}
     for(const k of (window.crushKill||[]))if(k.on){const fy=pos.y-meta.eye_height;if(pos.x>k.min[0]&&pos.x<k.max[0]&&pos.z>k.min[2]&&pos.z<k.max[2]&&fy>k.min[1]-0.3&&fy<k.max[1]){spawn();const b=document.getElementById('info');if(b)b.textContent='💥 Crushed!';}} // Stage 72
   for(const ex of (meta.exits||[])){const dx=pos.x-ex.center[0],dz=pos.z-ex.center[2],fy=pos.y-meta.eye_height;
     if(dx*dx+dz*dz<ex.radius*ex.radius&&Math.abs(fy-ex.center[1])<ex.height/2&&!exitT){exitT=1;const b=document.getElementById('info');
