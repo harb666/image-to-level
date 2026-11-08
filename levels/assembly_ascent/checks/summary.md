@@ -1,16 +1,18 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 1606 objects · 30 materials · 17 effects
-Checks: PASSED ({'error': 0, 'warning': 3, 'info': 1}) · refine passes: 0
-Mobile (balanced): 1432 KB · 37757 tris · 71 draw calls · ~48.2 visible (estimate) · ~7.06 MB GPU textures (estimate)
-Navigation: 3249.0 m² reachable of 19185.0 m² standable
-Package: dist/assembly_ascent/package (38 files, 6.66 MB) valid=True
+Spec: levels/assembly_ascent/scene_spec.json · 1690 objects · 30 materials · 17 effects
+Checks: PASSED ({'error': 0, 'warning': 5, 'info': 1}) · refine passes: 0
+Mobile (balanced): 1505 KB · 40403 tris · 81 draw calls · ~51.5 visible (estimate) · ~7.06 MB GPU textures (estimate)
+Navigation: 3240.0 m² reachable of 19147.0 m² standable
+Package: dist/assembly_ascent/package (38 files, 6.85 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
+- warning: mobile draw calls 81 (> 80)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
+- warning: 42285 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -21,8 +23,8 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Exit_Stairs: 0.75 m junction plate where it meets Upper_Deck's angled edge
 - Exit_Stairs: stairs run 5.7 m > gap 4.0 m - extends 1.7 m onto Upper_Deck
 - Entry_Door: entrance hallway 10 m out of the black (from slime_arena)
-- Saw_West: saw 4.4 m chopping +-34 deg every 3.2 s across [-31.95, 26.5]
-- Saw_East: saw 4.4 m chopping +-34 deg every 3.2 s across [-31.95, 20.5]
+- Saw_West: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 26.5]
+- Saw_East: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 20.5]
 - Pillars: 7 striped pillars on truss legs
 - Belt_A: conveyor ramp 16.5 m at 21 deg, belt -2.4 m/s, spike pit at the foot
 - Belt_B: conveyor ramp 16.5 m at 21 deg, belt -3.4 m/s, spike pit at the foot
@@ -36,9 +38,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - corrosion: 563 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 0.9 s
-- build (glb, sky, background, effects, mobile): 20.7 s
-- checks (fast): 19.7 s
+- spec -> level.json: 1.0 s
+- build (glb, sky, background, effects, mobile): 18.9 s
+- checks (fast): 24.2 s
 - previews: 0.3 s
 - export package: 0.2 s
-- total: 41.8 s
+- total: 44.6 s

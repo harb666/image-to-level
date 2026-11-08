@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 2765,
-    "triangles": 39677,
-    "nodes": 1758,
-    "mesh_nodes": 1726,
-    "unique_meshes": 703,
+    "glb_kb": 2844,
+    "triangles": 42285,
+    "nodes": 1856,
+    "mesh_nodes": 1824,
+    "unique_meshes": 747,
     "materials": 30,
     "images": 82,
-    "draw_calls_unbatched": 1726,
+    "draw_calls_unbatched": 1824,
     "draw_calls_batched_min": 30,
     "tex_mem_uncompressed_mb": 71.51,
     "tex_mem_gpu_compressed_mb": 17.88,
@@ -71,22 +71,22 @@
    },
    "visible": {
     "cameras": 80,
-    "visible_draw_calls_mean": 573.0,
-    "visible_draw_calls_max": 1720,
-    "visible_triangles_mean": 24957,
-    "visible_triangles_max": 50333
+    "visible_draw_calls_mean": 602.8,
+    "visible_draw_calls_max": 1818,
+    "visible_triangles_mean": 25718,
+    "visible_triangles_max": 52941
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 1432,
-    "triangles": 37757,
-    "nodes": 72,
-    "mesh_nodes": 71,
-    "unique_meshes": 71,
+    "glb_kb": 1505,
+    "triangles": 40403,
+    "nodes": 82,
+    "mesh_nodes": 81,
+    "unique_meshes": 81,
     "materials": 30,
     "images": 52,
-    "draw_calls_unbatched": 71,
+    "draw_calls_unbatched": 81,
     "draw_calls_batched_min": 30,
     "tex_mem_uncompressed_mb": 28.26,
     "tex_mem_gpu_compressed_mb": 7.06,
@@ -130,19 +130,19 @@
     ]
    },
    "collision": {
-    "colliders": 301,
+    "colliders": 291,
     "hazards": 1,
-    "glb_kb": 144
+    "glb_kb": 138
    },
    "visible": {
     "cameras": 80,
-    "visible_draw_calls_mean": 48.2,
-    "visible_draw_calls_max": 75,
-    "visible_triangles_mean": 43576,
-    "visible_triangles_max": 48601
+    "visible_draw_calls_mean": 51.5,
+    "visible_draw_calls_max": 84,
+    "visible_triangles_mean": 44995,
+    "visible_triangles_max": 51215
    },
-   "hidden_faces_removed": 911,
-   "occluded_faces_removed": 1009,
+   "hidden_faces_removed": 887,
+   "occluded_faces_removed": 995,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate"
    ],
@@ -150,16 +150,16 @@
    "effects_max_particles": 283,
    "slimmed_kb": {
     "level_mobile.glb": [
-     2295,
-     1432
+     2382,
+     1505
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     193,
-     144
+     185,
+     138
     ]
    }
   }
@@ -867,14 +867,48 @@
    "group": "Saw_East_Arm"
   },
   {
+   "node": "Saw_East_Arm__machine",
+   "kind": "group",
+   "material": "machine",
+   "triangles": 112,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Saw_East_UpperRod_R",
+    "Saw_East_UpperPiston_R",
+    "Saw_East_UpperRod_L",
+    "Saw_East_UpperPiston_L"
+   ],
+   "group": "Saw_East_Arm"
+  },
+  {
    "node": "Saw_East_Blade__blade",
    "kind": "group",
    "material": "blade",
-   "triangles": 224,
+   "triangles": 432,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Saw_East_Bolt_6",
+    "Saw_East_Bolt_5",
+    "Saw_East_Bolt_4",
+    "Saw_East_Bolt_3",
+    "Saw_East_Bolt_2",
+    "Saw_East_Bolt_1",
     "Saw_East_Saw"
+   ],
+   "group": "Saw_East_Blade"
+  },
+  {
+   "node": "Saw_East_Blade__glow",
+   "kind": "group",
+   "material": "glow",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Saw_East_BladeGlow_R",
+    "Saw_East_BladeGlow_L"
    ],
    "group": "Saw_East_Blade"
   },
@@ -882,23 +916,12 @@
    "node": "Saw_East_Blade__machine",
    "kind": "group",
    "material": "machine",
-   "triangles": 32,
+   "triangles": 72,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Saw_East_Hub"
-   ],
-   "group": "Saw_East_Blade"
-  },
-  {
-   "node": "Saw_East_Blade__stripe",
-   "kind": "group",
-   "material": "stripe",
-   "triangles": 40,
-   "visibility_range_end": 0,
-   "cast_shadow": true,
-   "source_objects": [
-    "Saw_East_SawHub"
+    "Saw_East_Nut",
+    "Saw_East_Flange"
    ],
    "group": "Saw_East_Blade"
   },
@@ -918,7 +941,7 @@
    "node": "Saw_East_Fore__ink",
    "kind": "group",
    "material": "ink",
-   "triangles": 52,
+   "triangles": 60,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -931,13 +954,84 @@
    "node": "Saw_East_Fore__machine",
    "kind": "group",
    "material": "machine",
-   "triangles": 40,
+   "triangles": 160,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Saw_East_Elbow"
+    "Saw_East_Elbow",
+    "Saw_East_ForeRod_R",
+    "Saw_East_ForePiston_R",
+    "Saw_East_ForeRod_L",
+    "Saw_East_ForePiston_L"
    ],
    "group": "Saw_East_Fore"
+  },
+  {
+   "node": "Saw_East_Wrist__arm_yellow",
+   "kind": "group",
+   "material": "arm_yellow",
+   "triangles": 108,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Saw_East_Guard_8",
+    "Saw_East_Guard_7",
+    "Saw_East_Guard_6",
+    "Saw_East_Guard_5",
+    "Saw_East_Guard_4",
+    "Saw_East_Guard_3",
+    "Saw_East_Guard_2",
+    "Saw_East_Guard_1",
+    "Saw_East_Bracket"
+   ],
+   "group": "Saw_East_Wrist"
+  },
+  {
+   "node": "Saw_East_Wrist__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 104,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Saw_East_Guard_1__ol",
+    "Saw_East_Arbor__ol",
+    "Saw_East_Bracket__ol",
+    "Saw_East_Wrist__ol"
+   ],
+   "group": "Saw_East_Wrist"
+  },
+  {
+   "node": "Saw_East_Wrist__machine",
+   "kind": "group",
+   "material": "machine",
+   "triangles": 80,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Saw_East_Arbor",
+    "Saw_East_Wrist"
+   ],
+   "group": "Saw_East_Wrist"
+  },
+  {
+   "node": "Saw_East_Wrist__stripe",
+   "kind": "group",
+   "material": "stripe",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Saw_East_GuardLip_8",
+    "Saw_East_GuardLip_7",
+    "Saw_East_GuardLip_6",
+    "Saw_East_GuardLip_5",
+    "Saw_East_GuardLip_4",
+    "Saw_East_GuardLip_3",
+    "Saw_East_GuardLip_2",
+    "Saw_East_GuardLip_1"
+   ],
+   "group": "Saw_East_Wrist"
   },
   {
    "node": "Saw_West_Arm__arm_yellow",
@@ -964,14 +1058,48 @@
    "group": "Saw_West_Arm"
   },
   {
+   "node": "Saw_West_Arm__machine",
+   "kind": "group",
+   "material": "machine",
+   "triangles": 112,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Saw_West_UpperRod_R",
+    "Saw_West_UpperPiston_R",
+    "Saw_West_UpperRod_L",
+    "Saw_West_UpperPiston_L"
+   ],
+   "group": "Saw_West_Arm"
+  },
+  {
    "node": "Saw_West_Blade__blade",
    "kind": "group",
    "material": "blade",
-   "triangles": 224,
+   "triangles": 432,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Saw_West_Bolt_6",
+    "Saw_West_Bolt_5",
+    "Saw_West_Bolt_4",
+    "Saw_West_Bolt_3",
+    "Saw_West_Bolt_2",
+    "Saw_West_Bolt_1",
     "Saw_West_Saw"
+   ],
+   "group": "Saw_West_Blade"
+  },
+  {
+   "node": "Saw_West_Blade__glow",
+   "kind": "group",
+   "material": "glow",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Saw_West_BladeGlow_R",
+    "Saw_West_BladeGlow_L"
    ],
    "group": "Saw_West_Blade"
   },
@@ -979,23 +1107,12 @@
    "node": "Saw_West_Blade__machine",
    "kind": "group",
    "material": "machine",
-   "triangles": 32,
+   "triangles": 72,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Saw_West_Hub"
-   ],
-   "group": "Saw_West_Blade"
-  },
-  {
-   "node": "Saw_West_Blade__stripe",
-   "kind": "group",
-   "material": "stripe",
-   "triangles": 40,
-   "visibility_range_end": 0,
-   "cast_shadow": true,
-   "source_objects": [
-    "Saw_West_SawHub"
+    "Saw_West_Nut",
+    "Saw_West_Flange"
    ],
    "group": "Saw_West_Blade"
   },
@@ -1015,7 +1132,7 @@
    "node": "Saw_West_Fore__ink",
    "kind": "group",
    "material": "ink",
-   "triangles": 52,
+   "triangles": 60,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1028,13 +1145,84 @@
    "node": "Saw_West_Fore__machine",
    "kind": "group",
    "material": "machine",
-   "triangles": 40,
+   "triangles": 160,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Saw_West_Elbow"
+    "Saw_West_Elbow",
+    "Saw_West_ForeRod_R",
+    "Saw_West_ForePiston_R",
+    "Saw_West_ForeRod_L",
+    "Saw_West_ForePiston_L"
    ],
    "group": "Saw_West_Fore"
+  },
+  {
+   "node": "Saw_West_Wrist__arm_yellow",
+   "kind": "group",
+   "material": "arm_yellow",
+   "triangles": 108,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Saw_West_Guard_8",
+    "Saw_West_Guard_7",
+    "Saw_West_Guard_6",
+    "Saw_West_Guard_5",
+    "Saw_West_Guard_4",
+    "Saw_West_Guard_3",
+    "Saw_West_Guard_2",
+    "Saw_West_Guard_1",
+    "Saw_West_Bracket"
+   ],
+   "group": "Saw_West_Wrist"
+  },
+  {
+   "node": "Saw_West_Wrist__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 104,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Saw_West_Guard_1__ol",
+    "Saw_West_Arbor__ol",
+    "Saw_West_Bracket__ol",
+    "Saw_West_Wrist__ol"
+   ],
+   "group": "Saw_West_Wrist"
+  },
+  {
+   "node": "Saw_West_Wrist__machine",
+   "kind": "group",
+   "material": "machine",
+   "triangles": 80,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Saw_West_Arbor",
+    "Saw_West_Wrist"
+   ],
+   "group": "Saw_West_Wrist"
+  },
+  {
+   "node": "Saw_West_Wrist__stripe",
+   "kind": "group",
+   "material": "stripe",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Saw_West_GuardLip_8",
+    "Saw_West_GuardLip_7",
+    "Saw_West_GuardLip_6",
+    "Saw_West_GuardLip_5",
+    "Saw_West_GuardLip_4",
+    "Saw_West_GuardLip_3",
+    "Saw_West_GuardLip_2",
+    "Saw_West_GuardLip_1"
+   ],
+   "group": "Saw_West_Wrist"
   },
   {
    "node": "Spike_Press_Ram__ink",
@@ -1351,12 +1539,14 @@
    "node": "M_arm_yellow_0_0",
    "kind": "static",
    "material": "arm_yellow",
-   "triangles": 24,
+   "triangles": 48,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Saw_East_Yoke",
-    "Saw_West_Yoke"
+    "Saw_East_Cheek_R",
+    "Saw_East_Cheek_L",
+    "Saw_West_Cheek_R",
+    "Saw_West_Cheek_L"
    ]
   },
   {
@@ -1712,7 +1902,7 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 1394,
+   "triangles": 1666,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1750,6 +1940,12 @@
     "Spike_Press_Pad_Lamp_1",
     "Yard_Mark_Ring_4",
     "Yard_Mark_Ring_3",
+    "Saw_East_ShoulderGlow_R",
+    "Saw_East_ShoulderGlow_L",
+    "Saw_East_ColGlow",
+    "Saw_West_ShoulderGlow_R",
+    "Saw_West_ShoulderGlow_L",
+    "Saw_West_ColGlow",
     "Spinner_Ramp_CladLight_R",
     "Spinner_Ramp_CladLight_L",
     "Yard_Bridge_CladLight_R_b_b",
@@ -1877,7 +2073,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 6034,
+   "triangles": 6270,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1932,12 +2128,18 @@
     "Start_Crates_01__ol",
     "Yard_Crates_01__ol",
     "Yard_Mark_Ring_2__ol",
-    "Saw_East_Yoke__ol",
-    "Saw_East_Pedestal__ol",
-    "Saw_East_Foot__ol",
-    "Saw_West_Yoke__ol",
-    "Saw_West_Pedestal__ol",
-    "Saw_West_Foot__ol",
+    "Saw_East_Shoulder__ol",
+    "Saw_East_Cheek_L__ol",
+    "Saw_East_Column_3__ol",
+    "Saw_East_Column_2__ol",
+    "Saw_East_Column_1__ol",
+    "Saw_East_Plate__ol",
+    "Saw_West_Shoulder__ol",
+    "Saw_West_Cheek_L__ol",
+    "Saw_West_Column_3__ol",
+    "Saw_West_Column_2__ol",
+    "Saw_West_Column_1__ol",
+    "Saw_West_Plate__ol",
     "Entry_Door_Sill__ol",
     "Entry_Door_Mouth_Capital_1__ol",
     "Entry_Door_Mouth_Pilaster_1__ol",
@@ -2035,7 +2237,7 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 2467,
+   "triangles": 2681,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2080,10 +2282,16 @@
     "Spike_Press_Housing",
     "Yard_Gate_Post_R",
     "Yard_Gate_Post_L",
-    "Saw_East_Hinge",
-    "Saw_East_Pedestal",
-    "Saw_West_Hinge",
-    "Saw_West_Pedestal",
+    "Saw_East_Shoulder",
+    "Saw_East_Column_3",
+    "Saw_East_Column_2",
+    "Saw_East_Column_1",
+    "Saw_East_Plate",
+    "Saw_West_Shoulder",
+    "Saw_West_Column_3",
+    "Saw_West_Column_2",
+    "Saw_West_Column_1",
+    "Saw_West_Plate",
     "Entry_Door_Mouth_Pilaster_3",
     "Entry_Door_Mouth_Jamb_3",
     "Entry_Door_Mouth_Pilaster_1",
@@ -2299,7 +2507,7 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 706,
+   "triangles": 786,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2344,8 +2552,10 @@
     "Pillars_1_Band_3",
     "Pillars_1_Band_2",
     "Pillars_1_Band_1",
-    "Saw_East_Collar",
-    "Saw_West_Collar",
+    "Saw_East_ColBand_2",
+    "Saw_East_ColBand_1",
+    "Saw_West_ColBand_2",
+    "Saw_West_ColBand_1",
     "Spinner_Ramp_Threshold_Hi",
     "Spinner_Ramp_Threshold_Lo",
     "Yard_Bridge_Deck_b_SlotEdge_1b",
@@ -2374,7 +2584,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 2804,
+   "triangles": 2760,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2407,8 +2617,6 @@
     "Spike_Press_Rib_2",
     "Spike_Press_Rib_1",
     "Spike_Press_Foot",
-    "Saw_East_Foot",
-    "Saw_West_Foot",
     "Entry_Door_Rib_2_Beam",
     "Entry_Door_Rib_2_Post_3",
     "Entry_Door_Rib_2_Post_1",

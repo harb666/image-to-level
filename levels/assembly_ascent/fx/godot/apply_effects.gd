@@ -353,6 +353,10 @@ func _saw(w: Dictionary) -> void:
 		for nd in _group_nodes(String(j["group"])):
 			nodes.append([nd, (nd as Node3D).transform])
 		links.append([j, nodes])
+	var spin: Array = []  # Stage 102: a separate spin group (the blade) riding on the last joint
+	if w.has("spin") and not J.any(func(j): return String(j["group"]) == String(w["spin"])):
+		for nd in _group_nodes(String(w["spin"])):
+			spin.append([nd, (nd as Node3D).transform])
 	var area := Area3D.new()
 	area.name = String(w["id"]) + "_Kill"
 	var cs := CollisionShape3D.new()
@@ -363,7 +367,7 @@ func _saw(w: Dictionary) -> void:
 	area.add_child(cs)
 	level_root.add_child(area)
 	area.add_to_group(hazard_group)
-	_saws.append([w, links, area])
+	_saws.append([w, links, area, spin])
 
 
 func _sweeper(sw: Dictionary) -> void:
@@ -436,11 +440,16 @@ func _update_saws() -> void:
 			var q := Basis(A, deg_to_rad(float(j["amp"])) * sin(ph - float(j["lag"])))
 			M = M * Transform3D(q, P - q * P)  # each joint turns about its own (already moved) hinge
 			var T := M
-			if k == links.size() - 1:  # the blade also spins about its axis through its centre
+			if k == links.size() - 1 and (sr[3] as Array).is_empty():  # the blade also spins about its axis through its centre
 				var qs := Basis(A, float(w["rpm"]) * TAU / 60.0 * _t)
 				T = M * Transform3D(qs, C - qs * C)
 			for nr in links[k][1]:
 				(nr[0] as Node3D).transform = T * (nr[1] as Transform3D)
+		if not (sr[3] as Array).is_empty():  # Stage 102: the blade spins on the wrist (motor + guard stay put)
+			var qb := Basis(A, float(w["rpm"]) * TAU / 60.0 * _t)
+			var Tb := M * Transform3D(qb, C - qb * C)
+			for nr in sr[3]:
+				(nr[0] as Node3D).transform = Tb * (nr[1] as Transform3D)
 		(sr[2] as Area3D).global_transform = Transform3D(Basis(Quaternion(Vector3.UP, A)), M * C)  # the kill cylinder's axis = the blade's
 
 

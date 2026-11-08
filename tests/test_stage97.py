@@ -36,7 +36,11 @@ class AssemblyAscent(unittest.TestCase):
             self.assertAlmostEqual(math.hypot(*s["axis"]), 1.0, places=3)
         self.assertAlmostEqual(abs(S["Saw_West"]["phase"] - S["Saw_East"]["phase"]), S["Saw_West"]["period"] / 2, places=3)
         for s in S.values():  # Stage 101: jointed - shoulder, elbow, wrist each pivot (own groups), the outer ones lagging
-            J = s["joints"]; self.assertEqual(len(J), 3); self.assertEqual([j["group"] for j in J], [s["id"] + "_Arm", s["id"] + "_Fore", s["id"] + "_Blade"])
+            J = s["joints"]; self.assertEqual(len(J), 3); self.assertEqual([j["group"] for j in J], [s["id"] + "_Arm", s["id"] + "_Fore", s["id"] + "_Wrist"])
+            self.assertEqual(s["spin"], s["id"] + "_Blade")  # Stage 102: only the blade spins (motor + guard ride the wrist)
+            self.assertGreater(J[0]["pivot"][1], 20.0); self.assertIn(s["id"] + "_Plate", self.by)  # hangs from the ceiling, nothing stands in the pool
+            self.assertFalse([n for n in self.by if n.startswith(s["id"] + "_Pedestal")])
+            self.assertEqual(self.by[s["id"] + "_Hub" if s["id"] + "_Hub" in self.by else s["id"] + "_Flange"]["mobile"]["group"], s["id"] + "_Blade")
             self.assertTrue(J[0]["lag"] < J[1]["lag"] < J[2]["lag"]); self.assertTrue(all(j["amp"] > 0 for j in J))
             self.assertEqual(self.by[s["id"] + "_Elbow"]["mobile"]["group"], s["id"] + "_Fore")
         for s in S.values(): self.assertEqual(s["slots"], ["Yard_Bridge"]); self.assertGreaterEqual(s["slot"], 0.8)  # Stage 99/100: each blade cuts its own (jumped) slot

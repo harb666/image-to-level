@@ -579,35 +579,36 @@
     "id": "Saw_West",
     "arm": "Saw_West_Arm",
     "blade": "Saw_West_Blade",
+    "spin": "Saw_West_Blade",
     "joints": [
      {
       "group": "Saw_West_Arm",
       "pivot": [
-       -40.0,
-       13.8,
+       -36.55,
+       22.0,
        26.5
       ],
-      "amp": 34.0,
+      "amp": 30.0,
       "lag": 0.0
      },
      {
       "group": "Saw_West_Fore",
       "pivot": [
-       -35.975,
-       15.6,
+       -37.3,
+       16.2,
        26.5
       ],
-      "amp": 23.799999999999997,
+      "amp": 24.0,
       "lag": 0.9
      },
      {
-      "group": "Saw_West_Blade",
+      "group": "Saw_West_Wrist",
       "pivot": [
-       -32.3,
-       8.7,
+       -32.85,
+       10.4,
        26.5
       ],
-      "amp": 18.700000000000003,
+      "amp": 21.0,
       "lag": 1.7
      }
     ],
@@ -616,8 +617,8 @@
     ],
     "slot": 0.9,
     "pivot": [
-     -40.0,
-     13.8,
+     -36.55,
+     22.0,
      26.5
     ],
     "axis": [
@@ -625,7 +626,7 @@
      0.0,
      1.0
     ],
-    "amp": 34.0,
+    "amp": 30.0,
     "period": 3.2,
     "phase": 0.0,
     "center": [
@@ -635,7 +636,7 @@
     ],
     "radius": 2.2,
     "rpm": 240.0,
-    "note": "joint k turns its group and every later one about axis through its pivot by amp_k sin(2 pi (t + phase) / period - lag_k) degrees; the blade also spins; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
+    "note": "joint k turns its group and every later one about axis through its own pivot by amp_k sin(2 pi (t + phase) / period - lag_k) degrees; the spin group also turns rpm about the axis through the blade centre; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
    },
    "quality": {
     "performance": {
@@ -677,35 +678,36 @@
     "id": "Saw_East",
     "arm": "Saw_East_Arm",
     "blade": "Saw_East_Blade",
+    "spin": "Saw_East_Blade",
     "joints": [
      {
       "group": "Saw_East_Arm",
       "pivot": [
-       -24.0,
-       14.2,
+       -27.35,
+       22.0,
        20.5
       ],
-      "amp": 34.0,
+      "amp": 30.0,
       "lag": 0.0
      },
      {
       "group": "Saw_East_Fore",
       "pivot": [
-       -27.975,
-       16.0,
+       -26.6,
+       16.45,
        20.5
       ],
-      "amp": 23.799999999999997,
+      "amp": 24.0,
       "lag": 0.9
      },
      {
-      "group": "Saw_East_Blade",
+      "group": "Saw_East_Wrist",
       "pivot": [
-       -31.6,
-       9.2,
+       -31.05,
+       10.9,
        20.5
       ],
-      "amp": 18.700000000000003,
+      "amp": 21.0,
       "lag": 1.7
      }
     ],
@@ -714,8 +716,8 @@
     ],
     "slot": 0.9,
     "pivot": [
-     -24.0,
-     14.2,
+     -27.35,
+     22.0,
      20.5
     ],
     "axis": [
@@ -723,7 +725,7 @@
      0.0,
      1.0
     ],
-    "amp": 34.0,
+    "amp": 30.0,
     "period": 3.2,
     "phase": 1.6,
     "center": [
@@ -733,7 +735,7 @@
     ],
     "radius": 2.2,
     "rpm": 240.0,
-    "note": "joint k turns its group and every later one about axis through its pivot by amp_k sin(2 pi (t + phase) / period - lag_k) degrees; the blade also spins; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
+    "note": "joint k turns its group and every later one about axis through its own pivot by amp_k sin(2 pi (t + phase) / period - lag_k) degrees; the spin group also turns rpm about the axis through the blade centre; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)"
    },
    "quality": {
     "performance": {
@@ -1157,6 +1159,16 @@
     "Spike_Press_Pad_Lamp_1",
     "Yard_Mark_Ring_4",
     "Yard_Mark_Ring_3",
+    "Saw_East_BladeGlow_R",
+    "Saw_East_BladeGlow_L",
+    "Saw_East_ShoulderGlow_R",
+    "Saw_East_ShoulderGlow_L",
+    "Saw_East_ColGlow",
+    "Saw_West_BladeGlow_R",
+    "Saw_West_BladeGlow_L",
+    "Saw_West_ShoulderGlow_R",
+    "Saw_West_ShoulderGlow_L",
+    "Saw_West_ColGlow",
     "Spinner_Ramp_Support_Light",
     "Spinner_Ramp_CladLight_R",
     "Spinner_Ramp_CladLight_L",

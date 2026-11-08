@@ -114,6 +114,8 @@ The browser preview approximates all of these with three.js. It is close to Godo
   platform is up. The level has no weapon mesh: spawn your own shotgun model at `center`.
 
 ## Assembly Ascent hazards (Stage 97)
+- Stage 102: a saw's `joints` (shoulder, elbow, wrist) chain their turns; its `spin` group (the blade) rides on the last
+  joint and also spins - the wrist's motor and guard do not.
 - effects.json `saw` (apply_effects.gd `_saw` / `_update_saws`): the arm and blade groups (`<id>_Arm__*`,
   `<id>_Blade__*`) turn about `axis` through `pivot` by `amp * sin(2 pi (t + phase) / period)` degrees; the blade also
   spins `rpm` about the same axis. A CylinderShape3D Area3D (hazard group) follows the blade.

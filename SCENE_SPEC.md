@@ -1213,3 +1213,12 @@ Building blocks usable without the preset:
   `wrist_amp` (0.55 amp), `elbow_lag` (0.9), `wrist_lag` (1.7) - the outer joints follow through, so the arm whips
   instead of swinging stiff. All hinges are parallel, so the blade stays in its slot's plane. level.json
   `saws[].joints`. The yard saws use amp 34.
+
+## Stage 102: ceiling-mounted saw arms
+- `saw_arm` hangs from the ceiling (`ceiling`: the underside above its mount; `shoulder_height`, `side` of the walkway,
+  `mount_offset`, `bend`): a ceiling plate and a three-part drop column with striped bands and a glowing ring carry
+  the shoulder housing between yoke cheeks; the upper arm and forearm carry hydraulic pistons on both sides; the
+  wrist holds a motor, a bracket and arbor, and a curved guard with a striped lip over the blade. The blade is its own
+  spin group (`saws[].spin`): disc, flange, glowing rings, six bolts and a hex nut, all concentric - the motor and
+  guard ride the wrist and do not spin. Joints: `<id>_Arm` (shoulder), `<id>_Fore` (elbow), `<id>_Wrist`. Each
+  moving link keeps to 2-3 materials. The yard saws mount under the ceiling steps (32.36 / 31.83 m), amp 30.

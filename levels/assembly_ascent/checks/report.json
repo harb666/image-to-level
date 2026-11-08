@@ -1,16 +1,16 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 2765,
-  "mobile/level_mobile.glb": 1432,
-  "mobile/collision.json": 101,
+  "level.glb": 2844,
+  "mobile/level_mobile.glb": 1505,
+  "mobile/collision.json": 98,
   "environment.json": 4,
   "background.glb": 477,
   "effects.json": 32
  },
  "complexity": {
-  "triangles": 39677,
-  "nodes": 1726,
+  "triangles": 42285,
+  "nodes": 1824,
   "materials": 30,
   "heaviest": [
    [
@@ -30,32 +30,32 @@
     320
    ],
    [
-    "OuterWall_West_M11Monitor_Body__ol",
-    248
+    "Saw_East_Saw",
+    288
    ]
   ]
  },
  "performance": {
   "dev": {
-   "glb_kb": 2765,
-   "triangles": 32773,
-   "draw_calls": 1726,
+   "glb_kb": 2844,
+   "triangles": 34933,
+   "draw_calls": 1824,
    "tex_mem_gpu_mb_est": 17.88
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 1432,
-   "triangles": 37757,
-   "draw_calls": 71,
-   "visible_draw_calls_est": 48.2,
-   "visible_draw_calls_max_est": 75,
+   "glb_kb": 1505,
+   "triangles": 40403,
+   "draw_calls": 81,
+   "visible_draw_calls_est": 51.5,
+   "visible_draw_calls_max_est": 84,
    "tex_mem_gpu_mb_est": 7.06,
    "materials": 30,
-   "nodes": 72,
+   "nodes": 82,
    "colliders": {
-    "colliders": 301,
+    "colliders": 291,
     "hazards": 1,
-    "glb_kb": 144
+    "glb_kb": 138
    },
    "background_kb": 404
   },
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 19185.0,
-  "reachable_area_m2": 3249.0,
-  "components": 98,
+  "standable_area_m2": 19147.0,
+  "reachable_area_m2": 3240.0,
+  "components": 86,
   "spawns": [
    {
     "id": "spawn",
@@ -213,6 +213,11 @@
    "message": "OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m\u00b2, different materials): z-fighting flicker [auto-repairable]"
   },
   {
+   "kind": "mobile_draw_calls",
+   "severity": "warning",
+   "message": "mobile draw calls 81 (> 80)"
+  },
+  {
    "kind": "traverse_blocked",
    "severity": "warning",
    "object": "Exit_Stairs",
@@ -222,6 +227,11 @@
     -55.74
    ],
    "message": "Exit_Stairs: walking up the right lane the player is stopped by an edge / lip"
+  },
+  {
+   "kind": "triangle_budget",
+   "severity": "warning",
+   "message": "42285 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
@@ -237,7 +247,7 @@
  ],
  "counts": {
   "error": 0,
-  "warning": 3,
+  "warning": 5,
   "info": 1
  },
  "passed": true,

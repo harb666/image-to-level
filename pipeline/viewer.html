@@ -351,11 +351,13 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
           if(dx*dx+dz*dz<rr*rr&&Math.abs(e.y-c[1])<12)ts=t;}if(ts!==null&&t-ts<60)pose(t-ts);drip(ts===null?-1:t-ts);}});}
     else if(fx.category==='saw'){const W=fx.saw,A=new THREE.Vector3(...W.axis).normalize(),C=new THREE.Vector3(...W.center),one=new THREE.Vector3(1,1,1),v=new THREE.Vector3(); // Stage 97/101: jointed saw arm (same as apply_effects.gd)
       const JS=(W.joints||[{group:W.arm,pivot:W.pivot,amp:W.amp,lag:0},{group:W.blade,pivot:W.center,amp:0,lag:0}]).map(j=>({j,p:new THREE.Vector3(...j.pivot),nodes:Object.values(byName).filter(o=>o.name.startsWith(j.group+'__'))}));
-      const K={c:C.clone(),a:A,r:W.radius};(window.sawKill=window.sawKill||{})[W.id]=K;JS.forEach(J=>J.nodes.forEach(o=>{o.userData.rest=o.userData.rest||o.matrix.clone();o.matrixAutoUpdate=false;}));
+      const SP=W.spin&&!(W.joints||[]).some(j=>j.group===W.spin)?Object.values(byName).filter(o=>o.name.startsWith(W.spin+'__')):[];
+      const K={c:C.clone(),a:A,r:W.radius};(window.sawKill=window.sawKill||{})[W.id]=K;[...JS.flatMap(J=>J.nodes),...SP].forEach(o=>{o.userData.rest=o.userData.rest||o.matrix.clone();o.matrixAutoUpdate=false;});
       const about=(ang,pt,out)=>{const q=new THREE.Quaternion().setFromAxisAngle(A,ang);v.copy(pt).applyQuaternion(q).negate().add(pt);return out.compose(v,q,one);},M=new THREE.Matrix4(),R_=new THREE.Matrix4(),S_=new THREE.Matrix4(),T_=new THREE.Matrix4();
-      fxUpd.push({reset(){JS.forEach(J=>J.nodes.forEach(o=>{o.matrix.copy(o.userData.rest);o.matrixWorldNeedsUpdate=true;}));K.c.copy(C);},u(t){M.identity();const w=6.2832*(t+W.phase)/W.period;
-        JS.forEach((J,k)=>{M.multiply(about(J.j.amp*Math.PI/180*Math.sin(w-J.j.lag),J.p,R_));const last=k===JS.length-1;if(last)T_.multiplyMatrices(M,about(W.rpm*6.2832/60*t,C,S_));
-          J.nodes.forEach(o=>{o.matrix.multiplyMatrices(last?T_:M,o.userData.rest);o.matrixWorldNeedsUpdate=true;});});K.c.copy(C).applyMatrix4(M);}});}
+      fxUpd.push({reset(){[...JS.flatMap(J=>J.nodes),...SP].forEach(o=>{o.matrix.copy(o.userData.rest);o.matrixWorldNeedsUpdate=true;});K.c.copy(C);},u(t){M.identity();const w=6.2832*(t+W.phase)/W.period;
+        JS.forEach((J,k)=>{M.multiply(about(J.j.amp*Math.PI/180*Math.sin(w-J.j.lag),J.p,R_));const last=k===JS.length-1&&!SP.length;if(last)T_.multiplyMatrices(M,about(W.rpm*6.2832/60*t,C,S_));
+          J.nodes.forEach(o=>{o.matrix.multiplyMatrices(last?T_:M,o.userData.rest);o.matrixWorldNeedsUpdate=true;});});
+        if(SP.length){T_.multiplyMatrices(M,about(W.rpm*6.2832/60*t,C,S_));SP.forEach(o=>{o.matrix.multiplyMatrices(T_,o.userData.rest);o.matrixWorldNeedsUpdate=true;});}K.c.copy(C).applyMatrix4(M);}});} // Stage 102: a separate spin group (the blade) rides on the last joint
     else if(fx.category==='sweeper'){const SW=fx.sweeper,rot=Object.values(byName).filter(o=>o.name.startsWith(SW.group+'__')),C=new THREE.Vector3(...SW.center),Y=new THREE.Vector3(0,1,0),one=new THREE.Vector3(1,1,1),v=new THREE.Vector3(),m=new THREE.Matrix4(); // Stage 98: spinner arms (same as apply_effects.gd)
       const K={s:SW,th:0};(window.sweepers=window.sweepers||{})[SW.id]=K;rot.forEach(o=>{o.userData.rest=o.userData.rest||o.matrix.clone();o.matrixAutoUpdate=false;});
       fxUpd.push({reset(){rot.forEach(o=>{o.matrix.copy(o.userData.rest);o.matrixWorldNeedsUpdate=true;});K.th=0;},u(t){K.th=SW.rpm*6*(t+SW.phase);const q=new THREE.Quaternion().setFromAxisAngle(Y,K.th*Math.PI/180);
