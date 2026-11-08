@@ -113,6 +113,17 @@ The browser preview approximates all of these with three.js. It is close to Godo
   (`Shotgun_Pickup`, item `shotgun`, over the pedestal). A pickup with `riser` stays off (monitoring false) until its
   platform is up. The level has no weapon mesh: spawn your own shotgun model at `center`.
 
+## Assembly Ascent hazards (Stage 97)
+- effects.json `saw` (apply_effects.gd `_saw` / `_update_saws`): the arm and blade groups (`<id>_Arm__*`,
+  `<id>_Blade__*`) turn about `axis` through `pivot` by `amp * sin(2 pi (t + phase) / period)` degrees; the blade also
+  spins `rpm` about the same axis. A CylinderShape3D Area3D (hazard group) follows the blade.
+- effects.json `belt` (`_belt`): chevrons (`<id>_Chev__*`) slide along `axis`; an Area3D over the deck moves every
+  CharacterBody3D standing on it `speed * axis` m/s (move_and_collide in `_physics_process`). If your player script
+  overwrites its position each frame, add the belt velocity there instead.
+- collision.json `kills` (apply_mobile.gd): static spike boxes (yaw-turned) in the hazard group.
+- level.json `entrances`: `type: doorway` with a `spawn` point - the player starts there, walking out of the black
+  hallway (no elevator in this map).
+
 ## Drone swarm (Stage 95)
 - effects.json `flyby_ships` `Drone_Swarm`: same MultiMesh flyers as before; ships may carry `cx` / `cz` (route centre),
   `recede` and `loop` (circle for good), and vertex glow flag 2 takes the effect's `accent` colour.

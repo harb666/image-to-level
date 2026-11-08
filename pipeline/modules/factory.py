@@ -736,14 +736,20 @@ def crusher(ctx, s, x, y, z, yaw):
         a = math.radians(45 + 90 * k); ctx.add(f"{n}_Warn_{k + 1}", "box", [math.cos(a) * (1.25 * R + 0.02), hb + 0.75, math.sin(a) * (1.25 * R + 0.02)], [0.3, 0.3, 0.3], ctx.role("laser"), g,
                                                 [0, -math.degrees(a), 0], outline=False, **dict(vs, mobile={"group": n + "_Warn"}))
     # the ram (moves): press head with striped sides, rod, collar
-    hy = top + up
+    hy = top + up; Ls = float(s.get("spike_len", 0.9)) if s.get("spikes") else 0.0  # Stage 97: spiked press - tips touch the pad at full stroke
     ctx.add(n + "_Head", "box", [0, hy, 0], [P - 0.2, hh, P - 0.2], "machine", g, **ram)
+    if Ls:
+        k_ = 0; m_ = max(2, int((P - 0.4) / 0.75))
+        for i in range(m_):
+            for j in range(m_):
+                k_ += 1; lx, lz = -(P - 0.6) / 2 + (P - 0.6) * (i + 0.5) / m_, -(P - 0.6) / 2 + (P - 0.6) * (j + 0.5) / m_
+                ctx.add(f"{n}_Spike_{k_:02d}", "frustum", [lx, hy - Ls, lz], [0.55, Ls + 0.02, 0.55], ctx.role("spike"), g, sections=4, bottom_scale=1.0 / 40, **dict(ram, outline=False))
     for k, (ox, oz, sx, sz) in enumerate(((0, (P - 0.2) / 2 + 0.01, P - 0.2, 0.04), (0, -(P - 0.2) / 2 - 0.01, P - 0.2, 0.04), ((P - 0.2) / 2 + 0.01, 0, 0.04, P - 0.2), (-(P - 0.2) / 2 - 0.01, 0, 0.04, P - 0.2))):
         ctx.add(f"{n}_Head_Stripe_{k + 1}", "box", [ox, hy + 0.15, oz], [sx, 0.5, sz], "stripe", g, outline=False, **ram)
     ctx.add(n + "_Rod", "cylinder", [0, hy + hh - 0.05, 0], [0.9, Lr + 0.05, 0.9], "rail", g, sections=12, **ram)
     ctx.add(n + "_Collar", "cylinder", [0, hy + hh - 0.02, 0], [1.5, 0.35, 1.5], "structure_b", g, sections=12, **ram)
     a = math.radians(yaw); hx, hz = abs(math.cos(a)) * P / 2 + abs(math.sin(a)) * P / 2, abs(math.sin(a)) * P / 2 + abs(math.cos(a)) * P / 2
-    ctx.crushers = getattr(ctx, "crushers", []) + [dict(id=n, group=n + "_Ram", warn_group=n + "_Warn", travel=up, period=float(s.get("period", 4.5)), phase=float(s.get("phase", 0.0)),
+    ctx.crushers = getattr(ctx, "crushers", []) + [dict(id=n, group=n + "_Ram", warn_group=n + "_Warn", travel=round(up - Ls, 3), period=float(s.get("period", 4.5)), phase=float(s.get("phase", 0.0)),
                                                         warn=0.7, down=0.22, hold=0.45, rise=1.2,
                                                         kill=[[round(x - hx + 0.05, 3), top, round(z - hz + 0.05, 3)], [round(x + hx - 0.05, 3), round(top + 2.0, 3), round(z + hz - 0.05, 3)]])]
     ctx.walkable.append(dict(name=n + "_Pad", min=[round(x - hx, 3), round(z - hz, 3)], max=[round(x + hx, 3), round(z + hz, 3)], y=top))
@@ -796,12 +802,16 @@ def exit_hall(ctx, s, x, y, z, yaw):
         zr -= 3.2
     for k, sd in enumerate((-1, 1)): ctx.add(f"{n}_Guide_{k + 1}", "box", [sd * (Wi / 2 - 0.03), 2.4, (z0 + zb) / 2], [0.06, 0.08, z0 - zb], red, g, outline=False, **vs)  # red guide strips on the walls
     ex, ey, ez = Wp(0, 2.0, ze + 2.5)
-    ctx.exits.append(dict(id=n + "_Exit", type="level_exit", target=s.get("target", "next_level"), shape="cylinder", center=[round(ex, 3), round(ey, 3), round(ez, 3)],
-                          radius=round(Wi / 2 - 0.3, 3), height=4.0, note="walking into the black at the end of the exit hallway loads the next level (Construct Error: handle in the level_exit trigger)"))
+    if s.get("entrance"):  # Stage 97: the way IN - the player starts in the doorway, coming out of the dark (no exit trigger)
+        sx, sy, sz = Wp(0, 0.0, 1.5); ctx.entrances.append(dict(id=n, type="doorway", comes_from=s.get("comes_from", "previous_level"), spawn=[round(sx, 3), round(sy, 3), round(sz, 3)],
+                                                             yaw_deg=round(yaw, 2), note="the player appears here, walking out of the black hallway"))
+    else:
+        ctx.exits.append(dict(id=n + "_Exit", type="level_exit", target=s.get("target", "next_level"), shape="cylinder", center=[round(ex, 3), round(ey, 3), round(ez, 3)],
+                              radius=round(Wi / 2 - 0.3, 3), height=4.0, note="walking into the black at the end of the exit hallway loads the next level (Construct Error: handle in the level_exit trigger)"))
     c0, c1 = Wp(-Wi / 2, 0, z0), Wp(Wi / 2, 0, ze)
     ctx.walkable.append(dict(name=n + "_Floor", min=[round(min(c0[0], c1[0]), 3), round(min(c0[2], c1[2]), 3)], max=[round(max(c0[0], c1[0]), 3), round(max(c0[2], c1[2]), 3)], y=y))
     fx_, _, fz_ = Wp(0, 0, ze - 1.0); ctx.add(n + "_Far", "group", [round(fx_, 3), 0, round(fz_, 3)])  # (root marker: the level bounds reach the hall's end)
-    ctx.notes.append(f"{n}: exit hallway {Lh:.0f} m fading to black -> {s.get('target')}")
+    ctx.notes.append(f"{n}: " + (f"entrance hallway {Lh:.0f} m out of the black (from {s.get('comes_from')})" if s.get("entrance") else f"exit hallway {Lh:.0f} m fading to black -> {s.get('target')}"))
 
 
 

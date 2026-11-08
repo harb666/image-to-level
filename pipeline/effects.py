@@ -111,6 +111,12 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                    "sinking 0.9 m back under the surface. The pad's colliders (collision.glb nodes named after 'colliders') are disabled until 85 % of "
                    "its rise. Stage 89/91: a pad with 'drips' drops goo (CPUParticles3D) once up; with 'goo' {drips, strands, hold, fade} those bones "
                    "drain away 'hold' s after it is up over 'fade' s (smoothstep: drips scale y -> 0 sliding 0.6 m down, strands scale -> 0) and the drops stop", glb="pads at the RAISED position (skinned, one mesh per material); colliders at the raised position", defaults=dict()),
+    "saw": dict(category="saw", godot="script (apply_effects.gd _saws): the arm and blade groups (<arm>__*, <blade>__*) turn about 'axis' through 'pivot' by "
+                "angle(t) = amp * sin(2 pi (t + phase) / period) degrees; the blade also spins rpm about the same axis through its centre. A kill zone (hazard group) "
+                "follows the blade centre: within 'radius' of it and 0.7 m either side of its plane (normal = axis)", glb="arm + blade at angle 0, own nodes (mobile groups)", defaults=dict()),
+    "belt": dict(category="belt", godot="script (apply_effects.gd _belts): chevron nodes (<chevrons>__*) slide axis * fmod(t * speed, spacing) (negative speed: downhill); "
+                 "a CharacterBody3D on the deck (inside width x length round 'center', feet within 0.4 m of the deck) is moved speed * axis m/s (move_and_collide)",
+                 glb="the ramp (static) + chevrons (own nodes)", defaults=dict()),
     "bob": dict(category="bob", godot="script (apply_effects.gd _bobs): every node of the group (<group>__*) is turned and lifted about 'pivot' "
                 "(world): y offset amp * sin(2 pi (t + phase) / period), a sway of 'sway' deg about x (sin, period * 1.3) and z (cos, period * 1.7) "
                 "and a slow yaw drift (sway * 0.6 deg, period * 2.3) - a body drifting in liquid (Stage 92)", glb="the model parts at rest, own nodes (mobile group)", defaults=dict()),
@@ -339,6 +345,8 @@ def resolve(level_dir, L=None):
         if e.get("riser"): R["riser"] = e["riser"]
         if e.get("wind"): R["wind"] = e["wind"]
         if e.get("bob"): R["bob"] = e["bob"]
+        if e.get("saw"): R["saw"] = e["saw"]
+        if e.get("belt"): R["belt"] = e["belt"]
         if e.get("launches"): R["launches"] = [dict(l, targets=[n for n in l["targets"] if n in boxes]) for l in e["launches"]]
         if e["type"] == "spin" and tg: R["speeds"] = {n: by[n].get("spin", prm["speed_rpm"]) for n in tg if n in by}
         if tg: R["targets"] = tg

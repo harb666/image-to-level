@@ -1,0 +1,86 @@
+{
+ "player": {
+  "radius": 0.35,
+  "height": 1.8,
+  "step_height": 0.4,
+  "max_slope_deg": 40
+ },
+ "connectors": 4,
+ "findings": [
+  {
+   "object": "Exit_Stairs",
+   "lane": "right",
+   "way": "up",
+   "kind": "blocked",
+   "pos": [
+    38.43,
+    21.96,
+    -55.74
+   ],
+   "severity": "warning",
+   "message": "Exit_Stairs: walking up the right lane the player is stopped by an edge / lip"
+  }
+ ],
+ "passed": true,
+ "results": [
+  {
+   "name": "Yard_Bridge_Deck",
+   "type": "box",
+   "length": 15.28,
+   "lanes": {
+    "centre_up": {},
+    "centre_down": {},
+    "left_up": {},
+    "left_down": {},
+    "right_up": {},
+    "right_down": {}
+   }
+  },
+  {
+   "name": "Exit_Stairs",
+   "type": "stairs",
+   "length": 7.7,
+   "lanes": {
+    "centre_up": {},
+    "centre_down": {},
+    "left_up": {},
+    "left_down": {},
+    "right_up": {
+     "blocked": [
+      38.43,
+      21.96,
+      -55.74
+     ]
+    },
+    "right_down": {}
+   }
+  },
+  {
+   "name": "Belt_A_Deck",
+   "type": "box",
+   "length": 16.05,
+   "lanes": {
+    "centre_up": {},
+    "centre_down": {},
+    "left_up": {},
+    "left_down": {},
+    "right_up": {},
+    "right_down": {}
+   }
+  },
+  {
+   "name": "Belt_B_Deck",
+   "type": "box",
+   "length": 16.05,
+   "lanes": {
+    "centre_up": {},
+    "centre_down": {},
+    "left_up": {},
+    "left_down": {},
+    "right_up": {},
+    "right_down": {}
+   }
+  }
+ ],
+ "note": "capsule walk on mobile/collision.glb in 0.1 m steps, both directions; PLACEHOLDER player values from gameplay.json"
+}

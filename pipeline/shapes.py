@@ -620,6 +620,20 @@ def band(w, h, d, o):
     m.metadata["uv"] = np.array(UV, float); return m
 
 
+def saw_blade(w, h, d, o):
+    """Stage 97: circular saw blade - a flat disc (diameter w, thickness h along +y, centred on the origin) whose rim is
+    "teeth" hooked sawteeth (each rises from 0.84 R to R then drops back), a fan from the centre on both faces."""
+    n = int(o.get("teeth", 28)); R = w / 2; P = []
+    for k in range(n):
+        a0 = 2 * np.pi * k / n; a1 = a0 + 2 * np.pi / n * 0.78
+        P += [(0.84 * R * np.cos(a0), 0.84 * R * np.sin(a0)), (R * np.cos(a1), R * np.sin(a1))]
+    P = np.array(P); m = len(P); V = np.r_[np.c_[P[:, 0], np.full(m, h / 2), P[:, 1]], np.c_[P[:, 0], np.full(m, -h / 2), P[:, 1]], [[0, h / 2, 0], [0, -h / 2, 0]]]
+    ct, cb = 2 * m, 2 * m + 1; F = []
+    for i in range(m):
+        j = (i + 1) % m; F += [[ct, j, i], [cb, m + i, m + j], [i, j, m + j], [i, m + j, m + i]]
+    mm = trimesh.Trimesh(V, np.array(F), process=True); mm.fix_normals(); return mm
+
+
 def prism(w, h, d, o):
     """Stage 59: a flat convex plate - o["poly"] = [[x, y], ...] (convex, counter-clockwise seen from +z, local x/y
     in metres) extruded from z = 0 to z = d. Angular armour plates, pointed pillars, trapezoid lights. size [w, h, d]
@@ -634,7 +648,7 @@ def prism(w, h, d, o):
     m = trimesh.Trimesh(V, np.array(F), process=False); m.fix_normals(); return m
 
 
-SHAPES = dict(prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
+SHAPES = dict(saw_blade=saw_blade, prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
               stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum, dome=dome)
 

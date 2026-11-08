@@ -110,6 +110,18 @@ func _ready() -> void:
 				pa.remove_meta("pickup_id")
 				pickup_reached.emit(pid, item))
 		add_child(pa)
+	for k in col.get("kills", []):  # Stage 97: spikes - static kill boxes (turned yaw) in the hazard group
+		var ka := Area3D.new()
+		ka.name = String(k["id"]) + "_Kill"
+		var kcs := CollisionShape3D.new()
+		var kb := BoxShape3D.new()
+		kb.size = Vector3(k["size"][0], k["size"][1], k["size"][2])
+		kcs.shape = kb
+		ka.add_child(kcs)
+		ka.position = Vector3(k["center"][0], k["center"][1], k["center"][2])
+		ka.rotation_degrees.y = float(k.get("yaw", 0.0))
+		ka.add_to_group(hazard_group)
+		add_child(ka)
 	for h in col["hazards"]:
 		var area := Area3D.new()
 		area.name = String(h["name"]) + "_Area"

@@ -24,6 +24,8 @@ var _travel: Array = []  # [node, rest position, speed m/s, spacing m] (Stage 43
 var _launch: Array = []  # [node, rest position, speed, period, phase, travel] (Stage 49: pods shooting up the columns)
 var _crushers: Array = []  # Stage 72: [crusher dict, ram nodes, warning lamps, kill CollisionShape3D]
 var _winds: Array = []  # Stage 82: [wind dict, rotor node, Area3D, CPUParticles3D streaks]
+var _saws: Array = []  # Stage 97: [saw dict, [[arm node, rest]...], [[blade node, rest]...], kill Area3D]
+var _belts: Array = []  # Stage 97: [belt dict, [[chevron node, rest position]...], rider Area3D]
 var _bobs: Array = []  # Stage 92: [bob dict, [[Node3D, rest Transform3D]...]]
 var _risers: Array = []  # Stage 80: [riser dict, Skeleton3D, {bone name: index}, [[CollisionShape3D...] per pad], start time (-1: waiting)]
 var _lines: Array = []  # Stage 61: working assembly lines - [line dict, move nodes, [[station, arm nodes, held nodes, scan nodes]]]
@@ -80,6 +82,10 @@ func _ready() -> void:
 				_riser(fx["riser"])
 			"wind":  # Stage 82: a turbine fan whose cycled blast blows players off the platform
 				_wind(fx["wind"])
+			"saw":  # Stage 97: a saw blade chopping across a walkway (kill zone follows the blade)
+				_saw(fx["saw"])
+			"belt":  # Stage 97: a conveyor ramp - chevrons slide, riders are carried
+				_belt(fx["belt"])
 			"bob":  # Stage 92: a specimen drifting in its tank (rest transforms kept, turned about the pivot)
 				var bb: Dictionary = fx["bob"]
 				var bn: Array = []
@@ -336,6 +342,64 @@ func _crusher(c: Dictionary) -> void:
 	_crushers.append([c, _group_nodes(String(c["group"])), _group_nodes(String(c["warn_group"])), cs])
 
 
+func _saw(w: Dictionary) -> void:
+	var arm: Array = []
+	for nd in _group_nodes(String(w["arm"])):
+		arm.append([nd, (nd as Node3D).transform])
+	var blade: Array = []
+	for nd in _group_nodes(String(w["blade"])):
+		blade.append([nd, (nd as Node3D).transform])
+	var area := Area3D.new()
+	area.name = String(w["id"]) + "_Kill"
+	var cs := CollisionShape3D.new()
+	var cy := CylinderShape3D.new()
+	cy.radius = float(w["radius"]) + 0.1
+	cy.height = 1.4
+	cs.shape = cy
+	area.add_child(cs)
+	level_root.add_child(area)
+	area.add_to_group(hazard_group)
+	_saws.append([w, arm, blade, area])
+
+
+func _belt(b: Dictionary) -> void:
+	var ch: Array = []
+	for nd in _group_nodes(String(b["chevrons"])):
+		ch.append([nd, (nd as Node3D).position])
+	var u := Vector3(b["axis"][0], b["axis"][1], b["axis"][2]).normalized()
+	var side := Vector3(u.z, 0.0, -u.x).normalized()
+	var nrm := u.cross(side)
+	if nrm.y < 0.0:
+		nrm = -nrm
+	var area := Area3D.new()
+	area.name = String(b["id"]) + "_Riders"
+	var cs := CollisionShape3D.new()
+	var bx := BoxShape3D.new()
+	bx.size = Vector3(float(b["width"]), 1.2, float(b["length"]))
+	cs.shape = bx
+	area.add_child(cs)
+	level_root.add_child(area)
+	area.global_transform = Transform3D(Basis(side, nrm, u), Vector3(b["center"][0], b["center"][1], b["center"][2]) + nrm * 0.6)
+	_belts.append([b, ch, area])
+
+
+func _update_saws() -> void:
+	for sr in _saws:
+		var w: Dictionary = sr[0]
+		var A := Vector3(w["axis"][0], w["axis"][1], w["axis"][2]).normalized()
+		var P := Vector3(w["pivot"][0], w["pivot"][1], w["pivot"][2])
+		var C := Vector3(w["center"][0], w["center"][1], w["center"][2])
+		var q := Basis(A, deg_to_rad(float(w["amp"])) * sin(TAU * (_t + float(w["phase"])) / float(w["period"])))
+		var swing := Transform3D(q, P - q * P)
+		var qs := Basis(A, float(w["rpm"]) * TAU / 60.0 * _t)
+		var spin := Transform3D(qs, C - qs * C)
+		for nr in sr[1]:
+			(nr[0] as Node3D).transform = swing * (nr[1] as Transform3D)
+		for nr in sr[2]:
+			(nr[0] as Node3D).transform = swing * spin * (nr[1] as Transform3D)
+		(sr[3] as Area3D).global_transform = Transform3D(Basis(Quaternion(Vector3.UP, A)), swing * C)  # the kill cylinder's axis = the blade's
+
+
 func _riser(r: Dictionary) -> void:
 	var sk: Skeleton3D = null
 	for nd in _group_nodes(String(r["group"])):
@@ -554,6 +618,13 @@ func _wind_strength(wr: Array, t: float) -> float:  # 0..1: triggered - 1 until 
 
 
 func _physics_process(delta: float) -> void:
+	for br in _belts:  # Stage 97: carry whoever stands on a conveyor ramp
+		var b: Dictionary = br[0]
+		var u := Vector3(b["axis"][0], b["axis"][1], b["axis"][2]).normalized()
+		for body in (br[2] as Area3D).get_overlapping_bodies():
+			var cb := body as CharacterBody3D
+			if cb != null and cb.is_on_floor():
+				cb.move_and_collide(u * float(b["speed"]) * delta)
 	for wr in _winds:
 		var w: Dictionary = wr[0]
 		var s := _wind_strength(wr, _t)
@@ -972,6 +1043,13 @@ func _process(delta: float) -> void:
 	_update_crushers()
 	_update_risers()
 	_update_winds(delta)
+	_update_saws()
+	for br in _belts:  # Stage 97: chevrons slide 0..-spacing along the belt (wrapping)
+		var b: Dictionary = br[0]
+		var u := Vector3(b["axis"][0], b["axis"][1], b["axis"][2]).normalized()
+		var d := fposmod(_t * float(b["speed"]), float(b["spacing"])) - float(b["spacing"])
+		for nr in br[1]:
+			(nr[0] as Node3D).position = (nr[1] as Vector3) + u * d
 	for br in _bobs:  # Stage 92: lift + sway about the pivot (world)
 		var b: Dictionary = br[0]
 		var P := float(b["period"])

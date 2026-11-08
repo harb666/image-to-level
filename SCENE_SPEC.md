@@ -1161,3 +1161,28 @@ Building blocks usable without the preset:
 - Stage 96: the swarm is far away and duller - lanes and orbit spots out by the factory hall's walls (|x| 128-145,
   z -300..-310 / 130-140: ~75-90 m beyond the windows), drones 2-3.4 m, muted colours (glow [0.42, 0.48, 0.14],
   accent [0.46, 0.13, 0.3]).
+
+## Stage 97: Assembly Ascent (Construct Error map 3)
+- `levels/assembly_ascent` from the level 3 concept (`references/concept_level3.png`): one 100 x 130 m purple hall
+  over green slime. Route: entrance doorway (west wall, out of the black hallway from Toxic Works) -> Start_Deck (gear
+  emblem) -> Yard_Bridge ramp chopped by two saw arms -> Robot_Ring (robots, crates, laser gate Yard_Laser opens when
+  Yard_Waves is cleared) -> 7 striped truss pillars with the spiked press on the 4th step -> Belt_Landing -> two
+  conveyor ramps running downhill over spike pits -> Upper_Deck (Deck_Waves) -> stairs -> Exit_Deck -> exit hallway
+  (Exit_Laser opens on Deck_Waves) -> `level2_part1`. Campaign: level 1, part 3 of 3, previous `slime_arena`.
+- New structures (pipeline/modules/assembly.py):
+  - `saw_arm`: pedestal in the slime, a yellow arm hinged at `pivot_height` about a horizontal axis along the walkway
+    (`axis_yaw`), a spinning `saw_blade` (`blade` m) whose centre is over `aim` at `height` at angle 0; it chops
+    `amp` degrees each way every `period` s (`phase`, `rpm`). level.json `saws`; effect `saw`.
+  - `pillar_path`: `points` [[x, z, top], ...], `pillar_size`: square caps with yellow / black striped bands on
+    cross-braced truss legs.
+  - `belt_ramp`: `foot` / `head` [x, y, z], `width`, `speed` (negative: runs downhill, against the climb), `spacing`
+    (sliding chevrons), `pit` / `pit_len` (spike pit in front of the foot: static kill box). level.json `belts`,
+    `kills`; effect `belt`. The deck is a connector with `approach: jump_foot` (the walk check starts on the belt).
+  - `laser_gate`: free-standing posts + beams (`width`, `height`, `gate_id`, `opens_on`).
+  - `sign`: `cell` grin / exit / arrow / gear from the `signs` atlas (`references/signs_atlas.png`, drawn by
+    `references/make_signs.py`); `mount` wall / hanging (`chain_to`) / floor (a decal).
+- `crusher` `spikes: true` (`spike_len`): a spiked head; `travel` is shortened so the tips reach the pad.
+- `exit_hall` `entrance: true` (`comes_from`): the way in - no exit trigger, level.json `entrances` gets a doorway
+  spawn.
+- Look: roles `stripe` and `trim` are yellow / black chevrons (striped rims), `rail` pink, `arm_yellow`, plain
+  `blade` / `spike`, `signs` (screen atlas, no TV static). Mobile GLB ~1.3 MB.

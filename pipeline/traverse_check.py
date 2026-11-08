@@ -76,7 +76,8 @@ def run(d, verbose=True, write=True):
     for o in L["objects"]:
         if not o.get("connector") or not o.get("size"): continue
         M = np.asarray(W[o["name"]]); w, h, dd = o["size"]; top = h if o["type"] == "box" else 0.0
-        e0, e1 = (M @ [0, top, -dd / 2 - 1.0, 1])[:3], (M @ [0, h, dd / 2 + 1.0, 1])[:3]
+        f0 = 0.3 if o.get("approach") == "jump_foot" else -1.0  # Stage 97: a belt over a spike pit is jumped onto - the walk starts on its foot, not in the pit
+        e0, e1 = (M @ [0, top, -dd / 2 + f0, 1])[:3], (M @ [0, h, dd / 2 + 1.0, 1])[:3]
         ax = np.array([e1[0] - e0[0], e1[2] - e0[2]]); Lx = float(np.linalg.norm(ax)); ax /= Lx or 1.0; sd = np.array([-ax[1], ax[0]])
         lo, hi = np.minimum(e0, e1) - [w + 2, 3, w + 2], np.maximum(e0, e1) + [w + 2, P["height"] + 3, w + 2]
         Tm = (T.max(1) >= lo).all(1) & (T.min(1) <= hi).all(1); Tl, Nl = T[Tm], nrm[Tm]
