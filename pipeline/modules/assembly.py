@@ -400,6 +400,28 @@ def overlook(ctx, s, x, y, z, yaw):
             q = W(sd * 0.15, top + 1.27, 0.2); ctx.add(f"{n}_Viewer_{k + 1}_Eye{'LR'[sd > 0]}", "cylinder", q, [0.17, 0.3, 0.17], lamp, rot=[90, vyaw, 0], sections=8, **vs)
         q = W(0, top + 1.32, -0.24); ctx.add(f"{n}_Viewer_{k + 1}_Lamp", "box", q, [0.2, 0.08, 0.06], gl, rot=[0, vyaw, 0], **vs)
     ctx.walkable.append(dict(name=n + "_Deck", min=[round(x0, 3), round(z0, 3)], max=[round(x1, 3), round(z1, 3)], y=top))
+    # Stage 117: wall TVs moved up here ("move_units": wall units taken off the walls - their TV parts - and "screens"
+    # [[x, z, yaw, width], ...]: the same moulded TV on a two-legged stand on the deck, raised clear of heads, turned to
+    # face the arena like jumbotrons, with a hazard-capped crossbeam and a lamp on each leg)
+    mv = tuple(s.get("move_units", []))
+    if mv:
+        drop = {o["name"] for o in ctx.objects if any(o["name"].startswith(u + "_") and o["name"][len(u) + 1:].split("_")[0] in ("Body", "Screen", "Arm", "Cable") for u in mv)}
+        ctx.objects[:] = [o for o in ctx.objects if o["name"] not in drop]; ctx.names -= drop
+    from architecture import screen_slot
+    for k, sc in enumerate(s.get("screens", [])):
+        sx, sz, sy, tw = float(sc[0]), float(sc[1]), float(sc[2]), float(sc[3]) if len(sc) > 3 else 3.6
+        W = _W(sx, 0, sz, sy); pre = f"{n}_Screen_{k + 1}"; bf, cf, depth = 0.07, 0.2, 0.8; W_ = tw / (1 - 2 * bf); H_ = W_ * 0.8; th = H_ * (1 - cf - bf * 1.33) * 0.98
+        y0 = top + float(s.get("screen_lift", 2.3)); yy = y0 + H_ * cf
+        for sd in (-1, 1):  # legs + feet + lamps
+            q = W(sd * W_ * 0.36, 0, -0.1); ctx.add(f"{pre}_Leg_{'LR'[sd > 0]}", "box", [q[0], top, q[2]], [0.32, y0 + 0.35 - top, 0.32], "frame", rot=[0, sy, 0], bevel=False, **st)
+            ctx.add(f"{pre}_Foot_{'LR'[sd > 0]}", "box", [q[0], top, q[2]], [0.7, 0.14, 0.9], "machine", rot=[0, sy, 0], **vs)
+            ctx.add(f"{pre}_Lamp_{'LR'[sd > 0]}", "box", [q[0], top + 1.0, q[2]], [0.36, 0.12, 0.36], gl, rot=[0, sy, 0], **vs)
+        q = W(0, 0, -0.1); ctx.add(pre + "_Beam", "box", [q[0], y0 - 0.05, q[2]], [W_ * 0.9, 0.4, 0.4], "frame", rot=[0, sy, 0], bevel=False, **vs)
+        ctx.add(pre + "_BeamCap", "box", [q[0], y0 - 0.25, q[2]], [W_ * 0.92, 0.2, 0.44], stripe, rot=[0, sy, 0], **vs)
+        q = W(0, 0, -depth / 2 + 0.15); ctx.add(pre + "_Body", "tv_body", [q[0], y0 + 0.35, q[2]], [W_, H_, depth], "tv_casing", rot=[0, sy, 0], border=bf, chin=cf, collision=False, **st)
+        reg, sid = screen_slot(ctx, "screen", "a" if k % 2 == 0 else "b")
+        q = W(0, 0, -depth / 2 + 0.15 + depth - 0.12 + 0.02)
+        ctx.add(pre + "_Glass", "panel", [q[0], yy + 0.35 + H_ * 0.003, q[2]], [W_ * (1 - 2 * bf) * 0.995, th, 0], "screen", rot=[0, sy, 0], uv_region=reg, uv_shift=sid, collision=False, outline=False, **st)
     if lf:  # the gantry: along x from the deck's west edge to the lift pad's flat at the top
         ex = lf["center"][0] + lf["deck_radius"] * math.cos(math.pi / 8) + 0.05; L_ = x0 - ex; mx = (x0 + ex) / 2
         ctx.add(n + "_Gantry", "box", [(ex + x0 - 0.02) / 2, top - 0.3, gz], [x0 - 0.02 - ex, 0.3, gw], "grate", **st)  # ends 2 cm short of the deck: no shared faces

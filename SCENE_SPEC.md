@@ -1315,3 +1315,10 @@ Building blocks usable without the preset:
   apply_effects.gd copy it) - the green rust creeps up the column. Riser pads carry `rust` {bone, delay, grow}.
 - Shape `pole` `uv_mode` "band": u wraps round it in whole tiles of `uv_len` m, v runs bottom-up over its height -
   the corrosion band texture wrapped onto a cylinder.
+
+## Stage 117: screens on the overlook
+- `overlook` `move_units` [wall unit names]: their TV parts (Body, Screen, Arm, Cable) leave the walls; `screens`
+  [[x, z, yaw, width], ...]: the same moulded TV (tv_casing body, screen glass with its own picture slot) on a
+  two-legged stand on the deck (feet, lamps, hazard-capped crossbeam), raised `screen_lift` (2.3 m) so heads clear it,
+  turned to face the arena. Assembly Ascent: the East M12 and South M01 wall TVs now stand on the overlook.
+

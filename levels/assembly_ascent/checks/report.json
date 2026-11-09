@@ -1,16 +1,16 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 3367,
+  "level.glb": 3360,
   "mobile/level_mobile.glb": 1958,
-  "mobile/collision.json": 137,
+  "mobile/collision.json": 135,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 61
+  "effects.json": 62
  },
  "complexity": {
-  "triangles": 54157,
-  "nodes": 2219,
+  "triangles": 54005,
+  "nodes": 2228,
   "materials": 34,
   "heaviest": [
    [
@@ -37,23 +37,23 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 3367,
-   "triangles": 45681,
-   "draw_calls": 2219,
+   "glb_kb": 3360,
+   "triangles": 45777,
+   "draw_calls": 2228,
    "tex_mem_gpu_mb_est": 22.71
   },
   "mobile": {
    "profile": "balanced",
    "glb_kb": 1958,
-   "triangles": 52199,
+   "triangles": 52039,
    "draw_calls": 100,
-   "visible_draw_calls_est": 58.6,
+   "visible_draw_calls_est": 58.7,
    "visible_draw_calls_max_est": 103,
    "tex_mem_gpu_mb_est": 8.06,
    "materials": 35,
    "nodes": 177,
    "colliders": {
-    "colliders": 382,
+    "colliders": 384,
     "hazards": 1,
     "glb_kb": 175
    },
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 19877.0,
-  "reachable_area_m2": 3992.0,
-  "components": 103,
+  "standable_area_m2": 19865.0,
+  "reachable_area_m2": 3974.0,
+  "components": 106,
   "spawns": [
    {
     "id": "spawn",
@@ -195,7 +195,7 @@
    },
    {
     "name": "Overlook_Deck",
-    "standable_m2": 193.0,
+    "standable_m2": 187.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -273,18 +273,18 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "54157 triangles (> budget 40000)"
+   "message": "54005 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
    "severity": "info",
-   "object": "OuterWall_East_M12Monitor_Body",
+   "object": "Robot_Ring_Floor",
    "pos": [
     -41.5,
     6.75,
     5.5
    ],
-   "message": "15 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): OuterWall_East_M12Monitor_Body, Robot_Ring_Floor"
+   "message": "3 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): Robot_Ring_Floor"
   }
  ],
  "counts": {

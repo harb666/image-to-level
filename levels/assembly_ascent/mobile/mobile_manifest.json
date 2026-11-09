@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 3367,
-    "triangles": 54157,
-    "nodes": 2251,
-    "mesh_nodes": 2219,
-    "unique_meshes": 1039,
+    "glb_kb": 3360,
+    "triangles": 54005,
+    "nodes": 2260,
+    "mesh_nodes": 2228,
+    "unique_meshes": 1042,
     "materials": 35,
     "images": 92,
-    "draw_calls_unbatched": 2219,
+    "draw_calls_unbatched": 2228,
     "draw_calls_batched_min": 35,
     "tex_mem_uncompressed_mb": 90.84,
     "tex_mem_gpu_compressed_mb": 22.71,
@@ -71,16 +71,16 @@
    },
    "visible": {
     "cameras": 104,
-    "visible_draw_calls_mean": 749.4,
-    "visible_draw_calls_max": 2213,
-    "visible_triangles_mean": 30014,
-    "visible_triangles_max": 64813
+    "visible_draw_calls_mean": 753.2,
+    "visible_draw_calls_max": 2222,
+    "visible_triangles_mean": 29978,
+    "visible_triangles_max": 64661
    }
   },
   "mobile": {
    "level": {
     "glb_kb": 1958,
-    "triangles": 52199,
+    "triangles": 52039,
     "nodes": 177,
     "mesh_nodes": 100,
     "unique_meshes": 100,
@@ -130,19 +130,19 @@
     ]
    },
    "collision": {
-    "colliders": 382,
+    "colliders": 384,
     "hazards": 1,
     "glb_kb": 175
    },
    "visible": {
     "cameras": 104,
-    "visible_draw_calls_mean": 58.6,
+    "visible_draw_calls_mean": 58.7,
     "visible_draw_calls_max": 103,
-    "visible_triangles_mean": 51443,
-    "visible_triangles_max": 63011
+    "visible_triangles_mean": 51295,
+    "visible_triangles_max": 62851
    },
    "hidden_faces_removed": 901,
-   "occluded_faces_removed": 1057,
+   "occluded_faces_removed": 1065,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate"
    ],
@@ -150,7 +150,7 @@
    "effects_max_particles": 651,
    "slimmed_kb": {
     "level_mobile.glb": [
-     2976,
+     2975,
      1958
     ],
     "background_mobile.glb": [
@@ -158,7 +158,7 @@
      404
     ],
     "collision.glb": [
-     236,
+     235,
      175
     ]
    }
@@ -2068,7 +2068,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 4057,
+   "triangles": 4033,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2099,6 +2099,12 @@
     "Overlook_GCross_1",
     "Overlook_Stringer_R",
     "Overlook_Stringer_L",
+    "Overlook_Screen_2_Beam",
+    "Overlook_Screen_2_Leg_R",
+    "Overlook_Screen_2_Leg_L",
+    "Overlook_Screen_1_Beam",
+    "Overlook_Screen_1_Leg_R",
+    "Overlook_Screen_1_Leg_L",
     "Overlook_Brace_4",
     "Overlook_Brace_3",
     "Overlook_Brace_2",
@@ -2296,9 +2302,6 @@
     "OuterWall_South_M06Pipes_Bracket_1",
     "OuterWall_South_M02Pipes_Bracket_2",
     "OuterWall_South_M02Pipes_Bracket_1",
-    "OuterWall_South_M01Monitor_Cable",
-    "OuterWall_South_M01Monitor_Arm_2",
-    "OuterWall_South_M01Monitor_Arm_0",
     "OuterWall_East_M13Vent_Slat_7",
     "OuterWall_East_M13Vent_Slat_6",
     "OuterWall_East_M13Vent_Slat_5",
@@ -2306,9 +2309,6 @@
     "OuterWall_East_M13Vent_Slat_3",
     "OuterWall_East_M13Vent_Slat_2",
     "OuterWall_East_M13Vent_Slat_1",
-    "OuterWall_East_M12Monitor_Cable",
-    "OuterWall_East_M12Monitor_Arm_2",
-    "OuterWall_East_M12Monitor_Arm_0",
     "OuterWall_East_M11Machine_Bracket",
     "OuterWall_East_M09Pipes_Bracket_2",
     "OuterWall_East_M09Pipes_Bracket_1",
@@ -2381,11 +2381,15 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 1790,
+   "triangles": 1838,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
     "Spinner_Terminal_HandPlate",
+    "Overlook_Screen_2_Lamp_R",
+    "Overlook_Screen_2_Lamp_L",
+    "Overlook_Screen_1_Lamp_R",
+    "Overlook_Screen_1_Lamp_L",
     "Overlook_Viewer_2_Lamp",
     "Overlook_Viewer_1_Lamp",
     "Overlook_ColumnLamp_3",
@@ -2564,7 +2568,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 6534,
+   "triangles": 6286,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2578,6 +2582,7 @@
     "Spinner_Terminal_Pedestal__ol",
     "Overlook_GLeg_1__ol",
     "Overlook_GFoot_1__ol",
+    "Overlook_Screen_1_Body__ol",
     "Overlook_ColumnTop_1__ol",
     "Overlook_Column_1__ol",
     "Overlook_Foot_1__ol",
@@ -2701,8 +2706,6 @@
     "OuterWall_South_M08Machine_Bracket__ol",
     "OuterWall_South_M07Monitor_Body__ol",
     "OuterWall_South_M04Door__ol",
-    "OuterWall_South_M01Monitor_Body__ol",
-    "OuterWall_East_M12Monitor_Body__ol",
     "OuterWall_East_M11Machine__ol",
     "OuterWall_East_M11Machine_Bracket__ol",
     "OuterWall_East_M08Machine__ol",
@@ -2738,7 +2741,7 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 3315,
+   "triangles": 3355,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2746,6 +2749,10 @@
     "Spinner_Terminal_Desk",
     "Spinner_Terminal_Pedestal",
     "Overlook_CallPost",
+    "Overlook_Screen_2_Foot_R",
+    "Overlook_Screen_2_Foot_L",
+    "Overlook_Screen_1_Foot_R",
+    "Overlook_Screen_1_Foot_L",
     "Overlook_Viewer_2_Head",
     "Overlook_Viewer_2_Post",
     "Overlook_Viewer_1_Head",
@@ -3033,12 +3040,12 @@
    "cast_shadow": false,
    "source_objects": [
     "Spinner_Terminal_Screen",
+    "Overlook_Screen_2_Glass",
+    "Overlook_Screen_1_Glass",
     "OuterWall_West_M11Monitor_Screen",
     "OuterWall_West_M08Monitor_Screen",
     "OuterWall_South_M12Monitor_Screen",
     "OuterWall_South_M07Monitor_Screen",
-    "OuterWall_South_M01Monitor_Screen",
-    "OuterWall_East_M12Monitor_Screen",
     "OuterWall_East_M03Monitor_Screen"
    ]
   },
@@ -3091,11 +3098,13 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 866,
+   "triangles": 890,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Overlook_GantryThreshold",
+    "Overlook_Screen_2_BeamCap",
+    "Overlook_Screen_1_BeamCap",
     "Overlook_ColumnBand_3",
     "Overlook_ColumnBand_2",
     "Overlook_ColumnBand_1",
@@ -3359,12 +3368,12 @@
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Overlook_Screen_2_Body",
+    "Overlook_Screen_1_Body",
     "OuterWall_West_M11Monitor_Body",
     "OuterWall_West_M08Monitor_Body",
     "OuterWall_South_M12Monitor_Body",
     "OuterWall_South_M07Monitor_Body",
-    "OuterWall_South_M01Monitor_Body",
-    "OuterWall_East_M12Monitor_Body",
     "OuterWall_East_M03Monitor_Body"
    ]
   },
