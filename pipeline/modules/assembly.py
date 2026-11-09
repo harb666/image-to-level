@@ -572,19 +572,20 @@ def jet_pose(J, phase, t):
         s_ = t - tk - tf
         if s_ < ts:  # overshoots forward, springs back, wobbling
             f = math.radians(J["arrive_yaw"]); k = 1.6 * math.sin(7 * s_) * math.exp(-4 * s_)
-            return ([A[0] + k * math.sin(f), A[1] + 0.4 * math.sin(9 * s_) * math.exp(-3 * s_), A[2] + k * math.cos(f)], J["arrive_yaw"] + 14 * math.sin(11 * s_) * math.exp(-3.5 * s_), 0.0,
+            q = min(1.0, s_ / ts); ap = J.get("arrive_pitch", 0.0) * q * q * (3 - 2 * q)
+            return ([A[0] + k * math.sin(f), A[1] + 0.4 * math.sin(9 * s_) * math.exp(-3 * s_), A[2] + k * math.cos(f)], J["arrive_yaw"] + 14 * math.sin(11 * s_) * math.exp(-3.5 * s_), ap,
                     10 * math.sin(8 * s_) * math.exp(-3 * s_), 0.0, 0.0, fl(t, 1.3))
         return jet_pose(J, "wait", s_ - ts)
     if phase == "wait":
         h = min(1, t / Tm["open"]); h = 1 + 2.2 * (h - 1) ** 3 + 1.2 * (h - 1) ** 2 if h < 1 else 1.0
-        return ([A[0], A[1] + bob(t) * 0.5, A[2]], J["arrive_yaw"], 0.0, 1.5 * math.sin(2 * math.pi * t / per), h, 0.0, fl(t))
+        return ([A[0], A[1] + bob(t) * 0.5, A[2]], J["arrive_yaw"], J.get("arrive_pitch", 0.0), 1.5 * math.sin(2 * math.pi * t / per), h, 0.0, fl(t))
     if phase == "press":
         c = max(0.0, 1 - abs(t - 0.12) / 0.12) if t < 0.24 else 0.0; sp = min(1, max(0, (t - 0.3) / 0.8)); sp = sp * sp * (3 - 2 * sp)
-        return ([A[0], A[1] + 0.6 * math.sin(math.pi * sp), A[2]], J["arrive_yaw"] + 360 * sp, 0.0, 0.0, 1.0, c, fl(t, 1.2))
+        return ([A[0], A[1] + 0.6 * math.sin(math.pi * sp), A[2]], J["arrive_yaw"] + 360 * sp, J.get("arrive_pitch", 0.0), 0.0, 1.0, c, fl(t, 1.2))
     if phase == "back":  # hatch shuts, then a high arc home
         tb = Tm["back"]; h = max(0.0, 1 - t / 0.5); u = min(1, t / tb); e = u * u * (3 - 2 * u)
         P = _bez(A, [A[0], A[1] + 9, A[2]], [H[0], H[1] + 9, H[2]], H, e); yaw = J["arrive_yaw"] + (((J["yaw0"] - J["arrive_yaw"] + 180) % 360) - 180) * e
-        return (P, yaw, -10 * math.sin(math.pi * u), 0.0, h, 0.0, fl(t, 1.5))
+        return (P, yaw, -10 * math.sin(math.pi * u) + J.get("arrive_pitch", 0.0) * (1 - e), 0.0, h, 0.0, fl(t, 1.5))
     return jet_pose(J, "home", t)
 
 
@@ -631,13 +632,17 @@ def jet_screen(ctx, s, x, y, z, yaw):
     cyl("ButtonBase", 0, py + 0.11, -0.2, 1.4, 0.25, "machine", gh)
     cyl("ButtonRing", 0, py + 0.11, -0.2, 1.62, 0.08, stripe, gh, outline=False)
     cyl("Button", 0, py + 0.36, -0.2, 1.1, 0.32, gl, gc, sec=16, outline=False)
-    cap_top = py + 0.68; slide = 1.9
+    slide = float(s.get("slide", 1.9))
+    if slide > 1.9:  # telescoping rails tie a long-reaching drawer back into its garage
+        for sd in (-1, 1): box(f"DrawerRail{'LR'[sd > 0]}", sd * 1.25, py - 0.02, -0.2 - 0.9 - (slide - 0.6) / 2 + 0.05, [0.16, 0.14, slide - 0.6], "machine", gh, outline=False)
+    cap_top = py + 0.68
     # --- where it goes, the terminal
-    ax_, az_ = s["arrive"]; floor = float(s["arrive_floor"]); ay = float(s.get("arrive_yaw", 0.0)); reach = float(s.get("button_height", 1.35))
-    acy = floor + reach - cap_top; Wa = _W(ax_, acy, az_, ay); bpos = Wa(0, cap_top, -0.2 + slide)
+    ax_, az_ = s["arrive"]; floor = float(s["arrive_floor"]); ay = float(s.get("arrive_yaw", 0.0)); reach = float(s.get("button_height", 1.35)); ap = float(s.get("arrive_pitch", 0.0))
+    pr_ = math.radians(ap); by_ = cap_top * math.cos(pr_) - (-0.2 + slide) * math.sin(pr_); bz_ = cap_top * math.sin(pr_) + (-0.2 + slide) * math.cos(pr_)  # the button, tipped forward by the pitch
+    acy = floor + reach - by_; bpos = [ax_ + bz_ * math.sin(math.radians(ay)), floor + reach, az_ + bz_ * math.cos(math.radians(ay))]
     trig = next((w for w in ctx.walkable if w["name"] == s["trigger_area"]), None)
     home = [round(x, 3), round(y0c, 3), round(z, 3)]; arrive = [round(ax_, 3), round(acy, 3), round(az_, 3)]
-    J = dict(id=n, body=gb, flame=gf, hatch=gh, cap=gc, home=home, yaw0=float(yaw), arrive=arrive, arrive_yaw=ay, flame_y=-3.55, slide=slide, press=0.14,
+    J = dict(id=n, body=gb, flame=gf, hatch=gh, cap=gc, home=home, yaw0=float(yaw), arrive=arrive, arrive_yaw=ay, arrive_pitch=ap, flame_y=-3.55, slide=slide, press=0.14,
              ctrl1=[round(home[0], 3), round(home[1] + 5, 3), round(home[2] + 4, 3)], ctrl2=[round(arrive[0] + 12, 3), round(arrive[1] + 5, 3), round(arrive[2] - 12, 3)],
              times=dict(take=0.7, fly=3.3, settle=1.0, open=0.6, back=3.5), bob=[0.45, 2.2], button=n + "_Button",
              trigger=dict(name=s["trigger_area"], min=trig["min"], max=trig["max"], y=trig["y"]) if trig else None,

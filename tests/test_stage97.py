@@ -202,7 +202,7 @@ class JetScreen(unittest.TestCase):
         self.assertFalse([n for n in by if n.startswith("Jet_Screen_") and by[n].get("collision", True) is not False and by[n]["type"] != "group"])  # never solid
         self.assertEqual(by["Jet_Screen_Button"]["mobile"]["group"], J["cap"]); self.assertEqual(by["Jet_Screen_Button"]["material"], "glow")  # red
         T = next(t_ for t_ in L["terminals"] if t_["id"] == J["button"]); self.assertEqual(T["activates"], ["Yard_Laser"]); self.assertEqual(T["requires"], "Jet_Screen")
-        self.assertTrue(1.0 < T["button"][1] - J["trigger"]["y"] < 1.7)  # at hand height over the arena floor
+        self.assertTrue(1.0 < T["button"][1] - J["trigger"]["y"] < 2.6)  # within reach (a jump at most) over the arena floor
         tr = J["trigger"]; self.assertTrue(tr["min"][0] < T["center"][0] < tr["max"][0] and tr["min"][1] < T["center"][2] < tr["max"][1])
         sys.path.insert(0, os.path.join(ROOT, "pipeline")); from modules.assembly import jet_pose
         TM = J["times"]; ys = [jet_pose(J, "home", i * 0.1)[0][1] for i in range(60)]; self.assertGreater(max(ys) - min(ys), 0.6)  # bobs
@@ -212,6 +212,35 @@ class JetScreen(unittest.TestCase):
         end = jet_pose(J, "fly", TM["take"] + TM["fly"] + TM["settle"] + 2.0); self.assertLess(math.dist(end[0], J["arrive"]), 0.5); self.assertEqual(end[4], 1.0)  # arrived, drawer open
         self.assertGreater(max(jet_pose(J, "press", i * 0.02)[5] for i in range(15)), 0.9)  # the cap goes down
         back = jet_pose(J, "back", TM["back"] + 0.1); self.assertLess(math.dist(back[0], J["home"]), 0.01); self.assertEqual(back[4], 0.0)
+        # Stage 121: it hovers off the arena's south-west corner, tilted down at the players, and no part of it ever comes
+        # near the arena floor (arrived, in flight, pressed, flying home); the button reaches in over the corner tile
+        self.assertGreater(J["arrive_pitch"], 5.0); R = next(r for r in L["risers"] if r["id"] == "Arena")
+        xs = [p["center"][0] for p in R["pads"]]; zs = [p["center"][2] for p in R["pads"]]; x0, x1, z0, z1 = min(xs) - 2, max(xs) + 2, min(zs) - 2, max(zs) + 2
+        self.assertFalse(x0 < J["arrive"][0] < x1 and z0 < J["arrive"][2] < z1)  # the screen itself is off the arena
+        self.assertTrue(x0 + 0.5 < T["button"][0] < x1 and z0 + 0.5 < T["button"][2] < z1)
+        from anchors import world_matrices
+        from build_level import shape
+        import numpy as np
+        Wm, _ = world_matrices(L); groups = (J["body"], J["flame"], J["hatch"], J["cap"]); V = {}
+        for o in L["objects"]:
+            g = (o.get("mobile") or {}).get("group")
+            if g in groups: m = shape(o); V.setdefault(g, []).append(np.c_[m.vertices, np.ones(len(m.vertices))] @ Wm[o["name"]].T)
+        V = {k: np.vstack(v) for k, v in V.items()}
+        def M_(tr=None, ry=0.0, rx=0.0, rz=0.0):
+            a, b, c = (math.radians(q) for q in (ry, rx, rz)); Y = np.array([[math.cos(a), 0, math.sin(a), 0], [0, 1, 0, 0], [-math.sin(a), 0, math.cos(a), 0], [0, 0, 0, 1]])
+            X = np.array([[1, 0, 0, 0], [0, math.cos(b), -math.sin(b), 0], [0, math.sin(b), math.cos(b), 0], [0, 0, 0, 1]]); Z = np.array([[math.cos(c), -math.sin(c), 0, 0], [math.sin(c), math.cos(c), 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
+            Tt = np.eye(4); Tt[:3, 3] = tr if tr is not None else [0, 0, 0]; return Tt @ Y @ X @ Z
+        Linv = np.linalg.inv(M_(J["home"], J["yaw0"])); floor = J["trigger"]["y"]
+        def clearance(ph, t_):
+            p, yw, pt, rl, h, c, fs = jet_pose(J, ph, t_); P = M_(p, yw, pt, rl); lo = 99.0
+            for g, Vg in V.items():
+                X = M_([0, -c * J["press"] if g == J["cap"] else 0.0, h * J["slide"] if g in (J["hatch"], J["cap"]) else 0.0])
+                Q = (Vg @ (P @ X @ Linv).T)[:, :3]; over = (Q[:, 0] > x0 + 2) & (Q[:, 0] < x1 - 2) & (Q[:, 2] > z0 + 2) & (Q[:, 2] < z1 - 2)
+                if over.any(): lo = min(lo, float(Q[over, 1].min()) - floor)
+            return lo
+        cl = [clearance("wait", 3.0)] + [clearance("fly", i * 0.1) for i in range(int((TM["take"] + TM["fly"] + TM["settle"]) / 0.1))]
+        cl += [clearance("press", i * 0.1) for i in range(16)] + [clearance("back", i * 0.2) for i in range(18)]
+        self.assertGreater(min(cl), 1.0)
         with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()
         for s_ in ("fx.category==='jet'", "if(m.t.requires&&!(window.jetReady||{})[m.t.requires])continue;", "K.trigger(pos.x", "window.gateOpen"): self.assertIn(s_, v)
         with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: gd = f.read()

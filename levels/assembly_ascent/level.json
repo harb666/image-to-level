@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "c97f4a26e56e3ece",
+  "spec_sha": "150320404750b523",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -588,13 +588,14 @@
     ],
     "yaw0": 20.0,
     "arrive": [
-     39.0,
-     20.12,
-     42.0
+     28.39,
+     21.632,
+     28.89
     ],
-    "arrive_yaw": 0.0,
+    "arrive_yaw": 45.0,
+    "arrive_pitch": 15.0,
     "flame_y": -3.55,
-    "slide": 1.9,
+    "slide": 2.8,
     "press": 0.14,
     "ctrl1": [
      -2.0,
@@ -602,9 +603,9 @@
      -14.0
     ],
     "ctrl2": [
-     51.0,
-     25.12,
-     30.0
+     40.39,
+     26.632,
+     16.89
     ],
     "times": {
      "take": 0.7,
@@ -45595,6 +45596,60 @@
    "source": "inferred"
   },
   {
+   "name": "Jet_Screen_DrawerRailL",
+   "type": "box",
+   "position": [
+    -3.91,
+    17.96,
+    -19.593
+   ],
+   "rotation": [
+    0.0,
+    20.0,
+    0.0
+   ],
+   "size": [
+    0.16,
+    0.14,
+    2.2
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Hatch"
+   },
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_DrawerRailR",
+   "type": "box",
+   "position": [
+    -1.561,
+    17.96,
+    -20.448
+   ],
+   "rotation": [
+    0.0,
+    20.0,
+    0.0
+   ],
+   "size": [
+    0.16,
+    0.14,
+    2.2
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Hatch"
+   },
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
    "name": "Rail_Start_E1_Post_01",
    "type": "box",
    "position": [
@@ -70775,9 +70830,9 @@
   {
    "id": "Jet_Screen_Button",
    "center": [
-    39.0,
+    29.567,
     15.5,
-    43.7
+    30.067
    ],
    "radius": 1.8,
    "activates": [
@@ -70785,9 +70840,9 @@
    ],
    "requires": "Jet_Screen",
    "button": [
-    39.0,
-    16.85,
-    43.7
+    29.567,
+    17.8,
+    30.067
    ],
    "note": "the big red button: live once the jet screen has arrived (level.json jets); using it opens the gates in 'activates'"
   }
@@ -71300,13 +71355,14 @@
    ],
    "yaw0": 20.0,
    "arrive": [
-    39.0,
-    20.12,
-    42.0
+    28.39,
+    21.632,
+    28.89
    ],
-   "arrive_yaw": 0.0,
+   "arrive_yaw": 45.0,
+   "arrive_pitch": 15.0,
    "flame_y": -3.55,
-   "slide": 1.9,
+   "slide": 2.8,
    "press": 0.14,
    "ctrl1": [
     -2.0,
@@ -71314,9 +71370,9 @@
     -14.0
    ],
    "ctrl2": [
-    51.0,
-    25.12,
-    30.0
+    40.39,
+    26.632,
+    16.89
    ],
    "times": {
     "take": 0.7,
@@ -71407,7 +71463,7 @@
   "Spinner: spinner, 4 arms driven by a ceiling press (peak 64.43 rpm, still 3.8 s per 9.5 s), 4 hovering pads",
   "Overlook: corner overlook 5.1 x 15.0 m at 15.5 m, gantry 14.9 m to lift Spinner_Pad_1_Lift",
   "Arena: battle arena rising out of the liquid (goofy) - 25 square tiles, 20.8 m across at 15.5 m",
-  "Jet_Screen: jetpack grin screen bobbing at [-2.0, 22.0, -18.0]; flies to [39.0, 20.12, 42.0] when a player reaches Arena_Deck - big red button opens ['Yard_Laser']",
+  "Jet_Screen: jetpack grin screen bobbing at [-2.0, 22.0, -18.0]; flies to [28.39, 21.632, 28.89] when a player reaches Arena_Deck - big red button opens ['Yard_Laser']",
   "crates: 5 printed crates (accent atlas)",
   "fixtures: 62 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_North_M02Fan, OuterWall_West_M02Fan)",
   "ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 1 standing part(s), 0 crane runway(s), ends at beams 0.0 m",
@@ -71497,12 +71553,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 48652,
-  "objects": 2125,
+  "triangles": 48676,
+  "objects": 2127,
   "materials": 34,
-  "glb_kb": 3487,
-  "nodes": 2344,
-  "draw_calls_unbatched": 2314,
+  "glb_kb": 3488,
+  "nodes": 2346,
+  "draw_calls_unbatched": 2316,
   "draw_calls_batched_min": 36,
   "images": 96,
   "tex_mem_gpu_compressed_mb": 22.73,

@@ -541,21 +541,21 @@ static func jet_pose(J: Dictionary, ph: String, t: float) -> Array:
 		if s < ts:
 			var fr := deg_to_rad(float(J["arrive_yaw"]))
 			var k := 1.6 * sin(7.0 * s) * exp(-4.0 * s)
-			return [av + Vector3(k * sin(fr), 0.4 * sin(9.0 * s) * exp(-3.0 * s), k * cos(fr)), float(J["arrive_yaw"]) + 14.0 * sin(11.0 * s) * exp(-3.5 * s), 0.0, 10.0 * sin(8.0 * s) * exp(-3.0 * s), 0.0, 0.0, fl.call(t, 1.3)]
+			return [av + Vector3(k * sin(fr), 0.4 * sin(9.0 * s) * exp(-3.0 * s), k * cos(fr)), float(J["arrive_yaw"]) + 14.0 * sin(11.0 * s) * exp(-3.5 * s), float(J.get("arrive_pitch", 0.0)) * smoothstep(0.0, 1.0, minf(1.0, s / ts)), 10.0 * sin(8.0 * s) * exp(-3.0 * s), 0.0, 0.0, fl.call(t, 1.3)]
 		return jet_pose(J, "wait", s - ts)
 	if ph == "wait":
 		var h := minf(1.0, t / float(TM["open"]))
 		h = 1.0 + 2.2 * pow(h - 1.0, 3.0) + 1.2 * pow(h - 1.0, 2.0) if h < 1.0 else 1.0
-		return [av + Vector3(0, 0.5 * amp * sin(TAU * t / per), 0), float(J["arrive_yaw"]), 0.0, 1.5 * sin(TAU * t / per), h, 0.0, fl.call(t, 1.0)]
+		return [av + Vector3(0, 0.5 * amp * sin(TAU * t / per), 0), float(J["arrive_yaw"]), float(J.get("arrive_pitch", 0.0)), 1.5 * sin(TAU * t / per), h, 0.0, fl.call(t, 1.0)]
 	if ph == "press":
 		var c := maxf(0.0, 1.0 - absf(t - 0.12) / 0.12) if t < 0.24 else 0.0
 		var sp := smoothstep(0.0, 1.0, clampf((t - 0.3) / 0.8, 0.0, 1.0))
-		return [av + Vector3(0, 0.6 * sin(PI * sp), 0), float(J["arrive_yaw"]) + 360.0 * sp, 0.0, 0.0, 1.0, c, fl.call(t, 1.2)]
+		return [av + Vector3(0, 0.6 * sin(PI * sp), 0), float(J["arrive_yaw"]) + 360.0 * sp, float(J.get("arrive_pitch", 0.0)), 0.0, 1.0, c, fl.call(t, 1.2)]
 	var hb := maxf(0.0, 1.0 - t / 0.5)
 	var ub := minf(1.0, t / float(TM["back"]))
 	var qb := ub * ub * (3.0 - 2.0 * ub)
 	var pb := _bez3(A, [A[0], float(A[1]) + 9.0, A[2]], [H[0], float(H[1]) + 9.0, H[2]], H, qb)
-	return [pb, float(J["arrive_yaw"]) + wrapf(float(J["yaw0"]) - float(J["arrive_yaw"]), -180.0, 180.0) * qb, -10.0 * sin(PI * ub), 0.0, hb, 0.0, fl.call(t, 1.5)]
+	return [pb, float(J["arrive_yaw"]) + wrapf(float(J["yaw0"]) - float(J["arrive_yaw"]), -180.0, 180.0) * qb, -10.0 * sin(PI * ub) + float(J.get("arrive_pitch", 0.0)) * (1.0 - qb), 0.0, hb, 0.0, fl.call(t, 1.5)]
 
 
 func _update_jets() -> void:

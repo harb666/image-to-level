@@ -1345,4 +1345,8 @@ Building blocks usable without the preset:
   (`override_fan_radius`, default 3 m, the same height for every override fan; its rotor spins), a tall louvred vent
   (`override_vent_height`), or a plain light strip. Assembly Ascent: South M03 / M05 (banners) -> fans, M04 (sealed
   door) -> vent.
+- Stage 121: `jet_screen` `arrive_pitch` (deg, tilted down at the players; blended in while it settles and out on the
+  way home) and `slide` (drawer reach; > 1.9 m adds telescoping rails into the garage). Assembly Ascent: it arrives off
+  the arena's south-west corner (over the slime, facing into the arena, pitched 15 deg), the drawer reaching 2.8 m in
+  over the corner tile with the button 2.3 m up; nothing of it comes within 1 m of the arena floor at any time.
 
