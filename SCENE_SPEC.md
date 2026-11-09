@@ -1235,3 +1235,15 @@ Building blocks usable without the preset:
   (`still` s: the gap to cross). The head's glow blinks for `warn` s before each slam; the camera shakes on impact
   within `shake` m. level.json `sweepers[].drive`; `assembly.press_profile()` is the reference the runtimes copy.
 - Assembly Ascent: period 9.5 s, peak 64 rpm, still 3.75 s (18.7 m at walking speed: ramp -> pad 8 m, pad -> pad 14.9 m).
+
+## Stage 104: concept maces, painted press, synced steam
+- Spinner arms are round hazard-striped poles out of sockets in the hub; each ends in a flanged coupling into a mace
+  (shapes `mace` - gunmetal ball with eleven tapered spikes, none near the pole - and `mace_tips`, the glowing tips),
+  with a band and a glowing seam round it. The mace sits on the pole's axis (`ball_y` = `bar_y` = 0.72, `ball` 1.36:
+  bar top 0.94 m - jumpable; mace 0.04-1.40 m - not). Material role `mace` (gunmetal). `post_r` puts the rim lamp
+  posts out on the deck's corners, clear of the maces' sweep.
+- The press's rings (plate rim, crown band, head skirt) are worn yellow paint (`arm_yellow`) instead of chevrons; the
+  skirt no longer forms the head's underside.
+- Effect `steam_burst`: one-shot puffs from several vents, fired when the cycle time u = (t + phase) mod period crosses
+  each `sync.at` (one particle system per effect). The spinner adds `<id>_ImpactSteam` (eight vents round the
+  pressed head, at the impact and 0.5 s later) and `<id>_ReleaseSteam` (four vents under the gland as the press lets go).

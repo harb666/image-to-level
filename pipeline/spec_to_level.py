@@ -309,6 +309,11 @@ def _effects(spec, ctx, plats, env, glow):
             out.append(dict(id=w_["id"] + "_Wind", type="wind", wind=w_))
         for sp_ in getattr(ctx, "sweepers", []):  # Stage 98: spinner arms sweeping a deck
             out.append(dict(id=sp_["id"] + "_Sweep", type="sweeper", sweeper=sp_))
+            D_ = sp_.get("drive")
+            if D_:  # Stage 104: steam blasts round the head on impact and out of the gland as the press lets go (synced to its cycle)
+                sy = dict(period=D_["period"], phase=D_["phase"])
+                out.append(dict(id=sp_["id"] + "_ImpactSteam", type="steam_burst", positions=D_["steam_impact"], sync=dict(sy, at=[D_["slam"], D_["slam"] + 0.5]), burst=7, speed=[2.5, 5.0], spread=70))
+                out.append(dict(id=sp_["id"] + "_ReleaseSteam", type="steam_burst", positions=D_["steam_release"], sync=dict(sy, at=[D_["slam"] + D_["hold"]]), burst=12, lifetime=2.6, speed=[1.5, 3.0], spread=40, gravity=0.5))
         for sw_ in getattr(ctx, "saws", []):  # Stage 97: saw blades swinging out over walkways
             out.append(dict(id=sw_["id"] + "_Swing", type="saw", saw=sw_))
         for bl_ in getattr(ctx, "belts", []):  # Stage 97: conveyor ramps (chevrons slide, riders are carried)

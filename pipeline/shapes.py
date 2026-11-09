@@ -631,6 +631,39 @@ def spike_ball(w, h, d, o):
     return trimesh.util.concatenate(parts)
 
 
+def _mace_dirs():
+    """Stage 104: the 11 spike directions of a mace head - icosahedron corners turned so one points along -z (the pole it
+    is mounted on comes in from -z) and dropped: no spike near the pole, one straight out along +z."""
+    V = trimesh.creation.icosahedron().vertices; V = V / np.linalg.norm(V, axis=1)[:, None]
+    v0 = V[np.argmax(V[:, 2])]; tgt = np.array([0.0, 0.0, -1.0]); ax = np.cross(v0, tgt); s = np.linalg.norm(ax); c = float(np.dot(v0, tgt))
+    if s < 1e-9: Rm = np.diag([1.0, -1.0, -1.0])
+    else:
+        ax = ax / s; K = np.array([[0, -ax[2], ax[1]], [ax[2], 0, -ax[0]], [-ax[1], ax[0], 0]]); Rm = np.eye(3) + s * K + (1 - c) * K @ K
+    U = V @ Rm.T; return [u for u in U if u[2] > -0.9]
+
+
+def _ngon(u, r, n=6):
+    a = np.cross(u, [0, 1, 0] if abs(u[1]) < 0.9 else [1, 0, 0]); a /= np.linalg.norm(a); b_ = np.cross(u, a)
+    return [(a * np.cos(k) + b_ * np.sin(k)) * r for k in np.linspace(0, 2 * np.pi, n, endpoint=False)]
+
+
+def mace(w, h, d, o):
+    """Stage 104: a mace head (concept art): a smooth gunmetal ball (diameter w * 0.66) with eleven tapered hexagonal spike
+    bases (the tips are "mace_tips", a second material) - centred on the origin, mounted on a pole coming in from -z."""
+    R = w / 2; rc = R * 0.66; parts = [trimesh.creation.uv_sphere(radius=rc, count=[12, 10])]; mid = rc + (R - rc) * 0.42
+    for u in _mace_dirs():
+        u = np.asarray(u); parts.append(trimesh.convex.convex_hull(np.array([u * rc * 0.82 + q for q in _ngon(u, rc * 0.3)] + [u * mid + q for q in _ngon(u, rc * 0.17)])))
+    return trimesh.util.concatenate(parts)
+
+
+def mace_tips(w, h, d, o):
+    """Stage 104: the spike tips of a "mace" of the same size (glowing red in the concept art)."""
+    R = w / 2; rc = R * 0.66; mid = rc + (R - rc) * 0.42; parts = []
+    for u in _mace_dirs():
+        u = np.asarray(u); parts.append(trimesh.convex.convex_hull(np.array([u * (mid - 0.01) + q for q in _ngon(u, rc * 0.17)] + [u * R])))
+    return trimesh.util.concatenate(parts)
+
+
 def saw_blade(w, h, d, o):
     """Stage 97: circular saw blade - a flat disc (diameter w, thickness h along +y, centred on the origin) whose rim is
     "teeth" hooked sawteeth (each rises from 0.84 R to R then drops back), a fan from the centre on both faces."""
@@ -659,7 +692,7 @@ def prism(w, h, d, o):
     m = trimesh.Trimesh(V, np.array(F), process=False); m.fix_normals(); return m
 
 
-SHAPES = dict(spike_ball=spike_ball, saw_blade=saw_blade, prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
+SHAPES = dict(spike_ball=spike_ball, mace=mace, mace_tips=mace_tips, saw_blade=saw_blade, prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
               stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum, dome=dome)
 

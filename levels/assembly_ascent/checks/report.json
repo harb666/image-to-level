@@ -1,56 +1,56 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 2937,
-  "mobile/level_mobile.glb": 1559,
-  "mobile/collision.json": 100,
+  "level.glb": 3012,
+  "mobile/level_mobile.glb": 1649,
+  "mobile/collision.json": 101,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 33
+  "effects.json": 39
  },
  "complexity": {
-  "triangles": 44197,
-  "nodes": 1879,
-  "materials": 30,
+  "triangles": 47281,
+  "nodes": 1899,
+  "materials": 31,
   "heaviest": [
    [
     "Corrosion_Band",
     1000
    ],
    [
-    "Ceil_Fan_1_Rotor",
-    344
+    "Spinner_Rotor_Ball_4",
+    620
    ],
    [
-    "Ceil_Fan_1__ol",
-    320
+    "Spinner_Rotor_Ball_3",
+    620
    ],
    [
-    "Ceil_Fan_1",
-    320
+    "Spinner_Rotor_Ball_2",
+    620
    ],
    [
-    "Saw_East_Saw",
-    288
+    "Spinner_Rotor_Ball_1",
+    620
    ]
   ]
  },
  "performance": {
   "dev": {
-   "glb_kb": 2937,
-   "triangles": 36321,
-   "draw_calls": 1879,
-   "tex_mem_gpu_mb_est": 17.88
+   "glb_kb": 3012,
+   "triangles": 39385,
+   "draw_calls": 1899,
+   "tex_mem_gpu_mb_est": 18.21
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 1559,
-   "triangles": 42315,
+   "glb_kb": 1649,
+   "triangles": 45399,
    "draw_calls": 87,
-   "visible_draw_calls_est": 53.3,
+   "visible_draw_calls_est": 53.5,
    "visible_draw_calls_max_est": 90,
-   "tex_mem_gpu_mb_est": 7.06,
-   "materials": 30,
+   "tex_mem_gpu_mb_est": 7.4,
+   "materials": 31,
    "nodes": 88,
    "colliders": {
     "colliders": 296,
@@ -60,9 +60,9 @@
    "background_kb": 404
   },
   "effects": {
-   "max_particles": 283,
-   "emitters": 2,
-   "extra_draw_calls": 3,
+   "max_particles": 387,
+   "emitters": 14,
+   "extra_draw_calls": 5,
    "transparent_area_m2": 13000
   },
   "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
@@ -231,7 +231,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "44197 triangles (> budget 40000)"
+   "message": "47281 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",

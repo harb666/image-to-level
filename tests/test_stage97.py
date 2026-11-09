@@ -95,7 +95,16 @@ class SpinnerDeck(unittest.TestCase):
         sw = next(s for s in L["sweepers"] if s["id"] == "Spinner"); self.assertEqual(len(sw["arms"]), 4)
         jump = (G or {}).get("player", {}).get("jump_height", 1.2)
         self.assertLess(sw["bar_y"] + sw["bar_half"], jump - 0.2)  # bar top clears with a jump
-        self.assertGreater(sw["ball_y"] + sw["ball_r"], jump + 0.3)  # a ball does not
+        self.assertGreater(sw["ball_y"] + sw["ball_r"], jump + 0.15)  # a ball does not
+        self.assertAlmostEqual(sw["ball_y"], sw["bar_y"]); self.assertGreater(sw["ball_y"] - sw["ball_r"], 0.0)  # Stage 104: each mace sits on its pole's axis, clear of the deck
+        for k in range(1, 5):
+            self.assertEqual(by[f"Spinner_Rotor_Ball_{k}"]["type"], "mace"); self.assertEqual(by[f"Spinner_Rotor_Tips_{k}"]["type"], "mace_tips")
+            self.assertEqual(by[f"Spinner_Rotor_Arm_{k}"]["type"], "cylinder"); self.assertIn(f"Spinner_Rotor_Socket_{k}", by)
+        c = sw["center"]; posts = [o for n, o in by.items() if n.startswith("Spinner_Post_")]
+        self.assertGreater(min(math.hypot(o["position"][0] - c[0], o["position"][2] - c[2]) - 0.33 for o in posts), sw["r1"] + sw["ball_r"] + 0.1)  # the maces clear the lamp posts
+        self.assertEqual(by["Spinner_Skirt"]["material"], "arm_yellow"); self.assertNotEqual(by["Spinner_CrownBand"]["material"], "stripe")  # painted, not chevrons
+        FX = {e["id"]: e for e in _load("effects.json")["effects"]}
+        for n in ("Spinner_ImpactSteam", "Spinner_ReleaseSteam"): self.assertEqual(FX[n]["type"], "steam_burst"); self.assertEqual(FX[n]["sync"]["period"], sw["drive"]["period"]); self.assertTrue(FX[n]["emitters"])
         D = sw["drive"]  # Stage 103: a ceiling press drives it - slam, fast spin, coast to a stop, a still gap to cross
         sys.path.insert(0, os.path.join(ROOT, "pipeline")); from modules.assembly import press_profile
         P = D["period"]; self.assertGreaterEqual(D["still"], 3.0); self.assertGreater(D["peak_rpm"], 30)
@@ -120,7 +129,8 @@ class SpinnerDeck(unittest.TestCase):
         with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: self.assertIn("fx.category==='sweeper'", f.read())
         with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: gd = f.read()
         self.assertIn("func _sweeper", gd); self.assertIn("static func press_profile", gd)
-        with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: self.assertIn("window.camShake", f.read())
+        with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()
+        self.assertIn("window.camShake", v); self.assertIn("isBurst&&fx.sync", v); self.assertIn('if b.size() > 4:  # Stage 104: synced vents', gd)
 
 
 if __name__ == "__main__":

@@ -941,11 +941,14 @@ func _particles(fx: Dictionary, p: Dictionary) -> void:
 			cp.amount = int(p["count"])
 			cp.preprocess = cp.lifetime
 		elif p.has("burst"):
-			cp.amount = int(p["burst"])
+			cp.amount = int(p["burst"]) * (e["points"].size() if e.has("points") else 1)
 			cp.one_shot = true
 			cp.explosiveness = 1.0
 			cp.emitting = false
-			_bursts.append([cp, randf_range(p["interval"][0], p["interval"][1]), p["interval"][0], p["interval"][1]])
+			if fx.has("sync"):  # Stage 104: fired when the cycle time crosses each sync "at"
+				_bursts.append([cp, 0.0, 0.0, 0.0, fx["sync"], [-1.0]])
+			else:
+				_bursts.append([cp, randf_range(p["interval"][0], p["interval"][1]), p["interval"][0], p["interval"][1]])
 		else:
 			cp.amount = max(1, int(ceil(float(p["rate"]) * cp.lifetime))) * (e["points"].size() if e.has("points") else 1)
 		if e.has("points"):
@@ -1209,6 +1212,17 @@ func _process(delta: float) -> void:
 				an[4] = 1.0 / float(p["rate"])
 				m.emission_energy_multiplier = an[1] * (1.0 - float(p["amount"]) * randf())
 	for b in _bursts:
+		if b.size() > 4:  # Stage 104: synced vents
+			var Y: Dictionary = b[4]
+			var u := fposmod(_t + float(Y["phase"]), float(Y["period"]))
+			var lu: float = b[5][0]
+			if lu >= 0.0:
+				for at in Y["at"]:
+					var a_ := float(at)
+					if (lu <= u and lu < a_ and a_ <= u) or (lu > u and (a_ > lu or a_ <= u)):
+						(b[0] as CPUParticles3D).restart()
+			b[5][0] = u
+			continue
 		b[1] -= delta
 		if b[1] <= 0.0:
 			(b[0] as CPUParticles3D).restart()

@@ -199,13 +199,20 @@ def spinner(ctx, s, x, y, z, yaw):
         ctx.add(f"{n}_Valve_{k + 1}", "box", P0(0, T + 4.2, 3.3), [0.9, 0.9, 0.9], "machine", rot=[0, a, 0], **vs)
     # --- rotor (moves): collar + arms + spiked balls
     gr = n + "_Rotor"; mr = dict(collision=False, mobile={"group": gr}); arms = [float(v) for v in s.get("arms", [0, 90, 180, 270])]
-    by = float(s.get("bar_y", 0.6)); bh = float(s.get("bar_half", 0.25)); r0 = 1.3; br = float(s.get("ball", 1.8)) / 2; r1 = R - 0.4 - br; bly = by + 0.35
+    by = float(s.get("bar_y", 0.72)); bh = float(s.get("bar_half", 0.22)); r0 = 1.3; br = float(s.get("ball", 1.36)) / 2; r1 = R - 0.4 - br; bly = by  # Stage 104: maces ON the poles' axis
+    rc = br * 0.66; mace = ctx.role("mace"); nl = dict(mr, outline=False)
     ctx.add(gr + "_Collar", "cylinder", [x, T + by - 0.35, z], [3.0, 0.7, 3.0], "machine", sections=12, **mr)
-    for k, a0 in enumerate(arms):
-        a = yaw + a0; P0 = _W(x, 0, z, a); L = r1 - r0
-        c = P0(0, T + by - bh, r0 + L / 2); ctx.add(f"{gr}_Arm_{k + 1}", "box", c, [0.5, 2 * bh, L], stripe, rot=[0, a, 0], bevel=False, **mr)
-        ctx.add(f"{gr}_Ball_{k + 1}", "spike_ball", P0(0, T + bly, r1), [2 * br, 2 * br, 2 * br], ctx.role("spike"), **dict(mr, outline=False))
-        ctx.add(f"{gr}_BallGlow_{k + 1}", "cylinder", P0(0, T + bly - 0.1, r1 - br * 0.9), [0.5, 0.2, 0.5], gl, rot=[90, a, 0], sections=6, **dict(mr, outline=False))
+    for k, a0 in enumerate(arms):  # Stage 104 (concept art): a round striped pole out of a socket in the hub, a flanged coupling into a gunmetal mace
+        a = yaw + a0; P0 = _W(x, 0, z, a); K_ = lambda nm, sh, r, sz, mat, kw=mr, sec=8: ctx.add(f"{gr}_{nm}_{k + 1}", sh, P0(0, T + by, r), sz, mat, rot=[90, a, 0], sections=sec, **kw)
+        K_("Arm", "cylinder", r0, [2 * bh, r1 - r0, 2 * bh], stripe)
+        K_("Root", "cylinder", 1.8, [0.66, 0.55, 0.66], "machine")
+        K_("Socket", "cylinder", r1 - rc - 0.32, [0.54, 0.44, 0.54], "machine")
+        K_("Flange", "cylinder", r1 - rc - 0.32, [0.72, 0.09, 0.72], "machine", nl)
+        K_("Band", "cylinder", r1 - 0.08, [2 * rc + 0.08, 0.16, 2 * rc + 0.08], "machine", nl, 12)
+        K_("Seam", "cylinder", r1 - 0.03, [2 * rc + 0.1, 0.06, 2 * rc + 0.1], gl, nl, 12)
+        c = P0(0, T + by, r1)
+        ctx.add(f"{gr}_Ball_{k + 1}", "mace", c, [2 * br] * 3, mace, rot=[0, a, 0], **nl)
+        ctx.add(f"{gr}_Tips_{k + 1}", "mace_tips", c, [2 * br] * 3, gl, rot=[0, a, 0], **nl)
     drive = _press(ctx, n, x, T, z, yaw, pr, gl, stripe) if pr else None
     ctx.sweepers = getattr(ctx, "sweepers", []) + [dict(id=n, group=gr, center=[round(x, 3), round(T, 3), round(z, 3)], rpm=float(drive["peak_rpm"] if drive else s.get("rpm", 6.0)), phase=float(s.get("phase", 0.0)), **({"drive": drive} if drive else {}),
                                                        arms=[round(yaw + a, 2) for a in arms], r0=r0, r1=round(r1, 3), bar_y=by, bar_half=bh, ball_r=round(br, 3), ball_y=round(bly, 3),
@@ -228,7 +235,7 @@ def spinner(ctx, s, x, y, z, yaw):
     for k in range(8):  # lamp posts round the rim, between the catwalks
         a = yaw + 22.5 + 45 * k
         if s.get("ramp_yaw") is not None and abs(((a - float(s["ramp_yaw"]) + 180) % 360) - 180) < 30: continue
-        P0 = _W(x, 0, z, a); q = P0(0, 0, R - 0.55)
+        P0 = _W(x, 0, z, a); q = P0(0, 0, float(s.get("post_r", R - 0.55)))  # Stage 104: out on the deck's corners, clear of the maces' sweep
         ctx.add(f"{n}_Post_{k + 1}", "box", [q[0], T, q[2]], [0.45, 1.1, 0.45], "machine", rot=[0, a, 0], **st)
         ctx.add(f"{n}_PostLamp_{k + 1}", "box", [q[0], T + 1.1, q[2]], [0.5, 0.35, 0.5], gl, rot=[0, a, 0], **vs)
     ctx.notes.append(f"{n}: spinner, {len(arms)} arms " + (f"driven by a ceiling press (peak {drive['peak_rpm']} rpm, still {drive['still']:.1f} s per {drive['period']} s)" if drive else f"at {s.get('rpm', 6.0)} rpm") + ", 4 hovering pads")
@@ -266,9 +273,10 @@ def _press(ctx, n, x, T, z, yaw, pr, gl, stripe):
     gm, gr_ = n + "_PressMid", n + "_Ram"; mm = dict(collision=False, mobile={"group": gm}); mr = dict(collision=False, mobile={"group": gr_})
     cyl = lambda nm, y0, h, dia, mat, kw, sec=10: ctx.add(nm, "cylinder", [x, y0, z], [dia, h, dia], mat, sections=sec, **kw)
     # --- static: ceiling plate, crown, barrel, braces, hydraulic lines, guide columns
-    cyl(n + "_PressPlate", C - 0.5, 0.5, 9.0, "machine", st, 8); cyl(n + "_PressPlateRim", C - 0.75, 0.3, 9.2, stripe, vs, 8)
+    paint = ctx.role("arm_yellow")  # Stage 104: worn yellow paint on the press's rings (the hazard chevrons stay on the decks)
+    cyl(n + "_PressPlate", C - 0.5, 0.5, 9.0, "machine", st, 8); cyl(n + "_PressPlateRim", C - 0.75, 0.3, 9.2, paint, vs, 8)
     cyl(n + "_Crown", C - 3.3, 2.8, 7.2, "structure_b", st, 8); cyl(n + "_CrownGlow", C - 2.3, 0.3, 7.3, gl, vs, 8)
-    cyl(n + "_CrownBand", C - 3.45, 0.55, 7.4, stripe, vs, 8)
+    cyl(n + "_CrownBand", C - 3.45, 0.55, 7.4, paint, vs, 8)
     for k, (y0, y1) in enumerate(((C - 7.0, C - 5.12), (C - 5.12, C - 4.21), (C - 4.21, C - 3.25))): cyl(f"{n}_Barrel_{k + 1}", y0, y1 - y0, 3.6, "machine", st, 12)  # joins under the band / gauge rings
     cyl(n + "_BarrelBand", C - 5.3, 0.35, 3.9, "machine", vs, 12); cyl(n + "_Gland", C - 7.3, 0.55, 4.0, "machine", vs, 12)
     cyl(n + "_GaugeGlow", C - 4.3, 0.18, 3.7, gl, vs, 12)
@@ -288,7 +296,7 @@ def _press(ctx, n, x, T, z, yaw, pr, gl, stripe):
     cyl(n + "_StageIn", C - 13.3, 6.8, 2.3, "machine", mr, 12)
     cyl(n + "_Head", C - 14.9, 1.6, 6.4, "machine", mr, 8)
     ctx.add(n + "_HeadTaper", "frustum", [x, C - 13.3, z], [2.9, 0.7, 2.9], "machine", sections=8, bottom_scale=6.0 / 2.9, **mr)
-    cyl(n + "_Skirt", C - 14.95, 0.45, 6.6, stripe, dict(mr, outline=False), 8)
+    cyl(n + "_Skirt", C - 14.85, 0.45, 6.6, paint, dict(mr, outline=False), 8)
     cyl(n + "_Striker", C - 15.45, 0.25, 2.2, "machine", mr, 10); cyl(n + "_StrikerNeck", C - 15.2, 0.3, 1.9, "machine", mr, 10)
     cyl(n + "_StrikerGlow", C - 15.28, 0.16, 2.45, gl, dict(mr, outline=False), 10)
     for k in range(4):
@@ -299,9 +307,12 @@ def _press(ctx, n, x, T, z, yaw, pr, gl, stripe):
     P_, sl, ho, ri = float(pr.get("period", 9.5)), float(pr.get("slam", 0.35)), float(pr.get("hold", 2.4)), float(pr.get("rise", 1.8))
     su, sd, turns = float(pr.get("spin_up", 0.35)), float(pr.get("spin_down", 3.0)), float(pr.get("turns", 4))
     w = 360.0 * turns / (ho - su / 2 + sd / 2)
+    hb = C - 14.9 - travel  # the head's underside when pressed
+    imp = [[round(v, 2) for v in _W(x, 0, z, yaw + 22.5 + 45 * k)(0, hb + 0.25, 3.45)] for k in range(8)]  # round the pressed head
+    rel = [[round(v, 2) for v in _W(x, 0, z, yaw + 45 + 90 * k)(0, C - 7.35, 2.15)] for k in range(4)]  # out of the gland as it lets go
     return dict(press=gr_, stages=[{"group": gm, "frac": 0.5}, {"group": gr_, "frac": 1.0}], lamps=f"{gr_}__{gl}", travel=travel, period=P_, slam=sl, hold=ho, rise=ri,
                 spin_up=su, spin_down=sd, turns=turns, peak=round(w, 3), peak_rpm=round(w / 6.0, 2), warn=float(pr.get("warn", 1.2)), phase=float(pr.get("phase", 0.0)),
-                still=round(P_ - sl - ho - sd, 2), shake=float(pr.get("shake", 28.0)),
+                still=round(P_ - sl - ho - sd, 2), shake=float(pr.get("shake", 28.0)), steam_impact=imp, steam_release=rel,
                 note="press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; "
                      "rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; "
                      "camera shake within 'shake' m on impact")

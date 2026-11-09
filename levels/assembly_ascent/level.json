@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "7721dac2a33c5108",
+  "spec_sha": "888e17508533c61e",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -189,6 +189,70 @@
      "phase": -1.5,
      "still": 3.75,
      "shake": 28.0,
+     "steam_impact": [
+      [
+       6.32,
+       14.3,
+       43.19
+      ],
+      [
+       8.19,
+       14.3,
+       41.32
+      ],
+      [
+       8.19,
+       14.3,
+       38.68
+      ],
+      [
+       6.32,
+       14.3,
+       36.81
+      ],
+      [
+       3.68,
+       14.3,
+       36.81
+      ],
+      [
+       1.81,
+       14.3,
+       38.68
+      ],
+      [
+       1.81,
+       14.3,
+       41.32
+      ],
+      [
+       3.68,
+       14.3,
+       43.19
+      ]
+     ],
+     "steam_release": [
+      [
+       6.52,
+       27.15,
+       41.52
+      ],
+      [
+       6.52,
+       27.15,
+       38.48
+      ],
+      [
+       3.48,
+       27.15,
+       38.48
+      ],
+      [
+       3.48,
+       27.15,
+       41.52
+      ]
+     ],
      "note": "press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; camera shake within 'shake' m on impact"
     },
     "arms": [
@@ -198,13 +262,114 @@
      290.0
     ],
     "r0": 1.3,
-    "r1": 9.2,
-    "bar_y": 0.6,
-    "bar_half": 0.25,
-    "ball_r": 0.9,
-    "ball_y": 0.95,
+    "r1": 9.42,
+    "bar_y": 0.72,
+    "bar_half": 0.22,
+    "ball_r": 0.68,
+    "ball_y": 0.72,
     "note": "angle(t) = arm + rpm * 6 * t deg (level yaw convention: direction (sin, cos)); a bar kills a body it overlaps (jump over it), a ball kills within ball_r"
    }
+  },
+  {
+   "id": "Spinner_ImpactSteam",
+   "type": "steam_burst",
+   "positions": [
+    [
+     6.32,
+     14.3,
+     43.19
+    ],
+    [
+     8.19,
+     14.3,
+     41.32
+    ],
+    [
+     8.19,
+     14.3,
+     38.68
+    ],
+    [
+     6.32,
+     14.3,
+     36.81
+    ],
+    [
+     3.68,
+     14.3,
+     36.81
+    ],
+    [
+     1.81,
+     14.3,
+     38.68
+    ],
+    [
+     1.81,
+     14.3,
+     41.32
+    ],
+    [
+     3.68,
+     14.3,
+     43.19
+    ]
+   ],
+   "sync": {
+    "period": 9.5,
+    "phase": -1.5,
+    "at": [
+     0.35,
+     0.85
+    ]
+   },
+   "burst": 7,
+   "speed": [
+    2.5,
+    5.0
+   ],
+   "spread": 70
+  },
+  {
+   "id": "Spinner_ReleaseSteam",
+   "type": "steam_burst",
+   "positions": [
+    [
+     6.52,
+     27.15,
+     41.52
+    ],
+    [
+     6.52,
+     27.15,
+     38.48
+    ],
+    [
+     3.48,
+     27.15,
+     38.48
+    ],
+    [
+     3.48,
+     27.15,
+     41.52
+    ]
+   ],
+   "sync": {
+    "period": 9.5,
+    "phase": -1.5,
+    "at": [
+     2.75
+    ]
+   },
+   "burst": 12,
+   "lifetime": 2.6,
+   "speed": [
+    1.5,
+    3.0
+   ],
+   "spread": 40,
+   "gravity": 0.5
   },
   {
    "id": "Saw_West_Swing",
@@ -1165,6 +1330,19 @@
    ],
    "res": 32,
    "notes": "Stage 59: laser gate beams"
+  },
+  "mace": {
+   "type": "industrial_metal",
+   "color": [
+    0.2,
+    0.19,
+    0.25
+   ],
+   "tile_m": 1.5,
+   "wear": 0.5,
+   "bevel": 0.03,
+   "toon": true,
+   "notes": "Stage 104: gunmetal mace heads (concept art)"
   },
   "machine": {
    "type": "machinery_panel",
@@ -30055,7 +30233,7 @@
    "type": "cylinder",
    "position": [
     5.0,
-    7.75,
+    7.87,
     40.0
    ],
    "rotation": [
@@ -30079,24 +30257,24 @@
   },
   {
    "name": "Spinner_Rotor_Arm_1",
-   "type": "box",
+   "type": "cylinder",
    "position": [
-    6.796,
-    7.85,
-    44.933
+    5.445,
+    8.22,
+    41.222
    ],
    "rotation": [
-    0.0,
+    90.0,
     20.0,
     0.0
    ],
    "size": [
-    0.5,
-    0.5,
-    7.9
+    0.44,
+    8.12,
+    0.44
    ],
    "material": "stripe",
-   "bevel": false,
+   "sections": 8,
    "collision": false,
    "mobile": {
     "group": "Spinner_Rotor"
@@ -30105,24 +30283,79 @@
    "source": "visible"
   },
   {
-   "name": "Spinner_Rotor_Ball_1",
-   "type": "spike_ball",
+   "name": "Spinner_Rotor_Root_1",
+   "type": "cylinder",
    "position": [
-    8.147,
-    8.45,
-    48.645
+    5.616,
+    8.22,
+    41.691
    ],
    "rotation": [
-    0.0,
-    0.0,
+    90.0,
+    20.0,
     0.0
    ],
    "size": [
-    1.8,
-    1.8,
-    1.8
+    0.66,
+    0.55,
+    0.66
    ],
-   "material": "spike",
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Socket_1",
+   "type": "cylinder",
+   "position": [
+    7.959,
+    8.22,
+    48.13
+   ],
+   "rotation": [
+    90.0,
+    20.0,
+    0.0
+   ],
+   "size": [
+    0.54,
+    0.44,
+    0.54
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Flange_1",
+   "type": "cylinder",
+   "position": [
+    7.959,
+    8.22,
+    48.13
+   ],
+   "rotation": [
+    90.0,
+    20.0,
+    0.0
+   ],
+   "size": [
+    0.72,
+    0.09,
+    0.72
+   ],
+   "material": "machine",
+   "sections": 8,
    "collision": false,
    "mobile": {
     "group": "Spinner_Rotor"
@@ -30132,12 +30365,12 @@
    "source": "visible"
   },
   {
-   "name": "Spinner_Rotor_BallGlow_1",
+   "name": "Spinner_Rotor_Band_1",
    "type": "cylinder",
    "position": [
-    7.87,
-    8.35,
-    47.884
+    8.194,
+    8.22,
+    48.777
    ],
    "rotation": [
     90.0,
@@ -30145,12 +30378,94 @@
     0.0
    ],
    "size": [
-    0.5,
-    0.2,
-    0.5
+    0.978,
+    0.16,
+    0.978
+   ],
+   "material": "machine",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Seam_1",
+   "type": "cylinder",
+   "position": [
+    8.212,
+    8.22,
+    48.824
+   ],
+   "rotation": [
+    90.0,
+    20.0,
+    0.0
+   ],
+   "size": [
+    0.998,
+    0.06,
+    0.998
    ],
    "material": "glow",
-   "sections": 6,
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Ball_1",
+   "type": "mace",
+   "position": [
+    8.222,
+    8.22,
+    48.852
+   ],
+   "rotation": [
+    0.0,
+    20.0,
+    0.0
+   ],
+   "size": [
+    1.36,
+    1.36,
+    1.36
+   ],
+   "material": "mace",
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Tips_1",
+   "type": "mace_tips",
+   "position": [
+    8.222,
+    8.22,
+    48.852
+   ],
+   "rotation": [
+    0.0,
+    20.0,
+    0.0
+   ],
+   "size": [
+    1.36,
+    1.36,
+    1.36
+   ],
+   "material": "glow",
    "collision": false,
    "mobile": {
     "group": "Spinner_Rotor"
@@ -30161,24 +30476,24 @@
   },
   {
    "name": "Spinner_Rotor_Arm_2",
-   "type": "box",
+   "type": "cylinder",
    "position": [
-    9.933,
-    7.85,
-    38.204
+    6.222,
+    8.22,
+    39.555
    ],
    "rotation": [
-    0.0,
+    90.0,
     110.0,
     0.0
    ],
    "size": [
-    0.5,
-    0.5,
-    7.9
+    0.44,
+    8.12,
+    0.44
    ],
    "material": "stripe",
-   "bevel": false,
+   "sections": 8,
    "collision": false,
    "mobile": {
     "group": "Spinner_Rotor"
@@ -30187,24 +30502,79 @@
    "source": "visible"
   },
   {
-   "name": "Spinner_Rotor_Ball_2",
-   "type": "spike_ball",
+   "name": "Spinner_Rotor_Root_2",
+   "type": "cylinder",
    "position": [
-    13.645,
-    8.45,
-    36.853
+    6.691,
+    8.22,
+    39.384
    ],
    "rotation": [
-    0.0,
-    0.0,
+    90.0,
+    110.0,
     0.0
    ],
    "size": [
-    1.8,
-    1.8,
-    1.8
+    0.66,
+    0.55,
+    0.66
    ],
-   "material": "spike",
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Socket_2",
+   "type": "cylinder",
+   "position": [
+    13.13,
+    8.22,
+    37.041
+   ],
+   "rotation": [
+    90.0,
+    110.0,
+    0.0
+   ],
+   "size": [
+    0.54,
+    0.44,
+    0.54
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Flange_2",
+   "type": "cylinder",
+   "position": [
+    13.13,
+    8.22,
+    37.041
+   ],
+   "rotation": [
+    90.0,
+    110.0,
+    0.0
+   ],
+   "size": [
+    0.72,
+    0.09,
+    0.72
+   ],
+   "material": "machine",
+   "sections": 8,
    "collision": false,
    "mobile": {
     "group": "Spinner_Rotor"
@@ -30214,12 +30584,12 @@
    "source": "visible"
   },
   {
-   "name": "Spinner_Rotor_BallGlow_2",
+   "name": "Spinner_Rotor_Band_2",
    "type": "cylinder",
    "position": [
-    12.884,
-    8.35,
-    37.13
+    13.777,
+    8.22,
+    36.806
    ],
    "rotation": [
     90.0,
@@ -30227,12 +30597,94 @@
     0.0
    ],
    "size": [
-    0.5,
-    0.2,
-    0.5
+    0.978,
+    0.16,
+    0.978
+   ],
+   "material": "machine",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Seam_2",
+   "type": "cylinder",
+   "position": [
+    13.824,
+    8.22,
+    36.788
+   ],
+   "rotation": [
+    90.0,
+    110.0,
+    0.0
+   ],
+   "size": [
+    0.998,
+    0.06,
+    0.998
    ],
    "material": "glow",
-   "sections": 6,
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Ball_2",
+   "type": "mace",
+   "position": [
+    13.852,
+    8.22,
+    36.778
+   ],
+   "rotation": [
+    0.0,
+    110.0,
+    0.0
+   ],
+   "size": [
+    1.36,
+    1.36,
+    1.36
+   ],
+   "material": "mace",
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Tips_2",
+   "type": "mace_tips",
+   "position": [
+    13.852,
+    8.22,
+    36.778
+   ],
+   "rotation": [
+    0.0,
+    110.0,
+    0.0
+   ],
+   "size": [
+    1.36,
+    1.36,
+    1.36
+   ],
+   "material": "glow",
    "collision": false,
    "mobile": {
     "group": "Spinner_Rotor"
@@ -30243,24 +30695,24 @@
   },
   {
    "name": "Spinner_Rotor_Arm_3",
-   "type": "box",
+   "type": "cylinder",
    "position": [
-    3.204,
-    7.85,
-    35.067
+    4.555,
+    8.22,
+    38.778
    ],
    "rotation": [
-    0.0,
+    90.0,
     200.0,
     0.0
    ],
    "size": [
-    0.5,
-    0.5,
-    7.9
+    0.44,
+    8.12,
+    0.44
    ],
    "material": "stripe",
-   "bevel": false,
+   "sections": 8,
    "collision": false,
    "mobile": {
     "group": "Spinner_Rotor"
@@ -30269,24 +30721,79 @@
    "source": "visible"
   },
   {
-   "name": "Spinner_Rotor_Ball_3",
-   "type": "spike_ball",
+   "name": "Spinner_Rotor_Root_3",
+   "type": "cylinder",
    "position": [
-    1.853,
-    8.45,
-    31.355
+    4.384,
+    8.22,
+    38.309
    ],
    "rotation": [
-    0.0,
-    0.0,
+    90.0,
+    200.0,
     0.0
    ],
    "size": [
-    1.8,
-    1.8,
-    1.8
+    0.66,
+    0.55,
+    0.66
    ],
-   "material": "spike",
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Socket_3",
+   "type": "cylinder",
+   "position": [
+    2.041,
+    8.22,
+    31.87
+   ],
+   "rotation": [
+    90.0,
+    200.0,
+    0.0
+   ],
+   "size": [
+    0.54,
+    0.44,
+    0.54
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Flange_3",
+   "type": "cylinder",
+   "position": [
+    2.041,
+    8.22,
+    31.87
+   ],
+   "rotation": [
+    90.0,
+    200.0,
+    0.0
+   ],
+   "size": [
+    0.72,
+    0.09,
+    0.72
+   ],
+   "material": "machine",
+   "sections": 8,
    "collision": false,
    "mobile": {
     "group": "Spinner_Rotor"
@@ -30296,12 +30803,12 @@
    "source": "visible"
   },
   {
-   "name": "Spinner_Rotor_BallGlow_3",
+   "name": "Spinner_Rotor_Band_3",
    "type": "cylinder",
    "position": [
-    2.131,
-    8.35,
-    32.116
+    1.806,
+    8.22,
+    31.223
    ],
    "rotation": [
     90.0,
@@ -30309,12 +30816,94 @@
     0.0
    ],
    "size": [
-    0.5,
-    0.2,
-    0.5
+    0.978,
+    0.16,
+    0.978
+   ],
+   "material": "machine",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Seam_3",
+   "type": "cylinder",
+   "position": [
+    1.788,
+    8.22,
+    31.176
+   ],
+   "rotation": [
+    90.0,
+    200.0,
+    0.0
+   ],
+   "size": [
+    0.998,
+    0.06,
+    0.998
    ],
    "material": "glow",
-   "sections": 6,
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Ball_3",
+   "type": "mace",
+   "position": [
+    1.778,
+    8.22,
+    31.148
+   ],
+   "rotation": [
+    0.0,
+    200.0,
+    0.0
+   ],
+   "size": [
+    1.36,
+    1.36,
+    1.36
+   ],
+   "material": "mace",
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Tips_3",
+   "type": "mace_tips",
+   "position": [
+    1.778,
+    8.22,
+    31.148
+   ],
+   "rotation": [
+    0.0,
+    200.0,
+    0.0
+   ],
+   "size": [
+    1.36,
+    1.36,
+    1.36
+   ],
+   "material": "glow",
    "collision": false,
    "mobile": {
     "group": "Spinner_Rotor"
@@ -30325,24 +30914,24 @@
   },
   {
    "name": "Spinner_Rotor_Arm_4",
-   "type": "box",
+   "type": "cylinder",
    "position": [
-    0.067,
-    7.85,
-    41.796
+    3.778,
+    8.22,
+    40.445
    ],
    "rotation": [
-    0.0,
+    90.0,
     290.0,
     0.0
    ],
    "size": [
-    0.5,
-    0.5,
-    7.9
+    0.44,
+    8.12,
+    0.44
    ],
    "material": "stripe",
-   "bevel": false,
+   "sections": 8,
    "collision": false,
    "mobile": {
     "group": "Spinner_Rotor"
@@ -30351,24 +30940,79 @@
    "source": "visible"
   },
   {
-   "name": "Spinner_Rotor_Ball_4",
-   "type": "spike_ball",
+   "name": "Spinner_Rotor_Root_4",
+   "type": "cylinder",
    "position": [
-    -3.645,
-    8.45,
-    43.147
+    3.309,
+    8.22,
+    40.616
    ],
    "rotation": [
-    0.0,
-    0.0,
+    90.0,
+    290.0,
     0.0
    ],
    "size": [
-    1.8,
-    1.8,
-    1.8
+    0.66,
+    0.55,
+    0.66
    ],
-   "material": "spike",
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Socket_4",
+   "type": "cylinder",
+   "position": [
+    -3.13,
+    8.22,
+    42.959
+   ],
+   "rotation": [
+    90.0,
+    290.0,
+    0.0
+   ],
+   "size": [
+    0.54,
+    0.44,
+    0.54
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Flange_4",
+   "type": "cylinder",
+   "position": [
+    -3.13,
+    8.22,
+    42.959
+   ],
+   "rotation": [
+    90.0,
+    290.0,
+    0.0
+   ],
+   "size": [
+    0.72,
+    0.09,
+    0.72
+   ],
+   "material": "machine",
+   "sections": 8,
    "collision": false,
    "mobile": {
     "group": "Spinner_Rotor"
@@ -30378,12 +31022,12 @@
    "source": "visible"
   },
   {
-   "name": "Spinner_Rotor_BallGlow_4",
+   "name": "Spinner_Rotor_Band_4",
    "type": "cylinder",
    "position": [
-    -2.884,
-    8.35,
-    42.87
+    -3.777,
+    8.22,
+    43.194
    ],
    "rotation": [
     90.0,
@@ -30391,12 +31035,94 @@
     0.0
    ],
    "size": [
-    0.5,
-    0.2,
-    0.5
+    0.978,
+    0.16,
+    0.978
+   ],
+   "material": "machine",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Seam_4",
+   "type": "cylinder",
+   "position": [
+    -3.824,
+    8.22,
+    43.212
+   ],
+   "rotation": [
+    90.0,
+    290.0,
+    0.0
+   ],
+   "size": [
+    0.998,
+    0.06,
+    0.998
    ],
    "material": "glow",
-   "sections": 6,
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Ball_4",
+   "type": "mace",
+   "position": [
+    -3.852,
+    8.22,
+    43.222
+   ],
+   "rotation": [
+    0.0,
+    290.0,
+    0.0
+   ],
+   "size": [
+    1.36,
+    1.36,
+    1.36
+   ],
+   "material": "mace",
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Rotor"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Rotor_Tips_4",
+   "type": "mace_tips",
+   "position": [
+    -3.852,
+    8.22,
+    43.222
+   ],
+   "rotation": [
+    0.0,
+    290.0,
+    0.0
+   ],
+   "size": [
+    1.36,
+    1.36,
+    1.36
+   ],
+   "material": "glow",
    "collision": false,
    "mobile": {
     "group": "Spinner_Rotor"
@@ -30449,7 +31175,7 @@
     0.3,
     9.2
    ],
-   "material": "stripe",
+   "material": "arm_yellow",
    "sections": 8,
    "collision": false,
    "outline": false,
@@ -30531,7 +31257,7 @@
     0.55,
     7.4
    ],
-   "material": "stripe",
+   "material": "arm_yellow",
    "sections": 8,
    "collision": false,
    "outline": false,
@@ -31292,7 +32018,7 @@
    "type": "cylinder",
    "position": [
     5.0,
-    19.55,
+    19.65,
     40.0
    ],
    "rotation": [
@@ -31305,7 +32031,7 @@
     0.45,
     6.6
    ],
-   "material": "stripe",
+   "material": "arm_yellow",
    "sections": 8,
    "collision": false,
    "mobile": {
@@ -32593,9 +33319,9 @@
    "name": "Spinner_Post_1",
    "type": "box",
    "position": [
-    8.808,
+    9.095,
     7.5,
-    49.193
+    49.886
    ],
    "rotation": [
     0.0,
@@ -32618,9 +33344,9 @@
    "name": "Spinner_PostLamp_1",
    "type": "box",
    "position": [
-    8.808,
+    9.095,
     8.6,
-    49.193
+    49.886
    ],
    "rotation": [
     0.0,
@@ -32645,9 +33371,9 @@
    "name": "Spinner_Post_2",
    "type": "box",
    "position": [
-    14.193,
+    14.886,
     7.5,
-    43.808
+    44.095
    ],
    "rotation": [
     0.0,
@@ -32670,9 +33396,9 @@
    "name": "Spinner_PostLamp_2",
    "type": "box",
    "position": [
-    14.193,
+    14.886,
     8.6,
-    43.808
+    44.095
    ],
    "rotation": [
     0.0,
@@ -32697,9 +33423,9 @@
    "name": "Spinner_Post_3",
    "type": "box",
    "position": [
-    14.193,
+    14.886,
     7.5,
-    36.192
+    35.905
    ],
    "rotation": [
     0.0,
@@ -32722,9 +33448,9 @@
    "name": "Spinner_PostLamp_3",
    "type": "box",
    "position": [
-    14.193,
+    14.886,
     8.6,
-    36.192
+    35.905
    ],
    "rotation": [
     0.0,
@@ -32749,9 +33475,9 @@
    "name": "Spinner_Post_4",
    "type": "box",
    "position": [
-    8.808,
+    9.095,
     7.5,
-    30.807
+    30.114
    ],
    "rotation": [
     0.0,
@@ -32774,9 +33500,9 @@
    "name": "Spinner_PostLamp_4",
    "type": "box",
    "position": [
-    8.808,
+    9.095,
     8.6,
-    30.807
+    30.114
    ],
    "rotation": [
     0.0,
@@ -32801,9 +33527,9 @@
    "name": "Spinner_Post_5",
    "type": "box",
    "position": [
-    1.192,
+    0.905,
     7.5,
-    30.807
+    30.114
    ],
    "rotation": [
     0.0,
@@ -32826,9 +33552,9 @@
    "name": "Spinner_PostLamp_5",
    "type": "box",
    "position": [
-    1.192,
+    0.905,
     8.6,
-    30.807
+    30.114
    ],
    "rotation": [
     0.0,
@@ -32853,9 +33579,9 @@
    "name": "Spinner_Post_8",
    "type": "box",
    "position": [
-    1.192,
+    0.905,
     7.5,
-    49.193
+    49.886
    ],
    "rotation": [
     0.0,
@@ -32878,9 +33604,9 @@
    "name": "Spinner_PostLamp_8",
    "type": "box",
    "position": [
-    1.192,
+    0.905,
     8.6,
-    49.193
+    49.886
    ],
    "rotation": [
     0.0,
@@ -56625,6 +57351,70 @@
     "phase": -1.5,
     "still": 3.75,
     "shake": 28.0,
+    "steam_impact": [
+     [
+      6.32,
+      14.3,
+      43.19
+     ],
+     [
+      8.19,
+      14.3,
+      41.32
+     ],
+     [
+      8.19,
+      14.3,
+      38.68
+     ],
+     [
+      6.32,
+      14.3,
+      36.81
+     ],
+     [
+      3.68,
+      14.3,
+      36.81
+     ],
+     [
+      1.81,
+      14.3,
+      38.68
+     ],
+     [
+      1.81,
+      14.3,
+      41.32
+     ],
+     [
+      3.68,
+      14.3,
+      43.19
+     ]
+    ],
+    "steam_release": [
+     [
+      6.52,
+      27.15,
+      41.52
+     ],
+     [
+      6.52,
+      27.15,
+      38.48
+     ],
+     [
+      3.48,
+      27.15,
+      38.48
+     ],
+     [
+      3.48,
+      27.15,
+      41.52
+     ]
+    ],
     "note": "press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; camera shake within 'shake' m on impact"
    },
    "arms": [
@@ -56634,11 +57424,11 @@
     290.0
    ],
    "r0": 1.3,
-   "r1": 9.2,
-   "bar_y": 0.6,
-   "bar_half": 0.25,
-   "ball_r": 0.9,
-   "ball_y": 0.95,
+   "r1": 9.42,
+   "bar_y": 0.72,
+   "bar_half": 0.22,
+   "ball_r": 0.68,
+   "ball_y": 0.72,
    "note": "angle(t) = arm + rpm * 6 * t deg (level yaw convention: direction (sin, cos)); a bar kills a body it overlaps (jump over it), a ball kills within ball_r"
   }
  ],
@@ -56777,16 +57567,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 36321,
-  "objects": 1732,
-  "materials": 30,
-  "glb_kb": 2937,
-  "nodes": 1911,
-  "draw_calls_unbatched": 1879,
-  "draw_calls_batched_min": 30,
-  "images": 82,
-  "tex_mem_gpu_compressed_mb": 17.88,
-  "tex_mem_uncompressed_mb": 71.51,
+  "triangles": 39385,
+  "objects": 1752,
+  "materials": 31,
+  "glb_kb": 3012,
+  "nodes": 1931,
+  "draw_calls_unbatched": 1899,
+  "draw_calls_batched_min": 31,
+  "images": 83,
+  "tex_mem_gpu_compressed_mb": 18.21,
+  "tex_mem_uncompressed_mb": 72.84,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

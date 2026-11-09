@@ -41,22 +41,22 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 2937,
-    "triangles": 44197,
-    "nodes": 1911,
-    "mesh_nodes": 1879,
-    "unique_meshes": 787,
-    "materials": 30,
-    "images": 82,
-    "draw_calls_unbatched": 1879,
-    "draw_calls_batched_min": 30,
-    "tex_mem_uncompressed_mb": 71.51,
-    "tex_mem_gpu_compressed_mb": 17.88,
+    "glb_kb": 3012,
+    "triangles": 47281,
+    "nodes": 1931,
+    "mesh_nodes": 1899,
+    "unique_meshes": 792,
+    "materials": 31,
+    "images": 83,
+    "draw_calls_unbatched": 1899,
+    "draw_calls_batched_min": 31,
+    "tex_mem_uncompressed_mb": 72.84,
+    "tex_mem_gpu_compressed_mb": 18.21,
     "texture_slots": {
-     "baseColorTexture": 27,
-     "metallicRoughnessTexture": 27,
-     "normalTexture": 25,
-     "occlusionTexture": 27,
+     "baseColorTexture": 28,
+     "metallicRoughnessTexture": 28,
+     "normalTexture": 26,
+     "occlusionTexture": 28,
      "emissiveTexture": 14
     },
     "image_sizes": [
@@ -71,27 +71,27 @@
    },
    "visible": {
     "cameras": 80,
-    "visible_draw_calls_mean": 617.8,
-    "visible_draw_calls_max": 1873,
-    "visible_triangles_mean": 26237,
-    "visible_triangles_max": 54853
+    "visible_draw_calls_mean": 624.9,
+    "visible_draw_calls_max": 1893,
+    "visible_triangles_mean": 27327,
+    "visible_triangles_max": 57937
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 1559,
-    "triangles": 42315,
+    "glb_kb": 1649,
+    "triangles": 45399,
     "nodes": 88,
     "mesh_nodes": 87,
     "unique_meshes": 87,
-    "materials": 30,
-    "images": 52,
+    "materials": 31,
+    "images": 53,
     "draw_calls_unbatched": 87,
-    "draw_calls_batched_min": 30,
-    "tex_mem_uncompressed_mb": 28.26,
-    "tex_mem_gpu_compressed_mb": 7.06,
+    "draw_calls_batched_min": 31,
+    "tex_mem_uncompressed_mb": 29.59,
+    "tex_mem_gpu_compressed_mb": 7.4,
     "texture_slots": {
-     "baseColorTexture": 27,
+     "baseColorTexture": 28,
      "metallicRoughnessTexture": 10,
      "normalTexture": 8,
      "occlusionTexture": 10,
@@ -136,22 +136,22 @@
    },
    "visible": {
     "cameras": 80,
-    "visible_draw_calls_mean": 53.3,
+    "visible_draw_calls_mean": 53.5,
     "visible_draw_calls_max": 90,
-    "visible_triangles_mean": 46273,
-    "visible_triangles_max": 53127
+    "visible_triangles_mean": 47602,
+    "visible_triangles_max": 56211
    },
    "hidden_faces_removed": 887,
    "occluded_faces_removed": 995,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate"
    ],
-   "effects_extra_draw_calls": 3,
-   "effects_max_particles": 283,
+   "effects_extra_draw_calls": 5,
+   "effects_max_particles": 387,
    "slimmed_kb": {
     "level_mobile.glb": [
-     2449,
-     1559
+     2563,
+     1649
     ],
     "background_mobile.glb": [
      477,
@@ -1358,6 +1358,18 @@
    "group": "Spinner_PressMid"
   },
   {
+   "node": "Spinner_Ram__arm_yellow",
+   "kind": "group",
+   "material": "arm_yellow",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Spinner_Skirt"
+   ],
+   "group": "Spinner_Ram"
+  },
+  {
    "node": "Spinner_Ram__glow",
    "kind": "group",
    "material": "glow",
@@ -1411,29 +1423,21 @@
    "group": "Spinner_Ram"
   },
   {
-   "node": "Spinner_Ram__stripe",
-   "kind": "group",
-   "material": "stripe",
-   "triangles": 32,
-   "visibility_range_end": 0,
-   "cast_shadow": true,
-   "source_objects": [
-    "Spinner_Skirt"
-   ],
-   "group": "Spinner_Ram"
-  },
-  {
    "node": "Spinner_Rotor__glow",
    "kind": "group",
    "material": "glow",
-   "triangles": 96,
+   "triangles": 632,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Spinner_Rotor_BallGlow_4",
-    "Spinner_Rotor_BallGlow_3",
-    "Spinner_Rotor_BallGlow_2",
-    "Spinner_Rotor_BallGlow_1"
+    "Spinner_Rotor_Tips_4",
+    "Spinner_Rotor_Seam_4",
+    "Spinner_Rotor_Tips_3",
+    "Spinner_Rotor_Seam_3",
+    "Spinner_Rotor_Tips_2",
+    "Spinner_Rotor_Seam_2",
+    "Spinner_Rotor_Tips_1",
+    "Spinner_Rotor_Seam_1"
    ],
    "group": "Spinner_Rotor"
   },
@@ -1441,32 +1445,20 @@
    "node": "Spinner_Rotor__ink",
    "kind": "group",
    "material": "ink",
-   "triangles": 60,
+   "triangles": 80,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Spinner_Rotor_Arm_1__ol",
+    "Spinner_Rotor_Root_1__ol",
     "Spinner_Rotor_Collar__ol"
    ],
    "group": "Spinner_Rotor"
   },
   {
-   "node": "Spinner_Rotor__machine",
+   "node": "Spinner_Rotor__mace",
    "kind": "group",
-   "material": "machine",
-   "triangles": 48,
-   "visibility_range_end": 0,
-   "cast_shadow": false,
-   "source_objects": [
-    "Spinner_Rotor_Collar"
-   ],
-   "group": "Spinner_Rotor"
-  },
-  {
-   "node": "Spinner_Rotor__spike",
-   "kind": "group",
-   "material": "spike",
-   "triangles": 608,
+   "material": "mace",
+   "triangles": 2480,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -1478,10 +1470,38 @@
    "group": "Spinner_Rotor"
   },
   {
+   "node": "Spinner_Rotor__machine",
+   "kind": "group",
+   "material": "machine",
+   "triangles": 624,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Spinner_Rotor_Band_4",
+    "Spinner_Rotor_Flange_4",
+    "Spinner_Rotor_Socket_4",
+    "Spinner_Rotor_Root_4",
+    "Spinner_Rotor_Band_3",
+    "Spinner_Rotor_Flange_3",
+    "Spinner_Rotor_Socket_3",
+    "Spinner_Rotor_Root_3",
+    "Spinner_Rotor_Band_2",
+    "Spinner_Rotor_Flange_2",
+    "Spinner_Rotor_Socket_2",
+    "Spinner_Rotor_Root_2",
+    "Spinner_Rotor_Band_1",
+    "Spinner_Rotor_Flange_1",
+    "Spinner_Rotor_Socket_1",
+    "Spinner_Rotor_Root_1",
+    "Spinner_Rotor_Collar"
+   ],
+   "group": "Spinner_Rotor"
+  },
+  {
    "node": "Spinner_Rotor__stripe",
    "kind": "group",
    "material": "stripe",
-   "triangles": 48,
+   "triangles": 128,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -1630,10 +1650,12 @@
    "node": "M_arm_yellow_0_0",
    "kind": "static",
    "material": "arm_yellow",
-   "triangles": 48,
+   "triangles": 112,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Spinner_CrownBand",
+    "Spinner_PressPlateRim",
     "Saw_East_Cheek_R",
     "Saw_East_Cheek_L",
     "Saw_West_Cheek_R",
@@ -2624,7 +2646,7 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 898,
+   "triangles": 834,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2632,8 +2654,6 @@
     "Spinner_Pad_3_Rim",
     "Spinner_Pad_2_Rim",
     "Spinner_Pad_1_Rim",
-    "Spinner_CrownBand",
-    "Spinner_PressPlateRim",
     "Spinner_CapRim",
     "CraneRail_01_Stripe",
     "Belt_B_Frame_2",

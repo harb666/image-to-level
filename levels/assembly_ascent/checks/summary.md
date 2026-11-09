@@ -1,10 +1,10 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 1732 objects · 30 materials · 17 effects
+Spec: levels/assembly_ascent/scene_spec.json · 1752 objects · 31 materials · 19 effects
 Checks: PASSED ({'error': 0, 'warning': 5, 'info': 1}) · refine passes: 0
-Mobile (balanced): 1559 KB · 42315 tris · 87 draw calls · ~53.3 visible (estimate) · ~7.06 MB GPU textures (estimate)
+Mobile (balanced): 1649 KB · 45399 tris · 87 draw calls · ~53.5 visible (estimate) · ~7.4 MB GPU textures (estimate)
 Navigation: 3240.0 m² reachable of 19147.0 m² standable
-Package: dist/assembly_ascent/package (38 files, 7.04 MB) valid=True
+Package: dist/assembly_ascent/package (38 files, 7.23 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
@@ -12,7 +12,7 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
 - warning: mobile draw calls 87 (> 80)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- warning: 44197 triangles (> budget 40000)
+- warning: 47281 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -39,8 +39,8 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 
 ## Timing
 - spec -> level.json: 1.2 s
-- build (glb, sky, background, effects, mobile): 27.7 s
-- checks (fast): 31.5 s
+- build (glb, sky, background, effects, mobile): 25.6 s
+- checks (fast): 32.0 s
 - previews: 0.4 s
-- export package: 0.3 s
-- total: 61.2 s
+- export package: 0.4 s
+- total: 59.7 s
