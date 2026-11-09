@@ -12,21 +12,21 @@
  },
  "totals": {
   "performance": {
-   "max_particles": 200,
-   "emitters": 14,
-   "extra_draw_calls": 5,
+   "max_particles": 222,
+   "emitters": 15,
+   "extra_draw_calls": 6,
    "transparent_area_m2": 0
   },
   "balanced": {
-   "max_particles": 651,
-   "emitters": 14,
-   "extra_draw_calls": 6,
+   "max_particles": 831,
+   "emitters": 15,
+   "extra_draw_calls": 7,
    "transparent_area_m2": 13000
   },
   "quality": {
-   "max_particles": 893,
-   "emitters": 14,
-   "extra_draw_calls": 7,
+   "max_particles": 1181,
+   "emitters": 15,
+   "extra_draw_calls": 8,
    "transparent_area_m2": 26000
   }
  },
@@ -476,6 +476,269 @@
       ],
       "energy": 1.3,
       "range": 34.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Dome_Motes",
+   "type": "ambient_particles",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D, box emitter over the play volume, slow drift (spores/ash/dust)",
+   "area": [
+    -1.0,
+    3.6,
+    -45.37,
+    29.0,
+    30.5,
+    -15.37
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "count": 22,
+      "lifetime": 10.0,
+      "speed": [
+       0.04,
+       0.18
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.08,
+       0.2
+      ],
+      "alpha": 0.85,
+      "color": [
+       0.92,
+       0.5,
+       0.9
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 180
+     },
+     "cost_estimate": {
+      "max_particles": 22,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "count": 180,
+      "lifetime": 10.0,
+      "speed": [
+       0.04,
+       0.18
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.08,
+       0.2
+      ],
+      "alpha": 0.85,
+      "color": [
+       0.92,
+       0.5,
+       0.9
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 180
+     },
+     "cost_estimate": {
+      "max_particles": 180,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "count": 288,
+      "lifetime": 10.0,
+      "speed": [
+       0.04,
+       0.18
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.08,
+       0.2
+      ],
+      "alpha": 0.85,
+      "color": [
+       0.92,
+       0.5,
+       0.9
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 180
+     },
+     "cost_estimate": {
+      "max_particles": 288,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    }
+   }
+  },
+  {
+   "id": "Dome_Breath_sunbeam",
+   "type": "pulse_light",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
+   "target_material": "sunbeam",
+   "targets": [
+    "Sunbeams__sunbeam__2s"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 0.17,
+      "amount": 0.3,
+      "phase": 1.3
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 0.17,
+      "amount": 0.3,
+      "phase": 1.3
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 0.17,
+      "amount": 0.3,
+      "phase": 1.3
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Dome_Breath_sunbeam_haze",
+   "type": "pulse_light",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
+   "target_material": "sunbeam_haze",
+   "targets": [
+    "Sunbeams__sunbeam_haze__2s"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 0.11,
+      "amount": 0.3,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 0.11,
+      "amount": 0.3,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 0.11,
+      "amount": 0.3,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Dome_Breath_light_pool",
+   "type": "pulse_light",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
+   "target_material": "light_pool",
+   "targets": [
+    "Sunbeams__light_pool__2s"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 0.11,
+      "amount": 0.3,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 0.11,
+      "amount": 0.3,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 0.11,
+      "amount": 0.3,
+      "phase": 0.0
      },
      "cost_estimate": {
       "max_particles": 0,

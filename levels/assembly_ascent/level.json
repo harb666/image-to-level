@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "b4aa23d05d978fc6",
+  "spec_sha": "cbad2635e2010987",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -156,6 +156,58 @@
    ],
    "energy": 1.3,
    "range": 34.0
+  },
+  {
+   "id": "Dome_Motes",
+   "type": "ambient_particles",
+   "area": [
+    -1.0,
+    3.6,
+    -45.37,
+    29.0,
+    30.5,
+    -15.37
+   ],
+   "count": 180,
+   "lifetime": 10.0,
+   "speed": [
+    0.04,
+    0.18
+   ],
+   "size": [
+    0.08,
+    0.2
+   ],
+   "alpha": 0.85,
+   "color": [
+    0.92,
+    0.5,
+    0.9
+   ]
+  },
+  {
+   "id": "Dome_Breath_sunbeam",
+   "type": "pulse_light",
+   "target_material": "sunbeam",
+   "speed": 0.17,
+   "amount": 0.3,
+   "phase": 1.3
+  },
+  {
+   "id": "Dome_Breath_sunbeam_haze",
+   "type": "pulse_light",
+   "target_material": "sunbeam_haze",
+   "speed": 0.11,
+   "amount": 0.3,
+   "phase": 0.0
+  },
+  {
+   "id": "Dome_Breath_light_pool",
+   "type": "pulse_light",
+   "target_material": "light_pool",
+   "speed": 0.11,
+   "amount": 0.3,
+   "phase": 0.0
   },
   {
    "id": "Fan_Spin",
@@ -2693,6 +2745,27 @@
    "res": 32,
    "notes": "Stage 59: laser gate beams"
   },
+  "light_pool": {
+   "type": "pool_fade",
+   "color": [
+    1.0,
+    0.45,
+    0.95
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 256,
+   "alpha": 0.3,
+   "falloff": 2.2,
+   "bars": 12,
+   "emissive": [
+    1.0,
+    0.4,
+    0.9
+   ],
+   "notes": "Stage 130: where the dome's light lands on the slime"
+  },
   "mace": {
    "type": "industrial_metal",
    "color": [
@@ -2925,26 +2998,54 @@
   "sunbeam": {
    "type": "beam_fade",
    "color": [
-    0.95,
-    0.5,
-    0.9
+    0.97,
+    0.55,
+    0.92
    ],
    "tile_m": 4.0,
    "wear": 0.5,
    "bevel": 0.12,
-   "res": 64,
-   "alpha": 0.1,
-   "fade_in": 0.1,
+   "res": 128,
+   "alpha": 0.16,
+   "fade_in": 0.08,
+   "fade_out": [
+    0.52,
+    0.9
+   ],
+   "streaks": 5,
+   "streak_amount": 0.55,
+   "emissive": [
+    0.95,
+    0.45,
+    0.9
+   ],
+   "notes": "Stage 130: god rays through the rib gaps - streaky, fade in below the roof, magenta-purple like the sky"
+  },
+  "sunbeam_haze": {
+   "type": "beam_fade",
+   "color": [
+    0.92,
+    0.5,
+    0.95
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 256,
+   "alpha": 0.058,
+   "fade_in": 0.06,
    "fade_out": [
     0.5,
-    0.88
+    0.93
    ],
+   "streaks": 17,
+   "streak_amount": 0.7,
    "emissive": [
-    0.9,
-    0.4,
-    0.85
+    0.85,
+    0.42,
+    0.9
    ],
-   "notes": "Stage 129: magenta-purple light shafts matching the real sky; fade in from nothing below the roof"
+   "notes": "Stage 130: the volume of light under the dome - nested soft cones, streaked"
   },
   "trim": {
    "type": "chevron",
@@ -17793,12 +17894,12 @@
    "source": "inferred"
   },
   {
-   "name": "Dome_Shaft_1",
+   "name": "Dome_Haze_1",
    "type": "beam_cone",
    "position": [
-    20.076,
+    14.0,
     0.6,
-    -26.396
+    -26.731
    ],
    "rotation": [
     -12.0,
@@ -17806,13 +17907,103 @@
     0.0
    ],
    "size": [
-    3.467,
+    36.472,
     34.964,
-    3.467
+    36.472
+   ],
+   "material": "sunbeam_haze",
+   "sections": 24,
+   "bottom_scale": 1.12,
+   "collision": false,
+   "outline": false,
+   "double_sided": true,
+   "mobile": {
+    "group": "Sunbeams"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Dome_Haze_2",
+   "type": "beam_cone",
+   "position": [
+    14.0,
+    0.6,
+    -26.731
+   ],
+   "rotation": [
+    -12.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    26.384,
+    34.964,
+    26.384
+   ],
+   "material": "sunbeam_haze",
+   "sections": 24,
+   "bottom_scale": 1.12,
+   "collision": false,
+   "outline": false,
+   "double_sided": true,
+   "mobile": {
+    "group": "Sunbeams"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Dome_Haze_3",
+   "type": "beam_cone",
+   "position": [
+    14.0,
+    0.6,
+    -26.731
+   ],
+   "rotation": [
+    -12.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    16.296,
+    34.964,
+    16.296
+   ],
+   "material": "sunbeam_haze",
+   "sections": 24,
+   "bottom_scale": 1.12,
+   "collision": false,
+   "outline": false,
+   "double_sided": true,
+   "mobile": {
+    "group": "Sunbeams"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Dome_Shaft_1",
+   "type": "beam_cone",
+   "position": [
+    15.882,
+    0.6,
+    -33.753
+   ],
+   "rotation": [
+    -12.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.486,
+    34.964,
+    4.486
    ],
    "material": "sunbeam",
    "sections": 12,
-   "bottom_scale": 1.7,
+   "bottom_scale": 1.277617175979695,
    "collision": false,
    "outline": false,
    "double_sided": true,
@@ -17826,9 +18017,9 @@
    "name": "Dome_Shaft_2",
    "type": "beam_cone",
    "position": [
-    19.752,
+    9.855,
     0.6,
-    -17.592
+    -11.261
    ],
    "rotation": [
     -12.0,
@@ -17836,13 +18027,13 @@
     0.0
    ],
    "size": [
-    6.176,
+    1.942,
     34.964,
-    6.176
+    1.942
    ],
    "material": "sunbeam",
    "sections": 12,
-   "bottom_scale": 1.7,
+   "bottom_scale": 1.2870815801210214,
    "collision": false,
    "outline": false,
    "double_sided": true,
@@ -17856,9 +18047,9 @@
    "name": "Dome_Shaft_3",
    "type": "beam_cone",
    "position": [
-    7.602,
+    21.69,
     0.6,
-    -19.898
+    -24.67
    ],
    "rotation": [
     -12.0,
@@ -17866,13 +18057,13 @@
     0.0
    ],
    "size": [
-    3.452,
+    4.657,
     34.964,
-    3.452
+    4.657
    ],
    "material": "sunbeam",
    "sections": 12,
-   "bottom_scale": 1.7,
+   "bottom_scale": 1.2808845511770381,
    "collision": false,
    "outline": false,
    "double_sided": true,
@@ -17886,9 +18077,9 @@
    "name": "Dome_Shaft_4",
    "type": "beam_cone",
    "position": [
-    9.828,
+    4.906,
     0.6,
-    -31.587
+    -35.825
    ],
    "rotation": [
     -12.0,
@@ -17896,13 +18087,13 @@
     0.0
    ],
    "size": [
-    3.539,
+    5.058,
     34.964,
-    3.539
+    5.058
    ],
    "material": "sunbeam",
    "sections": 12,
-   "bottom_scale": 1.7,
+   "bottom_scale": 1.3082027957957154,
    "collision": false,
    "outline": false,
    "double_sided": true,
@@ -17916,9 +18107,9 @@
    "name": "Dome_Shaft_5",
    "type": "beam_cone",
    "position": [
-    15.533,
+    3.234,
     0.6,
-    -36.377
+    -23.846
    ],
    "rotation": [
     -12.0,
@@ -17926,13 +18117,194 @@
     0.0
    ],
    "size": [
-    3.482,
+    4.206,
     34.964,
-    3.482
+    4.206
    ],
    "material": "sunbeam",
    "sections": 12,
-   "bottom_scale": 1.7,
+   "bottom_scale": 1.4802500252729578,
+   "collision": false,
+   "outline": false,
+   "double_sided": true,
+   "mobile": {
+    "group": "Sunbeams"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Dome_Shaft_6",
+   "type": "beam_cone",
+   "position": [
+    21.543,
+    0.6,
+    -34.274
+   ],
+   "rotation": [
+    -12.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.014,
+    34.964,
+    3.014
+   ],
+   "material": "sunbeam",
+   "sections": 12,
+   "bottom_scale": 1.3925541563668773,
+   "collision": false,
+   "outline": false,
+   "double_sided": true,
+   "mobile": {
+    "group": "Sunbeams"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Dome_Shaft_7",
+   "type": "beam_cone",
+   "position": [
+    1.635,
+    0.6,
+    -30.044
+   ],
+   "rotation": [
+    -12.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.329,
+    34.964,
+    2.329
+   ],
+   "material": "sunbeam",
+   "sections": 12,
+   "bottom_scale": 1.5005898599608103,
+   "collision": false,
+   "outline": false,
+   "double_sided": true,
+   "mobile": {
+    "group": "Sunbeams"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Dome_Shaft_8",
+   "type": "beam_cone",
+   "position": [
+    8.506,
+    0.6,
+    -21.237
+   ],
+   "rotation": [
+    -12.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.806,
+    34.964,
+    1.806
+   ],
+   "material": "sunbeam",
+   "sections": 12,
+   "bottom_scale": 1.3253560348218534,
+   "collision": false,
+   "outline": false,
+   "double_sided": true,
+   "mobile": {
+    "group": "Sunbeams"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Dome_Shaft_9",
+   "type": "beam_cone",
+   "position": [
+    21.11,
+    0.6,
+    -19.62
+   ],
+   "rotation": [
+    -12.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.799,
+    34.964,
+    4.799
+   ],
+   "material": "sunbeam",
+   "sections": 12,
+   "bottom_scale": 1.5656130219373567,
+   "collision": false,
+   "outline": false,
+   "double_sided": true,
+   "mobile": {
+    "group": "Sunbeams"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Dome_Shaft_10",
+   "type": "beam_cone",
+   "position": [
+    10.274,
+    0.6,
+    -40.638
+   ],
+   "rotation": [
+    -12.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.524,
+    34.964,
+    1.524
+   ],
+   "material": "sunbeam",
+   "sections": 12,
+   "bottom_scale": 1.443246327976626,
+   "collision": false,
+   "outline": false,
+   "double_sided": true,
+   "mobile": {
+    "group": "Sunbeams"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Dome_Pool",
+   "type": "dome_shell",
+   "position": [
+    14.0,
+    1.06,
+    -26.731
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    45.629,
+    0.02,
+    45.629
+   ],
+   "material": "light_pool",
+   "sections": 32,
+   "rings": 4,
+   "uv": "planar",
    "collision": false,
    "outline": false,
    "double_sided": true,
@@ -76173,16 +76545,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 51996,
-  "objects": 2280,
-  "materials": 36,
-  "glb_kb": 3689,
-  "nodes": 2504,
-  "draw_calls_unbatched": 2474,
-  "draw_calls_batched_min": 38,
-  "images": 102,
-  "tex_mem_gpu_compressed_mb": 23.75,
-  "tex_mem_uncompressed_mb": 94.98,
+  "triangles": 52484,
+  "objects": 2289,
+  "materials": 38,
+  "glb_kb": 3758,
+  "nodes": 2513,
+  "draw_calls_unbatched": 2483,
+  "draw_calls_batched_min": 40,
+  "images": 107,
+  "tex_mem_gpu_compressed_mb": 24.21,
+  "tex_mem_uncompressed_mb": 96.84,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

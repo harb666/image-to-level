@@ -333,23 +333,66 @@
       "sunbeam": {
         "type": "beam_fade",
         "color": [
-          0.95,
-          0.5,
+          0.97,
+          0.55,
+          0.92
+        ],
+        "res": 128,
+        "alpha": 0.16,
+        "fade_in": 0.08,
+        "fade_out": [
+          0.52,
           0.9
         ],
-        "res": 64,
-        "alpha": 0.1,
-        "fade_in": 0.1,
+        "streaks": 5,
+        "streak_amount": 0.55,
+        "emissive": [
+          0.95,
+          0.45,
+          0.9
+        ],
+        "notes": "Stage 130: god rays through the rib gaps - streaky, fade in below the roof, magenta-purple like the sky"
+      },
+      "sunbeam_haze": {
+        "type": "beam_fade",
+        "color": [
+          0.92,
+          0.5,
+          0.95
+        ],
+        "res": 256,
+        "alpha": 0.058,
+        "fade_in": 0.06,
         "fade_out": [
           0.5,
-          0.88
+          0.93
         ],
+        "streaks": 17,
+        "streak_amount": 0.7,
         "emissive": [
-          0.9,
-          0.4,
-          0.85
+          0.85,
+          0.42,
+          0.9
         ],
-        "notes": "Stage 129: magenta-purple light shafts matching the real sky; fade in from nothing below the roof"
+        "notes": "Stage 130: the volume of light under the dome - nested soft cones, streaked"
+      },
+      "light_pool": {
+        "type": "pool_fade",
+        "color": [
+          1.0,
+          0.45,
+          0.95
+        ],
+        "res": 256,
+        "alpha": 0.3,
+        "falloff": 2.2,
+        "bars": 12,
+        "emissive": [
+          1.0,
+          0.4,
+          0.9
+        ],
+        "notes": "Stage 130: where the dome's light lands on the slime"
       }
     }
   },
@@ -404,7 +447,7 @@
         "ribs": 12,
         "rings": 8,
         "collar": 2.5,
-        "shafts": 5,
+        "shafts": 10,
         "shaft_tilt": 12.0,
         "notes": "Stage 126-129: massive open-frame dome over the north half (user request): the level's real sky shows through it (HD panorama, a skylight cut in the background factory roof), magenta-purple light shafts and lights matching it",
         "glazed": false,
@@ -414,7 +457,12 @@
           0.9
         ],
         "sky_shell": false,
-        "sky_width": 4096
+        "sky_width": 4096,
+        "haze": [
+          0.94,
+          0.68,
+          0.42
+        ]
       }
     }
   },

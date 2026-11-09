@@ -972,7 +972,19 @@ def k_beam_fade(S, rng, c, m):
     x, y = _xy(S); v = 1.0 - y  # image rows run top-down, UV v bottom-up
     def ss(a, b, t): t = np.clip((t - a) / (b - a), 0, 1); return t * t * (3 - 2 * t)
     fo = m.get("fade_out", [0.45, 0.9]); a = ss(0.0, float(m.get("fade_in", 0.12)), v) * (1 - ss(fo[0], fo[1], v))
+    if m.get("streaks"):  # Stage 130: rays within the beam - denser and thinner streaks round it (periodic in u: no seam)
+        st = np.zeros_like(x); n = int(m["streaks"])
+        for f in range(1, 4): st += np.sin(2 * np.pi * (x * n * f + rng.uniform(0, 1))) / f + np.sin(2 * np.pi * (x * (n + 3) * f + rng.uniform(0, 1))) / (2 * f)
+        st = (st - st.min()) / (np.ptp(st) + 1e-9); k = float(m.get("streak_amount", 0.6)); a = a * ((1 - k) + k * st ** 1.5 * 1.6)
     return dict(alb=np.broadcast_to(c, (S, S, 3)).copy(), h=np.zeros((S, S)), rough=np.full((S, S), 0.9), metal=0.0, emit=np.ones((S, S)), nstr=0.0, alpha=a)
+
+
+def k_pool_fade(S, rng, c, m):
+    """Stage 130: a soft pool of light on the floor (flat dome_shell, "uv": "planar"): alpha falls off from the centre to
+    nothing at the rim, broken up a little by the dome's frame ("bars": rib count -> faint darker spokes)."""
+    x, y = _xy(S); r = np.clip(np.hypot(x - 0.5, y - 0.5) * 2, 0, 1); a = (1 - r) ** float(m.get("falloff", 1.4))
+    if m.get("bars"): ang = np.arctan2(y - 0.5, x - 0.5); a = a * (1 - 0.35 * np.clip(np.cos(ang * int(m["bars"])) * 4 - 3, 0, 1) * (r > 0.15))
+    return dict(alb=np.broadcast_to(c, (S, S, 3)).copy(), h=np.zeros((S, S)), rough=np.full((S, S), 0.9), metal=0.0, emit=np.ones((S, S)), nstr=0.0, alpha=np.clip(a, 0, 1))
 
 
 def k_image_decal(S, rng, c, m):

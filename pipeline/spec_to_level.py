@@ -269,6 +269,12 @@ def _effects(spec, ctx, plats, env, glow):
         if fl: out.append(dict(id="Fan_Lights", type="point_light", positions=[q[:3] for q in fl], color=[1.0, 0.8, 0.3], energy=1.0, range=16.0))  # Stage 39
         dl = getattr(ctx, "dome_lights", [])
         if dl: out.append(dict(id="Dome_Light", type="point_light", positions=[list(map(float, q)) for q in dl], color=list(getattr(ctx, "dome_light_color", [1.0, 0.82, 0.36])), energy=1.3, range=34.0))  # Stage 126: daylight through the glass dome (fan-light yellow)
+        dmo = getattr(ctx, "dome_motes", None)
+        if dmo:  # Stage 130: dust drifting in the dome's light (the rays catch it), the beams breathing slowly
+            c_ = list(getattr(ctx, "dome_light_color", [1.0, 0.8, 0.5]))
+            out.append(dict(id="Dome_Motes", type="ambient_particles", area=dmo["area"], count=180, lifetime=10.0, speed=[0.04, 0.18], size=[0.08, 0.2], alpha=0.85, color=c_))
+            for m_ in ("sunbeam", "sunbeam_haze", "light_pool"):
+                if m_ in ctx.roles: out.append(dict(id="Dome_Breath_" + m_, type="pulse_light", target_material=m_, speed=0.11 if m_ != "sunbeam" else 0.17, amount=0.3, phase=1.3 if m_ == "sunbeam" else 0.0))
         spins = [o["name"] for o in ctx.objects if o.get("spin")]
         if spins: out.append(dict(id="Fan_Spin", type="spin", targets=spins))  # Stage 19: rotating fan rotors
         for ln_, A_ in getattr(ctx, "assembly", {}).items():  # Stage 61: working assembly lines (parcels, arm dips, part reveals)

@@ -371,13 +371,13 @@ class GlassDome(unittest.TestCase):
         self.assertNotIn("Dome_Sky", self.by)  # Stage 129: no painted sky shell - the level's real sky shows through
         self.assertGreaterEqual(sum(1 for n in self.by if n.startswith("Dome_Rib_")), D["ribs"] * 6)
         for n, o in self.by.items():
-            if n.startswith("Dome_") and not n.startswith("Dome_Shaft"): self.assertTrue(o.get("cutaway"), n)
+            if n.startswith("Dome_") and not n.startswith(("Dome_Shaft", "Dome_Haze", "Dome_Pool")): self.assertTrue(o.get("cutaway"), n)  # the light lives in the hall, not the roof
 
     def test_light_is_purple_like_the_sky(self):
         """Stage 128/129: the light shafts and the lights under the dome are magenta-purple, matching the real sky."""
         M = self.L["materials"]; ray = M["sunbeam"]; sky = self.L["environment"]["sky"]
         for c in (sky["upper"], ray["color"]): self.assertTrue(c[2] > c[1] and c[0] > c[1], c)  # purple: red + blue over green
-        self.assertLess(ray["alpha"], 0.15)  # faint shafts
+        self.assertLess(ray["alpha"], 0.2)  # see-through shafts (Stage 130: fuller, still translucent)
         E = {e["id"]: e for e in _load("effects.json")["effects"]}; dl = E["Dome_Light"]; self.assertEqual(dl["type"], "point_light")
         self.assertLess(max(abs(a - b) for a, b in zip(dl["quality"]["balanced"]["params"]["color"], ray["color"])), 0.1)
         self.assertGreaterEqual(len(dl["emitters"]), 3)
@@ -400,7 +400,23 @@ class GlassDome(unittest.TestCase):
         for o in sh: self.assertEqual(o["type"], "beam_cone")
         m = M[sh[0]["material"]]; self.assertEqual(m["type"], "beam_fade"); self.assertLess(m["fade_out"][1], 1.0); self.assertGreater(m["fade_in"], 0)
         import sys; sys.path.insert(0, os.path.join(ROOT, "pipeline")); import materials
-        a = materials.maps(m)["alpha"]; self.assertEqual(a[0].max(), 0.0); self.assertLess(a[-1].max(), 0.1); self.assertGreater(a[a.shape[0] // 2].min(), 0.9)
+        a = materials.maps(m)["alpha"]; self.assertEqual(a[0].max(), 0.0); self.assertLess(a[-1].max(), 0.1); self.assertGreater(a[a.shape[0] // 2].mean(), 0.6)
+        mid = a[a.shape[0] // 2]; self.assertGreater(mid.max() - mid.min(), 0.3)  # Stage 130: streaks - rays within the beam
+
+    def test_god_rays_are_full(self):
+        """Stage 130: a soft volume of nested cones under the dome, parallel rays through the gaps between the ribs, a pool
+        of light where it lands on the slime, dust motes drifting in it and the beams breathing slowly."""
+        D = _load("scene_spec.json")["arena"]["ceiling"]["dome"]; (dx, dz), R = D["at"], D["radius"]
+        haze = [o for n, o in self.by.items() if n.startswith("Dome_Haze_")]; self.assertEqual(len(haze), 3)
+        self.assertEqual(len({round(o["size"][0], 2) for o in haze}), 3)  # nested, different widths
+        sh = [o for n, o in self.by.items() if n.startswith("Dome_Shaft_")]; self.assertGreaterEqual(len(sh), 8)
+        self.assertEqual(len({tuple(o["rotation"]) for o in sh + haze}), 1)  # all parallel: one light direction
+        for o in sh:  # each ray's top sits in a gap between two ribs
+            W, _ = __import__("anchors").world_matrices(self.L); T = W[o["name"]] @ [0, o["size"][1], 0, 1]
+            a = math.degrees(math.atan2(T[2] - dz, T[0] - dx)) % (360 / D["ribs"]); self.assertAlmostEqual(a, 180 / D["ribs"], delta=0.5)
+        self.assertEqual(self.L["materials"][self.by["Dome_Pool"]["material"]]["type"], "pool_fade")
+        E = {e["id"]: e for e in _load("effects.json")["effects"]}
+        self.assertEqual(E["Dome_Motes"]["type"], "ambient_particles"); self.assertIn("Dome_Breath_sunbeam", E)
 
     def test_ceiling_dressing_keeps_clear_of_the_dome(self):
         D = _load("scene_spec.json")["arena"]["ceiling"]["dome"]; (dx, dz), R = D["at"], D["radius"]

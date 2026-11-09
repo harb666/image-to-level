@@ -1390,4 +1390,9 @@ Building blocks usable without the preset:
   the 512 px ambient-only one of roofed levels (sharp clouds), and a `factory_interior` background layer takes
   `"roof_hole": [x0, z0, x1, z1]` (shell + lights parts) to open its roof above the dome. Shafts / lights tinted to the
   sky's magenta-purple.
+- Stage 130: fuller god rays - `"haze"` (radius fractions, default [0.94, 0.68, 0.42]) nested soft cones under the dome
+  (role `sunbeam_haze`), `"shafts"` (10) parallel rays whose tops sit in the gaps between the ribs, all leaning one
+  light direction; `beam_fade` `"streaks"` / `"streak_amount"` give rays within each beam; a `pool_fade` disc
+  (`Dome_Pool`, role `light_pool`, faint rib spokes) where the light lands on the liquid; effects `Dome_Motes` (dust
+  drifting in the light, the light colour) and `Dome_Breath_*` (pulse_light: the beams breathe slowly).
 

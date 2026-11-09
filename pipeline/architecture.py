@@ -794,11 +794,18 @@ def glass_dome(ctx, pre, D, dx, dz, R, y, th, tag):
         a0, a1 = 2 * math.pi * i / nr, 2 * math.pi * (i + 1) / nr; strut(f"{n}Ring_{nk - 1}_{i + 1:02d}", P(a0, nk - 1), P(a1, nk - 1), 0.3)
     sh = dict(collision=False, outline=False, double_sided=True, mobile={"group": "Sunbeams"})
     rng = np.random.default_rng(_h(n + "shafts")); tilt = float(D.get("shaft_tilt", 12.0)); floor_y = getattr(ctx, "floor_y", 0.0) - 0.4
-    for i in range(int(D.get("shafts", 5))):  # light shafts: top just under the glass (inside the hole), leaning with the light
-        a = 2 * math.pi * (i + rng.uniform(-0.2, 0.2)) / max(1, int(D.get("shafts", 5))); rr = R * rng.uniform(0.15, 0.6); r0 = rng.uniform(1.6, 3.2)
-        tx, tz = dx + rr * math.cos(a), dz + rr * math.sin(a); L_ = (y + 0.3 - floor_y) / math.cos(math.radians(tilt))
-        bx, bz = tx, tz + L_ * math.sin(math.radians(tilt))  # the base leans south of the top (light from the north)
-        ctx.add(f"{n}Shaft_{i + 1}", "beam_cone", [bx, floor_y, bz], [2 * r0, L_, 2 * r0], ctx.role(D.get("shaft", "sunbeam")), None, [-tilt, 0, 0], sections=12, bottom_scale=1.7, **sh)  # Stage 127: open, fading out before the roof
+    tl = math.radians(tilt); L_ = (y + 0.3 - floor_y) / math.cos(tl); lean = L_ * math.sin(tl)  # every ray parallel: one light direction
+    def beam(nm, tx, tz, r0, k, mat):  # top (tx, tz) just under the frame, base leaning south (light from the north)
+        ctx.add(nm, "beam_cone", [tx, floor_y, tz + lean], [2 * r0, L_, 2 * r0], mat, None, [-tilt, 0, 0], sections=24 if r0 > 6 else 12, bottom_scale=k, **sh)
+    for i, f in enumerate(D.get("haze", [0.94, 0.68, 0.42])):  # Stage 130: the volume - nested soft cones, denser at the core, no hard edge
+        beam(f"{n}Haze_{i + 1}", dx, dz, (R - 0.6) * f, 1.12, ctx.role(D.get("haze_material", "sunbeam_haze")))
+    nr_, k_ = int(D.get("ribs", 12)), 0
+    for gi in rng.permutation(nr_)[:int(D.get("shafts", 10))]:  # rays through the gaps between the ribs (mid-gap angle), varied reach and width
+        a = 2 * math.pi * (gi + 0.5) / nr_; rr = R * rng.uniform(0.3, 0.82); r0 = rng.uniform(0.9, 2.8) * (0.6 if rr > R * 0.7 else 1.0); k_ += 1
+        beam(f"{n}Shaft_{k_}", dx + rr * math.cos(a), dz + rr * math.sin(a), r0, rng.uniform(1.25, 1.6), ctx.role(D.get("shaft", "sunbeam")))
+    py = getattr(ctx, "floor_y", 0.0) + 0.06; pr = (R - 0.6) * 1.12 * 1.05  # where the light lands on the liquid (the cone's foot)
+    ctx.add(n + "Pool", "dome_shell", [dx, py, dz + lean], [2 * pr, 0.02, 2 * pr], ctx.role(D.get("pool", "light_pool")), sections=32, rings=4, uv="planar", **sh)
+    ctx.dome_motes = dict(area=[round(dx - R * 0.75, 2), round(floor_y + 3.0, 2), round(dz - R * 0.75 + lean * 0.5, 2), round(dx + R * 0.75, 2), round(y - 4.0, 2), round(dz + R * 0.75 + lean * 0.5, 2)])
     ctx.dome_light_color = D.get("light_color", [1.0, 0.82, 0.36]); ctx.dome_lights = getattr(ctx, "dome_lights", []) + [[dx, y - 8.0, dz]] + [[round(dx + R * 0.45 * math.cos(a), 2), y - 16.0, round(dz + R * 0.45 * math.sin(a), 2)] for a in (0.5, 2.6, 4.7)]
     ctx.notes.append(f"{pre}ceiling: glass dome r {R:.0f} m (rise {H:.0f} m) at ({dx:.0f}, {dz:.0f}), {nr} ribs, warm light shafts")
 

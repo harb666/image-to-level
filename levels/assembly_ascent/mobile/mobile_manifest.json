@@ -41,63 +41,63 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 3689,
-    "triangles": 60836,
-    "nodes": 2504,
-    "mesh_nodes": 2474,
-    "unique_meshes": 1125,
-    "materials": 38,
-    "images": 102,
-    "draw_calls_unbatched": 2474,
-    "draw_calls_batched_min": 38,
-    "tex_mem_uncompressed_mb": 94.98,
-    "tex_mem_gpu_compressed_mb": 23.75,
+    "glb_kb": 3758,
+    "triangles": 61324,
+    "nodes": 2513,
+    "mesh_nodes": 2483,
+    "unique_meshes": 1134,
+    "materials": 40,
+    "images": 107,
+    "draw_calls_unbatched": 2483,
+    "draw_calls_batched_min": 40,
+    "tex_mem_uncompressed_mb": 96.84,
+    "tex_mem_gpu_compressed_mb": 24.21,
     "texture_slots": {
-     "baseColorTexture": 35,
-     "metallicRoughnessTexture": 35,
+     "baseColorTexture": 37,
+     "metallicRoughnessTexture": 37,
      "normalTexture": 31,
-     "occlusionTexture": 35,
-     "emissiveTexture": 19
+     "occlusionTexture": 37,
+     "emissiveTexture": 21
     },
     "image_sizes": [
      "1024x1024 jpeg",
      "128x128 jpeg",
      "128x128 png",
      "256x256 jpeg",
+     "256x256 png",
      "32x32 jpeg",
      "512x512 jpeg",
      "512x512 png",
-     "64x64 jpeg",
-     "64x64 png"
+     "64x64 jpeg"
     ]
    },
    "visible": {
     "cameras": 104,
-    "visible_draw_calls_mean": 810.2,
-    "visible_draw_calls_max": 2466,
-    "visible_triangles_mean": 32038,
-    "visible_triangles_max": 71440
+    "visible_draw_calls_mean": 814.3,
+    "visible_draw_calls_max": 2475,
+    "visible_triangles_mean": 32286,
+    "visible_triangles_max": 71928
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 2218,
-    "triangles": 58654,
-    "nodes": 206,
-    "mesh_nodes": 122,
-    "unique_meshes": 122,
-    "materials": 38,
-    "images": 68,
-    "draw_calls_unbatched": 122,
-    "draw_calls_batched_min": 38,
-    "tex_mem_uncompressed_mb": 36.4,
-    "tex_mem_gpu_compressed_mb": 9.1,
+    "glb_kb": 2247,
+    "triangles": 59142,
+    "nodes": 208,
+    "mesh_nodes": 124,
+    "unique_meshes": 124,
+    "materials": 40,
+    "images": 72,
+    "draw_calls_unbatched": 124,
+    "draw_calls_batched_min": 40,
+    "tex_mem_uncompressed_mb": 38.17,
+    "tex_mem_gpu_compressed_mb": 9.54,
     "texture_slots": {
-     "baseColorTexture": 35,
-     "emissiveTexture": 19,
-     "metallicRoughnessTexture": 14,
+     "baseColorTexture": 37,
+     "emissiveTexture": 21,
+     "metallicRoughnessTexture": 16,
      "normalTexture": 10,
-     "occlusionTexture": 14
+     "occlusionTexture": 16
     },
     "image_sizes": [
      "128x128 webp",
@@ -139,22 +139,22 @@
    },
    "visible": {
     "cameras": 104,
-    "visible_draw_calls_mean": 67.7,
-    "visible_draw_calls_max": 125,
-    "visible_triangles_mean": 55421,
-    "visible_triangles_max": 69478
+    "visible_draw_calls_mean": 68.9,
+    "visible_draw_calls_max": 127,
+    "visible_triangles_mean": 55697,
+    "visible_triangles_max": 69966
    },
    "hidden_faces_removed": 901,
    "occluded_faces_removed": 1281,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate"
    ],
-   "effects_extra_draw_calls": 6,
-   "effects_max_particles": 651,
+   "effects_extra_draw_calls": 7,
+   "effects_max_particles": 831,
    "slimmed_kb": {
     "level_mobile.glb": [
-     3317,
-     2218
+     3376,
+     2247
     ],
     "background_mobile.glb": [
      477,
@@ -2219,18 +2219,49 @@
    "group": "Spinner_Rotor"
   },
   {
-   "node": "Sunbeams__sunbeam__2s",
+   "node": "Sunbeams__light_pool__2s",
    "kind": "group",
-   "material": "sunbeam__2s",
-   "triangles": 120,
+   "material": "light_pool__2s",
+   "triangles": 224,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Dome_Pool"
+   ],
+   "group": "Sunbeams"
+  },
+  {
+   "node": "Sunbeams__sunbeam__2s",
+   "kind": "group",
+   "material": "sunbeam__2s",
+   "triangles": 240,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Dome_Shaft_10",
+    "Dome_Shaft_9",
+    "Dome_Shaft_8",
+    "Dome_Shaft_7",
+    "Dome_Shaft_6",
     "Dome_Shaft_5",
     "Dome_Shaft_4",
     "Dome_Shaft_3",
     "Dome_Shaft_2",
     "Dome_Shaft_1"
+   ],
+   "group": "Sunbeams"
+  },
+  {
+   "node": "Sunbeams__sunbeam_haze__2s",
+   "kind": "group",
+   "material": "sunbeam_haze__2s",
+   "triangles": 144,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Dome_Haze_3",
+    "Dome_Haze_2",
+    "Dome_Haze_1"
    ],
    "group": "Sunbeams"
   },
