@@ -41,9 +41,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - corrosion: 587 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 1.8 s
-- build (glb, sky, background, effects, mobile): 29.4 s
-- checks (fast): 36.6 s
-- previews: 0.6 s
+- spec -> level.json: 1.5 s
+- build (glb, sky, background, effects, mobile): 30.0 s
+- checks (fast): 36.8 s
+- previews: 0.7 s
 - export package: 0.3 s
-- total: 68.7 s
+- total: 69.4 s

@@ -25,6 +25,15 @@ class PlayerCharacterPreview(unittest.TestCase):
             with open(p) as f: self.assertIn("window.PLAYER=", f.read(400000000))
 
 
+class ViewControls(unittest.TestCase):
+    def test_view_and_float_buttons_are_wired(self):
+        """Stage 115: the View button cycles modes again (Stage 114 had commented its handler out) and a Float button
+        toggles the free camera; neither handler may sit behind a // comment."""
+        with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()
+        for h in ("$('mode').onclick=", "$('floatb').onclick="):
+            line = next(l for l in v.split("\n") if h in l); self.assertNotIn("//", line.split(h)[0], h)
+
+
 class GameMovement(unittest.TestCase):
     def test_preview_moves_like_the_game(self):
         """Stage 114: the preview player moves with Construct Error's PlayerController numbers (config/gameplay.json

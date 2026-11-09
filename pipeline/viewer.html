@@ -26,7 +26,7 @@ body,button,#stick,#vert{-webkit-user-select:none;user-select:none;-webkit-touch
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head><body>
-<div id="hud"><button id="mode">View: 3rd person</button><button id="q">Quality: med</button><button id="fx" hidden>FX</button><button id="statsb">Stats</button><button id="shotb">📷</button><button id="reset">Respawn</button><button id="gateb" hidden>Gate: closed</button><button id="issb" hidden>⚠</button></div>
+<div id="hud"><button id="mode">View: 3rd person</button><button id="floatb">🛸 Float</button><button id="q">Quality: med</button><button id="fx" hidden>FX</button><button id="statsb">Stats</button><button id="shotb">📷</button><button id="reset">Respawn</button><button id="gateb" hidden>Gate: closed</button><button id="issb" hidden>⚠</button></div>
 <div id="stick"></div><div id="info"></div><div id="stats" hidden></div>
 <div id="vert" hidden><button id="upb">▲</button><button id="dnb">▼</button></div><button id="jumpb" hidden>Jump</button><button id="dodgeb" hidden>Dodge</button>
 <div id="sel" hidden></div><div id="shot" hidden><img id="shotimg" alt="Screenshot of the current view"><p>Press and hold the image to save or share it.</p><button id="shotclose">Close</button></div>
@@ -449,7 +449,7 @@ const ctr=meta.bounds_min.map((v,i)=>(v+meta.bounds_max[i])/2),ext=Math.max(meta
 const walking=()=>MODES[mode]==='3rd person'||MODES[mode]==='1st person';
 let fixedCam=null,jumpReq=false,dodgeReq=false;const G_={hv:new THREE.Vector2(),onFloor:true,coyote:0,buffer:0,airJumps:0,airDodges:0,dodgeT:0,dodgeCd:0,dodgeDir:new THREE.Vector3(),stickSprint:false}; // Stage 114: game movement state
 window.__G=()=>G_; // (test hook)
-function setMode(m){mode=m;fixedCam=null;const M=MODES[m];$('mode').textContent='View: '+M;orbit.enabled=M==='orbit'||M==='top-down';
+function setMode(m){mode=m;fixedCam=null;const M=MODES[m];$('mode').textContent='View: '+M;if($('floatb'))$('floatb').textContent=M==='free cam'?'🚶 Back':'🛸 Float';orbit.enabled=M==='orbit'||M==='top-down';
   $('stick').hidden=!(walking()||M==='free cam');$('vert').hidden=M!=='free cam';$('jumpb').hidden=!walking();$('dodgeb').hidden=!walking()||!GP.movement;
   if(M==='orbit'){orbit.enableRotate=true;orbit.screenSpacePanning=true;orbit.touches={ONE:THREE.TOUCH.ROTATE,TWO:THREE.TOUCH.DOLLY_PAN};orbit.mouseButtons={LEFT:THREE.MOUSE.ROTATE,MIDDLE:THREE.MOUSE.DOLLY,RIGHT:THREE.MOUSE.PAN};
     orbit.target.set(ctr[0],0,ctr[2]);cam.position.set(ctr[0]+ext*.4,ext*.6,ctr[2]+ext*.6);}
@@ -461,7 +461,9 @@ window.setMode=setMode;
 window.lookFrom=(px,py,pz,tx,ty,tz,fov=60)=>{orbit.enabled=false;fixedCam={p:new THREE.Vector3(px,py,pz),t:new THREE.Vector3(tx,ty,tz)};cam.fov=fov;cam.updateProjectionMatrix();
   $('stick').hidden=true;$('vert').hidden=true;$('jumpb').hidden=true;$('dodgeb').hidden=true;$('mode').textContent='View: inspect';};
 $('jumpb').onpointerdown=()=>{jumpReq=true;};addEventListener('keydown',e=>{if(e.code==='Space')jumpReq=true;if(e.code==='KeyF'||e.code==='KeyC')dodgeReq=true;});
-if($('dodgeb'))$('dodgeb').onpointerdown=()=>{dodgeReq=true;}; // Stage 114$('mode').onclick=()=>setMode((mode+1)%MODES.length);
+if($('dodgeb'))$('dodgeb').onpointerdown=()=>{dodgeReq=true;}; /* Stage 114 */
+$('mode').onclick=()=>setMode((mode+1)%MODES.length);
+let floatBack=0;$('floatb').onclick=()=>{const fc=MODES.indexOf('free cam');if(mode===fc)setMode(floatBack);else{floatBack=walking()?mode:0;setMode(fc);}}; // Stage 115: one tap to float (free cam from beside the player), tap again to drop back in
 $('info').textContent=(window.TRIS_LABEL||meta.triangles+' tris')+(env?' · '+env.sky.preset+' · '+env.quality:'')+(window.BUILD_ID?' · '+window.BUILD_ID:'');
 // quality: render resolution (+ effects level when the level has effects); remembered per device
 const QL=[['low',1,'performance'],['med',1.5,'balanced'],['high',2,'quality']];let ql=1;try{ql=+(localStorage.getItem('lvq')??1);}catch(e){}
