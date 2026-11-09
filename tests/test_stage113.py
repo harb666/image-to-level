@@ -34,6 +34,15 @@ class ViewControls(unittest.TestCase):
             line = next(l for l in v.split("\n") if h in l); self.assertNotIn("//", line.split(h)[0], h)
 
 
+class RisenPlatformsAreSolid(unittest.TestCase):
+    def test_skinned_ray_bounds_refreshed(self):
+        """Stage 116: risen (skinned) platforms are solid in the preview - three.js keeps a SkinnedMesh's raycast bounds
+        from its first raycast (sunk under the liquid), so the emerge effect drops them while the rig moves."""
+        with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()
+        i = v.index("fx.category==='emerge'"); seg = v[i:v.index("fx.category==='saw'", i)]
+        self.assertIn("pose(t-ts);sm.forEach(o=>{o.boundingSphere=null;o.boundingBox=null;});", seg)
+
+
 class GameMovement(unittest.TestCase):
     def test_preview_moves_like_the_game(self):
         """Stage 114: the preview player moves with Construct Error's PlayerController numbers (config/gameplay.json

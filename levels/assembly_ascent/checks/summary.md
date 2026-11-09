@@ -42,8 +42,8 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 
 ## Timing
 - spec -> level.json: 1.5 s
-- build (glb, sky, background, effects, mobile): 30.0 s
-- checks (fast): 36.8 s
+- build (glb, sky, background, effects, mobile): 28.4 s
+- checks (fast): 36.3 s
 - previews: 0.7 s
 - export package: 0.3 s
-- total: 69.4 s
+- total: 67.2 s
