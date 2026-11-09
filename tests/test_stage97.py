@@ -84,6 +84,7 @@ class AssemblyAscent(unittest.TestCase):
         with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_mobile.gd")) as f: self.assertIn('col.get("kills", [])', f.read())
         with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()
         self.assertIn("fx.category==='saw'", v); self.assertIn("window.belts", v)
+        self.assertIn("'pointercancel','lostpointercapture'", v); self.assertIn("-webkit-touch-callout:none", v)  # Stage 107: up / down never stick on iOS
 
 
 class SpinnerDeck(unittest.TestCase):

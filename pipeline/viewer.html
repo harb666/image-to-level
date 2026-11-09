@@ -6,7 +6,9 @@
 [hidden]{display:none!important}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--fg);font:13px system-ui;touch-action:none}
 #hud{position:fixed;top:8px;left:8px;right:8px;display:flex;gap:6px;flex-wrap:wrap}
-button{background:#0008;color:#fff;border:1px solid #fff4;border-radius:8px;padding:8px 10px;font:inherit}
+button{background:#0008;color:#fff;border:1px solid #fff4;border-radius:8px;padding:8px 10px;font:inherit;touch-action:none}
+body,button,#stick,#vert{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent} /* Stage 107: a long press never selects a label (iOS) */
+#vert button:active,#vert button.on{background:#fff3}
 #stick{position:fixed;left:24px;bottom:32px;width:110px;height:110px;border-radius:50%;background:#fff2;border:1px solid #fff4}
 #info{position:fixed;bottom:8px;right:8px;opacity:.7;text-shadow:0 1px 2px #000}
 #stats{position:fixed;top:96px;left:8px;background:#000a;padding:6px 8px;border-radius:8px;font:12px ui-monospace,monospace;white-space:pre;pointer-events:none}
@@ -506,13 +508,21 @@ if(ISS.length){const b=$('issb');b.hidden=false;b.textContent='⚠ '+ISS.length;
 const keys={};onkeydown=e=>keys[e.code]=1;onkeyup=e=>keys[e.code]=0;
 const mv={x:0,y:0},stick=$('stick');let sid=null,lid=null,lx=0,ly=0,tap=null,vert=0;
 const onUI=e=>e.target.closest&&e.target.closest('button,#sel,#shot');window.render1=()=>r.render(scene,cam);
-$('upb').onpointerdown=()=>vert=1;$('dnb').onpointerdown=()=>vert=-1;$('upb').onpointerup=$('dnb').onpointerup=$('upb').onpointerleave=$('dnb').onpointerleave=()=>vert=0;
+let vid=null; // Stage 107: up / down held only while that finger is down - released by up, cancel (iOS long press), lost capture, blur, all fingers lifted
+const vEnd=e=>{if(!e||vid===null||e.pointerId===vid){vert=0;vid=null;$('upb').classList.remove('on');$('dnb').classList.remove('on');}};
+for(const [b,d] of [[$('upb'),1],[$('dnb'),-1]]){b.onpointerdown=e=>{e.preventDefault();vid=e.pointerId;vert=d;b.classList.add('on');try{b.setPointerCapture(e.pointerId);}catch(_){}};
+  b.oncontextmenu=e=>e.preventDefault();for(const ev of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(ev,vEnd);}
+for(const ev of ['pointerup','pointercancel'])addEventListener(ev,vEnd);
+const allUp=()=>{vEnd();if(sid!==null){sid=null;mv.x=mv.y=0;}lid=null;tap=null;};addEventListener('blur',allUp);document.addEventListener('visibilitychange',()=>{if(document.hidden)allUp();});
+for(const ev of ['touchend','touchcancel'])addEventListener(ev,e=>{if(!e.touches.length)allUp();},{passive:true});
+addEventListener('selectstart',e=>e.preventDefault());addEventListener('contextmenu',e=>{if(onUI(e)||e.target===stick)e.preventDefault();});
 addEventListener('pointerdown',e=>{if(onUI(e))return;tap={x:e.clientX,y:e.clientY,t:performance.now(),id:e.pointerId};
   if(orbit.enabled)return;const b=stick.getBoundingClientRect();
   if(!stick.hidden&&e.clientX<b.right+20&&e.clientY>b.top-20&&sid===null)sid=e.pointerId;else{lid=e.pointerId;lx=e.clientX;ly=e.clientY;}});
 addEventListener('pointermove',e=>{if(e.pointerId===sid){const b=stick.getBoundingClientRect();
   mv.x=Math.max(-1,Math.min(1,(e.clientX-b.left-b.width/2)/50));mv.y=Math.max(-1,Math.min(1,(e.clientY-b.top-b.height/2)/50));}
   else if(e.pointerId===lid){yaw-=(e.clientX-lx)*0.005;pitch=Math.max(-1.3,Math.min(1.2,pitch-(e.clientY-ly)*0.005));lx=e.clientX;ly=e.clientY;}});
+addEventListener('pointercancel',e=>{if(e.pointerId===sid){sid=null;mv.x=mv.y=0}if(e.pointerId===lid)lid=null;tap=null;}); // Stage 107: the stick never sticks either
 addEventListener('pointerup',e=>{if(e.pointerId===sid){sid=null;mv.x=mv.y=0}if(e.pointerId===lid)lid=null;
   if(tap&&tap.id===e.pointerId&&e.pointerId!==sid&&Math.hypot(e.clientX-tap.x,e.clientY-tap.y)<8&&performance.now()-tap.t<350&&!onUI(e))pick(e.clientX,e.clientY);tap=null;});
 const ray=new THREE.Raycaster(),down=new THREE.Vector3(0,-1,0),UP=new THREE.Vector3(0,1,0);let last=performance.now();
