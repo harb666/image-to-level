@@ -45,6 +45,11 @@ if os.path.exists(fxp):  # Stage 4: effects metadata + particle sprites
     fx = json.load(open(fxp)); glob["FX"] = fx
     glob["FXTEX"] = {k: "data:image/png;base64," + b64(os.path.join(lvl, v)) for k, v in fx["textures"].items()}
 glob.update(TEXP=pool, TEX=tex)
+# Stage 113: the Construct Error player character instead of the capsule (assets/characters/<name>_preview.*: pipeline/player_preview.py)
+pl = next((a.split("=", 1)[1] for a in sys.argv if a.startswith("--player=")), "grinch")
+pp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "characters", pl + "_preview")
+if pl != "none" and os.path.exists(pp + ".glb"):
+    glob["PLAYER"] = b64(pp + ".glb"); glob["PLAYERTEX"] = "data:image/jpeg;base64," + b64(pp + ".jpg"); glob["PLAYERMETA"] = json.load(open(pp + ".json"))
 import hashlib, time  # footer: which build this is (so an old cached page is obvious) + the triangle count of what is shown
 glob["BUILD_ID"] = "build " + time.strftime("%m-%d %H:%M") + " " + hashlib.sha1(open(P("level.glb"), "rb").read()).hexdigest()[:6]
 if MOB and os.path.exists(os.path.join(lvl, "mobile", "pick.json")): glob["PICK"] = json.load(open(os.path.join(lvl, "mobile", "pick.json")))  # merged-node pick boxes

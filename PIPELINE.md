@@ -375,3 +375,14 @@ renders are the three.js preview (SwiftShader), not Godot; Godot scripts/.tres u
 placeholders until Construct Error's are supplied.
 Depth scale is a guess; building detail is a fixed recipe (door/windows/trim), not read from the image; small props
 < 1 m² are lost; arches/bridges not specially detected; anything not connected to the walkable area is dropped; material guess is colour-only.
+
+## Stage 113: Construct Error player character in the previews
+- `pipeline/player_preview.py <character.glb> assets/characters/<name>_preview` makes a light preview copy of a game
+  character (skinned mesh + skeleton unchanged; only the idle / walk / run / sprint / jump / fall clips; no embedded
+  images; base colour resized to a 1024 JPEG; provenance in the .json). The Construct Error repo is only read.
+- `make_preview.py` embeds `assets/characters/grinch_preview.*` (`--player=<name>`, `--player=none` for the capsule);
+  viewer.html swaps the blue capsule for it: idle / walk / run / sprint by ground speed, jump / fall in the air,
+  turning to face where it moves (preview only - the game uses its own player scene).
+- Current: the Grinch (CONSTRUCT-ERROR_V1 branch claude/movement-prototype, assets/characters/grinch/grinch.glb, the
+  roster's default character), 58k triangles, 6 clips, ~4.4 MB (+ ~6 MB base64 in each preview page).
+
