@@ -723,7 +723,25 @@ def crusher(ctx, s, x, y, z, yaw):
     ctx.add(n + "_Column", "cylinder", [0, 1.7, 0], [2 * R, top - 1.6 - 1.7 + 0.05, 2 * R], "pipe", g, sections=12, **st)
     for k, by_ in enumerate((2.6, 4.2)): ctx.add(f"{n}_Rib_{k + 1}", "cylinder", [0, by_, 0], [2 * R + 0.24, 0.3, 2 * R + 0.24], "structure_b", g, sections=12, outline=False, **vs)
     ctx.add(n + "_Brace", "frustum", [0, top - 1.6, 0], [P - 0.2, 1.0, P - 0.2], "structure_b", g, sections=4, bottom_scale=0.45, **st)
-    ctx.add(n + "_Pad", "box", [0, top - 0.6, 0], [P, 0.6, P], "structure_b", g, **st)
+    Ls_ = float(s.get("spike_len", 0.9)) if s.get("spikes") else 0.0; holes = bool(Ls_) and s.get("spike_holes", True)
+    if holes:  # Stage 125: sockets in the pad's top layer under every tooth - the head comes right down and the teeth sink in
+        m_ = max(2, int((P - 0.4) / 0.75)); cs_ = [-(P - 0.6) / 2 + (P - 0.6) * (i + 0.5) / m_ for i in range(m_)]; hs = 0.32; dh = 0.3
+        ctx.add(n + "_Pad", "box", [0, top - 0.6, 0], [P, 0.6 - dh, P], "structure_b", g, **st)  # the solid lower layer (the sockets' floor)
+        edges = [-P / 2] + [v for c_ in cs_ for v in (c_ - hs, c_ + hs)] + [P / 2]; k_ = 0
+        for zi in range(len(edges) - 1):  # top layer: full strips between socket rows, short blocks between sockets in a row
+            z0_, z1_ = edges[zi], edges[zi + 1]
+            if z1_ - z0_ < 1e-6: continue
+            if zi % 2 == 0:
+                k_ += 1; ctx.add(f"{n}_PadTop_{k_:02d}", "box", [0, top - dh, (z0_ + z1_) / 2], [P, dh, z1_ - z0_], "structure_b", g, **st)
+            else:
+                for xi in range(0, len(edges) - 1, 2):
+                    x0_, x1_ = edges[xi], edges[xi + 1]
+                    if x1_ - x0_ > 1e-6: k_ += 1; ctx.add(f"{n}_PadTop_{k_:02d}", "box", [(x0_ + x1_) / 2, top - dh, (z0_ + z1_) / 2], [x1_ - x0_, dh, z1_ - z0_], "structure_b", g, **st)
+        for i, cx_ in enumerate(cs_):  # a dark ring lip round each socket (flush, 1 cm proud)
+            for j, cz_ in enumerate(cs_):
+                ctx.add(f"{n}_Socket_{i * m_ + j + 1:02d}", "box", [cx_, top - dh - 0.002, cz_], [2 * hs - 0.02, 0.01, 2 * hs - 0.02], "machine", g, outline=False, **vs)
+    else:
+        ctx.add(n + "_Pad", "box", [0, top - 0.6, 0], [P, 0.6, P], "structure_b", g, **st)
     for k, (ox, oz, sx, sz) in enumerate(((0, P / 2 - 0.17, P - 0.04, 0.3), (0, -P / 2 + 0.17, P - 0.04, 0.3), (P / 2 - 0.17, 0, 0.3, P - 0.64), (-P / 2 + 0.17, 0, 0.3, P - 0.64))):
         ctx.add(f"{n}_Pad_Stripe_{k + 1}", "box", [ox, top - 0.02, oz], [sx, 0.04, sz], "stripe", g, outline=False, **vs)  # hazard-striped rim (2 cm proud, 2 cm in from the edges)
     for k, sd in enumerate((-1, 1)): ctx.add(f"{n}_Pad_Lamp_{k + 1}", "box", [sd * (P / 2 + 0.03), top - 0.35, 0], [0.06, 0.18, P * 0.6], "glow", g, outline=False, **vs)
@@ -749,7 +767,7 @@ def crusher(ctx, s, x, y, z, yaw):
     ctx.add(n + "_Rod", "cylinder", [0, hy + hh - 0.05, 0], [0.9, Lr + 0.05, 0.9], "rail", g, sections=12, **ram)
     ctx.add(n + "_Collar", "cylinder", [0, hy + hh - 0.02, 0], [1.5, 0.35, 1.5], "structure_b", g, sections=12, **ram)
     a = math.radians(yaw); hx, hz = abs(math.cos(a)) * P / 2 + abs(math.sin(a)) * P / 2, abs(math.sin(a)) * P / 2 + abs(math.cos(a)) * P / 2
-    ctx.crushers = getattr(ctx, "crushers", []) + [dict(id=n, group=n + "_Ram", warn_group=n + "_Warn", travel=round(up - Ls, 3), period=float(s.get("period", 4.5)), phase=float(s.get("phase", 0.0)),
+    ctx.crushers = getattr(ctx, "crushers", []) + [dict(id=n, group=n + "_Ram", warn_group=n + "_Warn", travel=round(up - 0.02 if holes else up - Ls, 3), period=float(s.get("period", 4.5)), phase=float(s.get("phase", 0.0)),  # Stage 125: with sockets the head itself lands
                                                         warn=0.7, down=0.22, hold=0.45, rise=1.2,
                                                         kill=[[round(x - hx + 0.05, 3), top, round(z - hz + 0.05, 3)], [round(x + hx - 0.05, 3), round(top + 2.0, 3), round(z + hz - 0.05, 3)]])]
     ctx.walkable.append(dict(name=n + "_Pad", min=[round(x - hx, 3), round(z - hz, 3)], max=[round(x + hx, 3), round(z + hz, 3)], y=top))

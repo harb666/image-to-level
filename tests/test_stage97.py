@@ -62,7 +62,15 @@ class AssemblyAscent(unittest.TestCase):
 
     def test_spiked_press_and_laser_gates(self):
         c = next(c for c in self.L["crushers"] if c["id"] == "Spike_Press")
-        self.assertAlmostEqual(c["travel"], 5.4 - 0.9, places=3)  # the spike tips (not the head) reach the pad
+        self.assertAlmostEqual(c["travel"], 5.4 - 0.02, places=3)  # Stage 125: the head lands on the pad, the teeth sink into sockets
+        self.assertEqual((c["period"], c["phase"]), (4.0, 0.0))  # the slam cycle survives into effects (viewer / Godot need it)
+        O = {o["name"]: o for o in self.L["objects"]}
+        teeth = sorted((round(o["position"][0], 3), round(o["position"][2], 3)) for k, o in O.items() if k.startswith("Spike_Press_Spike_"))
+        socks = {k: o for k, o in O.items() if k.startswith("Spike_Press_Socket_")}
+        self.assertEqual(sorted((round(o["position"][0], 3), round(o["position"][2], 3)) for o in socks.values()), teeth)  # one socket under every tooth
+        for o in socks.values():
+            self.assertGreater(o["size"][0], O["Spike_Press_Spike_01"]["size"][0])  # the tooth fits inside its socket
+        self.assertTrue(any(k.startswith("Spike_Press_PadTop_") for k in O))  # the pad's top layer is split round the sockets
         self.assertGreaterEqual(sum(1 for n in self.by if n.startswith("Spike_Press_Spike_")), 4)
         G = {g["id"]: g for g in self.L["gates"]}
         self.assertEqual(G["Yard_Laser"]["opens_on"], {"type": "terminal", "terminal": "Jet_Screen_Button"})  # Stage 119: the jetpack screen's big red button (on the arena)

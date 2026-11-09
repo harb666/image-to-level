@@ -1365,4 +1365,8 @@ Building blocks usable without the preset:
 - Stage 124: with `float_pads` the bridges (and their rails) stop `gap` (0.15 m) short of each pad's facing flat
   instead of tucking under it, and the overlook gantry leaves the same gap for a floating lift pad, so nothing pokes
   through a bobbing / swaying pad (checked over a whole cycle, the lift docked at both ends); a 0.15 m step stays easy.
+- Stage 125: a spiked `crusher` (`spikes: true`) now has sockets in its pad: the pad's top 0.3 m is split into
+  `<id>_PadTop_NN` pieces leaving a 0.64 m square hole (dark `<id>_Socket_NN` floor) under every tooth, and `travel`
+  is the full drop (head lands on the pad, teeth sink into the holes). `spike_holes: false` keeps the old solid pad
+  (travel shortened so the tips stop on it). Godot plays the same crusher data (untested in Godot).
 
