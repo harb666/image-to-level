@@ -118,6 +118,11 @@ let FXD=window.FX||null;if(!FXD&&!window.GLB){try{const rq=await fetch(base+'/ef
 const FXQ=['off','performance','balanced','quality'];let fxq=FXD?FXQ.indexOf(FXD.default_quality):0;
 const fxTex={};if(FXD)for(const k in FXD.textures)fxTex[k]=new THREE.TextureLoader().load(window.FXTEX?FXTEX[k]:base+'/'+FXD.textures[k]);
 const byName={};gltf.scene.traverse(o=>{if(o.isMesh)byName[o.name]=o;});
+// Stage 123: floating pads (and the lift pad) - bob + sway about the deck centre, flames flicker about flame_y (same as apply_effects.gd)
+const floatPose=(F,t)=>{const tp=t+(F.phase||0),P=F.bob[1];return [F.bob[0]*Math.sin(2*Math.PI*tp/P),F.yaw*Math.sin(0.7*tp),F.tilt*Math.sin(2*Math.PI*tp/(P*1.7)),F.tilt*0.8*Math.sin(2*Math.PI*tp/(P*1.3)),1+0.18*Math.sin(31*t+5*(F.phase||0))+0.1*Math.sin(17*t)];};
+const floatMat=(F,t,offY,M)=>{const p=floatPose(F,t),c=F.center,D=Math.PI/180;M.makeRotationFromEuler(new THREE.Euler(p[3]*D,p[1]*D,p[2]*D,'YXZ'));
+  const v=new THREE.Vector3(c[0],c[1],c[2]).applyMatrix4(new THREE.Matrix4().extractRotation(M));M.setPosition(c[0]-v.x,c[1]+offY+p[0]-v.y,c[2]-v.z);return M;};
+const flameMat=(F,t,M,X)=>{const s=floatPose(F,t)[4],y=F.flame_y;X.makeScale(1,s,1).setPosition(0,y-y*s,0);return X.premultiply(M);};
 {const G=meta.gates||[];if(G.length){const b=document.getElementById('gateb');b.hidden=false;let open=false; // Stage 59: laser gates (the game opens them after the waves; here a button)
   const nodes=Object.values(byName).filter(o=>G.some(g=>o.name.startsWith(g.group+'__')||o.name.startsWith(g.group+'_')));
   const setSolid=(L,on)=>L.forEach(o=>{for(const A of [solids,camSolids]){const i=A.indexOf(o);if(on&&i<0&&o.userData.wasSolid)A.push(o);if(!on&&i>=0){o.userData.wasSolid=true;A.splice(i,1);}}}); // Stage 119: an open gate's beams stop blocking
@@ -390,6 +395,12 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
           if(u>=D.slam&&hit!==k){hit=k;const dx=pos.x-C.x,dz=pos.z-C.z,dd=Math.hypot(dx,dz);if(dd<D.shake)window.camShake=Math.max(window.camShake||0,0.45*(1-dd/D.shake));}}
         else K.th=SW.rpm*6*(t+SW.phase);const q=new THREE.Quaternion().setFromAxisAngle(Y,K.th*Math.PI/180);
         v.copy(C).applyQuaternion(q).negate().add(C);m.compose(v,q,one);rot.forEach(o=>{o.matrix.multiplyMatrices(m,o.userData.rest);o.matrixWorldNeedsUpdate=true;});}});}
+    else if(fx.category==='floater'){const F=fx.floater,sm=Object.values(byName).filter(o=>o.isSkinnedMesh&&o.name.startsWith(F.group+'__')); // Stage 123: floating pads - one skinned rig (same as apply_effects.gd)
+      const sk=sm.length?sm[0].skeleton:null,bn={};if(sk)sk.bones.forEach(b=>{b.userData.rest=b.userData.rest||b.position.clone();bn[b.name]=b;});sm.forEach(o=>o.frustumCulled=false);
+      const e=new THREE.Euler(),D=Math.PI/180;
+      fxUpd.push({reset(){},u(t){F.pads.forEach(pd=>{const p=floatPose(pd,t),J=bn[pd.joint],Fl=bn[pd.flame_joint];
+          if(J){J.position.copy(J.userData.rest);J.position.y+=p[0];e.set(p[3]*D,p[1]*D,p[2]*D,'YXZ');J.quaternion.setFromEuler(e);}if(Fl)Fl.scale.set(1,p[4],1);});
+        sm.forEach(o=>{o.boundingSphere=null;o.boundingBox=null;});}});} // (ray bounds follow the bob: the pads stay solid)
     else if(fx.category==='jet'){const J=fx.jet,G=k=>Object.values(byName).filter(o=>o.name.startsWith(J[k]+'__')),B=G('body'),F=G('flame'),Hh=G('hatch'),C=G('cap'),ALL=[...B,...F,...Hh,...C]; // Stage 119: jetpack screen (same as assembly.jet_pose / apply_effects.gd)
       ALL.forEach(o=>{o.userData.rest=o.userData.rest||o.matrix.clone();o.matrixAutoUpdate=false;for(const A of [solids,camSolids]){const i=A.indexOf(o);if(i>=0)A.splice(i,1);}}); // not solid (flames!)
       const K={J,phase:'home',t0:0,now:0};(window.jets=window.jets||{})[J.id]=K;window.jetReady=window.jetReady||{};const D2R=Math.PI/180,TM=J.times;
@@ -418,11 +429,12 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
         put(B,M.multiplyMatrices(P,Linv));
         X.makeTranslation(0,J.flame_y,0).multiply(new THREE.Matrix4().makeScale(1,r[6],1)).multiply(new THREE.Matrix4().makeTranslation(0,-J.flame_y,0));put(F,M.multiplyMatrices(P,X).multiply(Linv));
         X.makeTranslation(0,0,r[4]*J.slide);put(Hh,M.multiplyMatrices(P,X).multiply(Linv));X.makeTranslation(0,-r[5]*J.press,r[4]*J.slide);put(C,M.multiplyMatrices(P,X).multiply(Linv));}});}
-    else if(fx.category==='lift'){const LF=fx.lift,nd=Object.values(byName).filter(o=>o.name.startsWith(LF.group+'__')); // Stage 108: ride-on lift pad (same logic as apply_effects.gd _lifts)
+    else if(fx.category==='lift'){const LF=fx.lift,nd=Object.values(byName).filter(o=>o.name.startsWith(LF.group+'__')),lfl=LF.flame?Object.values(byName).filter(o=>o.name.startsWith(LF.flame+'__')):[],LM=new THREE.Matrix4(),LX=new THREE.Matrix4(); // Stage 108: ride-on lift pad (same logic as apply_effects.gd _lifts)
       const K={l:LF,s:0,dir:0,p:0,board:0,off:0};(window.lifts=window.lifts||{})[LF.id]=K;
       fxUpd.push({reset(){nd.forEach(o=>o.position.set(0,0,0));Object.assign(K,{s:0,dir:0,p:0,board:0,off:0});},u(t,dt){
         if(K.dir){K.p=Math.min(1,K.p+dt/LF.duration);K.s=K.dir>0?K.p:1-K.p;if(K.p>=1)K.dir=0;}
-        K.off=LF.travel*K.s*K.s*(3-2*K.s);nd.forEach(o=>o.position.set(0,K.off,0));}});}
+        K.off=LF.travel*K.s*K.s*(3-2*K.s);if(LF.bob){floatMat(LF,t,K.off,LM);nd.forEach(o=>{o.matrixAutoUpdate=false;o.matrix.copy(LM);o.matrixWorldNeedsUpdate=true;});flameMat(LF,t,LM,LX);lfl.forEach(o=>{o.matrixAutoUpdate=false;o.matrix.copy(LX);o.matrixWorldNeedsUpdate=true;});} // Stage 123: it floats too
+        else nd.forEach(o=>o.position.set(0,K.off,0));}});}
     else if(fx.category==='belt'){const B=fx.belt,ch=Object.values(byName).filter(o=>o.name.startsWith(B.chevrons+'__')),u=new THREE.Vector3(...B.axis).normalize(); // Stage 97: conveyor ramp (same as apply_effects.gd)
       ch.forEach(o=>{o.userData.rest=o.userData.rest||o.position.clone();});(window.belts=window.belts||{})[B.id]={b:B,u,c:new THREE.Vector3(...B.center),side:new THREE.Vector3(u.z,0,-u.x).normalize()};
       fxUpd.push({reset(){ch.forEach(o=>o.position.copy(o.userData.rest));},u(t){const d=(((t*B.speed)%B.spacing)+B.spacing)%B.spacing-B.spacing;ch.forEach(o=>o.position.copy(o.userData.rest).addScaledVector(u,d));}});}

@@ -1290,6 +1290,107 @@
    "merge_emitters": true
   },
   {
+   "id": "Spinner_FloatRig_Bob",
+   "type": "floater",
+   "category": "floater",
+   "glb_contains": "pad at rest",
+   "godot_runtime": "script (apply_effects.gd _floaters): the pad group bobs and sways on an AnimatableBody3D carrying its deck collider; its jet flame group flickers",
+   "floater": {
+    "id": "Spinner_FloatRig",
+    "group": "Spinner_FloatRig",
+    "skeleton": "Spinner_Float",
+    "pads": [
+     {
+      "joint": "Spinner_Pad_2_FJ",
+      "flame_joint": "Spinner_Pad_2_FF",
+      "center": [
+       17.728,
+       7.5,
+       27.272
+      ],
+      "deck_radius": 4.0,
+      "bob": [
+       0.28,
+       2.67
+      ],
+      "phase": 0.9,
+      "tilt": 2.2,
+      "yaw": 2.0,
+      "flame": "Spinner_Pad_2_Flame",
+      "flame_y": 3.8
+     },
+     {
+      "joint": "Spinner_Pad_3_FJ",
+      "flame_joint": "Spinner_Pad_3_FF",
+      "center": [
+       -7.728,
+       7.5,
+       27.272
+      ],
+      "deck_radius": 4.0,
+      "bob": [
+       0.28,
+       2.94
+      ],
+      "phase": 1.8,
+      "tilt": 2.2,
+      "yaw": 2.0,
+      "flame": "Spinner_Pad_3_Flame",
+      "flame_y": 3.8
+     },
+     {
+      "joint": "Spinner_Pad_4_FJ",
+      "flame_joint": "Spinner_Pad_4_FF",
+      "center": [
+       -7.728,
+       7.5,
+       52.728
+      ],
+      "deck_radius": 4.0,
+      "bob": [
+       0.28,
+       3.21
+      ],
+      "phase": 2.7,
+      "tilt": 2.2,
+      "yaw": 2.0,
+      "flame": "Spinner_Pad_4_Flame",
+      "flame_y": 3.8
+     }
+    ],
+    "note": "per pad: joint offset (0, amp sin(2 pi (t + phase) / period), 0), yaw +-yaw, tilt +-tilt (about the deck centre); flame_joint scale y flickers"
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Jet_Screen_Jet",
    "type": "jet",
    "category": "jet",
@@ -1438,6 +1539,15 @@
       ]
      }
     ],
+    "bob": [
+     0.28,
+     2.4
+    ],
+    "phase": 0.0,
+    "tilt": 2.2,
+    "yaw": 2.0,
+    "flame": "Spinner_Pad_1_Flame",
+    "flame_y": 3.8,
     "note": "stand on it 'wait' s -> it travels (smoothstep, 'duration' s) to the other end; a player in a call zone brings it to that end when it is empty; carries whoever stands on it"
    },
    "quality": {
@@ -2804,6 +2914,8 @@
     "M_glow_0_0_props",
     "Saw_East_Blade__glow",
     "Saw_West_Blade__glow",
+    "Spinner_FloatRig__glow",
+    "Spinner_Pad_1_Flame__glow",
     "Spinner_Pad_1_Lift__glow",
     "Spinner_Ram__glow",
     "Spinner_Rotor__glow"

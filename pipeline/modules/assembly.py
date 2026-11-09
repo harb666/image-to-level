@@ -226,20 +226,31 @@ def spinner(ctx, s, x, y, z, yaw):
     for k in range(4):
         a = yaw + 45 + 90 * k; P0 = _W(x, 0, z, a); c = P0(0, 0, Dp); pre = f"{n}_Pad_{k + 1}"; ctx.spinner_pads[f"{n}_{k + 1}"] = [c[0], T, c[2]]
         pr8 = [0, yaw + 22.5, 0]  # Stage 108: octagon flats (not corners) face the bridge and the four bearings
-        ps, pv = st, vs
+        ps, pv = st, vs; fl_ = pre + "_Flame"; flo = s.get("float_pads"); bob_ = None
+        if flo: bob_ = dict(bob=[float(flo.get("amp", 0.28)), round(float(flo.get("period", 2.4)) + 0.27 * k, 3)], phase=round(0.9 * k, 3), tilt=float(flo.get("tilt", 2.2)), yaw=float(flo.get("yaw", 2.0)), flame=fl_, flame_y=round(T - 3.7, 3))
+        floating = bool(flo) and int(lift.get("pad", 0)) != k + 1
+        if floating:  # Stage 123: a floating pad - bobs and sways like the jet screen; ONE skinned rig for all of them (a bone per pad + per flame); colliders move with it (runtimes)
+            rg = n + "_FloatRig"; jn, fj = pre + "_FJ", pre + "_FF"
+            if not getattr(ctx, "_float_joints", None): ctx._float_joints = [dict(name=n + "_FRoot", parent=None, pivot=[round(x, 3), round(T, 3), round(z, 3)], axis=[0.0, 1.0, 0.0])]
+            ctx._float_joints += [dict(name=jn, parent=n + "_FRoot", pivot=[round(c[0], 3), round(T, 3), round(c[2], 3)], axis=[0.0, 1.0, 0.0]),
+                                  dict(name=fj, parent=jn, pivot=[round(c[0], 3), round(T - 3.7, 3), round(c[2], 3)], axis=[0.0, 1.0, 0.0])]
+            ps = dict(mobile={"group": rg, "joint": jn}, floater=rg); pv = dict(ps, collision=False, outline=False)
+            ctx._float_pads = getattr(ctx, "_float_pads", []) + [dict(joint=jn, flame_joint=fj, center=[round(c[0], 3), round(T, 3), round(c[2], 3)], deck_radius=round(pd / 2, 3), **bob_)]
         if int(lift.get("pad", 0)) == k + 1:  # Stage 108: this pad is a lift - its parts ride one group (runtime: "lifts"); the deck's collider is the runtime's
             lg = pre + "_Lift"; ps = dict(mobile={"group": lg}, lift=lg); pv = dict(ps, collision=False, outline=False)
             top = float(lift["top"]); bm = P0(0, T, (R + Dp - pd / 2) / 2)
             ctx.lifts.append(dict(id=lg, group=lg, center=[round(c[0], 3), round(T, 3), round(c[2], 3)], radius=round(pd / 2 * math.cos(math.pi / 8) - 0.3, 3), deck_radius=round(pd / 2, 3),
                                   bottom=round(T, 3), top=top, travel=round(top - T, 3), duration=float(lift.get("duration", 3.6)), wait=float(lift.get("wait", 0.8)),
-                                  calls=[dict(at="bottom", center=[round(v, 3) for v in bm], radius=float(lift.get("call_radius", 3.2)))], links=[],
+                                  calls=[dict(at="bottom", center=[round(v, 3) for v in bm], radius=float(lift.get("call_radius", 3.2)))], links=[], **(bob_ or {}),
                                   note="stand on it 'wait' s -> it travels (smoothstep, 'duration' s) to the other end; a player in a call zone brings it to that end when it is empty; carries whoever stands on it"))
         ctx.add(pre + "_Deck", "cylinder", [c[0], T - 0.6, c[2]], [pd, 0.6, pd], "deck", sections=8, rot=pr8, **ps)
         ctx.add(pre + "_Rim", "cylinder", [c[0], T - 0.95, c[2]], [pd + 0.16, 0.42, pd + 0.16], stripe, sections=8, rot=pr8, **pv)
         ctx.add(pre + "_Hull", "frustum", [c[0], T - 3.0, c[2]], [pd - 0.4, 2.05, pd - 0.4], "structure_b", sections=8, bottom_scale=0.42, rot=pr8, **ps)
         ctx.add(pre + "_GlowBand", "frustum", [c[0], T - 2.1, c[2]], [pd * 0.8, 0.35, pd * 0.8], gl, sections=8, bottom_scale=0.92, rot=pr8, **pv)
         ctx.add(pre + "_Thruster", "cylinder", [c[0], T - 3.7, c[2]], [1.4, 0.75, 1.4], "machine", sections=8, rot=pr8, **pv)
-        ctx.add(pre + "_Jet", "frustum", [c[0], T - 4.7, c[2]], [1.1, 1.0, 1.1], gl, sections=8, bottom_scale=0.15, rot=pr8, **pv)
+        if flo and floating: ctx.add(pre + "_Jet", "frustum", [c[0], T - 4.7, c[2]], [1.1, 1.0, 1.1], gl, sections=8, bottom_scale=0.15, rot=pr8, collision=False, outline=False, mobile={"group": rg, "joint": fj})  # flickers (its bone)
+        elif flo: ctx.add(pre + "_Jet", "frustum", [c[0], T - 4.7, c[2]], [1.1, 1.0, 1.1], gl, sections=8, bottom_scale=0.15, rot=pr8, collision=False, outline=False, mobile={"group": fl_})  # (the lift pad's flame: its own group)
+        else: ctx.add(pre + "_Jet", "frustum", [c[0], T - 4.7, c[2]], [1.1, 1.0, 1.1], gl, sections=8, bottom_scale=0.15, rot=pr8, **pv)
         q0 = P0(0, 0, R - 0.5); q1 = P0(0, 0, Dp - pd / 2 + 0.6); m = [(q0[i] + q1[i]) / 2 for i in range(3)]; L = math.dist(q0, q1)
         ctx.add(pre + "_Bridge", "box", [m[0], T - 0.33, m[2]], [2.6, 0.3, L], "grate", rot=[0, a, 0], **st)  # 3 cm under the decks: no shared faces
         # Stage 106: the side rails run edge to edge - from the deck's edge (its octagon's flat on this bearing) to the
@@ -249,6 +260,11 @@ def spinner(ctx, s, x, y, z, yaw):
             for nm, rr, ln, wd, hh in (("BridgeRail", (e0 + e1) / 2, Lr, 0.08, 0.7), ("BridgePost0", e0 + 0.09, 0.18, 0.18, 0.9), ("BridgePost1", e1 - 0.09, 0.18, 0.18, 0.9)):
                 c_ = P0(sd * 1.38, 0, rr); ctx.add(f"{pre}_{nm}_{'LR'[sd > 0]}", "box", [c_[0], T - 0.03, c_[2]], [wd, hh, ln], "rail", rot=[0, a, 0], **dict(st, outline=False))
         ctx.landings.append((round(c[0], 3), round(c[2], 3), pd / 2))
+    if getattr(ctx, "_float_pads", None):  # Stage 123: the floating pads' rig + record
+        rg = n + "_FloatRig"; ctx.skeletons = getattr(ctx, "skeletons", {}); ctx.skeletons[n + "_Float"] = dict(groups=[rg], joints=ctx._float_joints, kind="float")
+        ctx.floaters = getattr(ctx, "floaters", []) + [dict(id=rg, group=rg, skeleton=n + "_Float", pads=ctx._float_pads,
+                                                            note="per pad: joint offset (0, amp sin(2 pi (t + phase) / period), 0), yaw +-yaw, tilt +-tilt (about the deck centre); flame_joint scale y flickers")]
+        ctx._float_pads, ctx._float_joints = [], []
     for k in range(8):  # lamp posts round the rim, between the catwalks
         a = yaw + 22.5 + 45 * k
         if s.get("ramp_yaw") is not None and abs(((a - float(s["ramp_yaw"]) + 180) % 360) - 180) < 30: continue

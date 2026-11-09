@@ -1355,3 +1355,11 @@ Building blocks usable without the preset:
   (mount floor) `decal_material`: the decal uses that material instead of the signs atlas cell. Assembly Ascent: the
   grinning gear on the start deck (`gear_decal`, references/gear_decal.png from make_signs.py) has no background tile.
 
+## Stage 123: floating pads
+- `spinner` `float_pads` {`amp`, `period`, `tilt`, `yaw`}: the hover pads float like the jet screen - each bobs
+  (amp, its own period and phase), sways (yaw) and tilts (tilt, about its deck centre) and its jet flickers. The plain
+  pads are ONE skinned rig (`<id>_FloatRig`: a bone per pad + a flame bone each; level.json / collision.json
+  `floaters`, effect `floater`); the lift pad bobs on top of its travel (its lift record carries the same fields).
+  Their parts are flagged `floater` / `lift`: no static colliders - apply_effects.gd moves an AnimatableBody3D deck
+  collider with each pad. viewer.html refreshes the rig's ray bounds every frame, so the pads stay solid.
+

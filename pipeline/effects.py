@@ -51,6 +51,7 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                   defaults=dict(rate=5.0, lifetime=3.5, speed=[0.8, 1.5], gravity=0.15, size=[1.2, 5.0], alpha=0.5, color=[0.8, 0.92, 0.74], texture="puff", blend="alpha", spread=15, radius=0.8)),
     "steam_burst": dict(category="particles", godot="CPUParticles3D, ONE system over every vent point (emission points), one_shot re-triggered at the 'sync' cycle times (u = (t + phase) mod period crossing each 'at'), growing soft puffs", glb="nothing",
                         defaults=dict(burst=10, interval=[9.5, 9.5], lifetime=2.2, speed=[1.5, 3.5], gravity=0.8, size=[0.9, 4.5], alpha=0.6, color=[0.93, 0.91, 0.97], texture="puff", blend="alpha", spread=55, radius=0.4)),
+    "floater": dict(category="floater", godot="script (apply_effects.gd _floaters): the pad group bobs and sways on an AnimatableBody3D carrying its deck collider; its jet flame group flickers", glb="pad at rest", defaults=dict()),
     "jet": dict(category="jet", godot="script (apply_effects.gd _jets): the screen's groups (<body>/<flame>/<hatch>/<cap>__*) are posed by jet_pose: bobbing at home; a player on the trigger sends it flying to 'arrive'; the drawer opens and the button terminal goes live; once used it spins and jets home",
                 glb="screen at home", defaults=dict()),
     "lift": dict(category="lift", godot="script (apply_effects.gd _lifts): the pad group (<group>__*) moves up 'travel' m and back (smoothstep over 'duration' s) on an AnimatableBody3D carrying its deck collider; standing on it 'wait' s sends it to the other end, a call zone brings it when empty",
@@ -362,7 +363,8 @@ def resolve(level_dir, L=None):
         if e.get("belt"): R["belt"] = e["belt"]
         if e.get("sync"): R["sync"] = e["sync"]
         if e.get("lift"): R["lift"] = e["lift"]  # Stage 108
-        if e.get("jet"): R["jet"] = e["jet"]  # Stage 119  # Stage 104: bursts fired at cycle times (steam_burst)
+        if e.get("jet"): R["jet"] = e["jet"]  # Stage 119
+        if e.get("floater"): R["floater"] = e["floater"]  # Stage 123  # Stage 104: bursts fired at cycle times (steam_burst)
         if e.get("launches"): R["launches"] = [dict(l, targets=[n for n in l["targets"] if n in boxes]) for l in e["launches"]]
         if e["type"] == "spin" and tg: R["speeds"] = {n: by[n].get("spin", prm["speed_rpm"]) for n in tg if n in by}
         if tg: R["targets"] = tg

@@ -114,6 +114,9 @@ The browser preview approximates all of these with three.js. It is close to Godo
   platform is up. The level has no weapon mesh: spawn your own shotgun model at `center`.
 
 ## Assembly Ascent hazards (Stage 97)
+- Stage 123: effects.json `floater` (collision.json `floaters`): apply_effects.gd poses the float rig's bones with
+  `float_pose` (bob, sway, tilt; flame bones flicker) and moves one AnimatableBody3D deck collider per pad; a lift with
+  `bob` floats the same way on top of its travel.
 - Stage 119: effects.json `jet` (collision.json `jets`): apply_effects.gd `_jet` poses the screen's groups with
   `jet_pose` (body, flames scaled about the nozzles, drawer slid out, button cap pressed); an Area3D over the trigger
   floor starts the flight; the button's terminal area (apply_mobile.gd "<id>_Button_Use") is kept out of group

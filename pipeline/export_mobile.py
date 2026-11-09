@@ -56,7 +56,7 @@ def colliders(L, level_dir=None):
     for o in L["objects"]:
         t = o["type"]; M = W[o["name"]]
         if t in NO_COLLISION or o.get("collision") is False: continue
-        if o.get("lift"): continue  # Stage 108: a lift pad's collider moves with it (apply_effects.gd _lift), never a static one
+        if o.get("lift") or o.get("floater"): continue  # Stage 108: a lift pad's collider moves with it (apply_effects.gd _lift), never a static one
         if t == "stream" and o["name"] not in hazards: continue  # Stage 8: liquid is never a solid collider
         if o["name"] in hazards:
             b = render_shape(o).bounds; c = np.array([[x, y, z, 1] for x in b[:, 0] for y in b[:, 1] for z in b[:, 2]]) @ M.T
@@ -362,7 +362,7 @@ def export(level_dir, profile=None):
     cols, haz = colliders(L, level_dir)
     json.dump(dict(note="World-space colliders generated from level.json shapes. Godot: BoxShape3D / CylinderShape3D / ConvexPolygonShape3D / "
                         "HeightMapShape3D (cell size = 'cell'). Hazards are areas (Area3D), not solid. Triggers (level exits) are areas too.",
-                        colliders=cols, hazards=haz, triggers=L.get("exits", []), entrances=L.get("entrances", []), gates=L.get("gates", []), encounters=L.get("encounters", []), crushers=L.get("crushers", []), terminals=L.get("terminals", []), risers=L.get("risers", []), winds=L.get("winds", []), pickups=L.get("pickups", []), saws=L.get("saws", []), belts=L.get("belts", []), kills=L.get("kills", []), sweepers=L.get("sweepers", []), lifts=L.get("lifts", []), jets=L.get("jets", [])),
+                        colliders=cols, hazards=haz, triggers=L.get("exits", []), entrances=L.get("entrances", []), gates=L.get("gates", []), encounters=L.get("encounters", []), crushers=L.get("crushers", []), terminals=L.get("terminals", []), risers=L.get("risers", []), winds=L.get("winds", []), pickups=L.get("pickups", []), saws=L.get("saws", []), belts=L.get("belts", []), kills=L.get("kills", []), sweepers=L.get("sweepers", []), lifts=L.get("lifts", []), jets=L.get("jets", []), floaters=L.get("floaters", [])),
               open(os.path.join(out_dir, "collision.json"), "w"), indent=1)
     cs = trimesh.Scene()
     for c in cols:

@@ -28,6 +28,7 @@ var _winds: Array = []  # Stage 82: [wind dict, rotor node, Area3D, CPUParticles
 var _saws: Array = []  # Stage 97/101: [saw dict, [[joint, [[node, rest]...]]...], kill Area3D]
 var _sweepers: Array = []  # Stage 98: [sweeper dict, [[rotor node, rest]...], pivot Node3D carrying the kill areas]
 var _belts: Array = []  # Stage 97: [belt dict, [[chevron node, rest position]...], rider Area3D]
+var _floaters: Array = []  # Stage 123: {"d": floater rig dict, "sk": Skeleton3D, "bones": {name: index}, "bodies": [AnimatableBody3D per pad]}
 var _jets: Array = []  # Stage 119: {"d": jet dict, "parts": {key: [[node, rest]...]}, "trig": Area3D, "use": terminal Area3D, "phase", "t0"}
 var _lifts: Array = []  # Stage 108: {"d": lift dict, "nodes": [Node3D], "body": AnimatableBody3D, "ride": Area3D, "calls": [[call dict, Area3D]], "s", "dir", "p", "board"}
 var _bobs: Array = []  # Stage 92: [bob dict, [[Node3D, rest Transform3D]...]]
@@ -94,6 +95,8 @@ func _ready() -> void:
 				_lift(fx["lift"])
 			"jet":  # Stage 119: a jetpack screen with a big red button
 				_jet(fx["jet"])
+			"floater":  # Stage 123: a floating (bobbing) walkable pad
+				_floater(fx["floater"])
 			"belt":  # Stage 97: a conveyor ramp - chevrons slide, riders are carried
 				_belt(fx["belt"])
 			"bob":  # Stage 92: a specimen drifting in its tank (rest transforms kept, turned about the pivot)
@@ -458,6 +461,74 @@ static func press_profile(D: Dictionary, t: float) -> Array:
 	return [off, k * 360.0 * float(D["turns"]) + th, u, int(k)]
 
 
+static func float_pose(F: Dictionary, t: float) -> Array:
+	# Stage 123 (same as viewer.html floatPose): [dy, yaw, roll, pitch (deg), flame scale]
+	var tp := t + float(F.get("phase", 0.0))
+	var P := float(F["bob"][1])
+	return [float(F["bob"][0]) * sin(TAU * tp / P), float(F["yaw"]) * sin(0.7 * tp), float(F["tilt"]) * sin(TAU * tp / (P * 1.7)), float(F["tilt"]) * 0.8 * sin(TAU * tp / (P * 1.3)),
+		1.0 + 0.18 * sin(31.0 * t + 5.0 * float(F.get("phase", 0.0))) + 0.1 * sin(17.0 * t)]
+
+
+static func float_xform(F: Dictionary, t: float, off_y: float) -> Transform3D:
+	# about the deck centre: T(c + (0, off + dy, 0)) * R * T(-c)
+	var p := float_pose(F, t)
+	var c := Vector3(F["center"][0], F["center"][1], F["center"][2])
+	var B := Basis.from_euler(Vector3(deg_to_rad(float(p[3])), deg_to_rad(float(p[1])), deg_to_rad(float(p[2]))), EULER_ORDER_YXZ)
+	return Transform3D(B, c + Vector3(0.0, off_y + float(p[0]), 0.0) - B * c)
+
+
+static func flame_xform(F: Dictionary, t: float, M: Transform3D) -> Transform3D:
+	var s := float(float_pose(F, t)[4])
+	var y := float(F["flame_y"])
+	return M * Transform3D(Basis.IDENTITY.scaled(Vector3(1.0, s, 1.0)), Vector3(0.0, y - y * s, 0.0))
+
+
+func _floater(d: Dictionary) -> void:
+	var sk: Skeleton3D = null
+	for nd in _group_nodes(String(d["group"])):
+		var mi := nd as MeshInstance3D
+		if mi and mi.skin != null:
+			sk = mi.get_node_or_null(mi.skeleton) as Skeleton3D
+			(mi as GeometryInstance3D).extra_cull_margin = 2.0
+	var bones := {}
+	if sk != null:
+		for i in sk.get_bone_count():
+			bones[sk.get_bone_name(i)] = i
+	var bodies: Array = []
+	for pd in d["pads"]:  # each pad's deck collider rides its bob (no static collider is exported for floater parts)
+		var body := AnimatableBody3D.new()
+		body.sync_to_physics = true
+		var cs := CollisionShape3D.new()
+		var cy := CylinderShape3D.new()
+		cy.radius = float(pd["deck_radius"]) * cos(PI / 8.0)
+		cy.height = 0.6
+		cs.shape = cy
+		cs.position = Vector3(0.0, -0.3, 0.0)
+		body.add_child(cs)
+		level_root.add_child(body)
+		bodies.append(body)
+	_floaters.append({"d": d, "sk": sk, "bones": bones, "bodies": bodies})
+
+
+func _update_floaters() -> void:
+	for f in _floaters:
+		var sk: Skeleton3D = f["sk"]
+		var pads: Array = f["d"]["pads"]
+		for i in pads.size():
+			var pd: Dictionary = pads[i]
+			var p := float_pose(pd, _t)
+			var B := Basis.from_euler(Vector3(deg_to_rad(float(p[3])), deg_to_rad(float(p[1])), deg_to_rad(float(p[2]))), EULER_ORDER_YXZ)
+			if sk != null:
+				var bi: int = f["bones"].get(String(pd["joint"]), -1)
+				if bi >= 0:
+					sk.set_bone_pose_position(bi, sk.get_bone_rest(bi).origin + Vector3(0.0, float(p[0]), 0.0))
+					sk.set_bone_pose_rotation(bi, B.get_rotation_quaternion())
+				var fi: int = f["bones"].get(String(pd["flame_joint"]), -1)
+				if fi >= 0:
+					sk.set_bone_pose_scale(fi, Vector3(1.0, float(p[4]), 1.0))
+			(f["bodies"][i] as AnimatableBody3D).global_transform = Transform3D(B, Vector3(pd["center"][0], float(pd["center"][1]) + float(p[0]), pd["center"][2]))
+
+
 func _jet(d: Dictionary) -> void:
 	var parts := {}
 	for k in ["body", "flame", "hatch", "cap"]:
@@ -669,6 +740,15 @@ func _update_lifts(delta: float) -> void:
 				L["dir"] = 0
 		var s := float(L["s"])
 		var off := float(d["travel"]) * s * s * (3.0 - 2.0 * s)
+		if d.has("bob"):  # Stage 123: the lift pad floats too
+			var M := float_xform(d, _t, off)
+			for nd in L["nodes"]:
+				(nd as Node3D).transform = M
+			var X := flame_xform(d, _t, M)
+			for nd in _group_nodes(String(d["flame"])):
+				(nd as Node3D).transform = X
+			(L["body"] as AnimatableBody3D).global_transform = M * Transform3D(Basis.IDENTITY, Vector3(d["center"][0], d["center"][1], d["center"][2]))
+			continue
 		for nd in L["nodes"]:
 			(nd as Node3D).position = Vector3(0.0, off, 0.0)
 		(L["body"] as AnimatableBody3D).global_position = Vector3(d["center"][0], float(d["center"][1]) + off, d["center"][2])
@@ -1006,6 +1086,7 @@ func _wind_strength(wr: Array, t: float) -> float:  # 0..1: triggered - 1 until 
 
 func _physics_process(delta: float) -> void:
 	_update_lifts(delta)
+	_update_floaters()
 	for br in _belts:  # Stage 97: carry whoever stands on a conveyor ramp
 		var b: Dictionary = br[0]
 		var u := Vector3(b["axis"][0], b["axis"][1], b["axis"][2]).normalized()

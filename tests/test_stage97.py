@@ -177,6 +177,26 @@ class CornerOverlook(unittest.TestCase):
             if n.startswith("Overlook_Rail") and n.endswith("_High"): self.assertGreater(by[n]["position"][1] - lf["top"], 1.2)
 
 
+class FloatingPads(unittest.TestCase):
+    def test_spinner_pads_float_like_the_screen(self):
+        """Stage 123: the spinner's hover pads bob and sway (and their jets flicker) like the jet screen - one skinned
+        rig for the three plain pads (a bone per pad + per flame), the lift pad bobbing on top of its travel; their deck
+        colliders move with them in Godot (no static colliders exported), and the bob stays small for the bridges."""
+        L = _load("level.json"); by = {o["name"]: o for o in L["objects"]}
+        F = next(f for f in L["floaters"] if f["id"] == "Spinner_FloatRig"); self.assertEqual(len(F["pads"]), 3)
+        self.assertIn("Spinner_Float", L["skeletons"]); self.assertEqual(len({p["phase"] for p in F["pads"]}), 3)  # each on its own rhythm
+        for p in F["pads"]: self.assertLessEqual(p["bob"][0], 0.35); self.assertLessEqual(p["tilt"], 3.0)
+        for k in (2, 3, 4):
+            self.assertEqual(by[f"Spinner_Pad_{k}_Deck"]["mobile"]["group"], F["group"]); self.assertEqual(by[f"Spinner_Pad_{k}_Jet"]["mobile"]["joint"], f"Spinner_Pad_{k}_FF")
+        lf = L["lifts"][0]; self.assertIn("bob", lf); self.assertEqual(lf["flame"], "Spinner_Pad_1_Flame")
+        C = _load("mobile/collision.json"); self.assertFalse([c for c in C["colliders"] if c["source"].startswith(("Spinner_Pad_2_Deck", "Spinner_Pad_3_Deck", "Spinner_Pad_4_Deck"))])
+        self.assertEqual(len(C["floaters"]), 1)
+        with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()
+        self.assertIn("fx.category==='floater'", v); self.assertIn("const floatPose=(F,t)=>", v)
+        with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: gd = f.read()
+        self.assertIn("func _update_floaters", gd); self.assertIn("static func float_pose", gd)
+
+
 class GearDecal(unittest.TestCase):
     def test_gear_emblem_has_no_background_tile(self):
         """Stage 122: the grinning gear on the start deck is a cut-out decal (transparent round the cog)."""

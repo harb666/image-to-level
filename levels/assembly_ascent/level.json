@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "7f39c14f926cc321",
+  "spec_sha": "36a93ed369153bf9",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -573,6 +573,75 @@
    "lifetime": 1.4
   },
   {
+   "id": "Spinner_FloatRig_Bob",
+   "type": "floater",
+   "floater": {
+    "id": "Spinner_FloatRig",
+    "group": "Spinner_FloatRig",
+    "skeleton": "Spinner_Float",
+    "pads": [
+     {
+      "joint": "Spinner_Pad_2_FJ",
+      "flame_joint": "Spinner_Pad_2_FF",
+      "center": [
+       17.728,
+       7.5,
+       27.272
+      ],
+      "deck_radius": 4.0,
+      "bob": [
+       0.28,
+       2.67
+      ],
+      "phase": 0.9,
+      "tilt": 2.2,
+      "yaw": 2.0,
+      "flame": "Spinner_Pad_2_Flame",
+      "flame_y": 3.8
+     },
+     {
+      "joint": "Spinner_Pad_3_FJ",
+      "flame_joint": "Spinner_Pad_3_FF",
+      "center": [
+       -7.728,
+       7.5,
+       27.272
+      ],
+      "deck_radius": 4.0,
+      "bob": [
+       0.28,
+       2.94
+      ],
+      "phase": 1.8,
+      "tilt": 2.2,
+      "yaw": 2.0,
+      "flame": "Spinner_Pad_3_Flame",
+      "flame_y": 3.8
+     },
+     {
+      "joint": "Spinner_Pad_4_FJ",
+      "flame_joint": "Spinner_Pad_4_FF",
+      "center": [
+       -7.728,
+       7.5,
+       52.728
+      ],
+      "deck_radius": 4.0,
+      "bob": [
+       0.28,
+       3.21
+      ],
+      "phase": 2.7,
+      "tilt": 2.2,
+      "yaw": 2.0,
+      "flame": "Spinner_Pad_4_Flame",
+      "flame_y": 3.8
+     }
+    ],
+    "note": "per pad: joint offset (0, amp sin(2 pi (t + phase) / period), 0), yaw +-yaw, tilt +-tilt (about the deck centre); flame_joint scale y flickers"
+   }
+  },
+  {
    "id": "Jet_Screen_Jet",
    "type": "jet",
    "jet": {
@@ -686,6 +755,15 @@
       ]
      }
     ],
+    "bob": [
+     0.28,
+     2.4
+    ],
+    "phase": 0.0,
+    "tilt": 2.2,
+    "yaw": 2.0,
+    "flame": "Spinner_Pad_1_Flame",
+    "flame_y": 3.8,
     "note": "stand on it 'wait' s -> it travels (smoothstep, 'duration' s) to the other end; a player in a call zone brings it to that end when it is empty; carries whoever stands on it"
    }
   },
@@ -34878,12 +34956,11 @@
    "material": "glow",
    "sections": 8,
    "bottom_scale": 0.15,
-   "mobile": {
-    "group": "Spinner_Pad_1_Lift"
-   },
-   "lift": "Spinner_Pad_1_Lift",
    "collision": false,
    "outline": false,
+   "mobile": {
+    "group": "Spinner_Pad_1_Flame"
+   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35089,8 +35166,10 @@
    "material": "deck",
    "sections": 8,
    "mobile": {
-    "static": true
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_2_FJ"
    },
+   "floater": "Spinner_FloatRig",
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35114,11 +35193,13 @@
    ],
    "material": "stripe",
    "sections": 8,
+   "mobile": {
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_2_FJ"
+   },
+   "floater": "Spinner_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35144,8 +35225,10 @@
    "sections": 8,
    "bottom_scale": 0.42,
    "mobile": {
-    "static": true
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_2_FJ"
    },
+   "floater": "Spinner_FloatRig",
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35170,11 +35253,13 @@
    "material": "glow",
    "sections": 8,
    "bottom_scale": 0.92,
+   "mobile": {
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_2_FJ"
+   },
+   "floater": "Spinner_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35198,11 +35283,13 @@
    ],
    "material": "machine",
    "sections": 8,
+   "mobile": {
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_2_FJ"
+   },
+   "floater": "Spinner_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35230,7 +35317,8 @@
    "collision": false,
    "outline": false,
    "mobile": {
-    "static": true
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_2_FF"
    },
    "gen": "Spinner",
    "source": "visible"
@@ -35437,8 +35525,10 @@
    "material": "deck",
    "sections": 8,
    "mobile": {
-    "static": true
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_3_FJ"
    },
+   "floater": "Spinner_FloatRig",
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35462,11 +35552,13 @@
    ],
    "material": "stripe",
    "sections": 8,
+   "mobile": {
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_3_FJ"
+   },
+   "floater": "Spinner_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35492,8 +35584,10 @@
    "sections": 8,
    "bottom_scale": 0.42,
    "mobile": {
-    "static": true
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_3_FJ"
    },
+   "floater": "Spinner_FloatRig",
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35518,11 +35612,13 @@
    "material": "glow",
    "sections": 8,
    "bottom_scale": 0.92,
+   "mobile": {
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_3_FJ"
+   },
+   "floater": "Spinner_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35546,11 +35642,13 @@
    ],
    "material": "machine",
    "sections": 8,
+   "mobile": {
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_3_FJ"
+   },
+   "floater": "Spinner_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35578,7 +35676,8 @@
    "collision": false,
    "outline": false,
    "mobile": {
-    "static": true
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_3_FF"
    },
    "gen": "Spinner",
    "source": "visible"
@@ -35785,8 +35884,10 @@
    "material": "deck",
    "sections": 8,
    "mobile": {
-    "static": true
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_4_FJ"
    },
+   "floater": "Spinner_FloatRig",
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35810,11 +35911,13 @@
    ],
    "material": "stripe",
    "sections": 8,
+   "mobile": {
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_4_FJ"
+   },
+   "floater": "Spinner_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35840,8 +35943,10 @@
    "sections": 8,
    "bottom_scale": 0.42,
    "mobile": {
-    "static": true
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_4_FJ"
    },
+   "floater": "Spinner_FloatRig",
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35866,11 +35971,13 @@
    "material": "glow",
    "sections": 8,
    "bottom_scale": 0.92,
+   "mobile": {
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_4_FJ"
+   },
+   "floater": "Spinner_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35894,11 +36001,13 @@
    ],
    "material": "machine",
    "sections": 8,
+   "mobile": {
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_4_FJ"
+   },
+   "floater": "Spinner_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -35926,7 +36035,8 @@
    "collision": false,
    "outline": false,
    "mobile": {
-    "static": true
+    "group": "Spinner_FloatRig",
+    "joint": "Spinner_Pad_4_FF"
    },
    "gen": "Spinner",
    "source": "visible"
@@ -68950,6 +69060,112 @@
   }
  ],
  "skeletons": {
+  "Spinner_Float": {
+   "groups": [
+    "Spinner_FloatRig"
+   ],
+   "joints": [
+    {
+     "name": "Spinner_FRoot",
+     "parent": null,
+     "pivot": [
+      5.0,
+      7.5,
+      40.0
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Spinner_Pad_2_FJ",
+     "parent": "Spinner_FRoot",
+     "pivot": [
+      17.728,
+      7.5,
+      27.272
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Spinner_Pad_2_FF",
+     "parent": "Spinner_Pad_2_FJ",
+     "pivot": [
+      17.728,
+      3.8,
+      27.272
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Spinner_Pad_3_FJ",
+     "parent": "Spinner_FRoot",
+     "pivot": [
+      -7.728,
+      7.5,
+      27.272
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Spinner_Pad_3_FF",
+     "parent": "Spinner_Pad_3_FJ",
+     "pivot": [
+      -7.728,
+      3.8,
+      27.272
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Spinner_Pad_4_FJ",
+     "parent": "Spinner_FRoot",
+     "pivot": [
+      -7.728,
+      7.5,
+      52.728
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Spinner_Pad_4_FF",
+     "parent": "Spinner_Pad_4_FJ",
+     "pivot": [
+      -7.728,
+      3.8,
+      52.728
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    }
+   ],
+   "kind": "float"
+  },
   "Arena": {
    "groups": [
     "Arena_Rig"
@@ -71358,6 +71574,15 @@
      ]
     }
    ],
+   "bob": [
+    0.28,
+    2.4
+   ],
+   "phase": 0.0,
+   "tilt": 2.2,
+   "yaw": 2.0,
+   "flame": "Spinner_Pad_1_Flame",
+   "flame_y": 3.8,
    "note": "stand on it 'wait' s -> it travels (smoothstep, 'duration' s) to the other end; a player in a call zone brings it to that end when it is empty; carries whoever stands on it"
   }
  ],
@@ -71419,6 +71644,73 @@
     "y": 15.5
    },
    "note": "assembly.jet_pose: home bob -> (player on trigger) fly -> wait (hatch opens; the button terminal goes live) -> press -> back home"
+  }
+ ],
+ "floaters": [
+  {
+   "id": "Spinner_FloatRig",
+   "group": "Spinner_FloatRig",
+   "skeleton": "Spinner_Float",
+   "pads": [
+    {
+     "joint": "Spinner_Pad_2_FJ",
+     "flame_joint": "Spinner_Pad_2_FF",
+     "center": [
+      17.728,
+      7.5,
+      27.272
+     ],
+     "deck_radius": 4.0,
+     "bob": [
+      0.28,
+      2.67
+     ],
+     "phase": 0.9,
+     "tilt": 2.2,
+     "yaw": 2.0,
+     "flame": "Spinner_Pad_2_Flame",
+     "flame_y": 3.8
+    },
+    {
+     "joint": "Spinner_Pad_3_FJ",
+     "flame_joint": "Spinner_Pad_3_FF",
+     "center": [
+      -7.728,
+      7.5,
+      27.272
+     ],
+     "deck_radius": 4.0,
+     "bob": [
+      0.28,
+      2.94
+     ],
+     "phase": 1.8,
+     "tilt": 2.2,
+     "yaw": 2.0,
+     "flame": "Spinner_Pad_3_Flame",
+     "flame_y": 3.8
+    },
+    {
+     "joint": "Spinner_Pad_4_FJ",
+     "flame_joint": "Spinner_Pad_4_FF",
+     "center": [
+      -7.728,
+      7.5,
+      52.728
+     ],
+     "deck_radius": 4.0,
+     "bob": [
+      0.28,
+      3.21
+     ],
+     "phase": 2.7,
+     "tilt": 2.2,
+     "yaw": 2.0,
+     "flame": "Spinner_Pad_4_Flame",
+     "flame_y": 3.8
+    }
+   ],
+   "note": "per pad: joint offset (0, amp sin(2 pi (t + phase) / period), 0), yaw +-yaw, tilt +-tilt (about the deck centre); flame_joint scale y flickers"
   }
  ],
  "encounters": [
@@ -71576,9 +71868,9 @@
   "triangles": 48676,
   "objects": 2127,
   "materials": 35,
-  "glb_kb": 3518,
-  "nodes": 2346,
-  "draw_calls_unbatched": 2316,
+  "glb_kb": 3522,
+  "nodes": 2350,
+  "draw_calls_unbatched": 2320,
   "draw_calls_batched_min": 37,
   "images": 99,
   "tex_mem_gpu_compressed_mb": 23.73,

@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 3518,
-    "triangles": 57348,
-    "nodes": 2346,
-    "mesh_nodes": 2316,
-    "unique_meshes": 1074,
+    "glb_kb": 3522,
+    "triangles": 57468,
+    "nodes": 2350,
+    "mesh_nodes": 2320,
+    "unique_meshes": 1090,
     "materials": 37,
     "images": 99,
-    "draw_calls_unbatched": 2316,
+    "draw_calls_unbatched": 2320,
     "draw_calls_batched_min": 37,
     "tex_mem_uncompressed_mb": 94.92,
     "tex_mem_gpu_compressed_mb": 23.73,
@@ -72,22 +72,22 @@
    },
    "visible": {
     "cameras": 104,
-    "visible_draw_calls_mean": 783.4,
-    "visible_draw_calls_max": 2310,
-    "visible_triangles_mean": 31143,
-    "visible_triangles_max": 68004
+    "visible_draw_calls_mean": 785.0,
+    "visible_draw_calls_max": 2314,
+    "visible_triangles_mean": 31191,
+    "visible_triangles_max": 68124
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 2079,
-    "triangles": 55220,
-    "nodes": 191,
-    "mesh_nodes": 114,
-    "unique_meshes": 114,
+    "glb_kb": 2091,
+    "triangles": 55340,
+    "nodes": 205,
+    "mesh_nodes": 121,
+    "unique_meshes": 121,
     "materials": 37,
     "images": 65,
-    "draw_calls_unbatched": 114,
+    "draw_calls_unbatched": 121,
     "draw_calls_batched_min": 37,
     "tex_mem_uncompressed_mb": 36.34,
     "tex_mem_gpu_compressed_mb": 9.08,
@@ -132,16 +132,16 @@
     ]
    },
    "collision": {
-    "colliders": 375,
+    "colliders": 369,
     "hazards": 1,
-    "glb_kb": 170
+    "glb_kb": 166
    },
    "visible": {
     "cameras": 104,
-    "visible_draw_calls_mean": 63.6,
-    "visible_draw_calls_max": 117,
-    "visible_triangles_mean": 53180,
-    "visible_triangles_max": 66032
+    "visible_draw_calls_mean": 67.1,
+    "visible_draw_calls_max": 124,
+    "visible_triangles_mean": 52946,
+    "visible_triangles_max": 66152
    },
    "hidden_faces_removed": 901,
    "occluded_faces_removed": 1227,
@@ -152,16 +152,16 @@
    "effects_max_particles": 651,
    "slimmed_kb": {
     "level_mobile.glb": [
-     3150,
-     2079
+     3166,
+     2091
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     229,
-     170
+     224,
+     166
     ]
    }
   }
@@ -1750,6 +1750,108 @@
    "group": "Spike_Press_Warn"
   },
   {
+   "node": "Spinner_FloatRig__deck",
+   "kind": "group",
+   "material": "deck",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Spinner_Pad_4_Deck",
+    "Spinner_Pad_3_Deck",
+    "Spinner_Pad_2_Deck"
+   ],
+   "group": "Spinner_FloatRig"
+  },
+  {
+   "node": "Spinner_FloatRig__glow",
+   "kind": "group",
+   "material": "glow",
+   "triangles": 168,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Spinner_Pad_4_Jet",
+    "Spinner_Pad_4_GlowBand",
+    "Spinner_Pad_3_Jet",
+    "Spinner_Pad_3_GlowBand",
+    "Spinner_Pad_2_Jet",
+    "Spinner_Pad_2_GlowBand"
+   ],
+   "group": "Spinner_FloatRig"
+  },
+  {
+   "node": "Spinner_FloatRig__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 180,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Spinner_Pad_4_Hull__ol",
+    "Spinner_Pad_4_Deck__ol",
+    "Spinner_Pad_3_Hull__ol",
+    "Spinner_Pad_3_Deck__ol",
+    "Spinner_Pad_2_Hull__ol",
+    "Spinner_Pad_2_Deck__ol"
+   ],
+   "group": "Spinner_FloatRig"
+  },
+  {
+   "node": "Spinner_FloatRig__machine",
+   "kind": "group",
+   "material": "machine",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Spinner_Pad_4_Thruster",
+    "Spinner_Pad_3_Thruster",
+    "Spinner_Pad_2_Thruster"
+   ],
+   "group": "Spinner_FloatRig"
+  },
+  {
+   "node": "Spinner_FloatRig__stripe",
+   "kind": "group",
+   "material": "stripe",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Spinner_Pad_4_Rim",
+    "Spinner_Pad_3_Rim",
+    "Spinner_Pad_2_Rim"
+   ],
+   "group": "Spinner_FloatRig"
+  },
+  {
+   "node": "Spinner_FloatRig__structure_b",
+   "kind": "group",
+   "material": "structure_b",
+   "triangles": 84,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Spinner_Pad_4_Hull",
+    "Spinner_Pad_3_Hull",
+    "Spinner_Pad_2_Hull"
+   ],
+   "group": "Spinner_FloatRig"
+  },
+  {
+   "node": "Spinner_Pad_1_Flame__glow",
+   "kind": "group",
+   "material": "glow",
+   "triangles": 28,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Spinner_Pad_1_Jet"
+   ],
+   "group": "Spinner_Pad_1_Flame"
+  },
+  {
    "node": "Spinner_Pad_1_Lift__deck",
    "kind": "group",
    "material": "deck",
@@ -1765,11 +1867,10 @@
    "node": "Spinner_Pad_1_Lift__glow",
    "kind": "group",
    "material": "glow",
-   "triangles": 56,
+   "triangles": 28,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Spinner_Pad_1_Jet",
     "Spinner_Pad_1_GlowBand"
    ],
    "group": "Spinner_Pad_1_Lift"
@@ -2173,14 +2274,11 @@
    "node": "M_deck_0_0",
    "kind": "static",
    "material": "deck",
-   "triangles": 523,
+   "triangles": 427,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Overlook_Deck",
-    "Spinner_Pad_4_Deck",
-    "Spinner_Pad_3_Deck",
-    "Spinner_Pad_2_Deck",
     "Exit_Door_Floor",
     "Exit_Door_Sill",
     "Pillars_7_Cap",
@@ -2565,7 +2663,7 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 1960,
+   "triangles": 1792,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2596,12 +2694,6 @@
     "Spinner_PostLamp_3",
     "Spinner_PostLamp_2",
     "Spinner_PostLamp_1",
-    "Spinner_Pad_4_Jet",
-    "Spinner_Pad_4_GlowBand",
-    "Spinner_Pad_3_Jet",
-    "Spinner_Pad_3_GlowBand",
-    "Spinner_Pad_2_Jet",
-    "Spinner_Pad_2_GlowBand",
     "Spinner_GaugeGlow",
     "Spinner_CrownGlow",
     "Spinner_PipeBand_4",
@@ -2773,7 +2865,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 6502,
+   "triangles": 6442,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2792,8 +2884,6 @@
     "Overlook_Column_1__ol",
     "Overlook_Foot_1__ol",
     "Spinner_Post_1__ol",
-    "Spinner_Pad_2_Hull__ol",
-    "Spinner_Pad_2_Deck__ol",
     "Spinner_Pad_1_Bridge__ol",
     "Spinner_Barrel_3__ol",
     "Spinner_Barrel_2__ol",
@@ -2946,7 +3036,7 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 3439,
+   "triangles": 3343,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2979,9 +3069,6 @@
     "Spinner_Post_3",
     "Spinner_Post_2",
     "Spinner_Post_1",
-    "Spinner_Pad_4_Thruster",
-    "Spinner_Pad_3_Thruster",
-    "Spinner_Pad_2_Thruster",
     "Spinner_GlandValve_4",
     "Spinner_GlandValve_3",
     "Spinner_GlandValve_2",
@@ -3311,7 +3398,7 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 890,
+   "triangles": 794,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3323,9 +3410,6 @@
     "Overlook_ColumnBand_1",
     "Overlook_EdgeN",
     "Overlook_EdgeW",
-    "Spinner_Pad_4_Rim",
-    "Spinner_Pad_3_Rim",
-    "Spinner_Pad_2_Rim",
     "Spinner_CapRim",
     "CraneRail_01_Stripe",
     "Belt_B_Frame_2",
@@ -3396,7 +3480,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 3386,
+   "triangles": 3302,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3413,9 +3497,6 @@
     "Overlook_ColumnTop_1",
     "Overlook_Column_1",
     "Overlook_Foot_1",
-    "Spinner_Pad_4_Hull",
-    "Spinner_Pad_3_Hull",
-    "Spinner_Pad_2_Hull",
     "Spinner_Crown",
     "Spinner_Neck",
     "Exit_Door_Rib_2_Beam",
