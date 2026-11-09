@@ -1307,3 +1307,11 @@ Building blocks usable without the preset:
   `delay` (runtimes use it instead of index x stagger). Personalities by ring and parity (symmetric under quarter
   turns and mirrors), sway radial. `accent`: the centre and corner tiles are hull-plated (a symmetric floor pattern).
 - Assembly Ascent: 5 x 5 tiles of 4 m, 0.2 m seams (20.8 m across), docked against the overlook's open edge.
+
+## Stage 112: round supports, creeping rust
+- Arena tiles stand on round (12-sided) columns. Goofy risers get a corrosion sleeve at the slime line (`rust`,
+  `rust_height` 1.8 m, `rust_delay`, `rust_grow`, `rust_tile`): its own bone, a child of the tile's, scaled up from the
+  slime `rust_delay` s after the tile starts to settle, over `rust_grow` s (`assembly.rust_grow`; viewer.html /
+  apply_effects.gd copy it) - the green rust creeps up the column. Riser pads carry `rust` {bone, delay, grow}.
+- Shape `pole` `uv_mode` "band": u wraps round it in whole tiles of `uv_len` m, v runs bottom-up over its height -
+  the corrosion band texture wrapped onto a cylinder.

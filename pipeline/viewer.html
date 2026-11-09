@@ -351,6 +351,7 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
       const pose=t=>{R.pads.forEach((pd,k)=>{const tk=t>=0?t-(pd.delay!=null?pd.delay:k*R.stagger):-1,D=R.rise_s;let off=-pd.rise; /* Stage 111: per-pad delay */
         if(pd.goof){const G=goofy(pd,tk),J=bn[pd.joint],Rg=bn[pd.ring],r0=0.3;if(J){J[0].position.set(J[1].x,J[1].y+G[0],J[1].z);const dr=pd.goof.dir*Math.PI/180;ax.set(Math.cos(dr),0,Math.sin(dr));
             qa.setFromAxisAngle(ax,G[2]*Math.PI/180);qb.setFromAxisAngle(UPV,G[1]*Math.PI/180);J[0].quaternion.multiplyQuaternions(qa,qb);J[0].scale.set(G[3],1,G[3]);}
+          if(pd.rust){const U=bn[pd.rust.bone];if(U){const f0=tk<0?0:Math.min(1,Math.max(0,(tk-(0.45+pd.goof.peek+0.22+D)-pd.rust.delay)/pd.rust.grow)),f=f0*f0*(3-2*f0);U[0].scale.set(1,Math.max(f,0.001),1);}} // Stage 112: rust creeps up once it has settled
           let rs=0.4,ry=-3;if(tk>=r0){const f=Math.min(1,Math.max(0,(tk-r0)/1.6)),e=1-(1-f)*(1-f);rs=0.4+2.6*e;ry=f<1?-0.9*f*f:-3;}if(Rg){Rg[0].position.set(Rg[1].x,Rg[1].y+ry,Rg[1].z);Rg[0].scale.set(rs,1,rs);}return;}
           if(tk>=0&&tk<D)off=-pd.rise*Math.pow(1-tk/D,3);else if(tk>=D){const tb=tk-D;off=tb<1.4?0.22*Math.sin(9*tb)*Math.exp(-4*tb):0;}
           let rs=0.4,ry=-3;const r0=0.35*D;if(tk>=r0){const f=Math.min(1,Math.max(0,(tk-r0)/1.6)),e=1-(1-f)*(1-f);rs=0.4+2.6*e;ry=f<1?-0.9*f*f:-3;}

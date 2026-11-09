@@ -41,23 +41,23 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 3297,
-    "triangles": 52057,
-    "nodes": 2226,
-    "mesh_nodes": 2194,
-    "unique_meshes": 1014,
-    "materials": 34,
+    "glb_kb": 3367,
+    "triangles": 54157,
+    "nodes": 2251,
+    "mesh_nodes": 2219,
+    "unique_meshes": 1039,
+    "materials": 35,
     "images": 92,
-    "draw_calls_unbatched": 2194,
-    "draw_calls_batched_min": 34,
+    "draw_calls_unbatched": 2219,
+    "draw_calls_batched_min": 35,
     "tex_mem_uncompressed_mb": 90.84,
     "tex_mem_gpu_compressed_mb": 22.71,
     "texture_slots": {
-     "baseColorTexture": 31,
-     "metallicRoughnessTexture": 31,
-     "normalTexture": 29,
-     "occlusionTexture": 31,
-     "emissiveTexture": 15
+     "baseColorTexture": 32,
+     "metallicRoughnessTexture": 32,
+     "normalTexture": 30,
+     "occlusionTexture": 32,
+     "emissiveTexture": 16
     },
     "image_sizes": [
      "1024x1024 jpeg",
@@ -71,31 +71,31 @@
    },
    "visible": {
     "cameras": 104,
-    "visible_draw_calls_mean": 741.2,
-    "visible_draw_calls_max": 2188,
-    "visible_triangles_mean": 29271,
-    "visible_triangles_max": 62713
+    "visible_draw_calls_mean": 749.4,
+    "visible_draw_calls_max": 2213,
+    "visible_triangles_mean": 30014,
+    "visible_triangles_max": 64813
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 1880,
-    "triangles": 50099,
-    "nodes": 151,
-    "mesh_nodes": 99,
-    "unique_meshes": 99,
-    "materials": 34,
+    "glb_kb": 1958,
+    "triangles": 52199,
+    "nodes": 177,
+    "mesh_nodes": 100,
+    "unique_meshes": 100,
+    "materials": 35,
     "images": 58,
-    "draw_calls_unbatched": 99,
-    "draw_calls_batched_min": 34,
+    "draw_calls_unbatched": 100,
+    "draw_calls_batched_min": 35,
     "tex_mem_uncompressed_mb": 32.26,
     "tex_mem_gpu_compressed_mb": 8.06,
     "texture_slots": {
-     "baseColorTexture": 31,
+     "baseColorTexture": 32,
+     "emissiveTexture": 16,
      "metallicRoughnessTexture": 11,
      "normalTexture": 9,
-     "occlusionTexture": 11,
-     "emissiveTexture": 15
+     "occlusionTexture": 11
     },
     "image_sizes": [
      "128x128 webp",
@@ -136,10 +136,10 @@
    },
    "visible": {
     "cameras": 104,
-    "visible_draw_calls_mean": 58.2,
-    "visible_draw_calls_max": 102,
-    "visible_triangles_mean": 50488,
-    "visible_triangles_max": 60911
+    "visible_draw_calls_mean": 58.6,
+    "visible_draw_calls_max": 103,
+    "visible_triangles_mean": 51443,
+    "visible_triangles_max": 63011
    },
    "hidden_faces_removed": 901,
    "occluded_faces_removed": 1057,
@@ -150,8 +150,8 @@
    "effects_max_particles": 651,
    "slimmed_kb": {
     "level_mobile.glb": [
-     2882,
-     1880
+     2976,
+     1958
     ],
     "background_mobile.glb": [
      477,
@@ -165,6 +165,42 @@
   }
  },
  "nodes": [
+  {
+   "node": "Arena_Rig__corrosion",
+   "kind": "group",
+   "material": "corrosion",
+   "triangles": 1200,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Arena_Tile_55_Rust",
+    "Arena_Tile_54_Rust",
+    "Arena_Tile_53_Rust",
+    "Arena_Tile_52_Rust",
+    "Arena_Tile_51_Rust",
+    "Arena_Tile_45_Rust",
+    "Arena_Tile_44_Rust",
+    "Arena_Tile_43_Rust",
+    "Arena_Tile_42_Rust",
+    "Arena_Tile_41_Rust",
+    "Arena_Tile_35_Rust",
+    "Arena_Tile_34_Rust",
+    "Arena_Tile_33_Rust",
+    "Arena_Tile_32_Rust",
+    "Arena_Tile_31_Rust",
+    "Arena_Tile_25_Rust",
+    "Arena_Tile_24_Rust",
+    "Arena_Tile_23_Rust",
+    "Arena_Tile_22_Rust",
+    "Arena_Tile_21_Rust",
+    "Arena_Tile_15_Rust",
+    "Arena_Tile_14_Rust",
+    "Arena_Tile_13_Rust",
+    "Arena_Tile_12_Rust",
+    "Arena_Tile_11_Rust"
+   ],
+   "group": "Arena_Rig"
+  },
   {
    "node": "Arena_Rig__deck",
    "kind": "group",
@@ -333,7 +369,7 @@
    "node": "Arena_Rig__structure_b",
    "kind": "group",
    "material": "structure_b",
-   "triangles": 820,
+   "triangles": 1720,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [

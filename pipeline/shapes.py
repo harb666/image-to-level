@@ -640,7 +640,11 @@ def pole(w, h, d, o):
     V = [[r * np.cos(q), yy, r * np.sin(q)] for yy in (0.0, h) for q in a] + [[0, 0, 0], [0, h, 0]]; F, UV = [], []
     for k in range(n):
         k1 = (k + 1) % n; v0, v1 = k / n, (k + 1) / n
-        F += [[k, n + k, k1], [k1, n + k, n + k1]]; UV += [[0, v0], [h / L, v0], [0, v1], [0, v1], [h / L, v0], [h / L, v1]]
+        if o.get("uv_mode") == "band":  # Stage 112: a wrapped band texture (corrosion): u round it (whole tiles), image top at the top
+            nt = max(1, round(np.pi * w / L)); u0, u1 = v0 * nt, v1 * nt
+            F += [[k, n + k, k1], [k1, n + k, n + k1]]; UV += [[u0, 0.0], [u0, 1.0], [u1, 0.0], [u1, 0.0], [u0, 1.0], [u1, 1.0]]  # (trimesh UVs are bottom-up, flipped on glTF export - as shapes.band)
+        else:
+            F += [[k, n + k, k1], [k1, n + k, n + k1]]; UV += [[0, v0], [h / L, v0], [0, v1], [0, v1], [h / L, v0], [h / L, v1]]
         F += [[2 * n, k, k1], [2 * n + 1, n + k1, n + k]]; UV += [[0.02, 0.02]] * 6  # caps (the texture's dark corner)
     m = trimesh.Trimesh(np.array(V, float), np.array(F), process=False)
     if (np.einsum("ij,ij->i", m.face_normals, m.triangles_center - [0, h / 2, 0]) < 0).mean() > 0.5: m.faces = m.faces[:, ::-1]; UV = [UV[i - i % 3 + (2 - i % 3)] for i in range(len(UV))]

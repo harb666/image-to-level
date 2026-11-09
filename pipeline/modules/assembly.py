@@ -448,6 +448,14 @@ def goofy_pose(pd, tk, rise_s, liq):
     return (0.3 * math.sin(9 * te) * math.exp(-3.5 * te), 0.0, g["tilt"] * math.exp(-2.6 * te) * math.sin(7.5 * te), 1 + 0.16 * math.exp(-4 * te) * math.cos(13 * te), True)
 
 
+def rust_grow(pd, tk, rise_s):
+    """Stage 112: how far (0..1) the green rust has crept up a goofy riser's column: from "delay" s after it starts to
+    settle, over "grow" s (smoothstep). Mirrored in viewer.html / apply_effects.gd."""
+    r = pd.get("rust")
+    if not r or tk < 0: return 0.0
+    f = min(1.0, max(0.0, (tk - (0.45 + pd["goof"]["peek"] + 0.22 + rise_s) - r["delay"]) / r["grow"])); return f * f * (3 - 2 * f)
+
+
 @structure("rising_arena", pad=False)
 def rising_arena(ctx, s, x, y, z, yaw):
     """Stage 109/110: a battle arena that surges up out of the liquid (the "emerge" rig of rising_pads: one bone per
@@ -464,7 +472,12 @@ def rising_arena(ctx, s, x, y, z, yaw):
         joints.append(dict(name=jn, parent=n + "_JRoot", pivot=[round(px, 3), round(liq, 3), round(pz, 3)], axis=[0.0, 1.0, 0.0]))
         joints.append(dict(name=rn, parent=n + "_JRoot", pivot=[round(px, 3), round(liq + 0.03, 3), round(pz, 3)], axis=[0.0, 1.0, 0.0]))
         r4 = [0, rot, 0]
-        ctx.add(pre + "_Column", "box", [px, 0.0, pz], [d * 0.36, top - 2.4, d * 0.36], "structure_b", rot=r4, mobile=pj, **nc)
+        cd = d * 0.36; ctx.add(pre + "_Column", "cylinder", [px, 0.0, pz], [cd, top - 2.4, cd], "structure_b", sections=12, mobile=pj, **nc)  # Stage 112: round supports
+        if style == "goofy" and s.get("rust", True):  # Stage 112: green rust creeping up from the slime line once it has settled (its own bone, scaled up)
+            un = f"{n}_U{k}"; hb = float(s.get("rust_height", 1.8)); hs = hb / 0.89; y0 = liq + hb - hs
+            joints.append(dict(name=un, parent=jn, pivot=[round(px, 3), round(y0, 3), round(pz, 3)], axis=[0.0, 1.0, 0.0]))
+            ctx.add(pre + "_Rust", "pole", [px, y0, pz], [cd + 0.07, hs, cd + 0.07], ctx.role("corrosion"), sections=12, uv_mode="band", uv_len=float(s.get("rust_tile", 4.0)),
+                    mobile=dict(group=grp, joint=un), **nc)
         ctx.add(pre + "_Bowl", "frustum", [px, top - 2.6, pz], [d - 0.6, 2.0, d - 0.6], "structure_b", bottom_scale=0.42, rot=r4, mobile=pj, **nc)
         ctx.add(pre + "_Band", "frustum", [px, top - 1.05, pz], [d - 0.4, 0.4, d - 0.4], gl, bottom_scale=0.94, rot=r4, mobile=pj, **nc)
         ctx.add(pre + "_Cap", "box", [px, top - 0.6, pz], [d, 0.6, d], cap_mat, rot=r4, mobile=pj)
@@ -472,6 +485,7 @@ def rising_arena(ctx, s, x, y, z, yaw):
         ctx.add(pre + "_Surge", "cylinder", [px, liq + 0.03, pz], [d * 1.2, 0.04, d * 1.2], ctx.role("fall"), sections=8, mobile=rj, **nc)
         pd = dict(joint=jn, ring=rn, center=[round(px, 3), round(top, 3), round(pz, 3)], size=d, rise=round(top - liq + 1.0, 3), colliders=[pre + "_Cap"])
         if style == "goofy": pd["goof"] = dict(GOOFS[(k - 1) % len(GOOFS)])
+        if style == "goofy" and s.get("rust", True): pd["rust"] = dict(bone=f"{n}_U{k}", delay=float(s.get("rust_delay", 1.2)), grow=float(s.get("rust_grow", 2.5)))
         pads.append(pd); ctx.landings.append((round(px, 3), round(pz, 3), d / 2))
     G_ = s.get("grid")
     if G_:  # Stage 111: a symmetric grid of equal square tiles (gladiator floor), rising ring by ring from the centre

@@ -667,6 +667,15 @@ func _pose_goofy(sk: Skeleton3D, bones: Dictionary, pd: Dictionary, tk: float, D
 		sk.set_bone_pose_position(bi, sk.get_bone_rest(bi).origin + Vector3(0.0, float(G[0]), 0.0))
 		sk.set_bone_pose_rotation(bi, q)
 		sk.set_bone_pose_scale(bi, Vector3(float(G[3]), 1.0, float(G[3])))
+	if pd.has("rust"):  # Stage 112: green rust creeps up the column once it has settled (same as assembly.rust_grow)
+		var ru: Dictionary = pd["rust"]
+		var f := 0.0
+		if tk >= 0.0:
+			f = clampf((tk - (0.45 + float(pd["goof"]["peek"]) + 0.22 + D) - float(ru["delay"])) / float(ru["grow"]), 0.0, 1.0)
+			f = f * f * (3.0 - 2.0 * f)
+		var ui: int = bones.get(String(ru["bone"]), -1)
+		if ui >= 0:
+			sk.set_bone_pose_scale(ui, Vector3(1.0, maxf(f, 0.001), 1.0))
 	var rs := 0.4
 	var ry := -3.0
 	if tk >= 0.3:  # the surge ring bursts out where it breaks the surface

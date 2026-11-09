@@ -114,6 +114,7 @@ The browser preview approximates all of these with three.js. It is close to Godo
   platform is up. The level has no weapon mesh: spawn your own shotgun model at `center`.
 
 ## Assembly Ascent hazards (Stage 97)
+- Stage 112: a goofy riser pad with `rust` also scales its rust bone (y 0 -> 1) once it has settled (see `_pose_goofy`).
 - Stage 110: a riser pad with `goof` is posed by `goofy_pose` (bone pose position + rotation + scale), not the plain
   surge curve; its colliders switch on when the pose says so.
 - Stage 108: effects.json / collision.json `lifts`: apply_effects.gd `_lift` builds an AnimatableBody3D (sync_to_physics)

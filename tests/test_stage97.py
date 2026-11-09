@@ -203,8 +203,15 @@ class RisingArena(unittest.TestCase):
                 q = g[(a, b)]; self.assertEqual(p["delay"], q["delay"]); self.assertEqual({k: v for k, v in p["goof"].items() if k != "dir"}, {k: v for k, v in q["goof"].items() if k != "dir"})
         self.assertEqual(g[(2, 2)]["delay"], 0.0); self.assertLess(g[(2, 1)]["delay"], g[(2, 0)]["delay"])  # centre first, outer ring last
         self.assertEqual(by["Arena_Tile_33_Cap"]["material"], by["Arena_Tile_11_Cap"]["material"]); self.assertNotEqual(by["Arena_Tile_33_Cap"]["material"], by["Arena_Tile_32_Cap"]["material"])
-        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from modules.assembly import goofy_pose
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from modules.assembly import goofy_pose, rust_grow
         self.assertEqual(R["style"], "goofy")
+        sk = L["skeletons"]["Arena"]; par = {j["name"]: j.get("parent") for j in sk["joints"]}
+        for p in P:  # Stage 112: round supports; green rust on its own bone (child of the tile's) creeping up once it has settled
+            col = by[f"Arena_Tile_{p['grid'][0] + 1}{p['grid'][1] + 1}_Column"]; self.assertEqual(col["type"], "cylinder")
+            ru = by[f"Arena_Tile_{p['grid'][0] + 1}{p['grid'][1] + 1}_Rust"]; self.assertEqual(ru["material"], "corrosion"); self.assertEqual(ru["mobile"]["joint"], p["rust"]["bone"])
+            self.assertEqual(par[p["rust"]["bone"]], p["joint"]); self.assertLess(ru["position"][1], R["liquid"]); self.assertGreater(ru["position"][1] + ru["size"][1], R["liquid"] + 1.0)
+            settle = 0.45 + p["goof"]["peek"] + 0.22 + R["rise_s"]
+            self.assertEqual(rust_grow(p, settle, R["rise_s"]), 0.0); self.assertEqual(rust_grow(p, settle + p["rust"]["delay"] + p["rust"]["grow"] + 0.1, R["rise_s"]), 1.0)
         for p in (g[(2, 2)], g[(2, 1)], g[(1, 1)], g[(0, 2)]):
             ts = [i * 0.02 for i in range(500)]; Q = [goofy_pose(p, t_, R["rise_s"], R["liquid"]) for t_ in ts]
             self.assertAlmostEqual(p["center"][1] + Q[0][0], R["liquid"] - 1.0, places=3)  # starts under the slime
@@ -215,9 +222,9 @@ class RisingArena(unittest.TestCase):
             self.assertGreater(max(q[3] for q in Q), 1.1); self.assertGreater(max(abs(q[2]) for q in Q), 1.5)  # squashes, sways
             self.assertEqual(Q[-1][:4], (0.0, 0.0, 0.0, 1.0)); self.assertTrue(Q[-1][4])  # settled, colliders live
         with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()
-        self.assertIn("const goofy=(pd,tk)=>", v); self.assertIn("pd.delay!=null", v)
+        self.assertIn("const goofy=(pd,tk)=>", v); self.assertIn("pd.delay!=null", v); self.assertIn("if(pd.rust)", v)
         with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: gd = f.read()
-        self.assertIn("static func goofy_pose", gd); self.assertIn('pd.get("delay"', gd)
+        self.assertIn("static func goofy_pose", gd); self.assertIn('pd.get("delay"', gd); self.assertIn('if pd.has("rust"):', gd)
         E = next(e for e in S["encounters"] if e["id"] == "Arena_Waves"); self.assertEqual(E["trigger"], "enter:Arena_Deck")
         sp = next(s for s in L["spawns"] if s["id"] == "enemy_arena")["position"]; self.assertTrue(any(abs(sp[0] - p["center"][0]) < 1 and abs(sp[2] - p["center"][2]) < 1 for p in P))
         N = _load("checks/navigation.json"); self.assertEqual({a["name"]: a["reachable_fraction"] for a in N["intended_areas"]}.get("Arena_Deck"), 1.0)
