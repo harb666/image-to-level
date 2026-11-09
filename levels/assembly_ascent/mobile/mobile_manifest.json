@@ -41,22 +41,22 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 3132,
-    "triangles": 47617,
-    "nodes": 1947,
-    "mesh_nodes": 1915,
-    "unique_meshes": 796,
-    "materials": 32,
-    "images": 86,
-    "draw_calls_unbatched": 1915,
-    "draw_calls_batched_min": 32,
-    "tex_mem_uncompressed_mb": 88.84,
-    "tex_mem_gpu_compressed_mb": 22.21,
+    "glb_kb": 3158,
+    "triangles": 47841,
+    "nodes": 1963,
+    "mesh_nodes": 1931,
+    "unique_meshes": 797,
+    "materials": 33,
+    "images": 89,
+    "draw_calls_unbatched": 1931,
+    "draw_calls_batched_min": 33,
+    "tex_mem_uncompressed_mb": 89.84,
+    "tex_mem_gpu_compressed_mb": 22.46,
     "texture_slots": {
-     "baseColorTexture": 29,
-     "metallicRoughnessTexture": 29,
-     "normalTexture": 27,
-     "occlusionTexture": 29,
+     "baseColorTexture": 30,
+     "metallicRoughnessTexture": 30,
+     "normalTexture": 28,
+     "occlusionTexture": 30,
      "emissiveTexture": 14
     },
     "image_sizes": [
@@ -71,27 +71,27 @@
    },
    "visible": {
     "cameras": 80,
-    "visible_draw_calls_mean": 628.7,
-    "visible_draw_calls_max": 1909,
-    "visible_triangles_mean": 27406,
-    "visible_triangles_max": 58273
+    "visible_draw_calls_mean": 634.2,
+    "visible_draw_calls_max": 1925,
+    "visible_triangles_mean": 27485,
+    "visible_triangles_max": 58497
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 1672,
-    "triangles": 45735,
+    "glb_kb": 1690,
+    "triangles": 45959,
     "nodes": 89,
     "mesh_nodes": 88,
     "unique_meshes": 88,
-    "materials": 32,
-    "images": 54,
+    "materials": 33,
+    "images": 55,
     "draw_calls_unbatched": 88,
-    "draw_calls_batched_min": 32,
-    "tex_mem_uncompressed_mb": 30.92,
-    "tex_mem_gpu_compressed_mb": 7.73,
+    "draw_calls_batched_min": 33,
+    "tex_mem_uncompressed_mb": 31.26,
+    "tex_mem_gpu_compressed_mb": 7.81,
     "texture_slots": {
-     "baseColorTexture": 29,
+     "baseColorTexture": 30,
      "metallicRoughnessTexture": 10,
      "normalTexture": 8,
      "occlusionTexture": 10,
@@ -130,16 +130,16 @@
     ]
    },
    "collision": {
-    "colliders": 296,
+    "colliders": 312,
     "hazards": 1,
-    "glb_kb": 141
+    "glb_kb": 148
    },
    "visible": {
     "cameras": 80,
     "visible_draw_calls_mean": 54.0,
     "visible_draw_calls_max": 91,
-    "visible_triangles_mean": 47844,
-    "visible_triangles_max": 56547
+    "visible_triangles_mean": 48030,
+    "visible_triangles_max": 56771
    },
    "hidden_faces_removed": 887,
    "occluded_faces_removed": 995,
@@ -150,16 +150,16 @@
    "effects_max_particles": 651,
    "slimmed_kb": {
     "level_mobile.glb": [
-     2620,
-     1672
+     2650,
+     1690
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     189,
-     141
+     198,
+     148
     ]
    }
   }
@@ -1502,10 +1502,10 @@
    "group": "Spinner_Rotor"
   },
   {
-   "node": "Spinner_Rotor__stripe",
+   "node": "Spinner_Rotor__pole_stripe",
    "kind": "group",
-   "material": "stripe",
-   "triangles": 128,
+   "material": "pole_stripe",
+   "triangles": 160,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2543,7 +2543,7 @@
    "node": "M_rail_0_0",
    "kind": "static",
    "material": "rail",
-   "triangles": 672,
+   "triangles": 864,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2553,13 +2553,29 @@
     "Rail_Start_E1_Rail_02a",
     "Rail_Start_E1_Rail_01b",
     "Rail_Start_E1_Rail_01a",
+    "Spinner_Pad_4_BridgePost1_R",
+    "Spinner_Pad_4_BridgePost0_R",
     "Spinner_Pad_4_BridgeRail_R",
+    "Spinner_Pad_4_BridgePost1_L",
+    "Spinner_Pad_4_BridgePost0_L",
     "Spinner_Pad_4_BridgeRail_L",
+    "Spinner_Pad_3_BridgePost1_R",
+    "Spinner_Pad_3_BridgePost0_R",
     "Spinner_Pad_3_BridgeRail_R",
+    "Spinner_Pad_3_BridgePost1_L",
+    "Spinner_Pad_3_BridgePost0_L",
     "Spinner_Pad_3_BridgeRail_L",
+    "Spinner_Pad_2_BridgePost1_R",
+    "Spinner_Pad_2_BridgePost0_R",
     "Spinner_Pad_2_BridgeRail_R",
+    "Spinner_Pad_2_BridgePost1_L",
+    "Spinner_Pad_2_BridgePost0_L",
     "Spinner_Pad_2_BridgeRail_L",
+    "Spinner_Pad_1_BridgePost1_R",
+    "Spinner_Pad_1_BridgePost0_R",
     "Spinner_Pad_1_BridgeRail_R",
+    "Spinner_Pad_1_BridgePost1_L",
+    "Spinner_Pad_1_BridgePost0_L",
     "Spinner_Pad_1_BridgeRail_L",
     "Rail_Deck_W_Rail_04b",
     "Rail_Deck_W_Rail_04a",

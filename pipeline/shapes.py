@@ -631,6 +631,22 @@ def spike_ball(w, h, d, o):
     return trimesh.util.concatenate(parts)
 
 
+def pole(w, h, d, o):
+    """Stage 106: a round pole (like "cylinder": diameter w, base at y 0, height h along +y, "sections" sides) with its
+    own wrap-around UVs: u = length / "uv_len" m, v = once round the circumference (seam on local -z, the underside of
+    a pole laid out along a bearing) - so a "hazard_wrap" texture runs on it as clean diagonal stripes. A closed body;
+    the UVs are per face corner (metadata "uv_corner": the build splits the seam)."""
+    n = int(o.get("sections", 10)); r = w / 2; L = float(o.get("uv_len", 1.0)); a = np.linspace(0, 2 * np.pi, n, endpoint=False) - np.pi / 2
+    V = [[r * np.cos(q), yy, r * np.sin(q)] for yy in (0.0, h) for q in a] + [[0, 0, 0], [0, h, 0]]; F, UV = [], []
+    for k in range(n):
+        k1 = (k + 1) % n; v0, v1 = k / n, (k + 1) / n
+        F += [[k, n + k, k1], [k1, n + k, n + k1]]; UV += [[0, v0], [h / L, v0], [0, v1], [0, v1], [h / L, v0], [h / L, v1]]
+        F += [[2 * n, k, k1], [2 * n + 1, n + k1, n + k]]; UV += [[0.02, 0.02]] * 6  # caps (the texture's dark corner)
+    m = trimesh.Trimesh(np.array(V, float), np.array(F), process=False)
+    if (np.einsum("ij,ij->i", m.face_normals, m.triangles_center - [0, h / 2, 0]) < 0).mean() > 0.5: m.faces = m.faces[:, ::-1]; UV = [UV[i - i % 3 + (2 - i % 3)] for i in range(len(UV))]
+    m.metadata["uv_corner"] = np.array(UV); return m
+
+
 def _mace_dirs():
     """Stage 104: the 11 spike directions of a mace head - icosahedron corners turned so one points along -z (the pole it
     is mounted on comes in from -z) and dropped: no spike near the pole, one straight out along +z."""
@@ -692,7 +708,7 @@ def prism(w, h, d, o):
     m = trimesh.Trimesh(V, np.array(F), process=False); m.fix_normals(); return m
 
 
-SHAPES = dict(spike_ball=spike_ball, mace=mace, mace_tips=mace_tips, saw_blade=saw_blade, prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
+SHAPES = dict(spike_ball=spike_ball, pole=pole, mace=mace, mace_tips=mace_tips, saw_blade=saw_blade, prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
               stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum, dome=dome)
 

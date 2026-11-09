@@ -1,9 +1,9 @@
 {
  "gameplay_status": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer.",
  "cell": 1.0,
- "standable_area_m2": 19147.0,
- "reachable_area_m2": 3240.0,
- "components": 86,
+ "standable_area_m2": 19155.0,
+ "reachable_area_m2": 3248.0,
+ "components": 90,
  "links": [
   {
    "frm_component": 1,
@@ -114,19 +114,19 @@
    "frm": [
     51.5,
     35.5,
-    17.5
+    18.5
    ],
    "to": [
     49.5,
     31.0,
-    17.5
+    18.5
    ],
    "horizontal": 2.0,
    "dy": -4.5
   },
   {
    "frm_component": 2,
-   "to_component": 84,
+   "to_component": 88,
    "kind": "jump",
    "frm": [
     4.5,
@@ -605,102 +605,51 @@
    "to_component": 31,
    "kind": "jump",
    "frm": [
-    16.5,
-    7.5,
-    25.5
-   ],
-   "to": [
-    17.5,
-    8.52,
-    25.5
-   ],
-   "horizontal": 1.0,
-   "dy": 1.02
-  },
-  {
-   "frm_component": 18,
-   "to_component": 33,
-   "kind": "jump",
-   "frm": [
-    18.5,
-    7.53,
-    27.5
-   ],
-   "to": [
-    18.5,
-    8.57,
-    26.5
-   ],
-   "horizontal": 1.0,
-   "dy": 1.04
-  },
-  {
-   "frm_component": 18,
-   "to_component": 34,
-   "kind": "jump",
-   "frm": [
-    18.5,
-    7.53,
-    27.5
-   ],
-   "to": [
-    19.5,
-    8.52,
-    27.5
-   ],
-   "horizontal": 1.0,
-   "dy": 0.99
-  },
-  {
-   "frm_component": 18,
-   "to_component": 35,
-   "kind": "jump",
-   "frm": [
     -4.5,
     7.48,
-    29.5
+    30.5
    ],
    "to": [
-    -3.5,
-    8.17,
+    -5.5,
+    7.49,
     29.5
    ],
-   "horizontal": 1.0,
-   "dy": 0.69
+   "horizontal": 1.41,
+   "dy": 0.02
   },
   {
    "frm_component": 18,
-   "to_component": 36,
+   "to_component": 32,
    "kind": "jump",
    "frm": [
-    -2.5,
-    7.47,
-    31.5
-   ],
-   "to": [
-    0.5,
-    8.6,
+    14.5,
+    7.48,
     30.5
    ],
-   "horizontal": 3.16,
-   "dy": 1.13
+   "to": [
+    15.5,
+    7.49,
+    29.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.02
   },
   {
    "frm_component": 18,
    "to_component": 37,
    "kind": "jump",
    "frm": [
-    12.5,
-    7.47,
-    31.5
-   ],
-   "to": [
-    9.5,
-    8.6,
+    -4.5,
+    7.48,
     30.5
    ],
-   "horizontal": 3.16,
-   "dy": 1.13
+   "to": [
+    -4.5,
+    8.37,
+    29.5
+   ],
+   "horizontal": 1.0,
+   "dy": 0.89
   },
   {
    "frm_component": 18,
@@ -724,17 +673,17 @@
    "to_component": 39,
    "kind": "jump",
    "frm": [
-    -3.5,
+    -2.5,
     7.47,
-    30.5
+    31.5
    ],
    "to": [
-    -2.5,
-    8.17,
+    0.5,
+    8.6,
     30.5
    ],
-   "horizontal": 1.0,
-   "dy": 0.7
+   "horizontal": 3.16,
+   "dy": 1.13
   },
   {
    "frm_component": 18,
@@ -746,6 +695,57 @@
     31.5
    ],
    "to": [
+    9.5,
+    8.6,
+    30.5
+   ],
+   "horizontal": 3.16,
+   "dy": 1.13
+  },
+  {
+   "frm_component": 18,
+   "to_component": 41,
+   "kind": "jump",
+   "frm": [
+    -4.5,
+    7.48,
+    30.5
+   ],
+   "to": [
+    -5.5,
+    8.37,
+    30.5
+   ],
+   "horizontal": 1.0,
+   "dy": 0.89
+  },
+  {
+   "frm_component": 18,
+   "to_component": 42,
+   "kind": "jump",
+   "frm": [
+    -2.5,
+    7.47,
+    31.5
+   ],
+   "to": [
+    -2.5,
+    8.17,
+    30.5
+   ],
+   "horizontal": 1.0,
+   "dy": 0.7
+  },
+  {
+   "frm_component": 18,
+   "to_component": 43,
+   "kind": "jump",
+   "frm": [
+    12.5,
+    7.47,
+    31.5
+   ],
+   "to": [
     12.5,
     8.17,
     30.5
@@ -755,41 +755,41 @@
   },
   {
    "frm_component": 18,
-   "to_component": 41,
+   "to_component": 44,
    "kind": "jump",
    "frm": [
-    -5.5,
+    14.5,
     7.48,
     30.5
    ],
    "to": [
-    -5.5,
-    8.17,
-    31.5
+    15.5,
+    8.37,
+    30.5
    ],
    "horizontal": 1.0,
-   "dy": 0.69
+   "dy": 0.89
   },
   {
    "frm_component": 18,
-   "to_component": 42,
+   "to_component": 45,
    "kind": "jump",
    "frm": [
-    -0.5,
-    7.25,
+    -2.5,
+    7.47,
     31.5
    ],
    "to": [
     -1.5,
-    8.17,
+    8.26,
     31.5
    ],
    "horizontal": 1.0,
-   "dy": 0.92
+   "dy": 0.79
   },
   {
    "frm_component": 18,
-   "to_component": 43,
+   "to_component": 46,
    "kind": "jump",
    "frm": [
     10.5,
@@ -798,32 +798,15 @@
    ],
    "to": [
     11.5,
-    8.17,
+    8.26,
     31.5
    ],
    "horizontal": 1.0,
-   "dy": 0.92
+   "dy": 1.01
   },
   {
    "frm_component": 18,
-   "to_component": 44,
-   "kind": "jump",
-   "frm": [
-    15.5,
-    7.48,
-    30.5
-   ],
-   "to": [
-    15.5,
-    8.17,
-    31.5
-   ],
-   "horizontal": 1.0,
-   "dy": 0.69
-  },
-  {
-   "frm_component": 18,
-   "to_component": 45,
+   "to_component": 47,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -840,7 +823,7 @@
   },
   {
    "frm_component": 18,
-   "to_component": 46,
+   "to_component": 48,
    "kind": "jump",
    "frm": [
     13.5,
@@ -857,7 +840,7 @@
   },
   {
    "frm_component": 18,
-   "to_component": 48,
+   "to_component": 50,
    "kind": "jump",
    "frm": [
     -19.5,
@@ -874,24 +857,24 @@
   },
   {
    "frm_component": 18,
-   "to_component": 49,
+   "to_component": 51,
    "kind": "jump",
    "frm": [
     -3.5,
-    7.25,
-    34.5
+    7.47,
+    32.5
    ],
    "to": [
     -3.5,
-    8.17,
+    8.26,
     33.5
    ],
    "horizontal": 1.0,
-   "dy": 0.92
+   "dy": 0.79
   },
   {
    "frm_component": 18,
-   "to_component": 50,
+   "to_component": 52,
    "kind": "jump",
    "frm": [
     13.5,
@@ -900,15 +883,15 @@
    ],
    "to": [
     13.5,
-    8.17,
+    8.26,
     33.5
    ],
    "horizontal": 1.0,
-   "dy": 0.7
+   "dy": 0.79
   },
   {
    "frm_component": 18,
-   "to_component": 51,
+   "to_component": 53,
    "kind": "jump",
    "frm": [
     13.5,
@@ -925,7 +908,7 @@
   },
   {
    "frm_component": 18,
-   "to_component": 56,
+   "to_component": 58,
    "kind": "drop",
    "frm": [
     -12.5,
@@ -942,7 +925,7 @@
   },
   {
    "frm_component": 18,
-   "to_component": 57,
+   "to_component": 59,
    "kind": "drop",
    "frm": [
     -10.5,
@@ -959,7 +942,7 @@
   },
   {
    "frm_component": 18,
-   "to_component": 61,
+   "to_component": 63,
    "kind": "drop",
    "frm": [
     -12.5,
@@ -976,7 +959,7 @@
   },
   {
    "frm_component": 18,
-   "to_component": 65,
+   "to_component": 67,
    "kind": "jump",
    "frm": [
     13.5,
@@ -993,7 +976,7 @@
   },
   {
    "frm_component": 18,
-   "to_component": 66,
+   "to_component": 68,
    "kind": "jump",
    "frm": [
     -18.5,
@@ -1010,41 +993,41 @@
   },
   {
    "frm_component": 18,
-   "to_component": 68,
-   "kind": "jump",
-   "frm": [
-    -3.5,
-    7.25,
-    45.5
-   ],
-   "to": [
-    -3.5,
-    8.17,
-    46.5
-   ],
-   "horizontal": 1.0,
-   "dy": 0.92
-  },
-  {
-   "frm_component": 18,
-   "to_component": 69,
-   "kind": "jump",
-   "frm": [
-    13.5,
-    7.25,
-    45.5
-   ],
-   "to": [
-    13.5,
-    8.17,
-    46.5
-   ],
-   "horizontal": 1.0,
-   "dy": 0.92
-  },
-  {
-   "frm_component": 18,
    "to_component": 70,
+   "kind": "jump",
+   "frm": [
+    -3.5,
+    7.25,
+    45.5
+   ],
+   "to": [
+    -3.5,
+    8.26,
+    46.5
+   ],
+   "horizontal": 1.0,
+   "dy": 1.01
+  },
+  {
+   "frm_component": 18,
+   "to_component": 71,
+   "kind": "jump",
+   "frm": [
+    12.5,
+    7.31,
+    46.5
+   ],
+   "to": [
+    13.5,
+    8.26,
+    46.5
+   ],
+   "horizontal": 1.0,
+   "dy": 0.95
+  },
+  {
+   "frm_component": 18,
+   "to_component": 72,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -1061,7 +1044,7 @@
   },
   {
    "frm_component": 18,
-   "to_component": 71,
+   "to_component": 73,
    "kind": "jump",
    "frm": [
     13.5,
@@ -1078,7 +1061,24 @@
   },
   {
    "frm_component": 18,
-   "to_component": 72,
+   "to_component": 74,
+   "kind": "jump",
+   "frm": [
+    -4.5,
+    7.48,
+    49.5
+   ],
+   "to": [
+    -5.5,
+    7.49,
+    50.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.02
+  },
+  {
+   "frm_component": 18,
+   "to_component": 75,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -1095,24 +1095,24 @@
   },
   {
    "frm_component": 18,
-   "to_component": 73,
+   "to_component": 76,
    "kind": "jump",
    "frm": [
-    -1.5,
-    7.31,
-    47.5
+    -2.5,
+    7.47,
+    48.5
    ],
    "to": [
     -1.5,
-    8.17,
+    8.26,
     48.5
    ],
    "horizontal": 1.0,
-   "dy": 0.86
+   "dy": 0.79
   },
   {
    "frm_component": 18,
-   "to_component": 74,
+   "to_component": 77,
    "kind": "jump",
    "frm": [
     10.5,
@@ -1121,15 +1121,15 @@
    ],
    "to": [
     11.5,
-    8.17,
+    8.26,
     48.5
    ],
    "horizontal": 1.0,
-   "dy": 0.92
+   "dy": 1.01
   },
   {
    "frm_component": 18,
-   "to_component": 75,
+   "to_component": 78,
    "kind": "jump",
    "frm": [
     14.5,
@@ -1146,12 +1146,29 @@
   },
   {
    "frm_component": 18,
-   "to_component": 76,
+   "to_component": 79,
    "kind": "jump",
    "frm": [
-    -3.5,
-    7.47,
+    14.5,
+    7.48,
     49.5
+   ],
+   "to": [
+    15.5,
+    7.49,
+    50.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.02
+  },
+  {
+   "frm_component": 18,
+   "to_component": 80,
+   "kind": "jump",
+   "frm": [
+    -2.5,
+    7.47,
+    48.5
    ],
    "to": [
     -2.5,
@@ -1163,7 +1180,7 @@
   },
   {
    "frm_component": 18,
-   "to_component": 77,
+   "to_component": 81,
    "kind": "jump",
    "frm": [
     -2.5,
@@ -1180,7 +1197,7 @@
   },
   {
    "frm_component": 18,
-   "to_component": 78,
+   "to_component": 82,
    "kind": "jump",
    "frm": [
     12.5,
@@ -1197,7 +1214,7 @@
   },
   {
    "frm_component": 18,
-   "to_component": 79,
+   "to_component": 83,
    "kind": "jump",
    "frm": [
     12.5,
@@ -1214,24 +1231,24 @@
   },
   {
    "frm_component": 18,
-   "to_component": 80,
+   "to_component": 84,
    "kind": "jump",
    "frm": [
     -4.5,
     7.48,
-    50.5
+    49.5
    ],
    "to": [
-    -3.5,
-    8.17,
+    -4.5,
+    8.37,
     50.5
    ],
    "horizontal": 1.0,
-   "dy": 0.69
+   "dy": 0.89
   },
   {
    "frm_component": 18,
-   "to_component": 81,
+   "to_component": 85,
    "kind": "jump",
    "frm": [
     13.5,
@@ -1491,12 +1508,12 @@
    "frm": [
     -34.5,
     9.4,
-    9.5
+    8.5
    ],
    "to": [
     -33.5,
     8.2,
-    9.5
+    8.5
    ],
    "horizontal": 1.0,
    "dy": -1.2
@@ -1623,6 +1640,346 @@
   {
    "frm_component": 31,
    "to_component": 18,
+   "kind": "jump",
+   "frm": [
+    -5.5,
+    7.49,
+    29.5
+   ],
+   "to": [
+    -4.5,
+    7.48,
+    30.5
+   ],
+   "horizontal": 1.41,
+   "dy": -0.02
+  },
+  {
+   "frm_component": 31,
+   "to_component": 37,
+   "kind": "jump",
+   "frm": [
+    -5.5,
+    7.5,
+    28.5
+   ],
+   "to": [
+    -4.5,
+    8.27,
+    28.5
+   ],
+   "horizontal": 1.0,
+   "dy": 0.77
+  },
+  {
+   "frm_component": 31,
+   "to_component": 39,
+   "kind": "jump",
+   "frm": [
+    -3.5,
+    7.5,
+    27.5
+   ],
+   "to": [
+    0.5,
+    8.6,
+    29.5
+   ],
+   "horizontal": 4.47,
+   "dy": 1.1
+  },
+  {
+   "frm_component": 31,
+   "to_component": 41,
+   "kind": "jump",
+   "frm": [
+    -6.5,
+    7.5,
+    29.5
+   ],
+   "to": [
+    -6.5,
+    8.27,
+    30.5
+   ],
+   "horizontal": 1.0,
+   "dy": 0.77
+  },
+  {
+   "frm_component": 31,
+   "to_component": 42,
+   "kind": "jump",
+   "frm": [
+    -5.5,
+    7.49,
+    29.5
+   ],
+   "to": [
+    -2.5,
+    8.17,
+    30.5
+   ],
+   "horizontal": 3.16,
+   "dy": 0.68
+  },
+  {
+   "frm_component": 31,
+   "to_component": 45,
+   "kind": "jump",
+   "frm": [
+    -5.5,
+    7.49,
+    29.5
+   ],
+   "to": [
+    -1.5,
+    8.26,
+    31.5
+   ],
+   "horizontal": 4.47,
+   "dy": 0.77
+  },
+  {
+   "frm_component": 31,
+   "to_component": 47,
+   "kind": "jump",
+   "frm": [
+    -5.5,
+    7.49,
+    29.5
+   ],
+   "to": [
+    -4.5,
+    8.17,
+    32.5
+   ],
+   "horizontal": 3.16,
+   "dy": 0.68
+  },
+  {
+   "frm_component": 31,
+   "to_component": 51,
+   "kind": "jump",
+   "frm": [
+    -5.5,
+    7.49,
+    29.5
+   ],
+   "to": [
+    -3.5,
+    8.26,
+    33.5
+   ],
+   "horizontal": 4.47,
+   "dy": 0.77
+  },
+  {
+   "frm_component": 32,
+   "to_component": 18,
+   "kind": "jump",
+   "frm": [
+    15.5,
+    7.49,
+    29.5
+   ],
+   "to": [
+    14.5,
+    7.48,
+    30.5
+   ],
+   "horizontal": 1.41,
+   "dy": -0.02
+  },
+  {
+   "frm_component": 32,
+   "to_component": 33,
+   "kind": "jump",
+   "frm": [
+    16.5,
+    7.5,
+    25.5
+   ],
+   "to": [
+    17.5,
+    8.52,
+    25.5
+   ],
+   "horizontal": 1.0,
+   "dy": 1.02
+  },
+  {
+   "frm_component": 32,
+   "to_component": 35,
+   "kind": "jump",
+   "frm": [
+    17.5,
+    7.53,
+    26.5
+   ],
+   "to": [
+    18.5,
+    8.57,
+    26.5
+   ],
+   "horizontal": 1.0,
+   "dy": 1.04
+  },
+  {
+   "frm_component": 32,
+   "to_component": 36,
+   "kind": "jump",
+   "frm": [
+    18.5,
+    7.53,
+    27.5
+   ],
+   "to": [
+    19.5,
+    8.52,
+    27.5
+   ],
+   "horizontal": 1.0,
+   "dy": 0.99
+  },
+  {
+   "frm_component": 32,
+   "to_component": 38,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    7.5,
+    27.5
+   ],
+   "to": [
+    13.5,
+    8.37,
+    28.5
+   ],
+   "horizontal": 1.0,
+   "dy": 0.87
+  },
+  {
+   "frm_component": 32,
+   "to_component": 40,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    7.5,
+    27.5
+   ],
+   "to": [
+    9.5,
+    8.6,
+    29.5
+   ],
+   "horizontal": 4.47,
+   "dy": 1.1
+  },
+  {
+   "frm_component": 32,
+   "to_component": 43,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    7.5,
+    27.5
+   ],
+   "to": [
+    12.5,
+    8.17,
+    30.5
+   ],
+   "horizontal": 3.16,
+   "dy": 0.67
+  },
+  {
+   "frm_component": 32,
+   "to_component": 44,
+   "kind": "jump",
+   "frm": [
+    15.5,
+    7.49,
+    29.5
+   ],
+   "to": [
+    15.5,
+    8.37,
+    30.5
+   ],
+   "horizontal": 1.0,
+   "dy": 0.88
+  },
+  {
+   "frm_component": 32,
+   "to_component": 46,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    7.5,
+    27.5
+   ],
+   "to": [
+    11.5,
+    8.26,
+    31.5
+   ],
+   "horizontal": 4.47,
+   "dy": 0.76
+  },
+  {
+   "frm_component": 32,
+   "to_component": 48,
+   "kind": "jump",
+   "frm": [
+    15.5,
+    7.49,
+    29.5
+   ],
+   "to": [
+    14.5,
+    8.17,
+    32.5
+   ],
+   "horizontal": 3.16,
+   "dy": 0.68
+  },
+  {
+   "frm_component": 32,
+   "to_component": 52,
+   "kind": "jump",
+   "frm": [
+    15.5,
+    7.49,
+    29.5
+   ],
+   "to": [
+    13.5,
+    8.26,
+    33.5
+   ],
+   "horizontal": 4.47,
+   "dy": 0.77
+  },
+  {
+   "frm_component": 32,
+   "to_component": 53,
+   "kind": "jump",
+   "frm": [
+    17.5,
+    7.5,
+    31.5
+   ],
+   "to": [
+    15.5,
+    8.6,
+    35.5
+   ],
+   "horizontal": 4.47,
+   "dy": 1.1
+  },
+  {
+   "frm_component": 33,
+   "to_component": 32,
    "kind": "drop",
    "frm": [
     17.5,
@@ -1630,16 +1987,16 @@
     25.5
    ],
    "to": [
-    17.5,
+    16.5,
     7.5,
-    24.5
+    25.5
    ],
    "horizontal": 1.0,
    "dy": -1.02
   },
   {
-   "frm_component": 31,
-   "to_component": 33,
+   "frm_component": 33,
+   "to_component": 35,
    "kind": "jump",
    "frm": [
     17.5,
@@ -1655,8 +2012,25 @@
    "dy": 0.05
   },
   {
-   "frm_component": 32,
-   "to_component": 18,
+   "frm_component": 33,
+   "to_component": 38,
+   "kind": "jump",
+   "frm": [
+    17.5,
+    8.52,
+    25.5
+   ],
+   "to": [
+    14.5,
+    8.27,
+    28.5
+   ],
+   "horizontal": 4.24,
+   "dy": -0.25
+  },
+  {
+   "frm_component": 34,
+   "to_component": 32,
    "kind": "drop",
    "frm": [
     18.5,
@@ -1672,8 +2046,8 @@
    "dy": -2.33
   },
   {
-   "frm_component": 32,
-   "to_component": 31,
+   "frm_component": 34,
+   "to_component": 33,
    "kind": "drop",
    "frm": [
     18.5,
@@ -1689,8 +2063,8 @@
    "dy": -1.34
   },
   {
-   "frm_component": 32,
-   "to_component": 33,
+   "frm_component": 34,
+   "to_component": 35,
    "kind": "drop",
    "frm": [
     18.5,
@@ -1706,8 +2080,8 @@
    "dy": -1.29
   },
   {
-   "frm_component": 32,
-   "to_component": 34,
+   "frm_component": 34,
+   "to_component": 36,
    "kind": "drop",
    "frm": [
     19.5,
@@ -1723,8 +2097,42 @@
    "dy": -1.34
   },
   {
-   "frm_component": 33,
-   "to_component": 18,
+   "frm_component": 34,
+   "to_component": 38,
+   "kind": "jump",
+   "frm": [
+    18.5,
+    9.86,
+    25.5
+   ],
+   "to": [
+    14.5,
+    8.27,
+    28.5
+   ],
+   "horizontal": 5.0,
+   "dy": -1.59
+  },
+  {
+   "frm_component": 34,
+   "to_component": 44,
+   "kind": "jump",
+   "frm": [
+    19.5,
+    9.86,
+    26.5
+   ],
+   "to": [
+    16.5,
+    8.27,
+    30.5
+   ],
+   "horizontal": 5.0,
+   "dy": -1.59
+  },
+  {
+   "frm_component": 35,
+   "to_component": 32,
    "kind": "drop",
    "frm": [
     18.5,
@@ -1740,8 +2148,8 @@
    "dy": -1.04
   },
   {
-   "frm_component": 33,
-   "to_component": 31,
+   "frm_component": 35,
+   "to_component": 33,
    "kind": "jump",
    "frm": [
     18.5,
@@ -1757,8 +2165,8 @@
    "dy": -0.05
   },
   {
-   "frm_component": 33,
-   "to_component": 34,
+   "frm_component": 35,
+   "to_component": 36,
    "kind": "jump",
    "frm": [
     18.5,
@@ -1774,8 +2182,42 @@
    "dy": -0.05
   },
   {
-   "frm_component": 34,
-   "to_component": 18,
+   "frm_component": 35,
+   "to_component": 38,
+   "kind": "jump",
+   "frm": [
+    18.5,
+    8.57,
+    26.5
+   ],
+   "to": [
+    14.5,
+    8.27,
+    28.5
+   ],
+   "horizontal": 4.47,
+   "dy": -0.3
+  },
+  {
+   "frm_component": 35,
+   "to_component": 44,
+   "kind": "jump",
+   "frm": [
+    18.5,
+    8.57,
+    26.5
+   ],
+   "to": [
+    16.5,
+    8.27,
+    30.5
+   ],
+   "horizontal": 4.47,
+   "dy": -0.3
+  },
+  {
+   "frm_component": 36,
+   "to_component": 32,
    "kind": "drop",
    "frm": [
     19.5,
@@ -1783,16 +2225,16 @@
     27.5
    ],
    "to": [
-    18.5,
-    7.53,
-    27.5
+    19.5,
+    7.5,
+    28.5
    ],
    "horizontal": 1.0,
-   "dy": -0.99
+   "dy": -1.02
   },
   {
-   "frm_component": 34,
-   "to_component": 33,
+   "frm_component": 36,
+   "to_component": 35,
    "kind": "jump",
    "frm": [
     19.5,
@@ -1808,25 +2250,59 @@
    "dy": 0.05
   },
   {
-   "frm_component": 35,
+   "frm_component": 36,
+   "to_component": 44,
+   "kind": "jump",
+   "frm": [
+    19.5,
+    8.52,
+    27.5
+   ],
+   "to": [
+    16.5,
+    8.27,
+    30.5
+   ],
+   "horizontal": 4.24,
+   "dy": -0.25
+  },
+  {
+   "frm_component": 37,
    "to_component": 18,
    "kind": "drop",
    "frm": [
-    -3.5,
-    8.17,
+    -4.5,
+    8.37,
     29.5
    ],
    "to": [
     -4.5,
     7.48,
+    30.5
+   ],
+   "horizontal": 1.0,
+   "dy": -0.89
+  },
+  {
+   "frm_component": 37,
+   "to_component": 31,
+   "kind": "drop",
+   "frm": [
+    -4.5,
+    8.37,
+    29.5
+   ],
+   "to": [
+    -5.5,
+    7.49,
     29.5
    ],
    "horizontal": 1.0,
-   "dy": -0.69
+   "dy": -0.88
   },
   {
-   "frm_component": 35,
-   "to_component": 36,
+   "frm_component": 37,
+   "to_component": 39,
    "kind": "jump",
    "frm": [
     -3.5,
@@ -1842,8 +2318,25 @@
    "dy": 0.43
   },
   {
-   "frm_component": 35,
-   "to_component": 39,
+   "frm_component": 37,
+   "to_component": 41,
+   "kind": "jump",
+   "frm": [
+    -4.5,
+    8.37,
+    29.5
+   ],
+   "to": [
+    -5.5,
+    8.37,
+    30.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 37,
+   "to_component": 42,
    "kind": "jump",
    "frm": [
     -3.5,
@@ -1859,41 +2352,7 @@
    "dy": 0.0
   },
   {
-   "frm_component": 35,
-   "to_component": 41,
-   "kind": "jump",
-   "frm": [
-    -3.5,
-    8.17,
-    29.5
-   ],
-   "to": [
-    -5.5,
-    8.17,
-    31.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 35,
-   "to_component": 42,
-   "kind": "jump",
-   "frm": [
-    -3.5,
-    8.17,
-    29.5
-   ],
-   "to": [
-    -1.5,
-    8.17,
-    31.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 35,
+   "frm_component": 37,
    "to_component": 45,
    "kind": "jump",
    "frm": [
@@ -1902,16 +2361,33 @@
     29.5
    ],
    "to": [
+    -1.5,
+    8.26,
+    31.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.09
+  },
+  {
+   "frm_component": 37,
+   "to_component": 47,
+   "kind": "jump",
+   "frm": [
+    -4.5,
+    8.37,
+    29.5
+   ],
+   "to": [
     -4.5,
     8.17,
     32.5
    ],
-   "horizontal": 3.16,
-   "dy": 0.0
+   "horizontal": 3.0,
+   "dy": -0.2
   },
   {
-   "frm_component": 35,
-   "to_component": 49,
+   "frm_component": 37,
+   "to_component": 51,
    "kind": "jump",
    "frm": [
     -3.5,
@@ -1920,14 +2396,184 @@
    ],
    "to": [
     -3.5,
-    8.17,
+    8.26,
     33.5
    ],
    "horizontal": 4.0,
+   "dy": 0.09
+  },
+  {
+   "frm_component": 38,
+   "to_component": 18,
+   "kind": "drop",
+   "frm": [
+    13.5,
+    8.17,
+    29.5
+   ],
+   "to": [
+    13.5,
+    7.47,
+    30.5
+   ],
+   "horizontal": 1.0,
+   "dy": -0.7
+  },
+  {
+   "frm_component": 38,
+   "to_component": 32,
+   "kind": "drop",
+   "frm": [
+    13.5,
+    8.37,
+    28.5
+   ],
+   "to": [
+    13.5,
+    7.5,
+    27.5
+   ],
+   "horizontal": 1.0,
+   "dy": -0.87
+  },
+  {
+   "frm_component": 38,
+   "to_component": 33,
+   "kind": "jump",
+   "frm": [
+    14.5,
+    8.27,
+    28.5
+   ],
+   "to": [
+    17.5,
+    8.52,
+    25.5
+   ],
+   "horizontal": 4.24,
+   "dy": 0.25
+  },
+  {
+   "frm_component": 38,
+   "to_component": 35,
+   "kind": "jump",
+   "frm": [
+    14.5,
+    8.27,
+    28.5
+   ],
+   "to": [
+    18.5,
+    8.57,
+    26.5
+   ],
+   "horizontal": 4.47,
+   "dy": 0.3
+  },
+  {
+   "frm_component": 38,
+   "to_component": 40,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    8.17,
+    29.5
+   ],
+   "to": [
+    9.5,
+    8.6,
+    29.5
+   ],
+   "horizontal": 4.0,
+   "dy": 0.43
+  },
+  {
+   "frm_component": 38,
+   "to_component": 43,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    8.17,
+    29.5
+   ],
+   "to": [
+    12.5,
+    8.17,
+    30.5
+   ],
+   "horizontal": 1.41,
    "dy": 0.0
   },
   {
-   "frm_component": 36,
+   "frm_component": 38,
+   "to_component": 44,
+   "kind": "jump",
+   "frm": [
+    14.5,
+    8.37,
+    29.5
+   ],
+   "to": [
+    15.5,
+    8.37,
+    30.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 38,
+   "to_component": 46,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    8.17,
+    29.5
+   ],
+   "to": [
+    11.5,
+    8.26,
+    31.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.09
+  },
+  {
+   "frm_component": 38,
+   "to_component": 48,
+   "kind": "jump",
+   "frm": [
+    14.5,
+    8.37,
+    29.5
+   ],
+   "to": [
+    14.5,
+    8.17,
+    32.5
+   ],
+   "horizontal": 3.0,
+   "dy": -0.2
+  },
+  {
+   "frm_component": 38,
+   "to_component": 52,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    8.17,
+    29.5
+   ],
+   "to": [
+    13.5,
+    8.26,
+    33.5
+   ],
+   "horizontal": 4.0,
+   "dy": 0.09
+  },
+  {
+   "frm_component": 39,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -1944,8 +2590,25 @@
    "dy": -1.37
   },
   {
-   "frm_component": 36,
-   "to_component": 35,
+   "frm_component": 39,
+   "to_component": 31,
+   "kind": "jump",
+   "frm": [
+    0.5,
+    8.6,
+    29.5
+   ],
+   "to": [
+    -3.5,
+    7.5,
+    27.5
+   ],
+   "horizontal": 4.47,
+   "dy": -1.1
+  },
+  {
+   "frm_component": 39,
+   "to_component": 37,
    "kind": "jump",
    "frm": [
     0.5,
@@ -1961,8 +2624,8 @@
    "dy": -0.43
   },
   {
-   "frm_component": 36,
-   "to_component": 39,
+   "frm_component": 39,
+   "to_component": 42,
    "kind": "jump",
    "frm": [
     0.5,
@@ -1978,8 +2641,8 @@
    "dy": -0.43
   },
   {
-   "frm_component": 36,
-   "to_component": 42,
+   "frm_component": 39,
+   "to_component": 45,
    "kind": "jump",
    "frm": [
     0.5,
@@ -1988,15 +2651,15 @@
    ],
    "to": [
     -1.5,
-    8.17,
+    8.26,
     31.5
    ],
    "horizontal": 2.24,
-   "dy": -0.43
+   "dy": -0.34
   },
   {
-   "frm_component": 36,
-   "to_component": 49,
+   "frm_component": 39,
+   "to_component": 51,
    "kind": "jump",
    "frm": [
     0.5,
@@ -2005,14 +2668,14 @@
    ],
    "to": [
     -3.5,
-    8.17,
+    8.26,
     33.5
    ],
    "horizontal": 5.0,
-   "dy": -0.43
+   "dy": -0.34
   },
   {
-   "frm_component": 37,
+   "frm_component": 40,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -2029,7 +2692,24 @@
    "dy": -1.37
   },
   {
-   "frm_component": 37,
+   "frm_component": 40,
+   "to_component": 32,
+   "kind": "jump",
+   "frm": [
+    9.5,
+    8.6,
+    29.5
+   ],
+   "to": [
+    13.5,
+    7.5,
+    27.5
+   ],
+   "horizontal": 4.47,
+   "dy": -1.1
+  },
+  {
+   "frm_component": 40,
    "to_component": 38,
    "kind": "jump",
    "frm": [
@@ -2046,8 +2726,8 @@
    "dy": -0.43
   },
   {
-   "frm_component": 37,
-   "to_component": 40,
+   "frm_component": 40,
+   "to_component": 43,
    "kind": "jump",
    "frm": [
     9.5,
@@ -2063,8 +2743,8 @@
    "dy": -0.43
   },
   {
-   "frm_component": 37,
-   "to_component": 43,
+   "frm_component": 40,
+   "to_component": 46,
    "kind": "jump",
    "frm": [
     9.5,
@@ -2073,15 +2753,15 @@
    ],
    "to": [
     11.5,
-    8.17,
+    8.26,
     31.5
    ],
    "horizontal": 2.24,
-   "dy": -0.43
+   "dy": -0.34
   },
   {
-   "frm_component": 37,
-   "to_component": 50,
+   "frm_component": 40,
+   "to_component": 52,
    "kind": "jump",
    "frm": [
     9.5,
@@ -2090,368 +2770,11 @@
    ],
    "to": [
     13.5,
-    8.17,
+    8.26,
     33.5
    ],
    "horizontal": 5.0,
-   "dy": -0.43
-  },
-  {
-   "frm_component": 38,
-   "to_component": 18,
-   "kind": "drop",
-   "frm": [
-    13.5,
-    8.17,
-    29.5
-   ],
-   "to": [
-    13.5,
-    7.47,
-    30.5
-   ],
-   "horizontal": 1.0,
-   "dy": -0.7
-  },
-  {
-   "frm_component": 38,
-   "to_component": 37,
-   "kind": "jump",
-   "frm": [
-    13.5,
-    8.17,
-    29.5
-   ],
-   "to": [
-    9.5,
-    8.6,
-    29.5
-   ],
-   "horizontal": 4.0,
-   "dy": 0.43
-  },
-  {
-   "frm_component": 38,
-   "to_component": 40,
-   "kind": "jump",
-   "frm": [
-    13.5,
-    8.17,
-    29.5
-   ],
-   "to": [
-    12.5,
-    8.17,
-    30.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 38,
-   "to_component": 43,
-   "kind": "jump",
-   "frm": [
-    13.5,
-    8.17,
-    29.5
-   ],
-   "to": [
-    11.5,
-    8.17,
-    31.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 38,
-   "to_component": 44,
-   "kind": "jump",
-   "frm": [
-    13.5,
-    8.17,
-    29.5
-   ],
-   "to": [
-    15.5,
-    8.17,
-    31.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 38,
-   "to_component": 46,
-   "kind": "jump",
-   "frm": [
-    13.5,
-    8.17,
-    29.5
-   ],
-   "to": [
-    14.5,
-    8.17,
-    32.5
-   ],
-   "horizontal": 3.16,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 38,
-   "to_component": 50,
-   "kind": "jump",
-   "frm": [
-    13.5,
-    8.17,
-    29.5
-   ],
-   "to": [
-    13.5,
-    8.17,
-    33.5
-   ],
-   "horizontal": 4.0,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 39,
-   "to_component": 18,
-   "kind": "drop",
-   "frm": [
-    -2.5,
-    8.17,
-    30.5
-   ],
-   "to": [
-    -3.5,
-    7.47,
-    30.5
-   ],
-   "horizontal": 1.0,
-   "dy": -0.7
-  },
-  {
-   "frm_component": 39,
-   "to_component": 35,
-   "kind": "jump",
-   "frm": [
-    -2.5,
-    8.17,
-    30.5
-   ],
-   "to": [
-    -3.5,
-    8.17,
-    29.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 39,
-   "to_component": 36,
-   "kind": "jump",
-   "frm": [
-    -2.5,
-    8.17,
-    30.5
-   ],
-   "to": [
-    0.5,
-    8.6,
-    30.5
-   ],
-   "horizontal": 3.0,
-   "dy": 0.43
-  },
-  {
-   "frm_component": 39,
-   "to_component": 41,
-   "kind": "jump",
-   "frm": [
-    -2.5,
-    8.17,
-    30.5
-   ],
-   "to": [
-    -5.5,
-    8.17,
-    31.5
-   ],
-   "horizontal": 3.16,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 39,
-   "to_component": 42,
-   "kind": "jump",
-   "frm": [
-    -2.5,
-    8.17,
-    30.5
-   ],
-   "to": [
-    -1.5,
-    8.17,
-    31.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 39,
-   "to_component": 45,
-   "kind": "jump",
-   "frm": [
-    -2.5,
-    8.17,
-    30.5
-   ],
-   "to": [
-    -4.5,
-    8.17,
-    32.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 39,
-   "to_component": 49,
-   "kind": "jump",
-   "frm": [
-    -2.5,
-    8.17,
-    30.5
-   ],
-   "to": [
-    -3.5,
-    8.17,
-    33.5
-   ],
-   "horizontal": 3.16,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 40,
-   "to_component": 18,
-   "kind": "drop",
-   "frm": [
-    12.5,
-    8.17,
-    30.5
-   ],
-   "to": [
-    12.5,
-    7.47,
-    31.5
-   ],
-   "horizontal": 1.0,
-   "dy": -0.7
-  },
-  {
-   "frm_component": 40,
-   "to_component": 37,
-   "kind": "jump",
-   "frm": [
-    12.5,
-    8.17,
-    30.5
-   ],
-   "to": [
-    9.5,
-    8.6,
-    30.5
-   ],
-   "horizontal": 3.0,
-   "dy": 0.43
-  },
-  {
-   "frm_component": 40,
-   "to_component": 38,
-   "kind": "jump",
-   "frm": [
-    12.5,
-    8.17,
-    30.5
-   ],
-   "to": [
-    13.5,
-    8.17,
-    29.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 40,
-   "to_component": 43,
-   "kind": "jump",
-   "frm": [
-    12.5,
-    8.17,
-    30.5
-   ],
-   "to": [
-    11.5,
-    8.17,
-    31.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 40,
-   "to_component": 44,
-   "kind": "jump",
-   "frm": [
-    12.5,
-    8.17,
-    30.5
-   ],
-   "to": [
-    15.5,
-    8.17,
-    31.5
-   ],
-   "horizontal": 3.16,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 40,
-   "to_component": 46,
-   "kind": "jump",
-   "frm": [
-    12.5,
-    8.17,
-    30.5
-   ],
-   "to": [
-    14.5,
-    8.17,
-    32.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 40,
-   "to_component": 50,
-   "kind": "jump",
-   "frm": [
-    12.5,
-    8.17,
-    30.5
-   ],
-   "to": [
-    13.5,
-    8.17,
-    33.5
-   ],
-   "horizontal": 3.16,
-   "dy": 0.0
+   "dy": -0.34
   },
   {
    "frm_component": 41,
@@ -2459,49 +2782,49 @@
    "kind": "drop",
    "frm": [
     -5.5,
-    8.17,
-    31.5
+    8.37,
+    30.5
    ],
    "to": [
-    -5.5,
+    -4.5,
     7.48,
     30.5
    ],
    "horizontal": 1.0,
-   "dy": -0.69
+   "dy": -0.89
   },
   {
    "frm_component": 41,
-   "to_component": 35,
-   "kind": "jump",
+   "to_component": 31,
+   "kind": "drop",
    "frm": [
-    -5.5,
-    8.17,
+    -6.5,
+    8.37,
     31.5
    ],
    "to": [
-    -3.5,
-    8.17,
-    29.5
+    -7.5,
+    7.5,
+    31.5
    ],
-   "horizontal": 2.83,
-   "dy": 0.0
+   "horizontal": 1.0,
+   "dy": -0.87
   },
   {
    "frm_component": 41,
-   "to_component": 39,
+   "to_component": 37,
    "kind": "jump",
    "frm": [
     -5.5,
-    8.17,
-    31.5
-   ],
-   "to": [
-    -2.5,
-    8.17,
+    8.37,
     30.5
    ],
-   "horizontal": 3.16,
+   "to": [
+    -4.5,
+    8.37,
+    29.5
+   ],
+   "horizontal": 1.41,
    "dy": 0.0
   },
   {
@@ -2510,142 +2833,40 @@
    "kind": "jump",
    "frm": [
     -5.5,
-    8.17,
-    31.5
-   ],
-   "to": [
-    -1.5,
-    8.17,
-    31.5
-   ],
-   "horizontal": 4.0,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 41,
-   "to_component": 45,
-   "kind": "jump",
-   "frm": [
-    -5.5,
-    8.17,
-    31.5
-   ],
-   "to": [
-    -4.5,
-    8.17,
-    32.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 41,
-   "to_component": 49,
-   "kind": "jump",
-   "frm": [
-    -5.5,
-    8.17,
-    31.5
-   ],
-   "to": [
-    -3.5,
-    8.17,
-    33.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 42,
-   "to_component": 18,
-   "kind": "drop",
-   "frm": [
-    -1.5,
-    8.17,
-    31.5
-   ],
-   "to": [
-    -1.5,
-    7.32,
-    32.5
-   ],
-   "horizontal": 1.0,
-   "dy": -0.85
-  },
-  {
-   "frm_component": 42,
-   "to_component": 35,
-   "kind": "jump",
-   "frm": [
-    -1.5,
-    8.17,
-    31.5
-   ],
-   "to": [
-    -3.5,
-    8.17,
-    29.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 42,
-   "to_component": 36,
-   "kind": "jump",
-   "frm": [
-    -1.5,
-    8.17,
-    31.5
-   ],
-   "to": [
-    0.5,
-    8.6,
+    8.37,
     30.5
-   ],
-   "horizontal": 2.24,
-   "dy": 0.43
-  },
-  {
-   "frm_component": 42,
-   "to_component": 39,
-   "kind": "jump",
-   "frm": [
-    -1.5,
-    8.17,
-    31.5
    ],
    "to": [
     -2.5,
     8.17,
     30.5
    ],
-   "horizontal": 1.41,
-   "dy": 0.0
+   "horizontal": 3.0,
+   "dy": -0.2
   },
   {
-   "frm_component": 42,
-   "to_component": 41,
+   "frm_component": 41,
+   "to_component": 45,
    "kind": "jump",
    "frm": [
-    -1.5,
-    8.17,
-    31.5
-   ],
-   "to": [
     -5.5,
     8.17,
     31.5
    ],
+   "to": [
+    -1.5,
+    8.26,
+    31.5
+   ],
    "horizontal": 4.0,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 42,
-   "to_component": 45,
+   "frm_component": 41,
+   "to_component": 47,
    "kind": "jump",
    "frm": [
-    -1.5,
+    -5.5,
     8.17,
     31.5
    ],
@@ -2654,33 +2875,611 @@
     8.17,
     32.5
    ],
-   "horizontal": 3.16,
+   "horizontal": 1.41,
    "dy": 0.0
   },
   {
-   "frm_component": 42,
-   "to_component": 49,
+   "frm_component": 41,
+   "to_component": 51,
    "kind": "jump",
    "frm": [
-    -1.5,
+    -5.5,
     8.17,
     31.5
    ],
    "to": [
     -3.5,
-    8.17,
+    8.26,
     33.5
    ],
    "horizontal": 2.83,
+   "dy": 0.09
+  },
+  {
+   "frm_component": 42,
+   "to_component": 18,
+   "kind": "drop",
+   "frm": [
+    -2.5,
+    8.17,
+    30.5
+   ],
+   "to": [
+    -3.5,
+    7.47,
+    30.5
+   ],
+   "horizontal": 1.0,
+   "dy": -0.7
+  },
+  {
+   "frm_component": 42,
+   "to_component": 31,
+   "kind": "jump",
+   "frm": [
+    -2.5,
+    8.17,
+    30.5
+   ],
+   "to": [
+    -5.5,
+    7.49,
+    29.5
+   ],
+   "horizontal": 3.16,
+   "dy": -0.68
+  },
+  {
+   "frm_component": 42,
+   "to_component": 37,
+   "kind": "jump",
+   "frm": [
+    -2.5,
+    8.17,
+    30.5
+   ],
+   "to": [
+    -3.5,
+    8.17,
+    29.5
+   ],
+   "horizontal": 1.41,
    "dy": 0.0
+  },
+  {
+   "frm_component": 42,
+   "to_component": 39,
+   "kind": "jump",
+   "frm": [
+    -2.5,
+    8.17,
+    30.5
+   ],
+   "to": [
+    0.5,
+    8.6,
+    30.5
+   ],
+   "horizontal": 3.0,
+   "dy": 0.43
+  },
+  {
+   "frm_component": 42,
+   "to_component": 41,
+   "kind": "jump",
+   "frm": [
+    -2.5,
+    8.17,
+    30.5
+   ],
+   "to": [
+    -5.5,
+    8.37,
+    30.5
+   ],
+   "horizontal": 3.0,
+   "dy": 0.2
+  },
+  {
+   "frm_component": 42,
+   "to_component": 45,
+   "kind": "jump",
+   "frm": [
+    -2.5,
+    8.17,
+    30.5
+   ],
+   "to": [
+    -1.5,
+    8.26,
+    31.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.09
+  },
+  {
+   "frm_component": 42,
+   "to_component": 47,
+   "kind": "jump",
+   "frm": [
+    -2.5,
+    8.17,
+    30.5
+   ],
+   "to": [
+    -4.5,
+    8.17,
+    32.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 42,
+   "to_component": 51,
+   "kind": "jump",
+   "frm": [
+    -2.5,
+    8.17,
+    30.5
+   ],
+   "to": [
+    -3.5,
+    8.26,
+    33.5
+   ],
+   "horizontal": 3.16,
+   "dy": 0.09
   },
   {
    "frm_component": 43,
    "to_component": 18,
    "kind": "drop",
    "frm": [
-    11.5,
+    12.5,
     8.17,
+    30.5
+   ],
+   "to": [
+    12.5,
+    7.47,
+    31.5
+   ],
+   "horizontal": 1.0,
+   "dy": -0.7
+  },
+  {
+   "frm_component": 43,
+   "to_component": 32,
+   "kind": "jump",
+   "frm": [
+    12.5,
+    8.17,
+    30.5
+   ],
+   "to": [
+    13.5,
+    7.5,
+    27.5
+   ],
+   "horizontal": 3.16,
+   "dy": -0.67
+  },
+  {
+   "frm_component": 43,
+   "to_component": 38,
+   "kind": "jump",
+   "frm": [
+    12.5,
+    8.17,
+    30.5
+   ],
+   "to": [
+    13.5,
+    8.17,
+    29.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 43,
+   "to_component": 40,
+   "kind": "jump",
+   "frm": [
+    12.5,
+    8.17,
+    30.5
+   ],
+   "to": [
+    9.5,
+    8.6,
+    30.5
+   ],
+   "horizontal": 3.0,
+   "dy": 0.43
+  },
+  {
+   "frm_component": 43,
+   "to_component": 44,
+   "kind": "jump",
+   "frm": [
+    12.5,
+    8.17,
+    30.5
+   ],
+   "to": [
+    15.5,
+    8.37,
+    30.5
+   ],
+   "horizontal": 3.0,
+   "dy": 0.2
+  },
+  {
+   "frm_component": 43,
+   "to_component": 46,
+   "kind": "jump",
+   "frm": [
+    12.5,
+    8.17,
+    30.5
+   ],
+   "to": [
+    11.5,
+    8.26,
+    31.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.09
+  },
+  {
+   "frm_component": 43,
+   "to_component": 48,
+   "kind": "jump",
+   "frm": [
+    12.5,
+    8.17,
+    30.5
+   ],
+   "to": [
+    14.5,
+    8.17,
+    32.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 43,
+   "to_component": 52,
+   "kind": "jump",
+   "frm": [
+    12.5,
+    8.17,
+    30.5
+   ],
+   "to": [
+    13.5,
+    8.26,
+    33.5
+   ],
+   "horizontal": 3.16,
+   "dy": 0.09
+  },
+  {
+   "frm_component": 44,
+   "to_component": 18,
+   "kind": "drop",
+   "frm": [
+    15.5,
+    8.37,
+    30.5
+   ],
+   "to": [
+    14.5,
+    7.48,
+    30.5
+   ],
+   "horizontal": 1.0,
+   "dy": -0.89
+  },
+  {
+   "frm_component": 44,
+   "to_component": 32,
+   "kind": "drop",
+   "frm": [
+    15.5,
+    8.37,
+    30.5
+   ],
+   "to": [
+    15.5,
+    7.49,
+    29.5
+   ],
+   "horizontal": 1.0,
+   "dy": -0.88
+  },
+  {
+   "frm_component": 44,
+   "to_component": 35,
+   "kind": "jump",
+   "frm": [
+    16.5,
+    8.27,
+    30.5
+   ],
+   "to": [
+    18.5,
+    8.57,
+    26.5
+   ],
+   "horizontal": 4.47,
+   "dy": 0.3
+  },
+  {
+   "frm_component": 44,
+   "to_component": 36,
+   "kind": "jump",
+   "frm": [
+    16.5,
+    8.27,
+    30.5
+   ],
+   "to": [
+    19.5,
+    8.52,
+    27.5
+   ],
+   "horizontal": 4.24,
+   "dy": 0.25
+  },
+  {
+   "frm_component": 44,
+   "to_component": 38,
+   "kind": "jump",
+   "frm": [
+    15.5,
+    8.37,
+    30.5
+   ],
+   "to": [
+    14.5,
+    8.37,
+    29.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 44,
+   "to_component": 43,
+   "kind": "jump",
+   "frm": [
+    15.5,
+    8.37,
+    30.5
+   ],
+   "to": [
+    12.5,
+    8.17,
+    30.5
+   ],
+   "horizontal": 3.0,
+   "dy": -0.2
+  },
+  {
+   "frm_component": 44,
+   "to_component": 46,
+   "kind": "jump",
+   "frm": [
+    15.5,
+    8.17,
+    31.5
+   ],
+   "to": [
+    11.5,
+    8.26,
+    31.5
+   ],
+   "horizontal": 4.0,
+   "dy": 0.09
+  },
+  {
+   "frm_component": 44,
+   "to_component": 48,
+   "kind": "jump",
+   "frm": [
+    15.5,
+    8.17,
+    31.5
+   ],
+   "to": [
+    14.5,
+    8.17,
+    32.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 44,
+   "to_component": 52,
+   "kind": "jump",
+   "frm": [
+    15.5,
+    8.17,
+    31.5
+   ],
+   "to": [
+    13.5,
+    8.26,
+    33.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.09
+  },
+  {
+   "frm_component": 44,
+   "to_component": 53,
+   "kind": "jump",
+   "frm": [
+    15.5,
+    8.17,
+    31.5
+   ],
+   "to": [
+    15.5,
+    8.6,
+    35.5
+   ],
+   "horizontal": 4.0,
+   "dy": 0.43
+  },
+  {
+   "frm_component": 45,
+   "to_component": 18,
+   "kind": "drop",
+   "frm": [
+    -1.5,
+    8.26,
+    31.5
+   ],
+   "to": [
+    -2.5,
+    7.47,
+    31.5
+   ],
+   "horizontal": 1.0,
+   "dy": -0.79
+  },
+  {
+   "frm_component": 45,
+   "to_component": 31,
+   "kind": "jump",
+   "frm": [
+    -1.5,
+    8.26,
+    31.5
+   ],
+   "to": [
+    -5.5,
+    7.49,
+    29.5
+   ],
+   "horizontal": 4.47,
+   "dy": -0.77
+  },
+  {
+   "frm_component": 45,
+   "to_component": 37,
+   "kind": "jump",
+   "frm": [
+    -1.5,
+    8.26,
+    31.5
+   ],
+   "to": [
+    -3.5,
+    8.17,
+    29.5
+   ],
+   "horizontal": 2.83,
+   "dy": -0.09
+  },
+  {
+   "frm_component": 45,
+   "to_component": 39,
+   "kind": "jump",
+   "frm": [
+    -1.5,
+    8.26,
+    31.5
+   ],
+   "to": [
+    0.5,
+    8.6,
+    30.5
+   ],
+   "horizontal": 2.24,
+   "dy": 0.34
+  },
+  {
+   "frm_component": 45,
+   "to_component": 41,
+   "kind": "jump",
+   "frm": [
+    -1.5,
+    8.26,
+    31.5
+   ],
+   "to": [
+    -5.5,
+    8.17,
+    31.5
+   ],
+   "horizontal": 4.0,
+   "dy": -0.09
+  },
+  {
+   "frm_component": 45,
+   "to_component": 42,
+   "kind": "jump",
+   "frm": [
+    -1.5,
+    8.26,
+    31.5
+   ],
+   "to": [
+    -2.5,
+    8.17,
+    30.5
+   ],
+   "horizontal": 1.41,
+   "dy": -0.09
+  },
+  {
+   "frm_component": 45,
+   "to_component": 47,
+   "kind": "jump",
+   "frm": [
+    -1.5,
+    8.26,
+    31.5
+   ],
+   "to": [
+    -4.5,
+    8.17,
+    32.5
+   ],
+   "horizontal": 3.16,
+   "dy": -0.09
+  },
+  {
+   "frm_component": 45,
+   "to_component": 51,
+   "kind": "jump",
+   "frm": [
+    -1.5,
+    8.26,
+    31.5
+   ],
+   "to": [
+    -3.5,
+    8.26,
+    33.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 46,
+   "to_component": 18,
+   "kind": "drop",
+   "frm": [
+    11.5,
+    8.26,
     31.5
    ],
    "to": [
@@ -2689,15 +3488,49 @@
     31.5
    ],
    "horizontal": 1.0,
-   "dy": -0.92
+   "dy": -1.01
   },
   {
-   "frm_component": 43,
-   "to_component": 37,
+   "frm_component": 46,
+   "to_component": 32,
    "kind": "jump",
    "frm": [
     11.5,
+    8.26,
+    31.5
+   ],
+   "to": [
+    13.5,
+    7.5,
+    27.5
+   ],
+   "horizontal": 4.47,
+   "dy": -0.76
+  },
+  {
+   "frm_component": 46,
+   "to_component": 38,
+   "kind": "jump",
+   "frm": [
+    11.5,
+    8.26,
+    31.5
+   ],
+   "to": [
+    13.5,
     8.17,
+    29.5
+   ],
+   "horizontal": 2.83,
+   "dy": -0.09
+  },
+  {
+   "frm_component": 46,
+   "to_component": 40,
+   "kind": "jump",
+   "frm": [
+    11.5,
+    8.26,
     31.5
    ],
    "to": [
@@ -2706,32 +3539,15 @@
     30.5
    ],
    "horizontal": 2.24,
-   "dy": 0.43
+   "dy": 0.34
   },
   {
-   "frm_component": 43,
-   "to_component": 38,
+   "frm_component": 46,
+   "to_component": 43,
    "kind": "jump",
    "frm": [
     11.5,
-    8.17,
-    31.5
-   ],
-   "to": [
-    13.5,
-    8.17,
-    29.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 43,
-   "to_component": 40,
-   "kind": "jump",
-   "frm": [
-    11.5,
-    8.17,
+    8.26,
     31.5
    ],
    "to": [
@@ -2740,15 +3556,15 @@
     30.5
    ],
    "horizontal": 1.41,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 43,
+   "frm_component": 46,
    "to_component": 44,
    "kind": "jump",
    "frm": [
     11.5,
-    8.17,
+    8.26,
     31.5
    ],
    "to": [
@@ -2757,15 +3573,15 @@
     31.5
    ],
    "horizontal": 4.0,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 43,
-   "to_component": 46,
+   "frm_component": 46,
+   "to_component": 48,
    "kind": "jump",
    "frm": [
     11.5,
-    8.17,
+    8.26,
     31.5
    ],
    "to": [
@@ -2774,32 +3590,32 @@
     32.5
    ],
    "horizontal": 3.16,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 43,
-   "to_component": 50,
+   "frm_component": 46,
+   "to_component": 52,
    "kind": "jump",
    "frm": [
     11.5,
-    8.17,
+    8.26,
     31.5
    ],
    "to": [
     13.5,
-    8.17,
+    8.26,
     33.5
    ],
    "horizontal": 2.83,
    "dy": 0.0
   },
   {
-   "frm_component": 43,
-   "to_component": 51,
+   "frm_component": 46,
+   "to_component": 53,
    "kind": "jump",
    "frm": [
     11.5,
-    8.17,
+    8.26,
     31.5
    ],
    "to": [
@@ -2808,129 +3624,10 @@
     35.5
    ],
    "horizontal": 5.0,
-   "dy": 0.43
+   "dy": 0.34
   },
   {
-   "frm_component": 44,
-   "to_component": 18,
-   "kind": "drop",
-   "frm": [
-    15.5,
-    8.17,
-    31.5
-   ],
-   "to": [
-    14.5,
-    7.47,
-    31.5
-   ],
-   "horizontal": 1.0,
-   "dy": -0.7
-  },
-  {
-   "frm_component": 44,
-   "to_component": 38,
-   "kind": "jump",
-   "frm": [
-    15.5,
-    8.17,
-    31.5
-   ],
-   "to": [
-    13.5,
-    8.17,
-    29.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 44,
-   "to_component": 40,
-   "kind": "jump",
-   "frm": [
-    15.5,
-    8.17,
-    31.5
-   ],
-   "to": [
-    12.5,
-    8.17,
-    30.5
-   ],
-   "horizontal": 3.16,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 44,
-   "to_component": 43,
-   "kind": "jump",
-   "frm": [
-    15.5,
-    8.17,
-    31.5
-   ],
-   "to": [
-    11.5,
-    8.17,
-    31.5
-   ],
-   "horizontal": 4.0,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 44,
-   "to_component": 46,
-   "kind": "jump",
-   "frm": [
-    15.5,
-    8.17,
-    31.5
-   ],
-   "to": [
-    14.5,
-    8.17,
-    32.5
-   ],
-   "horizontal": 1.41,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 44,
-   "to_component": 50,
-   "kind": "jump",
-   "frm": [
-    15.5,
-    8.17,
-    31.5
-   ],
-   "to": [
-    13.5,
-    8.17,
-    33.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 44,
-   "to_component": 51,
-   "kind": "jump",
-   "frm": [
-    15.5,
-    8.17,
-    31.5
-   ],
-   "to": [
-    15.5,
-    8.6,
-    35.5
-   ],
-   "horizontal": 4.0,
-   "dy": 0.43
-  },
-  {
-   "frm_component": 45,
+   "frm_component": 47,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -2947,8 +3644,8 @@
    "dy": -0.7
   },
   {
-   "frm_component": 45,
-   "to_component": 35,
+   "frm_component": 47,
+   "to_component": 31,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -2956,16 +3653,16 @@
     32.5
    ],
    "to": [
-    -3.5,
-    8.17,
-    29.5
+    -7.5,
+    7.5,
+    31.5
    ],
    "horizontal": 3.16,
-   "dy": 0.0
+   "dy": -0.67
   },
   {
-   "frm_component": 45,
-   "to_component": 39,
+   "frm_component": 47,
+   "to_component": 37,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -2973,15 +3670,15 @@
     32.5
    ],
    "to": [
-    -2.5,
-    8.17,
-    30.5
+    -4.5,
+    8.37,
+    29.5
    ],
-   "horizontal": 2.83,
-   "dy": 0.0
+   "horizontal": 3.0,
+   "dy": 0.2
   },
   {
-   "frm_component": 45,
+   "frm_component": 47,
    "to_component": 41,
    "kind": "jump",
    "frm": [
@@ -2998,7 +3695,7 @@
    "dy": 0.0
   },
   {
-   "frm_component": 45,
+   "frm_component": 47,
    "to_component": 42,
    "kind": "jump",
    "frm": [
@@ -3007,16 +3704,33 @@
     32.5
    ],
    "to": [
-    -1.5,
+    -2.5,
     8.17,
-    31.5
+    30.5
    ],
-   "horizontal": 3.16,
+   "horizontal": 2.83,
    "dy": 0.0
   },
   {
-   "frm_component": 45,
-   "to_component": 49,
+   "frm_component": 47,
+   "to_component": 45,
+   "kind": "jump",
+   "frm": [
+    -4.5,
+    8.17,
+    32.5
+   ],
+   "to": [
+    -1.5,
+    8.26,
+    31.5
+   ],
+   "horizontal": 3.16,
+   "dy": 0.09
+  },
+  {
+   "frm_component": 47,
+   "to_component": 51,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -3025,14 +3739,14 @@
    ],
    "to": [
     -3.5,
-    8.17,
+    8.26,
     33.5
    ],
    "horizontal": 1.41,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 46,
+   "frm_component": 48,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -3049,7 +3763,24 @@
    "dy": -0.7
   },
   {
-   "frm_component": 46,
+   "frm_component": 48,
+   "to_component": 32,
+   "kind": "jump",
+   "frm": [
+    14.5,
+    8.17,
+    32.5
+   ],
+   "to": [
+    15.5,
+    7.49,
+    29.5
+   ],
+   "horizontal": 3.16,
+   "dy": -0.68
+  },
+  {
+   "frm_component": 48,
    "to_component": 38,
    "kind": "jump",
    "frm": [
@@ -3058,16 +3789,16 @@
     32.5
    ],
    "to": [
-    13.5,
-    8.17,
+    14.5,
+    8.37,
     29.5
    ],
-   "horizontal": 3.16,
-   "dy": 0.0
+   "horizontal": 3.0,
+   "dy": 0.2
   },
   {
-   "frm_component": 46,
-   "to_component": 40,
+   "frm_component": 48,
+   "to_component": 43,
    "kind": "jump",
    "frm": [
     14.5,
@@ -3083,24 +3814,7 @@
    "dy": 0.0
   },
   {
-   "frm_component": 46,
-   "to_component": 43,
-   "kind": "jump",
-   "frm": [
-    14.5,
-    8.17,
-    32.5
-   ],
-   "to": [
-    11.5,
-    8.17,
-    31.5
-   ],
-   "horizontal": 3.16,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 46,
+   "frm_component": 48,
    "to_component": 44,
    "kind": "jump",
    "frm": [
@@ -3117,8 +3831,25 @@
    "dy": 0.0
   },
   {
-   "frm_component": 46,
-   "to_component": 50,
+   "frm_component": 48,
+   "to_component": 46,
+   "kind": "jump",
+   "frm": [
+    14.5,
+    8.17,
+    32.5
+   ],
+   "to": [
+    11.5,
+    8.26,
+    31.5
+   ],
+   "horizontal": 3.16,
+   "dy": 0.09
+  },
+  {
+   "frm_component": 48,
+   "to_component": 52,
    "kind": "jump",
    "frm": [
     14.5,
@@ -3127,15 +3858,15 @@
    ],
    "to": [
     13.5,
-    8.17,
+    8.26,
     33.5
    ],
    "horizontal": 1.41,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 46,
-   "to_component": 51,
+   "frm_component": 48,
+   "to_component": 53,
    "kind": "jump",
    "frm": [
     14.5,
@@ -3151,7 +3882,7 @@
    "dy": 0.43
   },
   {
-   "frm_component": 47,
+   "frm_component": 49,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -3168,29 +3899,29 @@
    "dy": -1.47
   },
   {
-   "frm_component": 48,
+   "frm_component": 50,
    "to_component": 18,
    "kind": "drop",
    "frm": [
     -20.5,
-    7.15,
-    33.5
+    7.08,
+    34.5
    ],
    "to": [
     -21.5,
     5.73,
-    33.5
+    34.5
    ],
    "horizontal": 1.0,
-   "dy": -1.41
+   "dy": -1.35
   },
   {
-   "frm_component": 49,
+   "frm_component": 51,
    "to_component": 18,
    "kind": "drop",
    "frm": [
     -3.5,
-    8.17,
+    8.26,
     33.5
    ],
    "to": [
@@ -3199,15 +3930,32 @@
     32.5
    ],
    "horizontal": 1.0,
-   "dy": -0.7
+   "dy": -0.79
   },
   {
-   "frm_component": 49,
-   "to_component": 35,
+   "frm_component": 51,
+   "to_component": 31,
    "kind": "jump",
    "frm": [
     -3.5,
-    8.17,
+    8.26,
+    33.5
+   ],
+   "to": [
+    -7.5,
+    7.5,
+    31.5
+   ],
+   "horizontal": 4.47,
+   "dy": -0.76
+  },
+  {
+   "frm_component": 51,
+   "to_component": 37,
+   "kind": "jump",
+   "frm": [
+    -3.5,
+    8.26,
     33.5
    ],
    "to": [
@@ -3216,15 +3964,15 @@
     29.5
    ],
    "horizontal": 4.0,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 49,
-   "to_component": 36,
+   "frm_component": 51,
+   "to_component": 39,
    "kind": "jump",
    "frm": [
     -3.5,
-    8.17,
+    8.26,
     33.5
    ],
    "to": [
@@ -3233,32 +3981,15 @@
     30.5
    ],
    "horizontal": 5.0,
-   "dy": 0.43
+   "dy": 0.34
   },
   {
-   "frm_component": 49,
-   "to_component": 39,
-   "kind": "jump",
-   "frm": [
-    -3.5,
-    8.17,
-    33.5
-   ],
-   "to": [
-    -2.5,
-    8.17,
-    30.5
-   ],
-   "horizontal": 3.16,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 49,
+   "frm_component": 51,
    "to_component": 41,
    "kind": "jump",
    "frm": [
     -3.5,
-    8.17,
+    8.26,
     33.5
    ],
    "to": [
@@ -3267,32 +3998,49 @@
     31.5
    ],
    "horizontal": 2.83,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 49,
+   "frm_component": 51,
    "to_component": 42,
    "kind": "jump",
    "frm": [
     -3.5,
+    8.26,
+    33.5
+   ],
+   "to": [
+    -2.5,
     8.17,
+    30.5
+   ],
+   "horizontal": 3.16,
+   "dy": -0.09
+  },
+  {
+   "frm_component": 51,
+   "to_component": 45,
+   "kind": "jump",
+   "frm": [
+    -3.5,
+    8.26,
     33.5
    ],
    "to": [
     -1.5,
-    8.17,
+    8.26,
     31.5
    ],
    "horizontal": 2.83,
    "dy": 0.0
   },
   {
-   "frm_component": 49,
-   "to_component": 45,
+   "frm_component": 51,
+   "to_component": 47,
    "kind": "jump",
    "frm": [
     -3.5,
-    8.17,
+    8.26,
     33.5
    ],
    "to": [
@@ -3301,15 +4049,15 @@
     32.5
    ],
    "horizontal": 1.41,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 50,
+   "frm_component": 52,
    "to_component": 18,
    "kind": "drop",
    "frm": [
     13.5,
-    8.17,
+    8.26,
     33.5
    ],
    "to": [
@@ -3318,32 +4066,32 @@
     33.5
    ],
    "horizontal": 1.0,
-   "dy": -0.85
+   "dy": -0.94
   },
   {
-   "frm_component": 50,
-   "to_component": 37,
+   "frm_component": 52,
+   "to_component": 32,
    "kind": "jump",
    "frm": [
     13.5,
-    8.17,
+    8.26,
     33.5
    ],
    "to": [
-    9.5,
-    8.6,
-    30.5
+    15.5,
+    7.49,
+    29.5
    ],
-   "horizontal": 5.0,
-   "dy": 0.43
+   "horizontal": 4.47,
+   "dy": -0.77
   },
   {
-   "frm_component": 50,
+   "frm_component": 52,
    "to_component": 38,
    "kind": "jump",
    "frm": [
     13.5,
-    8.17,
+    8.26,
     33.5
    ],
    "to": [
@@ -3352,15 +4100,32 @@
     29.5
    ],
    "horizontal": 4.0,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 50,
+   "frm_component": 52,
    "to_component": 40,
    "kind": "jump",
    "frm": [
     13.5,
-    8.17,
+    8.26,
+    33.5
+   ],
+   "to": [
+    9.5,
+    8.6,
+    30.5
+   ],
+   "horizontal": 5.0,
+   "dy": 0.34
+  },
+  {
+   "frm_component": 52,
+   "to_component": 43,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    8.26,
     33.5
    ],
    "to": [
@@ -3369,32 +4134,15 @@
     30.5
    ],
    "horizontal": 3.16,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 50,
-   "to_component": 43,
-   "kind": "jump",
-   "frm": [
-    13.5,
-    8.17,
-    33.5
-   ],
-   "to": [
-    11.5,
-    8.17,
-    31.5
-   ],
-   "horizontal": 2.83,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 50,
+   "frm_component": 52,
    "to_component": 44,
    "kind": "jump",
    "frm": [
     13.5,
-    8.17,
+    8.26,
     33.5
    ],
    "to": [
@@ -3403,15 +4151,32 @@
     31.5
    ],
    "horizontal": 2.83,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 50,
+   "frm_component": 52,
    "to_component": 46,
    "kind": "jump",
    "frm": [
     13.5,
-    8.17,
+    8.26,
+    33.5
+   ],
+   "to": [
+    11.5,
+    8.26,
+    31.5
+   ],
+   "horizontal": 2.83,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 52,
+   "to_component": 48,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    8.26,
     33.5
    ],
    "to": [
@@ -3420,15 +4185,15 @@
     32.5
    ],
    "horizontal": 1.41,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 50,
-   "to_component": 51,
+   "frm_component": 52,
+   "to_component": 53,
    "kind": "jump",
    "frm": [
     13.5,
-    8.17,
+    8.26,
     33.5
    ],
    "to": [
@@ -3437,10 +4202,10 @@
     35.5
    ],
    "horizontal": 2.24,
-   "dy": 0.43
+   "dy": 0.34
   },
   {
-   "frm_component": 51,
+   "frm_component": 53,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -3457,24 +4222,24 @@
    "dy": -1.43
   },
   {
-   "frm_component": 51,
-   "to_component": 43,
+   "frm_component": 53,
+   "to_component": 32,
    "kind": "jump",
    "frm": [
-    14.5,
+    15.5,
     8.6,
     35.5
    ],
    "to": [
-    11.5,
-    8.17,
+    17.5,
+    7.5,
     31.5
    ],
-   "horizontal": 5.0,
-   "dy": -0.43
+   "horizontal": 4.47,
+   "dy": -1.1
   },
   {
-   "frm_component": 51,
+   "frm_component": 53,
    "to_component": 44,
    "kind": "jump",
    "frm": [
@@ -3491,8 +4256,25 @@
    "dy": -0.43
   },
   {
-   "frm_component": 51,
+   "frm_component": 53,
    "to_component": 46,
+   "kind": "jump",
+   "frm": [
+    14.5,
+    8.6,
+    35.5
+   ],
+   "to": [
+    11.5,
+    8.26,
+    31.5
+   ],
+   "horizontal": 5.0,
+   "dy": -0.34
+  },
+  {
+   "frm_component": 53,
+   "to_component": 48,
    "kind": "jump",
    "frm": [
     14.5,
@@ -3508,8 +4290,8 @@
    "dy": -0.43
   },
   {
-   "frm_component": 51,
-   "to_component": 50,
+   "frm_component": 53,
+   "to_component": 52,
    "kind": "jump",
    "frm": [
     14.5,
@@ -3518,14 +4300,14 @@
    ],
    "to": [
     13.5,
-    8.17,
+    8.26,
     33.5
    ],
    "horizontal": 2.24,
-   "dy": -0.43
+   "dy": -0.34
   },
   {
-   "frm_component": 52,
+   "frm_component": 54,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -3542,8 +4324,8 @@
    "dy": -1.3
   },
   {
-   "frm_component": 52,
-   "to_component": 54,
+   "frm_component": 54,
+   "to_component": 56,
    "kind": "jump",
    "frm": [
     3.5,
@@ -3559,8 +4341,8 @@
    "dy": 1.11
   },
   {
-   "frm_component": 52,
-   "to_component": 58,
+   "frm_component": 54,
+   "to_component": 60,
    "kind": "jump",
    "frm": [
     3.5,
@@ -3576,7 +4358,7 @@
    "dy": 1.11
   },
   {
-   "frm_component": 53,
+   "frm_component": 55,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -3593,27 +4375,27 @@
    "dy": -5.9
   },
   {
-   "frm_component": 53,
-   "to_component": 52,
-   "kind": "drop",
-   "frm": [
-    3.5,
-    13.1,
-    38.5
-   ],
-   "to": [
-    3.5,
-    8.5,
-    38.5
-   ],
-   "horizontal": 0.0,
-   "dy": -4.6
-  },
-  {
-   "frm_component": 53,
+   "frm_component": 55,
    "to_component": 54,
    "kind": "drop",
    "frm": [
+    3.5,
+    13.1,
+    38.5
+   ],
+   "to": [
+    3.5,
+    8.5,
+    38.5
+   ],
+   "horizontal": 0.0,
+   "dy": -4.6
+  },
+  {
+   "frm_component": 55,
+   "to_component": 56,
+   "kind": "drop",
+   "frm": [
     4.5,
     13.1,
     38.5
@@ -3627,8 +4409,8 @@
    "dy": -3.49
   },
   {
-   "frm_component": 53,
-   "to_component": 55,
+   "frm_component": 55,
+   "to_component": 57,
    "kind": "drop",
    "frm": [
     6.5,
@@ -3644,33 +4426,16 @@
    "dy": -4.6
   },
   {
-   "frm_component": 53,
-   "to_component": 58,
+   "frm_component": 55,
+   "to_component": 60,
    "kind": "drop",
    "frm": [
     3.5,
-    13.1,
-    40.5
-   ],
-   "to": [
-    3.5,
-    9.61,
-    40.5
-   ],
-   "horizontal": 0.0,
-   "dy": -3.49
-  },
-  {
-   "frm_component": 53,
-   "to_component": 59,
-   "kind": "drop",
-   "frm": [
-    6.5,
     13.1,
     39.5
    ],
    "to": [
-    6.5,
+    3.5,
     9.61,
     39.5
    ],
@@ -3678,44 +4443,61 @@
    "dy": -3.49
   },
   {
-   "frm_component": 53,
-   "to_component": 62,
+   "frm_component": 55,
+   "to_component": 61,
    "kind": "drop",
    "frm": [
-    3.5,
+    6.5,
     13.1,
-    41.5
+    40.5
    ],
    "to": [
-    3.5,
-    8.5,
-    41.5
-   ],
-   "horizontal": 0.0,
-   "dy": -4.6
-  },
-  {
-   "frm_component": 53,
-   "to_component": 63,
-   "kind": "drop",
-   "frm": [
-    4.5,
-    13.1,
-    41.5
-   ],
-   "to": [
-    4.5,
+    6.5,
     9.61,
-    41.5
+    40.5
    ],
    "horizontal": 0.0,
    "dy": -3.49
   },
   {
-   "frm_component": 53,
+   "frm_component": 55,
    "to_component": 64,
    "kind": "drop",
    "frm": [
+    3.5,
+    13.1,
+    41.5
+   ],
+   "to": [
+    3.5,
+    8.5,
+    41.5
+   ],
+   "horizontal": 0.0,
+   "dy": -4.6
+  },
+  {
+   "frm_component": 55,
+   "to_component": 65,
+   "kind": "drop",
+   "frm": [
+    4.5,
+    13.1,
+    41.5
+   ],
+   "to": [
+    4.5,
+    9.61,
+    41.5
+   ],
+   "horizontal": 0.0,
+   "dy": -3.49
+  },
+  {
+   "frm_component": 55,
+   "to_component": 66,
+   "kind": "drop",
+   "frm": [
     6.5,
     13.1,
     41.5
@@ -3729,7 +4511,7 @@
    "dy": -4.6
   },
   {
-   "frm_component": 54,
+   "frm_component": 56,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -3746,8 +4528,8 @@
    "dy": -2.36
   },
   {
-   "frm_component": 54,
-   "to_component": 52,
+   "frm_component": 56,
+   "to_component": 54,
    "kind": "drop",
    "frm": [
     4.5,
@@ -3763,8 +4545,8 @@
    "dy": -1.11
   },
   {
-   "frm_component": 54,
-   "to_component": 55,
+   "frm_component": 56,
+   "to_component": 57,
    "kind": "drop",
    "frm": [
     5.5,
@@ -3780,8 +4562,8 @@
    "dy": -1.11
   },
   {
-   "frm_component": 54,
-   "to_component": 58,
+   "frm_component": 56,
+   "to_component": 60,
    "kind": "jump",
    "frm": [
     4.5,
@@ -3797,8 +4579,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 54,
-   "to_component": 59,
+   "frm_component": 56,
+   "to_component": 61,
    "kind": "jump",
    "frm": [
     5.5,
@@ -3814,7 +4596,7 @@
    "dy": 0.0
   },
   {
-   "frm_component": 55,
+   "frm_component": 57,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -3831,8 +4613,8 @@
    "dy": -1.3
   },
   {
-   "frm_component": 55,
-   "to_component": 54,
+   "frm_component": 57,
+   "to_component": 56,
    "kind": "jump",
    "frm": [
     6.5,
@@ -3848,8 +4630,8 @@
    "dy": 1.11
   },
   {
-   "frm_component": 55,
-   "to_component": 59,
+   "frm_component": 57,
+   "to_component": 61,
    "kind": "jump",
    "frm": [
     6.5,
@@ -3865,7 +4647,7 @@
    "dy": 1.11
   },
   {
-   "frm_component": 58,
+   "frm_component": 60,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -3882,25 +4664,25 @@
    "dy": -2.36
   },
   {
-   "frm_component": 58,
-   "to_component": 52,
-   "kind": "drop",
-   "frm": [
-    3.5,
-    9.61,
-    39.5
-   ],
-   "to": [
-    3.5,
-    8.5,
-    38.5
-   ],
-   "horizontal": 1.0,
-   "dy": -1.11
-  },
-  {
-   "frm_component": 58,
+   "frm_component": 60,
    "to_component": 54,
+   "kind": "drop",
+   "frm": [
+    3.5,
+    9.61,
+    39.5
+   ],
+   "to": [
+    3.5,
+    8.5,
+    38.5
+   ],
+   "horizontal": 1.0,
+   "dy": -1.11
+  },
+  {
+   "frm_component": 60,
+   "to_component": 56,
    "kind": "jump",
    "frm": [
     3.5,
@@ -3916,8 +4698,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 58,
-   "to_component": 62,
+   "frm_component": 60,
+   "to_component": 64,
    "kind": "drop",
    "frm": [
     3.5,
@@ -3933,8 +4715,8 @@
    "dy": -1.11
   },
   {
-   "frm_component": 58,
-   "to_component": 63,
+   "frm_component": 60,
+   "to_component": 65,
    "kind": "jump",
    "frm": [
     3.5,
@@ -3950,25 +4732,25 @@
    "dy": 0.0
   },
   {
-   "frm_component": 59,
+   "frm_component": 61,
    "to_component": 18,
    "kind": "drop",
    "frm": [
     6.5,
     9.61,
-    39.5
+    40.5
    ],
    "to": [
     7.5,
-    7.25,
-    39.5
+    7.21,
+    40.5
    ],
    "horizontal": 1.0,
-   "dy": -2.36
+   "dy": -2.4
   },
   {
-   "frm_component": 59,
-   "to_component": 54,
+   "frm_component": 61,
+   "to_component": 56,
    "kind": "jump",
    "frm": [
     6.5,
@@ -3984,8 +4766,8 @@
    "dy": -0.0
   },
   {
-   "frm_component": 59,
-   "to_component": 55,
+   "frm_component": 61,
+   "to_component": 57,
    "kind": "drop",
    "frm": [
     6.5,
@@ -4001,8 +4783,8 @@
    "dy": -1.11
   },
   {
-   "frm_component": 59,
-   "to_component": 63,
+   "frm_component": 61,
+   "to_component": 65,
    "kind": "jump",
    "frm": [
     6.5,
@@ -4018,8 +4800,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 59,
-   "to_component": 64,
+   "frm_component": 61,
+   "to_component": 66,
    "kind": "drop",
    "frm": [
     6.5,
@@ -4035,7 +4817,7 @@
    "dy": -1.11
   },
   {
-   "frm_component": 62,
+   "frm_component": 64,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -4052,8 +4834,8 @@
    "dy": -1.21
   },
   {
-   "frm_component": 62,
-   "to_component": 58,
+   "frm_component": 64,
+   "to_component": 60,
    "kind": "jump",
    "frm": [
     3.5,
@@ -4069,8 +4851,8 @@
    "dy": 1.11
   },
   {
-   "frm_component": 62,
-   "to_component": 63,
+   "frm_component": 64,
+   "to_component": 65,
    "kind": "jump",
    "frm": [
     3.5,
@@ -4086,7 +4868,7 @@
    "dy": 1.11
   },
   {
-   "frm_component": 63,
+   "frm_component": 65,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -4103,8 +4885,8 @@
    "dy": -2.4
   },
   {
-   "frm_component": 63,
-   "to_component": 58,
+   "frm_component": 65,
+   "to_component": 60,
    "kind": "jump",
    "frm": [
     4.5,
@@ -4120,8 +4902,8 @@
    "dy": -0.0
   },
   {
-   "frm_component": 63,
-   "to_component": 59,
+   "frm_component": 65,
+   "to_component": 61,
    "kind": "jump",
    "frm": [
     5.5,
@@ -4137,8 +4919,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 63,
-   "to_component": 62,
+   "frm_component": 65,
+   "to_component": 64,
    "kind": "drop",
    "frm": [
     4.5,
@@ -4154,8 +4936,8 @@
    "dy": -1.11
   },
   {
-   "frm_component": 63,
-   "to_component": 64,
+   "frm_component": 65,
+   "to_component": 66,
    "kind": "drop",
    "frm": [
     5.5,
@@ -4171,7 +4953,7 @@
    "dy": -1.11
   },
   {
-   "frm_component": 64,
+   "frm_component": 66,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -4188,8 +4970,8 @@
    "dy": -1.3
   },
   {
-   "frm_component": 64,
-   "to_component": 59,
+   "frm_component": 66,
+   "to_component": 61,
    "kind": "jump",
    "frm": [
     6.5,
@@ -4205,8 +4987,8 @@
    "dy": 1.11
   },
   {
-   "frm_component": 64,
-   "to_component": 63,
+   "frm_component": 66,
+   "to_component": 65,
    "kind": "jump",
    "frm": [
     6.5,
@@ -4222,25 +5004,25 @@
    "dy": 1.11
   },
   {
-   "frm_component": 65,
+   "frm_component": 67,
    "to_component": 18,
    "kind": "drop",
    "frm": [
     14.5,
     8.6,
-    43.5
+    44.5
    ],
    "to": [
     13.5,
-    7.23,
-    43.5
+    7.22,
+    44.5
    ],
    "horizontal": 1.0,
-   "dy": -1.37
+   "dy": -1.38
   },
   {
-   "frm_component": 65,
-   "to_component": 69,
+   "frm_component": 67,
+   "to_component": 71,
    "kind": "jump",
    "frm": [
     14.5,
@@ -4249,15 +5031,15 @@
    ],
    "to": [
     13.5,
-    8.17,
+    8.26,
     46.5
    ],
    "horizontal": 2.24,
-   "dy": -0.43
+   "dy": -0.34
   },
   {
-   "frm_component": 65,
-   "to_component": 71,
+   "frm_component": 67,
+   "to_component": 73,
    "kind": "jump",
    "frm": [
     14.5,
@@ -4273,8 +5055,8 @@
    "dy": -0.43
   },
   {
-   "frm_component": 65,
-   "to_component": 74,
+   "frm_component": 67,
+   "to_component": 77,
    "kind": "jump",
    "frm": [
     14.5,
@@ -4283,15 +5065,15 @@
    ],
    "to": [
     11.5,
-    8.17,
+    8.26,
     48.5
    ],
    "horizontal": 5.0,
-   "dy": -0.43
+   "dy": -0.34
   },
   {
-   "frm_component": 65,
-   "to_component": 75,
+   "frm_component": 67,
+   "to_component": 78,
    "kind": "jump",
    "frm": [
     15.5,
@@ -4307,7 +5089,24 @@
    "dy": -0.43
   },
   {
-   "frm_component": 66,
+   "frm_component": 67,
+   "to_component": 79,
+   "kind": "jump",
+   "frm": [
+    15.5,
+    8.6,
+    44.5
+   ],
+   "to": [
+    17.5,
+    7.5,
+    48.5
+   ],
+   "horizontal": 4.47,
+   "dy": -1.1
+  },
+  {
+   "frm_component": 68,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -4317,19 +5116,19 @@
    ],
    "to": [
     -48.5,
-    5.73,
-    52.5
+    5.64,
+    54.5
    ],
    "horizontal": 1.0,
-   "dy": -1.41
+   "dy": -1.51
   },
   {
-   "frm_component": 68,
+   "frm_component": 70,
    "to_component": 18,
    "kind": "drop",
    "frm": [
     -3.5,
-    8.17,
+    8.26,
     46.5
    ],
    "to": [
@@ -4338,15 +5137,15 @@
     45.5
    ],
    "horizontal": 1.0,
-   "dy": -0.92
+   "dy": -1.01
   },
   {
-   "frm_component": 68,
-   "to_component": 70,
+   "frm_component": 70,
+   "to_component": 72,
    "kind": "jump",
    "frm": [
     -3.5,
-    8.17,
+    8.26,
     46.5
    ],
    "to": [
@@ -4355,15 +5154,32 @@
     47.5
    ],
    "horizontal": 1.41,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 68,
-   "to_component": 72,
+   "frm_component": 70,
+   "to_component": 74,
    "kind": "jump",
    "frm": [
     -3.5,
-    8.17,
+    8.26,
+    46.5
+   ],
+   "to": [
+    -7.5,
+    7.5,
+    48.5
+   ],
+   "horizontal": 4.47,
+   "dy": -0.76
+  },
+  {
+   "frm_component": 70,
+   "to_component": 75,
+   "kind": "jump",
+   "frm": [
+    -3.5,
+    8.26,
     46.5
    ],
    "to": [
@@ -4372,32 +5188,32 @@
     48.5
    ],
    "horizontal": 2.83,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 68,
-   "to_component": 73,
+   "frm_component": 70,
+   "to_component": 76,
    "kind": "jump",
    "frm": [
     -3.5,
-    8.17,
+    8.26,
     46.5
    ],
    "to": [
     -1.5,
-    8.17,
+    8.26,
     48.5
    ],
    "horizontal": 2.83,
    "dy": 0.0
   },
   {
-   "frm_component": 68,
-   "to_component": 76,
+   "frm_component": 70,
+   "to_component": 80,
    "kind": "jump",
    "frm": [
     -3.5,
-    8.17,
+    8.26,
     46.5
    ],
    "to": [
@@ -4406,15 +5222,15 @@
     49.5
    ],
    "horizontal": 3.16,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 68,
-   "to_component": 77,
+   "frm_component": 70,
+   "to_component": 81,
    "kind": "jump",
    "frm": [
     -3.5,
-    8.17,
+    8.26,
     46.5
    ],
    "to": [
@@ -4423,15 +5239,15 @@
     49.5
    ],
    "horizontal": 5.0,
-   "dy": 0.43
+   "dy": 0.34
   },
   {
-   "frm_component": 68,
-   "to_component": 80,
+   "frm_component": 70,
+   "to_component": 84,
    "kind": "jump",
    "frm": [
     -3.5,
-    8.17,
+    8.26,
     46.5
    ],
    "to": [
@@ -4440,15 +5256,15 @@
     50.5
    ],
    "horizontal": 4.0,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 69,
+   "frm_component": 71,
    "to_component": 18,
    "kind": "drop",
    "frm": [
     13.5,
-    8.17,
+    8.26,
     46.5
    ],
    "to": [
@@ -4457,15 +5273,15 @@
     46.5
    ],
    "horizontal": 1.0,
-   "dy": -0.86
+   "dy": -0.95
   },
   {
-   "frm_component": 69,
-   "to_component": 65,
+   "frm_component": 71,
+   "to_component": 67,
    "kind": "jump",
    "frm": [
     13.5,
-    8.17,
+    8.26,
     46.5
    ],
    "to": [
@@ -4474,15 +5290,15 @@
     44.5
    ],
    "horizontal": 2.24,
-   "dy": 0.43
+   "dy": 0.34
   },
   {
-   "frm_component": 69,
-   "to_component": 71,
+   "frm_component": 71,
+   "to_component": 73,
    "kind": "jump",
    "frm": [
     13.5,
-    8.17,
+    8.26,
     46.5
    ],
    "to": [
@@ -4491,32 +5307,32 @@
     47.5
    ],
    "horizontal": 1.41,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 69,
-   "to_component": 74,
+   "frm_component": 71,
+   "to_component": 77,
    "kind": "jump",
    "frm": [
     13.5,
-    8.17,
+    8.26,
     46.5
    ],
    "to": [
     11.5,
-    8.17,
+    8.26,
     48.5
    ],
    "horizontal": 2.83,
    "dy": 0.0
   },
   {
-   "frm_component": 69,
-   "to_component": 75,
+   "frm_component": 71,
+   "to_component": 78,
    "kind": "jump",
    "frm": [
     13.5,
-    8.17,
+    8.26,
     46.5
    ],
    "to": [
@@ -4525,15 +5341,32 @@
     48.5
    ],
    "horizontal": 2.83,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 69,
-   "to_component": 78,
+   "frm_component": 71,
+   "to_component": 79,
    "kind": "jump",
    "frm": [
     13.5,
-    8.17,
+    8.26,
+    46.5
+   ],
+   "to": [
+    17.5,
+    7.5,
+    48.5
+   ],
+   "horizontal": 4.47,
+   "dy": -0.76
+  },
+  {
+   "frm_component": 71,
+   "to_component": 82,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    8.26,
     46.5
    ],
    "to": [
@@ -4542,15 +5375,15 @@
     49.5
    ],
    "horizontal": 5.0,
-   "dy": 0.43
+   "dy": 0.34
   },
   {
-   "frm_component": 69,
-   "to_component": 79,
+   "frm_component": 71,
+   "to_component": 83,
    "kind": "jump",
    "frm": [
     13.5,
-    8.17,
+    8.26,
     46.5
    ],
    "to": [
@@ -4559,15 +5392,15 @@
     49.5
    ],
    "horizontal": 3.16,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 69,
-   "to_component": 81,
+   "frm_component": 71,
+   "to_component": 85,
    "kind": "jump",
    "frm": [
     13.5,
-    8.17,
+    8.26,
     46.5
    ],
    "to": [
@@ -4576,10 +5409,10 @@
     50.5
    ],
    "horizontal": 4.0,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 70,
+   "frm_component": 72,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -4596,8 +5429,8 @@
    "dy": -0.7
   },
   {
-   "frm_component": 70,
-   "to_component": 68,
+   "frm_component": 72,
+   "to_component": 70,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -4606,15 +5439,32 @@
    ],
    "to": [
     -3.5,
-    8.17,
+    8.26,
     46.5
    ],
    "horizontal": 1.41,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 70,
-   "to_component": 72,
+   "frm_component": 72,
+   "to_component": 74,
+   "kind": "jump",
+   "frm": [
+    -4.5,
+    8.17,
+    47.5
+   ],
+   "to": [
+    -7.5,
+    7.5,
+    48.5
+   ],
+   "horizontal": 3.16,
+   "dy": -0.67
+  },
+  {
+   "frm_component": 72,
+   "to_component": 75,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -4630,8 +5480,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 70,
-   "to_component": 73,
+   "frm_component": 72,
+   "to_component": 76,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -4640,15 +5490,15 @@
    ],
    "to": [
     -1.5,
-    8.17,
+    8.26,
     48.5
    ],
    "horizontal": 3.16,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 70,
-   "to_component": 76,
+   "frm_component": 72,
+   "to_component": 80,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -4664,8 +5514,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 70,
-   "to_component": 80,
+   "frm_component": 72,
+   "to_component": 84,
    "kind": "jump",
    "frm": [
     -4.5,
@@ -4673,15 +5523,15 @@
     47.5
    ],
    "to": [
-    -3.5,
-    8.17,
+    -4.5,
+    8.37,
     50.5
    ],
-   "horizontal": 3.16,
-   "dy": 0.0
+   "horizontal": 3.0,
+   "dy": 0.2
   },
   {
-   "frm_component": 71,
+   "frm_component": 73,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -4690,16 +5540,16 @@
     47.5
    ],
    "to": [
-    13.5,
+    14.5,
     7.47,
-    47.5
+    48.5
    ],
    "horizontal": 1.0,
    "dy": -0.7
   },
   {
-   "frm_component": 71,
-   "to_component": 65,
+   "frm_component": 73,
+   "to_component": 67,
    "kind": "jump",
    "frm": [
     14.5,
@@ -4715,8 +5565,8 @@
    "dy": 0.43
   },
   {
-   "frm_component": 71,
-   "to_component": 69,
+   "frm_component": 73,
+   "to_component": 71,
    "kind": "jump",
    "frm": [
     14.5,
@@ -4725,15 +5575,15 @@
    ],
    "to": [
     13.5,
-    8.17,
+    8.26,
     46.5
    ],
    "horizontal": 1.41,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 71,
-   "to_component": 74,
+   "frm_component": 73,
+   "to_component": 77,
    "kind": "jump",
    "frm": [
     14.5,
@@ -4742,15 +5592,15 @@
    ],
    "to": [
     11.5,
-    8.17,
+    8.26,
     48.5
    ],
    "horizontal": 3.16,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 71,
-   "to_component": 75,
+   "frm_component": 73,
+   "to_component": 78,
    "kind": "jump",
    "frm": [
     14.5,
@@ -4766,8 +5616,25 @@
    "dy": 0.0
   },
   {
-   "frm_component": 71,
+   "frm_component": 73,
    "to_component": 79,
+   "kind": "jump",
+   "frm": [
+    14.5,
+    8.17,
+    47.5
+   ],
+   "to": [
+    17.5,
+    7.5,
+    48.5
+   ],
+   "horizontal": 3.16,
+   "dy": -0.67
+  },
+  {
+   "frm_component": 73,
+   "to_component": 83,
    "kind": "jump",
    "frm": [
     14.5,
@@ -4783,8 +5650,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 71,
-   "to_component": 81,
+   "frm_component": 73,
+   "to_component": 85,
    "kind": "jump",
    "frm": [
     14.5,
@@ -4792,15 +5659,151 @@
     47.5
    ],
    "to": [
-    13.5,
-    8.17,
+    14.5,
+    8.37,
     50.5
    ],
-   "horizontal": 3.16,
-   "dy": 0.0
+   "horizontal": 3.0,
+   "dy": 0.2
   },
   {
-   "frm_component": 72,
+   "frm_component": 74,
+   "to_component": 18,
+   "kind": "jump",
+   "frm": [
+    -5.5,
+    7.49,
+    50.5
+   ],
+   "to": [
+    -4.5,
+    7.48,
+    49.5
+   ],
+   "horizontal": 1.41,
+   "dy": -0.02
+  },
+  {
+   "frm_component": 74,
+   "to_component": 70,
+   "kind": "jump",
+   "frm": [
+    -7.5,
+    7.5,
+    48.5
+   ],
+   "to": [
+    -3.5,
+    8.26,
+    46.5
+   ],
+   "horizontal": 4.47,
+   "dy": 0.76
+  },
+  {
+   "frm_component": 74,
+   "to_component": 72,
+   "kind": "jump",
+   "frm": [
+    -7.5,
+    7.5,
+    48.5
+   ],
+   "to": [
+    -4.5,
+    8.17,
+    47.5
+   ],
+   "horizontal": 3.16,
+   "dy": 0.67
+  },
+  {
+   "frm_component": 74,
+   "to_component": 75,
+   "kind": "jump",
+   "frm": [
+    -7.5,
+    7.5,
+    48.5
+   ],
+   "to": [
+    -6.5,
+    8.37,
+    48.5
+   ],
+   "horizontal": 1.0,
+   "dy": 0.87
+  },
+  {
+   "frm_component": 74,
+   "to_component": 76,
+   "kind": "jump",
+   "frm": [
+    -5.5,
+    7.49,
+    50.5
+   ],
+   "to": [
+    -1.5,
+    8.26,
+    48.5
+   ],
+   "horizontal": 4.47,
+   "dy": 0.77
+  },
+  {
+   "frm_component": 74,
+   "to_component": 80,
+   "kind": "jump",
+   "frm": [
+    -5.5,
+    7.49,
+    50.5
+   ],
+   "to": [
+    -2.5,
+    8.17,
+    49.5
+   ],
+   "horizontal": 3.16,
+   "dy": 0.68
+  },
+  {
+   "frm_component": 74,
+   "to_component": 81,
+   "kind": "jump",
+   "frm": [
+    -3.5,
+    7.5,
+    52.5
+   ],
+   "to": [
+    0.5,
+    8.6,
+    50.5
+   ],
+   "horizontal": 4.47,
+   "dy": 1.1
+  },
+  {
+   "frm_component": 74,
+   "to_component": 84,
+   "kind": "jump",
+   "frm": [
+    -5.5,
+    7.49,
+    50.5
+   ],
+   "to": [
+    -4.5,
+    8.37,
+    50.5
+   ],
+   "horizontal": 1.0,
+   "dy": 0.88
+  },
+  {
+   "frm_component": 75,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -4817,8 +5820,8 @@
    "dy": -0.7
   },
   {
-   "frm_component": 72,
-   "to_component": 68,
+   "frm_component": 75,
+   "to_component": 70,
    "kind": "jump",
    "frm": [
     -5.5,
@@ -4827,15 +5830,15 @@
    ],
    "to": [
     -3.5,
-    8.17,
+    8.26,
     46.5
    ],
    "horizontal": 2.83,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 72,
-   "to_component": 70,
+   "frm_component": 75,
+   "to_component": 72,
    "kind": "jump",
    "frm": [
     -5.5,
@@ -4851,24 +5854,24 @@
    "dy": 0.0
   },
   {
-   "frm_component": 72,
-   "to_component": 73,
-   "kind": "jump",
+   "frm_component": 75,
+   "to_component": 74,
+   "kind": "drop",
    "frm": [
-    -5.5,
-    8.17,
-    48.5
+    -6.5,
+    8.27,
+    49.5
    ],
    "to": [
-    -1.5,
-    8.17,
-    48.5
+    -7.5,
+    7.5,
+    49.5
    ],
-   "horizontal": 4.0,
-   "dy": 0.0
+   "horizontal": 1.0,
+   "dy": -0.77
   },
   {
-   "frm_component": 72,
+   "frm_component": 75,
    "to_component": 76,
    "kind": "jump",
    "frm": [
@@ -4877,37 +5880,54 @@
     48.5
    ],
    "to": [
-    -2.5,
-    8.17,
-    49.5
+    -1.5,
+    8.26,
+    48.5
    ],
-   "horizontal": 3.16,
-   "dy": 0.0
+   "horizontal": 4.0,
+   "dy": 0.09
   },
   {
-   "frm_component": 72,
+   "frm_component": 75,
    "to_component": 80,
    "kind": "jump",
    "frm": [
     -5.5,
-    8.17,
-    48.5
+    8.37,
+    49.5
    ],
    "to": [
-    -3.5,
+    -2.5,
     8.17,
+    49.5
+   ],
+   "horizontal": 3.0,
+   "dy": -0.2
+  },
+  {
+   "frm_component": 75,
+   "to_component": 84,
+   "kind": "jump",
+   "frm": [
+    -5.5,
+    8.37,
+    49.5
+   ],
+   "to": [
+    -4.5,
+    8.37,
     50.5
    ],
-   "horizontal": 2.83,
+   "horizontal": 1.41,
    "dy": 0.0
   },
   {
-   "frm_component": 73,
+   "frm_component": 76,
    "to_component": 18,
    "kind": "drop",
    "frm": [
     -1.5,
-    8.17,
+    8.26,
     48.5
    ],
    "to": [
@@ -4916,32 +5936,32 @@
     47.5
    ],
    "horizontal": 1.0,
-   "dy": -0.86
+   "dy": -0.95
   },
   {
-   "frm_component": 73,
-   "to_component": 68,
+   "frm_component": 76,
+   "to_component": 70,
    "kind": "jump",
    "frm": [
     -1.5,
-    8.17,
+    8.26,
     48.5
    ],
    "to": [
     -3.5,
-    8.17,
+    8.26,
     46.5
    ],
    "horizontal": 2.83,
    "dy": 0.0
   },
   {
-   "frm_component": 73,
-   "to_component": 70,
+   "frm_component": 76,
+   "to_component": 72,
    "kind": "jump",
    "frm": [
     -1.5,
-    8.17,
+    8.26,
     48.5
    ],
    "to": [
@@ -4950,15 +5970,32 @@
     47.5
    ],
    "horizontal": 3.16,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 73,
-   "to_component": 72,
+   "frm_component": 76,
+   "to_component": 74,
    "kind": "jump",
    "frm": [
     -1.5,
-    8.17,
+    8.26,
+    48.5
+   ],
+   "to": [
+    -5.5,
+    7.49,
+    50.5
+   ],
+   "horizontal": 4.47,
+   "dy": -0.77
+  },
+  {
+   "frm_component": 76,
+   "to_component": 75,
+   "kind": "jump",
+   "frm": [
+    -1.5,
+    8.26,
     48.5
    ],
    "to": [
@@ -4967,15 +6004,15 @@
     48.5
    ],
    "horizontal": 4.0,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 73,
-   "to_component": 76,
+   "frm_component": 76,
+   "to_component": 80,
    "kind": "jump",
    "frm": [
     -1.5,
-    8.17,
+    8.26,
     48.5
    ],
    "to": [
@@ -4984,15 +6021,15 @@
     49.5
    ],
    "horizontal": 1.41,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 73,
-   "to_component": 77,
+   "frm_component": 76,
+   "to_component": 81,
    "kind": "jump",
    "frm": [
     -1.5,
-    8.17,
+    8.26,
     48.5
    ],
    "to": [
@@ -5001,15 +6038,15 @@
     49.5
    ],
    "horizontal": 2.24,
-   "dy": 0.43
+   "dy": 0.34
   },
   {
-   "frm_component": 73,
-   "to_component": 80,
+   "frm_component": 76,
+   "to_component": 84,
    "kind": "jump",
    "frm": [
     -1.5,
-    8.17,
+    8.26,
     48.5
    ],
    "to": [
@@ -5018,15 +6055,15 @@
     50.5
    ],
    "horizontal": 2.83,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 74,
+   "frm_component": 77,
    "to_component": 18,
    "kind": "drop",
    "frm": [
     11.5,
-    8.17,
+    8.26,
     48.5
    ],
    "to": [
@@ -5035,15 +6072,15 @@
     47.5
    ],
    "horizontal": 1.0,
-   "dy": -0.85
+   "dy": -0.94
   },
   {
-   "frm_component": 74,
-   "to_component": 65,
+   "frm_component": 77,
+   "to_component": 67,
    "kind": "jump",
    "frm": [
     11.5,
-    8.17,
+    8.26,
     48.5
    ],
    "to": [
@@ -5052,32 +6089,32 @@
     44.5
    ],
    "horizontal": 5.0,
-   "dy": 0.43
+   "dy": 0.34
   },
   {
-   "frm_component": 74,
-   "to_component": 69,
+   "frm_component": 77,
+   "to_component": 71,
    "kind": "jump",
    "frm": [
     11.5,
-    8.17,
+    8.26,
     48.5
    ],
    "to": [
     13.5,
-    8.17,
+    8.26,
     46.5
    ],
    "horizontal": 2.83,
    "dy": 0.0
   },
   {
-   "frm_component": 74,
-   "to_component": 71,
+   "frm_component": 77,
+   "to_component": 73,
    "kind": "jump",
    "frm": [
     11.5,
-    8.17,
+    8.26,
     48.5
    ],
    "to": [
@@ -5086,15 +6123,15 @@
     47.5
    ],
    "horizontal": 3.16,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 74,
-   "to_component": 75,
+   "frm_component": 77,
+   "to_component": 78,
    "kind": "jump",
    "frm": [
     11.5,
-    8.17,
+    8.26,
     48.5
    ],
    "to": [
@@ -5103,15 +6140,32 @@
     48.5
    ],
    "horizontal": 4.0,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 74,
-   "to_component": 78,
+   "frm_component": 77,
+   "to_component": 79,
    "kind": "jump",
    "frm": [
     11.5,
-    8.17,
+    8.26,
+    48.5
+   ],
+   "to": [
+    13.5,
+    7.5,
+    52.5
+   ],
+   "horizontal": 4.47,
+   "dy": -0.76
+  },
+  {
+   "frm_component": 77,
+   "to_component": 82,
+   "kind": "jump",
+   "frm": [
+    11.5,
+    8.26,
     48.5
    ],
    "to": [
@@ -5120,15 +6174,15 @@
     49.5
    ],
    "horizontal": 2.24,
-   "dy": 0.43
+   "dy": 0.34
   },
   {
-   "frm_component": 74,
-   "to_component": 79,
+   "frm_component": 77,
+   "to_component": 83,
    "kind": "jump",
    "frm": [
     11.5,
-    8.17,
+    8.26,
     48.5
    ],
    "to": [
@@ -5137,15 +6191,15 @@
     49.5
    ],
    "horizontal": 1.41,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 74,
-   "to_component": 81,
+   "frm_component": 77,
+   "to_component": 85,
    "kind": "jump",
    "frm": [
     11.5,
-    8.17,
+    8.26,
     48.5
    ],
    "to": [
@@ -5154,10 +6208,10 @@
     50.5
    ],
    "horizontal": 2.83,
-   "dy": 0.0
+   "dy": -0.09
   },
   {
-   "frm_component": 75,
+   "frm_component": 78,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -5174,8 +6228,8 @@
    "dy": -0.7
   },
   {
-   "frm_component": 75,
-   "to_component": 65,
+   "frm_component": 78,
+   "to_component": 67,
    "kind": "jump",
    "frm": [
     15.5,
@@ -5191,8 +6245,8 @@
    "dy": 0.43
   },
   {
-   "frm_component": 75,
-   "to_component": 69,
+   "frm_component": 78,
+   "to_component": 71,
    "kind": "jump",
    "frm": [
     15.5,
@@ -5201,15 +6255,15 @@
    ],
    "to": [
     13.5,
-    8.17,
+    8.26,
     46.5
    ],
    "horizontal": 2.83,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 75,
-   "to_component": 71,
+   "frm_component": 78,
+   "to_component": 73,
    "kind": "jump",
    "frm": [
     15.5,
@@ -5225,8 +6279,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 75,
-   "to_component": 74,
+   "frm_component": 78,
+   "to_component": 77,
    "kind": "jump",
    "frm": [
     15.5,
@@ -5235,20 +6289,190 @@
    ],
    "to": [
     11.5,
-    8.17,
+    8.26,
     48.5
    ],
    "horizontal": 4.0,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 75,
+   "frm_component": 78,
    "to_component": 79,
+   "kind": "drop",
+   "frm": [
+    16.5,
+    8.37,
+    48.5
+   ],
+   "to": [
+    17.5,
+    7.5,
+    48.5
+   ],
+   "horizontal": 1.0,
+   "dy": -0.87
+  },
+  {
+   "frm_component": 78,
+   "to_component": 83,
    "kind": "jump",
    "frm": [
     15.5,
+    8.37,
+    49.5
+   ],
+   "to": [
+    12.5,
     8.17,
+    49.5
+   ],
+   "horizontal": 3.0,
+   "dy": -0.2
+  },
+  {
+   "frm_component": 78,
+   "to_component": 85,
+   "kind": "jump",
+   "frm": [
+    15.5,
+    8.37,
+    49.5
+   ],
+   "to": [
+    14.5,
+    8.37,
+    50.5
+   ],
+   "horizontal": 1.41,
+   "dy": 0.0
+  },
+  {
+   "frm_component": 79,
+   "to_component": 18,
+   "kind": "jump",
+   "frm": [
+    15.5,
+    7.49,
+    50.5
+   ],
+   "to": [
+    14.5,
+    7.48,
+    49.5
+   ],
+   "horizontal": 1.41,
+   "dy": -0.02
+  },
+  {
+   "frm_component": 79,
+   "to_component": 67,
+   "kind": "jump",
+   "frm": [
+    17.5,
+    7.5,
     48.5
+   ],
+   "to": [
+    15.5,
+    8.6,
+    44.5
+   ],
+   "horizontal": 4.47,
+   "dy": 1.1
+  },
+  {
+   "frm_component": 79,
+   "to_component": 71,
+   "kind": "jump",
+   "frm": [
+    17.5,
+    7.5,
+    48.5
+   ],
+   "to": [
+    13.5,
+    8.26,
+    46.5
+   ],
+   "horizontal": 4.47,
+   "dy": 0.76
+  },
+  {
+   "frm_component": 79,
+   "to_component": 73,
+   "kind": "jump",
+   "frm": [
+    17.5,
+    7.5,
+    48.5
+   ],
+   "to": [
+    14.5,
+    8.17,
+    47.5
+   ],
+   "horizontal": 3.16,
+   "dy": 0.67
+  },
+  {
+   "frm_component": 79,
+   "to_component": 77,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    7.5,
+    52.5
+   ],
+   "to": [
+    11.5,
+    8.26,
+    48.5
+   ],
+   "horizontal": 4.47,
+   "dy": 0.76
+  },
+  {
+   "frm_component": 79,
+   "to_component": 78,
+   "kind": "jump",
+   "frm": [
+    17.5,
+    7.5,
+    48.5
+   ],
+   "to": [
+    16.5,
+    8.37,
+    48.5
+   ],
+   "horizontal": 1.0,
+   "dy": 0.87
+  },
+  {
+   "frm_component": 79,
+   "to_component": 82,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    7.5,
+    52.5
+   ],
+   "to": [
+    9.5,
+    8.6,
+    50.5
+   ],
+   "horizontal": 4.47,
+   "dy": 1.1
+  },
+  {
+   "frm_component": 79,
+   "to_component": 83,
+   "kind": "jump",
+   "frm": [
+    13.5,
+    7.5,
+    52.5
    ],
    "to": [
     12.5,
@@ -5256,27 +6480,27 @@
     49.5
    ],
    "horizontal": 3.16,
-   "dy": 0.0
+   "dy": 0.67
   },
   {
-   "frm_component": 75,
-   "to_component": 81,
+   "frm_component": 79,
+   "to_component": 85,
    "kind": "jump",
    "frm": [
-    15.5,
-    8.17,
-    48.5
+    13.5,
+    7.5,
+    52.5
    ],
    "to": [
     13.5,
-    8.17,
-    50.5
+    8.37,
+    51.5
    ],
-   "horizontal": 2.83,
-   "dy": 0.0
+   "horizontal": 1.0,
+   "dy": 0.87
   },
   {
-   "frm_component": 76,
+   "frm_component": 80,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -5293,8 +6517,8 @@
    "dy": -0.7
   },
   {
-   "frm_component": 76,
-   "to_component": 68,
+   "frm_component": 80,
+   "to_component": 70,
    "kind": "jump",
    "frm": [
     -2.5,
@@ -5303,15 +6527,15 @@
    ],
    "to": [
     -3.5,
-    8.17,
+    8.26,
     46.5
    ],
    "horizontal": 3.16,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 76,
-   "to_component": 70,
+   "frm_component": 80,
+   "to_component": 72,
    "kind": "jump",
    "frm": [
     -2.5,
@@ -5327,8 +6551,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 76,
-   "to_component": 72,
+   "frm_component": 80,
+   "to_component": 74,
    "kind": "jump",
    "frm": [
     -2.5,
@@ -5337,15 +6561,32 @@
    ],
    "to": [
     -5.5,
-    8.17,
-    48.5
+    7.49,
+    50.5
    ],
    "horizontal": 3.16,
-   "dy": 0.0
+   "dy": -0.68
   },
   {
-   "frm_component": 76,
-   "to_component": 73,
+   "frm_component": 80,
+   "to_component": 75,
+   "kind": "jump",
+   "frm": [
+    -2.5,
+    8.17,
+    49.5
+   ],
+   "to": [
+    -5.5,
+    8.37,
+    49.5
+   ],
+   "horizontal": 3.0,
+   "dy": 0.2
+  },
+  {
+   "frm_component": 80,
+   "to_component": 76,
    "kind": "jump",
    "frm": [
     -2.5,
@@ -5354,15 +6595,15 @@
    ],
    "to": [
     -1.5,
-    8.17,
+    8.26,
     48.5
    ],
    "horizontal": 1.41,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 76,
-   "to_component": 77,
+   "frm_component": 80,
+   "to_component": 81,
    "kind": "jump",
    "frm": [
     -2.5,
@@ -5378,8 +6619,8 @@
    "dy": 0.43
   },
   {
-   "frm_component": 76,
-   "to_component": 80,
+   "frm_component": 80,
+   "to_component": 84,
    "kind": "jump",
    "frm": [
     -2.5,
@@ -5395,25 +6636,25 @@
    "dy": 0.0
   },
   {
-   "frm_component": 77,
+   "frm_component": 81,
    "to_component": 18,
    "kind": "drop",
    "frm": [
-    0.5,
+    1.5,
     8.6,
     49.5
    ],
    "to": [
-    0.5,
-    7.22,
+    1.5,
+    7.23,
     48.5
    ],
    "horizontal": 1.0,
-   "dy": -1.38
+   "dy": -1.37
   },
   {
-   "frm_component": 77,
-   "to_component": 68,
+   "frm_component": 81,
+   "to_component": 70,
    "kind": "jump",
    "frm": [
     0.5,
@@ -5422,15 +6663,32 @@
    ],
    "to": [
     -3.5,
-    8.17,
+    8.26,
     46.5
    ],
    "horizontal": 5.0,
-   "dy": -0.43
+   "dy": -0.34
   },
   {
-   "frm_component": 77,
-   "to_component": 73,
+   "frm_component": 81,
+   "to_component": 74,
+   "kind": "jump",
+   "frm": [
+    0.5,
+    8.6,
+    50.5
+   ],
+   "to": [
+    -3.5,
+    7.5,
+    52.5
+   ],
+   "horizontal": 4.47,
+   "dy": -1.1
+  },
+  {
+   "frm_component": 81,
+   "to_component": 76,
    "kind": "jump",
    "frm": [
     0.5,
@@ -5439,15 +6697,15 @@
    ],
    "to": [
     -1.5,
-    8.17,
+    8.26,
     48.5
    ],
    "horizontal": 2.24,
-   "dy": -0.43
+   "dy": -0.34
   },
   {
-   "frm_component": 77,
-   "to_component": 76,
+   "frm_component": 81,
+   "to_component": 80,
    "kind": "jump",
    "frm": [
     0.5,
@@ -5463,8 +6721,8 @@
    "dy": -0.43
   },
   {
-   "frm_component": 77,
-   "to_component": 80,
+   "frm_component": 81,
+   "to_component": 84,
    "kind": "jump",
    "frm": [
     0.5,
@@ -5480,7 +6738,7 @@
    "dy": -0.43
   },
   {
-   "frm_component": 78,
+   "frm_component": 82,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -5497,8 +6755,8 @@
    "dy": -1.29
   },
   {
-   "frm_component": 78,
-   "to_component": 69,
+   "frm_component": 82,
+   "to_component": 71,
    "kind": "jump",
    "frm": [
     9.5,
@@ -5507,15 +6765,15 @@
    ],
    "to": [
     13.5,
-    8.17,
+    8.26,
     46.5
    ],
    "horizontal": 5.0,
-   "dy": -0.43
+   "dy": -0.34
   },
   {
-   "frm_component": 78,
-   "to_component": 74,
+   "frm_component": 82,
+   "to_component": 77,
    "kind": "jump",
    "frm": [
     9.5,
@@ -5524,15 +6782,32 @@
    ],
    "to": [
     11.5,
-    8.17,
+    8.26,
     48.5
    ],
    "horizontal": 2.24,
-   "dy": -0.43
+   "dy": -0.34
   },
   {
-   "frm_component": 78,
+   "frm_component": 82,
    "to_component": 79,
+   "kind": "jump",
+   "frm": [
+    9.5,
+    8.6,
+    50.5
+   ],
+   "to": [
+    13.5,
+    7.5,
+    52.5
+   ],
+   "horizontal": 4.47,
+   "dy": -1.1
+  },
+  {
+   "frm_component": 82,
+   "to_component": 83,
    "kind": "jump",
    "frm": [
     9.5,
@@ -5548,8 +6823,8 @@
    "dy": -0.43
   },
   {
-   "frm_component": 78,
-   "to_component": 81,
+   "frm_component": 82,
+   "to_component": 85,
    "kind": "jump",
    "frm": [
     9.5,
@@ -5565,7 +6840,7 @@
    "dy": -0.43
   },
   {
-   "frm_component": 79,
+   "frm_component": 83,
    "to_component": 18,
    "kind": "drop",
    "frm": [
@@ -5582,8 +6857,8 @@
    "dy": -0.7
   },
   {
-   "frm_component": 79,
-   "to_component": 69,
+   "frm_component": 83,
+   "to_component": 71,
    "kind": "jump",
    "frm": [
     12.5,
@@ -5592,15 +6867,15 @@
    ],
    "to": [
     13.5,
-    8.17,
+    8.26,
     46.5
    ],
    "horizontal": 3.16,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 79,
-   "to_component": 71,
+   "frm_component": 83,
+   "to_component": 73,
    "kind": "jump",
    "frm": [
     12.5,
@@ -5616,8 +6891,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 79,
-   "to_component": 74,
+   "frm_component": 83,
+   "to_component": 77,
    "kind": "jump",
    "frm": [
     12.5,
@@ -5626,15 +6901,15 @@
    ],
    "to": [
     11.5,
-    8.17,
+    8.26,
     48.5
    ],
    "horizontal": 1.41,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 79,
-   "to_component": 75,
+   "frm_component": 83,
+   "to_component": 78,
    "kind": "jump",
    "frm": [
     12.5,
@@ -5643,15 +6918,32 @@
    ],
    "to": [
     15.5,
-    8.17,
-    48.5
+    8.37,
+    49.5
    ],
-   "horizontal": 3.16,
-   "dy": 0.0
+   "horizontal": 3.0,
+   "dy": 0.2
   },
   {
-   "frm_component": 79,
-   "to_component": 78,
+   "frm_component": 83,
+   "to_component": 79,
+   "kind": "jump",
+   "frm": [
+    12.5,
+    8.17,
+    49.5
+   ],
+   "to": [
+    13.5,
+    7.5,
+    52.5
+   ],
+   "horizontal": 3.16,
+   "dy": -0.67
+  },
+  {
+   "frm_component": 83,
+   "to_component": 82,
    "kind": "jump",
    "frm": [
     12.5,
@@ -5667,8 +6959,8 @@
    "dy": 0.43
   },
   {
-   "frm_component": 79,
-   "to_component": 81,
+   "frm_component": 83,
+   "to_component": 85,
    "kind": "jump",
    "frm": [
     12.5,
@@ -5684,41 +6976,24 @@
    "dy": 0.0
   },
   {
-   "frm_component": 80,
+   "frm_component": 84,
    "to_component": 18,
    "kind": "drop",
    "frm": [
-    -3.5,
-    8.17,
+    -4.5,
+    8.37,
     50.5
    ],
    "to": [
-    -3.5,
-    7.47,
+    -4.5,
+    7.48,
     49.5
    ],
    "horizontal": 1.0,
-   "dy": -0.7
+   "dy": -0.89
   },
   {
-   "frm_component": 80,
-   "to_component": 68,
-   "kind": "jump",
-   "frm": [
-    -3.5,
-    8.17,
-    50.5
-   ],
-   "to": [
-    -3.5,
-    8.17,
-    46.5
-   ],
-   "horizontal": 4.0,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 80,
+   "frm_component": 84,
    "to_component": 70,
    "kind": "jump",
    "frm": [
@@ -5727,33 +7002,67 @@
     50.5
    ],
    "to": [
+    -3.5,
+    8.26,
+    46.5
+   ],
+   "horizontal": 4.0,
+   "dy": 0.09
+  },
+  {
+   "frm_component": 84,
+   "to_component": 72,
+   "kind": "jump",
+   "frm": [
+    -4.5,
+    8.37,
+    50.5
+   ],
+   "to": [
     -4.5,
     8.17,
     47.5
    ],
-   "horizontal": 3.16,
-   "dy": 0.0
+   "horizontal": 3.0,
+   "dy": -0.2
   },
   {
-   "frm_component": 80,
-   "to_component": 72,
+   "frm_component": 84,
+   "to_component": 74,
+   "kind": "drop",
+   "frm": [
+    -4.5,
+    8.27,
+    51.5
+   ],
+   "to": [
+    -5.5,
+    7.5,
+    51.5
+   ],
+   "horizontal": 1.0,
+   "dy": -0.77
+  },
+  {
+   "frm_component": 84,
+   "to_component": 75,
    "kind": "jump",
    "frm": [
-    -3.5,
-    8.17,
+    -4.5,
+    8.37,
     50.5
    ],
    "to": [
     -5.5,
-    8.17,
-    48.5
+    8.37,
+    49.5
    ],
-   "horizontal": 2.83,
+   "horizontal": 1.41,
    "dy": 0.0
   },
   {
-   "frm_component": 80,
-   "to_component": 73,
+   "frm_component": 84,
+   "to_component": 76,
    "kind": "jump",
    "frm": [
     -3.5,
@@ -5762,15 +7071,15 @@
    ],
    "to": [
     -1.5,
-    8.17,
+    8.26,
     48.5
    ],
    "horizontal": 2.83,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 80,
-   "to_component": 76,
+   "frm_component": 84,
+   "to_component": 80,
    "kind": "jump",
    "frm": [
     -3.5,
@@ -5786,8 +7095,8 @@
    "dy": 0.0
   },
   {
-   "frm_component": 80,
-   "to_component": 77,
+   "frm_component": 84,
+   "to_component": 81,
    "kind": "jump",
    "frm": [
     -3.5,
@@ -5803,41 +7112,24 @@
    "dy": 0.43
   },
   {
-   "frm_component": 81,
+   "frm_component": 85,
    "to_component": 18,
    "kind": "drop",
    "frm": [
-    13.5,
-    8.17,
+    14.5,
+    8.37,
     50.5
    ],
    "to": [
-    13.5,
-    7.47,
+    14.5,
+    7.48,
     49.5
    ],
    "horizontal": 1.0,
-   "dy": -0.7
+   "dy": -0.89
   },
   {
-   "frm_component": 81,
-   "to_component": 69,
-   "kind": "jump",
-   "frm": [
-    13.5,
-    8.17,
-    50.5
-   ],
-   "to": [
-    13.5,
-    8.17,
-    46.5
-   ],
-   "horizontal": 4.0,
-   "dy": 0.0
-  },
-  {
-   "frm_component": 81,
+   "frm_component": 85,
    "to_component": 71,
    "kind": "jump",
    "frm": [
@@ -5846,16 +7138,33 @@
     50.5
    ],
    "to": [
+    13.5,
+    8.26,
+    46.5
+   ],
+   "horizontal": 4.0,
+   "dy": 0.09
+  },
+  {
+   "frm_component": 85,
+   "to_component": 73,
+   "kind": "jump",
+   "frm": [
+    14.5,
+    8.37,
+    50.5
+   ],
+   "to": [
     14.5,
     8.17,
     47.5
    ],
-   "horizontal": 3.16,
-   "dy": 0.0
+   "horizontal": 3.0,
+   "dy": -0.2
   },
   {
-   "frm_component": 81,
-   "to_component": 74,
+   "frm_component": 85,
+   "to_component": 77,
    "kind": "jump",
    "frm": [
     13.5,
@@ -5864,32 +7173,49 @@
    ],
    "to": [
     11.5,
-    8.17,
+    8.26,
     48.5
    ],
    "horizontal": 2.83,
-   "dy": 0.0
+   "dy": 0.09
   },
   {
-   "frm_component": 81,
-   "to_component": 75,
+   "frm_component": 85,
+   "to_component": 78,
    "kind": "jump",
    "frm": [
-    13.5,
-    8.17,
+    14.5,
+    8.37,
     50.5
    ],
    "to": [
     15.5,
-    8.17,
-    48.5
+    8.37,
+    49.5
    ],
-   "horizontal": 2.83,
+   "horizontal": 1.41,
    "dy": 0.0
   },
   {
-   "frm_component": 81,
-   "to_component": 78,
+   "frm_component": 85,
+   "to_component": 79,
+   "kind": "drop",
+   "frm": [
+    13.5,
+    8.37,
+    51.5
+   ],
+   "to": [
+    13.5,
+    7.5,
+    52.5
+   ],
+   "horizontal": 1.0,
+   "dy": -0.87
+  },
+  {
+   "frm_component": 85,
+   "to_component": 82,
    "kind": "jump",
    "frm": [
     13.5,
@@ -5905,8 +7231,8 @@
    "dy": 0.43
   },
   {
-   "frm_component": 81,
-   "to_component": 79,
+   "frm_component": 85,
+   "to_component": 83,
    "kind": "jump",
    "frm": [
     13.5,
@@ -6093,7 +7419,7 @@
    ]
   },
   {
-   "id": 60,
+   "id": 62,
    "area_m2": 85.0,
    "y": 13.83,
    "bbox": [
@@ -6118,7 +7444,7 @@
    ]
   },
   {
-   "id": 53,
+   "id": 55,
    "area_m2": 16.0,
    "y": 13.1,
    "bbox": [
@@ -6162,7 +7488,7 @@
    ]
   },
   {
-   "id": 85,
+   "id": 89,
    "area_m2": 14.0,
    "y": 13.74,
    "bbox": [
@@ -6184,7 +7510,7 @@
    ]
   },
   {
-   "id": 67,
+   "id": 69,
    "area_m2": 12.0,
    "y": 12.78,
    "bbox": [
@@ -6206,7 +7532,7 @@
    ]
   },
   {
-   "id": 82,
+   "id": 86,
    "area_m2": 12.0,
    "y": 12.63,
    "bbox": [
@@ -6228,7 +7554,7 @@
    ]
   },
   {
-   "id": 84,
+   "id": 88,
    "area_m2": 11.0,
    "y": 31.08,
    "bbox": [
@@ -6275,7 +7601,7 @@
    ]
   },
   {
-   "id": 83,
+   "id": 87,
    "area_m2": 10.0,
    "y": 12.19,
    "bbox": [
@@ -6313,34 +7639,34 @@
  "passed": true,
  "spawn_candidates": [
   [
-   -32.5,
-   6.81,
-   1.5
-  ],
-  [
-   -30.5,
+   -31.5,
    5.73,
-   44.5
+   40.5
   ],
   [
-   -42.5,
+   -25.5,
+   6.8,
+   5.5
+  ],
+  [
+   -0.5,
+   7.24,
+   43.5
+  ],
+  [
+   -35.5,
    5.73,
-   46.5
-  ],
-  [
-   -2.5,
-   7.23,
-   39.5
-  ],
-  [
-   -38.5,
-   5.7,
-   39.5
+   33.5
   ],
   [
    42.5,
    21.73,
    -58.5
+  ],
+  [
+   -41.5,
+   5.73,
+   39.5
   ]
  ],
  "component_list": [
@@ -6762,13 +8088,13 @@
   },
   {
    "id": 18,
-   "area_m2": 1942.0,
-   "y": 6.73,
+   "area_m2": 1708.0,
+   "y": 6.56,
    "bbox": [
     -62.5,
     -5.5,
-    21.5,
-    56.5
+    15.5,
+    54.5
    ],
    "objects": [
     "Start_Deck_Floor",
@@ -6780,9 +8106,9 @@
    "can_return": true,
    "reached_by": "spawn",
    "centre": [
-    -20.7,
-    6.73,
-    32.8
+    -24.1,
+    6.56,
+    31.8
    ]
   },
   {
@@ -7052,6 +8378,51 @@
   },
   {
    "id": 31,
+   "area_m2": 56.0,
+   "y": 7.5,
+   "bbox": [
+    -11.5,
+    23.5,
+    -3.5,
+    31.5
+   ],
+   "objects": [
+    "Spinner_Pad_3_Deck"
+   ],
+   "reachable": true,
+   "can_return": true,
+   "reached_by": "jump",
+   "centre": [
+    -7.9,
+    7.5,
+    27.1
+   ]
+  },
+  {
+   "id": 32,
+   "area_m2": 50.0,
+   "y": 7.5,
+   "bbox": [
+    13.5,
+    23.5,
+    21.5,
+    31.5
+   ],
+   "objects": [
+    "Spinner_Pad_2_Deck",
+    "Spinner_Terminal_Floor"
+   ],
+   "reachable": true,
+   "can_return": true,
+   "reached_by": "jump",
+   "centre": [
+    17.8,
+    7.5,
+    27.2
+   ]
+  },
+  {
+   "id": 33,
    "area_m2": 1.0,
    "y": 8.52,
    "bbox": [
@@ -7073,7 +8444,7 @@
    ]
   },
   {
-   "id": 32,
+   "id": 34,
    "area_m2": 3.0,
    "y": 9.86,
    "bbox": [
@@ -7095,7 +8466,7 @@
    ]
   },
   {
-   "id": 33,
+   "id": 35,
    "area_m2": 1.0,
    "y": 8.57,
    "bbox": [
@@ -7117,7 +8488,7 @@
    ]
   },
   {
-   "id": 34,
+   "id": 36,
    "area_m2": 1.0,
    "y": 8.52,
    "bbox": [
@@ -7139,29 +8510,53 @@
    ]
   },
   {
-   "id": 35,
-   "area_m2": 1.0,
-   "y": 8.17,
+   "id": 37,
+   "area_m2": 4.0,
+   "y": 8.32,
    "bbox": [
-    -3.5,
-    29.5,
+    -4.5,
+    28.5,
     -3.5,
     29.5
    ],
    "objects": [
+    "Spinner_Pad_3_BridgePost1_L",
     "Spinner_Pad_3_BridgeRail_L"
    ],
    "reachable": true,
    "can_return": true,
    "reached_by": "jump",
    "centre": [
-    -3.5,
-    8.17,
-    29.5
+    -4.0,
+    8.32,
+    29.0
    ]
   },
   {
-   "id": 36,
+   "id": 38,
+   "area_m2": 4.0,
+   "y": 8.32,
+   "bbox": [
+    13.5,
+    28.5,
+    14.5,
+    29.5
+   ],
+   "objects": [
+    "Spinner_Pad_2_BridgePost1_R",
+    "Spinner_Pad_2_BridgeRail_R"
+   ],
+   "reachable": true,
+   "can_return": true,
+   "reached_by": "jump",
+   "centre": [
+    14.0,
+    8.32,
+    29.0
+   ]
+  },
+  {
+   "id": 39,
    "area_m2": 4.0,
    "y": 8.6,
    "bbox": [
@@ -7183,7 +8578,7 @@
    ]
   },
   {
-   "id": 37,
+   "id": 40,
    "area_m2": 4.0,
    "y": 8.6,
    "bbox": [
@@ -7205,91 +8600,26 @@
    ]
   },
   {
-   "id": 38,
-   "area_m2": 1.0,
-   "y": 8.17,
-   "bbox": [
-    13.5,
-    29.5,
-    13.5,
-    29.5
-   ],
-   "objects": [
-    "Spinner_Pad_2_BridgeRail_R"
-   ],
-   "reachable": true,
-   "can_return": true,
-   "reached_by": "jump",
-   "centre": [
-    13.5,
-    8.17,
-    29.5
-   ]
-  },
-  {
-   "id": 39,
-   "area_m2": 1.0,
-   "y": 8.17,
-   "bbox": [
-    -2.5,
-    30.5,
-    -2.5,
-    30.5
-   ],
-   "objects": [
-    "Spinner_Pad_3_BridgeRail_L"
-   ],
-   "reachable": true,
-   "can_return": true,
-   "reached_by": "jump",
-   "centre": [
-    -2.5,
-    8.17,
-    30.5
-   ]
-  },
-  {
-   "id": 40,
-   "area_m2": 1.0,
-   "y": 8.17,
-   "bbox": [
-    12.5,
-    30.5,
-    12.5,
-    30.5
-   ],
-   "objects": [
-    "Spinner_Pad_2_BridgeRail_R"
-   ],
-   "reachable": true,
-   "can_return": true,
-   "reached_by": "jump",
-   "centre": [
-    12.5,
-    8.17,
-    30.5
-   ]
-  },
-  {
    "id": 41,
-   "area_m2": 1.0,
-   "y": 8.17,
+   "area_m2": 4.0,
+   "y": 8.32,
    "bbox": [
-    -5.5,
-    31.5,
+    -6.5,
+    30.5,
     -5.5,
     31.5
    ],
    "objects": [
+    "Spinner_Pad_3_BridgePost1_R",
     "Spinner_Pad_3_BridgeRail_R"
    ],
    "reachable": true,
    "can_return": true,
    "reached_by": "jump",
    "centre": [
-    -5.5,
-    8.17,
-    31.5
+    -6.0,
+    8.32,
+    31.0
    ]
   },
   {
@@ -7297,10 +8627,10 @@
    "area_m2": 1.0,
    "y": 8.17,
    "bbox": [
-    -1.5,
-    31.5,
-    -1.5,
-    31.5
+    -2.5,
+    30.5,
+    -2.5,
+    30.5
    ],
    "objects": [
     "Spinner_Pad_3_BridgeRail_L"
@@ -7309,9 +8639,9 @@
    "can_return": true,
    "reached_by": "jump",
    "centre": [
-    -1.5,
+    -2.5,
     8.17,
-    31.5
+    30.5
    ]
   },
   {
@@ -7319,10 +8649,10 @@
    "area_m2": 1.0,
    "y": 8.17,
    "bbox": [
-    11.5,
-    31.5,
-    11.5,
-    31.5
+    12.5,
+    30.5,
+    12.5,
+    30.5
    ],
    "objects": [
     "Spinner_Pad_2_BridgeRail_R"
@@ -7331,35 +8661,80 @@
    "can_return": true,
    "reached_by": "jump",
    "centre": [
-    11.5,
+    12.5,
     8.17,
-    31.5
+    30.5
    ]
   },
   {
    "id": 44,
-   "area_m2": 1.0,
-   "y": 8.17,
+   "area_m2": 4.0,
+   "y": 8.32,
    "bbox": [
     15.5,
-    31.5,
-    15.5,
+    30.5,
+    16.5,
     31.5
    ],
    "objects": [
+    "Spinner_Pad_2_BridgePost1_L",
     "Spinner_Pad_2_BridgeRail_L"
    ],
    "reachable": true,
    "can_return": true,
    "reached_by": "jump",
    "centre": [
-    15.5,
-    8.17,
-    31.5
+    16.0,
+    8.32,
+    31.0
    ]
   },
   {
    "id": 45,
+   "area_m2": 1.0,
+   "y": 8.26,
+   "bbox": [
+    -1.5,
+    31.5,
+    -1.5,
+    31.5
+   ],
+   "objects": [
+    "Spinner_Pad_3_BridgePost0_L"
+   ],
+   "reachable": true,
+   "can_return": true,
+   "reached_by": "jump",
+   "centre": [
+    -1.5,
+    8.26,
+    31.5
+   ]
+  },
+  {
+   "id": 46,
+   "area_m2": 1.0,
+   "y": 8.26,
+   "bbox": [
+    11.5,
+    31.5,
+    11.5,
+    31.5
+   ],
+   "objects": [
+    "Spinner_Pad_2_BridgePost0_R"
+   ],
+   "reachable": true,
+   "can_return": true,
+   "reached_by": "jump",
+   "centre": [
+    11.5,
+    8.26,
+    31.5
+   ]
+  },
+  {
+   "id": 47,
    "area_m2": 1.0,
    "y": 8.17,
    "bbox": [
@@ -7381,7 +8756,7 @@
    ]
   },
   {
-   "id": 46,
+   "id": 48,
    "area_m2": 1.0,
    "y": 8.17,
    "bbox": [
@@ -7403,7 +8778,7 @@
    ]
   },
   {
-   "id": 47,
+   "id": 49,
    "area_m2": 8.0,
    "y": 7.2,
    "bbox": [
@@ -7426,7 +8801,7 @@
    ]
   },
   {
-   "id": 48,
+   "id": 50,
    "area_m2": 6.0,
    "y": 7.08,
    "bbox": [
@@ -7450,51 +8825,51 @@
    ]
   },
   {
-   "id": 49,
-   "area_m2": 1.0,
-   "y": 8.17,
-   "bbox": [
-    -3.5,
-    33.5,
-    -3.5,
-    33.5
-   ],
-   "objects": [
-    "Spinner_Pad_3_BridgeRail_R"
-   ],
-   "reachable": true,
-   "can_return": true,
-   "reached_by": "jump",
-   "centre": [
-    -3.5,
-    8.17,
-    33.5
-   ]
-  },
-  {
-   "id": 50,
-   "area_m2": 1.0,
-   "y": 8.17,
-   "bbox": [
-    13.5,
-    33.5,
-    13.5,
-    33.5
-   ],
-   "objects": [
-    "Spinner_Pad_2_BridgeRail_L"
-   ],
-   "reachable": true,
-   "can_return": true,
-   "reached_by": "jump",
-   "centre": [
-    13.5,
-    8.17,
-    33.5
-   ]
-  },
-  {
    "id": 51,
+   "area_m2": 1.0,
+   "y": 8.26,
+   "bbox": [
+    -3.5,
+    33.5,
+    -3.5,
+    33.5
+   ],
+   "objects": [
+    "Spinner_Pad_3_BridgePost0_R"
+   ],
+   "reachable": true,
+   "can_return": true,
+   "reached_by": "jump",
+   "centre": [
+    -3.5,
+    8.26,
+    33.5
+   ]
+  },
+  {
+   "id": 52,
+   "area_m2": 1.0,
+   "y": 8.26,
+   "bbox": [
+    13.5,
+    33.5,
+    13.5,
+    33.5
+   ],
+   "objects": [
+    "Spinner_Pad_2_BridgePost0_L"
+   ],
+   "reachable": true,
+   "can_return": true,
+   "reached_by": "jump",
+   "centre": [
+    13.5,
+    8.26,
+    33.5
+   ]
+  },
+  {
+   "id": 53,
    "area_m2": 4.0,
    "y": 8.6,
    "bbox": [
@@ -7516,7 +8891,7 @@
    ]
   },
   {
-   "id": 52,
+   "id": 54,
    "area_m2": 1.0,
    "y": 8.5,
    "bbox": [
@@ -7538,7 +8913,7 @@
    ]
   },
   {
-   "id": 53,
+   "id": 55,
    "area_m2": 16.0,
    "y": 13.1,
    "bbox": [
@@ -7560,7 +8935,7 @@
    ]
   },
   {
-   "id": 54,
+   "id": 56,
    "area_m2": 2.0,
    "y": 9.61,
    "bbox": [
@@ -7582,7 +8957,7 @@
    ]
   },
   {
-   "id": 55,
+   "id": 57,
    "area_m2": 1.0,
    "y": 8.5,
    "bbox": [
@@ -7604,7 +8979,7 @@
    ]
   },
   {
-   "id": 56,
+   "id": 58,
    "area_m2": 1.0,
    "y": 1.7,
    "bbox": [
@@ -7626,7 +9001,7 @@
    ]
   },
   {
-   "id": 57,
+   "id": 59,
    "area_m2": 2.0,
    "y": 1.7,
    "bbox": [
@@ -7648,51 +9023,51 @@
    ]
   },
   {
-   "id": 58,
-   "area_m2": 2.0,
-   "y": 9.61,
-   "bbox": [
-    3.5,
-    39.5,
-    3.5,
-    40.5
-   ],
-   "objects": [
-    "Spinner_Band_1"
-   ],
-   "reachable": false,
-   "can_return": true,
-   "reached_by": null,
-   "centre": [
-    3.5,
-    9.61,
-    40.0
-   ]
-  },
-  {
-   "id": 59,
-   "area_m2": 2.0,
-   "y": 9.61,
-   "bbox": [
-    6.5,
-    39.5,
-    6.5,
-    40.5
-   ],
-   "objects": [
-    "Spinner_Band_1"
-   ],
-   "reachable": false,
-   "can_return": true,
-   "reached_by": null,
-   "centre": [
-    6.5,
-    9.61,
-    40.0
-   ]
-  },
-  {
    "id": 60,
+   "area_m2": 2.0,
+   "y": 9.61,
+   "bbox": [
+    3.5,
+    39.5,
+    3.5,
+    40.5
+   ],
+   "objects": [
+    "Spinner_Band_1"
+   ],
+   "reachable": false,
+   "can_return": true,
+   "reached_by": null,
+   "centre": [
+    3.5,
+    9.61,
+    40.0
+   ]
+  },
+  {
+   "id": 61,
+   "area_m2": 2.0,
+   "y": 9.61,
+   "bbox": [
+    6.5,
+    39.5,
+    6.5,
+    40.5
+   ],
+   "objects": [
+    "Spinner_Band_1"
+   ],
+   "reachable": false,
+   "can_return": true,
+   "reached_by": null,
+   "centre": [
+    6.5,
+    9.61,
+    40.0
+   ]
+  },
+  {
+   "id": 62,
    "area_m2": 85.0,
    "y": 13.83,
    "bbox": [
@@ -7717,7 +9092,7 @@
    ]
   },
   {
-   "id": 61,
+   "id": 63,
    "area_m2": 2.0,
    "y": 1.7,
    "bbox": [
@@ -7739,7 +9114,7 @@
    ]
   },
   {
-   "id": 62,
+   "id": 64,
    "area_m2": 1.0,
    "y": 8.5,
    "bbox": [
@@ -7761,7 +9136,7 @@
    ]
   },
   {
-   "id": 63,
+   "id": 65,
    "area_m2": 2.0,
    "y": 9.61,
    "bbox": [
@@ -7783,7 +9158,7 @@
    ]
   },
   {
-   "id": 64,
+   "id": 66,
    "area_m2": 1.0,
    "y": 8.5,
    "bbox": [
@@ -7805,7 +9180,7 @@
    ]
   },
   {
-   "id": 65,
+   "id": 67,
    "area_m2": 4.0,
    "y": 8.6,
    "bbox": [
@@ -7827,7 +9202,7 @@
    ]
   },
   {
-   "id": 66,
+   "id": 68,
    "area_m2": 38.0,
    "y": 7.08,
    "bbox": [
@@ -7852,7 +9227,7 @@
    ]
   },
   {
-   "id": 67,
+   "id": 69,
    "area_m2": 12.0,
    "y": 12.78,
    "bbox": [
@@ -7874,91 +9249,47 @@
    ]
   },
   {
-   "id": 68,
-   "area_m2": 1.0,
-   "y": 8.17,
-   "bbox": [
-    -3.5,
-    46.5,
-    -3.5,
-    46.5
-   ],
-   "objects": [
-    "Spinner_Pad_4_BridgeRail_L"
-   ],
-   "reachable": true,
-   "can_return": true,
-   "reached_by": "jump",
-   "centre": [
-    -3.5,
-    8.17,
-    46.5
-   ]
-  },
-  {
-   "id": 69,
-   "area_m2": 1.0,
-   "y": 8.17,
-   "bbox": [
-    13.5,
-    46.5,
-    13.5,
-    46.5
-   ],
-   "objects": [
-    "Spinner_Pad_1_BridgeRail_R"
-   ],
-   "reachable": true,
-   "can_return": true,
-   "reached_by": "jump",
-   "centre": [
-    13.5,
-    8.17,
-    46.5
-   ]
-  },
-  {
    "id": 70,
    "area_m2": 1.0,
-   "y": 8.17,
+   "y": 8.26,
    "bbox": [
-    -4.5,
-    47.5,
-    -4.5,
-    47.5
+    -3.5,
+    46.5,
+    -3.5,
+    46.5
    ],
    "objects": [
-    "Spinner_Pad_4_BridgeRail_L"
+    "Spinner_Pad_4_BridgePost0_L"
    ],
    "reachable": true,
    "can_return": true,
    "reached_by": "jump",
    "centre": [
-    -4.5,
-    8.17,
-    47.5
+    -3.5,
+    8.26,
+    46.5
    ]
   },
   {
    "id": 71,
    "area_m2": 1.0,
-   "y": 8.17,
+   "y": 8.26,
    "bbox": [
-    14.5,
-    47.5,
-    14.5,
-    47.5
+    13.5,
+    46.5,
+    13.5,
+    46.5
    ],
    "objects": [
-    "Spinner_Pad_1_BridgeRail_R"
+    "Spinner_Pad_1_BridgePost0_R"
    ],
    "reachable": true,
    "can_return": true,
    "reached_by": "jump",
    "centre": [
-    14.5,
-    8.17,
-    47.5
+    13.5,
+    8.26,
+    46.5
    ]
   },
   {
@@ -7966,10 +9297,10 @@
    "area_m2": 1.0,
    "y": 8.17,
    "bbox": [
-    -5.5,
-    48.5,
-    -5.5,
-    48.5
+    -4.5,
+    47.5,
+    -4.5,
+    47.5
    ],
    "objects": [
     "Spinner_Pad_4_BridgeRail_L"
@@ -7978,9 +9309,9 @@
    "can_return": true,
    "reached_by": "jump",
    "centre": [
-    -5.5,
+    -4.5,
     8.17,
-    48.5
+    47.5
    ]
   },
   {
@@ -7988,54 +9319,10 @@
    "area_m2": 1.0,
    "y": 8.17,
    "bbox": [
-    -1.5,
-    48.5,
-    -1.5,
-    48.5
-   ],
-   "objects": [
-    "Spinner_Pad_4_BridgeRail_R"
-   ],
-   "reachable": true,
-   "can_return": true,
-   "reached_by": "jump",
-   "centre": [
-    -1.5,
-    8.17,
-    48.5
-   ]
-  },
-  {
-   "id": 74,
-   "area_m2": 1.0,
-   "y": 8.17,
-   "bbox": [
-    11.5,
-    48.5,
-    11.5,
-    48.5
-   ],
-   "objects": [
-    "Spinner_Pad_1_BridgeRail_L"
-   ],
-   "reachable": true,
-   "can_return": true,
-   "reached_by": "jump",
-   "centre": [
-    11.5,
-    8.17,
-    48.5
-   ]
-  },
-  {
-   "id": 75,
-   "area_m2": 1.0,
-   "y": 8.17,
-   "bbox": [
-    15.5,
-    48.5,
-    15.5,
-    48.5
+    14.5,
+    47.5,
+    14.5,
+    47.5
    ],
    "objects": [
     "Spinner_Pad_1_BridgeRail_R"
@@ -8044,13 +9331,147 @@
    "can_return": true,
    "reached_by": "jump",
    "centre": [
-    15.5,
+    14.5,
     8.17,
-    48.5
+    47.5
+   ]
+  },
+  {
+   "id": 74,
+   "area_m2": 56.0,
+   "y": 7.5,
+   "bbox": [
+    -11.5,
+    48.5,
+    -3.5,
+    56.5
+   ],
+   "objects": [
+    "Spinner_Pad_4_Deck"
+   ],
+   "reachable": true,
+   "can_return": true,
+   "reached_by": "jump",
+   "centre": [
+    -7.9,
+    7.5,
+    52.9
+   ]
+  },
+  {
+   "id": 75,
+   "area_m2": 4.0,
+   "y": 8.32,
+   "bbox": [
+    -6.5,
+    48.5,
+    -5.5,
+    49.5
+   ],
+   "objects": [
+    "Spinner_Pad_4_BridgePost1_L",
+    "Spinner_Pad_4_BridgeRail_L"
+   ],
+   "reachable": true,
+   "can_return": true,
+   "reached_by": "jump",
+   "centre": [
+    -6.0,
+    8.32,
+    49.0
    ]
   },
   {
    "id": 76,
+   "area_m2": 1.0,
+   "y": 8.26,
+   "bbox": [
+    -1.5,
+    48.5,
+    -1.5,
+    48.5
+   ],
+   "objects": [
+    "Spinner_Pad_4_BridgePost0_R"
+   ],
+   "reachable": true,
+   "can_return": true,
+   "reached_by": "jump",
+   "centre": [
+    -1.5,
+    8.26,
+    48.5
+   ]
+  },
+  {
+   "id": 77,
+   "area_m2": 1.0,
+   "y": 8.26,
+   "bbox": [
+    11.5,
+    48.5,
+    11.5,
+    48.5
+   ],
+   "objects": [
+    "Spinner_Pad_1_BridgePost0_L"
+   ],
+   "reachable": true,
+   "can_return": true,
+   "reached_by": "jump",
+   "centre": [
+    11.5,
+    8.26,
+    48.5
+   ]
+  },
+  {
+   "id": 78,
+   "area_m2": 4.0,
+   "y": 8.32,
+   "bbox": [
+    15.5,
+    48.5,
+    16.5,
+    49.5
+   ],
+   "objects": [
+    "Spinner_Pad_1_BridgePost1_R",
+    "Spinner_Pad_1_BridgeRail_R"
+   ],
+   "reachable": true,
+   "can_return": true,
+   "reached_by": "jump",
+   "centre": [
+    16.0,
+    8.32,
+    49.0
+   ]
+  },
+  {
+   "id": 79,
+   "area_m2": 56.0,
+   "y": 7.5,
+   "bbox": [
+    13.5,
+    48.5,
+    21.5,
+    56.5
+   ],
+   "objects": [
+    "Spinner_Pad_1_Deck"
+   ],
+   "reachable": true,
+   "can_return": true,
+   "reached_by": "jump",
+   "centre": [
+    17.9,
+    7.5,
+    52.9
+   ]
+  },
+  {
+   "id": 80,
    "area_m2": 1.0,
    "y": 8.17,
    "bbox": [
@@ -8072,7 +9493,7 @@
    ]
   },
   {
-   "id": 77,
+   "id": 81,
    "area_m2": 4.0,
    "y": 8.6,
    "bbox": [
@@ -8094,7 +9515,7 @@
    ]
   },
   {
-   "id": 78,
+   "id": 82,
    "area_m2": 4.0,
    "y": 8.6,
    "bbox": [
@@ -8116,7 +9537,7 @@
    ]
   },
   {
-   "id": 79,
+   "id": 83,
    "area_m2": 1.0,
    "y": 8.17,
    "bbox": [
@@ -8138,51 +9559,53 @@
    ]
   },
   {
-   "id": 80,
-   "area_m2": 1.0,
-   "y": 8.17,
+   "id": 84,
+   "area_m2": 4.0,
+   "y": 8.32,
    "bbox": [
-    -3.5,
+    -4.5,
     50.5,
     -3.5,
-    50.5
+    51.5
    ],
    "objects": [
+    "Spinner_Pad_4_BridgePost1_R",
     "Spinner_Pad_4_BridgeRail_R"
    ],
    "reachable": true,
    "can_return": true,
    "reached_by": "jump",
    "centre": [
-    -3.5,
-    8.17,
-    50.5
+    -4.0,
+    8.32,
+    51.0
    ]
   },
   {
-   "id": 81,
-   "area_m2": 1.0,
-   "y": 8.17,
+   "id": 85,
+   "area_m2": 4.0,
+   "y": 8.32,
    "bbox": [
     13.5,
     50.5,
-    13.5,
-    50.5
+    14.5,
+    51.5
    ],
    "objects": [
+    "Spinner_Pad_1_BridgePost1_L",
     "Spinner_Pad_1_BridgeRail_L"
    ],
    "reachable": true,
    "can_return": true,
    "reached_by": "jump",
    "centre": [
-    13.5,
-    8.17,
-    50.5
+    14.0,
+    8.32,
+    51.0
    ]
   },
   {
-   "id": 82,
+   "id": 86,
    "area_m2": 12.0,
    "y": 12.63,
    "bbox": [
@@ -8204,7 +9627,7 @@
    ]
   },
   {
-   "id": 83,
+   "id": 87,
    "area_m2": 10.0,
    "y": 12.19,
    "bbox": [
@@ -8226,7 +9649,7 @@
    ]
   },
   {
-   "id": 84,
+   "id": 88,
    "area_m2": 11.0,
    "y": 31.08,
    "bbox": [
@@ -8251,7 +9674,7 @@
    ]
   },
   {
-   "id": 85,
+   "id": 89,
    "area_m2": 14.0,
    "y": 13.74,
    "bbox": [

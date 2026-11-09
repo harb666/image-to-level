@@ -1258,3 +1258,11 @@ Building blocks usable without the preset:
   `damping` m/s^2 so they billow, emitted over `emit_time` s when the cycle crosses each `sync.at`. The press has
   four gland nozzles (fire on impact and release), four nozzles on the head (impact) and four crown vents (release);
   replaces the Stage 104 `steam_burst` puffs on the spinner.
+
+## Stage 106: wound pole stripes, connected bridge rails
+- Shape `pole`: a round pole like `cylinder` with its own wrap-around UVs (u = length / `uv_len` m, v once round, seam
+  underneath). Material type `hazard_wrap` (`turns`, `dark`, `wear`): diagonal hazard bands that wind round a pole
+  and join up across the seam, a dark bevel line between bands, chips and grime underneath. The spinner's arms use it
+  (`pole_material`: `pole_stripe`) instead of the planar-projected chevrons.
+- The spinner's pad bridges: the side rails run from the deck's edge (`deck_apothem`: the octagon's flat on that
+  bearing) to the pad's facing flat, with a post at each end (`_BridgePost0/1_L/R`).

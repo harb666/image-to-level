@@ -203,11 +203,11 @@ def spinner(ctx, s, x, y, z, yaw):
     # --- rotor (moves): collar + arms + spiked balls
     gr = n + "_Rotor"; mr = dict(collision=False, mobile={"group": gr}); arms = [float(v) for v in s.get("arms", [0, 90, 180, 270])]
     by = float(s.get("bar_y", 0.72)); bh = float(s.get("bar_half", 0.22)); r0 = 1.3; br = float(s.get("ball", 1.36)) / 2; r1 = R - 0.4 - br; bly = by  # Stage 104: maces ON the poles' axis
-    rc = br * 0.66; mace = ctx.role("mace"); nl = dict(mr, outline=False)
+    rc = br * 0.66; mace = ctx.role("mace"); nl = dict(mr, outline=False); pole_mat = ctx.role(s.get("pole_material", "stripe"))
     ctx.add(gr + "_Collar", "cylinder", [x, T + by - 0.35, z], [3.0, 0.7, 3.0], "machine", sections=12, **mr)
     for k, a0 in enumerate(arms):  # Stage 104 (concept art): a round striped pole out of a socket in the hub, a flanged coupling into a gunmetal mace
         a = yaw + a0; P0 = _W(x, 0, z, a); K_ = lambda nm, sh, r, sz, mat, kw=mr, sec=8: ctx.add(f"{gr}_{nm}_{k + 1}", sh, P0(0, T + by, r), sz, mat, rot=[90, a, 0], sections=sec, **kw)
-        K_("Arm", "cylinder", r0, [2 * bh, r1 - r0, 2 * bh], stripe)
+        ctx.add(f"{gr}_Arm_{k + 1}", "pole", P0(0, T + by, r0), [2 * bh, r1 - r0, 2 * bh], pole_mat, rot=[90, a, 0], sections=10, uv_len=1.6, **mr)  # Stage 106: wound hazard stripes
         K_("Root", "cylinder", 1.8, [0.66, 0.55, 0.66], "machine")
         K_("Socket", "cylinder", r1 - rc - 0.32, [0.54, 0.44, 0.54], "machine")
         K_("Flange", "cylinder", r1 - rc - 0.32, [0.72, 0.09, 0.72], "machine", nl)
@@ -232,8 +232,12 @@ def spinner(ctx, s, x, y, z, yaw):
         ctx.add(pre + "_Jet", "frustum", [c[0], T - 4.7, c[2]], [1.1, 1.0, 1.1], gl, sections=8, bottom_scale=0.15, **vs)
         q0 = P0(0, 0, R - 0.5); q1 = P0(0, 0, Dp - pd / 2 + 0.6); m = [(q0[i] + q1[i]) / 2 for i in range(3)]; L = math.dist(q0, q1)
         ctx.add(pre + "_Bridge", "box", [m[0], T - 0.33, m[2]], [2.6, 0.3, L], "grate", rot=[0, a, 0], **st)  # 3 cm under the decks: no shared faces
+        # Stage 106: the side rails run edge to edge - from the deck's edge (its octagon's flat on this bearing) to the
+        # pad's facing flat - with a post at each end where they meet the decks
+        e0 = float(s.get("deck_apothem", R)) - 0.05; e1 = Dp - pd / 2 * math.cos(math.pi / 8) + 0.05; Lr = e1 - e0
         for sd in (-1, 1):
-            dx, dz = A_local(sd * 1.38, 0, a); ctx.add(f"{pre}_BridgeRail_{'LR'[sd > 0]}", "box", [m[0] + dx, T - 0.03, m[2] + dz], [0.08, 0.7, L - 1.4], "rail", rot=[0, a, 0], **dict(st, outline=False))
+            for nm, rr, ln, wd, hh in (("BridgeRail", (e0 + e1) / 2, Lr, 0.08, 0.7), ("BridgePost0", e0 + 0.09, 0.18, 0.18, 0.9), ("BridgePost1", e1 - 0.09, 0.18, 0.18, 0.9)):
+                c_ = P0(sd * 1.38, 0, rr); ctx.add(f"{pre}_{nm}_{'LR'[sd > 0]}", "box", [c_[0], T - 0.03, c_[2]], [wd, hh, ln], "rail", rot=[0, a, 0], **dict(st, outline=False))
         ctx.landings.append((round(c[0], 3), round(c[2], 3), pd / 2))
     for k in range(8):  # lamp posts round the rim, between the catwalks
         a = yaw + 22.5 + 45 * k

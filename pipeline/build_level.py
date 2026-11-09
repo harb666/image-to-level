@@ -163,6 +163,7 @@ def build(level_dir):
         if o.get("uv_space") == "world":  # Stage 29: planar UVs from WORLD metres: the pattern runs on across neighbouring parts (even cut panels)
             gw = g0.copy(); gw.apply_transform(world[o["name"]]); m, _ = uv_world(g0, tile); _, uv = uv_world(gw, tile)
         elif "uv" in g0.metadata: m, uv = g0, g0.metadata["uv"]  # shapes with their own UVs (grid sheets, cut panels)
+        elif "uv_corner" in g0.metadata: m = g0.copy(); m.unmerge_vertices(); uv = np.asarray(g0.metadata["uv_corner"])  # Stage 106: per face corner (UV seams on closed bodies)
         else:
             m, uv = uv_world(g0, tile)
             if o["type"] == "panel": uv = (m.vertices[:, :2] - [-o["size"][0] / 2, 0]) / o["size"][:2]  # whole texture once

@@ -957,6 +957,23 @@ def k_screen_atlas(S, rng, c, m):
         out[k_] = np.asarray(Image.fromarray((np.clip(d["alb"], 0, 1) * 255).astype(np.uint8)).resize((S // 2, S), Image.BILINEAR), float) / 255.0
     return dict(alb=np.concatenate([out["left"], out["right"]], 1), h=np.zeros((S, S)), rough=np.full((S, S), 0.45), metal=0.0, emit=np.ones((S, S)), nstr=0.0)
 
+def k_hazard_wrap(S, rng, c, m):
+    """Stage 106: hazard stripes for round poles (shape "pole": u along the pole, v round it) - diagonal bands of the
+    accent colour and near-black that wind round the pole like the concept art's arms ("turns": bands per texture
+    repeat along u; v adds one band, so the stripes join up round the seam), a thin dark bevel between bands, chipped
+    paint and grime on the underside (v ~ 0 / 1)."""
+    x, y = _xy(S); n = int(m.get("turns", 2)); fine = _noise(rng, 32, 2, S); wear = m.get("wear", 0.2)
+    f = (x * n + y) % 1; band = f < 0.5; edge = np.minimum(np.abs(f - 0.5), np.minimum(f, 1 - f)) * S / n  # px to a band border
+    dark = np.array(m.get("dark", [0.06, 0.05, 0.08])); under = np.clip(1 - np.minimum(y, 1 - y) * 5, 0, 1)
+    alb = np.where(band[..., None], c[None, None], dark[None, None]) * (0.88 + 0.12 * fine)[..., None]
+    alb = alb * (1 - 0.55 * np.clip(1 - edge / 2.5, 0, 1))[..., None]  # bevel line
+    alb = alb * (1 - 0.35 * under * _noise(rng, 8, 2, S))[..., None]  # grime underneath
+    chip = (_noise(rng, 24, 2, S) > 0.9 - 0.25 * wear - 0.1 * under) & (edge > 1.5)
+    alb = np.where(chip[..., None], np.full(3, 0.5) * (0.8 + 0.2 * fine[..., None]), alb)
+    hl = 1 - np.abs(y - 0.75) * 4  # (top of the pole: a touch of sheen)
+    return dict(alb=np.clip(alb, 0, 1), h=0.55 - 0.15 * np.clip(1 - edge / 2.5, 0, 1) - 0.08 * chip, rough=np.where(chip, 0.35, 0.5 - 0.1 * np.clip(hl, 0, 1)), metal=np.where(chip, 0.85, 0.08), nstr=0.7)
+
+
 def k_scrape_rings(S, rng, c, m):
     """Stage 105: a plain (untextured) deck scored by things sweeping round it - concentric scrape marks centred on the
     UV origin (pair with tile_m = the deck's width: a cylinder top's UVs are local metres / tile_m from its axis, so

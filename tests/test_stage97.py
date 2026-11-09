@@ -99,7 +99,13 @@ class SpinnerDeck(unittest.TestCase):
         self.assertAlmostEqual(sw["ball_y"], sw["bar_y"]); self.assertGreater(sw["ball_y"] - sw["ball_r"], 0.0)  # Stage 104: each mace sits on its pole's axis, clear of the deck
         for k in range(1, 5):
             self.assertEqual(by[f"Spinner_Rotor_Ball_{k}"]["type"], "mace"); self.assertEqual(by[f"Spinner_Rotor_Tips_{k}"]["type"], "mace_tips")
-            self.assertEqual(by[f"Spinner_Rotor_Arm_{k}"]["type"], "cylinder"); self.assertIn(f"Spinner_Rotor_Socket_{k}", by)
+            self.assertEqual(by[f"Spinner_Rotor_Arm_{k}"]["type"], "pole"); self.assertIn(f"Spinner_Rotor_Socket_{k}", by)  # Stage 106: own wrap-around UVs
+            self.assertEqual(L["materials"][by[f"Spinner_Rotor_Arm_{k}"]["material"]]["type"], "hazard_wrap")
+            for sd in "LR":  # Stage 106: the pad bridges' side rails run from the deck's edge to the pad's edge
+                rl = by[f"Spinner_Pad_{k}_BridgeRail_{sd}"]; d = math.hypot(rl["position"][0] - sw["center"][0], rl["position"][2] - sw["center"][2])
+                inner = (d ** 2 - 1.38 ** 2) ** 0.5 - rl["size"][2] / 2; outer = inner + rl["size"][2]
+                self.assertLess(inner, 11.15 * math.cos(math.pi / 8)); self.assertGreater(outer, 18.0 - 4.0 * math.cos(math.pi / 8))
+                self.assertIn(f"Spinner_Pad_{k}_BridgePost0_{sd}", by); self.assertIn(f"Spinner_Pad_{k}_BridgePost1_{sd}", by)
         c = sw["center"]; posts = [o for n, o in by.items() if n.startswith("Spinner_Post_")]
         self.assertGreater(min(math.hypot(o["position"][0] - c[0], o["position"][2] - c[2]) - 0.33 for o in posts), sw["r1"] + sw["ball_r"] + 0.1)  # the maces clear the lamp posts
         self.assertEqual(by["Spinner_Skirt"]["material"], "arm_yellow"); self.assertNotEqual(by["Spinner_CrownBand"]["material"], "stripe")  # painted, not chevrons
