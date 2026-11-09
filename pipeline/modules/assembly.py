@@ -222,14 +222,24 @@ def spinner(ctx, s, x, y, z, yaw):
                                                        note="angle(t) = arm + rpm * 6 * t deg (level yaw convention: direction (sin, cos)); a bar kills a body it overlaps (jump over it), a ball kills within ball_r")]
     # --- hovering pads on the diagonals + grate catwalks
     pd = float(s.get("pads", 8.0)); bl = float(s.get("bridge", 3.5)); Dp = R + bl + pd / 2; ctx.spinner_pads = getattr(ctx, "spinner_pads", {})
+    lift = s.get("lift_pad") or {}; ctx.lifts = getattr(ctx, "lifts", [])
     for k in range(4):
         a = yaw + 45 + 90 * k; P0 = _W(x, 0, z, a); c = P0(0, 0, Dp); pre = f"{n}_Pad_{k + 1}"; ctx.spinner_pads[f"{n}_{k + 1}"] = [c[0], T, c[2]]
-        ctx.add(pre + "_Deck", "cylinder", [c[0], T - 0.6, c[2]], [pd, 0.6, pd], "deck", sections=8, **st)
-        ctx.add(pre + "_Rim", "cylinder", [c[0], T - 0.95, c[2]], [pd + 0.16, 0.42, pd + 0.16], stripe, sections=8, **vs)
-        ctx.add(pre + "_Hull", "frustum", [c[0], T - 3.0, c[2]], [pd - 0.4, 2.05, pd - 0.4], "structure_b", sections=8, bottom_scale=0.42, **st)
-        ctx.add(pre + "_GlowBand", "frustum", [c[0], T - 2.1, c[2]], [pd * 0.8, 0.35, pd * 0.8], gl, sections=8, bottom_scale=0.92, **vs)
-        ctx.add(pre + "_Thruster", "cylinder", [c[0], T - 3.7, c[2]], [1.4, 0.75, 1.4], "machine", sections=8, **vs)
-        ctx.add(pre + "_Jet", "frustum", [c[0], T - 4.7, c[2]], [1.1, 1.0, 1.1], gl, sections=8, bottom_scale=0.15, **vs)
+        pr8 = [0, yaw + 22.5, 0]  # Stage 108: octagon flats (not corners) face the bridge and the four bearings
+        ps, pv = st, vs
+        if int(lift.get("pad", 0)) == k + 1:  # Stage 108: this pad is a lift - its parts ride one group (runtime: "lifts"); the deck's collider is the runtime's
+            lg = pre + "_Lift"; ps = dict(mobile={"group": lg}, lift=lg); pv = dict(ps, collision=False, outline=False)
+            top = float(lift["top"]); bm = P0(0, T, (R + Dp - pd / 2) / 2)
+            ctx.lifts.append(dict(id=lg, group=lg, center=[round(c[0], 3), round(T, 3), round(c[2], 3)], radius=round(pd / 2 * math.cos(math.pi / 8) - 0.3, 3), deck_radius=round(pd / 2, 3),
+                                  bottom=round(T, 3), top=top, travel=round(top - T, 3), duration=float(lift.get("duration", 3.6)), wait=float(lift.get("wait", 0.8)),
+                                  calls=[dict(at="bottom", center=[round(v, 3) for v in bm], radius=float(lift.get("call_radius", 3.2)))], links=[],
+                                  note="stand on it 'wait' s -> it travels (smoothstep, 'duration' s) to the other end; a player in a call zone brings it to that end when it is empty; carries whoever stands on it"))
+        ctx.add(pre + "_Deck", "cylinder", [c[0], T - 0.6, c[2]], [pd, 0.6, pd], "deck", sections=8, rot=pr8, **ps)
+        ctx.add(pre + "_Rim", "cylinder", [c[0], T - 0.95, c[2]], [pd + 0.16, 0.42, pd + 0.16], stripe, sections=8, rot=pr8, **pv)
+        ctx.add(pre + "_Hull", "frustum", [c[0], T - 3.0, c[2]], [pd - 0.4, 2.05, pd - 0.4], "structure_b", sections=8, bottom_scale=0.42, rot=pr8, **ps)
+        ctx.add(pre + "_GlowBand", "frustum", [c[0], T - 2.1, c[2]], [pd * 0.8, 0.35, pd * 0.8], gl, sections=8, bottom_scale=0.92, rot=pr8, **pv)
+        ctx.add(pre + "_Thruster", "cylinder", [c[0], T - 3.7, c[2]], [1.4, 0.75, 1.4], "machine", sections=8, rot=pr8, **pv)
+        ctx.add(pre + "_Jet", "frustum", [c[0], T - 4.7, c[2]], [1.1, 1.0, 1.1], gl, sections=8, bottom_scale=0.15, rot=pr8, **pv)
         q0 = P0(0, 0, R - 0.5); q1 = P0(0, 0, Dp - pd / 2 + 0.6); m = [(q0[i] + q1[i]) / 2 for i in range(3)]; L = math.dist(q0, q1)
         ctx.add(pre + "_Bridge", "box", [m[0], T - 0.33, m[2]], [2.6, 0.3, L], "grate", rot=[0, a, 0], **st)  # 3 cm under the decks: no shared faces
         # Stage 106: the side rails run edge to edge - from the deck's edge (its octagon's flat on this bearing) to the
@@ -335,6 +345,81 @@ def _press(ctx, n, x, T, z, yaw, pr, gl, stripe):
                 note="press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; "
                      "rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; "
                      "camera shake within 'shake' m on impact")
+
+
+@structure("overlook", pad=False)
+def overlook(ctx, s, x, y, z, yaw):
+    """Stage 108: a corner observation balcony high over the hall ("rect" [x0, z0, x1, z1] against two walls, deck top
+    "top"), carried by columns down into the liquid ("columns" [[x, z], ...]) and diagonal braces off the walls
+    ("braces" [[x, z, dir_x, dir_z], ...]: wall point, out along dir). Pink railings on its open edges, viewing
+    binoculars ("viewers" [[x, z, yaw], ...]). A grate gantry ("gantry": {"lift": <lift id>, "width", "supports": [x...]})
+    runs from the deck's west edge to where that lift pad stops at the top; a call post with a lamp at its end calls the
+    lift (calls + nav link appended to level.json lifts)."""
+    n = s["id"]; x0, z0, x1, z1 = (float(v) for v in s["rect"]); top = float(s["top"]); st = dict(mobile={"static": True}); vs = dict(collision=False, outline=False, **st)
+    stripe, gl, lamp = ctx.role("stripe"), ctx.role("glow"), ctx.role("glow_yellow"); cx, cz = (x0 + x1) / 2, (z0 + z1) / 2; W_, D_ = x1 - x0, z1 - z0
+    ctx.add(n + "_Deck", "box", [cx, top - 0.6, cz], [W_, 0.6, D_], "deck", **st)
+    ctx.add(n + "_EdgeW", "box", [x0 - 0.04, top - 0.55, cz], [0.08, 0.5, D_], stripe, **vs)
+    ctx.add(n + "_EdgeN", "box", [cx, top - 0.55, z0 - 0.04], [W_ + 0.16, 0.5, 0.08], stripe, **vs)
+    gy = top - 0.6 - 0.7  # girders under the deck
+    cols = [[float(a), float(b)] for a, b in s.get("columns", [])]
+    for k, zz in enumerate(sorted({round(c[1], 3) for c in cols})): ctx.add(f"{n}_GirderX_{k + 1}", "box", [cx, gy, zz], [W_ - 0.1, 0.7, 0.45], "frame", bevel=False, **vs)
+    for k, xx in enumerate(sorted({round(c[0], 3) for c in cols})): ctx.add(f"{n}_GirderZ_{k + 1}", "box", [xx, gy, cz], [0.45, 0.7, D_ - 0.1], "frame", bevel=False, **vs)
+    liq = float(s.get("liquid", 0.0))
+    for k, (px, pz) in enumerate(cols):  # columns: footing in the liquid, shaft in two lengths joined under a hazard band
+        ctx.add(f"{n}_Foot_{k + 1}", "frustum", [px, liq, pz], [1.0, 1.4, 1.0], "structure_b", bottom_scale=1.6, **st)
+        ctx.add(f"{n}_Column_{k + 1}", "box", [px, liq + 1.4, pz], [0.9, gy - 1.6 - liq - 1.4, 0.9], "structure_b", **st)
+        ctx.add(f"{n}_ColumnTop_{k + 1}", "box", [px, gy - 1.6, pz], [0.9, 1.6, 0.9], "structure_b", **st)
+        ctx.add(f"{n}_ColumnBand_{k + 1}", "box", [px, gy - 1.85, pz], [1.0, 0.5, 1.0], stripe, **vs)
+        ctx.add(f"{n}_ColumnLamp_{k + 1}", "box", [px, gy - 0.12, pz], [0.98, 0.2, 0.98], gl, **vs)  # glowing collar where it meets the girders
+    for k, (wx, wz, dx, dz) in enumerate(s.get("braces", [])):  # wall braces: from the wall up and out to the girders
+        ly, hy, out = top - 4.6, gy, 3.6; a = math.degrees(math.atan2(dx, dz)); th = math.degrees(math.atan2(out, hy - ly))
+        ctx.add(f"{n}_Brace_{k + 1}", "cylinder", [wx, ly, wz], [0.34, math.hypot(out, hy - ly), 0.34], "frame", rot=[th, a, 0], sections=6, **vs)
+        ctx.add(f"{n}_BraceFoot_{k + 1}", "box", [wx, ly - 0.35, wz], [0.6 if abs(dz) > 0.5 else 0.24, 0.7, 0.24 if abs(dz) > 0.5 else 0.6], "machine", **vs)
+    # railings on the open edges (gap where the gantry arrives)
+    G = s.get("gantry") or {}; gw = float(G.get("width", 3.0)); lf = next((l_ for l_ in getattr(ctx, "lifts", []) if l_["id"] == G.get("lift")), None)
+    gz = lf["center"][2] if lf else None
+    def rail_run(nm, a_, b_, fixed, along_x):
+        L_ = b_ - a_
+        if L_ < 0.4: return
+        m_ = (a_ + b_) / 2; P = (lambda u: [u, top, fixed]) if along_x else (lambda u: [fixed, top, u])
+        sz = (lambda l, w, h: [l, h, w]) if along_x else (lambda l, w, h: [w, h, l])
+        for hh, nm2 in ((0.55, "Low"), (1.25, "High")):  # top rail above a jump: nobody hops it
+            q = P(m_); ctx.add(f"{n}_{nm}_{nm2}", "box", [q[0], top + hh - 0.04, q[2]], sz(L_, 0.08, 0.08), "rail", bevel=False, **dict(st, outline=False))
+        npost = max(2, int(L_ / 2.4) + 1)
+        for k in range(npost):
+            q = P(a_ + 0.06 + (L_ - 0.12) * k / (npost - 1)); ctx.add(f"{n}_{nm}_Post_{k + 1}", "box", [q[0], top, q[2]], [0.12, 1.32, 0.12], "rail", bevel=False, **dict(st, outline=False))
+    if gz is not None:
+        rail_run("RailW1", z0, gz - gw / 2, x0 + 0.1, False); rail_run("RailW2", gz + gw / 2, z1, x0 + 0.1, False)
+    else: rail_run("RailW", z0, z1, x0 + 0.1, False)
+    rail_run("RailN", x0, x1, z0 + 0.1, True)
+    for k, (vx, vz, vyaw) in enumerate(s.get("viewers", [])):  # coin-op binoculars on a post
+        W = _W(vx, 0, vz, vyaw)
+        ctx.add(f"{n}_Viewer_{k + 1}_Post", "cylinder", [vx, top, vz], [0.22, 1.05, 0.22], "machine", sections=8, **st)
+        ctx.add(f"{n}_Viewer_{k + 1}_Head", "box", [vx, top + 1.05, vz], [0.62, 0.42, 0.45], "machine", rot=[0, vyaw, 0], **vs)
+        for sd in (-1, 1):
+            q = W(sd * 0.15, top + 1.27, 0.2); ctx.add(f"{n}_Viewer_{k + 1}_Eye{'LR'[sd > 0]}", "cylinder", q, [0.17, 0.3, 0.17], lamp, rot=[90, vyaw, 0], sections=8, **vs)
+        q = W(0, top + 1.32, -0.24); ctx.add(f"{n}_Viewer_{k + 1}_Lamp", "box", q, [0.2, 0.08, 0.06], gl, rot=[0, vyaw, 0], **vs)
+    ctx.walkable.append(dict(name=n + "_Deck", min=[round(x0, 3), round(z0, 3)], max=[round(x1, 3), round(z1, 3)], y=top))
+    if lf:  # the gantry: along x from the deck's west edge to the lift pad's flat at the top
+        ex = lf["center"][0] + lf["deck_radius"] * math.cos(math.pi / 8) + 0.05; L_ = x0 - ex; mx = (x0 + ex) / 2
+        ctx.add(n + "_Gantry", "box", [(ex + x0 - 0.02) / 2, top - 0.3, gz], [x0 - 0.02 - ex, 0.3, gw], "grate", **st)  # ends 2 cm short of the deck: no shared faces
+        for sd in (-1, 1):
+            ctx.add(f"{n}_Stringer_{'LR'[sd > 0]}", "box", [mx, top - 0.85, gz + sd * (gw / 2 - 0.15)], [L_ + 0.1, 0.55, 0.3], "frame", bevel=False, **vs)
+            for hh, nm2 in ((0.55, "Low"), (1.25, "High")): ctx.add(f"{n}_GRail{nm2}_{'LR'[sd > 0]}", "box", [mx + 0.15, top + hh - 0.04, gz + sd * (gw / 2 - 0.06)], [L_ - 0.3, 0.08, 0.08], "rail", bevel=False, **dict(st, outline=False))
+            for k in range(7):
+                ctx.add(f"{n}_GPost_{'LR'[sd > 0]}_{k + 1}", "box", [ex + 0.35 + (L_ - 0.45) * k / 6, top, gz + sd * (gw / 2 - 0.06)], [0.12, 1.32, 0.12], "rail", bevel=False, **dict(st, outline=False))
+        ctx.add(n + "_GantryThreshold", "box", [ex + 0.4, top, gz], [0.7, 0.03, gw - 0.3], stripe, **vs)
+        for k, sx in enumerate(G.get("supports", [])):  # trestles under the gantry
+            sx = float(sx); ctx.add(f"{n}_GFoot_{k + 1}", "frustum", [sx, liq, gz], [0.9, 1.2, 0.9], "structure_b", bottom_scale=1.6, **st)
+            ctx.add(f"{n}_GLeg_{k + 1}", "box", [sx, liq + 1.2, gz], [0.75, top - 1.15 - liq - 1.2, 0.75], "structure_b", **st)
+            ctx.add(f"{n}_GCross_{k + 1}", "box", [sx, top - 1.15, gz], [0.5, 0.3, gw + 0.2], "frame", bevel=False, **vs)
+        cp = [ex + 1.1, top, gz + gw / 2 - 0.3]  # call post with a lamp, inside the rail near the gantry's end
+        ctx.add(n + "_CallPost", "box", cp, [0.3, 1.35, 0.3], "machine", **st)
+        ctx.add(n + "_CallLamp", "box", [cp[0], top + 1.35, cp[2]], [0.36, 0.3, 0.36], lamp, **vs)
+        lf["calls"].append(dict(at="top", center=[round(ex + 1.6, 3), top, round(gz, 3)], radius=float(G.get("call_radius", 3.0))))
+        lf["links"].append(dict(bottom=lf["center"], top=[round(ex + 1.0, 3), top, round(gz, 3)]))
+        ctx.walkable.append(dict(name=n + "_Gantry", min=[round(ex, 3), round(gz - gw / 2, 3)], max=[round(x0, 3), round(gz + gw / 2, 3)], y=top))
+    ctx.notes.append(f"{n}: corner overlook {W_:.1f} x {D_:.1f} m at {top} m" + (f", gantry {L_:.1f} m to lift {lf['id']}" if lf else ""))
 
 
 @structure("pillar_path", pad=False)

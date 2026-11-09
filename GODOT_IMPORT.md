@@ -114,6 +114,9 @@ The browser preview approximates all of these with three.js. It is close to Godo
   platform is up. The level has no weapon mesh: spawn your own shotgun model at `center`.
 
 ## Assembly Ascent hazards (Stage 97)
+- Stage 108: effects.json / collision.json `lifts`: apply_effects.gd `_lift` builds an AnimatableBody3D (sync_to_physics)
+  with the pad's deck collider and a rider Area3D, plus a call Area3D per `calls` entry; `_update_lifts` (physics
+  frame) boards / calls and moves the pad group nodes and the body together. Lift parts get no static colliders.
 - Stage 105: effects.json `steam_jet`: emitters carry `dir`; one CPUParticles3D with EMISSION_SHAPE_DIRECTED_POINTS
   (emission_normals = the dirs, direction +z), damping = `damping`, explosiveness 1 - emit_time / lifetime, restarted
   at the `sync` times like `steam_burst`.

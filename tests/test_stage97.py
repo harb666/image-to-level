@@ -147,5 +147,35 @@ class SpinnerDeck(unittest.TestCase):
         self.assertIn("window.camShake", v); self.assertIn("isBurst&&fx.sync", v); self.assertIn("p.damping", v); self.assertIn("EMISSION_SHAPE_DIRECTED_POINTS", gd); self.assertIn('if b.size() > 4:  # Stage 104: synced vents', gd)
 
 
+class CornerOverlook(unittest.TestCase):
+    def test_overlook_and_lift_pad(self):
+        """Stage 108: a corner balcony 8 m above the spinner deck, reached by the spinner's NE hover pad, which lifts
+        players up to its gantry (and comes when called from either end). Reachable in the nav check via the lift link;
+        the pad's colliders are the runtime's (not static); the pads' octagon flats face their bridges."""
+        L = _load("level.json"); by = {o["name"]: o for o in L["objects"]}
+        lf = next(l for l in L["lifts"] if l["id"] == "Spinner_Pad_1_Lift"); self.assertAlmostEqual(lf["travel"], 8.0); self.assertEqual({c["at"] for c in lf["calls"]}, {"bottom", "top"})
+        dk = by["Overlook_Deck"]; self.assertAlmostEqual(dk["position"][1] + dk["size"][1], lf["top"]); self.assertGreater(lf["top"] - 7.5, 6.0)  # well above the spinner deck
+        g = by["Overlook_Gantry"]; gx0 = g["position"][0] - g["size"][0] / 2
+        self.assertAlmostEqual(gx0, lf["center"][0] + lf["deck_radius"] * math.cos(math.pi / 8), delta=0.1)  # the raised pad docks against its end
+        self.assertAlmostEqual(g["position"][1] + g["size"][1], lf["top"])
+        for n in ("Spinner_Pad_1_Deck", "Spinner_Pad_1_Hull"): self.assertEqual(by[n]["mobile"]["group"], lf["group"]); self.assertEqual(by[n]["lift"], lf["id"])
+        self.assertAlmostEqual(by["Spinner_Pad_2_Deck"]["rotation"][1] % 45, 22.5, places=3)  # flats (not corners) face the bridges
+        N = _load("checks/navigation.json"); A = {a["name"]: a["reachable_fraction"] for a in N["intended_areas"]}
+        self.assertEqual(A.get("Overlook_Deck"), 1.0); self.assertEqual(A.get("Overlook_Gantry"), 1.0)
+        self.assertEqual(sorted(l_["dy"] for l_ in N["links"] if l_.get("kind") == "lift"), [-8.0, 8.0])
+        C = _load("mobile/collision.json"); self.assertEqual(len(C["lifts"]), 1)
+        lp = {n for n, o in by.items() if o.get("lift")}; self.assertIn("Spinner_Pad_1_Deck", lp)
+        self.assertFalse([c for c in C["colliders"] if c["source"] in lp])  # no static collider left at the bottom stop
+        self.assertTrue([c for c in C["colliders"] if c["source"] == "Spinner_Pad_1_Bridge"])  # (the bridge stays put)
+        self.assertTrue([c for c in C["colliders"] if c["source"] == "Overlook_Deck"])
+        self.assertIn("lift", {e["type"] for e in _load("effects.json")["effects"]})
+        with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: gd = f.read()
+        self.assertIn("func _update_lifts", gd); self.assertIn("AnimatableBody3D.new()", gd)
+        with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()
+        self.assertIn("fx.category==='lift'", v); self.assertIn("window.__teleport", v)
+        for n in by:  # railings: top rail above a jump
+            if n.startswith("Overlook_Rail") and n.endswith("_High"): self.assertGreater(by[n]["position"][1] - lf["top"], 1.2)
+
+
 if __name__ == "__main__":
     unittest.main()

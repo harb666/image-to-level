@@ -1266,3 +1266,17 @@ Building blocks usable without the preset:
   (`pole_material`: `pole_stripe`) instead of the planar-projected chevrons.
 - The spinner's pad bridges: the side rails run from the deck's edge (`deck_apothem`: the octagon's flat on that
   bearing) to the pad's facing flat, with a post at each end (`_BridgePost0/1_L/R`).
+
+## Stage 108: corner overlook, lift pads
+- `spinner` `lift_pad` {`pad`, `top`, `duration`, `wait`, `call_radius`}: that hover pad becomes a lift - its parts ride
+  one mobile group (`<id>_Pad_<k>_Lift`, objects flagged `lift`: no static colliders exported; the runtimes carry the
+  deck collider). Standing on it `wait` s sends it to the other end (smoothstep over `duration` s); a call zone at
+  either end (the bridge / the gantry) brings it when empty. level.json + collision.json `lifts`; effect `lift`;
+  gameplay.py links the floors at its two stops (`links` [{bottom, top}], kind "lift", both ways). The pads are
+  turned 22.5 deg so octagon flats face the bridges and the four bearings.
+- Structure `overlook`: a corner balcony (`rect` [x0, z0, x1, z1] against two walls, `top`) on `columns` (footing,
+  hazard band, glowing collar under the girders) and wall `braces`, railings (top rail 1.25 m: above a jump) with a
+  gap for the `gantry` {`lift`, `width`, `supports`, `call_radius`}: a grate catwalk from the deck to where the lift
+  pad stops at the top, with a call post and a hazard threshold at its end; coin-op `viewers` [[x, z, yaw]].
+- Assembly Ascent: the overlook fills the north-east corner at 15.5 m (8 m above the spinner deck); pad 1 lifts to it.
+- viewer.html test hooks: `window.__teleport(x, y, z)` (feet position) and `window.__feet()`.

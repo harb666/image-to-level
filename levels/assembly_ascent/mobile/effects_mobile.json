@@ -1286,6 +1286,93 @@
    "merge_emitters": true
   },
   {
+   "id": "Spinner_Pad_1_Lift_Ride",
+   "type": "lift",
+   "category": "lift",
+   "glb_contains": "pad at the bottom",
+   "godot_runtime": "script (apply_effects.gd _lifts): the pad group (<group>__*) moves up 'travel' m and back (smoothstep over 'duration' s) on an AnimatableBody3D carrying its deck collider; standing on it 'wait' s sends it to the other end, a call zone brings it when empty",
+   "lift": {
+    "id": "Spinner_Pad_1_Lift",
+    "group": "Spinner_Pad_1_Lift",
+    "center": [
+     17.728,
+     7.5,
+     52.728
+    ],
+    "radius": 3.396,
+    "deck_radius": 4.0,
+    "bottom": 7.5,
+    "top": 15.5,
+    "travel": 8.0,
+    "duration": 3.6,
+    "wait": 0.8,
+    "calls": [
+     {
+      "at": "bottom",
+      "center": [
+       13.662,
+       7.5,
+       48.662
+      ],
+      "radius": 3.2
+     },
+     {
+      "at": "top",
+      "center": [
+       23.074,
+       15.5,
+       52.728
+      ],
+      "radius": 3.0
+     }
+    ],
+    "links": [
+     {
+      "bottom": [
+       17.728,
+       7.5,
+       52.728
+      ],
+      "top": [
+       22.474,
+       15.5,
+       52.728
+      ]
+     }
+    ],
+    "note": "stand on it 'wait' s -> it travels (smoothstep, 'duration' s) to the other end; a player in a call zone brings it to that end when it is empty; carries whoever stands on it"
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Saw_West_Swing",
    "type": "saw",
    "category": "saw",
@@ -1785,6 +1872,7 @@
     "M_glow_0_0_props",
     "Saw_East_Blade__glow",
     "Saw_West_Blade__glow",
+    "Spinner_Pad_1_Lift__glow",
     "Spinner_Ram__glow",
     "Spinner_Rotor__glow"
    ],

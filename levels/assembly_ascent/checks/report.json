@@ -1,21 +1,21 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 3158,
-  "mobile/level_mobile.glb": 1690,
-  "mobile/collision.json": 106,
+  "level.glb": 3220,
+  "mobile/level_mobile.glb": 1741,
+  "mobile/collision.json": 121,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 44
+  "effects.json": 46
  },
  "complexity": {
-  "triangles": 47841,
-  "nodes": 1931,
+  "triangles": 49233,
+  "nodes": 2027,
   "materials": 33,
   "heaviest": [
    [
     "Corrosion_Band",
-    1000
+    1036
    ],
    [
     "Spinner_Rotor_Ball_4",
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 3158,
-   "triangles": 39945,
-   "draw_calls": 1931,
+   "glb_kb": 3220,
+   "triangles": 41217,
+   "draw_calls": 2027,
    "tex_mem_gpu_mb_est": 22.46
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 1690,
-   "triangles": 45959,
-   "draw_calls": 88,
-   "visible_draw_calls_est": 54.0,
-   "visible_draw_calls_max_est": 91,
+   "glb_kb": 1741,
+   "triangles": 47261,
+   "draw_calls": 94,
+   "visible_draw_calls_est": 55.7,
+   "visible_draw_calls_max_est": 97,
    "tex_mem_gpu_mb_est": 7.81,
    "materials": 33,
-   "nodes": 89,
+   "nodes": 95,
    "colliders": {
-    "colliders": 312,
+    "colliders": 365,
     "hazards": 1,
-    "glb_kb": 148
+    "glb_kb": 169
    },
    "background_kb": 404
   },
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 19155.0,
-  "reachable_area_m2": 3248.0,
-  "components": 90,
+  "standable_area_m2": 19416.0,
+  "reachable_area_m2": 3531.0,
+  "components": 102,
   "spawns": [
    {
     "id": "spawn",
@@ -179,6 +179,18 @@
     "standable_m2": 42.0,
     "reachable_fraction": 1.0,
     "one_way": false
+   },
+   {
+    "name": "Overlook_Deck",
+    "standable_m2": 181.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Overlook_Gantry",
+    "standable_m2": 29.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
    }
   ],
   "narrow_connectors": [],
@@ -215,7 +227,7 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 88 (> 80)"
+   "message": "mobile draw calls 94 (> 80)"
   },
   {
    "kind": "traverse_blocked",
@@ -231,18 +243,18 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "47841 triangles (> budget 40000)"
+   "message": "49233 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
    "severity": "info",
-   "object": "Robot_Ring_Floor",
+   "object": "OuterWall_East_M12Monitor_Body",
    "pos": [
     -41.5,
     6.75,
     5.5
    ],
-   "message": "3 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): Robot_Ring_Floor"
+   "message": "5 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): OuterWall_East_M12Monitor_Body, Robot_Ring_Floor"
   }
  ],
  "counts": {

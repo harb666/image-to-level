@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "39bd9463aebe898f",
+  "spec_sha": "28bd0c16166981e2",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -559,6 +559,61 @@
    "emit_time": 0.9,
    "burst": 36,
    "lifetime": 1.4
+  },
+  {
+   "id": "Spinner_Pad_1_Lift_Ride",
+   "type": "lift",
+   "lift": {
+    "id": "Spinner_Pad_1_Lift",
+    "group": "Spinner_Pad_1_Lift",
+    "center": [
+     17.728,
+     7.5,
+     52.728
+    ],
+    "radius": 3.396,
+    "deck_radius": 4.0,
+    "bottom": 7.5,
+    "top": 15.5,
+    "travel": 8.0,
+    "duration": 3.6,
+    "wait": 0.8,
+    "calls": [
+     {
+      "at": "bottom",
+      "center": [
+       13.662,
+       7.5,
+       48.662
+      ],
+      "radius": 3.2
+     },
+     {
+      "at": "top",
+      "center": [
+       23.074,
+       15.5,
+       52.728
+      ],
+      "radius": 3.0
+     }
+    ],
+    "links": [
+     {
+      "bottom": [
+       17.728,
+       7.5,
+       52.728
+      ],
+      "top": [
+       22.474,
+       15.5,
+       52.728
+      ]
+     }
+    ],
+    "note": "stand on it 'wait' s -> it travels (smoothstep, 'duration' s) to the other end; a player in a call zone brings it to that end when it is empty; carries whoever stands on it"
+   }
   },
   {
    "id": "Saw_West_Swing",
@@ -1234,6 +1289,30 @@
     -69.0
    ],
    "y": 22.0
+  },
+  {
+   "name": "Overlook_Deck",
+   "min": [
+    36.4,
+    50.0
+   ],
+   "max": [
+    49.98,
+    64.98
+   ],
+   "y": 15.5
+  },
+  {
+   "name": "Overlook_Gantry",
+   "min": [
+    21.474,
+    51.228
+   ],
+   "max": [
+    36.4,
+    54.228
+   ],
+   "y": 15.5
   }
  ],
  "materials": {
@@ -33043,7 +33122,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33054,8 +33133,9 @@
    "material": "deck",
    "sections": 8,
    "mobile": {
-    "static": true
+    "group": "Spinner_Pad_1_Lift"
    },
+   "lift": "Spinner_Pad_1_Lift",
    "gen": "Spinner",
    "source": "visible"
   },
@@ -33069,7 +33149,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33079,11 +33159,12 @@
    ],
    "material": "stripe",
    "sections": 8,
+   "mobile": {
+    "group": "Spinner_Pad_1_Lift"
+   },
+   "lift": "Spinner_Pad_1_Lift",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -33097,7 +33178,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33109,8 +33190,9 @@
    "sections": 8,
    "bottom_scale": 0.42,
    "mobile": {
-    "static": true
+    "group": "Spinner_Pad_1_Lift"
    },
+   "lift": "Spinner_Pad_1_Lift",
    "gen": "Spinner",
    "source": "visible"
   },
@@ -33124,7 +33206,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33135,11 +33217,12 @@
    "material": "glow",
    "sections": 8,
    "bottom_scale": 0.92,
+   "mobile": {
+    "group": "Spinner_Pad_1_Lift"
+   },
+   "lift": "Spinner_Pad_1_Lift",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -33153,7 +33236,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33163,11 +33246,12 @@
    ],
    "material": "machine",
    "sections": 8,
+   "mobile": {
+    "group": "Spinner_Pad_1_Lift"
+   },
+   "lift": "Spinner_Pad_1_Lift",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -33181,7 +33265,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33192,11 +33276,12 @@
    "material": "glow",
    "sections": 8,
    "bottom_scale": 0.15,
+   "mobile": {
+    "group": "Spinner_Pad_1_Lift"
+   },
+   "lift": "Spinner_Pad_1_Lift",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -33391,7 +33476,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33417,7 +33502,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33445,7 +33530,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33472,7 +33557,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33501,7 +33586,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33529,7 +33614,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33739,7 +33824,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33765,7 +33850,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33793,7 +33878,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33820,7 +33905,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33849,7 +33934,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -33877,7 +33962,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -34087,7 +34172,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -34113,7 +34198,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -34141,7 +34226,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -34168,7 +34253,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -34197,7 +34282,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -34225,7 +34310,7 @@
    ],
    "rotation": [
     0.0,
-    0.0,
+    22.5,
     0.0
    ],
    "size": [
@@ -34736,6 +34821,2396 @@
    },
    "gen": "Spinner",
    "source": "visible"
+  },
+  {
+   "name": "Overlook_Deck",
+   "type": "box",
+   "position": [
+    43.19,
+    14.9,
+    57.49
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    13.58,
+    0.6,
+    14.98
+   ],
+   "material": "deck",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_EdgeW",
+   "type": "box",
+   "position": [
+    36.36,
+    14.95,
+    57.49
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.08,
+    0.5,
+    14.98
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_EdgeN",
+   "type": "box",
+   "position": [
+    43.19,
+    14.95,
+    49.96
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    13.74,
+    0.5,
+    0.08
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GirderX_1",
+   "type": "box",
+   "position": [
+    43.19,
+    14.2,
+    51.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    13.48,
+    0.7,
+    0.45
+   ],
+   "material": "frame",
+   "bevel": false,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GirderX_2",
+   "type": "box",
+   "position": [
+    43.19,
+    14.2,
+    63.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    13.48,
+    0.7,
+    0.45
+   ],
+   "material": "frame",
+   "bevel": false,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GirderZ_1",
+   "type": "box",
+   "position": [
+    37.9,
+    14.2,
+    57.49
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.45,
+    0.7,
+    14.88
+   ],
+   "material": "frame",
+   "bevel": false,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GirderZ_2",
+   "type": "box",
+   "position": [
+    48.6,
+    14.2,
+    57.49
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.45,
+    0.7,
+    14.88
+   ],
+   "material": "frame",
+   "bevel": false,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Foot_1",
+   "type": "frustum",
+   "position": [
+    37.9,
+    0.0,
+    51.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.0,
+    1.4,
+    1.0
+   ],
+   "material": "structure_b",
+   "bottom_scale": 1.6,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Column_1",
+   "type": "box",
+   "position": [
+    37.9,
+    1.4,
+    51.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    11.2,
+    0.9
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_ColumnTop_1",
+   "type": "box",
+   "position": [
+    37.9,
+    12.6,
+    51.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    1.6,
+    0.9
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_ColumnBand_1",
+   "type": "box",
+   "position": [
+    37.9,
+    12.35,
+    51.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.5,
+    1.0
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_ColumnLamp_1",
+   "type": "box",
+   "position": [
+    37.9,
+    14.08,
+    51.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.98,
+    0.2,
+    0.98
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Foot_2",
+   "type": "frustum",
+   "position": [
+    48.6,
+    0.0,
+    51.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.0,
+    1.4,
+    1.0
+   ],
+   "material": "structure_b",
+   "bottom_scale": 1.6,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Column_2",
+   "type": "box",
+   "position": [
+    48.6,
+    1.4,
+    51.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    11.2,
+    0.9
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_ColumnTop_2",
+   "type": "box",
+   "position": [
+    48.6,
+    12.6,
+    51.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    1.6,
+    0.9
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_ColumnBand_2",
+   "type": "box",
+   "position": [
+    48.6,
+    12.35,
+    51.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.5,
+    1.0
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_ColumnLamp_2",
+   "type": "box",
+   "position": [
+    48.6,
+    14.08,
+    51.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.98,
+    0.2,
+    0.98
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Foot_3",
+   "type": "frustum",
+   "position": [
+    37.9,
+    0.0,
+    63.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.0,
+    1.4,
+    1.0
+   ],
+   "material": "structure_b",
+   "bottom_scale": 1.6,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Column_3",
+   "type": "box",
+   "position": [
+    37.9,
+    1.4,
+    63.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    11.2,
+    0.9
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_ColumnTop_3",
+   "type": "box",
+   "position": [
+    37.9,
+    12.6,
+    63.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    1.6,
+    0.9
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_ColumnBand_3",
+   "type": "box",
+   "position": [
+    37.9,
+    12.35,
+    63.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.5,
+    1.0
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_ColumnLamp_3",
+   "type": "box",
+   "position": [
+    37.9,
+    14.08,
+    63.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.98,
+    0.2,
+    0.98
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Brace_1",
+   "type": "cylinder",
+   "position": [
+    49.88,
+    10.9,
+    53.0
+   ],
+   "rotation": [
+    47.49,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    4.884,
+    0.34
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_BraceFoot_1",
+   "type": "box",
+   "position": [
+    49.88,
+    10.55,
+    53.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.24,
+    0.7,
+    0.6
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Brace_2",
+   "type": "cylinder",
+   "position": [
+    49.88,
+    10.9,
+    62.0
+   ],
+   "rotation": [
+    47.49,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    4.884,
+    0.34
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_BraceFoot_2",
+   "type": "box",
+   "position": [
+    49.88,
+    10.55,
+    62.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.24,
+    0.7,
+    0.6
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Brace_3",
+   "type": "cylinder",
+   "position": [
+    38.8,
+    10.9,
+    64.88
+   ],
+   "rotation": [
+    47.49,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    4.884,
+    0.34
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_BraceFoot_3",
+   "type": "box",
+   "position": [
+    38.8,
+    10.55,
+    64.88
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    0.7,
+    0.24
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Brace_4",
+   "type": "cylinder",
+   "position": [
+    47.5,
+    10.9,
+    64.88
+   ],
+   "rotation": [
+    47.49,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    4.884,
+    0.34
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_BraceFoot_4",
+   "type": "box",
+   "position": [
+    47.5,
+    10.55,
+    64.88
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    0.7,
+    0.24
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailW1_Low",
+   "type": "box",
+   "position": [
+    36.5,
+    16.01,
+    50.614
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.08,
+    0.08,
+    1.228
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailW1_High",
+   "type": "box",
+   "position": [
+    36.5,
+    16.71,
+    50.614
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.08,
+    0.08,
+    1.228
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailW1_Post_1",
+   "type": "box",
+   "position": [
+    36.5,
+    15.5,
+    50.06
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailW1_Post_2",
+   "type": "box",
+   "position": [
+    36.5,
+    15.5,
+    51.168
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailW2_Low",
+   "type": "box",
+   "position": [
+    36.5,
+    16.01,
+    59.604
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.08,
+    0.08,
+    10.752
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailW2_High",
+   "type": "box",
+   "position": [
+    36.5,
+    16.71,
+    59.604
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.08,
+    0.08,
+    10.752
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailW2_Post_1",
+   "type": "box",
+   "position": [
+    36.5,
+    15.5,
+    54.288
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailW2_Post_2",
+   "type": "box",
+   "position": [
+    36.5,
+    15.5,
+    56.946
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailW2_Post_3",
+   "type": "box",
+   "position": [
+    36.5,
+    15.5,
+    59.604
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailW2_Post_4",
+   "type": "box",
+   "position": [
+    36.5,
+    15.5,
+    62.262
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailW2_Post_5",
+   "type": "box",
+   "position": [
+    36.5,
+    15.5,
+    64.92
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailN_Low",
+   "type": "box",
+   "position": [
+    43.19,
+    16.01,
+    50.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    13.58,
+    0.08,
+    0.08
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailN_High",
+   "type": "box",
+   "position": [
+    43.19,
+    16.71,
+    50.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    13.58,
+    0.08,
+    0.08
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailN_Post_1",
+   "type": "box",
+   "position": [
+    36.46,
+    15.5,
+    50.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailN_Post_2",
+   "type": "box",
+   "position": [
+    39.152,
+    15.5,
+    50.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailN_Post_3",
+   "type": "box",
+   "position": [
+    41.844,
+    15.5,
+    50.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailN_Post_4",
+   "type": "box",
+   "position": [
+    44.536,
+    15.5,
+    50.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailN_Post_5",
+   "type": "box",
+   "position": [
+    47.228,
+    15.5,
+    50.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_RailN_Post_6",
+   "type": "box",
+   "position": [
+    49.92,
+    15.5,
+    50.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Viewer_1_Post",
+   "type": "cylinder",
+   "position": [
+    37.4,
+    15.5,
+    57.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.22,
+    1.05,
+    0.22
+   ],
+   "material": "machine",
+   "sections": 8,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Viewer_1_Head",
+   "type": "box",
+   "position": [
+    37.4,
+    16.55,
+    57.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.62,
+    0.42,
+    0.45
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Viewer_1_EyeL",
+   "type": "cylinder",
+   "position": [
+    37.2,
+    16.77,
+    56.85
+   ],
+   "rotation": [
+    90.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.3,
+    0.17
+   ],
+   "material": "glow_yellow",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Viewer_1_EyeR",
+   "type": "cylinder",
+   "position": [
+    37.2,
+    16.77,
+    57.15
+   ],
+   "rotation": [
+    90.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.3,
+    0.17
+   ],
+   "material": "glow_yellow",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Viewer_1_Lamp",
+   "type": "box",
+   "position": [
+    37.64,
+    16.82,
+    57.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    0.08,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Viewer_2_Post",
+   "type": "cylinder",
+   "position": [
+    43.0,
+    15.5,
+    50.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.22,
+    1.05,
+    0.22
+   ],
+   "material": "machine",
+   "sections": 8,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Viewer_2_Head",
+   "type": "box",
+   "position": [
+    43.0,
+    16.55,
+    50.9
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.62,
+    0.42,
+    0.45
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Viewer_2_EyeL",
+   "type": "cylinder",
+   "position": [
+    43.15,
+    16.77,
+    50.7
+   ],
+   "rotation": [
+    90.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.3,
+    0.17
+   ],
+   "material": "glow_yellow",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Viewer_2_EyeR",
+   "type": "cylinder",
+   "position": [
+    42.85,
+    16.77,
+    50.7
+   ],
+   "rotation": [
+    90.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.3,
+    0.17
+   ],
+   "material": "glow_yellow",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Viewer_2_Lamp",
+   "type": "box",
+   "position": [
+    43.0,
+    16.82,
+    51.14
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    0.08,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Gantry",
+   "type": "box",
+   "position": [
+    28.927,
+    15.2,
+    52.728
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    14.906,
+    0.3,
+    3.0
+   ],
+   "material": "grate",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Stringer_L",
+   "type": "box",
+   "position": [
+    28.937,
+    14.65,
+    51.378
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    15.026,
+    0.55,
+    0.3
+   ],
+   "material": "frame",
+   "bevel": false,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GRailLow_L",
+   "type": "box",
+   "position": [
+    29.087,
+    16.01,
+    51.288
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    14.626,
+    0.08,
+    0.08
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GRailHigh_L",
+   "type": "box",
+   "position": [
+    29.087,
+    16.71,
+    51.288
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    14.626,
+    0.08,
+    0.08
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GPost_L_1",
+   "type": "box",
+   "position": [
+    21.824,
+    15.5,
+    51.288
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GPost_L_2",
+   "type": "box",
+   "position": [
+    24.236,
+    15.5,
+    51.288
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GPost_L_3",
+   "type": "box",
+   "position": [
+    26.649,
+    15.5,
+    51.288
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GPost_L_4",
+   "type": "box",
+   "position": [
+    29.062,
+    15.5,
+    51.288
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GPost_L_5",
+   "type": "box",
+   "position": [
+    31.475,
+    15.5,
+    51.288
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GPost_L_6",
+   "type": "box",
+   "position": [
+    33.887,
+    15.5,
+    51.288
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GPost_L_7",
+   "type": "box",
+   "position": [
+    36.3,
+    15.5,
+    51.288
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_Stringer_R",
+   "type": "box",
+   "position": [
+    28.937,
+    14.65,
+    54.078
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    15.026,
+    0.55,
+    0.3
+   ],
+   "material": "frame",
+   "bevel": false,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GRailLow_R",
+   "type": "box",
+   "position": [
+    29.087,
+    16.01,
+    54.168
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    14.626,
+    0.08,
+    0.08
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GRailHigh_R",
+   "type": "box",
+   "position": [
+    29.087,
+    16.71,
+    54.168
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    14.626,
+    0.08,
+    0.08
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GPost_R_1",
+   "type": "box",
+   "position": [
+    21.824,
+    15.5,
+    54.168
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GPost_R_2",
+   "type": "box",
+   "position": [
+    24.236,
+    15.5,
+    54.168
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GPost_R_3",
+   "type": "box",
+   "position": [
+    26.649,
+    15.5,
+    54.168
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GPost_R_4",
+   "type": "box",
+   "position": [
+    29.062,
+    15.5,
+    54.168
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GPost_R_5",
+   "type": "box",
+   "position": [
+    31.475,
+    15.5,
+    54.168
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GPost_R_6",
+   "type": "box",
+   "position": [
+    33.887,
+    15.5,
+    54.168
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GPost_R_7",
+   "type": "box",
+   "position": [
+    36.3,
+    15.5,
+    54.168
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.32,
+    0.12
+   ],
+   "material": "rail",
+   "bevel": false,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GantryThreshold",
+   "type": "box",
+   "position": [
+    21.874,
+    15.5,
+    52.728
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.03,
+    2.7
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GFoot_1",
+   "type": "frustum",
+   "position": [
+    26.5,
+    0.0,
+    52.728
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    1.2,
+    0.9
+   ],
+   "material": "structure_b",
+   "bottom_scale": 1.6,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GLeg_1",
+   "type": "box",
+   "position": [
+    26.5,
+    1.2,
+    52.728
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.75,
+    13.15,
+    0.75
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GCross_1",
+   "type": "box",
+   "position": [
+    26.5,
+    14.35,
+    52.728
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    0.3,
+    3.2
+   ],
+   "material": "frame",
+   "bevel": false,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GFoot_2",
+   "type": "frustum",
+   "position": [
+    31.5,
+    0.0,
+    52.728
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    1.2,
+    0.9
+   ],
+   "material": "structure_b",
+   "bottom_scale": 1.6,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GLeg_2",
+   "type": "box",
+   "position": [
+    31.5,
+    1.2,
+    52.728
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.75,
+    13.15,
+    0.75
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_GCross_2",
+   "type": "box",
+   "position": [
+    31.5,
+    14.35,
+    52.728
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    0.3,
+    3.2
+   ],
+   "material": "frame",
+   "bevel": false,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_CallPost",
+   "type": "box",
+   "position": [
+    22.574,
+    15.5,
+    53.928
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.3,
+    1.35,
+    0.3
+   ],
+   "material": "machine",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_CallLamp",
+   "type": "box",
+   "position": [
+    22.574,
+    16.85,
+    53.928
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.3,
+    0.36
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
   },
   {
    "name": "Spinner_Terminal",
@@ -57726,6 +60201,258 @@
     {
      "pts": [
       [
+       38.475,
+       50.904
+      ],
+      [
+       37.325,
+       50.904
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       37.304,
+       51.675
+      ],
+      [
+       37.304,
+       52.075
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       37.304,
+       50.925
+      ],
+      [
+       37.304,
+       51.675
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       38.496,
+       52.075
+      ],
+      [
+       38.496,
+       50.925
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       38.075,
+       52.096
+      ],
+      [
+       38.475,
+       52.096
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       37.325,
+       52.096
+      ],
+      [
+       38.075,
+       52.096
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       49.175,
+       50.904
+      ],
+      [
+       48.025,
+       50.904
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       48.004,
+       51.675
+      ],
+      [
+       48.004,
+       52.075
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       48.004,
+       50.925
+      ],
+      [
+       48.004,
+       51.675
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       49.196,
+       52.075
+      ],
+      [
+       49.196,
+       50.925
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       48.775,
+       52.096
+      ],
+      [
+       49.175,
+       52.096
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       48.025,
+       52.096
+      ],
+      [
+       48.775,
+       52.096
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       38.475,
+       62.604
+      ],
+      [
+       37.325,
+       62.604
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       37.304,
+       63.375
+      ],
+      [
+       37.304,
+       63.775
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       37.304,
+       62.625
+      ],
+      [
+       37.304,
+       63.375
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       38.496,
+       63.775
+      ],
+      [
+       38.496,
+       62.625
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       38.075,
+       63.796
+      ],
+      [
+       38.475,
+       63.796
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
+       37.325,
+       63.796
+      ],
+      [
+       38.075,
+       63.796
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.35
+    },
+    {
+     "pts": [
+      [
        49.66407,
        -12.78111
       ],
@@ -58630,6 +61357,59 @@
    "note": "angle(t) = arm + rpm * 6 * t deg (level yaw convention: direction (sin, cos)); a bar kills a body it overlaps (jump over it), a ball kills within ball_r"
   }
  ],
+ "lifts": [
+  {
+   "id": "Spinner_Pad_1_Lift",
+   "group": "Spinner_Pad_1_Lift",
+   "center": [
+    17.728,
+    7.5,
+    52.728
+   ],
+   "radius": 3.396,
+   "deck_radius": 4.0,
+   "bottom": 7.5,
+   "top": 15.5,
+   "travel": 8.0,
+   "duration": 3.6,
+   "wait": 0.8,
+   "calls": [
+    {
+     "at": "bottom",
+     "center": [
+      13.662,
+      7.5,
+      48.662
+     ],
+     "radius": 3.2
+    },
+    {
+     "at": "top",
+     "center": [
+      23.074,
+      15.5,
+      52.728
+     ],
+     "radius": 3.0
+    }
+   ],
+   "links": [
+    {
+     "bottom": [
+      17.728,
+      7.5,
+      52.728
+     ],
+     "top": [
+      22.474,
+      15.5,
+      52.728
+     ]
+    }
+   ],
+   "note": "stand on it 'wait' s -> it travels (smoothstep, 'duration' s) to the other end; a player in a call zone brings it to that end when it is empty; carries whoever stands on it"
+  }
+ ],
  "encounters": [
   {
    "id": "Yard_Waves",
@@ -58676,12 +61456,13 @@
   "Belt_B: conveyor ramp 16.5 m at 21 deg, belt -3.4 m/s, spike pit at the foot",
   "Exit_Door: exit hallway 12 m fading to black -> level2_part1",
   "Spinner: spinner, 4 arms driven by a ceiling press (peak 64.43 rpm, still 3.8 s per 9.5 s), 4 hovering pads",
+  "Overlook: corner overlook 13.6 x 15.0 m at 15.5 m, gantry 14.9 m to lift Spinner_Pad_1_Lift",
   "crates: 5 printed crates (accent atlas)",
   "fixtures: 62 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_North_M02Fan, OuterWall_West_M02Fan)",
   "ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 1 standing part(s), 0 crane runway(s), ends at beams 0.0 m",
   "corrosion: 6 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 8 lights at the liquid line removed, 12 light strips raised clear of it",
-  "corrosion: 563 wall faces at the liquid line get a corroded band (one mesh, one material)"
+  "corrosion: 587 wall faces at the liquid line get a corroded band (one mesh, one material)"
  ],
  "relations": [
   {
@@ -58765,12 +61546,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 39945,
-  "objects": 1784,
+  "triangles": 41217,
+  "objects": 1873,
   "materials": 33,
-  "glb_kb": 3158,
-  "nodes": 1963,
-  "draw_calls_unbatched": 1931,
+  "glb_kb": 3220,
+  "nodes": 2059,
+  "draw_calls_unbatched": 2027,
   "draw_calls_batched_min": 33,
   "images": 89,
   "tex_mem_gpu_compressed_mb": 22.46,

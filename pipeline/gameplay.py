@@ -191,6 +191,13 @@ def analyse(level_dir, G=None, write=True, verbose=True):
     def nearest(p, maxd=1.0):
         cand = np.flatnonzero((np.hypot(*(nxz - [p[0], p[2]]).T) <= maxd) & (np.abs(ntop - p[1]) <= 0.6))
         return int(cand[np.argmin(np.hypot(*(nxz[cand] - [p[0], p[2]]).T))]) if len(cand) else None
+    for lf in L.get("lifts", []):  # Stage 108: a lift pad joins the floor at its bottom stop to the floor by its top stop (both ways)
+        for lk in lf.get("links", []):
+            na, nb = nearest(lk["bottom"], 2.5), nearest(lk["top"], 2.5)
+            if na is not None and nb is not None and comp[na] >= 0 and comp[nb] >= 0 and comp[na] != comp[nb]:
+                for u_, v_ in ((na, nb), (nb, na)):
+                    links[(int(comp[u_]), int(comp[v_]))] = dict(kind="lift", frm=[round(float(nxz[u_][0]), 1), round(float(ntop[u_]), 2), round(float(nxz[u_][1]), 1)],
+                                                               to=[round(float(nxz[v_][0]), 1), round(float(ntop[v_]), 2), round(float(nxz[v_][1]), 1)], horizontal=0.0, dy=round(float(ntop[v_] - ntop[u_]), 2), lift=lf["id"])
     sp_node = nearest(L["spawn"]["position"]); home = int(comp[sp_node]) if sp_node is not None and comp[sp_node] >= 0 else None
     fwd, back = _reach(ncomp, links, home)
     comps = []

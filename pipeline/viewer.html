@@ -376,6 +376,11 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
           if(u>=D.slam&&hit!==k){hit=k;const dx=pos.x-C.x,dz=pos.z-C.z,dd=Math.hypot(dx,dz);if(dd<D.shake)window.camShake=Math.max(window.camShake||0,0.45*(1-dd/D.shake));}}
         else K.th=SW.rpm*6*(t+SW.phase);const q=new THREE.Quaternion().setFromAxisAngle(Y,K.th*Math.PI/180);
         v.copy(C).applyQuaternion(q).negate().add(C);m.compose(v,q,one);rot.forEach(o=>{o.matrix.multiplyMatrices(m,o.userData.rest);o.matrixWorldNeedsUpdate=true;});}});}
+    else if(fx.category==='lift'){const LF=fx.lift,nd=Object.values(byName).filter(o=>o.name.startsWith(LF.group+'__')); // Stage 108: ride-on lift pad (same logic as apply_effects.gd _lifts)
+      const K={l:LF,s:0,dir:0,p:0,board:0,off:0};(window.lifts=window.lifts||{})[LF.id]=K;
+      fxUpd.push({reset(){nd.forEach(o=>o.position.set(0,0,0));Object.assign(K,{s:0,dir:0,p:0,board:0,off:0});},u(t,dt){
+        if(K.dir){K.p=Math.min(1,K.p+dt/LF.duration);K.s=K.dir>0?K.p:1-K.p;if(K.p>=1)K.dir=0;}
+        K.off=LF.travel*K.s*K.s*(3-2*K.s);nd.forEach(o=>o.position.set(0,K.off,0));}});}
     else if(fx.category==='belt'){const B=fx.belt,ch=Object.values(byName).filter(o=>o.name.startsWith(B.chevrons+'__')),u=new THREE.Vector3(...B.axis).normalize(); // Stage 97: conveyor ramp (same as apply_effects.gd)
       ch.forEach(o=>{o.userData.rest=o.userData.rest||o.position.clone();});(window.belts=window.belts||{})[B.id]={b:B,u,c:new THREE.Vector3(...B.center),side:new THREE.Vector3(u.z,0,-u.x).normalize()};
       fxUpd.push({reset(){ch.forEach(o=>o.position.copy(o.userData.rest));},u(t){const d=(((t*B.speed)%B.spacing)+B.spacing)%B.spacing-B.spacing;ch.forEach(o=>o.position.copy(o.userData.rest).addScaledVector(u,d));}});}
@@ -412,6 +417,7 @@ const $=id=>document.getElementById(id);
 const orbit=new OrbitControls(cam,r.domElement);orbit.enabled=false;
 const MODES=['3rd person','1st person','orbit','free cam','top-down'];let mode=0,yaw=0,pitch=0,vy=0;const pos=new THREE.Vector3(),fpos=new THREE.Vector3();
 let exitT=0;const spawn=()=>{pos.set(...meta.spawn);pos.y+=meta.eye_height;const f=meta.spawn_facing||[0,0,-1];yaw=Math.atan2(-f[0],-f[2]);pitch=-0.15;};spawn();
+window.__teleport=(x,y,z)=>{pos.set(x,y+meta.eye_height,z);vy=0;};window.__feet=()=>[pos.x,pos.y-meta.eye_height,pos.z]; // Stage 108: test hooks (render / runtime checks)
 $('reset').onclick=()=>{spawn();setMode(mode);};
 window.view=(x,z,yd,pd=0,y=0)=>{pos.set(x,meta.eye_height+y,z);vy=0;yaw=yd*Math.PI/180;pitch=pd*Math.PI/180;}; // scripted screenshots
 const ctr=meta.bounds_min.map((v,i)=>(v+meta.bounds_max[i])/2),ext=Math.max(meta.bounds_max[0]-meta.bounds_min[0],meta.bounds_max[2]-meta.bounds_min[2]);
@@ -546,6 +552,10 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
         if(!blocked(h,Math.abs(st)))pos.addScaledVector(K.u,st);}}
       const P=K.b.kill;if(P){const a=-P.yaw*Math.PI/180,dx=pos.x-P.center[0],dz=pos.z-P.center[2],lx=dx*Math.cos(a)+dz*Math.sin(a),lz=-dx*Math.sin(a)+dz*Math.cos(a);
         if(Math.abs(lx)<P.size[0]/2&&Math.abs(lz)<P.size[2]/2&&fy<P.center[1]+P.size[1]/2&&fy>P.center[1]-P.size[1]/2-0.5){spawn();say('🔺 Spiked!');}}}
+    for(const K of Object.values(window.lifts||{})){const LF=K.l,fy=pos.y-meta.eye_height,dx=pos.x-LF.center[0],dz=pos.z-LF.center[2],on=dx*dx+dz*dz<LF.radius*LF.radius&&Math.abs(fy-(LF.bottom+K.off))<0.45; // Stage 108: board / call the lift
+      if(K.dir===0){if(on){K.board+=dt;if(K.board>=LF.wait){K.dir=K.s<0.5?1:-1;K.p=0;K.board=0;say(K.dir>0?'⬆ Going up':'⬇ Going down');}}
+        else{K.board=0;for(const c of LF.calls){const up=c.at==='top';if(up===(K.s>0.5))continue;const cx=pos.x-c.center[0],cz=pos.z-c.center[2];
+          if(cx*cx+cz*cz<c.radius*c.radius&&Math.abs(fy-c.center[1])<1.5){K.dir=up?1:-1;K.p=0;say('🛗 Lift called');}}}}}
     for(const K of Object.values(window.sweepers||{})){const S_=K.s,fy=pos.y-meta.eye_height,rx=pos.x-S_.center[0],rz=pos.z-S_.center[2],rad=GP.player.radius,H_=GP.player.height; // Stage 98: spinner bars (jump them) and balls
       for(const a0 of S_.arms){const A=(a0+K.th)*Math.PI/180,dx=Math.sin(A),dz=Math.cos(A),al=rx*dx+rz*dz,lat=Math.abs(rx*dz-rz*dx),by=S_.center[1]+S_.bar_y,bly=S_.center[1]+S_.ball_y;
         if(al>S_.r0-0.4&&al<S_.r1&&lat<0.25+rad&&fy<by+S_.bar_half&&fy+H_>by-S_.bar_half){spawn();say('🌀 Swept!');break;}

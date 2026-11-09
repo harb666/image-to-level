@@ -28,6 +28,7 @@ var _winds: Array = []  # Stage 82: [wind dict, rotor node, Area3D, CPUParticles
 var _saws: Array = []  # Stage 97/101: [saw dict, [[joint, [[node, rest]...]]...], kill Area3D]
 var _sweepers: Array = []  # Stage 98: [sweeper dict, [[rotor node, rest]...], pivot Node3D carrying the kill areas]
 var _belts: Array = []  # Stage 97: [belt dict, [[chevron node, rest position]...], rider Area3D]
+var _lifts: Array = []  # Stage 108: {"d": lift dict, "nodes": [Node3D], "body": AnimatableBody3D, "ride": Area3D, "calls": [[call dict, Area3D]], "s", "dir", "p", "board"}
 var _bobs: Array = []  # Stage 92: [bob dict, [[Node3D, rest Transform3D]...]]
 var _risers: Array = []  # Stage 80: [riser dict, Skeleton3D, {bone name: index}, [[CollisionShape3D...] per pad], start time (-1: waiting)]
 var _lines: Array = []  # Stage 61: working assembly lines - [line dict, move nodes, [[station, arm nodes, held nodes, scan nodes]]]
@@ -88,6 +89,8 @@ func _ready() -> void:
 				_saw(fx["saw"])
 			"sweeper":  # Stage 98: spinner arms sweeping a deck (bars to jump, spiked balls to dodge)
 				_sweeper(fx["sweeper"])
+			"lift":  # Stage 108: a ride-on lift pad
+				_lift(fx["lift"])
 			"belt":  # Stage 97: a conveyor ramp - chevrons slide, riders are carried
 				_belt(fx["belt"])
 			"bob":  # Stage 92: a specimen drifting in its tank (rest transforms kept, turned about the pivot)
@@ -452,6 +455,82 @@ static func press_profile(D: Dictionary, t: float) -> Array:
 	return [off, k * 360.0 * float(D["turns"]) + th, u, int(k)]
 
 
+func _lift(d: Dictionary) -> void:
+	var c := Vector3(d["center"][0], d["center"][1], d["center"][2])
+	var body := AnimatableBody3D.new()  # carries the deck collider (the static collider is not exported for lift parts)
+	body.name = String(d["id"]) + "_Body"
+	body.sync_to_physics = true
+	var cs := CollisionShape3D.new()
+	var cy := CylinderShape3D.new()
+	cy.radius = float(d["deck_radius"]) * cos(PI / 8.0)
+	cy.height = 0.6
+	cs.shape = cy
+	cs.position = Vector3(0.0, -0.3, 0.0)
+	body.add_child(cs)
+	var ride := Area3D.new()  # who stands on it
+	var rs := CollisionShape3D.new()
+	var rc := CylinderShape3D.new()
+	rc.radius = float(d["radius"])
+	rc.height = 1.0
+	rs.shape = rc
+	rs.position = Vector3(0.0, 0.5, 0.0)
+	ride.add_child(rs)
+	body.add_child(ride)
+	level_root.add_child(body)
+	body.global_position = c
+	var calls: Array = []
+	for cl in d.get("calls", []):
+		var ar := Area3D.new()
+		var s := CollisionShape3D.new()
+		var cc := CylinderShape3D.new()
+		cc.radius = float(cl["radius"])
+		cc.height = 3.0
+		s.shape = cc
+		ar.add_child(s)
+		level_root.add_child(ar)
+		ar.global_position = Vector3(cl["center"][0], cl["center"][1] + 1.0, cl["center"][2])
+		calls.append([cl, ar])
+	_lifts.append({"d": d, "nodes": _group_nodes(String(d["group"])), "body": body, "ride": ride, "calls": calls, "s": 0.0, "dir": 0, "p": 0.0, "board": 0.0})
+
+
+static func _has_rider(a: Area3D) -> bool:
+	for b in a.get_overlapping_bodies():
+		if b is CharacterBody3D:
+			return true
+	return false
+
+
+func _update_lifts(delta: float) -> void:
+	for L in _lifts:  # Stage 108 (same as viewer.html): board -> travel to the other end; a call zone brings it when empty
+		var d: Dictionary = L["d"]
+		if int(L["dir"]) == 0:
+			if _has_rider(L["ride"]):
+				L["board"] = float(L["board"]) + delta
+				if float(L["board"]) >= float(d["wait"]):
+					L["dir"] = 1 if float(L["s"]) < 0.5 else -1
+					L["p"] = 0.0
+					L["board"] = 0.0
+			else:
+				L["board"] = 0.0
+				for ca in L["calls"]:
+					var up: bool = String(ca[0]["at"]) == "top"
+					if up == (float(L["s"]) > 0.5):
+						continue
+					if _has_rider(ca[1]):
+						L["dir"] = 1 if up else -1
+						L["p"] = 0.0
+		else:
+			L["p"] = minf(1.0, float(L["p"]) + delta / float(d["duration"]))
+			L["s"] = float(L["p"]) if int(L["dir"]) > 0 else 1.0 - float(L["p"])
+			if float(L["p"]) >= 1.0:
+				L["dir"] = 0
+		var s := float(L["s"])
+		var off := float(d["travel"]) * s * s * (3.0 - 2.0 * s)
+		for nd in L["nodes"]:
+			(nd as Node3D).position = Vector3(0.0, off, 0.0)
+		(L["body"] as AnimatableBody3D).global_position = Vector3(d["center"][0], float(d["center"][1]) + off, d["center"][2])
+
+
 func _belt(b: Dictionary) -> void:
 	var ch: Array = []
 	for nd in _group_nodes(String(b["chevrons"])):
@@ -718,6 +797,7 @@ func _wind_strength(wr: Array, t: float) -> float:  # 0..1: triggered - 1 until 
 
 
 func _physics_process(delta: float) -> void:
+	_update_lifts(delta)
 	for br in _belts:  # Stage 97: carry whoever stands on a conveyor ramp
 		var b: Dictionary = br[0]
 		var u := Vector3(b["axis"][0], b["axis"][1], b["axis"][2]).normalized()
