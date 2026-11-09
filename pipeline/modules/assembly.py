@@ -733,6 +733,8 @@ def sign(ctx, s, x, y, z, yaw):
     st = dict(mobile={"static": True}); vs = dict(collision=False, outline=False, **st); mount = s.get("mount", "wall")
     if mount == "floor":
         dx, dz = A_local(0, h / 2, yaw)  # a panel lying flat runs from its base along local +z: centre it
+        if s.get("decal_material"):  # Stage 122: its own (cut-out) image - no background tile round the emblem
+            ctx.add(n + "_Decal", "panel", [x + dx, y + 0.012, z + dz], [w, h, 0], ctx.role(s["decal_material"]), rot=[-90, yaw, 0], **vs); return
         ctx.add(n + "_Decal", "panel", [x + dx, y + 0.012, z + dz], [w, h, 0], ctx.role("signs"), rot=[-90, yaw, 0], uv_region=cell, **vs); return
     g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0])
     ctx.add(n + "_Frame", "box", [0, -0.15, -0.12], [w + 0.3, h + 0.3, 0.22], "frame", g, **st)

@@ -177,6 +177,15 @@ class CornerOverlook(unittest.TestCase):
             if n.startswith("Overlook_Rail") and n.endswith("_High"): self.assertGreater(by[n]["position"][1] - lf["top"], 1.2)
 
 
+class GearDecal(unittest.TestCase):
+    def test_gear_emblem_has_no_background_tile(self):
+        """Stage 122: the grinning gear on the start deck is a cut-out decal (transparent round the cog)."""
+        L = _load("level.json"); d = next(o for o in L["objects"] if o["name"] == "Gear_Emblem_Decal")
+        M = L["materials"][d["material"]]; self.assertEqual(M["type"], "image_decal"); self.assertGreater(M["cutout"], 0)
+        from PIL import Image
+        im = Image.open(os.path.join(ROOT, M["image"])).convert("RGBA"); self.assertEqual(im.getpixel((5, 5))[3], 0); self.assertEqual(im.getpixel((im.width // 2, im.height // 2))[3], 255)
+
+
 class SouthWallFans(unittest.TestCase):
     def test_banners_and_fake_door_became_fans_and_a_vent(self):
         """Stage 120: arena walls module_overrides - the two red banners and the sealed door behind the spinner's NE pad

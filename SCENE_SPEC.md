@@ -1350,3 +1350,8 @@ Building blocks usable without the preset:
   the arena's south-west corner (over the slime, facing into the arena, pitched 15 deg), the drawer reaching 2.8 m in
   over the corner tile with the button 2.3 m up; nothing of it comes within 1 m of the arena floor at any time.
 
+## Stage 122: cut-out decals
+- Material type `image_decal` (`image` RGBA, `cutout`, `glow`): colour from the image, its alpha cut out. `sign`
+  (mount floor) `decal_material`: the decal uses that material instead of the signs atlas cell. Assembly Ascent: the
+  grinning gear on the start deck (`gear_decal`, references/gear_decal.png from make_signs.py) has no background tile.
+

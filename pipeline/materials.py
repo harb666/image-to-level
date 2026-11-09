@@ -942,6 +942,14 @@ def _atlas_cell(sub, S_w, S_h):
     return np.asarray(Image.fromarray((np.clip(d["alb"], 0, 1) * 255).astype(np.uint8)).resize((S_w, S_h), Image.BILINEAR), float) / 255.0
 
 
+def k_image_decal(S, rng, c, m):
+    """Stage 122: a decal from an RGBA image ("image", repo-relative): colour from it, alpha cut out (pair with
+    "cutout": 0.5) - e.g. a floor emblem with no background tile. "glow": emission strength (0 = lit like paint)."""
+    path = m["image"] if os.path.isabs(m["image"]) else os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), m["image"])
+    a = np.asarray(Image.open(path).convert("RGBA").resize((S, S), Image.LANCZOS), float) / 255.0
+    return dict(alb=a[..., :3], h=np.zeros((S, S)), rough=np.full((S, S), 0.5), metal=0.0, emit=a[..., 3] * float(m.get("glow", 1.0)), nstr=0.0, alpha=a[..., 3])
+
+
 def k_screen_atlas(S, rng, c, m):
     """Two screens side by side in ONE texture (one material, one draw call): left = m["left"], right = m["right"]
     (material dicts of screen_ui / bigscreen); objects choose a half with uv_region (atlas cells "a" / "b").

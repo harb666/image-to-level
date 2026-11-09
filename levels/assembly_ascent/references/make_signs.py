@@ -47,3 +47,9 @@ def cell_gear():
 atlas = Image.new("RGB", (2 * S, 2 * S))
 for (cx, cy), f in (((0, 0), cell_grin), ((S, 0), cell_exit), ((0, S), cell_arrow), ((S, S), cell_gear)): atlas.paste(f(), (cx, cy))
 atlas.save(out); print(out)
+# Stage 122: the gear as a cut-out floor decal (transparent round it: no background tile)
+lay = Image.new("RGBA", (S, S), (0, 0, 0, 0)); d = ImageDraw.Draw(lay); cx = cy = S / 2; pts = []
+for k in range(40):
+    a = 2 * math.pi * k / 40 - math.pi / 2; r = 235 if (k % 4) in (1, 2) else 190; pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
+d.polygon(pts, fill=MAG2 + (255,)); d.ellipse([cx - 150, cy - 150, cx + 150, cy + 150], fill=DARK + (255,)); grin_face(d, cx, cy + 4, 118, FACE + (255,), gap=DARK)
+lay.save(out.replace("signs_atlas.png", "gear_decal.png")); print(out.replace("signs_atlas.png", "gear_decal.png"))

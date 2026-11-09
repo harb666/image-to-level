@@ -41,23 +41,23 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 3488,
+    "glb_kb": 3518,
     "triangles": 57348,
     "nodes": 2346,
     "mesh_nodes": 2316,
     "unique_meshes": 1074,
-    "materials": 36,
-    "images": 96,
+    "materials": 37,
+    "images": 99,
     "draw_calls_unbatched": 2316,
-    "draw_calls_batched_min": 36,
-    "tex_mem_uncompressed_mb": 90.92,
-    "tex_mem_gpu_compressed_mb": 22.73,
+    "draw_calls_batched_min": 37,
+    "tex_mem_uncompressed_mb": 94.92,
+    "tex_mem_gpu_compressed_mb": 23.73,
     "texture_slots": {
-     "baseColorTexture": 33,
-     "metallicRoughnessTexture": 33,
+     "baseColorTexture": 34,
+     "metallicRoughnessTexture": 34,
      "normalTexture": 31,
-     "occlusionTexture": 33,
-     "emissiveTexture": 17
+     "occlusionTexture": 34,
+     "emissiveTexture": 18
     },
     "image_sizes": [
      "1024x1024 jpeg",
@@ -66,6 +66,7 @@
      "256x256 jpeg",
      "32x32 jpeg",
      "512x512 jpeg",
+     "512x512 png",
      "64x64 jpeg"
     ]
    },
@@ -79,28 +80,29 @@
   },
   "mobile": {
    "level": {
-    "glb_kb": 2059,
+    "glb_kb": 2079,
     "triangles": 55220,
-    "nodes": 190,
-    "mesh_nodes": 113,
-    "unique_meshes": 113,
-    "materials": 36,
-    "images": 62,
-    "draw_calls_unbatched": 113,
-    "draw_calls_batched_min": 36,
-    "tex_mem_uncompressed_mb": 32.34,
-    "tex_mem_gpu_compressed_mb": 8.08,
+    "nodes": 191,
+    "mesh_nodes": 114,
+    "unique_meshes": 114,
+    "materials": 37,
+    "images": 65,
+    "draw_calls_unbatched": 114,
+    "draw_calls_batched_min": 37,
+    "tex_mem_uncompressed_mb": 36.34,
+    "tex_mem_gpu_compressed_mb": 9.08,
     "texture_slots": {
-     "baseColorTexture": 33,
-     "emissiveTexture": 17,
-     "metallicRoughnessTexture": 12,
+     "baseColorTexture": 34,
+     "emissiveTexture": 18,
+     "metallicRoughnessTexture": 13,
      "normalTexture": 10,
-     "occlusionTexture": 12
+     "occlusionTexture": 13
     },
     "image_sizes": [
      "128x128 webp",
      "256x256 webp",
      "32x32 webp",
+     "512x512 png",
      "512x512 webp",
      "64x64 webp"
     ]
@@ -136,9 +138,9 @@
    },
    "visible": {
     "cameras": 104,
-    "visible_draw_calls_mean": 63.4,
-    "visible_draw_calls_max": 116,
-    "visible_triangles_mean": 53182,
+    "visible_draw_calls_mean": 63.6,
+    "visible_draw_calls_max": 117,
+    "visible_triangles_mean": 53180,
     "visible_triangles_max": 66032
    },
    "hidden_faces_removed": 901,
@@ -150,8 +152,8 @@
    "effects_max_particles": 651,
    "slimmed_kb": {
     "level_mobile.glb": [
-     3119,
-     2059
+     3150,
+     2079
     ],
     "background_mobile.glb": [
      477,
@@ -2538,6 +2540,17 @@
    ]
   },
   {
+   "node": "M_gear_decal_0_0",
+   "kind": "static",
+   "material": "gear_decal",
+   "triangles": 2,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Gear_Emblem_Decal"
+   ]
+  },
+  {
    "node": "M_glass_clear__2s_0_0",
    "kind": "static",
    "material": "glass_clear__2s",
@@ -3255,14 +3268,13 @@
    "node": "M_signs_0_0",
    "kind": "static",
    "material": "signs",
-   "triangles": 8,
+   "triangles": 6,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
     "Sign_Exit_Panel",
     "Sign_Arrow_Yard_Panel",
-    "Sign_Grin_Deck_Panel",
-    "Gear_Emblem_Decal"
+    "Sign_Grin_Deck_Panel"
    ]
   },
   {
