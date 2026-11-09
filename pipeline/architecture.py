@@ -773,7 +773,7 @@ def glass_dome(ctx, pre, D, dx, dz, R, y, th, tag):
     ctx.add(n + "Curb", "cylinder", [dx, y - 0.6, dz], [2 * R + 2.0, th + 1.1, 2 * R + 2.0], "structure_b", hole=R - 0.4, hole_res=48, sections=48, collision=False, **tag)
     ctx.add(n + "Curb_Trim", "cylinder", [dx, y - 0.75, dz], [2 * R + 0.2, 0.18, 2 * R + 0.2], ctx.role("glow_yellow"), hole=R - 0.5, hole_res=48, sections=48, outline=False, **vis)
     Rg = R - 0.2
-    ctx.add(n + "Glass", "dome_shell", [dx, yc, dz], [2 * Rg, H, 2 * Rg], ctx.role(D.get("glass", "dome_glass")), sections=32, rings=8, double_sided=True, outline=False, **vis)
+    if D.get("glazed", True): ctx.add(n + "Glass", "dome_shell", [dx, yc, dz], [2 * Rg, H, 2 * Rg], ctx.role(D.get("glass", "dome_glass")), sections=32, rings=8, double_sided=True, outline=False, **vis)
     Rs = R + float(D.get("sky_margin", 30.0))  # Stage 127: the sky far beyond the glass (clouds, sun glow), mapped flat from below
     ctx.add(n + "Sky", "dome_shell", [dx, y + th - 0.05, dz], [2 * Rs, H + float(D.get("sky_height", 30.0)), 2 * Rs], ctx.role(D.get("sky", "dome_sky")), sections=24, rings=6, uv="planar",
             double_sided=True, outline=False, **vis)
@@ -799,7 +799,7 @@ def glass_dome(ctx, pre, D, dx, dz, R, y, th, tag):
         tx, tz = dx + rr * math.cos(a), dz + rr * math.sin(a); L_ = (y + 0.3 - floor_y) / math.cos(math.radians(tilt))
         bx, bz = tx, tz + L_ * math.sin(math.radians(tilt))  # the base leans south of the top (light from the north)
         ctx.add(f"{n}Shaft_{i + 1}", "beam_cone", [bx, floor_y, bz], [2 * r0, L_, 2 * r0], ctx.role(D.get("shaft", "sunbeam")), None, [-tilt, 0, 0], sections=12, bottom_scale=1.7, **sh)  # Stage 127: open, fading out before the roof
-    ctx.dome_lights = getattr(ctx, "dome_lights", []) + [[dx, y - 8.0, dz]] + [[round(dx + R * 0.45 * math.cos(a), 2), y - 16.0, round(dz + R * 0.45 * math.sin(a), 2)] for a in (0.5, 2.6, 4.7)]
+    ctx.dome_light_color = D.get("light_color", [1.0, 0.82, 0.36]); ctx.dome_lights = getattr(ctx, "dome_lights", []) + [[dx, y - 8.0, dz]] + [[round(dx + R * 0.45 * math.cos(a), 2), y - 16.0, round(dz + R * 0.45 * math.sin(a), 2)] for a in (0.5, 2.6, 4.7)]
     ctx.notes.append(f"{pre}ceiling: glass dome r {R:.0f} m (rise {H:.0f} m) at ({dx:.0f}, {dz:.0f}), {nr} ribs, warm light shafts")
 
 

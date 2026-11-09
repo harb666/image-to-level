@@ -1,8 +1,8 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 2282 objects · 38 materials · 25 effects
+Spec: levels/assembly_ascent/scene_spec.json · 2281 objects · 37 materials · 25 effects
 Checks: PASSED ({'error': 0, 'warning': 7, 'info': 1}) · refine passes: 0
-Mobile (balanced): 2241 KB · 59398 tris · 124 draw calls · ~68.6 visible (estimate) · ~9.77 MB GPU textures (estimate)
+Mobile (balanced): 2235 KB · 58918 tris · 123 draw calls · ~68.2 visible (estimate) · ~9.76 MB GPU textures (estimate)
 Navigation: 3983.0 m² reachable of 18675.0 m² standable
 Package: dist/assembly_ascent/package (38 files, 9.16 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
@@ -10,11 +10,11 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- warning: mobile draw calls 124 (> 80)
-- warning: ~69 visible draw calls (estimate, > 60)
+- warning: mobile draw calls 123 (> 80)
+- warning: ~68 visible draw calls (estimate, > 60)
 - warning: enemy_arena: hazard 0.5 m away (< 3.0 m)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- warning: 61580 triangles (> budget 40000)
+- warning: 61100 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -45,8 +45,8 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 
 ## Timing
 - spec -> level.json: 1.6 s
-- build (glb, sky, background, effects, mobile): 37.0 s
-- checks (fast): 44.3 s
-- previews: 0.7 s
+- build (glb, sky, background, effects, mobile): 35.9 s
+- checks (fast): 44.7 s
+- previews: 0.8 s
 - export package: 0.4 s
-- total: 84.0 s
+- total: 83.4 s

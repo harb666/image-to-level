@@ -1382,4 +1382,7 @@ Building blocks usable without the preset:
   tubes with a `beam_fade` alpha ramp (`fade_in`, `fade_out` [start, end] along the shaft): they fade in from nothing
   below the roof, so their start never shows. Blended materials with an alpha map now embed it (RGBA). The glass has
   no collider (anything can be flown through it later).
+- Stage 128: dome `"glazed": false` leaves the frame open (no glass shell: fully clear) and `"light_color"` sets the
+  `Dome_Light` colour; Assembly Ascent now has a purple dusk sky (`sky_dome` `sun_color`), lilac light shafts and lilac
+  lights under the dome, all matching.
 

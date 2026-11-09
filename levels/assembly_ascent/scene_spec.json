@@ -330,50 +330,38 @@
         ],
         "notes": "Stage 122: the grinning gear painted on the start deck - cut out, no background tile"
       },
-      "dome_glass": {
-        "type": "glow",
-        "color": [
-          0.95,
-          0.97,
-          1.0
-        ],
-        "tile_m": 4.0,
-        "res": 32,
-        "alpha": 0.09,
-        "emissive": [
-          0.08,
-          0.08,
-          0.06
-        ],
-        "notes": "Stage 127: clear glass - the sky shows through (was a warm tint)"
-      },
       "dome_sky": {
         "type": "sky_dome",
         "color": [
-          1.0,
-          0.8,
-          0.45
+          0.82,
+          0.52,
+          0.9
         ],
         "zenith": [
-          0.5,
-          0.68,
-          0.92
+          0.3,
+          0.24,
+          0.58
         ],
         "clouds": 0.48,
         "cloud": [
-          1.0,
-          0.97,
-          0.9
+          0.96,
+          0.88,
+          1.0
         ],
         "cloud_under": [
-          1.0,
-          0.76,
-          0.42
+          0.86,
+          0.56,
+          0.92
         ],
         "sun": [
           0.64,
           0.36,
           0.09
+        ],
+        "sun_color": [
+          1.0,
+          0.82,
+          0.96
         ],
         "res": 1024,
         "emissive": [
@@ -381,14 +369,14 @@
           1.0,
           1.0
         ],
-        "notes": "Stage 127: open sky over the dome - blue overhead, golden toward the rim, warm-lit clouds, a sun glow"
+        "notes": "Stage 128: purple dusk sky over the dome - violet overhead, pink-lilac toward the rim, lilac clouds, soft glow"
       },
       "sunbeam": {
         "type": "beam_fade",
         "color": [
-          1.0,
-          0.86,
-          0.4
+          0.8,
+          0.62,
+          1.0
         ],
         "res": 64,
         "alpha": 0.1,
@@ -398,11 +386,11 @@
           0.88
         ],
         "emissive": [
-          1.0,
-          0.82,
-          0.3
+          0.72,
+          0.52,
+          1.0
         ],
-        "notes": "Stage 127: light shafts that fade in from nothing below the roof (no visible start)"
+        "notes": "Stage 128: purple light shafts matching the dome sky; fade in from nothing below the roof"
       }
     }
   },
@@ -459,9 +447,15 @@
         "collar": 2.5,
         "shafts": 5,
         "shaft_tilt": 12.0,
-        "notes": "Stage 126: massive glass dome over the north half (user request) - soft yellow daylight like the fan lights",
+        "notes": "Stage 126/128: massive open-frame dome over the north half (user request): no glass tint (fully clear), a purple dusk sky, matching purple light shafts and lights",
         "sky_margin": 14.0,
-        "sky_height": 11.0
+        "sky_height": 11.0,
+        "glazed": false,
+        "light_color": [
+          0.78,
+          0.62,
+          1.0
+        ]
       }
     }
   },

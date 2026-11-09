@@ -961,7 +961,7 @@ def k_sky_dome(S, rng, c, m):
     cloud = np.array(m.get("cloud", [1.0, 0.97, 0.9]), float) * (1 - 0.35 * shade[..., None]) + np.array(m.get("cloud_under", [1.0, 0.78, 0.45]), float) * 0.35 * shade[..., None]
     alb = alb * (1 - cl[..., None] * 0.85) + cloud * cl[..., None] * 0.85
     su, sv, ss = m.get("sun", [0.62, 0.4, 0.1]); g = np.exp(-((x - su) ** 2 + (y - sv) ** 2) / (2 * ss * ss))
-    alb = np.clip(alb + np.array([1.0, 0.85, 0.5]) * (0.55 * g + 0.6 * g ** 6)[..., None], 0, 1)
+    alb = np.clip(alb + np.array(m.get("sun_color", [1.0, 0.85, 0.5]), float) * (0.55 * g + 0.6 * g ** 6)[..., None], 0, 1)
     return dict(alb=alb, h=np.zeros((S, S)), rough=np.full((S, S), 0.9), metal=0.0, emit=np.ones((S, S)), nstr=0.0)
 
 
