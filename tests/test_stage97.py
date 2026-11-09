@@ -177,5 +177,28 @@ class CornerOverlook(unittest.TestCase):
             if n.startswith("Overlook_Rail") and n.endswith("_High"): self.assertGreater(by[n]["position"][1] - lf["top"], 1.2)
 
 
+class RisingArena(unittest.TestCase):
+    def test_arena_rises_at_the_open_edge(self):
+        """Stage 109: the overlook's north edge is open; walking to it raises a battle arena out of the slime, docked
+        against it (same height), with cover and pylons; nothing of it shows above the slime before it rises; a wave
+        encounter runs on it."""
+        L = _load("level.json"); by = {o["name"]: o for o in L["objects"]}; S = _load("scene_spec.json")
+        self.assertFalse([n for n in by if n.startswith("Overlook_RailN")])  # open edge
+        R = next(r for r in L["risers"] if r["id"] == "Arena"); ov = by["Overlook_Deck"]; top = ov["position"][1] + ov["size"][1]
+        self.assertEqual(len(R["pads"]), 4); self.assertTrue(all(abs(p["center"][1] - top) < 1e-6 for p in R["pads"]))
+        c = R["trigger"]["center"]; self.assertLess(abs(c[2] - (ov["position"][2] - ov["size"][2] / 2)), 2.0)  # at the open edge
+        deck = by["Arena_Deck_Cap"]; edge = deck["position"][2] + deck["size"][2] / 2 * math.cos(math.pi / 8)
+        self.assertLess(abs(edge - (ov["position"][2] - ov["size"][2] / 2)), 0.3)  # docked against the overlook
+        joints = {p["joint"]: p for p in R["pads"]}
+        for o in L["objects"]:  # sunk deep enough: no part pokes out of the slime before the rise
+            j = (o.get("mobile") or {}).get("joint")
+            if j in joints and o.get("size"): self.assertLess(o["position"][1] + o["size"][1] - joints[j]["rise"], R["liquid"], o["name"])
+        self.assertTrue([n for n in by if n.startswith("Arena_Deck_Cover_") and n.count("_") == 3]); self.assertEqual(sum(1 for n in by if n.endswith("_Pylon")), 3)
+        E = next(e for e in S["encounters"] if e["id"] == "Arena_Waves"); self.assertEqual(E["trigger"], "enter:Arena_Deck")
+        sp = next(s for s in L["spawns"] if s["id"] == "enemy_arena")["position"]; dc = deck["position"]
+        self.assertLess(math.hypot(sp[0] - dc[0], sp[2] - dc[2]), deck["size"][0] / 2 * math.cos(math.pi / 8) - 2.0)
+        N = _load("checks/navigation.json"); self.assertEqual({a["name"]: a["reachable_fraction"] for a in N["intended_areas"]}.get("Arena_Deck"), 1.0)
+
+
 if __name__ == "__main__":
     unittest.main()

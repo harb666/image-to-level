@@ -2,7 +2,7 @@
  "level": "assembly_ascent",
  "counts": {
   "ERROR": 0,
-  "WARNING": 2,
+  "WARNING": 3,
   "INTENTIONAL": 0
  },
  "relations": {
@@ -60,6 +60,23 @@
    },
    "ambiguous": false,
    "id": "overlap:001"
+  },
+  {
+   "check": "spawn",
+   "cls": "WARNING",
+   "objects": [
+    "enemy_arena"
+   ],
+   "message": "enemy_arena: hazard 0.3 m away (< 3.0 m)",
+   "pos": [
+    42.2,
+    15.5,
+    42.4
+   ],
+   "measured": {},
+   "repair": null,
+   "ambiguous": false,
+   "id": "spawn:002"
   }
  ],
  "passed": true

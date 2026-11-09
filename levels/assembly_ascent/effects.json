@@ -1715,6 +1715,123 @@
    }
   },
   {
+   "id": "Arena_Emerge",
+   "type": "emerge",
+   "category": "emerge",
+   "glb_contains": "pads at the RAISED position (skinned, one mesh per material); colliders at the raised position",
+   "godot_runtime": "script (apply_effects.gd _risers): pads skinned to one skeleton (bone <id>_J<k> per pad, <id>_R<k> per surge ring); all start 'rise' m under the liquid (rings hidden under it). When a CharacterBody3D enters the trigger sphere pad k starts after k * stagger s: offset = -rise * (1 - u)^3 over rise_s s (u = t / rise_s: bursts up, decelerates), then a damped bob 0.22 sin(9 t') e^(-4 t') for 1.4 s; its surge ring bursts out from 35 % of the rise (scale 0.4 -> 3.0 over 1.6 s, ease-out) while sinking 0.9 m back under the surface. The pad's colliders (collision.glb nodes named after 'colliders') are disabled until 85 % of its rise. Stage 89/91: a pad with 'drips' drops goo (CPUParticles3D) once up; with 'goo' {drips, strands, hold, fade} those bones drain away 'hold' s after it is up over 'fade' s (smoothstep: drips scale y -> 0 sliding 0.6 m down, strands scale -> 0) and the drops stop",
+   "riser": {
+    "id": "Arena",
+    "group": "Arena_Rig",
+    "skeleton": "Arena",
+    "pads": [
+     {
+      "joint": "Arena_J1",
+      "ring": "Arena_R1",
+      "center": [
+       42.5,
+       15.5,
+       42.921
+      ],
+      "size": 15.0,
+      "rise": 16.9,
+      "colliders": [
+       "Arena_Deck_Cap",
+       "Arena_Deck_Cover_1",
+       "Arena_Deck_Cover_2",
+       "Arena_Deck_Cover_3"
+      ]
+     },
+     {
+      "joint": "Arena_J2",
+      "ring": "Arena_R2",
+      "center": [
+       32.699,
+       15.5,
+       42.921
+      ],
+      "size": 6.0,
+      "rise": 19.9,
+      "colliders": [
+       "Arena_Pad_1_Cap",
+       "Arena_Pad_1_Pylon"
+      ]
+     },
+     {
+      "joint": "Arena_J3",
+      "ring": "Arena_R3",
+      "center": [
+       35.57,
+       15.5,
+       35.991
+      ],
+      "size": 6.0,
+      "rise": 19.9,
+      "colliders": [
+       "Arena_Pad_2_Cap",
+       "Arena_Pad_2_Pylon"
+      ]
+     },
+     {
+      "joint": "Arena_J4",
+      "ring": "Arena_R4",
+      "center": [
+       42.5,
+       15.5,
+       33.12
+      ],
+      "size": 6.0,
+      "rise": 19.9,
+      "colliders": [
+       "Arena_Pad_3_Cap",
+       "Arena_Pad_3_Pylon"
+      ]
+     }
+    ],
+    "trigger": {
+     "center": [
+      43.2,
+      15.5,
+      51.2
+     ],
+     "radius": 5.0
+    },
+    "stagger": 0.5,
+    "rise_s": 2.6,
+    "liquid": 1.0,
+    "note": "the arena starts under the liquid; its platforms surge up in order when a player enters the trigger sphere"
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Screen_Static_screen",
    "type": "tv_static",
    "category": "material_shader",
@@ -1925,6 +2042,14 @@
     "Ceil_Step_02_Strip",
     "Ceil_Step_01_Strip",
     "Spinner_Terminal_HandPlate",
+    "Arena_Pad_3_Rim",
+    "Arena_Pad_3_Band",
+    "Arena_Pad_2_Rim",
+    "Arena_Pad_2_Band",
+    "Arena_Pad_1_Rim",
+    "Arena_Pad_1_Band",
+    "Arena_Deck_Rim",
+    "Arena_Deck_Band",
     "Overlook_Viewer_2_Lamp",
     "Overlook_Viewer_1_Lamp",
     "Overlook_ColumnLamp_3",

@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "28bd0c16166981e2",
+  "spec_sha": "ce59eadff3a7c9ce",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -45,6 +45,16 @@
     -51.0
    ],
    "yaw_deg": 157.6,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_arena",
+   "position": [
+    42.2,
+    15.5,
+    42.4
+   ],
+   "yaw_deg": 44.9,
    "team": "enemy"
   }
  ],
@@ -830,6 +840,91 @@
    }
   },
   {
+   "id": "Arena_Emerge",
+   "type": "emerge",
+   "riser": {
+    "id": "Arena",
+    "group": "Arena_Rig",
+    "skeleton": "Arena",
+    "pads": [
+     {
+      "joint": "Arena_J1",
+      "ring": "Arena_R1",
+      "center": [
+       42.5,
+       15.5,
+       42.921
+      ],
+      "size": 15.0,
+      "rise": 16.9,
+      "colliders": [
+       "Arena_Deck_Cap",
+       "Arena_Deck_Cover_1",
+       "Arena_Deck_Cover_2",
+       "Arena_Deck_Cover_3"
+      ]
+     },
+     {
+      "joint": "Arena_J2",
+      "ring": "Arena_R2",
+      "center": [
+       32.699,
+       15.5,
+       42.921
+      ],
+      "size": 6.0,
+      "rise": 19.9,
+      "colliders": [
+       "Arena_Pad_1_Cap",
+       "Arena_Pad_1_Pylon"
+      ]
+     },
+     {
+      "joint": "Arena_J3",
+      "ring": "Arena_R3",
+      "center": [
+       35.57,
+       15.5,
+       35.991
+      ],
+      "size": 6.0,
+      "rise": 19.9,
+      "colliders": [
+       "Arena_Pad_2_Cap",
+       "Arena_Pad_2_Pylon"
+      ]
+     },
+     {
+      "joint": "Arena_J4",
+      "ring": "Arena_R4",
+      "center": [
+       42.5,
+       15.5,
+       33.12
+      ],
+      "size": 6.0,
+      "rise": 19.9,
+      "colliders": [
+       "Arena_Pad_3_Cap",
+       "Arena_Pad_3_Pylon"
+      ]
+     }
+    ],
+    "trigger": {
+     "center": [
+      43.2,
+      15.5,
+      51.2
+     ],
+     "radius": 5.0
+    },
+    "stagger": 0.5,
+    "rise_s": 2.6,
+    "liquid": 1.0,
+    "note": "the arena starts under the liquid; its platforms surge up in order when a player enters the trigger sphere"
+   }
+  },
+  {
    "id": "Screen_Static_screen",
    "type": "tv_static",
    "target_material": "screen",
@@ -1313,6 +1408,18 @@
     54.228
    ],
    "y": 15.5
+  },
+  {
+   "name": "Arena_Deck",
+   "min": [
+    35.571,
+    35.992
+   ],
+   "max": [
+    49.429,
+    49.85
+   ],
+   "y": 15.5
   }
  ],
  "materials": {
@@ -1514,6 +1621,22 @@
     0.84
    ],
    "notes": "Stage 105: the spinner deck - plain, scored by the maces' sweep (rings centred on the tower)"
+  },
+  "fall": {
+   "type": "toxic",
+   "color": [
+    0.42,
+    1.0,
+    0.2
+   ],
+   "tile_m": 3.0,
+   "emissive": [
+    0.5,
+    1.0,
+    0.2
+   ],
+   "streaks": true,
+   "res": 256
   },
   "frame": {
    "type": "industrial_metal",
@@ -35921,222 +36044,6 @@
    "source": "inferred"
   },
   {
-   "name": "Overlook_RailN_Low",
-   "type": "box",
-   "position": [
-    43.19,
-    16.01,
-    50.1
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    13.58,
-    0.08,
-    0.08
-   ],
-   "material": "rail",
-   "bevel": false,
-   "mobile": {
-    "static": true
-   },
-   "outline": false,
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_RailN_High",
-   "type": "box",
-   "position": [
-    43.19,
-    16.71,
-    50.1
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    13.58,
-    0.08,
-    0.08
-   ],
-   "material": "rail",
-   "bevel": false,
-   "mobile": {
-    "static": true
-   },
-   "outline": false,
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_RailN_Post_1",
-   "type": "box",
-   "position": [
-    36.46,
-    15.5,
-    50.1
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.12,
-    1.32,
-    0.12
-   ],
-   "material": "rail",
-   "bevel": false,
-   "mobile": {
-    "static": true
-   },
-   "outline": false,
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_RailN_Post_2",
-   "type": "box",
-   "position": [
-    39.152,
-    15.5,
-    50.1
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.12,
-    1.32,
-    0.12
-   ],
-   "material": "rail",
-   "bevel": false,
-   "mobile": {
-    "static": true
-   },
-   "outline": false,
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_RailN_Post_3",
-   "type": "box",
-   "position": [
-    41.844,
-    15.5,
-    50.1
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.12,
-    1.32,
-    0.12
-   ],
-   "material": "rail",
-   "bevel": false,
-   "mobile": {
-    "static": true
-   },
-   "outline": false,
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_RailN_Post_4",
-   "type": "box",
-   "position": [
-    44.536,
-    15.5,
-    50.1
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.12,
-    1.32,
-    0.12
-   ],
-   "material": "rail",
-   "bevel": false,
-   "mobile": {
-    "static": true
-   },
-   "outline": false,
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_RailN_Post_5",
-   "type": "box",
-   "position": [
-    47.228,
-    15.5,
-    50.1
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.12,
-    1.32,
-    0.12
-   ],
-   "material": "rail",
-   "bevel": false,
-   "mobile": {
-    "static": true
-   },
-   "outline": false,
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_RailN_Post_6",
-   "type": "box",
-   "position": [
-    49.92,
-    15.5,
-    50.1
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.12,
-    1.32,
-    0.12
-   ],
-   "material": "rail",
-   "bevel": false,
-   "mobile": {
-    "static": true
-   },
-   "outline": false,
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
    "name": "Overlook_Viewer_1_Post",
    "type": "cylinder",
    "position": [
@@ -36276,9 +36183,9 @@
    "name": "Overlook_Viewer_2_Post",
    "type": "cylinder",
    "position": [
-    43.0,
+    48.6,
     15.5,
-    50.9
+    53.0
    ],
    "rotation": [
     0.0,
@@ -36302,9 +36209,9 @@
    "name": "Overlook_Viewer_2_Head",
    "type": "box",
    "position": [
-    43.0,
+    48.6,
     16.55,
-    50.9
+    53.0
    ],
    "rotation": [
     0.0,
@@ -36329,9 +36236,9 @@
    "name": "Overlook_Viewer_2_EyeL",
    "type": "cylinder",
    "position": [
-    43.15,
+    48.75,
     16.77,
-    50.7
+    52.8
    ],
    "rotation": [
     90.0,
@@ -36357,9 +36264,9 @@
    "name": "Overlook_Viewer_2_EyeR",
    "type": "cylinder",
    "position": [
-    42.85,
+    48.45,
     16.77,
-    50.7
+    52.8
    ],
    "rotation": [
     90.0,
@@ -36385,9 +36292,9 @@
    "name": "Overlook_Viewer_2_Lamp",
    "type": "box",
    "position": [
-    43.0,
+    48.6,
     16.82,
-    51.14
+    53.24
    ],
    "rotation": [
     0.0,
@@ -37210,6 +37117,1608 @@
     "static": true
    },
    "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Deck_Column",
+   "type": "cylinder",
+   "position": [
+    42.5,
+    0.0,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "size": [
+    5.1,
+    13.1,
+    5.1
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J1"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Deck_Bowl",
+   "type": "frustum",
+   "position": [
+    42.5,
+    12.9,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "size": [
+    14.4,
+    2.0,
+    14.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "bottom_scale": 0.42,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J1"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Deck_Band",
+   "type": "frustum",
+   "position": [
+    42.5,
+    14.45,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "size": [
+    14.6,
+    0.4,
+    14.6
+   ],
+   "material": "glow",
+   "sections": 8,
+   "bottom_scale": 0.94,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J1"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Deck_Cap",
+   "type": "cylinder",
+   "position": [
+    42.5,
+    14.9,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "size": [
+    15.0,
+    0.6,
+    15.0
+   ],
+   "material": "deck",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J1"
+   },
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Deck_Rim",
+   "type": "cylinder",
+   "position": [
+    42.5,
+    14.84,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "size": [
+    15.16,
+    0.14,
+    15.16
+   ],
+   "material": "glow",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J1"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Deck_Surge",
+   "type": "cylinder",
+   "position": [
+    42.5,
+    1.03,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    18.0,
+    0.04,
+    18.0
+   ],
+   "material": "fall",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_R1"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Deck_Cover_1",
+   "type": "box",
+   "position": [
+    39.1,
+    15.5,
+    41.721
+   ],
+   "rotation": [
+    0.0,
+    35.0,
+    0.0
+   ],
+   "size": [
+    2.6,
+    1.15,
+    0.8
+   ],
+   "material": "accent",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arena",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "x"
+   },
+   "outline": true
+  },
+  {
+   "name": "Arena_Deck_Cover_1_Cap",
+   "type": "box",
+   "position": [
+    39.1,
+    16.65,
+    41.721
+   ],
+   "rotation": [
+    0.0,
+    35.0,
+    0.0
+   ],
+   "size": [
+    2.7,
+    0.16,
+    0.9
+   ],
+   "material": "accent",
+   "mobile": {
+    "static": true
+   },
+   "collision": false,
+   "outline": true,
+   "gen": "Arena",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "x"
+   }
+  },
+  {
+   "name": "Arena_Deck_Cover_1_SlitL",
+   "type": "box",
+   "position": [
+    38.865,
+    16.05,
+    41.385
+   ],
+   "rotation": [
+    0.0,
+    35.0,
+    0.0
+   ],
+   "size": [
+    1.8,
+    0.1,
+    0.02
+   ],
+   "material": "accent",
+   "mobile": {
+    "static": true
+   },
+   "collision": false,
+   "outline": true,
+   "gen": "Arena",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "z"
+   }
+  },
+  {
+   "name": "Arena_Deck_Cover_1_SlitR",
+   "type": "box",
+   "position": [
+    39.335,
+    16.05,
+    42.057
+   ],
+   "rotation": [
+    0.0,
+    35.0,
+    0.0
+   ],
+   "size": [
+    1.8,
+    0.1,
+    0.02
+   ],
+   "material": "accent",
+   "mobile": {
+    "static": true
+   },
+   "collision": false,
+   "outline": true,
+   "gen": "Arena",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "z"
+   }
+  },
+  {
+   "name": "Arena_Deck_Cover_2",
+   "type": "box",
+   "position": [
+    45.8,
+    15.5,
+    43.221
+   ],
+   "rotation": [
+    0.0,
+    -25.0,
+    0.0
+   ],
+   "size": [
+    2.6,
+    1.15,
+    0.8
+   ],
+   "material": "accent",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arena",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "x"
+   },
+   "outline": true
+  },
+  {
+   "name": "Arena_Deck_Cover_2_Cap",
+   "type": "box",
+   "position": [
+    45.8,
+    16.65,
+    43.221
+   ],
+   "rotation": [
+    0.0,
+    -25.0,
+    0.0
+   ],
+   "size": [
+    2.7,
+    0.16,
+    0.9
+   ],
+   "material": "accent",
+   "mobile": {
+    "static": true
+   },
+   "collision": false,
+   "outline": true,
+   "gen": "Arena",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "x"
+   }
+  },
+  {
+   "name": "Arena_Deck_Cover_2_SlitL",
+   "type": "box",
+   "position": [
+    45.973,
+    16.05,
+    42.849
+   ],
+   "rotation": [
+    0.0,
+    -25.0,
+    0.0
+   ],
+   "size": [
+    1.8,
+    0.1,
+    0.02
+   ],
+   "material": "accent",
+   "mobile": {
+    "static": true
+   },
+   "collision": false,
+   "outline": true,
+   "gen": "Arena",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "x"
+   }
+  },
+  {
+   "name": "Arena_Deck_Cover_2_SlitR",
+   "type": "box",
+   "position": [
+    45.627,
+    16.05,
+    43.593
+   ],
+   "rotation": [
+    0.0,
+    -25.0,
+    0.0
+   ],
+   "size": [
+    1.8,
+    0.1,
+    0.02
+   ],
+   "material": "accent",
+   "mobile": {
+    "static": true
+   },
+   "collision": false,
+   "outline": true,
+   "gen": "Arena",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "z"
+   }
+  },
+  {
+   "name": "Arena_Deck_Cover_3",
+   "type": "box",
+   "position": [
+    42.7,
+    15.5,
+    38.621
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    2.6,
+    1.15,
+    0.8
+   ],
+   "material": "accent",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Arena",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "z"
+   },
+   "outline": true
+  },
+  {
+   "name": "Arena_Deck_Cover_3_Cap",
+   "type": "box",
+   "position": [
+    42.7,
+    16.65,
+    38.621
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    2.7,
+    0.16,
+    0.9
+   ],
+   "material": "accent",
+   "mobile": {
+    "static": true
+   },
+   "collision": false,
+   "outline": true,
+   "gen": "Arena",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "x"
+   }
+  },
+  {
+   "name": "Arena_Deck_Cover_3_SlitL",
+   "type": "box",
+   "position": [
+    42.29,
+    16.05,
+    38.621
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    1.8,
+    0.1,
+    0.02
+   ],
+   "material": "accent",
+   "mobile": {
+    "static": true
+   },
+   "collision": false,
+   "outline": true,
+   "gen": "Arena",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "x"
+   }
+  },
+  {
+   "name": "Arena_Deck_Cover_3_SlitR",
+   "type": "box",
+   "position": [
+    43.11,
+    16.05,
+    38.621
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    1.8,
+    0.1,
+    0.02
+   ],
+   "material": "accent",
+   "mobile": {
+    "static": true
+   },
+   "collision": false,
+   "outline": true,
+   "gen": "Arena",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "x"
+   }
+  },
+  {
+   "name": "Arena_Pad_1_Column",
+   "type": "cylinder",
+   "position": [
+    32.699,
+    0.0,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    292.5,
+    0.0
+   ],
+   "size": [
+    2.04,
+    13.1,
+    2.04
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J2"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_1_Bowl",
+   "type": "frustum",
+   "position": [
+    32.699,
+    12.9,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    292.5,
+    0.0
+   ],
+   "size": [
+    5.4,
+    2.0,
+    5.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "bottom_scale": 0.42,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J2"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_1_Band",
+   "type": "frustum",
+   "position": [
+    32.699,
+    14.45,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    292.5,
+    0.0
+   ],
+   "size": [
+    5.6,
+    0.4,
+    5.6
+   ],
+   "material": "glow",
+   "sections": 8,
+   "bottom_scale": 0.94,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J2"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_1_Cap",
+   "type": "cylinder",
+   "position": [
+    32.699,
+    14.9,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    292.5,
+    0.0
+   ],
+   "size": [
+    6.0,
+    0.6,
+    6.0
+   ],
+   "material": "deck",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J2"
+   },
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_1_Rim",
+   "type": "cylinder",
+   "position": [
+    32.699,
+    14.84,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    292.5,
+    0.0
+   ],
+   "size": [
+    6.16,
+    0.14,
+    6.16
+   ],
+   "material": "glow",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J2"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_1_Surge",
+   "type": "cylinder",
+   "position": [
+    32.699,
+    1.03,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.2,
+    0.04,
+    7.2
+   ],
+   "material": "fall",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_R2"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_1_Pylon",
+   "type": "box",
+   "position": [
+    30.828,
+    15.5,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    2.6,
+    0.9
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J2"
+   },
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_1_Pylon_Top",
+   "type": "box",
+   "position": [
+    30.828,
+    18.1,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    1.2,
+    0.9
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J2"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_1_Pylon_Band",
+   "type": "box",
+   "position": [
+    30.828,
+    17.85,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.5,
+    1.0
+   ],
+   "material": "stripe",
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J2"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_1_Pylon_Crown",
+   "type": "frustum",
+   "position": [
+    30.828,
+    19.3,
+    42.921
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    1.2,
+    0.5,
+    1.2
+   ],
+   "material": "glow_yellow",
+   "bottom_scale": 0.6,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J2"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_2_Column",
+   "type": "cylinder",
+   "position": [
+    35.57,
+    0.0,
+    35.991
+   ],
+   "rotation": [
+    0.0,
+    247.5,
+    0.0
+   ],
+   "size": [
+    2.04,
+    13.1,
+    2.04
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J3"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_2_Bowl",
+   "type": "frustum",
+   "position": [
+    35.57,
+    12.9,
+    35.991
+   ],
+   "rotation": [
+    0.0,
+    247.5,
+    0.0
+   ],
+   "size": [
+    5.4,
+    2.0,
+    5.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "bottom_scale": 0.42,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J3"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_2_Band",
+   "type": "frustum",
+   "position": [
+    35.57,
+    14.45,
+    35.991
+   ],
+   "rotation": [
+    0.0,
+    247.5,
+    0.0
+   ],
+   "size": [
+    5.6,
+    0.4,
+    5.6
+   ],
+   "material": "glow",
+   "sections": 8,
+   "bottom_scale": 0.94,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J3"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_2_Cap",
+   "type": "cylinder",
+   "position": [
+    35.57,
+    14.9,
+    35.991
+   ],
+   "rotation": [
+    0.0,
+    247.5,
+    0.0
+   ],
+   "size": [
+    6.0,
+    0.6,
+    6.0
+   ],
+   "material": "deck",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J3"
+   },
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_2_Rim",
+   "type": "cylinder",
+   "position": [
+    35.57,
+    14.84,
+    35.991
+   ],
+   "rotation": [
+    0.0,
+    247.5,
+    0.0
+   ],
+   "size": [
+    6.16,
+    0.14,
+    6.16
+   ],
+   "material": "glow",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J3"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_2_Surge",
+   "type": "cylinder",
+   "position": [
+    35.57,
+    1.03,
+    35.991
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.2,
+    0.04,
+    7.2
+   ],
+   "material": "fall",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_R3"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_2_Pylon",
+   "type": "box",
+   "position": [
+    34.246,
+    15.5,
+    34.667
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    2.6,
+    0.9
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J3"
+   },
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_2_Pylon_Top",
+   "type": "box",
+   "position": [
+    34.246,
+    18.1,
+    34.667
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    1.2,
+    0.9
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J3"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_2_Pylon_Band",
+   "type": "box",
+   "position": [
+    34.246,
+    17.85,
+    34.667
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.5,
+    1.0
+   ],
+   "material": "stripe",
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J3"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_2_Pylon_Crown",
+   "type": "frustum",
+   "position": [
+    34.246,
+    19.3,
+    34.667
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    1.2,
+    0.5,
+    1.2
+   ],
+   "material": "glow_yellow",
+   "bottom_scale": 0.6,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J3"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_3_Column",
+   "type": "cylinder",
+   "position": [
+    42.5,
+    0.0,
+    33.12
+   ],
+   "rotation": [
+    0.0,
+    202.5,
+    0.0
+   ],
+   "size": [
+    2.04,
+    13.1,
+    2.04
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J4"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_3_Bowl",
+   "type": "frustum",
+   "position": [
+    42.5,
+    12.9,
+    33.12
+   ],
+   "rotation": [
+    0.0,
+    202.5,
+    0.0
+   ],
+   "size": [
+    5.4,
+    2.0,
+    5.4
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "bottom_scale": 0.42,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J4"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_3_Band",
+   "type": "frustum",
+   "position": [
+    42.5,
+    14.45,
+    33.12
+   ],
+   "rotation": [
+    0.0,
+    202.5,
+    0.0
+   ],
+   "size": [
+    5.6,
+    0.4,
+    5.6
+   ],
+   "material": "glow",
+   "sections": 8,
+   "bottom_scale": 0.94,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J4"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_3_Cap",
+   "type": "cylinder",
+   "position": [
+    42.5,
+    14.9,
+    33.12
+   ],
+   "rotation": [
+    0.0,
+    202.5,
+    0.0
+   ],
+   "size": [
+    6.0,
+    0.6,
+    6.0
+   ],
+   "material": "deck",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J4"
+   },
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_3_Rim",
+   "type": "cylinder",
+   "position": [
+    42.5,
+    14.84,
+    33.12
+   ],
+   "rotation": [
+    0.0,
+    202.5,
+    0.0
+   ],
+   "size": [
+    6.16,
+    0.14,
+    6.16
+   ],
+   "material": "glow",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J4"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_3_Surge",
+   "type": "cylinder",
+   "position": [
+    42.5,
+    1.03,
+    33.12
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.2,
+    0.04,
+    7.2
+   ],
+   "material": "fall",
+   "sections": 8,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_R4"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_3_Pylon",
+   "type": "box",
+   "position": [
+    42.5,
+    15.5,
+    31.249
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    2.6,
+    0.9
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J4"
+   },
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_3_Pylon_Top",
+   "type": "box",
+   "position": [
+    42.5,
+    18.1,
+    31.249
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    1.2,
+    0.9
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J4"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_3_Pylon_Band",
+   "type": "box",
+   "position": [
+    42.5,
+    17.85,
+    31.249
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.5,
+    1.0
+   ],
+   "material": "stripe",
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J4"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
+   "source": "inferred"
+  },
+  {
+   "name": "Arena_Pad_3_Pylon_Crown",
+   "type": "frustum",
+   "position": [
+    42.5,
+    19.3,
+    31.249
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    1.2,
+    0.5,
+    1.2
+   ],
+   "material": "glow_yellow",
+   "bottom_scale": 0.6,
+   "mobile": {
+    "group": "Arena_Rig",
+    "joint": "Arena_J4"
+   },
+   "collision": false,
+   "outline": false,
+   "gen": "Arena",
    "source": "inferred"
   },
   {
@@ -60874,6 +62383,142 @@
    "note": "Construct Error: a StaticBody3D blocker stands here while closed (apply_mobile.gd); call open_gate(id) when the encounter's last wave is cleared - the beams fade out, the blocker goes, signal gate_opened(id)."
   }
  ],
+ "skeletons": {
+  "Arena": {
+   "groups": [
+    "Arena_Rig"
+   ],
+   "joints": [
+    {
+     "name": "Arena_JRoot",
+     "parent": null,
+     "pivot": [
+      42.5,
+      1.0,
+      42.921
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Arena_J1",
+     "parent": "Arena_JRoot",
+     "pivot": [
+      42.5,
+      1.0,
+      42.921
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Arena_R1",
+     "parent": "Arena_JRoot",
+     "pivot": [
+      42.5,
+      1.03,
+      42.921
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Arena_J2",
+     "parent": "Arena_JRoot",
+     "pivot": [
+      32.699,
+      1.0,
+      42.921
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Arena_R2",
+     "parent": "Arena_JRoot",
+     "pivot": [
+      32.699,
+      1.03,
+      42.921
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Arena_J3",
+     "parent": "Arena_JRoot",
+     "pivot": [
+      35.57,
+      1.0,
+      35.991
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Arena_R3",
+     "parent": "Arena_JRoot",
+     "pivot": [
+      35.57,
+      1.03,
+      35.991
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Arena_J4",
+     "parent": "Arena_JRoot",
+     "pivot": [
+      42.5,
+      1.0,
+      33.12
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Arena_R4",
+     "parent": "Arena_JRoot",
+     "pivot": [
+      42.5,
+      1.03,
+      33.12
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    }
+   ],
+   "kind": "emerge"
+  }
+ },
  "crushers": [
   {
    "id": "Spike_Press",
@@ -60898,6 +62543,89 @@
      -0.83
     ]
    ]
+  }
+ ],
+ "risers": [
+  {
+   "id": "Arena",
+   "group": "Arena_Rig",
+   "skeleton": "Arena",
+   "pads": [
+    {
+     "joint": "Arena_J1",
+     "ring": "Arena_R1",
+     "center": [
+      42.5,
+      15.5,
+      42.921
+     ],
+     "size": 15.0,
+     "rise": 16.9,
+     "colliders": [
+      "Arena_Deck_Cap",
+      "Arena_Deck_Cover_1",
+      "Arena_Deck_Cover_2",
+      "Arena_Deck_Cover_3"
+     ]
+    },
+    {
+     "joint": "Arena_J2",
+     "ring": "Arena_R2",
+     "center": [
+      32.699,
+      15.5,
+      42.921
+     ],
+     "size": 6.0,
+     "rise": 19.9,
+     "colliders": [
+      "Arena_Pad_1_Cap",
+      "Arena_Pad_1_Pylon"
+     ]
+    },
+    {
+     "joint": "Arena_J3",
+     "ring": "Arena_R3",
+     "center": [
+      35.57,
+      15.5,
+      35.991
+     ],
+     "size": 6.0,
+     "rise": 19.9,
+     "colliders": [
+      "Arena_Pad_2_Cap",
+      "Arena_Pad_2_Pylon"
+     ]
+    },
+    {
+     "joint": "Arena_J4",
+     "ring": "Arena_R4",
+     "center": [
+      42.5,
+      15.5,
+      33.12
+     ],
+     "size": 6.0,
+     "rise": 19.9,
+     "colliders": [
+      "Arena_Pad_3_Cap",
+      "Arena_Pad_3_Pylon"
+     ]
+    }
+   ],
+   "trigger": {
+    "center": [
+     43.2,
+     15.5,
+     51.2
+    ],
+    "radius": 5.0
+   },
+   "stagger": 0.5,
+   "rise_s": 2.6,
+   "liquid": 1.0,
+   "note": "the arena starts under the liquid; its platforms surge up in order when a player enters the trigger sphere"
   }
  ],
  "terminals": [
@@ -61436,6 +63164,20 @@
    ],
    "opens": "Exit_Laser",
    "trigger": "enter:Upper_Deck"
+  },
+  {
+   "id": "Arena_Waves",
+   "waves": 3,
+   "enemies_per_wave": [
+    3,
+    4,
+    6
+   ],
+   "spawns": [
+    "enemy_arena"
+   ],
+   "trigger": "enter:Arena_Deck",
+   "notes": "Stage 109: the battle on the arena that rises in front of the overlook"
   }
  ],
  "validation": {
@@ -61457,7 +63199,8 @@
   "Exit_Door: exit hallway 12 m fading to black -> level2_part1",
   "Spinner: spinner, 4 arms driven by a ceiling press (peak 64.43 rpm, still 3.8 s per 9.5 s), 4 hovering pads",
   "Overlook: corner overlook 13.6 x 15.0 m at 15.5 m, gantry 14.9 m to lift Spinner_Pad_1_Lift",
-  "crates: 5 printed crates (accent atlas)",
+  "Arena: battle arena rising out of the liquid - 15 m deck + 3 platforms at 15.5 m",
+  "crates: 17 printed crates (accent atlas)",
   "fixtures: 62 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_North_M02Fan, OuterWall_West_M02Fan)",
   "ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 1 standing part(s), 0 crane runway(s), ends at beams 0.0 m",
   "corrosion: 6 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
@@ -61546,16 +63289,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 41217,
-  "objects": 1873,
-  "materials": 33,
-  "glb_kb": 3220,
-  "nodes": 2059,
-  "draw_calls_unbatched": 2027,
-  "draw_calls_batched_min": 33,
-  "images": 89,
-  "tex_mem_gpu_compressed_mb": 22.46,
-  "tex_mem_uncompressed_mb": 89.84,
+  "triangles": 42145,
+  "objects": 1913,
+  "materials": 34,
+  "glb_kb": 3289,
+  "nodes": 2110,
+  "draw_calls_unbatched": 2078,
+  "draw_calls_batched_min": 34,
+  "images": 92,
+  "tex_mem_gpu_compressed_mb": 22.71,
+  "tex_mem_uncompressed_mb": 90.84,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

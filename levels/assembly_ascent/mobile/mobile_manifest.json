@@ -41,23 +41,23 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 3220,
-    "triangles": 49233,
-    "nodes": 2059,
-    "mesh_nodes": 2027,
-    "unique_meshes": 840,
-    "materials": 33,
-    "images": 89,
-    "draw_calls_unbatched": 2027,
-    "draw_calls_batched_min": 33,
-    "tex_mem_uncompressed_mb": 89.84,
-    "tex_mem_gpu_compressed_mb": 22.46,
+    "glb_kb": 3289,
+    "triangles": 50353,
+    "nodes": 2110,
+    "mesh_nodes": 2078,
+    "unique_meshes": 891,
+    "materials": 34,
+    "images": 92,
+    "draw_calls_unbatched": 2078,
+    "draw_calls_batched_min": 34,
+    "tex_mem_uncompressed_mb": 90.84,
+    "tex_mem_gpu_compressed_mb": 22.71,
     "texture_slots": {
-     "baseColorTexture": 30,
-     "metallicRoughnessTexture": 30,
-     "normalTexture": 28,
-     "occlusionTexture": 30,
-     "emissiveTexture": 14
+     "baseColorTexture": 31,
+     "metallicRoughnessTexture": 31,
+     "normalTexture": 29,
+     "occlusionTexture": 31,
+     "emissiveTexture": 15
     },
     "image_sizes": [
      "1024x1024 jpeg",
@@ -70,32 +70,32 @@
     ]
    },
    "visible": {
-    "cameras": 96,
-    "visible_draw_calls_mean": 674.4,
-    "visible_draw_calls_max": 2021,
-    "visible_triangles_mean": 28145,
-    "visible_triangles_max": 59889
+    "cameras": 104,
+    "visible_draw_calls_mean": 697.1,
+    "visible_draw_calls_max": 2072,
+    "visible_triangles_mean": 28648,
+    "visible_triangles_max": 61009
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 1741,
-    "triangles": 47261,
-    "nodes": 95,
-    "mesh_nodes": 94,
-    "unique_meshes": 94,
-    "materials": 33,
-    "images": 55,
-    "draw_calls_unbatched": 94,
-    "draw_calls_batched_min": 33,
-    "tex_mem_uncompressed_mb": 31.26,
-    "tex_mem_gpu_compressed_mb": 7.81,
+    "glb_kb": 1798,
+    "triangles": 48383,
+    "nodes": 111,
+    "mesh_nodes": 101,
+    "unique_meshes": 101,
+    "materials": 34,
+    "images": 58,
+    "draw_calls_unbatched": 101,
+    "draw_calls_batched_min": 34,
+    "tex_mem_uncompressed_mb": 32.26,
+    "tex_mem_gpu_compressed_mb": 8.06,
     "texture_slots": {
-     "baseColorTexture": 30,
-     "metallicRoughnessTexture": 10,
-     "normalTexture": 8,
-     "occlusionTexture": 10,
-     "emissiveTexture": 14
+     "baseColorTexture": 31,
+     "metallicRoughnessTexture": 11,
+     "normalTexture": 9,
+     "occlusionTexture": 11,
+     "emissiveTexture": 15
     },
     "image_sizes": [
      "128x128 webp",
@@ -130,19 +130,19 @@
     ]
    },
    "collision": {
-    "colliders": 365,
+    "colliders": 367,
     "hazards": 1,
-    "glb_kb": 169
+    "glb_kb": 171
    },
    "visible": {
-    "cameras": 96,
-    "visible_draw_calls_mean": 55.7,
-    "visible_draw_calls_max": 97,
-    "visible_triangles_mean": 49152,
-    "visible_triangles_max": 58073
+    "cameras": 104,
+    "visible_draw_calls_mean": 58.9,
+    "visible_draw_calls_max": 104,
+    "visible_triangles_mean": 49737,
+    "visible_triangles_max": 59195
    },
    "hidden_faces_removed": 901,
-   "occluded_faces_removed": 1071,
+   "occluded_faces_removed": 1069,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate"
    ],
@@ -150,21 +150,140 @@
    "effects_max_particles": 651,
    "slimmed_kb": {
     "level_mobile.glb": [
-     2713,
-     1741
+     2787,
+     1798
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     228,
-     169
+     230,
+     171
     ]
    }
   }
  },
  "nodes": [
+  {
+   "node": "Arena_Rig__deck",
+   "kind": "group",
+   "material": "deck",
+   "triangles": 128,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Arena_Pad_3_Cap",
+    "Arena_Pad_2_Cap",
+    "Arena_Pad_1_Cap",
+    "Arena_Deck_Cap"
+   ],
+   "group": "Arena_Rig"
+  },
+  {
+   "node": "Arena_Rig__fall",
+   "kind": "group",
+   "material": "fall",
+   "triangles": 128,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Arena_Pad_3_Surge",
+    "Arena_Pad_2_Surge",
+    "Arena_Pad_1_Surge",
+    "Arena_Deck_Surge"
+   ],
+   "group": "Arena_Rig"
+  },
+  {
+   "node": "Arena_Rig__glow",
+   "kind": "group",
+   "material": "glow",
+   "triangles": 240,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Arena_Pad_3_Rim",
+    "Arena_Pad_3_Band",
+    "Arena_Pad_2_Rim",
+    "Arena_Pad_2_Band",
+    "Arena_Pad_1_Rim",
+    "Arena_Pad_1_Band",
+    "Arena_Deck_Rim",
+    "Arena_Deck_Band"
+   ],
+   "group": "Arena_Rig"
+  },
+  {
+   "node": "Arena_Rig__glow_yellow",
+   "kind": "group",
+   "material": "glow_yellow",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Arena_Pad_3_Pylon_Crown",
+    "Arena_Pad_2_Pylon_Crown",
+    "Arena_Pad_1_Pylon_Crown"
+   ],
+   "group": "Arena_Rig"
+  },
+  {
+   "node": "Arena_Rig__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 132,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Arena_Pad_3_Pylon__ol",
+    "Arena_Pad_3_Cap__ol",
+    "Arena_Pad_2_Pylon__ol",
+    "Arena_Pad_2_Cap__ol",
+    "Arena_Pad_1_Pylon__ol",
+    "Arena_Pad_1_Cap__ol"
+   ],
+   "group": "Arena_Rig"
+  },
+  {
+   "node": "Arena_Rig__stripe",
+   "kind": "group",
+   "material": "stripe",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Arena_Pad_3_Pylon_Band",
+    "Arena_Pad_2_Pylon_Band",
+    "Arena_Pad_1_Pylon_Band"
+   ],
+   "group": "Arena_Rig"
+  },
+  {
+   "node": "Arena_Rig__structure_b",
+   "kind": "group",
+   "material": "structure_b",
+   "triangles": 312,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Arena_Pad_3_Pylon_Top",
+    "Arena_Pad_3_Pylon",
+    "Arena_Pad_3_Bowl",
+    "Arena_Pad_3_Column",
+    "Arena_Pad_2_Pylon_Top",
+    "Arena_Pad_2_Pylon",
+    "Arena_Pad_2_Bowl",
+    "Arena_Pad_2_Column",
+    "Arena_Pad_1_Pylon_Top",
+    "Arena_Pad_1_Pylon",
+    "Arena_Pad_1_Bowl",
+    "Arena_Pad_1_Column",
+    "Arena_Deck_Bowl",
+    "Arena_Deck_Column"
+   ],
+   "group": "Arena_Rig"
+  },
   {
    "node": "Belt_A_Chev__glow_yellow",
    "kind": "group",
@@ -1686,10 +1805,22 @@
    "node": "M_accent_0_0",
    "kind": "static",
    "material": "accent",
-   "triangles": 284,
+   "triangles": 416,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Arena_Deck_Cover_3_SlitR",
+    "Arena_Deck_Cover_3_SlitL",
+    "Arena_Deck_Cover_3_Cap",
+    "Arena_Deck_Cover_3",
+    "Arena_Deck_Cover_2_SlitR",
+    "Arena_Deck_Cover_2_SlitL",
+    "Arena_Deck_Cover_2_Cap",
+    "Arena_Deck_Cover_2",
+    "Arena_Deck_Cover_1_SlitR",
+    "Arena_Deck_Cover_1_SlitL",
+    "Arena_Deck_Cover_1_Cap",
+    "Arena_Deck_Cover_1",
     "Exit_Door_Fade_End",
     "Exit_Door_Fade_2",
     "Exit_Door_Fade_1",
@@ -2298,7 +2429,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 6534,
+   "triangles": 6594,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2310,6 +2441,11 @@
     "Spinner_Terminal_Tower__ol",
     "Spinner_Terminal_Desk__ol",
     "Spinner_Terminal_Pedestal__ol",
+    "Arena_Deck_Cover_3__ol",
+    "Arena_Deck_Cover_2_SlitL__ol",
+    "Arena_Deck_Cover_1_SlitL__ol",
+    "Arena_Deck_Cover_1_Cap__ol",
+    "Arena_Deck_Cover_1__ol",
     "Overlook_GLeg_1__ol",
     "Overlook_GFoot_1__ol",
     "Overlook_ColumnTop_1__ol",
@@ -2651,7 +2787,7 @@
    "node": "M_rail_0_0",
    "kind": "static",
    "material": "rail",
-   "triangles": 1278,
+   "triangles": 1196,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2679,14 +2815,6 @@
     "Overlook_GPost_L_1",
     "Overlook_GRailHigh_L",
     "Overlook_GRailLow_L",
-    "Overlook_RailN_Post_6",
-    "Overlook_RailN_Post_5",
-    "Overlook_RailN_Post_4",
-    "Overlook_RailN_Post_3",
-    "Overlook_RailN_Post_2",
-    "Overlook_RailN_Post_1",
-    "Overlook_RailN_High",
-    "Overlook_RailN_Low",
     "Overlook_RailW2_Post_5",
     "Overlook_RailW2_Post_4",
     "Overlook_RailW2_Post_3",

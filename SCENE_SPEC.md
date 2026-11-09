@@ -1280,3 +1280,14 @@ Building blocks usable without the preset:
   pad stops at the top, with a call post and a hazard threshold at its end; coin-op `viewers` [[x, z, yaw]].
 - Assembly Ascent: the overlook fills the north-east corner at 15.5 m (8 m above the spinner deck); pad 1 lifts to it.
 - viewer.html test hooks: `window.__teleport(x, y, z)` (feet position) and `window.__feet()`.
+
+## Stage 109: rising battle arena
+- Structure `rising_arena` (the "emerge" rig of `rising_pads`: one bone per platform + one per surge ring; runtimes
+  already in viewer.html / apply_effects.gd): a big octagonal deck (`center`, `diameter`, `top`) on a column and bowl
+  with a glowing band and rim, barricades for cover (`cover` [[dx, dz, yaw], ...]), and `satellites`
+  [[bearing, diameter], ...] against its flats, each with a hazard-banded pylon and a glowing crown. They surge up in
+  order (`stagger`, `rise_s`) when a player comes within `trigger_radius` of `trigger`; each platform sinks deep
+  enough that its tallest part is under the liquid before the rise. Walkable "<id>_Deck" for encounters.
+- `overlook` `open_edges` ["N"]: no railing on that edge. Assembly Ascent: the overlook's north edge is open; walking
+  to it raises the Arena (15 m deck + 3 platforms, same height, docked against it); encounter `Arena_Waves` (3 waves,
+  enemy spawn `enemy_arena` on the deck) starts when the player steps onto `Arena_Deck`.

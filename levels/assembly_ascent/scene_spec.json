@@ -1036,8 +1036,8 @@
           270
         ],
         [
-          43.0,
-          50.9,
+          48.6,
+          53.0,
           180
         ]
       ],
@@ -1051,7 +1051,67 @@
         "call_radius": 3.0
       },
       "source": "inferred",
-      "notes": "Stage 108: corner observation balcony 8 m above the spinner deck; the spinner's NE hover pad lifts players up to its gantry"
+      "notes": "Stage 108: corner observation balcony 8 m above the spinner deck; the spinner's NE hover pad lifts players up to its gantry",
+      "open_edges": [
+        "N"
+      ]
+    },
+    {
+      "id": "Arena",
+      "kind": "rising_arena",
+      "position": [
+        42.5,
+        15.5,
+        42.921
+      ],
+      "center": [
+        42.5,
+        42.921
+      ],
+      "diameter": 15.0,
+      "top": 15.5,
+      "liquid": 1.0,
+      "satellites": [
+        [
+          270,
+          6.0
+        ],
+        [
+          225,
+          6.0
+        ],
+        [
+          180,
+          6.0
+        ]
+      ],
+      "cover": [
+        [
+          -3.4,
+          -1.2,
+          35
+        ],
+        [
+          3.3,
+          0.3,
+          -25
+        ],
+        [
+          0.2,
+          -4.3,
+          90
+        ]
+      ],
+      "trigger": [
+        43.2,
+        15.5,
+        51.2
+      ],
+      "trigger_radius": 5.0,
+      "stagger": 0.5,
+      "rise_s": 2.6,
+      "source": "inferred",
+      "notes": "Stage 109: walking to the overlook's open north edge raises a battle arena out of the slime, docked against it"
     },
     {
       "id": "Spinner_Terminal",
@@ -1127,6 +1187,15 @@
       "id": "enemy_deck",
       "on": "Upper_Deck",
       "team": "enemy"
+    },
+    {
+      "id": "enemy_arena",
+      "position": [
+        42.2,
+        15.5,
+        42.4
+      ],
+      "team": "enemy"
     }
   ],
   "encounters": [
@@ -1155,6 +1224,20 @@
       ],
       "opens": "Exit_Laser",
       "trigger": "enter:Upper_Deck"
+    },
+    {
+      "id": "Arena_Waves",
+      "waves": 3,
+      "enemies_per_wave": [
+        3,
+        4,
+        6
+      ],
+      "spawns": [
+        "enemy_arena"
+      ],
+      "trigger": "enter:Arena_Deck",
+      "notes": "Stage 109: the battle on the arena that rises in front of the overlook"
     }
   ],
   "background": {

@@ -3,7 +3,7 @@
  "variant": "full",
  "level": "assembly_ascent",
  "title": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
- "generated": "2026-11-09 09:19:19",
+ "generated": "2026-11-09 09:54:01",
  "godot_root": "res://levels/assembly_ascent/",
  "use_in_game": "mobile/level_mobile.glb (+ mobile/background_mobile.glb, mobile/collision.glb)",
  "profile": "balanced",
@@ -36,6 +36,16 @@
    ],
    "yaw_deg": 157.6,
    "team": "enemy"
+  },
+  {
+   "id": "enemy_arena",
+   "position": [
+    42.2,
+    15.5,
+    42.4
+   ],
+   "yaw_deg": 44.9,
+   "team": "enemy"
   }
  ],
  "hazards": [
@@ -43,32 +53,32 @@
  ],
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "28bd0c16166981e2",
+  "spec_sha": "ce59eadff3a7c9ce",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
  },
  "metrics": {
   "dev": {
-   "glb_kb": 3220,
-   "triangles": 41217,
-   "draw_calls": 2027,
-   "tex_mem_gpu_mb_est": 22.46
+   "glb_kb": 3289,
+   "triangles": 42145,
+   "draw_calls": 2078,
+   "tex_mem_gpu_mb_est": 22.71
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 1741,
-   "triangles": 47261,
-   "draw_calls": 94,
-   "visible_draw_calls_est": 55.7,
-   "visible_draw_calls_max_est": 97,
-   "tex_mem_gpu_mb_est": 7.81,
-   "materials": 33,
-   "nodes": 95,
+   "glb_kb": 1798,
+   "triangles": 48383,
+   "draw_calls": 101,
+   "visible_draw_calls_est": 58.9,
+   "visible_draw_calls_max_est": 104,
+   "tex_mem_gpu_mb_est": 8.06,
+   "materials": 34,
+   "nodes": 111,
    "colliders": {
-    "colliders": 365,
+    "colliders": 367,
     "hazards": 1,
-    "glb_kb": 169
+    "glb_kb": 171
    },
    "background_kb": 404
   },
@@ -84,7 +94,7 @@
   "passed": true,
   "counts": {
    "error": 0,
-   "warning": 5,
+   "warning": 6,
    "info": 1
   }
  },

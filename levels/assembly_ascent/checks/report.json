@@ -1,17 +1,17 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 3220,
-  "mobile/level_mobile.glb": 1741,
-  "mobile/collision.json": 121,
+  "level.glb": 3289,
+  "mobile/level_mobile.glb": 1798,
+  "mobile/collision.json": 123,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 46
+  "effects.json": 49
  },
  "complexity": {
-  "triangles": 49233,
-  "nodes": 2027,
-  "materials": 33,
+  "triangles": 50353,
+  "nodes": 2078,
+  "materials": 34,
   "heaviest": [
    [
     "Corrosion_Band",
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 3220,
-   "triangles": 41217,
-   "draw_calls": 2027,
-   "tex_mem_gpu_mb_est": 22.46
+   "glb_kb": 3289,
+   "triangles": 42145,
+   "draw_calls": 2078,
+   "tex_mem_gpu_mb_est": 22.71
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 1741,
-   "triangles": 47261,
-   "draw_calls": 94,
-   "visible_draw_calls_est": 55.7,
-   "visible_draw_calls_max_est": 97,
-   "tex_mem_gpu_mb_est": 7.81,
-   "materials": 33,
-   "nodes": 95,
+   "glb_kb": 1798,
+   "triangles": 48383,
+   "draw_calls": 101,
+   "visible_draw_calls_est": 58.9,
+   "visible_draw_calls_max_est": 104,
+   "tex_mem_gpu_mb_est": 8.06,
+   "materials": 34,
+   "nodes": 111,
    "colliders": {
-    "colliders": 365,
+    "colliders": 367,
     "hazards": 1,
-    "glb_kb": 169
+    "glb_kb": 171
    },
    "background_kb": 404
   },
@@ -70,7 +70,7 @@
  "geometry": {
   "counts": {
    "ERROR": 0,
-   "WARNING": 2,
+   "WARNING": 3,
    "INTENTIONAL": 0
   },
   "relations": {
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 19416.0,
-  "reachable_area_m2": 3531.0,
-  "components": 102,
+  "standable_area_m2": 19709.0,
+  "reachable_area_m2": 3815.0,
+  "components": 109,
   "spawns": [
    {
     "id": "spawn",
@@ -123,6 +123,19 @@
     "headroom_m": 16.8,
     "component": 4,
     "hazard_distance_m": 8.28
+   },
+   {
+    "id": "enemy_arena",
+    "position": [
+     42.2,
+     15.5,
+     42.4
+    ],
+    "standable": true,
+    "clearance_m": 1.5,
+    "headroom_m": 19.0,
+    "component": 47,
+    "hazard_distance_m": 0.32
    }
   ],
   "intended_areas": [
@@ -182,13 +195,19 @@
    },
    {
     "name": "Overlook_Deck",
-    "standable_m2": 181.0,
+    "standable_m2": 193.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
    {
     "name": "Overlook_Gantry",
     "standable_m2": 29.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Arena_Deck",
+    "standable_m2": 152.0,
     "reachable_fraction": 1.0,
     "one_way": false
    }
@@ -227,7 +246,18 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 94 (> 80)"
+   "message": "mobile draw calls 101 (> 80)"
+  },
+  {
+   "kind": "spawn_near_hazard",
+   "severity": "warning",
+   "object": "enemy_arena",
+   "pos": [
+    42.2,
+    15.5,
+    42.4
+   ],
+   "message": "enemy_arena: hazard 0.3 m away (< 3.0 m)"
   },
   {
    "kind": "traverse_blocked",
@@ -243,7 +273,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "49233 triangles (> budget 40000)"
+   "message": "50353 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
@@ -254,12 +284,12 @@
     6.75,
     5.5
    ],
-   "message": "5 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): OuterWall_East_M12Monitor_Body, Robot_Ring_Floor"
+   "message": "10 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): OuterWall_East_M12Monitor_Body, Robot_Ring_Floor"
   }
  ],
  "counts": {
   "error": 0,
-  "warning": 5,
+  "warning": 6,
   "info": 1
  },
  "passed": true,
