@@ -375,7 +375,7 @@ class GlassDome(unittest.TestCase):
 
     def test_light_is_purple_like_the_sky(self):
         """Stage 128/129: the light shafts and the lights under the dome are magenta-purple, matching the real sky."""
-        M = self.L["materials"]; ray = M["sunbeam"]; sky = self.L["environment"]["sky"]
+        M = self.L["materials"]; ray = M["sunbeam_haze"]; sky = self.L["environment"]["sky"]
         for c in (sky["upper"], ray["color"]): self.assertTrue(c[2] > c[1] and c[0] > c[1], c)  # purple: red + blue over green
         self.assertLess(ray["alpha"], 0.2)  # see-through shafts (Stage 130: fuller, still translucent)
         E = {e["id"]: e for e in _load("effects.json")["effects"]}; dl = E["Dome_Light"]; self.assertEqual(dl["type"], "point_light")
@@ -396,7 +396,7 @@ class GlassDome(unittest.TestCase):
 
     def test_light_shafts_never_show_where_they_start(self):
         """Stage 127: open shafts with an alpha ramp - faded out well below the glass and faded in at the floor."""
-        M = self.L["materials"]; sh = [o for n, o in self.by.items() if n.startswith("Dome_Shaft_")]; self.assertTrue(sh)
+        M = self.L["materials"]; sh = [o for n, o in self.by.items() if n.startswith("Dome_Haze_")]; self.assertTrue(sh)
         for o in sh: self.assertEqual(o["type"], "beam_cone")
         m = M[sh[0]["material"]]; self.assertEqual(m["type"], "beam_fade"); self.assertLess(m["fade_out"][1], 1.0); self.assertGreater(m["fade_in"], 0)
         import sys; sys.path.insert(0, os.path.join(ROOT, "pipeline")); import materials
@@ -409,14 +409,11 @@ class GlassDome(unittest.TestCase):
         D = _load("scene_spec.json")["arena"]["ceiling"]["dome"]; (dx, dz), R = D["at"], D["radius"]
         haze = [o for n, o in self.by.items() if n.startswith("Dome_Haze_")]; self.assertEqual(len(haze), 3)
         self.assertEqual(len({round(o["size"][0], 2) for o in haze}), 3)  # nested, different widths
-        sh = [o for n, o in self.by.items() if n.startswith("Dome_Shaft_")]; self.assertGreaterEqual(len(sh), 8)
-        self.assertEqual(len({tuple(o["rotation"]) for o in sh + haze}), 1)  # all parallel: one light direction
-        for o in sh:  # each ray's top sits in a gap between two ribs
-            W, _ = __import__("anchors").world_matrices(self.L); T = W[o["name"]] @ [0, o["size"][1], 0, 1]
-            a = math.degrees(math.atan2(T[2] - dz, T[0] - dx)) % (360 / D["ribs"]); self.assertAlmostEqual(a, 180 / D["ribs"], delta=0.5)
+        self.assertFalse([n for n in self.by if n.startswith("Dome_Shaft_")])  # Stage 131: no thick single-ray tubes, only the soft volume
+        self.assertEqual(len({tuple(o["rotation"]) for o in haze}), 1)  # all parallel: one light direction
         self.assertEqual(self.L["materials"][self.by["Dome_Pool"]["material"]]["type"], "pool_fade")
         E = {e["id"]: e for e in _load("effects.json")["effects"]}
-        self.assertEqual(E["Dome_Motes"]["type"], "ambient_particles"); self.assertIn("Dome_Breath_sunbeam", E)
+        self.assertEqual(E["Dome_Motes"]["type"], "ambient_particles"); self.assertIn("Dome_Breath_sunbeam_haze", E)
 
     def test_ceiling_dressing_keeps_clear_of_the_dome(self):
         D = _load("scene_spec.json")["arena"]["ceiling"]["dome"]; (dx, dz), R = D["at"], D["radius"]

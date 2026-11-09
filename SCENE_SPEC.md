@@ -1395,4 +1395,5 @@ Building blocks usable without the preset:
   light direction; `beam_fade` `"streaks"` / `"streak_amount"` give rays within each beam; a `pool_fade` disc
   (`Dome_Pool`, role `light_pool`, faint rib spokes) where the light lands on the liquid; effects `Dome_Motes` (dust
   drifting in the light, the light colour) and `Dome_Breath_*` (pulse_light: the beams breathe slowly).
+- Stage 131: Assembly Ascent uses `"shafts": 0` - only the soft haze volume, pool and motes (the separate ray tubes read as thick columns).
 

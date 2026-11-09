@@ -593,58 +593,6 @@
    }
   },
   {
-   "id": "Dome_Breath_sunbeam",
-   "type": "pulse_light",
-   "category": "material_animation",
-   "glb_contains": "emissive at base strength",
-   "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
-   "target_material": "sunbeam",
-   "targets": [
-    "Sunbeams__sunbeam__2s"
-   ],
-   "quality": {
-    "performance": {
-     "enabled": true,
-     "params": {
-      "speed": 0.17,
-      "amount": 0.3,
-      "phase": 1.3
-     },
-     "cost_estimate": {
-      "max_particles": 0,
-      "emitters": 0,
-      "extra_draw_calls": 0
-     }
-    },
-    "balanced": {
-     "enabled": true,
-     "params": {
-      "speed": 0.17,
-      "amount": 0.3,
-      "phase": 1.3
-     },
-     "cost_estimate": {
-      "max_particles": 0,
-      "emitters": 0,
-      "extra_draw_calls": 0
-     }
-    },
-    "quality": {
-     "enabled": true,
-     "params": {
-      "speed": 0.17,
-      "amount": 0.3,
-      "phase": 1.3
-     },
-     "cost_estimate": {
-      "max_particles": 0,
-      "emitters": 0,
-      "extra_draw_calls": 0
-     }
-    }
-   }
-  },
-  {
    "id": "Dome_Breath_sunbeam_haze",
    "type": "pulse_light",
    "category": "material_animation",
