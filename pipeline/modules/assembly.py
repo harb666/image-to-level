@@ -251,11 +251,12 @@ def spinner(ctx, s, x, y, z, yaw):
         if flo and floating: ctx.add(pre + "_Jet", "frustum", [c[0], T - 4.7, c[2]], [1.1, 1.0, 1.1], gl, sections=8, bottom_scale=0.15, rot=pr8, collision=False, outline=False, mobile={"group": rg, "joint": fj})  # flickers (its bone)
         elif flo: ctx.add(pre + "_Jet", "frustum", [c[0], T - 4.7, c[2]], [1.1, 1.0, 1.1], gl, sections=8, bottom_scale=0.15, rot=pr8, collision=False, outline=False, mobile={"group": fl_})  # (the lift pad's flame: its own group)
         else: ctx.add(pre + "_Jet", "frustum", [c[0], T - 4.7, c[2]], [1.1, 1.0, 1.1], gl, sections=8, bottom_scale=0.15, rot=pr8, **pv)
-        q0 = P0(0, 0, R - 0.5); q1 = P0(0, 0, Dp - pd / 2 + 0.6); m = [(q0[i] + q1[i]) / 2 for i in range(3)]; L = math.dist(q0, q1)
+        gap_ = float(flo.get("gap", 0.15)) if flo else None  # Stage 124: floating pads keep a small gap - the bridge stops short of the pad's flat instead of tucking under it
+        q0 = P0(0, 0, R - 0.5); q1 = P0(0, 0, Dp - pd / 2 * math.cos(math.pi / 8) - gap_ if flo else Dp - pd / 2 + 0.6); m = [(q0[i] + q1[i]) / 2 for i in range(3)]; L = math.dist(q0, q1)
         ctx.add(pre + "_Bridge", "box", [m[0], T - 0.33, m[2]], [2.6, 0.3, L], "grate", rot=[0, a, 0], **st)  # 3 cm under the decks: no shared faces
         # Stage 106: the side rails run edge to edge - from the deck's edge (its octagon's flat on this bearing) to the
         # pad's facing flat - with a post at each end where they meet the decks
-        e0 = float(s.get("deck_apothem", R)) - 0.05; e1 = Dp - pd / 2 * math.cos(math.pi / 8) + 0.05; Lr = e1 - e0
+        e0 = float(s.get("deck_apothem", R)) - 0.05; e1 = Dp - pd / 2 * math.cos(math.pi / 8) + (-gap_ - 0.02 if flo else 0.05); Lr = e1 - e0
         for sd in (-1, 1):
             for nm, rr, ln, wd, hh in (("BridgeRail", (e0 + e1) / 2, Lr, 0.08, 0.7), ("BridgePost0", e0 + 0.09, 0.18, 0.18, 0.9), ("BridgePost1", e1 - 0.09, 0.18, 0.18, 0.9)):
                 c_ = P0(sd * 1.38, 0, rr); ctx.add(f"{pre}_{nm}_{'LR'[sd > 0]}", "box", [c_[0], T - 0.03, c_[2]], [wd, hh, ln], "rail", rot=[0, a, 0], **dict(st, outline=False))
@@ -448,7 +449,7 @@ def overlook(ctx, s, x, y, z, yaw):
             part(f"SpeakerGlow{'LR'[sd > 0]}", cx_, y0 + 0.2, z0 + 0.32, [0.12, H_ - 0.4, 0.05], gl)
             part(f"Conduit{'LR'[sd > 0]}", sd * W_ * 0.22, y0 + H_ + fr + 0.55, z0 + 0.12, [0.18, 2.6, 0.18], "pipe", shape="cylinder", sections=6)
     if lf:  # the gantry: along x from the deck's west edge to the lift pad's flat at the top
-        ex = lf["center"][0] + lf["deck_radius"] * math.cos(math.pi / 8) + 0.05; L_ = x0 - ex; mx = (x0 + ex) / 2
+        ex = lf["center"][0] + lf["deck_radius"] * math.cos(math.pi / 8) + (0.15 if lf.get("bob") else 0.05); L_ = x0 - ex; mx = (x0 + ex) / 2  # Stage 124: room for a floating lift pad to bob
         ctx.add(n + "_Gantry", "box", [(ex + x0 - 0.02) / 2, top - 0.3, gz], [x0 - 0.02 - ex, 0.3, gw], "grate", **st)  # ends 2 cm short of the deck: no shared faces
         for sd in (-1, 1):
             ctx.add(f"{n}_Stringer_{'LR'[sd > 0]}", "box", [mx, top - 0.85, gz + sd * (gw / 2 - 0.15)], [L_ + 0.1, 0.55, 0.3], "frame", bevel=False, **vs)

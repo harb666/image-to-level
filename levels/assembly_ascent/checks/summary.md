@@ -4,7 +4,7 @@ Spec: levels/assembly_ascent/scene_spec.json · 2127 objects · 35 materials · 
 Checks: PASSED ({'error': 0, 'warning': 7, 'info': 1}) · refine passes: 0
 Mobile (balanced): 2091 KB · 55340 tris · 121 draw calls · ~67.1 visible (estimate) · ~9.08 MB GPU textures (estimate)
 Navigation: 3983.0 m² reachable of 19851.0 m² standable
-Package: dist/assembly_ascent/package (38 files, 8.62 MB) valid=True
+Package: dist/assembly_ascent/package (38 files, 8.6 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
@@ -32,7 +32,7 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Belt_B: conveyor ramp 16.5 m at 21 deg, belt -3.4 m/s, spike pit at the foot
 - Exit_Door: exit hallway 12 m fading to black -> level2_part1
 - Spinner: spinner, 4 arms driven by a ceiling press (peak 64.43 rpm, still 3.8 s per 9.5 s), 4 hovering pads
-- Overlook: corner overlook 5.1 x 15.0 m at 15.5 m, gantry 14.9 m to lift Spinner_Pad_1_Lift
+- Overlook: corner overlook 5.1 x 15.0 m at 15.5 m, gantry 14.8 m to lift Spinner_Pad_1_Lift
 - Arena: battle arena rising out of the liquid (goofy) - 25 square tiles, 20.8 m across at 15.5 m
 - Jet_Screen: jetpack grin screen bobbing at [-2.0, 22.0, -18.0]; flies to [28.39, 21.632, 28.89] when a player reaches Arena_Deck - big red button opens ['Yard_Laser']
 - crates: 5 printed crates (accent atlas)
@@ -44,8 +44,8 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 
 ## Timing
 - spec -> level.json: 1.5 s
-- build (glb, sky, background, effects, mobile): 30.5 s
-- checks (fast): 40.3 s
+- build (glb, sky, background, effects, mobile): 30.7 s
+- checks (fast): 37.8 s
 - previews: 0.7 s
 - export package: 0.4 s
-- total: 73.4 s
+- total: 71.0 s

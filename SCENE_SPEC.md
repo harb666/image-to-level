@@ -1362,4 +1362,7 @@ Building blocks usable without the preset:
   `floaters`, effect `floater`); the lift pad bobs on top of its travel (its lift record carries the same fields).
   Their parts are flagged `floater` / `lift`: no static colliders - apply_effects.gd moves an AnimatableBody3D deck
   collider with each pad. viewer.html refreshes the rig's ray bounds every frame, so the pads stay solid.
+- Stage 124: with `float_pads` the bridges (and their rails) stop `gap` (0.15 m) short of each pad's facing flat
+  instead of tucking under it, and the overlook gantry leaves the same gap for a floating lift pad, so nothing pokes
+  through a bobbing / swaying pad (checked over a whole cycle, the lift docked at both ends); a 0.15 m step stays easy.
 

@@ -105,7 +105,7 @@ class SpinnerDeck(unittest.TestCase):
             for sd in "LR":  # Stage 106: the pad bridges' side rails run from the deck's edge to the pad's edge
                 rl = by[f"Spinner_Pad_{k}_BridgeRail_{sd}"]; d = math.hypot(rl["position"][0] - sw["center"][0], rl["position"][2] - sw["center"][2])
                 inner = (d ** 2 - 1.38 ** 2) ** 0.5 - rl["size"][2] / 2; outer = inner + rl["size"][2]
-                self.assertLess(inner, 11.15 * math.cos(math.pi / 8)); self.assertGreater(outer, 18.0 - 4.0 * math.cos(math.pi / 8))
+                self.assertLess(inner, 11.15 * math.cos(math.pi / 8)); self.assertGreater(outer, 18.0 - 4.0 * math.cos(math.pi / 8) - 0.3)  # (Stage 124: up to the floating pad's gap)
                 self.assertIn(f"Spinner_Pad_{k}_BridgePost0_{sd}", by); self.assertIn(f"Spinner_Pad_{k}_BridgePost1_{sd}", by)
         c = sw["center"]; posts = [o for n, o in by.items() if n.startswith("Spinner_Post_")]
         self.assertGreater(min(math.hypot(o["position"][0] - c[0], o["position"][2] - c[2]) - 0.33 for o in posts), sw["r1"] + sw["ball_r"] + 0.1)  # the maces clear the lamp posts
@@ -156,7 +156,7 @@ class CornerOverlook(unittest.TestCase):
         lf = next(l for l in L["lifts"] if l["id"] == "Spinner_Pad_1_Lift"); self.assertAlmostEqual(lf["travel"], 8.0); self.assertEqual({c["at"] for c in lf["calls"]}, {"bottom", "top"})
         dk = by["Overlook_Deck"]; self.assertAlmostEqual(dk["position"][1] + dk["size"][1], lf["top"]); self.assertGreater(lf["top"] - 7.5, 6.0)  # well above the spinner deck
         g = by["Overlook_Gantry"]; gx0 = g["position"][0] - g["size"][0] / 2
-        self.assertAlmostEqual(gx0, lf["center"][0] + lf["deck_radius"] * math.cos(math.pi / 8), delta=0.1)  # the raised pad docks against its end
+        self.assertAlmostEqual(gx0, lf["center"][0] + lf["deck_radius"] * math.cos(math.pi / 8) + 0.15, delta=0.1)  # the raised pad docks at its end (Stage 124: a 0.15 m gap - it floats)
         self.assertAlmostEqual(g["position"][1] + g["size"][1], lf["top"])
         for n in ("Spinner_Pad_1_Deck", "Spinner_Pad_1_Hull"): self.assertEqual(by[n]["mobile"]["group"], lf["group"]); self.assertEqual(by[n]["lift"], lf["id"])
         self.assertAlmostEqual(by["Spinner_Pad_2_Deck"]["rotation"][1] % 45, 22.5, places=3)  # flats (not corners) face the bridges
@@ -189,6 +189,10 @@ class FloatingPads(unittest.TestCase):
         for k in (2, 3, 4):
             self.assertEqual(by[f"Spinner_Pad_{k}_Deck"]["mobile"]["group"], F["group"]); self.assertEqual(by[f"Spinner_Pad_{k}_Jet"]["mobile"]["joint"], f"Spinner_Pad_{k}_FF")
         lf = L["lifts"][0]; self.assertIn("bob", lf); self.assertEqual(lf["flame"], "Spinner_Pad_1_Flame")
+        for k in (1, 2, 3, 4):  # Stage 124: the bridges stop short of the (moving) pads - a small gap, an easy step
+            p = by[f"Spinner_Pad_{k}_Deck"]["position"]; br = by[f"Spinner_Pad_{k}_Bridge"]; bc = br["position"]
+            d_end = math.hypot(bc[0] - p[0], bc[2] - p[2]) - br["size"][2] / 2; edge = 4.0 * math.cos(math.pi / 8)
+            self.assertTrue(0.08 < d_end - edge < 0.3, (k, d_end - edge))
         C = _load("mobile/collision.json"); self.assertFalse([c for c in C["colliders"] if c["source"].startswith(("Spinner_Pad_2_Deck", "Spinner_Pad_3_Deck", "Spinner_Pad_4_Deck"))])
         self.assertEqual(len(C["floaters"]), 1)
         with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()

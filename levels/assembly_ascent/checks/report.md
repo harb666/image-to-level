@@ -10,7 +10,7 @@ errors 0 · warnings 7 · info 1
 | visible draw calls (estimate) | - | 67.1 |
 | GPU texture MB (estimate) | 23.73 | 9.08 |
 
-Navigation: reachable 3983.0 of 19851.0 m² standable; components 97.
+Navigation: reachable 3983.0 of 19851.0 m² standable; components 93.
 Camera: - cameras, void rays -, back faces -.
 Geometry: {'ERROR': 0, 'WARNING': 3, 'INTENTIONAL': 0} (checks/geometry.md)
 
