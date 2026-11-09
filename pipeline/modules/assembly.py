@@ -178,13 +178,24 @@ def spinner(ctx, s, x, y, z, yaw):
     ctx.add(n + "_Core", "cylinder", [x, T + 2.0, z], [1.5, 2.9, 1.5], gl, sections=10, **dict(st, outline=False))
     ctx.add(n + "_Glass", "cylinder", [x, T + 2.0, z], [2.3, 2.9, 2.3], ctx.role("glass_clear"), sections=10, double_sided=True, outline=False, collision=False, **st)
     for k, yy in enumerate((T + 2.0, T + 4.75)): ctx.add(f"{n}_Band_{k + 1}", "cylinder", [x, yy - 0.12, z], [2.65, 0.3, 2.65], "machine", sections=12, **dict(st, outline=False))
-    ctx.add(n + "_Cap", "cylinder", [x, T + 4.9, z], [3.0, 0.9, 3.0], "machine", sections=12, **st)
-    for k in range(4):  # pipes: up out of the cap, across, down into a valve box
+    pr = s.get("press")
+    if pr:  # Stage 103: an anvil for the ceiling press - a lower cap, a hazard rim and the red strike plate it slams onto
+        ctx.add(n + "_Cap", "cylinder", [x, T + 4.9, z], [3.0, 0.7, 3.0], "machine", sections=12, **st)
+        ctx.add(n + "_CapRim", "cylinder", [x, T + 5.2, z], [3.2, 0.3, 3.2], stripe, sections=12, **dict(vs, outline=False))
+        ctx.add(n + "_Strike", "cylinder", [x, T + 5.6, z], [1.9, 0.4, 1.9], gl, sections=10, **dict(vs, outline=False))
+    else:
+        ctx.add(n + "_Cap", "cylinder", [x, T + 4.9, z], [3.0, 0.9, 3.0], "machine", sections=12, **st)
+    for k in range(4):  # pipes: up out of the cap (out of its side under a press), across, down into a valve box
         a = yaw + 45 + 90 * k; P0 = _W(x, 0, z, a)
-        ctx.add(f"{n}_PipeUp_{k + 1}", "cylinder", P0(0, T + 5.7, 0.9), [0.5, 1.0, 0.5], "pipe", sections=8, **vs)
-        q = P0(0, T + 6.45, 0.9); ctx.add(f"{n}_PipeOut_{k + 1}", "cylinder", q, [0.5, 2.4, 0.5], "pipe", rot=[90, a, 0], sections=8, **vs)
-        ctx.add(f"{n}_PipeBand_{k + 1}", "cylinder", P0(0, T + 6.45, 2.1), [0.62, 0.3, 0.62], gl, rot=[90, a, 0], sections=8, **vs)
-        ctx.add(f"{n}_PipeDown_{k + 1}", "cylinder", P0(0, T + 5.1, 3.3), [0.5, 1.6, 0.5], "pipe", sections=8, **vs)
+        if pr:
+            ctx.add(f"{n}_PipeOut_{k + 1}", "cylinder", P0(0, T + 5.3, 1.4), [0.5, 1.9, 0.5], "pipe", rot=[90, a, 0], sections=8, **vs)
+            ctx.add(f"{n}_PipeBand_{k + 1}", "cylinder", P0(0, T + 5.3, 2.2), [0.62, 0.3, 0.62], gl, rot=[90, a, 0], sections=8, **vs)
+            ctx.add(f"{n}_PipeDown_{k + 1}", "cylinder", P0(0, T + 5.1, 3.3), [0.5, 0.45, 0.5], "pipe", sections=8, **vs)
+        else:
+            ctx.add(f"{n}_PipeUp_{k + 1}", "cylinder", P0(0, T + 5.7, 0.9), [0.5, 1.0, 0.5], "pipe", sections=8, **vs)
+            q = P0(0, T + 6.45, 0.9); ctx.add(f"{n}_PipeOut_{k + 1}", "cylinder", q, [0.5, 2.4, 0.5], "pipe", rot=[90, a, 0], sections=8, **vs)
+            ctx.add(f"{n}_PipeBand_{k + 1}", "cylinder", P0(0, T + 6.45, 2.1), [0.62, 0.3, 0.62], gl, rot=[90, a, 0], sections=8, **vs)
+            ctx.add(f"{n}_PipeDown_{k + 1}", "cylinder", P0(0, T + 5.1, 3.3), [0.5, 1.6, 0.5], "pipe", sections=8, **vs)
         ctx.add(f"{n}_Valve_{k + 1}", "box", P0(0, T + 4.2, 3.3), [0.9, 0.9, 0.9], "machine", rot=[0, a, 0], **vs)
     # --- rotor (moves): collar + arms + spiked balls
     gr = n + "_Rotor"; mr = dict(collision=False, mobile={"group": gr}); arms = [float(v) for v in s.get("arms", [0, 90, 180, 270])]
@@ -195,7 +206,8 @@ def spinner(ctx, s, x, y, z, yaw):
         c = P0(0, T + by - bh, r0 + L / 2); ctx.add(f"{gr}_Arm_{k + 1}", "box", c, [0.5, 2 * bh, L], stripe, rot=[0, a, 0], bevel=False, **mr)
         ctx.add(f"{gr}_Ball_{k + 1}", "spike_ball", P0(0, T + bly, r1), [2 * br, 2 * br, 2 * br], ctx.role("spike"), **dict(mr, outline=False))
         ctx.add(f"{gr}_BallGlow_{k + 1}", "cylinder", P0(0, T + bly - 0.1, r1 - br * 0.9), [0.5, 0.2, 0.5], gl, rot=[90, a, 0], sections=6, **dict(mr, outline=False))
-    ctx.sweepers = getattr(ctx, "sweepers", []) + [dict(id=n, group=gr, center=[round(x, 3), round(T, 3), round(z, 3)], rpm=float(s.get("rpm", 6.0)), phase=float(s.get("phase", 0.0)),
+    drive = _press(ctx, n, x, T, z, yaw, pr, gl, stripe) if pr else None
+    ctx.sweepers = getattr(ctx, "sweepers", []) + [dict(id=n, group=gr, center=[round(x, 3), round(T, 3), round(z, 3)], rpm=float(drive["peak_rpm"] if drive else s.get("rpm", 6.0)), phase=float(s.get("phase", 0.0)), **({"drive": drive} if drive else {}),
                                                        arms=[round(yaw + a, 2) for a in arms], r0=r0, r1=round(r1, 3), bar_y=by, bar_half=bh, ball_r=round(br, 3), ball_y=round(bly, 3),
                                                        note="angle(t) = arm + rpm * 6 * t deg (level yaw convention: direction (sin, cos)); a bar kills a body it overlaps (jump over it), a ball kills within ball_r")]
     # --- hovering pads on the diagonals + grate catwalks
@@ -219,7 +231,80 @@ def spinner(ctx, s, x, y, z, yaw):
         P0 = _W(x, 0, z, a); q = P0(0, 0, R - 0.55)
         ctx.add(f"{n}_Post_{k + 1}", "box", [q[0], T, q[2]], [0.45, 1.1, 0.45], "machine", rot=[0, a, 0], **st)
         ctx.add(f"{n}_PostLamp_{k + 1}", "box", [q[0], T + 1.1, q[2]], [0.5, 0.35, 0.5], gl, rot=[0, a, 0], **vs)
-    ctx.notes.append(f"{n}: spinner, {len(arms)} arms at {s.get('rpm', 6.0)} rpm, 4 hovering pads")
+    ctx.notes.append(f"{n}: spinner, {len(arms)} arms " + (f"driven by a ceiling press (peak {drive['peak_rpm']} rpm, still {drive['still']:.1f} s per {drive['period']} s)" if drive else f"at {s.get('rpm', 6.0)} rpm") + ", 4 hovering pads")
+
+
+def press_profile(D, t):
+    """Stage 103: the press-driven spinner, shared by the runtimes (viewer.html, apply_effects.gd) and the checks.
+    u = (t + phase) mod period: the ram slams down over "slam" s (accelerating), holds "hold" s, then rises over "rise"
+    s (eased); the rotor spins up over "spin_up" s from the impact, holds "peak" deg/s while the ram is down, then coasts
+    to a stop over "spin_down" s from the release - each cycle turns it a whole number of turns ("turns"), so it always
+    stops in the same pose. Returns (ram offset (<= 0, m), rotor angle (deg))."""
+    P, sl, ho, ri, su, sd, w = (float(D[k]) for k in ("period", "slam", "hold", "rise", "spin_up", "spin_down", "peak"))
+    tp = t + float(D.get("phase", 0.0)); k = math.floor(tp / P); u = tp - k * P; tr = float(D["travel"])
+    if u < sl: off = -tr * (u / sl) ** 2
+    elif u < sl + ho: off = -tr
+    elif u < sl + ho + ri: f = (u - sl - ho) / ri; off = -tr * (1 - f * f * (3 - 2 * f))
+    else: off = 0.0
+    d = u - sl
+    if d <= 0: th = 0.0
+    elif d < su: th = w * d * d / (2 * su)
+    elif d < ho: th = w * (d - su / 2)
+    elif d < ho + sd: e = d - ho; th = w * (ho - su / 2) + w * (e - e * e / (2 * sd))
+    else: th = w * (ho - su / 2 + sd / 2)
+    return off, k * 360.0 * float(D["turns"]) + th
+
+
+def _press(ctx, n, x, T, z, yaw, pr, gl, stripe):
+    """Stage 103: a giant telescoping hydraulic press hung from the ceiling over the spinner tower: a ceiling plate and
+    an octagonal crown (glowing ring, hazard band), a barrel with hydraulic lines and gusset braces, a middle stage
+    (moves half the stroke) and an inner stage carrying the head - an octagonal block with a tapered top, a hazard
+    skirt, four guide sleeves running on four guide columns down from the crown, and a striker with a glowing ring that
+    lands on the tower's red strike plate. Returns the drive record (level.json sweepers[].drive)."""
+    C = float(pr.get("ceiling", 34.5)); yc = T + 6.0  # the strike plate's top
+    st = dict(mobile={"static": True}); vs = dict(collision=False, outline=False, **st)
+    gm, gr_ = n + "_PressMid", n + "_Ram"; mm = dict(collision=False, mobile={"group": gm}); mr = dict(collision=False, mobile={"group": gr_})
+    cyl = lambda nm, y0, h, dia, mat, kw, sec=10: ctx.add(nm, "cylinder", [x, y0, z], [dia, h, dia], mat, sections=sec, **kw)
+    # --- static: ceiling plate, crown, barrel, braces, hydraulic lines, guide columns
+    cyl(n + "_PressPlate", C - 0.5, 0.5, 9.0, "machine", st, 8); cyl(n + "_PressPlateRim", C - 0.75, 0.3, 9.2, stripe, vs, 8)
+    cyl(n + "_Crown", C - 3.3, 2.8, 7.2, "structure_b", st, 8); cyl(n + "_CrownGlow", C - 2.3, 0.3, 7.3, gl, vs, 8)
+    cyl(n + "_CrownBand", C - 3.45, 0.55, 7.4, stripe, vs, 8)
+    for k, (y0, y1) in enumerate(((C - 7.0, C - 5.12), (C - 5.12, C - 4.21), (C - 4.21, C - 3.25))): cyl(f"{n}_Barrel_{k + 1}", y0, y1 - y0, 3.6, "machine", st, 12)  # joins under the band / gauge rings
+    cyl(n + "_BarrelBand", C - 5.3, 0.35, 3.9, "machine", vs, 12); cyl(n + "_Gland", C - 7.3, 0.55, 4.0, "machine", vs, 12)
+    cyl(n + "_GaugeGlow", C - 4.3, 0.18, 3.7, gl, vs, 12)
+    for k in range(4):
+        a = yaw + 45 + 90 * k; P0 = _W(x, 0, z, a)
+        lo, hi = P0(0, C - 6.6, 1.85), P0(0, C - 3.3, 3.3); th = math.degrees(math.atan2(1.45, 3.3))  # gusset brace: barrel -> crown rim
+        ctx.add(f"{n}_Brace_{k + 1}", "cylinder", lo, [0.55, math.hypot(1.45, 3.3), 0.55], "machine", rot=[th, a, 0], sections=6, **vs)
+        ctx.add(f"{n}_HydLine_{k + 1}", "cylinder", P0(0, C - 6.9, 1.9), [0.24, 3.65, 0.24], "pipe", sections=6, **vs)
+    travel = round((C - 15.45) - yc, 3)  # the striker's lower face at rest (C - 15.45) -> the strike plate
+    for k in range(4):  # guide columns the head's sleeves run on, a stop collar at the foot
+        P0 = _W(x, 0, z, yaw + 90 * k); q = P0(0, 0, 2.75)
+        ctx.add(f"{n}_Guide_{k + 1}", "cylinder", [q[0], yc + 0.1, q[2]], [0.42, C - 3.3 - yc - 0.1, 0.42], "pipe", sections=8, **vs)
+        ctx.add(f"{n}_GuideStop_{k + 1}", "cylinder", [q[0], yc - 0.0, q[2]], [0.8, 0.4, 0.8], "machine", sections=8, **vs)
+    # --- middle stage (half the stroke)
+    cyl(n + "_StageMid", C - 10.2, 6.7, 3.0, "pipe", mm, 12); cyl(n + "_StageMidRing", C - 10.4, 0.4, 3.35, "pipe", mm, 12)
+    # --- inner stage + head (the full stroke)
+    cyl(n + "_StageIn", C - 13.3, 6.8, 2.3, "machine", mr, 12)
+    cyl(n + "_Head", C - 14.9, 1.6, 6.4, "machine", mr, 8)
+    ctx.add(n + "_HeadTaper", "frustum", [x, C - 13.3, z], [2.9, 0.7, 2.9], "machine", sections=8, bottom_scale=6.0 / 2.9, **mr)
+    cyl(n + "_Skirt", C - 14.95, 0.45, 6.6, stripe, dict(mr, outline=False), 8)
+    cyl(n + "_Striker", C - 15.45, 0.25, 2.2, "machine", mr, 10); cyl(n + "_StrikerNeck", C - 15.2, 0.3, 1.9, "machine", mr, 10)
+    cyl(n + "_StrikerGlow", C - 15.28, 0.16, 2.45, gl, dict(mr, outline=False), 10)
+    for k in range(4):
+        P0 = _W(x, 0, z, yaw + 90 * k); q = P0(0, 0, 2.75)
+        ctx.add(f"{n}_Sleeve_{k + 1}", "cylinder", [q[0], C - 15.0, q[2]], [0.95, 1.9, 0.95], "machine", sections=8, **mr)
+        P1 = _W(x, 0, z, yaw + 45 + 90 * k); q = P1(0, 0, 3.05)  # warning lamps on the head's diagonals (blink before the slam)
+        ctx.add(f"{n}_RamLamp_{k + 1}", "box", [q[0], C - 14.2, q[2]], [0.7, 0.45, 0.35], gl, rot=[0, yaw + 45 + 90 * k, 0], **dict(mr, outline=False))
+    P_, sl, ho, ri = float(pr.get("period", 9.5)), float(pr.get("slam", 0.35)), float(pr.get("hold", 2.4)), float(pr.get("rise", 1.8))
+    su, sd, turns = float(pr.get("spin_up", 0.35)), float(pr.get("spin_down", 3.0)), float(pr.get("turns", 4))
+    w = 360.0 * turns / (ho - su / 2 + sd / 2)
+    return dict(press=gr_, stages=[{"group": gm, "frac": 0.5}, {"group": gr_, "frac": 1.0}], lamps=f"{gr_}__{gl}", travel=travel, period=P_, slam=sl, hold=ho, rise=ri,
+                spin_up=su, spin_down=sd, turns=turns, peak=round(w, 3), peak_rpm=round(w / 6.0, 2), warn=float(pr.get("warn", 1.2)), phase=float(pr.get("phase", 0.0)),
+                still=round(P_ - sl - ho - sd, 2), shake=float(pr.get("shake", 28.0)),
+                note="press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; "
+                     "rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; "
+                     "camera shake within 'shake' m on impact")
 
 
 @structure("pillar_path", pad=False)

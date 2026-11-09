@@ -1,18 +1,18 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 1690 objects · 30 materials · 17 effects
+Spec: levels/assembly_ascent/scene_spec.json · 1732 objects · 30 materials · 17 effects
 Checks: PASSED ({'error': 0, 'warning': 5, 'info': 1}) · refine passes: 0
-Mobile (balanced): 1505 KB · 40403 tris · 81 draw calls · ~51.5 visible (estimate) · ~7.06 MB GPU textures (estimate)
+Mobile (balanced): 1559 KB · 42315 tris · 87 draw calls · ~53.3 visible (estimate) · ~7.06 MB GPU textures (estimate)
 Navigation: 3240.0 m² reachable of 19147.0 m² standable
-Package: dist/assembly_ascent/package (38 files, 6.85 MB) valid=True
+Package: dist/assembly_ascent/package (38 files, 7.04 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- warning: mobile draw calls 81 (> 80)
+- warning: mobile draw calls 87 (> 80)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- warning: 42285 triangles (> budget 40000)
+- warning: 44197 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -29,7 +29,7 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Belt_A: conveyor ramp 16.5 m at 21 deg, belt -2.4 m/s, spike pit at the foot
 - Belt_B: conveyor ramp 16.5 m at 21 deg, belt -3.4 m/s, spike pit at the foot
 - Exit_Door: exit hallway 12 m fading to black -> level2_part1
-- Spinner: spinner, 4 arms at 6.0 rpm, 4 hovering pads
+- Spinner: spinner, 4 arms driven by a ceiling press (peak 64.43 rpm, still 3.8 s per 9.5 s), 4 hovering pads
 - crates: 5 printed crates (accent atlas)
 - fixtures: 62 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_North_M02Fan, OuterWall_West_M02Fan)
 - ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 1 standing part(s), 0 crane runway(s), ends at beams 0.0 m
@@ -38,9 +38,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - corrosion: 563 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 1.0 s
-- build (glb, sky, background, effects, mobile): 18.9 s
-- checks (fast): 24.2 s
-- previews: 0.3 s
-- export package: 0.2 s
-- total: 44.6 s
+- spec -> level.json: 1.2 s
+- build (glb, sky, background, effects, mobile): 27.7 s
+- checks (fast): 31.5 s
+- previews: 0.4 s
+- export package: 0.3 s
+- total: 61.2 s

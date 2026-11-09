@@ -96,7 +96,19 @@ class SpinnerDeck(unittest.TestCase):
         jump = (G or {}).get("player", {}).get("jump_height", 1.2)
         self.assertLess(sw["bar_y"] + sw["bar_half"], jump - 0.2)  # bar top clears with a jump
         self.assertGreater(sw["ball_y"] + sw["ball_r"], jump + 0.3)  # a ball does not
-        self.assertTrue(0 < sw["rpm"] <= 8)
+        D = sw["drive"]  # Stage 103: a ceiling press drives it - slam, fast spin, coast to a stop, a still gap to cross
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from modules.assembly import press_profile
+        P = D["period"]; self.assertGreaterEqual(D["still"], 3.0); self.assertGreater(D["peak_rpm"], 30)
+        self.assertGreaterEqual(D["still"] * (G or {}).get("player", {}).get("walk_speed", 5.0), 14.0)  # time to cross pad-to-pad (14.9 m chord) at walking speed
+        for k in range(3):  # always stops in the same pose; still (and the press up) through the still window
+            a0 = press_profile(D, k * P + P - D["still"] + 0.05 - D["phase"]); a1 = press_profile(D, k * P + P - 0.05 - D["phase"])
+            self.assertAlmostEqual(a0[1], a1[1], places=3); self.assertAlmostEqual(a0[1] / 360.0, round(a0[1] / 360.0), places=4)
+            self.assertEqual(a1[0], 0.0)
+        off, _ = press_profile(D, D["slam"] + 0.5 - D["phase"]); self.assertAlmostEqual(off, -D["travel"])  # pressed
+        self.assertAlmostEqual(by["Spinner_Striker"]["position"][1] - D["travel"], by["Spinner_Strike"]["position"][1] + by["Spinner_Strike"]["size"][1], places=3)  # lands on the red strike plate
+        self.assertAlmostEqual(by["Spinner_PressPlate"]["position"][1] + by["Spinner_PressPlate"]["size"][1], 34.5, places=3)  # hangs from the ceiling
+        self.assertEqual([s["frac"] for s in D["stages"]], [0.5, 1.0]); self.assertEqual(by["Spinner_Head"]["mobile"]["group"], D["press"])
+        self.assertFalse([n for n in by if n.startswith("Spinner_PipeUp_")])  # nothing on the cap for the head to hit
         T = next(t_ for t_ in L["terminals"] if t_["id"] == "Spinner_Terminal"); self.assertEqual(T["activates"], ["Yard_Laser"])
         pad = by["Spinner_Pad_2_Deck"]; self.assertLess(math.hypot(T["center"][0] - 17.7, T["center"][2] - 27.3), 3.0)  # on the far (north-east) pad
         N = _load("checks/navigation.json"); cut = {o for c in N["component_list"] if not c.get("reachable") for o in c.get("objects", [])}
@@ -106,7 +118,9 @@ class SpinnerDeck(unittest.TestCase):
         E = {e["type"] for e in _load("effects.json")["effects"]}; self.assertIn("sweeper", E)
         self.assertEqual(len(_load("mobile/collision.json")["sweepers"]), 1)
         with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: self.assertIn("fx.category==='sweeper'", f.read())
-        with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: self.assertIn("func _sweeper", f.read())
+        with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: gd = f.read()
+        self.assertIn("func _sweeper", gd); self.assertIn("static func press_profile", gd)
+        with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: self.assertIn("window.camShake", f.read())
 
 
 if __name__ == "__main__":

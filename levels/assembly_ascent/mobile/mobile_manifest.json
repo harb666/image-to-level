@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 2844,
-    "triangles": 42285,
-    "nodes": 1856,
-    "mesh_nodes": 1824,
-    "unique_meshes": 747,
+    "glb_kb": 2937,
+    "triangles": 44197,
+    "nodes": 1911,
+    "mesh_nodes": 1879,
+    "unique_meshes": 787,
     "materials": 30,
     "images": 82,
-    "draw_calls_unbatched": 1824,
+    "draw_calls_unbatched": 1879,
     "draw_calls_batched_min": 30,
     "tex_mem_uncompressed_mb": 71.51,
     "tex_mem_gpu_compressed_mb": 17.88,
@@ -71,22 +71,22 @@
    },
    "visible": {
     "cameras": 80,
-    "visible_draw_calls_mean": 602.8,
-    "visible_draw_calls_max": 1818,
-    "visible_triangles_mean": 25718,
-    "visible_triangles_max": 52941
+    "visible_draw_calls_mean": 617.8,
+    "visible_draw_calls_max": 1873,
+    "visible_triangles_mean": 26237,
+    "visible_triangles_max": 54853
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 1505,
-    "triangles": 40403,
-    "nodes": 82,
-    "mesh_nodes": 81,
-    "unique_meshes": 81,
+    "glb_kb": 1559,
+    "triangles": 42315,
+    "nodes": 88,
+    "mesh_nodes": 87,
+    "unique_meshes": 87,
     "materials": 30,
     "images": 52,
-    "draw_calls_unbatched": 81,
+    "draw_calls_unbatched": 87,
     "draw_calls_batched_min": 30,
     "tex_mem_uncompressed_mb": 28.26,
     "tex_mem_gpu_compressed_mb": 7.06,
@@ -130,16 +130,16 @@
     ]
    },
    "collision": {
-    "colliders": 291,
+    "colliders": 296,
     "hazards": 1,
-    "glb_kb": 138
+    "glb_kb": 141
    },
    "visible": {
     "cameras": 80,
-    "visible_draw_calls_mean": 51.5,
-    "visible_draw_calls_max": 84,
-    "visible_triangles_mean": 44995,
-    "visible_triangles_max": 51215
+    "visible_draw_calls_mean": 53.3,
+    "visible_draw_calls_max": 90,
+    "visible_triangles_mean": 46273,
+    "visible_triangles_max": 53127
    },
    "hidden_faces_removed": 887,
    "occluded_faces_removed": 995,
@@ -150,16 +150,16 @@
    "effects_max_particles": 283,
    "slimmed_kb": {
     "level_mobile.glb": [
-     2382,
-     1505
+     2449,
+     1559
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     185,
-     138
+     189,
+     141
     ]
    }
   }
@@ -1332,6 +1332,97 @@
    "group": "Spike_Press_Warn"
   },
   {
+   "node": "Spinner_PressMid__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Spinner_StageMidRing__ol",
+    "Spinner_StageMid__ol"
+   ],
+   "group": "Spinner_PressMid"
+  },
+  {
+   "node": "Spinner_PressMid__pipe",
+   "kind": "group",
+   "material": "pipe",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Spinner_StageMidRing",
+    "Spinner_StageMid"
+   ],
+   "group": "Spinner_PressMid"
+  },
+  {
+   "node": "Spinner_Ram__glow",
+   "kind": "group",
+   "material": "glow",
+   "triangles": 88,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Spinner_RamLamp_4",
+    "Spinner_RamLamp_3",
+    "Spinner_RamLamp_2",
+    "Spinner_RamLamp_1",
+    "Spinner_StrikerGlow"
+   ],
+   "group": "Spinner_Ram"
+  },
+  {
+   "node": "Spinner_Ram__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 220,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Spinner_Sleeve_1__ol",
+    "Spinner_StrikerNeck__ol",
+    "Spinner_Striker__ol",
+    "Spinner_HeadTaper__ol",
+    "Spinner_Head__ol",
+    "Spinner_StageIn__ol"
+   ],
+   "group": "Spinner_Ram"
+  },
+  {
+   "node": "Spinner_Ram__machine",
+   "kind": "group",
+   "material": "machine",
+   "triangles": 316,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Spinner_Sleeve_4",
+    "Spinner_Sleeve_3",
+    "Spinner_Sleeve_2",
+    "Spinner_Sleeve_1",
+    "Spinner_StrikerNeck",
+    "Spinner_Striker",
+    "Spinner_HeadTaper",
+    "Spinner_Head",
+    "Spinner_StageIn"
+   ],
+   "group": "Spinner_Ram"
+  },
+  {
+   "node": "Spinner_Ram__stripe",
+   "kind": "group",
+   "material": "stripe",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Spinner_Skirt"
+   ],
+   "group": "Spinner_Ram"
+  },
+  {
    "node": "Spinner_Rotor__glow",
    "kind": "group",
    "material": "glow",
@@ -1902,7 +1993,7 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 1666,
+   "triangles": 1786,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1921,10 +2012,13 @@
     "Spinner_Pad_2_GlowBand",
     "Spinner_Pad_1_Jet",
     "Spinner_Pad_1_GlowBand",
+    "Spinner_GaugeGlow",
+    "Spinner_CrownGlow",
     "Spinner_PipeBand_4",
     "Spinner_PipeBand_3",
     "Spinner_PipeBand_2",
     "Spinner_PipeBand_1",
+    "Spinner_Strike",
     "Spinner_Core",
     "Spinner_HubRing",
     "Claw_Hang_Finger_3_Lit",
@@ -2073,7 +2167,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 6270,
+   "triangles": 6478,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2089,6 +2183,11 @@
     "Spinner_Pad_1_Bridge__ol",
     "Spinner_Pad_1_Hull__ol",
     "Spinner_Pad_1_Deck__ol",
+    "Spinner_Barrel_3__ol",
+    "Spinner_Barrel_2__ol",
+    "Spinner_Barrel_1__ol",
+    "Spinner_Crown__ol",
+    "Spinner_PressPlate__ol",
     "Spinner_Cap__ol",
     "Spinner_Neck__ol",
     "Spinner_HubBase__ol",
@@ -2237,7 +2336,7 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 2681,
+   "triangles": 3177,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2254,6 +2353,20 @@
     "Spinner_Pad_3_Thruster",
     "Spinner_Pad_2_Thruster",
     "Spinner_Pad_1_Thruster",
+    "Spinner_GuideStop_4",
+    "Spinner_GuideStop_3",
+    "Spinner_GuideStop_2",
+    "Spinner_GuideStop_1",
+    "Spinner_Brace_4",
+    "Spinner_Brace_3",
+    "Spinner_Brace_2",
+    "Spinner_Brace_1",
+    "Spinner_Gland",
+    "Spinner_BarrelBand",
+    "Spinner_Barrel_3",
+    "Spinner_Barrel_2",
+    "Spinner_Barrel_1",
+    "Spinner_PressPlate",
     "Spinner_Valve_4",
     "Spinner_Valve_3",
     "Spinner_Valve_2",
@@ -2318,25 +2431,29 @@
    "node": "M_pipe_0_0",
    "kind": "static",
    "material": "pipe",
-   "triangles": 1144,
+   "triangles": 1240,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Run_North_High_Seg_01",
     "Riser_East_2_Seg_01",
     "Riser_East_1_Seg_01",
+    "Spinner_Guide_4",
+    "Spinner_Guide_3",
+    "Spinner_Guide_2",
+    "Spinner_Guide_1",
+    "Spinner_HydLine_4",
+    "Spinner_HydLine_3",
+    "Spinner_HydLine_2",
+    "Spinner_HydLine_1",
     "Spinner_PipeDown_4",
     "Spinner_PipeOut_4",
-    "Spinner_PipeUp_4",
     "Spinner_PipeDown_3",
     "Spinner_PipeOut_3",
-    "Spinner_PipeUp_3",
     "Spinner_PipeDown_2",
     "Spinner_PipeOut_2",
-    "Spinner_PipeUp_2",
     "Spinner_PipeDown_1",
     "Spinner_PipeOut_1",
-    "Spinner_PipeUp_1",
     "Spike_Press_Column",
     "OuterWall_West_M15Pipes_Pipe_4",
     "OuterWall_West_M15Pipes_Pipe_3",
@@ -2507,7 +2624,7 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 786,
+   "triangles": 898,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2515,6 +2632,9 @@
     "Spinner_Pad_3_Rim",
     "Spinner_Pad_2_Rim",
     "Spinner_Pad_1_Rim",
+    "Spinner_CrownBand",
+    "Spinner_PressPlateRim",
+    "Spinner_CapRim",
     "CraneRail_01_Stripe",
     "Belt_B_Frame_2",
     "Belt_B_Frame_1",
@@ -2584,7 +2704,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 2760,
+   "triangles": 2792,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2592,6 +2712,7 @@
     "Spinner_Pad_3_Hull",
     "Spinner_Pad_2_Hull",
     "Spinner_Pad_1_Hull",
+    "Spinner_Crown",
     "Spinner_Neck",
     "Exit_Door_Rib_2_Beam",
     "Exit_Door_Rib_2_Post_3",

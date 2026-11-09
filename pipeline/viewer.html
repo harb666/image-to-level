@@ -360,7 +360,15 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
         if(SP.length){T_.multiplyMatrices(M,about(W.rpm*6.2832/60*t,C,S_));SP.forEach(o=>{o.matrix.multiplyMatrices(T_,o.userData.rest);o.matrixWorldNeedsUpdate=true;});}K.c.copy(C).applyMatrix4(M);}});} // Stage 102: a separate spin group (the blade) rides on the last joint
     else if(fx.category==='sweeper'){const SW=fx.sweeper,rot=Object.values(byName).filter(o=>o.name.startsWith(SW.group+'__')),C=new THREE.Vector3(...SW.center),Y=new THREE.Vector3(0,1,0),one=new THREE.Vector3(1,1,1),v=new THREE.Vector3(),m=new THREE.Matrix4(); // Stage 98: spinner arms (same as apply_effects.gd)
       const K={s:SW,th:0};(window.sweepers=window.sweepers||{})[SW.id]=K;rot.forEach(o=>{o.userData.rest=o.userData.rest||o.matrix.clone();o.matrixAutoUpdate=false;});
-      fxUpd.push({reset(){rot.forEach(o=>{o.matrix.copy(o.userData.rest);o.matrixWorldNeedsUpdate=true;});K.th=0;},u(t){K.th=SW.rpm*6*(t+SW.phase);const q=new THREE.Quaternion().setFromAxisAngle(Y,K.th*Math.PI/180);
+      const D=SW.drive,stg=D?D.stages.map(s=>[Object.values(byName).filter(o=>o.name.startsWith(s.group+'__')),s.frac]):[],lamp=D?Object.values(byName).filter(o=>o.name===D.lamps):[];let hit=-1; // Stage 103: the ceiling press drives it
+      const prof=t=>{const P=D.period,tp=t+D.phase,k=Math.floor(tp/P),u=tp-k*P,w=D.peak,su=D.spin_up,ho=D.hold,sd=D.spin_down;let off=0,th; // same as press_profile() / apply_effects.gd
+        if(u<D.slam)off=-D.travel*(u/D.slam)**2;else if(u<D.slam+ho)off=-D.travel;else if(u<D.slam+ho+D.rise){const f=(u-D.slam-ho)/D.rise;off=-D.travel*(1-f*f*(3-2*f));}
+        const d=u-D.slam;if(d<=0)th=0;else if(d<su)th=w*d*d/(2*su);else if(d<ho)th=w*(d-su/2);else if(d<ho+sd){const e=d-ho;th=w*(ho-su/2)+w*(e-e*e/(2*sd));}else th=w*(ho-su/2+sd/2);
+        return [off,k*360*D.turns+th,u,k];};
+      fxUpd.push({reset(){rot.forEach(o=>{o.matrix.copy(o.userData.rest);o.matrixWorldNeedsUpdate=true;});stg.forEach(s=>s[0].forEach(o=>o.position.set(0,0,0)));lamp.forEach(o=>o.visible=true);K.th=0;},u(t){
+        if(D){const [off,th,u,k]=prof(t);K.th=th;stg.forEach(s=>s[0].forEach(o=>o.position.set(0,off*s[1],0)));lamp.forEach(o=>o.visible=!(u>D.period-D.warn)||Math.floor(t*8)%2===0);
+          if(u>=D.slam&&hit!==k){hit=k;const dx=pos.x-C.x,dz=pos.z-C.z,dd=Math.hypot(dx,dz);if(dd<D.shake)window.camShake=Math.max(window.camShake||0,0.45*(1-dd/D.shake));}}
+        else K.th=SW.rpm*6*(t+SW.phase);const q=new THREE.Quaternion().setFromAxisAngle(Y,K.th*Math.PI/180);
         v.copy(C).applyQuaternion(q).negate().add(C);m.compose(v,q,one);rot.forEach(o=>{o.matrix.multiplyMatrices(m,o.userData.rest);o.matrixWorldNeedsUpdate=true;});}});}
     else if(fx.category==='belt'){const B=fx.belt,ch=Object.values(byName).filter(o=>o.name.startsWith(B.chevrons+'__')),u=new THREE.Vector3(...B.axis).normalize(); // Stage 97: conveyor ramp (same as apply_effects.gd)
       ch.forEach(o=>{o.userData.rest=o.userData.rest||o.position.clone();});(window.belts=window.belts||{})[B.id]={b:B,u,c:new THREE.Vector3(...B.center),side:new THREE.Vector3(u.z,0,-u.x).normalize()};
@@ -548,6 +556,7 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
     fpos.addScaledVector(new THREE.Vector3(s,0,-f).applyQuaternion(q),12*dt).addScaledVector(UP,8*u*dt);cam.position.copy(fpos);cam.quaternion.copy(q);
   }else{avatar.visible=true;orbit.update();}
   for(const f of fxUpd)f.u&&f.u(now/1000,dt);
+  if(window.camShake>0.005){if(M==='1st person'||M==='3rd person')cam.position.add(new THREE.Vector3(Math.random()-0.5,Math.random()-0.5,Math.random()-0.5).multiplyScalar(window.camShake));window.camShake*=Math.exp(-dt*7);} // Stage 103: press impact
   if(cutaway.length){const show=cam.position.y<cutY-0.3;for(const o of cutaway)o.visible=show;}
   r.render(scene,cam);
   if(showStats){const i=r.info;$('stats').textContent=`browser preview (three.js) - not Godot\nfps ${fpsS.toFixed(0)}  draw calls ${i.render.calls}\ntriangles ${i.render.triangles}\ntextures ${i.memory.textures}  geometries ${i.memory.geometries}\npixel ratio ${r.getPixelRatio().toFixed(2)}  ${M}`;}});

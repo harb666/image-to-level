@@ -6055,11 +6055,101 @@
    "shape": "cylinder",
    "center": [
     5.0,
-    12.85,
+    12.75,
     40.0
    ],
    "radius": 1.5,
-   "height": 0.9,
+   "height": 0.7,
+   "rotation": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "name": "Spinner_PressPlate",
+   "source": "Spinner_PressPlate",
+   "shape": "cylinder",
+   "center": [
+    5.0,
+    34.25,
+    40.0
+   ],
+   "radius": 4.5,
+   "height": 0.5,
+   "rotation": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "name": "Spinner_Crown",
+   "source": "Spinner_Crown",
+   "shape": "cylinder",
+   "center": [
+    5.0,
+    32.6,
+    40.0
+   ],
+   "radius": 3.6,
+   "height": 2.8,
+   "rotation": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "name": "Spinner_Barrel_1",
+   "source": "Spinner_Barrel_1",
+   "shape": "cylinder",
+   "center": [
+    5.0,
+    28.44,
+    40.0
+   ],
+   "radius": 1.8,
+   "height": 1.88,
+   "rotation": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "name": "Spinner_Barrel_2",
+   "source": "Spinner_Barrel_2",
+   "shape": "cylinder",
+   "center": [
+    5.0,
+    29.835,
+    40.0
+   ],
+   "radius": 1.8,
+   "height": 0.91,
+   "rotation": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "name": "Spinner_Barrel_3",
+   "source": "Spinner_Barrel_3",
+   "shape": "cylinder",
+   "center": [
+    5.0,
+    30.77,
+    40.0
+   ],
+   "radius": 1.8,
+   "height": 0.96,
    "rotation": [
     0.0,
     0.0,
@@ -8020,8 +8110,37 @@
     7.5,
     40.0
    ],
-   "rpm": 6.0,
+   "rpm": 64.43,
    "phase": 0.0,
+   "drive": {
+    "press": "Spinner_Ram",
+    "stages": [
+     {
+      "group": "Spinner_PressMid",
+      "frac": 0.5
+     },
+     {
+      "group": "Spinner_Ram",
+      "frac": 1.0
+     }
+    ],
+    "lamps": "Spinner_Ram__glow",
+    "travel": 5.55,
+    "period": 9.5,
+    "slam": 0.35,
+    "hold": 2.4,
+    "rise": 1.8,
+    "spin_up": 0.35,
+    "spin_down": 3.0,
+    "turns": 4.0,
+    "peak": 386.577,
+    "peak_rpm": 64.43,
+    "warn": 1.2,
+    "phase": -1.5,
+    "still": 3.75,
+    "shake": 28.0,
+    "note": "press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; camera shake within 'shake' m on impact"
+   },
    "arms": [
     20.0,
     110.0,

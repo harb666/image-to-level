@@ -114,7 +114,7 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
     "saw": dict(category="saw", godot="script (apply_effects.gd _saws): Stage 101 jointed arm - 'joints' shoulder / elbow / wrist, each turning its group and every later "
                 "one about 'axis' through its own (moved) pivot by amp_k * sin(2 pi (t + phase) / period - lag_k) degrees; the blade also spins rpm about the same axis through its centre. A kill zone (hazard group) "
                 "follows the blade centre: within 'radius' of it and 0.7 m either side of its plane (normal = axis)", glb="arm + blade at angle 0, own nodes (mobile groups)", defaults=dict()),
-    "sweeper": dict(category="sweeper", godot="script (apply_effects.gd _sweepers): the rotor group (<group>__*) turns about the vertical axis through 'center' "
+    "sweeper": dict(category="sweeper", godot="script (apply_effects.gd _sweepers): the rotor group (<group>__*) turns about the vertical axis through 'center' (Stage 103: with a 'drive', the ceiling press profile press_profile() sets the angle and moves the press stages) "
                     "at rpm (angle = rpm * 6 * (t + phase) degrees, clockwise seen from above like a positive level yaw); per arm a box Area3D (r0..r1 at bar_y +- bar_half) "
                     "and a sphere Area3D (ball_r at r1, ball_y) ride on a pivot node in the hazard group: a bar can be jumped, a ball cannot",
                     glb="the rotor (collar, arms, spiked balls) at angle 0, own nodes (mobile group)", defaults=dict()),

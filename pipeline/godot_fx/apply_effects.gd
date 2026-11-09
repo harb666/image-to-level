@@ -17,6 +17,7 @@ var _anims: Array = []    # [material, base_energy, params, kind, next_change]
 var _bursts: Array = []   # [CPUParticles3D, time_left, interval_min, interval_max]
 var _sky_speed: float = 0.0
 var _t: float = 0.0
+var _shake: float = 0.0  # Stage 103: camera shake left from a press impact (h/v offset, decays)
 
 
 var _spins: Array = []  # [rotor node, rad/s]
@@ -402,7 +403,53 @@ func _sweeper(sw: Dictionary) -> void:
 		ball.position = d * r1 + Vector3(0.0, float(sw["ball_y"]), 0.0)
 		ball.add_to_group(hazard_group)
 		piv.add_child(ball)
-	_sweepers.append([sw, rot, piv])
+	var stages: Array = []  # Stage 103: press stages [[node, frac]...] and the head's warning glow
+	var lamps: Array = []
+	if sw.has("drive"):
+		var D: Dictionary = sw["drive"]
+		for s in D["stages"]:
+			for nd in _group_nodes(String(s["group"])):
+				stages.append([nd, float(s["frac"])])
+		var ln := level_root.find_child(String(D["lamps"]), true, false)
+		if ln != null:
+			lamps.append(ln)
+	_sweepers.append([sw, rot, piv, stages, lamps, [-1]])
+
+
+static func press_profile(D: Dictionary, t: float) -> Array:
+	# Stage 103 (same as assembly.press_profile / viewer.html): [ram offset, rotor angle deg, u, cycle]
+	var P := float(D["period"])
+	var tp := t + float(D.get("phase", 0.0))
+	var k := floorf(tp / P)
+	var u := tp - k * P
+	var sl := float(D["slam"])
+	var ho := float(D["hold"])
+	var ri := float(D["rise"])
+	var su := float(D["spin_up"])
+	var sd := float(D["spin_down"])
+	var w := float(D["peak"])
+	var tr := float(D["travel"])
+	var off := 0.0
+	if u < sl:  # slam: accelerating
+		off = -tr * (u / sl) * (u / sl)
+	elif u < sl + ho:
+		off = -tr
+	elif u < sl + ho + ri:  # climb back, eased
+		off = -tr * (1.0 - smoothstep(0.0, 1.0, (u - sl - ho) / ri))
+	var d := u - sl
+	var th := 0.0
+	if d <= 0.0:
+		th = 0.0
+	elif d < su:  # spin up from the impact
+		th = w * d * d / (2.0 * su)
+	elif d < ho:
+		th = w * (d - su * 0.5)
+	elif d < ho + sd:  # coast down once released
+		var e := d - ho
+		th = w * (ho - su * 0.5) + w * (e - e * e / (2.0 * sd))
+	else:
+		th = w * (ho - su * 0.5 + sd * 0.5)
+	return [off, k * 360.0 * float(D["turns"]) + th, u, int(k)]
 
 
 func _belt(b: Dictionary) -> void:
@@ -1097,9 +1144,33 @@ func _process(delta: float) -> void:
 	_update_risers()
 	_update_winds(delta)
 	_update_saws()
+	var scam := get_viewport().get_camera_3d()
+	if scam != null and (_shake > 0.005 or scam.h_offset != 0.0 or scam.v_offset != 0.0):  # Stage 103: press impact shake
+		scam.h_offset = randf_range(-0.5, 0.5) * _shake
+		scam.v_offset = randf_range(-0.5, 0.5) * _shake
+		_shake *= exp(-delta * 7.0)
+		if _shake <= 0.005:
+			scam.h_offset = 0.0
+			scam.v_offset = 0.0
+			_shake = 0.0
 	for sr in _sweepers:  # Stage 98: turn the rotor and its kill areas about the tower's axis
 		var sw: Dictionary = sr[0]
 		var th := deg_to_rad(float(sw["rpm"]) * 6.0 * (_t + float(sw["phase"])))
+		if sw.has("drive"):  # Stage 103: the ceiling press slams, the rotor spins up, then coasts to a stop
+			var D: Dictionary = sw["drive"]
+			var pf := press_profile(D, _t)
+			th = deg_to_rad(float(pf[1]))
+			for ns in sr[3]:
+				(ns[0] as Node3D).position = Vector3(0.0, float(pf[0]) * float(ns[1]), 0.0)
+			for ln in sr[4]:
+				(ln as Node3D).visible = not (float(pf[2]) > float(D["period"]) - float(D["warn"])) or int(_t * 8.0) % 2 == 0
+			if float(pf[2]) >= float(D["slam"]) and sr[5][0] != int(pf[3]):  # impact: shake a nearby camera
+				sr[5][0] = int(pf[3])
+				var cam := get_viewport().get_camera_3d()
+				if cam != null:
+					var dd := Vector2(cam.global_position.x - float(sw["center"][0]), cam.global_position.z - float(sw["center"][2])).length()
+					if dd < float(D["shake"]):
+						_shake = maxf(_shake, 0.45 * (1.0 - dd / float(D["shake"])))
 		var C := Vector3(sw["center"][0], sw["center"][1], sw["center"][2])
 		var q := Basis(Vector3.UP, th)
 		var tr := Transform3D(q, C - q * C)

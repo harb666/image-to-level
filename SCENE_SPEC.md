@@ -1222,3 +1222,16 @@ Building blocks usable without the preset:
   spin group (`saws[].spin`): disc, flange, glowing rings, six bolts and a hex nut, all concentric - the motor and
   guard ride the wrist and do not spin. Joints: `<id>_Arm` (shoulder), `<id>_Fore` (elbow), `<id>_Wrist`. Each
   moving link keeps to 2-3 materials. The yard saws mount under the ceiling steps (32.36 / 31.83 m), amp 30.
+
+## Stage 103: the spinner's ceiling press
+- `spinner` `press` (`ceiling`, `period`, `slam`, `hold`, `rise`, `spin_up`, `spin_down`, `turns`, `warn`, `phase`, `shake`):
+  a giant telescoping hydraulic press hangs from the ceiling over the tower - plate, octagonal crown (glowing ring,
+  hazard band), barrel with gusset braces and hydraulic lines, a middle stage (half the stroke) and an inner stage
+  carrying the head (tapered octagon, hazard skirt, four sleeves on four guide columns, warning lamps, a striker with a
+  glowing ring). The tower gets a lower cap with a hazard rim and a red strike plate; its pipes leave the cap's sides.
+- Each `period`: the head slams down in `slam` s onto the strike plate, holds `hold` s, rises over `rise` s; the rotor
+  spins up over `spin_up` s from the impact to its peak, then coasts to a stop over `spin_down` s from the release - a
+  whole number of `turns` per cycle, so it always stops in the same pose - and stays still until the next slam
+  (`still` s: the gap to cross). The head's glow blinks for `warn` s before each slam; the camera shakes on impact
+  within `shake` m. level.json `sweepers[].drive`; `assembly.press_profile()` is the reference the runtimes copy.
+- Assembly Ascent: period 9.5 s, peak 64 rpm, still 3.75 s (18.7 m at walking speed: ramp -> pad 8 m, pad -> pad 14.9 m).

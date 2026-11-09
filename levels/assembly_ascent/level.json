@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "a0b7fa3b71cce823",
+  "spec_sha": "7721dac2a33c5108",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -160,8 +160,37 @@
      7.5,
      40.0
     ],
-    "rpm": 6.0,
+    "rpm": 64.43,
     "phase": 0.0,
+    "drive": {
+     "press": "Spinner_Ram",
+     "stages": [
+      {
+       "group": "Spinner_PressMid",
+       "frac": 0.5
+      },
+      {
+       "group": "Spinner_Ram",
+       "frac": 1.0
+      }
+     ],
+     "lamps": "Spinner_Ram__glow",
+     "travel": 5.55,
+     "period": 9.5,
+     "slam": 0.35,
+     "hold": 2.4,
+     "rise": 1.8,
+     "spin_up": 0.35,
+     "spin_down": 3.0,
+     "turns": 4.0,
+     "peak": 386.577,
+     "peak_rpm": 64.43,
+     "warn": 1.2,
+     "phase": -1.5,
+     "still": 3.75,
+     "shake": 28.0,
+     "note": "press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; camera shake within 'shake' m on impact"
+    },
     "arms": [
      20.0,
      110.0,
@@ -29510,7 +29539,7 @@
    ],
    "size": [
     3.0,
-    0.9,
+    0.7,
     3.0
    ],
    "material": "machine",
@@ -29522,12 +29551,12 @@
    "source": "visible"
   },
   {
-   "name": "Spinner_PipeUp_1",
+   "name": "Spinner_CapRim",
    "type": "cylinder",
    "position": [
-    5.636,
-    13.2,
-    40.636
+    5.0,
+    12.7,
+    40.0
    ],
    "rotation": [
     0.0,
@@ -29535,12 +29564,40 @@
     0.0
    ],
    "size": [
-    0.5,
-    1.0,
-    0.5
+    3.2,
+    0.3,
+    3.2
    ],
-   "material": "pipe",
-   "sections": 8,
+   "material": "stripe",
+   "sections": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Strike",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    13.1,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.9,
+    0.4,
+    1.9
+   ],
+   "material": "glow",
+   "sections": 10,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -29553,9 +29610,9 @@
    "name": "Spinner_PipeOut_1",
    "type": "cylinder",
    "position": [
-    5.636,
-    13.95,
-    40.636
+    5.99,
+    12.8,
+    40.99
    ],
    "rotation": [
     90.0,
@@ -29564,7 +29621,7 @@
    ],
    "size": [
     0.5,
-    2.4,
+    1.9,
     0.5
    ],
    "material": "pipe",
@@ -29581,9 +29638,9 @@
    "name": "Spinner_PipeBand_1",
    "type": "cylinder",
    "position": [
-    6.485,
-    13.95,
-    41.485
+    6.556,
+    12.8,
+    41.556
    ],
    "rotation": [
     90.0,
@@ -29620,7 +29677,7 @@
    ],
    "size": [
     0.5,
-    1.6,
+    0.45,
     0.5
    ],
    "material": "pipe",
@@ -29661,40 +29718,12 @@
    "source": "visible"
   },
   {
-   "name": "Spinner_PipeUp_2",
-   "type": "cylinder",
-   "position": [
-    5.636,
-    13.2,
-    39.364
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.5,
-    1.0,
-    0.5
-   ],
-   "material": "pipe",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Spinner",
-   "source": "visible"
-  },
-  {
    "name": "Spinner_PipeOut_2",
    "type": "cylinder",
    "position": [
-    5.636,
-    13.95,
-    39.364
+    5.99,
+    12.8,
+    39.01
    ],
    "rotation": [
     90.0,
@@ -29703,7 +29732,7 @@
    ],
    "size": [
     0.5,
-    2.4,
+    1.9,
     0.5
    ],
    "material": "pipe",
@@ -29720,9 +29749,9 @@
    "name": "Spinner_PipeBand_2",
    "type": "cylinder",
    "position": [
-    6.485,
-    13.95,
-    38.515
+    6.556,
+    12.8,
+    38.444
    ],
    "rotation": [
     90.0,
@@ -29759,7 +29788,7 @@
    ],
    "size": [
     0.5,
-    1.6,
+    0.45,
     0.5
    ],
    "material": "pipe",
@@ -29800,40 +29829,12 @@
    "source": "visible"
   },
   {
-   "name": "Spinner_PipeUp_3",
-   "type": "cylinder",
-   "position": [
-    4.364,
-    13.2,
-    39.364
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.5,
-    1.0,
-    0.5
-   ],
-   "material": "pipe",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Spinner",
-   "source": "visible"
-  },
-  {
    "name": "Spinner_PipeOut_3",
    "type": "cylinder",
    "position": [
-    4.364,
-    13.95,
-    39.364
+    4.01,
+    12.8,
+    39.01
    ],
    "rotation": [
     90.0,
@@ -29842,7 +29843,7 @@
    ],
    "size": [
     0.5,
-    2.4,
+    1.9,
     0.5
    ],
    "material": "pipe",
@@ -29859,9 +29860,9 @@
    "name": "Spinner_PipeBand_3",
    "type": "cylinder",
    "position": [
-    3.515,
-    13.95,
-    38.515
+    3.444,
+    12.8,
+    38.444
    ],
    "rotation": [
     90.0,
@@ -29898,7 +29899,7 @@
    ],
    "size": [
     0.5,
-    1.6,
+    0.45,
     0.5
    ],
    "material": "pipe",
@@ -29939,40 +29940,12 @@
    "source": "visible"
   },
   {
-   "name": "Spinner_PipeUp_4",
-   "type": "cylinder",
-   "position": [
-    4.364,
-    13.2,
-    40.636
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.5,
-    1.0,
-    0.5
-   ],
-   "material": "pipe",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Spinner",
-   "source": "visible"
-  },
-  {
    "name": "Spinner_PipeOut_4",
    "type": "cylinder",
    "position": [
-    4.364,
-    13.95,
-    40.636
+    4.01,
+    12.8,
+    40.99
    ],
    "rotation": [
     90.0,
@@ -29981,7 +29954,7 @@
    ],
    "size": [
     0.5,
-    2.4,
+    1.9,
     0.5
    ],
    "material": "pipe",
@@ -29998,9 +29971,9 @@
    "name": "Spinner_PipeBand_4",
    "type": "cylinder",
    "position": [
-    3.515,
-    13.95,
-    41.485
+    3.444,
+    12.8,
+    41.556
    ],
    "rotation": [
     90.0,
@@ -30037,7 +30010,7 @@
    ],
    "size": [
     0.5,
-    1.6,
+    0.45,
     0.5
    ],
    "material": "pipe",
@@ -30427,6 +30400,1214 @@
    "collision": false,
    "mobile": {
     "group": "Spinner_Rotor"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_PressPlate",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    34.0,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.0,
+    0.5,
+    9.0
+   ],
+   "material": "machine",
+   "sections": 8,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_PressPlateRim",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    33.75,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.2,
+    0.3,
+    9.2
+   ],
+   "material": "stripe",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Crown",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    31.2,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.2,
+    2.8,
+    7.2
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_CrownGlow",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    32.2,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.3,
+    0.3,
+    7.3
+   ],
+   "material": "glow",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_CrownBand",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    31.05,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.4,
+    0.55,
+    7.4
+   ],
+   "material": "stripe",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Barrel_1",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    27.5,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.6,
+    1.88,
+    3.6
+   ],
+   "material": "machine",
+   "sections": 12,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Barrel_2",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    29.38,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.6,
+    0.91,
+    3.6
+   ],
+   "material": "machine",
+   "sections": 12,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Barrel_3",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    30.29,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.6,
+    0.96,
+    3.6
+   ],
+   "material": "machine",
+   "sections": 12,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_BarrelBand",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    29.2,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.9,
+    0.35,
+    3.9
+   ],
+   "material": "machine",
+   "sections": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Gland",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    27.2,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.0,
+    0.55,
+    4.0
+   ],
+   "material": "machine",
+   "sections": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_GaugeGlow",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    30.2,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.7,
+    0.18,
+    3.7
+   ],
+   "material": "glow",
+   "sections": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Brace_1",
+   "type": "cylinder",
+   "position": [
+    6.308,
+    27.9,
+    41.308
+   ],
+   "rotation": [
+    23.72,
+    45.0,
+    0.0
+   ],
+   "size": [
+    0.55,
+    3.605,
+    0.55
+   ],
+   "material": "machine",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_HydLine_1",
+   "type": "cylinder",
+   "position": [
+    6.343,
+    27.6,
+    41.343
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.24,
+    3.65,
+    0.24
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Brace_2",
+   "type": "cylinder",
+   "position": [
+    6.308,
+    27.9,
+    38.692
+   ],
+   "rotation": [
+    23.72,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.55,
+    3.605,
+    0.55
+   ],
+   "material": "machine",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_HydLine_2",
+   "type": "cylinder",
+   "position": [
+    6.343,
+    27.6,
+    38.657
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.24,
+    3.65,
+    0.24
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Brace_3",
+   "type": "cylinder",
+   "position": [
+    3.692,
+    27.9,
+    38.692
+   ],
+   "rotation": [
+    23.72,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.55,
+    3.605,
+    0.55
+   ],
+   "material": "machine",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_HydLine_3",
+   "type": "cylinder",
+   "position": [
+    3.656,
+    27.6,
+    38.657
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.24,
+    3.65,
+    0.24
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Brace_4",
+   "type": "cylinder",
+   "position": [
+    3.692,
+    27.9,
+    41.308
+   ],
+   "rotation": [
+    23.72,
+    315.0,
+    0.0
+   ],
+   "size": [
+    0.55,
+    3.605,
+    0.55
+   ],
+   "material": "machine",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_HydLine_4",
+   "type": "cylinder",
+   "position": [
+    3.656,
+    27.6,
+    41.343
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.24,
+    3.65,
+    0.24
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Guide_1",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    13.6,
+    42.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.42,
+    17.6,
+    0.42
+   ],
+   "material": "pipe",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_GuideStop_1",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    13.5,
+    42.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.8,
+    0.4,
+    0.8
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Guide_2",
+   "type": "cylinder",
+   "position": [
+    7.75,
+    13.6,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.42,
+    17.6,
+    0.42
+   ],
+   "material": "pipe",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_GuideStop_2",
+   "type": "cylinder",
+   "position": [
+    7.75,
+    13.5,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.8,
+    0.4,
+    0.8
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Guide_3",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    13.6,
+    37.25
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.42,
+    17.6,
+    0.42
+   ],
+   "material": "pipe",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_GuideStop_3",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    13.5,
+    37.25
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.8,
+    0.4,
+    0.8
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Guide_4",
+   "type": "cylinder",
+   "position": [
+    2.25,
+    13.6,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.42,
+    17.6,
+    0.42
+   ],
+   "material": "pipe",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_GuideStop_4",
+   "type": "cylinder",
+   "position": [
+    2.25,
+    13.5,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.8,
+    0.4,
+    0.8
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_StageMid",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    24.3,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.0,
+    6.7,
+    3.0
+   ],
+   "material": "pipe",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_PressMid"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_StageMidRing",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    24.1,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.35,
+    0.4,
+    3.35
+   ],
+   "material": "pipe",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_PressMid"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_StageIn",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    21.2,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.3,
+    6.8,
+    2.3
+   ],
+   "material": "machine",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Head",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    19.6,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.4,
+    1.6,
+    6.4
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_HeadTaper",
+   "type": "frustum",
+   "position": [
+    5.0,
+    21.2,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.9,
+    0.7,
+    2.9
+   ],
+   "material": "machine",
+   "sections": 8,
+   "bottom_scale": 2.0689655172413794,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Skirt",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    19.55,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.6,
+    0.45,
+    6.6
+   ],
+   "material": "stripe",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Striker",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    19.05,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.2,
+    0.25,
+    2.2
+   ],
+   "material": "machine",
+   "sections": 10,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_StrikerNeck",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    19.3,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.9,
+    0.3,
+    1.9
+   ],
+   "material": "machine",
+   "sections": 10,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_StrikerGlow",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    19.22,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.45,
+    0.16,
+    2.45
+   ],
+   "material": "glow",
+   "sections": 10,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Sleeve_1",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    19.5,
+    42.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.95,
+    1.9,
+    0.95
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_RamLamp_1",
+   "type": "box",
+   "position": [
+    7.157,
+    20.3,
+    42.157
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.45,
+    0.35
+   ],
+   "material": "glow",
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Sleeve_2",
+   "type": "cylinder",
+   "position": [
+    7.75,
+    19.5,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.95,
+    1.9,
+    0.95
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_RamLamp_2",
+   "type": "box",
+   "position": [
+    7.157,
+    20.3,
+    37.843
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.45,
+    0.35
+   ],
+   "material": "glow",
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Sleeve_3",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    19.5,
+    37.25
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.95,
+    1.9,
+    0.95
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_RamLamp_3",
+   "type": "box",
+   "position": [
+    2.843,
+    20.3,
+    37.843
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.45,
+    0.35
+   ],
+   "material": "glow",
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Sleeve_4",
+   "type": "cylinder",
+   "position": [
+    2.25,
+    19.5,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.95,
+    1.9,
+    0.95
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_RamLamp_4",
+   "type": "box",
+   "position": [
+    2.843,
+    20.3,
+    42.157
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.45,
+    0.35
+   ],
+   "material": "glow",
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
    },
    "outline": false,
    "gen": "Spinner",
@@ -55415,8 +56596,37 @@
     7.5,
     40.0
    ],
-   "rpm": 6.0,
+   "rpm": 64.43,
    "phase": 0.0,
+   "drive": {
+    "press": "Spinner_Ram",
+    "stages": [
+     {
+      "group": "Spinner_PressMid",
+      "frac": 0.5
+     },
+     {
+      "group": "Spinner_Ram",
+      "frac": 1.0
+     }
+    ],
+    "lamps": "Spinner_Ram__glow",
+    "travel": 5.55,
+    "period": 9.5,
+    "slam": 0.35,
+    "hold": 2.4,
+    "rise": 1.8,
+    "spin_up": 0.35,
+    "spin_down": 3.0,
+    "turns": 4.0,
+    "peak": 386.577,
+    "peak_rpm": 64.43,
+    "warn": 1.2,
+    "phase": -1.5,
+    "still": 3.75,
+    "shake": 28.0,
+    "note": "press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; camera shake within 'shake' m on impact"
+   },
    "arms": [
     20.0,
     110.0,
@@ -55477,7 +56687,7 @@
   "Belt_A: conveyor ramp 16.5 m at 21 deg, belt -2.4 m/s, spike pit at the foot",
   "Belt_B: conveyor ramp 16.5 m at 21 deg, belt -3.4 m/s, spike pit at the foot",
   "Exit_Door: exit hallway 12 m fading to black -> level2_part1",
-  "Spinner: spinner, 4 arms at 6.0 rpm, 4 hovering pads",
+  "Spinner: spinner, 4 arms driven by a ceiling press (peak 64.43 rpm, still 3.8 s per 9.5 s), 4 hovering pads",
   "crates: 5 printed crates (accent atlas)",
   "fixtures: 62 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_North_M02Fan, OuterWall_West_M02Fan)",
   "ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 1 standing part(s), 0 crane runway(s), ends at beams 0.0 m",
@@ -55567,12 +56777,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 34933,
-  "objects": 1690,
+  "triangles": 36321,
+  "objects": 1732,
   "materials": 30,
-  "glb_kb": 2844,
-  "nodes": 1856,
-  "draw_calls_unbatched": 1824,
+  "glb_kb": 2937,
+  "nodes": 1911,
+  "draw_calls_unbatched": 1879,
   "draw_calls_batched_min": 30,
   "images": 82,
   "tex_mem_gpu_compressed_mb": 17.88,

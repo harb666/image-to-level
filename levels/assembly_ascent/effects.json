@@ -514,7 +514,7 @@
    "type": "sweeper",
    "category": "sweeper",
    "glb_contains": "the rotor (collar, arms, spiked balls) at angle 0, own nodes (mobile group)",
-   "godot_runtime": "script (apply_effects.gd _sweepers): the rotor group (<group>__*) turns about the vertical axis through 'center' at rpm (angle = rpm * 6 * (t + phase) degrees, clockwise seen from above like a positive level yaw); per arm a box Area3D (r0..r1 at bar_y +- bar_half) and a sphere Area3D (ball_r at r1, ball_y) ride on a pivot node in the hazard group: a bar can be jumped, a ball cannot",
+   "godot_runtime": "script (apply_effects.gd _sweepers): the rotor group (<group>__*) turns about the vertical axis through 'center' (Stage 103: with a 'drive', the ceiling press profile press_profile() sets the angle and moves the press stages) at rpm (angle = rpm * 6 * (t + phase) degrees, clockwise seen from above like a positive level yaw); per arm a box Area3D (r0..r1 at bar_y +- bar_half) and a sphere Area3D (ball_r at r1, ball_y) ride on a pivot node in the hazard group: a bar can be jumped, a ball cannot",
    "sweeper": {
     "id": "Spinner",
     "group": "Spinner_Rotor",
@@ -523,8 +523,37 @@
      7.5,
      40.0
     ],
-    "rpm": 6.0,
+    "rpm": 64.43,
     "phase": 0.0,
+    "drive": {
+     "press": "Spinner_Ram",
+     "stages": [
+      {
+       "group": "Spinner_PressMid",
+       "frac": 0.5
+      },
+      {
+       "group": "Spinner_Ram",
+       "frac": 1.0
+      }
+     ],
+     "lamps": "Spinner_Ram__glow",
+     "travel": 5.55,
+     "period": 9.5,
+     "slam": 0.35,
+     "hold": 2.4,
+     "rise": 1.8,
+     "spin_up": 0.35,
+     "spin_down": 3.0,
+     "turns": 4.0,
+     "peak": 386.577,
+     "peak_rpm": 64.43,
+     "warn": 1.2,
+     "phase": -1.5,
+     "still": 3.75,
+     "shake": 28.0,
+     "note": "press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; camera shake within 'shake' m on impact"
+    },
     "arms": [
      20.0,
      110.0,
@@ -1136,6 +1165,13 @@
     "Spinner_Pad_2_GlowBand",
     "Spinner_Pad_1_Jet",
     "Spinner_Pad_1_GlowBand",
+    "Spinner_RamLamp_4",
+    "Spinner_RamLamp_3",
+    "Spinner_RamLamp_2",
+    "Spinner_RamLamp_1",
+    "Spinner_StrikerGlow",
+    "Spinner_GaugeGlow",
+    "Spinner_CrownGlow",
     "Spinner_Rotor_BallGlow_4",
     "Spinner_Rotor_BallGlow_3",
     "Spinner_Rotor_BallGlow_2",
@@ -1144,6 +1180,7 @@
     "Spinner_PipeBand_3",
     "Spinner_PipeBand_2",
     "Spinner_PipeBand_1",
+    "Spinner_Strike",
     "Spinner_Core",
     "Spinner_HubRing",
     "Claw_Hang_Finger_3_Lit",

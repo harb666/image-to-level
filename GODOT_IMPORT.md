@@ -114,6 +114,9 @@ The browser preview approximates all of these with three.js. It is close to Godo
   platform is up. The level has no weapon mesh: spawn your own shotgun model at `center`.
 
 ## Assembly Ascent hazards (Stage 97)
+- Stage 103: a `sweeper` with a `drive` takes its angle from `press_profile()` (apply_effects.gd, same as the viewer):
+  the press stage groups (`drive.stages`, each moved by offset * frac) slam and lift, the head's glow node
+  (`drive.lamps`) blinks before the slam, and the current camera shakes (h/v offset) near an impact.
 - Stage 102: a saw's `joints` (shoulder, elbow, wrist) chain their turns; its `spin` group (the blade) rides on the last
   joint and also spins - the wrist's motor and guard do not.
 - effects.json `saw` (apply_effects.gd `_saw` / `_update_saws`): the arm and blade groups (`<id>_Arm__*`,
