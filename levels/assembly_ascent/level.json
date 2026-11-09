@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "dbfb91f25d8795db",
+  "spec_sha": "aceb607d920bac14",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -2514,39 +2514,60 @@
   "dome_glass": {
    "type": "glow",
    "color": [
-    1.0,
-    0.93,
-    0.72
+    0.95,
+    0.97,
+    1.0
    ],
    "tile_m": 4.0,
    "wear": 0.5,
    "bevel": 0.12,
    "res": 32,
-   "alpha": 0.22,
+   "alpha": 0.09,
    "emissive": [
-    0.55,
-    0.45,
-    0.2
+    0.08,
+    0.08,
+    0.06
    ],
-   "notes": "Stage 126: the dome's warm-tinted glass"
+   "notes": "Stage 127: clear glass - the sky shows through (was a warm tint)"
   },
   "dome_sky": {
-   "type": "glow",
+   "type": "sky_dome",
    "color": [
     1.0,
-    0.88,
-    0.5
+    0.8,
+    0.45
    ],
    "tile_m": 4.0,
    "wear": 0.5,
    "bevel": 0.12,
-   "res": 32,
-   "emissive": [
+   "zenith": [
+    0.5,
+    0.68,
+    0.92
+   ],
+   "clouds": 0.48,
+   "cloud": [
     1.0,
-    0.84,
+    0.97,
+    0.9
+   ],
+   "cloud_under": [
+    1.0,
+    0.76,
     0.42
    ],
-   "notes": "Stage 126: soft yellow sky glowing behind the dome"
+   "sun": [
+    0.64,
+    0.36,
+    0.09
+   ],
+   "res": 1024,
+   "emissive": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "notes": "Stage 127: open sky over the dome - blue overhead, golden toward the rim, warm-lit clouds, a sun glow"
   },
   "fall": {
    "type": "toxic",
@@ -2940,7 +2961,7 @@
    "toon": true
   },
   "sunbeam": {
-   "type": "glow",
+   "type": "beam_fade",
    "color": [
     1.0,
     0.86,
@@ -2949,14 +2970,19 @@
    "tile_m": 4.0,
    "wear": 0.5,
    "bevel": 0.12,
-   "res": 32,
-   "alpha": 0.07,
+   "res": 64,
+   "alpha": 0.1,
+   "fade_in": 0.1,
+   "fade_out": [
+    0.5,
+    0.88
+   ],
    "emissive": [
     1.0,
     0.82,
     0.3
    ],
-   "notes": "Stage 126: faint light shafts under the dome"
+   "notes": "Stage 127: light shafts that fade in from nothing below the roof (no visible start)"
   },
   "trim": {
    "type": "chevron",
@@ -12949,13 +12975,14 @@
     0.0
    ],
    "size": [
-    48.0,
-    17.0,
-    48.0
+    68.0,
+    21.0,
+    68.0
    ],
    "material": "dome_sky",
    "sections": 24,
    "rings": 6,
+   "uv": "planar",
    "double_sided": true,
    "outline": false,
    "collision": false,
@@ -17868,7 +17895,7 @@
   },
   {
    "name": "Dome_Shaft_1",
-   "type": "frustum",
+   "type": "beam_cone",
    "position": [
     20.076,
     0.6,
@@ -17885,7 +17912,7 @@
     3.467
    ],
    "material": "sunbeam",
-   "sections": 10,
+   "sections": 12,
    "bottom_scale": 1.7,
    "collision": false,
    "outline": false,
@@ -17898,7 +17925,7 @@
   },
   {
    "name": "Dome_Shaft_2",
-   "type": "frustum",
+   "type": "beam_cone",
    "position": [
     19.752,
     0.6,
@@ -17915,7 +17942,7 @@
     6.176
    ],
    "material": "sunbeam",
-   "sections": 10,
+   "sections": 12,
    "bottom_scale": 1.7,
    "collision": false,
    "outline": false,
@@ -17928,7 +17955,7 @@
   },
   {
    "name": "Dome_Shaft_3",
-   "type": "frustum",
+   "type": "beam_cone",
    "position": [
     7.602,
     0.6,
@@ -17945,7 +17972,7 @@
     3.452
    ],
    "material": "sunbeam",
-   "sections": 10,
+   "sections": 12,
    "bottom_scale": 1.7,
    "collision": false,
    "outline": false,
@@ -17958,7 +17985,7 @@
   },
   {
    "name": "Dome_Shaft_4",
-   "type": "frustum",
+   "type": "beam_cone",
    "position": [
     9.828,
     0.6,
@@ -17975,7 +18002,7 @@
     3.539
    ],
    "material": "sunbeam",
-   "sections": 10,
+   "sections": 12,
    "bottom_scale": 1.7,
    "collision": false,
    "outline": false,
@@ -17988,7 +18015,7 @@
   },
   {
    "name": "Dome_Shaft_5",
-   "type": "frustum",
+   "type": "beam_cone",
    "position": [
     15.533,
     0.6,
@@ -18005,7 +18032,7 @@
     3.482
    ],
    "material": "sunbeam",
-   "sections": 10,
+   "sections": 12,
    "bottom_scale": 1.7,
    "collision": false,
    "outline": false,
@@ -76247,16 +76274,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 52800,
+  "triangles": 52740,
   "objects": 2282,
   "materials": 38,
-  "glb_kb": 3728,
+  "glb_kb": 3793,
   "nodes": 2506,
   "draw_calls_unbatched": 2476,
   "draw_calls_batched_min": 40,
-  "images": 105,
-  "tex_mem_gpu_compressed_mb": 23.74,
-  "tex_mem_uncompressed_mb": 94.95,
+  "images": 106,
+  "tex_mem_gpu_compressed_mb": 26.42,
+  "tex_mem_uncompressed_mb": 105.66,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

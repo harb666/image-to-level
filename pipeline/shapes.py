@@ -720,11 +720,23 @@ def dome_shell(w, h, d, o):
     for j in range(k + 1):
         phi = np.pi / 2 * j / k; r, y = np.cos(phi), h * np.sin(phi)
         for i in range(n + 1):
-            a = 2 * np.pi * i / n; V.append((w / 2 * r * np.cos(a), y, d / 2 * r * np.sin(a))); UV.append((ut * i / n, j / k))
+            a = 2 * np.pi * i / n; V.append((w / 2 * r * np.cos(a), y, d / 2 * r * np.sin(a)))
+            UV.append((0.5 + r * np.cos(a) / 2, 0.5 + r * np.sin(a) / 2) if o.get("uv") == "planar" else (ut * i / n, j / k))  # Stage 127: planar = seen from below, no pinch
     for j in range(k):
         for i in range(n):
             a_ = j * (n + 1) + i; b_ = a_ + n + 1; F.append([a_, b_, a_ + 1])
             if j < k - 1: F.append([a_ + 1, b_, b_ + 1])  # the top row closes on the apex (no slivers)
+    m = trimesh.Trimesh(np.array(V, float), np.array(F), process=False); m.metadata["uv"] = np.array(UV, float); return m
+
+
+def beam_cone(w, h, d, o):
+    """Stage 127: an OPEN tapered tube (no caps; pair with double_sided): w x d ellipse at the top (y = h), "bottom_scale"
+    x that at y = 0, "sections" (12) round. UVs: u round it, v = 0 at the bottom .. 1 at the top (fade maps)."""
+    n, k = int(o.get("sections", 12)), float(o.get("bottom_scale", 1.0)); V, UV, F = [], [], []
+    for j, (y, sc) in enumerate(((0.0, k), (h, 1.0))):
+        for i in range(n + 1):
+            a = 2 * np.pi * i / n; V.append((w / 2 * sc * np.cos(a), y, d / 2 * sc * np.sin(a))); UV.append((i / n, float(j)))
+    for i in range(n): F += [[i, i + 1, n + 2 + i], [i, n + 2 + i, n + 1 + i]]
     m = trimesh.Trimesh(np.array(V, float), np.array(F), process=False); m.metadata["uv"] = np.array(UV, float); return m
 
 
@@ -757,6 +769,7 @@ def make(o, bevel=0.0):
         F = o["faces"]; return box_faces(w, h, d, F["side"], F["top"], F.get("front"), F.get("front_axis", "z"))
     if t == "box" and (o.get("bevel", bevel) or 0) > 0: return bevel_box(w, h, d, o.get("bevel", bevel))
     if t == "band": return band(w, h, d, o)  # open strips by design (not in SHAPES: those are closed solids)
-    if t == "dome_shell": return dome_shell(w, h, d, o)  # Stage 126: open by design too (glass / sky shells, double-sided)
+    if t == "dome_shell": return dome_shell(w, h, d, o)
+    if t == "beam_cone": return beam_cone(w, h, d, o)  # Stage 127: open light shafts  # Stage 126: open by design too (glass / sky shells, double-sided)
     if t in SHAPES: return SHAPES[t](w, h, d, o)
     return None

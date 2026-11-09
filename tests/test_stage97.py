@@ -376,13 +376,30 @@ class GlassDome(unittest.TestCase):
 
     def test_light_is_soft_yellow_like_the_fans(self):
         M = self.L["materials"]
-        for m in ("dome_sky", "sunbeam", "dome_glass"):
-            c = M[m]["color"]; self.assertTrue(c[0] >= c[1] > c[2], m)  # warm yellow
+        for m in ("dome_sky", "sunbeam"):
+            c = M[m]["color"]; self.assertTrue(c[0] >= c[1] > c[2], m)  # warm yellow (the sky golden toward the rim)
         self.assertLess(M["sunbeam"]["alpha"], 0.15)  # faint shafts
         E = {e["id"]: e for e in _load("effects.json")["effects"]}
         dl, fl = E["Dome_Light"], E["Fan_Lights"]; self.assertEqual(dl["type"], "point_light")
         c1, c2 = (e["quality"]["balanced"]["params"]["color"] for e in (dl, fl)); self.assertLess(max(abs(a - b) for a, b in zip(c1, c2)), 0.1)
         self.assertGreaterEqual(len(dl["emitters"]), 3)
+
+    def test_sky_shows_through_clear_glass(self):
+        """Stage 127: the glass is nearly clear and behind it is a sky (clouds, blue overhead, golden rim) mapped flat from
+        below, kept under the background factory's roof so nothing dark covers it."""
+        M = self.L["materials"]; g, sk = self.by["Dome_Glass"], self.by["Dome_Sky"]
+        self.assertLessEqual(M[g["material"]]["alpha"], 0.12)
+        self.assertEqual(M[sk["material"]]["type"], "sky_dome"); self.assertEqual(sk["uv"], "planar")
+        roof = min(l["roof_y"] for l in _load("scene_spec.json")["background"]["layers"] if "roof_y" in l)
+        self.assertLess(sk["position"][1] + sk["size"][1], roof); self.assertGreater(sk["position"][1] + sk["size"][1], g["position"][1] + g["size"][1] + 3)
+
+    def test_light_shafts_never_show_where_they_start(self):
+        """Stage 127: open shafts with an alpha ramp - faded out well below the glass and faded in at the floor."""
+        M = self.L["materials"]; sh = [o for n, o in self.by.items() if n.startswith("Dome_Shaft_")]; self.assertTrue(sh)
+        for o in sh: self.assertEqual(o["type"], "beam_cone")
+        m = M[sh[0]["material"]]; self.assertEqual(m["type"], "beam_fade"); self.assertLess(m["fade_out"][1], 1.0); self.assertGreater(m["fade_in"], 0)
+        import sys; sys.path.insert(0, os.path.join(ROOT, "pipeline")); import materials
+        a = materials.maps(m)["alpha"]; self.assertEqual(a[0].max(), 0.0); self.assertLess(a[-1].max(), 0.1); self.assertGreater(a[a.shape[0] // 2].min(), 0.9)
 
     def test_ceiling_dressing_keeps_clear_of_the_dome(self):
         D = _load("scene_spec.json")["arena"]["ceiling"]["dome"]; (dx, dz), R = D["at"], D["radius"]

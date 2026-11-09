@@ -942,6 +942,39 @@ def _atlas_cell(sub, S_w, S_h):
     return np.asarray(Image.fromarray((np.clip(d["alb"], 0, 1) * 255).astype(np.uint8)).resize((S_w, S_h), Image.BILINEAR), float) / 255.0
 
 
+def _periodic_noise(rng, S, beta=3.2):
+    """Tileable fractal noise (power-law spectrum, FFT): wraps in both axes, 0..1."""
+    f = np.fft.fftfreq(S); k = np.hypot(*np.meshgrid(f, f)); k[0, 0] = 1.0
+    n = np.real(np.fft.ifft2(np.fft.fft2(rng.standard_normal((S, S))) / k ** (beta / 2))); return (n - n.min()) / (np.ptp(n) + 1e-9)
+
+
+def k_sky_dome(S, rng, c, m):
+    """Stage 127: the sky seen through a roof dome, mapped flat from above (dome_shell "uv": "planar"): the zenith at
+    the centre ("zenith" colour), golden toward the rim ("horizon" = the colour), soft drifting clouds ("clouds"
+    cover 0..1) lit warm underneath, a sun glow ("sun": [u, v, size]). Fully emissive (the sky is its own light)."""
+    x, y = _xy(S); r = np.clip(np.hypot(x - 0.5, y - 0.5) * 2, 0, 1)  # 0 overhead .. 1 at the rim
+    zen, hor = np.array(m.get("zenith", [0.55, 0.7, 0.9]), float), c
+    t = r ** 1.6; alb = zen * (1 - t[..., None]) + hor * t[..., None]
+    n = _periodic_noise(rng, S); n2 = _periodic_noise(np.random.default_rng(rng.integers(1 << 30)), S, 2.2)
+    cov = float(m.get("clouds", 0.45)); cl = np.clip((n * 0.75 + n2 * 0.25 - (1 - cov)) / 0.22, 0, 1) ** 1.3
+    shade = np.clip((n - (1 - cov)) / 0.35, 0, 1)  # thicker cores lit golden underneath
+    cloud = np.array(m.get("cloud", [1.0, 0.97, 0.9]), float) * (1 - 0.35 * shade[..., None]) + np.array(m.get("cloud_under", [1.0, 0.78, 0.45]), float) * 0.35 * shade[..., None]
+    alb = alb * (1 - cl[..., None] * 0.85) + cloud * cl[..., None] * 0.85
+    su, sv, ss = m.get("sun", [0.62, 0.4, 0.1]); g = np.exp(-((x - su) ** 2 + (y - sv) ** 2) / (2 * ss * ss))
+    alb = np.clip(alb + np.array([1.0, 0.85, 0.5]) * (0.55 * g + 0.6 * g ** 6)[..., None], 0, 1)
+    return dict(alb=alb, h=np.zeros((S, S)), rough=np.full((S, S), 0.9), metal=0.0, emit=np.ones((S, S)), nstr=0.0)
+
+
+def k_beam_fade(S, rng, c, m):
+    """Stage 127: a light shaft's colour with an alpha ramp along v (0 = the floor end, 1 = the top): faded in over
+    "fade_in" at the floor and out again from "fade_out" [start, end] - the beam never shows where it starts. Pair
+    with "alpha" (overall strength, blended)."""
+    x, y = _xy(S); v = 1.0 - y  # image rows run top-down, UV v bottom-up
+    def ss(a, b, t): t = np.clip((t - a) / (b - a), 0, 1); return t * t * (3 - 2 * t)
+    fo = m.get("fade_out", [0.45, 0.9]); a = ss(0.0, float(m.get("fade_in", 0.12)), v) * (1 - ss(fo[0], fo[1], v))
+    return dict(alb=np.broadcast_to(c, (S, S, 3)).copy(), h=np.zeros((S, S)), rough=np.full((S, S), 0.9), metal=0.0, emit=np.ones((S, S)), nstr=0.0, alpha=a)
+
+
 def k_image_decal(S, rng, c, m):
     """Stage 122: a decal from an RGBA image ("image", repo-relative): colour from it, alpha cut out (pair with
     "cutout": 0.5) - e.g. a floor emblem with no background tile. "glow": emission strength (0 = lit like paint)."""
@@ -1102,6 +1135,9 @@ def make_material(name, m):
         kw.update(baseColorTexture=Image.open(io.BytesIO(b.getvalue())), alphaMode="MASK", alphaCutoff=float(m["cutout"]))
     if m.get("alpha") is not None:  # Stage 20: see-through (e.g. tube glass): blended, both sides drawn
         kw.update(baseColorFactor=[1.0, 1.0, 1.0, float(m["alpha"])], alphaMode="BLEND", doubleSided=True)
+        if d.get("alpha") is not None and not m.get("cutout"):  # Stage 127: + a blended alpha map (light shafts fading out)
+            b_ = io.BytesIO(); Image.fromarray((np.clip(np.dstack([alb, d["alpha"]]), 0, 1) * 255).astype(np.uint8), "RGBA").save(b_, "PNG")
+            kw["baseColorTexture"] = Image.open(io.BytesIO(b_.getvalue()))
     ormi = _img(orm, 88); kw["metallicRoughnessTexture"] = ormi; kw["occlusionTexture"] = ormi
     px = [d["S"] ** 2] * 2
     if d["nstr"] > 0:

@@ -1376,4 +1376,10 @@ Building blocks usable without the preset:
   larger glowing shell (soft yellow sky). Faint slanted light shafts (own mobile group `Sunbeams`) run down to the
   floor and effect `Dome_Light` (point lights, the fan-light yellow) lights the hall under it. The varied ceiling
   dressing keeps clear of the dome (rails stop either side, no cables / pods / fans across it). Visual only.
+- Stage 127: the dome shows a real sky: clear glass (`dome_glass` alpha 0.09) and behind it a sky shell mapped flat
+  from below (`dome_shell` `"uv": "planar"`, material kind `sky_dome`: blue zenith, golden rim, warm-lit tileable clouds,
+  sun glow; `sky_margin` / `sky_height` keep it under the background's roof). The light shafts are open `beam_cone`
+  tubes with a `beam_fade` alpha ramp (`fade_in`, `fade_out` [start, end] along the shaft): they fade in from nothing
+  below the roof, so their start never shows. Blended materials with an alpha map now embed it (RGBA). The glass has
+  no collider (anything can be flown through it later).
 

@@ -774,7 +774,9 @@ def glass_dome(ctx, pre, D, dx, dz, R, y, th, tag):
     ctx.add(n + "Curb_Trim", "cylinder", [dx, y - 0.75, dz], [2 * R + 0.2, 0.18, 2 * R + 0.2], ctx.role("glow_yellow"), hole=R - 0.5, hole_res=48, sections=48, outline=False, **vis)
     Rg = R - 0.2
     ctx.add(n + "Glass", "dome_shell", [dx, yc, dz], [2 * Rg, H, 2 * Rg], ctx.role(D.get("glass", "dome_glass")), sections=32, rings=8, double_sided=True, outline=False, **vis)
-    Rs = R + 4.0; ctx.add(n + "Sky", "dome_shell", [dx, y + th - 0.05, dz], [2 * Rs, H + 7.0, 2 * Rs], ctx.role(D.get("sky", "dome_sky")), sections=24, rings=6, double_sided=True, outline=False, **vis)
+    Rs = R + float(D.get("sky_margin", 30.0))  # Stage 127: the sky far beyond the glass (clouds, sun glow), mapped flat from below
+    ctx.add(n + "Sky", "dome_shell", [dx, y + th - 0.05, dz], [2 * Rs, H + float(D.get("sky_height", 30.0)), 2 * Rs], ctx.role(D.get("sky", "dome_sky")), sections=24, rings=6, uv="planar",
+            double_sided=True, outline=False, **vis)
     nr, nk = int(D.get("ribs", 12)), int(D.get("rings", 8)); off = 0.18
     def P(a, j): phi = math.pi / 2 * j / nk; return (dx + (Rg + off) * math.cos(phi) * math.cos(a), yc + (H + off) * math.sin(phi), dz + (Rg + off) * math.cos(phi) * math.sin(a))
     def strut(nm, pa, pb, t):
@@ -796,7 +798,7 @@ def glass_dome(ctx, pre, D, dx, dz, R, y, th, tag):
         a = 2 * math.pi * (i + rng.uniform(-0.2, 0.2)) / max(1, int(D.get("shafts", 5))); rr = R * rng.uniform(0.15, 0.6); r0 = rng.uniform(1.6, 3.2)
         tx, tz = dx + rr * math.cos(a), dz + rr * math.sin(a); L_ = (y + 0.3 - floor_y) / math.cos(math.radians(tilt))
         bx, bz = tx, tz + L_ * math.sin(math.radians(tilt))  # the base leans south of the top (light from the north)
-        ctx.add(f"{n}Shaft_{i + 1}", "frustum", [bx, floor_y, bz], [2 * r0, L_, 2 * r0], ctx.role(D.get("shaft", "sunbeam")), None, [-tilt, 0, 0], sections=10, bottom_scale=1.7, **sh)
+        ctx.add(f"{n}Shaft_{i + 1}", "beam_cone", [bx, floor_y, bz], [2 * r0, L_, 2 * r0], ctx.role(D.get("shaft", "sunbeam")), None, [-tilt, 0, 0], sections=12, bottom_scale=1.7, **sh)  # Stage 127: open, fading out before the roof
     ctx.dome_lights = getattr(ctx, "dome_lights", []) + [[dx, y - 8.0, dz]] + [[round(dx + R * 0.45 * math.cos(a), 2), y - 16.0, round(dz + R * 0.45 * math.sin(a), 2)] for a in (0.5, 2.6, 4.7)]
     ctx.notes.append(f"{pre}ceiling: glass dome r {R:.0f} m (rise {H:.0f} m) at ({dx:.0f}, {dz:.0f}), {nr} ribs, warm light shafts")
 

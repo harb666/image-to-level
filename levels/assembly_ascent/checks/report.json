@@ -1,15 +1,15 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 3728,
-  "mobile/level_mobile.glb": 2237,
+  "level.glb": 3793,
+  "mobile/level_mobile.glb": 2241,
   "mobile/collision.json": 162,
   "environment.json": 4,
   "background.glb": 477,
   "effects.json": 68
  },
  "complexity": {
-  "triangles": 61640,
+  "triangles": 61580,
   "nodes": 2476,
   "materials": 38,
   "heaviest": [
@@ -37,19 +37,19 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 3728,
-   "triangles": 52800,
+   "glb_kb": 3793,
+   "triangles": 52740,
    "draw_calls": 2476,
-   "tex_mem_gpu_mb_est": 23.74
+   "tex_mem_gpu_mb_est": 26.42
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 2237,
-   "triangles": 59458,
+   "glb_kb": 2241,
+   "triangles": 59398,
    "draw_calls": 124,
-   "visible_draw_calls_est": 68.5,
+   "visible_draw_calls_est": 68.6,
    "visible_draw_calls_max_est": 127,
-   "tex_mem_gpu_mb_est": 9.09,
+   "tex_mem_gpu_mb_est": 9.77,
    "materials": 40,
    "nodes": 208,
    "colliders": {
@@ -251,7 +251,7 @@
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~68 visible draw calls (estimate, > 60)"
+   "message": "~69 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "spawn_near_hazard",
@@ -278,7 +278,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "61640 triangles (> budget 40000)"
+   "message": "61580 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
