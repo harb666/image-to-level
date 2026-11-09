@@ -1291,3 +1291,11 @@ Building blocks usable without the preset:
 - `overlook` `open_edges` ["N"]: no railing on that edge. Assembly Ascent: the overlook's north edge is open; walking
   to it raises the Arena (15 m deck + 3 platforms, same height, docked against it); encounter `Arena_Waves` (3 waves,
   enemy spawn `enemy_arena` on the deck) starts when the player steps onto `Arena_Deck`.
+
+## Stage 110: square, goofy arena platforms
+- `rising_arena` platforms are square (box column, rectangular tapered bowl and band, box cap and rim): a `deck_size`
+  m deck and `satellites` [[bearing, size, slide], ...] against its sides; nothing stands on them yet.
+- `style` "goofy" (default): every platform gets a personality (assembly.GOOFS: peek time, wiggle, sway) and rises by
+  `assembly.goofy_pose` - emerges until its top peeks out, looks around (wiggles about its vertical axis), ducks,
+  pops up past its height, then squashes wide, jiggles, bobs and sways into place (bone position + rotation + xz
+  scale; viewer.html and apply_effects.gd `goofy_pose` copy it); colliders go live near the end of the pop.

@@ -1,16 +1,16 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 3289,
-  "mobile/level_mobile.glb": 1798,
-  "mobile/collision.json": 123,
+  "level.glb": 3260,
+  "mobile/level_mobile.glb": 1771,
+  "mobile/collision.json": 122,
   "environment.json": 4,
   "background.glb": 477,
   "effects.json": 49
  },
  "complexity": {
-  "triangles": 50353,
-  "nodes": 2078,
+  "triangles": 49573,
+  "nodes": 2046,
   "materials": 34,
   "heaviest": [
    [
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 3289,
-   "triangles": 42145,
-   "draw_calls": 2078,
+   "glb_kb": 3260,
+   "triangles": 41521,
+   "draw_calls": 2046,
    "tex_mem_gpu_mb_est": 22.71
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 1798,
-   "triangles": 48383,
-   "draw_calls": 101,
-   "visible_draw_calls_est": 58.9,
-   "visible_draw_calls_max_est": 104,
+   "glb_kb": 1771,
+   "triangles": 47615,
+   "draw_calls": 99,
+   "visible_draw_calls_est": 58.0,
+   "visible_draw_calls_max_est": 102,
    "tex_mem_gpu_mb_est": 8.06,
    "materials": 34,
-   "nodes": 111,
+   "nodes": 109,
    "colliders": {
-    "colliders": 367,
+    "colliders": 361,
     "hazards": 1,
-    "glb_kb": 171
+    "glb_kb": 167
    },
    "background_kb": 404
   },
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 19709.0,
-  "reachable_area_m2": 3815.0,
-  "components": 109,
+  "standable_area_m2": 19766.0,
+  "reachable_area_m2": 3881.0,
+  "components": 103,
   "spawns": [
    {
     "id": "spawn",
@@ -132,9 +132,9 @@
      42.4
     ],
     "standable": true,
-    "clearance_m": 1.5,
+    "clearance_m": 7.5,
     "headroom_m": 19.0,
-    "component": 47,
+    "component": 43,
     "hazard_distance_m": 0.32
    }
   ],
@@ -207,7 +207,7 @@
    },
    {
     "name": "Arena_Deck",
-    "standable_m2": 152.0,
+    "standable_m2": 209.0,
     "reachable_fraction": 1.0,
     "one_way": false
    }
@@ -246,7 +246,7 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 101 (> 80)"
+   "message": "mobile draw calls 99 (> 80)"
   },
   {
    "kind": "spawn_near_hazard",
@@ -273,7 +273,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "50353 triangles (> budget 40000)"
+   "message": "49573 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
@@ -284,7 +284,7 @@
     6.75,
     5.5
    ],
-   "message": "10 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): OuterWall_East_M12Monitor_Body, Robot_Ring_Floor"
+   "message": "15 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): OuterWall_East_M12Monitor_Body, Robot_Ring_Floor"
   }
  ],
  "counts": {

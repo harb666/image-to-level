@@ -628,6 +628,59 @@ func raise_pads(riser_id: String) -> void:
 			rec[4] = _t
 
 
+static func goofy_pose(pd: Dictionary, tk: float, D: float, liq: float) -> Array:
+	# Stage 110 (same as assembly.goofy_pose / viewer.html): [y offset, yaw deg, tilt deg, xz scale, colliders live]
+	var g: Dictionary = pd["goof"]
+	var rise := float(pd["rise"])
+	var a := 0.45
+	var b := float(g["peek"])
+	var c := 0.22
+	var offp := liq + 0.9 - float(pd["center"][1])
+	if tk < 0.0:
+		return [-rise, 0.0, 0.0, 1.0, false]
+	if tk < a:  # emerge until the top peeks out
+		var u := tk / a
+		return [-rise + (offp + rise) * (1.0 - pow(1.0 - u, 3.0)), 0.0, 0.0, 1.0, false]
+	var tb := tk - a
+	if tb < b:  # look around
+		return [offp + 0.12 * sin(TAU * 1.5 * tb), float(g["wig"]) * sin(TAU * float(g["hz"]) * tb) * sin(PI * tb / b), 0.0, 1.0, false]
+	var tc := tb - b
+	if tc < c:  # duck
+		return [offp - 0.6 * sin(PI * 0.5 * tc / c), 0.0, 0.0, 1.0, false]
+	var td := tc - c
+	if td < D:  # pop up past the rest height
+		var u := td / D
+		var e := 1.0 + 2.9 * pow(u - 1.0, 3.0) + 1.9 * pow(u - 1.0, 2.0)
+		return [(offp - 0.6) * (1.0 - e), 0.0, 0.0, 1.0 - 0.12 * sin(PI * u), u >= 0.8]
+	var te := td - D
+	if te > 4.0:
+		return [0.0, 0.0, 0.0, 1.0, true]
+	return [0.3 * sin(9.0 * te) * exp(-3.5 * te), 0.0, float(g["tilt"]) * exp(-2.6 * te) * sin(7.5 * te), 1.0 + 0.16 * exp(-4.0 * te) * cos(13.0 * te), true]
+
+
+func _pose_goofy(sk: Skeleton3D, bones: Dictionary, pd: Dictionary, tk: float, D: float, liq: float, cols: Array) -> void:
+	var G := goofy_pose(pd, tk, D, liq)
+	var bi: int = bones.get(String(pd["joint"]), -1)
+	if bi >= 0:
+		var dr := deg_to_rad(float(pd["goof"]["dir"]))
+		var q := Quaternion(Vector3(cos(dr), 0.0, sin(dr)), deg_to_rad(float(G[2]))) * Quaternion(Vector3.UP, deg_to_rad(float(G[1])))
+		sk.set_bone_pose_position(bi, sk.get_bone_rest(bi).origin + Vector3(0.0, float(G[0]), 0.0))
+		sk.set_bone_pose_rotation(bi, q)
+		sk.set_bone_pose_scale(bi, Vector3(float(G[3]), 1.0, float(G[3])))
+	var rs := 0.4
+	var ry := -3.0
+	if tk >= 0.3:  # the surge ring bursts out where it breaks the surface
+		var f := clampf((tk - 0.3) / 1.6, 0.0, 1.0)
+		rs = 0.4 + 2.6 * (1.0 - pow(1.0 - f, 2.0))
+		ry = -0.9 * f * f if f < 1.0 else -3.0
+	var ri: int = bones.get(String(pd["ring"]), -1)
+	if ri >= 0:
+		sk.set_bone_pose_position(ri, sk.get_bone_rest(ri).origin + Vector3(0.0, ry, 0.0))
+		sk.set_bone_pose_scale(ri, Vector3(rs, 1.0, rs))
+	for cl in cols:
+		(cl as CollisionShape3D).disabled = not bool(G[4])
+
+
 func _pose_riser(rec: Array, t: float) -> void:  # t: seconds since the trigger (< 0: still waiting)
 	var r: Dictionary = rec[0]
 	var sk: Skeleton3D = rec[1]
@@ -636,6 +689,9 @@ func _pose_riser(rec: Array, t: float) -> void:  # t: seconds since the trigger 
 	for k in r["pads"].size():
 		var pd: Dictionary = r["pads"][k]
 		var tk := t - k * float(r["stagger"]) if t >= 0.0 else -1.0
+		if pd.has("goof"):  # Stage 110: goofy rise (peek, look around, duck, pop, squash + sway)
+			_pose_goofy(sk, bones, pd, tk, D, float(r.get("liquid", 1.0)), rec[3][k])
+			continue
 		var off := -float(pd["rise"])
 		if tk >= 0.0 and tk < D:
 			off = -float(pd["rise"]) * pow(1.0 - tk / D, 3.0)  # bursts up, decelerates

@@ -1731,61 +1731,83 @@
       "center": [
        42.5,
        15.5,
-       42.921
+       42.85
       ],
-      "size": 15.0,
-      "rise": 16.9,
+      "size": 14.0,
+      "rise": 15.5,
       "colliders": [
-       "Arena_Deck_Cap",
-       "Arena_Deck_Cover_1",
-       "Arena_Deck_Cover_2",
-       "Arena_Deck_Cover_3"
-      ]
+       "Arena_Deck_Cap"
+      ],
+      "goof": {
+       "peek": 1.1,
+       "wig": 9.0,
+       "hz": 1.6,
+       "tilt": 2.5,
+       "dir": 30.0
+      }
      },
      {
       "joint": "Arena_J2",
       "ring": "Arena_R2",
       "center": [
-       32.699,
+       32.4,
        15.5,
-       42.921
+       41.25
       ],
       "size": 6.0,
-      "rise": 19.9,
+      "rise": 15.5,
       "colliders": [
-       "Arena_Pad_1_Cap",
-       "Arena_Pad_1_Pylon"
-      ]
+       "Arena_Pad_1_Cap"
+      ],
+      "goof": {
+       "peek": 0.7,
+       "wig": 14.0,
+       "hz": 2.4,
+       "tilt": 4.0,
+       "dir": 120.0
+      }
      },
      {
       "joint": "Arena_J3",
       "ring": "Arena_R3",
       "center": [
-       35.57,
+       46.9,
        15.5,
-       35.991
+       32.75
       ],
       "size": 6.0,
-      "rise": 19.9,
+      "rise": 15.5,
       "colliders": [
-       "Arena_Pad_2_Cap",
-       "Arena_Pad_2_Pylon"
-      ]
+       "Arena_Pad_2_Cap"
+      ],
+      "goof": {
+       "peek": 1.4,
+       "wig": 7.0,
+       "hz": 1.2,
+       "tilt": 3.5,
+       "dir": 250.0
+      }
      },
      {
       "joint": "Arena_J4",
       "ring": "Arena_R4",
       "center": [
-       42.5,
+       38.9,
        15.5,
-       33.12
+       32.75
       ],
       "size": 6.0,
-      "rise": 19.9,
+      "rise": 15.5,
       "colliders": [
-       "Arena_Pad_3_Cap",
-       "Arena_Pad_3_Pylon"
-      ]
+       "Arena_Pad_3_Cap"
+      ],
+      "goof": {
+       "peek": 0.9,
+       "wig": 12.0,
+       "hz": 2.0,
+       "tilt": 4.5,
+       "dir": 330.0
+      }
      }
     ],
     "trigger": {
@@ -1796,10 +1818,11 @@
      ],
      "radius": 5.0
     },
-    "stagger": 0.5,
-    "rise_s": 2.6,
+    "stagger": 0.45,
+    "rise_s": 0.75,
     "liquid": 1.0,
-    "note": "the arena starts under the liquid; its platforms surge up in order when a player enters the trigger sphere"
+    "style": "goofy",
+    "note": "the arena starts under the liquid; its platforms surge up in order when a player enters the trigger sphere - goofy: see assembly.goofy_pose"
    },
    "quality": {
     "performance": {

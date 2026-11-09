@@ -422,57 +422,69 @@ def overlook(ctx, s, x, y, z, yaw):
     ctx.notes.append(f"{n}: corner overlook {W_:.1f} x {D_:.1f} m at {top} m" + (f", gantry {L_:.1f} m to lift {lf['id']}" if lf else ""))
 
 
+GOOFS = [dict(peek=1.1, wig=9.0, hz=1.6, tilt=2.5, dir=30.0), dict(peek=0.7, wig=14.0, hz=2.4, tilt=4.0, dir=120.0),  # Stage 110: per-platform personalities
+         dict(peek=1.4, wig=7.0, hz=1.2, tilt=3.5, dir=250.0), dict(peek=0.9, wig=12.0, hz=2.0, tilt=4.5, dir=330.0)]
+
+
+def goofy_pose(pd, tk, rise_s, liq):
+    """Stage 110: the "goofy" rise of an emerge-rig platform (reference for viewer.html / apply_effects.gd), tk seconds
+    after its turn: it EMERGES until its top peeks 0.9 m out of the liquid (0.45 s, ease-out), LOOKS AROUND (wiggles
+    about its vertical axis, bobbing, "peek" s), DUCKS 0.6 m (0.22 s), LAUNCHES past its rest height (back-out ease over
+    rise_s, thinning as it shoots up), then SETTLES: squashes wide on landing and jiggles, bobs, and sways about a
+    tilted axis ("dir") - all decaying. Returns (y offset, yaw deg, tilt deg, xz scale, colliders live)."""
+    g = pd["goof"]; rise = pd["rise"]; top = pd["center"][1]; a, b, c, d = 0.45, g["peek"], 0.22, rise_s; offp = liq + 0.9 - top
+    if tk < 0: return (-rise, 0.0, 0.0, 1.0, False)
+    if tk < a: u = tk / a; return (-rise + (offp + rise) * (1 - (1 - u) ** 3), 0.0, 0.0, 1.0, False)
+    tb = tk - a
+    if tb < b: return (offp + 0.12 * math.sin(2 * math.pi * 1.5 * tb), g["wig"] * math.sin(2 * math.pi * g["hz"] * tb) * math.sin(math.pi * tb / b), 0.0, 1.0, False)
+    tc = tb - b
+    if tc < c: return (offp - 0.6 * math.sin(math.pi / 2 * tc / c), 0.0, 0.0, 1.0, False)
+    td = tc - c
+    if td < d:
+        u = td / d; c1 = 1.9; e = 1 + (c1 + 1) * (u - 1) ** 3 + c1 * (u - 1) ** 2
+        return ((offp - 0.6) * (1 - e), 0.0, 0.0, 1 - 0.12 * math.sin(math.pi * u), u >= 0.8)
+    te = td - d
+    if te > 4.0: return (0.0, 0.0, 0.0, 1.0, True)
+    return (0.3 * math.sin(9 * te) * math.exp(-3.5 * te), 0.0, g["tilt"] * math.exp(-2.6 * te) * math.sin(7.5 * te), 1 + 0.16 * math.exp(-4 * te) * math.cos(13 * te), True)
+
+
 @structure("rising_arena", pad=False)
 def rising_arena(ctx, s, x, y, z, yaw):
-    """Stage 109: a battle arena that surges up out of the liquid (the "emerge" rig of rising_pads: one bone per
-    platform + one per surge ring; Godot apply_effects.gd / viewer.html play it, colliders live once up). A big octagonal
-    deck ("center" [x, z], "diameter", top "top") on a column and a bowl, with barricades for cover ("cover" [[dx, dz,
-    yaw], ...]) and a glowing rim; "satellites" [[bearing, diameter], ...] octagonal platforms against its flats, each
-    with a hazard-banded pylon and a glowing crown on its outer side. They rise in order ("stagger", "rise_s") when a
-    player comes within "trigger_radius" of "trigger" ([x, y, z]: e.g. the open edge it docks against)."""
-    n = s["id"]; (cx, cz) = s["center"]; D = float(s.get("diameter", 15.0)); top = float(s["top"]); liq = float(s.get("liquid", 1.0))
-    gl, stripe, lamp = ctx.role("glow"), ctx.role("stripe"), ctx.role("glow_yellow"); grp = n + "_Rig"; nc = dict(collision=False, outline=False)
-    joints = [dict(name=n + "_JRoot", parent=None, pivot=[round(cx, 3), round(liq, 3), round(cz, 3)], axis=[0.0, 1.0, 0.0])]; pads = []; ap = math.cos(math.pi / 8)
-    def platform(k, px, pz, d, rot, extra, above=0.0):  # above: how far its tallest part stands over the deck (it sinks that much deeper)
+    """Stage 109/110: a battle arena that surges up out of the liquid (the "emerge" rig of rising_pads: one bone per
+    platform + one per surge ring; Godot apply_effects.gd / viewer.html play it, colliders live once up). Square
+    platforms: a big deck ("center" [x, z], "deck_size" m, top "top") on a square column and a tapered bowl with a glowing
+    band and rim, and "satellites" [[bearing, size, slide], ...] against its sides (slid along them). Nothing stands on
+    them (yet). They rise in order ("stagger", "rise_s") when a player comes within "trigger_radius" of "trigger";
+    "style": "goofy" (default) gives each its own personality (GOOFS; goofy_pose)."""
+    n = s["id"]; (cx, cz) = s["center"]; D = float(s.get("deck_size", 14.0)); top = float(s["top"]); liq = float(s.get("liquid", 1.0))
+    gl = ctx.role("glow"); grp = n + "_Rig"; nc = dict(collision=False, outline=False); style = s.get("style", "goofy")
+    joints = [dict(name=n + "_JRoot", parent=None, pivot=[round(cx, 3), round(liq, 3), round(cz, 3)], axis=[0.0, 1.0, 0.0])]; pads = []
+    def platform(k, px, pz, d, rot):
         jn, rn = f"{n}_J{k}", f"{n}_R{k}"; pj, rj = dict(group=grp, joint=jn), dict(group=grp, joint=rn); pre = f"{n}_{'Deck' if k == 1 else f'Pad_{k - 1}'}"
         joints.append(dict(name=jn, parent=n + "_JRoot", pivot=[round(px, 3), round(liq, 3), round(pz, 3)], axis=[0.0, 1.0, 0.0]))
         joints.append(dict(name=rn, parent=n + "_JRoot", pivot=[round(px, 3), round(liq + 0.03, 3), round(pz, 3)], axis=[0.0, 1.0, 0.0]))
-        r8 = [0, rot, 0]
-        ctx.add(pre + "_Column", "cylinder", [px, 0.0, pz], [d * 0.34, top - 2.4, d * 0.34], "structure_b", sections=8, rot=r8, mobile=pj, **nc)
-        ctx.add(pre + "_Bowl", "frustum", [px, top - 2.6, pz], [d - 0.6, 2.0, d - 0.6], "structure_b", sections=8, bottom_scale=0.42, rot=r8, mobile=pj, **nc)
-        ctx.add(pre + "_Band", "frustum", [px, top - 1.05, pz], [d - 0.4, 0.4, d - 0.4], gl, sections=8, bottom_scale=0.94, rot=r8, mobile=pj, **nc)
-        ctx.add(pre + "_Cap", "cylinder", [px, top - 0.6, pz], [d, 0.6, d], "deck", sections=8, rot=r8, mobile=pj)
-        ctx.add(pre + "_Rim", "cylinder", [px, top - 0.66, pz], [d + 0.16, 0.14, d + 0.16], gl, sections=8, rot=r8, mobile=pj, **nc)
+        r4 = [0, rot, 0]
+        ctx.add(pre + "_Column", "box", [px, 0.0, pz], [d * 0.36, top - 2.4, d * 0.36], "structure_b", rot=r4, mobile=pj, **nc)
+        ctx.add(pre + "_Bowl", "frustum", [px, top - 2.6, pz], [d - 0.6, 2.0, d - 0.6], "structure_b", bottom_scale=0.42, rot=r4, mobile=pj, **nc)
+        ctx.add(pre + "_Band", "frustum", [px, top - 1.05, pz], [d - 0.4, 0.4, d - 0.4], gl, bottom_scale=0.94, rot=r4, mobile=pj, **nc)
+        ctx.add(pre + "_Cap", "box", [px, top - 0.6, pz], [d, 0.6, d], "deck", rot=r4, mobile=pj)
+        ctx.add(pre + "_Rim", "box", [px, top - 0.66, pz], [d + 0.16, 0.14, d + 0.16], gl, rot=r4, mobile=pj, **nc)
         ctx.add(pre + "_Surge", "cylinder", [px, liq + 0.03, pz], [d * 1.2, 0.04, d * 1.2], ctx.role("fall"), sections=8, mobile=rj, **nc)
-        cols = [pre + "_Cap"] + extra(pj, pre)
-        pads.append(dict(joint=jn, ring=rn, center=[round(px, 3), round(top, 3), round(pz, 3)], size=d, rise=round(top + above - liq + 1.0, 3), colliders=cols))
-        ctx.landings.append((round(px, 3), round(pz, 3), d / 2))
-    def deck_extra(pj, pre):  # barricades for cover: a block with a lit slit and a hazard cap
-        out = []
-        for j, (dx, dz, cy) in enumerate(s.get("cover", [])):
-            W = _W(cx + dx, 0, cz + dz, cy); b = f"{pre}_Cover_{j + 1}"
-            ctx.add(b, "box", [cx + dx, top, cz + dz], [2.6, 1.15, 0.8], "machine", rot=[0, cy, 0], mobile=pj); out.append(b)
-            ctx.add(b + "_Cap", "box", [cx + dx, top + 1.15, cz + dz], [2.7, 0.16, 0.9], stripe, rot=[0, cy, 0], mobile=pj, **nc)
-            for sd in (-1, 1): q = W(0, top + 0.55, sd * 0.41); ctx.add(f"{b}_Slit{'LR'[sd > 0]}", "box", q, [1.8, 0.1, 0.02], gl, rot=[0, cy, 0], mobile=pj, **nc)
-        return out
-    platform(1, cx, cz, D, 22.5, deck_extra, above=1.4 if s.get("cover") else 0.0)
-    for k, (bear, d) in enumerate(s.get("satellites", [])):
-        d = float(d); dist = D / 2 * ap + d / 2 * ap + 0.1; W = _W(cx, 0, cz, float(bear)); q = W(0, 0, dist)
-        def sat_extra(pj, pre, q=q, bear=float(bear), d=d):  # a pylon on its outer side: banded column, glowing crown
-            P = _W(q[0], 0, q[2], bear)(0, 0, d / 2 * ap - 0.9); b = pre + "_Pylon"
-            ctx.add(b, "box", [P[0], top, P[2]], [0.9, 2.6, 0.9], "structure_b", rot=[0, bear, 0], mobile=pj)
-            ctx.add(b + "_Top", "box", [P[0], top + 2.6, P[2]], [0.9, 1.2, 0.9], "structure_b", rot=[0, bear, 0], mobile=pj, **nc)
-            ctx.add(b + "_Band", "box", [P[0], top + 2.35, P[2]], [1.0, 0.5, 1.0], stripe, rot=[0, bear, 0], mobile=pj, **nc)
-            ctx.add(b + "_Crown", "frustum", [P[0], top + 3.8, P[2]], [1.2, 0.5, 1.2], lamp, bottom_scale=0.6, rot=[0, bear, 0], mobile=pj, **nc)
-            return [b]
-        platform(k + 2, q[0], q[2], d, float(bear) + 22.5, sat_extra, above=4.4)
+        pd = dict(joint=jn, ring=rn, center=[round(px, 3), round(top, 3), round(pz, 3)], size=d, rise=round(top - liq + 1.0, 3), colliders=[pre + "_Cap"])
+        if style == "goofy": pd["goof"] = dict(GOOFS[(k - 1) % len(GOOFS)])
+        pads.append(pd); ctx.landings.append((round(px, 3), round(pz, 3), d / 2))
+    platform(1, cx, cz, D, 0.0)
+    for k, sat in enumerate(s.get("satellites", [])):
+        bear, d = float(sat[0]), float(sat[1]); sl = float(sat[2]) if len(sat) > 2 else 0.0
+        q = _W(cx, 0, cz, bear)(sl, 0, D / 2 + d / 2 + 0.1); platform(k + 2, q[0], q[2], d, bear)
     tr = s.get("trigger") or [cx, top, cz]
     ctx.skeletons = getattr(ctx, "skeletons", {}); ctx.skeletons[n] = dict(groups=[grp], joints=joints, kind="emerge")
     ctx.risers = getattr(ctx, "risers", []) + [dict(id=n, group=grp, skeleton=n, pads=pads, trigger=dict(center=[float(v) for v in tr], radius=float(s.get("trigger_radius", 6.0))),
-                                                     stagger=float(s.get("stagger", 0.5)), rise_s=float(s.get("rise_s", 2.6)), liquid=liq,
-                                                     note="the arena starts under the liquid; its platforms surge up in order when a player enters the trigger sphere")]
-    ctx.walkable.append(dict(name=n + "_Deck", min=[round(cx - D / 2 * ap, 3), round(cz - D / 2 * ap, 3)], max=[round(cx + D / 2 * ap, 3), round(cz + D / 2 * ap, 3)], y=top))
-    ctx.notes.append(f"{n}: battle arena rising out of the liquid - {D:.0f} m deck + {len(s.get('satellites', []))} platforms at {top} m")
+                                                     stagger=float(s.get("stagger", 0.45)), rise_s=float(s.get("rise_s", 0.75 if style == "goofy" else 2.6)), liquid=liq,
+                                                     **({"style": "goofy"} if style == "goofy" else {}),
+                                                     note="the arena starts under the liquid; its platforms surge up in order when a player enters the trigger sphere" + (" - goofy: see assembly.goofy_pose" if style == "goofy" else ""))]
+    ctx.walkable.append(dict(name=n + "_Deck", min=[round(cx - D / 2, 3), round(cz - D / 2, 3)], max=[round(cx + D / 2, 3), round(cz + D / 2, 3)], y=top))
+    ctx.notes.append(f"{n}: battle arena rising out of the liquid ({style}) - {D:.0f} m square deck + {len(s.get('satellites', []))} platforms at {top} m")
 
 
 @structure("pillar_path", pad=False)

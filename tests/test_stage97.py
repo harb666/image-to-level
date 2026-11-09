@@ -179,24 +179,37 @@ class CornerOverlook(unittest.TestCase):
 
 class RisingArena(unittest.TestCase):
     def test_arena_rises_at_the_open_edge(self):
-        """Stage 109: the overlook's north edge is open; walking to it raises a battle arena out of the slime, docked
-        against it (same height), with cover and pylons; nothing of it shows above the slime before it rises; a wave
-        encounter runs on it."""
+        """Stage 109/110: the overlook's north edge is open; walking to it raises a battle arena of SQUARE, empty
+        platforms out of the slime, docked against it (same height). Each rises with its own goofy personality: peeks
+        out, looks around, ducks, pops up past its height, squashes and sways into place. A wave encounter runs on it."""
         L = _load("level.json"); by = {o["name"]: o for o in L["objects"]}; S = _load("scene_spec.json")
         self.assertFalse([n for n in by if n.startswith("Overlook_RailN")])  # open edge
         R = next(r for r in L["risers"] if r["id"] == "Arena"); ov = by["Overlook_Deck"]; top = ov["position"][1] + ov["size"][1]
         self.assertEqual(len(R["pads"]), 4); self.assertTrue(all(abs(p["center"][1] - top) < 1e-6 for p in R["pads"]))
         c = R["trigger"]["center"]; self.assertLess(abs(c[2] - (ov["position"][2] - ov["size"][2] / 2)), 2.0)  # at the open edge
-        deck = by["Arena_Deck_Cap"]; edge = deck["position"][2] + deck["size"][2] / 2 * math.cos(math.pi / 8)
-        self.assertLess(abs(edge - (ov["position"][2] - ov["size"][2] / 2)), 0.3)  # docked against the overlook
-        joints = {p["joint"]: p for p in R["pads"]}
+        deck = by["Arena_Deck_Cap"]; self.assertEqual(deck["type"], "box"); self.assertAlmostEqual(deck["size"][0], deck["size"][2])  # square
+        self.assertLess(abs(deck["position"][2] + deck["size"][2] / 2 - (ov["position"][2] - ov["size"][2] / 2)), 0.3)  # docked against the overlook
+        joints = {p["joint"]: p for p in R["pads"]}; on = [o["name"] for o in L["objects"] if (o.get("mobile") or {}).get("joint") in joints]
+        self.assertFalse([n for n in on if not n.endswith(("_Column", "_Bowl", "_Band", "_Cap", "_Rim"))])  # nothing on them (yet)
         for o in L["objects"]:  # sunk deep enough: no part pokes out of the slime before the rise
             j = (o.get("mobile") or {}).get("joint")
             if j in joints and o.get("size"): self.assertLess(o["position"][1] + o["size"][1] - joints[j]["rise"], R["liquid"], o["name"])
-        self.assertTrue([n for n in by if n.startswith("Arena_Deck_Cover_") and n.count("_") == 3]); self.assertEqual(sum(1 for n in by if n.endswith("_Pylon")), 3)
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from modules.assembly import goofy_pose
+        self.assertEqual(R["style"], "goofy"); self.assertEqual(len({json.dumps(p["goof"], sort_keys=True) for p in R["pads"]}), 4)  # four personalities
+        for p in R["pads"]:
+            ts = [i * 0.02 for i in range(500)]; P = [goofy_pose(p, t_, R["rise_s"], R["liquid"]) for t_ in ts]
+            self.assertAlmostEqual(p["center"][1] + P[0][0], R["liquid"] - 1.0, places=3)  # starts under the slime
+            peek = max(p["center"][1] + q[0] for q, t_ in zip(P, ts) if t_ < 0.45 + p["goof"]["peek"])
+            self.assertTrue(R["liquid"] + 0.6 < peek < R["liquid"] + 1.2)  # just its top peeks out ...
+            self.assertGreater(max(abs(q[1]) for q in P), 5.0)  # ... and looks around
+            self.assertGreater(max(q[0] for q in P), 1.0)  # pops up past its rest height
+            self.assertGreater(max(q[3] for q in P), 1.1); self.assertGreater(max(abs(q[2]) for q in P), 1.5)  # squashes, sways
+            self.assertEqual(P[-1][:4], (0.0, 0.0, 0.0, 1.0)); self.assertTrue(P[-1][4])  # settled, colliders live
+        with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: self.assertIn("const goofy=(pd,tk)=>", f.read())
+        with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: self.assertIn("static func goofy_pose", f.read())
         E = next(e for e in S["encounters"] if e["id"] == "Arena_Waves"); self.assertEqual(E["trigger"], "enter:Arena_Deck")
         sp = next(s for s in L["spawns"] if s["id"] == "enemy_arena")["position"]; dc = deck["position"]
-        self.assertLess(math.hypot(sp[0] - dc[0], sp[2] - dc[2]), deck["size"][0] / 2 * math.cos(math.pi / 8) - 2.0)
+        self.assertLess(max(abs(sp[0] - dc[0]), abs(sp[2] - dc[2])), deck["size"][0] / 2 - 2.0)
         N = _load("checks/navigation.json"); self.assertEqual({a["name"]: a["reachable_fraction"] for a in N["intended_areas"]}.get("Arena_Deck"), 1.0)
 
 
