@@ -2,24 +2,26 @@
 import math, sys
 from PIL import Image, ImageDraw, ImageFilter
 S = 512; out = sys.argv[1]
-BG = (24, 10, 34); MAG = (255, 70, 230); MAG2 = (190, 40, 175); GRN = (120, 255, 90); DARK = (40, 18, 52)
+BG = (24, 10, 34); FACE = (232, 112, 244); PLUM = (46, 20, 52); BORDER = (150, 64, 182); MAG = (255, 70, 230); MAG2 = (190, 40, 175); GRN = (120, 255, 90); DARK = (40, 18, 52)
 def canvas(): im = Image.new("RGB", (S, S), BG); d = ImageDraw.Draw(im); d.rectangle([10, 10, S - 11, S - 11], outline=(70, 30, 90), width=10); return im, d
 def glow(im, layer):  # add a soft glow under the drawn layer
     g = layer.filter(ImageFilter.GaussianBlur(14)); im.paste(Image.blend(im, Image.new("RGB", (S, S), (0, 0, 0)), 0), (0, 0))
     base = Image.composite(g.convert("RGB"), im, g.split()[3].point(lambda v: int(v * 0.7))); return Image.composite(layer.convert("RGB"), base, layer.split()[3])
-def grin_face(d, cx, cy, r, col):  # angry slanted eyes + jagged toothy grin
-    for sd in (-1, 1):
-        ex = cx + sd * r * 0.42
-        d.polygon([(ex - sd * r * 0.30, cy - r * 0.62), (ex + sd * r * 0.30, cy - r * 0.34), (ex - sd * r * 0.22, cy - r * 0.22)], fill=col)
-    top, bot = cy + r * 0.12, cy + r * 0.55; L, Rr = cx - r * 0.72, cx + r * 0.72
-    mouth = [(L, top - r * 0.05)]; n = 7
-    for i in range(n + 1): mouth.append((L + (Rr - L) * i / n, top + (r * 0.10 if i % 2 else 0)))
-    mouth += [(Rr, top - r * 0.05), (cx + r * 0.45, bot), (cx, bot + r * 0.08), (cx - r * 0.45, bot)]
-    d.polygon(mouth, fill=col)
-    for i in range(1, 6):  # teeth gaps
-        x = L + (Rr - L) * i / 6; d.line([(x, top + r * 0.08), (x + r * 0.02, top + r * 0.3)], fill=BG, width=max(2, int(r * 0.05)))
-def cell_grin():
-    im, _ = canvas(); lay = Image.new("RGBA", (S, S), (0, 0, 0, 0)); d = ImageDraw.Draw(lay); grin_face(d, S / 2, S / 2 - 20, 200, MAG + (255,)); return glow(im, lay)
+def grin_face(d, cx, cy, r, col, gap=None, sy=1.0, band=80):  # sy: vertical stretch (wide sign panels squash the square cell); band: mouth thickness  # the Construct Error grin (user's reference): wide flat triangle eyes, a wavy toothy band mouth with upturned tips
+    gap = gap or BG; u = r / 225.0  # reference units: the face is 450 px wide, centred at (0, 0)
+    P = lambda x, y: (cx + x * u, cy + y * u * sy)
+    d.polygon([P(-212, -55), P(-37, -115), P(-62, -40)], fill=col)  # left eye: long top edge out to a sharp outer point
+    d.polygon([P(212, -55), P(37, -118), P(60, -42)], fill=col)    # right eye (mirror, a touch different like hand-drawn)
+    yt = lambda x: 46 + 13 * math.cos(2 * math.pi * (x + 112) / 150)  # top edge of the band (waves)
+    xs = [x for x in range(-170, 171, 5)]
+    top = [P(x, yt(x)) for x in xs]; bot = [P(x, yt(x) + band) for x in reversed(xs)]
+    d.polygon([P(-222, 22)] + top + [P(226, 14)] + bot, fill=col)  # tips sweep up at both corners
+    for x in (-152, -77, -2, 76, 148):  # teeth: thin dark separators across the band
+        d.line([P(x, yt(x) + 2), P(x + 3, yt(x) + band - 2)], fill=gap, width=max(2, int(7 * u)))
+def cell_grin():  # dark plum panel with a purple inset border (the reference sign)
+    im = Image.new("RGB", (S, S), (18, 8, 24)); d0 = ImageDraw.Draw(im)
+    d0.rectangle([8, 8, S - 9, S - 9], fill=PLUM, outline=(10, 4, 14), width=6); d0.rectangle([26, 26, S - 27, S - 27], outline=BORDER, width=9)
+    lay = Image.new("RGBA", (S, S), (0, 0, 0, 0)); d = ImageDraw.Draw(lay); grin_face(d, S / 2, S / 2 - 6, 205, FACE + (255,), gap=PLUM, sy=1.4, band=88); return glow(im, lay)  # signs using it are ~3:2 wide
 def cell_exit():
     im, d0 = canvas(); d0.rectangle([40, 40, S - 41, S - 41], fill=(10, 40, 14)); lay = Image.new("RGBA", (S, S), (0, 0, 0, 0)); d = ImageDraw.Draw(lay); c = GRN + (255,)
     d.rectangle([300, 110, 420, 400], outline=c, width=14)  # doorway
@@ -41,7 +43,7 @@ def cell_gear():
     for k in range(n * 4):
         a = 2 * math.pi * k / (n * 4) - math.pi / 2; r = 235 if (k % 4) in (1, 2) else 190; pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
     d.polygon(pts, fill=c); d.ellipse([cx - 150, cy - 150, cx + 150, cy + 150], fill=DARK + (255,))
-    grin_face(d, cx, cy - 5, 120, c); return glow(im, lay)
+    grin_face(d, cx, cy + 4, 118, FACE + (255,), gap=DARK); return glow(im, lay)
 atlas = Image.new("RGB", (2 * S, 2 * S))
 for (cx, cy), f in (((0, 0), cell_grin), ((S, 0), cell_exit), ((0, S), cell_arrow), ((S, S), cell_gear)): atlas.paste(f(), (cx, cy))
 atlas.save(out); print(out)
