@@ -1299,3 +1299,11 @@ Building blocks usable without the preset:
   `assembly.goofy_pose` - emerges until its top peeks out, looks around (wiggles about its vertical axis), ducks,
   pops up past its height, then squashes wide, jiggles, bobs and sways into place (bone position + rotation + xz
   scale; viewer.html and apply_effects.gd `goofy_pose` copy it); colliders go live near the end of the pop.
+
+## Stage 111: symmetric gladiator floor
+- `rising_arena` `grid` {`n`, `tile`, `gap`, `ring_delay`, `accent`}: instead of a deck + satellites, an n x n grid of
+  equal square tiles with even seams (their glowing rims show in the seams). Each tile rises after its ring's delay
+  (Chebyshev ring from the centre: centre, inner ring, outer ring; +0.12 s on odd-parity tiles) - riser pads carry
+  `delay` (runtimes use it instead of index x stagger). Personalities by ring and parity (symmetric under quarter
+  turns and mirrors), sway radial. `accent`: the centre and corner tiles are hull-plated (a symmetric floor pattern).
+- Assembly Ascent: 5 x 5 tiles of 4 m, 0.2 m seams (20.8 m across), docked against the overlook's open edge.

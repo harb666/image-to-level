@@ -1060,33 +1060,16 @@
       "id": "Arena",
       "kind": "rising_arena",
       "position": [
-        42.5,
+        39.0,
         15.5,
-        42.85
+        39.5
       ],
       "center": [
-        42.5,
-        42.85
+        39.0,
+        39.5
       ],
       "top": 15.5,
       "liquid": 1.0,
-      "satellites": [
-        [
-          270,
-          6.0,
-          -1.6
-        ],
-        [
-          180,
-          6.0,
-          -4.4
-        ],
-        [
-          180,
-          6.0,
-          3.6
-        ]
-      ],
       "trigger": [
         43.2,
         15.5,
@@ -1094,9 +1077,18 @@
       ],
       "trigger_radius": 5.0,
       "source": "inferred",
-      "notes": "Stage 109/110: walking to the overlook's open north edge raises a battle arena of square platforms out of the slime - goofy: they peek, look around, duck, pop up and wobble into place",
+      "notes": "Stage 109-111: walking to the overlook's open north edge raises a symmetric gladiator floor of 5x5 square tiles out of the slime, ring by ring from the centre - goofy: they peek, look around, duck, pop up and wobble into place",
       "style": "goofy",
-      "deck_size": 14.0
+      "grid": {
+        "n": 5,
+        "tile": 4.0,
+        "gap": 0.2,
+        "ring_delay": [
+          0.0,
+          0.6,
+          1.3
+        ]
+      }
     },
     {
       "id": "Spinner_Terminal",
@@ -1176,9 +1168,9 @@
     {
       "id": "enemy_arena",
       "position": [
-        42.2,
+        39.0,
         15.5,
-        42.4
+        35.3
       ],
       "team": "enemy"
     }

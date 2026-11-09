@@ -459,24 +459,37 @@ def rising_arena(ctx, s, x, y, z, yaw):
     n = s["id"]; (cx, cz) = s["center"]; D = float(s.get("deck_size", 14.0)); top = float(s["top"]); liq = float(s.get("liquid", 1.0))
     gl = ctx.role("glow"); grp = n + "_Rig"; nc = dict(collision=False, outline=False); style = s.get("style", "goofy")
     joints = [dict(name=n + "_JRoot", parent=None, pivot=[round(cx, 3), round(liq, 3), round(cz, 3)], axis=[0.0, 1.0, 0.0])]; pads = []
-    def platform(k, px, pz, d, rot):
-        jn, rn = f"{n}_J{k}", f"{n}_R{k}"; pj, rj = dict(group=grp, joint=jn), dict(group=grp, joint=rn); pre = f"{n}_{'Deck' if k == 1 else f'Pad_{k - 1}'}"
+    def platform(k, px, pz, d, rot, name=None, cap_mat="deck"):
+        jn, rn = f"{n}_J{k}", f"{n}_R{k}"; pj, rj = dict(group=grp, joint=jn), dict(group=grp, joint=rn); pre = name or f"{n}_{'Deck' if k == 1 else f'Pad_{k - 1}'}"
         joints.append(dict(name=jn, parent=n + "_JRoot", pivot=[round(px, 3), round(liq, 3), round(pz, 3)], axis=[0.0, 1.0, 0.0]))
         joints.append(dict(name=rn, parent=n + "_JRoot", pivot=[round(px, 3), round(liq + 0.03, 3), round(pz, 3)], axis=[0.0, 1.0, 0.0]))
         r4 = [0, rot, 0]
         ctx.add(pre + "_Column", "box", [px, 0.0, pz], [d * 0.36, top - 2.4, d * 0.36], "structure_b", rot=r4, mobile=pj, **nc)
         ctx.add(pre + "_Bowl", "frustum", [px, top - 2.6, pz], [d - 0.6, 2.0, d - 0.6], "structure_b", bottom_scale=0.42, rot=r4, mobile=pj, **nc)
         ctx.add(pre + "_Band", "frustum", [px, top - 1.05, pz], [d - 0.4, 0.4, d - 0.4], gl, bottom_scale=0.94, rot=r4, mobile=pj, **nc)
-        ctx.add(pre + "_Cap", "box", [px, top - 0.6, pz], [d, 0.6, d], "deck", rot=r4, mobile=pj)
+        ctx.add(pre + "_Cap", "box", [px, top - 0.6, pz], [d, 0.6, d], cap_mat, rot=r4, mobile=pj)
         ctx.add(pre + "_Rim", "box", [px, top - 0.66, pz], [d + 0.16, 0.14, d + 0.16], gl, rot=r4, mobile=pj, **nc)
         ctx.add(pre + "_Surge", "cylinder", [px, liq + 0.03, pz], [d * 1.2, 0.04, d * 1.2], ctx.role("fall"), sections=8, mobile=rj, **nc)
         pd = dict(joint=jn, ring=rn, center=[round(px, 3), round(top, 3), round(pz, 3)], size=d, rise=round(top - liq + 1.0, 3), colliders=[pre + "_Cap"])
         if style == "goofy": pd["goof"] = dict(GOOFS[(k - 1) % len(GOOFS)])
         pads.append(pd); ctx.landings.append((round(px, 3), round(pz, 3), d / 2))
-    platform(1, cx, cz, D, 0.0)
-    for k, sat in enumerate(s.get("satellites", [])):
-        bear, d = float(sat[0]), float(sat[1]); sl = float(sat[2]) if len(sat) > 2 else 0.0
-        q = _W(cx, 0, cz, bear)(sl, 0, D / 2 + d / 2 + 0.1); platform(k + 2, q[0], q[2], d, bear)
+    G_ = s.get("grid")
+    if G_:  # Stage 111: a symmetric grid of equal square tiles (gladiator floor), rising ring by ring from the centre
+        N_, d, gap = int(G_.get("n", 5)), float(G_.get("tile", 4.0)), float(G_.get("gap", 0.2)); h = (N_ - 1) / 2; D = N_ * d + (N_ - 1) * gap
+        ring_delay = [float(v) for v in G_.get("ring_delay", [0.0, 0.6, 1.3, 2.0])]; k = 0
+        for i in range(N_):
+            for j in range(N_):
+                ox, oz = (j - h) * (d + gap), (i - h) * (d + gap); r = int(max(abs(i - h), abs(j - h))); par = int(abs(i - h) + abs(j - h)) % 2
+                accent = (r == 0 or (abs(i - h) == h and abs(j - h) == h)) and G_.get("accent", True)  # the centre and the four corners: hull-plated (a symmetric pattern)
+                k += 1; platform(k, cx + ox, cz + oz, d, 0.0, name=f"{n}_Tile_{i + 1}{j + 1}", cap_mat="structure_b" if accent else "deck")
+                pd = pads[-1]; pd["delay"] = round(ring_delay[min(r, len(ring_delay) - 1)] + 0.12 * par, 3); pd["grid"] = [i, j]
+                if "goof" in pd:  # symmetric personalities: by ring and parity; sway radial (outward from the centre)
+                    g = dict(GOOFS[(r + 2 * par) % len(GOOFS)]); g["dir"] = round((math.degrees(math.atan2(oz, ox)) + 90.0) % 360, 2) if r else 0.0; pd["goof"] = g
+    else:
+        platform(1, cx, cz, D, 0.0)
+        for k, sat in enumerate(s.get("satellites", [])):
+            bear, d = float(sat[0]), float(sat[1]); sl = float(sat[2]) if len(sat) > 2 else 0.0
+            q = _W(cx, 0, cz, bear)(sl, 0, D / 2 + d / 2 + 0.1); platform(k + 2, q[0], q[2], d, bear)
     tr = s.get("trigger") or [cx, top, cz]
     ctx.skeletons = getattr(ctx, "skeletons", {}); ctx.skeletons[n] = dict(groups=[grp], joints=joints, kind="emerge")
     ctx.risers = getattr(ctx, "risers", []) + [dict(id=n, group=grp, skeleton=n, pads=pads, trigger=dict(center=[float(v) for v in tr], radius=float(s.get("trigger_radius", 6.0))),
@@ -484,7 +497,7 @@ def rising_arena(ctx, s, x, y, z, yaw):
                                                      **({"style": "goofy"} if style == "goofy" else {}),
                                                      note="the arena starts under the liquid; its platforms surge up in order when a player enters the trigger sphere" + (" - goofy: see assembly.goofy_pose" if style == "goofy" else ""))]
     ctx.walkable.append(dict(name=n + "_Deck", min=[round(cx - D / 2, 3), round(cz - D / 2, 3)], max=[round(cx + D / 2, 3), round(cz + D / 2, 3)], y=top))
-    ctx.notes.append(f"{n}: battle arena rising out of the liquid ({style}) - {D:.0f} m square deck + {len(s.get('satellites', []))} platforms at {top} m")
+    ctx.notes.append(f"{n}: battle arena rising out of the liquid ({style}) - " + (f"{len(pads)} square tiles, {D:.1f} m across" if G_ else f"{D:.0f} m square deck + {len(pads) - 1} platforms") + f" at {top} m")
 
 
 @structure("pillar_path", pad=False)

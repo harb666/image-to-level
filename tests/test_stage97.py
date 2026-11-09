@@ -179,37 +179,47 @@ class CornerOverlook(unittest.TestCase):
 
 class RisingArena(unittest.TestCase):
     def test_arena_rises_at_the_open_edge(self):
-        """Stage 109/110: the overlook's north edge is open; walking to it raises a battle arena of SQUARE, empty
-        platforms out of the slime, docked against it (same height). Each rises with its own goofy personality: peeks
-        out, looks around, ducks, pops up past its height, squashes and sways into place. A wave encounter runs on it."""
+        """Stage 109-111: the overlook's north edge is open; walking to it raises a symmetric gladiator floor out of the
+        slime: a 5 x 5 grid of equal square tiles with even seams, docked against the overlook (same height), rising
+        ring by ring from the centre. Each tile rises goofily (peeks out, looks around, ducks, pops past its height,
+        squashes and sways); personalities and delays are symmetric. A wave encounter runs on it."""
         L = _load("level.json"); by = {o["name"]: o for o in L["objects"]}; S = _load("scene_spec.json")
         self.assertFalse([n for n in by if n.startswith("Overlook_RailN")])  # open edge
         R = next(r for r in L["risers"] if r["id"] == "Arena"); ov = by["Overlook_Deck"]; top = ov["position"][1] + ov["size"][1]
-        self.assertEqual(len(R["pads"]), 4); self.assertTrue(all(abs(p["center"][1] - top) < 1e-6 for p in R["pads"]))
+        P = R["pads"]; self.assertEqual(len(P), 25); self.assertTrue(all(abs(p["center"][1] - top) < 1e-6 and p["size"] == 4.0 for p in P))
+        xs = sorted({p["center"][0] for p in P}); zs = sorted({p["center"][2] for p in P}); self.assertEqual((len(xs), len(zs)), (5, 5))
+        for v in (xs, zs): self.assertTrue(all(abs((b - a) - 4.2) < 1e-3 for a, b in zip(v, v[1:])))  # equal tiles, equal seams
+        caps = [by[n] for n in by if n.startswith("Arena_Tile_") and n.endswith("_Cap")]; self.assertEqual(len(caps), 25)
+        self.assertLess(abs(max(c["position"][2] + c["size"][2] / 2 for c in caps) - (ov["position"][2] - ov["size"][2] / 2)), 0.3)  # docked
         c = R["trigger"]["center"]; self.assertLess(abs(c[2] - (ov["position"][2] - ov["size"][2] / 2)), 2.0)  # at the open edge
-        deck = by["Arena_Deck_Cap"]; self.assertEqual(deck["type"], "box"); self.assertAlmostEqual(deck["size"][0], deck["size"][2])  # square
-        self.assertLess(abs(deck["position"][2] + deck["size"][2] / 2 - (ov["position"][2] - ov["size"][2] / 2)), 0.3)  # docked against the overlook
-        joints = {p["joint"]: p for p in R["pads"]}; on = [o["name"] for o in L["objects"] if (o.get("mobile") or {}).get("joint") in joints]
+        joints = {p["joint"]: p for p in P}; on = [o["name"] for o in L["objects"] if (o.get("mobile") or {}).get("joint") in joints]
         self.assertFalse([n for n in on if not n.endswith(("_Column", "_Bowl", "_Band", "_Cap", "_Rim"))])  # nothing on them (yet)
         for o in L["objects"]:  # sunk deep enough: no part pokes out of the slime before the rise
             j = (o.get("mobile") or {}).get("joint")
             if j in joints and o.get("size"): self.assertLess(o["position"][1] + o["size"][1] - joints[j]["rise"], R["liquid"], o["name"])
+        g = {tuple(p["grid"]): p for p in P}
+        for (i, j), p in g.items():  # symmetric under a quarter turn and a mirror: same delay, same personality (bar its sway direction)
+            for (a, b) in ((j, 4 - i), (i, 4 - j)):
+                q = g[(a, b)]; self.assertEqual(p["delay"], q["delay"]); self.assertEqual({k: v for k, v in p["goof"].items() if k != "dir"}, {k: v for k, v in q["goof"].items() if k != "dir"})
+        self.assertEqual(g[(2, 2)]["delay"], 0.0); self.assertLess(g[(2, 1)]["delay"], g[(2, 0)]["delay"])  # centre first, outer ring last
+        self.assertEqual(by["Arena_Tile_33_Cap"]["material"], by["Arena_Tile_11_Cap"]["material"]); self.assertNotEqual(by["Arena_Tile_33_Cap"]["material"], by["Arena_Tile_32_Cap"]["material"])
         sys.path.insert(0, os.path.join(ROOT, "pipeline")); from modules.assembly import goofy_pose
-        self.assertEqual(R["style"], "goofy"); self.assertEqual(len({json.dumps(p["goof"], sort_keys=True) for p in R["pads"]}), 4)  # four personalities
-        for p in R["pads"]:
-            ts = [i * 0.02 for i in range(500)]; P = [goofy_pose(p, t_, R["rise_s"], R["liquid"]) for t_ in ts]
-            self.assertAlmostEqual(p["center"][1] + P[0][0], R["liquid"] - 1.0, places=3)  # starts under the slime
-            peek = max(p["center"][1] + q[0] for q, t_ in zip(P, ts) if t_ < 0.45 + p["goof"]["peek"])
+        self.assertEqual(R["style"], "goofy")
+        for p in (g[(2, 2)], g[(2, 1)], g[(1, 1)], g[(0, 2)]):
+            ts = [i * 0.02 for i in range(500)]; Q = [goofy_pose(p, t_, R["rise_s"], R["liquid"]) for t_ in ts]
+            self.assertAlmostEqual(p["center"][1] + Q[0][0], R["liquid"] - 1.0, places=3)  # starts under the slime
+            peek = max(p["center"][1] + q[0] for q, t_ in zip(Q, ts) if t_ < 0.45 + p["goof"]["peek"])
             self.assertTrue(R["liquid"] + 0.6 < peek < R["liquid"] + 1.2)  # just its top peeks out ...
-            self.assertGreater(max(abs(q[1]) for q in P), 5.0)  # ... and looks around
-            self.assertGreater(max(q[0] for q in P), 1.0)  # pops up past its rest height
-            self.assertGreater(max(q[3] for q in P), 1.1); self.assertGreater(max(abs(q[2]) for q in P), 1.5)  # squashes, sways
-            self.assertEqual(P[-1][:4], (0.0, 0.0, 0.0, 1.0)); self.assertTrue(P[-1][4])  # settled, colliders live
-        with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: self.assertIn("const goofy=(pd,tk)=>", f.read())
-        with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: self.assertIn("static func goofy_pose", f.read())
+            self.assertGreater(max(abs(q[1]) for q in Q), 5.0)  # ... and looks around
+            self.assertGreater(max(q[0] for q in Q), 1.0)  # pops up past its rest height
+            self.assertGreater(max(q[3] for q in Q), 1.1); self.assertGreater(max(abs(q[2]) for q in Q), 1.5)  # squashes, sways
+            self.assertEqual(Q[-1][:4], (0.0, 0.0, 0.0, 1.0)); self.assertTrue(Q[-1][4])  # settled, colliders live
+        with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()
+        self.assertIn("const goofy=(pd,tk)=>", v); self.assertIn("pd.delay!=null", v)
+        with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: gd = f.read()
+        self.assertIn("static func goofy_pose", gd); self.assertIn('pd.get("delay"', gd)
         E = next(e for e in S["encounters"] if e["id"] == "Arena_Waves"); self.assertEqual(E["trigger"], "enter:Arena_Deck")
-        sp = next(s for s in L["spawns"] if s["id"] == "enemy_arena")["position"]; dc = deck["position"]
-        self.assertLess(max(abs(sp[0] - dc[0]), abs(sp[2] - dc[2])), deck["size"][0] / 2 - 2.0)
+        sp = next(s for s in L["spawns"] if s["id"] == "enemy_arena")["position"]; self.assertTrue(any(abs(sp[0] - p["center"][0]) < 1 and abs(sp[2] - p["center"][2]) < 1 for p in P))
         N = _load("checks/navigation.json"); self.assertEqual({a["name"]: a["reachable_fraction"] for a in N["intended_areas"]}.get("Arena_Deck"), 1.0)
 
 

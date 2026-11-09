@@ -688,7 +688,7 @@ func _pose_riser(rec: Array, t: float) -> void:  # t: seconds since the trigger 
 	var D := float(r["rise_s"])
 	for k in r["pads"].size():
 		var pd: Dictionary = r["pads"][k]
-		var tk := t - k * float(r["stagger"]) if t >= 0.0 else -1.0
+		var tk := t - float(pd.get("delay", k * float(r["stagger"]))) if t >= 0.0 else -1.0  # Stage 111: per-pad delay
 		if pd.has("goof"):  # Stage 110: goofy rise (peek, look around, duck, pop, squash + sway)
 			_pose_goofy(sk, bones, pd, tk, D, float(r.get("liquid", 1.0)), rec[3][k])
 			continue

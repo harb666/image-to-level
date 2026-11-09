@@ -1,19 +1,19 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 1889 objects · 34 materials · 22 effects
+Spec: levels/assembly_ascent/scene_spec.json · 2015 objects · 34 materials · 22 effects
 Checks: PASSED ({'error': 0, 'warning': 6, 'info': 1}) · refine passes: 0
-Mobile (balanced): 1771 KB · 47615 tris · 99 draw calls · ~58.0 visible (estimate) · ~8.06 MB GPU textures (estimate)
-Navigation: 3881.0 m² reachable of 19766.0 m² standable
-Package: dist/assembly_ascent/package (38 files, 7.8 MB) valid=True
+Mobile (balanced): 1880 KB · 50099 tris · 99 draw calls · ~58.2 visible (estimate) · ~8.06 MB GPU textures (estimate)
+Navigation: 3992.0 m² reachable of 19877.0 m² standable
+Package: dist/assembly_ascent/package (38 files, 8.08 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
 - warning: mobile draw calls 99 (> 80)
-- warning: enemy_arena: hazard 0.3 m away (< 3.0 m)
+- warning: enemy_arena: hazard 0.5 m away (< 3.0 m)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- warning: 49573 triangles (> budget 40000)
+- warning: 52057 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -32,7 +32,7 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Exit_Door: exit hallway 12 m fading to black -> level2_part1
 - Spinner: spinner, 4 arms driven by a ceiling press (peak 64.43 rpm, still 3.8 s per 9.5 s), 4 hovering pads
 - Overlook: corner overlook 13.6 x 15.0 m at 15.5 m, gantry 14.9 m to lift Spinner_Pad_1_Lift
-- Arena: battle arena rising out of the liquid (goofy) - 14 m square deck + 3 platforms at 15.5 m
+- Arena: battle arena rising out of the liquid (goofy) - 25 square tiles, 20.8 m across at 15.5 m
 - crates: 5 printed crates (accent atlas)
 - fixtures: 62 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_North_M02Fan, OuterWall_West_M02Fan)
 - ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 1 standing part(s), 0 crane runway(s), ends at beams 0.0 m
@@ -41,9 +41,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - corrosion: 587 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 1.3 s
-- build (glb, sky, background, effects, mobile): 27.9 s
-- checks (fast): 33.0 s
+- spec -> level.json: 1.7 s
+- build (glb, sky, background, effects, mobile): 33.5 s
+- checks (fast): 38.6 s
 - previews: 0.4 s
-- export package: 0.4 s
-- total: 63.1 s
+- export package: 0.3 s
+- total: 74.6 s

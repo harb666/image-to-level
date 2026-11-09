@@ -4,4 +4,4 @@
 
 - **WARNING** [overlap] OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker (repair: nudge)
 - **WARNING** [overlap] OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker (repair: nudge)
-- **WARNING** [spawn] enemy_arena: hazard 0.3 m away (< 3.0 m)
+- **WARNING** [spawn] enemy_arena: hazard 0.5 m away (< 3.0 m)

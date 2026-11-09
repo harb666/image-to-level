@@ -1,16 +1,16 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 3260,
-  "mobile/level_mobile.glb": 1771,
-  "mobile/collision.json": 122,
+  "level.glb": 3297,
+  "mobile/level_mobile.glb": 1880,
+  "mobile/collision.json": 135,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 49
+  "effects.json": 59
  },
  "complexity": {
-  "triangles": 49573,
-  "nodes": 2046,
+  "triangles": 52057,
+  "nodes": 2194,
   "materials": 34,
   "heaviest": [
    [
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 3260,
-   "triangles": 41521,
-   "draw_calls": 2046,
+   "glb_kb": 3297,
+   "triangles": 43581,
+   "draw_calls": 2194,
    "tex_mem_gpu_mb_est": 22.71
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 1771,
-   "triangles": 47615,
+   "glb_kb": 1880,
+   "triangles": 50099,
    "draw_calls": 99,
-   "visible_draw_calls_est": 58.0,
+   "visible_draw_calls_est": 58.2,
    "visible_draw_calls_max_est": 102,
    "tex_mem_gpu_mb_est": 8.06,
    "materials": 34,
-   "nodes": 109,
+   "nodes": 151,
    "colliders": {
-    "colliders": 361,
+    "colliders": 382,
     "hazards": 1,
-    "glb_kb": 167
+    "glb_kb": 175
    },
    "background_kb": 404
   },
@@ -81,8 +81,8 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 19766.0,
-  "reachable_area_m2": 3881.0,
+  "standable_area_m2": 19877.0,
+  "reachable_area_m2": 3992.0,
   "components": 103,
   "spawns": [
    {
@@ -127,15 +127,15 @@
    {
     "id": "enemy_arena",
     "position": [
-     42.2,
+     39.0,
      15.5,
-     42.4
+     35.3
     ],
     "standable": true,
-    "clearance_m": 7.5,
+    "clearance_m": 6.5,
     "headroom_m": 19.0,
     "component": 43,
-    "hazard_distance_m": 0.32
+    "hazard_distance_m": 0.54
    }
   ],
   "intended_areas": [
@@ -207,7 +207,7 @@
    },
    {
     "name": "Arena_Deck",
-    "standable_m2": 209.0,
+    "standable_m2": 419.0,
     "reachable_fraction": 1.0,
     "one_way": false
    }
@@ -253,11 +253,11 @@
    "severity": "warning",
    "object": "enemy_arena",
    "pos": [
-    42.2,
+    39.0,
     15.5,
-    42.4
+    35.3
    ],
-   "message": "enemy_arena: hazard 0.3 m away (< 3.0 m)"
+   "message": "enemy_arena: hazard 0.5 m away (< 3.0 m)"
   },
   {
    "kind": "traverse_blocked",
@@ -273,7 +273,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "49573 triangles (> budget 40000)"
+   "message": "52057 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
