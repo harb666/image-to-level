@@ -400,28 +400,37 @@ def overlook(ctx, s, x, y, z, yaw):
             q = W(sd * 0.15, top + 1.27, 0.2); ctx.add(f"{n}_Viewer_{k + 1}_Eye{'LR'[sd > 0]}", "cylinder", q, [0.17, 0.3, 0.17], lamp, rot=[90, vyaw, 0], sections=8, **vs)
         q = W(0, top + 1.32, -0.24); ctx.add(f"{n}_Viewer_{k + 1}_Lamp", "box", q, [0.2, 0.08, 0.06], gl, rot=[0, vyaw, 0], **vs)
     ctx.walkable.append(dict(name=n + "_Deck", min=[round(x0, 3), round(z0, 3)], max=[round(x1, 3), round(z1, 3)], y=top))
-    # Stage 117: wall TVs moved up here ("move_units": wall units taken off the walls - their TV parts - and "screens"
-    # [[x, z, yaw, width], ...]: the same moulded TV on a two-legged stand on the deck, raised clear of heads, turned to
-    # face the arena like jumbotrons, with a hazard-capped crossbeam and a lamp on each leg)
+    # Stage 117/118: wall TVs moved up here ("move_units": wall units whose TV parts leave the walls) and "wall_screens"
+    # [[x, z, yaw, width], ...]: built into the wall above the deck at (x, z) on its face, facing straight out (yaw):
+    # the moulded TV flush in a heavy machine surround with a glowing inner trim, a hazard ledge, a header with status
+    # lamps, speaker columns with glow strips and conduits up the wall; raised "screen_lift" so heads clear it)
     mv = tuple(s.get("move_units", []))
     if mv:
         drop = {o["name"] for o in ctx.objects if any(o["name"].startswith(u + "_") and o["name"][len(u) + 1:].split("_")[0] in ("Body", "Screen", "Arm", "Cable") for u in mv)}
         ctx.objects[:] = [o for o in ctx.objects if o["name"] not in drop]; ctx.names -= drop
     from architecture import screen_slot
-    for k, sc in enumerate(s.get("screens", [])):
-        sx, sz, sy, tw = float(sc[0]), float(sc[1]), float(sc[2]), float(sc[3]) if len(sc) > 3 else 3.6
-        W = _W(sx, 0, sz, sy); pre = f"{n}_Screen_{k + 1}"; bf, cf, depth = 0.07, 0.2, 0.8; W_ = tw / (1 - 2 * bf); H_ = W_ * 0.8; th = H_ * (1 - cf - bf * 1.33) * 0.98
-        y0 = top + float(s.get("screen_lift", 2.3)); yy = y0 + H_ * cf
-        for sd in (-1, 1):  # legs + feet + lamps
-            q = W(sd * W_ * 0.36, 0, -0.1); ctx.add(f"{pre}_Leg_{'LR'[sd > 0]}", "box", [q[0], top, q[2]], [0.32, y0 + 0.35 - top, 0.32], "frame", rot=[0, sy, 0], bevel=False, **st)
-            ctx.add(f"{pre}_Foot_{'LR'[sd > 0]}", "box", [q[0], top, q[2]], [0.7, 0.14, 0.9], "machine", rot=[0, sy, 0], **vs)
-            ctx.add(f"{pre}_Lamp_{'LR'[sd > 0]}", "box", [q[0], top + 1.0, q[2]], [0.36, 0.12, 0.36], gl, rot=[0, sy, 0], **vs)
-        q = W(0, 0, -0.1); ctx.add(pre + "_Beam", "box", [q[0], y0 - 0.05, q[2]], [W_ * 0.9, 0.4, 0.4], "frame", rot=[0, sy, 0], bevel=False, **vs)
-        ctx.add(pre + "_BeamCap", "box", [q[0], y0 - 0.25, q[2]], [W_ * 0.92, 0.2, 0.44], stripe, rot=[0, sy, 0], **vs)
-        q = W(0, 0, -depth / 2 + 0.15); ctx.add(pre + "_Body", "tv_body", [q[0], y0 + 0.35, q[2]], [W_, H_, depth], "tv_casing", rot=[0, sy, 0], border=bf, chin=cf, collision=False, **st)
+    for k, sc in enumerate(s.get("wall_screens", [])):  # Stage 118: built into the wall - flush, framed, facing straight out
+        sx, sz, sy, tw = float(sc[0]), float(sc[1]), float(sc[2]), float(sc[3]) if len(sc) > 3 else 4.6
+        W = _W(sx, 0, sz, sy); pre = f"{n}_WallScreen_{k + 1}"; bf, cf, depth = 0.07, 0.2, 0.4; W_ = tw / (1 - 2 * bf); H_ = W_ * 0.8; th = H_ * (1 - cf - bf * 1.33) * 0.98
+        y0 = top + float(s.get("screen_lift", 2.2)); yy = y0 + H_ * cf; z0 = 0.03; fr = 0.42  # back 3 cm off the wall face; surround band
+        def part(nm, lx, ly, lz, size, mat, **kw):  # lz: the part's BACK face (boxes are centred in depth; tv_body starts at its back)
+            if kw.get("shape", "box") == "box": lz = lz + size[2] / 2
+            q = W(lx, ly, lz); ctx.add(f"{pre}_{nm}", kw.pop("shape", "box"), q, size, mat, rot=[0, sy, 0], **dict(dict(collision=False, outline=False, **st), **kw))
+        part("Body", 0, y0, z0, [W_, H_, depth], "tv_casing", shape="tv_body", border=bf, chin=cf, outline=True)
         reg, sid = screen_slot(ctx, "screen", "a" if k % 2 == 0 else "b")
-        q = W(0, 0, -depth / 2 + 0.15 + depth - 0.12 + 0.02)
-        ctx.add(pre + "_Glass", "panel", [q[0], yy + 0.35 + H_ * 0.003, q[2]], [W_ * (1 - 2 * bf) * 0.995, th, 0], "screen", rot=[0, sy, 0], uv_region=reg, uv_shift=sid, collision=False, outline=False, **st)
+        part("Glass", 0, yy + H_ * 0.003, z0 + depth - 0.10, [W_ * (1 - 2 * bf) * 0.995, th, 0], "screen", shape="panel", uv_region=reg, uv_shift=sid)
+        for nm, lx, ly, w_, h_ in (("FrameT", 0, y0 + H_, W_ + 2 * fr, fr), ("FrameB", 0, y0 - fr, W_ + 2 * fr, fr), ("FrameL", -(W_ + fr) / 2, y0, fr, H_), ("FrameR", (W_ + fr) / 2, y0, fr, H_)):
+            part(nm, lx, ly, z0, [w_, h_, 0.3], "machine", outline=True)  # heavy surround
+        for nm, lx, ly, w_, h_ in (("TrimT", 0, y0 + H_ - 0.02, W_ + 0.12, 0.08), ("TrimB", 0, y0 - 0.06, W_ + 0.12, 0.08), ("TrimL", -(W_ + 0.06) / 2, y0, 0.08, H_), ("TrimR", (W_ + 0.06) / 2, y0, 0.08, H_)):
+            part(nm, lx, ly, z0 + 0.3, [w_, h_, 0.05], gl)  # thin glowing inner trim, proud of the surround
+        part("Ledge", 0, y0 - fr - 0.24, z0, [W_ + 2 * fr + 0.3, 0.24, 0.5], stripe)
+        part("Header", 0, y0 + H_ + fr, z0, [W_ * 0.62, 0.55, 0.36], "machine", outline=True)
+        for j, lx in enumerate((-0.9, -0.3, 0.3, 0.9)):
+            part(f"HeaderLamp_{j + 1}", lx * W_ * 0.25, y0 + H_ + fr + 0.18, z0 + 0.34, [0.22, 0.18, 0.06], gl if j % 2 == 0 else ctx.role("glow_yellow"))
+        for sd in (-1, 1):  # speaker columns with a glow strip, conduits up the wall
+            cx_ = sd * (W_ / 2 + fr + 0.42); part(f"Speaker{'LR'[sd > 0]}", cx_, y0 - fr, z0, [0.7, H_ + 2 * fr, 0.34], "machine", outline=True)
+            part(f"SpeakerGlow{'LR'[sd > 0]}", cx_, y0 + 0.2, z0 + 0.32, [0.12, H_ - 0.4, 0.05], gl)
+            part(f"Conduit{'LR'[sd > 0]}", sd * W_ * 0.22, y0 + H_ + fr + 0.55, z0 + 0.12, [0.18, 2.6, 0.18], "pipe", shape="cylinder", sections=6)
     if lf:  # the gantry: along x from the deck's west edge to the lift pad's flat at the top
         ex = lf["center"][0] + lf["deck_radius"] * math.cos(math.pi / 8) + 0.05; L_ = x0 - ex; mx = (x0 + ex) / 2
         ctx.add(n + "_Gantry", "box", [(ex + x0 - 0.02) / 2, top - 0.3, gz], [x0 - 0.02 - ex, 0.3, gw], "grate", **st)  # ends 2 cm short of the deck: no shared faces

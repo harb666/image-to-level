@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "ecb81c98a3ad8dba",
+  "spec_sha": "b18bfee386a5f94a",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -36744,324 +36744,84 @@
    "source": "inferred"
   },
   {
-   "name": "Overlook_Screen_1_Leg_L",
-   "type": "box",
-   "position": [
-    42.11,
-    15.5,
-    62.595
-   ],
-   "rotation": [
-    0.0,
-    -176.0,
-    0.0
-   ],
-   "size": [
-    0.32,
-    2.65,
-    0.32
-   ],
-   "material": "frame",
-   "bevel": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_Screen_1_Foot_L",
-   "type": "box",
-   "position": [
-    42.11,
-    15.5,
-    62.595
-   ],
-   "rotation": [
-    0.0,
-    -176.0,
-    0.0
-   ],
-   "size": [
-    0.7,
-    0.14,
-    0.9
-   ],
-   "material": "machine",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_Screen_1_Lamp_L",
-   "type": "box",
-   "position": [
-    42.11,
-    16.5,
-    62.595
-   ],
-   "rotation": [
-    0.0,
-    -176.0,
-    0.0
-   ],
-   "size": [
-    0.36,
-    0.12,
-    0.36
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_Screen_1_Leg_R",
-   "type": "box",
-   "position": [
-    39.104,
-    15.5,
-    62.805
-   ],
-   "rotation": [
-    0.0,
-    -176.0,
-    0.0
-   ],
-   "size": [
-    0.32,
-    2.65,
-    0.32
-   ],
-   "material": "frame",
-   "bevel": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_Screen_1_Foot_R",
-   "type": "box",
-   "position": [
-    39.104,
-    15.5,
-    62.805
-   ],
-   "rotation": [
-    0.0,
-    -176.0,
-    0.0
-   ],
-   "size": [
-    0.7,
-    0.14,
-    0.9
-   ],
-   "material": "machine",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_Screen_1_Lamp_R",
-   "type": "box",
-   "position": [
-    39.104,
-    16.5,
-    62.805
-   ],
-   "rotation": [
-    0.0,
-    -176.0,
-    0.0
-   ],
-   "size": [
-    0.36,
-    0.12,
-    0.36
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_Screen_1_Beam",
-   "type": "box",
-   "position": [
-    40.607,
-    17.75,
-    62.7
-   ],
-   "rotation": [
-    0.0,
-    -176.0,
-    0.0
-   ],
-   "size": [
-    3.767,
-    0.4,
-    0.4
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_Screen_1_BeamCap",
-   "type": "box",
-   "position": [
-    40.607,
-    17.55,
-    62.7
-   ],
-   "rotation": [
-    0.0,
-    -176.0,
-    0.0
-   ],
-   "size": [
-    3.851,
-    0.2,
-    0.44
-   ],
-   "material": "stripe",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_Screen_1_Body",
+   "name": "Overlook_WallScreen_1_Body",
    "type": "tv_body",
    "position": [
-    40.617,
-    18.15,
-    62.849
+    42.45,
+    17.7,
+    64.94
    ],
    "rotation": [
     0.0,
-    -176.0,
+    180.0,
     0.0
    ],
    "size": [
-    4.186,
-    3.349,
-    0.8
+    5.116,
+    4.093,
+    0.4
    ],
    "material": "tv_casing",
-   "border": 0.07,
-   "chin": 0.2,
    "collision": false,
+   "outline": true,
    "mobile": {
     "static": true
    },
+   "border": 0.07,
+   "chin": 0.2,
    "gen": "Overlook",
    "source": "inferred"
   },
   {
-   "name": "Overlook_Screen_1_Glass",
+   "name": "Overlook_WallScreen_1_Glass",
    "type": "panel",
    "position": [
-    40.569,
-    18.83,
-    62.151
+    42.45,
+    18.531,
+    64.64
    ],
    "rotation": [
     0.0,
-    -176.0,
+    180.0,
     0.0
    ],
    "size": [
-    3.582,
-    2.32,
+    4.378,
+    2.835,
     0.0
    ],
    "material": "screen",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
    "uv_region": "a",
    "uv_shift": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Overlook",
    "source": "inferred"
   },
   {
-   "name": "Overlook_Screen_2_Leg_L",
+   "name": "Overlook_WallScreen_1_FrameT",
    "type": "box",
    "position": [
-    49.301,
-    15.5,
-    57.437
+    42.45,
+    21.793,
+    64.79
    ],
    "rotation": [
     0.0,
-    -154.3,
+    180.0,
     0.0
    ],
    "size": [
-    0.32,
-    2.65,
-    0.32
-   ],
-   "material": "frame",
-   "bevel": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_Screen_2_Foot_L",
-   "type": "box",
-   "position": [
-    49.301,
-    15.5,
-    57.437
-   ],
-   "rotation": [
-    0.0,
-    -154.3,
-    0.0
-   ],
-   "size": [
-    0.7,
-    0.14,
-    0.9
+    5.956,
+    0.42,
+    0.3
    ],
    "material": "machine",
    "collision": false,
-   "outline": false,
+   "outline": true,
    "mobile": {
     "static": true
    },
@@ -37069,22 +36829,103 @@
    "source": "inferred"
   },
   {
-   "name": "Overlook_Screen_2_Lamp_L",
+   "name": "Overlook_WallScreen_1_FrameB",
    "type": "box",
    "position": [
-    49.301,
-    16.5,
-    57.437
+    42.45,
+    17.28,
+    64.79
    ],
    "rotation": [
     0.0,
-    -154.3,
+    180.0,
     0.0
    ],
    "size": [
-    0.36,
-    0.12,
-    0.36
+    5.956,
+    0.42,
+    0.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": true,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_1_FrameL",
+   "type": "box",
+   "position": [
+    45.218,
+    17.7,
+    64.79
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.42,
+    4.093,
+    0.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": true,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_1_FrameR",
+   "type": "box",
+   "position": [
+    39.682,
+    17.7,
+    64.79
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.42,
+    4.093,
+    0.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": true,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_1_TrimT",
+   "type": "box",
+   "position": [
+    42.45,
+    21.773,
+    64.615
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    5.236,
+    0.08,
+    0.05
    ],
    "material": "glow",
    "collision": false,
@@ -37096,75 +36937,22 @@
    "source": "inferred"
   },
   {
-   "name": "Overlook_Screen_2_Leg_R",
+   "name": "Overlook_WallScreen_1_TrimB",
    "type": "box",
    "position": [
-    46.586,
-    15.5,
-    58.744
+    42.45,
+    17.64,
+    64.615
    ],
    "rotation": [
     0.0,
-    -154.3,
+    180.0,
     0.0
    ],
    "size": [
-    0.32,
-    2.65,
-    0.32
-   ],
-   "material": "frame",
-   "bevel": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_Screen_2_Foot_R",
-   "type": "box",
-   "position": [
-    46.586,
-    15.5,
-    58.744
-   ],
-   "rotation": [
-    0.0,
-    -154.3,
-    0.0
-   ],
-   "size": [
-    0.7,
-    0.14,
-    0.9
-   ],
-   "material": "machine",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Overlook",
-   "source": "inferred"
-  },
-  {
-   "name": "Overlook_Screen_2_Lamp_R",
-   "type": "box",
-   "position": [
-    46.586,
-    16.5,
-    58.744
-   ],
-   "rotation": [
-    0.0,
-    -154.3,
-    0.0
-   ],
-   "size": [
-    0.36,
-    0.12,
-    0.36
+    5.236,
+    0.08,
+    0.05
    ],
    "material": "glow",
    "collision": false,
@@ -37176,25 +36964,24 @@
    "source": "inferred"
   },
   {
-   "name": "Overlook_Screen_2_Beam",
+   "name": "Overlook_WallScreen_1_TrimL",
    "type": "box",
    "position": [
-    47.943,
-    17.75,
-    58.09
+    45.038,
+    17.7,
+    64.615
    ],
    "rotation": [
     0.0,
-    -154.3,
+    180.0,
     0.0
    ],
    "size": [
-    3.767,
-    0.4,
-    0.4
+    0.08,
+    4.093,
+    0.05
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "glow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -37204,22 +36991,49 @@
    "source": "inferred"
   },
   {
-   "name": "Overlook_Screen_2_BeamCap",
+   "name": "Overlook_WallScreen_1_TrimR",
    "type": "box",
    "position": [
-    47.943,
-    17.55,
-    58.09
+    39.862,
+    17.7,
+    64.615
    ],
    "rotation": [
     0.0,
-    -154.3,
+    180.0,
     0.0
    ],
    "size": [
-    3.851,
-    0.2,
-    0.44
+    0.08,
+    4.093,
+    0.05
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_1_Ledge",
+   "type": "box",
+   "position": [
+    42.45,
+    17.04,
+    64.69
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    6.256,
+    0.24,
+    0.5
    ],
    "material": "stripe",
    "collision": false,
@@ -37231,27 +37045,26 @@
    "source": "inferred"
   },
   {
-   "name": "Overlook_Screen_2_Body",
-   "type": "tv_body",
+   "name": "Overlook_WallScreen_1_Header",
+   "type": "box",
    "position": [
-    48.008,
-    18.15,
-    58.225
+    42.45,
+    22.213,
+    64.76
    ],
    "rotation": [
     0.0,
-    -154.3,
+    180.0,
     0.0
    ],
    "size": [
-    4.186,
-    3.349,
-    0.8
+    3.172,
+    0.55,
+    0.36
    ],
-   "material": "tv_casing",
-   "border": 0.07,
-   "chin": 0.2,
+   "material": "machine",
    "collision": false,
+   "outline": true,
    "mobile": {
     "static": true
    },
@@ -37259,31 +37072,874 @@
    "source": "inferred"
   },
   {
-   "name": "Overlook_Screen_2_Glass",
-   "type": "panel",
+   "name": "Overlook_WallScreen_1_HeaderLamp_1",
+   "type": "box",
    "position": [
-    47.705,
-    18.83,
-    57.594
+    43.601,
+    22.393,
+    64.57
    ],
    "rotation": [
     0.0,
-    -154.3,
+    180.0,
     0.0
    ],
    "size": [
-    3.582,
-    2.32,
-    0.0
+    0.22,
+    0.18,
+    0.06
    ],
-   "material": "screen",
-   "uv_region": "b",
-   "uv_shift": 9,
+   "material": "glow",
    "collision": false,
    "outline": false,
    "mobile": {
     "static": true
    },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_1_HeaderLamp_2",
+   "type": "box",
+   "position": [
+    42.834,
+    22.393,
+    64.57
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.22,
+    0.18,
+    0.06
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_1_HeaderLamp_3",
+   "type": "box",
+   "position": [
+    42.066,
+    22.393,
+    64.57
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.22,
+    0.18,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_1_HeaderLamp_4",
+   "type": "box",
+   "position": [
+    41.299,
+    22.393,
+    64.57
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.22,
+    0.18,
+    0.06
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_1_SpeakerL",
+   "type": "box",
+   "position": [
+    45.848,
+    17.28,
+    64.77
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    4.933,
+    0.34
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": true,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_1_SpeakerGlowL",
+   "type": "box",
+   "position": [
+    45.848,
+    17.9,
+    64.595
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    3.693,
+    0.05
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_1_ConduitL",
+   "type": "cylinder",
+   "position": [
+    43.576,
+    22.763,
+    64.82
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.18,
+    2.6,
+    0.18
+   ],
+   "material": "pipe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "sections": 6,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_1_SpeakerR",
+   "type": "box",
+   "position": [
+    39.052,
+    17.28,
+    64.77
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    4.933,
+    0.34
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": true,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_1_SpeakerGlowR",
+   "type": "box",
+   "position": [
+    39.052,
+    17.9,
+    64.595
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    3.693,
+    0.05
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_1_ConduitR",
+   "type": "cylinder",
+   "position": [
+    41.324,
+    22.763,
+    64.82
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.18,
+    2.6,
+    0.18
+   ],
+   "material": "pipe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "sections": 6,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_Body",
+   "type": "tv_body",
+   "position": [
+    49.92,
+    17.7,
+    57.6
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    5.116,
+    4.093,
+    0.4
+   ],
+   "material": "tv_casing",
+   "collision": false,
+   "outline": true,
+   "mobile": {
+    "static": true
+   },
+   "border": 0.07,
+   "chin": 0.2,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_Glass",
+   "type": "panel",
+   "position": [
+    49.62,
+    18.531,
+    57.6
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    4.378,
+    2.835,
+    0.0
+   ],
+   "material": "screen",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "uv_region": "b",
+   "uv_shift": 9,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_FrameT",
+   "type": "box",
+   "position": [
+    49.77,
+    21.793,
+    57.6
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    5.956,
+    0.42,
+    0.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": true,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_FrameB",
+   "type": "box",
+   "position": [
+    49.77,
+    17.28,
+    57.6
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    5.956,
+    0.42,
+    0.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": true,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_FrameL",
+   "type": "box",
+   "position": [
+    49.77,
+    17.7,
+    54.832
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.42,
+    4.093,
+    0.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": true,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_FrameR",
+   "type": "box",
+   "position": [
+    49.77,
+    17.7,
+    60.368
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.42,
+    4.093,
+    0.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": true,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_TrimT",
+   "type": "box",
+   "position": [
+    49.595,
+    21.773,
+    57.6
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    5.236,
+    0.08,
+    0.05
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_TrimB",
+   "type": "box",
+   "position": [
+    49.595,
+    17.64,
+    57.6
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    5.236,
+    0.08,
+    0.05
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_TrimL",
+   "type": "box",
+   "position": [
+    49.595,
+    17.7,
+    55.012
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.08,
+    4.093,
+    0.05
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_TrimR",
+   "type": "box",
+   "position": [
+    49.595,
+    17.7,
+    60.188
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.08,
+    4.093,
+    0.05
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_Ledge",
+   "type": "box",
+   "position": [
+    49.67,
+    17.04,
+    57.6
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    6.256,
+    0.24,
+    0.5
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_Header",
+   "type": "box",
+   "position": [
+    49.74,
+    22.213,
+    57.6
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    3.172,
+    0.55,
+    0.36
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": true,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_HeaderLamp_1",
+   "type": "box",
+   "position": [
+    49.55,
+    22.393,
+    56.449
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.22,
+    0.18,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_HeaderLamp_2",
+   "type": "box",
+   "position": [
+    49.55,
+    22.393,
+    57.216
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.22,
+    0.18,
+    0.06
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_HeaderLamp_3",
+   "type": "box",
+   "position": [
+    49.55,
+    22.393,
+    57.984
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.22,
+    0.18,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_HeaderLamp_4",
+   "type": "box",
+   "position": [
+    49.55,
+    22.393,
+    58.751
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.22,
+    0.18,
+    0.06
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_SpeakerL",
+   "type": "box",
+   "position": [
+    49.75,
+    17.28,
+    54.202
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    4.933,
+    0.34
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": true,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_SpeakerGlowL",
+   "type": "box",
+   "position": [
+    49.575,
+    17.9,
+    54.202
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    3.693,
+    0.05
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_ConduitL",
+   "type": "cylinder",
+   "position": [
+    49.8,
+    22.763,
+    56.474
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.18,
+    2.6,
+    0.18
+   ],
+   "material": "pipe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "sections": 6,
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_SpeakerR",
+   "type": "box",
+   "position": [
+    49.75,
+    17.28,
+    60.998
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    4.933,
+    0.34
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": true,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_SpeakerGlowR",
+   "type": "box",
+   "position": [
+    49.575,
+    17.9,
+    60.998
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    3.693,
+    0.05
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Overlook",
+   "source": "inferred"
+  },
+  {
+   "name": "Overlook_WallScreen_2_ConduitR",
+   "type": "cylinder",
+   "position": [
+    49.8,
+    22.763,
+    58.726
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.18,
+    2.6,
+    0.18
+   ],
+   "material": "pipe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "sections": 6,
    "gen": "Overlook",
    "source": "inferred"
   },
@@ -69245,7 +69901,7 @@
   "Belt_B: conveyor ramp 16.5 m at 21 deg, belt -3.4 m/s, spike pit at the foot",
   "Exit_Door: exit hallway 12 m fading to black -> level2_part1",
   "Spinner: spinner, 4 arms driven by a ceiling press (peak 64.43 rpm, still 3.8 s per 9.5 s), 4 hovering pads",
-  "Overlook: corner overlook 4.2 x 15.0 m at 15.5 m, gantry 14.9 m to lift Spinner_Pad_1_Lift",
+  "Overlook: corner overlook 5.1 x 15.0 m at 15.5 m, gantry 14.9 m to lift Spinner_Pad_1_Lift",
   "Arena: battle arena rising out of the liquid (goofy) - 25 square tiles, 20.8 m across at 15.5 m",
   "crates: 5 printed crates (accent atlas)",
   "fixtures: 62 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_North_M02Fan, OuterWall_West_M02Fan)",
@@ -69336,12 +69992,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 45777,
-  "objects": 2050,
+  "triangles": 46113,
+  "objects": 2074,
   "materials": 34,
-  "glb_kb": 3360,
-  "nodes": 2260,
-  "draw_calls_unbatched": 2228,
+  "glb_kb": 3374,
+  "nodes": 2288,
+  "draw_calls_unbatched": 2256,
   "draw_calls_batched_min": 35,
   "images": 92,
   "tex_mem_gpu_compressed_mb": 22.71,

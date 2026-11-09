@@ -1321,4 +1321,8 @@ Building blocks usable without the preset:
   [[x, z, yaw, width], ...]: the same moulded TV (tv_casing body, screen glass with its own picture slot) on a
   two-legged stand on the deck (feet, lamps, hazard-capped crossbeam), raised `screen_lift` (2.3 m) so heads clear it,
   turned to face the arena. Assembly Ascent: the East M12 and South M01 wall TVs now stand on the overlook.
+- Stage 118: `screens` (angled stands) replaced by `wall_screens` [[x, z, yaw, width], ...]: built into the wall at
+  (x, z) on its face, facing straight out (yaw = the wall's outward bearing) - the TV flush in a heavy machine surround
+  with a glowing inner trim, a hazard ledge, a header with status lamps, speaker columns with glow strips and conduits
+  up the wall; parts placed by their back face (boxes are centred in depth, tv_body starts at its back).
 

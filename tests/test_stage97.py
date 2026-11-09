@@ -179,19 +179,18 @@ class CornerOverlook(unittest.TestCase):
 
 class OverlookScreens(unittest.TestCase):
     def test_wall_tvs_moved_up_onto_the_overlook(self):
-        """Stage 117: the two wall TVs under the overlook are gone from the walls; two TVs on stands on the overlook face
-        the arena, raised clear of heads, inside the hall."""
+        """Stage 117/118: the two wall TVs under the overlook are gone from there; two framed screens are built into the
+        walls above the overlook deck, facing straight out of the wall (not angled), raised clear of heads."""
         L = _load("level.json"); by = {o["name"]: o for o in L["objects"]}
         for u in ("OuterWall_East_M12Monitor", "OuterWall_South_M01Monitor"):
             self.assertFalse([n for n in by if n.startswith(u + "_") and n[len(u) + 1:].split("_")[0] in ("Body", "Screen", "Arm", "Cable")], u)
-        top = by["Overlook_Deck"]["position"][1] + by["Overlook_Deck"]["size"][1]; R = next(r for r in L["risers"] if r["id"] == "Arena")
-        ac = [sum(p["center"][0] for p in R["pads"]) / len(R["pads"]), sum(p["center"][2] for p in R["pads"]) / len(R["pads"])]
-        for k in (1, 2):
-            b = by[f"Overlook_Screen_{k}_Body"]; g = by[f"Overlook_Screen_{k}_Glass"]; self.assertEqual(g["material"], "screen")
-            self.assertGreater(b["position"][1] - top, 2.0)  # clear of heads
-            yaw = math.radians(b["rotation"][1]); want = math.atan2(ac[0] - b["position"][0], ac[1] - b["position"][2])
-            self.assertLess(abs(math.atan2(math.sin(yaw - want), math.cos(yaw - want))), math.radians(10))  # faces the arena
-            for sd in "LR": lg = by[f"Overlook_Screen_{k}_Leg_{sd}"]; self.assertAlmostEqual(lg["position"][1], top); self.assertTrue(lg["position"][0] < 49.8 and lg["position"][2] < 64.8)
+        self.assertFalse([n for n in by if n.startswith("Overlook_Screen_")])  # no free-standing (angled) screens
+        top = by["Overlook_Deck"]["position"][1] + by["Overlook_Deck"]["size"][1]
+        for k, (yaw, wall) in ((1, (180.0, ("z", 65.0))), (2, (270.0, ("x", 50.0)))):
+            b = by[f"Overlook_WallScreen_{k}_Body"]; self.assertEqual(by[f"Overlook_WallScreen_{k}_Glass"]["material"], "screen")
+            self.assertAlmostEqual(b["rotation"][1] % 360, yaw); self.assertGreater(b["position"][1] - top, 2.0)
+            i = 2 if wall[0] == "z" else 0; self.assertLess(abs(b["position"][i] - wall[1]), 0.1)  # back against the wall face
+            for p in ("FrameT", "FrameB", "FrameL", "FrameR", "TrimT", "Ledge", "Header", "SpeakerL", "SpeakerR"): self.assertIn(f"Overlook_WallScreen_{k}_{p}", by)
 
 
 class RisingArena(unittest.TestCase):
