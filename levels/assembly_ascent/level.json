@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "b18bfee386a5f94a",
+  "spec_sha": "1046ad8909149363",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -569,6 +569,67 @@
    "emit_time": 0.9,
    "burst": 36,
    "lifetime": 1.4
+  },
+  {
+   "id": "Jet_Screen_Jet",
+   "type": "jet",
+   "jet": {
+    "id": "Jet_Screen",
+    "body": "Jet_Screen_Body",
+    "flame": "Jet_Screen_Flame",
+    "hatch": "Jet_Screen_Hatch",
+    "cap": "Jet_Screen_Cap",
+    "home": [
+     -2.0,
+     22.0,
+     -18.0
+    ],
+    "yaw0": 20.0,
+    "arrive": [
+     39.0,
+     20.12,
+     42.0
+    ],
+    "arrive_yaw": 0.0,
+    "flame_y": -3.55,
+    "slide": 1.9,
+    "press": 0.14,
+    "ctrl1": [
+     -2.0,
+     27.0,
+     -14.0
+    ],
+    "ctrl2": [
+     51.0,
+     25.12,
+     30.0
+    ],
+    "times": {
+     "take": 0.7,
+     "fly": 3.3,
+     "settle": 1.0,
+     "open": 0.6,
+     "back": 3.5
+    },
+    "bob": [
+     0.45,
+     2.2
+    ],
+    "button": "Jet_Screen_Button",
+    "trigger": {
+     "name": "Arena_Deck",
+     "min": [
+      28.6,
+      29.1
+     ],
+     "max": [
+      49.4,
+      49.9
+     ],
+     "y": 15.5
+    },
+    "note": "assembly.jet_pose: home bob -> (player on trigger) fly -> wait (hatch opens; the button terminal goes live) -> press -> back home"
+   }
   },
   {
    "id": "Spinner_Pad_1_Lift_Ride",
@@ -26743,133 +26804,6 @@
    "source": "visible"
   },
   {
-   "name": "Sign_Grin_Big",
-   "type": "group",
-   "position": [
-    -2.0,
-    19.0,
-    -18.0
-   ],
-   "rotation": [
-    0.0,
-    20.0,
-    0.0
-   ],
-   "gen": "Sign_Grin_Big",
-   "source": "visible"
-  },
-  {
-   "name": "Sign_Grin_Big_Frame",
-   "type": "box",
-   "position": [
-    0.0,
-    -0.15,
-    -0.12
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Sign_Grin_Big",
-   "size": [
-    9.3,
-    6.3,
-    0.22
-   ],
-   "material": "frame",
-   "mobile": {
-    "static": true
-   },
-   "gen": "Sign_Grin_Big",
-   "source": "visible"
-  },
-  {
-   "name": "Sign_Grin_Big_Panel",
-   "type": "panel",
-   "position": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Sign_Grin_Big",
-   "size": [
-    9.0,
-    6.0,
-    0.0
-   ],
-   "material": "signs",
-   "uv_region": "a",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Sign_Grin_Big",
-   "source": "visible"
-  },
-  {
-   "name": "Sign_Grin_Big_Chain_L",
-   "type": "box",
-   "position": [
-    -3.42,
-    6.15,
-    -0.12
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Sign_Grin_Big",
-   "size": [
-    0.08,
-    9.4,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Sign_Grin_Big",
-   "source": "visible"
-  },
-  {
-   "name": "Sign_Grin_Big_Chain_R",
-   "type": "box",
-   "position": [
-    3.42,
-    6.15,
-    -0.12
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Sign_Grin_Big",
-   "size": [
-    0.08,
-    9.4,
-    0.08
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Sign_Grin_Big",
-   "source": "visible"
-  },
-  {
    "name": "Sign_Grin_Deck",
    "type": "group",
    "position": [
@@ -43773,386 +43707,796 @@
    "source": "inferred"
   },
   {
-   "name": "Spinner_Terminal",
-   "type": "group",
-   "position": [
-    18.8,
-    7.5,
-    26.2
-   ],
-   "rotation": [
-    0.0,
-    -45.0,
-    0.0
-   ],
-   "gen": "Spinner_Terminal",
-   "source": "visible"
-  },
-  {
-   "name": "Spinner_Terminal_Pedestal",
-   "type": "prism",
-   "position": [
-    -0.9,
-    0.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    0.0
-   ],
-   "parent": "Spinner_Terminal",
-   "size": [
-    1.3,
-    2.4,
-    1.8
-   ],
-   "material": "machine",
-   "poly": [
-    [
-     0.55,
-     0.06
-    ],
-    [
-     -0.42,
-     0.06
-    ],
-    [
-     -0.3,
-     0.94
-    ],
-    [
-     0.48,
-     0.94
-    ]
-   ],
-   "mobile": {
-    "static": true
-   },
-   "gen": "Spinner_Terminal",
-   "source": "visible"
-  },
-  {
-   "name": "Spinner_Terminal_Desk",
-   "type": "prism",
-   "position": [
-    -0.9,
-    0.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    0.0
-   ],
-   "parent": "Spinner_Terminal",
-   "size": [
-    1.3,
-    2.4,
-    1.8
-   ],
-   "material": "machine",
-   "poly": [
-    [
-     0.48,
-     0.92
-    ],
-    [
-     -0.3,
-     0.92
-    ],
-    [
-     -0.6,
-     1.0
-    ],
-    [
-     -0.58,
-     1.1
-    ],
-    [
-     0.48,
-     1.38
-    ]
-   ],
-   "mobile": {
-    "static": true
-   },
-   "gen": "Spinner_Terminal",
-   "source": "visible"
-  },
-  {
-   "name": "Spinner_Terminal_Tower",
-   "type": "prism",
-   "position": [
-    -0.9,
-    0.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    0.0
-   ],
-   "parent": "Spinner_Terminal",
-   "size": [
-    1.3,
-    2.4,
-    1.8
-   ],
-   "material": "machine",
-   "poly": [
-    [
-     0.66,
-     0.9
-    ],
-    [
-     0.3,
-     0.9
-    ],
-    [
-     0.3,
-     2.2
-    ],
-    [
-     0.44,
-     2.36
-    ],
-    [
-     0.66,
-     2.36
-    ]
-   ],
-   "mobile": {
-    "static": true
-   },
-   "gen": "Spinner_Terminal",
-   "source": "visible"
-  },
-  {
-   "name": "Spinner_Terminal_Screen",
-   "type": "panel",
-   "position": [
-    0.0,
-    1.46,
-    -0.28
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Spinner_Terminal",
-   "size": [
-    1.36,
-    0.66,
-    0.0
-   ],
-   "material": "screen",
-   "uv_region": "a",
-   "uv_shift": 10,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Spinner_Terminal",
-   "source": "visible"
-  },
-  {
-   "name": "Spinner_Terminal_NoseLight",
+   "name": "Jet_Screen_Back",
    "type": "box",
    "position": [
+    -2.109,
+    18.6,
+    -18.301
+   ],
+   "rotation": [
     0.0,
-    1.02,
+    20.0,
+    0.0
+   ],
+   "size": [
+    9.8,
+    6.8,
     0.6
    ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Spinner_Terminal",
-   "size": [
-    1.68,
-    0.05,
-    0.03
-   ],
-   "material": "glow_yellow",
+   "material": "machine",
    "collision": false,
-   "outline": false,
    "mobile": {
-    "static": true
+    "group": "Jet_Screen_Body"
    },
-   "gen": "Spinner_Terminal",
-   "source": "visible"
+   "gen": "Jet_Screen",
+   "source": "inferred"
   },
   {
-   "name": "Spinner_Terminal_TowerLight_1",
+   "name": "Jet_Screen_FrameT",
    "type": "box",
    "position": [
-    -0.85,
-    1.42,
-    -0.29
+    -1.966,
+    24.9,
+    -17.906
    ],
    "rotation": [
     0.0,
-    0.0,
+    20.0,
     0.0
    ],
-   "parent": "Spinner_Terminal",
    "size": [
-    0.04,
-    0.82,
-    0.03
+    9.8,
+    0.35,
+    0.3
    ],
-   "material": "glow_yellow",
+   "material": "machine",
    "collision": false,
-   "outline": false,
    "mobile": {
-    "static": true
+    "group": "Jet_Screen_Body"
    },
-   "gen": "Spinner_Terminal",
-   "source": "visible"
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
   },
   {
-   "name": "Spinner_Terminal_TowerLight_3",
+   "name": "Jet_Screen_FrameB",
    "type": "box",
    "position": [
-    0.85,
-    1.42,
-    -0.29
+    -1.966,
+    18.75,
+    -17.906
    ],
    "rotation": [
     0.0,
-    0.0,
+    20.0,
     0.0
    ],
-   "parent": "Spinner_Terminal",
    "size": [
-    0.04,
-    0.82,
-    0.03
+    9.8,
+    0.35,
+    0.3
    ],
-   "material": "glow_yellow",
+   "material": "machine",
    "collision": false,
-   "outline": false,
    "mobile": {
-    "static": true
+    "group": "Jet_Screen_Body"
    },
-   "gen": "Spinner_Terminal",
-   "source": "visible"
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
   },
   {
-   "name": "Spinner_Terminal_Crown",
+   "name": "Jet_Screen_FrameL",
    "type": "box",
    "position": [
-    0.0,
-    2.36,
-    -0.55
+    -6.406,
+    18.925,
+    -16.29
    ],
    "rotation": [
     0.0,
-    0.0,
+    20.0,
     0.0
    ],
-   "parent": "Spinner_Terminal",
    "size": [
-    1.5,
-    0.07,
-    0.16
+    0.35,
+    6.15,
+    0.3
    ],
-   "material": "glow_yellow",
+   "material": "machine",
    "collision": false,
-   "outline": false,
    "mobile": {
-    "static": true
+    "group": "Jet_Screen_Body"
    },
-   "gen": "Spinner_Terminal",
-   "source": "visible"
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
   },
   {
-   "name": "Spinner_Terminal_HandPlate",
+   "name": "Jet_Screen_FrameR",
    "type": "box",
    "position": [
-    0.45,
-    1.245,
-    0.02
+    2.474,
+    18.925,
+    -19.522
    ],
    "rotation": [
-    14.8,
     0.0,
+    20.0,
     0.0
    ],
-   "parent": "Spinner_Terminal",
    "size": [
-    0.42,
-    0.03,
-    0.34
+    0.35,
+    6.15,
+    0.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_Panel",
+   "type": "panel",
+   "position": [
+    -1.99,
+    19.0,
+    -17.972
+   ],
+   "rotation": [
+    0.0,
+    20.0,
+    0.0
+   ],
+   "size": [
+    9.0,
+    6.0,
+    0.0
+   ],
+   "material": "signs",
+   "uv_region": "a",
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_GlowStrip",
+   "type": "box",
+   "position": [
+    -1.908,
+    18.62,
+    -17.746
+   ],
+   "rotation": [
+    0.0,
+    20.0,
+    0.0
+   ],
+   "size": [
+    7.2,
+    0.1,
+    0.06
    ],
    "material": "glow",
    "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
    "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Spinner_Terminal",
-   "source": "visible"
+   "gen": "Jet_Screen",
+   "source": "inferred"
   },
   {
-   "name": "Spinner_Terminal_Floor",
+   "name": "Jet_Screen_Pack",
+   "type": "box",
+   "position": [
+    -2.428,
+    19.9,
+    -19.175
+   ],
+   "rotation": [
+    0.0,
+    20.0,
+    0.0
+   ],
+   "size": [
+    4.4,
+    3.0,
+    1.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_ThrusterL",
    "type": "cylinder",
    "position": [
-    0.0,
-    0.0,
-    -0.05
+    -4.106,
+    19.1,
+    -18.67
    ],
    "rotation": [
     0.0,
     0.0,
     0.0
    ],
-   "parent": "Spinner_Terminal",
    "size": [
-    2.7,
+    1.1,
+    3.5,
+    1.1
+   ],
+   "material": "machine",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_ThrusterCapL",
+   "type": "frustum",
+   "position": [
+    -4.106,
+    22.6,
+    -18.67
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.45,
+    0.7
+   ],
+   "material": "machine",
+   "sections": 10,
+   "bottom_scale": 1.6,
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_ThrusterBandL",
+   "type": "cylinder",
+   "position": [
+    -4.106,
+    18.95,
+    -18.67
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.22,
+    0.3,
+    1.22
+   ],
+   "material": "stripe",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_NozzleL",
+   "type": "frustum",
+   "position": [
+    -4.106,
+    18.5,
+    -18.67
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.6,
+    1.0
+   ],
+   "material": "machine",
+   "sections": 10,
+   "bottom_scale": 1.45,
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_NozzleGlowL",
+   "type": "cylinder",
+   "position": [
+    -4.106,
+    18.47,
+    -18.67
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.25,
     0.06,
-    2.7
+    1.25
    ],
-   "material": "frame",
-   "sections": 8,
+   "material": "glow",
+   "sections": 12,
+   "collision": false,
    "mobile": {
-    "static": true
+    "group": "Jet_Screen_Body"
    },
-   "gen": "Spinner_Terminal",
-   "source": "visible"
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
   },
   {
-   "name": "Spinner_Terminal_FloorRim",
-   "type": "cylinder",
+   "name": "Jet_Screen_FinL",
+   "type": "box",
    "position": [
+    -4.689,
+    19.3,
+    -18.458
+   ],
+   "rotation": [
     0.0,
-    0.0,
-    -0.05
+    20.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.4,
+    0.9
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_FlameL",
+   "type": "frustum",
+   "position": [
+    -4.106,
+    16.85,
+    -18.67
    ],
    "rotation": [
     0.0,
     0.0,
     0.0
    ],
-   "parent": "Spinner_Terminal",
    "size": [
-    2.86,
-    0.035,
-    2.86
+    0.95,
+    1.6,
+    0.95
    ],
    "material": "glow_yellow",
-   "sections": 8,
+   "sections": 10,
+   "bottom_scale": 0.12,
    "collision": false,
-   "outline": false,
    "mobile": {
-    "static": true
+    "group": "Jet_Screen_Flame"
    },
-   "gen": "Spinner_Terminal",
-   "source": "visible"
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_ThrusterR",
+   "type": "cylinder",
+   "position": [
+    -0.817,
+    19.1,
+    -19.867
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.1,
+    3.5,
+    1.1
+   ],
+   "material": "machine",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_ThrusterCapR",
+   "type": "frustum",
+   "position": [
+    -0.817,
+    22.6,
+    -19.867
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.45,
+    0.7
+   ],
+   "material": "machine",
+   "sections": 10,
+   "bottom_scale": 1.6,
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_ThrusterBandR",
+   "type": "cylinder",
+   "position": [
+    -0.817,
+    18.95,
+    -19.867
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.22,
+    0.3,
+    1.22
+   ],
+   "material": "stripe",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_NozzleR",
+   "type": "frustum",
+   "position": [
+    -0.817,
+    18.5,
+    -19.867
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.6,
+    1.0
+   ],
+   "material": "machine",
+   "sections": 10,
+   "bottom_scale": 1.45,
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_NozzleGlowR",
+   "type": "cylinder",
+   "position": [
+    -0.817,
+    18.47,
+    -19.867
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.25,
+    0.06,
+    1.25
+   ],
+   "material": "glow",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_FinR",
+   "type": "box",
+   "position": [
+    -0.235,
+    19.3,
+    -20.079
+   ],
+   "rotation": [
+    0.0,
+    20.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.4,
+    0.9
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_FlameR",
+   "type": "frustum",
+   "position": [
+    -0.817,
+    16.85,
+    -19.867
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.95,
+    1.6,
+    0.95
+   ],
+   "material": "glow_yellow",
+   "sections": 10,
+   "bottom_scale": 0.12,
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Flame"
+   },
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_Garage",
+   "type": "box",
+   "position": [
+    -2.068,
+    17.6,
+    -18.188
+   ],
+   "rotation": [
+    0.0,
+    20.0,
+    0.0
+   ],
+   "size": [
+    3.4,
+    1.0,
+    1.6
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_GarageLip",
+   "type": "box",
+   "position": [
+    -1.774,
+    18.44,
+    -17.38
+   ],
+   "rotation": [
+    0.0,
+    20.0,
+    0.0
+   ],
+   "size": [
+    3.5,
+    0.16,
+    0.08
+   ],
+   "material": "stripe",
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Body"
+   },
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_Drawer",
+   "type": "box",
+   "position": [
+    -2.068,
+    17.94,
+    -18.188
+   ],
+   "rotation": [
+    0.0,
+    20.0,
+    0.0
+   ],
+   "size": [
+    2.8,
+    0.22,
+    1.8
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Hatch"
+   },
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_DrawerEdge",
+   "type": "box",
+   "position": [
+    -1.754,
+    17.93,
+    -17.323
+   ],
+   "rotation": [
+    0.0,
+    20.0,
+    0.0
+   ],
+   "size": [
+    2.86,
+    0.24,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Hatch"
+   },
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_ButtonBase",
+   "type": "cylinder",
+   "position": [
+    -2.068,
+    18.16,
+    -18.188
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.4,
+    0.25,
+    1.4
+   ],
+   "material": "machine",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Hatch"
+   },
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_ButtonRing",
+   "type": "cylinder",
+   "position": [
+    -2.068,
+    18.16,
+    -18.188
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.62,
+    0.08,
+    1.62
+   ],
+   "material": "stripe",
+   "sections": 12,
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Hatch"
+   },
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
+  },
+  {
+   "name": "Jet_Screen_Button",
+   "type": "cylinder",
+   "position": [
+    -2.068,
+    18.41,
+    -18.188
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.1,
+    0.32,
+    1.1
+   ],
+   "material": "glow",
+   "sections": 16,
+   "collision": false,
+   "mobile": {
+    "group": "Jet_Screen_Cap"
+   },
+   "outline": false,
+   "gen": "Jet_Screen",
+   "source": "inferred"
   },
   {
    "name": "Rail_Start_E1_Post_01",
@@ -67407,7 +67751,7 @@
    "closed_at_start": true,
    "opens_on": {
     "type": "terminal",
-    "terminal": "Spinner_Terminal"
+    "terminal": "Jet_Screen_Button"
    },
    "note": "Construct Error: a StaticBody3D blocker stands here while closed (apply_mobile.gd); call open_gate(id) when the encounter's last wave is cleared - the beams fade out, the blocker goes, signal gate_opened(id)."
   },
@@ -69333,18 +69677,23 @@
  ],
  "terminals": [
   {
-   "id": "Spinner_Terminal",
+   "id": "Jet_Screen_Button",
    "center": [
-    18.164,
-    8.5,
-    26.836
+    39.0,
+    15.5,
+    43.7
    ],
    "radius": 1.8,
    "activates": [
     "Yard_Laser"
    ],
-   "screen": "Spinner_Terminal_Screen",
-   "note": "use it (interact) within radius: opens the gates in 'activates'"
+   "requires": "Jet_Screen",
+   "button": [
+    39.0,
+    16.85,
+    43.7
+   ],
+   "note": "the big red button: live once the jet screen has arrived (level.json jets); using it opens the gates in 'activates'"
   }
  ],
  "saws": [
@@ -69841,6 +70190,65 @@
    "note": "stand on it 'wait' s -> it travels (smoothstep, 'duration' s) to the other end; a player in a call zone brings it to that end when it is empty; carries whoever stands on it"
   }
  ],
+ "jets": [
+  {
+   "id": "Jet_Screen",
+   "body": "Jet_Screen_Body",
+   "flame": "Jet_Screen_Flame",
+   "hatch": "Jet_Screen_Hatch",
+   "cap": "Jet_Screen_Cap",
+   "home": [
+    -2.0,
+    22.0,
+    -18.0
+   ],
+   "yaw0": 20.0,
+   "arrive": [
+    39.0,
+    20.12,
+    42.0
+   ],
+   "arrive_yaw": 0.0,
+   "flame_y": -3.55,
+   "slide": 1.9,
+   "press": 0.14,
+   "ctrl1": [
+    -2.0,
+    27.0,
+    -14.0
+   ],
+   "ctrl2": [
+    51.0,
+    25.12,
+    30.0
+   ],
+   "times": {
+    "take": 0.7,
+    "fly": 3.3,
+    "settle": 1.0,
+    "open": 0.6,
+    "back": 3.5
+   },
+   "bob": [
+    0.45,
+    2.2
+   ],
+   "button": "Jet_Screen_Button",
+   "trigger": {
+    "name": "Arena_Deck",
+    "min": [
+     28.6,
+     29.1
+    ],
+    "max": [
+     49.4,
+     49.9
+    ],
+    "y": 15.5
+   },
+   "note": "assembly.jet_pose: home bob -> (player on trigger) fly -> wait (hatch opens; the button terminal goes live) -> press -> back home"
+  }
+ ],
  "encounters": [
   {
    "id": "Yard_Waves",
@@ -69903,6 +70311,7 @@
   "Spinner: spinner, 4 arms driven by a ceiling press (peak 64.43 rpm, still 3.8 s per 9.5 s), 4 hovering pads",
   "Overlook: corner overlook 5.1 x 15.0 m at 15.5 m, gantry 14.9 m to lift Spinner_Pad_1_Lift",
   "Arena: battle arena rising out of the liquid (goofy) - 25 square tiles, 20.8 m across at 15.5 m",
+  "Jet_Screen: jetpack grin screen bobbing at [-2.0, 22.0, -18.0]; flies to [39.0, 20.12, 42.0] when a player reaches Arena_Deck - big red button opens ['Yard_Laser']",
   "crates: 5 printed crates (accent atlas)",
   "fixtures: 62 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_North_M02Fan, OuterWall_West_M02Fan)",
   "ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 1 standing part(s), 0 crane runway(s), ends at beams 0.0 m",
@@ -69992,12 +70401,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 46113,
-  "objects": 2074,
+  "triangles": 46695,
+  "objects": 2086,
   "materials": 34,
-  "glb_kb": 3378,
-  "nodes": 2288,
-  "draw_calls_unbatched": 2256,
+  "glb_kb": 3407,
+  "nodes": 2304,
+  "draw_calls_unbatched": 2274,
   "draw_calls_batched_min": 35,
   "images": 92,
   "tex_mem_gpu_compressed_mb": 22.71,

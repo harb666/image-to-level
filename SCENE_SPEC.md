@@ -1326,3 +1326,16 @@ Building blocks usable without the preset:
   with a glowing inner trim, a hazard ledge, a header with status lamps, speaker columns with glow strips and conduits
   up the wall; parts placed by their back face (boxes are centred in depth, tv_body starts at its back).
 
+## Stage 119: jetpack screen with a big red button
+- Structure `jet_screen` (position = its centre, `size`, `cell`): the grin screen on a jetpack - back plate, frame,
+  twin thrusters with hazard bands, flaring nozzles and flickering flames, fins - bobbing in the air (no chains). When
+  a player reaches `trigger_area` (a walkable name, e.g. "Arena_Deck") it flies to `arrive` [x, z] over
+  `arrive_floor` (facing `arrive_yaw`): a double take, a swooping bezier flight with a barrel roll and a wobble, an
+  overshoot that springs back; then a drawer slides out of its belly with a BIG RED BUTTON at `button_height` (1.35 m)
+  over the floor. The button is a control terminal (`<id>_Button`, `requires`: the screen - live only once it has
+  arrived) opening `activates`; used, it presses in, the screen spins and jets home. level.json / collision.json
+  `jets`; effect `jet`; `assembly.jet_pose` is the reference (viewer.html, apply_effects.gd copy it). Never solid.
+- Assembly Ascent: Sign_Grin_Big became Jet_Screen; the Spinner_Terminal is gone - the yard's laser gate opens from the
+  jet screen's button on the rising arena (still reached through the spinner, via the lift pad and overlook).
+- viewer.html: opening a gate also takes its beams out of the solid set (invisible meshes still stop rays).
+

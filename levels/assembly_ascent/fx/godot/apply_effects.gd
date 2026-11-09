@@ -28,6 +28,7 @@ var _winds: Array = []  # Stage 82: [wind dict, rotor node, Area3D, CPUParticles
 var _saws: Array = []  # Stage 97/101: [saw dict, [[joint, [[node, rest]...]]...], kill Area3D]
 var _sweepers: Array = []  # Stage 98: [sweeper dict, [[rotor node, rest]...], pivot Node3D carrying the kill areas]
 var _belts: Array = []  # Stage 97: [belt dict, [[chevron node, rest position]...], rider Area3D]
+var _jets: Array = []  # Stage 119: {"d": jet dict, "parts": {key: [[node, rest]...]}, "trig": Area3D, "use": terminal Area3D, "phase", "t0"}
 var _lifts: Array = []  # Stage 108: {"d": lift dict, "nodes": [Node3D], "body": AnimatableBody3D, "ride": Area3D, "calls": [[call dict, Area3D]], "s", "dir", "p", "board"}
 var _bobs: Array = []  # Stage 92: [bob dict, [[Node3D, rest Transform3D]...]]
 var _risers: Array = []  # Stage 80: [riser dict, Skeleton3D, {bone name: index}, [[CollisionShape3D...] per pad], start time (-1: waiting)]
@@ -91,6 +92,8 @@ func _ready() -> void:
 				_sweeper(fx["sweeper"])
 			"lift":  # Stage 108: a ride-on lift pad
 				_lift(fx["lift"])
+			"jet":  # Stage 119: a jetpack screen with a big red button
+				_jet(fx["jet"])
 			"belt":  # Stage 97: a conveyor ramp - chevrons slide, riders are carried
 				_belt(fx["belt"])
 			"bob":  # Stage 92: a specimen drifting in its tank (rest transforms kept, turned about the pivot)
@@ -453,6 +456,146 @@ static func press_profile(D: Dictionary, t: float) -> Array:
 	else:
 		th = w * (ho - su * 0.5 + sd * 0.5)
 	return [off, k * 360.0 * float(D["turns"]) + th, u, int(k)]
+
+
+func _jet(d: Dictionary) -> void:
+	var parts := {}
+	for k in ["body", "flame", "hatch", "cap"]:
+		var arr: Array = []
+		for nd in _group_nodes(String(d[k])):
+			arr.append([nd, (nd as Node3D).transform])
+		parts[k] = arr
+	var trig: Area3D = null
+	if d.get("trigger") != null:  # the player stepping onto this floor sends it flying over
+		var T: Dictionary = d["trigger"]
+		trig = Area3D.new()
+		var cs := CollisionShape3D.new()
+		var bx := BoxShape3D.new()
+		bx.size = Vector3(float(T["max"][0]) - float(T["min"][0]), 2.4, float(T["max"][1]) - float(T["min"][1]))
+		cs.shape = bx
+		trig.add_child(cs)
+		level_root.add_child(trig)
+		trig.global_position = Vector3((float(T["min"][0]) + float(T["max"][0])) * 0.5, float(T["y"]) + 1.2, (float(T["min"][1]) + float(T["max"][1])) * 0.5)
+	var rec := {"d": d, "parts": parts, "trig": trig, "use": null, "phase": "home", "t0": 0.0}
+	_jets.append(rec)
+	call_deferred("_jet_hook", rec)
+
+
+func _jet_hook(rec: Dictionary) -> void:
+	# the button's terminal area (apply_mobile.gd "<id>_Use") stays off until the screen has arrived; using it -> press
+	var bid := String(rec["d"]["button"])
+	var u := get_tree().root.find_child(bid + "_Use", true, false) as Area3D
+	if u != null:
+		u.monitorable = false
+		u.monitoring = false
+		if u.is_in_group(&"terminal"):
+			u.remove_from_group(&"terminal")
+		rec["use"] = u
+	var cb := func(tid: String) -> void:  # the game used the button (apply_mobile.gd activate_terminal) -> press, spin, fly home
+		if tid == bid and String(rec["phase"]) == "wait":
+			rec["phase"] = "press"
+			rec["t0"] = _t
+	for n in get_tree().root.find_children("*", "Node", true, false):
+		if n.has_signal("terminal_activated"):
+			n.connect("terminal_activated", cb)
+			break
+
+
+static func _bez3(a: Array, b: Array, c: Array, d: Array, u: float) -> Vector3:
+	var m := 1.0 - u
+	var f := func(i: int) -> float: return m * m * m * float(a[i]) + 3.0 * m * m * u * float(b[i]) + 3.0 * m * u * u * float(c[i]) + u * u * u * float(d[i])
+	return Vector3(f.call(0), f.call(1), f.call(2))
+
+
+static func jet_pose(J: Dictionary, ph: String, t: float) -> Array:
+	# Stage 119 (same as assembly.jet_pose / viewer.html): [pos, yaw, pitch, roll (deg), hatch 0..1, cap 0..1, flame scale]
+	var H: Array = J["home"]
+	var A: Array = J["arrive"]
+	var TM: Dictionary = J["times"]
+	var amp := float(J["bob"][0])
+	var per := float(J["bob"][1])
+	var hv := Vector3(H[0], H[1], H[2])
+	var av := Vector3(A[0], A[1], A[2])
+	var fl := func(tt: float, k: float) -> float: return k * (1.0 + 0.18 * sin(tt * 31.0) + 0.1 * sin(tt * 17.0))
+	if ph == "home":
+		return [hv + Vector3(0, amp * sin(TAU * t / per), 0), float(J["yaw0"]) + 3.0 * sin(t * 0.7), 0.0, 2.5 * sin(TAU * t / (per * 1.7)), 0.0, 0.0, fl.call(t, 1.0)]
+	if ph == "fly":
+		var tk := float(TM["take"])
+		var tf := float(TM["fly"])
+		var ts := float(TM["settle"])
+		if t < tk:
+			var u := t / tk
+			return [hv + Vector3(0, 1.4 * sin(PI * u), 0), float(J["yaw0"]) + 360.0 * smoothstep(0.0, 1.0, u), 0.0, 0.0, 0.0, 0.0, fl.call(t, 1.6)]
+		if t < tk + tf:
+			var u := (t - tk) / tf
+			var q := u * u * (3.0 - 2.0 * u)
+			var p := _bez3(H, J["ctrl1"], J["ctrl2"], A, q)
+			var n := _bez3(H, J["ctrl1"], J["ctrl2"], A, minf(1.0, q + 0.02))
+			var hd := rad_to_deg(atan2(n.x - p.x, n.z - p.z)) if absf(n.x - p.x) + absf(n.z - p.z) > 1e-6 else float(J["arrive_yaw"])
+			var w := 0.9 * sin(3.0 * PI * u) * sin(PI * u)
+			p += Vector3(w * cos(deg_to_rad(hd)), 0.5 * sin(5.0 * PI * u), -w * sin(deg_to_rad(hd)))
+			var ky := clampf((u - 0.75) / 0.25, 0.0, 1.0)
+			var f := clampf((u - 0.4) / 0.25, 0.0, 1.0)
+			return [p, hd + wrapf(float(J["arrive_yaw"]) - hd, -180.0, 180.0) * smoothstep(0.0, 1.0, ky), -14.0 * sin(PI * u), fmod(360.0 * smoothstep(0.0, 1.0, f), 360.0), 0.0, 0.0, fl.call(t, 1.8)]
+		var s := t - tk - tf
+		if s < ts:
+			var fr := deg_to_rad(float(J["arrive_yaw"]))
+			var k := 1.6 * sin(7.0 * s) * exp(-4.0 * s)
+			return [av + Vector3(k * sin(fr), 0.4 * sin(9.0 * s) * exp(-3.0 * s), k * cos(fr)), float(J["arrive_yaw"]) + 14.0 * sin(11.0 * s) * exp(-3.5 * s), 0.0, 10.0 * sin(8.0 * s) * exp(-3.0 * s), 0.0, 0.0, fl.call(t, 1.3)]
+		return jet_pose(J, "wait", s - ts)
+	if ph == "wait":
+		var h := minf(1.0, t / float(TM["open"]))
+		h = 1.0 + 2.2 * pow(h - 1.0, 3.0) + 1.2 * pow(h - 1.0, 2.0) if h < 1.0 else 1.0
+		return [av + Vector3(0, 0.5 * amp * sin(TAU * t / per), 0), float(J["arrive_yaw"]), 0.0, 1.5 * sin(TAU * t / per), h, 0.0, fl.call(t, 1.0)]
+	if ph == "press":
+		var c := maxf(0.0, 1.0 - absf(t - 0.12) / 0.12) if t < 0.24 else 0.0
+		var sp := smoothstep(0.0, 1.0, clampf((t - 0.3) / 0.8, 0.0, 1.0))
+		return [av + Vector3(0, 0.6 * sin(PI * sp), 0), float(J["arrive_yaw"]) + 360.0 * sp, 0.0, 0.0, 1.0, c, fl.call(t, 1.2)]
+	var hb := maxf(0.0, 1.0 - t / 0.5)
+	var ub := minf(1.0, t / float(TM["back"]))
+	var qb := ub * ub * (3.0 - 2.0 * ub)
+	var pb := _bez3(A, [A[0], float(A[1]) + 9.0, A[2]], [H[0], float(H[1]) + 9.0, H[2]], H, qb)
+	return [pb, float(J["arrive_yaw"]) + wrapf(float(J["yaw0"]) - float(J["arrive_yaw"]), -180.0, 180.0) * qb, -10.0 * sin(PI * ub), 0.0, hb, 0.0, fl.call(t, 1.5)]
+
+
+func _update_jets() -> void:
+	for rec in _jets:
+		var J: Dictionary = rec["d"]
+		var TM: Dictionary = J["times"]
+		var ph := String(rec["phase"])
+		var tt := _t - float(rec["t0"])
+		if ph == "home" and rec["trig"] != null:
+			for b in (rec["trig"] as Area3D).get_overlapping_bodies():
+				if b is CharacterBody3D:
+					rec["phase"] = "fly"
+					rec["t0"] = _t
+					break
+		elif ph == "fly" and tt >= float(TM["take"]) + float(TM["fly"]) + float(TM["settle"]):
+			rec["phase"] = "wait"
+			rec["t0"] = _t
+			var u: Area3D = rec["use"]
+			if u != null:  # the button goes live
+				u.monitorable = true
+				u.monitoring = true
+				u.add_to_group(&"terminal")
+		elif ph == "press" and tt >= 1.6:
+			rec["phase"] = "back"
+			rec["t0"] = _t
+		elif ph == "back" and tt >= float(TM["back"]):
+			rec["phase"] = "home"
+		ph = String(rec["phase"])
+		var r := jet_pose(J, ph, _t if ph == "home" else _t - float(rec["t0"]))
+		var D := PI / 180.0
+		var P := Transform3D(Basis.from_euler(Vector3(float(r[2]) * D, float(r[1]) * D, float(r[3]) * D), EULER_ORDER_YXZ), r[0])
+		var Linv := Transform3D(Basis(Vector3.UP, float(J["yaw0"]) * D), Vector3(J["home"][0], J["home"][1], J["home"][2])).affine_inverse()
+		var fy := float(J["flame_y"])
+		var X_f := Transform3D(Basis.IDENTITY.scaled(Vector3(1.0, float(r[6]), 1.0)), Vector3(0, fy - fy * float(r[6]), 0))
+		var X_h := Transform3D(Basis.IDENTITY, Vector3(0, 0, float(r[4]) * float(J["slide"])))
+		var X_c := Transform3D(Basis.IDENTITY, Vector3(0, -float(r[5]) * float(J["press"]), float(r[4]) * float(J["slide"])))
+		for k in ["body", "flame", "hatch", "cap"]:
+			var M := P * (X_f if k == "flame" else X_h if k == "hatch" else X_c if k == "cap" else Transform3D.IDENTITY) * Linv
+			for nr in rec["parts"][k]:
+				(nr[0] as Node3D).transform = M * (nr[1] as Transform3D)
 
 
 func _lift(d: Dictionary) -> void:
@@ -1304,6 +1447,7 @@ func _process(delta: float) -> void:
 	_update_risers()
 	_update_winds(delta)
 	_update_saws()
+	_update_jets()
 	var scam := get_viewport().get_camera_3d()
 	if scam != null and (_shake > 0.005 or scam.h_offset != 0.0 or scam.v_offset != 0.0):  # Stage 103: press impact shake
 		scam.h_offset = randf_range(-0.5, 0.5) * _shake

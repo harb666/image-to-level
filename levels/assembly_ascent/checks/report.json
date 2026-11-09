@@ -1,16 +1,16 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 3378,
-  "mobile/level_mobile.glb": 1976,
-  "mobile/collision.json": 134,
+  "level.glb": 3407,
+  "mobile/level_mobile.glb": 2003,
+  "mobile/collision.json": 132,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 62
+  "effects.json": 64
  },
  "complexity": {
-  "triangles": 54389,
-  "nodes": 2256,
+  "triangles": 55079,
+  "nodes": 2274,
   "materials": 34,
   "heaviest": [
    [
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 3378,
-   "triangles": 46113,
-   "draw_calls": 2256,
+   "glb_kb": 3407,
+   "triangles": 46695,
+   "draw_calls": 2274,
    "tex_mem_gpu_mb_est": 22.71
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 1976,
-   "triangles": 52439,
-   "draw_calls": 100,
-   "visible_draw_calls_est": 58.7,
-   "visible_draw_calls_max_est": 103,
+   "glb_kb": 2003,
+   "triangles": 53133,
+   "draw_calls": 110,
+   "visible_draw_calls_est": 62.3,
+   "visible_draw_calls_max_est": 113,
    "tex_mem_gpu_mb_est": 8.06,
    "materials": 35,
-   "nodes": 177,
+   "nodes": 187,
    "colliders": {
-    "colliders": 380,
+    "colliders": 375,
     "hazards": 1,
-    "glb_kb": 173
+    "glb_kb": 170
    },
    "background_kb": 404
   },
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 19865.0,
-  "reachable_area_m2": 3980.0,
-  "components": 102,
+  "standable_area_m2": 19851.0,
+  "reachable_area_m2": 3983.0,
+  "components": 97,
   "spawns": [
    {
     "id": "spawn",
@@ -95,7 +95,7 @@
     "standable": true,
     "clearance_m": 4.5,
     "headroom_m": 28.77,
-    "component": 18,
+    "component": 17,
     "hazard_distance_m": 11.5
    },
    {
@@ -108,7 +108,7 @@
     "standable": true,
     "clearance_m": 4.5,
     "headroom_m": 27.78,
-    "component": 18,
+    "component": 17,
     "hazard_distance_m": 4.64
    },
    {
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 6.5,
     "headroom_m": 19.0,
-    "component": 43,
+    "component": 38,
     "hazard_distance_m": 0.54
    }
   ],
@@ -246,7 +246,12 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 100 (> 80)"
+   "message": "mobile draw calls 110 (> 80)"
+  },
+  {
+   "kind": "mobile_visible_draw_calls",
+   "severity": "warning",
+   "message": "~62 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "spawn_near_hazard",
@@ -273,7 +278,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "54389 triangles (> budget 40000)"
+   "message": "55079 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
@@ -289,7 +294,7 @@
  ],
  "counts": {
   "error": 0,
-  "warning": 6,
+  "warning": 7,
   "info": 1
  },
  "passed": true,

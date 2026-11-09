@@ -3983,27 +3983,6 @@
    ]
   },
   {
-   "name": "Sign_Grin_Big_Frame",
-   "source": "Sign_Grin_Big_Frame",
-   "shape": "box",
-   "center": [
-    -2.041,
-    22.0,
-    -18.113
-   ],
-   "size": [
-    9.3,
-    6.3,
-    0.22
-   ],
-   "rotation": [
-    -0.0,
-    0.17365,
-    -0.0,
-    0.98481
-   ]
-  },
-  {
    "name": "Sign_Grin_Deck_Frame",
    "source": "Sign_Grin_Deck_Frame",
    "shape": "box",
@@ -8489,185 +8468,6 @@
    ]
   },
   {
-   "name": "Spinner_Terminal_Pedestal",
-   "source": "Spinner_Terminal_Pedestal",
-   "shape": "convex",
-   "points": [
-    [
-     18.503,
-     8.44,
-     25.224
-    ],
-    [
-     17.951,
-     8.44,
-     25.776
-    ],
-    [
-     17.867,
-     7.56,
-     25.861
-    ],
-    [
-     18.553,
-     7.56,
-     25.175
-    ],
-    [
-     19.776,
-     8.44,
-     26.497
-    ],
-    [
-     19.224,
-     8.44,
-     27.049
-    ],
-    [
-     19.139,
-     7.56,
-     27.133
-    ],
-    [
-     19.825,
-     7.56,
-     26.447
-    ]
-   ]
-  },
-  {
-   "name": "Spinner_Terminal_Desk",
-   "source": "Spinner_Terminal_Desk",
-   "shape": "convex",
-   "points": [
-    [
-     18.503,
-     8.88,
-     25.224
-    ],
-    [
-     17.753,
-     8.6,
-     25.974
-    ],
-    [
-     17.739,
-     8.5,
-     25.988
-    ],
-    [
-     17.951,
-     8.42,
-     25.776
-    ],
-    [
-     18.503,
-     8.42,
-     25.224
-    ],
-    [
-     19.776,
-     8.88,
-     26.497
-    ],
-    [
-     19.026,
-     8.6,
-     27.247
-    ],
-    [
-     19.012,
-     8.5,
-     27.261
-    ],
-    [
-     19.224,
-     8.42,
-     27.049
-    ],
-    [
-     19.776,
-     8.42,
-     26.497
-    ]
-   ]
-  },
-  {
-   "name": "Spinner_Terminal_Tower",
-   "source": "Spinner_Terminal_Tower",
-   "shape": "convex",
-   "points": [
-    [
-     18.63,
-     9.86,
-     25.097
-    ],
-    [
-     18.475,
-     9.86,
-     25.252
-    ],
-    [
-     18.376,
-     9.7,
-     25.351
-    ],
-    [
-     18.376,
-     8.4,
-     25.351
-    ],
-    [
-     18.63,
-     8.4,
-     25.097
-    ],
-    [
-     19.903,
-     9.86,
-     26.37
-    ],
-    [
-     19.748,
-     9.86,
-     26.525
-    ],
-    [
-     19.649,
-     9.7,
-     26.624
-    ],
-    [
-     19.649,
-     8.4,
-     26.624
-    ],
-    [
-     19.903,
-     8.4,
-     26.37
-    ]
-   ]
-  },
-  {
-   "name": "Spinner_Terminal_Floor",
-   "source": "Spinner_Terminal_Floor",
-   "shape": "cylinder",
-   "center": [
-    18.835,
-    7.53,
-    26.165
-   ],
-   "radius": 1.35,
-   "height": 0.06,
-   "rotation": [
-    0.0,
-    -0.38268,
-    0.0,
-    0.92388
-   ]
-  },
-  {
    "name": "Rail_Start_E1_Post_01",
    "source": "Rail_Start_E1_Post_01",
    "shape": "box",
@@ -9300,7 +9100,7 @@
    "closed_at_start": true,
    "opens_on": {
     "type": "terminal",
-    "terminal": "Spinner_Terminal"
+    "terminal": "Jet_Screen_Button"
    },
    "note": "Construct Error: a StaticBody3D blocker stands here while closed (apply_mobile.gd); call open_gate(id) when the encounter's last wave is cleared - the beams fade out, the blocker goes, signal gate_opened(id)."
   },
@@ -9397,18 +9197,23 @@
  ],
  "terminals": [
   {
-   "id": "Spinner_Terminal",
+   "id": "Jet_Screen_Button",
    "center": [
-    18.164,
-    8.5,
-    26.836
+    39.0,
+    15.5,
+    43.7
    ],
    "radius": 1.8,
    "activates": [
     "Yard_Laser"
    ],
-   "screen": "Spinner_Terminal_Screen",
-   "note": "use it (interact) within radius: opens the gates in 'activates'"
+   "requires": "Jet_Screen",
+   "button": [
+    39.0,
+    16.85,
+    43.7
+   ],
+   "note": "the big red button: live once the jet screen has arrived (level.json jets); using it opens the gates in 'activates'"
   }
  ],
  "risers": [
@@ -10702,6 +10507,65 @@
     }
    ],
    "note": "stand on it 'wait' s -> it travels (smoothstep, 'duration' s) to the other end; a player in a call zone brings it to that end when it is empty; carries whoever stands on it"
+  }
+ ],
+ "jets": [
+  {
+   "id": "Jet_Screen",
+   "body": "Jet_Screen_Body",
+   "flame": "Jet_Screen_Flame",
+   "hatch": "Jet_Screen_Hatch",
+   "cap": "Jet_Screen_Cap",
+   "home": [
+    -2.0,
+    22.0,
+    -18.0
+   ],
+   "yaw0": 20.0,
+   "arrive": [
+    39.0,
+    20.12,
+    42.0
+   ],
+   "arrive_yaw": 0.0,
+   "flame_y": -3.55,
+   "slide": 1.9,
+   "press": 0.14,
+   "ctrl1": [
+    -2.0,
+    27.0,
+    -14.0
+   ],
+   "ctrl2": [
+    51.0,
+    25.12,
+    30.0
+   ],
+   "times": {
+    "take": 0.7,
+    "fly": 3.3,
+    "settle": 1.0,
+    "open": 0.6,
+    "back": 3.5
+   },
+   "bob": [
+    0.45,
+    2.2
+   ],
+   "button": "Jet_Screen_Button",
+   "trigger": {
+    "name": "Arena_Deck",
+    "min": [
+     28.6,
+     29.1
+    ],
+    "max": [
+     49.4,
+     49.9
+    ],
+    "y": 15.5
+   },
+   "note": "assembly.jet_pose: home bob -> (player on trigger) fly -> wait (hatch opens; the button terminal goes live) -> press -> back home"
   }
  ]
 }

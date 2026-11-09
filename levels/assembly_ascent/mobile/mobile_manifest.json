@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 3378,
-    "triangles": 54389,
-    "nodes": 2288,
-    "mesh_nodes": 2256,
-    "unique_meshes": 1052,
+    "glb_kb": 3407,
+    "triangles": 55079,
+    "nodes": 2304,
+    "mesh_nodes": 2274,
+    "unique_meshes": 1063,
     "materials": 35,
     "images": 92,
-    "draw_calls_unbatched": 2256,
+    "draw_calls_unbatched": 2274,
     "draw_calls_batched_min": 35,
     "tex_mem_uncompressed_mb": 90.84,
     "tex_mem_gpu_compressed_mb": 22.71,
@@ -71,22 +71,22 @@
    },
    "visible": {
     "cameras": 104,
-    "visible_draw_calls_mean": 762.5,
-    "visible_draw_calls_max": 2250,
-    "visible_triangles_mean": 30082,
-    "visible_triangles_max": 65045
+    "visible_draw_calls_mean": 768.8,
+    "visible_draw_calls_max": 2268,
+    "visible_triangles_mean": 30319,
+    "visible_triangles_max": 65735
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 1976,
-    "triangles": 52439,
-    "nodes": 177,
-    "mesh_nodes": 100,
-    "unique_meshes": 100,
+    "glb_kb": 2003,
+    "triangles": 53133,
+    "nodes": 187,
+    "mesh_nodes": 110,
+    "unique_meshes": 110,
     "materials": 35,
     "images": 58,
-    "draw_calls_unbatched": 100,
+    "draw_calls_unbatched": 110,
     "draw_calls_batched_min": 35,
     "tex_mem_uncompressed_mb": 32.26,
     "tex_mem_gpu_compressed_mb": 8.06,
@@ -130,19 +130,19 @@
     ]
    },
    "collision": {
-    "colliders": 380,
+    "colliders": 375,
     "hazards": 1,
-    "glb_kb": 173
+    "glb_kb": 170
    },
    "visible": {
     "cameras": 104,
-    "visible_draw_calls_mean": 58.7,
-    "visible_draw_calls_max": 103,
-    "visible_triangles_mean": 51685,
-    "visible_triangles_max": 63251
+    "visible_draw_calls_mean": 62.3,
+    "visible_draw_calls_max": 113,
+    "visible_triangles_mean": 51714,
+    "visible_triangles_max": 63945
    },
    "hidden_faces_removed": 901,
-   "occluded_faces_removed": 1049,
+   "occluded_faces_removed": 1045,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate"
    ],
@@ -150,16 +150,16 @@
    "effects_max_particles": 651,
    "slimmed_kb": {
     "level_mobile.glb": [
-     2999,
-     1976
+     3030,
+     2003
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     233,
-     173
+     229,
+     170
     ]
    }
   }
@@ -1107,6 +1107,154 @@
     "Corrosion_Band"
    ],
    "group": "Corrosion"
+  },
+  {
+   "node": "Jet_Screen_Body__glow",
+   "kind": "group",
+   "material": "glow",
+   "triangles": 108,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Jet_Screen_NozzleGlowR",
+    "Jet_Screen_NozzleGlowL",
+    "Jet_Screen_GlowStrip"
+   ],
+   "group": "Jet_Screen_Body"
+  },
+  {
+   "node": "Jet_Screen_Body__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 168,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Jet_Screen_Garage__ol",
+    "Jet_Screen_FinL__ol",
+    "Jet_Screen_NozzleL__ol",
+    "Jet_Screen_ThrusterCapL__ol",
+    "Jet_Screen_ThrusterL__ol",
+    "Jet_Screen_Pack__ol",
+    "Jet_Screen_Back__ol"
+   ],
+   "group": "Jet_Screen_Body"
+  },
+  {
+   "node": "Jet_Screen_Body__machine",
+   "kind": "group",
+   "material": "machine",
+   "triangles": 348,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Jet_Screen_Garage",
+    "Jet_Screen_FinR",
+    "Jet_Screen_NozzleR",
+    "Jet_Screen_ThrusterCapR",
+    "Jet_Screen_ThrusterR",
+    "Jet_Screen_FinL",
+    "Jet_Screen_NozzleL",
+    "Jet_Screen_ThrusterCapL",
+    "Jet_Screen_ThrusterL",
+    "Jet_Screen_Pack",
+    "Jet_Screen_FrameR",
+    "Jet_Screen_FrameL",
+    "Jet_Screen_FrameB",
+    "Jet_Screen_FrameT",
+    "Jet_Screen_Back"
+   ],
+   "group": "Jet_Screen_Body"
+  },
+  {
+   "node": "Jet_Screen_Body__signs",
+   "kind": "group",
+   "material": "signs",
+   "triangles": 2,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Jet_Screen_Panel"
+   ],
+   "group": "Jet_Screen_Body"
+  },
+  {
+   "node": "Jet_Screen_Body__stripe",
+   "kind": "group",
+   "material": "stripe",
+   "triangles": 108,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Jet_Screen_GarageLip",
+    "Jet_Screen_ThrusterBandR",
+    "Jet_Screen_ThrusterBandL"
+   ],
+   "group": "Jet_Screen_Body"
+  },
+  {
+   "node": "Jet_Screen_Cap__glow",
+   "kind": "group",
+   "material": "glow",
+   "triangles": 64,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Jet_Screen_Button"
+   ],
+   "group": "Jet_Screen_Cap"
+  },
+  {
+   "node": "Jet_Screen_Flame__glow_yellow",
+   "kind": "group",
+   "material": "glow_yellow",
+   "triangles": 72,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Jet_Screen_FlameR",
+    "Jet_Screen_FlameL"
+   ],
+   "group": "Jet_Screen_Flame"
+  },
+  {
+   "node": "Jet_Screen_Hatch__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 60,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Jet_Screen_ButtonBase__ol",
+    "Jet_Screen_Drawer__ol"
+   ],
+   "group": "Jet_Screen_Hatch"
+  },
+  {
+   "node": "Jet_Screen_Hatch__machine",
+   "kind": "group",
+   "material": "machine",
+   "triangles": 60,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Jet_Screen_ButtonBase",
+    "Jet_Screen_Drawer"
+   ],
+   "group": "Jet_Screen_Hatch"
+  },
+  {
+   "node": "Jet_Screen_Hatch__stripe",
+   "kind": "group",
+   "material": "stripe",
+   "triangles": 60,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Jet_Screen_ButtonRing",
+    "Jet_Screen_DrawerEdge"
+   ],
+   "group": "Jet_Screen_Hatch"
   },
   {
    "node": "Saw_East_Arm__arm_yellow",
@@ -2068,7 +2216,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 3969,
+   "triangles": 3873,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2094,7 +2242,6 @@
     "Run_North_High_Flange_01a",
     "Riser_East_2_Flange_01b",
     "Riser_East_1_Flange_01b",
-    "Spinner_Terminal_Floor",
     "Overlook_GCross_2",
     "Overlook_GCross_1",
     "Overlook_Stringer_R",
@@ -2115,9 +2262,6 @@
     "Sign_Grin_Deck_Chain_R",
     "Sign_Grin_Deck_Chain_L",
     "Sign_Grin_Deck_Frame",
-    "Sign_Grin_Big_Chain_R",
-    "Sign_Grin_Big_Chain_L",
-    "Sign_Grin_Big_Frame",
     "Claw_Hang_Trolley_Side_2",
     "Claw_Hang_Trolley_Side_0",
     "CraneRail_01_Hanger_09",
@@ -2375,11 +2519,10 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 1982,
+   "triangles": 1970,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Spinner_Terminal_HandPlate",
     "Overlook_WallScreen_2_SpeakerGlowR",
     "Overlook_WallScreen_2_SpeakerGlowL",
     "Overlook_WallScreen_2_HeaderLamp_3",
@@ -2508,15 +2651,10 @@
    "node": "M_glow_yellow_0_0",
    "kind": "static",
    "material": "glow_yellow",
-   "triangles": 578,
+   "triangles": 498,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Spinner_Terminal_FloorRim",
-    "Spinner_Terminal_Crown",
-    "Spinner_Terminal_TowerLight_3",
-    "Spinner_Terminal_TowerLight_1",
-    "Spinner_Terminal_NoseLight",
     "Overlook_CallLamp",
     "Overlook_WallScreen_2_HeaderLamp_4",
     "Overlook_WallScreen_2_HeaderLamp_2",
@@ -2578,7 +2716,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 6334,
+   "triangles": 6214,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2586,10 +2724,6 @@
     "Run_North_High_Seg_01__ol",
     "Riser_East_2_Seg_01__ol",
     "Riser_East_1_Seg_01__ol",
-    "Spinner_Terminal_Floor__ol",
-    "Spinner_Terminal_Tower__ol",
-    "Spinner_Terminal_Desk__ol",
-    "Spinner_Terminal_Pedestal__ol",
     "Overlook_GLeg_1__ol",
     "Overlook_GFoot_1__ol",
     "Overlook_WallScreen_1_SpeakerL__ol",
@@ -2630,7 +2764,6 @@
     "Exit_Door_Arch__ol",
     "Sign_Arrow_Yard_Frame__ol",
     "Sign_Grin_Deck_Frame__ol",
-    "Sign_Grin_Big_Frame__ol",
     "Claw_Hang_Trolley_Body__ol",
     "Claw_Hang_Collar__ol",
     "Claw_Hang_Block__ol",
@@ -2755,13 +2888,10 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 3483,
+   "triangles": 3439,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Spinner_Terminal_Tower",
-    "Spinner_Terminal_Desk",
-    "Spinner_Terminal_Pedestal",
     "Overlook_CallPost",
     "Overlook_WallScreen_2_SpeakerR",
     "Overlook_WallScreen_2_SpeakerL",
@@ -3063,11 +3193,10 @@
    "node": "M_screen_0_0",
    "kind": "static",
    "material": "screen",
-   "triangles": 16,
+   "triangles": 14,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Spinner_Terminal_Screen",
     "Overlook_WallScreen_2_Glass",
     "Overlook_WallScreen_1_Glass",
     "OuterWall_West_M11Monitor_Screen",
@@ -3081,14 +3210,13 @@
    "node": "M_signs_0_0",
    "kind": "static",
    "material": "signs",
-   "triangles": 10,
+   "triangles": 8,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
     "Sign_Exit_Panel",
     "Sign_Arrow_Yard_Panel",
     "Sign_Grin_Deck_Panel",
-    "Sign_Grin_Big_Panel",
     "Gear_Emblem_Decal"
    ]
   },

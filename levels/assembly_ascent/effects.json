@@ -1286,6 +1286,99 @@
    "merge_emitters": true
   },
   {
+   "id": "Jet_Screen_Jet",
+   "type": "jet",
+   "category": "jet",
+   "glb_contains": "screen at home",
+   "godot_runtime": "script (apply_effects.gd _jets): the screen's groups (<body>/<flame>/<hatch>/<cap>__*) are posed by jet_pose: bobbing at home; a player on the trigger sends it flying to 'arrive'; the drawer opens and the button terminal goes live; once used it spins and jets home",
+   "jet": {
+    "id": "Jet_Screen",
+    "body": "Jet_Screen_Body",
+    "flame": "Jet_Screen_Flame",
+    "hatch": "Jet_Screen_Hatch",
+    "cap": "Jet_Screen_Cap",
+    "home": [
+     -2.0,
+     22.0,
+     -18.0
+    ],
+    "yaw0": 20.0,
+    "arrive": [
+     39.0,
+     20.12,
+     42.0
+    ],
+    "arrive_yaw": 0.0,
+    "flame_y": -3.55,
+    "slide": 1.9,
+    "press": 0.14,
+    "ctrl1": [
+     -2.0,
+     27.0,
+     -14.0
+    ],
+    "ctrl2": [
+     51.0,
+     25.12,
+     30.0
+    ],
+    "times": {
+     "take": 0.7,
+     "fly": 3.3,
+     "settle": 1.0,
+     "open": 0.6,
+     "back": 3.5
+    },
+    "bob": [
+     0.45,
+     2.2
+    ],
+    "button": "Jet_Screen_Button",
+    "trigger": {
+     "name": "Arena_Deck",
+     "min": [
+      28.6,
+      29.1
+     ],
+     "max": [
+      49.4,
+      49.9
+     ],
+     "y": 15.5
+    },
+    "note": "assembly.jet_pose: home bob -> (player on trigger) fly -> wait (hatch opens; the button terminal goes live) -> press -> back home"
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Spinner_Pad_1_Lift_Ride",
    "type": "lift",
    "category": "lift",
@@ -2553,7 +2646,6 @@
    "godot_runtime": "ShaderMaterial tv_static.gdshader as material_override on every mesh using target_material (picture = the GLB base colour texture): animated snow over the picture, rolling bar, the picture breaks through every few seconds",
    "target_material": "screen",
    "targets": [
-    "Spinner_Terminal_Screen",
     "Overlook_WallScreen_2_Glass",
     "Overlook_WallScreen_1_Glass",
     "OuterWall_West_M11Monitor_Screen",
@@ -2755,7 +2847,10 @@
     "Ceil_Step_03_Strip",
     "Ceil_Step_02_Strip",
     "Ceil_Step_01_Strip",
-    "Spinner_Terminal_HandPlate",
+    "Jet_Screen_Button",
+    "Jet_Screen_NozzleGlowR",
+    "Jet_Screen_NozzleGlowL",
+    "Jet_Screen_GlowStrip",
     "Arena_Tile_55_Rim",
     "Arena_Tile_55_Band",
     "Arena_Tile_54_Rim",

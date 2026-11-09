@@ -120,10 +120,12 @@ const fxTex={};if(FXD)for(const k in FXD.textures)fxTex[k]=new THREE.TextureLoad
 const byName={};gltf.scene.traverse(o=>{if(o.isMesh)byName[o.name]=o;});
 {const G=meta.gates||[];if(G.length){const b=document.getElementById('gateb');b.hidden=false;let open=false; // Stage 59: laser gates (the game opens them after the waves; here a button)
   const nodes=Object.values(byName).filter(o=>G.some(g=>o.name.startsWith(g.group+'__')||o.name.startsWith(g.group+'_')));
-  b.onclick=()=>{open=!open;nodes.forEach(o=>o.visible=!open);b.textContent='Gate: '+(open?'open':'closed');};}
+  const setSolid=(L,on)=>L.forEach(o=>{for(const A of [solids,camSolids]){const i=A.indexOf(o);if(on&&i<0&&o.userData.wasSolid)A.push(o);if(!on&&i>=0){o.userData.wasSolid=true;A.splice(i,1);}}}); // Stage 119: an open gate's beams stop blocking
+  window.gateOpen=(ids)=>{const L=Object.values(byName).filter(o=>ids.some(g=>o.name.startsWith(g+'__')||o.name.startsWith(g+'_')));L.forEach(o=>o.visible=false);setSolid(L,false);open=true;b.textContent='Gate: open';};
+  b.onclick=()=>{open=!open;nodes.forEach(o=>o.visible=!open);setSolid(nodes,!open);b.textContent='Gate: '+(open?'open':'closed');};}
   const TM=(meta.terminals||[]).map(t=>({t,done:false})); // Stage 80: control terminals - walking up to one uses it here (the game: interact) and opens its gates
-  window.termCheck=(x,y,z)=>{for(const m of TM){if(m.done)continue;const c=m.t.center,dx=x-c[0],dz=z-c[2];if(dx*dx+dz*dz<m.t.radius*m.t.radius&&Math.abs(y-c[1])<2.5){m.done=true;
-    Object.values(byName).filter(o=>m.t.activates.some(g=>o.name.startsWith(g+'__')||o.name.startsWith(g+'_'))).forEach(o=>o.visible=false);const i=document.getElementById('info');if(i)i.textContent='⚡ '+m.t.id+' activated - gate open';}}};}
+  window.termCheck=(x,y,z)=>{for(const m of TM){if(m.done)continue;if(m.t.requires&&!(window.jetReady||{})[m.t.requires])continue; /* Stage 119: live once its jet screen has arrived */const c=m.t.center,dx=x-c[0],dz=z-c[2];if(dx*dx+dz*dz<m.t.radius*m.t.radius&&Math.abs(y-c[1])<2.5){m.done=true;
+    if(window.gateOpen)window.gateOpen(m.t.activates);else Object.values(byName).filter(o=>m.t.activates.some(g=>o.name.startsWith(g+'__')||o.name.startsWith(g+'_'))).forEach(o=>o.visible=false);const i=document.getElementById('info');if(i)i.textContent='⚡ '+m.t.id+' activated - gate open';if(m.t.requires&&window.jets&&window.jets[m.t.requires])window.jets[m.t.requires].press();}}};}
 // roofed levels: the ceiling (objects tagged "cutaway", mobile group nodes) hides while the camera is above it, so orbit / top-down views look in
 const cutN=new Set((meta.objects||[]).filter(o=>o.cutaway).map(o=>o.name)),cutG=new Set((meta.objects||[]).filter(o=>o.cutaway&&o.mobile&&o.mobile.group).map(o=>o.mobile.group));
 const cutY=((meta.environment||{}).indoor||{}).ceiling_y,cutaway=[];if(cutY!=null)gltf.scene.traverse(o=>{if(o.isMesh&&(cutN.has(o.name.split('__')[0])||cutG.has((o.userData||{}).group)))cutaway.push(o);});
@@ -388,6 +390,34 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
           if(u>=D.slam&&hit!==k){hit=k;const dx=pos.x-C.x,dz=pos.z-C.z,dd=Math.hypot(dx,dz);if(dd<D.shake)window.camShake=Math.max(window.camShake||0,0.45*(1-dd/D.shake));}}
         else K.th=SW.rpm*6*(t+SW.phase);const q=new THREE.Quaternion().setFromAxisAngle(Y,K.th*Math.PI/180);
         v.copy(C).applyQuaternion(q).negate().add(C);m.compose(v,q,one);rot.forEach(o=>{o.matrix.multiplyMatrices(m,o.userData.rest);o.matrixWorldNeedsUpdate=true;});}});}
+    else if(fx.category==='jet'){const J=fx.jet,G=k=>Object.values(byName).filter(o=>o.name.startsWith(J[k]+'__')),B=G('body'),F=G('flame'),Hh=G('hatch'),C=G('cap'),ALL=[...B,...F,...Hh,...C]; // Stage 119: jetpack screen (same as assembly.jet_pose / apply_effects.gd)
+      ALL.forEach(o=>{o.userData.rest=o.userData.rest||o.matrix.clone();o.matrixAutoUpdate=false;for(const A of [solids,camSolids]){const i=A.indexOf(o);if(i>=0)A.splice(i,1);}}); // not solid (flames!)
+      const K={J,phase:'home',t0:0,now:0};(window.jets=window.jets||{})[J.id]=K;window.jetReady=window.jetReady||{};const D2R=Math.PI/180,TM=J.times;
+      const Linv=new THREE.Matrix4().makeRotationY(J.yaw0*D2R).setPosition(J.home[0],J.home[1],J.home[2]).invert(),P=new THREE.Matrix4(),X=new THREE.Matrix4(),M=new THREE.Matrix4(),e=new THREE.Euler();
+      const bez=(a,b,c,d,u)=>{const m=1-u;return [0,1,2].map(i=>m*m*m*a[i]+3*m*m*u*b[i]+3*m*u*u*c[i]+u*u*u*d[i]);},ss=x=>x*x*(3-2*x),cl=x=>Math.min(1,Math.max(0,x)),wr=a=>((a+180)%360+360)%360-180;
+      const bob=t=>J.bob[0]*Math.sin(2*Math.PI*t/J.bob[1]),fl=(t,k=1)=>k*(1+0.18*Math.sin(t*31)+0.1*Math.sin(t*17)),H=J.home,A=J.arrive;
+      const pose=(ph,t)=>{if(ph==='home')return [[H[0],H[1]+bob(t),H[2]],J.yaw0+3*Math.sin(t*0.7),0,2.5*Math.sin(2*Math.PI*t/(J.bob[1]*1.7)),0,0,fl(t)];
+        if(ph==='fly'){if(t<TM.take){const u=t/TM.take;return [[H[0],H[1]+1.4*Math.sin(Math.PI*u),H[2]],J.yaw0+360*ss(u),0,0,0,0,fl(t,1.6)];}
+          if(t<TM.take+TM.fly){const u=(t-TM.take)/TM.fly,q=ss(u);let p=bez(H,J.ctrl1,J.ctrl2,A,q);const n=bez(H,J.ctrl1,J.ctrl2,A,Math.min(1,q+0.02)),dx=n[0]-p[0],dz=n[2]-p[2];
+            const hd=Math.abs(dx)+Math.abs(dz)>1e-6?Math.atan2(dx,dz)/D2R:J.arrive_yaw,w=0.9*Math.sin(3*Math.PI*u)*Math.sin(Math.PI*u);p=[p[0]+w*Math.cos(hd*D2R),p[1]+0.5*Math.sin(5*Math.PI*u),p[2]-w*Math.sin(hd*D2R)];
+            const ky=cl((u-0.75)/0.25),f=cl((u-0.4)/0.25);return [p,hd+wr(J.arrive_yaw-hd)*ss(ky),-14*Math.sin(Math.PI*u),(360*ss(f))%360,0,0,fl(t,1.8)];}
+          const s=t-TM.take-TM.fly;if(s<TM.settle){const f=J.arrive_yaw*D2R,k=1.6*Math.sin(7*s)*Math.exp(-4*s);
+            return [[A[0]+k*Math.sin(f),A[1]+0.4*Math.sin(9*s)*Math.exp(-3*s),A[2]+k*Math.cos(f)],J.arrive_yaw+14*Math.sin(11*s)*Math.exp(-3.5*s),0,10*Math.sin(8*s)*Math.exp(-3*s),0,0,fl(t,1.3)];}
+          return pose('wait',s-TM.settle);}
+        if(ph==='wait'){let h=Math.min(1,t/TM.open);h=h<1?1+2.2*(h-1)**3+1.2*(h-1)**2:1;return [[A[0],A[1]+bob(t)*0.5,A[2]],J.arrive_yaw,0,1.5*Math.sin(2*Math.PI*t/J.bob[1]),h,0,fl(t)];}
+        if(ph==='press'){const c=t<0.24?Math.max(0,1-Math.abs(t-0.12)/0.12):0,sp=ss(cl((t-0.3)/0.8));return [[A[0],A[1]+0.6*Math.sin(Math.PI*sp),A[2]],J.arrive_yaw+360*sp,0,0,1,c,fl(t,1.2)];}
+        const h=Math.max(0,1-t/0.5),u=Math.min(1,t/TM.back),q=ss(u);return [bez(A,[A[0],A[1]+9,A[2]],[H[0],H[1]+9,H[2]],H,q),J.arrive_yaw+wr(J.yaw0-J.arrive_yaw)*q,-10*Math.sin(Math.PI*u),0,h,0,fl(t,1.5)];};
+      const say=s=>{const b=document.getElementById('info');if(b)b.textContent=s;};
+      K.trigger=(x,y,z)=>{const T=J.trigger;if(K.phase!=='home'||!T)return;if(x>T.min[0]&&x<T.max[0]&&z>T.min[1]&&z<T.max[1]&&Math.abs(y-T.y)<1.2){K.phase='fly';K.t0=K.now;say('📺 Incoming!');}};
+      K.press=()=>{if(K.phase==='wait'){K.phase='press';K.t0=K.now;window.jetReady[J.id]=false;}};
+      const put=(L,m)=>L.forEach(o=>{o.matrix.multiplyMatrices(m,o.userData.rest);o.matrixWorldNeedsUpdate=true;});
+      fxUpd.push({reset(){K.phase='home';window.jetReady[J.id]=false;},u(t){K.now=t;const tt=K.phase==='home'?t:t-K.t0;
+        if(K.phase==='fly'&&tt>=TM.take+TM.fly+TM.settle){K.phase='wait';K.t0=t;window.jetReady[J.id]=true;say('🔴 Press the big red button!');}
+        else if(K.phase==='press'&&tt>=1.6){K.phase='back';K.t0=t;}else if(K.phase==='back'&&tt>=TM.back){K.phase='home';}
+        const r=pose(K.phase,K.phase==='home'?t:t-K.t0),p=r[0];e.set(r[2]*D2R,r[1]*D2R,r[3]*D2R,'YXZ');P.makeRotationFromEuler(e).setPosition(p[0],p[1],p[2]);
+        put(B,M.multiplyMatrices(P,Linv));
+        X.makeTranslation(0,J.flame_y,0).multiply(new THREE.Matrix4().makeScale(1,r[6],1)).multiply(new THREE.Matrix4().makeTranslation(0,-J.flame_y,0));put(F,M.multiplyMatrices(P,X).multiply(Linv));
+        X.makeTranslation(0,0,r[4]*J.slide);put(Hh,M.multiplyMatrices(P,X).multiply(Linv));X.makeTranslation(0,-r[5]*J.press,r[4]*J.slide);put(C,M.multiplyMatrices(P,X).multiply(Linv));}});}
     else if(fx.category==='lift'){const LF=fx.lift,nd=Object.values(byName).filter(o=>o.name.startsWith(LF.group+'__')); // Stage 108: ride-on lift pad (same logic as apply_effects.gd _lifts)
       const K={l:LF,s:0,dir:0,p:0,board:0,off:0};(window.lifts=window.lifts||{})[LF.id]=K;
       fxUpd.push({reset(){nd.forEach(o=>o.position.set(0,0,0));Object.assign(K,{s:0,dir:0,p:0,board:0,off:0});},u(t,dt){
@@ -596,6 +626,7 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
         if(pos.y>ground+meta.eye_height+0.05)vy+=W.w.lift*W.s*dt;}}
     if(pos.y<ground+meta.eye_height){pos.y=ground+meta.eye_height;vy=0;G_.onFloor=true;}if(pos.y<((GP.design||{}).kill_y??-40))spawn();
     if(window.termCheck)termCheck(pos.x,pos.y-meta.eye_height,pos.z);
+    for(const K of Object.values(window.jets||{}))K.trigger(pos.x,pos.y-meta.eye_height,pos.z); // Stage 119
     const say=s=>{const b=document.getElementById('info');if(b)b.textContent=s;};
     for(const K of Object.values(window.belts||{})){const fy=pos.y-meta.eye_height,r=new THREE.Vector3(pos.x,fy,pos.z).sub(K.c),al=r.dot(K.u),la=r.dot(K.side); // Stage 97: ride the belt; its spike pit kills
       if(Math.abs(al)<K.b.length/2&&Math.abs(la)<K.b.width/2){const dy=fy-(K.c.y+K.u.y*al);if(dy>-0.3&&dy<0.45){const st=K.b.speed*dt,h=new THREE.Vector3(K.u.x,0,K.u.z).normalize().multiplyScalar(Math.sign(st));

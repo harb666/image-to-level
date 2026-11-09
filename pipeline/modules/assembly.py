@@ -545,6 +545,110 @@ def rising_arena(ctx, s, x, y, z, yaw):
     ctx.notes.append(f"{n}: battle arena rising out of the liquid ({style}) - " + (f"{len(pads)} square tiles, {D:.1f} m across" if G_ else f"{D:.0f} m square deck + {len(pads) - 1} platforms") + f" at {top} m")
 
 
+def _bez(a, b, c, d, u):
+    m = 1 - u; return [m * m * m * a[i] + 3 * m * m * u * b[i] + 3 * m * u * u * c[i] + u * u * u * d[i] for i in range(3)]
+
+
+def jet_pose(J, phase, t):
+    """Stage 119: pose of a jetpack screen (reference for viewer.html / apply_effects.gd). phase: "home" (t = clock),
+    "fly" (t since it was triggered: double take, a swooping bezier flight with a barrel roll and a wobble, an
+    overshoot that springs back), "wait" (t since arrival: bobbing in front of the player, the hatch opening), "press"
+    (t since the button: cap pressed, a happy spin) and "back" (t since leaving: a high arc home). Returns
+    (pos [x, y, z], yaw, pitch, roll (deg), hatch 0..1, cap press 0..1, flame scale)."""
+    H, A, Tm = J["home"], J["arrive"], J["times"]; amp, per = J["bob"]
+    bob = lambda tt: amp * math.sin(2 * math.pi * tt / per); fl = lambda tt, k=1.0: k * (1 + 0.18 * math.sin(tt * 31) + 0.1 * math.sin(tt * 17))
+    if phase == "home": return ([H[0], H[1] + bob(t), H[2]], J["yaw0"] + 3 * math.sin(t * 0.7), 0.0, 2.5 * math.sin(2 * math.pi * t / (per * 1.7)), 0.0, 0.0, fl(t))
+    if phase == "fly":
+        tk, tf, ts = Tm["take"], Tm["fly"], Tm["settle"]
+        if t < tk:  # double take: hops, spins round once
+            u = t / tk; return ([H[0], H[1] + 1.4 * math.sin(math.pi * u), H[2]], J["yaw0"] + 360 * (u * u * (3 - 2 * u)), 0.0, 0.0, 0.0, 0.0, fl(t, 1.6))
+        if t < tk + tf:
+            u = (t - tk) / tf; e = u * u * (3 - 2 * u); P = _bez(H, J["ctrl1"], J["ctrl2"], A, e); Q = _bez(H, J["ctrl1"], J["ctrl2"], A, min(1, e + 0.02))
+            dx, dz = Q[0] - P[0], Q[2] - P[2]; hd = math.degrees(math.atan2(dx, dz)) if abs(dx) + abs(dz) > 1e-6 else J["arrive_yaw"]
+            w = 0.9 * math.sin(3 * math.pi * u) * math.sin(math.pi * u); P = [P[0] + w * math.cos(math.radians(hd)), P[1] + 0.5 * math.sin(5 * math.pi * u), P[2] - w * math.sin(math.radians(hd))]
+            ky = min(1, max(0, (u - 0.75) / 0.25)); yaw = hd + (((J["arrive_yaw"] - hd + 180) % 360) - 180) * ky * ky * (3 - 2 * ky)
+            roll = 360 * min(1, max(0, (u - 0.4) / 0.25)) if 0.4 <= u else 0.0; roll = roll * roll / 360 * (3 - 2 * roll / 360) if roll < 360 else 360.0
+            return (P, yaw, -14 * math.sin(math.pi * u), roll % 360, 0.0, 0.0, fl(t, 1.8))
+        s_ = t - tk - tf
+        if s_ < ts:  # overshoots forward, springs back, wobbling
+            f = math.radians(J["arrive_yaw"]); k = 1.6 * math.sin(7 * s_) * math.exp(-4 * s_)
+            return ([A[0] + k * math.sin(f), A[1] + 0.4 * math.sin(9 * s_) * math.exp(-3 * s_), A[2] + k * math.cos(f)], J["arrive_yaw"] + 14 * math.sin(11 * s_) * math.exp(-3.5 * s_), 0.0,
+                    10 * math.sin(8 * s_) * math.exp(-3 * s_), 0.0, 0.0, fl(t, 1.3))
+        return jet_pose(J, "wait", s_ - ts)
+    if phase == "wait":
+        h = min(1, t / Tm["open"]); h = 1 + 2.2 * (h - 1) ** 3 + 1.2 * (h - 1) ** 2 if h < 1 else 1.0
+        return ([A[0], A[1] + bob(t) * 0.5, A[2]], J["arrive_yaw"], 0.0, 1.5 * math.sin(2 * math.pi * t / per), h, 0.0, fl(t))
+    if phase == "press":
+        c = max(0.0, 1 - abs(t - 0.12) / 0.12) if t < 0.24 else 0.0; sp = min(1, max(0, (t - 0.3) / 0.8)); sp = sp * sp * (3 - 2 * sp)
+        return ([A[0], A[1] + 0.6 * math.sin(math.pi * sp), A[2]], J["arrive_yaw"] + 360 * sp, 0.0, 0.0, 1.0, c, fl(t, 1.2))
+    if phase == "back":  # hatch shuts, then a high arc home
+        tb = Tm["back"]; h = max(0.0, 1 - t / 0.5); u = min(1, t / tb); e = u * u * (3 - 2 * u)
+        P = _bez(A, [A[0], A[1] + 9, A[2]], [H[0], H[1] + 9, H[2]], H, e); yaw = J["arrive_yaw"] + (((J["yaw0"] - J["arrive_yaw"] + 180) % 360) - 180) * e
+        return (P, yaw, -10 * math.sin(math.pi * u), 0.0, h, 0.0, fl(t, 1.5))
+    return jet_pose(J, "home", t)
+
+
+@structure("jet_screen", pad=False)
+def jet_screen(ctx, s, x, y, z, yaw):
+    """Stage 119: a big grin screen ("cell" of the signs atlas, "size" [w, h]) on a jetpack, bobbing in the air at
+    position (its centre) - back plate, frame, twin thrusters with flaring nozzles and flickering flames, fins, and a
+    garage under the screen hiding a drawer with a BIG RED BUTTON. When a player reaches "trigger" (a walkable name,
+    e.g. "Arena_Deck") it zooms over goofily to "arrive" ([x, z]; it hovers so the button is at hand height over
+    "arrive_floor", facing "arrive_yaw"), and the drawer slides out: the button is a control terminal (radius 1.8) that
+    opens "activates" (gate ids) - then it does a happy spin and jets home. level.json "jets" + "terminals"
+    (requires: the screen has arrived); runtimes: viewer.html / apply_effects.gd (jet_pose)."""
+    n = s["id"]; w_, h_ = (float(v) for v in s.get("size", [9, 6])[:2]); hw, hh = w_ / 2, h_ / 2; y0c = float(s.get("center_y", y + hh))
+    gb, gf, gh, gc = n + "_Body", n + "_Flame", n + "_Hatch", n + "_Cap"; gl, stripe, lamp = ctx.role("glow"), ctx.role("stripe"), ctx.role("glow_yellow")
+    W = _W(x, y0c, z, yaw); K = lambda g, **kw: dict(collision=False, mobile={"group": g}, **kw)
+    def box(nm, lx, lyc, lz, sz, mat, g, **kw):  # centred (x, y, z) local box
+        q = W(lx, lyc - sz[1] / 2, lz); ctx.add(f"{n}_{nm}", "box", q, sz, mat, rot=[0, yaw, 0], **K(g, **kw))
+    def cyl(nm, lx, ly0, lz, dia, hgt, mat, g, sec=12, **kw):
+        q = W(lx, ly0, lz); ctx.add(f"{n}_{nm}", "cylinder", q, [dia, hgt, dia], mat, sections=sec, **K(g, **kw))
+    def fru(nm, lx, ly0, lz, dia, hgt, k, mat, g, **kw):
+        q = W(lx, ly0, lz); ctx.add(f"{n}_{nm}", "frustum", q, [dia, hgt, dia], mat, sections=10, bottom_scale=k, **K(g, **kw))
+    # --- screen: back plate, frame, the grin panel
+    box("Back", 0, 0, -0.32, [w_ + 0.8, h_ + 0.8, 0.6], "machine", gb)
+    for nm, lx, ly, sx, sy in (("FrameT", 0, hh + 0.075, w_ + 0.8, 0.35), ("FrameB", 0, -hh - 0.075, w_ + 0.8, 0.35), ("FrameL", -hw - 0.225, 0, 0.35, h_ + 0.15), ("FrameR", hw + 0.225, 0, 0.35, h_ + 0.15)):
+        box(nm, lx, ly, 0.1, [sx, sy, 0.3], "machine", gb, outline=False)
+    q = W(0, -hh, 0.03); ctx.add(n + "_Panel", "panel", q, [w_, h_, 0], ctx.role("signs"), rot=[0, yaw, 0], uv_region=s.get("cell_region", "a"), **K(gb, outline=False))
+    box("GlowStrip", 0, -hh - 0.33, 0.27, [w_ * 0.8, 0.1, 0.06], gl, gb, outline=False)
+    # --- jetpack: pack, twin thrusters, nozzles, fins, flames
+    box("Pack", 0, -0.6, -1.25, [4.4, 3.0, 1.3], "machine", gb)
+    for sd in (-1, 1):
+        tx = sd * 1.75; tag = "LR"[sd > 0]
+        cyl(f"Thruster{tag}", tx, -2.9, -1.35, 1.1, 3.5, "machine", gb)
+        fru(f"ThrusterCap{tag}", tx, 0.6, -1.35, 0.7, 0.45, 1.6, "machine", gb)
+        cyl(f"ThrusterBand{tag}", tx, -3.05, -1.35, 1.22, 0.3, stripe, gb, outline=False)
+        fru(f"Nozzle{tag}", tx, -3.5, -1.35, 1.0, 0.6, 1.45, "machine", gb)
+        cyl(f"NozzleGlow{tag}", tx, -3.53, -1.35, 1.25, 0.06, gl, gb, outline=False)
+        box(f"Fin{tag}", tx + sd * 0.62, -2.0, -1.35, [0.14, 1.4, 0.9], "machine", gb)
+        fru(f"Flame{tag}", tx, -5.15, -1.35, 0.95, 1.6, 0.12, lamp, gf, outline=False)
+    # --- the garage under the screen, the drawer with the big red button
+    box("Garage", 0, -hh - 0.9, -0.2, [3.4, 1.0, 1.6], "machine", gb)
+    box("GarageLip", 0, -hh - 0.48, 0.66, [3.5, 0.16, 0.08], stripe, gb, outline=False)
+    py = -hh - 0.95; box("Drawer", 0, py, -0.2, [2.8, 0.22, 1.8], "machine", gh)
+    box("DrawerEdge", 0, py, 0.72, [2.86, 0.24, 0.1], stripe, gh, outline=False)
+    cyl("ButtonBase", 0, py + 0.11, -0.2, 1.4, 0.25, "machine", gh)
+    cyl("ButtonRing", 0, py + 0.11, -0.2, 1.62, 0.08, stripe, gh, outline=False)
+    cyl("Button", 0, py + 0.36, -0.2, 1.1, 0.32, gl, gc, sec=16, outline=False)
+    cap_top = py + 0.68; slide = 1.9
+    # --- where it goes, the terminal
+    ax_, az_ = s["arrive"]; floor = float(s["arrive_floor"]); ay = float(s.get("arrive_yaw", 0.0)); reach = float(s.get("button_height", 1.35))
+    acy = floor + reach - cap_top; Wa = _W(ax_, acy, az_, ay); bpos = Wa(0, cap_top, -0.2 + slide)
+    trig = next((w for w in ctx.walkable if w["name"] == s["trigger_area"]), None)
+    home = [round(x, 3), round(y0c, 3), round(z, 3)]; arrive = [round(ax_, 3), round(acy, 3), round(az_, 3)]
+    J = dict(id=n, body=gb, flame=gf, hatch=gh, cap=gc, home=home, yaw0=float(yaw), arrive=arrive, arrive_yaw=ay, flame_y=-3.55, slide=slide, press=0.14,
+             ctrl1=[round(home[0], 3), round(home[1] + 5, 3), round(home[2] + 4, 3)], ctrl2=[round(arrive[0] + 12, 3), round(arrive[1] + 5, 3), round(arrive[2] - 12, 3)],
+             times=dict(take=0.7, fly=3.3, settle=1.0, open=0.6, back=3.5), bob=[0.45, 2.2], button=n + "_Button",
+             trigger=dict(name=s["trigger_area"], min=trig["min"], max=trig["max"], y=trig["y"]) if trig else None,
+             note="assembly.jet_pose: home bob -> (player on trigger) fly -> wait (hatch opens; the button terminal goes live) -> press -> back home")
+    ctx.jets = getattr(ctx, "jets", []) + [J]
+    ctx.terminals = getattr(ctx, "terminals", []) + [dict(id=n + "_Button", center=[round(bpos[0], 3), round(floor, 3), round(bpos[2], 3)], radius=float(s.get("radius", 1.8)),
+                                                           activates=list(s.get("activates", [])), requires=n, button=[round(v, 3) for v in bpos],
+                                                           note="the big red button: live once the jet screen has arrived (level.json jets); using it opens the gates in 'activates'")]
+    ctx.notes.append(f"{n}: jetpack grin screen bobbing at {home}; flies to {arrive} when a player reaches {s["trigger_area"]} - big red button opens {s.get('activates')}")
+
+
 @structure("pillar_path", pad=False)
 def pillar_path(ctx, s, x, y, z, yaw):
     """Stepping pillars over the slime: "points" [[x, z, top], ...], square caps "pillar_size" m with a hazard-striped band

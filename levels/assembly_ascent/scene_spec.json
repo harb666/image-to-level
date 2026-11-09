@@ -633,10 +633,10 @@
       "gate_id": "Yard_Laser",
       "opens_on": {
         "type": "terminal",
-        "terminal": "Spinner_Terminal"
+        "terminal": "Jet_Screen_Button"
       },
       "source": "visible",
-      "notes": "red beams across the yard's east cap until the spinner deck's control terminal is used"
+      "notes": "red beams across the yard's east cap until the jetpack screen's big red button (on the rising arena) is pressed"
     },
     {
       "id": "Pillars",
@@ -764,25 +764,6 @@
         12
       ],
       "length": 7.0,
-      "source": "visible"
-    },
-    {
-      "id": "Sign_Grin_Big",
-      "kind": "sign",
-      "position": [
-        -2.0,
-        19.0,
-        -18.0
-      ],
-      "yaw": 20,
-      "mount": "hanging",
-      "chain_to": 34.55,
-      "cell": "grin",
-      "size": [
-        9,
-        6,
-        0.2
-      ],
       "source": "visible"
     },
     {
@@ -1109,19 +1090,32 @@
       }
     },
     {
-      "id": "Spinner_Terminal",
-      "kind": "control_terminal",
+      "id": "Jet_Screen",
+      "kind": "jet_screen",
       "position": [
-        18.8,
-        7.5,
-        26.2
+        -2.0,
+        19.0,
+        -18.0
       ],
-      "yaw": -45,
+      "yaw": 20,
+      "size": [
+        9,
+        6,
+        0.2
+      ],
+      "cell": "grin",
+      "arrive": [
+        39.0,
+        42.0
+      ],
+      "arrive_floor": 15.5,
+      "arrive_yaw": 0,
       "activates": [
         "Yard_Laser"
       ],
-      "source": "visible",
-      "notes": "on the far (north-east) pad: using it opens the yard's laser gate"
+      "source": "inferred",
+      "notes": "Stage 119: the big grin screen on a jetpack, bobbing over the yard; when the player reaches the rising arena it zooms over and offers a big red button that opens the yard's laser gate",
+      "trigger_area": "Arena_Deck"
     },
     {
       "id": "Rail_Start_E1",

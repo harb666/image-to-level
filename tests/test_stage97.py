@@ -65,7 +65,7 @@ class AssemblyAscent(unittest.TestCase):
         self.assertAlmostEqual(c["travel"], 5.4 - 0.9, places=3)  # the spike tips (not the head) reach the pad
         self.assertGreaterEqual(sum(1 for n in self.by if n.startswith("Spike_Press_Spike_")), 4)
         G = {g["id"]: g for g in self.L["gates"]}
-        self.assertEqual(G["Yard_Laser"]["opens_on"], {"type": "terminal", "terminal": "Spinner_Terminal"})  # Stage 98: unlocked from the spinner deck
+        self.assertEqual(G["Yard_Laser"]["opens_on"], {"type": "terminal", "terminal": "Jet_Screen_Button"})  # Stage 119: the jetpack screen's big red button (on the arena)
         self.assertEqual(G["Exit_Laser"]["opens_on"], {"type": "waves_cleared", "encounter": "Deck_Waves"})
 
     def test_entrance_exit_and_campaign(self):
@@ -132,8 +132,8 @@ class SpinnerDeck(unittest.TestCase):
         self.assertAlmostEqual(by["Spinner_PressPlate"]["position"][1] + by["Spinner_PressPlate"]["size"][1], 34.5, places=3)  # hangs from the ceiling
         self.assertEqual([s["frac"] for s in D["stages"]], [0.5, 1.0]); self.assertEqual(by["Spinner_Head"]["mobile"]["group"], D["press"])
         self.assertFalse([n for n in by if n.startswith("Spinner_PipeUp_")])  # nothing on the cap for the head to hit
-        T = next(t_ for t_ in L["terminals"] if t_["id"] == "Spinner_Terminal"); self.assertEqual(T["activates"], ["Yard_Laser"])
-        pad = by["Spinner_Pad_2_Deck"]; self.assertLess(math.hypot(T["center"][0] - 17.7, T["center"][2] - 27.3), 3.0)  # on the far (north-east) pad
+        self.assertFalse([t_ for t_ in L.get("terminals", []) if t_["id"] == "Spinner_Terminal"])  # Stage 119: the gate's key is now the jet screen's button
+        pad = by["Spinner_Pad_2_Deck"]
         N = _load("checks/navigation.json"); cut = {o for c in N["component_list"] if not c.get("reachable") for o in c.get("objects", [])}
         self.assertEqual({a["name"]: a["reachable_fraction"] for a in N["intended_areas"]}["Spinner_Deck"], 1.0)
         for n in ("Spinner_Deck_Floor", "Spinner_Ramp_Deck", "Spinner_Pad_1_Deck", "Spinner_Pad_2_Deck", "Spinner_Pad_3_Deck", "Spinner_Pad_4_Deck"): self.assertIn(n, by); self.assertNotIn(n, cut, n)
@@ -175,6 +175,35 @@ class CornerOverlook(unittest.TestCase):
         self.assertIn("fx.category==='lift'", v); self.assertIn("window.__teleport", v)
         for n in by:  # railings: top rail above a jump
             if n.startswith("Overlook_Rail") and n.endswith("_High"): self.assertGreater(by[n]["position"][1] - lf["top"], 1.2)
+
+
+class JetScreen(unittest.TestCase):
+    def test_jetpack_screen_and_big_red_button(self):
+        """Stage 119: the big grin screen floats on a jetpack (no chains), bobbing; when the player reaches the arena it
+        flies over (goofy: double take, barrel roll, overshoot), opens a drawer with a big red button at hand height in
+        front of the player; the button is a terminal - live only once the screen has arrived - that opens the yard's
+        laser gate; then the screen spins and flies home."""
+        L = _load("level.json"); by = {o["name"]: o for o in L["objects"]}
+        self.assertFalse([n for n in by if n.startswith("Sign_Grin_Big")])
+        J = next(j for j in L["jets"] if j["id"] == "Jet_Screen"); self.assertEqual(J["trigger"]["name"], "Arena_Deck")
+        for k in ("Panel", "Thruster" + "L", "Nozzle" + "R", "Flame" + "L", "Garage", "Drawer", "Button", "ButtonRing"): self.assertIn("Jet_Screen_" + k, by)
+        self.assertFalse([n for n in by if n.startswith("Jet_Screen_") and by[n].get("collision", True) is not False and by[n]["type"] != "group"])  # never solid
+        self.assertEqual(by["Jet_Screen_Button"]["mobile"]["group"], J["cap"]); self.assertEqual(by["Jet_Screen_Button"]["material"], "glow")  # red
+        T = next(t_ for t_ in L["terminals"] if t_["id"] == J["button"]); self.assertEqual(T["activates"], ["Yard_Laser"]); self.assertEqual(T["requires"], "Jet_Screen")
+        self.assertTrue(1.0 < T["button"][1] - J["trigger"]["y"] < 1.7)  # at hand height over the arena floor
+        tr = J["trigger"]; self.assertTrue(tr["min"][0] < T["center"][0] < tr["max"][0] and tr["min"][1] < T["center"][2] < tr["max"][1])
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from modules.assembly import jet_pose
+        TM = J["times"]; ys = [jet_pose(J, "home", i * 0.1)[0][1] for i in range(60)]; self.assertGreater(max(ys) - min(ys), 0.6)  # bobs
+        P = [jet_pose(J, "fly", i * 0.05) for i in range(int((TM["take"] + TM["fly"] + TM["settle"]) / 0.05))]
+        self.assertTrue(any(160 < p[3] < 200 for p in P))  # barrel roll
+        self.assertGreater(max(p[0][1] for p in P), J["home"][1] + 1.0)  # swoops up
+        end = jet_pose(J, "fly", TM["take"] + TM["fly"] + TM["settle"] + 2.0); self.assertLess(math.dist(end[0], J["arrive"]), 0.5); self.assertEqual(end[4], 1.0)  # arrived, drawer open
+        self.assertGreater(max(jet_pose(J, "press", i * 0.02)[5] for i in range(15)), 0.9)  # the cap goes down
+        back = jet_pose(J, "back", TM["back"] + 0.1); self.assertLess(math.dist(back[0], J["home"]), 0.01); self.assertEqual(back[4], 0.0)
+        with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()
+        for s_ in ("fx.category==='jet'", "if(m.t.requires&&!(window.jetReady||{})[m.t.requires])continue;", "K.trigger(pos.x", "window.gateOpen"): self.assertIn(s_, v)
+        with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: gd = f.read()
+        for s_ in ("static func jet_pose", "func _update_jets", '"terminal_activated"'): self.assertIn(s_, gd)
 
 
 class OverlookScreens(unittest.TestCase):

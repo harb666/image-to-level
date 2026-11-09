@@ -1,19 +1,20 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 2074 objects · 34 materials · 22 effects
-Checks: PASSED ({'error': 0, 'warning': 6, 'info': 1}) · refine passes: 0
-Mobile (balanced): 1976 KB · 52439 tris · 100 draw calls · ~58.7 visible (estimate) · ~8.06 MB GPU textures (estimate)
-Navigation: 3980.0 m² reachable of 19865.0 m² standable
-Package: dist/assembly_ascent/package (38 files, 8.31 MB) valid=True
+Spec: levels/assembly_ascent/scene_spec.json · 2086 objects · 34 materials · 23 effects
+Checks: PASSED ({'error': 0, 'warning': 7, 'info': 1}) · refine passes: 0
+Mobile (balanced): 2003 KB · 53133 tris · 110 draw calls · ~62.3 visible (estimate) · ~8.06 MB GPU textures (estimate)
+Navigation: 3983.0 m² reachable of 19851.0 m² standable
+Package: dist/assembly_ascent/package (38 files, 8.38 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- warning: mobile draw calls 100 (> 80)
+- warning: mobile draw calls 110 (> 80)
+- warning: ~62 visible draw calls (estimate, > 60)
 - warning: enemy_arena: hazard 0.5 m away (< 3.0 m)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- warning: 54389 triangles (> budget 40000)
+- warning: 55079 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -33,6 +34,7 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Spinner: spinner, 4 arms driven by a ceiling press (peak 64.43 rpm, still 3.8 s per 9.5 s), 4 hovering pads
 - Overlook: corner overlook 5.1 x 15.0 m at 15.5 m, gantry 14.9 m to lift Spinner_Pad_1_Lift
 - Arena: battle arena rising out of the liquid (goofy) - 25 square tiles, 20.8 m across at 15.5 m
+- Jet_Screen: jetpack grin screen bobbing at [-2.0, 22.0, -18.0]; flies to [39.0, 20.12, 42.0] when a player reaches Arena_Deck - big red button opens ['Yard_Laser']
 - crates: 5 printed crates (accent atlas)
 - fixtures: 62 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_North_M02Fan, OuterWall_West_M02Fan)
 - ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 1 standing part(s), 0 crane runway(s), ends at beams 0.0 m
@@ -42,8 +44,8 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 
 ## Timing
 - spec -> level.json: 1.5 s
-- build (glb, sky, background, effects, mobile): 29.4 s
-- checks (fast): 37.2 s
-- previews: 0.6 s
+- build (glb, sky, background, effects, mobile): 36.0 s
+- checks (fast): 39.0 s
+- previews: 0.7 s
 - export package: 0.4 s
-- total: 69.1 s
+- total: 77.7 s
