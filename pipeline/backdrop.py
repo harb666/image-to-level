@@ -337,10 +337,16 @@ def factory_interior(L, q):
         if along_x is None: continue
         c.apply_transform(trimesh.transformations.rotation_matrix(np.pi / 2, [0, 0, 1] if along_x else [1, 0, 0])); c.apply_translation([x, y, z]); H.append(c)
     S = []; ex0, ez0, ex1, ez1 = X0 - 12, Z0 - 12, X1 + 12, Z1 + 12; cxe, cze, We, De = (ex0 + ex1) / 2, (ez0 + ez1) / 2, ex1 - ex0, ez1 - ez0
-    S.append(_box(We, 2.0, De, cxe, ry, cze))  # roof + enclosing walls ("shell" part: the preview cuts it away from above): no sky anywhere
+    hole = L.get("roof_hole")  # Stage 129: [x0, z0, x1, z1] open to the real sky (over a skylight dome in the hall's roof)
+    if hole:
+        hx0, hz0, hx1, hz1 = (float(v) for v in hole)
+        for a0, a1, b0, b1 in ((ex0, hx0, ez0, ez1), (hx1, ex1, ez0, ez1), (hx0, hx1, ez0, hz0), (hx0, hx1, hz1, ez1)):
+            if a1 - a0 > 0.1 and b1 - b0 > 0.1: S.append(_box(a1 - a0, 2.0, b1 - b0, (a0 + a1) / 2, ry, (b0 + b1) / 2))
+    else: S.append(_box(We, 2.0, De, cxe, ry, cze))  # roof + enclosing walls ("shell" part: the preview cuts it away from above): no sky anywhere
     for sx, sz, w, d in ((cxe, ez0, We, 2.0), (cxe, ez1, We, 2.0), (ex0, cze, 2.0, De), (ex1, cze, 2.0, De)): S.append(_box(w, ry - fy + 2, d, sx, fy, sz))
     for k in range(int(L.get("roof_lamps", 24))):
-        x, z = spot(inner, outer); Li.append(_box(6.0, 0.3, 1.0, x, ry - 0.3, z))
+        x, z = spot(inner, outer)
+        if not (hole and hx0 - 4 < x < hx1 + 4 and hz0 - 2 < z < hz1 + 2): Li.append(_box(6.0, 0.3, 1.0, x, ry - 0.3, z))  # none hanging in the open
     G.append(_box(We, 0.5, De, cxe, fy - 0.5, cze))  # the slime sea below
     m = trimesh.util.concatenate({"hull": H, "glass": G, "lights": Li, "shell": S}[part]); return m
 

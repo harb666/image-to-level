@@ -199,6 +199,10 @@ def _environment(spec, ctx):
     if indoor is not None: layers = [l for l in layers if l.get("type") in INDOOR_LAYERS]  # roofed arena: no sky scenery, only what the windows show
     env = dict(quality=spec.get("profile", "balanced"), horizon_distance=round(460 * f), sky=sky, atmosphere=atm, background=layers)
     if indoor is not None: env["indoor"] = dict(ceiling_y=round(indoor, 2), note="roofed level: sky/background never visible; sun casts no shadows (the roof would shade the whole hall)")
+    dm = ((spec.get("arena") or {}).get("ceiling") or {}).get("dome") if isinstance((spec.get("arena") or {}).get("ceiling"), dict) else None
+    if indoor is not None and dm:  # Stage 129: the roof dome is a skylight - the real sky shows through it (sharp panorama)
+        env["indoor"].update(skylight=dict(at=dm.get("at"), radius=dm.get("radius"), sky_width=int(dm.get("sky_width", 4096))),
+                             note="roofed level with a skylight dome: the real sky shows through it (full-detail panorama); sun casts no shadows")
     if any(k in lit for k in LK): env["lighting"] = {k: lit[k] for k in LK if k in lit}
     if ctx.TR is not None and "radius" not in ctx.terrain_def["zones"]["middle"]:  # middle zone runs into the far mountains (no gap)
         mr = [l for l in layers if l.get("type") == "mountain_ring"]

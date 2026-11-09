@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "e57610ec077669f1",
+  "spec_sha": "b4aa23d05d978fc6",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -150,9 +150,9 @@
     ]
    ],
    "color": [
-    0.78,
-    0.62,
-    1.0
+    0.92,
+    0.5,
+    0.9
    ],
    "energy": 1.3,
    "range": 34.0
@@ -1973,7 +1973,15 @@
   },
   "indoor": {
    "ceiling_y": 34.5,
-   "note": "roofed level: sky/background never visible; sun casts no shadows (the roof would shade the whole hall)"
+   "note": "roofed level with a skylight dome: the real sky shows through it (full-detail panorama); sun casts no shadows",
+   "skylight": {
+    "at": [
+     14.0,
+     -34.0
+    ],
+    "radius": 20.0,
+    "sky_width": 4096
+   }
   },
   "lighting": {
    "sun_energy": 1.1,
@@ -2109,7 +2117,13 @@
     "gantries": 10,
     "pillars": 24,
     "pipes": 10,
-    "roof_lamps": 28
+    "roof_lamps": 28,
+    "roof_hole": [
+     -46,
+     -94,
+     74,
+     26
+    ]
    },
    {
     "type": "factory_interior",
@@ -2149,7 +2163,13 @@
     "gantries": 10,
     "pillars": 24,
     "pipes": 10,
-    "roof_lamps": 28
+    "roof_lamps": 28,
+    "roof_hole": [
+     -46,
+     -94,
+     74,
+     26
+    ]
    }
   ]
  },
@@ -2510,50 +2530,6 @@
     0.84
    ],
    "notes": "Stage 105: the spinner deck - plain, scored by the maces' sweep (rings centred on the tower)"
-  },
-  "dome_sky": {
-   "type": "sky_dome",
-   "color": [
-    0.82,
-    0.52,
-    0.9
-   ],
-   "tile_m": 4.0,
-   "wear": 0.5,
-   "bevel": 0.12,
-   "zenith": [
-    0.3,
-    0.24,
-    0.58
-   ],
-   "clouds": 0.48,
-   "cloud": [
-    0.96,
-    0.88,
-    1.0
-   ],
-   "cloud_under": [
-    0.86,
-    0.56,
-    0.92
-   ],
-   "sun": [
-    0.64,
-    0.36,
-    0.09
-   ],
-   "sun_color": [
-    1.0,
-    0.82,
-    0.96
-   ],
-   "res": 1024,
-   "emissive": [
-    1.0,
-    1.0,
-    1.0
-   ],
-   "notes": "Stage 128: purple dusk sky over the dome - violet overhead, pink-lilac toward the rim, lilac clouds, soft glow"
   },
   "fall": {
    "type": "toxic",
@@ -2949,9 +2925,9 @@
   "sunbeam": {
    "type": "beam_fade",
    "color": [
-    0.8,
-    0.62,
-    1.0
+    0.95,
+    0.5,
+    0.9
    ],
    "tile_m": 4.0,
    "wear": 0.5,
@@ -2964,11 +2940,11 @@
     0.88
    ],
    "emissive": [
-    0.72,
-    0.52,
-    1.0
+    0.9,
+    0.4,
+    0.85
    ],
-   "notes": "Stage 128: purple light shafts matching the dome sky; fade in from nothing below the roof"
+   "notes": "Stage 129: magenta-purple light shafts matching the real sky; fade in from nothing below the roof"
   },
   "trim": {
    "type": "chevron",
@@ -12907,38 +12883,6 @@
    "hole": 19.5,
    "hole_res": 48,
    "sections": 48,
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Dome_Sky",
-   "type": "dome_shell",
-   "position": [
-    14.0,
-    35.45,
-    -34.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    68.0,
-    21.0,
-    68.0
-   ],
-   "material": "dome_sky",
-   "sections": 24,
-   "rings": 6,
-   "uv": "planar",
-   "double_sided": true,
    "outline": false,
    "collision": false,
    "cutaway": true,
@@ -76229,16 +76173,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 52260,
-  "objects": 2281,
-  "materials": 37,
-  "glb_kb": 3796,
-  "nodes": 2505,
-  "draw_calls_unbatched": 2475,
-  "draw_calls_batched_min": 39,
-  "images": 104,
-  "tex_mem_gpu_compressed_mb": 26.41,
-  "tex_mem_uncompressed_mb": 105.65,
+  "triangles": 51996,
+  "objects": 2280,
+  "materials": 36,
+  "glb_kb": 3689,
+  "nodes": 2504,
+  "draw_calls_unbatched": 2474,
+  "draw_calls_batched_min": 38,
+  "images": 102,
+  "tex_mem_gpu_compressed_mb": 23.75,
+  "tex_mem_uncompressed_mb": 94.98,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

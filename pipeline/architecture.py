@@ -775,7 +775,7 @@ def glass_dome(ctx, pre, D, dx, dz, R, y, th, tag):
     Rg = R - 0.2
     if D.get("glazed", True): ctx.add(n + "Glass", "dome_shell", [dx, yc, dz], [2 * Rg, H, 2 * Rg], ctx.role(D.get("glass", "dome_glass")), sections=32, rings=8, double_sided=True, outline=False, **vis)
     Rs = R + float(D.get("sky_margin", 30.0))  # Stage 127: the sky far beyond the glass (clouds, sun glow), mapped flat from below
-    ctx.add(n + "Sky", "dome_shell", [dx, y + th - 0.05, dz], [2 * Rs, H + float(D.get("sky_height", 30.0)), 2 * Rs], ctx.role(D.get("sky", "dome_sky")), sections=24, rings=6, uv="planar",
+    if D.get("sky_shell", True): ctx.add(n + "Sky", "dome_shell", [dx, y + th - 0.05, dz], [2 * Rs, H + float(D.get("sky_height", 30.0)), 2 * Rs], ctx.role(D.get("sky", "dome_sky")), sections=24, rings=6, uv="planar",
             double_sided=True, outline=False, **vis)
     nr, nk = int(D.get("ribs", 12)), int(D.get("rings", 8)); off = 0.18
     def P(a, j): phi = math.pi / 2 * j / nk; return (dx + (Rg + off) * math.cos(phi) * math.cos(a), yc + (H + off) * math.sin(phi), dz + (Rg + off) * math.cos(phi) * math.sin(a))

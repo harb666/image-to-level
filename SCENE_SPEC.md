@@ -1385,4 +1385,9 @@ Building blocks usable without the preset:
 - Stage 128: dome `"glazed": false` leaves the frame open (no glass shell: fully clear) and `"light_color"` sets the
   `Dome_Light` colour; Assembly Ascent now has a purple dusk sky (`sky_dome` `sun_color`), lilac light shafts and lilac
   lights under the dome, all matching.
+- Stage 129: the dome is a skylight onto the level's REAL sky: `"sky_shell": false` drops the painted sky shell,
+  `environment.indoor.skylight` (set automatically for a dome) renders the sky panorama at `sky_width` (4096) instead of
+  the 512 px ambient-only one of roofed levels (sharp clouds), and a `factory_interior` background layer takes
+  `"roof_hole": [x0, z0, x1, z1]` (shell + lights parts) to open its roof above the dome. Shafts / lights tinted to the
+  sky's magenta-purple.
 

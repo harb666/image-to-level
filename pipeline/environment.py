@@ -33,7 +33,9 @@ def build_environment(level_dir, L=None, log=print):
     env = L.get("environment")
     if not env: return None
     qname = env.get("quality", "balanced"); q = QUALITY[qname]
-    if env.get("indoor"): q = dict(q, sky_width=512, sky_q=70)  # roofed: the sky only feeds ambient light, never seen -> tiny panorama
+    if env.get("indoor"):
+        sl = env["indoor"].get("skylight")  # Stage 129: a skylight (roof dome) shows the real sky -> full detail, sharp clouds
+        q = dict(q, sky_width=int(sl.get("sky_width", 4096)), sky_q=int(sl.get("sky_q", 86))) if sl else dict(q, sky_width=512, sky_q=70)  # else roofed: ambient only -> tiny panorama
     layers = env.get("background", [])
     # ---- sky (cached: only re-rendered when its inputs change)
     glows = [dict(azimuth_deg=l.get("azimuth_deg", 0), color=l["glow"], strength=l.get("glow_strength", 0.35), width_deg=l.get("glow_width_deg", 10))

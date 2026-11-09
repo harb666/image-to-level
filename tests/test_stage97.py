@@ -368,28 +368,31 @@ class GlassDome(unittest.TestCase):
         slab = self.by["Ceiling_Slab"]; self.assertEqual(slab["hole"], R); self.assertEqual([slab["position"][0], slab["position"][2]], [dx, dz])
         for k in "WENS": self.assertIn("Ceiling_Slab_" + k, self.by)  # the rest of the roof, edge to edge with the holed square
         self.assertNotIn("Dome_Glass", self.by)  # Stage 128: fully clear - an open frame, no glass tint at all
-        sk = self.by["Dome_Sky"]; self.assertEqual(sk["type"], "dome_shell"); self.assertTrue(sk["double_sided"]); self.assertGreater(sk["size"][0], 2 * R)
+        self.assertNotIn("Dome_Sky", self.by)  # Stage 129: no painted sky shell - the level's real sky shows through
         self.assertGreaterEqual(sum(1 for n in self.by if n.startswith("Dome_Rib_")), D["ribs"] * 6)
         for n, o in self.by.items():
             if n.startswith("Dome_") and not n.startswith("Dome_Shaft"): self.assertTrue(o.get("cutaway"), n)
 
     def test_light_is_purple_like_the_sky(self):
-        """Stage 128: the light shafts and the lights under the dome are purple, matching the sky through it."""
-        M = self.L["materials"]; sky, ray = M["dome_sky"], M["sunbeam"]
-        for c in (sky["color"], sky["zenith"], ray["color"]): self.assertTrue(c[2] > c[1] and c[0] > c[1], c)  # purple: red + blue over green
-        self.assertLess(max(abs(a - b) for a, b in zip(ray["color"], sky["color"])), 0.15)
+        """Stage 128/129: the light shafts and the lights under the dome are magenta-purple, matching the real sky."""
+        M = self.L["materials"]; ray = M["sunbeam"]; sky = self.L["environment"]["sky"]
+        for c in (sky["upper"], ray["color"]): self.assertTrue(c[2] > c[1] and c[0] > c[1], c)  # purple: red + blue over green
         self.assertLess(ray["alpha"], 0.15)  # faint shafts
         E = {e["id"]: e for e in _load("effects.json")["effects"]}; dl = E["Dome_Light"]; self.assertEqual(dl["type"], "point_light")
         self.assertLess(max(abs(a - b) for a, b in zip(dl["quality"]["balanced"]["params"]["color"], ray["color"])), 0.1)
         self.assertGreaterEqual(len(dl["emitters"]), 3)
 
-    def test_sky_shows_through_the_open_frame(self):
-        """Stage 127/128: behind the dome frame is a sky (clouds, sun glow) mapped flat from below, kept under the
-        background factory's roof so nothing dark covers it, well above the frame's hub."""
-        M = self.L["materials"]; sk, hub = self.by["Dome_Sky"], self.by["Dome_Hub"]
-        self.assertEqual(M[sk["material"]]["type"], "sky_dome"); self.assertEqual(sk["uv"], "planar")
-        roof = min(l["roof_y"] for l in _load("scene_spec.json")["background"]["layers"] if "roof_y" in l)
-        self.assertLess(sk["position"][1] + sk["size"][1], roof); self.assertGreater(sk["position"][1] + sk["size"][1], hub["position"][1] + hub["size"][1] + 3)
+    def test_real_sky_shows_through_in_hd(self):
+        """Stage 129: the dome is a skylight - the level's own sky panorama is rendered sharp (not the 512 px ambient-only
+        one of roofed levels) and the background factory's roof is open above the dome."""
+        env = _load("environment.json"); self.assertGreaterEqual(env["sky"]["size"][0], 4096)
+        self.assertTrue(self.L["environment"]["indoor"]["skylight"])
+        from PIL import Image
+        self.assertEqual(Image.open(os.path.join(LV, env["sky"]["image"])).size, (4096, 2048))
+        D = _load("scene_spec.json")["arena"]["ceiling"]["dome"]; (dx, dz), R = D["at"], D["radius"]
+        for l in _load("scene_spec.json")["background"]["layers"]:
+            if l["part"] in ("shell", "lights"):
+                x0, z0, x1, z1 = l["roof_hole"]; self.assertTrue(x0 < dx - R - 20 and x1 > dx + R + 20 and z0 < dz - R - 20 and z1 > dz + R + 20)
 
     def test_light_shafts_never_show_where_they_start(self):
         """Stage 127: open shafts with an alpha ramp - faded out well below the glass and faded in at the floor."""

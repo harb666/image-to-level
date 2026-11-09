@@ -12,20 +12,20 @@
   "type": "panorama",
   "image": "sky/panorama.jpg",
   "size": [
-   512,
-   256
+   4096,
+   2048
   ],
   "projection": "equirectangular",
   "preset": "industrial_smog",
   "external": false,
   "azimuth_convention": "image column u -> atan2(dir.z, dir.x) (three.js); level azimuth 0=north(-z) 90=east(+x). If the Godot sky looks rotated vs the sun, adjust Environment sky_rotation.y in 90\u00b0 steps.",
   "horizon_rgb": [
-   0.871,
-   0.665,
-   0.415
+   0.869,
+   0.669,
+   0.414
   ],
   "upper_rgb": [
-   0.618,
+   0.617,
    0.158,
    0.422
   ]
@@ -57,12 +57,12 @@
  "ambient": {
   "source": "sky",
   "sky_color": [
-   0.618,
+   0.617,
    0.158,
    0.422
   ],
   "ground_color": [
-   0.269,
+   0.268,
    0.32,
    0.153
   ],
@@ -127,7 +127,7 @@
     "id": "Factory_Lights",
     "node": "BG_Factory_Lights",
     "type": "factory_interior",
-    "triangles": 1800,
+    "triangles": 1776,
     "material": "bg_factory_lights",
     "collision": false,
     "cast_shadows": false,
@@ -137,7 +137,7 @@
     "id": "Factory_Shell",
     "node": "BG_Factory_Shell",
     "type": "factory_interior",
-    "triangles": 60,
+    "triangles": 96,
     "material": "bg_factory_shell",
     "collision": false,
     "cast_shadows": false,
@@ -152,7 +152,7 @@
   ],
   "stats": {
    "glb_kb": 477,
-   "triangles": 10844,
+   "triangles": 10856,
    "nodes": 5,
    "mesh_nodes": 4,
    "unique_meshes": 4,
@@ -218,10 +218,18 @@
  },
  "indoor": {
   "ceiling_y": 34.5,
-  "note": "roofed level: sky/background never visible; sun casts no shadows (the roof would shade the whole hall)"
+  "note": "roofed level with a skylight dome: the real sky shows through it (full-detail panorama); sun casts no shadows",
+  "skylight": {
+   "at": [
+    14.0,
+    -34.0
+   ],
+   "radius": 20.0,
+   "sky_width": 4096
+  }
  },
  "sky_asset": {
-  "kb": 12,
-  "tex_mem_gpu_compressed_mb": 0.17
+  "kb": 373,
+  "tex_mem_gpu_compressed_mb": 10.67
  }
 }
