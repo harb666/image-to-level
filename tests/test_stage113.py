@@ -25,5 +25,19 @@ class PlayerCharacterPreview(unittest.TestCase):
             with open(p) as f: self.assertIn("window.PLAYER=", f.read(400000000))
 
 
+class GameMovement(unittest.TestCase):
+    def test_preview_moves_like_the_game(self):
+        """Stage 114: the preview player moves with Construct Error's PlayerController numbers (config/gameplay.json
+        "movement"): walk / run / sprint by stick push, accelerations, 1.9 m jump (gravity from time to apex), 1.5 m air
+        jump, coyote + buffer, dodge. The checks keep using "player"."""
+        G = json.load(open(os.path.join(ROOT, "config", "gameplay.json"))); M = G["movement"]
+        self.assertEqual((M["walk_speed"], M["run_speed"], M["sprint_speed"], M["jump_height"], M["air_jump_height"], M["time_to_apex"]), (4.0, 8.5, 11.5, 1.9, 1.5, 0.36))
+        self.assertEqual(M["max_air_jumps"], 1); self.assertIn("player_controller.gd", M["source"])
+        with open(os.path.join(ROOT, "pipeline", "make_preview.py")) as f: self.assertIn('"movement"', f.read())
+        with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()
+        for s in ("const MV=GP.movement", "MV.fall_gravity_multiplier", "G_.airJumps", "MV.coyote_time", "MV.dodge_speed", 'id="dodgeb"', "const R_=GP.movement?b.width/2:50"):
+            self.assertIn(s, v)
+
+
 if __name__ == "__main__":
     unittest.main()

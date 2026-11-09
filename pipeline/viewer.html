@@ -15,6 +15,7 @@ body,button,#stick,#vert{-webkit-user-select:none;user-select:none;-webkit-touch
 #vert{position:fixed;right:16px;bottom:40px;display:flex;flex-direction:column;gap:10px}
 #vert button{width:56px;height:56px;font-size:20px}
 #jumpb{position:fixed;right:20px;bottom:44px;width:72px;height:72px;border-radius:50%}
+#dodgeb{position:fixed;right:104px;bottom:28px;width:58px;height:58px;border-radius:50%;font-size:12px}
 #sel li{margin:4px 0;list-style:none}#sel ul{padding:0;margin:6px 0}#sel .sev-error{color:#ff7a6a}#sel .sev-warning{color:#ffc04d}#sel .sev-info{color:#8fc3ff}
 #sel{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));max-height:46%;overflow:auto;background:#101418ee;border:1px solid #fff3;border-radius:12px;padding:10px 12px;font:13px system-ui;line-height:1.45}
 #sel h3{margin:0 0 4px;font:600 15px system-ui;word-break:break-all}#sel .row{display:flex;gap:10px;align-items:flex-start}#sel .k{opacity:.6}
@@ -27,7 +28,7 @@ body,button,#stick,#vert{-webkit-user-select:none;user-select:none;-webkit-touch
 </head><body>
 <div id="hud"><button id="mode">View: 3rd person</button><button id="q">Quality: med</button><button id="fx" hidden>FX</button><button id="statsb">Stats</button><button id="shotb">📷</button><button id="reset">Respawn</button><button id="gateb" hidden>Gate: closed</button><button id="issb" hidden>⚠</button></div>
 <div id="stick"></div><div id="info"></div><div id="stats" hidden></div>
-<div id="vert" hidden><button id="upb">▲</button><button id="dnb">▼</button></div><button id="jumpb" hidden>Jump</button>
+<div id="vert" hidden><button id="upb">▲</button><button id="dnb">▼</button></div><button id="jumpb" hidden>Jump</button><button id="dodgeb" hidden>Dodge</button>
 <div id="sel" hidden></div><div id="shot" hidden><img id="shotimg" alt="Screenshot of the current view"><p>Press and hold the image to save or share it.</p><button id="shotclose">Close</button></div>
 <script type="module">
 import * as THREE from 'three';
@@ -432,23 +433,24 @@ if(window.PLAYER){loader.parseAsync(b64(PLAYER),'').then(g=>{const tx=new THREE.
 let PAir=0;
 const playerAnim=(dt)=>{if(!PM)return;PM.visible=avatar.visible;avatar.visible=false;const dx=pos.x-PLast.x,dz=pos.z-PLast.z,sp=Math.hypot(dx,dz)/Math.max(dt,1e-3);PLast.copy(pos);
   PM.position.set(pos.x,pos.y-meta.eye_height,pos.z);if(sp>0.4&&sp<40){let d=Math.atan2(dx,dz)-PYaw;d=Math.atan2(Math.sin(d),Math.cos(d));PYaw+=d*Math.min(1,dt*12);}PM.rotation.y=PYaw;
-  PAir=Math.abs(vy)>0.9?0.25:Math.max(0,PAir-dt);const air=PAir>0,st=air?(vy<-7?'fall':'jump'):sp>6.5?'sprint':sp>3.2?'run':sp>0.4?'walk':'idle',k=PAct[st]?st:(st==='sprint'?'run':'idle');
+  PAir=Math.abs(vy)>0.9?0.25:Math.max(0,PAir-dt);const air=PAir>0,st=air?(vy<-7?'fall':'jump'):sp>(GP.movement?9.6:6.5)?'sprint':sp>(GP.movement?4.6:3.2)?'run':sp>0.4?'walk':'idle',k=PAct[st]?st:(st==='sprint'?'run':'idle');
   if(k!==PCur&&PAct[k]){const nx=PAct[k];nx.reset().setEffectiveWeight(1).fadeIn(0.18).play();if(PCur&&PAct[PCur])PAct[PCur].fadeOut(0.18);PCur=k;}
-  if(PAct.run)PAct.run.timeScale=Math.min(1.35,Math.max(0.8,sp/5));if(PAct.walk)PAct.walk.timeScale=Math.min(1.4,Math.max(0.7,sp/2));if(PAct.jump)PAct.jump.timeScale=1.15;
+  const RS=GP.movement?GP.movement.run_speed:5,WS=GP.movement?GP.movement.walk_speed:2;if(PAct.run)PAct.run.timeScale=Math.min(1.35,Math.max(0.75,sp/RS));if(PAct.walk)PAct.walk.timeScale=Math.min(1.4,Math.max(0.6,sp/WS));if(PAct.sprint)PAct.sprint.timeScale=Math.min(1.3,Math.max(0.8,sp/(GP.movement?GP.movement.sprint_speed:9)));if(PAct.jump)PAct.jump.timeScale=1.15;
   PMix.update(Math.min(dt,0.1));};
 // ---- Stage 6: camera modes, tap-to-identify, screenshot, quality, stats
 const $=id=>document.getElementById(id);
 const orbit=new OrbitControls(cam,r.domElement);orbit.enabled=false;
 const MODES=['3rd person','1st person','orbit','free cam','top-down'];let mode=0,yaw=0,pitch=0,vy=0;const pos=new THREE.Vector3(),fpos=new THREE.Vector3();
 let exitT=0;const spawn=()=>{pos.set(...meta.spawn);pos.y+=meta.eye_height;const f=meta.spawn_facing||[0,0,-1];yaw=Math.atan2(-f[0],-f[2]);pitch=-0.15;};spawn();
-window.__teleport=(x,y,z)=>{pos.set(x,y+meta.eye_height,z);vy=0;};window.__feet=()=>[pos.x,pos.y-meta.eye_height,pos.z]; // Stage 108: test hooks (render / runtime checks)
+window.__teleport=(x,y,z)=>{pos.set(x,y+meta.eye_height,z);vy=0;if(window.__G)window.__G().hv.set(0,0);};window.__feet=()=>[pos.x,pos.y-meta.eye_height,pos.z]; // Stage 108: test hooks (render / runtime checks)
 $('reset').onclick=()=>{spawn();setMode(mode);};
 window.view=(x,z,yd,pd=0,y=0)=>{pos.set(x,meta.eye_height+y,z);vy=0;yaw=yd*Math.PI/180;pitch=pd*Math.PI/180;}; // scripted screenshots
 const ctr=meta.bounds_min.map((v,i)=>(v+meta.bounds_max[i])/2),ext=Math.max(meta.bounds_max[0]-meta.bounds_min[0],meta.bounds_max[2]-meta.bounds_min[2]);
 const walking=()=>MODES[mode]==='3rd person'||MODES[mode]==='1st person';
-let fixedCam=null,jumpReq=false;
+let fixedCam=null,jumpReq=false,dodgeReq=false;const G_={hv:new THREE.Vector2(),onFloor:true,coyote:0,buffer:0,airJumps:0,airDodges:0,dodgeT:0,dodgeCd:0,dodgeDir:new THREE.Vector3(),stickSprint:false}; // Stage 114: game movement state
+window.__G=()=>G_; // (test hook)
 function setMode(m){mode=m;fixedCam=null;const M=MODES[m];$('mode').textContent='View: '+M;orbit.enabled=M==='orbit'||M==='top-down';
-  $('stick').hidden=!(walking()||M==='free cam');$('vert').hidden=M!=='free cam';$('jumpb').hidden=!walking();
+  $('stick').hidden=!(walking()||M==='free cam');$('vert').hidden=M!=='free cam';$('jumpb').hidden=!walking();$('dodgeb').hidden=!walking()||!GP.movement;
   if(M==='orbit'){orbit.enableRotate=true;orbit.screenSpacePanning=true;orbit.touches={ONE:THREE.TOUCH.ROTATE,TWO:THREE.TOUCH.DOLLY_PAN};orbit.mouseButtons={LEFT:THREE.MOUSE.ROTATE,MIDDLE:THREE.MOUSE.DOLLY,RIGHT:THREE.MOUSE.PAN};
     orbit.target.set(ctr[0],0,ctr[2]);cam.position.set(ctr[0]+ext*.4,ext*.6,ctr[2]+ext*.6);}
   if(M==='top-down'){orbit.enableRotate=false;orbit.screenSpacePanning=true;orbit.touches={ONE:THREE.TOUCH.PAN,TWO:THREE.TOUCH.DOLLY_PAN};orbit.mouseButtons={LEFT:THREE.MOUSE.PAN,MIDDLE:THREE.MOUSE.DOLLY,RIGHT:THREE.MOUSE.PAN};
@@ -457,8 +459,9 @@ function setMode(m){mode=m;fixedCam=null;const M=MODES[m];$('mode').textContent=
 window.setMode=setMode;
 // scripted/inspection camera (render_views.py, issue list): eye -> target, no player
 window.lookFrom=(px,py,pz,tx,ty,tz,fov=60)=>{orbit.enabled=false;fixedCam={p:new THREE.Vector3(px,py,pz),t:new THREE.Vector3(tx,ty,tz)};cam.fov=fov;cam.updateProjectionMatrix();
-  $('stick').hidden=true;$('vert').hidden=true;$('jumpb').hidden=true;$('mode').textContent='View: inspect';};
-$('jumpb').onpointerdown=()=>{jumpReq=true;};addEventListener('keydown',e=>{if(e.code==='Space')jumpReq=true;});$('mode').onclick=()=>setMode((mode+1)%MODES.length);
+  $('stick').hidden=true;$('vert').hidden=true;$('jumpb').hidden=true;$('dodgeb').hidden=true;$('mode').textContent='View: inspect';};
+$('jumpb').onpointerdown=()=>{jumpReq=true;};addEventListener('keydown',e=>{if(e.code==='Space')jumpReq=true;if(e.code==='KeyF'||e.code==='KeyC')dodgeReq=true;});
+if($('dodgeb'))$('dodgeb').onpointerdown=()=>{dodgeReq=true;}; // Stage 114$('mode').onclick=()=>setMode((mode+1)%MODES.length);
 $('info').textContent=(window.TRIS_LABEL||meta.triangles+' tris')+(env?' · '+env.sky.preset+' · '+env.quality:'')+(window.BUILD_ID?' · '+window.BUILD_ID:'');
 // quality: render resolution (+ effects level when the level has effects); remembered per device
 const QL=[['low',1,'performance'],['med',1.5,'balanced'],['high',2,'quality']];let ql=1;try{ql=+(localStorage.getItem('lvq')??1);}catch(e){}
@@ -550,7 +553,7 @@ addEventListener('pointerdown',e=>{if(onUI(e))return;tap={x:e.clientX,y:e.client
   if(orbit.enabled)return;const b=stick.getBoundingClientRect();
   if(!stick.hidden&&e.clientX<b.right+20&&e.clientY>b.top-20&&sid===null)sid=e.pointerId;else{lid=e.pointerId;lx=e.clientX;ly=e.clientY;}});
 addEventListener('pointermove',e=>{if(e.pointerId===sid){const b=stick.getBoundingClientRect();
-  mv.x=Math.max(-1,Math.min(1,(e.clientX-b.left-b.width/2)/50));mv.y=Math.max(-1,Math.min(1,(e.clientY-b.top-b.height/2)/50));}
+  const R_=GP.movement?b.width/2:50;mv.x=(e.clientX-b.left-b.width/2)/R_;mv.y=(e.clientY-b.top-b.height/2)/R_;const L_=Math.hypot(mv.x,mv.y);if(L_>1){mv.x/=L_;mv.y/=L_;}} // Stage 114: push = distance / stick radius (as the game)
   else if(e.pointerId===lid){yaw-=(e.clientX-lx)*0.005;pitch=Math.max(-1.3,Math.min(1.2,pitch-(e.clientY-ly)*0.005));lx=e.clientX;ly=e.clientY;}});
 addEventListener('pointercancel',e=>{if(e.pointerId===sid){sid=null;mv.x=mv.y=0}if(e.pointerId===lid)lid=null;tap=null;}); // Stage 107: the stick never sticks either
 addEventListener('pointerup',e=>{if(e.pointerId===sid){sid=null;mv.x=mv.y=0}if(e.pointerId===lid)lid=null;
@@ -562,13 +565,34 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
   const M=MODES[mode];if(ranged.length)applyRanges(cam.position);if(mapG)mapG.visible=M==='top-down'||M==='free cam';
   if(fixedCam){avatar.visible=false;cam.position.copy(fixedCam.p);cam.lookAt(fixedCam.t);}
   else if(walking()){const f=(keys.KeyW?1:0)-(keys.KeyS?1:0)-mv.y,s=(keys.KeyD?1:0)-(keys.KeyA?1:0)+mv.x;
+    const MV=GP.movement;let ground;
+    if(MV){ // Stage 114: Construct Error's PlayerController (same numbers: walk / run / sprint by stick push, accel, jump + air jump, coyote, buffer, dodge)
+      const wish=new THREE.Vector3(s,0,-f);if(wish.length()>1)wish.normalize();const amt=wish.length();wish.applyAxisAngle(UP,yaw);const wd=amt>0.001?wish.clone().divideScalar(amt):new THREE.Vector3();
+      if(amt>=MV.sprint_zone)G_.stickSprint=true;else if(amt<MV.sprint_exit)G_.stickSprint=false;const sprint=(G_.stickSprint||keys.ShiftLeft||keys.ShiftRight)&&amt>0.1;
+      const gait=a=>a<=0.001?0:sprint?MV.sprint_speed:a<=MV.walk_zone?MV.walk_speed*a/MV.walk_zone:a<=MV.walk_zone+MV.walk_to_run_blend?MV.walk_speed+(MV.run_min_speed-MV.walk_speed)*(a-MV.walk_zone)/MV.walk_to_run_blend
+        :MV.run_min_speed+(MV.run_speed-MV.run_min_speed)*Math.min(1,Math.max(0,(a-MV.walk_zone-MV.walk_to_run_blend)/Math.max(MV.sprint_zone-MV.walk_zone-MV.walk_to_run_blend,0.01)));
+      const g0=2*MV.jump_height/(MV.time_to_apex*MV.time_to_apex),onF=G_.onFloor;G_.dodgeCd=Math.max(0,G_.dodgeCd-dt);
+      if(onF){G_.coyote=MV.coyote_time;G_.airJumps=MV.max_air_jumps;G_.airDodges=MV.max_air_dodges;}else G_.coyote=Math.max(0,G_.coyote-dt);
+      if(jumpReq)G_.buffer=MV.jump_buffer_time;else G_.buffer=Math.max(0,G_.buffer-dt);jumpReq=false;
+      if(dodgeReq&&!G_.dodgeT&&G_.dodgeCd<=0&&(onF||G_.airDodges>0)){if(!onF)G_.airDodges--;const dd=amt>0.001?wd:new THREE.Vector3(Math.sin(PYaw),0,Math.cos(PYaw));G_.dodgeDir.copy(dd);G_.dodgeT=MV.dodge_duration;}dodgeReq=false;
+      if(G_.buffer>0){if(onF||G_.coyote>0){vy=g0*MV.time_to_apex;G_.coyote=0;G_.buffer=0;G_.dodgeT=0;}else if(G_.airJumps>0){G_.airJumps--;vy=Math.sqrt(2*g0*MV.air_jump_height);G_.buffer=0;G_.dodgeT=0;}}
+      if(G_.dodgeT>0){G_.dodgeT-=dt;G_.hv.set(G_.dodgeDir.x,G_.dodgeDir.z).multiplyScalar(MV.dodge_speed);if(G_.dodgeT<=0){G_.dodgeT=0;G_.dodgeCd=MV.dodge_cooldown;}}
+      else{const tg=new THREE.Vector2(wd.x,wd.z).multiplyScalar(gait(amt));let rate=onF?(amt>0?MV.ground_accel:MV.ground_decel):(amt>0?MV.air_accel:MV.air_decel);if(onF&&amt>0&&G_.hv.dot(tg)<0)rate+=MV.turnaround_accel;
+        const df=tg.clone().sub(G_.hv),dl=df.length(),mx=rate*dt;if(dl<=mx||dl<1e-6)G_.hv.copy(tg);else G_.hv.addScaledVector(df,mx/dl);}
+      const st=G_.hv.length()*dt;if(st>1e-5){const dx=new THREE.Vector3(G_.hv.x,0,0),dz=new THREE.Vector3(0,0,G_.hv.y); // slide along walls (x and z separately)
+        if(!blocked(new THREE.Vector3(G_.hv.x,0,G_.hv.y).normalize(),st))pos.x+=G_.hv.x*dt,pos.z+=G_.hv.y*dt;
+        else{if(Math.abs(G_.hv.x)>1e-4&&!blocked(dx.normalize(),Math.abs(G_.hv.x*dt)))pos.x+=G_.hv.x*dt;else G_.hv.x=0;if(Math.abs(G_.hv.y)>1e-4&&!blocked(dz.normalize(),Math.abs(G_.hv.y*dt)))pos.z+=G_.hv.y*dt;else G_.hv.y=0;}}
+      ray.set(new THREE.Vector3(pos.x,pos.y+0.5,pos.z),down);ray.far=100;const h=ray.intersectObjects(solids)[0];ground=h?h.point.y:-50;if(h&&h.object.name.startsWith('Hazard')&&pos.y-meta.eye_height<h.point.y+0.3){spawn();}
+      if(G_.dodgeT>0&&!onF)vy=0;else if(!(onF&&vy<=0)){vy=Math.max(vy-g0*(vy<0?MV.fall_gravity_multiplier:1)*dt,-MV.max_fall_speed);}else vy=-0.5;pos.y+=vy*dt;
+      G_.onFloor=pos.y<=ground+meta.eye_height+0.06&&vy<=0;
+    }else{
     const d=new THREE.Vector3(s,0,-f);if(d.lengthSq()>0){d.normalize().applyAxisAngle(UP,yaw);const step=GP.player.walk_speed*dt;if(!blocked(d,step))pos.addScaledVector(d,step);}
     ray.set(new THREE.Vector3(pos.x,pos.y+0.5,pos.z),down);ray.far=100;const h=ray.intersectObjects(solids)[0];
-    const ground=h?h.point.y:-50;if(h&&h.object.name.startsWith('Hazard')&&pos.y-meta.eye_height<h.point.y+0.3){spawn();}if(jumpReq&&pos.y<=ground+meta.eye_height+0.05)vy=Math.sqrt(2*GP.player.gravity*GP.player.jump_height);jumpReq=false;vy-=GP.player.gravity*dt;pos.y+=vy*dt;
+    ground=h?h.point.y:-50;if(h&&h.object.name.startsWith('Hazard')&&pos.y-meta.eye_height<h.point.y+0.3){spawn();}if(jumpReq&&pos.y<=ground+meta.eye_height+0.05)vy=Math.sqrt(2*GP.player.gravity*GP.player.jump_height);jumpReq=false;vy-=GP.player.gravity*dt;pos.y+=vy*dt;}
     for(const W of Object.values(window.winds||{}))if(W.s>0.01){const rel=new THREE.Vector3(pos.x,pos.y-meta.eye_height+0.9,pos.z).sub(W.o),al=rel.dot(W.d); // Stage 82: turbine wind
       if(al>0&&al<W.w.length&&rel.addScaledVector(W.d,-al).length()<W.w.radius+W.w.spread*al){const sw=W.w.push*W.s*(1-0.35*al/W.w.length)*dt;if(!blocked(W.d,sw))pos.addScaledVector(W.d,sw);
         if(pos.y>ground+meta.eye_height+0.05)vy+=W.w.lift*W.s*dt;}}
-    if(pos.y<ground+meta.eye_height){pos.y=ground+meta.eye_height;vy=0;}if(pos.y<((GP.design||{}).kill_y??-40))spawn();
+    if(pos.y<ground+meta.eye_height){pos.y=ground+meta.eye_height;vy=0;G_.onFloor=true;}if(pos.y<((GP.design||{}).kill_y??-40))spawn();
     if(window.termCheck)termCheck(pos.x,pos.y-meta.eye_height,pos.z);
     const say=s=>{const b=document.getElementById('info');if(b)b.textContent=s;};
     for(const K of Object.values(window.belts||{})){const fy=pos.y-meta.eye_height,r=new THREE.Vector3(pos.x,fy,pos.z).sub(K.c),al=r.dot(K.u),la=r.dot(K.side); // Stage 97: ride the belt; its spike pit kills

@@ -386,3 +386,13 @@ Depth scale is a guess; building detail is a fixed recipe (door/windows/trim), n
 - Current: the Grinch (CONSTRUCT-ERROR_V1 branch claude/movement-prototype, assets/characters/grinch/grinch.glb, the
   roster's default character), 58k triangles, 6 clips, ~4.4 MB (+ ~6 MB base64 in each preview page).
 
+## Stage 114: the preview moves like the game
+- config/gameplay.json `movement`: Construct Error's PlayerController / touch-stick numbers (walk 4, run 6.2-8.5, sprint
+  11.5 m/s by stick push - walk zone 0.5, sprint from 0.9 push; accel 70 / decel 55 / turnaround +60, air 32 / 6;
+  jump 1.9 m with time to apex 0.36 s, falling x1.6, one 1.5 m air jump, coyote 0.1 s, jump buffer 0.12 s; dodge
+  17 m/s for 0.34 s, cooldown 0.45 s, one air dodge (flat)). make_preview.py passes it; viewer.html moves the player
+  with it (touch stick push = distance / stick radius, as the game; keyboard W = full push = sprint, Shift sprints,
+  Space jumps, F / C dodge; a Dodge button on touch). The nav / camera checks still use `player` (conservative).
+- Measured in the preview (60 fps): walk 4.0, 0.7 push 7.06, 0.85 push 8.14, full push 11.5 m/s; jump apex 1.81 m
+  (1.9 m continuous - Godot's 60 Hz semi-implicit step loses the same ~9 cm); dodge ~6.9 m incl. braking.
+
