@@ -177,6 +177,18 @@ class CornerOverlook(unittest.TestCase):
             if n.startswith("Overlook_Rail") and n.endswith("_High"): self.assertGreater(by[n]["position"][1] - lf["top"], 1.2)
 
 
+class SouthWallFans(unittest.TestCase):
+    def test_banners_and_fake_door_became_fans_and_a_vent(self):
+        """Stage 120: arena walls module_overrides - the two red banners and the sealed door behind the spinner's NE pad
+        are two big spinning wall fans with an air vent between them; the slots either side are untouched."""
+        L = _load("level.json"); names = {o["name"] for o in L["objects"]}
+        for gone in ("OuterWall_South_M03Emblem", "OuterWall_South_M04Door", "OuterWall_South_M05Emblem"): self.assertFalse([n for n in names if n.startswith(gone)], gone)
+        for k in ("M03Fan_Rotor", "M05Fan_Rotor", "M04Vent"): self.assertIn("OuterWall_South_" + k, names)
+        self.assertTrue([n for n in names if n.startswith("OuterWall_South_M02Pipes")] and [n for n in names if n.startswith("OuterWall_South_M06Pipes")])
+        spin = next(e for e in _load("effects.json")["effects"] if e["type"] == "spin")
+        self.assertTrue({"OuterWall_South_M03Fan_Rotor", "OuterWall_South_M05Fan_Rotor"} <= set(spin["targets"]))
+
+
 class JetScreen(unittest.TestCase):
     def test_jetpack_screen_and_big_red_button(self):
         """Stage 119: the big grin screen floats on a jetpack (no chains), bobbing; when the player reaches the arena it

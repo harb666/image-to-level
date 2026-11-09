@@ -558,6 +558,7 @@ def _wall_varied(ctx, name, g, L, height, thick, base_y, dress, body="wall"):
         p = np.array(wts, float); p[[i for i, m in enumerate(mods) if m == prev or (m == "door" and doors) or (m == "fan" and (fans or sw < 7.5))]] = 0; m = mods[int(rng.choice(len(mods), p=p / p.sum()))]
         if sw < 4.5: m = "pipes" if prev != "pipes" else "plain"
         nm = f"{name}_M{k:02d}{m.capitalize()}"  # module kind in the name (level.json readers, tests)
+        ov = (dress.get("module_overrides") or {}).get(f"{name}_M{k:02d}"); n0 = len(ctx.objects)  # Stage 120: swap this slot's module (built as usual first, so the random stream - every later slot - is unchanged)
         if m == "pipes":
             nps = int(rng.integers(2, 5)); r = rng.uniform(0.25, 0.55); y1 = height - rng.uniform(0.5, 4)
             while nps > 1 and nps * (2 * r + 0.25) + 0.3 > sw - 0.4: nps -= 1  # the bundle stays inside its slot
@@ -595,6 +596,15 @@ def _wall_varied(ctx, name, g, L, height, thick, base_y, dress, body="wall"):
             ctx.add(nm + "_Sign", "box", [x, fy + dh + 0.7, f + 0.2], [1.6, 0.5, 0.2], "glow", g, collision=False, outline=False, **st)
         else:
             ctx.add(nm + "_Strip", "box", [x, fy + rng.uniform(3, 8), f + 0.05], [sw * 0.7, 0.18, 0.1], "glow", g, collision=False, outline=False, **st)
+        if ov and ov != m:
+            gone = {o["name"] for o in ctx.objects[n0:]}; del ctx.objects[n0:]; ctx.names -= gone
+            nm = f"{name}_M{k:02d}{ov.capitalize()}"
+            if ov == "fan":  # a big wall fan filling the slot (the same size and height for every override fan)
+                rr = min(float(dress.get("override_fan_radius", 3.0)), sw / 2 - 0.55); fan_unit(ctx, nm, g, (x, fy + 5.0 + rr, f), rr, 1.0, wall=True, seed=_h(nm), st=st)
+            elif ov == "vent":  # a tall louvred air vent
+                louvred_vent(ctx, nm, g, x, fy + 2.5, min(sw * 0.72, 4.6), float(dress.get("override_vent_height", 4.2)), f, st)
+            elif ov == "plain":
+                ctx.add(nm + "_Strip", "box", [x, fy + 5.0, f + 0.05], [sw * 0.7, 0.18, 0.1], "glow", g, collision=False, outline=False, **st)
         if rng.random() < 0.35 and m not in ("door",):  # a stray red light box
             ctx.add(nm + "_Red", "box", [x + rng.uniform(-sw / 2 + 0.5, sw / 2 - 0.5), rng.uniform(fy + 2, height - 3), f + 0.15], [0.5, 0.35, 0.3], "glow", g, collision=False, outline=False, **st)
         if rng.random() < 0.7:  # raised wall plate in another tone over part of the slot: the face reads as panels, not one tiled sheet

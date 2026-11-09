@@ -1339,3 +1339,10 @@ Building blocks usable without the preset:
   jet screen's button on the rising arena (still reached through the spinner, via the lift pad and overlook).
 - viewer.html: opening a gate also takes its beams out of the solid set (invisible meshes still stop rays).
 
+## Stage 120: wall module overrides
+- `arena.walls.module_overrides` {"<wall>_M<nn>": "fan" | "vent" | "plain"}: that slot of the varied wall dressing is
+  built as usual (so the seeded random stream - every later slot - is unchanged), then replaced: a big wall fan
+  (`override_fan_radius`, default 3 m, the same height for every override fan; its rotor spins), a tall louvred vent
+  (`override_vent_height`), or a plain light strip. Assembly Ascent: South M03 / M05 (banners) -> fans, M04 (sealed
+  door) -> vent.
+

@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "1046ad8909149363",
+  "spec_sha": "c97f4a26e56e3ece",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -128,6 +128,8 @@
    "id": "Fan_Spin",
    "type": "spin",
    "targets": [
+    "OuterWall_South_M03Fan_Rotor",
+    "OuterWall_South_M05Fan_Rotor",
     "Ceil_Fan_1_Rotor"
    ]
   },
@@ -7385,25 +7387,163 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_South_M03Emblem",
-   "type": "panel",
+   "name": "OuterWall_South_M03Fan",
+   "type": "cylinder",
    "position": [
     -26.813,
-    10.5,
-    2.03
+    16.0,
+    2.0
    ],
    "rotation": [
-    0.0,
+    90.0,
     0.0,
     0.0
    ],
    "parent": "OuterWall_South",
    "size": [
-    5.692,
-    11.303,
+    7.2,
+    1.0,
+    7.2
+   ],
+   "material": "structure_b",
+   "sections": 20,
+   "hole": 3.0,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M03Fan_Clamp_1",
+   "type": "box",
+   "position": [
+    -24.161,
+    18.252,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    45.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M03Fan_Clamp_2",
+   "type": "box",
+   "position": [
+    -29.464,
+    18.252,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    135.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M03Fan_Clamp_3",
+   "type": "box",
+   "position": [
+    -29.464,
+    12.948,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    225.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M03Fan_Clamp_4",
+   "type": "box",
+   "position": [
+    -24.161,
+    12.948,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    315.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M03Fan_Glow",
+   "type": "cylinder",
+   "position": [
+    -26.813,
+    16.0,
+    2.05
+   ],
+   "rotation": [
+    90.0,
+    0.0,
     0.0
    ],
-   "material": "accent",
+   "parent": "OuterWall_South",
+   "size": [
+    5.9,
+    0.05,
+    5.9
+   ],
+   "material": "glow_dim",
+   "sections": 16,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -7413,7 +7553,263 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_South_M03Emblem_Plate",
+   "name": "OuterWall_South_M03Fan_Grille_01",
+   "type": "box",
+   "position": [
+    -26.813,
+    13.75,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    3.889,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M03Fan_Grille_11",
+   "type": "box",
+   "position": [
+    -29.063,
+    16.0,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    0.12,
+    3.889,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M03Fan_Grille_02",
+   "type": "box",
+   "position": [
+    -26.813,
+    15.25,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    5.693,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M03Fan_Grille_12",
+   "type": "box",
+   "position": [
+    -27.563,
+    16.0,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    0.12,
+    5.693,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M03Fan_Grille_03",
+   "type": "box",
+   "position": [
+    -26.813,
+    16.75,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    5.693,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M03Fan_Grille_13",
+   "type": "box",
+   "position": [
+    -26.063,
+    16.0,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    0.12,
+    5.693,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M03Fan_Grille_04",
+   "type": "box",
+   "position": [
+    -26.813,
+    18.25,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    3.889,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M03Fan_Grille_14",
+   "type": "box",
+   "position": [
+    -24.563,
+    16.0,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    0.12,
+    3.889,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M03Fan_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    -26.813,
+    16.0,
+    2.62
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    5.7,
+    0.45,
+    5.7
+   ],
+   "material": "frame",
+   "blades": 7,
+   "sweep": 18.937251340150475,
+   "detail": "low",
+   "collision": false,
+   "outline": false,
+   "spin": 27.7,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M03Fan_Plate",
    "type": "panel",
    "position": [
     -26.813,
@@ -7433,7 +7829,7 @@
    ],
    "material": "structure_b",
    "cut": "ragged",
-   "seed": 97903,
+   "seed": 25661,
    "collision": false,
    "outline": false,
    "uv_space": "world",
@@ -7444,11 +7840,11 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_South_M04Door_Frame",
+   "name": "OuterWall_South_M04Vent",
    "type": "box",
    "position": [
     -20.194,
-    8.0,
+    14.4,
     2.15
    ],
    "rotation": [
@@ -7458,36 +7854,8 @@
    ],
    "parent": "OuterWall_South",
    "size": [
-    4.365,
-    5.1,
-    0.3
-   ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_South_M04Door",
-   "type": "box",
-   "position": [
-    -20.194,
-    8.02,
-    2.25
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_South",
-   "size": [
-    3.365,
-    4.38,
+    4.038,
+    0.3,
     0.3
    ],
    "material": "structure_b",
@@ -7499,12 +7867,12 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_South_M04Door_Sign",
+   "name": "OuterWall_South_M04Vent_FrameLow",
    "type": "box",
    "position": [
     -20.194,
-    13.1,
-    2.2
+    10.5,
+    2.15
    ],
    "rotation": [
     0.0,
@@ -7513,9 +7881,343 @@
    ],
    "parent": "OuterWall_South",
    "size": [
-    1.6,
-    0.5,
-    0.2
+    4.038,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M04Vent_FrameSide_1",
+   "type": "box",
+   "position": [
+    -22.063,
+    10.78,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    0.3,
+    3.64,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M04Vent_FrameSide_2",
+   "type": "box",
+   "position": [
+    -18.325,
+    10.78,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    0.3,
+    3.64,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M04Vent_Duct",
+   "type": "panel",
+   "position": [
+    -20.194,
+    10.78,
+    2.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    3.478,
+    3.64,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M04Vent_Slat_1",
+   "type": "box",
+   "position": [
+    -20.194,
+    10.875,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    3.478,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M04Vent_Slat_2",
+   "type": "box",
+   "position": [
+    -20.194,
+    11.325,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    3.478,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M04Vent_Slat_3",
+   "type": "box",
+   "position": [
+    -20.194,
+    11.775,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    3.478,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M04Vent_Slat_4",
+   "type": "box",
+   "position": [
+    -20.194,
+    12.225,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    3.478,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M04Vent_Slat_5",
+   "type": "box",
+   "position": [
+    -20.194,
+    12.675,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    3.478,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M04Vent_Slat_6",
+   "type": "box",
+   "position": [
+    -20.194,
+    13.125,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    3.478,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M04Vent_Slat_7",
+   "type": "box",
+   "position": [
+    -20.194,
+    13.575,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    3.478,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M04Vent_Slat_8",
+   "type": "box",
+   "position": [
+    -20.194,
+    14.025,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    3.478,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M04Vent_Status",
+   "type": "box",
+   "position": [
+    -18.625,
+    14.47,
+    2.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    0.3,
+    0.16,
+    0.06
    ],
    "material": "glow",
    "collision": false,
@@ -7527,7 +8229,7 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_South_M04Door_Plate",
+   "name": "OuterWall_South_M04Vent_Plate",
    "type": "panel",
    "position": [
     -20.194,
@@ -7547,7 +8249,7 @@
    ],
    "material": "structure_b",
    "cut": "ragged",
-   "seed": 21280,
+   "seed": 18491,
    "collision": false,
    "outline": false,
    "uv_space": "world",
@@ -7558,25 +8260,163 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_South_M05Emblem",
-   "type": "panel",
+   "name": "OuterWall_South_M05Fan",
+   "type": "cylinder",
    "position": [
     -13.757,
-    10.5,
-    2.03
+    16.0,
+    2.0
    ],
    "rotation": [
-    0.0,
+    90.0,
     0.0,
     0.0
    ],
    "parent": "OuterWall_South",
    "size": [
-    5.766,
-    8.451,
+    7.2,
+    1.0,
+    7.2
+   ],
+   "material": "structure_b",
+   "sections": 20,
+   "hole": 3.0,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M05Fan_Clamp_1",
+   "type": "box",
+   "position": [
+    -11.105,
+    18.252,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    45.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M05Fan_Clamp_2",
+   "type": "box",
+   "position": [
+    -16.409,
+    18.252,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    135.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M05Fan_Clamp_3",
+   "type": "box",
+   "position": [
+    -16.409,
+    12.948,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    225.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M05Fan_Clamp_4",
+   "type": "box",
+   "position": [
+    -11.105,
+    12.948,
+    1.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    315.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    1.3,
+    0.8,
+    1.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M05Fan_Glow",
+   "type": "cylinder",
+   "position": [
+    -13.757,
+    16.0,
+    2.05
+   ],
+   "rotation": [
+    90.0,
+    0.0,
     0.0
    ],
-   "material": "accent",
+   "parent": "OuterWall_South",
+   "size": [
+    5.9,
+    0.05,
+    5.9
+   ],
+   "material": "glow_dim",
+   "sections": 16,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -7586,7 +8426,263 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_South_M05Emblem_Plate",
+   "name": "OuterWall_South_M05Fan_Grille_01",
+   "type": "box",
+   "position": [
+    -13.757,
+    13.75,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    3.889,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M05Fan_Grille_11",
+   "type": "box",
+   "position": [
+    -16.007,
+    16.0,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    0.12,
+    3.889,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M05Fan_Grille_02",
+   "type": "box",
+   "position": [
+    -13.757,
+    15.25,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    5.693,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M05Fan_Grille_12",
+   "type": "box",
+   "position": [
+    -14.507,
+    16.0,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    0.12,
+    5.693,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M05Fan_Grille_03",
+   "type": "box",
+   "position": [
+    -13.757,
+    16.75,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    5.693,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M05Fan_Grille_13",
+   "type": "box",
+   "position": [
+    -13.007,
+    16.0,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    0.12,
+    5.693,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M05Fan_Grille_04",
+   "type": "box",
+   "position": [
+    -13.757,
+    18.25,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    3.889,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M05Fan_Grille_14",
+   "type": "box",
+   "position": [
+    -11.507,
+    16.0,
+    2.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    0.12,
+    3.889,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M05Fan_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    -13.757,
+    16.0,
+    2.62
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_South",
+   "size": [
+    5.7,
+    0.45,
+    5.7
+   ],
+   "material": "frame",
+   "blades": 8,
+   "sweep": 19.486276604028575,
+   "detail": "low",
+   "collision": false,
+   "outline": false,
+   "spin": 22.0,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_South_M05Fan_Plate",
    "type": "panel",
    "position": [
     -13.757,
@@ -7606,7 +8702,7 @@
    ],
    "material": "wall_slimed",
    "cut": "ragged",
-   "seed": 80077,
+   "seed": 69840,
    "collision": false,
    "outline": false,
    "uv_space": "world",
@@ -70401,16 +71497,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 46695,
-  "objects": 2086,
+  "triangles": 48652,
+  "objects": 2125,
   "materials": 34,
-  "glb_kb": 3407,
-  "nodes": 2304,
-  "draw_calls_unbatched": 2274,
-  "draw_calls_batched_min": 35,
-  "images": 92,
-  "tex_mem_gpu_compressed_mb": 22.71,
-  "tex_mem_uncompressed_mb": 90.84,
+  "glb_kb": 3487,
+  "nodes": 2344,
+  "draw_calls_unbatched": 2314,
+  "draw_calls_batched_min": 36,
+  "images": 96,
+  "tex_mem_gpu_compressed_mb": 22.73,
+  "tex_mem_uncompressed_mb": 90.92,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }
