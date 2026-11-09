@@ -712,6 +712,22 @@ def prism(w, h, d, o):
     m = trimesh.Trimesh(V, np.array(F), process=False); m.fix_normals(); return m
 
 
+def dome_shell(w, h, d, o):
+    """Stage 126: an OPEN dome surface (no floor; pair with double_sided): base ellipse w x d at y = 0, apex at y = h,
+    "sections" (32) round and "rings" (8) of latitude on a quarter-ellipse profile. Own UVs (u round it x "u_tiles",
+    v up). Glass skylights and the glowing sky behind them."""
+    n, k, ut = int(o.get("sections", 32)), int(o.get("rings", 8)), float(o.get("u_tiles", 1.0)); V, UV, F = [], [], []
+    for j in range(k + 1):
+        phi = np.pi / 2 * j / k; r, y = np.cos(phi), h * np.sin(phi)
+        for i in range(n + 1):
+            a = 2 * np.pi * i / n; V.append((w / 2 * r * np.cos(a), y, d / 2 * r * np.sin(a))); UV.append((ut * i / n, j / k))
+    for j in range(k):
+        for i in range(n):
+            a_ = j * (n + 1) + i; b_ = a_ + n + 1; F.append([a_, b_, a_ + 1])
+            if j < k - 1: F.append([a_ + 1, b_, b_ + 1])  # the top row closes on the apex (no slivers)
+    m = trimesh.Trimesh(np.array(V, float), np.array(F), process=False); m.metadata["uv"] = np.array(UV, float); return m
+
+
 SHAPES = dict(spike_ball=spike_ball, pole=pole, mace=mace, mace_tips=mace_tips, saw_blade=saw_blade, prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
               stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum, dome=dome)
@@ -741,5 +757,6 @@ def make(o, bevel=0.0):
         F = o["faces"]; return box_faces(w, h, d, F["side"], F["top"], F.get("front"), F.get("front_axis", "z"))
     if t == "box" and (o.get("bevel", bevel) or 0) > 0: return bevel_box(w, h, d, o.get("bevel", bevel))
     if t == "band": return band(w, h, d, o)  # open strips by design (not in SHAPES: those are closed solids)
+    if t == "dome_shell": return dome_shell(w, h, d, o)  # Stage 126: open by design too (glass / sky shells, double-sided)
     if t in SHAPES: return SHAPES[t](w, h, d, o)
     return None

@@ -263,6 +263,8 @@ def _effects(spec, ctx, plats, env, glow):
             if tb: out.append(dict(id="Tube_Bubbles", type="tube_bubbles", tubes=tb))
         fl = getattr(ctx, "fan_lights", [])
         if fl: out.append(dict(id="Fan_Lights", type="point_light", positions=[q[:3] for q in fl], color=[1.0, 0.8, 0.3], energy=1.0, range=16.0))  # Stage 39
+        dl = getattr(ctx, "dome_lights", [])
+        if dl: out.append(dict(id="Dome_Light", type="point_light", positions=[list(map(float, q)) for q in dl], color=[1.0, 0.82, 0.36], energy=1.3, range=34.0))  # Stage 126: daylight through the glass dome (fan-light yellow)
         spins = [o["name"] for o in ctx.objects if o.get("spin")]
         if spins: out.append(dict(id="Fan_Spin", type="spin", targets=spins))  # Stage 19: rotating fan rotors
         for ln_, A_ in getattr(ctx, "assembly", {}).items():  # Stage 61: working assembly lines (parcels, arm dips, part reveals)

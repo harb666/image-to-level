@@ -1369,4 +1369,11 @@ Building blocks usable without the preset:
   `<id>_PadTop_NN` pieces leaving a 0.64 m square hole (dark `<id>_Socket_NN` floor) under every tooth, and `travel`
   is the full drop (head lands on the pad, teeth sink into the holes). `spike_holes: false` keeps the old solid pad
   (travel shortened so the tips stop on it). Godot plays the same crusher data (untested in Godot).
+- Stage 126: `arena.ceiling.dome` `{"at": [x, z], "radius", "rise", "ribs", "rings", "collar", "shafts", "shaft_tilt"}`
+  (roles `dome_glass`, `dome_sky`, `sunbeam`): a big glass dome anywhere in the roof. The slab becomes a square with a
+  round hole (`Ceiling_Slab`) plus four strips (`Ceiling_Slab_W/E/N/S`); over the hole a curb ring with a glowing trim,
+  an open glass shell (shape `dome_shell`, double-sided), meridian ribs + latitude rings and a hub, and behind it a
+  larger glowing shell (soft yellow sky). Faint slanted light shafts (own mobile group `Sunbeams`) run down to the
+  floor and effect `Dome_Light` (point lights, the fan-light yellow) lights the hall under it. The varied ceiling
+  dressing keeps clear of the dome (rails stop either side, no cables / pods / fans across it). Visual only.
 

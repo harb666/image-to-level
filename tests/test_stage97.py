@@ -357,5 +357,42 @@ class RisingArena(unittest.TestCase):
         N = _load("checks/navigation.json"); self.assertEqual({a["name"]: a["reachable_fraction"] for a in N["intended_areas"]}.get("Arena_Deck"), 1.0)
 
 
+class GlassDome(unittest.TestCase):
+    """Stage 126: a massive glass dome in the roof over the north half, soft yellow light coming through it."""
+    @classmethod
+    def setUpClass(cls):
+        cls.L = _load("level.json"); cls.by = {o["name"]: o for o in cls.L["objects"]}
+
+    def test_roof_has_a_round_hole_with_the_dome_over_it(self):
+        D = _load("scene_spec.json")["arena"]["ceiling"]["dome"]; (dx, dz), R = D["at"], D["radius"]
+        slab = self.by["Ceiling_Slab"]; self.assertEqual(slab["hole"], R); self.assertEqual([slab["position"][0], slab["position"][2]], [dx, dz])
+        for k in "WENS": self.assertIn("Ceiling_Slab_" + k, self.by)  # the rest of the roof, edge to edge with the holed square
+        g = self.by["Dome_Glass"]; self.assertEqual(g["type"], "dome_shell"); self.assertTrue(g["double_sided"])
+        self.assertLess(self.L["materials"][g["material"]]["alpha"], 0.5)  # see-through
+        self.assertGreater(self.by["Dome_Sky"]["size"][0], g["size"][0])  # the glowing sky sits behind the glass
+        self.assertGreaterEqual(sum(1 for n in self.by if n.startswith("Dome_Rib_")), D["ribs"] * 6)
+        for n, o in self.by.items():
+            if n.startswith("Dome_") and not n.startswith("Dome_Shaft"): self.assertTrue(o.get("cutaway"), n)
+
+    def test_light_is_soft_yellow_like_the_fans(self):
+        M = self.L["materials"]
+        for m in ("dome_sky", "sunbeam", "dome_glass"):
+            c = M[m]["color"]; self.assertTrue(c[0] >= c[1] > c[2], m)  # warm yellow
+        self.assertLess(M["sunbeam"]["alpha"], 0.15)  # faint shafts
+        E = {e["id"]: e for e in _load("effects.json")["effects"]}
+        dl, fl = E["Dome_Light"], E["Fan_Lights"]; self.assertEqual(dl["type"], "point_light")
+        c1, c2 = (e["quality"]["balanced"]["params"]["color"] for e in (dl, fl)); self.assertLess(max(abs(a - b) for a, b in zip(c1, c2)), 0.1)
+        self.assertGreaterEqual(len(dl["emitters"]), 3)
+
+    def test_ceiling_dressing_keeps_clear_of_the_dome(self):
+        D = _load("scene_spec.json")["arena"]["ceiling"]["dome"]; (dx, dz), R = D["at"], D["radius"]
+        for n, o in self.by.items():
+            if n.startswith(("Ceil_Pod", "Ceil_Fan", "Ceil_Step", "Ceil_Red", "Ceil_Cable")) and o.get("size"):
+                self.assertGreater(math.hypot(o["position"][0] - dx, o["position"][2] - dz), R, n)
+            if n.startswith("Ceil_LampRail_") and "Hanger" not in n and abs(o["position"][2] - dz) < R:
+                x0, x1 = o["position"][0] - o["size"][0] / 2, o["position"][0] + o["size"][0] / 2; ch = math.sqrt(R * R - (o["position"][2] - dz) ** 2)
+                self.assertTrue(x1 < dx - ch or x0 > dx + ch, n)  # rails stop either side of it
+
+
 if __name__ == "__main__":
     unittest.main()

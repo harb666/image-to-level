@@ -335,9 +335,9 @@
    "emitters": [
     {
      "pos": [
-      33.82,
+      28.06,
       32.28,
-      2.1
+      48.09
      ]
     }
    ],
@@ -386,6 +386,96 @@
       ],
       "energy": 1.0,
       "range": 16.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Dome_Light",
+   "type": "point_light",
+   "category": "light",
+   "glb_contains": "nothing",
+   "godot_runtime": "OmniLight3D per position (no shadows): light_color, light_energy, omni_range",
+   "emitters": [
+    {
+     "pos": [
+      14.0,
+      26.5,
+      -34.0
+     ]
+    },
+    {
+     "pos": [
+      21.9,
+      18.5,
+      -29.69
+     ]
+    },
+    {
+     "pos": [
+      6.29,
+      18.5,
+      -29.36
+     ]
+    },
+    {
+     "pos": [
+      13.89,
+      18.5,
+      -43.0
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "color": [
+       1.0,
+       0.82,
+       0.36
+      ],
+      "energy": 0.8,
+      "range": 12.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "color": [
+       1.0,
+       0.82,
+       0.36
+      ],
+      "energy": 1.3,
+      "range": 34.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "color": [
+       1.0,
+       0.82,
+       0.36
+      ],
+      "energy": 1.3,
+      "range": 34.0
      },
      "cost_estimate": {
       "max_particles": 0,

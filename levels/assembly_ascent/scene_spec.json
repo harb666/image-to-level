@@ -329,6 +329,56 @@
           0.95
         ],
         "notes": "Stage 122: the grinning gear painted on the start deck - cut out, no background tile"
+      },
+      "dome_glass": {
+        "type": "glow",
+        "color": [
+          1.0,
+          0.93,
+          0.72
+        ],
+        "tile_m": 4.0,
+        "res": 32,
+        "alpha": 0.22,
+        "emissive": [
+          0.55,
+          0.45,
+          0.2
+        ],
+        "notes": "Stage 126: the dome's warm-tinted glass"
+      },
+      "dome_sky": {
+        "type": "glow",
+        "color": [
+          1.0,
+          0.88,
+          0.5
+        ],
+        "tile_m": 4.0,
+        "res": 32,
+        "emissive": [
+          1.0,
+          0.84,
+          0.42
+        ],
+        "notes": "Stage 126: soft yellow sky glowing behind the dome"
+      },
+      "sunbeam": {
+        "type": "glow",
+        "color": [
+          1.0,
+          0.86,
+          0.4
+        ],
+        "tile_m": 4.0,
+        "res": 32,
+        "alpha": 0.07,
+        "emissive": [
+          1.0,
+          0.82,
+          0.3
+        ],
+        "notes": "Stage 126: faint light shafts under the dome"
       }
     }
   },
@@ -372,7 +422,21 @@
       "material": "ceiling",
       "pods": 0,
       "lamp_rails": 4,
-      "capsule_role": "glow_yellow"
+      "capsule_role": "glow_yellow",
+      "dome": {
+        "at": [
+          14.0,
+          -34.0
+        ],
+        "radius": 20.0,
+        "rise": 10.0,
+        "ribs": 12,
+        "rings": 8,
+        "collar": 2.5,
+        "shafts": 5,
+        "shaft_tilt": 12.0,
+        "notes": "Stage 126: massive glass dome over the north half (user request) - soft yellow daylight like the fan lights"
+      }
     }
   },
   "atmosphere": {

@@ -728,9 +728,18 @@ def ceiling(ctx, a, W, pre=""):
     if R and (abs(ox - cx) > 0.01 or abs(oz - cz) > 0.01): ctx.notes.append("ceiling opening must be at the arena centre - moved there"); ox, oz = cx, cz
     sk = W.get("skip", []); ex = {s_: (-0.3 if s_ in sk else t + 0.3) for s_ in ("north", "south", "east", "west")}  # a skipped side meets the arena's slab edge
     x0, x1, z0, z1 = cx - w / 2 - ex["west"], cx + w / 2 + ex["east"], cz - d / 2 - ex["north"], cz + d / 2 + ex["south"]
-    ctx.add(pre + "Ceiling_Slab", "box", [(x0 + x1) / 2, y, (z0 + z1) / 2], [x1 - x0, th, z1 - z0], C.get("material", "wall"), **hole, **tag, outline=False)
+    D = C.get("dome")
+    if D and not R:  # Stage 126: a glass dome in the roof, anywhere: the slab is cut into a holed square round it + four strips
+        dx, dz = (float(v) for v in D.get("at", [cx, cz])); Rd = float(D.get("radius", 18.0)); c = Rd + float(D.get("collar", 2.5))
+        if not (x0 + 1 < dx - c and dx + c < x1 - 1 and z0 + 1 < dz - c and dz + c < z1 - 1): raise ValueError("ceiling dome does not fit inside the roof")
+        m_ = C.get("material", "wall")
+        ctx.add(pre + "Ceiling_Slab", "box", [dx, y, dz], [2 * c, th, 2 * c], m_, hole=Rd, hole_res=48, collision_mesh=True, **tag, outline=False)
+        for nm_, a0, a1, b0, b1 in (("W", x0, dx - c, z0, z1), ("E", dx + c, x1, z0, z1), ("N", dx - c, dx + c, z0, dz - c), ("S", dx - c, dx + c, dz + c, z1)):
+            ctx.add(f"{pre}Ceiling_Slab_{nm_}", "box", [(a0 + a1) / 2, y, (b0 + b1) / 2], [a1 - a0, th, b1 - b0], m_, **tag, outline=False)
+        glass_dome(ctx, pre, D, dx, dz, Rd, y, th, tag); R, ox, oz = Rd + 1.6, dx, dz  # the dressing keeps clear of the curb
+    else: ctx.add(pre + "Ceiling_Slab", "box", [(x0 + x1) / 2, y, (z0 + z1) / 2], [x1 - x0, th, z1 - z0], C.get("material", "wall"), **hole, **tag, outline=False)
     if C.get("style") == "varied":  # Stage 18: irregular dressing, built after the platforms (pods keep headroom over decks)
-        ctx.pending_ceilings = getattr(ctx, "pending_ceilings", []) + [dict(pre=pre, cx=cx, cz=cz, w=w, d=d, y=y, R=R or 0.0, ox=ox, oz=oz, C=C, tag=tag)]
+        ctx.pending_ceilings = getattr(ctx, "pending_ceilings", []) + [dict(pre=pre, cx=cx, cz=cz, w=w, d=d, y=y, R=R or 0.0, ox=ox, oz=oz, C=C, tag=tag, dome=bool(D))]
         ctx.ceiling_y = y; ctx.notes.append(f"{pre}ceiling: roof slab at y {y:.1f} m, varied dressing"); return
     step = float(C.get("beam_step", 12.0)); bh = float(C.get("beam_depth", 1.1)); keep = (R or 0) + 0.8
     xs = [cx + k * step for k in range(-int(w / 2 / step), int(w / 2 / step) + 1) if abs(k * step) < w / 2 - 1 and abs(k * step) > keep]
@@ -750,6 +759,48 @@ def ceiling(ctx, a, W, pre=""):
     ctx.ceiling_y = y; ctx.notes.append(f"{pre}ceiling: roof slab at y {y:.1f} m" + (f" with a {R} m opening for the shaft" if R else "") + f", {len(xs) + len(zs)} girders")
 
 
+def glass_dome(ctx, pre, D, dx, dz, R, y, th, tag):
+    """Stage 126 (arena.ceiling "dome": {"at": [x, z], "radius", "rise", "ribs", "rings", "collar"}): a big glass dome
+    over a round hole in the roof slab, the hall's daylight. Built of
+      - a riveted curb ring round the hole (lip 0.4 m inside it, so the cut edge never shows)
+      - the glass: one open shell ("dome_glass": tinted, see-through) on the curb, apex "rise" m up
+      - "ribs" meridian ribs + latitude rings of girder outside the glass, a hub at the top
+      - the sky behind it: a larger glowing shell ("dome_sky", soft warm yellow) - what you see through the glass
+      - "shafts" slanted, faint light shafts ("sunbeam": additive-looking yellow haze) from the glass down to the floor
+      - ctx.dome_lights: warm point lights under it (effect "Dome_Light", the same yellow as the fan lights)
+    Visual only (no colliders); the roof parts are cutaway + mobile group "Ceiling", the shafts their own group."""
+    vis = dict(collision=False, **tag); n = pre + "Dome_"; H = float(D.get("rise", R * 0.5)); yc = y + th + 0.5  # glass springs from the curb top
+    ctx.add(n + "Curb", "cylinder", [dx, y - 0.6, dz], [2 * R + 2.0, th + 1.1, 2 * R + 2.0], "structure_b", hole=R - 0.4, hole_res=48, sections=48, collision=False, **tag)
+    ctx.add(n + "Curb_Trim", "cylinder", [dx, y - 0.75, dz], [2 * R + 0.2, 0.18, 2 * R + 0.2], ctx.role("glow_yellow"), hole=R - 0.5, hole_res=48, sections=48, outline=False, **vis)
+    Rg = R - 0.2
+    ctx.add(n + "Glass", "dome_shell", [dx, yc, dz], [2 * Rg, H, 2 * Rg], ctx.role(D.get("glass", "dome_glass")), sections=32, rings=8, double_sided=True, outline=False, **vis)
+    Rs = R + 4.0; ctx.add(n + "Sky", "dome_shell", [dx, y + th - 0.05, dz], [2 * Rs, H + 7.0, 2 * Rs], ctx.role(D.get("sky", "dome_sky")), sections=24, rings=6, double_sided=True, outline=False, **vis)
+    nr, nk = int(D.get("ribs", 12)), int(D.get("rings", 8)); off = 0.18
+    def P(a, j): phi = math.pi / 2 * j / nk; return (dx + (Rg + off) * math.cos(phi) * math.cos(a), yc + (H + off) * math.sin(phi), dz + (Rg + off) * math.cos(phi) * math.sin(a))
+    def strut(nm, pa, pb, t):
+        ddx, ddy, ddz = pb[0] - pa[0], pb[1] - pa[1], pb[2] - pa[2]; sl = math.sqrt(ddx * ddx + ddy * ddy + ddz * ddz)
+        yaw = math.degrees(math.atan2(ddx, ddz)); pitch = math.degrees(math.asin(max(-1, min(1, ddy / sl))))
+        ctx.add(nm, "box", [(pa[0] + pb[0]) / 2, (pa[1] + pb[1]) / 2 - t / 2, (pa[2] + pb[2]) / 2], [t, t, sl + t * 0.6], "frame", None, [-pitch, yaw, 0], outline=False, **vis)
+    for i in range(nr):  # meridian ribs, springing from the curb up to the hub at the apex
+        a = 2 * math.pi * i / nr
+        for j in range(nk - 1 if i % 2 else nk): strut(f"{n}Rib_{i + 1:02d}_{j + 1}", P(a, j), P(a, j + 1), 0.42)
+    nseg = nr * 2
+    for jr in [j for j in (2, 4, 6) if j < nk - 1]:  # latitude rings
+        for i in range(nseg): strut(f"{n}Ring_{jr}_{i + 1:02d}", P(2 * math.pi * i / nseg, jr), P(2 * math.pi * (i + 1) / nseg, jr), 0.3)
+    ctx.add(n + "Hub", "cylinder", [dx, yc + H - 0.5, dz], [3.0, 1.3, 3.0], "structure_b", sections=12, collision=False, **tag)  # every second rib stops at the last ring (no knot of 12 at the top)
+    for i in range(nr):  # the last ring, where the short ribs end
+        a0, a1 = 2 * math.pi * i / nr, 2 * math.pi * (i + 1) / nr; strut(f"{n}Ring_{nk - 1}_{i + 1:02d}", P(a0, nk - 1), P(a1, nk - 1), 0.3)
+    sh = dict(collision=False, outline=False, double_sided=True, mobile={"group": "Sunbeams"})
+    rng = np.random.default_rng(_h(n + "shafts")); tilt = float(D.get("shaft_tilt", 12.0)); floor_y = getattr(ctx, "floor_y", 0.0) - 0.4
+    for i in range(int(D.get("shafts", 5))):  # light shafts: top just under the glass (inside the hole), leaning with the light
+        a = 2 * math.pi * (i + rng.uniform(-0.2, 0.2)) / max(1, int(D.get("shafts", 5))); rr = R * rng.uniform(0.15, 0.6); r0 = rng.uniform(1.6, 3.2)
+        tx, tz = dx + rr * math.cos(a), dz + rr * math.sin(a); L_ = (y + 0.3 - floor_y) / math.cos(math.radians(tilt))
+        bx, bz = tx, tz + L_ * math.sin(math.radians(tilt))  # the base leans south of the top (light from the north)
+        ctx.add(f"{n}Shaft_{i + 1}", "frustum", [bx, floor_y, bz], [2 * r0, L_, 2 * r0], ctx.role(D.get("shaft", "sunbeam")), None, [-tilt, 0, 0], sections=10, bottom_scale=1.7, **sh)
+    ctx.dome_lights = getattr(ctx, "dome_lights", []) + [[dx, y - 8.0, dz]] + [[round(dx + R * 0.45 * math.cos(a), 2), y - 16.0, round(dz + R * 0.45 * math.sin(a), 2)] for a in (0.5, 2.6, 4.7)]
+    ctx.notes.append(f"{pre}ceiling: glass dome r {R:.0f} m (rise {H:.0f} m) at ({dx:.0f}, {dz:.0f}), {nr} ribs, warm light shafts")
+
+
 def _floor_under(ctx, x, z, r=3.0):
     """Highest walkable surface within r m of (x, z) (platforms, walkways, decks), else the arena floor."""
     ys = [w_["y"] for w_ in ctx.walkable if w_["min"][0] - r <= x <= w_["max"][0] + r and w_["min"][1] - r <= z <= w_["max"][1] + r]
@@ -765,7 +816,7 @@ def dress_ceilings(ctx):
       - sagging cable runs, scattered pairs of red ceiling lights
     Visual only (no colliders), cutaway + mobile group "Ceiling" like the slab."""
     for P in getattr(ctx, "pending_ceilings", []):
-        pre, cx, cz, w, d, y, R, ox, oz, C, tag = (P[k] for k in ("pre", "cx", "cz", "w", "d", "y", "R", "ox", "oz", "C", "tag"))
+        pre, cx, cz, w, d, y, R, ox, oz, C, tag = (P[k] for k in ("pre", "cx", "cz", "w", "d", "y", "R", "ox", "oz", "C", "tag")); dome = P.get("dome", False)
         ctx.element = ((pre[:-1] if pre else "arena") + ".ceiling", C.get("source", "visible"))
         rng = np.random.default_rng(_h("ceiling" + pre + str(C.get("seed", 0)))); vis = dict(collision=False, **tag); n = pre + "Ceil_"
         along_z = d >= w; L, S = (d, w) if along_z else (w, d)  # beams span S (short), stand along L
@@ -832,18 +883,21 @@ def dress_ceilings(ctx):
             for li in range(nl):
                 z = cz - d / 2 + d * (li + 0.5) / nl + rng.uniform(-2, 2)
                 for _ in range(8):  # keep clear of the crane runways and the lift shaft
-                    if all(abs(z - b) > 3.5 for b in busy) and clear_of_shaft(cx, z, 3.0) or not (cz - d / 2 + 4 < z < cz + d / 2 - 4): break
+                    if all(abs(z - b) > 3.5 for b in busy) and (dome or clear_of_shaft(cx, z, 3.0)) or not (cz - d / 2 + 4 < z < cz + d / 2 - 4): break
                     z += 4.0 if z < cz + d / 2 - 8 else -9.0
-                Lr = w - 6; ln = f"{n}LampRail_{li + 1}"
-                ctx.add(ln, "ibeam", [cx, ry, z], [Lr, 0.5, 0.4], "frame", None, **vis)
-                m = max(2, int(round(Lr / 11)))
-                for k in range(m + 1):
-                    hx = cx - Lr / 2 + 0.5 + (Lr - 1.0) * k / m
-                    ctx.add(f"{ln}_Hanger_{k + 1}", "box", [hx, ry + 0.5, z], [0.16, y - ry - 0.5 + 0.08, 0.16], "frame", None, outline=False, **vis)
+                Lr = w - 6; ln = f"{n}LampRail_{li + 1}"; spans_ = [(cx - Lr / 2, cx + Lr / 2)]
+                if dome and abs(z - oz) < R + 3.0:  # Stage 126: a rail crossing the dome stops either side of it
+                    ch = math.sqrt((R + 3.0) ** 2 - (z - oz) ** 2); spans_ = [s_ for s_ in ((cx - Lr / 2, ox - ch), (ox + ch, cx + Lr / 2)) if s_[1] - s_[0] > 4.0]
+                for si, (s0, s1) in enumerate(spans_):
+                    ln_ = ln if si == 0 else ln + "b"; ctx.add(ln_, "ibeam", [(s0 + s1) / 2, ry, z], [s1 - s0, 0.5, 0.4], "frame", None, **vis)
+                    m = max(2, int(round((s1 - s0) / 11)))
+                    for k in range(m + 1):
+                        hx = s0 + 0.5 + (s1 - s0 - 1.0) * k / m
+                        ctx.add(f"{ln_}_Hanger_{k + 1}", "box", [hx, ry + 0.5, z], [0.16, y - ry - 0.5 + 0.08, 0.16], "frame", None, outline=False, **vis)
                 for j in range(per):
                     if placed >= npods: break
                     x = cx - Lr / 2 + 2 + (Lr - 4) * (j + 0.5) / per + rng.uniform(-1.5, 1.5)
-                    if not clear_of_shaft(x, z, 2.5): continue
+                    if not clear_of_shaft(x, z, 2.5) or dome and not any(s0 + 1.5 < x < s1 - 1.5 for s0, s1 in spans_): continue
                     big = rng.random() < 0.2; r = rng.uniform(1.3, 2.0) if big else rng.uniform(0.6, 1.0); h = r * rng.uniform(1.8, 2.4)
                     low = _floor_under(ctx, x, z, r + 2.0) + 4.5 + h; bot = max(low, ry - h - rng.uniform(0.8, 6.0))
                     if bot + h + 0.4 > ry: continue  # too little room under the rail here
@@ -861,6 +915,7 @@ def dress_ceilings(ctx):
             x1, z1 = x0 + math.cos(a) * ln, z0 + math.sin(a) * ln
             if abs(x1 - cx) > w / 2 - 1 or abs(z1 - cz) > d / 2 - 1: continue
             sag = rng.uniform(1.5, 4.5); pts = [(x0 + (x1 - x0) * t, y - 0.6 - sag * 4 * t * (1 - t), z0 + (z1 - z0) * t) for t in np.linspace(0, 1, 5)]
+            if dome and any(not clear_of_shaft(px, pz, 1.0) for px, _, pz in pts): continue  # Stage 126: no cable across the dome
             for j, (pa, pb) in enumerate(zip(pts, pts[1:])):
                 dx, dy, dz = pb[0] - pa[0], pb[1] - pa[1], pb[2] - pa[2]; sl = math.sqrt(dx * dx + dy * dy + dz * dz)
                 yaw = math.degrees(math.atan2(dx, dz)); pitch = math.degrees(math.asin(max(-1, min(1, dy / sl))))
