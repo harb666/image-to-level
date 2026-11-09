@@ -945,6 +945,8 @@ def _atlas_cell(sub, S_w, S_h):
 def k_image_decal(S, rng, c, m):
     """Stage 122: a decal from an RGBA image ("image", repo-relative): colour from it, alpha cut out (pair with
     "cutout": 0.5) - e.g. a floor emblem with no background tile. "glow": emission strength (0 = lit like paint)."""
+    if not m.get("image"):  # nothing to cut out: a plain opaque fill of the colour
+        return dict(alb=np.broadcast_to(c, (S, S, 3)).copy(), h=np.zeros((S, S)), rough=np.full((S, S), 0.5), metal=0.0, emit=np.zeros((S, S)), nstr=0.0, alpha=np.ones((S, S)))
     path = m["image"] if os.path.isabs(m["image"]) else os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), m["image"])
     a = np.asarray(Image.open(path).convert("RGBA").resize((S, S), Image.LANCZOS), float) / 255.0
     return dict(alb=a[..., :3], h=np.zeros((S, S)), rough=np.full((S, S), 0.5), metal=0.0, emit=a[..., 3] * float(m.get("glow", 1.0)), nstr=0.0, alpha=a[..., 3])
