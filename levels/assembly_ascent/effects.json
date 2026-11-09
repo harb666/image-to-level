@@ -12,21 +12,21 @@
  },
  "totals": {
   "performance": {
-   "max_particles": 104,
+   "max_particles": 200,
    "emitters": 14,
-   "extra_draw_calls": 4,
+   "extra_draw_calls": 5,
    "transparent_area_m2": 0
   },
   "balanced": {
-   "max_particles": 387,
+   "max_particles": 651,
    "emitters": 14,
-   "extra_draw_calls": 5,
+   "extra_draw_calls": 6,
    "transparent_area_m2": 13000
   },
   "quality": {
-   "max_particles": 573,
+   "max_particles": 893,
    "emitters": 14,
-   "extra_draw_calls": 6,
+   "extra_draw_calls": 7,
    "transparent_area_m2": 26000
   }
  },
@@ -552,70 +552,158 @@
      "phase": -1.5,
      "still": 3.75,
      "shake": 28.0,
-     "steam_impact": [
-      [
-       6.32,
-       14.3,
-       43.19
+     "jets": {
+      "gland": [
+       [
+        [
+         5.926,
+         27.5,
+         42.236
+        ],
+        [
+         0.363,
+         -0.32,
+         0.875
+        ]
+       ],
+       [
+        [
+         7.236,
+         27.5,
+         39.074
+        ],
+        [
+         0.875,
+         -0.32,
+         -0.363
+        ]
+       ],
+       [
+        [
+         4.074,
+         27.5,
+         37.764
+        ],
+        [
+         -0.363,
+         -0.32,
+         -0.875
+        ]
+       ],
+       [
+        [
+         2.764,
+         27.5,
+         40.926
+        ],
+        [
+         -0.875,
+         -0.32,
+         0.363
+        ]
+       ]
       ],
-      [
-       8.19,
-       14.3,
-       41.32
+      "head": [
+       [
+        [
+         6.385,
+         14.95,
+         43.344
+        ],
+        [
+         0.376,
+         0.18,
+         0.909
+        ]
+       ],
+       [
+        [
+         8.344,
+         14.95,
+         38.615
+        ],
+        [
+         0.909,
+         0.18,
+         -0.376
+        ]
+       ],
+       [
+        [
+         3.615,
+         14.95,
+         36.656
+        ],
+        [
+         -0.376,
+         0.18,
+         -0.909
+        ]
+       ],
+       [
+        [
+         1.656,
+         14.95,
+         41.385
+        ],
+        [
+         -0.909,
+         0.18,
+         0.376
+        ]
+       ]
       ],
-      [
-       8.19,
-       14.3,
-       38.68
-      ],
-      [
-       6.32,
-       14.3,
-       36.81
-      ],
-      [
-       3.68,
-       14.3,
-       36.81
-      ],
-      [
-       1.81,
-       14.3,
-       38.68
-      ],
-      [
-       1.81,
-       14.3,
-       41.32
-      ],
-      [
-       3.68,
-       14.3,
-       43.19
+      "crown": [
+       [
+        [
+         7.772,
+         30.6,
+         41.148
+        ],
+        [
+         0.439,
+         -0.88,
+         0.182
+        ]
+       ],
+       [
+        [
+         6.148,
+         30.6,
+         37.228
+        ],
+        [
+         0.182,
+         -0.88,
+         -0.439
+        ]
+       ],
+       [
+        [
+         2.228,
+         30.6,
+         38.852
+        ],
+        [
+         -0.439,
+         -0.88,
+         -0.182
+        ]
+       ],
+       [
+        [
+         3.852,
+         30.6,
+         42.772
+        ],
+        [
+         -0.182,
+         -0.88,
+         0.439
+        ]
+       ]
       ]
-     ],
-     "steam_release": [
-      [
-       6.52,
-       27.15,
-       41.52
-      ],
-      [
-       6.52,
-       27.15,
-       38.48
-      ],
-      [
-       3.48,
-       27.15,
-       38.48
-      ],
-      [
-       3.48,
-       27.15,
-       41.52
-      ]
-     ],
+     },
      "note": "press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; camera shake within 'shake' m on impact"
     },
     "arms": [
@@ -663,74 +751,66 @@
    }
   },
   {
-   "id": "Spinner_ImpactSteam",
-   "type": "steam_burst",
+   "id": "Spinner_GlandJets",
+   "type": "steam_jet",
    "category": "particles",
    "glb_contains": "nothing",
-   "godot_runtime": "CPUParticles3D, ONE system over every vent point (emission points), one_shot re-triggered at the 'sync' cycle times (u = (t + phase) mod period crossing each 'at'), growing soft puffs",
+   "godot_runtime": "CPUParticles3D, ONE system over every nozzle (EMISSION_SHAPE_DIRECTED_POINTS: each jet along its 'dir'), one_shot re-triggered at the 'sync' cycle times, emitting over 'emit_time' s; fast narrow streams slowed by 'damping' (m/s^2) that billow out",
    "sync": {
     "period": 9.5,
     "phase": -1.5,
     "at": [
      0.35,
-     0.85
+     2.75
     ]
    },
    "emitters": [
     {
      "pos": [
-      6.32,
-      14.3,
-      43.19
+      5.926,
+      27.5,
+      42.236
+     ],
+     "dir": [
+      0.363,
+      -0.32,
+      0.875
      ]
     },
     {
      "pos": [
-      8.19,
-      14.3,
-      41.32
+      7.236,
+      27.5,
+      39.074
+     ],
+     "dir": [
+      0.875,
+      -0.32,
+      -0.363
      ]
     },
     {
      "pos": [
-      8.19,
-      14.3,
-      38.68
+      4.074,
+      27.5,
+      37.764
+     ],
+     "dir": [
+      -0.363,
+      -0.32,
+      -0.875
      ]
     },
     {
      "pos": [
-      6.32,
-      14.3,
-      36.81
-     ]
-    },
-    {
-     "pos": [
-      3.68,
-      14.3,
-      36.81
-     ]
-    },
-    {
-     "pos": [
-      1.81,
-      14.3,
-      38.68
-     ]
-    },
-    {
-     "pos": [
-      1.81,
-      14.3,
-      41.32
-     ]
-    },
-    {
-     "pos": [
-      3.68,
-      14.3,
-      43.19
+      2.764,
+      27.5,
+      40.926
+     ],
+     "dir": [
+      -0.875,
+      -0.32,
+      0.363
      ]
     }
    ],
@@ -738,105 +818,111 @@
     "performance": {
      "enabled": true,
      "params": {
-      "burst": 4,
+      "burst": 13,
       "interval": [
        9.5,
        9.5
       ],
-      "lifetime": 2.2,
+      "lifetime": 1.25,
+      "emit_time": 0.5,
       "speed": [
-       2.5,
-       5.0
+       9.0,
+       12.5
       ],
-      "gravity": 0.8,
+      "damping": 8.0,
+      "gravity": 0.9,
       "size": [
-       0.9,
-       4.5
+       0.25,
+       3.0
       ],
-      "alpha": 0.6,
+      "alpha": 0.85,
       "color": [
-       0.93,
-       0.91,
-       0.97
+       0.95,
+       0.95,
+       1.0
       ],
       "texture": "puff",
       "blend": "alpha",
-      "spread": 70,
-      "radius": 0.4
+      "spread": 6,
+      "radius": 0.0
      },
      "cost_estimate": {
-      "max_particles": 32,
-      "emitters": 8,
+      "max_particles": 52,
+      "emitters": 4,
       "extra_draw_calls": 1
      }
     },
     "balanced": {
      "enabled": true,
      "params": {
-      "burst": 7,
+      "burst": 32,
       "interval": [
        9.5,
        9.5
       ],
-      "lifetime": 2.2,
+      "lifetime": 1.25,
+      "emit_time": 0.5,
       "speed": [
-       2.5,
-       5.0
+       9.0,
+       12.5
       ],
-      "gravity": 0.8,
+      "damping": 8.0,
+      "gravity": 0.9,
       "size": [
-       0.9,
-       4.5
+       0.25,
+       3.0
       ],
-      "alpha": 0.6,
+      "alpha": 0.85,
       "color": [
-       0.93,
-       0.91,
-       0.97
+       0.95,
+       0.95,
+       1.0
       ],
       "texture": "puff",
       "blend": "alpha",
-      "spread": 70,
-      "radius": 0.4
+      "spread": 6,
+      "radius": 0.0
      },
      "cost_estimate": {
-      "max_particles": 56,
-      "emitters": 8,
+      "max_particles": 128,
+      "emitters": 4,
       "extra_draw_calls": 1
      }
     },
     "quality": {
      "enabled": true,
      "params": {
-      "burst": 8,
+      "burst": 38,
       "interval": [
        9.5,
        9.5
       ],
-      "lifetime": 2.2,
+      "lifetime": 1.25,
+      "emit_time": 0.5,
       "speed": [
-       2.5,
-       5.0
+       9.0,
+       12.5
       ],
-      "gravity": 0.8,
+      "damping": 8.0,
+      "gravity": 0.9,
       "size": [
-       0.9,
-       4.5
+       0.25,
+       3.0
       ],
-      "alpha": 0.6,
+      "alpha": 0.85,
       "color": [
-       0.93,
-       0.91,
-       0.97
+       0.95,
+       0.95,
+       1.0
       ],
       "texture": "puff",
       "blend": "alpha",
-      "spread": 70,
-      "radius": 0.4
+      "spread": 6,
+      "radius": 0.0
      },
      "cost_estimate": {
-      "max_particles": 64,
-      "emitters": 8,
+      "max_particles": 152,
+      "emitters": 4,
       "extra_draw_calls": 1
      }
     }
@@ -844,11 +930,189 @@
    "merge_emitters": true
   },
   {
-   "id": "Spinner_ReleaseSteam",
-   "type": "steam_burst",
+   "id": "Spinner_HeadJets",
+   "type": "steam_jet",
    "category": "particles",
    "glb_contains": "nothing",
-   "godot_runtime": "CPUParticles3D, ONE system over every vent point (emission points), one_shot re-triggered at the 'sync' cycle times (u = (t + phase) mod period crossing each 'at'), growing soft puffs",
+   "godot_runtime": "CPUParticles3D, ONE system over every nozzle (EMISSION_SHAPE_DIRECTED_POINTS: each jet along its 'dir'), one_shot re-triggered at the 'sync' cycle times, emitting over 'emit_time' s; fast narrow streams slowed by 'damping' (m/s^2) that billow out",
+   "sync": {
+    "period": 9.5,
+    "phase": -1.5,
+    "at": [
+     0.35
+    ]
+   },
+   "emitters": [
+    {
+     "pos": [
+      6.385,
+      14.95,
+      43.344
+     ],
+     "dir": [
+      0.376,
+      0.18,
+      0.909
+     ]
+    },
+    {
+     "pos": [
+      8.344,
+      14.95,
+      38.615
+     ],
+     "dir": [
+      0.909,
+      0.18,
+      -0.376
+     ]
+    },
+    {
+     "pos": [
+      3.615,
+      14.95,
+      36.656
+     ],
+     "dir": [
+      -0.376,
+      0.18,
+      -0.909
+     ]
+    },
+    {
+     "pos": [
+      1.656,
+      14.95,
+      41.385
+     ],
+     "dir": [
+      -0.909,
+      0.18,
+      0.376
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "burst": 10,
+      "interval": [
+       9.5,
+       9.5
+      ],
+      "lifetime": 1.25,
+      "emit_time": 0.35,
+      "speed": [
+       7.0,
+       10.0
+      ],
+      "damping": 8.0,
+      "gravity": 0.9,
+      "size": [
+       0.25,
+       3.0
+      ],
+      "alpha": 0.85,
+      "color": [
+       0.95,
+       0.95,
+       1.0
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 6,
+      "radius": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 40,
+      "emitters": 4,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "burst": 24,
+      "interval": [
+       9.5,
+       9.5
+      ],
+      "lifetime": 1.25,
+      "emit_time": 0.35,
+      "speed": [
+       7.0,
+       10.0
+      ],
+      "damping": 8.0,
+      "gravity": 0.9,
+      "size": [
+       0.25,
+       3.0
+      ],
+      "alpha": 0.85,
+      "color": [
+       0.95,
+       0.95,
+       1.0
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 6,
+      "radius": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 96,
+      "emitters": 4,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "burst": 29,
+      "interval": [
+       9.5,
+       9.5
+      ],
+      "lifetime": 1.25,
+      "emit_time": 0.35,
+      "speed": [
+       7.0,
+       10.0
+      ],
+      "damping": 8.0,
+      "gravity": 0.9,
+      "size": [
+       0.25,
+       3.0
+      ],
+      "alpha": 0.85,
+      "color": [
+       0.95,
+       0.95,
+       1.0
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 6,
+      "radius": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 116,
+      "emitters": 4,
+      "extra_draw_calls": 1
+     }
+    }
+   },
+   "merge_emitters": true
+  },
+  {
+   "id": "Spinner_CrownJets",
+   "type": "steam_jet",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D, ONE system over every nozzle (EMISSION_SHAPE_DIRECTED_POINTS: each jet along its 'dir'), one_shot re-triggered at the 'sync' cycle times, emitting over 'emit_time' s; fast narrow streams slowed by 'damping' (m/s^2) that billow out",
    "sync": {
     "period": 9.5,
     "phase": -1.5,
@@ -859,30 +1123,50 @@
    "emitters": [
     {
      "pos": [
-      6.52,
-      27.15,
-      41.52
+      7.772,
+      30.6,
+      41.148
+     ],
+     "dir": [
+      0.439,
+      -0.88,
+      0.182
      ]
     },
     {
      "pos": [
-      6.52,
-      27.15,
-      38.48
+      6.148,
+      30.6,
+      37.228
+     ],
+     "dir": [
+      0.182,
+      -0.88,
+      -0.439
      ]
     },
     {
      "pos": [
-      3.48,
-      27.15,
-      38.48
+      2.228,
+      30.6,
+      38.852
+     ],
+     "dir": [
+      -0.439,
+      -0.88,
+      -0.182
      ]
     },
     {
      "pos": [
-      3.48,
-      27.15,
-      41.52
+      3.852,
+      30.6,
+      42.772
+     ],
+     "dir": [
+      -0.182,
+      -0.88,
+      0.439
      ]
     }
    ],
@@ -890,34 +1174,36 @@
     "performance": {
      "enabled": true,
      "params": {
-      "burst": 5,
+      "burst": 14,
       "interval": [
        9.5,
        9.5
       ],
-      "lifetime": 2.6,
+      "lifetime": 1.4,
+      "emit_time": 0.9,
       "speed": [
-       1.5,
+       6.0,
+       9.0
+      ],
+      "damping": 8.0,
+      "gravity": 0.9,
+      "size": [
+       0.25,
        3.0
       ],
-      "gravity": 0.5,
-      "size": [
-       0.9,
-       4.5
-      ],
-      "alpha": 0.6,
+      "alpha": 0.85,
       "color": [
-       0.93,
-       0.91,
-       0.97
+       0.95,
+       0.95,
+       1.0
       ],
       "texture": "puff",
       "blend": "alpha",
-      "spread": 40,
-      "radius": 0.4
+      "spread": 6,
+      "radius": 0.0
      },
      "cost_estimate": {
-      "max_particles": 20,
+      "max_particles": 56,
       "emitters": 4,
       "extra_draw_calls": 1
      }
@@ -925,34 +1211,36 @@
     "balanced": {
      "enabled": true,
      "params": {
-      "burst": 12,
+      "burst": 36,
       "interval": [
        9.5,
        9.5
       ],
-      "lifetime": 2.6,
+      "lifetime": 1.4,
+      "emit_time": 0.9,
       "speed": [
-       1.5,
+       6.0,
+       9.0
+      ],
+      "damping": 8.0,
+      "gravity": 0.9,
+      "size": [
+       0.25,
        3.0
       ],
-      "gravity": 0.5,
-      "size": [
-       0.9,
-       4.5
-      ],
-      "alpha": 0.6,
+      "alpha": 0.85,
       "color": [
-       0.93,
-       0.91,
-       0.97
+       0.95,
+       0.95,
+       1.0
       ],
       "texture": "puff",
       "blend": "alpha",
-      "spread": 40,
-      "radius": 0.4
+      "spread": 6,
+      "radius": 0.0
      },
      "cost_estimate": {
-      "max_particles": 48,
+      "max_particles": 144,
       "emitters": 4,
       "extra_draw_calls": 1
      }
@@ -960,34 +1248,36 @@
     "quality": {
      "enabled": true,
      "params": {
-      "burst": 14,
+      "burst": 43,
       "interval": [
        9.5,
        9.5
       ],
-      "lifetime": 2.6,
+      "lifetime": 1.4,
+      "emit_time": 0.9,
       "speed": [
-       1.5,
+       6.0,
+       9.0
+      ],
+      "damping": 8.0,
+      "gravity": 0.9,
+      "size": [
+       0.25,
        3.0
       ],
-      "gravity": 0.5,
-      "size": [
-       0.9,
-       4.5
-      ],
-      "alpha": 0.6,
+      "alpha": 0.85,
       "color": [
-       0.93,
-       0.91,
-       0.97
+       0.95,
+       0.95,
+       1.0
       ],
       "texture": "puff",
       "blend": "alpha",
-      "spread": 40,
-      "radius": 0.4
+      "spread": 6,
+      "radius": 0.0
      },
      "cost_estimate": {
-      "max_particles": 56,
+      "max_particles": 172,
       "emitters": 4,
       "extra_draw_calls": 1
      }

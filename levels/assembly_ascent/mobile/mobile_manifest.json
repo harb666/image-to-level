@@ -41,22 +41,22 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 3012,
-    "triangles": 47281,
-    "nodes": 1931,
-    "mesh_nodes": 1899,
-    "unique_meshes": 792,
-    "materials": 31,
-    "images": 83,
-    "draw_calls_unbatched": 1899,
-    "draw_calls_batched_min": 31,
-    "tex_mem_uncompressed_mb": 72.84,
-    "tex_mem_gpu_compressed_mb": 18.21,
+    "glb_kb": 3132,
+    "triangles": 47617,
+    "nodes": 1947,
+    "mesh_nodes": 1915,
+    "unique_meshes": 796,
+    "materials": 32,
+    "images": 86,
+    "draw_calls_unbatched": 1915,
+    "draw_calls_batched_min": 32,
+    "tex_mem_uncompressed_mb": 88.84,
+    "tex_mem_gpu_compressed_mb": 22.21,
     "texture_slots": {
-     "baseColorTexture": 28,
-     "metallicRoughnessTexture": 28,
-     "normalTexture": 26,
-     "occlusionTexture": 28,
+     "baseColorTexture": 29,
+     "metallicRoughnessTexture": 29,
+     "normalTexture": 27,
+     "occlusionTexture": 29,
      "emissiveTexture": 14
     },
     "image_sizes": [
@@ -71,27 +71,27 @@
    },
    "visible": {
     "cameras": 80,
-    "visible_draw_calls_mean": 624.9,
-    "visible_draw_calls_max": 1893,
-    "visible_triangles_mean": 27327,
-    "visible_triangles_max": 57937
+    "visible_draw_calls_mean": 628.7,
+    "visible_draw_calls_max": 1909,
+    "visible_triangles_mean": 27406,
+    "visible_triangles_max": 58273
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 1649,
-    "triangles": 45399,
-    "nodes": 88,
-    "mesh_nodes": 87,
-    "unique_meshes": 87,
-    "materials": 31,
-    "images": 53,
-    "draw_calls_unbatched": 87,
-    "draw_calls_batched_min": 31,
-    "tex_mem_uncompressed_mb": 29.59,
-    "tex_mem_gpu_compressed_mb": 7.4,
+    "glb_kb": 1672,
+    "triangles": 45735,
+    "nodes": 89,
+    "mesh_nodes": 88,
+    "unique_meshes": 88,
+    "materials": 32,
+    "images": 54,
+    "draw_calls_unbatched": 88,
+    "draw_calls_batched_min": 32,
+    "tex_mem_uncompressed_mb": 30.92,
+    "tex_mem_gpu_compressed_mb": 7.73,
     "texture_slots": {
-     "baseColorTexture": 28,
+     "baseColorTexture": 29,
      "metallicRoughnessTexture": 10,
      "normalTexture": 8,
      "occlusionTexture": 10,
@@ -136,22 +136,22 @@
    },
    "visible": {
     "cameras": 80,
-    "visible_draw_calls_mean": 53.5,
-    "visible_draw_calls_max": 90,
-    "visible_triangles_mean": 47602,
-    "visible_triangles_max": 56211
+    "visible_draw_calls_mean": 54.0,
+    "visible_draw_calls_max": 91,
+    "visible_triangles_mean": 47844,
+    "visible_triangles_max": 56547
    },
    "hidden_faces_removed": 887,
    "occluded_faces_removed": 995,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate"
    ],
-   "effects_extra_draw_calls": 5,
-   "effects_max_particles": 387,
+   "effects_extra_draw_calls": 6,
+   "effects_max_particles": 651,
    "slimmed_kb": {
     "level_mobile.glb": [
-     2563,
-     1649
+     2620,
+     1672
     ],
     "background_mobile.glb": [
      477,
@@ -1406,10 +1406,14 @@
    "node": "Spinner_Ram__machine",
    "kind": "group",
    "material": "machine",
-   "triangles": 316,
+   "triangles": 412,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Spinner_HeadNozzle_4",
+    "Spinner_HeadNozzle_3",
+    "Spinner_HeadNozzle_2",
+    "Spinner_HeadNozzle_1",
     "Spinner_Sleeve_4",
     "Spinner_Sleeve_3",
     "Spinner_Sleeve_2",
@@ -1678,7 +1682,7 @@
    "node": "M_deck_0_0",
    "kind": "static",
    "material": "deck",
-   "triangles": 579,
+   "triangles": 547,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -1702,12 +1706,22 @@
     "Exit_Stairs_Junction_Hi",
     "Yard_Bridge_Junction_Lo",
     "Yard_Bridge_Junction_Hi",
-    "Spinner_Deck_Floor",
     "Exit_Deck_Floor",
     "Upper_Deck_Floor",
     "Belt_Landing_Floor",
     "Robot_Ring_Floor",
     "Start_Deck_Floor"
+   ]
+  },
+  {
+   "node": "M_deck_scraped_0_0",
+   "kind": "static",
+   "material": "deck_scraped",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Spinner_Deck_Floor"
    ]
   },
   {
@@ -2358,7 +2372,7 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 3177,
+   "triangles": 3225,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2375,6 +2389,10 @@
     "Spinner_Pad_3_Thruster",
     "Spinner_Pad_2_Thruster",
     "Spinner_Pad_1_Thruster",
+    "Spinner_GlandValve_4",
+    "Spinner_GlandValve_3",
+    "Spinner_GlandValve_2",
+    "Spinner_GlandValve_1",
     "Spinner_GuideStop_4",
     "Spinner_GuideStop_3",
     "Spinner_GuideStop_2",
@@ -2453,13 +2471,21 @@
    "node": "M_pipe_0_0",
    "kind": "static",
    "material": "pipe",
-   "triangles": 1240,
+   "triangles": 1432,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Run_North_High_Seg_01",
     "Riser_East_2_Seg_01",
     "Riser_East_1_Seg_01",
+    "Spinner_CrownVent_4",
+    "Spinner_GlandNozzle_4",
+    "Spinner_CrownVent_3",
+    "Spinner_GlandNozzle_3",
+    "Spinner_CrownVent_2",
+    "Spinner_GlandNozzle_2",
+    "Spinner_CrownVent_1",
+    "Spinner_GlandNozzle_1",
     "Spinner_Guide_4",
     "Spinner_Guide_3",
     "Spinner_Guide_2",

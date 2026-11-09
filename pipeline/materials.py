@@ -957,6 +957,37 @@ def k_screen_atlas(S, rng, c, m):
         out[k_] = np.asarray(Image.fromarray((np.clip(d["alb"], 0, 1) * 255).astype(np.uint8)).resize((S // 2, S), Image.BILINEAR), float) / 255.0
     return dict(alb=np.concatenate([out["left"], out["right"]], 1), h=np.zeros((S, S)), rough=np.full((S, S), 0.45), metal=0.0, emit=np.ones((S, S)), nstr=0.0)
 
+def k_scrape_rings(S, rng, c, m):
+    """Stage 105: a plain (untextured) deck scored by things sweeping round it - concentric scrape marks centred on the
+    UV origin (pair with tile_m = the deck's width: a cylinder top's UVs are local metres / tile_m from its axis, so
+    the rings centre on the deck). "rings": [[r_in, r_out, strength], ...] in metres - bands of arcs of bare, polished
+    metal (dense and bright where strength ~1: the path of the mace heads), each scratch an arc of random length."""
+    T = float(m.get("tile_m", 22.0)); y, x = np.mgrid[:S, :S] / S; x = (x + 0.5) % 1 - 0.5; y = (y + 0.5) % 1 - 0.5  # centred on the corners -> UV 0
+    r = np.hypot(x, y) * T; th = np.arctan2(y, x); mott = _noise(rng, 3, 3, S); fine = _noise(rng, 48, 2, S)
+    base = c[None, None] * (0.93 + 0.1 * mott)[..., None]
+    NB = 8192; rb = np.clip((r / (T * 0.75) * NB).astype(int), 0, NB - 1); bins = np.arange(NB) * T * 0.75 / NB
+    lid = np.full(NB, -1); A0 = []; AL = []; LV = []; px = T / S
+    k = 0
+    for r0, r1, s in m.get("rings", []):
+        n = int((r1 - r0) / px * 0.55 * s) + 4
+        for rr in rng.uniform(r0, r1, n):
+            w = px * rng.uniform(0.6, 1.8 + 1.6 * s); sel = np.abs(bins - rr) < w / 2; free = sel & (lid < 0)
+            if not free.any(): continue
+            lid[free] = k; A0.append(rng.uniform(0, 2 * np.pi)); AL.append(rng.uniform(0.6, 2 * np.pi) if rng.random() < 0.35 + 0.5 * s else rng.uniform(0.15, 1.4)); LV.append(rng.uniform(0.35, 1.0) * (0.55 + 0.45 * s) * (-0.8 if rng.random() < 0.3 else 1.0)); k += 1  # ~30 % dark gouges
+    A0, AL, LV = np.array(A0 + [0]), np.array(AL + [0]), np.array(LV + [0]); L_ = lid[rb]
+    on = (L_ >= 0) & (((th - A0[L_]) % (2 * np.pi)) < AL[L_]); sc = np.where(on, LV[L_], 0.0) * (0.75 + 0.25 * fine)
+    pol = np.zeros_like(r)  # polished band under each ring (soft), strongest where strength ~1
+    for r0, r1, s in m.get("rings", []):
+        mid, hw = (r0 + r1) / 2, (r1 - r0) / 2; pol = np.maximum(pol, s * np.clip(1 - np.abs(r - mid) / hw, 0, 1) ** 1.5)
+    bare = np.array(m.get("bare", [0.62, 0.6, 0.66]))
+    alb = base + (bare[None, None] * 0.6 - base) * (0.5 * pol)[..., None]
+    alb = alb + (bare[None, None] * (0.85 + 0.15 * fine[..., None]) - alb) * np.clip(sc, 0, 1)[..., None]
+    alb = alb * (1 - 0.6 * np.clip(-sc, 0, 1))[..., None]  # gouges: dark grooves
+    grime = np.clip(_noise(rng, 10, 2, S) - 0.55, 0, 1) * 1.6 * (1 - pol); alb = alb * (1 - 0.35 * grime)[..., None]
+    g = np.abs(sc)
+    return dict(alb=np.clip(alb, 0, 1), h=0.5 - 0.3 * g + 0.02 * mott, rough=0.62 - 0.25 * pol - 0.2 * np.clip(sc, 0, 1) + 0.15 * grime, metal=0.1 + 0.6 * np.clip(np.clip(sc, 0, 1) + 0.4 * pol, 0, 1), nstr=0.7)
+
+
 PBR = {k[2:]: f for k, f in globals().items() if k.startswith("k_")}
 
 

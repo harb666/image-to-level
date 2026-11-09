@@ -1,18 +1,18 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 1752 objects · 31 materials · 19 effects
+Spec: levels/assembly_ascent/scene_spec.json · 1768 objects · 32 materials · 20 effects
 Checks: PASSED ({'error': 0, 'warning': 5, 'info': 1}) · refine passes: 0
-Mobile (balanced): 1649 KB · 45399 tris · 87 draw calls · ~53.5 visible (estimate) · ~7.4 MB GPU textures (estimate)
+Mobile (balanced): 1672 KB · 45735 tris · 88 draw calls · ~54.0 visible (estimate) · ~7.73 MB GPU textures (estimate)
 Navigation: 3240.0 m² reachable of 19147.0 m² standable
-Package: dist/assembly_ascent/package (38 files, 7.23 MB) valid=True
+Package: dist/assembly_ascent/package (38 files, 7.4 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- warning: mobile draw calls 87 (> 80)
+- warning: mobile draw calls 88 (> 80)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- warning: 47281 triangles (> budget 40000)
+- warning: 47617 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -38,9 +38,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - corrosion: 563 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 1.2 s
-- build (glb, sky, background, effects, mobile): 25.6 s
-- checks (fast): 32.0 s
+- spec -> level.json: 1.5 s
+- build (glb, sky, background, effects, mobile): 27.4 s
+- checks (fast): 31.7 s
 - previews: 0.4 s
-- export package: 0.4 s
-- total: 59.7 s
+- export package: 0.3 s
+- total: 61.2 s

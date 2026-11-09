@@ -171,6 +171,9 @@ def spinner(ctx, s, x, y, z, yaw):
     "sweepers": the runtimes turn the rotor and kill whoever a bar or a ball hits (effect "sweeper")."""
     n = s["id"]; R = float(s.get("radius", 11.0)); T = y; st = dict(mobile={"static": True}); vs = dict(collision=False, outline=False, **st)
     gl = ctx.role("glow"); stripe = ctx.role("stripe"); W = _W(x, 0, z, yaw)
+    if s.get("floor") and s.get("floor_material"):  # Stage 105: the deck the maces sweep gets its own (scraped) surface
+        for o in ctx.objects:
+            if o["name"] == s["floor"] + "_Floor": o["material"] = ctx.role(s["floor_material"])
     # --- tower (static)
     ctx.add(n + "_HubBase", "cylinder", [x, T, z], [3.9, 1.0, 3.9], "machine", sections=12, **st)
     ctx.add(n + "_HubRing", "cylinder", [x, T + 0.62, z], [4.0, 0.22, 4.0], gl, sections=12, **vs)
@@ -307,12 +310,24 @@ def _press(ctx, n, x, T, z, yaw, pr, gl, stripe):
     P_, sl, ho, ri = float(pr.get("period", 9.5)), float(pr.get("slam", 0.35)), float(pr.get("hold", 2.4)), float(pr.get("rise", 1.8))
     su, sd, turns = float(pr.get("spin_up", 0.35)), float(pr.get("spin_down", 3.0)), float(pr.get("turns", 4))
     w = 360.0 * turns / (ho - su / 2 + sd / 2)
-    hb = C - 14.9 - travel  # the head's underside when pressed
-    imp = [[round(v, 2) for v in _W(x, 0, z, yaw + 22.5 + 45 * k)(0, hb + 0.25, 3.45)] for k in range(8)]  # round the pressed head
-    rel = [[round(v, 2) for v in _W(x, 0, z, yaw + 45 + 90 * k)(0, C - 7.35, 2.15)] for k in range(4)]  # out of the gland as it lets go
+    # Stage 105: steam nozzles - jets of steam shoot out of them (level.json drive.jets: [[pos, dir], ...] per set)
+    def jet(a, r, y, dy):  # nozzle tip at radius r, height y on bearing a; direction outward, tipped dy
+        P0 = _W(x, 0, z, a); p_ = P0(0, y, r); h = math.sqrt(max(0.0, 1 - dy * dy)); q = P0(0, 0, 1.0); o = P0(0, 0, 0.0)
+        return [[round(v, 3) for v in p_], [round((q[0] - o[0]) * h, 3), round(dy, 3), round((q[2] - o[2]) * h, 3)]]
+    gland, head, crown = [], [], []
+    for k in range(4):
+        a = yaw + 22.5 + 90 * k; P0 = _W(x, 0, z, a)
+        ctx.add(f"{n}_GlandNozzle_{k + 1}", "cylinder", P0(0, C - 7.0, 1.9), [0.28, 0.5, 0.28], "pipe", rot=[90, a, 0], sections=6, **vs)
+        ctx.add(f"{n}_GlandValve_{k + 1}", "box", P0(0, C - 7.18, 2.12), [0.42, 0.36, 0.3], "machine", rot=[0, a, 0], **vs)
+        gland.append(jet(a, 2.42, C - 7.0, -0.32))
+        ctx.add(f"{n}_HeadNozzle_{k + 1}", "cylinder", P0(0, C - 14.0, 3.0), [0.3, 0.6, 0.3], "machine", rot=[90, a, 0], sections=6, **mr)
+        head.append(jet(a, 3.62, C - 14.0 - travel, 0.18))
+        a2 = yaw + 67.5 + 90 * k; P2 = _W(x, 0, z, a2)
+        ctx.add(f"{n}_CrownVent_{k + 1}", "cylinder", P2(0, C - 3.85, 3.0), [0.34, 0.55, 0.34], "pipe", sections=6, **vs)
+        crown.append(jet(a2, 3.0, C - 3.9, -0.88))
     return dict(press=gr_, stages=[{"group": gm, "frac": 0.5}, {"group": gr_, "frac": 1.0}], lamps=f"{gr_}__{gl}", travel=travel, period=P_, slam=sl, hold=ho, rise=ri,
                 spin_up=su, spin_down=sd, turns=turns, peak=round(w, 3), peak_rpm=round(w / 6.0, 2), warn=float(pr.get("warn", 1.2)), phase=float(pr.get("phase", 0.0)),
-                still=round(P_ - sl - ho - sd, 2), shake=float(pr.get("shake", 28.0)), steam_impact=imp, steam_release=rel,
+                still=round(P_ - sl - ho - sd, 2), shake=float(pr.get("shake", 28.0)), jets=dict(gland=gland, head=head, crown=crown),
                 note="press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; "
                      "rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; "
                      "camera shake within 'shake' m on impact")

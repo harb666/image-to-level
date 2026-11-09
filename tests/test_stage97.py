@@ -104,7 +104,14 @@ class SpinnerDeck(unittest.TestCase):
         self.assertGreater(min(math.hypot(o["position"][0] - c[0], o["position"][2] - c[2]) - 0.33 for o in posts), sw["r1"] + sw["ball_r"] + 0.1)  # the maces clear the lamp posts
         self.assertEqual(by["Spinner_Skirt"]["material"], "arm_yellow"); self.assertNotEqual(by["Spinner_CrownBand"]["material"], "stripe")  # painted, not chevrons
         FX = {e["id"]: e for e in _load("effects.json")["effects"]}
-        for n in ("Spinner_ImpactSteam", "Spinner_ReleaseSteam"): self.assertEqual(FX[n]["type"], "steam_burst"); self.assertEqual(FX[n]["sync"]["period"], sw["drive"]["period"]); self.assertTrue(FX[n]["emitters"])
+        for n in ("Spinner_GlandJets", "Spinner_HeadJets", "Spinner_CrownJets"):  # Stage 105: jets out of nozzles on the press, synced to its cycle
+            self.assertEqual(FX[n]["type"], "steam_jet"); self.assertEqual(FX[n]["sync"]["period"], sw["drive"]["period"]); self.assertEqual(len(FX[n]["emitters"]), 4)
+            for e in FX[n]["emitters"]: self.assertAlmostEqual(math.hypot(*e["dir"]), 1.0, places=2)
+        self.assertEqual(FX["Spinner_HeadJets"]["sync"]["at"], [sw["drive"]["slam"]]); self.assertTrue(all(n in by for n in ("Spinner_GlandNozzle_1", "Spinner_HeadNozzle_1", "Spinner_CrownVent_1")))
+        self.assertEqual(by["Spinner_HeadNozzle_1"]["mobile"]["group"], sw["drive"]["press"])
+        self.assertEqual(by["Spinner_Deck_Floor"]["material"], "deck_scraped"); M = L["materials"]["deck_scraped"]  # Stage 105: plain deck scored by the maces
+        self.assertEqual(M["type"], "scrape_rings"); self.assertAlmostEqual(M["tile_m"], by["Spinner_Deck_Floor"]["size"][0], places=3)
+        self.assertTrue(any(r0 <= sw["r1"] <= r1 and s_ >= 0.9 for r0, r1, s_ in M["rings"]))  # the heaviest wear is under the mace heads
         D = sw["drive"]  # Stage 103: a ceiling press drives it - slam, fast spin, coast to a stop, a still gap to cross
         sys.path.insert(0, os.path.join(ROOT, "pipeline")); from modules.assembly import press_profile
         P = D["period"]; self.assertGreaterEqual(D["still"], 3.0); self.assertGreater(D["peak_rpm"], 30)
@@ -130,7 +137,7 @@ class SpinnerDeck(unittest.TestCase):
         with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: gd = f.read()
         self.assertIn("func _sweeper", gd); self.assertIn("static func press_profile", gd)
         with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()
-        self.assertIn("window.camShake", v); self.assertIn("isBurst&&fx.sync", v); self.assertIn('if b.size() > 4:  # Stage 104: synced vents', gd)
+        self.assertIn("window.camShake", v); self.assertIn("isBurst&&fx.sync", v); self.assertIn("p.damping", v); self.assertIn("EMISSION_SHAPE_DIRECTED_POINTS", gd); self.assertIn('if b.size() > 4:  # Stage 104: synced vents', gd)
 
 
 if __name__ == "__main__":

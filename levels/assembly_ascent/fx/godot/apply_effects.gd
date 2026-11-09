@@ -930,9 +930,12 @@ func _particles(fx: Dictionary, p: Dictionary) -> void:
 	if fx.get("merge_emitters", false) and spots.size() > 1:
 		# one draw call for the whole effect: a single system emitting from every point
 		var pts := PackedVector3Array()
+		var nrm := PackedVector3Array()  # Stage 105: jets (steam_jet) - one direction per point
 		for e in spots:
 			pts.append(Vector3(e["pos"][0], e["pos"][1], e["pos"][2]))
-		spots = [{"points": pts}]
+			if e.has("dir"):
+				nrm.append(Vector3(e["dir"][0], e["dir"][1], e["dir"][2]).normalized())
+		spots = [{"points": pts, "normals": nrm}] if nrm.size() == pts.size() else [{"points": pts}]
 	for e in spots:
 		var cp := CPUParticles3D.new()
 		cp.mesh = quad
@@ -951,7 +954,11 @@ func _particles(fx: Dictionary, p: Dictionary) -> void:
 				_bursts.append([cp, randf_range(p["interval"][0], p["interval"][1]), p["interval"][0], p["interval"][1]])
 		else:
 			cp.amount = max(1, int(ceil(float(p["rate"]) * cp.lifetime))) * (e["points"].size() if e.has("points") else 1)
-		if e.has("points"):
+		if e.has("points") and e.has("normals"):  # Stage 105: each particle leaves along its nozzle (local +z -> the point's normal)
+			cp.emission_shape = CPUParticles3D.EMISSION_SHAPE_DIRECTED_POINTS
+			cp.emission_points = e["points"]
+			cp.emission_normals = e["normals"]
+		elif e.has("points"):
 			cp.emission_shape = CPUParticles3D.EMISSION_SHAPE_POINTS
 			cp.emission_points = e["points"]
 		elif e.has("area"):
@@ -967,8 +974,13 @@ func _particles(fx: Dictionary, p: Dictionary) -> void:
 			if r > 0.0:
 				cp.emission_shape = CPUParticles3D.EMISSION_SHAPE_SPHERE
 				cp.emission_sphere_radius = r
-		cp.direction = Vector3(0, 1, 0)
+		cp.direction = Vector3(0, 0, 1) if e.has("normals") else Vector3(0, 1, 0)
 		cp.spread = float(p.get("spread", 15))
+		if p.has("damping"):  # Stage 105: jets slow down and billow
+			cp.damping_min = float(p["damping"])
+			cp.damping_max = float(p["damping"])
+		if p.has("emit_time") and p.has("burst"):  # emitted over emit_time s, not all at once
+			cp.explosiveness = clampf(1.0 - float(p["emit_time"]) / float(p["lifetime"]), 0.0, 1.0)
 		cp.initial_velocity_min = float(p["speed"][0])
 		cp.initial_velocity_max = float(p["speed"][1])
 		var wind: Array = p.get("wind", [0, 0, 0])

@@ -312,8 +312,10 @@ def _effects(spec, ctx, plats, env, glow):
             D_ = sp_.get("drive")
             if D_:  # Stage 104: steam blasts round the head on impact and out of the gland as the press lets go (synced to its cycle)
                 sy = dict(period=D_["period"], phase=D_["phase"])
-                out.append(dict(id=sp_["id"] + "_ImpactSteam", type="steam_burst", positions=D_["steam_impact"], sync=dict(sy, at=[D_["slam"], D_["slam"] + 0.5]), burst=7, speed=[2.5, 5.0], spread=70))
-                out.append(dict(id=sp_["id"] + "_ReleaseSteam", type="steam_burst", positions=D_["steam_release"], sync=dict(sy, at=[D_["slam"] + D_["hold"]]), burst=12, lifetime=2.6, speed=[1.5, 3.0], spread=40, gravity=0.5))
+                J_ = D_["jets"]; sl_, rel_ = D_["slam"], D_["slam"] + D_["hold"]  # Stage 105: jets out of the press's nozzles
+                out.append(dict(id=sp_["id"] + "_GlandJets", type="steam_jet", jets=J_["gland"], sync=dict(sy, at=[sl_, rel_]), speed=[9.0, 12.5], emit_time=0.5))
+                out.append(dict(id=sp_["id"] + "_HeadJets", type="steam_jet", jets=J_["head"], sync=dict(sy, at=[sl_]), speed=[7.0, 10.0], emit_time=0.35, burst=24))
+                out.append(dict(id=sp_["id"] + "_CrownJets", type="steam_jet", jets=J_["crown"], sync=dict(sy, at=[rel_]), speed=[6.0, 9.0], emit_time=0.9, burst=36, lifetime=1.4))
         for sw_ in getattr(ctx, "saws", []):  # Stage 97: saw blades swinging out over walkways
             out.append(dict(id=sw_["id"] + "_Swing", type="saw", saw=sw_))
         for bl_ in getattr(ctx, "belts", []):  # Stage 97: conveyor ramps (chevrons slide, riders are carried)

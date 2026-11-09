@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "888e17508533c61e",
+  "spec_sha": "b74c9b9fb9588236",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -189,70 +189,158 @@
      "phase": -1.5,
      "still": 3.75,
      "shake": 28.0,
-     "steam_impact": [
-      [
-       6.32,
-       14.3,
-       43.19
+     "jets": {
+      "gland": [
+       [
+        [
+         5.926,
+         27.5,
+         42.236
+        ],
+        [
+         0.363,
+         -0.32,
+         0.875
+        ]
+       ],
+       [
+        [
+         7.236,
+         27.5,
+         39.074
+        ],
+        [
+         0.875,
+         -0.32,
+         -0.363
+        ]
+       ],
+       [
+        [
+         4.074,
+         27.5,
+         37.764
+        ],
+        [
+         -0.363,
+         -0.32,
+         -0.875
+        ]
+       ],
+       [
+        [
+         2.764,
+         27.5,
+         40.926
+        ],
+        [
+         -0.875,
+         -0.32,
+         0.363
+        ]
+       ]
       ],
-      [
-       8.19,
-       14.3,
-       41.32
+      "head": [
+       [
+        [
+         6.385,
+         14.95,
+         43.344
+        ],
+        [
+         0.376,
+         0.18,
+         0.909
+        ]
+       ],
+       [
+        [
+         8.344,
+         14.95,
+         38.615
+        ],
+        [
+         0.909,
+         0.18,
+         -0.376
+        ]
+       ],
+       [
+        [
+         3.615,
+         14.95,
+         36.656
+        ],
+        [
+         -0.376,
+         0.18,
+         -0.909
+        ]
+       ],
+       [
+        [
+         1.656,
+         14.95,
+         41.385
+        ],
+        [
+         -0.909,
+         0.18,
+         0.376
+        ]
+       ]
       ],
-      [
-       8.19,
-       14.3,
-       38.68
-      ],
-      [
-       6.32,
-       14.3,
-       36.81
-      ],
-      [
-       3.68,
-       14.3,
-       36.81
-      ],
-      [
-       1.81,
-       14.3,
-       38.68
-      ],
-      [
-       1.81,
-       14.3,
-       41.32
-      ],
-      [
-       3.68,
-       14.3,
-       43.19
+      "crown": [
+       [
+        [
+         7.772,
+         30.6,
+         41.148
+        ],
+        [
+         0.439,
+         -0.88,
+         0.182
+        ]
+       ],
+       [
+        [
+         6.148,
+         30.6,
+         37.228
+        ],
+        [
+         0.182,
+         -0.88,
+         -0.439
+        ]
+       ],
+       [
+        [
+         2.228,
+         30.6,
+         38.852
+        ],
+        [
+         -0.439,
+         -0.88,
+         -0.182
+        ]
+       ],
+       [
+        [
+         3.852,
+         30.6,
+         42.772
+        ],
+        [
+         -0.182,
+         -0.88,
+         0.439
+        ]
+       ]
       ]
-     ],
-     "steam_release": [
-      [
-       6.52,
-       27.15,
-       41.52
-      ],
-      [
-       6.52,
-       27.15,
-       38.48
-      ],
-      [
-       3.48,
-       27.15,
-       38.48
-      ],
-      [
-       3.48,
-       27.15,
-       41.52
-      ]
-     ],
+     },
      "note": "press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; camera shake within 'shake' m on impact"
     },
     "arms": [
@@ -271,48 +359,56 @@
    }
   },
   {
-   "id": "Spinner_ImpactSteam",
-   "type": "steam_burst",
-   "positions": [
+   "id": "Spinner_GlandJets",
+   "type": "steam_jet",
+   "jets": [
     [
-     6.32,
-     14.3,
-     43.19
+     [
+      5.926,
+      27.5,
+      42.236
+     ],
+     [
+      0.363,
+      -0.32,
+      0.875
+     ]
     ],
     [
-     8.19,
-     14.3,
-     41.32
+     [
+      7.236,
+      27.5,
+      39.074
+     ],
+     [
+      0.875,
+      -0.32,
+      -0.363
+     ]
     ],
     [
-     8.19,
-     14.3,
-     38.68
+     [
+      4.074,
+      27.5,
+      37.764
+     ],
+     [
+      -0.363,
+      -0.32,
+      -0.875
+     ]
     ],
     [
-     6.32,
-     14.3,
-     36.81
-    ],
-    [
-     3.68,
-     14.3,
-     36.81
-    ],
-    [
-     1.81,
-     14.3,
-     38.68
-    ],
-    [
-     1.81,
-     14.3,
-     41.32
-    ],
-    [
-     3.68,
-     14.3,
-     43.19
+     [
+      2.764,
+      27.5,
+      40.926
+     ],
+     [
+      -0.875,
+      -0.32,
+      0.363
+     ]
     ]
    ],
    "sync": {
@@ -320,39 +416,133 @@
     "phase": -1.5,
     "at": [
      0.35,
-     0.85
+     2.75
     ]
    },
-   "burst": 7,
    "speed": [
-    2.5,
-    5.0
+    9.0,
+    12.5
    ],
-   "spread": 70
+   "emit_time": 0.5
   },
   {
-   "id": "Spinner_ReleaseSteam",
-   "type": "steam_burst",
-   "positions": [
+   "id": "Spinner_HeadJets",
+   "type": "steam_jet",
+   "jets": [
     [
-     6.52,
-     27.15,
-     41.52
+     [
+      6.385,
+      14.95,
+      43.344
+     ],
+     [
+      0.376,
+      0.18,
+      0.909
+     ]
     ],
     [
-     6.52,
-     27.15,
-     38.48
+     [
+      8.344,
+      14.95,
+      38.615
+     ],
+     [
+      0.909,
+      0.18,
+      -0.376
+     ]
     ],
     [
-     3.48,
-     27.15,
-     38.48
+     [
+      3.615,
+      14.95,
+      36.656
+     ],
+     [
+      -0.376,
+      0.18,
+      -0.909
+     ]
     ],
     [
-     3.48,
-     27.15,
-     41.52
+     [
+      1.656,
+      14.95,
+      41.385
+     ],
+     [
+      -0.909,
+      0.18,
+      0.376
+     ]
+    ]
+   ],
+   "sync": {
+    "period": 9.5,
+    "phase": -1.5,
+    "at": [
+     0.35
+    ]
+   },
+   "speed": [
+    7.0,
+    10.0
+   ],
+   "emit_time": 0.35,
+   "burst": 24
+  },
+  {
+   "id": "Spinner_CrownJets",
+   "type": "steam_jet",
+   "jets": [
+    [
+     [
+      7.772,
+      30.6,
+      41.148
+     ],
+     [
+      0.439,
+      -0.88,
+      0.182
+     ]
+    ],
+    [
+     [
+      6.148,
+      30.6,
+      37.228
+     ],
+     [
+      0.182,
+      -0.88,
+      -0.439
+     ]
+    ],
+    [
+     [
+      2.228,
+      30.6,
+      38.852
+     ],
+     [
+      -0.439,
+      -0.88,
+      -0.182
+     ]
+    ],
+    [
+     [
+      3.852,
+      30.6,
+      42.772
+     ],
+     [
+      -0.182,
+      -0.88,
+      0.439
+     ]
     ]
    ],
    "sync": {
@@ -362,14 +552,13 @@
      2.75
     ]
    },
-   "burst": 12,
-   "lifetime": 2.6,
    "speed": [
-    1.5,
-    3.0
+    6.0,
+    9.0
    ],
-   "spread": 40,
-   "gravity": 0.5
+   "emit_time": 0.9,
+   "burst": 36,
+   "lifetime": 1.4
   },
   {
    "id": "Saw_West_Swing",
@@ -1205,6 +1394,47 @@
    "wear": 0.0,
    "toon": true,
    "toon_flatten": 0.05
+  },
+  "deck_scraped": {
+   "type": "scrape_rings",
+   "color": [
+    0.19,
+    0.16,
+    0.24
+   ],
+   "tile_m": 22.3,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 1024,
+   "toon": true,
+   "rings": [
+    [
+     1.95,
+     2.6,
+     0.6
+    ],
+    [
+     2.6,
+     8.4,
+     0.25
+    ],
+    [
+     8.55,
+     10.25,
+     1.0
+    ],
+    [
+     10.25,
+     10.9,
+     0.2
+    ]
+   ],
+   "bare": [
+    0.78,
+    0.74,
+    0.84
+   ],
+   "notes": "Stage 105: the spinner deck - plain, scored by the maces' sweep (rings centred on the tower)"
   },
   "frame": {
    "type": "industrial_metal",
@@ -11844,7 +12074,7 @@
     0.3,
     22.3
    ],
-   "material": "deck",
+   "material": "deck_scraped",
    "sections": 8,
    "gen": "Spinner_Deck",
    "source": "visible"
@@ -32336,6 +32566,446 @@
     "group": "Spinner_Ram"
    },
    "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_GlandNozzle_1",
+   "type": "cylinder",
+   "position": [
+    5.727,
+    27.5,
+    41.755
+   ],
+   "rotation": [
+    90.0,
+    22.5,
+    0.0
+   ],
+   "size": [
+    0.28,
+    0.5,
+    0.28
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_GlandValve_1",
+   "type": "box",
+   "position": [
+    5.811,
+    27.32,
+    41.959
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "size": [
+    0.42,
+    0.36,
+    0.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_HeadNozzle_1",
+   "type": "cylinder",
+   "position": [
+    6.148,
+    20.5,
+    42.772
+   ],
+   "rotation": [
+    90.0,
+    22.5,
+    0.0
+   ],
+   "size": [
+    0.3,
+    0.6,
+    0.3
+   ],
+   "material": "machine",
+   "sections": 6,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_CrownVent_1",
+   "type": "cylinder",
+   "position": [
+    7.772,
+    30.65,
+    41.148
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.55,
+    0.34
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_GlandNozzle_2",
+   "type": "cylinder",
+   "position": [
+    6.755,
+    27.5,
+    39.273
+   ],
+   "rotation": [
+    90.0,
+    112.5,
+    0.0
+   ],
+   "size": [
+    0.28,
+    0.5,
+    0.28
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_GlandValve_2",
+   "type": "box",
+   "position": [
+    6.959,
+    27.32,
+    39.189
+   ],
+   "rotation": [
+    0.0,
+    112.5,
+    0.0
+   ],
+   "size": [
+    0.42,
+    0.36,
+    0.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_HeadNozzle_2",
+   "type": "cylinder",
+   "position": [
+    7.772,
+    20.5,
+    38.852
+   ],
+   "rotation": [
+    90.0,
+    112.5,
+    0.0
+   ],
+   "size": [
+    0.3,
+    0.6,
+    0.3
+   ],
+   "material": "machine",
+   "sections": 6,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_CrownVent_2",
+   "type": "cylinder",
+   "position": [
+    6.148,
+    30.65,
+    37.228
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.55,
+    0.34
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_GlandNozzle_3",
+   "type": "cylinder",
+   "position": [
+    4.273,
+    27.5,
+    38.245
+   ],
+   "rotation": [
+    90.0,
+    202.5,
+    0.0
+   ],
+   "size": [
+    0.28,
+    0.5,
+    0.28
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_GlandValve_3",
+   "type": "box",
+   "position": [
+    4.189,
+    27.32,
+    38.041
+   ],
+   "rotation": [
+    0.0,
+    202.5,
+    0.0
+   ],
+   "size": [
+    0.42,
+    0.36,
+    0.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_HeadNozzle_3",
+   "type": "cylinder",
+   "position": [
+    3.852,
+    20.5,
+    37.228
+   ],
+   "rotation": [
+    90.0,
+    202.5,
+    0.0
+   ],
+   "size": [
+    0.3,
+    0.6,
+    0.3
+   ],
+   "material": "machine",
+   "sections": 6,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_CrownVent_3",
+   "type": "cylinder",
+   "position": [
+    2.228,
+    30.65,
+    38.852
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.55,
+    0.34
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_GlandNozzle_4",
+   "type": "cylinder",
+   "position": [
+    3.245,
+    27.5,
+    40.727
+   ],
+   "rotation": [
+    90.0,
+    292.5,
+    0.0
+   ],
+   "size": [
+    0.28,
+    0.5,
+    0.28
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_GlandValve_4",
+   "type": "box",
+   "position": [
+    3.041,
+    27.32,
+    40.811
+   ],
+   "rotation": [
+    0.0,
+    292.5,
+    0.0
+   ],
+   "size": [
+    0.42,
+    0.36,
+    0.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_HeadNozzle_4",
+   "type": "cylinder",
+   "position": [
+    2.228,
+    20.5,
+    41.148
+   ],
+   "rotation": [
+    90.0,
+    292.5,
+    0.0
+   ],
+   "size": [
+    0.3,
+    0.6,
+    0.3
+   ],
+   "material": "machine",
+   "sections": 6,
+   "collision": false,
+   "mobile": {
+    "group": "Spinner_Ram"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_CrownVent_4",
+   "type": "cylinder",
+   "position": [
+    3.852,
+    30.65,
+    42.772
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.55,
+    0.34
+   ],
+   "material": "pipe",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -57351,70 +58021,158 @@
     "phase": -1.5,
     "still": 3.75,
     "shake": 28.0,
-    "steam_impact": [
-     [
-      6.32,
-      14.3,
-      43.19
+    "jets": {
+     "gland": [
+      [
+       [
+        5.926,
+        27.5,
+        42.236
+       ],
+       [
+        0.363,
+        -0.32,
+        0.875
+       ]
+      ],
+      [
+       [
+        7.236,
+        27.5,
+        39.074
+       ],
+       [
+        0.875,
+        -0.32,
+        -0.363
+       ]
+      ],
+      [
+       [
+        4.074,
+        27.5,
+        37.764
+       ],
+       [
+        -0.363,
+        -0.32,
+        -0.875
+       ]
+      ],
+      [
+       [
+        2.764,
+        27.5,
+        40.926
+       ],
+       [
+        -0.875,
+        -0.32,
+        0.363
+       ]
+      ]
      ],
-     [
-      8.19,
-      14.3,
-      41.32
+     "head": [
+      [
+       [
+        6.385,
+        14.95,
+        43.344
+       ],
+       [
+        0.376,
+        0.18,
+        0.909
+       ]
+      ],
+      [
+       [
+        8.344,
+        14.95,
+        38.615
+       ],
+       [
+        0.909,
+        0.18,
+        -0.376
+       ]
+      ],
+      [
+       [
+        3.615,
+        14.95,
+        36.656
+       ],
+       [
+        -0.376,
+        0.18,
+        -0.909
+       ]
+      ],
+      [
+       [
+        1.656,
+        14.95,
+        41.385
+       ],
+       [
+        -0.909,
+        0.18,
+        0.376
+       ]
+      ]
      ],
-     [
-      8.19,
-      14.3,
-      38.68
-     ],
-     [
-      6.32,
-      14.3,
-      36.81
-     ],
-     [
-      3.68,
-      14.3,
-      36.81
-     ],
-     [
-      1.81,
-      14.3,
-      38.68
-     ],
-     [
-      1.81,
-      14.3,
-      41.32
-     ],
-     [
-      3.68,
-      14.3,
-      43.19
+     "crown": [
+      [
+       [
+        7.772,
+        30.6,
+        41.148
+       ],
+       [
+        0.439,
+        -0.88,
+        0.182
+       ]
+      ],
+      [
+       [
+        6.148,
+        30.6,
+        37.228
+       ],
+       [
+        0.182,
+        -0.88,
+        -0.439
+       ]
+      ],
+      [
+       [
+        2.228,
+        30.6,
+        38.852
+       ],
+       [
+        -0.439,
+        -0.88,
+        -0.182
+       ]
+      ],
+      [
+       [
+        3.852,
+        30.6,
+        42.772
+       ],
+       [
+        -0.182,
+        -0.88,
+        0.439
+       ]
+      ]
      ]
-    ],
-    "steam_release": [
-     [
-      6.52,
-      27.15,
-      41.52
-     ],
-     [
-      6.52,
-      27.15,
-      38.48
-     ],
-     [
-      3.48,
-      27.15,
-      38.48
-     ],
-     [
-      3.48,
-      27.15,
-      41.52
-     ]
-    ],
+    },
     "note": "press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; camera shake within 'shake' m on impact"
    },
    "arms": [
@@ -57567,16 +58325,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 39385,
-  "objects": 1752,
-  "materials": 31,
-  "glb_kb": 3012,
-  "nodes": 1931,
-  "draw_calls_unbatched": 1899,
-  "draw_calls_batched_min": 31,
-  "images": 83,
-  "tex_mem_gpu_compressed_mb": 18.21,
-  "tex_mem_uncompressed_mb": 72.84,
+  "triangles": 39721,
+  "objects": 1768,
+  "materials": 32,
+  "glb_kb": 3132,
+  "nodes": 1947,
+  "draw_calls_unbatched": 1915,
+  "draw_calls_batched_min": 32,
+  "images": 86,
+  "tex_mem_gpu_compressed_mb": 22.21,
+  "tex_mem_uncompressed_mb": 88.84,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

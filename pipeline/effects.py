@@ -51,6 +51,8 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
                   defaults=dict(rate=5.0, lifetime=3.5, speed=[0.8, 1.5], gravity=0.15, size=[1.2, 5.0], alpha=0.5, color=[0.8, 0.92, 0.74], texture="puff", blend="alpha", spread=15, radius=0.8)),
     "steam_burst": dict(category="particles", godot="CPUParticles3D, ONE system over every vent point (emission points), one_shot re-triggered at the 'sync' cycle times (u = (t + phase) mod period crossing each 'at'), growing soft puffs", glb="nothing",
                         defaults=dict(burst=10, interval=[9.5, 9.5], lifetime=2.2, speed=[1.5, 3.5], gravity=0.8, size=[0.9, 4.5], alpha=0.6, color=[0.93, 0.91, 0.97], texture="puff", blend="alpha", spread=55, radius=0.4)),
+    "steam_jet": dict(category="particles", godot="CPUParticles3D, ONE system over every nozzle (EMISSION_SHAPE_DIRECTED_POINTS: each jet along its 'dir'), one_shot re-triggered at the 'sync' cycle times, emitting over 'emit_time' s; fast narrow streams slowed by 'damping' (m/s^2) that billow out", glb="nothing",
+                      defaults=dict(burst=32, interval=[9.5, 9.5], lifetime=1.25, emit_time=0.5, speed=[8.0, 11.0], damping=8.0, gravity=0.9, size=[0.25, 3.0], alpha=0.85, color=[0.95, 0.95, 1.0], texture="puff", blend="alpha", spread=6, radius=0.0)),
     "smoke": dict(category="particles", godot="CPUParticles3D at chimney tops, few large puffs (distant: low cost)", glb="nothing",
                   defaults=dict(rate=1.2, lifetime=12.0, speed=[2.0, 3.5], gravity=0.05, size=[6.0, 26.0], alpha=0.45, color=[0.16, 0.18, 0.15], texture="puff", blend="alpha", spread=12, radius=2.0, wind=[1.2, 0, 0.4])),
     "sparks": dict(category="particles", godot="CPUParticles3D per point (independent bursts), explosiveness 1, one_shot re-triggered every interval, additive", glb="nothing",
@@ -374,6 +376,7 @@ def resolve(level_dir, L=None):
                 rad = round(float(np.hypot(*(b[1] - b[0])[[0, 2]]) / 2 + e.get("margin", 0.6)), 2)  # spawn AROUND the node, not inside it
                 em.append(dict(pos=[round(float(c[0]), 2), round(float(b[0][1] if a == "bottom" else b[1][1] if a == "top" else c[1]), 2), round(float(c[2]), 2)], radius=rad, of=n))
         for p in e.get("positions", []): em.append(dict(pos=p))
+        for p, d_ in e.get("jets", []): em.append(dict(pos=p, dir=d_))  # Stage 105: directed nozzles
         if e["type"] == "cloud_puffs": em += _puff_rings(e, boxes, t["defaults"])
         if e["type"] == "flyby_ships": R["meshes"] = ship_meshes()
         if e.get("at_background") == "factory_chimneys" and env:
@@ -395,7 +398,7 @@ def resolve(level_dir, L=None):
                 if "count" in p: p["count"] = int(round(p["count"] * k)); alive = p["count"]
                 elif "burst" in p: p["burst"] = max(4, int(round(p["burst"] * min(k, 1.2)))); alive = p["burst"]
                 else: p["rate"] = round(p["rate"] * k, 2); alive = int(np.ceil(p["rate"] * p["lifetime"]))
-                merged = ("burst" not in p or e["type"] == "steam_burst") and n_em > 1  # continuous multi-point effects (and synced vents) -> ONE emitter (emission points)
+                merged = ("burst" not in p or e["type"] in ("steam_burst", "steam_jet")) and n_em > 1  # continuous multi-point effects (and synced vents) -> ONE emitter (emission points)
                 cost = dict(max_particles=alive * n_em, emitters=n_em, extra_draw_calls=1 if merged else n_em)
                 if merged: R["merge_emitters"] = True
             elif t["category"] == "tube_bubbles":  # per tube: round(density * height * radius) bubbles, 12..140

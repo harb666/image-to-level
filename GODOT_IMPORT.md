@@ -114,6 +114,9 @@ The browser preview approximates all of these with three.js. It is close to Godo
   platform is up. The level has no weapon mesh: spawn your own shotgun model at `center`.
 
 ## Assembly Ascent hazards (Stage 97)
+- Stage 105: effects.json `steam_jet`: emitters carry `dir`; one CPUParticles3D with EMISSION_SHAPE_DIRECTED_POINTS
+  (emission_normals = the dirs, direction +z), damping = `damping`, explosiveness 1 - emit_time / lifetime, restarted
+  at the `sync` times like `steam_burst`.
 - Stage 104: effects.json `steam_burst` with `sync` {period, phase, at}: one CPUParticles3D over all vent points
   (one_shot), restarted when (t + phase) mod period crosses each `at` - steam on the press's impact and release.
 - Stage 103: a `sweeper` with a `drive` takes its angle from `press_profile()` (apply_effects.gd, same as the viewer):

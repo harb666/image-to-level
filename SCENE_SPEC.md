@@ -1247,3 +1247,14 @@ Building blocks usable without the preset:
 - Effect `steam_burst`: one-shot puffs from several vents, fired when the cycle time u = (t + phase) mod period crosses
   each `sync.at` (one particle system per effect). The spinner adds `<id>_ImpactSteam` (eight vents round the
   pressed head, at the impact and 0.5 s later) and `<id>_ReleaseSteam` (four vents under the gland as the press lets go).
+
+## Stage 105: scraped spinner deck, steam jets
+- `spinner` `floor` + `floor_material`: the named platform's `_Floor` takes that role. Material type `scrape_rings`
+  (`tile_m` = the deck's width, `rings` [[r_in, r_out, strength], ...] m, `bare`): a plain deck scored by concentric
+  scrape arcs (bright bare metal and ~30 % dark gouges) over a soft polished band per ring, centred on the deck's
+  axis (a cylinder top's UVs are local metres / tile_m from its axis). Assembly Ascent: `deck_scraped`, heaviest wear
+  at 8.55-10.25 m under the mace heads.
+- Effect `steam_jet`: `jets` [[pos, dir], ...] - fast narrow streams out of nozzles (`speed`, `spread` 6 deg), slowed by
+  `damping` m/s^2 so they billow, emitted over `emit_time` s when the cycle crosses each `sync.at`. The press has
+  four gland nozzles (fire on impact and release), four nozzles on the head (impact) and four crown vents (release);
+  replaces the Stage 104 `steam_burst` puffs on the spinner.

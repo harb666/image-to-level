@@ -163,14 +163,17 @@ function makeParticles(fx,p){const spots=fx.emitters||(fx.area?[{area:fx.area}]:
     if(s.area){const a=s.area;x=a[0]+Math.random()*(a[3]-a[0]);z=a[2]+Math.random()*(a[5]-a[2]);y=isCount?a[1]+Math.random()*(a[4]-a[1]):a[1];}
     else{const r=(s.radius||p.radius||0)*Math.sqrt(Math.random()),q=Math.random()*6.2831;x=s.pos[0]+Math.cos(q)*r;y=s.pos[1];z=s.pos[2]+Math.sin(q)*r;} // disc
     const th=Math.random()*6.2831,ph=Math.acos(1-Math.random()*(1-Math.cos(sp))),v=p.speed[0]+Math.random()*(p.speed[1]-p.speed[0]);
-    pos.set([x,y,z],i*3);y0[i]=y;vel.set([Math.sin(ph)*Math.cos(th)*v,Math.cos(ph)*v,Math.sin(ph)*Math.sin(th)*v],i*3);age[i]=0;life[i]=p.lifetime*(.7+.6*Math.random());}
+    const vv=new THREE.Vector3(Math.sin(ph)*Math.cos(th)*v,Math.cos(ph)*v,Math.sin(ph)*Math.sin(th)*v);if(s.dir)vv.applyQuaternion(qd[own[i]]); // Stage 105: a jet along its nozzle
+    pos.set([x,y,z],i*3);y0[i]=y;vel.set([vv.x,vv.y,vv.z],i*3);age[i]=0;life[i]=p.lifetime*(.7+.6*Math.random());}
+  const qd=spots.map(s=>s.dir?new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0),new THREE.Vector3(...s.dir).normalize()):null);let em=null;
   if(isCount)for(let i=0;i<N;i++){spawn(i);age[i]=Math.random()*life[i];}
   fxUpd.push({u(t,dt){
-    if(isBurst&&fx.sync){const Y=fx.sync,P=Y.period,u=(((t+Y.phase)%P)+P)%P;if(lastU!=null)for(const at of Y.at){if(lastU<=u?(lastU<at&&at<=u):(at>lastU||at<=u))for(let i=0;i<N;i++)spawn(i);}lastU=u;} // Stage 104: vents fired at cycle times
+    if(isBurst&&fx.sync){const Y=fx.sync,P=Y.period,u=(((t+Y.phase)%P)+P)%P;if(lastU!=null)for(const at of Y.at){if(lastU<=u?(lastU<at&&at<=u):(at>lastU||at<=u)){if(p.emit_time)em={t:0,c:0};else for(let i=0;i<N;i++)spawn(i);}}lastU=u;
+      if(em){em.t+=dt;while(em.c<per&&em.c*p.emit_time/per<=em.t){for(let s=0;s<spots.length;s++)spawn(s*per+em.c);em.c++;}if(em.c>=per)em=null;}} // Stage 104: vents fired at cycle times
     else if(isBurst){for(let s=0;s<spots.length;s++){timers[s]-=dt;if(timers[s]<=0){timers[s]=p.interval[0]+Math.random()*(p.interval[1]-p.interval[0]);for(let i=s*per;i<(s+1)*per;i++)spawn(i);}}}
     else if(!isCount){acc+=p.rate*spots.length*dt;while(acc>=1){spawn(cur);cur=(cur+1)%N;acc-=1;}}
     for(let i=0;i<N;i++){if(age[i]>=life[i]){if(isCount)spawn(i);else{alpha[i]=0;continue;}}
-      age[i]+=dt;const k=Math.min(age[i]/life[i],1);vel[i*3]+=wind[0]*dt;vel[i*3+1]+=p.gravity*dt;vel[i*3+2]+=wind[2]*dt;
+      age[i]+=dt;const k=Math.min(age[i]/life[i],1);if(p.damping){const sv=Math.hypot(vel[i*3],vel[i*3+1],vel[i*3+2]);if(sv>1e-6){const f=Math.max(0,sv-p.damping*dt)/sv;vel[i*3]*=f;vel[i*3+1]*=f;vel[i*3+2]*=f;}}vel[i*3]+=wind[0]*dt;vel[i*3+1]+=p.gravity*dt;vel[i*3+2]+=wind[2]*dt;
       pos[i*3]+=vel[i*3]*dt;pos[i*3+1]+=vel[i*3+1]*dt;pos[i*3+2]+=vel[i*3+2]*dt;
       if(p.kill_below_spawn&&pos[i*3+1]<y0[i]-0.05){age[i]=life[i];alpha[i]=0;continue;} // droplet fell back into the liquid
       size[i]=p.size[0]+(p.size[1]-p.size[0])*k;alpha[i]=p.alpha*(add&&!isCount?(1-k):Math.sin(Math.PI*k));}
