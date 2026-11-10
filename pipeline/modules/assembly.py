@@ -677,12 +677,30 @@ def pillar_path(ctx, s, x, y, z, yaw):
     """Stepping pillars over the slime: "points" [[x, z, top], ...], square caps "pillar_size" m with a hazard-striped band
     round their edges on cross-braced truss legs down into the liquid. Every cap is walkable."""
     n = s["id"]; P_ = float(s.get("pillar_size", 3.8)); st = dict(mobile={"static": True}); vs = dict(collision=False, outline=False, **st)
-    liq = float(s.get("liquid", 0.0)); stripe = ctx.role("stripe")
+    liq = float(s.get("liquid", 0.0)); stripe = ctx.role("stripe"); flo = s.get("float"); rg = n + "_FloatRig"; pads_, joints_ = [], []
+    if flo:  # Stage 133: floating stepping platforms - same skinned float rig as the spinner's hover pads (a bone per pad + per flame)
+        p0 = s["points"][0]; joints_.append(dict(name=n + "_FRoot", parent=None, pivot=[round(p0[0], 3), round(p0[2], 3), round(p0[1], 3)], axis=[0.0, 1.0, 0.0]))
     for k, (px, pz, top) in enumerate(s["points"]):
         a = float(s.get("yaw", 0.0)) + (k * 7.0 if s.get("twist") else 0.0); W = _W(px, 0, pz, a); pre = f"{n}_{k + 1}"
-        ctx.add(pre + "_Cap", "box", [px, top - 0.45, pz], [P_, 0.45, P_], "deck", rot=[0, a, 0], **st)
+        cs, cv = st, vs
+        if flo:
+            jn, fj = pre + "_FJ", pre + "_FF"; fy = top - 2.25
+            joints_ += [dict(name=jn, parent=n + "_FRoot", pivot=[round(px, 3), round(top, 3), round(pz, 3)], axis=[0.0, 1.0, 0.0]),
+                        dict(name=fj, parent=jn, pivot=[round(px, 3), round(fy, 3), round(pz, 3)], axis=[0.0, 1.0, 0.0])]
+            cs = dict(mobile={"group": rg, "joint": jn}, floater=rg); cv = dict(cs, collision=False, outline=False)
+            pads_.append(dict(joint=jn, flame_joint=fj, center=[round(px, 3), round(top, 3), round(pz, 3)], deck_radius=round(P_ / 2 / math.cos(math.pi / 8), 3), deck_size=[P_, P_], deck_yaw=round(a, 2),
+                              bob=[float(flo.get("amp", 0.22)), round(float(flo.get("period", 2.3)) + 0.23 * k, 3)], phase=round(0.7 * k, 3), tilt=float(flo.get("tilt", 2.0)), yaw=float(flo.get("yaw", 2.0)),
+                              flame=rg, flame_y=round(fy, 3)))
+        ctx.add(pre + "_Cap", "box", [px, top - 0.45, pz], [P_, 0.45, P_], "deck", rot=[0, a, 0], **cs)
         for j, (lx, lz, sx, sz) in enumerate(((0, P_ / 2 + 0.03, P_ + 0.12, 0.06), (0, -P_ / 2 - 0.03, P_ + 0.12, 0.06), (P_ / 2 + 0.03, 0, 0.06, P_), (-P_ / 2 - 0.03, 0, 0.06, P_))):
-            q = W(lx, 0, lz); ctx.add(f"{pre}_Band_{j + 1}", "box", [q[0], top - 0.5, q[2]], [sx, 0.48, sz], stripe, rot=[0, a, 0], **vs)
+            q = W(lx, 0, lz); ctx.add(f"{pre}_Band_{j + 1}", "box", [q[0], top - 0.5, q[2]], [sx, 0.48, sz], stripe, rot=[0, a, 0], **cv)
+        if flo:  # under the deck: a tapered hull, a glowing band, a thruster and its flame (no legs - nothing touches the slime)
+            gl = ctx.role("glow")
+            ctx.add(pre + "_Hull", "frustum", [px, top - 1.75, pz], [P_ - 0.3, 1.32, P_ - 0.3], "structure_b", rot=[0, a, 0], sections=0, bottom_scale=0.45, **cs)
+            ctx.add(pre + "_GlowBand", "frustum", [px, top - 1.0, pz], [P_ * 0.82, 0.22, P_ * 0.82], gl, rot=[0, a, 0], sections=0, bottom_scale=0.95, **cv)
+            ctx.add(pre + "_Thruster", "cylinder", [px, top - 2.3, pz], [1.0, 0.6, 1.0], "structure_b", rot=[0, a, 0], sections=8, **cv)
+            ctx.add(pre + "_Jet", "frustum", [px, top - 3.05, pz], [0.8, 0.75, 0.8], gl, rot=[0, a, 0], sections=8, bottom_scale=0.15, collision=False, outline=False, mobile={"group": rg, "joint": fj})
+            ctx.landings.append((round(px, 3), round(pz, 3), P_ / 2)); continue
         h = top - 0.45 - liq; c = P_ / 2 - 0.25
         for j, (lx, lz) in enumerate(((c, c), (-c, c), (c, -c), (-c, -c))):
             q = W(lx, 0, lz); ctx.add(f"{pre}_Leg_{j + 1}", "box", [q[0], liq, q[2]], [0.3, h, 0.3], "frame", rot=[0, a, 0], bevel=False, **vs)
@@ -691,6 +709,11 @@ def pillar_path(ctx, s, x, y, z, yaw):
             for hh, sg in ((0.25, 1), (0.75, -1)):
                 q = W(lx, 0, lz); ctx.add(f"{pre}_Brace_{j + 1}{'ab'[hh > 0.5]}", "box", [q[0], liq + h * hh - 0.08, q[2]], [bl, 0.16, 0.16], "frame", rot=[0, a + ry, sg * ang], bevel=False, **vs)
         ctx.landings.append((round(px, 3), round(pz, 3), P_ / 2))
+    if flo:
+        ctx.skeletons = getattr(ctx, "skeletons", {}); ctx.skeletons[n + "_Float"] = dict(groups=[rg], joints=joints_, kind="float")
+        ctx.floaters = getattr(ctx, "floaters", []) + [dict(id=rg, group=rg, skeleton=n + "_Float", pads=pads_,
+                                                            note="per pad: joint offset (0, amp sin(2 pi (t + phase) / period), 0), yaw +-yaw, tilt +-tilt (about the deck centre); flame_joint scale y flickers; square decks: deck_size / deck_yaw")]
+        ctx.notes.append(f"{n}: {len(s['points'])} floating stepping platforms (bobbing, thruster flames)"); return
     ctx.notes.append(f"{n}: {len(s['points'])} striped pillars on truss legs")
 
 

@@ -1,21 +1,21 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 3736,
-  "mobile/level_mobile.glb": 2238,
-  "mobile/collision.json": 162,
+  "level.glb": 3702,
+  "mobile/level_mobile.glb": 2231,
+  "mobile/collision.json": 163,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 72
+  "effects.json": 76
  },
  "complexity": {
-  "triangles": 61084,
-  "nodes": 2473,
+  "triangles": 60540,
+  "nodes": 2430,
   "materials": 38,
   "heaviest": [
    [
     "Corrosion_Band",
-    1036
+    756
    ],
    [
     "Spinner_Rotor_Ball_4",
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 3736,
-   "triangles": 52244,
-   "draw_calls": 2473,
+   "glb_kb": 3702,
+   "triangles": 51544,
+   "draw_calls": 2430,
    "tex_mem_gpu_mb_est": 24.15
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 2238,
-   "triangles": 58902,
-   "draw_calls": 123,
-   "visible_draw_calls_est": 68.3,
-   "visible_draw_calls_max_est": 126,
+   "glb_kb": 2231,
+   "triangles": 58502,
+   "draw_calls": 128,
+   "visible_draw_calls_est": 70.9,
+   "visible_draw_calls_max_est": 131,
    "tex_mem_gpu_mb_est": 9.5,
    "materials": 40,
-   "nodes": 207,
+   "nodes": 227,
    "colliders": {
-    "colliders": 398,
+    "colliders": 391,
     "hazards": 1,
-    "glb_kb": 182
+    "glb_kb": 180
    },
    "background_kb": 404
   },
@@ -246,12 +246,12 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 123 (> 80)"
+   "message": "mobile draw calls 128 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~68 visible draw calls (estimate, > 60)"
+   "message": "~71 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "spawn_near_hazard",
@@ -278,7 +278,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "61084 triangles (> budget 40000)"
+   "message": "60540 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",

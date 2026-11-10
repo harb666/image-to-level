@@ -499,11 +499,18 @@ func _floater(d: Dictionary) -> void:
 		var body := AnimatableBody3D.new()
 		body.sync_to_physics = true
 		var cs := CollisionShape3D.new()
-		var cy := CylinderShape3D.new()
-		cy.radius = float(pd["deck_radius"]) * cos(PI / 8.0)
-		cy.height = 0.6
-		cs.shape = cy
-		cs.position = Vector3(0.0, -0.3, 0.0)
+		if pd.get("deck_size") != null:  # Stage 133: square decks (floating stepping platforms): a box turned by deck_yaw
+			var bx := BoxShape3D.new()
+			bx.size = Vector3(float(pd["deck_size"][0]), 0.45, float(pd["deck_size"][1]))
+			cs.shape = bx
+			cs.position = Vector3(0.0, -0.225, 0.0)
+			cs.rotation = Vector3(0.0, deg_to_rad(float(pd.get("deck_yaw", 0.0))), 0.0)
+		else:
+			var cy := CylinderShape3D.new()
+			cy.radius = float(pd["deck_radius"]) * cos(PI / 8.0)
+			cy.height = 0.6
+			cs.shape = cy
+			cs.position = Vector3(0.0, -0.3, 0.0)
 		body.add_child(cs)
 		level_root.add_child(body)
 		bodies.append(body)

@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "30a71f468206c78b",
+  "spec_sha": "6a845ef91e2c0a42",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -648,6 +648,186 @@
    "emit_time": 0.9,
    "burst": 36,
    "lifetime": 1.4
+  },
+  {
+   "id": "Pillars_FloatRig_Bob",
+   "type": "floater",
+   "floater": {
+    "id": "Pillars_FloatRig",
+    "group": "Pillars_FloatRig",
+    "skeleton": "Pillars_Float",
+    "pads": [
+     {
+      "joint": "Pillars_1_FJ",
+      "flame_joint": "Pillars_1_FF",
+      "center": [
+       -15.5,
+       7.6,
+       6.0
+      ],
+      "deck_radius": 1.948,
+      "deck_size": [
+       3.6,
+       3.6
+      ],
+      "deck_yaw": 0.0,
+      "bob": [
+       0.22,
+       2.3
+      ],
+      "phase": 0.0,
+      "tilt": 2.0,
+      "yaw": 2.0,
+      "flame": "Pillars_FloatRig",
+      "flame_y": 5.35
+     },
+     {
+      "joint": "Pillars_2_FJ",
+      "flame_joint": "Pillars_2_FF",
+      "center": [
+       -10.21,
+       8.2,
+       3.14
+      ],
+      "deck_radius": 1.948,
+      "deck_size": [
+       3.6,
+       3.6
+      ],
+      "deck_yaw": 0.0,
+      "bob": [
+       0.22,
+       2.53
+      ],
+      "phase": 0.7,
+      "tilt": 2.0,
+      "yaw": 2.0,
+      "flame": "Pillars_FloatRig",
+      "flame_y": 5.95
+     },
+     {
+      "joint": "Pillars_3_FJ",
+      "flame_joint": "Pillars_3_FF",
+      "center": [
+       -4.92,
+       8.8,
+       0.28
+      ],
+      "deck_radius": 1.948,
+      "deck_size": [
+       3.6,
+       3.6
+      ],
+      "deck_yaw": 0.0,
+      "bob": [
+       0.22,
+       2.76
+      ],
+      "phase": 1.4,
+      "tilt": 2.0,
+      "yaw": 2.0,
+      "flame": "Pillars_FloatRig",
+      "flame_y": 6.55
+     },
+     {
+      "joint": "Pillars_4_FJ",
+      "flame_joint": "Pillars_4_FF",
+      "center": [
+       5.66,
+       10.0,
+       -5.44
+      ],
+      "deck_radius": 1.948,
+      "deck_size": [
+       3.6,
+       3.6
+      ],
+      "deck_yaw": 0.0,
+      "bob": [
+       0.22,
+       2.99
+      ],
+      "phase": 2.1,
+      "tilt": 2.0,
+      "yaw": 2.0,
+      "flame": "Pillars_FloatRig",
+      "flame_y": 7.75
+     },
+     {
+      "joint": "Pillars_5_FJ",
+      "flame_joint": "Pillars_5_FF",
+      "center": [
+       10.95,
+       10.6,
+       -8.3
+      ],
+      "deck_radius": 1.948,
+      "deck_size": [
+       3.6,
+       3.6
+      ],
+      "deck_yaw": 0.0,
+      "bob": [
+       0.22,
+       3.22
+      ],
+      "phase": 2.8,
+      "tilt": 2.0,
+      "yaw": 2.0,
+      "flame": "Pillars_FloatRig",
+      "flame_y": 8.35
+     },
+     {
+      "joint": "Pillars_6_FJ",
+      "flame_joint": "Pillars_6_FF",
+      "center": [
+       16.24,
+       11.2,
+       -11.16
+      ],
+      "deck_radius": 1.948,
+      "deck_size": [
+       3.6,
+       3.6
+      ],
+      "deck_yaw": 0.0,
+      "bob": [
+       0.22,
+       3.45
+      ],
+      "phase": 3.5,
+      "tilt": 2.0,
+      "yaw": 2.0,
+      "flame": "Pillars_FloatRig",
+      "flame_y": 8.95
+     },
+     {
+      "joint": "Pillars_7_FJ",
+      "flame_joint": "Pillars_7_FF",
+      "center": [
+       21.53,
+       11.8,
+       -14.02
+      ],
+      "deck_radius": 1.948,
+      "deck_size": [
+       3.6,
+       3.6
+      ],
+      "deck_yaw": 0.0,
+      "bob": [
+       0.22,
+       3.68
+      ],
+      "phase": 4.2,
+      "tilt": 2.0,
+      "yaw": 2.0,
+      "flame": "Pillars_FloatRig",
+      "flame_y": 9.55
+     }
+    ],
+    "note": "per pad: joint offset (0, amp sin(2 pi (t + phase) / period), 0), yaw +-yaw, tilt +-tilt (about the deck centre); flame_joint scale y flickers; square decks: deck_size / deck_yaw"
+   }
   },
   {
    "id": "Spinner_FloatRig_Bob",
@@ -26210,8 +26390,10 @@
    ],
    "material": "deck",
    "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_1_FJ"
    },
+   "floater": "Pillars_FloatRig",
    "gen": "Pillars",
    "source": "visible"
   },
@@ -26234,11 +26416,13 @@
     0.06
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_1_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -26261,11 +26445,13 @@
     0.06
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_1_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -26288,11 +26474,13 @@
     3.6
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_1_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -26315,21 +26503,23 @@
     3.6
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_1_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_1_Leg_1",
-   "type": "box",
+   "name": "Pillars_1_Hull",
+   "type": "frustum",
    "position": [
-    -13.95,
-    0.0,
-    7.55
+    -15.5,
+    5.85,
+    6.0
    ],
    "rotation": [
     0.0,
@@ -26337,27 +26527,28 @@
     0.0
    ],
    "size": [
-    0.3,
-    7.15,
-    0.3
+    3.3,
+    1.32,
+    3.3
    ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
+   "material": "structure_b",
+   "sections": 0,
+   "bottom_scale": 0.45,
    "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_1_FJ"
    },
+   "floater": "Pillars_FloatRig",
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_1_Leg_2",
-   "type": "box",
+   "name": "Pillars_1_GlowBand",
+   "type": "frustum",
    "position": [
-    -17.05,
-    0.0,
-    7.55
+    -15.5,
+    6.6,
+    6.0
    ],
    "rotation": [
     0.0,
@@ -26365,27 +26556,30 @@
     0.0
    ],
    "size": [
-    0.3,
-    7.15,
-    0.3
+    2.952,
+    0.22,
+    2.952
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "glow",
+   "sections": 0,
+   "bottom_scale": 0.95,
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_1_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_1_Leg_3",
-   "type": "box",
+   "name": "Pillars_1_Thruster",
+   "type": "cylinder",
    "position": [
-    -13.95,
-    0.0,
-    4.45
+    -15.5,
+    5.3,
+    6.0
    ],
    "rotation": [
     0.0,
@@ -26393,27 +26587,29 @@
     0.0
    ],
    "size": [
-    0.3,
-    7.15,
-    0.3
+    1.0,
+    0.6,
+    1.0
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "structure_b",
+   "sections": 8,
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_1_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_1_Leg_4",
-   "type": "box",
+   "name": "Pillars_1_Jet",
+   "type": "frustum",
    "position": [
-    -17.05,
-    0.0,
-    4.45
+    -15.5,
+    4.55,
+    6.0
    ],
    "rotation": [
     0.0,
@@ -26421,240 +26617,18 @@
     0.0
    ],
    "size": [
-    0.3,
-    7.15,
-    0.3
+    0.8,
+    0.75,
+    0.8
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "glow",
+   "sections": 8,
+   "bottom_scale": 0.15,
    "collision": false,
    "outline": false,
    "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_1_Brace_1a",
-   "type": "box",
-   "position": [
-    -15.5,
-    1.707,
-    7.55
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    49.07
-   ],
-   "size": [
-    4.732,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_1_Brace_1b",
-   "type": "box",
-   "position": [
-    -15.5,
-    5.282,
-    7.55
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -49.07
-   ],
-   "size": [
-    4.732,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_1_Brace_2a",
-   "type": "box",
-   "position": [
-    -15.5,
-    1.707,
-    4.45
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    49.07
-   ],
-   "size": [
-    4.732,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_1_Brace_2b",
-   "type": "box",
-   "position": [
-    -15.5,
-    5.282,
-    4.45
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -49.07
-   ],
-   "size": [
-    4.732,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_1_Brace_3a",
-   "type": "box",
-   "position": [
-    -13.95,
-    1.707,
-    6.0
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    49.07
-   ],
-   "size": [
-    4.732,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_1_Brace_3b",
-   "type": "box",
-   "position": [
-    -13.95,
-    5.282,
-    6.0
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    -49.07
-   ],
-   "size": [
-    4.732,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_1_Brace_4a",
-   "type": "box",
-   "position": [
-    -17.05,
-    1.707,
-    6.0
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    49.07
-   ],
-   "size": [
-    4.732,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_1_Brace_4b",
-   "type": "box",
-   "position": [
-    -17.05,
-    5.282,
-    6.0
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    -49.07
-   ],
-   "size": [
-    4.732,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_1_FF"
    },
    "gen": "Pillars",
    "source": "visible"
@@ -26679,8 +26653,10 @@
    ],
    "material": "deck",
    "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_2_FJ"
    },
+   "floater": "Pillars_FloatRig",
    "gen": "Pillars",
    "source": "visible"
   },
@@ -26703,11 +26679,13 @@
     0.06
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_2_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -26730,11 +26708,13 @@
     0.06
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_2_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -26757,11 +26737,13 @@
     3.6
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_2_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -26784,21 +26766,23 @@
     3.6
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_2_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_2_Leg_1",
-   "type": "box",
+   "name": "Pillars_2_Hull",
+   "type": "frustum",
    "position": [
-    -8.66,
-    0.0,
-    4.69
+    -10.21,
+    6.45,
+    3.14
    ],
    "rotation": [
     0.0,
@@ -26806,27 +26790,28 @@
     0.0
    ],
    "size": [
-    0.3,
-    7.75,
-    0.3
+    3.3,
+    1.32,
+    3.3
    ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
+   "material": "structure_b",
+   "sections": 0,
+   "bottom_scale": 0.45,
    "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_2_FJ"
    },
+   "floater": "Pillars_FloatRig",
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_2_Leg_2",
-   "type": "box",
+   "name": "Pillars_2_GlowBand",
+   "type": "frustum",
    "position": [
-    -11.76,
-    0.0,
-    4.69
+    -10.21,
+    7.2,
+    3.14
    ],
    "rotation": [
     0.0,
@@ -26834,27 +26819,30 @@
     0.0
    ],
    "size": [
-    0.3,
-    7.75,
-    0.3
+    2.952,
+    0.22,
+    2.952
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "glow",
+   "sections": 0,
+   "bottom_scale": 0.95,
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_2_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_2_Leg_3",
-   "type": "box",
+   "name": "Pillars_2_Thruster",
+   "type": "cylinder",
    "position": [
-    -8.66,
-    0.0,
-    1.59
+    -10.21,
+    5.9,
+    3.14
    ],
    "rotation": [
     0.0,
@@ -26862,27 +26850,29 @@
     0.0
    ],
    "size": [
-    0.3,
-    7.75,
-    0.3
+    1.0,
+    0.6,
+    1.0
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "structure_b",
+   "sections": 8,
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_2_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_2_Leg_4",
-   "type": "box",
+   "name": "Pillars_2_Jet",
+   "type": "frustum",
    "position": [
-    -11.76,
-    0.0,
-    1.59
+    -10.21,
+    5.15,
+    3.14
    ],
    "rotation": [
     0.0,
@@ -26890,240 +26880,18 @@
     0.0
    ],
    "size": [
-    0.3,
-    7.75,
-    0.3
+    0.8,
+    0.75,
+    0.8
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "glow",
+   "sections": 8,
+   "bottom_scale": 0.15,
    "collision": false,
    "outline": false,
    "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_2_Brace_1a",
-   "type": "box",
-   "position": [
-    -10.21,
-    1.857,
-    4.69
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    51.34
-   ],
-   "size": [
-    4.962,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_2_Brace_1b",
-   "type": "box",
-   "position": [
-    -10.21,
-    5.732,
-    4.69
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -51.34
-   ],
-   "size": [
-    4.962,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_2_Brace_2a",
-   "type": "box",
-   "position": [
-    -10.21,
-    1.857,
-    1.59
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    51.34
-   ],
-   "size": [
-    4.962,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_2_Brace_2b",
-   "type": "box",
-   "position": [
-    -10.21,
-    5.732,
-    1.59
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -51.34
-   ],
-   "size": [
-    4.962,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_2_Brace_3a",
-   "type": "box",
-   "position": [
-    -8.66,
-    1.857,
-    3.14
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    51.34
-   ],
-   "size": [
-    4.962,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_2_Brace_3b",
-   "type": "box",
-   "position": [
-    -8.66,
-    5.732,
-    3.14
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    -51.34
-   ],
-   "size": [
-    4.962,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_2_Brace_4a",
-   "type": "box",
-   "position": [
-    -11.76,
-    1.857,
-    3.14
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    51.34
-   ],
-   "size": [
-    4.962,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_2_Brace_4b",
-   "type": "box",
-   "position": [
-    -11.76,
-    5.732,
-    3.14
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    -51.34
-   ],
-   "size": [
-    4.962,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_2_FF"
    },
    "gen": "Pillars",
    "source": "visible"
@@ -27148,8 +26916,10 @@
    ],
    "material": "deck",
    "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_3_FJ"
    },
+   "floater": "Pillars_FloatRig",
    "gen": "Pillars",
    "source": "visible"
   },
@@ -27172,11 +26942,13 @@
     0.06
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_3_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -27199,11 +26971,13 @@
     0.06
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_3_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -27226,11 +27000,13 @@
     3.6
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_3_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -27253,21 +27029,23 @@
     3.6
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_3_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_3_Leg_1",
-   "type": "box",
+   "name": "Pillars_3_Hull",
+   "type": "frustum",
    "position": [
-    -3.37,
-    0.0,
-    1.83
+    -4.92,
+    7.05,
+    0.28
    ],
    "rotation": [
     0.0,
@@ -27275,27 +27053,28 @@
     0.0
    ],
    "size": [
-    0.3,
-    8.35,
-    0.3
+    3.3,
+    1.32,
+    3.3
    ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
+   "material": "structure_b",
+   "sections": 0,
+   "bottom_scale": 0.45,
    "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_3_FJ"
    },
+   "floater": "Pillars_FloatRig",
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_3_Leg_2",
-   "type": "box",
+   "name": "Pillars_3_GlowBand",
+   "type": "frustum",
    "position": [
-    -6.47,
-    0.0,
-    1.83
+    -4.92,
+    7.8,
+    0.28
    ],
    "rotation": [
     0.0,
@@ -27303,27 +27082,30 @@
     0.0
    ],
    "size": [
-    0.3,
-    8.35,
-    0.3
+    2.952,
+    0.22,
+    2.952
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "glow",
+   "sections": 0,
+   "bottom_scale": 0.95,
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_3_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_3_Leg_3",
-   "type": "box",
+   "name": "Pillars_3_Thruster",
+   "type": "cylinder",
    "position": [
-    -3.37,
-    0.0,
-    -1.27
+    -4.92,
+    6.5,
+    0.28
    ],
    "rotation": [
     0.0,
@@ -27331,27 +27113,29 @@
     0.0
    ],
    "size": [
-    0.3,
-    8.35,
-    0.3
+    1.0,
+    0.6,
+    1.0
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "structure_b",
+   "sections": 8,
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_3_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_3_Leg_4",
-   "type": "box",
+   "name": "Pillars_3_Jet",
+   "type": "frustum",
    "position": [
-    -6.47,
-    0.0,
-    -1.27
+    -4.92,
+    5.75,
+    0.28
    ],
    "rotation": [
     0.0,
@@ -27359,240 +27143,18 @@
     0.0
    ],
    "size": [
-    0.3,
-    8.35,
-    0.3
+    0.8,
+    0.75,
+    0.8
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "glow",
+   "sections": 8,
+   "bottom_scale": 0.15,
    "collision": false,
    "outline": false,
    "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_3_Brace_1a",
-   "type": "box",
-   "position": [
-    -4.92,
-    2.008,
-    1.83
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    53.41
-   ],
-   "size": [
-    5.2,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_3_Brace_1b",
-   "type": "box",
-   "position": [
-    -4.92,
-    6.183,
-    1.83
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -53.41
-   ],
-   "size": [
-    5.2,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_3_Brace_2a",
-   "type": "box",
-   "position": [
-    -4.92,
-    2.008,
-    -1.27
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    53.41
-   ],
-   "size": [
-    5.2,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_3_Brace_2b",
-   "type": "box",
-   "position": [
-    -4.92,
-    6.183,
-    -1.27
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -53.41
-   ],
-   "size": [
-    5.2,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_3_Brace_3a",
-   "type": "box",
-   "position": [
-    -3.37,
-    2.008,
-    0.28
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    53.41
-   ],
-   "size": [
-    5.2,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_3_Brace_3b",
-   "type": "box",
-   "position": [
-    -3.37,
-    6.183,
-    0.28
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    -53.41
-   ],
-   "size": [
-    5.2,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_3_Brace_4a",
-   "type": "box",
-   "position": [
-    -6.47,
-    2.008,
-    0.28
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    53.41
-   ],
-   "size": [
-    5.2,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_3_Brace_4b",
-   "type": "box",
-   "position": [
-    -6.47,
-    6.183,
-    0.28
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    -53.41
-   ],
-   "size": [
-    5.2,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_3_FF"
    },
    "gen": "Pillars",
    "source": "visible"
@@ -27617,8 +27179,10 @@
    ],
    "material": "deck",
    "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_4_FJ"
    },
+   "floater": "Pillars_FloatRig",
    "gen": "Pillars",
    "source": "visible"
   },
@@ -27641,11 +27205,13 @@
     0.06
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_4_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -27668,11 +27234,13 @@
     0.06
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_4_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -27695,11 +27263,13 @@
     3.6
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_4_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -27722,21 +27292,23 @@
     3.6
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_4_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_4_Leg_1",
-   "type": "box",
+   "name": "Pillars_4_Hull",
+   "type": "frustum",
    "position": [
-    7.21,
-    0.0,
-    -3.89
+    5.66,
+    8.25,
+    -5.44
    ],
    "rotation": [
     0.0,
@@ -27744,27 +27316,28 @@
     0.0
    ],
    "size": [
-    0.3,
-    9.55,
-    0.3
+    3.3,
+    1.32,
+    3.3
    ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
+   "material": "structure_b",
+   "sections": 0,
+   "bottom_scale": 0.45,
    "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_4_FJ"
    },
+   "floater": "Pillars_FloatRig",
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_4_Leg_2",
-   "type": "box",
+   "name": "Pillars_4_GlowBand",
+   "type": "frustum",
    "position": [
-    4.11,
-    0.0,
-    -3.89
+    5.66,
+    9.0,
+    -5.44
    ],
    "rotation": [
     0.0,
@@ -27772,27 +27345,30 @@
     0.0
    ],
    "size": [
-    0.3,
-    9.55,
-    0.3
+    2.952,
+    0.22,
+    2.952
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "glow",
+   "sections": 0,
+   "bottom_scale": 0.95,
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_4_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_4_Leg_3",
-   "type": "box",
+   "name": "Pillars_4_Thruster",
+   "type": "cylinder",
    "position": [
-    7.21,
-    0.0,
-    -6.99
+    5.66,
+    7.7,
+    -5.44
    ],
    "rotation": [
     0.0,
@@ -27800,27 +27376,29 @@
     0.0
    ],
    "size": [
-    0.3,
-    9.55,
-    0.3
+    1.0,
+    0.6,
+    1.0
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "structure_b",
+   "sections": 8,
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_4_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_4_Leg_4",
-   "type": "box",
+   "name": "Pillars_4_Jet",
+   "type": "frustum",
    "position": [
-    4.11,
-    0.0,
-    -6.99
+    5.66,
+    6.95,
+    -5.44
    ],
    "rotation": [
     0.0,
@@ -27828,240 +27406,18 @@
     0.0
    ],
    "size": [
-    0.3,
-    9.55,
-    0.3
+    0.8,
+    0.75,
+    0.8
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "glow",
+   "sections": 8,
+   "bottom_scale": 0.15,
    "collision": false,
    "outline": false,
    "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_4_Brace_1a",
-   "type": "box",
-   "position": [
-    5.66,
-    2.308,
-    -3.89
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    57.01
-   ],
-   "size": [
-    5.693,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_4_Brace_1b",
-   "type": "box",
-   "position": [
-    5.66,
-    7.083,
-    -3.89
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -57.01
-   ],
-   "size": [
-    5.693,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_4_Brace_2a",
-   "type": "box",
-   "position": [
-    5.66,
-    2.308,
-    -6.99
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    57.01
-   ],
-   "size": [
-    5.693,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_4_Brace_2b",
-   "type": "box",
-   "position": [
-    5.66,
-    7.083,
-    -6.99
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -57.01
-   ],
-   "size": [
-    5.693,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_4_Brace_3a",
-   "type": "box",
-   "position": [
-    7.21,
-    2.308,
-    -5.44
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    57.01
-   ],
-   "size": [
-    5.693,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_4_Brace_3b",
-   "type": "box",
-   "position": [
-    7.21,
-    7.083,
-    -5.44
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    -57.01
-   ],
-   "size": [
-    5.693,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_4_Brace_4a",
-   "type": "box",
-   "position": [
-    4.11,
-    2.308,
-    -5.44
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    57.01
-   ],
-   "size": [
-    5.693,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_4_Brace_4b",
-   "type": "box",
-   "position": [
-    4.11,
-    7.083,
-    -5.44
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    -57.01
-   ],
-   "size": [
-    5.693,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_4_FF"
    },
    "gen": "Pillars",
    "source": "visible"
@@ -28086,8 +27442,10 @@
    ],
    "material": "deck",
    "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_5_FJ"
    },
+   "floater": "Pillars_FloatRig",
    "gen": "Pillars",
    "source": "visible"
   },
@@ -28110,11 +27468,13 @@
     0.06
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_5_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -28137,11 +27497,13 @@
     0.06
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_5_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -28164,11 +27526,13 @@
     3.6
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_5_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -28191,21 +27555,23 @@
     3.6
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_5_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_5_Leg_1",
-   "type": "box",
+   "name": "Pillars_5_Hull",
+   "type": "frustum",
    "position": [
-    12.5,
-    0.0,
-    -6.75
+    10.95,
+    8.85,
+    -8.3
    ],
    "rotation": [
     0.0,
@@ -28213,27 +27579,28 @@
     0.0
    ],
    "size": [
-    0.3,
-    10.15,
-    0.3
+    3.3,
+    1.32,
+    3.3
    ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
+   "material": "structure_b",
+   "sections": 0,
+   "bottom_scale": 0.45,
    "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_5_FJ"
    },
+   "floater": "Pillars_FloatRig",
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_5_Leg_2",
-   "type": "box",
+   "name": "Pillars_5_GlowBand",
+   "type": "frustum",
    "position": [
-    9.4,
-    0.0,
-    -6.75
+    10.95,
+    9.6,
+    -8.3
    ],
    "rotation": [
     0.0,
@@ -28241,27 +27608,30 @@
     0.0
    ],
    "size": [
-    0.3,
-    10.15,
-    0.3
+    2.952,
+    0.22,
+    2.952
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "glow",
+   "sections": 0,
+   "bottom_scale": 0.95,
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_5_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_5_Leg_3",
-   "type": "box",
+   "name": "Pillars_5_Thruster",
+   "type": "cylinder",
    "position": [
-    12.5,
-    0.0,
-    -9.85
+    10.95,
+    8.3,
+    -8.3
    ],
    "rotation": [
     0.0,
@@ -28269,27 +27639,29 @@
     0.0
    ],
    "size": [
-    0.3,
-    10.15,
-    0.3
+    1.0,
+    0.6,
+    1.0
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "structure_b",
+   "sections": 8,
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_5_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_5_Leg_4",
-   "type": "box",
+   "name": "Pillars_5_Jet",
+   "type": "frustum",
    "position": [
-    9.4,
-    0.0,
-    -9.85
+    10.95,
+    7.55,
+    -8.3
    ],
    "rotation": [
     0.0,
@@ -28297,240 +27669,18 @@
     0.0
    ],
    "size": [
-    0.3,
-    10.15,
-    0.3
+    0.8,
+    0.75,
+    0.8
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "glow",
+   "sections": 8,
+   "bottom_scale": 0.15,
    "collision": false,
    "outline": false,
    "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_5_Brace_1a",
-   "type": "box",
-   "position": [
-    10.95,
-    2.458,
-    -6.75
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    58.58
-   ],
-   "size": [
-    5.947,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_5_Brace_1b",
-   "type": "box",
-   "position": [
-    10.95,
-    7.533,
-    -6.75
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -58.58
-   ],
-   "size": [
-    5.947,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_5_Brace_2a",
-   "type": "box",
-   "position": [
-    10.95,
-    2.458,
-    -9.85
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    58.58
-   ],
-   "size": [
-    5.947,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_5_Brace_2b",
-   "type": "box",
-   "position": [
-    10.95,
-    7.533,
-    -9.85
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -58.58
-   ],
-   "size": [
-    5.947,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_5_Brace_3a",
-   "type": "box",
-   "position": [
-    12.5,
-    2.458,
-    -8.3
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    58.58
-   ],
-   "size": [
-    5.947,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_5_Brace_3b",
-   "type": "box",
-   "position": [
-    12.5,
-    7.533,
-    -8.3
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    -58.58
-   ],
-   "size": [
-    5.947,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_5_Brace_4a",
-   "type": "box",
-   "position": [
-    9.4,
-    2.458,
-    -8.3
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    58.58
-   ],
-   "size": [
-    5.947,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_5_Brace_4b",
-   "type": "box",
-   "position": [
-    9.4,
-    7.533,
-    -8.3
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    -58.58
-   ],
-   "size": [
-    5.947,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_5_FF"
    },
    "gen": "Pillars",
    "source": "visible"
@@ -28555,8 +27705,10 @@
    ],
    "material": "deck",
    "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_6_FJ"
    },
+   "floater": "Pillars_FloatRig",
    "gen": "Pillars",
    "source": "visible"
   },
@@ -28579,11 +27731,13 @@
     0.06
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_6_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -28606,11 +27760,13 @@
     0.06
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_6_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -28633,11 +27789,13 @@
     3.6
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_6_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -28660,21 +27818,23 @@
     3.6
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_6_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_6_Leg_1",
-   "type": "box",
+   "name": "Pillars_6_Hull",
+   "type": "frustum",
    "position": [
-    17.79,
-    0.0,
-    -9.61
+    16.24,
+    9.45,
+    -11.16
    ],
    "rotation": [
     0.0,
@@ -28682,27 +27842,28 @@
     0.0
    ],
    "size": [
-    0.3,
-    10.75,
-    0.3
+    3.3,
+    1.32,
+    3.3
    ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
+   "material": "structure_b",
+   "sections": 0,
+   "bottom_scale": 0.45,
    "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_6_FJ"
    },
+   "floater": "Pillars_FloatRig",
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_6_Leg_2",
-   "type": "box",
+   "name": "Pillars_6_GlowBand",
+   "type": "frustum",
    "position": [
-    14.69,
-    0.0,
-    -9.61
+    16.24,
+    10.2,
+    -11.16
    ],
    "rotation": [
     0.0,
@@ -28710,27 +27871,30 @@
     0.0
    ],
    "size": [
-    0.3,
-    10.75,
-    0.3
+    2.952,
+    0.22,
+    2.952
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "glow",
+   "sections": 0,
+   "bottom_scale": 0.95,
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_6_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_6_Leg_3",
-   "type": "box",
+   "name": "Pillars_6_Thruster",
+   "type": "cylinder",
    "position": [
-    17.79,
-    0.0,
-    -12.71
+    16.24,
+    8.9,
+    -11.16
    ],
    "rotation": [
     0.0,
@@ -28738,27 +27902,29 @@
     0.0
    ],
    "size": [
-    0.3,
-    10.75,
-    0.3
+    1.0,
+    0.6,
+    1.0
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "structure_b",
+   "sections": 8,
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_6_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_6_Leg_4",
-   "type": "box",
+   "name": "Pillars_6_Jet",
+   "type": "frustum",
    "position": [
-    14.69,
-    0.0,
-    -12.71
+    16.24,
+    8.15,
+    -11.16
    ],
    "rotation": [
     0.0,
@@ -28766,240 +27932,18 @@
     0.0
    ],
    "size": [
-    0.3,
-    10.75,
-    0.3
+    0.8,
+    0.75,
+    0.8
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "glow",
+   "sections": 8,
+   "bottom_scale": 0.15,
    "collision": false,
    "outline": false,
    "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_6_Brace_1a",
-   "type": "box",
-   "position": [
-    16.24,
-    2.607,
-    -9.61
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    60.03
-   ],
-   "size": [
-    6.205,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_6_Brace_1b",
-   "type": "box",
-   "position": [
-    16.24,
-    7.982,
-    -9.61
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -60.03
-   ],
-   "size": [
-    6.205,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_6_Brace_2a",
-   "type": "box",
-   "position": [
-    16.24,
-    2.607,
-    -12.71
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    60.03
-   ],
-   "size": [
-    6.205,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_6_Brace_2b",
-   "type": "box",
-   "position": [
-    16.24,
-    7.982,
-    -12.71
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -60.03
-   ],
-   "size": [
-    6.205,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_6_Brace_3a",
-   "type": "box",
-   "position": [
-    17.79,
-    2.607,
-    -11.16
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    60.03
-   ],
-   "size": [
-    6.205,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_6_Brace_3b",
-   "type": "box",
-   "position": [
-    17.79,
-    7.982,
-    -11.16
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    -60.03
-   ],
-   "size": [
-    6.205,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_6_Brace_4a",
-   "type": "box",
-   "position": [
-    14.69,
-    2.607,
-    -11.16
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    60.03
-   ],
-   "size": [
-    6.205,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_6_Brace_4b",
-   "type": "box",
-   "position": [
-    14.69,
-    7.982,
-    -11.16
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    -60.03
-   ],
-   "size": [
-    6.205,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_6_FF"
    },
    "gen": "Pillars",
    "source": "visible"
@@ -29024,8 +27968,10 @@
    ],
    "material": "deck",
    "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_7_FJ"
    },
+   "floater": "Pillars_FloatRig",
    "gen": "Pillars",
    "source": "visible"
   },
@@ -29048,11 +27994,13 @@
     0.06
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_7_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -29075,11 +28023,13 @@
     0.06
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_7_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -29102,11 +28052,13 @@
     3.6
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_7_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
@@ -29129,21 +28081,23 @@
     3.6
    ],
    "material": "stripe",
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_7_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_7_Leg_1",
-   "type": "box",
+   "name": "Pillars_7_Hull",
+   "type": "frustum",
    "position": [
-    23.08,
-    0.0,
-    -12.47
+    21.53,
+    10.05,
+    -14.02
    ],
    "rotation": [
     0.0,
@@ -29151,27 +28105,28 @@
     0.0
    ],
    "size": [
-    0.3,
-    11.35,
-    0.3
+    3.3,
+    1.32,
+    3.3
    ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
+   "material": "structure_b",
+   "sections": 0,
+   "bottom_scale": 0.45,
    "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_7_FJ"
    },
+   "floater": "Pillars_FloatRig",
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_7_Leg_2",
-   "type": "box",
+   "name": "Pillars_7_GlowBand",
+   "type": "frustum",
    "position": [
-    19.98,
-    0.0,
-    -12.47
+    21.53,
+    10.8,
+    -14.02
    ],
    "rotation": [
     0.0,
@@ -29179,27 +28134,30 @@
     0.0
    ],
    "size": [
-    0.3,
-    11.35,
-    0.3
+    2.952,
+    0.22,
+    2.952
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "glow",
+   "sections": 0,
+   "bottom_scale": 0.95,
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_7_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_7_Leg_3",
-   "type": "box",
+   "name": "Pillars_7_Thruster",
+   "type": "cylinder",
    "position": [
-    23.08,
-    0.0,
-    -15.57
+    21.53,
+    9.5,
+    -14.02
    ],
    "rotation": [
     0.0,
@@ -29207,27 +28165,29 @@
     0.0
    ],
    "size": [
-    0.3,
-    11.35,
-    0.3
+    1.0,
+    0.6,
+    1.0
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "structure_b",
+   "sections": 8,
+   "mobile": {
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_7_FJ"
+   },
+   "floater": "Pillars_FloatRig",
    "collision": false,
    "outline": false,
-   "mobile": {
-    "static": true
-   },
    "gen": "Pillars",
    "source": "visible"
   },
   {
-   "name": "Pillars_7_Leg_4",
-   "type": "box",
+   "name": "Pillars_7_Jet",
+   "type": "frustum",
    "position": [
-    19.98,
-    0.0,
-    -15.57
+    21.53,
+    8.75,
+    -14.02
    ],
    "rotation": [
     0.0,
@@ -29235,240 +28195,18 @@
     0.0
    ],
    "size": [
-    0.3,
-    11.35,
-    0.3
+    0.8,
+    0.75,
+    0.8
    ],
-   "material": "frame",
-   "bevel": false,
+   "material": "glow",
+   "sections": 8,
+   "bottom_scale": 0.15,
    "collision": false,
    "outline": false,
    "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_7_Brace_1a",
-   "type": "box",
-   "position": [
-    21.53,
-    2.758,
-    -12.47
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    61.35
-   ],
-   "size": [
-    6.467,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_7_Brace_1b",
-   "type": "box",
-   "position": [
-    21.53,
-    8.433,
-    -12.47
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -61.35
-   ],
-   "size": [
-    6.467,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_7_Brace_2a",
-   "type": "box",
-   "position": [
-    21.53,
-    2.758,
-    -15.57
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    61.35
-   ],
-   "size": [
-    6.467,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_7_Brace_2b",
-   "type": "box",
-   "position": [
-    21.53,
-    8.433,
-    -15.57
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -61.35
-   ],
-   "size": [
-    6.467,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_7_Brace_3a",
-   "type": "box",
-   "position": [
-    23.08,
-    2.758,
-    -14.02
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    61.35
-   ],
-   "size": [
-    6.467,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_7_Brace_3b",
-   "type": "box",
-   "position": [
-    23.08,
-    8.433,
-    -14.02
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    -61.35
-   ],
-   "size": [
-    6.467,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_7_Brace_4a",
-   "type": "box",
-   "position": [
-    19.98,
-    2.758,
-    -14.02
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    61.35
-   ],
-   "size": [
-    6.467,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Pillars",
-   "source": "visible"
-  },
-  {
-   "name": "Pillars_7_Brace_4b",
-   "type": "box",
-   "position": [
-    19.98,
-    8.433,
-    -14.02
-   ],
-   "rotation": [
-    0.0,
-    90.0,
-    -61.35
-   ],
-   "size": [
-    6.467,
-    0.16,
-    0.16
-   ],
-   "material": "frame",
-   "bevel": false,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
+    "group": "Pillars_FloatRig",
+    "joint": "Pillars_7_FF"
    },
    "gen": "Pillars",
    "source": "visible"
@@ -70086,1966 +68824,6 @@
     {
      "pts": [
       [
-       -14.145,
-       7.44406
-      ],
-      [
-       -14.145,
-       7.7
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -13.84406,
-       7.355
-      ],
-      [
-       -14.1,
-       7.355
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -14.05594,
-       7.745
-      ],
-      [
-       -13.8,
-       7.745
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -13.755,
-       7.65594
-      ],
-      [
-       -13.755,
-       7.4
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -17.245,
-       7.44406
-      ],
-      [
-       -17.245,
-       7.7
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -16.94406,
-       7.355
-      ],
-      [
-       -17.2,
-       7.355
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -17.15594,
-       7.745
-      ],
-      [
-       -16.9,
-       7.745
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -16.855,
-       7.65594
-      ],
-      [
-       -16.855,
-       7.4
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -14.145,
-       4.34406
-      ],
-      [
-       -14.145,
-       4.6
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -13.84406,
-       4.255
-      ],
-      [
-       -14.1,
-       4.255
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -14.05594,
-       4.645
-      ],
-      [
-       -13.8,
-       4.645
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -13.755,
-       4.55594
-      ],
-      [
-       -13.755,
-       4.3
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -17.245,
-       4.34406
-      ],
-      [
-       -17.245,
-       4.6
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -16.94406,
-       4.255
-      ],
-      [
-       -17.2,
-       4.255
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -17.15594,
-       4.645
-      ],
-      [
-       -16.9,
-       4.645
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -16.855,
-       4.55594
-      ],
-      [
-       -16.855,
-       4.3
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -16.06971,
-       7.449
-      ],
-      [
-       -16.28149,
-       7.449
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -16.28149,
-       7.651
-      ],
-      [
-       -16.06971,
-       7.651
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -16.06971,
-       4.349
-      ],
-      [
-       -16.28149,
-       4.349
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -16.28149,
-       4.551
-      ],
-      [
-       -16.06971,
-       4.551
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -8.855,
-       4.58065
-      ],
-      [
-       -8.855,
-       4.84
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -8.55065,
-       4.495
-      ],
-      [
-       -8.81,
-       4.495
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -8.76935,
-       4.885
-      ],
-      [
-       -8.51,
-       4.885
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -8.465,
-       4.79935
-      ],
-      [
-       -8.465,
-       4.54
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -11.955,
-       4.58065
-      ],
-      [
-       -11.955,
-       4.84
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -11.65065,
-       4.495
-      ],
-      [
-       -11.91,
-       4.495
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -11.86935,
-       4.885
-      ],
-      [
-       -11.61,
-       4.885
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -11.565,
-       4.79935
-      ],
-      [
-       -11.565,
-       4.54
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -8.855,
-       1.48065
-      ],
-      [
-       -8.855,
-       1.74
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -8.55065,
-       1.395
-      ],
-      [
-       -8.81,
-       1.395
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -8.76935,
-       1.785
-      ],
-      [
-       -8.51,
-       1.785
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -8.465,
-       1.69935
-      ],
-      [
-       -8.465,
-       1.44
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -11.955,
-       1.48065
-      ],
-      [
-       -11.955,
-       1.74
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -11.65065,
-       1.395
-      ],
-      [
-       -11.91,
-       1.395
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -11.86935,
-       1.785
-      ],
-      [
-       -11.61,
-       1.785
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -11.565,
-       1.69935
-      ],
-      [
-       -11.565,
-       1.44
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -10.8556,
-       4.589
-      ],
-      [
-       -11.0605,
-       4.589
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -11.0605,
-       4.791
-      ],
-      [
-       -10.8556,
-       4.791
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -10.8556,
-       1.489
-      ],
-      [
-       -11.0605,
-       1.489
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -11.0605,
-       1.691
-      ],
-      [
-       -10.8556,
-       1.691
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -3.565,
-       1.71772
-      ],
-      [
-       -3.565,
-       1.98
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -3.25772,
-       1.635
-      ],
-      [
-       -3.52,
-       1.635
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -3.48228,
-       2.025
-      ],
-      [
-       -3.22,
-       2.025
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -3.175,
-       1.94228
-      ],
-      [
-       -3.175,
-       1.68
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -6.665,
-       1.71772
-      ],
-      [
-       -6.665,
-       1.98
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -6.35772,
-       1.635
-      ],
-      [
-       -6.62,
-       1.635
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -6.58228,
-       2.025
-      ],
-      [
-       -6.32,
-       2.025
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -6.275,
-       1.94228
-      ],
-      [
-       -6.275,
-       1.68
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -3.565,
-       -1.38228
-      ],
-      [
-       -3.565,
-       -1.12
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -3.25772,
-       -1.465
-      ],
-      [
-       -3.52,
-       -1.465
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -3.48228,
-       -1.075
-      ],
-      [
-       -3.22,
-       -1.075
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -3.175,
-       -1.15772
-      ],
-      [
-       -3.175,
-       -1.42
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -6.665,
-       -1.38228
-      ],
-      [
-       -6.665,
-       -1.12
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -6.35772,
-       -1.465
-      ],
-      [
-       -6.62,
-       -1.465
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -6.58228,
-       -1.075
-      ],
-      [
-       -6.32,
-       -1.075
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -6.275,
-       -1.15772
-      ],
-      [
-       -6.275,
-       -1.42
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -5.63121,
-       1.729
-      ],
-      [
-       -5.83049,
-       1.729
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -5.83049,
-       1.931
-      ],
-      [
-       -5.63121,
-       1.931
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -5.63121,
-       -1.371
-      ],
-      [
-       -5.83049,
-       -1.371
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -5.83049,
-       -1.169
-      ],
-      [
-       -5.63121,
-       -1.169
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       7.015,
-       -4.00702
-      ],
-      [
-       7.015,
-       -3.74
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       7.32702,
-       -4.085
-      ],
-      [
-       7.06,
-       -4.085
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       7.09298,
-       -3.695
-      ],
-      [
-       7.36,
-       -3.695
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       7.405,
-       -3.77298
-      ],
-      [
-       7.405,
-       -4.04
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       3.915,
-       -4.00702
-      ],
-      [
-       3.915,
-       -3.74
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       4.22702,
-       -4.085
-      ],
-      [
-       3.96,
-       -4.085
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       3.99298,
-       -3.695
-      ],
-      [
-       4.26,
-       -3.695
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       4.305,
-       -3.77298
-      ],
-      [
-       4.305,
-       -4.04
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       7.015,
-       -7.10702
-      ],
-      [
-       7.015,
-       -6.84
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       7.32702,
-       -7.185
-      ],
-      [
-       7.06,
-       -7.185
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       7.09298,
-       -6.795
-      ],
-      [
-       7.36,
-       -6.795
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       7.405,
-       -6.87298
-      ],
-      [
-       7.405,
-       -7.14
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       3.915,
-       -7.10702
-      ],
-      [
-       3.915,
-       -6.84
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       4.22702,
-       -7.185
-      ],
-      [
-       3.96,
-       -7.185
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       3.99298,
-       -6.795
-      ],
-      [
-       4.26,
-       -6.795
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       4.305,
-       -6.87298
-      ],
-      [
-       4.305,
-       -7.14
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       4.84336,
-       -3.991
-      ],
-      [
-       4.69502,
-       -3.991
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       4.6526,
-       -3.789
-      ],
-      [
-       4.79904,
-       -3.789
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       4.84336,
-       -7.091
-      ],
-      [
-       4.69502,
-       -7.091
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       4.6526,
-       -6.889
-      ],
-      [
-       4.79904,
-       -6.889
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       12.305,
-       -6.86897
-      ],
-      [
-       12.305,
-       -6.6
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       12.61897,
-       -6.945
-      ],
-      [
-       12.35,
-       -6.945
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       12.38103,
-       -6.555
-      ],
-      [
-       12.65,
-       -6.555
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       12.695,
-       -6.63103
-      ],
-      [
-       12.695,
-       -6.9
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       9.205,
-       -6.86897
-      ],
-      [
-       9.205,
-       -6.6
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       9.51897,
-       -6.945
-      ],
-      [
-       9.25,
-       -6.945
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       9.28103,
-       -6.555
-      ],
-      [
-       9.55,
-       -6.555
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       9.595,
-       -6.63103
-      ],
-      [
-       9.595,
-       -6.9
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       12.305,
-       -9.96897
-      ],
-      [
-       12.305,
-       -9.7
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       12.61897,
-       -10.045
-      ],
-      [
-       12.35,
-       -10.045
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       12.38103,
-       -9.655
-      ],
-      [
-       12.65,
-       -9.655
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       12.695,
-       -9.73103
-      ],
-      [
-       12.695,
-       -10.0
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       9.205,
-       -9.96897
-      ],
-      [
-       9.205,
-       -9.7
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       9.51897,
-       -10.045
-      ],
-      [
-       9.25,
-       -10.045
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       9.28103,
-       -9.655
-      ],
-      [
-       9.55,
-       -9.655
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       9.595,
-       -9.73103
-      ],
-      [
-       9.595,
-       -10.0
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       10.08988,
-       -6.851
-      ],
-      [
-       9.94168,
-       -6.851
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       9.90239,
-       -6.649
-      ],
-      [
-       10.04882,
-       -6.649
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       10.08988,
-       -9.951
-      ],
-      [
-       9.94168,
-       -9.951
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       9.90239,
-       -9.749
-      ],
-      [
-       10.04882,
-       -9.749
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       17.595,
-       -9.7307
-      ],
-      [
-       17.595,
-       -9.46
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       17.9107,
-       -9.805
-      ],
-      [
-       17.64,
-       -9.805
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       17.6693,
-       -9.415
-      ],
-      [
-       17.94,
-       -9.415
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       17.985,
-       -9.4893
-      ],
-      [
-       17.985,
-       -9.76
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       14.495,
-       -9.7307
-      ],
-      [
-       14.495,
-       -9.46
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       14.8107,
-       -9.805
-      ],
-      [
-       14.54,
-       -9.805
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       14.5693,
-       -9.415
-      ],
-      [
-       14.84,
-       -9.415
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       14.885,
-       -9.4893
-      ],
-      [
-       14.885,
-       -9.76
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       17.595,
-       -12.8307
-      ],
-      [
-       17.595,
-       -12.56
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       17.9107,
-       -12.905
-      ],
-      [
-       17.64,
-       -12.905
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       17.6693,
-       -12.515
-      ],
-      [
-       17.94,
-       -12.515
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       17.985,
-       -12.5893
-      ],
-      [
-       17.985,
-       -12.86
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       14.495,
-       -12.8307
-      ],
-      [
-       14.495,
-       -12.56
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       14.8107,
-       -12.905
-      ],
-      [
-       14.54,
-       -12.905
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       14.5693,
-       -12.515
-      ],
-      [
-       14.84,
-       -12.515
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       14.885,
-       -12.5893
-      ],
-      [
-       14.885,
-       -12.86
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       15.34215,
-       -9.711
-      ],
-      [
-       15.1941,
-       -9.711
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       15.15746,
-       -9.509
-      ],
-      [
-       15.30387,
-       -9.509
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       15.34215,
-       -12.811
-      ],
-      [
-       15.1941,
-       -12.811
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       15.15746,
-       -12.609
-      ],
-      [
-       15.30387,
-       -12.609
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       22.885,
-       -12.59225
-      ],
-      [
-       22.885,
-       -12.32
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       23.20225,
-       -12.665
-      ],
-      [
-       22.93,
-       -12.665
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       22.95775,
-       -12.275
-      ],
-      [
-       23.23,
-       -12.275
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       23.275,
-       -12.34775
-      ],
-      [
-       23.275,
-       -12.62
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       19.785,
-       -12.59225
-      ],
-      [
-       19.785,
-       -12.32
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       20.10225,
-       -12.665
-      ],
-      [
-       19.83,
-       -12.665
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       19.85775,
-       -12.275
-      ],
-      [
-       20.13,
-       -12.275
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       20.175,
-       -12.34775
-      ],
-      [
-       20.175,
-       -12.62
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       22.885,
-       -15.69225
-      ],
-      [
-       22.885,
-       -15.42
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       23.20225,
-       -15.765
-      ],
-      [
-       22.93,
-       -15.765
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       22.95775,
-       -15.375
-      ],
-      [
-       23.23,
-       -15.375
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       23.275,
-       -15.44775
-      ],
-      [
-       23.275,
-       -15.72
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       19.785,
-       -15.69225
-      ],
-      [
-       19.785,
-       -15.42
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       20.10225,
-       -15.765
-      ],
-      [
-       19.83,
-       -15.765
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       19.85775,
-       -15.375
-      ],
-      [
-       20.13,
-       -15.375
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       20.175,
-       -15.44775
-      ],
-      [
-       20.175,
-       -15.72
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       20.59683,
-       -12.571
-      ],
-      [
-       20.4488,
-       -12.571
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       20.41451,
-       -12.369
-      ],
-      [
-       20.56103,
-       -12.369
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       20.59683,
-       -15.671
-      ],
-      [
-       20.4488,
-       -15.671
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       20.41451,
-       -15.469
-      ],
-      [
-       20.56103,
-       -15.469
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
        -0.27651,
        -1.47208
       ],
@@ -73420,6 +70198,224 @@
   }
  ],
  "skeletons": {
+  "Pillars_Float": {
+   "groups": [
+    "Pillars_FloatRig"
+   ],
+   "joints": [
+    {
+     "name": "Pillars_FRoot",
+     "parent": null,
+     "pivot": [
+      -15.5,
+      7.6,
+      6.0
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Pillars_1_FJ",
+     "parent": "Pillars_FRoot",
+     "pivot": [
+      -15.5,
+      7.6,
+      6.0
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Pillars_1_FF",
+     "parent": "Pillars_1_FJ",
+     "pivot": [
+      -15.5,
+      5.35,
+      6.0
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Pillars_2_FJ",
+     "parent": "Pillars_FRoot",
+     "pivot": [
+      -10.21,
+      8.2,
+      3.14
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Pillars_2_FF",
+     "parent": "Pillars_2_FJ",
+     "pivot": [
+      -10.21,
+      5.95,
+      3.14
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Pillars_3_FJ",
+     "parent": "Pillars_FRoot",
+     "pivot": [
+      -4.92,
+      8.8,
+      0.28
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Pillars_3_FF",
+     "parent": "Pillars_3_FJ",
+     "pivot": [
+      -4.92,
+      6.55,
+      0.28
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Pillars_4_FJ",
+     "parent": "Pillars_FRoot",
+     "pivot": [
+      5.66,
+      10.0,
+      -5.44
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Pillars_4_FF",
+     "parent": "Pillars_4_FJ",
+     "pivot": [
+      5.66,
+      7.75,
+      -5.44
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Pillars_5_FJ",
+     "parent": "Pillars_FRoot",
+     "pivot": [
+      10.95,
+      10.6,
+      -8.3
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Pillars_5_FF",
+     "parent": "Pillars_5_FJ",
+     "pivot": [
+      10.95,
+      8.35,
+      -8.3
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Pillars_6_FJ",
+     "parent": "Pillars_FRoot",
+     "pivot": [
+      16.24,
+      11.2,
+      -11.16
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Pillars_6_FF",
+     "parent": "Pillars_6_FJ",
+     "pivot": [
+      16.24,
+      8.95,
+      -11.16
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Pillars_7_FJ",
+     "parent": "Pillars_FRoot",
+     "pivot": [
+      21.53,
+      11.8,
+      -14.02
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    },
+    {
+     "name": "Pillars_7_FF",
+     "parent": "Pillars_7_FJ",
+     "pivot": [
+      21.53,
+      9.55,
+      -14.02
+     ],
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    }
+   ],
+   "kind": "float"
+  },
   "Spinner_Float": {
    "groups": [
     "Spinner_FloatRig"
@@ -76008,6 +73004,182 @@
  ],
  "floaters": [
   {
+   "id": "Pillars_FloatRig",
+   "group": "Pillars_FloatRig",
+   "skeleton": "Pillars_Float",
+   "pads": [
+    {
+     "joint": "Pillars_1_FJ",
+     "flame_joint": "Pillars_1_FF",
+     "center": [
+      -15.5,
+      7.6,
+      6.0
+     ],
+     "deck_radius": 1.948,
+     "deck_size": [
+      3.6,
+      3.6
+     ],
+     "deck_yaw": 0.0,
+     "bob": [
+      0.22,
+      2.3
+     ],
+     "phase": 0.0,
+     "tilt": 2.0,
+     "yaw": 2.0,
+     "flame": "Pillars_FloatRig",
+     "flame_y": 5.35
+    },
+    {
+     "joint": "Pillars_2_FJ",
+     "flame_joint": "Pillars_2_FF",
+     "center": [
+      -10.21,
+      8.2,
+      3.14
+     ],
+     "deck_radius": 1.948,
+     "deck_size": [
+      3.6,
+      3.6
+     ],
+     "deck_yaw": 0.0,
+     "bob": [
+      0.22,
+      2.53
+     ],
+     "phase": 0.7,
+     "tilt": 2.0,
+     "yaw": 2.0,
+     "flame": "Pillars_FloatRig",
+     "flame_y": 5.95
+    },
+    {
+     "joint": "Pillars_3_FJ",
+     "flame_joint": "Pillars_3_FF",
+     "center": [
+      -4.92,
+      8.8,
+      0.28
+     ],
+     "deck_radius": 1.948,
+     "deck_size": [
+      3.6,
+      3.6
+     ],
+     "deck_yaw": 0.0,
+     "bob": [
+      0.22,
+      2.76
+     ],
+     "phase": 1.4,
+     "tilt": 2.0,
+     "yaw": 2.0,
+     "flame": "Pillars_FloatRig",
+     "flame_y": 6.55
+    },
+    {
+     "joint": "Pillars_4_FJ",
+     "flame_joint": "Pillars_4_FF",
+     "center": [
+      5.66,
+      10.0,
+      -5.44
+     ],
+     "deck_radius": 1.948,
+     "deck_size": [
+      3.6,
+      3.6
+     ],
+     "deck_yaw": 0.0,
+     "bob": [
+      0.22,
+      2.99
+     ],
+     "phase": 2.1,
+     "tilt": 2.0,
+     "yaw": 2.0,
+     "flame": "Pillars_FloatRig",
+     "flame_y": 7.75
+    },
+    {
+     "joint": "Pillars_5_FJ",
+     "flame_joint": "Pillars_5_FF",
+     "center": [
+      10.95,
+      10.6,
+      -8.3
+     ],
+     "deck_radius": 1.948,
+     "deck_size": [
+      3.6,
+      3.6
+     ],
+     "deck_yaw": 0.0,
+     "bob": [
+      0.22,
+      3.22
+     ],
+     "phase": 2.8,
+     "tilt": 2.0,
+     "yaw": 2.0,
+     "flame": "Pillars_FloatRig",
+     "flame_y": 8.35
+    },
+    {
+     "joint": "Pillars_6_FJ",
+     "flame_joint": "Pillars_6_FF",
+     "center": [
+      16.24,
+      11.2,
+      -11.16
+     ],
+     "deck_radius": 1.948,
+     "deck_size": [
+      3.6,
+      3.6
+     ],
+     "deck_yaw": 0.0,
+     "bob": [
+      0.22,
+      3.45
+     ],
+     "phase": 3.5,
+     "tilt": 2.0,
+     "yaw": 2.0,
+     "flame": "Pillars_FloatRig",
+     "flame_y": 8.95
+    },
+    {
+     "joint": "Pillars_7_FJ",
+     "flame_joint": "Pillars_7_FF",
+     "center": [
+      21.53,
+      11.8,
+      -14.02
+     ],
+     "deck_radius": 1.948,
+     "deck_size": [
+      3.6,
+      3.6
+     ],
+     "deck_yaw": 0.0,
+     "bob": [
+      0.22,
+      3.68
+     ],
+     "phase": 4.2,
+     "tilt": 2.0,
+     "yaw": 2.0,
+     "flame": "Pillars_FloatRig",
+     "flame_y": 9.55
+    }
+   ],
+   "note": "per pad: joint offset (0, amp sin(2 pi (t + phase) / period), 0), yaw +-yaw, tilt +-tilt (about the deck centre); flame_joint scale y flickers; square decks: deck_size / deck_yaw"
+  },
+  {
    "id": "Spinner_FloatRig",
    "group": "Spinner_FloatRig",
    "skeleton": "Spinner_Float",
@@ -76129,7 +73301,7 @@
   "Entry_Door: entrance hallway 10 m out of the black (from slime_arena)",
   "Saw_West: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 26.5]",
   "Saw_East: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 20.5]",
-  "Pillars: 7 striped pillars on truss legs",
+  "Pillars: 7 floating stepping platforms (bobbing, thruster flames)",
   "Belt_A: conveyor ramp 16.5 m at 21 deg, belt -2.4 m/s, spike pit at the foot",
   "Belt_B: conveyor ramp 16.5 m at 21 deg, belt -3.4 m/s, spike pit at the foot",
   "Exit_Door: exit hallway 12 m fading to black -> level2_part1",
@@ -76142,7 +73314,7 @@
   "ducts: Ceil_Duct_1 trimmed to 2 piece(s) clear of 2 standing part(s), 0 crane runway(s), ends at beams 0.0 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 0.0 m",
   "corrosion: 6 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 8 lights at the liquid line removed, 12 light strips raised clear of it",
-  "corrosion: 587 wall faces at the liquid line get a corroded band (one mesh, one material)"
+  "corrosion: 435 wall faces at the liquid line get a corroded band (one mesh, one material)"
  ],
  "relations": [
   {
@@ -76226,12 +73398,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 52244,
-  "objects": 2279,
+  "triangles": 51544,
+  "objects": 2223,
   "materials": 38,
-  "glb_kb": 3736,
-  "nodes": 2503,
-  "draw_calls_unbatched": 2473,
+  "glb_kb": 3702,
+  "nodes": 2460,
+  "draw_calls_unbatched": 2430,
   "draw_calls_batched_min": 40,
   "images": 104,
   "tex_mem_gpu_compressed_mb": 24.15,

@@ -1591,6 +1591,218 @@
    "merge_emitters": true
   },
   {
+   "id": "Pillars_FloatRig_Bob",
+   "type": "floater",
+   "category": "floater",
+   "glb_contains": "pad at rest",
+   "godot_runtime": "script (apply_effects.gd _floaters): the pad group bobs and sways on an AnimatableBody3D carrying its deck collider; its jet flame group flickers",
+   "floater": {
+    "id": "Pillars_FloatRig",
+    "group": "Pillars_FloatRig",
+    "skeleton": "Pillars_Float",
+    "pads": [
+     {
+      "joint": "Pillars_1_FJ",
+      "flame_joint": "Pillars_1_FF",
+      "center": [
+       -15.5,
+       7.6,
+       6.0
+      ],
+      "deck_radius": 1.948,
+      "deck_size": [
+       3.6,
+       3.6
+      ],
+      "deck_yaw": 0.0,
+      "bob": [
+       0.22,
+       2.3
+      ],
+      "phase": 0.0,
+      "tilt": 2.0,
+      "yaw": 2.0,
+      "flame": "Pillars_FloatRig",
+      "flame_y": 5.35
+     },
+     {
+      "joint": "Pillars_2_FJ",
+      "flame_joint": "Pillars_2_FF",
+      "center": [
+       -10.21,
+       8.2,
+       3.14
+      ],
+      "deck_radius": 1.948,
+      "deck_size": [
+       3.6,
+       3.6
+      ],
+      "deck_yaw": 0.0,
+      "bob": [
+       0.22,
+       2.53
+      ],
+      "phase": 0.7,
+      "tilt": 2.0,
+      "yaw": 2.0,
+      "flame": "Pillars_FloatRig",
+      "flame_y": 5.95
+     },
+     {
+      "joint": "Pillars_3_FJ",
+      "flame_joint": "Pillars_3_FF",
+      "center": [
+       -4.92,
+       8.8,
+       0.28
+      ],
+      "deck_radius": 1.948,
+      "deck_size": [
+       3.6,
+       3.6
+      ],
+      "deck_yaw": 0.0,
+      "bob": [
+       0.22,
+       2.76
+      ],
+      "phase": 1.4,
+      "tilt": 2.0,
+      "yaw": 2.0,
+      "flame": "Pillars_FloatRig",
+      "flame_y": 6.55
+     },
+     {
+      "joint": "Pillars_4_FJ",
+      "flame_joint": "Pillars_4_FF",
+      "center": [
+       5.66,
+       10.0,
+       -5.44
+      ],
+      "deck_radius": 1.948,
+      "deck_size": [
+       3.6,
+       3.6
+      ],
+      "deck_yaw": 0.0,
+      "bob": [
+       0.22,
+       2.99
+      ],
+      "phase": 2.1,
+      "tilt": 2.0,
+      "yaw": 2.0,
+      "flame": "Pillars_FloatRig",
+      "flame_y": 7.75
+     },
+     {
+      "joint": "Pillars_5_FJ",
+      "flame_joint": "Pillars_5_FF",
+      "center": [
+       10.95,
+       10.6,
+       -8.3
+      ],
+      "deck_radius": 1.948,
+      "deck_size": [
+       3.6,
+       3.6
+      ],
+      "deck_yaw": 0.0,
+      "bob": [
+       0.22,
+       3.22
+      ],
+      "phase": 2.8,
+      "tilt": 2.0,
+      "yaw": 2.0,
+      "flame": "Pillars_FloatRig",
+      "flame_y": 8.35
+     },
+     {
+      "joint": "Pillars_6_FJ",
+      "flame_joint": "Pillars_6_FF",
+      "center": [
+       16.24,
+       11.2,
+       -11.16
+      ],
+      "deck_radius": 1.948,
+      "deck_size": [
+       3.6,
+       3.6
+      ],
+      "deck_yaw": 0.0,
+      "bob": [
+       0.22,
+       3.45
+      ],
+      "phase": 3.5,
+      "tilt": 2.0,
+      "yaw": 2.0,
+      "flame": "Pillars_FloatRig",
+      "flame_y": 8.95
+     },
+     {
+      "joint": "Pillars_7_FJ",
+      "flame_joint": "Pillars_7_FF",
+      "center": [
+       21.53,
+       11.8,
+       -14.02
+      ],
+      "deck_radius": 1.948,
+      "deck_size": [
+       3.6,
+       3.6
+      ],
+      "deck_yaw": 0.0,
+      "bob": [
+       0.22,
+       3.68
+      ],
+      "phase": 4.2,
+      "tilt": 2.0,
+      "yaw": 2.0,
+      "flame": "Pillars_FloatRig",
+      "flame_y": 9.55
+     }
+    ],
+    "note": "per pad: joint offset (0, amp sin(2 pi (t + phase) / period), 0), yaw +-yaw, tilt +-tilt (about the deck centre); flame_joint scale y flickers; square decks: deck_size / deck_yaw"
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Spinner_FloatRig_Bob",
    "type": "floater",
    "category": "floater",
@@ -3213,6 +3425,7 @@
     "Jet_Screen_Cap__glow",
     "M_glow_0_0",
     "M_glow_0_0_props",
+    "Pillars_FloatRig__glow",
     "Saw_East_Blade__glow",
     "Saw_West_Blade__glow",
     "Spinner_FloatRig__glow",

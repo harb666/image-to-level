@@ -1397,4 +1397,8 @@ Building blocks usable without the preset:
   drifting in the light, the light colour) and `Dome_Breath_*` (pulse_light: the beams breathe slowly).
 - Stage 131: Assembly Ascent uses `"shafts": 0` - only the soft haze volume, pool and motes (the separate ray tubes read as thick columns).
 - Stage 132: `saw_arm` `"hub_material"` (role, default `saw_hub`): the spinning blade hub (flange + nut) no longer uses the machine panel (its white light slots spun round); Assembly Ascent: plain dark metal.
+- Stage 133: `pillar_path` `"float": {"amp", "period", "tilt", "yaw"}` turns the stepping pillars into floating
+  platforms: no truss legs; under each striped deck a tapered hull, a glowing band, a thruster and a flickering flame,
+  all on one skinned float rig (level.json `floaters`, same runtime as the spinner's hover pads). Square decks carry
+  `deck_size` / `deck_yaw` so Godot gives them a box collider (apply_effects.gd `_floater`).
 

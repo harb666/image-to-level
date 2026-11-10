@@ -60,6 +60,16 @@ class AssemblyAscent(unittest.TestCase):
             self.assertTrue(any(n.startswith(b["chevrons"]) for n in self.by))
         C = _load("mobile/collision.json"); self.assertEqual({k["id"] for k in C["kills"]}, set(K)); self.assertEqual(len(C["belts"]), 2); self.assertEqual(len(C["saws"]), 2)
 
+    def test_stepping_platforms_float(self):
+        """Stage 133: the scaffold pillars are floating platforms - no legs into the slime, one float rig (a bone per
+        platform), square-deck colliders for Godot; the spike press keeps its column."""
+        self.assertFalse([n for n in self.by if n.startswith("Pillars_") and ("_Leg_" in n or "_Brace_" in n)])
+        F = next(f for f in self.L["floaters"] if f["id"] == "Pillars_FloatRig"); self.assertEqual(len(F["pads"]), 7)
+        for pd in F["pads"]: self.assertEqual(pd["deck_size"], [3.6, 3.6]); self.assertLessEqual(pd["bob"][0], 0.3)
+        self.assertEqual(self.by["Pillars_1_Cap"]["mobile"]["group"], "Pillars_FloatRig")
+        self.assertIn("Spike_Press_Housing", self.by)
+        C = _load("mobile/collision.json"); self.assertIn("Pillars_FloatRig", {f["id"] for f in C["floaters"]})
+
     def test_saw_hubs_are_plain(self):
         """Stage 132: the spinning blade hub (flange + nut) is plain dark metal - the machine panel's white light slots
         spun round with the blade."""
@@ -209,7 +219,7 @@ class FloatingPads(unittest.TestCase):
             d_end = math.hypot(bc[0] - p[0], bc[2] - p[2]) - br["size"][2] / 2; edge = 4.0 * math.cos(math.pi / 8)
             self.assertTrue(0.08 < d_end - edge < 0.3, (k, d_end - edge))
         C = _load("mobile/collision.json"); self.assertFalse([c for c in C["colliders"] if c["source"].startswith(("Spinner_Pad_2_Deck", "Spinner_Pad_3_Deck", "Spinner_Pad_4_Deck"))])
-        self.assertEqual(len(C["floaters"]), 1)
+        self.assertEqual(len([f for f in C["floaters"] if f["id"] == "Spinner_FloatRig"]), 1)  # (Stage 133: the stepping platforms have their own rig)
         with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()
         self.assertIn("fx.category==='floater'", v); self.assertIn("const floatPose=(F,t)=>", v)
         with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: gd = f.read()
