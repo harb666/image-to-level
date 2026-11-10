@@ -1,8 +1,8 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 2279 objects · 37 materials · 28 effects
+Spec: levels/assembly_ascent/scene_spec.json · 2279 objects · 38 materials · 28 effects
 Checks: PASSED ({'error': 0, 'warning': 7, 'info': 1}) · refine passes: 0
-Mobile (balanced): 2239 KB · 58902 tris · 123 draw calls · ~68.3 visible (estimate) · ~9.5 MB GPU textures (estimate)
+Mobile (balanced): 2238 KB · 58902 tris · 123 draw calls · ~68.3 visible (estimate) · ~9.5 MB GPU textures (estimate)
 Navigation: 3983.0 m² reachable of 18675.0 m² standable
 Package: dist/assembly_ascent/package (38 files, 9.48 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
@@ -44,9 +44,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - corrosion: 587 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 1.6 s
-- build (glb, sky, background, effects, mobile): 34.5 s
-- checks (fast): 39.4 s
-- previews: 0.7 s
-- export package: 0.4 s
-- total: 76.6 s
+- spec -> level.json: 2.0 s
+- build (glb, sky, background, effects, mobile): 35.1 s
+- checks (fast): 39.5 s
+- previews: 1.1 s
+- export package: 0.5 s
+- total: 78.1 s

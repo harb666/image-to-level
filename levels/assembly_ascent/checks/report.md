@@ -4,7 +4,7 @@ errors 0 · warnings 7 · info 1
 
 | metric | dev | mobile |
 |---|---|---|
-| file KB | 3736 | 2239 |
+| file KB | 3736 | 2238 |
 | triangles | 52244 | 58902 |
 | draw calls (measured) | 2473 | 123 |
 | visible draw calls (estimate) | - | 68.3 |

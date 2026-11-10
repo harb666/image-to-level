@@ -1396,4 +1396,5 @@ Building blocks usable without the preset:
   (`Dome_Pool`, role `light_pool`, faint rib spokes) where the light lands on the liquid; effects `Dome_Motes` (dust
   drifting in the light, the light colour) and `Dome_Breath_*` (pulse_light: the beams breathe slowly).
 - Stage 131: Assembly Ascent uses `"shafts": 0` - only the soft haze volume, pool and motes (the separate ray tubes read as thick columns).
+- Stage 132: `saw_arm` `"hub_material"` (role, default `saw_hub`): the spinning blade hub (flange + nut) no longer uses the machine panel (its white light slots spun round); Assembly Ascent: plain dark metal.
 

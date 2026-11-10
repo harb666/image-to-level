@@ -145,9 +145,10 @@ def saw_arm(ctx, s, x, y, z, yaw):
     # --- the blade (spins): disc, flange, glowing rings, bolts, hex nut - all concentric (each moving link keeps to 2-3 materials: draw calls)
     mb = K(gb, outline=False)
     ctx.add(n + "_Saw", "saw_blade", C, [D, 0.12, D], ctx.role("blade"), rot=[90, ay, 0], teeth=int(s.get("teeth", 36)), **mb)
-    axle(n + "_Flange", C, D * 0.34, 0.3, "machine", gb, outline=False)
+    hub = ctx.role(s.get("hub_material", "saw_hub"))  # Stage 132: plain dark metal - the machine panel's white light slots spun round with the blade
+    axle(n + "_Flange", C, D * 0.34, 0.3, hub, gb, outline=False)
     for sd in (-1, 1): axle(f"{n}_BladeGlow_{'LR'[sd > 0]}", C, D * 0.42, 0.02, gl, gb, off=sd * 0.072, outline=False)
-    axle(n + "_Nut", C, 0.42, 0.2, "machine", gb, off=0.25, sections=6, outline=False)
+    axle(n + "_Nut", C, 0.42, 0.2, hub, gb, off=0.25, sections=6, outline=False)
     for k_ in range(6):
         aa = math.radians(60 * k_); q = add(C, add(mul(uw, D * 0.12 * math.cos(aa)), mul(v, D * 0.12 * math.sin(aa))))
         axle(f"{n}_Bolt_{k_ + 1}", q, 0.13, 0.1, ctx.role("blade"), gb, off=0.2, sections=6, outline=False)

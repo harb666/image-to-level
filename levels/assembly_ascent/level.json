@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "5dc36794202999ac",
+  "spec_sha": "30a71f468206c78b",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -2832,6 +2832,21 @@
    "wear": 0.05,
    "toon": true,
    "notes": "pink safety rails"
+  },
+  "saw_hub": {
+   "type": "concrete",
+   "color": [
+    0.24,
+    0.2,
+    0.32
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "plain": true,
+   "metal": 0.6,
+   "rough": 0.4,
+   "notes": "Stage 132: saw blade hub (flange + nut) - plain dark metal, nothing on it that shows the spin"
   },
   "screen": {
    "type": "screen_atlas",
@@ -23258,7 +23273,7 @@
     0.3,
     1.496
    ],
-   "material": "machine",
+   "material": "saw_hub",
    "sections": 12,
    "collision": false,
    "mobile": {
@@ -23342,7 +23357,7 @@
     0.2,
     0.42
    ],
-   "material": "machine",
+   "material": "saw_hub",
    "sections": 6,
    "collision": false,
    "mobile": {
@@ -24941,7 +24956,7 @@
     0.3,
     1.496
    ],
-   "material": "machine",
+   "material": "saw_hub",
    "sections": 12,
    "collision": false,
    "mobile": {
@@ -25025,7 +25040,7 @@
     0.2,
     0.42
    ],
-   "material": "machine",
+   "material": "saw_hub",
    "sections": 6,
    "collision": false,
    "mobile": {
@@ -76213,11 +76228,11 @@
  "build_stats": {
   "triangles": 52244,
   "objects": 2279,
-  "materials": 37,
+  "materials": 38,
   "glb_kb": 3736,
   "nodes": 2503,
   "draw_calls_unbatched": 2473,
-  "draw_calls_batched_min": 39,
+  "draw_calls_batched_min": 40,
   "images": 104,
   "tex_mem_gpu_compressed_mb": 24.15,
   "tex_mem_uncompressed_mb": 96.59,

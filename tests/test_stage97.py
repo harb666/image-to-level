@@ -60,6 +60,13 @@ class AssemblyAscent(unittest.TestCase):
             self.assertTrue(any(n.startswith(b["chevrons"]) for n in self.by))
         C = _load("mobile/collision.json"); self.assertEqual({k["id"] for k in C["kills"]}, set(K)); self.assertEqual(len(C["belts"]), 2); self.assertEqual(len(C["saws"]), 2)
 
+    def test_saw_hubs_are_plain(self):
+        """Stage 132: the spinning blade hub (flange + nut) is plain dark metal - the machine panel's white light slots
+        spun round with the blade."""
+        for sw in ("Saw_West", "Saw_East"):
+            for part in ("_Flange", "_Nut"):
+                m = self.L["materials"][self.by[sw + part]["material"]]; self.assertTrue(m.get("plain"), sw + part); self.assertFalse(m.get("emissive"))
+
     def test_spiked_press_and_laser_gates(self):
         c = next(c for c in self.L["crushers"] if c["id"] == "Spike_Press")
         self.assertAlmostEqual(c["travel"], 5.4 - 0.02, places=3)  # Stage 125: the head lands on the pad, the teeth sink into sockets
