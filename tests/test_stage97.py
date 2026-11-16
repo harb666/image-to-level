@@ -113,6 +113,12 @@ class AssemblyAscent(unittest.TestCase):
         top = self.by["Showcase_RampL_Top_a"]; self.assertGreater(abs(top["rotation"][0]), 5)  # sloped with the ramp
         ys = [self.by[f"Showcase_RampL_Post_a{j}"]["position"][1] for j in (1, 2, 3)]; self.assertTrue(ys[0] < ys[1] < ys[2])  # posts climb with it
 
+    def test_dais_is_one_machined_plate(self):
+        """Stage 143: between the face and the steel ring the dais is one lathe-turned gunmetal disc mapped once
+        (tile = its diameter: no repeating panels)."""
+        d = self.by["Showcase_Dais"]; m = self.L["materials"][d["material"]]
+        self.assertEqual(m["type"], "turned_plate"); self.assertAlmostEqual(m["tile_m"], d["size"][0], places=1); self.assertLessEqual(m["res"], 512)
+
     def test_dais_has_the_mini_boss_frown(self):
         """Stage 137: the showcase dais has no hazard stripes and shows the mini boss's frown face (cut-out decal)."""
         self.assertNotEqual(self.L["materials"][self.by["Showcase_DaisRim"]["material"]]["type"], "chevron")

@@ -1444,4 +1444,7 @@ Building blocks usable without the preset:
   `"sleeve"`) and per-corner UVs (v = arc length / `"tile"`): a glowing core (material kind `bubble_flow`: streaks +
   wrapping bubbles, 128 px) scrolled along the pipe by effect `Pipe_Bubbles` (liquid_flow with a given `flow_uv`), a
   glass sleeve (`glass_clear`) on the straight runs and plain steel elbows (`lift_ring`) on the bends.
+- Stage 143: material kind `turned_plate` - one machined steel disc (lathe rings, anisotropic sheen, polished wear,
+  grime and a darker band at the rim, scratches, a faint magenta oil sheen; `tile_m` = the disc's diameter on a
+  cylinder top so it maps once, no tiling). `showcase` `"dais_material"`: Assembly Ascent's dais is `dais_plate`.
 

@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "a2fecb410349c8e9",
+  "spec_sha": "aa2e392c3f3886cc",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -3054,6 +3054,28 @@
     1.0
    ],
    "cutout": 0.5
+  },
+  "dais_plate": {
+   "type": "turned_plate",
+   "color": [
+    0.46,
+    0.42,
+    0.52
+   ],
+   "tile_m": 17.2,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "radius_frac": 0.99,
+   "res": 512,
+   "scratches": 45,
+   "scratch": 0.22,
+   "tint": [
+    1.0,
+    0.35,
+    0.85
+   ],
+   "notes": "Stage 143: the dais (boss lift) top - one lathe-turned gunmetal disc, no panel grid, mapped once (tile_m = its diameter)",
+   "metal": 0.55
   },
   "deck": {
    "type": "scifi_floor",
@@ -23286,7 +23308,7 @@
     0.3,
     17.2
    ],
-   "material": "structure_b",
+   "material": "dais_plate",
    "sections": 48,
    "mobile": {
     "static": true
@@ -81974,14 +81996,14 @@
  "build_stats": {
   "triangles": 64216,
   "objects": 2473,
-  "materials": 47,
-  "glb_kb": 4387,
+  "materials": 48,
+  "glb_kb": 4428,
   "nodes": 2729,
   "draw_calls_unbatched": 2694,
-  "draw_calls_batched_min": 49,
-  "images": 121,
-  "tex_mem_gpu_compressed_mb": 26.61,
-  "tex_mem_uncompressed_mb": 106.44,
+  "draw_calls_batched_min": 50,
+  "images": 123,
+  "tex_mem_gpu_compressed_mb": 27.28,
+  "tex_mem_uncompressed_mb": 109.11,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

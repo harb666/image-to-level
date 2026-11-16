@@ -812,7 +812,7 @@ def showcase(ctx, s, x, y, z, yaw):
     dx, dz = s.get("dais_at", D["center"]); R = float(s.get("dais_r", 8.6))
     gap_m = ctx.role(s.get("seam_material", "saw_hub")); ring_m = ctx.role(s.get("ring_material", "lift_ring"))
     ctx.add(n + "_DaisRim", "cylinder", [dx, yt - 0.3, dz], [2 * R + 0.5, 0.42, 2 * R + 0.5], gap_m, sections=48, **st)  # Stage 141: the dark lift-shaft gap round the dais (it will be a lift)
-    ctx.add(n + "_Dais", "cylinder", [dx, yt, dz], [2 * R, 0.3, 2 * R], "structure_b", sections=48, **st)
+    ctx.add(n + "_Dais", "cylinder", [dx, yt, dz], [2 * R, 0.3, 2 * R], ctx.role(s.get("dais_material", "structure_b")), sections=48, **st)  # Stage 143: one machined plate
     # Stage 141: a solid machined ring round the lift (was pink light segments): a wide base collar, a raised bevelled band,
     # bolt heads and four heavy guide clamps - the frame the boss lift drops into
     ctx.add(n + "_LiftCollar", "cylinder", [dx, yt - 0.02, dz], [2 * R + 3.2, 0.16, 2 * R + 3.2], ring_m, hole=R + 0.25, hole_res=48, sections=48, **st)

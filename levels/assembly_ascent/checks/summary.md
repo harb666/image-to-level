@@ -1,16 +1,16 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 2473 objects · 47 materials · 40 effects
+Spec: levels/assembly_ascent/scene_spec.json · 2473 objects · 48 materials · 40 effects
 Checks: PASSED ({'error': 0, 'warning': 10, 'info': 1}) · refine passes: 0
-Mobile (balanced): 2584 KB · 70746 tris · 138 draw calls · ~76.0 visible (estimate) · ~10.96 MB GPU textures (estimate)
+Mobile (balanced): 2609 KB · 70746 tris · 139 draw calls · ~76.4 visible (estimate) · ~11.63 MB GPU textures (estimate)
 Navigation: 5422.0 m² reachable of 20142.0 m² standable
-Package: dist/assembly_ascent/package (38 files, 10.74 MB) valid=True
+Package: dist/assembly_ascent/package (38 files, 10.81 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- warning: mobile draw calls 138 (> 80)
+- warning: mobile draw calls 139 (> 80)
 - warning: ~76 visible draw calls (estimate, > 60)
 - warning: Showcase_Pit_1_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
@@ -48,9 +48,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - corrosion: 500 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 1.7 s
-- build (glb, sky, background, effects, mobile): 56.7 s
-- checks (fast): 63.4 s
+- spec -> level.json: 1.6 s
+- build (glb, sky, background, effects, mobile): 52.1 s
+- checks (fast): 60.2 s
 - previews: 0.8 s
-- export package: 0.6 s
-- total: 123.3 s
+- export package: 0.4 s
+- total: 115.0 s

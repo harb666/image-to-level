@@ -1043,6 +1043,32 @@ def k_hazard_wrap(S, rng, c, m):
     return dict(alb=np.clip(alb, 0, 1), h=0.55 - 0.15 * np.clip(1 - edge / 2.5, 0, 1) - 0.08 * chip, rough=np.where(chip, 0.35, 0.5 - 0.1 * np.clip(hl, 0, 1)), metal=np.where(chip, 0.85, 0.08), nstr=0.7)
 
 
+def k_turned_plate(S, rng, c, m):
+    """Stage 143: ONE machined steel disc (no tiling, no panel grid) - pair with tile_m = the disc's diameter on a
+    cylinder top (UVs centred on its axis, like scrape_rings). Fine lathe-turned rings with a soft anisotropic sheen,
+    polished wear where feet go and grime toward the rim, a darker outer band with a bright bevel line, scattered
+    scratches and a faint magenta oil sheen ("tint"). Plain gunmetal colour c."""
+    T = float(m.get("tile_m", 17.0)); y, x = np.mgrid[:S, :S] / S; x = (x + 0.5) % 1 - 0.5; y = (y + 0.5) % 1 - 0.5
+    rr = np.hypot(x, y) * 2; th = np.arctan2(y, x); R = float(m.get("radius_frac", 0.98))
+    turn = 0.5 + 0.5 * np.sin(rr * S * float(m.get("line_freq", 0.45)) + 3.0 * _noise(rng, 6, 2, S))  # lathe lines (below the texel rate: no shimmer)
+    sheen = 0.5 + 0.5 * np.cos(2 * (th - 0.7))  # anisotropic highlight band across the turned rings
+    wear = np.clip(_noise(rng, 4, 3, S) * 1.3 - 0.2, 0, 1) * np.clip(1.2 - rr / R, 0, 1)
+    grime = np.clip((rr / R - 0.7) / 0.3, 0, 1) * (0.6 + 0.4 * _noise(rng, 8, 2, S))
+    v = 0.8 + 0.12 * turn + 0.18 * sheen * (0.4 + 0.6 * turn) + 0.18 * wear - 0.22 * grime
+    band = (rr > R * 0.9) & (rr < R); bevel = np.abs(rr - R * 0.9) < 1.6 / S * 2
+    v = np.where(band, v * 0.72, v) + bevel * 0.35
+    sc = np.zeros((S, S))
+    for _ in range(int(m.get("scratches", 70))):  # short straight scratches
+        cx_, cy_ = rng.uniform(-0.45, 0.45, 2); a = rng.uniform(0, np.pi); L = rng.uniform(0.01, 0.06); px_, py_ = x - cx_, y - cy_
+        along = px_ * np.cos(a) + py_ * np.sin(a); across = -px_ * np.sin(a) + py_ * np.cos(a)
+        sc = np.maximum(sc, (np.abs(along) < L) * np.clip(1 - np.abs(across) * S / 1.2, 0, 1) * rng.uniform(0.3, 0.8))
+    v = v + sc * float(m.get("scratch", 0.25)) * (rr < R)
+    tint = np.array(m.get("tint", [1.0, 0.35, 0.85])); oil = np.clip(_noise(rng, 3, 2, S) - 0.55, 0, 1) * 1.6 * (rr < R * 0.9)
+    alb = c[None, None] * v[..., None]; alb = alb * (1 - 0.25 * oil[..., None]) + tint[None, None] * c.max() * 0.9 * 0.25 * oil[..., None]
+    rough = np.clip(0.45 - 0.2 * wear - 0.1 * sheen + 0.3 * grime, 0.15, 0.9)
+    return dict(alb=np.clip(alb, 0, 1), h=turn * 0.15 - grime * 0.2, rough=rough, metal=float(m.get("metal", 0.85)), emit=None, nstr=0.0)
+
+
 def k_scrape_rings(S, rng, c, m):
     """Stage 105: a plain (untextured) deck scored by things sweeping round it - concentric scrape marks centred on the
     UV origin (pair with tile_m = the deck's width: a cylinder top's UVs are local metres / tile_m from its axis, so
