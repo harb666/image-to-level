@@ -1401,4 +1401,8 @@ Building blocks usable without the preset:
   platforms: no truss legs; under each striped deck a tapered hull, a glowing band, a thruster and a flickering flame,
   all on one skinned float rig (level.json `floaters`, same runtime as the spinner's hover pads). Square decks carry
   `deck_size` / `deck_yaw` so Godot gives them a box collider (apply_effects.gd `_floater`).
+- Stage 134: `saw_arm` `"arm_offset"` (-1.0 m along the hinge axis): the whole arm runs behind the blade's plane and
+  the wrist pivot is the blade's centre (motor housing on its axle, a back strut up to the guard hood) - the blade no
+  longer hangs from a joint above its rim. Assembly Ascent: the robot ring's red ring marking is the grinning gear
+  decal (`Yard_Emblem`, like `Gear_Emblem`).
 

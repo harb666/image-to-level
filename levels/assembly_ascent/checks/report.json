@@ -1,16 +1,16 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 3702,
-  "mobile/level_mobile.glb": 2231,
-  "mobile/collision.json": 163,
+  "level.glb": 3674,
+  "mobile/level_mobile.glb": 2220,
+  "mobile/collision.json": 162,
   "environment.json": 4,
   "background.glb": 477,
   "effects.json": 76
  },
  "complexity": {
-  "triangles": 60540,
-  "nodes": 2430,
+  "triangles": 60062,
+  "nodes": 2426,
   "materials": 38,
   "heaviest": [
    [
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 3702,
-   "triangles": 51544,
-   "draw_calls": 2430,
+   "glb_kb": 3674,
+   "triangles": 51162,
+   "draw_calls": 2426,
    "tex_mem_gpu_mb_est": 24.15
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 2231,
-   "triangles": 58502,
+   "glb_kb": 2220,
+   "triangles": 58024,
    "draw_calls": 128,
-   "visible_draw_calls_est": 70.9,
+   "visible_draw_calls_est": 71.2,
    "visible_draw_calls_max_est": 131,
    "tex_mem_gpu_mb_est": 9.5,
    "materials": 40,
    "nodes": 227,
    "colliders": {
-    "colliders": 391,
+    "colliders": 387,
     "hazards": 1,
-    "glb_kb": 180
+    "glb_kb": 177
    },
    "background_kb": 404
   },
@@ -82,7 +82,7 @@
  },
  "navigation": {
   "standable_area_m2": 18675.0,
-  "reachable_area_m2": 3983.0,
+  "reachable_area_m2": 3973.0,
   "components": 93,
   "spawns": [
    {
@@ -101,15 +101,15 @@
    {
     "id": "enemy_yard",
     "position": [
-     -32.29,
+     -30.0,
      7.0,
-     -0.86
+     6.0
     ],
     "standable": true,
-    "clearance_m": 4.5,
-    "headroom_m": 27.78,
+    "clearance_m": 5.5,
+    "headroom_m": 27.77,
     "component": 17,
-    "hazard_distance_m": 4.64
+    "hazard_distance_m": 11.51
    },
    {
     "id": "enemy_deck",
@@ -278,7 +278,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "60540 triangles (> budget 40000)"
+   "message": "60062 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",

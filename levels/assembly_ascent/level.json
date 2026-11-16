@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "6a845ef91e2c0a42",
+  "spec_sha": "3e3a278ad6034501",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -30,11 +30,11 @@
   {
    "id": "enemy_yard",
    "position": [
-    -32.29,
+    -30.0,
     7.0,
-    -0.86
+    6.0
    ],
-   "yaw_deg": -91.5,
+   "yaw_deg": -78.7,
    "team": "enemy"
   },
   {
@@ -1038,7 +1038,7 @@
       "pivot": [
        -36.55,
        22.0,
-       26.5
+       25.5
       ],
       "amp": 30.0,
       "lag": 0.0
@@ -1046,9 +1046,9 @@
      {
       "group": "Saw_West_Fore",
       "pivot": [
-       -37.3,
-       16.2,
-       26.5
+       -36.85,
+       15.35,
+       25.5
       ],
       "amp": 24.0,
       "lag": 0.9
@@ -1056,9 +1056,9 @@
      {
       "group": "Saw_West_Wrist",
       "pivot": [
-       -32.85,
-       10.4,
-       26.5
+       -31.95,
+       8.7,
+       25.5
       ],
       "amp": 21.0,
       "lag": 1.7
@@ -1071,7 +1071,7 @@
     "pivot": [
      -36.55,
      22.0,
-     26.5
+     25.5
     ],
     "axis": [
      0.0,
@@ -1105,7 +1105,7 @@
       "pivot": [
        -27.35,
        22.0,
-       20.5
+       19.5
       ],
       "amp": 30.0,
       "lag": 0.0
@@ -1113,9 +1113,9 @@
      {
       "group": "Saw_East_Fore",
       "pivot": [
-       -26.6,
-       16.45,
-       20.5
+       -27.05,
+       15.6,
+       19.5
       ],
       "amp": 24.0,
       "lag": 0.9
@@ -1123,9 +1123,9 @@
      {
       "group": "Saw_East_Wrist",
       "pivot": [
-       -31.05,
-       10.9,
-       20.5
+       -31.95,
+       9.2,
+       19.5
       ],
       "amp": 21.0,
       "lag": 1.7
@@ -1138,7 +1138,7 @@
     "pivot": [
      -27.35,
      22.0,
-     20.5
+     19.5
     ],
     "axis": [
      0.0,
@@ -22258,12 +22258,39 @@
    "source": "visible"
   },
   {
+   "name": "Yard_Emblem_Decal",
+   "type": "panel",
+   "position": [
+    -30.0,
+    7.012,
+    10.5
+   ],
+   "rotation": [
+    -90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.0,
+    9.0,
+    0.0
+   ],
+   "material": "gear_decal",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Yard_Emblem",
+   "source": "visible"
+  },
+  {
    "name": "Saw_West_Plate",
    "type": "box",
    "position": [
     -36.55,
     32.01,
-    26.5
+    25.5
    ],
    "rotation": [
     0.0,
@@ -22289,7 +22316,7 @@
    "position": [
     -36.55,
     23.1,
-    26.5
+    25.5
    ],
    "rotation": [
     0.0,
@@ -22316,7 +22343,7 @@
    "position": [
     -36.55,
     24.65,
-    26.5
+    25.5
    ],
    "rotation": [
     0.0,
@@ -22343,7 +22370,7 @@
    "position": [
     -36.55,
     31.01,
-    26.5
+    25.5
    ],
    "rotation": [
     0.0,
@@ -22370,7 +22397,7 @@
    "position": [
     -36.55,
     30.76,
-    26.5
+    25.5
    ],
    "rotation": [
     0.0,
@@ -22398,7 +22425,7 @@
    "position": [
     -36.55,
     24.4,
-    26.5
+    25.5
    ],
    "rotation": [
     0.0,
@@ -22426,7 +22453,7 @@
    "position": [
     -36.55,
     25.3,
-    26.5
+    25.5
    ],
    "rotation": [
     0.0,
@@ -22454,7 +22481,7 @@
    "position": [
     -37.3,
     22.45,
-    25.05
+    24.05
    ],
    "rotation": [
     90.0,
@@ -22481,7 +22508,7 @@
    "position": [
     -37.3,
     22.45,
-    27.95
+    26.95
    ],
    "rotation": [
     90.0,
@@ -22508,7 +22535,7 @@
    "position": [
     -36.55,
     22.0,
-    25.2
+    24.2
    ],
    "rotation": [
     90.0,
@@ -22535,7 +22562,7 @@
    "position": [
     -36.55,
     22.0,
-    25.14
+    24.14
    ],
    "rotation": [
     90.0,
@@ -22563,7 +22590,7 @@
    "position": [
     -36.55,
     22.0,
-    27.8
+    26.8
    ],
    "rotation": [
     90.0,
@@ -22589,19 +22616,19 @@
    "name": "Saw_West_Upper",
    "type": "box",
    "position": [
-    -37.47,
-    19.171,
-    26.5
+    -37.249,
+    18.7,
+    25.5
    ],
    "rotation": [
-    97.37,
+    92.58,
     90.0,
     0.0
    ],
    "size": [
     1.05,
     1.1,
-    5.848
+    6.657
    ],
    "material": "arm_yellow",
    "bevel": false,
@@ -22616,18 +22643,18 @@
    "name": "Saw_West_UpperPiston_L",
    "type": "cylinder",
    "position": [
-    -36.685,
-    20.956,
-    25.755
+    -36.604,
+    20.803,
+    24.755
    ],
    "rotation": [
-    -172.63,
+    -177.42,
     90.0,
     0.0
    ],
    "size": [
     0.36,
-    2.164,
+    2.463,
     0.36
    ],
    "material": "machine",
@@ -22643,18 +22670,18 @@
    "name": "Saw_West_UpperRod_L",
    "type": "cylinder",
    "position": [
-    -36.962,
-    18.81,
-    25.755
+    -36.715,
+    18.343,
+    24.755
    ],
    "rotation": [
-    -172.63,
+    -177.42,
     90.0,
     0.0
    ],
    "size": [
     0.18,
-    1.754,
+    1.997,
     0.18
    ],
    "material": "machine",
@@ -22671,18 +22698,18 @@
    "name": "Saw_West_UpperPiston_R",
    "type": "cylinder",
    "position": [
-    -36.685,
-    20.956,
-    27.245
+    -36.604,
+    20.803,
+    26.245
    ],
    "rotation": [
-    -172.63,
+    -177.42,
     90.0,
     0.0
    ],
    "size": [
     0.36,
-    2.164,
+    2.463,
     0.36
    ],
    "material": "machine",
@@ -22698,18 +22725,18 @@
    "name": "Saw_West_UpperRod_R",
    "type": "cylinder",
    "position": [
-    -36.962,
-    18.81,
-    27.245
+    -36.715,
+    18.343,
+    26.245
    ],
    "rotation": [
-    -172.63,
+    -177.42,
     90.0,
     0.0
    ],
    "size": [
     0.18,
-    1.754,
+    1.997,
     0.18
    ],
    "material": "machine",
@@ -22726,19 +22753,19 @@
    "name": "Saw_West_Fore",
    "type": "box",
    "position": [
-    -35.432,
-    13.026,
-    26.5
+    -34.762,
+    11.758,
+    25.5
    ],
    "rotation": [
-    52.5,
+    53.62,
     90.0,
     0.0
    ],
    "size": [
     0.85,
     0.9,
-    7.31
+    8.26
    ],
    "material": "arm_yellow",
    "bevel": false,
@@ -22753,18 +22780,18 @@
    "name": "Saw_West_ForePiston_L",
    "type": "cylinder",
    "position": [
-    -36.499,
-    15.156,
-    25.855
+    -35.968,
+    14.153,
+    24.855
    ],
    "rotation": [
-    142.5,
+    143.62,
     90.0,
     0.0
    ],
    "size": [
     0.36,
-    2.705,
+    3.056,
     0.36
    ],
    "material": "machine",
@@ -22780,18 +22807,18 @@
    "name": "Saw_West_ForeRod_L",
    "type": "cylinder",
    "position": [
-    -34.853,
-    13.01,
-    25.855
+    -34.155,
+    11.692,
+    24.855
    ],
    "rotation": [
-    142.5,
+    143.62,
     90.0,
     0.0
    ],
    "size": [
     0.18,
-    2.193,
+    2.478,
     0.18
    ],
    "material": "machine",
@@ -22808,18 +22835,18 @@
    "name": "Saw_West_ForePiston_R",
    "type": "cylinder",
    "position": [
-    -36.499,
-    15.156,
-    27.145
+    -35.968,
+    14.153,
+    26.145
    ],
    "rotation": [
-    142.5,
+    143.62,
     90.0,
     0.0
    ],
    "size": [
     0.36,
-    2.705,
+    3.056,
     0.36
    ],
    "material": "machine",
@@ -22835,18 +22862,18 @@
    "name": "Saw_West_ForeRod_R",
    "type": "cylinder",
    "position": [
-    -34.853,
-    13.01,
-    27.145
+    -34.155,
+    11.692,
+    26.145
    ],
    "rotation": [
-    142.5,
+    143.62,
     90.0,
     0.0
    ],
    "size": [
     0.18,
-    2.193,
+    2.478,
     0.18
    ],
    "material": "machine",
@@ -22863,9 +22890,9 @@
    "name": "Saw_West_Elbow",
    "type": "cylinder",
    "position": [
-    -37.3,
-    16.2,
-    25.75
+    -36.85,
+    15.35,
+    24.75
    ],
    "rotation": [
     90.0,
@@ -22890,9 +22917,9 @@
    "name": "Saw_West_Wrist",
    "type": "cylinder",
    "position": [
-    -32.85,
-    10.4,
-    25.85
+    -31.95,
+    8.7,
+    24.85
    ],
    "rotation": [
     90.0,
@@ -22904,35 +22931,8 @@
     1.3,
     1.5
    ],
-   "material": "machine",
+   "material": "structure_b",
    "sections": 12,
-   "collision": false,
-   "mobile": {
-    "group": "Saw_West_Wrist"
-   },
-   "gen": "Saw_West",
-   "source": "visible"
-  },
-  {
-   "name": "Saw_West_Bracket",
-   "type": "box",
-   "position": [
-    -32.709,
-    9.386,
-    26.08
-   ],
-   "rotation": [
-    62.1,
-    90.0,
-    0.0
-   ],
-   "size": [
-    0.42,
-    0.7,
-    1.924
-   ],
-   "material": "arm_yellow",
-   "bevel": false,
    "collision": false,
    "mobile": {
     "group": "Saw_West_Wrist"
@@ -22946,7 +22946,7 @@
    "position": [
     -31.95,
     8.7,
-    25.605
+    25.45
    ],
    "rotation": [
     90.0,
@@ -22955,10 +22955,10 @@
    ],
    "size": [
     0.5,
-    0.95,
+    1.05,
     0.5
    ],
-   "material": "machine",
+   "material": "structure_b",
    "sections": 8,
    "collision": false,
    "mobile": {
@@ -23404,6 +23404,33 @@
     "group": "Saw_West_Wrist"
    },
    "outline": false,
+   "gen": "Saw_West",
+   "source": "visible"
+  },
+  {
+   "name": "Saw_West_GuardStrut",
+   "type": "box",
+   "position": [
+    -32.494,
+    10.177,
+    25.88
+   ],
+   "rotation": [
+    -117.9,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.85,
+    0.42,
+    1.92
+   ],
+   "material": "arm_yellow",
+   "bevel": false,
+   "collision": false,
+   "mobile": {
+    "group": "Saw_West_Wrist"
+   },
    "gen": "Saw_West",
    "source": "visible"
   },
@@ -23946,7 +23973,7 @@
    "position": [
     -27.35,
     31.48,
-    20.5
+    19.5
    ],
    "rotation": [
     0.0,
@@ -23972,7 +23999,7 @@
    "position": [
     -27.35,
     23.1,
-    20.5
+    19.5
    ],
    "rotation": [
     0.0,
@@ -23999,7 +24026,7 @@
    "position": [
     -27.35,
     24.65,
-    20.5
+    19.5
    ],
    "rotation": [
     0.0,
@@ -24026,7 +24053,7 @@
    "position": [
     -27.35,
     30.48,
-    20.5
+    19.5
    ],
    "rotation": [
     0.0,
@@ -24053,7 +24080,7 @@
    "position": [
     -27.35,
     30.23,
-    20.5
+    19.5
    ],
    "rotation": [
     0.0,
@@ -24081,7 +24108,7 @@
    "position": [
     -27.35,
     24.4,
-    20.5
+    19.5
    ],
    "rotation": [
     0.0,
@@ -24109,7 +24136,7 @@
    "position": [
     -27.35,
     25.3,
-    20.5
+    19.5
    ],
    "rotation": [
     0.0,
@@ -24137,7 +24164,7 @@
    "position": [
     -28.1,
     22.45,
-    19.05
+    18.05
    ],
    "rotation": [
     90.0,
@@ -24164,7 +24191,7 @@
    "position": [
     -28.1,
     22.45,
-    21.95
+    20.95
    ],
    "rotation": [
     90.0,
@@ -24191,7 +24218,7 @@
    "position": [
     -27.35,
     22.0,
-    19.2
+    18.2
    ],
    "rotation": [
     90.0,
@@ -24218,7 +24245,7 @@
    "position": [
     -27.35,
     22.0,
-    19.14
+    18.14
    ],
    "rotation": [
     90.0,
@@ -24246,7 +24273,7 @@
    "position": [
     -27.35,
     22.0,
-    21.8
+    20.8
    ],
    "rotation": [
     90.0,
@@ -24272,19 +24299,19 @@
    "name": "Saw_East_Upper",
    "type": "box",
    "position": [
-    -27.52,
-    19.151,
-    20.5
+    -27.749,
+    18.774,
+    19.5
    ],
    "rotation": [
-    82.3,
+    87.32,
     90.0,
     0.0
    ],
    "size": [
     1.05,
     1.1,
-    5.6
+    6.407
    ],
    "material": "arm_yellow",
    "bevel": false,
@@ -24299,18 +24326,18 @@
    "name": "Saw_East_UpperPiston_L",
    "type": "cylinder",
    "position": [
-    -27.215,
-    21.001,
-    19.755
+    -27.296,
+    20.848,
+    18.755
    ],
    "rotation": [
-    172.3,
+    177.32,
     90.0,
     0.0
    ],
    "size": [
     0.36,
-    2.072,
+    2.371,
     0.36
    ],
    "material": "machine",
@@ -24326,18 +24353,18 @@
    "name": "Saw_East_UpperRod_L",
    "type": "cylinder",
    "position": [
-    -26.938,
-    18.947,
-    19.755
+    -27.185,
+    18.48,
+    18.755
    ],
    "rotation": [
-    172.3,
+    177.32,
     90.0,
     0.0
    ],
    "size": [
     0.18,
-    1.68,
+    1.922,
     0.18
    ],
    "material": "machine",
@@ -24354,18 +24381,18 @@
    "name": "Saw_East_UpperPiston_R",
    "type": "cylinder",
    "position": [
-    -27.215,
-    21.001,
-    21.245
+    -27.296,
+    20.848,
+    20.245
    ],
    "rotation": [
-    172.3,
+    177.32,
     90.0,
     0.0
    ],
    "size": [
     0.36,
-    2.072,
+    2.371,
     0.36
    ],
    "material": "machine",
@@ -24381,18 +24408,18 @@
    "name": "Saw_East_UpperRod_R",
    "type": "cylinder",
    "position": [
-    -26.938,
-    18.947,
-    21.245
+    -27.185,
+    18.48,
+    20.245
    ],
    "rotation": [
-    172.3,
+    177.32,
     90.0,
     0.0
    ],
    "size": [
     0.18,
-    1.68,
+    1.922,
     0.18
    ],
    "material": "machine",
@@ -24409,19 +24436,19 @@
    "name": "Saw_East_Fore",
    "type": "box",
    "position": [
-    -29.176,
-    13.956,
-    20.5
+    -29.857,
+    12.674,
+    19.5
    ],
    "rotation": [
-    128.72,
+    127.44,
     90.0,
     0.0
    ],
    "size": [
     0.85,
     0.9,
-    7.114
+    8.06
    ],
    "material": "arm_yellow",
    "bevel": false,
@@ -24436,18 +24463,18 @@
    "name": "Saw_East_ForePiston_L",
    "type": "cylinder",
    "position": [
-    -27.401,
-    15.451,
-    19.855
+    -27.932,
+    14.448,
+    18.855
    ],
    "rotation": [
-    -141.28,
+    -142.56,
     90.0,
     0.0
    ],
    "size": [
     0.36,
-    2.632,
+    2.982,
     0.36
    ],
    "material": "machine",
@@ -24463,18 +24490,18 @@
    "name": "Saw_East_ForeRod_L",
    "type": "cylinder",
    "position": [
-    -29.048,
-    13.397,
-    19.855
+    -29.745,
+    12.08,
+    18.855
    ],
    "rotation": [
-    -141.28,
+    -142.56,
     90.0,
     0.0
    ],
    "size": [
     0.18,
-    2.134,
+    2.418,
     0.18
    ],
    "material": "machine",
@@ -24491,18 +24518,18 @@
    "name": "Saw_East_ForePiston_R",
    "type": "cylinder",
    "position": [
-    -27.401,
-    15.451,
-    21.145
+    -27.932,
+    14.448,
+    20.145
    ],
    "rotation": [
-    -141.28,
+    -142.56,
     90.0,
     0.0
    ],
    "size": [
     0.36,
-    2.632,
+    2.982,
     0.36
    ],
    "material": "machine",
@@ -24518,18 +24545,18 @@
    "name": "Saw_East_ForeRod_R",
    "type": "cylinder",
    "position": [
-    -29.048,
-    13.397,
-    21.145
+    -29.745,
+    12.08,
+    20.145
    ],
    "rotation": [
-    -141.28,
+    -142.56,
     90.0,
     0.0
    ],
    "size": [
     0.18,
-    2.134,
+    2.418,
     0.18
    ],
    "material": "machine",
@@ -24546,9 +24573,9 @@
    "name": "Saw_East_Elbow",
    "type": "cylinder",
    "position": [
-    -26.6,
-    16.45,
-    19.75
+    -27.05,
+    15.6,
+    18.75
    ],
    "rotation": [
     90.0,
@@ -24573,9 +24600,9 @@
    "name": "Saw_East_Wrist",
    "type": "cylinder",
    "position": [
-    -31.05,
-    10.9,
-    19.85
+    -31.95,
+    9.2,
+    18.85
    ],
    "rotation": [
     90.0,
@@ -24587,35 +24614,8 @@
     1.3,
     1.5
    ],
-   "material": "machine",
+   "material": "structure_b",
    "sections": 12,
-   "collision": false,
-   "mobile": {
-    "group": "Saw_East_Wrist"
-   },
-   "gen": "Saw_East",
-   "source": "visible"
-  },
-  {
-   "name": "Saw_East_Bracket",
-   "type": "box",
-   "position": [
-    -31.809,
-    10.214,
-    20.08
-   ],
-   "rotation": [
-    117.9,
-    90.0,
-    0.0
-   ],
-   "size": [
-    0.42,
-    0.7,
-    1.924
-   ],
-   "material": "arm_yellow",
-   "bevel": false,
    "collision": false,
    "mobile": {
     "group": "Saw_East_Wrist"
@@ -24629,7 +24629,7 @@
    "position": [
     -31.95,
     9.2,
-    19.605
+    19.45
    ],
    "rotation": [
     90.0,
@@ -24638,10 +24638,10 @@
    ],
    "size": [
     0.5,
-    0.95,
+    1.05,
     0.5
    ],
-   "material": "machine",
+   "material": "structure_b",
    "sections": 8,
    "collision": false,
    "mobile": {
@@ -25087,6 +25087,33 @@
     "group": "Saw_East_Wrist"
    },
    "outline": false,
+   "gen": "Saw_East",
+   "source": "visible"
+  },
+  {
+   "name": "Saw_East_GuardStrut",
+   "type": "box",
+   "position": [
+    -31.034,
+    10.48,
+    19.88
+   ],
+   "rotation": [
+    -62.1,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.85,
+    0.42,
+    1.92
+   ],
+   "material": "arm_yellow",
+   "bevel": false,
+   "collision": false,
+   "mobile": {
+    "group": "Saw_East_Wrist"
+   },
    "gen": "Saw_East",
    "source": "visible"
   },
@@ -25621,98 +25648,6 @@
    "collision": false,
    "outline": false,
    "gen": "Yard_Bridge",
-   "source": "visible"
-  },
-  {
-   "name": "Yard_Mark_Ring_1",
-   "type": "cylinder",
-   "position": [
-    -30.0,
-    7.0,
-    6.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    10.0,
-    0.04,
-    10.0
-   ],
-   "material": "accent",
-   "sections": 24,
-   "gen": "Yard_Mark",
-   "source": "visible"
-  },
-  {
-   "name": "Yard_Mark_Ring_2",
-   "type": "cylinder",
-   "position": [
-    -30.0,
-    7.02,
-    6.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    7.5,
-    0.04,
-    7.5
-   ],
-   "material": "deck",
-   "sections": 24,
-   "gen": "Yard_Mark",
-   "source": "visible"
-  },
-  {
-   "name": "Yard_Mark_Ring_3",
-   "type": "cylinder",
-   "position": [
-    -30.0,
-    7.04,
-    6.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    5.0,
-    0.04,
-    5.0
-   ],
-   "material": "glow",
-   "sections": 24,
-   "gen": "Yard_Mark",
-   "source": "visible"
-  },
-  {
-   "name": "Yard_Mark_Ring_4",
-   "type": "cylinder",
-   "position": [
-    -30.0,
-    7.06,
-    6.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    2.5,
-    0.04,
-    2.5
-   ],
-   "material": "glow",
-   "sections": 24,
-   "gen": "Yard_Mark",
    "source": "visible"
   },
   {
@@ -72451,7 +72386,7 @@
      "pivot": [
       -36.55,
       22.0,
-      26.5
+      25.5
      ],
      "amp": 30.0,
      "lag": 0.0
@@ -72459,9 +72394,9 @@
     {
      "group": "Saw_West_Fore",
      "pivot": [
-      -37.3,
-      16.2,
-      26.5
+      -36.85,
+      15.35,
+      25.5
      ],
      "amp": 24.0,
      "lag": 0.9
@@ -72469,9 +72404,9 @@
     {
      "group": "Saw_West_Wrist",
      "pivot": [
-      -32.85,
-      10.4,
-      26.5
+      -31.95,
+      8.7,
+      25.5
      ],
      "amp": 21.0,
      "lag": 1.7
@@ -72484,7 +72419,7 @@
    "pivot": [
     -36.55,
     22.0,
-    26.5
+    25.5
    ],
    "axis": [
     0.0,
@@ -72514,7 +72449,7 @@
      "pivot": [
       -27.35,
       22.0,
-      20.5
+      19.5
      ],
      "amp": 30.0,
      "lag": 0.0
@@ -72522,9 +72457,9 @@
     {
      "group": "Saw_East_Fore",
      "pivot": [
-      -26.6,
-      16.45,
-      20.5
+      -27.05,
+      15.6,
+      19.5
      ],
      "amp": 24.0,
      "lag": 0.9
@@ -72532,9 +72467,9 @@
     {
      "group": "Saw_East_Wrist",
      "pivot": [
-      -31.05,
-      10.9,
-      20.5
+      -31.95,
+      9.2,
+      19.5
      ],
      "amp": 21.0,
      "lag": 1.7
@@ -72547,7 +72482,7 @@
    "pivot": [
     -27.35,
     22.0,
-    20.5
+    19.5
    ],
    "axis": [
     0.0,
@@ -73398,12 +73333,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 51544,
-  "objects": 2223,
+  "triangles": 51162,
+  "objects": 2220,
   "materials": 38,
-  "glb_kb": 3702,
-  "nodes": 2460,
-  "draw_calls_unbatched": 2430,
+  "glb_kb": 3674,
+  "nodes": 2456,
+  "draw_calls_unbatched": 2426,
   "draw_calls_batched_min": 40,
   "images": 104,
   "tex_mem_gpu_compressed_mb": 24.15,

@@ -70,6 +70,18 @@ class AssemblyAscent(unittest.TestCase):
         self.assertIn("Spike_Press_Housing", self.by)
         C = _load("mobile/collision.json"); self.assertIn("Pillars_FloatRig", {f["id"] for f in C["floaters"]})
 
+    def test_saw_arms_hold_the_blade_at_its_centre(self):
+        """Stage 134: the wrist pivot is the blade's centre (on its axle, the arm 1 m behind the blade's plane) - not a
+        joint above its rim; the red ring marking on the robot ring is the grinning gear decal."""
+        for sw in self.L["saws"]:
+            W = sw["joints"][2]["pivot"]; C, A = sw["center"], sw["axis"]
+            d = [W[i] - C[i] for i in range(3)]; along = sum(d[i] * A[i] for i in range(3))
+            self.assertLess(math.dist([d[i] - along * A[i] for i in range(3)], [0, 0, 0]), 1e-3, sw["id"])  # on the blade's axis
+            self.assertGreater(abs(along), 0.5)  # behind the blade, clear of its face
+            self.assertNotIn(sw["id"] + "_Bracket", self.by)
+        self.assertFalse([n for n in self.by if n.startswith("Yard_Mark")])
+        self.assertEqual(self.L["materials"][self.by["Yard_Emblem_Decal"]["material"]]["type"], "image_decal")
+
     def test_saw_hubs_are_plain(self):
         """Stage 132: the spinning blade hub (flange + nut) is plain dark metal - the machine panel's white light slots
         spun round with the blade."""

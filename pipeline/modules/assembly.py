@@ -102,7 +102,9 @@ def saw_arm(ctx, s, x, y, z, yaw):
     add = lambda P, Q: [P[0] + Q[0], P[1] + Q[1], P[2] + Q[2]]; mul = lambda P, k: [P[0] * k, P[1] * k, P[2] * k]
     C = [ax_, yc, az_]; sh = float(s.get("shoulder_height", 22.0)); mo = float(s.get("mount_offset", 4.6))
     P0 = add([ax_, sh, az_], mul(H, -side * mo))                       # shoulder: above, beside the walkway
-    W = add(add(C, [0, 1.7, 0]), mul(H, -side * 0.9))                  # wrist: just above the blade, towards the mount
+    W0 = add(add(C, [0, 1.7, 0]), mul(H, -side * 0.9))                 # (where the wrist used to be: sets the guard's facing)
+    Ao = float(s.get("arm_offset", -1.0)); AO = mul(A, Ao)            # Stage 134: the whole arm runs Ao m behind the blade's plane
+    P0 = add(P0, AO); W = add(C, AO)                                  # wrist = the blade's own centre (on its axle, behind the blade)
     E = add(mul(add(P0, W), 0.5), mul(H, -side * float(s.get("bend", 2.6))))  # elbow bent outwards
     def seg(name, a, b, wd, th, mat, g, **kw):  # a box from a to b in the arm's plane (local x along the hinge axis)
         d = [b[i] - a[i] for i in range(3)]; L = math.dist(a, b); sH = d[0] * H[0] + d[2] * H[2]; pitch = math.degrees(math.atan2(d[1], sH))
@@ -133,15 +135,17 @@ def saw_arm(ctx, s, x, y, z, yaw):
             o = mul(A, sd * (wd / 2 + 0.22)); p1 = add(add(a, o), mul(u, L * 0.18)); p2 = add(add(a, o), mul(u, L * 0.55)); p3 = add(add(a, o), mul(u, L * 0.85))
             rod(f"{n}_{nm}Piston_{'LR'[sd > 0]}", p1, p2, 0.36, "machine", g); rod(f"{n}_{nm}Rod_{'LR'[sd > 0]}", p2, p3, 0.18, "machine", g, sections=6, outline=False)
     axle(n + "_Elbow", E, 1.6, 1.5, "machine", gf)
-    # --- wrist: motor housing, a bracket down to the arbor, a guard over the blade (does not spin)
-    axle(n + "_Wrist", W, 1.5, 1.3, "machine", gw)
-    Cb = add(C, mul(A, -0.42)); Wb = add(W, mul(A, -0.42)); seg(n + "_Bracket", Wb, Cb, 0.42, 0.7, arm, gw)
-    axle(n + "_Arbor", C, 0.5, 0.95, "machine", gw, off=-0.42, sections=8)
-    uw = [W[i] - C[i] for i in range(3)]; Lw = math.dist(W, C); uw = mul(uw, 1 / Lw); v = [A[1] * uw[2] - A[2] * uw[1], A[2] * uw[0] - A[0] * uw[2], A[0] * uw[1] - A[1] * uw[0]]
+    # --- wrist: the motor housing ON the blade's axle (the blade turns about its centre), a guard over the blade (does not spin)
+    sg_ = 1.0 if Ao >= 0 else -1.0  # which side of the blade the arm is on
+    axle(n + "_Wrist", C, 1.5, 1.3, "structure_b", gw, off=sg_ * (abs(Ao) + 0.0))
+    axle(n + "_Arbor", C, 0.5, abs(Ao) + 0.05, "structure_b", gw, off=sg_ * (abs(Ao) + 0.05) / 2, sections=8)
+    uw = [W0[i] - C[i] for i in range(3)]; Lw = math.dist(W0, C); uw = mul(uw, 1 / Lw); v = [A[1] * uw[2] - A[2] * uw[1], A[2] * uw[0] - A[0] * uw[2], A[0] * uw[1] - A[1] * uw[0]]
     Rg = R + 0.22; pts = [add(C, add(mul(uw, Rg * math.cos(math.radians(th_))), mul(v, Rg * math.sin(math.radians(th_))))) for th_ in range(-80, 81, 20)]
     for k_ in range(len(pts) - 1):  # the guard hood: an arc of plates over the top of the blade, a striped lip
         seg(f"{n}_Guard_{k_ + 1}", pts[k_], pts[k_ + 1], 0.62, 0.18, arm, gw)
         seg(f"{n}_GuardLip_{k_ + 1}", add(pts[k_], mul(A, 0.33)), add(pts[k_ + 1], mul(A, 0.33)), 0.05, 0.18, stripe, gw, outline=False)
+    bo = mul(A, sg_ * 0.62); r0_ = 0.6  # a back strut from the hub up to the hood (behind the blade, clear of its face)
+    seg(n + "_GuardStrut", add(add(C, mul(uw, r0_)), bo), add(add(C, mul(uw, Rg + 0.1)), bo), 0.85, 0.42, arm, gw)
     # --- the blade (spins): disc, flange, glowing rings, bolts, hex nut - all concentric (each moving link keeps to 2-3 materials: draw calls)
     mb = K(gb, outline=False)
     ctx.add(n + "_Saw", "saw_blade", C, [D, 0.12, D], ctx.role("blade"), rot=[90, ay, 0], teeth=int(s.get("teeth", 36)), **mb)
