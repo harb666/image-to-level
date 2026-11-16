@@ -102,10 +102,24 @@ def tank_mascot(S=512):
     return lay
 
 
+def frown_face(S=1024, col=PINK, dark=(16, 8, 20)):
+    """Stage 137: the mini boss's chest plate face (redrawn from a render of it): a slightly wide dark oval with a lighter
+    rim, two X eyes and a downturned mouth - a cut-out floor decal (transparent round the oval)."""
+    lay = Image.new("RGBA", (S, S), (0, 0, 0, 0)); d = ImageDraw.Draw(lay); cx, cy = S / 2, S / 2; rx, ry = S * 0.46, S * 0.38
+    d.ellipse([cx - rx, cy - ry, cx + rx, cy + ry], fill=dark + (255,), outline=(90, 34, 96, 255), width=int(S * 0.018))
+    lw = int(S * 0.05); c = col + (255,)
+    for ex in (-0.19, 0.19):  # X eyes (upper half; the panel's top lies away from the bridge)
+        x0, y0 = cx + ex * S - S * 0.07, cy - S * 0.15; x1, y1 = x0 + S * 0.14, y0 + S * 0.14
+        brush_line(d, (x0, y0), (x1, y1), lw, c, jitter=0.05, seed=int(ex * 100) + 51); brush_line(d, (x0, y1), (x1, y0), lw, c, jitter=0.05, seed=int(ex * 100) + 52)
+    d.arc([cx - S * 0.2, cy + S * 0.09, cx + S * 0.2, cy + S * 0.36], 200, 340, fill=c, width=lw)  # the frown: the top of an ellipse (curving down at both ends)
+    return lay
+
+
 if __name__ == "__main__":
     A = Image.new("RGB", (2048, 2048), DEEP)
     A.paste(banner(), (0, 0)); A.paste(x_banner(), (0, 840)); A.paste(monitor(), (520, 840)); A.paste(monitor(), (1040, 840))
     A.save(os.path.join(OUT, "ce_atlas.png"))
     reg = lambda x0, y0, x1, y1: [round(x0 / 2048, 4), round(1 - y1 / 2048, 4), round(x1 / 2048, 4), round(1 - y0 / 2048, 4)]
     print({"banner": reg(0, 0, 2048, 820), "xban": reg(0, 840, 512, 1864), "screen": reg(520, 840, 1032, 1352)})
+    frown_face().save(os.path.join(OUT, "ce_frown_face.png"))
     floor_logo().save(os.path.join(OUT, "ce_floor_logo.png")); tank_mascot().save(os.path.join(OUT, "ce_tank_mascot.png"))

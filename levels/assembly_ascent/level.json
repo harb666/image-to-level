@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "302f1f6b81b97947",
+  "spec_sha": "a9ec5d92427f66f3",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -2736,7 +2736,7 @@
    "rough": 0.3,
    "notes": "saw blades (plain)"
   },
-  "ce_floor_logo": {
+  "ce_frown_face": {
    "type": "image_decal",
    "color": [
     1,
@@ -2746,16 +2746,16 @@
    "tile_m": 4.0,
    "wear": 0.5,
    "bevel": 0.12,
-   "image": "levels/assembly_ascent/references/ce_floor_logo.png",
+   "image": "levels/assembly_ascent/references/ce_frown_face.png",
    "res": 512,
    "cutout": 0.5,
-   "glow": 0.3,
+   "glow": 0.35,
    "emissive": [
-    0.75,
-    0.75,
-    0.75
+    0.8,
+    0.8,
+    0.8
    ],
-   "notes": "Stage 135: the mascot logo painted on the dais - cut out"
+   "notes": "Stage 137: the mini boss's chest face (X eyes, frown) painted on the dais - cut out"
   },
   "ce_signs": {
    "type": "screen_atlas",
@@ -3181,9 +3181,9 @@
   "saw_hub": {
    "type": "concrete",
    "color": [
-    0.24,
-    0.2,
-    0.32
+    0.05,
+    0.045,
+    0.06
    ],
    "tile_m": 4.0,
    "wear": 0.5,
@@ -3191,7 +3191,7 @@
    "plain": true,
    "metal": 0.6,
    "rough": 0.4,
-   "notes": "Stage 132: saw blade hub (flange + nut) - plain dark metal, nothing on it that shows the spin"
+   "notes": "Stage 132/137: saw blade hub + rings (flange, nut, the rings that glowed red) - plain near-black metal, nothing on it that shows the spin"
   },
   "screen": {
    "type": "screen_atlas",
@@ -22980,7 +22980,7 @@
     0.16,
     18.6
    ],
-   "material": "stripe",
+   "material": "structure_b",
    "sections": 40,
    "mobile": {
     "static": true
@@ -23302,7 +23302,7 @@
     12.9,
     0.0
    ],
-   "material": "ce_floor_logo",
+   "material": "ce_frown_face",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -26567,7 +26567,7 @@
     0.02,
     1.848
    ],
-   "material": "glow",
+   "material": "saw_hub",
    "sections": 12,
    "collision": false,
    "mobile": {
@@ -26595,7 +26595,7 @@
     0.02,
     1.848
    ],
-   "material": "glow",
+   "material": "saw_hub",
    "sections": 12,
    "collision": false,
    "mobile": {
@@ -28250,7 +28250,7 @@
     0.02,
     1.848
    ],
-   "material": "glow",
+   "material": "saw_hub",
    "sections": 12,
    "collision": false,
    "mobile": {
@@ -28278,7 +28278,7 @@
     0.02,
     1.848
    ],
-   "material": "glow",
+   "material": "saw_hub",
    "sections": 12,
    "collision": false,
    "mobile": {
@@ -77134,7 +77134,7 @@
   "triangles": 53576,
   "objects": 2334,
   "materials": 43,
-  "glb_kb": 4120,
+  "glb_kb": 3995,
   "nodes": 2591,
   "draw_calls_unbatched": 2556,
   "draw_calls_batched_min": 45,

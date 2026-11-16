@@ -41,7 +41,7 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 4120,
+    "glb_kb": 3995,
     "triangles": 63012,
     "nodes": 2591,
     "mesh_nodes": 2556,
@@ -81,14 +81,14 @@
   },
   "mobile": {
    "level": {
-    "glb_kb": 2413,
+    "glb_kb": 2346,
     "triangles": 60576,
-    "nodes": 233,
-    "mesh_nodes": 134,
-    "unique_meshes": 134,
+    "nodes": 231,
+    "mesh_nodes": 132,
+    "unique_meshes": 132,
     "materials": 45,
     "images": 80,
-    "draw_calls_unbatched": 134,
+    "draw_calls_unbatched": 132,
     "draw_calls_batched_min": 45,
     "tex_mem_uncompressed_mb": 43.03,
     "tex_mem_gpu_compressed_mb": 10.76,
@@ -139,9 +139,9 @@
    },
    "visible": {
     "cameras": 120,
-    "visible_draw_calls_mean": 74.0,
-    "visible_draw_calls_max": 137,
-    "visible_triangles_mean": 56286,
+    "visible_draw_calls_mean": 73.2,
+    "visible_draw_calls_max": 135,
+    "visible_triangles_mean": 56290,
     "visible_triangles_max": 71380
    },
    "hidden_faces_removed": 949,
@@ -155,8 +155,8 @@
    "effects_max_particles": 831,
    "slimmed_kb": {
     "level_mobile.glb": [
-     3663,
-     2413
+     3537,
+     2346
     ],
     "background_mobile.glb": [
      477,
@@ -1561,27 +1561,16 @@
    "group": "Saw_East_Blade"
   },
   {
-   "node": "Saw_East_Blade__glow",
-   "kind": "group",
-   "material": "glow",
-   "triangles": 96,
-   "visibility_range_end": 0,
-   "cast_shadow": false,
-   "source_objects": [
-    "Saw_East_BladeGlow_R",
-    "Saw_East_BladeGlow_L"
-   ],
-   "group": "Saw_East_Blade"
-  },
-  {
    "node": "Saw_East_Blade__saw_hub",
    "kind": "group",
    "material": "saw_hub",
-   "triangles": 72,
+   "triangles": 168,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Saw_East_Nut",
+    "Saw_East_BladeGlow_R",
+    "Saw_East_BladeGlow_L",
     "Saw_East_Flange"
    ],
    "group": "Saw_East_Blade"
@@ -1752,27 +1741,16 @@
    "group": "Saw_West_Blade"
   },
   {
-   "node": "Saw_West_Blade__glow",
-   "kind": "group",
-   "material": "glow",
-   "triangles": 96,
-   "visibility_range_end": 0,
-   "cast_shadow": false,
-   "source_objects": [
-    "Saw_West_BladeGlow_R",
-    "Saw_West_BladeGlow_L"
-   ],
-   "group": "Saw_West_Blade"
-  },
-  {
    "node": "Saw_West_Blade__saw_hub",
    "kind": "group",
    "material": "saw_hub",
-   "triangles": 72,
+   "triangles": 168,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Saw_West_Nut",
+    "Saw_West_BladeGlow_R",
+    "Saw_West_BladeGlow_L",
     "Saw_West_Flange"
    ],
    "group": "Saw_West_Blade"
@@ -2561,9 +2539,9 @@
    ]
   },
   {
-   "node": "M_ce_floor_logo_0_0",
+   "node": "M_ce_frown_face_0_0",
    "kind": "static",
-   "material": "ce_floor_logo",
+   "material": "ce_frown_face",
    "triangles": 2,
    "visibility_range_end": 0,
    "cast_shadow": false,
@@ -3728,7 +3706,7 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 782,
+   "triangles": 662,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3767,7 +3745,6 @@
     "Showcase_RampR_Side_a",
     "Showcase_RampL_Side_b",
     "Showcase_RampL_Side_a",
-    "Showcase_DaisRim",
     "Spinner_Ramp_Threshold_Hi",
     "Spinner_Ramp_Threshold_Lo",
     "Yard_Bridge_Deck_b_SlotEdge_1b",
@@ -3798,7 +3775,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 4244,
+   "triangles": 4364,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3876,6 +3853,7 @@
     "Showcase_TankBase",
     "Showcase_TankPlinth",
     "Showcase_Dais",
+    "Showcase_DaisRim",
     "Entry_Door_Rib_2_Beam",
     "Entry_Door_Rib_2_Post_3",
     "Entry_Door_Rib_2_Post_1",

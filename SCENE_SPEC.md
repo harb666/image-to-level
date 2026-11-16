@@ -1415,4 +1415,8 @@ Building blocks usable without the preset:
 - Stage 136: `saw_arm` `"mirror"` (default: `"side": -1`): the saw is its partner's mirror image - its blade spins
   the other way (negative `rpm` in level.json `saws`) and is flipped so its hooked teeth face the other way. Either way
   the tooth tips now lead the spin (on both saws they trailed before).
+- Stage 137: `saw_arm` - the two rings on each blade face (`_BladeGlow_L/R`) use the hub's plain material too (the
+  `glow` texture's bright stripe spun round and read lopsided); Assembly Ascent `saw_hub` is near-black. `showcase`
+  `"rim_material"` (default `structure_b`: the dais rim lost its hazard stripes) and `"logo_material"`: Assembly Ascent
+  paints the mini boss's chest face (X eyes, frown; `references/make_showcase_art.py` `frown_face`) on the dais.
 

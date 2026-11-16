@@ -99,8 +99,14 @@ class AssemblyAscent(unittest.TestCase):
         """Stage 132: the spinning blade hub (flange + nut) is plain dark metal - the machine panel's white light slots
         spun round with the blade."""
         for sw in ("Saw_West", "Saw_East"):
-            for part in ("_Flange", "_Nut"):
+            for part in ("_Flange", "_Nut", "_BladeGlow_L", "_BladeGlow_R"):  # Stage 137: the rings that glowed red too (black, untextured)
                 m = self.L["materials"][self.by[sw + part]["material"]]; self.assertTrue(m.get("plain"), sw + part); self.assertFalse(m.get("emissive"))
+                if "Glow" in part: self.assertLess(max(m["color"]), 0.15)
+
+    def test_dais_has_the_mini_boss_frown(self):
+        """Stage 137: the showcase dais has no hazard stripes and shows the mini boss's frown face (cut-out decal)."""
+        self.assertNotEqual(self.L["materials"][self.by["Showcase_DaisRim"]["material"]]["type"], "chevron")
+        m = self.L["materials"][self.by["Showcase_Logo"]["material"]]; self.assertEqual(m["type"], "image_decal"); self.assertIn("ce_frown_face", m["image"])
 
     def test_spiked_press_and_laser_gates(self):
         c = next(c for c in self.L["crushers"] if c["id"] == "Spike_Press")

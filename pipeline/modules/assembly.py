@@ -152,7 +152,7 @@ def saw_arm(ctx, s, x, y, z, yaw):
     ctx.add(n + "_Saw", "saw_blade", C, [D, 0.12, D], ctx.role("blade"), rot=[90, ay + (0.0 if mir else 180.0), 0], teeth=int(s.get("teeth", 36)), **mb)
     hub = ctx.role(s.get("hub_material", "saw_hub"))  # Stage 132: plain dark metal - the machine panel's white light slots spun round with the blade
     axle(n + "_Flange", C, D * 0.34, 0.3, hub, gb, outline=False)
-    for sd in (-1, 1): axle(f"{n}_BladeGlow_{'LR'[sd > 0]}", C, D * 0.42, 0.02, gl, gb, off=sd * 0.072, outline=False)
+    for sd in (-1, 1): axle(f"{n}_BladeGlow_{'LR'[sd > 0]}", C, D * 0.42, 0.02, hub, gb, off=sd * 0.072, outline=False)  # Stage 137: plain (the glow texture's bright stripe spun round lopsided)
     axle(n + "_Nut", C, 0.42, 0.2, hub, gb, off=0.25, sections=6, outline=False)
     for k_ in range(6):
         aa = math.radians(60 * k_); q = add(C, add(mul(uw, D * 0.12 * math.cos(aa)), mul(v, D * 0.12 * math.sin(aa))))
@@ -810,7 +810,7 @@ def showcase(ctx, s, x, y, z, yaw):
     pink, stripe, atlas = ctx.role(s.get("pink", "glow_pink")), ctx.role("stripe"), ctx.role(s.get("atlas", "ce_signs"))
     # --- the dais
     dx, dz = s.get("dais_at", D["center"]); R = float(s.get("dais_r", 8.6))
-    ctx.add(n + "_DaisRim", "cylinder", [dx, yt, dz], [2 * R + 1.4, 0.16, 2 * R + 1.4], stripe, sections=40, **st)
+    ctx.add(n + "_DaisRim", "cylinder", [dx, yt, dz], [2 * R + 1.4, 0.16, 2 * R + 1.4], ctx.role(s.get("rim_material", "structure_b")), sections=40, **st)  # Stage 137: plain metal (no hazard stripes)
     ctx.add(n + "_Dais", "cylinder", [dx, yt, dz], [2 * R, 0.3, 2 * R], "structure_b", sections=40, **st)
     for k in range(10):  # glowing pink segments round the rim
         a = 36 * k + 18; r_ = R + 0.36; ctx.add(f"{n}_DaisLight_{k + 1:02d}", "box", [dx + r_ * math.sin(math.radians(a)), yt + 0.16, dz + r_ * math.cos(math.radians(a))], [2.7, 0.06, 0.3], pink, rot=[0, a, 0], **vs)

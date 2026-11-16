@@ -375,13 +375,13 @@
         "type": "concrete",
         "plain": true,
         "color": [
-          0.24,
-          0.2,
-          0.32
+          0.05,
+          0.045,
+          0.06
         ],
         "metal": 0.6,
         "rough": 0.4,
-        "notes": "Stage 132: saw blade hub (flange + nut) - plain dark metal, nothing on it that shows the spin"
+        "notes": "Stage 132/137: saw blade hub + rings (flange, nut, the rings that glowed red) - plain near-black metal, nothing on it that shows the spin"
       },
       "glow_pink": {
         "type": "glow",
@@ -458,6 +458,24 @@
           ]
         },
         "notes": "Stage 135: CONSTRUCT ERROR_ banner, X banners, logo monitors (references/make_showcase_art.py)"
+      },
+      "ce_frown_face": {
+        "type": "image_decal",
+        "image": "levels/assembly_ascent/references/ce_frown_face.png",
+        "color": [
+          1,
+          1,
+          1
+        ],
+        "res": 512,
+        "cutout": 0.5,
+        "glow": 0.35,
+        "emissive": [
+          0.8,
+          0.8,
+          0.8
+        ],
+        "notes": "Stage 137: the mini boss's chest face (X eyes, frown) painted on the dais - cut out"
       },
       "ce_floor_logo": {
         "type": "image_decal",
@@ -821,6 +839,7 @@
         -39.5
       ],
       "dais_r": 8.6,
+      "logo_material": "ce_frown_face",
       "pits": [
         [
           -41.0,
