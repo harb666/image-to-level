@@ -1,20 +1,20 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 2334 objects · 43 materials · 31 effects
+Spec: levels/assembly_ascent/scene_spec.json · 2344 objects · 43 materials · 40 effects
 Checks: PASSED ({'error': 0, 'warning': 7, 'info': 1}) · refine passes: 0
-Mobile (balanced): 2346 KB · 60576 tris · 132 draw calls · ~73.2 visible (estimate) · ~10.76 MB GPU textures (estimate)
+Mobile (balanced): 2372 KB · 61386 tris · 135 draw calls · ~74.4 visible (estimate) · ~10.76 MB GPU textures (estimate)
 Navigation: 5427.0 m² reachable of 20147.0 m² standable
-Package: dist/assembly_ascent/package (38 files, 9.97 MB) valid=True
+Package: dist/assembly_ascent/package (38 files, 10.08 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- warning: mobile draw calls 132 (> 80)
-- warning: ~73 visible draw calls (estimate, > 60)
+- warning: mobile draw calls 135 (> 80)
+- warning: ~74 visible draw calls (estimate, > 60)
 - warning: enemy_arena: hazard 0.5 m away (< 3.0 m)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- warning: 63012 triangles (> budget 40000)
+- warning: 63828 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -45,9 +45,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - corrosion: 486 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 1.4 s
-- build (glb, sky, background, effects, mobile): 53.4 s
-- checks (fast): 49.8 s
-- previews: 1.0 s
-- export package: 0.4 s
-- total: 106.0 s
+- spec -> level.json: 1.5 s
+- build (glb, sky, background, effects, mobile): 52.4 s
+- checks (fast): 49.5 s
+- previews: 0.9 s
+- export package: 0.5 s
+- total: 104.8 s

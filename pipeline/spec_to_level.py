@@ -269,6 +269,9 @@ def _effects(spec, ctx, plats, env, glow):
         if fl: out.append(dict(id="Fan_Lights", type="point_light", positions=[q[:3] for q in fl], color=[1.0, 0.8, 0.3], energy=1.0, range=16.0))  # Stage 39
         dl = getattr(ctx, "dome_lights", [])
         if dl: out.append(dict(id="Dome_Light", type="point_light", positions=[list(map(float, q)) for q in dl], color=list(getattr(ctx, "dome_light_color", [1.0, 0.82, 0.36])), energy=1.3, range=34.0))  # Stage 126: daylight through the glass dome (fan-light yellow)
+        for ps_ in getattr(ctx, "pit_surfaces", []):  # Stage 138: brimming showcase pits - churning surface + bubbles
+            out += [dict(id=ps_ + "_Surface", type="liquid_surface", target=ps_, scroll=[0.05, 0.03], swirl=0.05, pulse_speed=0.35, pulse_amount=0.3),
+                    dict(id=ps_ + "_Bubbles", type="bubbles", area_from=ps_, rate=30)]
         for xl in getattr(ctx, "extra_lights", []):  # Stage 135: structure lights (showcase tank / banner)
             out.append(dict(id=xl["id"], type="point_light", positions=xl["positions"], color=xl["color"], energy=xl.get("energy", 1.0), range=xl.get("range", 16.0)))
         dmo = getattr(ctx, "dome_motes", None)

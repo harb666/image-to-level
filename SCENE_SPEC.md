@@ -1419,4 +1419,9 @@ Building blocks usable without the preset:
   `glow` texture's bright stripe spun round and read lopsided); Assembly Ascent `saw_hub` is near-black. `showcase`
   `"rim_material"` (default `structure_b`: the dais rim lost its hazard stripes) and `"logo_material"`: Assembly Ascent
   paints the mini boss's chest face (X eyes, frown; `references/make_showcase_art.py` `frown_face`) on the dais.
+- Stage 138: `showcase` `"overflow": true` (`"bridge_x"`: the pits' sides facing it stay dry): each pit brims over -
+  slime 6 cm above the striped rims (no grate), a glowing roll of slime over the spill edges, and `stream` curtains
+  (rect sheets, arcing out) pouring off the front, the outer side and the corner into the pool. They join `ctx.pours`
+  (effects Pour_Flow / Pour_Splash / Pour_Steam) and `flows_into` the pool; the pit tops churn (`<pit>_Slime_Surface`,
+  `_Bubbles`) and a green light glows over each.
 

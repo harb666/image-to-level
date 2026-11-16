@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 3995,
-    "triangles": 63012,
-    "nodes": 2591,
-    "mesh_nodes": 2556,
-    "unique_meshes": 1241,
+    "glb_kb": 4032,
+    "triangles": 63828,
+    "nodes": 2599,
+    "mesh_nodes": 2564,
+    "unique_meshes": 1245,
     "materials": 45,
     "images": 114,
-    "draw_calls_unbatched": 2556,
+    "draw_calls_unbatched": 2564,
     "draw_calls_batched_min": 45,
     "tex_mem_uncompressed_mb": 105.61,
     "tex_mem_gpu_compressed_mb": 26.4,
@@ -73,22 +73,22 @@
    },
    "visible": {
     "cameras": 120,
-    "visible_draw_calls_mean": 828.9,
-    "visible_draw_calls_max": 2548,
-    "visible_triangles_mean": 32575,
-    "visible_triangles_max": 73616
+    "visible_draw_calls_mean": 831.7,
+    "visible_draw_calls_max": 2556,
+    "visible_triangles_mean": 32872,
+    "visible_triangles_max": 74432
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 2346,
-    "triangles": 60576,
-    "nodes": 231,
-    "mesh_nodes": 132,
-    "unique_meshes": 132,
+    "glb_kb": 2372,
+    "triangles": 61386,
+    "nodes": 234,
+    "mesh_nodes": 135,
+    "unique_meshes": 135,
     "materials": 45,
     "images": 80,
-    "draw_calls_unbatched": 132,
+    "draw_calls_unbatched": 135,
     "draw_calls_batched_min": 45,
     "tex_mem_uncompressed_mb": 43.03,
     "tex_mem_gpu_compressed_mb": 10.76,
@@ -133,38 +133,38 @@
     ]
    },
    "collision": {
-    "colliders": 451,
+    "colliders": 449,
     "hazards": 1,
-    "glb_kb": 205
+    "glb_kb": 204
    },
    "visible": {
     "cameras": 120,
-    "visible_draw_calls_mean": 73.2,
-    "visible_draw_calls_max": 135,
-    "visible_triangles_mean": 56290,
-    "visible_triangles_max": 71380
+    "visible_draw_calls_mean": 74.4,
+    "visible_draw_calls_max": 138,
+    "visible_triangles_mean": 56614,
+    "visible_triangles_max": 72190
    },
    "hidden_faces_removed": 949,
-   "occluded_faces_removed": 1487,
+   "occluded_faces_removed": 1493,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate",
     "Showcase_Stage_Glow_02L",
     "Showcase_Stage_Glow_02R"
    ],
-   "effects_extra_draw_calls": 7,
-   "effects_max_particles": 831,
+   "effects_extra_draw_calls": 11,
+   "effects_max_particles": 1167,
    "slimmed_kb": {
     "level_mobile.glb": [
-     3537,
-     2346
+     3568,
+     2372
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     278,
-     205
+     276,
+     204
     ]
    }
   }
@@ -2615,6 +2615,22 @@
    ]
   },
   {
+   "node": "M_fall_0_0",
+   "kind": "static",
+   "material": "fall",
+   "triangles": 178,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Showcase_Pit_2_CornerCrest",
+    "Showcase_Pit_2_SideCrest",
+    "Showcase_Pit_2_FrontCrest",
+    "Showcase_Pit_1_CornerCrest",
+    "Showcase_Pit_1_SideCrest",
+    "Showcase_Pit_1_FrontCrest"
+   ]
+  },
+  {
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
@@ -3103,7 +3119,7 @@
    "node": "M_grate_0_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 326,
+   "triangles": 306,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3112,8 +3128,6 @@
     "Spinner_Pad_3_Bridge",
     "Spinner_Pad_2_Bridge",
     "Spinner_Pad_1_Bridge",
-    "Showcase_Pit_2_Grate",
-    "Showcase_Pit_1_Grate",
     "Showcase_Bridge_Deck",
     "Spinner_Ramp_Deck",
     "Exit_Stairs",
@@ -3123,22 +3137,10 @@
    ]
   },
   {
-   "node": "M_hazard_0_0",
-   "kind": "static",
-   "material": "hazard",
-   "triangles": 20,
-   "visibility_range_end": 0,
-   "cast_shadow": false,
-   "source_objects": [
-    "Showcase_Pit_2_Slime",
-    "Showcase_Pit_1_Slime"
-   ]
-  },
-  {
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 6836,
+   "triangles": 6812,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3215,10 +3217,8 @@
     "Showcase_Crates_R_01__ol",
     "Showcase_Crates_L_02__ol",
     "Showcase_Crates_L_01__ol",
-    "Showcase_Pit_2_Grate__ol",
     "Showcase_Pit_2_Rim_1__ol",
     "Showcase_Pit_2_Tub__ol",
-    "Showcase_Pit_1_Grate__ol",
     "Showcase_Pit_1_Rim_3__ol",
     "Showcase_Pit_1_Rim_1__ol",
     "Showcase_Pit_1_Tub__ol",
@@ -4087,6 +4087,23 @@
    ]
   },
   {
+   "node": "FX_Pour_Flow",
+   "kind": "effect_target",
+   "material": "fall",
+   "triangles": 672,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Showcase_Pit_2_CornerFall",
+    "Showcase_Pit_2_SideFall",
+    "Showcase_Pit_2_FrontFall",
+    "Showcase_Pit_1_CornerFall",
+    "Showcase_Pit_1_SideFall",
+    "Showcase_Pit_1_FrontFall"
+   ],
+   "reason": "merged targets of one shader effect"
+  },
+  {
    "node": "Ceil_Fan_1_Rotor",
    "kind": "separate",
    "material": "frame",
@@ -4095,6 +4112,30 @@
    "cast_shadow": true,
    "source_objects": [
     "Ceil_Fan_1_Rotor"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Showcase_Pit_2_Slime",
+   "kind": "separate",
+   "material": "hazard",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Showcase_Pit_2_Slime"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Showcase_Pit_1_Slime",
+   "kind": "separate",
+   "material": "hazard",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Showcase_Pit_1_Slime"
    ],
    "reason": "animated by an effect / merge disabled"
   },

@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "a9ec5d92427f66f3",
+  "spec_sha": "546982a93c27be3e",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -75,6 +75,42 @@
    "pulse_amount": 0.18,
    "ripples": [
     [
+     -37.2,
+     -20.21,
+     1.0,
+     3.65
+    ],
+    [
+     -42.39,
+     -24.27,
+     1.0,
+     2.52
+    ],
+    [
+     -41.97,
+     -20.63,
+     1.0,
+     0.75
+    ],
+    [
+     -17.9,
+     -20.21,
+     1.0,
+     4.75
+    ],
+    [
+     -11.61,
+     -24.27,
+     1.0,
+     2.52
+    ],
+    [
+     -12.03,
+     -20.63,
+     1.0,
+     0.75
+    ],
+    [
      -32.27,
      22.38,
      0.3,
@@ -105,6 +141,45 @@
     1.0,
     0.25
    ]
+  },
+  {
+   "id": "Pour_Flow",
+   "type": "liquid_flow",
+   "targets_glob": [
+    "Showcase_Pit_1_FrontFall",
+    "Showcase_Pit_1_SideFall",
+    "Showcase_Pit_1_CornerFall",
+    "Showcase_Pit_2_FrontFall",
+    "Showcase_Pit_2_SideFall",
+    "Showcase_Pit_2_CornerFall"
+   ],
+   "speed": 3.0
+  },
+  {
+   "id": "Pour_Splash",
+   "type": "splash",
+   "at_targets_glob": [
+    "Showcase_Pit_1_FrontFall",
+    "Showcase_Pit_1_SideFall",
+    "Showcase_Pit_1_CornerFall",
+    "Showcase_Pit_2_FrontFall",
+    "Showcase_Pit_2_SideFall",
+    "Showcase_Pit_2_CornerFall"
+   ],
+   "anchor": "bottom"
+  },
+  {
+   "id": "Pour_Steam",
+   "type": "steam",
+   "at_targets_glob": [
+    "Showcase_Pit_1_FrontFall",
+    "Showcase_Pit_1_SideFall",
+    "Showcase_Pit_1_CornerFall",
+    "Showcase_Pit_2_FrontFall",
+    "Showcase_Pit_2_SideFall",
+    "Showcase_Pit_2_CornerFall"
+   ],
+   "anchor": "bottom"
   },
   {
    "id": "Fan_Lights",
@@ -156,6 +231,88 @@
    ],
    "energy": 1.3,
    "range": 34.0
+  },
+  {
+   "id": "Showcase_Pit_1_Slime_Surface",
+   "type": "liquid_surface",
+   "target": "Showcase_Pit_1_Slime",
+   "scroll": [
+    0.05,
+    0.03
+   ],
+   "swirl": 0.05,
+   "pulse_speed": 0.35,
+   "pulse_amount": 0.3
+  },
+  {
+   "id": "Showcase_Pit_1_Slime_Bubbles",
+   "type": "bubbles",
+   "area_from": "Showcase_Pit_1_Slime",
+   "rate": 30
+  },
+  {
+   "id": "Showcase_Pit_2_Slime_Surface",
+   "type": "liquid_surface",
+   "target": "Showcase_Pit_2_Slime",
+   "scroll": [
+    0.05,
+    0.03
+   ],
+   "swirl": 0.05,
+   "pulse_speed": 0.35,
+   "pulse_amount": 0.3
+  },
+  {
+   "id": "Showcase_Pit_2_Slime_Bubbles",
+   "type": "bubbles",
+   "area_from": "Showcase_Pit_2_Slime",
+   "rate": 30
+  },
+  {
+   "id": "Showcase_Pit_1_Glow",
+   "type": "point_light",
+   "positions": [
+    [
+     -37.2,
+     8.6,
+     -24.275
+    ],
+    [
+     -42.14,
+     3.5,
+     -20.0
+    ]
+   ],
+   "color": [
+    0.45,
+    1.0,
+    0.25
+   ],
+   "energy": 1.5,
+   "range": 12.0
+  },
+  {
+   "id": "Showcase_Pit_2_Glow",
+   "type": "point_light",
+   "positions": [
+    [
+     -17.9,
+     8.6,
+     -24.275
+    ],
+    [
+     -11.53,
+     3.5,
+     -20.0
+    ]
+   ],
+   "color": [
+    0.45,
+    1.0,
+    0.25
+   ],
+   "energy": 1.5,
+   "range": 12.0
   },
   {
    "id": "Showcase_TankGlow",
@@ -24809,7 +24966,7 @@
    ],
    "size": [
     6.88,
-    0.28,
+    0.76,
     4.63
    ],
    "material": "hazard",
@@ -24822,12 +24979,40 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Pit_1_Grate",
-   "type": "box",
+   "name": "Showcase_Pit_1_FrontCrest",
+   "type": "cylinder",
+   "position": [
+    -40.88,
+    6.94,
+    -21.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "size": [
+    0.5,
+    7.36,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_FrontFall",
+   "type": "stream",
    "position": [
     -37.2,
-    6.89,
-    -25.377
+    6.98,
+    -21.46
    ],
    "rotation": [
     0.0,
@@ -24835,11 +25020,144 @@
     0.0
    ],
    "size": [
-    7.0,
-    0.08,
-    2.546
+    7.3,
+    6.28,
+    0.3
    ],
-   "material": "grate",
+   "material": "fall",
+   "section": "rect",
+   "speed": 1.1,
+   "pitch": 8,
+   "inset": 0.2,
+   "widen": 0.12,
+   "thin": 0.25,
+   "segments": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_SideCrest",
+   "type": "cylinder",
+   "position": [
+    -41.0,
+    6.94,
+    -26.83
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    5.11,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_SideFall",
+   "type": "stream",
+   "position": [
+    -41.14,
+    6.98,
+    -24.275
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    5.05,
+    6.28,
+    0.3
+   ],
+   "material": "fall",
+   "section": "rect",
+   "speed": 1.1,
+   "pitch": 8,
+   "inset": 0.2,
+   "widen": 0.12,
+   "thin": 0.25,
+   "segments": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_CornerCrest",
+   "type": "cylinder",
+   "position": [
+    -40.75,
+    6.74,
+    -21.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.62,
+    0.42,
+    0.62
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_CornerFall",
+   "type": "stream",
+   "position": [
+    -40.962,
+    6.98,
+    -21.638
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "size": [
+    1.5,
+    6.28,
+    0.3
+   ],
+   "material": "fall",
+   "section": "rect",
+   "speed": 1.25,
+   "pitch": 8,
+   "inset": 0.2,
+   "widen": 0.25,
+   "thin": 0.25,
+   "segments": 12,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -24986,7 +25304,7 @@
    ],
    "size": [
     9.08,
-    0.28,
+    0.76,
     4.63
    ],
    "material": "hazard",
@@ -24999,12 +25317,40 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Pit_2_Grate",
-   "type": "box",
+   "name": "Showcase_Pit_2_FrontCrest",
+   "type": "cylinder",
+   "position": [
+    -22.68,
+    6.94,
+    -21.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "size": [
+    0.5,
+    9.56,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_FrontFall",
+   "type": "stream",
    "position": [
     -17.9,
-    6.89,
-    -25.377
+    6.98,
+    -21.46
    ],
    "rotation": [
     0.0,
@@ -25012,11 +25358,144 @@
     0.0
    ],
    "size": [
-    9.2,
-    0.08,
-    2.546
+    9.5,
+    6.28,
+    0.3
    ],
-   "material": "grate",
+   "material": "fall",
+   "section": "rect",
+   "speed": 1.1,
+   "pitch": 8,
+   "inset": 0.2,
+   "widen": 0.12,
+   "thin": 0.25,
+   "segments": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_SideCrest",
+   "type": "cylinder",
+   "position": [
+    -13.0,
+    6.94,
+    -26.83
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    5.11,
+    0.5
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_SideFall",
+   "type": "stream",
+   "position": [
+    -12.86,
+    6.98,
+    -24.275
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    5.05,
+    6.28,
+    0.3
+   ],
+   "material": "fall",
+   "section": "rect",
+   "speed": 1.1,
+   "pitch": 8,
+   "inset": 0.2,
+   "widen": 0.12,
+   "thin": 0.25,
+   "segments": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_CornerCrest",
+   "type": "cylinder",
+   "position": [
+    -13.25,
+    6.74,
+    -21.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.62,
+    0.42,
+    0.62
+   ],
+   "material": "fall",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_CornerFall",
+   "type": "stream",
+   "position": [
+    -13.038,
+    6.98,
+    -21.638
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    1.5,
+    6.28,
+    0.3
+   ],
+   "material": "fall",
+   "section": "rect",
+   "speed": 1.25,
+   "pitch": 8,
+   "inset": 0.2,
+   "widen": 0.25,
+   "thin": 0.25,
+   "segments": 12,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -76327,30 +76806,30 @@
    "center": [
     -37.2,
     6.8,
-    -23.002
+    -24.275
    ],
    "size": [
     6.88,
     1.0,
-    2.083
+    4.63
    ],
    "yaw": 0.0,
-   "note": "open slime pit"
+   "note": "brimming slime pit"
   },
   {
    "id": "Showcase_Pit_2",
    "center": [
     -17.9,
     6.8,
-    -23.002
+    -24.275
    ],
    "size": [
     9.08,
     1.0,
-    2.083
+    4.63
    ],
    "yaw": 0.0,
-   "note": "open slime pit"
+   "note": "brimming slime pit"
   },
   {
    "id": "Belt_A_Pit",
@@ -77115,6 +77594,36 @@
    "a": "Showcase_Bridge_Deck",
    "b": "Showcase_Deck_Floor",
    "a_anchor": "end_b"
+  },
+  {
+   "type": "flows_into",
+   "a": "Showcase_Pit_1_FrontFall",
+   "b": "HazardFluid"
+  },
+  {
+   "type": "flows_into",
+   "a": "Showcase_Pit_1_SideFall",
+   "b": "HazardFluid"
+  },
+  {
+   "type": "flows_into",
+   "a": "Showcase_Pit_1_CornerFall",
+   "b": "HazardFluid"
+  },
+  {
+   "type": "flows_into",
+   "a": "Showcase_Pit_2_FrontFall",
+   "b": "HazardFluid"
+  },
+  {
+   "type": "flows_into",
+   "a": "Showcase_Pit_2_SideFall",
+   "b": "HazardFluid"
+  },
+  {
+   "type": "flows_into",
+   "a": "Showcase_Pit_2_CornerFall",
+   "b": "HazardFluid"
   }
  ],
  "gameplay": {
@@ -77131,12 +77640,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 53576,
-  "objects": 2334,
+  "triangles": 54416,
+  "objects": 2344,
   "materials": 43,
-  "glb_kb": 3995,
-  "nodes": 2591,
-  "draw_calls_unbatched": 2556,
+  "glb_kb": 4032,
+  "nodes": 2599,
+  "draw_calls_unbatched": 2564,
   "draw_calls_batched_min": 45,
   "images": 114,
   "tex_mem_gpu_compressed_mb": 26.4,

@@ -1,7 +1,158 @@
 {
  "generated_by": "image-to-level Stage 4 (pipeline/effects.py)",
  "default_quality": "balanced",
- "fluid_attachments": [],
+ "fluid_attachments": [
+  {
+   "stream": "Showcase_Pit_1_FrontFall",
+   "source_object": null,
+   "outlet_pos": [
+    -37.2,
+    6.98,
+    -21.46
+   ],
+   "outlet_dir": [
+    0.0,
+    0.139,
+    0.99
+   ],
+   "outlet_diameter": 7.3,
+   "section": "rect",
+   "stream_width": 7.3,
+   "initial_speed": 1.1,
+   "impact_pos": [
+    -37.2,
+    0.7,
+    -20.21
+   ],
+   "receiving": "HazardFluid",
+   "hazard": false
+  },
+  {
+   "stream": "Showcase_Pit_1_SideFall",
+   "source_object": null,
+   "outlet_pos": [
+    -41.14,
+    6.98,
+    -24.275
+   ],
+   "outlet_dir": [
+    -0.99,
+    0.139,
+    0.0
+   ],
+   "outlet_diameter": 5.05,
+   "section": "rect",
+   "stream_width": 5.05,
+   "initial_speed": 1.1,
+   "impact_pos": [
+    -42.39,
+    0.7,
+    -24.275
+   ],
+   "receiving": "HazardFluid",
+   "hazard": false
+  },
+  {
+   "stream": "Showcase_Pit_1_CornerFall",
+   "source_object": null,
+   "outlet_pos": [
+    -40.962,
+    6.98,
+    -21.638
+   ],
+   "outlet_dir": [
+    -0.7,
+    0.139,
+    0.7
+   ],
+   "outlet_diameter": 1.5,
+   "section": "rect",
+   "stream_width": 1.5,
+   "initial_speed": 1.25,
+   "impact_pos": [
+    -41.968,
+    0.7,
+    -20.632
+   ],
+   "receiving": "HazardFluid",
+   "hazard": false
+  },
+  {
+   "stream": "Showcase_Pit_2_FrontFall",
+   "source_object": null,
+   "outlet_pos": [
+    -17.9,
+    6.98,
+    -21.46
+   ],
+   "outlet_dir": [
+    0.0,
+    0.139,
+    0.99
+   ],
+   "outlet_diameter": 9.5,
+   "section": "rect",
+   "stream_width": 9.5,
+   "initial_speed": 1.1,
+   "impact_pos": [
+    -17.9,
+    0.7,
+    -20.21
+   ],
+   "receiving": "HazardFluid",
+   "hazard": false
+  },
+  {
+   "stream": "Showcase_Pit_2_SideFall",
+   "source_object": null,
+   "outlet_pos": [
+    -12.86,
+    6.98,
+    -24.275
+   ],
+   "outlet_dir": [
+    0.99,
+    0.139,
+    0.0
+   ],
+   "outlet_diameter": 5.05,
+   "section": "rect",
+   "stream_width": 5.05,
+   "initial_speed": 1.1,
+   "impact_pos": [
+    -11.61,
+    0.7,
+    -24.275
+   ],
+   "receiving": "HazardFluid",
+   "hazard": false
+  },
+  {
+   "stream": "Showcase_Pit_2_CornerFall",
+   "source_object": null,
+   "outlet_pos": [
+    -13.038,
+    6.98,
+    -21.638
+   ],
+   "outlet_dir": [
+    0.7,
+    0.139,
+    0.7
+   ],
+   "outlet_diameter": 1.5,
+   "section": "rect",
+   "stream_width": 1.5,
+   "initial_speed": 1.25,
+   "impact_pos": [
+    -12.032,
+    0.7,
+    -20.632
+   ],
+   "receiving": "HazardFluid",
+   "hazard": false
+  }
+ ],
  "note": "GLB holds only static appearance. Recreate these at runtime (fx/godot/apply_effects.gd is an untested starter). Costs are estimates: particles alive, emitters, extra draw calls, transparent overdraw area.",
  "textures": {
   "puff": "fx/puff.png",
@@ -12,21 +163,21 @@
  },
  "totals": {
   "performance": {
-   "max_particles": 222,
-   "emitters": 15,
-   "extra_draw_calls": 6,
+   "max_particles": 358,
+   "emitters": 29,
+   "extra_draw_calls": 10,
    "transparent_area_m2": 0
   },
   "balanced": {
-   "max_particles": 831,
-   "emitters": 15,
-   "extra_draw_calls": 7,
+   "max_particles": 1167,
+   "emitters": 29,
+   "extra_draw_calls": 11,
    "transparent_area_m2": 13000
   },
   "quality": {
-   "max_particles": 1181,
-   "emitters": 15,
-   "extra_draw_calls": 8,
+   "max_particles": 1719,
+   "emitters": 29,
+   "extra_draw_calls": 12,
    "transparent_area_m2": 26000
   }
  },
@@ -38,6 +189,42 @@
    "glb_contains": "static base colour + emissive texture",
    "godot_runtime": "ShaderMaterial liquid_surface.gdshader on target meshes (albedo from the GLB texture)",
    "ripples": [
+    [
+     -37.2,
+     -20.21,
+     1.0,
+     3.65
+    ],
+    [
+     -42.39,
+     -24.27,
+     1.0,
+     2.52
+    ],
+    [
+     -41.97,
+     -20.63,
+     1.0,
+     0.75
+    ],
+    [
+     -17.9,
+     -20.21,
+     1.0,
+     4.75
+    ],
+    [
+     -11.61,
+     -24.27,
+     1.0,
+     2.52
+    ],
+    [
+     -12.03,
+     -20.63,
+     1.0,
+     0.75
+    ],
     [
      -32.27,
      22.38,
@@ -327,6 +514,385 @@
    }
   },
   {
+   "id": "Pour_Flow",
+   "type": "liquid_flow",
+   "category": "surface_shader",
+   "glb_contains": "static texture",
+   "godot_runtime": "ShaderMaterial liquid_flow.gdshader (UV scroll along the fall/pipe)",
+   "targets": [
+    "Showcase_Pit_1_CornerFall",
+    "Showcase_Pit_1_FrontFall",
+    "Showcase_Pit_1_SideFall",
+    "Showcase_Pit_2_CornerFall",
+    "Showcase_Pit_2_FrontFall",
+    "Showcase_Pit_2_SideFall"
+   ],
+   "material_tile_m": 3.0,
+   "flow_uv": [
+    0.0146,
+    0.9999
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 3.0,
+      "glow_energy": 1.2,
+      "wobble": 0.02
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 3.0,
+      "glow_energy": 1.2,
+      "wobble": 0.02
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 3.0,
+      "glow_energy": 1.2,
+      "wobble": 0.02
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Pour_Splash",
+   "type": "splash",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D, point emitter, gravity",
+   "emitters": [
+    {
+     "pos": [
+      -41.97,
+      1.0,
+      -20.63
+     ],
+     "radius": 1.35,
+     "of": "Showcase_Pit_1_CornerFall"
+    },
+    {
+     "pos": [
+      -37.2,
+      1.0,
+      -20.21
+     ],
+     "radius": 4.25,
+     "of": "Showcase_Pit_1_FrontFall"
+    },
+    {
+     "pos": [
+      -42.39,
+      1.0,
+      -24.27
+     ],
+     "radius": 3.12,
+     "of": "Showcase_Pit_1_SideFall"
+    },
+    {
+     "pos": [
+      -12.03,
+      1.0,
+      -20.63
+     ],
+     "radius": 1.35,
+     "of": "Showcase_Pit_2_CornerFall"
+    },
+    {
+     "pos": [
+      -17.9,
+      1.0,
+      -20.21
+     ],
+     "radius": 5.35,
+     "of": "Showcase_Pit_2_FrontFall"
+    },
+    {
+     "pos": [
+      -11.61,
+      1.0,
+      -24.27
+     ],
+     "radius": 3.12,
+     "of": "Showcase_Pit_2_SideFall"
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 12.0,
+      "lifetime": 0.8,
+      "speed": [
+       2.0,
+       4.0
+      ],
+      "gravity": -9.8,
+      "kill_below_spawn": true,
+      "size": [
+       0.35,
+       0.1
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.9,
+       1.0,
+       0.6
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 40
+     },
+     "cost_estimate": {
+      "max_particles": 60,
+      "emitters": 6,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 30.0,
+      "lifetime": 0.8,
+      "speed": [
+       2.0,
+       4.0
+      ],
+      "gravity": -9.8,
+      "kill_below_spawn": true,
+      "size": [
+       0.35,
+       0.1
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.9,
+       1.0,
+       0.6
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 40
+     },
+     "cost_estimate": {
+      "max_particles": 144,
+      "emitters": 6,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 48.0,
+      "lifetime": 0.8,
+      "speed": [
+       2.0,
+       4.0
+      ],
+      "gravity": -9.8,
+      "kill_below_spawn": true,
+      "size": [
+       0.35,
+       0.1
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.9,
+       1.0,
+       0.6
+      ],
+      "texture": "mote",
+      "blend": "add",
+      "spread": 40
+     },
+     "cost_estimate": {
+      "max_particles": 234,
+      "emitters": 6,
+      "extra_draw_calls": 1
+     }
+    }
+   },
+   "merge_emitters": true
+  },
+  {
+   "id": "Pour_Steam",
+   "type": "steam",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D, small sphere emitter, slow rise, growing soft puffs",
+   "emitters": [
+    {
+     "pos": [
+      -41.97,
+      1.0,
+      -20.63
+     ],
+     "radius": 1.35,
+     "of": "Showcase_Pit_1_CornerFall"
+    },
+    {
+     "pos": [
+      -37.2,
+      1.0,
+      -20.21
+     ],
+     "radius": 4.25,
+     "of": "Showcase_Pit_1_FrontFall"
+    },
+    {
+     "pos": [
+      -42.39,
+      1.0,
+      -24.27
+     ],
+     "radius": 3.12,
+     "of": "Showcase_Pit_1_SideFall"
+    },
+    {
+     "pos": [
+      -12.03,
+      1.0,
+      -20.63
+     ],
+     "radius": 1.35,
+     "of": "Showcase_Pit_2_CornerFall"
+    },
+    {
+     "pos": [
+      -17.9,
+      1.0,
+      -20.21
+     ],
+     "radius": 5.35,
+     "of": "Showcase_Pit_2_FrontFall"
+    },
+    {
+     "pos": [
+      -11.61,
+      1.0,
+      -24.27
+     ],
+     "radius": 3.12,
+     "of": "Showcase_Pit_2_SideFall"
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 2.0,
+      "lifetime": 3.5,
+      "speed": [
+       0.8,
+       1.5
+      ],
+      "gravity": 0.15,
+      "size": [
+       1.2,
+       5.0
+      ],
+      "alpha": 0.5,
+      "color": [
+       0.8,
+       0.92,
+       0.74
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 15,
+      "radius": 0.8
+     },
+     "cost_estimate": {
+      "max_particles": 42,
+      "emitters": 6,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 5.0,
+      "lifetime": 3.5,
+      "speed": [
+       0.8,
+       1.5
+      ],
+      "gravity": 0.15,
+      "size": [
+       1.2,
+       5.0
+      ],
+      "alpha": 0.5,
+      "color": [
+       0.8,
+       0.92,
+       0.74
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 15,
+      "radius": 0.8
+     },
+     "cost_estimate": {
+      "max_particles": 108,
+      "emitters": 6,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 8.0,
+      "lifetime": 3.5,
+      "speed": [
+       0.8,
+       1.5
+      ],
+      "gravity": 0.15,
+      "size": [
+       1.2,
+       5.0
+      ],
+      "alpha": 0.5,
+      "color": [
+       0.8,
+       0.92,
+       0.74
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 15,
+      "radius": 0.8
+     },
+     "cost_estimate": {
+      "max_particles": 168,
+      "emitters": 6,
+      "extra_draw_calls": 1
+     }
+    }
+   },
+   "merge_emitters": true
+  },
+  {
    "id": "Fan_Lights",
    "type": "point_light",
    "category": "light",
@@ -476,6 +1042,548 @@
       ],
       "energy": 1.3,
       "range": 34.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Showcase_Pit_1_Slime_Surface",
+   "type": "liquid_surface",
+   "category": "surface_shader",
+   "glb_contains": "static base colour + emissive texture",
+   "godot_runtime": "ShaderMaterial liquid_surface.gdshader on target meshes (albedo from the GLB texture)",
+   "targets": [
+    "Showcase_Pit_1_Slime"
+   ],
+   "material_tile_m": 6.0,
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "scroll": [
+       0.05,
+       0.03
+      ],
+      "swirl": 0.0,
+      "pulse_speed": 0.35,
+      "pulse_amount": 0.3,
+      "glow_energy": 1.0,
+      "ripple": 1.0,
+      "drops": 0.0,
+      "ripple_color": [
+       0.92,
+       1.0,
+       0.7
+      ]
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "scroll": [
+       0.05,
+       0.03
+      ],
+      "swirl": 0.05,
+      "pulse_speed": 0.35,
+      "pulse_amount": 0.3,
+      "glow_energy": 1.0,
+      "ripple": 1.0,
+      "drops": 1.0,
+      "ripple_color": [
+       0.92,
+       1.0,
+       0.7
+      ]
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "scroll": [
+       0.05,
+       0.03
+      ],
+      "swirl": 0.05,
+      "pulse_speed": 0.35,
+      "pulse_amount": 0.3,
+      "glow_energy": 1.0,
+      "ripple": 1.0,
+      "drops": 1.0,
+      "ripple_color": [
+       0.92,
+       1.0,
+       0.7
+      ]
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Showcase_Pit_1_Slime_Bubbles",
+   "type": "bubbles",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D, box emitter on the surface, alpha billboard",
+   "area": [
+    -40.64,
+    7.06,
+    -26.59,
+    -33.76,
+    7.06,
+    -21.96
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 12.0,
+      "lifetime": 1.4,
+      "speed": [
+       0.3,
+       0.7
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.15,
+       0.45
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.92,
+       1.0,
+       0.7
+      ],
+      "texture": "bubble",
+      "blend": "alpha",
+      "spread": 10
+     },
+     "cost_estimate": {
+      "max_particles": 17,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 30.0,
+      "lifetime": 1.4,
+      "speed": [
+       0.3,
+       0.7
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.15,
+       0.45
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.92,
+       1.0,
+       0.7
+      ],
+      "texture": "bubble",
+      "blend": "alpha",
+      "spread": 10
+     },
+     "cost_estimate": {
+      "max_particles": 42,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 48.0,
+      "lifetime": 1.4,
+      "speed": [
+       0.3,
+       0.7
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.15,
+       0.45
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.92,
+       1.0,
+       0.7
+      ],
+      "texture": "bubble",
+      "blend": "alpha",
+      "spread": 10
+     },
+     "cost_estimate": {
+      "max_particles": 68,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    }
+   }
+  },
+  {
+   "id": "Showcase_Pit_2_Slime_Surface",
+   "type": "liquid_surface",
+   "category": "surface_shader",
+   "glb_contains": "static base colour + emissive texture",
+   "godot_runtime": "ShaderMaterial liquid_surface.gdshader on target meshes (albedo from the GLB texture)",
+   "targets": [
+    "Showcase_Pit_2_Slime"
+   ],
+   "material_tile_m": 6.0,
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "scroll": [
+       0.05,
+       0.03
+      ],
+      "swirl": 0.0,
+      "pulse_speed": 0.35,
+      "pulse_amount": 0.3,
+      "glow_energy": 1.0,
+      "ripple": 1.0,
+      "drops": 0.0,
+      "ripple_color": [
+       0.92,
+       1.0,
+       0.7
+      ]
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "scroll": [
+       0.05,
+       0.03
+      ],
+      "swirl": 0.05,
+      "pulse_speed": 0.35,
+      "pulse_amount": 0.3,
+      "glow_energy": 1.0,
+      "ripple": 1.0,
+      "drops": 1.0,
+      "ripple_color": [
+       0.92,
+       1.0,
+       0.7
+      ]
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "scroll": [
+       0.05,
+       0.03
+      ],
+      "swirl": 0.05,
+      "pulse_speed": 0.35,
+      "pulse_amount": 0.3,
+      "glow_energy": 1.0,
+      "ripple": 1.0,
+      "drops": 1.0,
+      "ripple_color": [
+       0.92,
+       1.0,
+       0.7
+      ]
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Showcase_Pit_2_Slime_Bubbles",
+   "type": "bubbles",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D, box emitter on the surface, alpha billboard",
+   "area": [
+    -22.44,
+    7.06,
+    -26.59,
+    -13.36,
+    7.06,
+    -21.96
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 12.0,
+      "lifetime": 1.4,
+      "speed": [
+       0.3,
+       0.7
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.15,
+       0.45
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.92,
+       1.0,
+       0.7
+      ],
+      "texture": "bubble",
+      "blend": "alpha",
+      "spread": 10
+     },
+     "cost_estimate": {
+      "max_particles": 17,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 30.0,
+      "lifetime": 1.4,
+      "speed": [
+       0.3,
+       0.7
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.15,
+       0.45
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.92,
+       1.0,
+       0.7
+      ],
+      "texture": "bubble",
+      "blend": "alpha",
+      "spread": 10
+     },
+     "cost_estimate": {
+      "max_particles": 42,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 48.0,
+      "lifetime": 1.4,
+      "speed": [
+       0.3,
+       0.7
+      ],
+      "gravity": 0.0,
+      "size": [
+       0.15,
+       0.45
+      ],
+      "alpha": 1.0,
+      "color": [
+       0.92,
+       1.0,
+       0.7
+      ],
+      "texture": "bubble",
+      "blend": "alpha",
+      "spread": 10
+     },
+     "cost_estimate": {
+      "max_particles": 68,
+      "emitters": 1,
+      "extra_draw_calls": 1
+     }
+    }
+   }
+  },
+  {
+   "id": "Showcase_Pit_1_Glow",
+   "type": "point_light",
+   "category": "light",
+   "glb_contains": "nothing",
+   "godot_runtime": "OmniLight3D per position (no shadows): light_color, light_energy, omni_range",
+   "emitters": [
+    {
+     "pos": [
+      -37.2,
+      8.6,
+      -24.275
+     ]
+    },
+    {
+     "pos": [
+      -42.14,
+      3.5,
+      -20.0
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "color": [
+       0.45,
+       1.0,
+       0.25
+      ],
+      "energy": 0.8,
+      "range": 12.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "color": [
+       0.45,
+       1.0,
+       0.25
+      ],
+      "energy": 1.5,
+      "range": 12.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "color": [
+       0.45,
+       1.0,
+       0.25
+      ],
+      "energy": 1.5,
+      "range": 12.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Showcase_Pit_2_Glow",
+   "type": "point_light",
+   "category": "light",
+   "glb_contains": "nothing",
+   "godot_runtime": "OmniLight3D per position (no shadows): light_color, light_energy, omni_range",
+   "emitters": [
+    {
+     "pos": [
+      -17.9,
+      8.6,
+      -24.275
+     ]
+    },
+    {
+     "pos": [
+      -11.53,
+      3.5,
+      -20.0
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "color": [
+       0.45,
+       1.0,
+       0.25
+      ],
+      "energy": 0.8,
+      "range": 12.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "color": [
+       0.45,
+       1.0,
+       0.25
+      ],
+      "energy": 1.5,
+      "range": 12.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "color": [
+       0.45,
+       1.0,
+       0.25
+      ],
+      "energy": 1.5,
+      "range": 12.0
      },
      "cost_estimate": {
       "max_particles": 0,

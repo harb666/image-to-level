@@ -1,16 +1,16 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 3995,
-  "mobile/level_mobile.glb": 2346,
+  "level.glb": 4032,
+  "mobile/level_mobile.glb": 2372,
   "mobile/collision.json": 180,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 79
+  "effects.json": 97
  },
  "complexity": {
-  "triangles": 63012,
-  "nodes": 2556,
+  "triangles": 63828,
+  "nodes": 2564,
   "materials": 43,
   "heaviest": [
    [
@@ -37,32 +37,32 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 3995,
-   "triangles": 53576,
-   "draw_calls": 2556,
+   "glb_kb": 4032,
+   "triangles": 54416,
+   "draw_calls": 2564,
    "tex_mem_gpu_mb_est": 26.4
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 2346,
-   "triangles": 60576,
-   "draw_calls": 132,
-   "visible_draw_calls_est": 73.2,
-   "visible_draw_calls_max_est": 135,
+   "glb_kb": 2372,
+   "triangles": 61386,
+   "draw_calls": 135,
+   "visible_draw_calls_est": 74.4,
+   "visible_draw_calls_max_est": 138,
    "tex_mem_gpu_mb_est": 10.76,
    "materials": 45,
-   "nodes": 231,
+   "nodes": 234,
    "colliders": {
-    "colliders": 451,
+    "colliders": 449,
     "hazards": 1,
-    "glb_kb": 205
+    "glb_kb": 204
    },
    "background_kb": 404
   },
   "effects": {
-   "max_particles": 831,
-   "emitters": 15,
-   "extra_draw_calls": 7,
+   "max_particles": 1167,
+   "emitters": 29,
+   "extra_draw_calls": 11,
    "transparent_area_m2": 13000
   },
   "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
@@ -74,7 +74,7 @@
    "INTENTIONAL": 0
   },
   "relations": {
-   "explicit": 16,
+   "explicit": 22,
    "inferred": 0
   },
   "repairable": 2,
@@ -258,12 +258,12 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 132 (> 80)"
+   "message": "mobile draw calls 135 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~73 visible draw calls (estimate, > 60)"
+   "message": "~74 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "spawn_near_hazard",
@@ -290,7 +290,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "63012 triangles (> budget 40000)"
+   "message": "63828 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",

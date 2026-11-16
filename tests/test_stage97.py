@@ -495,5 +495,17 @@ class Showcase(unittest.TestCase):
         E = {e["id"] for e in _load("effects.json")["effects"]}; self.assertTrue({"Showcase_TankGlow", "Showcase_BannerGlow"} <= E)
 
 
+    def test_pits_overflow(self):
+        """Stage 138: both pits brim over - the slime stands above the rims, and curtains of slime (streams) pour off
+        the front, the outer side and the corner into the pool, with splash / steam / flow effects and a churning top."""
+        for k in (1, 2):
+            n = f"Showcase_Pit_{k}"; sl = self.by[n + "_Slime"]; rim = self.by[n + "_Rim_1"]
+            self.assertGreater(sl["position"][1] + sl["size"][1], rim["position"][1] + rim["size"][1])
+            self.assertNotIn(n + "_Grate", self.by)
+            for e in ("_FrontFall", "_SideFall", "_CornerFall"): self.assertEqual(self.by[n + e]["type"], "stream", n + e)
+        E = {e["id"]: e for e in _load("effects.json")["effects"]}
+        self.assertTrue({"Pour_Flow", "Pour_Splash", "Pour_Steam", "Showcase_Pit_1_Slime_Surface", "Showcase_Pit_2_Slime_Bubbles"} <= set(E))
+        self.assertIn("Showcase_Pit_1_FrontFall", E["Pour_Flow"].get("targets", []) + E["Pour_Flow"].get("targets_glob", []))
+
 if __name__ == "__main__":
     unittest.main()
