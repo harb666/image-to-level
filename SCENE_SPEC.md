@@ -1412,4 +1412,7 @@ Building blocks usable without the preset:
   the CONSTRUCT ERROR_ banner, X banners, logo monitors and pink light bars (atlas `ce_signs`, art from
   `references/make_showcase_art.py`), slime pits with grates at the plaza front (kill boxes). Its lights come from
   `ctx.extra_lights` (point_light effects). Assembly Ascent: in the north-west pool, a bridge from the robot ring.
+- Stage 136: `saw_arm` `"mirror"` (default: `"side": -1`): the saw is its partner's mirror image - its blade spins
+  the other way (negative `rpm` in level.json `saws`) and is flipped so its hooked teeth face the other way. Either way
+  the tooth tips now lead the spin (on both saws they trailed before).
 

@@ -82,6 +82,19 @@ class AssemblyAscent(unittest.TestCase):
         self.assertFalse([n for n in self.by if n.startswith("Yard_Mark")])
         self.assertEqual(self.L["materials"][self.by["Yard_Emblem_Decal"]["material"]]["type"], "image_decal")
 
+    def test_saws_mirror_each_other(self):
+        """Stage 136: the two saws are mirror images - their arms swing opposite ways (half a period apart), their blades
+        spin opposite ways, and each blade's hooked tooth tips lead its spin."""
+        S = {s["id"]: s for s in self.L["saws"]}; w, e = S["Saw_West"], S["Saw_East"]
+        self.assertEqual(w["rpm"], -e["rpm"]); self.assertAlmostEqual(abs(w["phase"] - e["phase"]), w["period"] / 2)
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from anchors import world_matrices
+        W, _ = world_matrices(self.L)
+        for sw in (w, e):
+            o = self.by[sw["id"] + "_Saw"]; C = sw["center"]; n = int(o.get("teeth", 36)); R = o["size"][0] / 2; a1 = 2 * math.pi / n * 0.78
+            pb = W[o["name"]] @ [0.84 * R, 0, 0, 1]; pt = W[o["name"]] @ [R * math.cos(a1), 0, R * math.sin(a1), 1]
+            ang = lambda p: math.atan2(p[1] - C[1], p[0] - C[0]); d = (ang(pt) - ang(pb) + math.pi) % (2 * math.pi) - math.pi
+            self.assertEqual(d > 0, sw["rpm"] > 0, sw["id"])  # tip ahead of its base in the spin direction (about the axis, here +z)
+
     def test_saw_hubs_are_plain(self):
         """Stage 132: the spinning blade hub (flange + nut) is plain dark metal - the machine panel's white light slots
         spun round with the blade."""

@@ -148,7 +148,8 @@ def saw_arm(ctx, s, x, y, z, yaw):
     seg(n + "_GuardStrut", add(add(C, mul(uw, r0_)), bo), add(add(C, mul(uw, Rg + 0.1)), bo), 0.85, 0.42, arm, gw)
     # --- the blade (spins): disc, flange, glowing rings, bolts, hex nut - all concentric (each moving link keeps to 2-3 materials: draw calls)
     mb = K(gb, outline=False)
-    ctx.add(n + "_Saw", "saw_blade", C, [D, 0.12, D], ctx.role("blade"), rot=[90, ay, 0], teeth=int(s.get("teeth", 36)), **mb)
+    mir = bool(s.get("mirror", side < 0))  # Stage 136: a side -1 saw is its partner's mirror image - blade flipped and spinning the other way; either way the hooked tooth tips lead the spin (they trailed before)
+    ctx.add(n + "_Saw", "saw_blade", C, [D, 0.12, D], ctx.role("blade"), rot=[90, ay + (0.0 if mir else 180.0), 0], teeth=int(s.get("teeth", 36)), **mb)
     hub = ctx.role(s.get("hub_material", "saw_hub"))  # Stage 132: plain dark metal - the machine panel's white light slots spun round with the blade
     axle(n + "_Flange", C, D * 0.34, 0.3, hub, gb, outline=False)
     for sd in (-1, 1): axle(f"{n}_BladeGlow_{'LR'[sd > 0]}", C, D * 0.42, 0.02, gl, gb, off=sd * 0.072, outline=False)
@@ -161,7 +162,7 @@ def saw_arm(ctx, s, x, y, z, yaw):
          dict(group=gf, pivot=[round(v_, 3) for v_ in E], amp=float(s.get("elbow_amp", amp * 0.8)), lag=float(s.get("elbow_lag", 0.9))),  # the outer joints lagging behind
          dict(group=gw, pivot=[round(v_, 3) for v_ in W], amp=float(s.get("wrist_amp", amp * 0.7)), lag=float(s.get("wrist_lag", 1.7)))]  # (follow-through: it whips)
     ctx.saws = getattr(ctx, "saws", []) + [dict(id=n, arm=ga, blade=gb, spin=gb, joints=J, slots=slots, slot=float(s.get("slot", 0.9)), pivot=[round(v_, 3) for v_ in P0], axis=A, amp=amp,
-                                               period=float(s.get("period", 3.2)), phase=float(s.get("phase", 0.0)), center=[round(v_, 3) for v_ in C], radius=round(R, 3), rpm=float(s.get("rpm", 240.0)),
+                                               period=float(s.get("period", 3.2)), phase=float(s.get("phase", 0.0)), center=[round(v_, 3) for v_ in C], radius=round(R, 3), rpm=float(s.get("rpm", 240.0)) * (-1.0 if mir else 1.0),
                                                note="joint k turns its group and every later one about axis through its own pivot by amp_k sin(2 pi (t + phase) / period - lag_k) degrees; the spin group also turns rpm about the axis through the blade centre; kill within radius of the blade centre and 0.7 m of its plane (normal = axis)")]
     ctx.notes.append(f"{n}: ceiling saw {D:.1f} m, jointed arm (shoulder {amp:.0f} deg) across [{ax_}, {az_}]")
 
