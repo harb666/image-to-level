@@ -484,31 +484,37 @@ class Showcase(unittest.TestCase):
                   "Showcase_Banner", "Showcase_XBanner_a", "Showcase_XBanner_b", "Showcase_Monitor_a", "Showcase_Monitor_b", "Showcase_Bridge_Deck"):
             self.assertIn(k, self.by)
         M = self.L["materials"]; atl = M[self.by["Showcase_Banner"]["material"]]
-        self.assertEqual(atl["type"], "screen_atlas"); self.assertEqual(set(atl["atlas"]), {"banner", "xban", "screen"})
+        self.assertEqual(atl["type"], "screen_atlas"); self.assertEqual(set(atl["atlas"]), {"banner", "xban", "screen", "drop"})
         for k in ("Showcase_Logo", "Showcase_TankMascot"): self.assertEqual(M[self.by[k]["material"]]["type"], "image_decal")
         for f in ("ce_atlas.png", "ce_floor_logo.png", "ce_tank_mascot.png"): self.assertTrue(os.path.exists(os.path.join(LV, "references", f)), f)
 
-    def test_showcase_is_reachable_and_pits_kill(self):
+    def test_showcase_is_reachable(self):
         N = _load("checks/navigation.json"); A = {a["name"]: a["reachable_fraction"] for a in N["intended_areas"]}
         self.assertEqual(A.get("Showcase_Deck"), 1.0); self.assertEqual(A.get("Showcase_Stage"), 1.0)
-        K = {k["id"] for k in self.L["kills"]}; self.assertTrue({"Showcase_Pit_1", "Showcase_Pit_2"} <= K)
+        K = {k["id"] for k in self.L["kills"]}; self.assertFalse({"Showcase_Pit_1", "Showcase_Pit_2"} & K)  # Stage 140: closed pump tanks (no open slime)
         E = {e["id"] for e in _load("effects.json")["effects"]}; self.assertTrue({"Showcase_TankGlow", "Showcase_BannerGlow"} <= E)
 
 
-    def test_pits_overflow(self):
-        """Stage 138: both pits brim over - the slime stands above the rims, and curtains of slime (streams) pour off
-        the front, the outer side and the corner into the pool, with splash / steam / flow effects and a churning top."""
+    def test_pits_are_pump_tanks(self):
+        """Stage 140 (user concept): each pit is a closed pump tank - two pink pumps (droplet emblem, side fan) fed by
+        glowing arch pipes, corner pipes down the emblem pillars, a pink light bar over a slot in the front, and a
+        waterfall (curtain + veil) pouring out of the slot into a splash pool with splash bursts and spray."""
+        W, _ = __import__("anchors").world_matrices(self.L)
+        w1, w2 = [self.by[f"Showcase_Pit_{k}_Tub"]["size"][0] for k in (1, 2)]; self.assertAlmostEqual(w1, w2)  # the two match
         for k in (1, 2):
-            n = f"Showcase_Pit_{k}"; sl = self.by[n + "_Slime"]; rim = self.by[n + "_Rim_1"]
-            self.assertGreater(sl["position"][1] + sl["size"][1], rim["position"][1] + rim["size"][1])
-            self.assertNotIn(n + "_Grate", self.by)
-            for e in ("_FrontFall", "_FrontVeil"): self.assertEqual(self.by[n + e]["type"], "stream", n + e)  # Stage 139: the front only (a waterfall + its bright veil)
-            for e in ("_SideFall", "_CornerFall"): self.assertNotIn(n + e, self.by)
+            n = f"Showcase_Pit_{k}"
+            for p in ("_Block", "_Pillar_L", "_Pillar_R", "_Lintel", "_LightBar", "_Emblem_L", "_Pump_1", "_Pump_2", "_Pump_1_Emblem", "_Pump_1_Fan", "_Pump_1_Pipe", "_CornerPipe_1"):
+                self.assertIn(n + p, self.by, n + p)
+            for p in ("_Pump_1_Pipe", "_CornerPipe_1"): self.assertEqual(self.by[n + p]["type"], "pipe_path"); self.assertIs(self.by[n + p].get("collision"), False)
+            self.assertNotIn(n + "_Slime", self.by)
+            fall, lintel = self.by[n + "_FrontFall"], self.by[n + "_Lintel"]
+            self.assertEqual(fall["type"], "stream"); self.assertLess(fall["position"][1], lintel["position"][1])  # it pours out under the lintel
             self.assertEqual(self.L["materials"][self.by[n + "_SplashPool"]["material"]]["type"], "pool_fade")
         E = {e["id"]: e for e in _load("effects.json")["effects"]}
-        self.assertTrue({"Pour_Flow", "Pour_Splash", "Pour_Steam", "Pit_Veil_Flow", "Pit_Splash", "Pit_Spray", "Showcase_Pit_1_Slime_Surface", "Showcase_Pit_2_Slime_Bubbles"} <= set(E))
-        self.assertEqual(len(E["Pit_Splash"]["emitters"]), 10)  # a row of five splash bursts along each waterfall's foot
-        self.assertIn("Showcase_Pit_1_FrontFall", E["Pour_Flow"].get("targets", []) + E["Pour_Flow"].get("targets_glob", []))
+        self.assertTrue({"Pour_Flow", "Pour_Splash", "Pour_Steam", "Pit_Veil_Flow", "Pit_Splash", "Pit_Spray"} <= set(E))
+        self.assertEqual(len(E["Pit_Splash"]["emitters"]), 10)
+        self.assertIn("drop", self.L["materials"]["ce_signs"]["atlas"])
+
 
 if __name__ == "__main__":
     unittest.main()

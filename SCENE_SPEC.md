@@ -1429,4 +1429,11 @@ Building blocks usable without the preset:
   the lip, a soft `pool_fade` splash pool where it lands (`_SplashPool`), a row of splash bursts + spray along its
   foot (`Pit_Splash` / `Pit_Spray`) and a green glow there. geometry_check: a pour landing on a non-colliding overlay
   (glow / splash disc) no longer counts as landing on a floor.
+- Stage 140 (user concept image): with `"overflow"` each pit is a closed pump tank - a solid block (its top 2 cm under
+  the plaza: walkable, no kill box), two front corner pillars with droplet emblems (atlas cell `drop`), grilles and
+  hazard trim, a pink light bar on yellow brackets over a slot in the front, the waterfall (curtain + veil) pouring out
+  of that slot over a glowing channel, two pink pumps on top (`pump_material`, droplet emblem, a fan grille on the side)
+  fed by glowing arch pipes, glowing corner pipes over the front edge down the pillars, a pink strip on the outer side.
+  New closed shape `pipe_path` (a tube along a 2D path with rounded bends). Assembly Ascent: the two pits are mirror
+  images (8.6 m wide each, 4.6 m either side of the bridge).
 

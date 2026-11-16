@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 4061,
-    "triangles": 63988,
-    "nodes": 2595,
-    "mesh_nodes": 2560,
-    "unique_meshes": 1245,
+    "glb_kb": 4123,
+    "triangles": 68324,
+    "nodes": 2655,
+    "mesh_nodes": 2620,
+    "unique_meshes": 1254,
     "materials": 47,
     "images": 118,
-    "draw_calls_unbatched": 2560,
+    "draw_calls_unbatched": 2620,
     "draw_calls_batched_min": 47,
     "tex_mem_uncompressed_mb": 106.19,
     "tex_mem_gpu_compressed_mb": 26.55,
@@ -73,22 +73,22 @@
    },
    "visible": {
     "cameras": 120,
-    "visible_draw_calls_mean": 830.5,
-    "visible_draw_calls_max": 2552,
-    "visible_triangles_mean": 32953,
-    "visible_triangles_max": 74592
+    "visible_draw_calls_mean": 851.4,
+    "visible_draw_calls_max": 2612,
+    "visible_triangles_mean": 34471,
+    "visible_triangles_max": 78928
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 2379,
-    "triangles": 61542,
-    "nodes": 236,
-    "mesh_nodes": 137,
-    "unique_meshes": 137,
+    "glb_kb": 2476,
+    "triangles": 65518,
+    "nodes": 234,
+    "mesh_nodes": 135,
+    "unique_meshes": 135,
     "materials": 47,
     "images": 84,
-    "draw_calls_unbatched": 137,
+    "draw_calls_unbatched": 135,
     "draw_calls_batched_min": 47,
     "tex_mem_uncompressed_mb": 43.61,
     "tex_mem_gpu_compressed_mb": 10.9,
@@ -133,38 +133,38 @@
     ]
    },
    "collision": {
-    "colliders": 449,
+    "colliders": 453,
     "hazards": 1,
-    "glb_kb": 204
+    "glb_kb": 205
    },
    "visible": {
     "cameras": 120,
-    "visible_draw_calls_mean": 75.3,
-    "visible_draw_calls_max": 140,
-    "visible_triangles_mean": 56673,
-    "visible_triangles_max": 72346
+    "visible_draw_calls_mean": 74.6,
+    "visible_draw_calls_max": 138,
+    "visible_triangles_mean": 58869,
+    "visible_triangles_max": 76322
    },
-   "hidden_faces_removed": 949,
-   "occluded_faces_removed": 1497,
+   "hidden_faces_removed": 945,
+   "occluded_faces_removed": 1861,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate",
     "Showcase_Stage_Glow_02L",
     "Showcase_Stage_Glow_02R"
    ],
-   "effects_extra_draw_calls": 13,
-   "effects_max_particles": 1299,
+   "effects_extra_draw_calls": 11,
+   "effects_max_particles": 1215,
    "slimmed_kb": {
     "level_mobile.glb": [
-     3589,
-     2379
+     3714,
+     2476
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     276,
-     204
+     279,
+     205
     ]
    }
   }
@@ -1213,7 +1213,7 @@
    "node": "Corrosion__corrosion__2s",
    "kind": "group",
    "material": "corrosion__2s",
-   "triangles": 846,
+   "triangles": 870,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2502,7 +2502,7 @@
    "node": "M_arm_yellow_0_0",
    "kind": "static",
    "material": "arm_yellow",
-   "triangles": 240,
+   "triangles": 272,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2512,6 +2512,10 @@
     "Saw_East_Cheek_L",
     "Saw_West_Cheek_R",
     "Saw_West_Cheek_L",
+    "Showcase_Pit_2_Bracket_R",
+    "Showcase_Pit_2_Bracket_L",
+    "Showcase_Pit_1_Bracket_R",
+    "Showcase_Pit_1_Bracket_L",
     "Showcase_Rail_2_Mid",
     "Showcase_Rail_2_Top",
     "Showcase_Rail_2_Post_4",
@@ -2553,10 +2557,18 @@
    "node": "M_ce_signs_0_0",
    "kind": "static",
    "material": "ce_signs",
-   "triangles": 10,
+   "triangles": 26,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Showcase_Pit_2_Pump_2_Emblem",
+    "Showcase_Pit_2_Pump_1_Emblem",
+    "Showcase_Pit_2_Emblem_R",
+    "Showcase_Pit_2_Emblem_L",
+    "Showcase_Pit_1_Pump_2_Emblem",
+    "Showcase_Pit_1_Pump_1_Emblem",
+    "Showcase_Pit_1_Emblem_R",
+    "Showcase_Pit_1_Emblem_L",
     "Showcase_Monitor_b",
     "Showcase_XBanner_b",
     "Showcase_Monitor_a",
@@ -2618,19 +2630,27 @@
    "node": "M_fall_0_0",
    "kind": "static",
    "material": "fall",
-   "triangles": 56,
+   "triangles": 2976,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Showcase_Pit_2_FrontCrest",
-    "Showcase_Pit_1_FrontCrest"
+    "Showcase_Pit_2_CornerPipe_2",
+    "Showcase_Pit_2_Pump_2_Pipe",
+    "Showcase_Pit_2_CornerPipe_1",
+    "Showcase_Pit_2_Pump_1_Pipe",
+    "Showcase_Pit_2_Channel",
+    "Showcase_Pit_1_CornerPipe_2",
+    "Showcase_Pit_1_Pump_2_Pipe",
+    "Showcase_Pit_1_CornerPipe_1",
+    "Showcase_Pit_1_Pump_1_Pipe",
+    "Showcase_Pit_1_Channel"
    ]
   },
   {
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 3475,
+   "triangles": 4107,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2699,6 +2719,26 @@
     "Belt_A_Leg_2L",
     "Belt_A_Leg_1R",
     "Belt_A_Leg_1L",
+    "Showcase_Pit_2_CornerClamp_2",
+    "Showcase_Pit_2_Pump_2_Clamp_1",
+    "Showcase_Pit_2_Pump_2_Clamp_0",
+    "Showcase_Pit_2_Pump_2_FanRim",
+    "Showcase_Pit_2_Pump_2_Band",
+    "Showcase_Pit_2_CornerClamp_1",
+    "Showcase_Pit_2_Pump_1_Clamp_1",
+    "Showcase_Pit_2_Pump_1_Clamp_0",
+    "Showcase_Pit_2_Pump_1_FanRim",
+    "Showcase_Pit_2_Pump_1_Band",
+    "Showcase_Pit_1_CornerClamp_2",
+    "Showcase_Pit_1_Pump_2_Clamp_1",
+    "Showcase_Pit_1_Pump_2_Clamp_0",
+    "Showcase_Pit_1_Pump_2_FanRim",
+    "Showcase_Pit_1_Pump_2_Band",
+    "Showcase_Pit_1_CornerClamp_1",
+    "Showcase_Pit_1_Pump_1_Clamp_1",
+    "Showcase_Pit_1_Pump_1_Clamp_0",
+    "Showcase_Pit_1_Pump_1_FanRim",
+    "Showcase_Pit_1_Pump_1_Band",
     "Showcase_Monitor_b_Board",
     "Showcase_Monitor_a_Board",
     "Showcase_BannerRod",
@@ -3039,10 +3079,14 @@
    "node": "M_glow_pink_0_0",
    "kind": "static",
    "material": "glow_pink",
-   "triangles": 198,
+   "triangles": 242,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Showcase_Pit_2_SideStrip",
+    "Showcase_Pit_2_LightBar",
+    "Showcase_Pit_1_SideStrip",
+    "Showcase_Pit_1_LightBar",
     "Showcase_LightBar_3",
     "Showcase_LightBar_2",
     "Showcase_LightBar_1",
@@ -3115,7 +3159,7 @@
    "node": "M_grate_0_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 306,
+   "triangles": 490,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3124,6 +3168,14 @@
     "Spinner_Pad_3_Bridge",
     "Spinner_Pad_2_Bridge",
     "Spinner_Pad_1_Bridge",
+    "Showcase_Pit_2_Pump_2_Fan",
+    "Showcase_Pit_2_Pump_1_Fan",
+    "Showcase_Pit_2_Grille_R",
+    "Showcase_Pit_2_Grille_L",
+    "Showcase_Pit_1_Pump_2_Fan",
+    "Showcase_Pit_1_Pump_1_Fan",
+    "Showcase_Pit_1_Grille_R",
+    "Showcase_Pit_1_Grille_L",
     "Showcase_Bridge_Deck",
     "Spinner_Ramp_Deck",
     "Exit_Stairs",
@@ -3136,7 +3188,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 6812,
+   "triangles": 6824,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3213,10 +3265,10 @@
     "Showcase_Crates_R_01__ol",
     "Showcase_Crates_L_02__ol",
     "Showcase_Crates_L_01__ol",
-    "Showcase_Pit_2_Rim_1__ol",
-    "Showcase_Pit_2_Tub__ol",
-    "Showcase_Pit_1_Rim_3__ol",
-    "Showcase_Pit_1_Rim_1__ol",
+    "Showcase_Pit_1_Pump_1__ol",
+    "Showcase_Pit_1_Lintel__ol",
+    "Showcase_Pit_1_Pillar_L__ol",
+    "Showcase_Pit_1_Block__ol",
     "Showcase_Pit_1_Tub__ol",
     "Showcase_TankTop__ol",
     "Showcase_TankCap__ol",
@@ -3531,7 +3583,7 @@
    "node": "M_rail_0_0",
    "kind": "static",
    "material": "rail",
-   "triangles": 1196,
+   "triangles": 1236,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3635,7 +3687,11 @@
     "Rail_Start_S_Rail_02b",
     "Rail_Start_S_Rail_02a",
     "Rail_Start_S_Rail_01b",
-    "Rail_Start_S_Rail_01a"
+    "Rail_Start_S_Rail_01a",
+    "Showcase_Pit_2_Pump_2",
+    "Showcase_Pit_2_Pump_1",
+    "Showcase_Pit_1_Pump_2",
+    "Showcase_Pit_1_Pump_1"
    ]
   },
   {
@@ -3702,7 +3758,7 @@
    "node": "M_splash_pool__2s_0_0",
    "kind": "static",
    "material": "splash_pool__2s",
-   "triangles": 438,
+   "triangles": 424,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3714,7 +3770,7 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 662,
+   "triangles": 634,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3740,14 +3796,12 @@
     "Saw_East_ColBand_1",
     "Saw_West_ColBand_2",
     "Saw_West_ColBand_1",
-    "Showcase_Pit_2_Rim_4",
-    "Showcase_Pit_2_Rim_3",
-    "Showcase_Pit_2_Rim_2",
-    "Showcase_Pit_2_Rim_1",
-    "Showcase_Pit_1_Rim_4",
-    "Showcase_Pit_1_Rim_3",
-    "Showcase_Pit_1_Rim_2",
-    "Showcase_Pit_1_Rim_1",
+    "Showcase_Pit_2_SideTrim",
+    "Showcase_Pit_2_Trim_R",
+    "Showcase_Pit_2_Trim_L",
+    "Showcase_Pit_1_SideTrim",
+    "Showcase_Pit_1_Trim_R",
+    "Showcase_Pit_1_Trim_L",
     "Showcase_TankBand",
     "Showcase_RampR_Side_b",
     "Showcase_RampR_Side_a",
@@ -3783,7 +3837,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 4364,
+   "triangles": 4502,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3851,7 +3905,15 @@
     "Spike_Press_Rib_2",
     "Spike_Press_Rib_1",
     "Spike_Press_Foot",
+    "Showcase_Pit_2_Lintel",
+    "Showcase_Pit_2_Pillar_R",
+    "Showcase_Pit_2_Pillar_L",
+    "Showcase_Pit_2_Block",
     "Showcase_Pit_2_Tub",
+    "Showcase_Pit_1_Lintel",
+    "Showcase_Pit_1_Pillar_R",
+    "Showcase_Pit_1_Pillar_L",
+    "Showcase_Pit_1_Block",
     "Showcase_Pit_1_Tub",
     "Showcase_XBanner_b_Board",
     "Showcase_XBanner_a_Board",
@@ -4129,30 +4191,6 @@
    "cast_shadow": true,
    "source_objects": [
     "Ceil_Fan_1_Rotor"
-   ],
-   "reason": "animated by an effect / merge disabled"
-  },
-  {
-   "node": "Showcase_Pit_2_Slime",
-   "kind": "separate",
-   "material": "hazard",
-   "triangles": 12,
-   "visibility_range_end": 0,
-   "cast_shadow": false,
-   "source_objects": [
-    "Showcase_Pit_2_Slime"
-   ],
-   "reason": "animated by an effect / merge disabled"
-  },
-  {
-   "node": "Showcase_Pit_1_Slime",
-   "kind": "separate",
-   "material": "hazard",
-   "triangles": 12,
-   "visibility_range_end": 0,
-   "cast_shadow": false,
-   "source_objects": [
-    "Showcase_Pit_1_Slime"
    ],
    "reason": "animated by an effect / merge disabled"
   },

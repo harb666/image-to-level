@@ -102,6 +102,20 @@ def tank_mascot(S=512):
     return lay
 
 
+def drop_emblem(S=480):
+    """Stage 140: the pump / pillar emblem (concept image): a magenta plate, a white slime droplet with a little face,
+    pink drips running off the bottom of the plate."""
+    im = Image.new("RGB", (S, S), (150, 20, 110)); d = ImageDraw.Draw(im)
+    d.rectangle([0, 0, S - 1, S - 1], outline=(70, 10, 52), width=18); d.rectangle([26, 26, S - 27, S - 27], outline=(220, 70, 170), width=6)
+    for k, (x, ln) in enumerate(((0.3, 0.16), (0.5, 0.1), (0.68, 0.2))):  # drips from the lower edge
+        d.rounded_rectangle([S * x - 9, S * 0.82, S * x + 9, S * (0.82 + ln)], 9, fill=(236, 90, 190))
+    cx, cy, R = S / 2, S * 0.56, S * 0.25; lay = Image.new("RGBA", (S, S), (0, 0, 0, 0)); dl = ImageDraw.Draw(lay)
+    dl.ellipse([cx - R, cy - R, cx + R, cy + R], fill=(250, 245, 250, 255)); dl.polygon([(cx - R * 0.72, cy - R * 0.7), (cx, cy - R * 2.05), (cx + R * 0.72, cy - R * 0.7)], fill=(250, 245, 250, 255))
+    for ex in (-0.36, 0.36): dl.ellipse([cx + ex * R - R * 0.14, cy - R * 0.2, cx + ex * R + R * 0.14, cy + R * 0.14], fill=(150, 20, 110, 255))  # eyes
+    dl.arc([cx - R * 0.3, cy + R * 0.1, cx + R * 0.3, cy + R * 0.5], 200, 340, fill=(150, 20, 110, 255), width=10)  # a little frown
+    return glow_layer(im, lay, 10, 0.6)
+
+
 def frown_face(S=1024, col=PINK, dark=(16, 8, 20)):
     """Stage 137: the mini boss's chest plate face (redrawn from a render of it): a slightly wide dark oval with a lighter
     rim, two X eyes and a downturned mouth - a cut-out floor decal (transparent round the oval)."""
@@ -118,8 +132,9 @@ def frown_face(S=1024, col=PINK, dark=(16, 8, 20)):
 if __name__ == "__main__":
     A = Image.new("RGB", (2048, 2048), DEEP)
     A.paste(banner(), (0, 0)); A.paste(x_banner(), (0, 840)); A.paste(monitor(), (520, 840)); A.paste(monitor(), (1040, 840))
+    A.paste(drop_emblem(), (1560, 840))  # Stage 140 (free space: the other cells are unchanged)
     A.save(os.path.join(OUT, "ce_atlas.png"))
     reg = lambda x0, y0, x1, y1: [round(x0 / 2048, 4), round(1 - y1 / 2048, 4), round(x1 / 2048, 4), round(1 - y0 / 2048, 4)]
-    print({"banner": reg(0, 0, 2048, 820), "xban": reg(0, 840, 512, 1864), "screen": reg(520, 840, 1032, 1352)})
+    print({"banner": reg(0, 0, 2048, 820), "xban": reg(0, 840, 512, 1864), "screen": reg(520, 840, 1032, 1352), "drop": reg(1560, 840, 2040, 1320)})
     frown_face().save(os.path.join(OUT, "ce_frown_face.png"))
     floor_logo().save(os.path.join(OUT, "ce_floor_logo.png")); tank_mascot().save(os.path.join(OUT, "ce_tank_mascot.png"))

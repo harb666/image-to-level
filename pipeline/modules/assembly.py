@@ -855,34 +855,58 @@ def showcase(ctx, s, x, y, z, yaw):
     # --- slime pits flush with the plaza edge: open slime (kills) at the front, a grate over the back
     for k, (px0, pz0, px1, pz1) in enumerate(s.get("pits", [])):
         w_, d_ = px1 - px0, pz1 - pz0; cx_, cz_ = (px0 + px1) / 2, (pz0 + pz1) / 2; fl = getattr(ctx, "floor_y", 1.0) - 0.7; nm = f"{n}_Pit_{k + 1}"
+        if s.get("overflow"):  # Stage 140 (the user's concept): a closed pump tank - two pumps on top feeding glowing pipes, a waterfall out of a slot in its front
+            fall, pool_y = ctx.role("fall"), getattr(ctx, "floor_y", 1.0); fz, pw = 0.9, 1.3; ys_ = yt - 1.1; mb = "structure_b"
+            pink, glass, pumpm, yel = ctx.role(s.get("pink", "glow_pink")), ctx.role(s.get("pipe_material", "fall")), ctx.role(s.get("pump_material", "rail")), ctx.role("arm_yellow")
+            bz0, bz1 = pz0, pz1 - fz  # the closed back block (its top: a deck 2 cm under the plaza's)
+            ctx.add(nm + "_Tub", "box", [cx_, fl, cz_], [w_, ys_ - fl, d_], mb, **st)  # up to the outlet channel's floor
+            ctx.add(nm + "_Block", "box", [cx_, ys_, (bz0 + bz1) / 2], [w_, yt - 0.02 - ys_, bz1 - bz0], mb, **st)
+            for sd in (-1, 1):  # front corner pillars, 12 cm proud of the front, 4 cm wider than the tub (no shared side faces)
+                px_ = cx_ + sd * (w_ / 2 - pw / 2 + 0.04)
+                ctx.add(f"{nm}_Pillar_{'LR'[sd > 0]}", "box", [px_, fl, pz1 - fz / 2 + 0.06], [pw, yt - 0.02 - fl, fz + 0.12], mb, **st)
+                ctx.add(f"{nm}_Emblem_{'LR'[sd > 0]}", "panel", [px_, yt - 2.75, pz1 + 0.132], [pw - 0.3, pw - 0.3, 0], atlas, uv_region="drop", **vs)
+                ctx.add(f"{nm}_Grille_{'LR'[sd > 0]}", "box", [px_, yt - 5.3, pz1 + 0.11], [pw - 0.34, 2.2, 0.06], "grate", **vs)
+                ctx.add(f"{nm}_Trim_{'LR'[sd > 0]}", "box", [px_, yt - 1.25, pz1 + 0.11], [pw, 0.24, 0.05], stripe, **vs)
+            sw = w_ - 2 * pw + 0.08  # the outlet slot between the pillars
+            ctx.add(nm + "_Lintel", "box", [cx_, yt - 0.45, pz1 - fz / 2], [sw + 0.1, 0.43, fz], mb, **st)
+            ctx.add(nm + "_LightBar", "box", [cx_, yt - 0.37, pz1 + 0.005], [sw - 0.5, 0.22, 0.12], pink, **vs)
+            for sd in (-1, 1): ctx.add(f"{nm}_Bracket_{'LR'[sd > 0]}", "box", [cx_ + sd * (sw / 2 - 0.12), yt - 0.43, pz1 + 0.01], [0.22, 0.36, 0.16], yel, **vs)
+            ctx.add(nm + "_Channel", "box", [cx_, ys_ - 0.02, pz1 - fz / 2 - 0.02], [sw + 0.06, 0.36, fz - 0.04], fall, **vs)  # glowing slime running out under the lintel
+            out_x = px0 if cx_ < float(s.get("bridge_x", D["center"][0])) else px1; so = 1.0 if out_x == px1 else -1.0
+            ctx.add(nm + "_SideStrip", "box", [out_x + so * 0.03, yt - 3.6, (bz0 + bz1) / 2], [0.07, 2.6, 0.32], pink, **vs)
+            ctx.add(nm + "_SideTrim", "box", [out_x + so * 0.025, yt - 0.34, (bz0 + bz1) / 2], [0.05, 0.26, bz1 - bz0 - 0.2], stripe, **vs)
+            top = yt - 0.02; pzc = (bz0 + bz1) / 2 + 0.25
+            for q, sd in enumerate((-1, 1)):  # the two pumps: pink housings, an emblem on the front, a fan grille on the side, glowing pipes in
+                qx = cx_ + sd * w_ * 0.2; pn = f"{nm}_Pump_{q + 1}"
+                ctx.add(pn, "box", [qx, top, pzc], [1.5, 1.05, 1.15], pumpm, **st)
+                ctx.add(pn + "_Band", "box", [qx, top + 0.82, pzc], [1.56, 0.12, 1.21], "frame", **vs)
+                ctx.add(pn + "_Emblem", "panel", [qx, top + 0.1, pzc + 0.583], [0.78, 0.78, 0], atlas, uv_region="drop", **vs)
+                ctx.add(pn + "_FanRim", "cylinder", [qx - 0.74, top + 0.52, pzc], [0.95, 0.18, 0.95], "frame", rot=[0, 0, 90], sections=12, **vs)  # on the pump's side (1 cm into it)
+                ctx.add(pn + "_Fan", "cylinder", [qx - 0.72, top + 0.52, pzc], [0.78, 0.24, 0.78], "grate", rot=[0, 0, 90], sections=12, **vs)  # the grille 4 cm proud of the rim
+                ctx.add(pn + "_Pipe", "pipe_path", [qx - 1.25, top - 0.02, pzc - 0.15], [0.32, 1.5, 0.32], glass, path=[[0, 0], [0, 1.55], [1.05, 1.55], [1.05, 1.06]], bend=0.34, **vs)  # an arch into the pump's top
+                for cy_ in (top + 0.12, top + 1.08): ctx.add(f"{pn}_Clamp_{int(cy_ > top + 0.5)}", "cylinder", [qx - 1.25, cy_, pzc - 0.15], [0.42, 0.14, 0.42], "frame", sections=10, **vs)
+                ex_ = cx_ + sd * (w_ / 2 - 0.42); zs = bz1 - 0.55  # a corner pipe over the front edge, down into the pillar
+                ctx.add(f"{nm}_CornerPipe_{q + 1}", "pipe_path", [ex_, top - 0.02, zs], [0.28, 1.0, 0.28], glass, rot=[0, -90, 0],
+                        path=[[0, 0], [0, 0.55], [pz1 + 0.42 - zs, 0.55], [pz1 + 0.42 - zs, -0.85], [pz1 + 0.1 - zs, -0.85]], bend=0.3, **vs)
+                ctx.add(f"{nm}_CornerClamp_{q + 1}", "cylinder", [ex_, top + 0.0, zs], [0.38, 0.14, 0.38], "frame", sections=10, **vs)
+            from shapes import stream_path
+            ln = sw - 0.15; ex, ez = cx_, pz1; oy = ys_ + 0.34; h_ = oy - pool_y + 0.3
+            fo = dict(section="rect", speed=1.6, pitch=6, inset=0.3, widen=0.16, thin=0.2, segments=14)
+            c_ = ctx.add(f"{nm}_FrontFall", "stream", [ex, oy, ez + 0.02], [round(ln, 3), round(h_, 3), 0.4], fall, **fo, **vs)
+            vo = dict(fo, speed=2.3, pitch=10, widen=0.3, thin=0.45)  # a faster, brighter veil over the main curtain
+            v_ = ctx.add(f"{nm}_FrontVeil", "stream", [ex, oy + 0.05, ez + 0.1], [round(ln * 0.84, 3), round(h_ + 0.05, 3), 0.16], ctx.role(s.get("veil", "fall_veil")), **vo, **vs)
+            for c2 in (c_, v_):
+                if ctx.hazards: ctx.rel("flows_into", c2, ctx.hazards[0])
+            ctx.pours.append(c_); ctx.pit_veils = getattr(ctx, "pit_veils", []) + [v_]
+            reach = float(stream_path(h_, fo)[-1][0][2]); lz = ez + 0.02 + reach
+            ctx.add(f"{nm}_SplashPool", "dome_shell", [ex, pool_y + 0.13, lz + 0.5], [ln + 4.0, 0.02, 6.0], ctx.role(s.get("splash_pool", "splash_pool")), sections=32, rings=4, uv="planar",
+                    double_sided=True, **vs)
+            ctx.pit_splashes = getattr(ctx, "pit_splashes", []) + [[round(ex - ln / 2 + 0.4 + (ln - 0.8) * q / 4, 2), round(pool_y + 0.1, 2), round(lz, 2)] for q in range(5)]
+            ctx.extra_lights = getattr(ctx, "extra_lights", []) + [dict(id=nm + "_FallGlow", positions=[[ex, pool_y + 1.6, round(lz + 1.8, 2)]], color=[0.45, 1.0, 0.25], energy=1.7, range=11.0)]
+            continue
         ctx.add(nm + "_Tub", "box", [cx_, fl, cz_], [w_, yt - 0.7 - fl, d_], "structure_b", **st)
         for j, (ox, oz, sx_, sz_) in enumerate(((0, -d_ / 2 + 0.18, w_, 0.36), (0, d_ / 2 - 0.18, w_, 0.36), (-w_ / 2 + 0.18, 0, 0.36, d_ - 0.72), (w_ / 2 - 0.18, 0, 0.36, d_ - 0.72))):
             ctx.add(f"{nm}_Rim_{j + 1}", "box", [cx_ + ox, yt - 0.7, cz_ + oz], [sx_, 0.68, sz_], stripe, **st)  # 2 cm under the plaza floor (no coplanar flicker where they meet)
-        if s.get("overflow"):  # Stage 138: brimming over - slime domed above the rim, a crest rolling over the spill edges, curtains pouring into the pool
-            hz = ctx.role(s.get("slime", "hazard")); fall = ctx.role("fall"); pool_y = getattr(ctx, "floor_y", 1.0); sl = nm + "_Slime"
-            ctx.add(sl, "box", [cx_, yt - 0.7, cz_], [w_ - 0.72, 0.76, d_ - 0.72], hz, **vs)  # top 6 cm above the rims: brim-full
-            out_x = px0 if cx_ < float(s.get("bridge_x", D["center"][0])) else px1
-            from shapes import stream_path
-            ln = w_; ex, ez = cx_, pz1; h_ = yt - 0.02 - pool_y + 0.3  # Stage 139: one waterfall, off the front edge only
-            ctx.add(f"{nm}_FrontCrest", "cylinder", [ex - (ln / 2 - 0.12), yt - 0.06, ez], [0.56, ln - 0.24, 0.56], fall, rot=[0, 0, -90], sections=8, **vs)  # the glowing roll over the lip
-            fo = dict(section="rect", speed=1.5, pitch=10, inset=0.2, widen=0.18, thin=0.2, segments=14)
-            c_ = ctx.add(f"{nm}_FrontFall", "stream", [ex, yt - 0.02, ez + 0.16], [round(ln - 0.3, 3), round(h_, 3), 0.42], fall, **fo, **vs)
-            vo = dict(fo, speed=2.2, pitch=14, widen=0.32, thin=0.45)  # a faster, brighter veil shooting a little further out over the main curtain
-            v_ = ctx.add(f"{nm}_FrontVeil", "stream", [ex, yt + 0.06, ez + 0.3], [round(ln * 0.82, 3), round(h_ + 0.08, 3), 0.16], ctx.role(s.get("veil", "fall_veil")), **vo, **vs)
-            for c2 in (c_, v_):
-                if ctx.hazards: ctx.rel("flows_into", c2, ctx.hazards[0])
-            ctx.pours.append(c_); ctx.pit_veils = getattr(ctx, "pit_veils", []) + [v_]  # (own material: its own, faster flow effect)
-            reach = float(stream_path(h_, fo)[-1][0][2]); lz = ez + 0.16 + reach  # where the curtain meets the pool
-            ctx.add(f"{nm}_SplashPool", "dome_shell", [ex, pool_y + 0.13, lz + 0.4], [ln + 3.4, 0.02, 5.2], ctx.role(s.get("splash_pool", "splash_pool")), sections=32, rings=4, uv="planar",
-                    double_sided=True, **vs)  # a soft glowing churn where it lands (fades out at the rim)
-            ctx.pit_splashes = getattr(ctx, "pit_splashes", []) + [[round(ex - ln / 2 + 0.6 + (ln - 1.2) * q / 4, 2), round(pool_y + 0.1, 2), round(lz, 2)] for q in range(5)]
-            ctx.extra_lights = getattr(ctx, "extra_lights", []) + [dict(id=nm + "_FallGlow", positions=[[ex, pool_y + 1.6, round(lz + 1.8, 2)]], color=[0.45, 1.0, 0.25], energy=1.6, range=11.0)]
-            ctx.pit_surfaces = getattr(ctx, "pit_surfaces", []) + [sl]
-            K = dict(id=nm, center=[round(cx_, 3), round(yt - 0.2, 3), round(cz_, 3)], size=[round(w_ - 0.72, 3), 1.0, round(d_ - 0.72, 3)], yaw=0.0, note="brimming slime pit")
-            ctx.kills = getattr(ctx, "kills", []) + [K]
-            ctx.extra_lights = getattr(ctx, "extra_lights", []) + [dict(id=nm + "_Glow", positions=[[cx_, yt + 1.6, cz_]],
-                                                                        color=[0.45, 1.0, 0.25], energy=1.5, range=12.0)]
-            continue
         ctx.add(nm + "_Slime", "box", [cx_, yt - 0.7, cz_], [w_ - 0.72, 0.28, d_ - 0.72], ctx.role(s.get("slime", "hazard")), **vs)
         gd = (d_ - 0.72) * 0.55; ctx.add(nm + "_Grate", "box", [cx_, yt - 0.11, pz0 + 0.3 + gd / 2], [w_ - 0.6, 0.08, gd], "grate", **st)  # its ends sunk 6 cm into the rims (resting on them)
         od = d_ - 0.72 - gd; K = dict(id=nm, center=[round(cx_, 3), round(yt - 0.2, 3), round(pz1 - 0.36 - od / 2, 3)], size=[round(w_ - 0.72, 3), 1.0, round(od, 3)], yaw=0.0, note="open slime pit")

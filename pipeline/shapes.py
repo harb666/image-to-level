@@ -740,9 +740,25 @@ def beam_cone(w, h, d, o):
     m = trimesh.Trimesh(np.array(V, float), np.array(F), process=False); m.metadata["uv"] = np.array(UV, float); return m
 
 
+def pipe_path(w, h, d, o):
+    """Stage 140: a bent pipe - a tube (diameter w) along o["path"] [[x, y], ...] in the local x-y plane (default: an
+    inverted U), corners rounded by o["bend"] (m, >= 1.5 x the tube radius). Closed (capped ends). size: bookkeeping."""
+    P = np.asarray(o.get("path") or [[0, 0], [0, 1.2], [1.0, 1.2], [1.0, 0.4]], float); r = w / 2; rb = max(float(o.get("bend", 0.35)), 1.5 * r)
+    pts = [P[0]]
+    for i in range(1, len(P) - 1):  # each corner: a quadratic curve between the points rb before / after it (clamped to half the legs)
+        A, B, C = P[i - 1], P[i], P[i + 1]; u, v = B - A, C - B; lu, lv = np.linalg.norm(u), np.linalg.norm(v)
+        t = min(rb, lu / 2, lv / 2); a0, a1 = B - u / lu * t, B + v / lv * t
+        for q in np.linspace(0, 1, 7): pts.append((1 - q) ** 2 * a0 + 2 * (1 - q) * q * B + q * q * a1)
+    pts.append(P[-1]); pts = np.array(pts); n = int(o.get("sections", 10)); rings = []
+    for i, p in enumerate(pts):
+        tg = (pts[min(i + 1, len(pts) - 1)] - pts[max(i - 1, 0)]); tg = tg / (np.linalg.norm(tg) or 1); n1 = np.array([-tg[1], tg[0], 0.0]); n2 = np.array([0.0, 0.0, 1.0])
+        rings.append(np.array([[p[0], p[1], 0.0] + r * (np.cos(f) * n1 + np.sin(f) * n2) for f in np.linspace(0, 2 * np.pi, n, endpoint=False)]))
+    return _ring_sweep(rings)
+
+
 SHAPES = dict(spike_ball=spike_ball, pole=pole, mace=mace, mace_tips=mace_tips, saw_blade=saw_blade, prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
-              stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum, dome=dome)
+              stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum, dome=dome, pipe_path=pipe_path)
 
 
 def box_faces(w, h, d, side, top, front=None, front_axis="z"):

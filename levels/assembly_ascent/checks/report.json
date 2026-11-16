@@ -1,21 +1,21 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 4061,
-  "mobile/level_mobile.glb": 2379,
-  "mobile/collision.json": 180,
+  "level.glb": 4123,
+  "mobile/level_mobile.glb": 2476,
+  "mobile/collision.json": 181,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 103
+  "effects.json": 93
  },
  "complexity": {
-  "triangles": 63988,
-  "nodes": 2560,
+  "triangles": 68324,
+  "nodes": 2620,
   "materials": 45,
   "heaviest": [
    [
     "Corrosion_Band",
-    846
+    870
    ],
    [
     "Spinner_Rotor_Ball_4",
@@ -37,32 +37,32 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 4061,
-   "triangles": 54576,
-   "draw_calls": 2560,
+   "glb_kb": 4123,
+   "triangles": 58912,
+   "draw_calls": 2620,
    "tex_mem_gpu_mb_est": 26.55
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 2379,
-   "triangles": 61542,
-   "draw_calls": 137,
-   "visible_draw_calls_est": 75.3,
-   "visible_draw_calls_max_est": 140,
+   "glb_kb": 2476,
+   "triangles": 65518,
+   "draw_calls": 135,
+   "visible_draw_calls_est": 74.6,
+   "visible_draw_calls_max_est": 138,
    "tex_mem_gpu_mb_est": 10.9,
    "materials": 47,
-   "nodes": 236,
+   "nodes": 234,
    "colliders": {
-    "colliders": 449,
+    "colliders": 453,
     "hazards": 1,
-    "glb_kb": 204
+    "glb_kb": 205
    },
    "background_kb": 404
   },
   "effects": {
-   "max_particles": 1299,
-   "emitters": 36,
-   "extra_draw_calls": 13,
+   "max_particles": 1215,
+   "emitters": 34,
+   "extra_draw_calls": 11,
    "transparent_area_m2": 13000
   },
   "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 20147.0,
-  "reachable_area_m2": 5427.0,
-  "components": 122,
+  "standable_area_m2": 20142.0,
+  "reachable_area_m2": 5422.0,
+  "components": 124,
   "spawns": [
    {
     "id": "spawn",
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 6.5,
     "headroom_m": 19.0,
-    "component": 67,
+    "component": 69,
     "hazard_distance_m": 0.54
    }
   ],
@@ -224,7 +224,20 @@
     "one_way": false
    }
   ],
-  "narrow_connectors": [],
+  "narrow_connectors": [
+   {
+    "object": "Showcase_Pit_1_Lintel",
+    "width_m": 1.0
+   },
+   {
+    "object": "Showcase_Pit_2_Lintel",
+    "width_m": 1.0
+   },
+   {
+    "object": "Showcase_Pit_2_Pillar_L",
+    "width_m": 1.0
+   }
+  ],
   "passed": true
  },
  "traverse": {
@@ -258,12 +271,45 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 137 (> 80)"
+   "message": "mobile draw calls 135 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
    "message": "~75 visible draw calls (estimate, > 60)"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Showcase_Pit_1_Lintel",
+   "pos": [
+    -36.5,
+    7.0,
+    -21.5
+   ],
+   "message": "Showcase_Pit_1_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Showcase_Pit_2_Lintel",
+   "pos": [
+    -17.5,
+    7.0,
+    -21.5
+   ],
+   "message": "Showcase_Pit_2_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
+   "object": "Showcase_Pit_2_Pillar_L",
+   "pos": [
+    -22.0,
+    7.0,
+    -21.5
+   ],
+   "message": "Showcase_Pit_2_Pillar_L: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
   },
   {
    "kind": "spawn_near_hazard",
@@ -290,7 +336,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "63988 triangles (> budget 40000)"
+   "message": "68324 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
@@ -306,7 +352,7 @@
  ],
  "counts": {
   "error": 0,
-  "warning": 7,
+  "warning": 10,
   "info": 1
  },
  "passed": true,
