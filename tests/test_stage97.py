@@ -454,5 +454,27 @@ class GlassDome(unittest.TestCase):
                 self.assertTrue(x1 < dx - ch or x0 > dx + ch, n)  # rails stop either side of it
 
 
+class Showcase(unittest.TestCase):
+    """Stage 135: the Construct Error showcase (user concept image) in the empty north-west slime pool."""
+    @classmethod
+    def setUpClass(cls):
+        cls.L = _load("level.json"); cls.by = {o["name"]: o for o in cls.L["objects"]}
+
+    def test_showcase_parts(self):
+        for k in ("Showcase_Dais", "Showcase_Logo", "Showcase_RampL", "Showcase_RampR", "Showcase_TankGlass", "Showcase_TankLiquid", "Showcase_TankMascot",
+                  "Showcase_Banner", "Showcase_XBanner_a", "Showcase_XBanner_b", "Showcase_Monitor_a", "Showcase_Monitor_b", "Showcase_Bridge_Deck"):
+            self.assertIn(k, self.by)
+        M = self.L["materials"]; atl = M[self.by["Showcase_Banner"]["material"]]
+        self.assertEqual(atl["type"], "screen_atlas"); self.assertEqual(set(atl["atlas"]), {"banner", "xban", "screen"})
+        for k in ("Showcase_Logo", "Showcase_TankMascot"): self.assertEqual(M[self.by[k]["material"]]["type"], "image_decal")
+        for f in ("ce_atlas.png", "ce_floor_logo.png", "ce_tank_mascot.png"): self.assertTrue(os.path.exists(os.path.join(LV, "references", f)), f)
+
+    def test_showcase_is_reachable_and_pits_kill(self):
+        N = _load("checks/navigation.json"); A = {a["name"]: a["reachable_fraction"] for a in N["intended_areas"]}
+        self.assertEqual(A.get("Showcase_Deck"), 1.0); self.assertEqual(A.get("Showcase_Stage"), 1.0)
+        K = {k["id"] for k in self.L["kills"]}; self.assertTrue({"Showcase_Pit_1", "Showcase_Pit_2"} <= K)
+        E = {e["id"] for e in _load("effects.json")["effects"]}; self.assertTrue({"Showcase_TankGlow", "Showcase_BannerGlow"} <= E)
+
+
 if __name__ == "__main__":
     unittest.main()

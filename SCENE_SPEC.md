@@ -1405,4 +1405,11 @@ Building blocks usable without the preset:
   the wrist pivot is the blade's centre (motor housing on its axle, a back strut up to the guard hood) - the blade no
   longer hangs from a joint above its rim. Assembly Ascent: the robot ring's red ring marking is the grinning gear
   decal (`Yard_Emblem`, like `Gear_Emblem`).
+- Stage 135: structure kind `showcase` (`deck`, `stage` platform ids, `wall_z`, `dais_at`, `dais_r`, `pits`
+  [[x0, z0, x1, z1], ...]): a Construct Error showcase from the user's concept image - a round dais ringed with hazard
+  stripes and pink light segments with the mascot logo painted on it, ramps up to a raised stage, a specimen tank
+  (glass, glowing green liquid, the mascot's silhouette, lit cap, pipes into the wall), yellow railings, and on the wall
+  the CONSTRUCT ERROR_ banner, X banners, logo monitors and pink light bars (atlas `ce_signs`, art from
+  `references/make_showcase_art.py`), slime pits with grates at the plaza front (kill boxes). Its lights come from
+  `ctx.extra_lights` (point_light effects). Assembly Ascent: in the north-west pool, a bridge from the robot ring.
 

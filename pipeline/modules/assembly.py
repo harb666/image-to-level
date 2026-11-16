@@ -787,3 +787,80 @@ def sign(ctx, s, x, y, z, yaw):
     if mount == "hanging":
         top = float(s.get("chain_to", y + 6)); L = top - (y + h + 0.15)
         for sd in (-1, 1): ctx.add(f"{n}_Chain_{'LR'[sd > 0]}", "box", [sd * w * 0.38, h + 0.15, -0.12], [0.08, L, 0.08], "frame", g, **vs)
+
+
+@structure("showcase", pad=False)
+def showcase(ctx, s, x, y, z, yaw):
+    """Stage 135: a Construct Error showcase (the user's concept image) dressed onto two platforms - "deck" (the plaza)
+    and "stage" (a raised stage against the wall behind it, "wall_z" its face, towards -z):
+      - a round dais on the plaza ("dais_r", centred "dais_at" [x, z]) ringed in hazard stripes with glowing pink light
+        segments and the mascot logo painted in the middle ("logo_material", cut-out)
+      - two ramps up to the stage at its ends (pink-lit curbs), yellow railings either side of the tank
+      - the specimen tank on the stage: plinth, base, glass, glowing green liquid, the mascot silhouette floating inside
+        ("mascot_material"), a cap with lights, pipes back into the wall
+      - on the wall: the CONSTRUCT ERROR_ banner, two X banners, two logo monitors ("atlas" material, regions banner /
+        xban / screen), pink light bars up high
+      - "pits": [[x0, z0, x1, z1], ...] slime tubs flush with the plaza edge (open slime kills, a grate over the rest)
+    Lights: ctx.extra_lights (green over the tank, pink at the banner)."""
+    n = s["id"]; P = {p["id"]: p for p in ctx.spec.get("platforms", [])}; D, S = P[s["deck"]], P[s["stage"]]
+    st = dict(mobile={"static": True}); vs = dict(collision=False, outline=False, **st)
+    yt, ys = float(D["top"]), float(S["top"]); wz = float(s["wall_z"])
+    sx0, sx1 = S["center"][0] - S["size"][0] / 2, S["center"][0] + S["size"][0] / 2; sz1 = S["center"][1] + S["size"][1] / 2
+    pink, stripe, atlas = ctx.role(s.get("pink", "glow_pink")), ctx.role("stripe"), ctx.role(s.get("atlas", "ce_signs"))
+    # --- the dais
+    dx, dz = s.get("dais_at", D["center"]); R = float(s.get("dais_r", 8.6))
+    ctx.add(n + "_DaisRim", "cylinder", [dx, yt, dz], [2 * R + 1.4, 0.16, 2 * R + 1.4], stripe, sections=40, **st)
+    ctx.add(n + "_Dais", "cylinder", [dx, yt, dz], [2 * R, 0.3, 2 * R], "structure_b", sections=40, **st)
+    for k in range(10):  # glowing pink segments round the rim
+        a = 36 * k + 18; r_ = R + 0.36; ctx.add(f"{n}_DaisLight_{k + 1:02d}", "box", [dx + r_ * math.sin(math.radians(a)), yt + 0.16, dz + r_ * math.cos(math.radians(a))], [2.7, 0.06, 0.3], pink, rot=[0, a, 0], **vs)
+    L_ = R * 1.5; ctx.add(n + "_Logo", "panel", [dx, yt + 0.312, dz + L_ / 2], [L_, L_, 0], ctx.role(s.get("logo_material", "ce_floor_logo")), rot=[-90, 0, 0], **vs)
+    # --- ramps up to the stage ends, pink-lit curbs
+    run = float(s.get("ramp_run", 8.7)); h = ys - yt; pitch = math.degrees(math.atan2(h, run)); Lc = math.hypot(run, h); rw = float(s.get("ramp_width", 4.4))
+    for sd, xr in (("L", sx0 + rw / 2 + 0.2), ("R", sx1 - rw / 2 - 0.2)):
+        zc = sz1 + run / 2; ctx.add(f"{n}_Ramp{sd}", "ramp", [xr, yt, zc], [rw, h, run], "deck", rot=[0, 180, 0], connector=True, **st)
+        for sg in (-1, 1):
+            ctx.add(f"{n}_Ramp{sd}_Curb_{'ab'[sg > 0]}", "box", [xr + sg * (rw / 2 - 0.14), yt + h / 2 - 0.02, zc], [0.26, 0.24, Lc], pink, rot=[-pitch, 180, 0], **vs)
+            ctx.add(f"{n}_Ramp{sd}_Side_{'ab'[sg > 0]}", "box", [xr + sg * (rw / 2 + 0.06), yt, zc], [0.12, h * 0.5, run * 0.98], stripe, rot=[0, 180, 0], **vs)
+    # --- the specimen tank (centre of the stage)
+    tx = s.get("tank_x", S["center"][0]); tz = S["center"][1] + float(s.get("tank_dz", 0.6)); y0 = ys
+    ctx.add(n + "_TankPlinth", "cylinder", [tx, y0, tz], [5.2, 0.9, 5.2], "structure_b", sections=16, **st)
+    ctx.add(n + "_TankBand", "cylinder", [tx, y0 + 0.75, tz], [5.45, 0.2, 5.45], stripe, sections=16, **vs)
+    ctx.add(n + "_TankBase", "cylinder", [tx, y0 + 0.9, tz], [4.0, 0.6, 4.0], "structure_b", sections=16, **st)
+    ctx.add(n + "_TankGlass", "cylinder", [tx, y0 + 1.5, tz], [3.2, 5.0, 3.2], ctx.role("glass_clear"), sections=16, double_sided=True, **vs)
+    ctx.add(n + "_TankLiquid", "cylinder", [tx, y0 + 1.52, tz], [3.0, 4.7, 3.0], ctx.role(s.get("liquid", "tank_green")), sections=16, double_sided=True, **vs)
+    ctx.add(n + "_TankMascot", "panel", [tx, y0 + 1.5, tz + 0.05], [1.9, 3.8, 0], ctx.role(s.get("mascot_material", "ce_tank_mascot")), double_sided=True, **vs)
+    ctx.add(n + "_TankCap", "cylinder", [tx, y0 + 6.5, tz], [3.9, 0.7, 3.9], "structure_b", sections=16, **st)
+    ctx.add(n + "_TankTop", "cylinder", [tx, y0 + 7.2, tz], [2.3, 0.45, 2.3], "structure_b", sections=12, **st)
+    for k in range(4):  # amber lamps round the cap
+        a = 90 * k + 45; ctx.add(f"{n}_TankLamp_{k + 1}", "box", [tx + 1.97 * math.sin(math.radians(a)), y0 + 6.72, tz + 1.97 * math.cos(math.radians(a))], [0.5, 0.26, 0.06], ctx.role("glow_yellow"), rot=[0, a, 0], **vs)
+    for sg in (-1, 1):  # pipes from the cap back into the wall
+        ctx.add(f"{n}_TankPipe_{'ab'[sg > 0]}", "cylinder", [tx + sg * 0.75, y0 + 7.3, wz], [0.32, tz - wz, 0.32], "pipe", rot=[90, 0, 0], sections=8, **vs)
+    # --- railings on the stage front, between the ramps and the tank
+    yr = ctx.role(s.get("rail", "arm_yellow")); ze = sz1 - 0.35
+    for k, (a0, a1) in enumerate(((sx0 + rw + 0.6, tx - 3.1), (tx + 3.1, sx1 - rw - 0.6))):
+        ln = a1 - a0; m_ = max(2, int(round(ln / 1.7)))
+        for j in range(m_ + 1): ctx.add(f"{n}_Rail_{k + 1}_Post_{j + 1}", "box", [a0 + ln * j / m_, ys, ze], [0.14, 1.05, 0.14], yr, **vs)
+        for hh, nm in ((1.0, "Top"), (0.52, "Mid")): ctx.add(f"{n}_Rail_{k + 1}_{nm}", "box", [(a0 + a1) / 2, ys + hh, ze], [ln + 0.14, 0.1, 0.12], yr, **vs)
+    # --- the wall: banner, X banners, monitors, light bars (each on a backing board touching the wall)
+    def board(nm, cx_, by, w, hgt, region, back=0.3, frame="structure_b"):
+        ctx.add(nm + "_Board", "box", [cx_, by - 0.1, wz + back / 2], [w + 0.2, hgt + 0.2, back], frame, **vs)
+        ctx.add(nm, "panel", [cx_, by, wz + back + 0.012], [w, hgt, 0], atlas, uv_region=region, **vs)
+    bw = float(s.get("banner_width", 16.0)); board(n + "_Banner", tx, float(s.get("banner_y", 17.5)), bw, bw / 2.5, "banner")
+    ctx.add(n + "_BannerRod", "cylinder", [tx - bw / 2 - 0.5, float(s.get("banner_y", 17.5)) + bw / 2.5 + 0.1 + 0.12, wz + 0.15], [0.3, bw + 1.0, 0.3], "frame", rot=[0, 0, -90], sections=8, **vs)  # resting on the board's top edge
+    for sg in (-1, 1):
+        board(f"{n}_XBanner_{'ab'[sg > 0]}", tx + sg * float(s.get("xban_dx", 12.5)), float(s.get("xban_y", 12.6)), 3.6, 7.2, "xban")
+        board(f"{n}_Monitor_{'ab'[sg > 0]}", tx + sg * 5.6, ys + 1.6, 2.6, 2.0, "screen", back=0.42, frame="frame")
+    for k, dx_ in enumerate((-10, 0, 10)): ctx.add(f"{n}_LightBar_{k + 1}", "box", [tx + dx_, float(s.get("bar_y", 27.0)), wz + 0.15], [5.0, 0.35, 0.3], pink, **vs)
+    # --- slime pits flush with the plaza edge: open slime (kills) at the front, a grate over the back
+    for k, (px0, pz0, px1, pz1) in enumerate(s.get("pits", [])):
+        w_, d_ = px1 - px0, pz1 - pz0; cx_, cz_ = (px0 + px1) / 2, (pz0 + pz1) / 2; fl = getattr(ctx, "floor_y", 1.0) - 0.7; nm = f"{n}_Pit_{k + 1}"
+        ctx.add(nm + "_Tub", "box", [cx_, fl, cz_], [w_, yt - 0.7 - fl, d_], "structure_b", **st)
+        for j, (ox, oz, sx_, sz_) in enumerate(((0, -d_ / 2 + 0.18, w_, 0.36), (0, d_ / 2 - 0.18, w_, 0.36), (-w_ / 2 + 0.18, 0, 0.36, d_ - 0.72), (w_ / 2 - 0.18, 0, 0.36, d_ - 0.72))):
+            ctx.add(f"{nm}_Rim_{j + 1}", "box", [cx_ + ox, yt - 0.7, cz_ + oz], [sx_, 0.68, sz_], stripe, **st)  # 2 cm under the plaza floor (no coplanar flicker where they meet)
+        ctx.add(nm + "_Slime", "box", [cx_, yt - 0.7, cz_], [w_ - 0.72, 0.28, d_ - 0.72], ctx.role(s.get("slime", "hazard")), **vs)
+        gd = (d_ - 0.72) * 0.55; ctx.add(nm + "_Grate", "box", [cx_, yt - 0.11, pz0 + 0.3 + gd / 2], [w_ - 0.6, 0.08, gd], "grate", **st)  # its ends sunk 6 cm into the rims (resting on them)
+        od = d_ - 0.72 - gd; K = dict(id=nm, center=[round(cx_, 3), round(yt - 0.2, 3), round(pz1 - 0.36 - od / 2, 3)], size=[round(w_ - 0.72, 3), 1.0, round(od, 3)], yaw=0.0, note="open slime pit")
+        ctx.kills = getattr(ctx, "kills", []) + [K]
+    ctx.extra_lights = getattr(ctx, "extra_lights", []) + [dict(id=n + "_TankGlow", positions=[[tx, y0 + 4.0, tz + 3.0]], color=[0.45, 1.0, 0.3], energy=1.4, range=14.0),
+                                                           dict(id=n + "_BannerGlow", positions=[[tx - 6, 20.0, wz + 4.0], [tx + 6, 20.0, wz + 4.0]], color=[1.0, 0.3, 0.8], energy=1.1, range=16.0)]
+    ctx.notes.append(f"{n}: Construct Error showcase - dais r {R:.1f} m, stage tank, banner {bw:.0f} m, {len(s.get('pits', []))} slime pits")

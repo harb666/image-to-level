@@ -486,6 +486,151 @@
    }
   },
   {
+   "id": "Showcase_TankGlow",
+   "type": "point_light",
+   "category": "light",
+   "glb_contains": "nothing",
+   "godot_runtime": "OmniLight3D per position (no shadows): light_color, light_energy, omni_range",
+   "emitters": [
+    {
+     "pos": [
+      -27,
+      13.5,
+      -56.3
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "color": [
+       0.45,
+       1.0,
+       0.3
+      ],
+      "energy": 0.8,
+      "range": 12.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "color": [
+       0.45,
+       1.0,
+       0.3
+      ],
+      "energy": 1.4,
+      "range": 14.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "color": [
+       0.45,
+       1.0,
+       0.3
+      ],
+      "energy": 1.4,
+      "range": 14.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Showcase_BannerGlow",
+   "type": "point_light",
+   "category": "light",
+   "glb_contains": "nothing",
+   "godot_runtime": "OmniLight3D per position (no shadows): light_color, light_energy, omni_range",
+   "emitters": [
+    {
+     "pos": [
+      -33,
+      20.0,
+      -61.0
+     ]
+    },
+    {
+     "pos": [
+      -21,
+      20.0,
+      -61.0
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "color": [
+       1.0,
+       0.3,
+       0.8
+      ],
+      "energy": 0.8,
+      "range": 12.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "color": [
+       1.0,
+       0.3,
+       0.8
+      ],
+      "energy": 1.1,
+      "range": 16.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "color": [
+       1.0,
+       0.3,
+       0.8
+      ],
+      "energy": 1.1,
+      "range": 16.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Dome_Motes",
    "type": "ambient_particles",
    "category": "particles",
@@ -3623,6 +3768,8 @@
     "Saw_West_ShoulderGlow_R",
     "Saw_West_ShoulderGlow_L",
     "Saw_West_ColGlow",
+    "Showcase_Bridge_Support_02_Light",
+    "Showcase_Bridge_Support_01_Light",
     "Spinner_Ramp_Support_Light",
     "Spinner_Ramp_CladLight_R",
     "Spinner_Ramp_CladLight_L",
@@ -3633,6 +3780,10 @@
     "Yard_Bridge_Support_Light",
     "Yard_Bridge_CladLight_R",
     "Yard_Bridge_CladLight_L",
+    "Showcase_Stage_Glow_02R",
+    "Showcase_Stage_Glow_02L",
+    "Showcase_Stage_Glow_01R",
+    "Showcase_Stage_Glow_01L",
     "Exit_Deck_Glow_02R",
     "Exit_Deck_Glow_02L",
     "Exit_Deck_Glow_01R",
@@ -3684,8 +3835,10 @@
     "OuterWall_North_M07Vent_Status",
     "OuterWall_North_M05Machine_Red",
     "OuterWall_North_M05Machine_Light",
-    "OuterWall_North_M04Vent_Status",
-    "OuterWall_North_M01Vent_Status"
+    "OuterWall_North_M04Plain_Strip",
+    "OuterWall_North_M03Plain_Strip",
+    "OuterWall_North_M02Plain_Strip",
+    "OuterWall_North_M01Plain_Strip"
    ],
    "quality": {
     "performance": {
@@ -3747,6 +3900,8 @@
     "Entry_Door_Mouth_Capital_1",
     "Entry_Door_Mouth_Impost_1",
     "Entry_Door_Mouth_Voussoir_5",
+    "Showcase_Stage_Trim",
+    "Showcase_Deck_Trim",
     "Spinner_Deck_Trim",
     "Exit_Deck_Trim",
     "Upper_Deck_Trim",
@@ -3804,6 +3959,8 @@
    "godot_runtime": "script: emission_energy_multiplier random flicker (rate Hz)",
    "target_material": "structure",
    "targets": [
+    "Showcase_Stage_Base",
+    "Showcase_Deck_Base",
     "Spinner_Deck_Base",
     "Exit_Deck_Base",
     "Upper_Deck_Base",

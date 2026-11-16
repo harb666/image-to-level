@@ -382,6 +382,113 @@
         "metal": 0.6,
         "rough": 0.4,
         "notes": "Stage 132: saw blade hub (flange + nut) - plain dark metal, nothing on it that shows the spin"
+      },
+      "glow_pink": {
+        "type": "glow",
+        "color": [
+          1.0,
+          0.3,
+          0.85
+        ],
+        "tile_m": 2.0,
+        "res": 32,
+        "emissive": [
+          1.0,
+          0.25,
+          0.8
+        ],
+        "notes": "Stage 135: magenta light strips (showcase)"
+      },
+      "tank_green": {
+        "type": "glow",
+        "color": [
+          0.45,
+          1.0,
+          0.3
+        ],
+        "tile_m": 2.0,
+        "res": 32,
+        "alpha": 0.42,
+        "emissive": [
+          0.4,
+          1.0,
+          0.25
+        ],
+        "notes": "Stage 135: glowing liquid in the specimen tank"
+      },
+      "ce_signs": {
+        "type": "screen_atlas",
+        "color": [
+          1,
+          1,
+          1
+        ],
+        "tile_m": 4.0,
+        "res": 1024,
+        "emissive": [
+          0.8,
+          0.8,
+          0.8
+        ],
+        "grid": [
+          [
+            {
+              "image": "levels/assembly_ascent/references/ce_atlas.png"
+            }
+          ]
+        ],
+        "atlas": {
+          "banner": [
+            0.0,
+            0.5996,
+            1.0,
+            1.0
+          ],
+          "xban": [
+            0.0,
+            0.0898,
+            0.25,
+            0.5898
+          ],
+          "screen": [
+            0.2539,
+            0.3398,
+            0.5039,
+            0.5898
+          ]
+        },
+        "notes": "Stage 135: CONSTRUCT ERROR_ banner, X banners, logo monitors (references/make_showcase_art.py)"
+      },
+      "ce_floor_logo": {
+        "type": "image_decal",
+        "image": "levels/assembly_ascent/references/ce_floor_logo.png",
+        "color": [
+          1,
+          1,
+          1
+        ],
+        "res": 512,
+        "cutout": 0.5,
+        "glow": 0.3,
+        "emissive": [
+          0.75,
+          0.75,
+          0.75
+        ],
+        "notes": "Stage 135: the mascot logo painted on the dais - cut out"
+      },
+      "ce_tank_mascot": {
+        "type": "image_decal",
+        "image": "levels/assembly_ascent/references/ce_tank_mascot.png",
+        "color": [
+          1,
+          1,
+          1
+        ],
+        "res": 256,
+        "cutout": 0.5,
+        "glow": 0.0,
+        "notes": "Stage 135: the mascot's silhouette floating in the tank - cut out"
       }
     }
   },
@@ -412,7 +519,11 @@
       "module_overrides": {
         "OuterWall_South_M03": "fan",
         "OuterWall_South_M04": "vent",
-        "OuterWall_South_M05": "fan"
+        "OuterWall_South_M05": "fan",
+        "OuterWall_North_M01": "plain",
+        "OuterWall_North_M02": "plain",
+        "OuterWall_North_M03": "plain",
+        "OuterWall_North_M04": "plain"
       }
     },
     "ceiling": {
@@ -568,6 +679,36 @@
       "cover": 0,
       "source": "visible",
       "notes": "Stage 98: the spinner deck (user concept): sweeping striped arms with spiked balls; the control terminal on its far pad unlocks the yard gate"
+    },
+    {
+      "id": "Showcase_Deck",
+      "center": [
+        -27,
+        -41
+      ],
+      "size": [
+        30,
+        28
+      ],
+      "top": 7.0,
+      "source": "inferred",
+      "cover": 0,
+      "notes": "Stage 135: Construct Error showcase plaza (user concept image) - logo dais, crates, slime pits at the front"
+    },
+    {
+      "id": "Showcase_Stage",
+      "center": [
+        -27,
+        -59.9
+      ],
+      "size": [
+        26,
+        9.4
+      ],
+      "top": 9.5,
+      "source": "inferred",
+      "cover": 0,
+      "notes": "Stage 135: raised stage against the north wall - the specimen tank, ramps up at both ends"
     }
   ],
   "connections": [
@@ -595,6 +736,15 @@
       "kind": "ramp",
       "width": 4.5,
       "source": "visible"
+    },
+    {
+      "id": "Showcase_Bridge",
+      "from": "Robot_Ring",
+      "to": "Showcase_Deck",
+      "kind": "bridge",
+      "width": 7.0,
+      "source": "inferred",
+      "notes": "Stage 135: walkway from the robot ring to the showcase"
     }
   ],
   "structures": [
@@ -654,6 +804,63 @@
       "source": "visible",
       "decal_material": "gear_decal",
       "notes": "Stage 134: the grinning gear painted on the robot ring (was the red ring marking)"
+    },
+    {
+      "id": "Showcase",
+      "kind": "showcase",
+      "position": [
+        -27.0,
+        7.0,
+        -41.0
+      ],
+      "deck": "Showcase_Deck",
+      "stage": "Showcase_Stage",
+      "wall_z": -65.0,
+      "dais_at": [
+        -27.0,
+        -39.5
+      ],
+      "dais_r": 8.6,
+      "pits": [
+        [
+          -41.0,
+          -26.95,
+          -33.4,
+          -21.6
+        ],
+        [
+          -22.8,
+          -26.95,
+          -13.0,
+          -21.6
+        ]
+      ],
+      "source": "inferred",
+      "notes": "Stage 135: the user's Construct Error showcase concept built into the empty north-west slime pool"
+    },
+    {
+      "id": "Showcase_Crates_L",
+      "kind": "crates",
+      "on": "Showcase_Deck",
+      "offset": [
+        -11.5,
+        8.5
+      ],
+      "count": 3,
+      "yaw": 15,
+      "source": "inferred"
+    },
+    {
+      "id": "Showcase_Crates_R",
+      "kind": "crates",
+      "on": "Showcase_Deck",
+      "offset": [
+        11.5,
+        8.5
+      ],
+      "count": 3,
+      "yaw": -20,
+      "source": "inferred"
     },
     {
       "id": "Saw_West",

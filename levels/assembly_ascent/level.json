@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "3e3a278ad6034501",
+  "spec_sha": "302f1f6b81b97947",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -156,6 +156,47 @@
    ],
    "energy": 1.3,
    "range": 34.0
+  },
+  {
+   "id": "Showcase_TankGlow",
+   "type": "point_light",
+   "positions": [
+    [
+     -27,
+     13.5,
+     -56.3
+    ]
+   ],
+   "color": [
+    0.45,
+    1.0,
+    0.3
+   ],
+   "energy": 1.4,
+   "range": 14.0
+  },
+  {
+   "id": "Showcase_BannerGlow",
+   "type": "point_light",
+   "positions": [
+    [
+     -33,
+     20.0,
+     -61.0
+    ],
+    [
+     -21,
+     20.0,
+     -61.0
+    ]
+   ],
+   "color": [
+    1.0,
+    0.3,
+    0.8
+   ],
+   "energy": 1.1,
+   "range": 16.0
   },
   {
    "id": "Dome_Motes",
@@ -2483,6 +2524,30 @@
    "y": 7.5
   },
   {
+   "name": "Showcase_Deck",
+   "min": [
+    -42.0,
+    -55.0
+   ],
+   "max": [
+    -12.0,
+    -27.0
+   ],
+   "y": 7.0
+  },
+  {
+   "name": "Showcase_Stage",
+   "min": [
+    -40.0,
+    -64.6
+   ],
+   "max": [
+    -14.0,
+    -55.199999999999996
+   ],
+   "y": 9.5
+  },
+  {
    "name": "Entry_Door_Floor",
    "min": [
     -64.0,
@@ -2671,6 +2736,88 @@
    "rough": 0.3,
    "notes": "saw blades (plain)"
   },
+  "ce_floor_logo": {
+   "type": "image_decal",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "image": "levels/assembly_ascent/references/ce_floor_logo.png",
+   "res": 512,
+   "cutout": 0.5,
+   "glow": 0.3,
+   "emissive": [
+    0.75,
+    0.75,
+    0.75
+   ],
+   "notes": "Stage 135: the mascot logo painted on the dais - cut out"
+  },
+  "ce_signs": {
+   "type": "screen_atlas",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 1024,
+   "emissive": [
+    0.8,
+    0.8,
+    0.8
+   ],
+   "grid": [
+    [
+     {
+      "image": "levels/assembly_ascent/references/ce_atlas.png"
+     }
+    ]
+   ],
+   "atlas": {
+    "banner": [
+     0.0,
+     0.5996,
+     1.0,
+     1.0
+    ],
+    "xban": [
+     0.0,
+     0.0898,
+     0.25,
+     0.5898
+    ],
+    "screen": [
+     0.2539,
+     0.3398,
+     0.5039,
+     0.5898
+    ]
+   },
+   "notes": "Stage 135: CONSTRUCT ERROR_ banner, X banners, logo monitors (references/make_showcase_art.py)"
+  },
+  "ce_tank_mascot": {
+   "type": "image_decal",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "image": "levels/assembly_ascent/references/ce_tank_mascot.png",
+   "res": 256,
+   "cutout": 0.5,
+   "glow": 0.0,
+   "notes": "Stage 135: the mascot's silhouette floating in the tank - cut out"
+  },
   "ceiling": {
    "type": "ceiling_works",
    "color": [
@@ -2847,6 +2994,24 @@
     0.28
    ],
    "res": 64
+  },
+  "glow_pink": {
+   "type": "glow",
+   "color": [
+    1.0,
+    0.3,
+    0.85
+   ],
+   "tile_m": 2.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 32,
+   "emissive": [
+    1.0,
+    0.25,
+    0.8
+   ],
+   "notes": "Stage 135: magenta light strips (showcase)"
   },
   "glow_yellow": {
    "type": "glow",
@@ -3208,6 +3373,25 @@
    ],
    "notes": "Stage 130: the volume of light under the dome - nested soft cones, streaked"
   },
+  "tank_green": {
+   "type": "glow",
+   "color": [
+    0.45,
+    1.0,
+    0.3
+   ],
+   "tile_m": 2.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 32,
+   "alpha": 0.42,
+   "emissive": [
+    0.4,
+    1.0,
+    0.25
+   ],
+   "notes": "Stage 135: glowing liquid in the specimen tank"
+  },
   "trim": {
    "type": "chevron",
    "color": [
@@ -3369,12 +3553,12 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_North_M01Vent",
+   "name": "OuterWall_North_M01Plain_Strip",
    "type": "box",
    "position": [
     -41.25,
-    12.469,
-    2.15
+    13.0,
+    2.05
    ],
    "rotation": [
     0.0,
@@ -3383,342 +3567,9 @@
    ],
    "parent": "OuterWall_North",
    "size": [
-    6.235,
-    0.3,
-    0.3
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M01Vent_FrameLow",
-   "type": "box",
-   "position": [
-    -41.25,
-    9.009,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    6.235,
-    0.3,
-    0.3
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M01Vent_FrameSide_1",
-   "type": "box",
-   "position": [
-    -44.217,
-    9.289,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    0.3,
-    3.199,
-    0.3
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M01Vent_FrameSide_2",
-   "type": "box",
-   "position": [
-    -38.282,
-    9.289,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    0.3,
-    3.199,
-    0.3
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M01Vent_Duct",
-   "type": "panel",
-   "position": [
-    -41.25,
-    9.289,
-    2.02
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    5.675,
-    3.199,
-    0.0
-   ],
-   "material": "accent",
-   "uv_region": "void",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M01Vent_Slat_1",
-   "type": "box",
-   "position": [
-    -41.25,
-    9.385,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    5.675,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M01Vent_Slat_2",
-   "type": "box",
-   "position": [
-    -41.25,
-    9.836,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    5.675,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M01Vent_Slat_3",
-   "type": "box",
-   "position": [
-    -41.25,
-    10.288,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    5.675,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M01Vent_Slat_4",
-   "type": "box",
-   "position": [
-    -41.25,
-    10.739,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    5.675,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M01Vent_Slat_5",
-   "type": "box",
-   "position": [
-    -41.25,
-    11.19,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    5.675,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M01Vent_Slat_6",
-   "type": "box",
-   "position": [
-    -41.25,
-    11.642,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    5.675,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M01Vent_Slat_7",
-   "type": "box",
-   "position": [
-    -41.25,
-    12.093,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    5.675,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M01Vent_Status",
-   "type": "box",
-   "position": [
-    -38.582,
-    12.539,
-    2.31
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    0.3,
-    0.16,
-    0.06
+    7.027,
+    0.18,
+    0.1
    ],
    "material": "glow",
    "collision": false,
@@ -3730,12 +3581,12 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_North_M03Pipes_Pipe_1",
-   "type": "cylinder",
+   "name": "OuterWall_North_M02Plain_Strip",
+   "type": "box",
    "position": [
-    -22.584,
-    0.5,
-    2.463
+    -31.105,
+    13.0,
+    2.05
    ],
    "rotation": [
     0.0,
@@ -3744,12 +3595,12 @@
    ],
    "parent": "OuterWall_North",
    "size": [
-    0.727,
-    32.765,
-    0.727
+    7.175,
+    0.18,
+    0.1
    ],
-   "material": "pipe",
-   "sections": 6,
+   "material": "glow",
+   "collision": false,
    "outline": false,
    "mobile": {
     "static": true
@@ -3758,40 +3609,12 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_North_M03Pipes_Pipe_2",
-   "type": "cylinder",
-   "position": [
-    -21.608,
-    0.5,
-    2.463
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    0.727,
-    32.765,
-    0.727
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M03Pipes_Bracket_1",
+   "name": "OuterWall_North_M03Plain_Strip",
    "type": "box",
    "position": [
     -22.096,
-    12.135,
-    2.453
+    13.0,
+    2.05
    ],
    "rotation": [
     0.0,
@@ -3800,11 +3623,11 @@
    ],
    "parent": "OuterWall_North",
    "size": [
-    2.253,
-    0.35,
-    0.867
+    5.437,
+    0.18,
+    0.1
    ],
-   "material": "frame",
+   "material": "glow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -3814,68 +3637,12 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_North_M03Pipes_Bracket_2",
-   "type": "box",
-   "position": [
-    -22.096,
-    21.136,
-    2.453
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    2.253,
-    0.35,
-    0.867
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M03Pipes_Bracket_3",
-   "type": "box",
-   "position": [
-    -22.096,
-    22.592,
-    2.453
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    2.253,
-    0.35,
-    0.867
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M04Vent",
+   "name": "OuterWall_North_M04Plain_Strip",
    "type": "box",
    "position": [
     -15.678,
-    14.321,
-    2.15
+    13.0,
+    2.05
    ],
    "rotation": [
     0.0,
@@ -3884,314 +3651,9 @@
    ],
    "parent": "OuterWall_North",
    "size": [
-    2.288,
-    0.3,
-    0.3
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M04Vent_FrameLow",
-   "type": "box",
-   "position": [
-    -15.678,
-    11.171,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    2.288,
-    0.3,
-    0.3
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M04Vent_FrameSide_1",
-   "type": "box",
-   "position": [
-    -16.672,
-    11.451,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    0.3,
-    2.89,
-    0.3
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M04Vent_FrameSide_2",
-   "type": "box",
-   "position": [
-    -14.684,
-    11.451,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    0.3,
-    2.89,
-    0.3
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M04Vent_Duct",
-   "type": "panel",
-   "position": [
-    -15.678,
-    11.451,
-    2.02
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    1.728,
-    2.89,
-    0.0
-   ],
-   "material": "accent",
-   "uv_region": "void",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M04Vent_Slat_1",
-   "type": "box",
-   "position": [
-    -15.678,
-    11.559,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    1.728,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M04Vent_Slat_2",
-   "type": "box",
-   "position": [
-    -15.678,
-    12.034,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    1.728,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M04Vent_Slat_3",
-   "type": "box",
-   "position": [
-    -15.678,
-    12.509,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    1.728,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M04Vent_Slat_4",
-   "type": "box",
-   "position": [
-    -15.678,
-    12.984,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    1.728,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M04Vent_Slat_5",
-   "type": "box",
-   "position": [
-    -15.678,
-    13.459,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    1.728,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M04Vent_Slat_6",
-   "type": "box",
-   "position": [
-    -15.678,
-    13.933,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    1.728,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_North_M04Vent_Status",
-   "type": "box",
-   "position": [
-    -14.984,
-    14.391,
-    2.31
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_North",
-   "size": [
-    0.3,
-    0.16,
-    0.06
+    3.548,
+    0.18,
+    0.1
    ],
    "material": "glow",
    "collision": false,
@@ -19566,6 +19028,544 @@
    "source": "visible"
   },
   {
+   "name": "Showcase_Deck",
+   "type": "group",
+   "position": [
+    -27.0,
+    0.0,
+    -41.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Showcase_Deck",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Deck_Base",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Deck",
+   "size": [
+    30.0,
+    6.7,
+    28.0
+   ],
+   "material": "structure",
+   "gen": "Showcase_Deck",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Deck_Floor",
+   "type": "box",
+   "position": [
+    0.0,
+    6.7,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Deck",
+   "size": [
+    30.3,
+    0.3,
+    28.3
+   ],
+   "material": "deck",
+   "gen": "Showcase_Deck",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Deck_Trim",
+   "type": "box",
+   "position": [
+    0.0,
+    5.9,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Deck",
+   "size": [
+    30.5,
+    0.6,
+    28.5
+   ],
+   "material": "trim",
+   "gen": "Showcase_Deck",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Deck_Rib_01",
+   "type": "box",
+   "position": [
+    -14.85,
+    0.0,
+    -13.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Deck",
+   "size": [
+    0.8,
+    5.3,
+    0.8
+   ],
+   "material": "structure_b",
+   "gen": "Showcase_Deck",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Deck_Rib_02",
+   "type": "box",
+   "position": [
+    14.85,
+    0.0,
+    -13.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Deck",
+   "size": [
+    0.8,
+    5.3,
+    0.8
+   ],
+   "material": "structure_b",
+   "gen": "Showcase_Deck",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Deck_Rib_03",
+   "type": "box",
+   "position": [
+    14.85,
+    0.0,
+    13.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Deck",
+   "size": [
+    0.8,
+    5.3,
+    0.8
+   ],
+   "material": "structure_b",
+   "gen": "Showcase_Deck",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Deck_Rib_04",
+   "type": "box",
+   "position": [
+    -14.85,
+    0.0,
+    13.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Deck",
+   "size": [
+    0.8,
+    5.3,
+    0.8
+   ],
+   "material": "structure_b",
+   "gen": "Showcase_Deck",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Deck_Light_01",
+   "type": "panel",
+   "position": [
+    15.18,
+    3.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Showcase_Deck",
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "Showcase_Deck",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Deck_Light_02",
+   "type": "panel",
+   "position": [
+    0.0,
+    3.8,
+    14.18
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Deck",
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "Showcase_Deck",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Stage",
+   "type": "group",
+   "position": [
+    -27.0,
+    0.0,
+    -59.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Showcase_Stage",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Stage_Base",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Stage",
+   "size": [
+    26.0,
+    9.2,
+    9.4
+   ],
+   "material": "structure",
+   "gen": "Showcase_Stage",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Stage_Floor",
+   "type": "box",
+   "position": [
+    0.0,
+    9.2,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Stage",
+   "size": [
+    26.3,
+    0.3,
+    9.7
+   ],
+   "material": "deck",
+   "gen": "Showcase_Stage",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Stage_Trim",
+   "type": "box",
+   "position": [
+    0.0,
+    8.4,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Stage",
+   "size": [
+    26.5,
+    0.6,
+    9.9
+   ],
+   "material": "trim",
+   "gen": "Showcase_Stage",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Stage_Rib_01",
+   "type": "box",
+   "position": [
+    -12.85,
+    0.0,
+    -4.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Stage",
+   "size": [
+    0.8,
+    7.8,
+    0.8
+   ],
+   "material": "structure_b",
+   "gen": "Showcase_Stage",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Stage_Rib_02",
+   "type": "box",
+   "position": [
+    12.85,
+    0.0,
+    -4.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Stage",
+   "size": [
+    0.8,
+    7.8,
+    0.8
+   ],
+   "material": "structure_b",
+   "gen": "Showcase_Stage",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Stage_Rib_03",
+   "type": "box",
+   "position": [
+    12.85,
+    0.0,
+    4.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Stage",
+   "size": [
+    0.8,
+    7.8,
+    0.8
+   ],
+   "material": "structure_b",
+   "gen": "Showcase_Stage",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Stage_Rib_04",
+   "type": "box",
+   "position": [
+    -12.85,
+    0.0,
+    4.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Stage",
+   "size": [
+    0.8,
+    7.8,
+    0.8
+   ],
+   "material": "structure_b",
+   "gen": "Showcase_Stage",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Stage_Light_01",
+   "type": "panel",
+   "position": [
+    13.18,
+    6.3,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Showcase_Stage",
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "Showcase_Stage",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Stage_Glow_01L",
+   "type": "panel",
+   "position": [
+    13.18,
+    2.6,
+    -1.3
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Showcase_Stage",
+   "size": [
+    0.3,
+    2.1,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Showcase_Stage",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Stage_Glow_01R",
+   "type": "panel",
+   "position": [
+    13.18,
+    2.6,
+    1.3
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Showcase_Stage",
+   "size": [
+    0.3,
+    2.1,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Showcase_Stage",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Stage_Light_02",
+   "type": "panel",
+   "position": [
+    0.0,
+    6.3,
+    4.88
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Stage",
+   "size": [
+    1.4,
+    1.8,
+    0.0
+   ],
+   "material": "accent",
+   "gen": "Showcase_Stage",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Stage_Glow_02L",
+   "type": "panel",
+   "position": [
+    -1.3,
+    2.6,
+    4.88
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Stage",
+   "size": [
+    0.3,
+    2.1,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Showcase_Stage",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Stage_Glow_02R",
+   "type": "panel",
+   "position": [
+    1.3,
+    2.6,
+    4.88
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Stage",
+   "size": [
+    0.3,
+    2.1,
+    0.0
+   ],
+   "material": "glow",
+   "gen": "Showcase_Stage",
+   "source": "inferred"
+  },
+  {
    "name": "Yard_Bridge",
    "type": "group",
    "position": [
@@ -20483,6 +20483,684 @@
    "collision": false,
    "gen": "Spinner_Ramp",
    "source": "visible"
+  },
+  {
+   "name": "Showcase_Bridge",
+   "type": "group",
+   "position": [
+    -28.61,
+    0.0,
+    -15.778
+   ],
+   "rotation": [
+    0.0,
+    176.35,
+    0.0
+   ],
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Deck",
+   "type": "box",
+   "position": [
+    0.0,
+    6.59,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    7.0,
+    0.4,
+    23.09
+   ],
+   "material": "grate",
+   "connector": true,
+   "axis": "z",
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Beam_L",
+   "type": "ibeam",
+   "position": [
+    -3.2,
+    6.135,
+    0.175
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    21.84,
+    0.45,
+    0.3
+   ],
+   "material": "frame",
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Beam_R",
+   "type": "ibeam",
+   "position": [
+    3.2,
+    6.135,
+    0.175
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    21.84,
+    0.45,
+    0.3
+   ],
+   "material": "frame",
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Cross_01",
+   "type": "box",
+   "position": [
+    0.0,
+    6.29,
+    -9.532
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    6.4,
+    0.3,
+    0.25
+   ],
+   "material": "frame",
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Cross_02",
+   "type": "box",
+   "position": [
+    0.0,
+    6.29,
+    -7.105
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    6.4,
+    0.3,
+    0.25
+   ],
+   "material": "frame",
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Cross_03",
+   "type": "box",
+   "position": [
+    0.0,
+    6.29,
+    -4.678
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    6.4,
+    0.3,
+    0.25
+   ],
+   "material": "frame",
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Cross_04",
+   "type": "box",
+   "position": [
+    0.0,
+    6.29,
+    -2.252
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    6.4,
+    0.3,
+    0.25
+   ],
+   "material": "frame",
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Cross_05",
+   "type": "box",
+   "position": [
+    0.0,
+    6.29,
+    0.175
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    6.4,
+    0.3,
+    0.25
+   ],
+   "material": "frame",
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Cross_06",
+   "type": "box",
+   "position": [
+    0.0,
+    6.29,
+    2.602
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    6.4,
+    0.3,
+    0.25
+   ],
+   "material": "frame",
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Cross_07",
+   "type": "box",
+   "position": [
+    0.0,
+    6.29,
+    5.028
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    6.4,
+    0.3,
+    0.25
+   ],
+   "material": "frame",
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Cross_08",
+   "type": "box",
+   "position": [
+    0.0,
+    6.29,
+    7.455
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    6.4,
+    0.3,
+    0.25
+   ],
+   "material": "frame",
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Cross_09",
+   "type": "box",
+   "position": [
+    0.0,
+    6.29,
+    9.882
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    6.4,
+    0.3,
+    0.25
+   ],
+   "material": "frame",
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_01_Footing",
+   "type": "frustum",
+   "position": [
+    0.0,
+    0.5,
+    -3.848
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    3.3,
+    1.2,
+    1.3
+   ],
+   "material": "structure_b",
+   "bottom_scale": 1.3,
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_01",
+   "type": "box",
+   "position": [
+    0.0,
+    1.6,
+    -3.848
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    2.8,
+    4.22,
+    0.8
+   ],
+   "material": "structure_b",
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_01_Rib_00",
+   "type": "box",
+   "position": [
+    -1.18,
+    1.65,
+    -4.278
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    0.2,
+    4.12,
+    0.1
+   ],
+   "material": "frame",
+   "outline": false,
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_01_Rib_02",
+   "type": "box",
+   "position": [
+    -1.18,
+    1.65,
+    -3.418
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    0.2,
+    4.12,
+    0.1
+   ],
+   "material": "frame",
+   "outline": false,
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_01_Rib_20",
+   "type": "box",
+   "position": [
+    1.18,
+    1.65,
+    -4.278
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    0.2,
+    4.12,
+    0.1
+   ],
+   "material": "frame",
+   "outline": false,
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_01_Rib_22",
+   "type": "box",
+   "position": [
+    1.18,
+    1.65,
+    -3.418
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    0.2,
+    4.12,
+    0.1
+   ],
+   "material": "frame",
+   "outline": false,
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_01_Head",
+   "type": "frustum",
+   "position": [
+    0.0,
+    5.72,
+    -3.848
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    3.7,
+    0.92,
+    1.7
+   ],
+   "material": "structure_b",
+   "bottom_scale": 0.55,
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_01_Light",
+   "type": "box",
+   "position": [
+    0.0,
+    5.02,
+    -3.408
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    1.4,
+    0.16,
+    0.08
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_02_Footing",
+   "type": "frustum",
+   "position": [
+    0.0,
+    0.5,
+    3.848
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    3.3,
+    1.2,
+    1.3
+   ],
+   "material": "structure_b",
+   "bottom_scale": 1.3,
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_02",
+   "type": "box",
+   "position": [
+    0.0,
+    1.6,
+    3.848
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    2.8,
+    4.22,
+    0.8
+   ],
+   "material": "structure_b",
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_02_Rib_00",
+   "type": "box",
+   "position": [
+    -1.18,
+    1.65,
+    3.418
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    0.2,
+    4.12,
+    0.1
+   ],
+   "material": "frame",
+   "outline": false,
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_02_Rib_02",
+   "type": "box",
+   "position": [
+    -1.18,
+    1.65,
+    4.278
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    0.2,
+    4.12,
+    0.1
+   ],
+   "material": "frame",
+   "outline": false,
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_02_Rib_20",
+   "type": "box",
+   "position": [
+    1.18,
+    1.65,
+    3.418
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    0.2,
+    4.12,
+    0.1
+   ],
+   "material": "frame",
+   "outline": false,
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_02_Rib_22",
+   "type": "box",
+   "position": [
+    1.18,
+    1.65,
+    4.278
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    0.2,
+    4.12,
+    0.1
+   ],
+   "material": "frame",
+   "outline": false,
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_02_Head",
+   "type": "frustum",
+   "position": [
+    0.0,
+    5.72,
+    3.848
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    3.7,
+    0.92,
+    1.7
+   ],
+   "material": "structure_b",
+   "bottom_scale": 0.55,
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Bridge_Support_02_Light",
+   "type": "box",
+   "position": [
+    0.0,
+    5.02,
+    4.288
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Bridge",
+   "size": [
+    1.4,
+    0.16,
+    0.08
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "gen": "Showcase_Bridge",
+   "source": "inferred"
   },
   {
    "name": "Entry_Door",
@@ -22283,6 +22961,2387 @@
    },
    "gen": "Yard_Emblem",
    "source": "visible"
+  },
+  {
+   "name": "Showcase_DaisRim",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    7.0,
+    -39.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    18.6,
+    0.16,
+    18.6
+   ],
+   "material": "stripe",
+   "sections": 40,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Dais",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    7.0,
+    -39.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    17.2,
+    0.3,
+    17.2
+   ],
+   "material": "structure_b",
+   "sections": 40,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_DaisLight_01",
+   "type": "box",
+   "position": [
+    -24.231,
+    7.16,
+    -30.979
+   ],
+   "rotation": [
+    0.0,
+    18.0,
+    0.0
+   ],
+   "size": [
+    2.7,
+    0.06,
+    0.3
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_DaisLight_02",
+   "type": "box",
+   "position": [
+    -19.751,
+    7.16,
+    -34.233
+   ],
+   "rotation": [
+    0.0,
+    54.0,
+    0.0
+   ],
+   "size": [
+    2.7,
+    0.06,
+    0.3
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_DaisLight_03",
+   "type": "box",
+   "position": [
+    -18.04,
+    7.16,
+    -39.5
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    2.7,
+    0.06,
+    0.3
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_DaisLight_04",
+   "type": "box",
+   "position": [
+    -19.751,
+    7.16,
+    -44.767
+   ],
+   "rotation": [
+    0.0,
+    126.0,
+    0.0
+   ],
+   "size": [
+    2.7,
+    0.06,
+    0.3
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_DaisLight_05",
+   "type": "box",
+   "position": [
+    -24.231,
+    7.16,
+    -48.021
+   ],
+   "rotation": [
+    0.0,
+    162.0,
+    0.0
+   ],
+   "size": [
+    2.7,
+    0.06,
+    0.3
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_DaisLight_06",
+   "type": "box",
+   "position": [
+    -29.769,
+    7.16,
+    -48.021
+   ],
+   "rotation": [
+    0.0,
+    198.0,
+    0.0
+   ],
+   "size": [
+    2.7,
+    0.06,
+    0.3
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_DaisLight_07",
+   "type": "box",
+   "position": [
+    -34.249,
+    7.16,
+    -44.767
+   ],
+   "rotation": [
+    0.0,
+    234.0,
+    0.0
+   ],
+   "size": [
+    2.7,
+    0.06,
+    0.3
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_DaisLight_08",
+   "type": "box",
+   "position": [
+    -35.96,
+    7.16,
+    -39.5
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    2.7,
+    0.06,
+    0.3
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_DaisLight_09",
+   "type": "box",
+   "position": [
+    -34.249,
+    7.16,
+    -34.233
+   ],
+   "rotation": [
+    0.0,
+    306.0,
+    0.0
+   ],
+   "size": [
+    2.7,
+    0.06,
+    0.3
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_DaisLight_10",
+   "type": "box",
+   "position": [
+    -29.769,
+    7.16,
+    -30.979
+   ],
+   "rotation": [
+    0.0,
+    342.0,
+    0.0
+   ],
+   "size": [
+    2.7,
+    0.06,
+    0.3
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Logo",
+   "type": "panel",
+   "position": [
+    -27.0,
+    7.312,
+    -33.05
+   ],
+   "rotation": [
+    -90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    12.9,
+    12.9,
+    0.0
+   ],
+   "material": "ce_floor_logo",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL",
+   "type": "ramp",
+   "position": [
+    -37.6,
+    7.0,
+    -50.85
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    4.4,
+    2.5,
+    8.7
+   ],
+   "material": "deck",
+   "connector": true,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Curb_a",
+   "type": "box",
+   "position": [
+    -39.66,
+    8.23,
+    -50.85
+   ],
+   "rotation": [
+    -16.03,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.26,
+    0.24,
+    9.052
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Side_a",
+   "type": "box",
+   "position": [
+    -39.86,
+    7.0,
+    -50.85
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.25,
+    8.526
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Curb_b",
+   "type": "box",
+   "position": [
+    -35.54,
+    8.23,
+    -50.85
+   ],
+   "rotation": [
+    -16.03,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.26,
+    0.24,
+    9.052
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Side_b",
+   "type": "box",
+   "position": [
+    -35.34,
+    7.0,
+    -50.85
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.25,
+    8.526
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR",
+   "type": "ramp",
+   "position": [
+    -16.4,
+    7.0,
+    -50.85
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    4.4,
+    2.5,
+    8.7
+   ],
+   "material": "deck",
+   "connector": true,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Curb_a",
+   "type": "box",
+   "position": [
+    -18.46,
+    8.23,
+    -50.85
+   ],
+   "rotation": [
+    -16.03,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.26,
+    0.24,
+    9.052
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Side_a",
+   "type": "box",
+   "position": [
+    -18.66,
+    7.0,
+    -50.85
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.25,
+    8.526
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Curb_b",
+   "type": "box",
+   "position": [
+    -14.34,
+    8.23,
+    -50.85
+   ],
+   "rotation": [
+    -16.03,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.26,
+    0.24,
+    9.052
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Side_b",
+   "type": "box",
+   "position": [
+    -14.14,
+    7.0,
+    -50.85
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    1.25,
+    8.526
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankPlinth",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    9.5,
+    -59.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.2,
+    0.9,
+    5.2
+   ],
+   "material": "structure_b",
+   "sections": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankBand",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    10.25,
+    -59.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.45,
+    0.2,
+    5.45
+   ],
+   "material": "stripe",
+   "sections": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankBase",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    10.4,
+    -59.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.0,
+    0.6,
+    4.0
+   ],
+   "material": "structure_b",
+   "sections": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankGlass",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    11.0,
+    -59.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.2,
+    5.0,
+    3.2
+   ],
+   "material": "glass_clear",
+   "sections": 16,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankLiquid",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    11.02,
+    -59.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.0,
+    4.7,
+    3.0
+   ],
+   "material": "tank_green",
+   "sections": 16,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankMascot",
+   "type": "panel",
+   "position": [
+    -27.0,
+    11.0,
+    -59.25
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.9,
+    3.8,
+    0.0
+   ],
+   "material": "ce_tank_mascot",
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankCap",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    16.0,
+    -59.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.9,
+    0.7,
+    3.9
+   ],
+   "material": "structure_b",
+   "sections": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankTop",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    16.7,
+    -59.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.3,
+    0.45,
+    2.3
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankLamp_1",
+   "type": "box",
+   "position": [
+    -25.607,
+    16.22,
+    -57.907
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    0.26,
+    0.06
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankLamp_2",
+   "type": "box",
+   "position": [
+    -25.607,
+    16.22,
+    -60.693
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    0.26,
+    0.06
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankLamp_3",
+   "type": "box",
+   "position": [
+    -28.393,
+    16.22,
+    -60.693
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    0.26,
+    0.06
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankLamp_4",
+   "type": "box",
+   "position": [
+    -28.393,
+    16.22,
+    -57.907
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    0.26,
+    0.06
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankPipe_a",
+   "type": "cylinder",
+   "position": [
+    -27.75,
+    16.8,
+    -65.0
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.32,
+    5.7,
+    0.32
+   ],
+   "material": "pipe",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankPipe_b",
+   "type": "cylinder",
+   "position": [
+    -26.25,
+    16.8,
+    -65.0
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.32,
+    5.7,
+    0.32
+   ],
+   "material": "pipe",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Rail_1_Post_1",
+   "type": "box",
+   "position": [
+    -35.0,
+    9.5,
+    -55.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.05,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Rail_1_Post_2",
+   "type": "box",
+   "position": [
+    -33.367,
+    9.5,
+    -55.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.05,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Rail_1_Post_3",
+   "type": "box",
+   "position": [
+    -31.733,
+    9.5,
+    -55.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.05,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Rail_1_Post_4",
+   "type": "box",
+   "position": [
+    -30.1,
+    9.5,
+    -55.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.05,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Rail_1_Top",
+   "type": "box",
+   "position": [
+    -32.55,
+    10.5,
+    -55.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.04,
+    0.1,
+    0.12
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Rail_1_Mid",
+   "type": "box",
+   "position": [
+    -32.55,
+    10.02,
+    -55.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.04,
+    0.1,
+    0.12
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Rail_2_Post_1",
+   "type": "box",
+   "position": [
+    -23.9,
+    9.5,
+    -55.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.05,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Rail_2_Post_2",
+   "type": "box",
+   "position": [
+    -22.267,
+    9.5,
+    -55.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.05,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Rail_2_Post_3",
+   "type": "box",
+   "position": [
+    -20.633,
+    9.5,
+    -55.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.05,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Rail_2_Post_4",
+   "type": "box",
+   "position": [
+    -19.0,
+    9.5,
+    -55.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.05,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Rail_2_Top",
+   "type": "box",
+   "position": [
+    -21.45,
+    10.5,
+    -55.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.04,
+    0.1,
+    0.12
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Rail_2_Mid",
+   "type": "box",
+   "position": [
+    -21.45,
+    10.02,
+    -55.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.04,
+    0.1,
+    0.12
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Banner_Board",
+   "type": "box",
+   "position": [
+    -27.0,
+    17.4,
+    -64.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    16.2,
+    6.6,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Banner",
+   "type": "panel",
+   "position": [
+    -27.0,
+    17.5,
+    -64.688
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    16.0,
+    6.4,
+    0.0
+   ],
+   "material": "ce_signs",
+   "uv_region": "banner",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_BannerRod",
+   "type": "cylinder",
+   "position": [
+    -35.5,
+    24.12,
+    -64.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "size": [
+    0.3,
+    17.0,
+    0.3
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_XBanner_a_Board",
+   "type": "box",
+   "position": [
+    -39.5,
+    12.5,
+    -64.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.8,
+    7.4,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_XBanner_a",
+   "type": "panel",
+   "position": [
+    -39.5,
+    12.6,
+    -64.688
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.6,
+    7.2,
+    0.0
+   ],
+   "material": "ce_signs",
+   "uv_region": "xban",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Monitor_a_Board",
+   "type": "box",
+   "position": [
+    -32.6,
+    11.0,
+    -64.79
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.8,
+    2.2,
+    0.42
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Monitor_a",
+   "type": "panel",
+   "position": [
+    -32.6,
+    11.1,
+    -64.568
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.6,
+    2.0,
+    0.0
+   ],
+   "material": "ce_signs",
+   "uv_region": "screen",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_XBanner_b_Board",
+   "type": "box",
+   "position": [
+    -14.5,
+    12.5,
+    -64.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.8,
+    7.4,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_XBanner_b",
+   "type": "panel",
+   "position": [
+    -14.5,
+    12.6,
+    -64.688
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.6,
+    7.2,
+    0.0
+   ],
+   "material": "ce_signs",
+   "uv_region": "xban",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Monitor_b_Board",
+   "type": "box",
+   "position": [
+    -21.4,
+    11.0,
+    -64.79
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.8,
+    2.2,
+    0.42
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Monitor_b",
+   "type": "panel",
+   "position": [
+    -21.4,
+    11.1,
+    -64.568
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.6,
+    2.0,
+    0.0
+   ],
+   "material": "ce_signs",
+   "uv_region": "screen",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LightBar_1",
+   "type": "box",
+   "position": [
+    -37.0,
+    27.0,
+    -64.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.0,
+    0.35,
+    0.3
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LightBar_2",
+   "type": "box",
+   "position": [
+    -27.0,
+    27.0,
+    -64.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.0,
+    0.35,
+    0.3
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LightBar_3",
+   "type": "box",
+   "position": [
+    -17.0,
+    27.0,
+    -64.85
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.0,
+    0.35,
+    0.3
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_Tub",
+   "type": "box",
+   "position": [
+    -37.2,
+    0.3,
+    -24.275
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.6,
+    6.0,
+    5.35
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_Rim_1",
+   "type": "box",
+   "position": [
+    -37.2,
+    6.3,
+    -26.77
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.6,
+    0.68,
+    0.36
+   ],
+   "material": "stripe",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_Rim_2",
+   "type": "box",
+   "position": [
+    -37.2,
+    6.3,
+    -21.78
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.6,
+    0.68,
+    0.36
+   ],
+   "material": "stripe",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_Rim_3",
+   "type": "box",
+   "position": [
+    -40.82,
+    6.3,
+    -24.275
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.68,
+    4.63
+   ],
+   "material": "stripe",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_Rim_4",
+   "type": "box",
+   "position": [
+    -33.58,
+    6.3,
+    -24.275
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.68,
+    4.63
+   ],
+   "material": "stripe",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_Slime",
+   "type": "box",
+   "position": [
+    -37.2,
+    6.3,
+    -24.275
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.88,
+    0.28,
+    4.63
+   ],
+   "material": "hazard",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_Grate",
+   "type": "box",
+   "position": [
+    -37.2,
+    6.89,
+    -25.377
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.0,
+    0.08,
+    2.546
+   ],
+   "material": "grate",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_Tub",
+   "type": "box",
+   "position": [
+    -17.9,
+    0.3,
+    -24.275
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.8,
+    6.0,
+    5.35
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_Rim_1",
+   "type": "box",
+   "position": [
+    -17.9,
+    6.3,
+    -26.77
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.8,
+    0.68,
+    0.36
+   ],
+   "material": "stripe",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_Rim_2",
+   "type": "box",
+   "position": [
+    -17.9,
+    6.3,
+    -21.78
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.8,
+    0.68,
+    0.36
+   ],
+   "material": "stripe",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_Rim_3",
+   "type": "box",
+   "position": [
+    -22.62,
+    6.3,
+    -24.275
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.68,
+    4.63
+   ],
+   "material": "stripe",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_Rim_4",
+   "type": "box",
+   "position": [
+    -13.18,
+    6.3,
+    -24.275
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.68,
+    4.63
+   ],
+   "material": "stripe",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_Slime",
+   "type": "box",
+   "position": [
+    -17.9,
+    6.3,
+    -24.275
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.08,
+    0.28,
+    4.63
+   ],
+   "material": "hazard",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_Grate",
+   "type": "box",
+   "position": [
+    -17.9,
+    6.89,
+    -25.377
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.2,
+    0.08,
+    2.546
+   ],
+   "material": "grate",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Crates_L",
+   "type": "group",
+   "position": [
+    -38.5,
+    7.0,
+    -32.5
+   ],
+   "rotation": [
+    0.0,
+    15.0,
+    0.0
+   ],
+   "gen": "Showcase_Crates_L",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Crates_L_01",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Crates_L",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "accent",
+   "gen": "Showcase_Crates_L",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "x"
+   },
+   "outline": true,
+   "mobile": {
+    "static": true
+   }
+  },
+  {
+   "name": "Showcase_Crates_L_02",
+   "type": "box",
+   "position": [
+    1.7,
+    0.0,
+    0.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Crates_L",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "accent",
+   "gen": "Showcase_Crates_L",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "z"
+   },
+   "outline": true,
+   "mobile": {
+    "static": true
+   }
+  },
+  {
+   "name": "Showcase_Crates_L_03",
+   "type": "box",
+   "position": [
+    0.8,
+    1.2,
+    0.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Crates_L",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "accent",
+   "gen": "Showcase_Crates_L",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "x"
+   },
+   "outline": true,
+   "mobile": {
+    "static": true
+   }
+  },
+  {
+   "name": "Showcase_Crates_R",
+   "type": "group",
+   "position": [
+    -15.5,
+    7.0,
+    -32.5
+   ],
+   "rotation": [
+    0.0,
+    -20.0,
+    0.0
+   ],
+   "gen": "Showcase_Crates_R",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Crates_R_01",
+   "type": "box",
+   "position": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Crates_R",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "accent",
+   "gen": "Showcase_Crates_R",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "z"
+   },
+   "outline": true,
+   "mobile": {
+    "static": true
+   }
+  },
+  {
+   "name": "Showcase_Crates_R_02",
+   "type": "box",
+   "position": [
+    1.7,
+    0.0,
+    0.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Crates_R",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "accent",
+   "gen": "Showcase_Crates_R",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "x"
+   },
+   "outline": true,
+   "mobile": {
+    "static": true
+   }
+  },
+  {
+   "name": "Showcase_Crates_R_03",
+   "type": "box",
+   "position": [
+    0.8,
+    1.2,
+    0.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Crates_R",
+   "size": [
+    1.5,
+    1.2,
+    1.5
+   ],
+   "material": "accent",
+   "gen": "Showcase_Crates_R",
+   "source": "inferred",
+   "faces": {
+    "side": [
+     0.6,
+     0.24,
+     0.98,
+     0.6
+    ],
+    "top": [
+     0.6,
+     0.02,
+     0.78,
+     0.22
+    ],
+    "front": [
+     0.6,
+     0.62,
+     0.98,
+     0.98
+    ],
+    "front_axis": "z"
+   },
+   "outline": true,
+   "mobile": {
+    "static": true
+   }
   },
   {
    "name": "Saw_West_Plate",
@@ -64688,6 +67747,62 @@
    "source": "inferred"
   },
   {
+   "name": "Showcase_Deck_Base_Skirt",
+   "type": "box",
+   "position": [
+    0.0,
+    0.85,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Deck",
+   "size": [
+    30.02,
+    2.35,
+    28.02
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "corrosion",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Stage_Base_Skirt",
+   "type": "box",
+   "position": [
+    0.0,
+    0.85,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Showcase_Stage",
+   "size": [
+    26.02,
+    2.35,
+    9.42
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "corrosion",
+   "source": "inferred"
+  },
+  {
    "name": "Corrosion_Band",
    "type": "band",
    "position": [
@@ -64710,146 +67825,6 @@
    "outline": false,
    "double_sided": true,
    "segments": [
-    {
-     "pts": [
-      [
-       -22.18153,
-       -64.5595
-      ],
-      [
-       -22.36023,
-       -64.86902
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -22.80472,
-       -64.8743
-      ],
-      [
-       -22.98342,
-       -64.56478
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -22.98647,
-       -64.5145
-      ],
-      [
-       -22.80777,
-       -64.20498
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -22.76575,
-       -64.1772
-      ],
-      [
-       -22.40835,
-       -64.1772
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -22.36328,
-       -64.1997
-      ],
-      [
-       -22.18458,
-       -64.50922
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -21.20553,
-       -64.5595
-      ],
-      [
-       -21.38423,
-       -64.86902
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -21.82872,
-       -64.8743
-      ],
-      [
-       -22.00742,
-       -64.56478
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -22.01047,
-       -64.5145
-      ],
-      [
-       -21.83177,
-       -64.20498
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -21.78975,
-       -64.1772
-      ],
-      [
-       -21.43235,
-       -64.1772
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       -21.38728,
-       -64.1997
-      ],
-      [
-       -21.20858,
-       -64.50922
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
     {
      "pts": [
       [
@@ -68591,6 +71566,552 @@
     {
      "pts": [
       [
+       -42.021,
+       -50.61194
+      ],
+      [
+       -42.021,
+       -27.0
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -42.021,
+       -55.0
+      ],
+      [
+       -42.021,
+       -50.61194
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -37.29851,
+       -26.979
+      ],
+      [
+       -12.0,
+       -26.979
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -11.979,
+       -31.38806
+      ],
+      [
+       -11.979,
+       -55.0
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -11.979,
+       -27.0
+      ],
+      [
+       -11.979,
+       -31.38806
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -42.295,
+       -55.09151
+      ],
+      [
+       -42.295,
+       -54.45
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -42.295,
+       -55.25
+      ],
+      [
+       -42.295,
+       -55.09151
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -41.60849,
+       -55.295
+      ],
+      [
+       -42.25,
+       -55.295
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -42.25,
+       -54.405
+      ],
+      [
+       -42.09151,
+       -54.405
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -41.45,
+       -55.295
+      ],
+      [
+       -41.60849,
+       -55.295
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -12.595,
+       -55.25
+      ],
+      [
+       -12.595,
+       -55.09151
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -11.90849,
+       -55.295
+      ],
+      [
+       -12.55,
+       -55.295
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -11.75,
+       -55.295
+      ],
+      [
+       -11.90849,
+       -55.295
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -11.705,
+       -54.60849
+      ],
+      [
+       -11.705,
+       -55.25
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -11.705,
+       -54.45
+      ],
+      [
+       -11.705,
+       -54.60849
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -12.55,
+       -26.705
+      ],
+      [
+       -11.75,
+       -26.705
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -11.75,
+       -27.595
+      ],
+      [
+       -11.90849,
+       -27.595
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -11.705,
+       -26.90849
+      ],
+      [
+       -11.705,
+       -27.55
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -11.705,
+       -26.75
+      ],
+      [
+       -11.705,
+       -26.90849
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -42.295,
+       -27.39151
+      ],
+      [
+       -42.295,
+       -26.75
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -42.295,
+       -27.55
+      ],
+      [
+       -42.295,
+       -27.39151
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -42.25,
+       -26.705
+      ],
+      [
+       -41.45,
+       -26.705
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -41.405,
+       -26.75
+      ],
+      [
+       -41.405,
+       -26.90849
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -40.021,
+       -63.52717
+      ],
+      [
+       -40.021,
+       -55.2
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -16.96739,
+       -64.621
+      ],
+      [
+       -40.0,
+       -64.621
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -14.0,
+       -64.621
+      ],
+      [
+       -16.96739,
+       -64.621
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -13.979,
+       -56.27283
+      ],
+      [
+       -13.979,
+       -64.6
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -40.295,
+       -64.74231
+      ],
+      [
+       -40.295,
+       -64.05
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -40.295,
+       -64.85
+      ],
+      [
+       -40.295,
+       -64.74231
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -40.25,
+       -64.005
+      ],
+      [
+       -40.14231,
+       -64.005
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -14.595,
+       -64.85
+      ],
+      [
+       -14.595,
+       -64.74231
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -13.705,
+       -64.15769
+      ],
+      [
+       -13.705,
+       -64.85
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -13.705,
+       -64.05
+      ],
+      [
+       -13.705,
+       -64.15769
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -13.75,
+       -55.795
+      ],
+      [
+       -13.85769,
+       -55.795
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -13.705,
+       -55.05769
+      ],
+      [
+       -13.705,
+       -55.75
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -13.705,
+       -54.95
+      ],
+      [
+       -13.705,
+       -55.05769
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -40.295,
+       -55.64231
+      ],
+      [
+       -40.295,
+       -54.95
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -40.295,
+       -55.75
+      ],
+      [
+       -40.295,
+       -55.64231
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -39.405,
+       -54.95
+      ],
+      [
+       -39.405,
+       -55.05769
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
        -33.70589,
        22.96268
       ],
@@ -68755,6 +72276,230 @@
      ],
      "y0": 0.85,
      "y1": 1.65
+    },
+    {
+     "pts": [
+      [
+       -30.81864,
+       -11.28487
+      ],
+      [
+       -26.99018,
+       -11.04065
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.65
+    },
+    {
+     "pts": [
+      [
+       -28.40073,
+       -12.68703
+      ],
+      [
+       -30.71976,
+       -12.83497
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.65
+    },
+    {
+     "pts": [
+      [
+       -26.89129,
+       -12.59074
+      ],
+      [
+       -28.40073,
+       -12.68703
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.65
+    },
+    {
+     "pts": [
+      [
+       -30.32871,
+       -18.96526
+      ],
+      [
+       -26.50024,
+       -18.72103
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.65
+    },
+    {
+     "pts": [
+      [
+       -27.91079,
+       -20.36742
+      ],
+      [
+       -30.22982,
+       -20.51535
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.65
+    },
+    {
+     "pts": [
+      [
+       -26.40136,
+       -20.27113
+      ],
+      [
+       -27.91079,
+       -20.36742
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.65
+    },
+    {
+     "pts": [
+      [
+       -41.021,
+       -26.28125
+      ],
+      [
+       -41.021,
+       -21.6
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -41.021,
+       -26.95
+      ],
+      [
+       -41.021,
+       -26.28125
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -41.0,
+       -21.579
+      ],
+      [
+       -33.4,
+       -21.579
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -33.379,
+       -22.26875
+      ],
+      [
+       -33.379,
+       -26.95
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -33.379,
+       -21.6
+      ],
+      [
+       -33.379,
+       -22.26875
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -22.821,
+       -26.28125
+      ],
+      [
+       -22.821,
+       -21.6
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -22.821,
+       -26.95
+      ],
+      [
+       -22.821,
+       -26.28125
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -22.8,
+       -21.579
+      ],
+      [
+       -13.0,
+       -21.579
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -12.979,
+       -22.26875
+      ],
+      [
+       -12.979,
+       -26.95
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       -12.979,
+       -21.6
+      ],
+      [
+       -12.979,
+       -22.26875
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
     },
     {
      "pts": [
@@ -72578,6 +76323,36 @@
  ],
  "kills": [
   {
+   "id": "Showcase_Pit_1",
+   "center": [
+    -37.2,
+    6.8,
+    -23.002
+   ],
+   "size": [
+    6.88,
+    1.0,
+    2.083
+   ],
+   "yaw": 0.0,
+   "note": "open slime pit"
+  },
+  {
+   "id": "Showcase_Pit_2",
+   "center": [
+    -17.9,
+    6.8,
+    -23.002
+   ],
+   "size": [
+    9.08,
+    1.0,
+    2.083
+   ],
+   "yaw": 0.0,
+   "note": "open slime pit"
+  },
+  {
    "id": "Belt_A_Pit",
    "center": [
     25.5,
@@ -73234,6 +77009,7 @@
   "Exit_Stairs: 0.75 m junction plate where it meets Upper_Deck's angled edge",
   "Exit_Stairs: stairs run 5.7 m > gap 4.0 m - extends 1.7 m onto Upper_Deck",
   "Entry_Door: entrance hallway 10 m out of the black (from slime_arena)",
+  "Showcase: Construct Error showcase - dais r 8.6 m, stage tank, banner 16 m, 2 slime pits",
   "Saw_West: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 26.5]",
   "Saw_East: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 20.5]",
   "Pillars: 7 floating stepping platforms (bobbing, thruster flames)",
@@ -73244,12 +77020,12 @@
   "Overlook: corner overlook 5.1 x 15.0 m at 15.5 m, gantry 14.8 m to lift Spinner_Pad_1_Lift",
   "Arena: battle arena rising out of the liquid (goofy) - 25 square tiles, 20.8 m across at 15.5 m",
   "Jet_Screen: jetpack grin screen bobbing at [-2.0, 22.0, -18.0]; flies to [28.39, 21.632, 28.89] when a player reaches Arena_Deck - big red button opens ['Yard_Laser']",
-  "crates: 5 printed crates (accent atlas)",
-  "fixtures: 63 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_North_M02Fan, OuterWall_West_M02Fan)",
+  "crates: 11 printed crates (accent atlas)",
+  "fixtures: 48 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_West_M02Fan)",
   "ducts: Ceil_Duct_1 trimmed to 2 piece(s) clear of 2 standing part(s), 0 crane runway(s), ends at beams 0.0 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 0.0 m",
-  "corrosion: 6 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
-  "corrosion: 8 lights at the liquid line removed, 12 light strips raised clear of it",
-  "corrosion: 435 wall faces at the liquid line get a corroded band (one mesh, one material)"
+  "corrosion: 8 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
+  "corrosion: 12 lights at the liquid line removed, 16 light strips raised clear of it",
+  "corrosion: 486 wall faces at the liquid line get a corroded band (one mesh, one material)"
  ],
  "relations": [
   {
@@ -73317,6 +77093,28 @@
    "a": "Spinner_Ramp_Deck",
    "b": "Start_Deck_Floor",
    "a_anchor": "end_a"
+  },
+  {
+   "type": "supported_by",
+   "a": "Showcase_Bridge_Deck",
+   "b": "Showcase_Bridge_Support_01_Head"
+  },
+  {
+   "type": "supported_by",
+   "a": "Showcase_Bridge_Deck",
+   "b": "Showcase_Bridge_Support_02_Head"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Showcase_Bridge_Deck",
+   "b": "Robot_Ring_Floor",
+   "a_anchor": "end_a"
+  },
+  {
+   "type": "walkable_connection",
+   "a": "Showcase_Bridge_Deck",
+   "b": "Showcase_Deck_Floor",
+   "a_anchor": "end_b"
   }
  ],
  "gameplay": {
@@ -73333,16 +77131,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 51162,
-  "objects": 2220,
-  "materials": 38,
-  "glb_kb": 3674,
-  "nodes": 2456,
-  "draw_calls_unbatched": 2426,
-  "draw_calls_batched_min": 40,
-  "images": 104,
-  "tex_mem_gpu_compressed_mb": 24.15,
-  "tex_mem_uncompressed_mb": 96.59,
+  "triangles": 53576,
+  "objects": 2334,
+  "materials": 43,
+  "glb_kb": 4120,
+  "nodes": 2591,
+  "draw_calls_unbatched": 2556,
+  "draw_calls_batched_min": 45,
+  "images": 114,
+  "tex_mem_gpu_compressed_mb": 26.4,
+  "tex_mem_uncompressed_mb": 105.61,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

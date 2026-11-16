@@ -41,23 +41,23 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 3674,
-    "triangles": 60062,
-    "nodes": 2456,
-    "mesh_nodes": 2426,
-    "unique_meshes": 1165,
-    "materials": 40,
-    "images": 104,
-    "draw_calls_unbatched": 2426,
-    "draw_calls_batched_min": 40,
-    "tex_mem_uncompressed_mb": 96.59,
-    "tex_mem_gpu_compressed_mb": 24.15,
+    "glb_kb": 4120,
+    "triangles": 63012,
+    "nodes": 2591,
+    "mesh_nodes": 2556,
+    "unique_meshes": 1241,
+    "materials": 45,
+    "images": 114,
+    "draw_calls_unbatched": 2556,
+    "draw_calls_batched_min": 45,
+    "tex_mem_uncompressed_mb": 105.61,
+    "tex_mem_gpu_compressed_mb": 26.4,
     "texture_slots": {
-     "baseColorTexture": 36,
-     "metallicRoughnessTexture": 36,
-     "normalTexture": 31,
-     "occlusionTexture": 36,
-     "emissiveTexture": 20
+     "baseColorTexture": 41,
+     "metallicRoughnessTexture": 41,
+     "normalTexture": 33,
+     "occlusionTexture": 41,
+     "emissiveTexture": 25
     },
     "image_sizes": [
      "1024x1024 jpeg",
@@ -72,32 +72,32 @@
     ]
    },
    "visible": {
-    "cameras": 104,
-    "visible_draw_calls_mean": 792.9,
-    "visible_draw_calls_max": 2418,
-    "visible_triangles_mean": 31639,
-    "visible_triangles_max": 70666
+    "cameras": 120,
+    "visible_draw_calls_mean": 828.9,
+    "visible_draw_calls_max": 2548,
+    "visible_triangles_mean": 32575,
+    "visible_triangles_max": 73616
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 2220,
-    "triangles": 58024,
-    "nodes": 227,
-    "mesh_nodes": 128,
-    "unique_meshes": 128,
-    "materials": 40,
-    "images": 70,
-    "draw_calls_unbatched": 128,
-    "draw_calls_batched_min": 40,
-    "tex_mem_uncompressed_mb": 38.01,
-    "tex_mem_gpu_compressed_mb": 9.5,
+    "glb_kb": 2413,
+    "triangles": 60576,
+    "nodes": 233,
+    "mesh_nodes": 134,
+    "unique_meshes": 134,
+    "materials": 45,
+    "images": 80,
+    "draw_calls_unbatched": 134,
+    "draw_calls_batched_min": 45,
+    "tex_mem_uncompressed_mb": 43.03,
+    "tex_mem_gpu_compressed_mb": 10.76,
     "texture_slots": {
-     "baseColorTexture": 36,
-     "emissiveTexture": 20,
-     "metallicRoughnessTexture": 15,
-     "normalTexture": 10,
-     "occlusionTexture": 15
+     "baseColorTexture": 41,
+     "emissiveTexture": 25,
+     "metallicRoughnessTexture": 20,
+     "normalTexture": 12,
+     "occlusionTexture": 20
     },
     "image_sizes": [
      "128x128 webp",
@@ -133,36 +133,38 @@
     ]
    },
    "collision": {
-    "colliders": 387,
+    "colliders": 451,
     "hazards": 1,
-    "glb_kb": 177
+    "glb_kb": 205
    },
    "visible": {
-    "cameras": 104,
-    "visible_draw_calls_mean": 71.2,
-    "visible_draw_calls_max": 131,
-    "visible_triangles_mean": 54184,
-    "visible_triangles_max": 68848
+    "cameras": 120,
+    "visible_draw_calls_mean": 74.0,
+    "visible_draw_calls_max": 137,
+    "visible_triangles_mean": 56286,
+    "visible_triangles_max": 71380
    },
-   "hidden_faces_removed": 817,
-   "occluded_faces_removed": 1221,
+   "hidden_faces_removed": 949,
+   "occluded_faces_removed": 1487,
    "occluded_objects": [
-    "OuterWall_North_M11Pipes_Plate"
+    "OuterWall_North_M11Pipes_Plate",
+    "Showcase_Stage_Glow_02L",
+    "Showcase_Stage_Glow_02R"
    ],
    "effects_extra_draw_calls": 7,
    "effects_max_particles": 831,
    "slimmed_kb": {
     "level_mobile.glb": [
-     3332,
-     2220
+     3663,
+     2413
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     240,
-     177
+     278,
+     205
     ]
    }
   }
@@ -1211,7 +1213,7 @@
    "node": "Corrosion__corrosion__2s",
    "kind": "group",
    "material": "corrosion__2s",
-   "triangles": 756,
+   "triangles": 846,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2400,10 +2402,14 @@
    "node": "M_accent_0_0_props",
    "kind": "props",
    "material": "accent",
-   "triangles": 70,
+   "triangles": 98,
    "visibility_range_end": 70,
    "cast_shadow": false,
    "source_objects": [
+    "Showcase_Stage_Light_02",
+    "Showcase_Stage_Light_01",
+    "Showcase_Deck_Light_02",
+    "Showcase_Deck_Light_01",
     "Spinner_Deck_Light_01",
     "Exit_Deck_Light_02",
     "Exit_Deck_Light_01",
@@ -2420,10 +2426,12 @@
    "node": "M_glow_0_0_props",
    "kind": "props",
    "material": "glow",
-   "triangles": 32,
+   "triangles": 52,
    "visibility_range_end": 70,
    "cast_shadow": false,
    "source_objects": [
+    "Showcase_Bridge_Support_02_Light",
+    "Showcase_Bridge_Support_01_Light",
     "Spinner_Ramp_Support_Light",
     "Yard_Bridge_CladLight_L_b_b",
     "Yard_Bridge_Support_Light"
@@ -2472,7 +2480,7 @@
    "node": "M_accent_0_0",
    "kind": "static",
    "material": "accent",
-   "triangles": 181,
+   "triangles": 231,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2486,6 +2494,12 @@
     "Yard_Crates_03",
     "Yard_Crates_02",
     "Yard_Crates_01",
+    "Showcase_Crates_R_03",
+    "Showcase_Crates_R_02",
+    "Showcase_Crates_R_01",
+    "Showcase_Crates_L_03",
+    "Showcase_Crates_L_02",
+    "Showcase_Crates_L_01",
     "Entry_Door_Fade_End",
     "Entry_Door_Fade_2",
     "Entry_Door_Fade_1",
@@ -2503,16 +2517,14 @@
     "OuterWall_East_M05Vent_Duct",
     "OuterWall_East_M02Vent_Duct",
     "OuterWall_North_M09Emblem",
-    "OuterWall_North_M07Vent_Duct",
-    "OuterWall_North_M04Vent_Duct",
-    "OuterWall_North_M01Vent_Duct"
+    "OuterWall_North_M07Vent_Duct"
    ]
   },
   {
    "node": "M_arm_yellow_0_0",
    "kind": "static",
    "material": "arm_yellow",
-   "triangles": 112,
+   "triangles": 240,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2521,7 +2533,19 @@
     "Saw_East_Cheek_R",
     "Saw_East_Cheek_L",
     "Saw_West_Cheek_R",
-    "Saw_West_Cheek_L"
+    "Saw_West_Cheek_L",
+    "Showcase_Rail_2_Mid",
+    "Showcase_Rail_2_Top",
+    "Showcase_Rail_2_Post_4",
+    "Showcase_Rail_2_Post_3",
+    "Showcase_Rail_2_Post_2",
+    "Showcase_Rail_2_Post_1",
+    "Showcase_Rail_1_Mid",
+    "Showcase_Rail_1_Top",
+    "Showcase_Rail_1_Post_4",
+    "Showcase_Rail_1_Post_3",
+    "Showcase_Rail_1_Post_2",
+    "Showcase_Rail_1_Post_1"
    ]
   },
   {
@@ -2537,22 +2561,63 @@
    ]
   },
   {
+   "node": "M_ce_floor_logo_0_0",
+   "kind": "static",
+   "material": "ce_floor_logo",
+   "triangles": 2,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Showcase_Logo"
+   ]
+  },
+  {
+   "node": "M_ce_signs_0_0",
+   "kind": "static",
+   "material": "ce_signs",
+   "triangles": 10,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Showcase_Monitor_b",
+    "Showcase_XBanner_b",
+    "Showcase_Monitor_a",
+    "Showcase_XBanner_a",
+    "Showcase_Banner"
+   ]
+  },
+  {
+   "node": "M_ce_tank_mascot__2s_0_0",
+   "kind": "static",
+   "material": "ce_tank_mascot__2s",
+   "triangles": 2,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_TankMascot"
+   ]
+  },
+  {
    "node": "M_deck_0_0",
    "kind": "static",
    "material": "deck",
-   "triangles": 247,
+   "triangles": 285,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Overlook_Deck",
     "Exit_Door_Floor",
     "Exit_Door_Sill",
+    "Showcase_RampR",
+    "Showcase_RampL",
     "Entry_Door_Floor",
     "Entry_Door_Sill",
     "Exit_Stairs_Junction_Lo",
     "Exit_Stairs_Junction_Hi",
     "Yard_Bridge_Junction_Lo",
     "Yard_Bridge_Junction_Hi",
+    "Showcase_Stage_Floor",
+    "Showcase_Deck_Floor",
     "Exit_Deck_Floor",
     "Upper_Deck_Floor",
     "Belt_Landing_Floor",
@@ -2575,7 +2640,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 3377,
+   "triangles": 3475,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2644,7 +2709,29 @@
     "Belt_A_Leg_2L",
     "Belt_A_Leg_1R",
     "Belt_A_Leg_1L",
+    "Showcase_Monitor_b_Board",
+    "Showcase_Monitor_a_Board",
+    "Showcase_BannerRod",
     "Entry_Door_Arch",
+    "Showcase_Bridge_Support_02_Rib_22",
+    "Showcase_Bridge_Support_02_Rib_20",
+    "Showcase_Bridge_Support_02_Rib_02",
+    "Showcase_Bridge_Support_02_Rib_00",
+    "Showcase_Bridge_Support_01_Rib_22",
+    "Showcase_Bridge_Support_01_Rib_20",
+    "Showcase_Bridge_Support_01_Rib_02",
+    "Showcase_Bridge_Support_01_Rib_00",
+    "Showcase_Bridge_Cross_09",
+    "Showcase_Bridge_Cross_08",
+    "Showcase_Bridge_Cross_07",
+    "Showcase_Bridge_Cross_06",
+    "Showcase_Bridge_Cross_05",
+    "Showcase_Bridge_Cross_04",
+    "Showcase_Bridge_Cross_03",
+    "Showcase_Bridge_Cross_02",
+    "Showcase_Bridge_Cross_01",
+    "Showcase_Bridge_Beam_R",
+    "Showcase_Bridge_Beam_L",
     "Spinner_Ramp_Support_Rib_22",
     "Spinner_Ramp_Support_Rib_20",
     "Spinner_Ramp_Support_Rib_02",
@@ -2792,23 +2879,7 @@
     "OuterWall_North_M07Vent_Slat_1",
     "OuterWall_North_M06Pipes_Bracket_2",
     "OuterWall_North_M06Pipes_Bracket_1",
-    "OuterWall_North_M05Machine_Bracket",
-    "OuterWall_North_M04Vent_Slat_6",
-    "OuterWall_North_M04Vent_Slat_5",
-    "OuterWall_North_M04Vent_Slat_4",
-    "OuterWall_North_M04Vent_Slat_3",
-    "OuterWall_North_M04Vent_Slat_2",
-    "OuterWall_North_M04Vent_Slat_1",
-    "OuterWall_North_M03Pipes_Bracket_3",
-    "OuterWall_North_M03Pipes_Bracket_2",
-    "OuterWall_North_M03Pipes_Bracket_1",
-    "OuterWall_North_M01Vent_Slat_7",
-    "OuterWall_North_M01Vent_Slat_6",
-    "OuterWall_North_M01Vent_Slat_5",
-    "OuterWall_North_M01Vent_Slat_4",
-    "OuterWall_North_M01Vent_Slat_3",
-    "OuterWall_North_M01Vent_Slat_2",
-    "OuterWall_North_M01Vent_Slat_1"
+    "OuterWall_North_M05Machine_Bracket"
    ]
   },
   {
@@ -2827,18 +2898,19 @@
    "node": "M_glass_clear__2s_0_0",
    "kind": "static",
    "material": "glass_clear__2s",
-   "triangles": 40,
+   "triangles": 104,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Spinner_Glass"
+    "Spinner_Glass",
+    "Showcase_TankGlass"
    ]
   },
   {
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 1604,
+   "triangles": 1624,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2902,6 +2974,8 @@
     "Yard_Bridge_CladLight_L_b",
     "Yard_Bridge_CladLight_R",
     "Yard_Bridge_CladLight_L",
+    "Showcase_Stage_Glow_01R",
+    "Showcase_Stage_Glow_01L",
     "Exit_Deck_Glow_02R",
     "Exit_Deck_Glow_02L",
     "Exit_Deck_Glow_01R",
@@ -2953,8 +3027,10 @@
     "OuterWall_North_M07Vent_Status",
     "OuterWall_North_M05Machine_Red",
     "OuterWall_North_M05Machine_Light",
-    "OuterWall_North_M04Vent_Status",
-    "OuterWall_North_M01Vent_Status"
+    "OuterWall_North_M04Plain_Strip",
+    "OuterWall_North_M03Plain_Strip",
+    "OuterWall_North_M02Plain_Strip",
+    "OuterWall_North_M01Plain_Strip"
    ]
   },
   {
@@ -2970,10 +3046,37 @@
    ]
   },
   {
+   "node": "M_glow_pink_0_0",
+   "kind": "static",
+   "material": "glow_pink",
+   "triangles": 198,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Showcase_LightBar_3",
+    "Showcase_LightBar_2",
+    "Showcase_LightBar_1",
+    "Showcase_RampR_Curb_b",
+    "Showcase_RampR_Curb_a",
+    "Showcase_RampL_Curb_b",
+    "Showcase_RampL_Curb_a",
+    "Showcase_DaisLight_10",
+    "Showcase_DaisLight_09",
+    "Showcase_DaisLight_08",
+    "Showcase_DaisLight_07",
+    "Showcase_DaisLight_06",
+    "Showcase_DaisLight_05",
+    "Showcase_DaisLight_04",
+    "Showcase_DaisLight_03",
+    "Showcase_DaisLight_02",
+    "Showcase_DaisLight_01"
+   ]
+  },
+  {
    "node": "M_glow_yellow_0_0",
    "kind": "static",
    "material": "glow_yellow",
-   "triangles": 498,
+   "triangles": 546,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2999,6 +3102,10 @@
     "Exit_Door_Mouth_Halo_3",
     "Exit_Door_Mouth_Halo_2",
     "Exit_Door_Mouth_Halo_1",
+    "Showcase_TankLamp_4",
+    "Showcase_TankLamp_3",
+    "Showcase_TankLamp_2",
+    "Showcase_TankLamp_1",
     "Entry_Door_Rib_2_Lamp",
     "Entry_Door_Rib_1_Lamp",
     "Entry_Door_Mouth_Lantern_3",
@@ -3018,7 +3125,7 @@
    "node": "M_grate_0_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 294,
+   "triangles": 326,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3027,6 +3134,9 @@
     "Spinner_Pad_3_Bridge",
     "Spinner_Pad_2_Bridge",
     "Spinner_Pad_1_Bridge",
+    "Showcase_Pit_2_Grate",
+    "Showcase_Pit_1_Grate",
+    "Showcase_Bridge_Deck",
     "Spinner_Ramp_Deck",
     "Exit_Stairs",
     "Yard_Bridge_Deck_b_b",
@@ -3035,10 +3145,22 @@
    ]
   },
   {
+   "node": "M_hazard_0_0",
+   "kind": "static",
+   "material": "hazard",
+   "triangles": 20,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Showcase_Pit_2_Slime",
+    "Showcase_Pit_1_Slime"
+   ]
+  },
+  {
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 6334,
+   "triangles": 6836,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3111,6 +3233,22 @@
     "Saw_West_Column_2__ol",
     "Saw_West_Column_1__ol",
     "Saw_West_Plate__ol",
+    "Showcase_Crates_R_02__ol",
+    "Showcase_Crates_R_01__ol",
+    "Showcase_Crates_L_02__ol",
+    "Showcase_Crates_L_01__ol",
+    "Showcase_Pit_2_Grate__ol",
+    "Showcase_Pit_2_Rim_1__ol",
+    "Showcase_Pit_2_Tub__ol",
+    "Showcase_Pit_1_Grate__ol",
+    "Showcase_Pit_1_Rim_3__ol",
+    "Showcase_Pit_1_Rim_1__ol",
+    "Showcase_Pit_1_Tub__ol",
+    "Showcase_TankTop__ol",
+    "Showcase_TankCap__ol",
+    "Showcase_TankBase__ol",
+    "Showcase_TankPlinth__ol",
+    "Showcase_RampL__ol",
     "Entry_Door_Sill__ol",
     "Entry_Door_Mouth_Capital_1__ol",
     "Entry_Door_Mouth_Pilaster_1__ol",
@@ -3126,6 +3264,9 @@
     "Entry_Door_Mouth_Voussoir_2__ol",
     "Entry_Door_Mouth_Voussoir_1__ol",
     "Entry_Door_Arch__ol",
+    "Showcase_Bridge_Support_01_Head__ol",
+    "Showcase_Bridge_Support_01__ol",
+    "Showcase_Bridge_Support_01_Footing__ol",
     "Spinner_Ramp_Support_Head__ol",
     "Spinner_Ramp_Support__ol",
     "Spinner_Ramp_Support_Footing__ol",
@@ -3151,6 +3292,8 @@
     "Yard_Bridge_Clad_L__ol",
     "Yard_Bridge_Beam_L__ol",
     "Yard_Bridge_Deck__ol",
+    "Showcase_Stage_Rib_01__ol",
+    "Showcase_Deck_Rib_01__ol",
     "Exit_Deck_Rib_01__ol",
     "Exit_Deck_Base__ol",
     "Upper_Deck_Rib_01__ol",
@@ -3338,7 +3481,7 @@
    "node": "M_pipe_0_0",
    "kind": "static",
    "material": "pipe",
-   "triangles": 1528,
+   "triangles": 1540,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3374,6 +3517,8 @@
     "Spinner_PipeDown_1",
     "Spinner_PipeOut_1",
     "Spike_Press_Column",
+    "Showcase_TankPipe_b",
+    "Showcase_TankPipe_a",
     "OuterWall_West_M15Pipes_Pipe_4",
     "OuterWall_West_M15Pipes_Pipe_3",
     "OuterWall_West_M15Pipes_Pipe_2",
@@ -3405,9 +3550,7 @@
     "OuterWall_North_M08Pipes_Pipe_1",
     "OuterWall_North_M06Pipes_Pipe_3",
     "OuterWall_North_M06Pipes_Pipe_2",
-    "OuterWall_North_M06Pipes_Pipe_1",
-    "OuterWall_North_M03Pipes_Pipe_2",
-    "OuterWall_North_M03Pipes_Pipe_1"
+    "OuterWall_North_M06Pipes_Pipe_1"
    ]
   },
   {
@@ -3585,7 +3728,7 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 462,
+   "triangles": 782,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3611,6 +3754,20 @@
     "Saw_East_ColBand_1",
     "Saw_West_ColBand_2",
     "Saw_West_ColBand_1",
+    "Showcase_Pit_2_Rim_4",
+    "Showcase_Pit_2_Rim_3",
+    "Showcase_Pit_2_Rim_2",
+    "Showcase_Pit_2_Rim_1",
+    "Showcase_Pit_1_Rim_4",
+    "Showcase_Pit_1_Rim_3",
+    "Showcase_Pit_1_Rim_2",
+    "Showcase_Pit_1_Rim_1",
+    "Showcase_TankBand",
+    "Showcase_RampR_Side_b",
+    "Showcase_RampR_Side_a",
+    "Showcase_RampL_Side_b",
+    "Showcase_RampL_Side_a",
+    "Showcase_DaisRim",
     "Spinner_Ramp_Threshold_Hi",
     "Spinner_Ramp_Threshold_Lo",
     "Yard_Bridge_Deck_b_SlotEdge_1b",
@@ -3623,10 +3780,12 @@
    "node": "M_structure_0_0",
    "kind": "static",
    "material": "structure",
-   "triangles": 191,
+   "triangles": 237,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Showcase_Stage_Base",
+    "Showcase_Deck_Base",
     "Spinner_Deck_Base",
     "Exit_Deck_Base",
     "Upper_Deck_Base",
@@ -3639,7 +3798,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 3572,
+   "triangles": 4244,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3707,6 +3866,16 @@
     "Spike_Press_Rib_2",
     "Spike_Press_Rib_1",
     "Spike_Press_Foot",
+    "Showcase_Pit_2_Tub",
+    "Showcase_Pit_1_Tub",
+    "Showcase_XBanner_b_Board",
+    "Showcase_XBanner_a_Board",
+    "Showcase_Banner_Board",
+    "Showcase_TankTop",
+    "Showcase_TankCap",
+    "Showcase_TankBase",
+    "Showcase_TankPlinth",
+    "Showcase_Dais",
     "Entry_Door_Rib_2_Beam",
     "Entry_Door_Rib_2_Post_3",
     "Entry_Door_Rib_2_Post_1",
@@ -3714,6 +3883,12 @@
     "Entry_Door_Rib_1_Post_3",
     "Entry_Door_Rib_1_Post_1",
     "Entry_Door_Ceiling",
+    "Showcase_Bridge_Support_02_Head",
+    "Showcase_Bridge_Support_02",
+    "Showcase_Bridge_Support_02_Footing",
+    "Showcase_Bridge_Support_01_Head",
+    "Showcase_Bridge_Support_01",
+    "Showcase_Bridge_Support_01_Footing",
     "Spinner_Ramp_Support_Head",
     "Spinner_Ramp_Support",
     "Spinner_Ramp_Support_Footing",
@@ -3728,6 +3903,16 @@
     "Yard_Bridge_Support_Footing",
     "Yard_Bridge_Clad_R",
     "Yard_Bridge_Clad_L",
+    "Showcase_Stage_Base_Skirt",
+    "Showcase_Stage_Rib_04",
+    "Showcase_Stage_Rib_03",
+    "Showcase_Stage_Rib_02",
+    "Showcase_Stage_Rib_01",
+    "Showcase_Deck_Base_Skirt",
+    "Showcase_Deck_Rib_04",
+    "Showcase_Deck_Rib_03",
+    "Showcase_Deck_Rib_02",
+    "Showcase_Deck_Rib_01",
     "Spinner_Deck_Base_Skirt",
     "Exit_Deck_Base_Skirt",
     "Exit_Deck_Rib_04",
@@ -3806,22 +3991,25 @@
     "OuterWall_North_M07Vent_FrameLow",
     "OuterWall_North_M07Vent",
     "OuterWall_North_M05Machine_Plate",
-    "OuterWall_North_M04Vent_FrameSide_2",
-    "OuterWall_North_M04Vent_FrameSide_1",
-    "OuterWall_North_M04Vent_FrameLow",
-    "OuterWall_North_M04Vent",
-    "OuterWall_North_M01Vent_FrameSide_2",
-    "OuterWall_North_M01Vent_FrameSide_1",
-    "OuterWall_North_M01Vent_FrameLow",
-    "OuterWall_North_M01Vent",
     "OuterWall_North_Cap"
+   ]
+  },
+  {
+   "node": "M_tank_green__2s_0_0",
+   "kind": "static",
+   "material": "tank_green__2s",
+   "triangles": 64,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Showcase_TankLiquid"
    ]
   },
   {
    "node": "M_trim_0_0",
    "kind": "static",
    "material": "trim",
-   "triangles": 404,
+   "triangles": 492,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3835,6 +4023,8 @@
     "Entry_Door_Mouth_Capital_1",
     "Entry_Door_Mouth_Impost_1",
     "Entry_Door_Mouth_Voussoir_5",
+    "Showcase_Stage_Trim",
+    "Showcase_Deck_Trim",
     "Spinner_Deck_Trim",
     "Exit_Deck_Trim",
     "Upper_Deck_Trim",

@@ -1,21 +1,21 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 3674,
-  "mobile/level_mobile.glb": 2220,
-  "mobile/collision.json": 162,
+  "level.glb": 4120,
+  "mobile/level_mobile.glb": 2413,
+  "mobile/collision.json": 180,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 76
+  "effects.json": 79
  },
  "complexity": {
-  "triangles": 60062,
-  "nodes": 2426,
-  "materials": 38,
+  "triangles": 63012,
+  "nodes": 2556,
+  "materials": 43,
   "heaviest": [
    [
     "Corrosion_Band",
-    756
+    846
    ],
    [
     "Spinner_Rotor_Ball_4",
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 3674,
-   "triangles": 51162,
-   "draw_calls": 2426,
-   "tex_mem_gpu_mb_est": 24.15
+   "glb_kb": 4120,
+   "triangles": 53576,
+   "draw_calls": 2556,
+   "tex_mem_gpu_mb_est": 26.4
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 2220,
-   "triangles": 58024,
-   "draw_calls": 128,
-   "visible_draw_calls_est": 71.2,
-   "visible_draw_calls_max_est": 131,
-   "tex_mem_gpu_mb_est": 9.5,
-   "materials": 40,
-   "nodes": 227,
+   "glb_kb": 2413,
+   "triangles": 60576,
+   "draw_calls": 134,
+   "visible_draw_calls_est": 74.0,
+   "visible_draw_calls_max_est": 137,
+   "tex_mem_gpu_mb_est": 10.76,
+   "materials": 45,
+   "nodes": 233,
    "colliders": {
-    "colliders": 387,
+    "colliders": 451,
     "hazards": 1,
-    "glb_kb": 177
+    "glb_kb": 205
    },
    "background_kb": 404
   },
@@ -74,16 +74,16 @@
    "INTENTIONAL": 0
   },
   "relations": {
-   "explicit": 12,
+   "explicit": 16,
    "inferred": 0
   },
   "repairable": 2,
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 18675.0,
-  "reachable_area_m2": 3973.0,
-  "components": 93,
+  "standable_area_m2": 20147.0,
+  "reachable_area_m2": 5427.0,
+  "components": 122,
   "spawns": [
    {
     "id": "spawn",
@@ -95,7 +95,7 @@
     "standable": true,
     "clearance_m": 4.5,
     "headroom_m": 28.77,
-    "component": 17,
+    "component": 22,
     "hazard_distance_m": 11.5
    },
    {
@@ -108,7 +108,7 @@
     "standable": true,
     "clearance_m": 5.5,
     "headroom_m": 27.77,
-    "component": 17,
+    "component": 22,
     "hazard_distance_m": 11.51
    },
    {
@@ -121,7 +121,7 @@
     "standable": true,
     "clearance_m": 5.5,
     "headroom_m": 99.0,
-    "component": 4,
+    "component": 16,
     "hazard_distance_m": 8.28
    },
    {
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 6.5,
     "headroom_m": 19.0,
-    "component": 38,
+    "component": 67,
     "hazard_distance_m": 0.54
    }
   ],
@@ -172,6 +172,18 @@
    {
     "name": "Spinner_Deck",
     "standable_m2": 240.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Showcase_Deck",
+    "standable_m2": 738.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Showcase_Stage",
+    "standable_m2": 192.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -216,7 +228,7 @@
   "passed": true
  },
  "traverse": {
-  "connectors": 7,
+  "connectors": 10,
   "passed": true,
   "findings": 1
  },
@@ -246,12 +258,12 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 128 (> 80)"
+   "message": "mobile draw calls 134 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~71 visible draw calls (estimate, > 60)"
+   "message": "~74 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "spawn_near_hazard",
@@ -278,7 +290,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "60062 triangles (> budget 40000)"
+   "message": "63012 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
