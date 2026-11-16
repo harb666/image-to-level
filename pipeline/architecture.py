@@ -15,7 +15,7 @@ Modules
   pipes: outlet (wall pipe + flange + optional pour/fall), run (polyline with flanges)
 Extend: add a function and register it in STRUCTURES / PLATFORM_STYLES; keep it closed-mesh and named.
 """
-import hashlib, math
+import hashlib, math, re
 import numpy as np
 import prefabs
 
@@ -734,7 +734,17 @@ def ceiling(ctx, a, W, pre=""):
         if not (x0 + 1 < dx - c and dx + c < x1 - 1 and z0 + 1 < dz - c and dz + c < z1 - 1): raise ValueError("ceiling dome does not fit inside the roof")
         m_ = C.get("material", "wall")
         ctx.add(pre + "Ceiling_Slab", "box", [dx, y, dz], [2 * c, th, 2 * c], m_, hole=Rd, hole_res=48, collision_mesh=True, **tag, outline=False)
-        for nm_, a0, a1, b0, b1 in (("W", x0, dx - c, z0, z1), ("E", dx + c, x1, z0, z1), ("N", dx - c, dx + c, z0, dz - c), ("S", dx - c, dx + c, dz + c, z1)):
+        rects = {nm_: (a0, a1, b0, b1) for nm_, a0, a1, b0, b1 in (("W", x0, dx - c, z0, z1), ("E", dx + c, x1, z0, z1), ("N", dx - c, dx + c, z0, dz - c), ("S", dx - c, dx + c, dz + c, z1))}
+        for k_, H in enumerate(C.get("hatches", [])):  # Stage 144: round lift shafts in the roof - each cuts its holed square out of the strip it lies in
+            hx, hz = (float(v) for v in H["at"]); hr = float(H["radius"]); hc = hr + float(H.get("collar", 1.5)); hn = H.get("id", f"Hatch_{k_ + 1}")
+            key = next((kk for kk, (a0, a1, b0, b1) in rects.items() if a0 + 0.5 < hx - hc and hx + hc < a1 - 0.5 and b0 + 0.5 < hz - hc and hz + hc < b1 - 0.5), None)
+            if key is None: raise ValueError(f"ceiling hatch {hn} does not fit inside one roof strip")
+            a0, a1, b0, b1 = rects.pop(key)
+            for sfx, r_ in (("a", (a0, hx - hc, b0, b1)), ("b", (hx + hc, a1, b0, b1)), ("c", (hx - hc, hx + hc, b0, hz - hc)), ("d", (hx - hc, hx + hc, hz + hc, b1))): rects[key + sfx] = r_
+            ctx.add(f"{pre}Ceiling_{hn}_Slab", "box", [hx, y, hz], [2 * hc, th, 2 * hc], m_, hole=hr, hole_res=48, collision_mesh=True, **tag, outline=False)
+            roof_shaft(ctx, pre, hn, H, hx, hz, hr, y, th, tag)
+            ctx.roof_hatches = getattr(ctx, "roof_hatches", []) + [(pre, hx, hz, hr)]
+        for nm_, (a0, a1, b0, b1) in rects.items():
             ctx.add(f"{pre}Ceiling_Slab_{nm_}", "box", [(a0 + a1) / 2, y, (b0 + b1) / 2], [a1 - a0, th, b1 - b0], m_, **tag, outline=False)
         glass_dome(ctx, pre, D, dx, dz, Rd, y, th, tag); R, ox, oz = Rd + 1.6, dx, dz  # the dressing keeps clear of the curb
     else: ctx.add(pre + "Ceiling_Slab", "box", [(x0 + x1) / 2, y, (z0 + z1) / 2], [x1 - x0, th, z1 - z0], C.get("material", "wall"), **hole, **tag, outline=False)
@@ -757,6 +767,36 @@ def ceiling(ctx, a, W, pre=""):
                 k += 1; ctx.add(f"{pre}Ceiling_Lamp_{k:02d}", "box", [mx, y - 0.18, mz], [min(4.0, (x1 - x0) * 0.4), 0.18, min(1.2, (z1 - z0) * 0.2)], "glow", None,
                                 collision=False, outline=False, **tag)
     ctx.ceiling_y = y; ctx.notes.append(f"{pre}ceiling: roof slab at y {y:.1f} m" + (f" with a {R} m opening for the shaft" if R else "") + f", {len(xs) + len(zs)} girders")
+
+
+def roof_shaft(ctx, pre, hn, H, hx, hz, R, y, th, tag):
+    """Stage 144 (arena.ceiling "hatches": [{"id", "at": [x, z], "radius", "collar", "height", "car"}]): a round lift
+    shaft through the roof - a stepped steel rim under the hole (hazard-striped band, amber warning lamps), the shaft
+    tube rising "height" m with four guide rails on the diagonals, and (with "car") the lift car parked at the top: its
+    machined plate, an amber light ring underneath and four clamp arms. A cap closes the shaft above it. Visual only;
+    cutaway + mobile group "Ceiling" like the roof."""
+    vis = dict(collision=False, **tag); n = f"{pre}{hn}_"; Hh = float(H.get("height", 10.0)); ring = ctx.role(H.get("ring_material", "lift_ring"))
+    dark = ctx.role(H.get("dark_material", "saw_hub")); amber = ctx.role("glow_yellow")
+    ctx.add(n + "Rim", "cylinder", [hx, y - 0.55, hz], [2 * R + 2.4, 0.55, 2 * R + 2.4], ring, hole=R - 0.05, hole_res=48, sections=48, **vis)
+    ctx.add(n + "RimStripe", "cylinder", [hx, y - 0.95, hz], [2 * R + 1.2, 0.42, 2 * R + 1.2], ctx.role("stripe"), hole=R - 0.1, hole_res=48, sections=48, **vis)
+    ctx.add(n + "RimLip", "cylinder", [hx, y - 1.15, hz], [2 * R + 0.5, 0.2, 2 * R + 0.5], dark, hole=R - 0.15, hole_res=48, sections=48, **vis)
+    for k in range(8):  # amber warning lamps round the rim (they would flash as the lift comes down)
+        a = math.radians(45 * k + 22.5); rr = R + 1.0
+        ctx.add(f"{n}Lamp_{k + 1}", "box", [hx + rr * math.sin(a), y - 0.85, hz + rr * math.cos(a)], [0.6, 0.3, 0.3], amber, rot=[0, 45 * k + 22.5, 0], **vis)
+    ctx.add(n + "Tube", "cylinder", [hx, y + th - 0.02, hz], [2 * R + 1.2, Hh, 2 * R + 1.2], ctx.role(H.get("wall_material", "wall")), hole=R + 0.04, hole_res=48, sections=48, double_sided=True, **vis)
+    for k in range(4):  # guide rails on the diagonals (the floor ring's clamps line up under them)
+        a = math.radians(90 * k + 45); rr = R - 0.25
+        ctx.add(f"{n}Guide_{k + 1}", "box", [hx + rr * math.sin(a), y - 0.9, hz + rr * math.cos(a)], [0.5, Hh + th + 0.9, 0.5], dark, rot=[0, 90 * k + 45, 0], **vis)
+    ctx.add(n + "Cap", "cylinder", [hx, y + th + Hh - 0.04, hz], [2 * R + 1.2, 0.5, 2 * R + 1.2], dark, sections=24, **vis)
+    if H.get("car", True):  # the lift car parked at the top of the shaft (the boss rides it down)
+        cy = y + th + Hh - 3.2
+        ctx.add(n + "Car", "cylinder", [hx, cy, hz], [2 * R - 1.2, 0.7, 2 * R - 1.2], ring, sections=40, **vis)
+        ctx.add(n + "CarUnder", "cylinder", [hx, cy - 0.35, hz], [2 * R - 2.4, 0.36, 2 * R - 2.4], dark, sections=40, **vis)
+        ctx.add(n + "CarLights", "cylinder", [hx, cy - 0.42, hz], [2 * R - 3.0, 0.08, 2 * R - 3.0], amber, hole=R - 2.2, hole_res=40, sections=40, **vis)
+        for k in range(4):
+            a = math.radians(90 * k + 45); rr = R - 1.15
+            ctx.add(f"{n}CarClamp_{k + 1}", "box", [hx + rr * math.sin(a), cy - 0.2, hz + rr * math.cos(a)], [1.1, 1.1, 0.8], dark, rot=[0, 90 * k + 45, 0], **vis)
+    ctx.notes.append(f"{pre}ceiling: lift shaft {hn} r {R:.1f} m at ({hx:.1f}, {hz:.1f}), {Hh:.0f} m tall" + (", car parked at the top" if H.get("car", True) else ""))
 
 
 def glass_dome(ctx, pre, D, dx, dz, R, y, th, tag):
@@ -970,6 +1010,16 @@ def dress_ceilings(ctx):
             rot = [0, float(rng.choice([0, 90])), 0]
             for j, o in enumerate((-0.35, 0.35)):
                 ox_, oz_ = local(o, 0, rot[1]); ctx.add(f"{n}Red_{i + 1:02d}_{j + 1}", "box", [x + ox_, y - 0.27, z + oz_], [0.3, 0.2, 1.1], "glow", None, rot, outline=False, **vis)
+    for pre_, hx, hz, hr in getattr(ctx, "roof_hatches", []):  # Stage 144: no ceiling dressing over a lift shaft (removed after the fact: the random layout elsewhere is unchanged)
+        B = _aabb_all(ctx); cut = set()
+        for nm, (lo, hi) in B.items():
+            if not nm.startswith(pre_ + "Ceil_"): continue
+            qx, qz = min(max(hx, lo[0]), hi[0]), min(max(hz, lo[2]), hi[2])
+            if math.hypot(qx - hx, qz - hz) < hr + 1.4: cut.add(nm)
+        groups = {re.match(r"(.*?Ceil_(?:Beam|Duct|Conduit|LampRail|Pod|Fan|Cable|Capsule|Step|Red)_[0-9a-z]+)", c_).group(1) for c_ in cut if re.match(r".*?Ceil_(?:Beam|Duct|Conduit|LampRail|Pod|Fan|Cable|Capsule|Step|Red)_[0-9a-z]+", c_)}
+        gone = {o["name"] for o in ctx.objects if o["name"] in cut or any(o["name"] == g or o["name"].startswith(g + "_") for g in groups)}
+        ctx.objects = [o for o in ctx.objects if o["name"] not in gone]; ctx.names -= gone
+        if gone: ctx.notes.append(f"ceiling: {len(gone)} dressing parts cleared from over the lift shaft at ({hx:.0f}, {hz:.0f})")
     ctx.element = None
 
 

@@ -1,16 +1,16 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 4428,
-  "mobile/level_mobile.glb": 2609,
-  "mobile/collision.json": 184,
+  "level.glb": 4571,
+  "mobile/level_mobile.glb": 2637,
+  "mobile/collision.json": 209,
   "environment.json": 4,
   "background.glb": 477,
   "effects.json": 95
  },
  "complexity": {
-  "triangles": 73640,
-  "nodes": 2694,
+  "triangles": 75508,
+  "nodes": 2649,
   "materials": 48,
   "heaviest": [
    [
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 4428,
-   "triangles": 64216,
-   "draw_calls": 2694,
+   "glb_kb": 4571,
+   "triangles": 66060,
+   "draw_calls": 2649,
    "tex_mem_gpu_mb_est": 27.28
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 2609,
-   "triangles": 70746,
-   "draw_calls": 139,
-   "visible_draw_calls_est": 76.4,
-   "visible_draw_calls_max_est": 142,
+   "glb_kb": 2637,
+   "triangles": 72614,
+   "draw_calls": 142,
+   "visible_draw_calls_est": 77.1,
+   "visible_draw_calls_max_est": 145,
    "tex_mem_gpu_mb_est": 11.63,
-   "materials": 50,
-   "nodes": 238,
+   "materials": 51,
+   "nodes": 241,
    "colliders": {
-    "colliders": 459,
+    "colliders": 463,
     "hazards": 1,
-    "glb_kb": 209
+    "glb_kb": 213
    },
    "background_kb": 404
   },
@@ -81,7 +81,7 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 20142.0,
+  "standable_area_m2": 19864.0,
   "reachable_area_m2": 5422.0,
   "components": 124,
   "spawns": [
@@ -271,12 +271,12 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 139 (> 80)"
+   "message": "mobile draw calls 142 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~76 visible draw calls (estimate, > 60)"
+   "message": "~77 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "narrow_connector",
@@ -336,7 +336,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "73640 triangles (> budget 40000)"
+   "message": "75508 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",

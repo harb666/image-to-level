@@ -1447,4 +1447,10 @@ Building blocks usable without the preset:
 - Stage 143: material kind `turned_plate` - one machined steel disc (lathe rings, anisotropic sheen, polished wear,
   grime and a darker band at the rim, scratches, a faint magenta oil sheen; `tile_m` = the disc's diameter on a
   cylinder top so it maps once, no tiling). `showcase` `"dais_material"`: Assembly Ascent's dais is `dais_plate`.
+- Stage 144: `arena.ceiling.hatches` `[{"id", "at": [x, z], "radius", "collar", "height", "car"}]` (with a dome): round
+  lift shafts through the roof - each cuts its holed square out of the roof strip it lies in, and `roof_shaft` adds a
+  stepped steel rim (hazard band, amber warning lamps), the shaft tube, four guide rails on the diagonals, a cap and
+  (`"car"`) the lift car parked at the top (plate, amber light ring underneath, clamps). Ceiling dressing over a
+  shaft is removed afterwards (whole beams / ducts / rails), so the layout elsewhere is unchanged. Assembly Ascent:
+  `BossShaft` (r 10 m) right over the showcase dais - where the boss lift will come down.
 

@@ -113,6 +113,21 @@ class AssemblyAscent(unittest.TestCase):
         top = self.by["Showcase_RampL_Top_a"]; self.assertGreater(abs(top["rotation"][0]), 5)  # sloped with the ramp
         ys = [self.by[f"Showcase_RampL_Post_a{j}"]["position"][1] for j in (1, 2, 3)]; self.assertTrue(ys[0] < ys[1] < ys[2])  # posts climb with it
 
+    def test_boss_lift_shaft_over_the_dais(self):
+        """Stage 144: a round shaft through the roof right over the dais (the boss lift comes down it) - holed roof
+        slab, striped rim with warning lamps, tube, four guide rails, the car parked at the top; no ceiling dressing
+        hangs across the opening."""
+        H = _load("scene_spec.json")["arena"]["ceiling"]["hatches"][0]; (hx, hz), R = H["at"], H["radius"]
+        D = self.by["Showcase_Dais"]["position"]; self.assertLess(math.hypot(D[0] - hx, D[2] - hz), 0.1)
+        self.assertGreater(R, self.by["Showcase_Dais"]["size"][0] / 2)  # wide enough for the lift
+        self.assertEqual(self.by["Ceiling_BossShaft_Slab"]["hole"], R)
+        for k in ("BossShaft_Rim", "BossShaft_RimStripe", "BossShaft_Tube", "BossShaft_Guide_1", "BossShaft_Car", "BossShaft_CarLights", "BossShaft_Cap", "BossShaft_Lamp_1"): self.assertIn(k, self.by)
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from anchors import world_matrices
+        W, _ = world_matrices(self.L)
+        for n, o in self.by.items():
+            if n.startswith("Ceil_") and o.get("size"):
+                p = W[n][:3, 3]; self.assertGreater(math.hypot(p[0] - hx, p[2] - hz), R - 0.5, n)
+
     def test_dais_is_one_machined_plate(self):
         """Stage 143: between the face and the steel ring the dais is one lathe-turned gunmetal disc mapped once
         (tile = its diameter: no repeating panels)."""
@@ -430,7 +445,12 @@ class GlassDome(unittest.TestCase):
     def test_roof_has_a_round_hole_with_the_dome_over_it(self):
         D = _load("scene_spec.json")["arena"]["ceiling"]["dome"]; (dx, dz), R = D["at"], D["radius"]
         slab = self.by["Ceiling_Slab"]; self.assertEqual(slab["hole"], R); self.assertEqual([slab["position"][0], slab["position"][2]], [dx, dz])
-        for k in "WENS": self.assertIn("Ceiling_Slab_" + k, self.by)  # the rest of the roof, edge to edge with the holed square
+        for k in "ENS": self.assertIn("Ceiling_Slab_" + k, self.by)  # the rest of the roof, edge to edge with the holed square
+        for k in ("Wa", "Wb", "Wc", "Wd"): self.assertIn("Ceiling_Slab_" + k, self.by)  # Stage 144: the west strip split round the boss shaft
+        sl = [o for n_, o in self.by.items() if n_.startswith("Ceiling_") and n_.endswith(("_Slab",)) or n_.startswith("Ceiling_Slab")]
+        area = sum(o["size"][0] * o["size"][2] for o in sl); full = self.by["Ceiling_Slab_E"]  # the pieces tile the whole roof (no gaps / overlaps)
+        xs = [o["position"][0] + sg * o["size"][0] / 2 for o in sl for sg in (-1, 1)]; zs = [o["position"][2] + sg * o["size"][2] / 2 for o in sl for sg in (-1, 1)]
+        self.assertAlmostEqual(area, (max(xs) - min(xs)) * (max(zs) - min(zs)), places=1)
         self.assertNotIn("Dome_Glass", self.by)  # Stage 128: fully clear - an open frame, no glass tint at all
         self.assertNotIn("Dome_Sky", self.by)  # Stage 129: no painted sky shell - the level's real sky shows through
         self.assertGreaterEqual(sum(1 for n in self.by if n.startswith("Dome_Rib_")), D["ribs"] * 6)

@@ -41,22 +41,22 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 4428,
-    "triangles": 73640,
-    "nodes": 2729,
-    "mesh_nodes": 2694,
-    "unique_meshes": 1266,
-    "materials": 50,
+    "glb_kb": 4571,
+    "triangles": 75508,
+    "nodes": 2684,
+    "mesh_nodes": 2649,
+    "unique_meshes": 1268,
+    "materials": 51,
     "images": 123,
-    "draw_calls_unbatched": 2694,
-    "draw_calls_batched_min": 50,
+    "draw_calls_unbatched": 2649,
+    "draw_calls_batched_min": 51,
     "tex_mem_uncompressed_mb": 109.11,
     "tex_mem_gpu_compressed_mb": 27.28,
     "texture_slots": {
-     "baseColorTexture": 45,
-     "metallicRoughnessTexture": 45,
-     "normalTexture": 34,
-     "occlusionTexture": 45,
+     "baseColorTexture": 46,
+     "metallicRoughnessTexture": 46,
+     "normalTexture": 35,
+     "occlusionTexture": 46,
      "emissiveTexture": 28
     },
     "image_sizes": [
@@ -73,27 +73,27 @@
    },
    "visible": {
     "cameras": 120,
-    "visible_draw_calls_mean": 877.0,
-    "visible_draw_calls_max": 2686,
-    "visible_triangles_mean": 36434,
-    "visible_triangles_max": 84244
+    "visible_draw_calls_mean": 865.0,
+    "visible_draw_calls_max": 2641,
+    "visible_triangles_mean": 36922,
+    "visible_triangles_max": 86112
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 2609,
-    "triangles": 70746,
-    "nodes": 238,
-    "mesh_nodes": 139,
-    "unique_meshes": 139,
-    "materials": 50,
+    "glb_kb": 2637,
+    "triangles": 72614,
+    "nodes": 241,
+    "mesh_nodes": 142,
+    "unique_meshes": 142,
+    "materials": 51,
     "images": 89,
-    "draw_calls_unbatched": 139,
-    "draw_calls_batched_min": 50,
+    "draw_calls_unbatched": 142,
+    "draw_calls_batched_min": 51,
     "tex_mem_uncompressed_mb": 46.53,
     "tex_mem_gpu_compressed_mb": 11.63,
     "texture_slots": {
-     "baseColorTexture": 45,
+     "baseColorTexture": 46,
      "emissiveTexture": 28,
      "metallicRoughnessTexture": 24,
      "normalTexture": 13,
@@ -133,16 +133,16 @@
     ]
    },
    "collision": {
-    "colliders": 459,
+    "colliders": 463,
     "hazards": 1,
-    "glb_kb": 209
+    "glb_kb": 213
    },
    "visible": {
     "cameras": 120,
-    "visible_draw_calls_mean": 76.4,
-    "visible_draw_calls_max": 142,
-    "visible_triangles_mean": 61612,
-    "visible_triangles_max": 81550
+    "visible_draw_calls_mean": 77.1,
+    "visible_draw_calls_max": 145,
+    "visible_triangles_mean": 62236,
+    "visible_triangles_max": 83418
    },
    "hidden_faces_removed": 945,
    "occluded_faces_removed": 1949,
@@ -155,16 +155,16 @@
    "effects_max_particles": 1215,
    "slimmed_kb": {
     "level_mobile.glb": [
-     3965,
-     2609
+     4011,
+     2637
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     283,
-     209
+     287,
+     213
     ]
    }
   }
@@ -482,7 +482,7 @@
    "node": "Ceiling__ceiling",
    "kind": "group",
    "material": "ceiling",
-   "triangles": 780,
+   "triangles": 1296,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -491,10 +491,14 @@
     "Ceil_Step_03",
     "Ceil_Step_02",
     "Ceil_Step_01",
+    "Ceiling_Slab_Wd",
+    "Ceiling_Slab_Wc",
+    "Ceiling_Slab_Wb",
+    "Ceiling_Slab_Wa",
     "Ceiling_Slab_S",
     "Ceiling_Slab_N",
     "Ceiling_Slab_E",
-    "Ceiling_Slab_W",
+    "Ceiling_BossShaft_Slab",
     "Ceiling_Slab"
    ],
    "group": "Ceiling"
@@ -503,7 +507,7 @@
    "node": "Ceiling__frame",
    "kind": "group",
    "material": "frame",
-   "triangles": 4968,
+   "triangles": 4308,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -534,36 +538,6 @@
     "Ceil_Capsule_03_Hanger",
     "Ceil_Capsule_02_Hanger",
     "Ceil_Capsule_01_Hanger",
-    "Ceil_Conduit_2_Br_1049_H2",
-    "Ceil_Conduit_2_Br_1049_H0",
-    "Ceil_Conduit_2_Br_1049",
-    "Ceil_Conduit_2_Br_1016_H2",
-    "Ceil_Conduit_2_Br_1016_H0",
-    "Ceil_Conduit_2_Br_1016",
-    "Ceil_Conduit_2_Br_995_H2",
-    "Ceil_Conduit_2_Br_995_H0",
-    "Ceil_Conduit_2_Br_995",
-    "Ceil_Conduit_2_Br_969_H2",
-    "Ceil_Conduit_2_Br_969_H0",
-    "Ceil_Conduit_2_Br_969",
-    "Ceil_Conduit_2_Br_943_H2",
-    "Ceil_Conduit_2_Br_943_H0",
-    "Ceil_Conduit_2_Br_943",
-    "Ceil_Conduit_1_Br_1049_H2",
-    "Ceil_Conduit_1_Br_1049_H0",
-    "Ceil_Conduit_1_Br_1049",
-    "Ceil_Conduit_1_Br_1024_H2",
-    "Ceil_Conduit_1_Br_1024_H0",
-    "Ceil_Conduit_1_Br_1024",
-    "Ceil_Conduit_1_Br_998_H2",
-    "Ceil_Conduit_1_Br_998_H0",
-    "Ceil_Conduit_1_Br_998",
-    "Ceil_Conduit_1_Br_971_H2",
-    "Ceil_Conduit_1_Br_971_H0",
-    "Ceil_Conduit_1_Br_971",
-    "Ceil_Conduit_1_Br_943_H2",
-    "Ceil_Conduit_1_Br_943_H0",
-    "Ceil_Conduit_1_Br_943",
     "Ceil_Cable_09_4",
     "Ceil_Cable_09_3",
     "Ceil_Cable_09_2",
@@ -619,12 +593,6 @@
     "Ceil_LampRail_1b_Hanger_2",
     "Ceil_LampRail_1b_Hanger_1",
     "Ceil_LampRail_1b",
-    "Ceil_LampRail_1_Hanger_5",
-    "Ceil_LampRail_1_Hanger_4",
-    "Ceil_LampRail_1_Hanger_3",
-    "Ceil_LampRail_1_Hanger_2",
-    "Ceil_LampRail_1_Hanger_1",
-    "Ceil_LampRail_1",
     "Ceil_Fan_1_Grille_14",
     "Ceil_Fan_1_Grille_04",
     "Ceil_Fan_1_Grille_13",
@@ -637,11 +605,6 @@
     "Ceil_Fan_1_Clamp_3",
     "Ceil_Fan_1_Clamp_2",
     "Ceil_Fan_1_Clamp_1",
-    "Ceil_Duct_3_Hanger_5",
-    "Ceil_Duct_3_Hanger_4",
-    "Ceil_Duct_3_Hanger_3",
-    "Ceil_Duct_3_Hanger_2",
-    "Ceil_Duct_3_Hanger_1",
     "Ceil_Beam_09_1",
     "Ceil_Beam_08_1",
     "Ceil_Beam_07_1_W31",
@@ -680,10 +643,6 @@
     "Ceil_Beam_06_1",
     "Ceil_Beam_05_1",
     "Ceil_Beam_04_1",
-    "Ceil_Beam_03_2",
-    "Ceil_Beam_03_1",
-    "Ceil_Beam_02_2",
-    "Ceil_Beam_02_1",
     "Ceil_Beam_01_1_W31",
     "Ceil_Beam_01_1_W30",
     "Ceil_Beam_01_1_W29",
@@ -898,7 +857,7 @@
    "node": "Ceiling__glow",
    "kind": "group",
    "material": "glow",
-   "triangles": 408,
+   "triangles": 384,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -906,8 +865,6 @@
     "Ceil_Red_18_1",
     "Ceil_Red_17_2",
     "Ceil_Red_17_1",
-    "Ceil_Red_16_2",
-    "Ceil_Red_16_1",
     "Ceil_Red_15_2",
     "Ceil_Red_15_1",
     "Ceil_Red_14_2",
@@ -943,7 +900,7 @@
    "node": "Ceiling__glow_yellow",
    "kind": "group",
    "material": "glow_yellow",
-   "triangles": 992,
+   "triangles": 1408,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -965,7 +922,16 @@
     "Ceil_Capsule_02",
     "Ceil_Capsule_01",
     "Ceil_Fan_1_Glow",
-    "Dome_Curb_Trim"
+    "Dome_Curb_Trim",
+    "BossShaft_CarLights",
+    "BossShaft_Lamp_8",
+    "BossShaft_Lamp_7",
+    "BossShaft_Lamp_6",
+    "BossShaft_Lamp_5",
+    "BossShaft_Lamp_4",
+    "BossShaft_Lamp_3",
+    "BossShaft_Lamp_2",
+    "BossShaft_Lamp_1"
    ],
    "group": "Ceiling"
   },
@@ -973,7 +939,7 @@
    "node": "Ceiling__ink",
    "kind": "group",
    "material": "ink",
-   "triangles": 448,
+   "triangles": 472,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -983,7 +949,9 @@
     "Ceil_Fan_1_Clamp_1__ol",
     "Ceil_Fan_1__ol",
     "Ceil_Beam_01_1_B__ol",
-    "Dome_Hub__ol"
+    "Dome_Hub__ol",
+    "BossShaft_CarClamp_1__ol",
+    "BossShaft_Guide_1__ol"
    ],
    "group": "Ceiling"
   },
@@ -991,7 +959,7 @@
    "node": "Ceiling__lamp",
    "kind": "group",
    "material": "lamp",
-   "triangles": 1032,
+   "triangles": 900,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1059,17 +1027,6 @@
     "Ceil_Beam_04_1_Lamp_9714",
     "Ceil_Beam_04_1_Lamp_9656",
     "Ceil_Beam_04_1_Lamp_9533",
-    "Ceil_Beam_03_2_Lamp_0474",
-    "Ceil_Beam_03_2_Lamp_0405",
-    "Ceil_Beam_03_1_Lamp_9791",
-    "Ceil_Beam_03_1_Lamp_9729",
-    "Ceil_Beam_03_1_Lamp_9613",
-    "Ceil_Beam_03_1_Lamp_9532",
-    "Ceil_Beam_02_2_Lamp_0412",
-    "Ceil_Beam_02_1_Lamp_9822",
-    "Ceil_Beam_02_1_Lamp_9767",
-    "Ceil_Beam_02_1_Lamp_9650",
-    "Ceil_Beam_02_1_Lamp_9544",
     "Ceil_Beam_01_1_Lamp_0439",
     "Ceil_Beam_01_1_Lamp_0377",
     "Ceil_Beam_01_1_Lamp_0300",
@@ -1085,25 +1042,51 @@
    "group": "Ceiling"
   },
   {
+   "node": "Ceiling__lift_ring",
+   "kind": "group",
+   "material": "lift_ring",
+   "triangles": 544,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "BossShaft_Car",
+    "BossShaft_Rim"
+   ],
+   "group": "Ceiling"
+  },
+  {
    "node": "Ceiling__pipe",
    "kind": "group",
    "material": "pipe",
-   "triangles": 320,
+   "triangles": 96,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Ceil_Duct_1b",
-    "Ceil_Conduit_2_4",
-    "Ceil_Conduit_2_3",
-    "Ceil_Conduit_2_2",
-    "Ceil_Conduit_2_1",
-    "Ceil_Conduit_1_4",
-    "Ceil_Conduit_1_3",
-    "Ceil_Conduit_1_2",
-    "Ceil_Conduit_1_1",
-    "Ceil_Duct_3",
     "Ceil_Duct_2",
     "Ceil_Duct_1"
+   ],
+   "group": "Ceiling"
+  },
+  {
+   "node": "Ceiling__saw_hub",
+   "kind": "group",
+   "material": "saw_hub",
+   "triangles": 736,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "BossShaft_CarClamp_4",
+    "BossShaft_CarClamp_3",
+    "BossShaft_CarClamp_2",
+    "BossShaft_CarClamp_1",
+    "BossShaft_CarUnder",
+    "BossShaft_Cap",
+    "BossShaft_Guide_4",
+    "BossShaft_Guide_3",
+    "BossShaft_Guide_2",
+    "BossShaft_Guide_1",
+    "BossShaft_RimLip"
    ],
    "group": "Ceiling"
   },
@@ -1111,7 +1094,7 @@
    "node": "Ceiling__stripe",
    "kind": "group",
    "material": "stripe",
-   "triangles": 264,
+   "triangles": 552,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -1127,16 +1110,9 @@
     "Ceil_Beam_05_1_StripeA",
     "Ceil_Beam_04_1_StripeB",
     "Ceil_Beam_04_1_StripeA",
-    "Ceil_Beam_03_2_StripeB",
-    "Ceil_Beam_03_2_StripeA",
-    "Ceil_Beam_03_1_StripeB",
-    "Ceil_Beam_03_1_StripeA",
-    "Ceil_Beam_02_2_StripeB",
-    "Ceil_Beam_02_2_StripeA",
-    "Ceil_Beam_02_1_StripeB",
-    "Ceil_Beam_02_1_StripeA",
     "Ceil_Beam_01_1_StripeB",
-    "Ceil_Beam_01_1_StripeA"
+    "Ceil_Beam_01_1_StripeA",
+    "BossShaft_RimStripe"
    ],
    "group": "Ceiling"
   },
@@ -1206,6 +1182,18 @@
     "Ceil_Fan_1",
     "Dome_Hub",
     "Dome_Curb"
+   ],
+   "group": "Ceiling"
+  },
+  {
+   "node": "Ceiling__wall__2s",
+   "kind": "group",
+   "material": "wall__2s",
+   "triangles": 384,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "BossShaft_Tube"
    ],
    "group": "Ceiling"
   },

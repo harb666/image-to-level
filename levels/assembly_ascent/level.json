@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "aa2e392c3f3886cc",
+  "spec_sha": "2a040edd3c2e92fc",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -12750,12 +12750,12 @@
    "source": "inferred"
   },
   {
-   "name": "Ceiling_Slab_W",
+   "name": "Ceiling_BossShaft_Slab",
    "type": "box",
    "position": [
-    -31.4,
+    -27.0,
     34.5,
-    0.0
+    -39.5
    ],
    "rotation": [
     0.0,
@@ -12763,16 +12763,686 @@
     0.0
    ],
    "size": [
-    45.8,
+    23.0,
     1.0,
-    138.6
+    23.0
    ],
    "material": "ceiling",
+   "hole": 10.0,
+   "hole_res": 48,
+   "collision_mesh": true,
    "cutaway": true,
    "mobile": {
     "group": "Ceiling"
    },
    "outline": false,
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Rim",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    33.95,
+    -39.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    22.4,
+    0.55,
+    22.4
+   ],
+   "material": "lift_ring",
+   "hole": 9.95,
+   "hole_res": 48,
+   "sections": 48,
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_RimStripe",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    33.55,
+    -39.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    21.2,
+    0.42,
+    21.2
+   ],
+   "material": "stripe",
+   "hole": 9.9,
+   "hole_res": 48,
+   "sections": 48,
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_RimLip",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    33.35,
+    -39.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    20.5,
+    0.2,
+    20.5
+   ],
+   "material": "saw_hub",
+   "hole": 9.85,
+   "hole_res": 48,
+   "sections": 48,
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Lamp_1",
+   "type": "box",
+   "position": [
+    -22.79,
+    33.65,
+    -29.337
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "size": [
+    0.6,
+    0.3,
+    0.3
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Lamp_2",
+   "type": "box",
+   "position": [
+    -16.837,
+    33.65,
+    -35.29
+   ],
+   "rotation": [
+    0.0,
+    67.5,
+    0.0
+   ],
+   "size": [
+    0.6,
+    0.3,
+    0.3
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Lamp_3",
+   "type": "box",
+   "position": [
+    -16.837,
+    33.65,
+    -43.71
+   ],
+   "rotation": [
+    0.0,
+    112.5,
+    0.0
+   ],
+   "size": [
+    0.6,
+    0.3,
+    0.3
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Lamp_4",
+   "type": "box",
+   "position": [
+    -22.79,
+    33.65,
+    -49.663
+   ],
+   "rotation": [
+    0.0,
+    157.5,
+    0.0
+   ],
+   "size": [
+    0.6,
+    0.3,
+    0.3
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Lamp_5",
+   "type": "box",
+   "position": [
+    -31.21,
+    33.65,
+    -49.663
+   ],
+   "rotation": [
+    0.0,
+    202.5,
+    0.0
+   ],
+   "size": [
+    0.6,
+    0.3,
+    0.3
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Lamp_6",
+   "type": "box",
+   "position": [
+    -37.163,
+    33.65,
+    -43.71
+   ],
+   "rotation": [
+    0.0,
+    247.5,
+    0.0
+   ],
+   "size": [
+    0.6,
+    0.3,
+    0.3
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Lamp_7",
+   "type": "box",
+   "position": [
+    -37.163,
+    33.65,
+    -35.29
+   ],
+   "rotation": [
+    0.0,
+    292.5,
+    0.0
+   ],
+   "size": [
+    0.6,
+    0.3,
+    0.3
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Lamp_8",
+   "type": "box",
+   "position": [
+    -31.21,
+    33.65,
+    -29.337
+   ],
+   "rotation": [
+    0.0,
+    337.5,
+    0.0
+   ],
+   "size": [
+    0.6,
+    0.3,
+    0.3
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Tube",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    35.48,
+    -39.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    21.2,
+    10.0,
+    21.2
+   ],
+   "material": "wall",
+   "hole": 10.04,
+   "hole_res": 48,
+   "sections": 48,
+   "double_sided": true,
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Guide_1",
+   "type": "box",
+   "position": [
+    -20.106,
+    33.6,
+    -32.606
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    11.9,
+    0.5
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Guide_2",
+   "type": "box",
+   "position": [
+    -20.106,
+    33.6,
+    -46.394
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    11.9,
+    0.5
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Guide_3",
+   "type": "box",
+   "position": [
+    -33.894,
+    33.6,
+    -46.394
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    11.9,
+    0.5
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Guide_4",
+   "type": "box",
+   "position": [
+    -33.894,
+    33.6,
+    -32.606
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    11.9,
+    0.5
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Cap",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    45.46,
+    -39.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    21.2,
+    0.5,
+    21.2
+   ],
+   "material": "saw_hub",
+   "sections": 24,
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_Car",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    42.3,
+    -39.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    18.8,
+    0.7,
+    18.8
+   ],
+   "material": "lift_ring",
+   "sections": 40,
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_CarUnder",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    41.95,
+    -39.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    17.6,
+    0.36,
+    17.6
+   ],
+   "material": "saw_hub",
+   "sections": 40,
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_CarLights",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    41.88,
+    -39.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    17.0,
+    0.08,
+    17.0
+   ],
+   "material": "glow_yellow",
+   "hole": 7.8,
+   "hole_res": 40,
+   "sections": 40,
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_CarClamp_1",
+   "type": "box",
+   "position": [
+    -20.742,
+    42.1,
+    -33.242
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    1.1,
+    1.1,
+    0.8
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_CarClamp_2",
+   "type": "box",
+   "position": [
+    -20.742,
+    42.1,
+    -45.758
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    1.1,
+    1.1,
+    0.8
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_CarClamp_3",
+   "type": "box",
+   "position": [
+    -33.258,
+    42.1,
+    -45.758
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    1.1,
+    1.1,
+    0.8
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_CarClamp_4",
+   "type": "box",
+   "position": [
+    -33.258,
+    42.1,
+    -33.242
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "size": [
+    1.1,
+    1.1,
+    0.8
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
    "gen": "arena.ceiling",
    "source": "inferred"
   },
@@ -12847,6 +13517,114 @@
     45.0,
     1.0,
     80.8
+   ],
+   "material": "ceiling",
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "outline": false,
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceiling_Slab_Wa",
+   "type": "box",
+   "position": [
+    -46.4,
+    34.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    15.8,
+    1.0,
+    138.6
+   ],
+   "material": "ceiling",
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "outline": false,
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceiling_Slab_Wb",
+   "type": "box",
+   "position": [
+    -12.0,
+    34.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.0,
+    1.0,
+    138.6
+   ],
+   "material": "ceiling",
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "outline": false,
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceiling_Slab_Wc",
+   "type": "box",
+   "position": [
+    -27.0,
+    34.5,
+    -60.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    23.0,
+    1.0,
+    18.3
+   ],
+   "material": "ceiling",
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "outline": false,
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceiling_Slab_Wd",
+   "type": "box",
+   "position": [
+    -27.0,
+    34.5,
+    20.65
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    23.0,
+    1.0,
+    97.3
    ],
    "material": "ceiling",
    "cutaway": true,
@@ -60947,650 +61725,6 @@
    "source": "inferred"
   },
   {
-   "name": "Ceil_Beam_02_1",
-   "type": "ibeam",
-   "position": [
-    -29.4,
-    33.23,
-    -37.722
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    41.2,
-    1.27,
-    0.659
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_02_1_StripeA",
-   "type": "box",
-   "position": [
-    -49.0,
-    33.19,
-    -37.722
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.8,
-    0.84,
-    0.759
-   ],
-   "material": "stripe",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_02_1_StripeB",
-   "type": "box",
-   "position": [
-    -9.8,
-    33.19,
-    -37.722
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.8,
-    0.84,
-    0.759
-   ],
-   "material": "stripe",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_02_1_Lamp_9544",
-   "type": "box",
-   "position": [
-    -45.641,
-    33.09,
-    -37.722
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.4,
-    0.12,
-    0.34
-   ],
-   "material": "lamp",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_02_1_Lamp_9650",
-   "type": "box",
-   "position": [
-    -35.077,
-    33.09,
-    -37.722
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.4,
-    0.12,
-    0.34
-   ],
-   "material": "lamp",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_02_1_Lamp_9767",
-   "type": "box",
-   "position": [
-    -23.378,
-    33.09,
-    -37.722
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.4,
-    0.12,
-    0.34
-   ],
-   "material": "lamp",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_02_1_Lamp_9822",
-   "type": "box",
-   "position": [
-    -17.81,
-    33.09,
-    -37.722
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.4,
-    0.12,
-    0.34
-   ],
-   "material": "lamp",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_02_2",
-   "type": "ibeam",
-   "position": [
-    43.4,
-    33.23,
-    -37.722
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    13.2,
-    1.27,
-    0.616
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_02_2_StripeA",
-   "type": "box",
-   "position": [
-    37.8,
-    33.19,
-    -37.722
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.8,
-    0.84,
-    0.716
-   ],
-   "material": "stripe",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_02_2_StripeB",
-   "type": "box",
-   "position": [
-    49.0,
-    33.19,
-    -37.722
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.8,
-    0.84,
-    0.716
-   ],
-   "material": "stripe",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_02_2_Lamp_0412",
-   "type": "box",
-   "position": [
-    41.284,
-    33.09,
-    -37.722
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.4,
-    0.12,
-    0.34
-   ],
-   "material": "lamp",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_03_1",
-   "type": "ibeam",
-   "position": [
-    -29.4,
-    32.65,
-    -28.788
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    41.2,
-    1.85,
-    0.603
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_03_1_StripeA",
-   "type": "box",
-   "position": [
-    -49.0,
-    32.61,
-    -28.788
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.8,
-    0.84,
-    0.703
-   ],
-   "material": "stripe",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_03_1_StripeB",
-   "type": "box",
-   "position": [
-    -9.8,
-    32.61,
-    -28.788
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.8,
-    0.84,
-    0.703
-   ],
-   "material": "stripe",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_03_1_Lamp_9532",
-   "type": "box",
-   "position": [
-    -46.818,
-    32.51,
-    -28.788
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.4,
-    0.12,
-    0.34
-   ],
-   "material": "lamp",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_03_1_Lamp_9613",
-   "type": "box",
-   "position": [
-    -38.766,
-    32.51,
-    -28.788
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.4,
-    0.12,
-    0.34
-   ],
-   "material": "lamp",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_03_1_Lamp_9729",
-   "type": "box",
-   "position": [
-    -27.153,
-    32.51,
-    -28.788
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.4,
-    0.12,
-    0.34
-   ],
-   "material": "lamp",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_03_1_Lamp_9791",
-   "type": "box",
-   "position": [
-    -20.976,
-    32.51,
-    -28.788
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.4,
-    0.12,
-    0.34
-   ],
-   "material": "lamp",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_03_2",
-   "type": "ibeam",
-   "position": [
-    43.4,
-    32.65,
-    -28.788
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    13.2,
-    1.85,
-    0.879
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_03_2_StripeA",
-   "type": "box",
-   "position": [
-    37.8,
-    32.61,
-    -28.788
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.8,
-    0.84,
-    0.979
-   ],
-   "material": "stripe",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_03_2_StripeB",
-   "type": "box",
-   "position": [
-    49.0,
-    32.61,
-    -28.788
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.8,
-    0.84,
-    0.979
-   ],
-   "material": "stripe",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_03_2_Lamp_0405",
-   "type": "box",
-   "position": [
-    40.529,
-    32.51,
-    -28.788
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.4,
-    0.12,
-    0.34
-   ],
-   "material": "lamp",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Beam_03_2_Lamp_0474",
-   "type": "box",
-   "position": [
-    47.428,
-    32.51,
-    -28.788
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.4,
-    0.12,
-    0.34
-   ],
-   "material": "lamp",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
    "name": "Ceil_Beam_04_1",
    "type": "ibeam",
    "position": [
@@ -65093,175 +65227,6 @@
    "source": "inferred"
   },
   {
-   "name": "Ceil_Duct_3",
-   "type": "cylinder",
-   "position": [
-    -19.655,
-    30.102,
-    -50.687
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.573,
-    49.076,
-    1.573
-   ],
-   "material": "pipe",
-   "sections": 8,
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Duct_3_Hanger_1",
-   "type": "box",
-   "position": [
-    -19.655,
-    30.789,
-    -50.187
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.18,
-    3.711,
-    0.18
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Duct_3_Hanger_2",
-   "type": "box",
-   "position": [
-    -19.655,
-    30.789,
-    -38.168
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.18,
-    3.711,
-    0.18
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Duct_3_Hanger_3",
-   "type": "box",
-   "position": [
-    -19.655,
-    30.789,
-    -26.149
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.18,
-    3.711,
-    0.18
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Duct_3_Hanger_4",
-   "type": "box",
-   "position": [
-    -19.655,
-    30.789,
-    -14.13
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.18,
-    3.711,
-    0.18
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Duct_3_Hanger_5",
-   "type": "box",
-   "position": [
-    -19.655,
-    30.789,
-    -2.111
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.18,
-    3.711,
-    0.18
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
    "name": "Ceil_Fan_1",
    "type": "cylinder",
    "position": [
@@ -65679,173 +65644,6 @@
    "cutaway": true,
    "mobile": {
     "merge": false
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_LampRail_1",
-   "type": "ibeam",
-   "position": [
-    -26.996,
-    31.43,
-    -46.825
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    40.008,
-    0.5,
-    0.4
-   ],
-   "material": "frame",
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_LampRail_1_Hanger_1",
-   "type": "box",
-   "position": [
-    -46.5,
-    31.93,
-    -46.825
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.16,
-    2.65,
-    0.16
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_LampRail_1_Hanger_2",
-   "type": "box",
-   "position": [
-    -36.748,
-    31.93,
-    -46.825
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.16,
-    2.65,
-    0.16
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_LampRail_1_Hanger_3",
-   "type": "box",
-   "position": [
-    -26.996,
-    31.93,
-    -46.825
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.16,
-    2.65,
-    0.16
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_LampRail_1_Hanger_4",
-   "type": "box",
-   "position": [
-    -17.244,
-    31.93,
-    -46.825
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.16,
-    2.65,
-    0.16
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_LampRail_1_Hanger_5",
-   "type": "box",
-   "position": [
-    -7.492,
-    31.93,
-    -46.825
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.16,
-    2.65,
-    0.16
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
    },
    "gen": "arena.ceiling",
    "source": "inferred"
@@ -67374,1078 +67172,6 @@
     0.16,
     0.16,
     5.21
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_1",
-   "type": "cylinder",
-   "position": [
-    -34.339,
-    33.9,
-    -59.558
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.24,
-    116.189,
-    0.24
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_2",
-   "type": "cylinder",
-   "position": [
-    -33.999,
-    33.9,
-    -59.558
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.24,
-    116.189,
-    0.24
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_3",
-   "type": "cylinder",
-   "position": [
-    -33.659,
-    33.9,
-    -59.558
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.24,
-    116.189,
-    0.24
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_4",
-   "type": "cylinder",
-   "position": [
-    -33.319,
-    33.9,
-    -59.558
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.24,
-    116.189,
-    0.24
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_Br_943",
-   "type": "box",
-   "position": [
-    -33.829,
-    33.65,
-    -57.558
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_Br_943_H0",
-   "type": "box",
-   "position": [
-    -34.599,
-    33.76,
-    -57.558
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_Br_943_H2",
-   "type": "box",
-   "position": [
-    -33.059,
-    33.76,
-    -57.558
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_Br_971",
-   "type": "box",
-   "position": [
-    -33.829,
-    33.65,
-    -29.528
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_Br_971_H0",
-   "type": "box",
-   "position": [
-    -34.599,
-    33.76,
-    -29.528
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_Br_971_H2",
-   "type": "box",
-   "position": [
-    -33.059,
-    33.76,
-    -29.528
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_Br_998",
-   "type": "box",
-   "position": [
-    -33.829,
-    33.65,
-    -2.946
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_Br_998_H0",
-   "type": "box",
-   "position": [
-    -34.599,
-    33.76,
-    -2.946
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_Br_998_H2",
-   "type": "box",
-   "position": [
-    -33.059,
-    33.76,
-    -2.946
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_Br_1024",
-   "type": "box",
-   "position": [
-    -33.829,
-    33.65,
-    24.666
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_Br_1024_H0",
-   "type": "box",
-   "position": [
-    -34.599,
-    33.76,
-    24.666
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_Br_1024_H2",
-   "type": "box",
-   "position": [
-    -33.059,
-    33.76,
-    24.666
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_Br_1049",
-   "type": "box",
-   "position": [
-    -33.829,
-    33.65,
-    49.947
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_Br_1049_H0",
-   "type": "box",
-   "position": [
-    -34.599,
-    33.76,
-    49.947
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_1_Br_1049_H2",
-   "type": "box",
-   "position": [
-    -33.059,
-    33.76,
-    49.947
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_1",
-   "type": "cylinder",
-   "position": [
-    -22.201,
-    33.9,
-    -59.47
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.24,
-    117.17,
-    0.24
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_2",
-   "type": "cylinder",
-   "position": [
-    -21.861,
-    33.9,
-    -59.47
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.24,
-    117.17,
-    0.24
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_3",
-   "type": "cylinder",
-   "position": [
-    -21.521,
-    33.9,
-    -59.47
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.24,
-    117.17,
-    0.24
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_4",
-   "type": "cylinder",
-   "position": [
-    -21.181,
-    33.9,
-    -59.47
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.24,
-    117.17,
-    0.24
-   ],
-   "material": "pipe",
-   "sections": 6,
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_943",
-   "type": "box",
-   "position": [
-    -21.691,
-    33.65,
-    -57.47
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_943_H0",
-   "type": "box",
-   "position": [
-    -22.461,
-    33.76,
-    -57.47
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_943_H2",
-   "type": "box",
-   "position": [
-    -20.921,
-    33.76,
-    -57.47
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_969",
-   "type": "box",
-   "position": [
-    -21.691,
-    33.65,
-    -31.567
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_969_H0",
-   "type": "box",
-   "position": [
-    -22.461,
-    33.76,
-    -31.567
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_969_H2",
-   "type": "box",
-   "position": [
-    -20.921,
-    33.76,
-    -31.567
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_995",
-   "type": "box",
-   "position": [
-    -21.691,
-    33.65,
-    -5.853
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_995_H0",
-   "type": "box",
-   "position": [
-    -22.461,
-    33.76,
-    -5.853
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_995_H2",
-   "type": "box",
-   "position": [
-    -20.921,
-    33.76,
-    -5.853
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1016",
-   "type": "box",
-   "position": [
-    -21.691,
-    33.65,
-    16.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1016_H0",
-   "type": "box",
-   "position": [
-    -22.461,
-    33.76,
-    16.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1016_H2",
-   "type": "box",
-   "position": [
-    -20.921,
-    33.76,
-    16.06
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1049",
-   "type": "box",
-   "position": [
-    -21.691,
-    33.65,
-    49.083
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.66,
-    0.12,
-    0.25
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1049_H0",
-   "type": "box",
-   "position": [
-    -22.461,
-    33.76,
-    49.083
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
-   ],
-   "material": "frame",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Conduit_2_Br_1049_H2",
-   "type": "box",
-   "position": [
-    -20.921,
-    33.76,
-    49.083
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.72,
-    0.08
    ],
    "material": "frame",
    "outline": false,
@@ -71617,62 +70343,6 @@
    "rotation": [
     0.0,
     90.0,
-    0.0
-   ],
-   "size": [
-    0.3,
-    0.2,
-    1.1
-   ],
-   "material": "glow",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Red_16_1",
-   "type": "box",
-   "position": [
-    -35.323,
-    34.23,
-    -32.094
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.3,
-    0.2,
-    1.1
-   ],
-   "material": "glow",
-   "outline": false,
-   "collision": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Ceiling"
-   },
-   "gen": "arena.ceiling",
-   "source": "inferred"
-  },
-  {
-   "name": "Ceil_Red_16_2",
-   "type": "box",
-   "position": [
-    -34.623,
-    34.23,
-    -32.094
-   ],
-   "rotation": [
-    0.0,
-    0.0,
     0.0
    ],
    "size": [
@@ -81844,6 +80514,7 @@
   "ignore_objects": []
  },
  "generator_notes": [
+  "ceiling: lift shaft BossShaft r 10.0 m at (-27.0, -39.5), 10 m tall, car parked at the top",
   "ceiling: glass dome r 20 m (rise 10 m) at (14, -34), 12 ribs, warm light shafts",
   "ceiling: roof slab at y 34.5 m, varied dressing",
   "Yard_Bridge: 0.35 m junction plate where it meets Robot_Ring's angled edge",
@@ -81863,6 +80534,7 @@
   "Overlook: corner overlook 5.1 x 15.0 m at 15.5 m, gantry 14.8 m to lift Spinner_Pad_1_Lift",
   "Arena: battle arena rising out of the liquid (goofy) - 25 square tiles, 20.8 m across at 15.5 m",
   "Jet_Screen: jetpack grin screen bobbing at [-2.0, 22.0, -18.0]; flies to [28.39, 21.632, 28.89] when a player reaches Arena_Deck - big red button opens ['Yard_Laser']",
+  "ceiling: 75 dressing parts cleared from over the lift shaft at (-27, -40)",
   "crates: 11 printed crates (accent atlas)",
   "fixtures: 48 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_West_M02Fan)",
   "ducts: Ceil_Duct_1 trimmed to 2 piece(s) clear of 2 standing part(s), 0 crane runway(s), ends at beams 0.0 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 0.0 m",
@@ -81994,13 +80666,13 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 64216,
-  "objects": 2473,
+  "triangles": 66060,
+  "objects": 2426,
   "materials": 48,
-  "glb_kb": 4428,
-  "nodes": 2729,
-  "draw_calls_unbatched": 2694,
-  "draw_calls_batched_min": 50,
+  "glb_kb": 4571,
+  "nodes": 2684,
+  "draw_calls_unbatched": 2649,
+  "draw_calls_batched_min": 51,
   "images": 123,
   "tex_mem_gpu_compressed_mb": 27.28,
   "tex_mem_uncompressed_mb": 109.11,
