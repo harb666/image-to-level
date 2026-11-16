@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "546982a93c27be3e",
+  "spec_sha": "bc6379dd4178b61f",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -76,39 +76,15 @@
    "ripples": [
     [
      -37.2,
-     -20.21,
+     -19.73,
      1.0,
      3.65
     ],
     [
-     -42.39,
-     -24.27,
-     1.0,
-     2.52
-    ],
-    [
-     -41.97,
-     -20.63,
-     1.0,
-     0.75
-    ],
-    [
      -17.9,
-     -20.21,
+     -19.73,
      1.0,
      4.75
-    ],
-    [
-     -11.61,
-     -24.27,
-     1.0,
-     2.52
-    ],
-    [
-     -12.03,
-     -20.63,
-     1.0,
-     0.75
     ],
     [
      -32.27,
@@ -147,11 +123,7 @@
    "type": "liquid_flow",
    "targets_glob": [
     "Showcase_Pit_1_FrontFall",
-    "Showcase_Pit_1_SideFall",
-    "Showcase_Pit_1_CornerFall",
-    "Showcase_Pit_2_FrontFall",
-    "Showcase_Pit_2_SideFall",
-    "Showcase_Pit_2_CornerFall"
+    "Showcase_Pit_2_FrontFall"
    ],
    "speed": 3.0
   },
@@ -160,11 +132,7 @@
    "type": "splash",
    "at_targets_glob": [
     "Showcase_Pit_1_FrontFall",
-    "Showcase_Pit_1_SideFall",
-    "Showcase_Pit_1_CornerFall",
-    "Showcase_Pit_2_FrontFall",
-    "Showcase_Pit_2_SideFall",
-    "Showcase_Pit_2_CornerFall"
+    "Showcase_Pit_2_FrontFall"
    ],
    "anchor": "bottom"
   },
@@ -173,11 +141,7 @@
    "type": "steam",
    "at_targets_glob": [
     "Showcase_Pit_1_FrontFall",
-    "Showcase_Pit_1_SideFall",
-    "Showcase_Pit_1_CornerFall",
-    "Showcase_Pit_2_FrontFall",
-    "Showcase_Pit_2_SideFall",
-    "Showcase_Pit_2_CornerFall"
+    "Showcase_Pit_2_FrontFall"
    ],
    "anchor": "bottom"
   },
@@ -269,6 +233,130 @@
    "rate": 30
   },
   {
+   "id": "Pit_Veil_Flow",
+   "type": "liquid_flow",
+   "targets_glob": [
+    "Showcase_Pit_1_FrontVeil",
+    "Showcase_Pit_2_FrontVeil"
+   ],
+   "speed": 4.6
+  },
+  {
+   "id": "Pit_Splash",
+   "type": "splash",
+   "positions": [
+    [
+     -40.4,
+     1.1,
+     -19.73
+    ],
+    [
+     -38.8,
+     1.1,
+     -19.73
+    ],
+    [
+     -37.2,
+     1.1,
+     -19.73
+    ],
+    [
+     -35.6,
+     1.1,
+     -19.73
+    ],
+    [
+     -34.0,
+     1.1,
+     -19.73
+    ],
+    [
+     -22.2,
+     1.1,
+     -19.73
+    ],
+    [
+     -20.05,
+     1.1,
+     -19.73
+    ],
+    [
+     -17.9,
+     1.1,
+     -19.73
+    ],
+    [
+     -15.75,
+     1.1,
+     -19.73
+    ],
+    [
+     -13.6,
+     1.1,
+     -19.73
+    ]
+   ],
+   "rate": 26.0,
+   "speed": [
+    1.5,
+    3.4
+   ],
+   "size": [
+    0.4,
+    0.12
+   ],
+   "spread": 55
+  },
+  {
+   "id": "Pit_Spray",
+   "type": "steam",
+   "positions": [
+    [
+     -38.8,
+     1.1,
+     -19.73
+    ],
+    [
+     -35.6,
+     1.1,
+     -19.73
+    ],
+    [
+     -22.2,
+     1.1,
+     -19.73
+    ],
+    [
+     -17.9,
+     1.1,
+     -19.73
+    ],
+    [
+     -13.6,
+     1.1,
+     -19.73
+    ]
+   ]
+  },
+  {
+   "id": "Showcase_Pit_1_FallGlow",
+   "type": "point_light",
+   "positions": [
+    [
+     -37.2,
+     2.6,
+     -17.93
+    ]
+   ],
+   "color": [
+    0.45,
+    1.0,
+    0.25
+   ],
+   "energy": 1.6,
+   "range": 11.0
+  },
+  {
    "id": "Showcase_Pit_1_Glow",
    "type": "point_light",
    "positions": [
@@ -276,11 +364,6 @@
      -37.2,
      8.6,
      -24.275
-    ],
-    [
-     -42.14,
-     3.5,
-     -20.0
     ]
    ],
    "color": [
@@ -292,6 +375,24 @@
    "range": 12.0
   },
   {
+   "id": "Showcase_Pit_2_FallGlow",
+   "type": "point_light",
+   "positions": [
+    [
+     -17.9,
+     2.6,
+     -17.93
+    ]
+   ],
+   "color": [
+    0.45,
+    1.0,
+    0.25
+   ],
+   "energy": 1.6,
+   "range": 11.0
+  },
+  {
    "id": "Showcase_Pit_2_Glow",
    "type": "point_light",
    "positions": [
@@ -299,11 +400,6 @@
      -17.9,
      8.6,
      -24.275
-    ],
-    [
-     -11.53,
-     3.5,
-     -20.0
     ]
    ],
    "color": [
@@ -3075,6 +3171,26 @@
    "streaks": true,
    "res": 256
   },
+  "fall_veil": {
+   "type": "toxic",
+   "color": [
+    0.62,
+    1.0,
+    0.35
+   ],
+   "tile_m": 2.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "emissive": [
+    0.75,
+    1.0,
+    0.4
+   ],
+   "streaks": true,
+   "res": 256,
+   "alpha": 0.55,
+   "notes": "Stage 139: the bright, see-through veil over each waterfall"
+  },
   "frame": {
    "type": "industrial_metal",
    "color": [
@@ -3452,6 +3568,26 @@
    "metal": 0.6,
    "rough": 0.35,
    "notes": "spikes (plain)"
+  },
+  "splash_pool": {
+   "type": "pool_fade",
+   "color": [
+    0.7,
+    1.0,
+    0.45
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 128,
+   "alpha": 0.6,
+   "falloff": 1.6,
+   "emissive": [
+    0.65,
+    1.0,
+    0.35
+   ],
+   "notes": "Stage 139: soft glowing churn where a waterfall lands"
   },
   "stripe": {
    "type": "chevron",
@@ -24992,9 +25128,9 @@
     -90.0
    ],
    "size": [
-    0.5,
+    0.56,
     7.36,
-    0.5
+    0.56
    ],
    "material": "fall",
    "sections": 8,
@@ -25012,7 +25148,7 @@
    "position": [
     -37.2,
     6.98,
-    -21.46
+    -21.44
    ],
    "rotation": [
     0.0,
@@ -25022,16 +25158,16 @@
    "size": [
     7.3,
     6.28,
-    0.3
+    0.42
    ],
    "material": "fall",
    "section": "rect",
-   "speed": 1.1,
-   "pitch": 8,
+   "speed": 1.5,
+   "pitch": 10,
    "inset": 0.2,
-   "widen": 0.12,
-   "thin": 0.25,
-   "segments": 12,
+   "widen": 0.18,
+   "thin": 0.2,
+   "segments": 14,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -25041,59 +25177,31 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Pit_1_SideCrest",
-   "type": "cylinder",
-   "position": [
-    -41.0,
-    6.94,
-    -26.83
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.5,
-    5.11,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Pit_1_SideFall",
+   "name": "Showcase_Pit_1_FrontVeil",
    "type": "stream",
    "position": [
-    -41.14,
-    6.98,
-    -24.275
+    -37.2,
+    7.06,
+    -21.3
    ],
    "rotation": [
     0.0,
-    -90.0,
+    0.0,
     0.0
    ],
    "size": [
-    5.05,
-    6.28,
-    0.3
+    6.232,
+    6.36,
+    0.16
    ],
-   "material": "fall",
+   "material": "fall_veil",
    "section": "rect",
-   "speed": 1.1,
-   "pitch": 8,
+   "speed": 2.2,
+   "pitch": 14,
    "inset": 0.2,
-   "widen": 0.12,
-   "thin": 0.25,
-   "segments": 12,
+   "widen": 0.32,
+   "thin": 0.45,
+   "segments": 14,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -25103,12 +25211,12 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Pit_1_CornerCrest",
-   "type": "cylinder",
+   "name": "Showcase_Pit_1_SplashPool",
+   "type": "dome_shell",
    "position": [
-    -40.75,
-    6.74,
-    -21.85
+    -37.2,
+    1.13,
+    -19.329
    ],
    "rotation": [
     0.0,
@@ -25116,46 +25224,15 @@
     0.0
    ],
    "size": [
-    0.62,
-    0.42,
-    0.62
+    11.0,
+    0.02,
+    5.2
    ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Pit_1_CornerFall",
-   "type": "stream",
-   "position": [
-    -40.962,
-    6.98,
-    -21.638
-   ],
-   "rotation": [
-    0.0,
-    -45.0,
-    0.0
-   ],
-   "size": [
-    1.5,
-    6.28,
-    0.3
-   ],
-   "material": "fall",
-   "section": "rect",
-   "speed": 1.25,
-   "pitch": 8,
-   "inset": 0.2,
-   "widen": 0.25,
-   "thin": 0.25,
-   "segments": 12,
+   "material": "splash_pool",
+   "sections": 32,
+   "rings": 4,
+   "uv": "planar",
+   "double_sided": true,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -25330,9 +25407,9 @@
     -90.0
    ],
    "size": [
-    0.5,
+    0.56,
     9.56,
-    0.5
+    0.56
    ],
    "material": "fall",
    "sections": 8,
@@ -25350,7 +25427,7 @@
    "position": [
     -17.9,
     6.98,
-    -21.46
+    -21.44
    ],
    "rotation": [
     0.0,
@@ -25360,16 +25437,16 @@
    "size": [
     9.5,
     6.28,
-    0.3
+    0.42
    ],
    "material": "fall",
    "section": "rect",
-   "speed": 1.1,
-   "pitch": 8,
+   "speed": 1.5,
+   "pitch": 10,
    "inset": 0.2,
-   "widen": 0.12,
-   "thin": 0.25,
-   "segments": 12,
+   "widen": 0.18,
+   "thin": 0.2,
+   "segments": 14,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -25379,59 +25456,31 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Pit_2_SideCrest",
-   "type": "cylinder",
-   "position": [
-    -13.0,
-    6.94,
-    -26.83
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.5,
-    5.11,
-    0.5
-   ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Pit_2_SideFall",
+   "name": "Showcase_Pit_2_FrontVeil",
    "type": "stream",
    "position": [
-    -12.86,
-    6.98,
-    -24.275
+    -17.9,
+    7.06,
+    -21.3
    ],
    "rotation": [
     0.0,
-    90.0,
+    0.0,
     0.0
    ],
    "size": [
-    5.05,
-    6.28,
-    0.3
+    8.036,
+    6.36,
+    0.16
    ],
-   "material": "fall",
+   "material": "fall_veil",
    "section": "rect",
-   "speed": 1.1,
-   "pitch": 8,
+   "speed": 2.2,
+   "pitch": 14,
    "inset": 0.2,
-   "widen": 0.12,
-   "thin": 0.25,
-   "segments": 12,
+   "widen": 0.32,
+   "thin": 0.45,
+   "segments": 14,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -25441,12 +25490,12 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Pit_2_CornerCrest",
-   "type": "cylinder",
+   "name": "Showcase_Pit_2_SplashPool",
+   "type": "dome_shell",
    "position": [
-    -13.25,
-    6.74,
-    -21.85
+    -17.9,
+    1.13,
+    -19.329
    ],
    "rotation": [
     0.0,
@@ -25454,46 +25503,15 @@
     0.0
    ],
    "size": [
-    0.62,
-    0.42,
-    0.62
+    13.2,
+    0.02,
+    5.2
    ],
-   "material": "fall",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Pit_2_CornerFall",
-   "type": "stream",
-   "position": [
-    -13.038,
-    6.98,
-    -21.638
-   ],
-   "rotation": [
-    0.0,
-    45.0,
-    0.0
-   ],
-   "size": [
-    1.5,
-    6.28,
-    0.3
-   ],
-   "material": "fall",
-   "section": "rect",
-   "speed": 1.25,
-   "pitch": 8,
-   "inset": 0.2,
-   "widen": 0.25,
-   "thin": 0.25,
-   "segments": 12,
+   "material": "splash_pool",
+   "sections": 32,
+   "rings": 4,
+   "uv": "planar",
+   "double_sided": true,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -77602,12 +77620,7 @@
   },
   {
    "type": "flows_into",
-   "a": "Showcase_Pit_1_SideFall",
-   "b": "HazardFluid"
-  },
-  {
-   "type": "flows_into",
-   "a": "Showcase_Pit_1_CornerFall",
+   "a": "Showcase_Pit_1_FrontVeil",
    "b": "HazardFluid"
   },
   {
@@ -77617,12 +77630,7 @@
   },
   {
    "type": "flows_into",
-   "a": "Showcase_Pit_2_SideFall",
-   "b": "HazardFluid"
-  },
-  {
-   "type": "flows_into",
-   "a": "Showcase_Pit_2_CornerFall",
+   "a": "Showcase_Pit_2_FrontVeil",
    "b": "HazardFluid"
   }
  ],
@@ -77640,16 +77648,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 54416,
-  "objects": 2344,
-  "materials": 43,
-  "glb_kb": 4032,
-  "nodes": 2599,
-  "draw_calls_unbatched": 2564,
-  "draw_calls_batched_min": 45,
-  "images": 114,
-  "tex_mem_gpu_compressed_mb": 26.4,
-  "tex_mem_uncompressed_mb": 105.61,
+  "triangles": 54576,
+  "objects": 2340,
+  "materials": 45,
+  "glb_kb": 4061,
+  "nodes": 2595,
+  "draw_calls_unbatched": 2560,
+  "draw_calls_batched_min": 47,
+  "images": 118,
+  "tex_mem_gpu_compressed_mb": 26.55,
+  "tex_mem_uncompressed_mb": 106.19,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

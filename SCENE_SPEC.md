@@ -1424,4 +1424,9 @@ Building blocks usable without the preset:
   (rect sheets, arcing out) pouring off the front, the outer side and the corner into the pool. They join `ctx.pours`
   (effects Pour_Flow / Pour_Splash / Pour_Steam) and `flows_into` the pool; the pit tops churn (`<pit>_Slime_Surface`,
   `_Bubbles`) and a green light glows over each.
+- Stage 139: the pits spill off the FRONT only, as a waterfall: a thick curtain (`<pit>_FrontFall`) under a faster,
+  brighter see-through veil (`_FrontVeil`, role `fall_veil`, its own flow effect `Pit_Veil_Flow`), a glowing roll over
+  the lip, a soft `pool_fade` splash pool where it lands (`_SplashPool`), a row of splash bursts + spray along its
+  foot (`Pit_Splash` / `Pit_Spray`) and a green glow there. geometry_check: a pour landing on a non-colliding overlay
+  (glow / splash disc) no longer counts as landing on a floor.
 

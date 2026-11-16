@@ -502,9 +502,12 @@ class Showcase(unittest.TestCase):
             n = f"Showcase_Pit_{k}"; sl = self.by[n + "_Slime"]; rim = self.by[n + "_Rim_1"]
             self.assertGreater(sl["position"][1] + sl["size"][1], rim["position"][1] + rim["size"][1])
             self.assertNotIn(n + "_Grate", self.by)
-            for e in ("_FrontFall", "_SideFall", "_CornerFall"): self.assertEqual(self.by[n + e]["type"], "stream", n + e)
+            for e in ("_FrontFall", "_FrontVeil"): self.assertEqual(self.by[n + e]["type"], "stream", n + e)  # Stage 139: the front only (a waterfall + its bright veil)
+            for e in ("_SideFall", "_CornerFall"): self.assertNotIn(n + e, self.by)
+            self.assertEqual(self.L["materials"][self.by[n + "_SplashPool"]["material"]]["type"], "pool_fade")
         E = {e["id"]: e for e in _load("effects.json")["effects"]}
-        self.assertTrue({"Pour_Flow", "Pour_Splash", "Pour_Steam", "Showcase_Pit_1_Slime_Surface", "Showcase_Pit_2_Slime_Bubbles"} <= set(E))
+        self.assertTrue({"Pour_Flow", "Pour_Splash", "Pour_Steam", "Pit_Veil_Flow", "Pit_Splash", "Pit_Spray", "Showcase_Pit_1_Slime_Surface", "Showcase_Pit_2_Slime_Bubbles"} <= set(E))
+        self.assertEqual(len(E["Pit_Splash"]["emitters"]), 10)  # a row of five splash bursts along each waterfall's foot
         self.assertIn("Showcase_Pit_1_FrontFall", E["Pour_Flow"].get("targets", []) + E["Pour_Flow"].get("targets_glob", []))
 
 if __name__ == "__main__":

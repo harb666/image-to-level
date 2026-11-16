@@ -272,6 +272,10 @@ def _effects(spec, ctx, plats, env, glow):
         for ps_ in getattr(ctx, "pit_surfaces", []):  # Stage 138: brimming showcase pits - churning surface + bubbles
             out += [dict(id=ps_ + "_Surface", type="liquid_surface", target=ps_, scroll=[0.05, 0.03], swirl=0.05, pulse_speed=0.35, pulse_amount=0.3),
                     dict(id=ps_ + "_Bubbles", type="bubbles", area_from=ps_, rate=30)]
+        if getattr(ctx, "pit_splashes", None):  # Stage 139: a row of splash bursts + spray along each waterfall's foot
+            if getattr(ctx, "pit_veils", None): out.append(dict(id="Pit_Veil_Flow", type="liquid_flow", targets_glob=list(ctx.pit_veils), speed=4.6))
+            out += [dict(id="Pit_Splash", type="splash", positions=ctx.pit_splashes, rate=26.0, speed=[1.5, 3.4], size=[0.4, 0.12], spread=55),
+                    dict(id="Pit_Spray", type="steam", positions=ctx.pit_splashes[1::2])]
         for xl in getattr(ctx, "extra_lights", []):  # Stage 135: structure lights (showcase tank / banner)
             out.append(dict(id=xl["id"], type="point_light", positions=xl["positions"], color=xl["color"], energy=xl.get("energy", 1.0), range=xl.get("range", 16.0)))
         dmo = getattr(ctx, "dome_motes", None)

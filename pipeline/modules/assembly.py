@@ -861,28 +861,26 @@ def showcase(ctx, s, x, y, z, yaw):
         if s.get("overflow"):  # Stage 138: brimming over - slime domed above the rim, a crest rolling over the spill edges, curtains pouring into the pool
             hz = ctx.role(s.get("slime", "hazard")); fall = ctx.role("fall"); pool_y = getattr(ctx, "floor_y", 1.0); sl = nm + "_Slime"
             ctx.add(sl, "box", [cx_, yt - 0.7, cz_], [w_ - 0.72, 0.76, d_ - 0.72], hz, **vs)  # top 6 cm above the rims: brim-full
-            out_x = px0 if cx_ < float(s.get("bridge_x", D["center"][0])) else px1  # the side away from the bridge spills too
-            edges = [("Front", [cx_, pz1], w_, 0.0), ("Side", [out_x, cz_], d_, -90.0 if out_x == px0 else 90.0)]
-            for en, (ex, ez), ln, yw in edges:
-                along = [1.0, 0.0] if yw == 0.0 else [0.0, 1.0]
-                ctx.add(f"{nm}_{en}Crest", "cylinder", [ex - along[0] * (ln / 2 - 0.12), yt - 0.06, ez - along[1] * (ln / 2 - 0.12)], [0.5, ln - 0.24, 0.5], fall,
-                        rot=[0, 0, -90] if yw == 0.0 else [90, 0, 0], sections=8, **vs)  # a glowing roll of slime over the striped lip
-                ux, uz = math.sin(math.radians(yw)), math.cos(math.radians(yw)); h_ = yt - 0.02 - pool_y + 0.3
-                c_ = ctx.add(f"{nm}_{en}Fall", "stream", [ex + ux * 0.14, yt - 0.02, ez + uz * 0.14], [round(ln - 0.3, 3), round(h_, 3), 0.3], fall, rot=[0, yw, 0],
-                             section="rect", speed=1.1, pitch=8, inset=0.2, widen=0.12, thin=0.25, segments=12, **vs)
-                if ctx.hazards: ctx.rel("flows_into", c_, ctx.hazards[0])
-                ctx.pours.append(c_)
-            sx_ = 1.0 if out_x == px1 else -1.0; yd = 45.0 * sx_  # the corner between the two curtains: a diagonal pour (no dry gap)
-            cx2, cz2 = out_x - sx_ * 0.25, pz1 - 0.25; ux, uz = math.sin(math.radians(yd)), math.cos(math.radians(yd)); h_ = yt - 0.02 - pool_y + 0.3
-            ctx.add(f"{nm}_CornerCrest", "cylinder", [cx2, yt - 0.26, cz2], [0.62, 0.42, 0.62], fall, sections=8, **vs)
-            c_ = ctx.add(f"{nm}_CornerFall", "stream", [cx2 + ux * 0.3, yt - 0.02, cz2 + uz * 0.3], [1.5, round(h_, 3), 0.3], fall, rot=[0, yd, 0],
-                         section="rect", speed=1.25, pitch=8, inset=0.2, widen=0.25, thin=0.25, segments=12, **vs)
-            if ctx.hazards: ctx.rel("flows_into", c_, ctx.hazards[0])
-            ctx.pours.append(c_)
+            out_x = px0 if cx_ < float(s.get("bridge_x", D["center"][0])) else px1
+            from shapes import stream_path
+            ln = w_; ex, ez = cx_, pz1; h_ = yt - 0.02 - pool_y + 0.3  # Stage 139: one waterfall, off the front edge only
+            ctx.add(f"{nm}_FrontCrest", "cylinder", [ex - (ln / 2 - 0.12), yt - 0.06, ez], [0.56, ln - 0.24, 0.56], fall, rot=[0, 0, -90], sections=8, **vs)  # the glowing roll over the lip
+            fo = dict(section="rect", speed=1.5, pitch=10, inset=0.2, widen=0.18, thin=0.2, segments=14)
+            c_ = ctx.add(f"{nm}_FrontFall", "stream", [ex, yt - 0.02, ez + 0.16], [round(ln - 0.3, 3), round(h_, 3), 0.42], fall, **fo, **vs)
+            vo = dict(fo, speed=2.2, pitch=14, widen=0.32, thin=0.45)  # a faster, brighter veil shooting a little further out over the main curtain
+            v_ = ctx.add(f"{nm}_FrontVeil", "stream", [ex, yt + 0.06, ez + 0.3], [round(ln * 0.82, 3), round(h_ + 0.08, 3), 0.16], ctx.role(s.get("veil", "fall_veil")), **vo, **vs)
+            for c2 in (c_, v_):
+                if ctx.hazards: ctx.rel("flows_into", c2, ctx.hazards[0])
+            ctx.pours.append(c_); ctx.pit_veils = getattr(ctx, "pit_veils", []) + [v_]  # (own material: its own, faster flow effect)
+            reach = float(stream_path(h_, fo)[-1][0][2]); lz = ez + 0.16 + reach  # where the curtain meets the pool
+            ctx.add(f"{nm}_SplashPool", "dome_shell", [ex, pool_y + 0.13, lz + 0.4], [ln + 3.4, 0.02, 5.2], ctx.role(s.get("splash_pool", "splash_pool")), sections=32, rings=4, uv="planar",
+                    double_sided=True, **vs)  # a soft glowing churn where it lands (fades out at the rim)
+            ctx.pit_splashes = getattr(ctx, "pit_splashes", []) + [[round(ex - ln / 2 + 0.6 + (ln - 1.2) * q / 4, 2), round(pool_y + 0.1, 2), round(lz, 2)] for q in range(5)]
+            ctx.extra_lights = getattr(ctx, "extra_lights", []) + [dict(id=nm + "_FallGlow", positions=[[ex, pool_y + 1.6, round(lz + 1.8, 2)]], color=[0.45, 1.0, 0.25], energy=1.6, range=11.0)]
             ctx.pit_surfaces = getattr(ctx, "pit_surfaces", []) + [sl]
             K = dict(id=nm, center=[round(cx_, 3), round(yt - 0.2, 3), round(cz_, 3)], size=[round(w_ - 0.72, 3), 1.0, round(d_ - 0.72, 3)], yaw=0.0, note="brimming slime pit")
             ctx.kills = getattr(ctx, "kills", []) + [K]
-            ctx.extra_lights = getattr(ctx, "extra_lights", []) + [dict(id=nm + "_Glow", positions=[[cx_, yt + 1.6, cz_], [round(cx_ + (out_x - cx_) * 1.3, 2), pool_y + 2.5, pz1 + 1.6]],
+            ctx.extra_lights = getattr(ctx, "extra_lights", []) + [dict(id=nm + "_Glow", positions=[[cx_, yt + 1.6, cz_]],
                                                                         color=[0.45, 1.0, 0.25], energy=1.5, range=12.0)]
             continue
         ctx.add(nm + "_Slime", "box", [cx_, yt - 0.7, cz_], [w_ - 0.72, 0.28, d_ - 0.72], ctx.role(s.get("slime", "hazard")), **vs)

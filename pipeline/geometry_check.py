@@ -483,7 +483,8 @@ def check_liquids(g, L, rel, W, out):
                                                  dict(action="lengthen_stream", obj=s["name"], distance=round(K[1] - y_top + 0.3, 3)) if s["type"] == "stream" else None))
             elif K[1] > y_top - 0.08: out.append(F("flow", "WARNING", [s["name"], pool], f"{s['name']} ends at the {pool} surface without entering it (visible seam)", K,
                                                    repair=dict(action="lengthen_stream", obj=s["name"], distance=0.3) if s["type"] == "stream" else None))
-            land = g.surface(np.r_[K[0], y_top + 0.01, K[2]], 0.6, {pool, s["name"]})
+            ghost = {n for n, o_ in g.by.items() if o_.get("collision") is False}  # Stage 139: nothing to stand on (glow overlays, splash pools)
+            land = g.surface(np.r_[K[0], y_top + 0.01, K[2]], 0.6, {pool, s["name"]} | ghost)
             if land and land[0] > -0.6 and land[0] >= 0: out.append(F("flow", "ERROR", [s["name"], land[1]], f"{s['name']} lands on walkable {land[1]}, not in {pool}", K, ambiguous=True))
             if s["type"] == "stream":  # path through walls?
                 from shapes import stream_path
