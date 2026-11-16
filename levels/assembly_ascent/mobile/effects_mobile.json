@@ -901,6 +901,62 @@
    }
   },
   {
+   "id": "Pipe_Bubbles",
+   "type": "liquid_flow",
+   "category": "surface_shader",
+   "glb_contains": "static texture",
+   "godot_runtime": "ShaderMaterial liquid_flow.gdshader (UV scroll along the fall/pipe)",
+   "targets": [
+    "FX_Pipe_Bubbles"
+   ],
+   "material_tile_m": 1.0,
+   "flow_uv": [
+    0.0,
+    -1.0
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 1.4,
+      "glow_energy": 1.2,
+      "wobble": 0.02
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 1.4,
+      "glow_energy": 1.2,
+      "wobble": 0.02
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 1.4,
+      "glow_energy": 1.2,
+      "wobble": 0.02
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Pit_Veil_Flow",
    "type": "liquid_flow",
    "category": "surface_shader",

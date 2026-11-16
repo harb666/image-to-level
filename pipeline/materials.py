@@ -979,6 +979,20 @@ def k_beam_fade(S, rng, c, m):
     return dict(alb=np.broadcast_to(c, (S, S, 3)).copy(), h=np.zeros((S, S)), rough=np.full((S, S), 0.9), metal=0.0, emit=np.ones((S, S)), nstr=0.0, alpha=a)
 
 
+def k_bubble_flow(S, rng, c, m):
+    """Stage 142: glowing liquid inside glass tubing - bright streaks along v (the flow), a darker band at the tube's
+    sides, and round bubbles (pale rim, bright glint) scattered over it; tiles in u and v (scrolled along v by a
+    liquid_flow effect, the bubbles stream through the pipe). "bubbles": count per tile."""
+    x, y = _xy(S); st = 0.75 + 0.25 * np.sin(2 * np.pi * (x * 3 + 0.2 * np.sin(2 * np.pi * y))) * np.sin(2 * np.pi * x * 5 + 1.3)
+    alb = np.clip(c[None, None] * st[..., None], 0, 1); emit = np.full((S, S), 0.85)
+    for _ in range(int(m.get("bubbles", 14))):
+        bx, by, br = rng.random(), rng.random(), rng.uniform(0.035, 0.09)
+        dx_ = (x - bx + 0.5) % 1 - 0.5; dy_ = ((y - by + 0.5) % 1 - 0.5) * 0.8; d = np.hypot(dx_, dy_) / br  # wraps both ways
+        rim = np.clip(1 - np.abs(d - 0.85) / 0.18, 0, 1); inner = (d < 0.85) * 0.25; gl = np.clip(1 - np.hypot(dx_ + br * 0.3, dy_ + br * 0.3) / (br * 0.28), 0, 1)
+        k = np.clip(rim + inner + gl, 0, 1)[..., None]; alb = alb * (1 - k) + np.array(m.get("bubble", [0.92, 1.0, 0.8]))[None, None] * k; emit = np.maximum(emit, k[..., 0])
+    return dict(alb=alb, h=np.zeros((S, S)), rough=np.full((S, S), 0.3), metal=0.0, emit=emit, nstr=0.0)
+
+
 def k_pool_fade(S, rng, c, m):
     """Stage 130: a soft pool of light on the floor (flat dome_shell, "uv": "planar"): alpha falls off from the centre to
     nothing at the rim, broken up a little by the dome's frame ("bars": rib count -> faint darker spokes)."""

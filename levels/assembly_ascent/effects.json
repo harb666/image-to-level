@@ -902,6 +902,69 @@
    }
   },
   {
+   "id": "Pipe_Bubbles",
+   "type": "liquid_flow",
+   "category": "surface_shader",
+   "glb_contains": "static texture",
+   "godot_runtime": "ShaderMaterial liquid_flow.gdshader (UV scroll along the fall/pipe)",
+   "targets": [
+    "Showcase_Pit_1_CornerPipe_1",
+    "Showcase_Pit_1_CornerPipe_2",
+    "Showcase_Pit_1_Pump_1_Pipe",
+    "Showcase_Pit_1_Pump_2_Pipe",
+    "Showcase_Pit_2_CornerPipe_1",
+    "Showcase_Pit_2_CornerPipe_2",
+    "Showcase_Pit_2_Pump_1_Pipe",
+    "Showcase_Pit_2_Pump_2_Pipe"
+   ],
+   "material_tile_m": 1.0,
+   "flow_uv": [
+    0.0,
+    -1.0
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 1.4,
+      "glow_energy": 1.2,
+      "wobble": 0.02
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 1.4,
+      "glow_energy": 1.2,
+      "wobble": 0.02
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 1.4,
+      "glow_energy": 1.2,
+      "wobble": 0.02
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Pit_Veil_Flow",
    "type": "liquid_flow",
    "category": "surface_shader",

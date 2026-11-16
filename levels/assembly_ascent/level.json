@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "c3b462c2a2c4d9ad",
+  "spec_sha": "a2fecb410349c8e9",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -195,6 +195,25 @@
    ],
    "energy": 1.3,
    "range": 34.0
+  },
+  {
+   "id": "Pipe_Bubbles",
+   "type": "liquid_flow",
+   "targets_glob": [
+    "Showcase_Pit_1_Pump_1_Pipe",
+    "Showcase_Pit_1_CornerPipe_1",
+    "Showcase_Pit_1_Pump_2_Pipe",
+    "Showcase_Pit_1_CornerPipe_2",
+    "Showcase_Pit_2_Pump_1_Pipe",
+    "Showcase_Pit_2_CornerPipe_1",
+    "Showcase_Pit_2_Pump_2_Pipe",
+    "Showcase_Pit_2_CornerPipe_2"
+   ],
+   "speed": 1.4,
+   "flow_uv": [
+    0.0,
+    -1.0
+   ]
   },
   {
    "id": "Pit_Veil_Flow",
@@ -3366,6 +3385,25 @@
     0.26
    ],
    "tile_m": 2.5
+  },
+  "pipe_liquid": {
+   "type": "bubble_flow",
+   "color": [
+    0.45,
+    1.0,
+    0.25
+   ],
+   "tile_m": 1.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 128,
+   "bubbles": 14,
+   "emissive": [
+    0.5,
+    1.0,
+    0.25
+   ],
+   "notes": "Stage 142: glowing slime with bubbles inside the glass pipes (scrolled by Pipe_Bubbles)"
   },
   "pole_stripe": {
    "type": "hazard_wrap",
@@ -27073,11 +27111,11 @@
     0.0
    ],
    "size": [
-    0.32,
-    1.5,
-    0.32
+    0.252,
+    1.0,
+    0.252
    ],
-   "material": "fall",
+   "material": "pipe_liquid",
    "path": [
     [
      0,
@@ -27097,6 +27135,106 @@
     ]
    ],
    "bend": 0.34,
+   "tile": 1.0,
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_Pump_1_Pipe_Glass",
+   "type": "pipe_path",
+   "position": [
+    -39.27,
+    6.96,
+    -24.625
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    1.0,
+    0.36
+   ],
+   "material": "glass_clear",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1.55
+    ],
+    [
+     1.05,
+     1.55
+    ],
+    [
+     1.05,
+     1.06
+    ]
+   ],
+   "bend": 0.34,
+   "part": "straight",
+   "sections": 8,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_Pump_1_Pipe_Elbow",
+   "type": "pipe_path",
+   "position": [
+    -39.27,
+    6.96,
+    -24.625
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.418,
+    1.0,
+    0.418
+   ],
+   "material": "lift_ring",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1.55
+    ],
+    [
+     1.05,
+     1.55
+    ],
+    [
+     1.05,
+     1.06
+    ]
+   ],
+   "bend": 0.34,
+   "part": "bend",
+   "sleeve": 0.1,
+   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -27175,11 +27313,11 @@
     0.0
    ],
    "size": [
-    0.28,
+    0.224,
     1.0,
-    0.28
+    0.224
    ],
-   "material": "fall",
+   "material": "pipe_liquid",
    "path": [
     [
      0,
@@ -27203,6 +27341,114 @@
     ]
    ],
    "bend": 0.3,
+   "tile": 1.0,
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_CornerPipe_1_Glass",
+   "type": "pipe_path",
+   "position": [
+    -40.18,
+    6.96,
+    -23.05
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    0.32,
+    1.0,
+    0.32
+   ],
+   "material": "glass_clear",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     -0.85
+    ],
+    [
+     1.5500000000000007,
+     -0.85
+    ]
+   ],
+   "bend": 0.3,
+   "part": "straight",
+   "sections": 8,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_CornerPipe_1_Elbow",
+   "type": "pipe_path",
+   "position": [
+    -40.18,
+    6.96,
+    -23.05
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    0.371,
+    1.0,
+    0.371
+   ],
+   "material": "lift_ring",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     -0.85
+    ],
+    [
+     1.5500000000000007,
+     -0.85
+    ]
+   ],
+   "bend": 0.3,
+   "part": "bend",
+   "sleeve": 0.1,
+   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -27389,11 +27635,11 @@
     0.0
    ],
    "size": [
-    0.32,
-    1.5,
-    0.32
+    0.252,
+    1.0,
+    0.252
    ],
-   "material": "fall",
+   "material": "pipe_liquid",
    "path": [
     [
      0,
@@ -27413,6 +27659,106 @@
     ]
    ],
    "bend": 0.34,
+   "tile": 1.0,
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_Pump_2_Pipe_Glass",
+   "type": "pipe_path",
+   "position": [
+    -35.83,
+    6.96,
+    -24.625
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    1.0,
+    0.36
+   ],
+   "material": "glass_clear",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1.55
+    ],
+    [
+     1.05,
+     1.55
+    ],
+    [
+     1.05,
+     1.06
+    ]
+   ],
+   "bend": 0.34,
+   "part": "straight",
+   "sections": 8,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_Pump_2_Pipe_Elbow",
+   "type": "pipe_path",
+   "position": [
+    -35.83,
+    6.96,
+    -24.625
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.418,
+    1.0,
+    0.418
+   ],
+   "material": "lift_ring",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1.55
+    ],
+    [
+     1.05,
+     1.55
+    ],
+    [
+     1.05,
+     1.06
+    ]
+   ],
+   "bend": 0.34,
+   "part": "bend",
+   "sleeve": 0.1,
+   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -27491,11 +27837,11 @@
     0.0
    ],
    "size": [
-    0.28,
+    0.224,
     1.0,
-    0.28
+    0.224
    ],
-   "material": "fall",
+   "material": "pipe_liquid",
    "path": [
     [
      0,
@@ -27519,6 +27865,114 @@
     ]
    ],
    "bend": 0.3,
+   "tile": 1.0,
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_CornerPipe_2_Glass",
+   "type": "pipe_path",
+   "position": [
+    -32.42,
+    6.96,
+    -23.05
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    0.32,
+    1.0,
+    0.32
+   ],
+   "material": "glass_clear",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     -0.85
+    ],
+    [
+     1.5500000000000007,
+     -0.85
+    ]
+   ],
+   "bend": 0.3,
+   "part": "straight",
+   "sections": 8,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_1_CornerPipe_2_Elbow",
+   "type": "pipe_path",
+   "position": [
+    -32.42,
+    6.96,
+    -23.05
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    0.371,
+    1.0,
+    0.371
+   ],
+   "material": "lift_ring",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     -0.85
+    ],
+    [
+     1.5500000000000007,
+     -0.85
+    ]
+   ],
+   "bend": 0.3,
+   "part": "bend",
+   "sleeve": 0.1,
+   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -28255,11 +28709,11 @@
     0.0
    ],
    "size": [
-    0.32,
-    1.5,
-    0.32
+    0.252,
+    1.0,
+    0.252
    ],
-   "material": "fall",
+   "material": "pipe_liquid",
    "path": [
     [
      0,
@@ -28279,6 +28733,106 @@
     ]
    ],
    "bend": 0.34,
+   "tile": 1.0,
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_Pump_1_Pipe_Glass",
+   "type": "pipe_path",
+   "position": [
+    -20.67,
+    6.96,
+    -24.625
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    1.0,
+    0.36
+   ],
+   "material": "glass_clear",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1.55
+    ],
+    [
+     1.05,
+     1.55
+    ],
+    [
+     1.05,
+     1.06
+    ]
+   ],
+   "bend": 0.34,
+   "part": "straight",
+   "sections": 8,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_Pump_1_Pipe_Elbow",
+   "type": "pipe_path",
+   "position": [
+    -20.67,
+    6.96,
+    -24.625
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.418,
+    1.0,
+    0.418
+   ],
+   "material": "lift_ring",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1.55
+    ],
+    [
+     1.05,
+     1.55
+    ],
+    [
+     1.05,
+     1.06
+    ]
+   ],
+   "bend": 0.34,
+   "part": "bend",
+   "sleeve": 0.1,
+   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -28357,11 +28911,11 @@
     0.0
    ],
    "size": [
-    0.28,
+    0.224,
     1.0,
-    0.28
+    0.224
    ],
-   "material": "fall",
+   "material": "pipe_liquid",
    "path": [
     [
      0,
@@ -28385,6 +28939,114 @@
     ]
    ],
    "bend": 0.3,
+   "tile": 1.0,
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_CornerPipe_1_Glass",
+   "type": "pipe_path",
+   "position": [
+    -21.58,
+    6.96,
+    -23.05
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    0.32,
+    1.0,
+    0.32
+   ],
+   "material": "glass_clear",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     -0.85
+    ],
+    [
+     1.5500000000000007,
+     -0.85
+    ]
+   ],
+   "bend": 0.3,
+   "part": "straight",
+   "sections": 8,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_CornerPipe_1_Elbow",
+   "type": "pipe_path",
+   "position": [
+    -21.58,
+    6.96,
+    -23.05
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    0.371,
+    1.0,
+    0.371
+   ],
+   "material": "lift_ring",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     -0.85
+    ],
+    [
+     1.5500000000000007,
+     -0.85
+    ]
+   ],
+   "bend": 0.3,
+   "part": "bend",
+   "sleeve": 0.1,
+   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -28571,11 +29233,11 @@
     0.0
    ],
    "size": [
-    0.32,
-    1.5,
-    0.32
+    0.252,
+    1.0,
+    0.252
    ],
-   "material": "fall",
+   "material": "pipe_liquid",
    "path": [
     [
      0,
@@ -28595,6 +29257,106 @@
     ]
    ],
    "bend": 0.34,
+   "tile": 1.0,
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_Pump_2_Pipe_Glass",
+   "type": "pipe_path",
+   "position": [
+    -17.23,
+    6.96,
+    -24.625
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    1.0,
+    0.36
+   ],
+   "material": "glass_clear",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1.55
+    ],
+    [
+     1.05,
+     1.55
+    ],
+    [
+     1.05,
+     1.06
+    ]
+   ],
+   "bend": 0.34,
+   "part": "straight",
+   "sections": 8,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_Pump_2_Pipe_Elbow",
+   "type": "pipe_path",
+   "position": [
+    -17.23,
+    6.96,
+    -24.625
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.418,
+    1.0,
+    0.418
+   ],
+   "material": "lift_ring",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1.55
+    ],
+    [
+     1.05,
+     1.55
+    ],
+    [
+     1.05,
+     1.06
+    ]
+   ],
+   "bend": 0.34,
+   "part": "bend",
+   "sleeve": 0.1,
+   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -28673,11 +29435,11 @@
     0.0
    ],
    "size": [
-    0.28,
+    0.224,
     1.0,
-    0.28
+    0.224
    ],
-   "material": "fall",
+   "material": "pipe_liquid",
    "path": [
     [
      0,
@@ -28701,6 +29463,114 @@
     ]
    ],
    "bend": 0.3,
+   "tile": 1.0,
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_CornerPipe_2_Glass",
+   "type": "pipe_path",
+   "position": [
+    -13.82,
+    6.96,
+    -23.05
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    0.32,
+    1.0,
+    0.32
+   ],
+   "material": "glass_clear",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     -0.85
+    ],
+    [
+     1.5500000000000007,
+     -0.85
+    ]
+   ],
+   "bend": 0.3,
+   "part": "straight",
+   "sections": 8,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Pit_2_CornerPipe_2_Elbow",
+   "type": "pipe_path",
+   "position": [
+    -13.82,
+    6.96,
+    -23.05
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    0.371,
+    1.0,
+    0.371
+   ],
+   "material": "lift_ring",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     0.55
+    ],
+    [
+     1.870000000000001,
+     -0.85
+    ],
+    [
+     1.5500000000000007,
+     -0.85
+    ]
+   ],
+   "bend": 0.3,
+   "part": "bend",
+   "sleeve": 0.1,
+   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -81102,16 +81972,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 61064,
-  "objects": 2457,
-  "materials": 46,
-  "glb_kb": 4209,
-  "nodes": 2713,
-  "draw_calls_unbatched": 2678,
-  "draw_calls_batched_min": 48,
-  "images": 118,
-  "tex_mem_gpu_compressed_mb": 26.55,
-  "tex_mem_uncompressed_mb": 106.19,
+  "triangles": 64216,
+  "objects": 2473,
+  "materials": 47,
+  "glb_kb": 4387,
+  "nodes": 2729,
+  "draw_calls_unbatched": 2694,
+  "draw_calls_batched_min": 49,
+  "images": 121,
+  "tex_mem_gpu_compressed_mb": 26.61,
+  "tex_mem_uncompressed_mb": 106.44,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

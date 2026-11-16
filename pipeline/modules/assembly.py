@@ -895,6 +895,12 @@ def showcase(ctx, s, x, y, z, yaw):
             ctx.add(nm + "_SideStrip", "box", [out_x + so * 0.03, yt - 3.6, (bz0 + bz1) / 2], [0.07, 2.6, 0.32], pink, **vs)
             ctx.add(nm + "_SideTrim", "box", [out_x + so * 0.025, yt - 0.34, (bz0 + bz1) / 2], [0.05, 0.26, bz1 - bz0 - 0.2], stripe, **vs)
             top = yt - 0.02; pzc = (bz0 + bz1) / 2 + 0.25
+            liq_m, glass_m = ctx.role(s.get("pipe_liquid", "pipe_liquid")), ctx.role(s.get("pipe_glass", "glass_clear"))
+            def glass_pipe(pname, pos, dia, rot_, path, bend):  # Stage 142 (concept): glass tubing - a glowing bubbling core (flows), glass round its straight runs, metal elbows on the bends
+                ctx.add(pname, "pipe_path", pos, [dia * 0.7, 1.0, dia * 0.7], liq_m, rot=rot_, path=path, bend=bend, tile=1.0, sections=8, **vs)
+                ctx.add(pname + "_Glass", "pipe_path", pos, [dia, 1.0, dia], glass_m, rot=rot_, path=path, bend=bend, part="straight", sections=8, double_sided=True, **vs)
+                ctx.add(pname + "_Elbow", "pipe_path", pos, [dia * 1.16, 1.0, dia * 1.16], ctx.role(s.get("elbow_material", "lift_ring")), rot=rot_, path=path, bend=bend, part="bend", sleeve=0.1, sections=8, **vs)  # plain steel (no texture)
+                ctx.glass_pipes = getattr(ctx, "glass_pipes", []) + [pname]
             for q, sd in enumerate((-1, 1)):  # the two pumps: pink housings, an emblem on the front, a fan grille on the side, glowing pipes in
                 qx = cx_ + sd * w_ * 0.2; pn = f"{nm}_Pump_{q + 1}"
                 ctx.add(pn, "box", [qx, top, pzc], [1.5, 1.05, 1.15], pumpm, **st)
@@ -902,11 +908,10 @@ def showcase(ctx, s, x, y, z, yaw):
                 ctx.add(pn + "_Emblem", "panel", [qx, top + 0.1, pzc + 0.583], [0.78, 0.78, 0], atlas, uv_region="drop", **vs)
                 ctx.add(pn + "_FanRim", "cylinder", [qx - 0.74, top + 0.52, pzc], [0.95, 0.18, 0.95], "frame", rot=[0, 0, 90], sections=12, **vs)  # on the pump's side (1 cm into it)
                 ctx.add(pn + "_Fan", "cylinder", [qx - 0.72, top + 0.52, pzc], [0.78, 0.24, 0.78], "grate", rot=[0, 0, 90], sections=12, **vs)  # the grille 4 cm proud of the rim
-                ctx.add(pn + "_Pipe", "pipe_path", [qx - 1.25, top - 0.02, pzc - 0.15], [0.32, 1.5, 0.32], glass, path=[[0, 0], [0, 1.55], [1.05, 1.55], [1.05, 1.06]], bend=0.34, **vs)  # an arch into the pump's top
+                glass_pipe(pn + "_Pipe", [qx - 1.25, top - 0.02, pzc - 0.15], 0.36, [0, 0, 0], [[0, 0], [0, 1.55], [1.05, 1.55], [1.05, 1.06]], 0.34)  # an arch into the pump's top
                 for cy_ in (top + 0.12, top + 1.08): ctx.add(f"{pn}_Clamp_{int(cy_ > top + 0.5)}", "cylinder", [qx - 1.25, cy_, pzc - 0.15], [0.42, 0.14, 0.42], "frame", sections=10, **vs)
                 ex_ = cx_ + sd * (w_ / 2 - 0.42); zs = bz1 - 0.55  # a corner pipe over the front edge, down into the pillar
-                ctx.add(f"{nm}_CornerPipe_{q + 1}", "pipe_path", [ex_, top - 0.02, zs], [0.28, 1.0, 0.28], glass, rot=[0, -90, 0],
-                        path=[[0, 0], [0, 0.55], [pz1 + 0.42 - zs, 0.55], [pz1 + 0.42 - zs, -0.85], [pz1 + 0.1 - zs, -0.85]], bend=0.3, **vs)
+                glass_pipe(f"{nm}_CornerPipe_{q + 1}", [ex_, top - 0.02, zs], 0.32, [0, -90, 0], [[0, 0], [0, 0.55], [pz1 + 0.42 - zs, 0.55], [pz1 + 0.42 - zs, -0.85], [pz1 + 0.1 - zs, -0.85]], 0.3)
                 ctx.add(f"{nm}_CornerClamp_{q + 1}", "cylinder", [ex_, top + 0.0, zs], [0.38, 0.14, 0.38], "frame", sections=10, **vs)
             from shapes import stream_path
             ln = sw - 0.15; ex, ez = cx_, pz1; oy = ys_ + 0.34; h_ = oy - pool_y + 0.3

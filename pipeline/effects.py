@@ -374,6 +374,7 @@ def resolve(level_dir, L=None):
             if e["type"] == "liquid_flow":  # measured flow direction in glTF UV space (UV layouts differ per mesh: never assume +v)
                 fu = [flow_uv(scene, n, W, by) for n in tg]; fu = [f for f in fu if f is not None]
                 if fu: a = np.mean(fu, 0); a = a / (np.linalg.norm(a) or 1); R["flow_uv"] = [round(float(a[0]), 4), round(float(a[1]), 4)]
+                if e.get("flow_uv"): R["flow_uv"] = [float(v) for v in e["flow_uv"]]  # Stage 142: given (pipes run up AND down: "down the triangle" would cancel out)
         em = []
         if e.get("at_targets_glob"):
             for n in sorted(n for n in boxes if globmatch(n, e["at_targets_glob"])):

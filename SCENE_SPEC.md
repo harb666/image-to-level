@@ -1440,4 +1440,8 @@ Building blocks usable without the preset:
   `lift_ring`: a wide collar, a bevelled band, 24 bolt heads, four guide clamps with amber lamps) round a dark
   shaft gap (`seam_material`): it frames the platform that will become the boss lift. The stage ramps' hazard boards are
   replaced by railings (posts + top / mid rails) that follow the ramp slope.
+- Stage 142 (concept): the pump-tank pipes are glass tubing - `pipe_path` `"part"` (`all` / `straight` / `bend`,
+  `"sleeve"`) and per-corner UVs (v = arc length / `"tile"`): a glowing core (material kind `bubble_flow`: streaks +
+  wrapping bubbles, 128 px) scrolled along the pipe by effect `Pipe_Bubbles` (liquid_flow with a given `flow_uv`), a
+  glass sleeve (`glass_clear`) on the straight runs and plain steel elbows (`lift_ring`) on the bends.
 

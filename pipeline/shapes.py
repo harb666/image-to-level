@@ -742,19 +742,48 @@ def beam_cone(w, h, d, o):
 
 def pipe_path(w, h, d, o):
     """Stage 140: a bent pipe - a tube (diameter w) along o["path"] [[x, y], ...] in the local x-y plane (default: an
-    inverted U), corners rounded by o["bend"] (m, >= 1.5 x the tube radius). Closed (capped ends). size: bookkeeping."""
+    inverted U), corners rounded by o["bend"] (m, >= 1.5 x the tube radius). Closed (capped ends). size: bookkeeping.
+    Stage 142: o["part"] "all" (default) | "straight" (only the straight runs: glass sections) | "bend" (only the
+    rounded corners, each run on "sleeve" m past its ends: metal elbows over the glass). UVs per face corner
+    (metadata "uv_corner"): u round the tube, v = arc length / "tile" (m) from the path's start - a texture
+    scrolled along v flows through the whole pipe (bubbles)."""
     P = np.asarray(o.get("path") or [[0, 0], [0, 1.2], [1.0, 1.2], [1.0, 0.4]], float); r = w / 2; rb = max(float(o.get("bend", 0.35)), 1.5 * r)
-    pts = [P[0]]
+    pts, tag = [P[0]], [-1]  # tag: -1 straight point, k corner k's curve
     for i in range(1, len(P) - 1):  # each corner: a quadratic curve between the points rb before / after it (clamped to half the legs)
         A, B, C = P[i - 1], P[i], P[i + 1]; u, v = B - A, C - B; lu, lv = np.linalg.norm(u), np.linalg.norm(v)
         t = min(rb, lu / 2, lv / 2); a0, a1 = B - u / lu * t, B + v / lv * t
-        for q in np.linspace(0, 1, 7): pts.append((1 - q) ** 2 * a0 + 2 * (1 - q) * q * B + q * q * a1)
-    pts.append(P[-1]); pts = np.array(pts); n = int(o.get("sections", 10)); rings = []
-    for i, p in enumerate(pts):
-        tg = (pts[min(i + 1, len(pts) - 1)] - pts[max(i - 1, 0)]); tg = tg / (np.linalg.norm(tg) or 1); n1 = np.array([-tg[1], tg[0], 0.0]); n2 = np.array([0.0, 0.0, 1.0])
-        rings.append(np.array([[p[0], p[1], 0.0] + r * (np.cos(f) * n1 + np.sin(f) * n2) for f in np.linspace(0, 2 * np.pi, n, endpoint=False)]))
-    return _ring_sweep(rings)
-
+        for q in np.linspace(0, 1, 7): pts.append((1 - q) ** 2 * a0 + 2 * (1 - q) * q * B + q * q * a1); tag.append(i)
+    pts.append(P[-1]); tag.append(-1); pts = np.array(pts, float); S = np.r_[0, np.cumsum(np.linalg.norm(np.diff(pts, axis=0), axis=1))]
+    part = o.get("part", "all"); pieces = []
+    if part == "all": pieces = [list(range(len(pts)))]
+    elif part == "bend":
+        for k in sorted(set(t for t in tag if t > 0)): pieces.append([j for j, t in enumerate(tag) if t == k])
+    else:  # straight runs: from a path end / a curve's last point to the next curve's first point / the path end
+        cut = [0] + [j for j in range(1, len(pts) - 1) if tag[j] > 0 and (tag[j - 1] != tag[j] or tag[j + 1] != tag[j])] + [len(pts) - 1]
+        pieces = [[a, b] for a, b in zip(cut[0::2], cut[1::2]) if np.linalg.norm(pts[b] - pts[a]) > 1e-3]
+    n = int(o.get("sections", 10)); tile = float(o.get("tile", 1.0)); sl = float(o.get("sleeve", 0.08)) if part == "bend" else 0.0
+    V, F, UV = [], [], []
+    for pc in pieces:
+        Q = [pts[j] for j in pc]; SS = [S[j] for j in pc]
+        T = [(Q[min(i + 1, len(Q) - 1)] - Q[max(i - 1, 0)]) for i in range(len(Q))]; T = [t_ / (np.linalg.norm(t_) or 1) for t_ in T]
+        if sl: Q = [Q[0] - T[0] * sl] + Q + [Q[-1] + T[-1] * sl]; SS = [SS[0] - sl] + SS + [SS[-1] + sl]; T = [T[0]] + T + [T[-1]]
+        b0 = len(V)
+        for p_, t_ in zip(Q, T):
+            n1 = np.array([-t_[1], t_[0], 0.0]); n2 = np.array([0.0, 0.0, 1.0])
+            V += [[p_[0], p_[1], 0.0] + r * (np.cos(f) * n1 + np.sin(f) * n2) for f in np.linspace(0, 2 * np.pi, n, endpoint=False)]
+        R_ = len(Q)
+        for a in range(R_ - 1):
+            for k in range(n):
+                k2 = (k + 1) % n; i0, i1, i2, i3 = b0 + a * n + k, b0 + a * n + k2, b0 + (a + 1) * n + k2, b0 + (a + 1) * n + k
+                u0, u1, v0, v1 = k / n, (k + 1) / n, SS[a] / tile, SS[a + 1] / tile
+                F += [[i0, i1, i2], [i0, i2, i3]]; UV += [[u0, v0], [u1, v0], [u1, v1], [u0, v0], [u1, v1], [u0, v1]]
+        for a, flip in ((0, True), (R_ - 1, False)):  # caps
+            c = len(V); V.append(np.mean(V[b0 + a * n:b0 + a * n + n], 0))
+            for k in range(n):
+                f_ = [c, b0 + a * n + (k + 1) % n, b0 + a * n + k]; F.append(f_ if flip else f_[::-1]); UV += [[0.5, SS[a] / tile]] * 3
+    m = trimesh.Trimesh(np.array(V, float), np.array(F), process=False)
+    if m.volume < 0: m.invert(); UV = [uv for tri in np.array(UV).reshape(-1, 3, 2) for uv in tri[::-1]]
+    m.metadata["uv_corner"] = np.array(UV, float); return m
 
 SHAPES = dict(spike_ball=spike_ball, pole=pole, mace=mace, mace_tips=mace_tips, saw_blade=saw_blade, prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,

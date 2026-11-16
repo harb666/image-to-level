@@ -41,23 +41,23 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 4209,
-    "triangles": 70488,
-    "nodes": 2713,
-    "mesh_nodes": 2678,
-    "unique_meshes": 1262,
-    "materials": 48,
-    "images": 118,
-    "draw_calls_unbatched": 2678,
-    "draw_calls_batched_min": 48,
-    "tex_mem_uncompressed_mb": 106.19,
-    "tex_mem_gpu_compressed_mb": 26.55,
+    "glb_kb": 4387,
+    "triangles": 73640,
+    "nodes": 2729,
+    "mesh_nodes": 2694,
+    "unique_meshes": 1266,
+    "materials": 49,
+    "images": 121,
+    "draw_calls_unbatched": 2694,
+    "draw_calls_batched_min": 49,
+    "tex_mem_uncompressed_mb": 106.44,
+    "tex_mem_gpu_compressed_mb": 26.61,
     "texture_slots": {
-     "baseColorTexture": 43,
-     "metallicRoughnessTexture": 43,
+     "baseColorTexture": 44,
+     "metallicRoughnessTexture": 44,
      "normalTexture": 34,
-     "occlusionTexture": 43,
-     "emissiveTexture": 27
+     "occlusionTexture": 44,
+     "emissiveTexture": 28
     },
     "image_sizes": [
      "1024x1024 jpeg",
@@ -73,31 +73,31 @@
    },
    "visible": {
     "cameras": 120,
-    "visible_draw_calls_mean": 871.4,
-    "visible_draw_calls_max": 2670,
-    "visible_triangles_mean": 35336,
-    "visible_triangles_max": 81092
+    "visible_draw_calls_mean": 877.0,
+    "visible_draw_calls_max": 2686,
+    "visible_triangles_mean": 36434,
+    "visible_triangles_max": 84244
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 2526,
-    "triangles": 67562,
-    "nodes": 236,
-    "mesh_nodes": 137,
-    "unique_meshes": 137,
-    "materials": 48,
-    "images": 84,
-    "draw_calls_unbatched": 137,
-    "draw_calls_batched_min": 48,
-    "tex_mem_uncompressed_mb": 43.61,
-    "tex_mem_gpu_compressed_mb": 10.9,
+    "glb_kb": 2584,
+    "triangles": 70746,
+    "nodes": 237,
+    "mesh_nodes": 138,
+    "unique_meshes": 138,
+    "materials": 49,
+    "images": 87,
+    "draw_calls_unbatched": 138,
+    "draw_calls_batched_min": 49,
+    "tex_mem_uncompressed_mb": 43.86,
+    "tex_mem_gpu_compressed_mb": 10.96,
     "texture_slots": {
-     "baseColorTexture": 43,
-     "emissiveTexture": 27,
-     "metallicRoughnessTexture": 22,
+     "baseColorTexture": 44,
+     "emissiveTexture": 28,
+     "metallicRoughnessTexture": 23,
      "normalTexture": 13,
-     "occlusionTexture": 22
+     "occlusionTexture": 23
     },
     "image_sizes": [
      "128x128 webp",
@@ -139,13 +139,13 @@
    },
    "visible": {
     "cameras": 120,
-    "visible_draw_calls_mean": 75.5,
-    "visible_draw_calls_max": 140,
-    "visible_triangles_mean": 59859,
-    "visible_triangles_max": 78366
+    "visible_draw_calls_mean": 76.0,
+    "visible_draw_calls_max": 141,
+    "visible_triangles_mean": 61693,
+    "visible_triangles_max": 81550
    },
    "hidden_faces_removed": 945,
-   "occluded_faces_removed": 1981,
+   "occluded_faces_removed": 1949,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate",
     "Showcase_Stage_Glow_02L",
@@ -155,8 +155,8 @@
    "effects_max_particles": 1215,
    "slimmed_kb": {
     "level_mobile.glb": [
-     3791,
-     2526
+     3922,
+     2584
     ],
     "background_mobile.glb": [
      477,
@@ -2662,19 +2662,11 @@
    "node": "M_fall_0_0",
    "kind": "static",
    "material": "fall",
-   "triangles": 2976,
+   "triangles": 16,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Showcase_Pit_2_CornerPipe_2",
-    "Showcase_Pit_2_Pump_2_Pipe",
-    "Showcase_Pit_2_CornerPipe_1",
-    "Showcase_Pit_2_Pump_1_Pipe",
     "Showcase_Pit_2_Channel",
-    "Showcase_Pit_1_CornerPipe_2",
-    "Showcase_Pit_1_Pump_2_Pipe",
-    "Showcase_Pit_1_CornerPipe_1",
-    "Showcase_Pit_1_Pump_1_Pipe",
     "Showcase_Pit_1_Channel"
    ]
   },
@@ -2960,11 +2952,19 @@
    "node": "M_glass_clear__2s_0_0",
    "kind": "static",
    "material": "glass_clear__2s",
-   "triangles": 104,
+   "triangles": 872,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
     "Spinner_Glass",
+    "Showcase_Pit_2_CornerPipe_2_Glass",
+    "Showcase_Pit_2_Pump_2_Pipe_Glass",
+    "Showcase_Pit_2_CornerPipe_1_Glass",
+    "Showcase_Pit_2_Pump_1_Pipe_Glass",
+    "Showcase_Pit_1_CornerPipe_2_Glass",
+    "Showcase_Pit_1_Pump_2_Pipe_Glass",
+    "Showcase_Pit_1_CornerPipe_1_Glass",
+    "Showcase_Pit_1_Pump_1_Pipe_Glass",
     "Showcase_TankGlass"
    ]
   },
@@ -3403,10 +3403,18 @@
    "node": "M_lift_ring_0_0",
    "kind": "static",
    "material": "lift_ring",
-   "triangles": 720,
+   "triangles": 3600,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Showcase_Pit_2_CornerPipe_2_Elbow",
+    "Showcase_Pit_2_Pump_2_Pipe_Elbow",
+    "Showcase_Pit_2_CornerPipe_1_Elbow",
+    "Showcase_Pit_2_Pump_1_Pipe_Elbow",
+    "Showcase_Pit_1_CornerPipe_2_Elbow",
+    "Showcase_Pit_1_Pump_2_Pipe_Elbow",
+    "Showcase_Pit_1_CornerPipe_1_Elbow",
+    "Showcase_Pit_1_Pump_1_Pipe_Elbow",
     "Showcase_LiftClamp_4",
     "Showcase_LiftClamp_3",
     "Showcase_LiftClamp_2",
@@ -4257,6 +4265,25 @@
    "source_objects": [
     "Showcase_Pit_2_FrontFall",
     "Showcase_Pit_1_FrontFall"
+   ],
+   "reason": "merged targets of one shader effect"
+  },
+  {
+   "node": "FX_Pipe_Bubbles",
+   "kind": "effect_target",
+   "material": "pipe_liquid",
+   "triangles": 2496,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Showcase_Pit_2_CornerPipe_2",
+    "Showcase_Pit_2_Pump_2_Pipe",
+    "Showcase_Pit_2_CornerPipe_1",
+    "Showcase_Pit_2_Pump_1_Pipe",
+    "Showcase_Pit_1_CornerPipe_2",
+    "Showcase_Pit_1_Pump_2_Pipe",
+    "Showcase_Pit_1_CornerPipe_1",
+    "Showcase_Pit_1_Pump_1_Pipe"
    ],
    "reason": "merged targets of one shader effect"
   },

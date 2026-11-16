@@ -525,6 +525,18 @@ class Showcase(unittest.TestCase):
         self.assertEqual(len(E["Pit_Splash"]["emitters"]), 10)
         self.assertIn("drop", self.L["materials"]["ce_signs"]["atlas"])
 
+    def test_pipes_are_glass_tubing_with_bubbles(self):
+        """Stage 142 (concept): each pipe is glass tubing - a glowing bubbly core (bubble_flow texture scrolled along it by
+        Pipe_Bubbles), a glass sleeve on its straight runs and plain steel elbows on the bends."""
+        M = self.L["materials"]; E = {e["id"]: e for e in _load("effects.json")["effects"]}
+        for n in ("Showcase_Pit_1_Pump_1_Pipe", "Showcase_Pit_2_CornerPipe_2"):
+            self.assertEqual(M[self.by[n]["material"]]["type"], "bubble_flow")
+            self.assertEqual(self.by[n + "_Glass"]["part"], "straight"); self.assertLess(M[self.by[n + "_Glass"]["material"]]["alpha"], 0.5)
+            self.assertEqual(self.by[n + "_Elbow"]["part"], "bend"); self.assertTrue(M[self.by[n + "_Elbow"]["material"]].get("plain"))
+            self.assertGreater(self.by[n + "_Glass"]["size"][0], self.by[n]["size"][0])  # the liquid inside the glass
+            self.assertIn(n, E["Pipe_Bubbles"]["targets"])
+        self.assertEqual(E["Pipe_Bubbles"]["flow_uv"], [0.0, -1.0]); self.assertLessEqual(M["pipe_liquid"]["res"], 128)  # small texture (memory)
+
 
 if __name__ == "__main__":
     unittest.main()
