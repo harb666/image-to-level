@@ -41,15 +41,15 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 4123,
-    "triangles": 68324,
-    "nodes": 2655,
-    "mesh_nodes": 2620,
-    "unique_meshes": 1254,
-    "materials": 47,
+    "glb_kb": 4209,
+    "triangles": 70488,
+    "nodes": 2713,
+    "mesh_nodes": 2678,
+    "unique_meshes": 1262,
+    "materials": 48,
     "images": 118,
-    "draw_calls_unbatched": 2620,
-    "draw_calls_batched_min": 47,
+    "draw_calls_unbatched": 2678,
+    "draw_calls_batched_min": 48,
     "tex_mem_uncompressed_mb": 106.19,
     "tex_mem_gpu_compressed_mb": 26.55,
     "texture_slots": {
@@ -73,23 +73,23 @@
    },
    "visible": {
     "cameras": 120,
-    "visible_draw_calls_mean": 851.4,
-    "visible_draw_calls_max": 2612,
-    "visible_triangles_mean": 34471,
-    "visible_triangles_max": 78928
+    "visible_draw_calls_mean": 871.4,
+    "visible_draw_calls_max": 2670,
+    "visible_triangles_mean": 35336,
+    "visible_triangles_max": 81092
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 2476,
-    "triangles": 65518,
-    "nodes": 234,
-    "mesh_nodes": 135,
-    "unique_meshes": 135,
-    "materials": 47,
+    "glb_kb": 2526,
+    "triangles": 67562,
+    "nodes": 236,
+    "mesh_nodes": 137,
+    "unique_meshes": 137,
+    "materials": 48,
     "images": 84,
-    "draw_calls_unbatched": 135,
-    "draw_calls_batched_min": 47,
+    "draw_calls_unbatched": 137,
+    "draw_calls_batched_min": 48,
     "tex_mem_uncompressed_mb": 43.61,
     "tex_mem_gpu_compressed_mb": 10.9,
     "texture_slots": {
@@ -133,19 +133,19 @@
     ]
    },
    "collision": {
-    "colliders": 453,
+    "colliders": 459,
     "hazards": 1,
-    "glb_kb": 205
+    "glb_kb": 209
    },
    "visible": {
     "cameras": 120,
-    "visible_draw_calls_mean": 74.6,
-    "visible_draw_calls_max": 138,
-    "visible_triangles_mean": 58869,
-    "visible_triangles_max": 76322
+    "visible_draw_calls_mean": 75.5,
+    "visible_draw_calls_max": 140,
+    "visible_triangles_mean": 59859,
+    "visible_triangles_max": 78366
    },
    "hidden_faces_removed": 945,
-   "occluded_faces_removed": 1861,
+   "occluded_faces_removed": 1981,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate",
     "Showcase_Stage_Glow_02L",
@@ -155,16 +155,16 @@
    "effects_max_particles": 1215,
    "slimmed_kb": {
     "level_mobile.glb": [
-     3714,
-     2476
+     3791,
+     2526
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     279,
-     205
+     283,
+     209
     ]
    }
   }
@@ -2502,7 +2502,7 @@
    "node": "M_arm_yellow_0_0",
    "kind": "static",
    "material": "arm_yellow",
-   "triangles": 272,
+   "triangles": 656,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2527,7 +2527,39 @@
     "Showcase_Rail_1_Post_4",
     "Showcase_Rail_1_Post_3",
     "Showcase_Rail_1_Post_2",
-    "Showcase_Rail_1_Post_1"
+    "Showcase_Rail_1_Post_1",
+    "Showcase_RampR_Mid_b",
+    "Showcase_RampR_Top_b",
+    "Showcase_RampR_Post_b6",
+    "Showcase_RampR_Post_b5",
+    "Showcase_RampR_Post_b4",
+    "Showcase_RampR_Post_b3",
+    "Showcase_RampR_Post_b2",
+    "Showcase_RampR_Post_b1",
+    "Showcase_RampR_Mid_a",
+    "Showcase_RampR_Top_a",
+    "Showcase_RampR_Post_a6",
+    "Showcase_RampR_Post_a5",
+    "Showcase_RampR_Post_a4",
+    "Showcase_RampR_Post_a3",
+    "Showcase_RampR_Post_a2",
+    "Showcase_RampR_Post_a1",
+    "Showcase_RampL_Mid_b",
+    "Showcase_RampL_Top_b",
+    "Showcase_RampL_Post_b6",
+    "Showcase_RampL_Post_b5",
+    "Showcase_RampL_Post_b4",
+    "Showcase_RampL_Post_b3",
+    "Showcase_RampL_Post_b2",
+    "Showcase_RampL_Post_b1",
+    "Showcase_RampL_Mid_a",
+    "Showcase_RampL_Top_a",
+    "Showcase_RampL_Post_a6",
+    "Showcase_RampL_Post_a5",
+    "Showcase_RampL_Post_a4",
+    "Showcase_RampL_Post_a3",
+    "Showcase_RampL_Post_a2",
+    "Showcase_RampL_Post_a1"
    ]
   },
   {
@@ -3079,7 +3111,7 @@
    "node": "M_glow_pink_0_0",
    "kind": "static",
    "material": "glow_pink",
-   "triangles": 242,
+   "triangles": 122,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3093,24 +3125,14 @@
     "Showcase_RampR_Curb_b",
     "Showcase_RampR_Curb_a",
     "Showcase_RampL_Curb_b",
-    "Showcase_RampL_Curb_a",
-    "Showcase_DaisLight_10",
-    "Showcase_DaisLight_09",
-    "Showcase_DaisLight_08",
-    "Showcase_DaisLight_07",
-    "Showcase_DaisLight_06",
-    "Showcase_DaisLight_05",
-    "Showcase_DaisLight_04",
-    "Showcase_DaisLight_03",
-    "Showcase_DaisLight_02",
-    "Showcase_DaisLight_01"
+    "Showcase_RampL_Curb_a"
    ]
   },
   {
    "node": "M_glow_yellow_0_0",
    "kind": "static",
    "material": "glow_yellow",
-   "triangles": 546,
+   "triangles": 586,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3140,6 +3162,10 @@
     "Showcase_TankLamp_3",
     "Showcase_TankLamp_2",
     "Showcase_TankLamp_1",
+    "Showcase_LiftClampLamp_4",
+    "Showcase_LiftClampLamp_3",
+    "Showcase_LiftClampLamp_2",
+    "Showcase_LiftClampLamp_1",
     "Entry_Door_Rib_2_Lamp",
     "Entry_Door_Rib_1_Lamp",
     "Entry_Door_Mouth_Lantern_3",
@@ -3188,7 +3214,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 6824,
+   "triangles": 6836,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3275,6 +3301,7 @@
     "Showcase_TankBase__ol",
     "Showcase_TankPlinth__ol",
     "Showcase_RampL__ol",
+    "Showcase_LiftClamp_1__ol",
     "Entry_Door_Sill__ol",
     "Entry_Door_Mouth_Capital_1__ol",
     "Entry_Door_Mouth_Pilaster_1__ol",
@@ -3370,6 +3397,22 @@
     "Yard_Gate_Cap_L",
     "Entry_Door_Guide_2",
     "Entry_Door_Guide_1"
+   ]
+  },
+  {
+   "node": "M_lift_ring_0_0",
+   "kind": "static",
+   "material": "lift_ring",
+   "triangles": 720,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_LiftClamp_4",
+    "Showcase_LiftClamp_3",
+    "Showcase_LiftClamp_2",
+    "Showcase_LiftClamp_1",
+    "Showcase_LiftRing",
+    "Showcase_LiftCollar"
    ]
   },
   {
@@ -3695,6 +3738,46 @@
    ]
   },
   {
+   "node": "M_saw_hub_0_0",
+   "kind": "static",
+   "material": "saw_hub",
+   "triangles": 1144,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_LiftClampCap_4",
+    "Showcase_LiftClampCap_3",
+    "Showcase_LiftClampCap_2",
+    "Showcase_LiftClampCap_1",
+    "Showcase_LiftBolt_24",
+    "Showcase_LiftBolt_23",
+    "Showcase_LiftBolt_22",
+    "Showcase_LiftBolt_21",
+    "Showcase_LiftBolt_20",
+    "Showcase_LiftBolt_19",
+    "Showcase_LiftBolt_18",
+    "Showcase_LiftBolt_17",
+    "Showcase_LiftBolt_16",
+    "Showcase_LiftBolt_15",
+    "Showcase_LiftBolt_14",
+    "Showcase_LiftBolt_13",
+    "Showcase_LiftBolt_12",
+    "Showcase_LiftBolt_11",
+    "Showcase_LiftBolt_10",
+    "Showcase_LiftBolt_09",
+    "Showcase_LiftBolt_08",
+    "Showcase_LiftBolt_07",
+    "Showcase_LiftBolt_06",
+    "Showcase_LiftBolt_05",
+    "Showcase_LiftBolt_04",
+    "Showcase_LiftBolt_03",
+    "Showcase_LiftBolt_02",
+    "Showcase_LiftBolt_01",
+    "Showcase_LiftRingInner",
+    "Showcase_DaisRim"
+   ]
+  },
+  {
    "node": "M_screen_0_0",
    "kind": "static",
    "material": "screen",
@@ -3770,7 +3853,7 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 634,
+   "triangles": 594,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3803,10 +3886,6 @@
     "Showcase_Pit_1_Trim_R",
     "Showcase_Pit_1_Trim_L",
     "Showcase_TankBand",
-    "Showcase_RampR_Side_b",
-    "Showcase_RampR_Side_a",
-    "Showcase_RampL_Side_b",
-    "Showcase_RampL_Side_a",
     "Spinner_Ramp_Threshold_Hi",
     "Spinner_Ramp_Threshold_Lo",
     "Yard_Bridge_Deck_b_SlotEdge_1b",
@@ -3837,7 +3916,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 4502,
+   "triangles": 4406,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3923,7 +4002,6 @@
     "Showcase_TankBase",
     "Showcase_TankPlinth",
     "Showcase_Dais",
-    "Showcase_DaisRim",
     "Entry_Door_Rib_2_Beam",
     "Entry_Door_Rib_2_Post_3",
     "Entry_Door_Rib_2_Post_1",

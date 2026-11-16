@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "bdd2615d0896e445",
+  "spec_sha": "c3b462c2a2c4d9ad",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -3288,6 +3288,21 @@
    ],
    "res": 32,
    "notes": "Stage 59: laser gate beams"
+  },
+  "lift_ring": {
+   "type": "concrete",
+   "color": [
+    0.36,
+    0.37,
+    0.42
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "plain": true,
+   "metal": 0.9,
+   "rough": 0.28,
+   "notes": "Stage 141: the machined steel ring round the showcase dais (the boss lift's frame)"
   },
   "light_pool": {
    "type": "pool_fade",
@@ -23194,7 +23209,7 @@
    "type": "cylinder",
    "position": [
     -27.0,
-    7.0,
+    6.7,
     -39.5
    ],
    "rotation": [
@@ -23203,12 +23218,12 @@
     0.0
    ],
    "size": [
-    18.6,
-    0.16,
-    18.6
+    17.7,
+    0.42,
+    17.7
    ],
-   "material": "structure_b",
-   "sections": 40,
+   "material": "saw_hub",
+   "sections": 48,
    "mobile": {
     "static": true
    },
@@ -23234,7 +23249,7 @@
     17.2
    ],
    "material": "structure_b",
-   "sections": 40,
+   "sections": 48,
    "mobile": {
     "static": true
    },
@@ -23242,107 +23257,27 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_DaisLight_01",
-   "type": "box",
+   "name": "Showcase_LiftCollar",
+   "type": "cylinder",
    "position": [
-    -24.231,
-    7.16,
-    -30.979
-   ],
-   "rotation": [
-    0.0,
-    18.0,
-    0.0
-   ],
-   "size": [
-    2.7,
-    0.06,
-    0.3
-   ],
-   "material": "glow_pink",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_DaisLight_02",
-   "type": "box",
-   "position": [
-    -19.751,
-    7.16,
-    -34.233
-   ],
-   "rotation": [
-    0.0,
-    54.0,
-    0.0
-   ],
-   "size": [
-    2.7,
-    0.06,
-    0.3
-   ],
-   "material": "glow_pink",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_DaisLight_03",
-   "type": "box",
-   "position": [
-    -18.04,
-    7.16,
+    -27.0,
+    6.98,
     -39.5
    ],
    "rotation": [
     0.0,
-    90.0,
-    0.0
-   ],
-   "size": [
-    2.7,
-    0.06,
-    0.3
-   ],
-   "material": "glow_pink",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_DaisLight_04",
-   "type": "box",
-   "position": [
-    -19.751,
-    7.16,
-    -44.767
-   ],
-   "rotation": [
     0.0,
-    126.0,
     0.0
    ],
    "size": [
-    2.7,
-    0.06,
-    0.3
+    20.4,
+    0.16,
+    20.4
    ],
-   "material": "glow_pink",
-   "collision": false,
-   "outline": false,
+   "material": "lift_ring",
+   "hole": 8.85,
+   "hole_res": 48,
+   "sections": 48,
    "mobile": {
     "static": true
    },
@@ -23350,105 +23285,56 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_DaisLight_05",
-   "type": "box",
+   "name": "Showcase_LiftRing",
+   "type": "frustum",
    "position": [
-    -24.231,
-    7.16,
-    -48.021
-   ],
-   "rotation": [
-    0.0,
-    162.0,
-    0.0
-   ],
-   "size": [
-    2.7,
-    0.06,
-    0.3
-   ],
-   "material": "glow_pink",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_DaisLight_06",
-   "type": "box",
-   "position": [
-    -29.769,
-    7.16,
-    -48.021
-   ],
-   "rotation": [
-    0.0,
-    198.0,
-    0.0
-   ],
-   "size": [
-    2.7,
-    0.06,
-    0.3
-   ],
-   "material": "glow_pink",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_DaisLight_07",
-   "type": "box",
-   "position": [
-    -34.249,
-    7.16,
-    -44.767
-   ],
-   "rotation": [
-    0.0,
-    234.0,
-    0.0
-   ],
-   "size": [
-    2.7,
-    0.06,
-    0.3
-   ],
-   "material": "glow_pink",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_DaisLight_08",
-   "type": "box",
-   "position": [
-    -35.96,
-    7.16,
+    -27.0,
+    7.14,
     -39.5
    ],
    "rotation": [
     0.0,
-    270.0,
+    0.0,
     0.0
    ],
    "size": [
-    2.7,
-    0.06,
-    0.3
+    19.3,
+    0.26,
+    19.3
    ],
-   "material": "glow_pink",
+   "material": "lift_ring",
+   "hole": 8.85,
+   "hole_res": 48,
+   "sections": 48,
+   "bottom_scale": 1.0207253886010361,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftRingInner",
+   "type": "cylinder",
+   "position": [
+    -27.0,
+    7.14,
+    -39.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    18.1,
+    0.3,
+    18.1
+   ],
+   "material": "saw_hub",
+   "hole": 8.85,
+   "hole_res": 48,
+   "sections": 48,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -23458,24 +23344,25 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_DaisLight_09",
-   "type": "box",
+   "name": "Showcase_LiftBolt_01",
+   "type": "cylinder",
    "position": [
-    -34.249,
-    7.16,
-    -34.233
+    -25.727,
+    7.38,
+    -29.833
    ],
    "rotation": [
     0.0,
-    306.0,
+    0.0,
     0.0
    ],
    "size": [
-    2.7,
-    0.06,
-    0.3
+    0.17,
+    0.07,
+    0.17
    ],
-   "material": "glow_pink",
+   "material": "saw_hub",
+   "sections": 6,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -23485,24 +23372,957 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_DaisLight_10",
-   "type": "box",
+   "name": "Showcase_LiftBolt_02",
+   "type": "cylinder",
    "position": [
-    -29.769,
-    7.16,
-    -30.979
+    -23.269,
+    7.38,
+    -30.492
    ],
    "rotation": [
     0.0,
-    342.0,
+    0.0,
     0.0
    ],
    "size": [
-    2.7,
-    0.06,
-    0.3
+    0.17,
+    0.07,
+    0.17
    ],
-   "material": "glow_pink",
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_03",
+   "type": "cylinder",
+   "position": [
+    -21.065,
+    7.38,
+    -31.765
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_04",
+   "type": "cylinder",
+   "position": [
+    -19.265,
+    7.38,
+    -33.565
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_05",
+   "type": "cylinder",
+   "position": [
+    -17.992,
+    7.38,
+    -35.769
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_06",
+   "type": "cylinder",
+   "position": [
+    -17.333,
+    7.38,
+    -38.227
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_07",
+   "type": "cylinder",
+   "position": [
+    -17.333,
+    7.38,
+    -40.773
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_08",
+   "type": "cylinder",
+   "position": [
+    -17.992,
+    7.38,
+    -43.231
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_09",
+   "type": "cylinder",
+   "position": [
+    -19.265,
+    7.38,
+    -45.435
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_10",
+   "type": "cylinder",
+   "position": [
+    -21.065,
+    7.38,
+    -47.235
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_11",
+   "type": "cylinder",
+   "position": [
+    -23.269,
+    7.38,
+    -48.508
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_12",
+   "type": "cylinder",
+   "position": [
+    -25.727,
+    7.38,
+    -49.167
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_13",
+   "type": "cylinder",
+   "position": [
+    -28.273,
+    7.38,
+    -49.167
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_14",
+   "type": "cylinder",
+   "position": [
+    -30.731,
+    7.38,
+    -48.508
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_15",
+   "type": "cylinder",
+   "position": [
+    -32.935,
+    7.38,
+    -47.235
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_16",
+   "type": "cylinder",
+   "position": [
+    -34.735,
+    7.38,
+    -45.435
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_17",
+   "type": "cylinder",
+   "position": [
+    -36.008,
+    7.38,
+    -43.231
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_18",
+   "type": "cylinder",
+   "position": [
+    -36.667,
+    7.38,
+    -40.773
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_19",
+   "type": "cylinder",
+   "position": [
+    -36.667,
+    7.38,
+    -38.227
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_20",
+   "type": "cylinder",
+   "position": [
+    -36.008,
+    7.38,
+    -35.769
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_21",
+   "type": "cylinder",
+   "position": [
+    -34.735,
+    7.38,
+    -33.565
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_22",
+   "type": "cylinder",
+   "position": [
+    -32.935,
+    7.38,
+    -31.765
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_23",
+   "type": "cylinder",
+   "position": [
+    -30.731,
+    7.38,
+    -30.492
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftBolt_24",
+   "type": "cylinder",
+   "position": [
+    -28.273,
+    7.38,
+    -29.833
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.07,
+    0.17
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftClamp_1",
+   "type": "box",
+   "position": [
+    -20.247,
+    7.38,
+    -32.747
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    1.5,
+    0.34,
+    1.0
+   ],
+   "material": "lift_ring",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftClampCap_1",
+   "type": "box",
+   "position": [
+    -20.247,
+    7.72,
+    -32.747
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    1.1,
+    0.12,
+    0.62
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftClampLamp_1",
+   "type": "box",
+   "position": [
+    -19.879,
+    7.5,
+    -32.379
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.12,
+    0.05
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftClamp_2",
+   "type": "box",
+   "position": [
+    -20.247,
+    7.38,
+    -46.253
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    1.5,
+    0.34,
+    1.0
+   ],
+   "material": "lift_ring",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftClampCap_2",
+   "type": "box",
+   "position": [
+    -20.247,
+    7.72,
+    -46.253
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    1.1,
+    0.12,
+    0.62
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftClampLamp_2",
+   "type": "box",
+   "position": [
+    -19.879,
+    7.5,
+    -46.621
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.12,
+    0.05
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftClamp_3",
+   "type": "box",
+   "position": [
+    -33.753,
+    7.38,
+    -46.253
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    1.5,
+    0.34,
+    1.0
+   ],
+   "material": "lift_ring",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftClampCap_3",
+   "type": "box",
+   "position": [
+    -33.753,
+    7.72,
+    -46.253
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    1.1,
+    0.12,
+    0.62
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftClampLamp_3",
+   "type": "box",
+   "position": [
+    -34.121,
+    7.5,
+    -46.621
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.12,
+    0.05
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftClamp_4",
+   "type": "box",
+   "position": [
+    -33.753,
+    7.38,
+    -32.747
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "size": [
+    1.5,
+    0.34,
+    1.0
+   ],
+   "material": "lift_ring",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftClampCap_4",
+   "type": "box",
+   "position": [
+    -33.753,
+    7.72,
+    -32.747
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "size": [
+    1.1,
+    0.12,
+    0.62
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_LiftClampLamp_4",
+   "type": "box",
+   "position": [
+    -34.121,
+    7.5,
+    -32.379
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.12,
+    0.05
+   ],
+   "material": "glow_yellow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -23592,24 +24412,213 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_RampL_Side_a",
+   "name": "Showcase_RampL_Post_a1",
    "type": "box",
    "position": [
-    -39.86,
-    7.0,
-    -50.85
+    -39.66,
+    7.051,
+    -46.85
    ],
    "rotation": [
     0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Post_a2",
+   "type": "box",
+   "position": [
+    -39.66,
+    7.524,
+    -48.496
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Post_a3",
+   "type": "box",
+   "position": [
+    -39.66,
+    7.997,
+    -50.142
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Post_a4",
+   "type": "box",
+   "position": [
+    -39.66,
+    8.47,
+    -51.788
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Post_a5",
+   "type": "box",
+   "position": [
+    -39.66,
+    8.943,
+    -53.434
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Post_a6",
+   "type": "box",
+   "position": [
+    -39.66,
+    9.416,
+    -55.08
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Top_a",
+   "type": "box",
+   "position": [
+    -39.66,
+    9.283,
+    -50.965
+   ],
+   "rotation": [
+    -16.03,
     180.0,
     0.0
    ],
    "size": [
-    0.12,
-    1.25,
-    8.526
+    0.1,
+    0.1,
+    8.703
    ],
-   "material": "stripe",
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Mid_a",
+   "type": "box",
+   "position": [
+    -39.66,
+    8.803,
+    -50.965
+   ],
+   "rotation": [
+    -16.03,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.1,
+    8.703
+   ],
+   "material": "arm_yellow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -23646,24 +24655,213 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_RampL_Side_b",
+   "name": "Showcase_RampL_Post_b1",
    "type": "box",
    "position": [
-    -35.34,
-    7.0,
-    -50.85
+    -35.54,
+    7.051,
+    -46.85
    ],
    "rotation": [
     0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Post_b2",
+   "type": "box",
+   "position": [
+    -35.54,
+    7.524,
+    -48.496
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Post_b3",
+   "type": "box",
+   "position": [
+    -35.54,
+    7.997,
+    -50.142
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Post_b4",
+   "type": "box",
+   "position": [
+    -35.54,
+    8.47,
+    -51.788
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Post_b5",
+   "type": "box",
+   "position": [
+    -35.54,
+    8.943,
+    -53.434
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Post_b6",
+   "type": "box",
+   "position": [
+    -35.54,
+    9.416,
+    -55.08
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Top_b",
+   "type": "box",
+   "position": [
+    -35.54,
+    9.283,
+    -50.965
+   ],
+   "rotation": [
+    -16.03,
     180.0,
     0.0
    ],
    "size": [
-    0.12,
-    1.25,
-    8.526
+    0.1,
+    0.1,
+    8.703
    ],
-   "material": "stripe",
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampL_Mid_b",
+   "type": "box",
+   "position": [
+    -35.54,
+    8.803,
+    -50.965
+   ],
+   "rotation": [
+    -16.03,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.1,
+    8.703
+   ],
+   "material": "arm_yellow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -23726,24 +24924,213 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_RampR_Side_a",
+   "name": "Showcase_RampR_Post_a1",
    "type": "box",
    "position": [
-    -18.66,
-    7.0,
-    -50.85
+    -18.46,
+    7.051,
+    -46.85
    ],
    "rotation": [
     0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Post_a2",
+   "type": "box",
+   "position": [
+    -18.46,
+    7.524,
+    -48.496
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Post_a3",
+   "type": "box",
+   "position": [
+    -18.46,
+    7.997,
+    -50.142
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Post_a4",
+   "type": "box",
+   "position": [
+    -18.46,
+    8.47,
+    -51.788
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Post_a5",
+   "type": "box",
+   "position": [
+    -18.46,
+    8.943,
+    -53.434
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Post_a6",
+   "type": "box",
+   "position": [
+    -18.46,
+    9.416,
+    -55.08
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Top_a",
+   "type": "box",
+   "position": [
+    -18.46,
+    9.283,
+    -50.965
+   ],
+   "rotation": [
+    -16.03,
     180.0,
     0.0
    ],
    "size": [
-    0.12,
-    1.25,
-    8.526
+    0.1,
+    0.1,
+    8.703
    ],
-   "material": "stripe",
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Mid_a",
+   "type": "box",
+   "position": [
+    -18.46,
+    8.803,
+    -50.965
+   ],
+   "rotation": [
+    -16.03,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.1,
+    8.703
+   ],
+   "material": "arm_yellow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -23780,24 +25167,213 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_RampR_Side_b",
+   "name": "Showcase_RampR_Post_b1",
    "type": "box",
    "position": [
-    -14.14,
-    7.0,
-    -50.85
+    -14.34,
+    7.051,
+    -46.85
    ],
    "rotation": [
     0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Post_b2",
+   "type": "box",
+   "position": [
+    -14.34,
+    7.524,
+    -48.496
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Post_b3",
+   "type": "box",
+   "position": [
+    -14.34,
+    7.997,
+    -50.142
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Post_b4",
+   "type": "box",
+   "position": [
+    -14.34,
+    8.47,
+    -51.788
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Post_b5",
+   "type": "box",
+   "position": [
+    -14.34,
+    8.943,
+    -53.434
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Post_b6",
+   "type": "box",
+   "position": [
+    -14.34,
+    9.416,
+    -55.08
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    1.12,
+    0.14
+   ],
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Top_b",
+   "type": "box",
+   "position": [
+    -14.34,
+    9.283,
+    -50.965
+   ],
+   "rotation": [
+    -16.03,
     180.0,
     0.0
    ],
    "size": [
-    0.12,
-    1.25,
-    8.526
+    0.1,
+    0.1,
+    8.703
    ],
-   "material": "stripe",
+   "material": "arm_yellow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_RampR_Mid_b",
+   "type": "box",
+   "position": [
+    -14.34,
+    8.803,
+    -50.965
+   ],
+   "rotation": [
+    -16.03,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.1,
+    8.703
+   ],
+   "material": "arm_yellow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -79526,13 +81102,13 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 58912,
-  "objects": 2400,
-  "materials": 45,
-  "glb_kb": 4123,
-  "nodes": 2655,
-  "draw_calls_unbatched": 2620,
-  "draw_calls_batched_min": 47,
+  "triangles": 61064,
+  "objects": 2457,
+  "materials": 46,
+  "glb_kb": 4209,
+  "nodes": 2713,
+  "draw_calls_unbatched": 2678,
+  "draw_calls_batched_min": 48,
   "images": 118,
   "tex_mem_gpu_compressed_mb": 26.55,
   "tex_mem_uncompressed_mb": 106.19,

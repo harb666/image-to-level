@@ -810,10 +810,22 @@ def showcase(ctx, s, x, y, z, yaw):
     pink, stripe, atlas = ctx.role(s.get("pink", "glow_pink")), ctx.role("stripe"), ctx.role(s.get("atlas", "ce_signs"))
     # --- the dais
     dx, dz = s.get("dais_at", D["center"]); R = float(s.get("dais_r", 8.6))
-    ctx.add(n + "_DaisRim", "cylinder", [dx, yt, dz], [2 * R + 1.4, 0.16, 2 * R + 1.4], ctx.role(s.get("rim_material", "structure_b")), sections=40, **st)  # Stage 137: plain metal (no hazard stripes)
-    ctx.add(n + "_Dais", "cylinder", [dx, yt, dz], [2 * R, 0.3, 2 * R], "structure_b", sections=40, **st)
-    for k in range(10):  # glowing pink segments round the rim
-        a = 36 * k + 18; r_ = R + 0.36; ctx.add(f"{n}_DaisLight_{k + 1:02d}", "box", [dx + r_ * math.sin(math.radians(a)), yt + 0.16, dz + r_ * math.cos(math.radians(a))], [2.7, 0.06, 0.3], pink, rot=[0, a, 0], **vs)
+    gap_m = ctx.role(s.get("seam_material", "saw_hub")); ring_m = ctx.role(s.get("ring_material", "lift_ring"))
+    ctx.add(n + "_DaisRim", "cylinder", [dx, yt - 0.3, dz], [2 * R + 0.5, 0.42, 2 * R + 0.5], gap_m, sections=48, **st)  # Stage 141: the dark lift-shaft gap round the dais (it will be a lift)
+    ctx.add(n + "_Dais", "cylinder", [dx, yt, dz], [2 * R, 0.3, 2 * R], "structure_b", sections=48, **st)
+    # Stage 141: a solid machined ring round the lift (was pink light segments): a wide base collar, a raised bevelled band,
+    # bolt heads and four heavy guide clamps - the frame the boss lift drops into
+    ctx.add(n + "_LiftCollar", "cylinder", [dx, yt - 0.02, dz], [2 * R + 3.2, 0.16, 2 * R + 3.2], ring_m, hole=R + 0.25, hole_res=48, sections=48, **st)
+    ctx.add(n + "_LiftRing", "frustum", [dx, yt + 0.14, dz], [2 * R + 2.1, 0.26, 2 * R + 2.1], ring_m, hole=R + 0.25, hole_res=48, sections=48, bottom_scale=(2 * R + 2.5) / (2 * R + 2.1), **st)
+    ctx.add(n + "_LiftRingInner", "cylinder", [dx, yt + 0.14, dz], [2 * R + 0.9, 0.3, 2 * R + 0.9], gap_m, hole=R + 0.25, hole_res=48, sections=48, **vs)  # dark inner lip (the edge of the shaft)
+    rb = R + 1.15
+    for k in range(24):  # bolt heads round the band
+        a = math.radians(15 * k + 7.5); ctx.add(f"{n}_LiftBolt_{k + 1:02d}", "cylinder", [dx + rb * math.sin(a), yt + 0.38, dz + rb * math.cos(a)], [0.17, 0.07, 0.17], gap_m, sections=6, **vs)
+    for k in range(4):  # guide clamps on the diagonals
+        a = 90 * k + 45; ra = math.radians(a); rc = R + 0.95; cxk, czk = dx + rc * math.sin(ra), dz + rc * math.cos(ra)
+        ctx.add(f"{n}_LiftClamp_{k + 1}", "box", [cxk, yt + 0.38, czk], [1.5, 0.34, 1.0], ring_m, rot=[0, a, 0], **st)
+        ctx.add(f"{n}_LiftClampCap_{k + 1}", "box", [cxk, yt + 0.72, czk], [1.1, 0.12, 0.62], gap_m, rot=[0, a, 0], **vs)
+        ctx.add(f"{n}_LiftClampLamp_{k + 1}", "box", [cxk + 0.52 * math.sin(ra), yt + 0.5, czk + 0.52 * math.cos(ra)], [0.7, 0.12, 0.05], ctx.role("glow_yellow"), rot=[0, a, 0], **vs)
     L_ = R * 1.5; ctx.add(n + "_Logo", "panel", [dx, yt + 0.312, dz + L_ / 2], [L_, L_, 0], ctx.role(s.get("logo_material", "ce_floor_logo")), rot=[-90, 0, 0], **vs)
     # --- ramps up to the stage ends, pink-lit curbs
     run = float(s.get("ramp_run", 8.7)); h = ys - yt; pitch = math.degrees(math.atan2(h, run)); Lc = math.hypot(run, h); rw = float(s.get("ramp_width", 4.4))
@@ -821,7 +833,14 @@ def showcase(ctx, s, x, y, z, yaw):
         zc = sz1 + run / 2; ctx.add(f"{n}_Ramp{sd}", "ramp", [xr, yt, zc], [rw, h, run], "deck", rot=[0, 180, 0], connector=True, **st)
         for sg in (-1, 1):
             ctx.add(f"{n}_Ramp{sd}_Curb_{'ab'[sg > 0]}", "box", [xr + sg * (rw / 2 - 0.14), yt + h / 2 - 0.02, zc], [0.26, 0.24, Lc], pink, rot=[-pitch, 180, 0], **vs)
-            ctx.add(f"{n}_Ramp{sd}_Side_{'ab'[sg > 0]}", "box", [xr + sg * (rw / 2 + 0.06), yt, zc], [0.12, h * 0.5, run * 0.98], stripe, rot=[0, 180, 0], **vs)
+            # Stage 141: proper railings following the slope (were hazard-striped boards)
+            yr_ = ctx.role(s.get("rail", "arm_yellow")); xp = xr + sg * (rw / 2 - 0.14); zb, zt = sz1 + run - 0.35, sz1 + 0.12
+            ys_at = lambda z: yt + (sz1 + run - z) / run * h; npst = max(3, int(round((zb - zt) / 1.6)))
+            for j in range(npst + 1):
+                zj = zb + (zt - zb) * j / npst; ctx.add(f"{n}_Ramp{sd}_Post_{'ab'[sg > 0]}{j + 1}", "box", [xp, ys_at(zj) - 0.05, zj], [0.14, 1.12, 0.14], yr_, **vs)
+            Lr = (zb - zt) / math.cos(math.radians(pitch)) + 0.14; zm = (zb + zt) / 2
+            for hh, nm_ in ((1.0, "Top"), (0.52, "Mid")):
+                ctx.add(f"{n}_Ramp{sd}_{nm_}_{'ab'[sg > 0]}", "box", [xp, ys_at(zm) + hh, zm], [0.1, 0.1, Lr], yr_, rot=[-pitch, 180, 0], **vs)
     # --- the specimen tank (centre of the stage)
     tx = s.get("tank_x", S["center"][0]); tz = S["center"][1] + float(s.get("tank_dz", 0.6)); y0 = ys
     ctx.add(n + "_TankPlinth", "cylinder", [tx, y0, tz], [5.2, 0.9, 5.2], "structure_b", sections=16, **st)

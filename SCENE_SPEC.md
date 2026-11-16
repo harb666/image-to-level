@@ -1436,4 +1436,8 @@ Building blocks usable without the preset:
   fed by glowing arch pipes, glowing corner pipes over the front edge down the pillars, a pink strip on the outer side.
   New closed shape `pipe_path` (a tube along a 2D path with rounded bends). Assembly Ascent: the two pits are mirror
   images (8.6 m wide each, 4.6 m either side of the bridge).
+- Stage 141: `showcase` dais - the pink light segments became a solid steel ring (role `ring_material`, default
+  `lift_ring`: a wide collar, a bevelled band, 24 bolt heads, four guide clamps with amber lamps) round a dark
+  shaft gap (`seam_material`): it frames the platform that will become the boss lift. The stage ramps' hazard boards are
+  replaced by railings (posts + top / mid rails) that follow the ramp slope.
 

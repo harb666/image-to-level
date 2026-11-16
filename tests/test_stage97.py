@@ -103,6 +103,16 @@ class AssemblyAscent(unittest.TestCase):
                 m = self.L["materials"][self.by[sw + part]["material"]]; self.assertTrue(m.get("plain"), sw + part); self.assertFalse(m.get("emissive"))
                 if "Glow" in part: self.assertLess(max(m["color"]), 0.15)
 
+    def test_dais_lift_ring_and_ramp_rails(self):
+        """Stage 141: a solid steel ring (collar, bevelled band, bolts, four guide clamps) frames the dais - the future
+        boss lift - instead of pink light segments; the stage ramps have railings following their slope, no hazard boards."""
+        self.assertFalse([k for k in self.by if k.startswith("Showcase_DaisLight_")])
+        for k in ("Showcase_LiftRing", "Showcase_LiftCollar", "Showcase_LiftClamp_1"): self.assertIn(k, self.by)
+        self.assertTrue(self.L["materials"][self.by["Showcase_LiftRing"]["material"]].get("plain"))
+        self.assertFalse([k for k in self.by if k.startswith("Showcase_Ramp") and "_Side_" in k])
+        top = self.by["Showcase_RampL_Top_a"]; self.assertGreater(abs(top["rotation"][0]), 5)  # sloped with the ramp
+        ys = [self.by[f"Showcase_RampL_Post_a{j}"]["position"][1] for j in (1, 2, 3)]; self.assertTrue(ys[0] < ys[1] < ys[2])  # posts climb with it
+
     def test_dais_has_the_mini_boss_frown(self):
         """Stage 137: the showcase dais has no hazard stripes and shows the mini boss's frown face (cut-out decal)."""
         self.assertNotEqual(self.L["materials"][self.by["Showcase_DaisRim"]["material"]]["type"], "chevron")

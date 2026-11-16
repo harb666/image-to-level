@@ -1,17 +1,17 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 4123,
-  "mobile/level_mobile.glb": 2476,
-  "mobile/collision.json": 181,
+  "level.glb": 4209,
+  "mobile/level_mobile.glb": 2526,
+  "mobile/collision.json": 184,
   "environment.json": 4,
   "background.glb": 477,
   "effects.json": 93
  },
  "complexity": {
-  "triangles": 68324,
-  "nodes": 2620,
-  "materials": 45,
+  "triangles": 70488,
+  "nodes": 2678,
+  "materials": 46,
   "heaviest": [
    [
     "Corrosion_Band",
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 4123,
-   "triangles": 58912,
-   "draw_calls": 2620,
+   "glb_kb": 4209,
+   "triangles": 61064,
+   "draw_calls": 2678,
    "tex_mem_gpu_mb_est": 26.55
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 2476,
-   "triangles": 65518,
-   "draw_calls": 135,
-   "visible_draw_calls_est": 74.6,
-   "visible_draw_calls_max_est": 138,
+   "glb_kb": 2526,
+   "triangles": 67562,
+   "draw_calls": 137,
+   "visible_draw_calls_est": 75.5,
+   "visible_draw_calls_max_est": 140,
    "tex_mem_gpu_mb_est": 10.9,
-   "materials": 47,
-   "nodes": 234,
+   "materials": 48,
+   "nodes": 236,
    "colliders": {
-    "colliders": 453,
+    "colliders": 459,
     "hazards": 1,
-    "glb_kb": 205
+    "glb_kb": 209
    },
    "background_kb": 404
   },
@@ -177,7 +177,7 @@
    },
    {
     "name": "Showcase_Deck",
-    "standable_m2": 738.0,
+    "standable_m2": 732.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -271,12 +271,12 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 135 (> 80)"
+   "message": "mobile draw calls 137 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~75 visible draw calls (estimate, > 60)"
+   "message": "~76 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "narrow_connector",
@@ -336,7 +336,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "68324 triangles (> budget 40000)"
+   "message": "70488 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
