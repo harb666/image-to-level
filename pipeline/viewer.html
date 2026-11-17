@@ -26,7 +26,7 @@ body,button,#stick,#vert{-webkit-user-select:none;user-select:none;-webkit-touch
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head><body>
-<div id="hud"><button id="mode">View: 3rd person</button><button id="floatb">🛸 Float</button><button id="q">Quality: med</button><button id="fx" hidden>FX</button><button id="statsb">Stats</button><button id="shotb">📷</button><button id="reset">Respawn</button><button id="gateb" hidden>Gate: closed</button><button id="issb" hidden>⚠</button></div>
+<div id="hud"><button id="mode">View: 3rd person</button><button id="floatb">🛸 Float</button><button id="q">Quality: med</button><button id="fx" hidden>FX</button><button id="statsb">Stats</button><button id="shotb">📷</button><button id="reset">Respawn</button><button id="godb">God: on</button><button id="gateb" hidden>Gate: closed</button><button id="issb" hidden>⚠</button></div>
 <div id="stick"></div><div id="info"></div><div id="stats" hidden></div>
 <div id="vert" hidden><button id="upb">▲</button><button id="dnb">▼</button></div><button id="jumpb" hidden>Jump</button><button id="dodgeb" hidden>Dodge</button>
 <div id="sel" hidden></div><div id="shot" hidden><img id="shotimg" alt="Screenshot of the current view"><p>Press and hold the image to save or share it.</p><button id="shotclose">Close</button></div>
@@ -506,6 +506,8 @@ const $=id=>document.getElementById(id);
 const orbit=new OrbitControls(cam,r.domElement);orbit.enabled=false;
 const MODES=['3rd person','1st person','orbit','free cam','top-down'];let mode=0,yaw=0,pitch=0,vy=0;const pos=new THREE.Vector3(),fpos=new THREE.Vector3();
 let exitT=0;const spawn=()=>{pos.set(...meta.spawn);pos.y+=meta.eye_height;const f=meta.spawn_facing||[0,0,-1];yaw=Math.atan2(-f[0],-f[2]);pitch=-0.15;};spawn();
+let god=true,godT=0;const kill=m=>{if(god){const t=performance.now();if(t-godT>1200){godT=t;const b=document.getElementById('info');if(b)b.textContent='🛡 God mode - would have died: '+(m||'hazard');}return;}spawn();if(m){const b=document.getElementById('info');if(b)b.textContent=m;}}; // Stage 162: the preview's test player is invincible by default (toggle: God button)
+$('godb').onclick=()=>{god=!god;$('godb').textContent='God: '+(god?'on':'off');};window.setGod=v=>{god=!!v;$('godb').textContent='God: '+(god?'on':'off');};
 window.__teleport=(x,y,z)=>{pos.set(x,y+meta.eye_height,z);vy=0;if(window.__G)window.__G().hv.set(0,0);};window.__feet=()=>[pos.x,pos.y-meta.eye_height,pos.z]; // Stage 108: test hooks (render / runtime checks)
 $('reset').onclick=()=>{spawn();setMode(mode);};
 window.view=(x,z,yd,pd=0,y=0)=>{pos.set(x,meta.eye_height+y,z);vy=0;yaw=yd*Math.PI/180;pitch=pd*Math.PI/180;}; // scripted screenshots
@@ -648,13 +650,13 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
       const st=G_.hv.length()*dt;if(st>1e-5){const dx=new THREE.Vector3(G_.hv.x,0,0),dz=new THREE.Vector3(0,0,G_.hv.y); // slide along walls (x and z separately)
         if(!blocked(new THREE.Vector3(G_.hv.x,0,G_.hv.y).normalize(),st))pos.x+=G_.hv.x*dt,pos.z+=G_.hv.y*dt;
         else{if(Math.abs(G_.hv.x)>1e-4&&!blocked(dx.normalize(),Math.abs(G_.hv.x*dt)))pos.x+=G_.hv.x*dt;else G_.hv.x=0;if(Math.abs(G_.hv.y)>1e-4&&!blocked(dz.normalize(),Math.abs(G_.hv.y*dt)))pos.z+=G_.hv.y*dt;else G_.hv.y=0;}}
-      ray.set(new THREE.Vector3(pos.x,pos.y+0.5,pos.z),down);ray.far=100;const h=ray.intersectObjects(solids)[0];ground=h?h.point.y:-50;if(h&&h.object.name.startsWith('Hazard')&&pos.y-meta.eye_height<h.point.y+0.3){spawn();}
+      ray.set(new THREE.Vector3(pos.x,pos.y+0.5,pos.z),down);ray.far=100;const h=ray.intersectObjects(solids)[0];ground=h?h.point.y:-50;if(h&&h.object.name.startsWith('Hazard')&&pos.y-meta.eye_height<h.point.y+0.3){kill('☣ Slimed!');}
       if(G_.dodgeT>0&&!onF)vy=0;else if(!(onF&&vy<=0)){vy=Math.max(vy-g0*(vy<0?MV.fall_gravity_multiplier:1)*dt,-MV.max_fall_speed);}else vy=-0.5;pos.y+=vy*dt;
       G_.onFloor=pos.y<=ground+meta.eye_height+0.06&&vy<=0;
     }else{
     const d=new THREE.Vector3(s,0,-f);if(d.lengthSq()>0){d.normalize().applyAxisAngle(UP,yaw);const step=GP.player.walk_speed*dt;if(!blocked(d,step))pos.addScaledVector(d,step);}
     ray.set(new THREE.Vector3(pos.x,pos.y+0.5,pos.z),down);ray.far=100;const h=ray.intersectObjects(solids)[0];
-    ground=h?h.point.y:-50;if(h&&h.object.name.startsWith('Hazard')&&pos.y-meta.eye_height<h.point.y+0.3){spawn();}if(jumpReq&&pos.y<=ground+meta.eye_height+0.05)vy=Math.sqrt(2*GP.player.gravity*GP.player.jump_height);jumpReq=false;vy-=GP.player.gravity*dt;pos.y+=vy*dt;}
+    ground=h?h.point.y:-50;if(h&&h.object.name.startsWith('Hazard')&&pos.y-meta.eye_height<h.point.y+0.3){kill('☣ Slimed!');}if(jumpReq&&pos.y<=ground+meta.eye_height+0.05)vy=Math.sqrt(2*GP.player.gravity*GP.player.jump_height);jumpReq=false;vy-=GP.player.gravity*dt;pos.y+=vy*dt;}
     for(const W of Object.values(window.winds||{}))if(W.s>0.01){const rel=new THREE.Vector3(pos.x,pos.y-meta.eye_height+0.9,pos.z).sub(W.o),al=rel.dot(W.d); // Stage 82: turbine wind
       if(al>0&&al<W.w.length&&rel.addScaledVector(W.d,-al).length()<W.w.radius+W.w.spread*al){const sw=W.w.push*W.s*(1-0.35*al/W.w.length)*dt;if(!blocked(W.d,sw))pos.addScaledVector(W.d,sw);
         if(pos.y>ground+meta.eye_height+0.05)vy+=W.w.lift*W.s*dt;}}
@@ -666,18 +668,18 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
       if(Math.abs(al)<K.b.length/2&&Math.abs(la)<K.b.width/2){const dy=fy-(K.c.y+K.u.y*al);if(dy>-0.3&&dy<0.45){const st=K.b.speed*dt,h=new THREE.Vector3(K.u.x,0,K.u.z).normalize().multiplyScalar(Math.sign(st));
         if(!blocked(h,Math.abs(st)))pos.addScaledVector(K.u,st);}}
       const P=K.b.kill;if(P){const a=-P.yaw*Math.PI/180,dx=pos.x-P.center[0],dz=pos.z-P.center[2],lx=dx*Math.cos(a)+dz*Math.sin(a),lz=-dx*Math.sin(a)+dz*Math.cos(a);
-        if(Math.abs(lx)<P.size[0]/2&&Math.abs(lz)<P.size[2]/2&&fy<P.center[1]+P.size[1]/2&&fy>P.center[1]-P.size[1]/2-0.5){spawn();say('🔺 Spiked!');}}}
+        if(Math.abs(lx)<P.size[0]/2&&Math.abs(lz)<P.size[2]/2&&fy<P.center[1]+P.size[1]/2&&fy>P.center[1]-P.size[1]/2-0.5){kill('🔺 Spiked!');}}}
     for(const K of Object.values(window.lifts||{})){const LF=K.l,fy=pos.y-meta.eye_height,dx=pos.x-LF.center[0],dz=pos.z-LF.center[2],on=dx*dx+dz*dz<LF.radius*LF.radius&&Math.abs(fy-(LF.bottom+K.off))<0.45; // Stage 108: board / call the lift
       if(K.dir===0){if(on){K.board+=dt;if(K.board>=LF.wait){K.dir=K.s<0.5?1:-1;K.p=0;K.board=0;say(K.dir>0?'⬆ Going up':'⬇ Going down');}}
         else{K.board=0;for(const c of LF.calls){const up=c.at==='top';if(up===(K.s>0.5))continue;const cx=pos.x-c.center[0],cz=pos.z-c.center[2];
           if(cx*cx+cz*cz<c.radius*c.radius&&Math.abs(fy-c.center[1])<1.5){K.dir=up?1:-1;K.p=0;say('🛗 Lift called');}}}}}
     for(const K of Object.values(window.sweepers||{})){const S_=K.s,fy=pos.y-meta.eye_height,rx=pos.x-S_.center[0],rz=pos.z-S_.center[2],rad=GP.player.radius,H_=GP.player.height; // Stage 98: spinner bars (jump them) and balls
       for(const a0 of S_.arms){const A=(a0+K.th)*Math.PI/180,dx=Math.sin(A),dz=Math.cos(A),al=rx*dx+rz*dz,lat=Math.abs(rx*dz-rz*dx),by=S_.center[1]+S_.bar_y,bly=S_.center[1]+S_.ball_y;
-        if(al>S_.r0-0.4&&al<S_.r1&&lat<0.25+rad&&fy<by+S_.bar_half&&fy+H_>by-S_.bar_half){spawn();say('🌀 Swept!');break;}
-        const bx=rx-dx*S_.r1,bz=rz-dz*S_.r1;if(bx*bx+bz*bz<(S_.ball_r+rad)**2&&fy<bly+S_.ball_r&&fy+H_>bly-S_.ball_r){spawn();say('💥 Spiked!');break;}}}
+        if(al>S_.r0-0.4&&al<S_.r1&&lat<0.25+rad&&fy<by+S_.bar_half&&fy+H_>by-S_.bar_half){kill('🌀 Swept!');break;}
+        const bx=rx-dx*S_.r1,bz=rz-dz*S_.r1;if(bx*bx+bz*bz<(S_.ball_r+rad)**2&&fy<bly+S_.ball_r&&fy+H_>bly-S_.ball_r){kill('💥 Spiked!');break;}}}
     for(const K of Object.values(window.sawKill||{})){const p=new THREE.Vector3(pos.x,pos.y-meta.eye_height+0.9,pos.z).sub(K.c),ax=Math.abs(p.dot(K.a));p.addScaledVector(K.a,-p.dot(K.a)); // Stage 97: saw blades
-      if(ax<0.7+GP.player.radius&&p.length()<K.r+0.6){spawn();say('🪚 Sliced!');}}
-    for(const k of (window.crushKill||[]))if(k.on){const fy=pos.y-meta.eye_height;if(pos.x>k.min[0]&&pos.x<k.max[0]&&pos.z>k.min[2]&&pos.z<k.max[2]&&fy>k.min[1]-0.3&&fy<k.max[1]){spawn();const b=document.getElementById('info');if(b)b.textContent='💥 Crushed!';}} // Stage 72
+      if(ax<0.7+GP.player.radius&&p.length()<K.r+0.6){kill('🪚 Sliced!');}}
+    for(const k of (window.crushKill||[]))if(k.on){const fy=pos.y-meta.eye_height;if(pos.x>k.min[0]&&pos.x<k.max[0]&&pos.z>k.min[2]&&pos.z<k.max[2]&&fy>k.min[1]-0.3&&fy<k.max[1]){kill('💥 Crushed!');}} // Stage 72
   for(const ex of (meta.exits||[])){const dx=pos.x-ex.center[0],dz=pos.z-ex.center[2],fy=pos.y-meta.eye_height;
     if(dx*dx+dz*dz<ex.radius*ex.radius&&Math.abs(fy-ex.center[1])<ex.height/2&&!exitT){exitT=1;const b=document.getElementById('info');
       b.textContent='⬇ '+ex.id.replace(/_/g,' ')+' → '+ex.target+' (Construct Error loads the next level here)';setTimeout(()=>{spawn();exitT=0;},1800);}}
