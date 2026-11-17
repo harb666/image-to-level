@@ -1,16 +1,16 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 5438,
-  "mobile/level_mobile.glb": 3198,
+  "level.glb": 5462,
+  "mobile/level_mobile.glb": 3211,
   "mobile/collision.json": 219,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 106
+  "effects.json": 109
  },
  "complexity": {
-  "triangles": 93164,
-  "nodes": 3076,
+  "triangles": 93620,
+  "nodes": 3087,
   "materials": 59,
   "heaviest": [
    [
@@ -37,17 +37,17 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 5438,
-   "triangles": 80108,
-   "draw_calls": 3076,
+   "glb_kb": 5462,
+   "triangles": 80564,
+   "draw_calls": 3087,
    "tex_mem_gpu_mb_est": 29.54
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3198,
-   "triangles": 89592,
+   "glb_kb": 3211,
+   "triangles": 90048,
    "draw_calls": 172,
-   "visible_draw_calls_est": 88.3,
+   "visible_draw_calls_est": 88.2,
    "visible_draw_calls_max_est": 173,
    "tex_mem_gpu_mb_est": 13.73,
    "materials": 61,
@@ -60,10 +60,10 @@
    "background_kb": 404
   },
   "effects": {
-   "max_particles": 1257,
-   "emitters": 36,
-   "extra_draw_calls": 11,
-   "transparent_area_m2": 13000
+   "max_particles": 1269,
+   "emitters": 37,
+   "extra_draw_calls": 12,
+   "transparent_area_m2": 13000.5
   },
   "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
  },
@@ -357,7 +357,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "93164 triangles (> budget 40000)"
+   "message": "93620 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",

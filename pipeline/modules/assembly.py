@@ -876,13 +876,26 @@ def showcase(ctx, s, x, y, z, yaw):
     ctx.add(n + "_TankPlinth", "cylinder", [tx, y0, tz], [5.2, 0.9, 5.2], "structure_b", sections=16, **st)
     ctx.add(n + "_TankBand", "cylinder", [tx, y0 + 0.75, tz], [5.45, 0.2, 5.45], stripe, sections=16, **vs)
     ctx.add(n + "_TankBase", "cylinder", [tx, y0 + 0.9, tz], [4.0, 0.6, 4.0], "structure_b", sections=16, **st)
-    ctx.add(n + "_TankGlass", "cylinder", [tx, y0 + 1.5, tz], [3.2, 5.0, 3.2], ctx.role("glass_clear"), sections=16, double_sided=True, **vs)
-    ctx.add(n + "_TankLiquid", "cylinder", [tx, y0 + 1.52, tz], [3.0, 4.7, 3.0], ctx.role(s.get("liquid", "tank_green")), sections=16, double_sided=True, **vs)
+    # Stage 156 (as Toxic Works' vats): ONE see-through slime-glass layer (no second blended liquid shell to sort against),
+    # its ends sunk 10 cm into the base and the cap (no coplanar end faces: no flicker), bubbles rising inside it from a
+    # diffuser of nozzles on the floor to a vent hood under the cap (spec_to_level: "tube" -> effect Tube_Bubbles)
+    fy = y0 + 1.5  # the vat floor (the base's top)
+    ctx.add(n + "_TankGlass", "cylinder", [tx, fy - 0.1, tz], [3.2, 5.2, 3.2], ctx.role(s.get("liquid", "tank_green")), sections=16, double_sided=True, tube=True,
+            bubble_range=[0.68, 4.45], **vs)
+    v_ = dict(collision=False, outline=False, mobile={"static": True})
+    ctx.add(n + "_TankDiffuser", "cylinder", [tx, fy - 0.05, tz], [2.75, 0.3, 2.75], "machine", sections=16, **v_)
+    ctx.add(n + "_TankDiffuserRing", "cylinder", [tx, fy + 0.26, tz], [2.6, 0.05, 2.6], ctx.role("glow"), sections=16, hole=round(1.3 * math.cos(math.pi / 16) - 0.1, 3), hole_res=16, **v_)
+    ctx.add(n + "_TankGrate", "cylinder", [tx, fy + 0.24, tz], [2.2, 0.06, 2.2], ctx.role("grate"), sections=16, **v_)
+    for k in range(7):  # bubble nozzles: six round a centre one (the bubbles start at their tops)
+        a = math.radians(60 * k + 30); r = 0.0 if k == 6 else 0.62
+        ctx.add(f"{n}_TankNozzle_{k + 1}", "frustum", [tx + math.sin(a) * r, fy + 0.29, tz + math.cos(a) * r], [0.16, 0.3, 0.16], "frame", sections=6, bottom_scale=1.8, **v_)
+    ctx.add(n + "_TankHood", "frustum", [tx, fy + 4.43, tz], [2.8, 0.55, 2.8], "machine", sections=16, bottom_scale=0.6, **v_)  # the cables run up into it
+    ctx.add(n + "_TankHoodGrate", "cylinder", [tx, fy + 4.39, tz], [1.5, 0.06, 1.5], ctx.role("grate"), sections=16, **v_)
     sp = s.get("specimen")
     if sp:  # Stage 152: a rigged, animated character floating in the tank instead of the painted silhouette (level.json "characters")
         import json as _json, os as _os
         root = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))); base = sp["asset"]
-        meta = _json.load(open(_os.path.join(root, base + ".json"))); off = meta["vat"]["offset"]; floor_ = y0 + 1.5  # the glass starts on the base
+        meta = _json.load(open(_os.path.join(root, base + ".json"))); off = meta["vat"]["offset"]; floor_ = fy  # the vat floor (the base's top)
         trig = float(sp.get("trigger_radius", 9.0)); fl_ = dict(meta["float"], **sp.get("float", {}))
         ctx.characters = getattr(ctx, "characters", []) + [dict(id=n + "_Specimen", asset=base + ".glb", preview=base + "_preview.glb", texture=base + ".jpg",
             position=[round(tx + off[0], 3), round(floor_ + off[1], 3), round(tz + off[2], 3)], yaw=0.0, clips=meta["clips"], float=fl_,

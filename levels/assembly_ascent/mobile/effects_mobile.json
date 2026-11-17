@@ -138,22 +138,22 @@
  },
  "totals": {
   "performance": {
-   "max_particles": 398,
-   "emitters": 36,
-   "extra_draw_calls": 10,
-   "transparent_area_m2": 0
+   "max_particles": 410,
+   "emitters": 37,
+   "extra_draw_calls": 11,
+   "transparent_area_m2": 0.5
   },
   "balanced": {
-   "max_particles": 1257,
-   "emitters": 36,
-   "extra_draw_calls": 11,
-   "transparent_area_m2": 13000
+   "max_particles": 1269,
+   "emitters": 37,
+   "extra_draw_calls": 12,
+   "transparent_area_m2": 13000.5
   },
   "quality": {
-   "max_particles": 1862,
-   "emitters": 36,
-   "extra_draw_calls": 12,
-   "transparent_area_m2": 26000
+   "max_particles": 1877,
+   "emitters": 37,
+   "extra_draw_calls": 13,
+   "transparent_area_m2": 26000.6
   }
  },
  "effects": [
@@ -807,6 +807,108 @@
     }
    },
    "merge_emitters": true
+  },
+  {
+   "id": "Tube_Bubbles",
+   "type": "tube_bubbles",
+   "category": "tube_bubbles",
+   "glb_contains": "nothing (tube positions in 'tubes': [x, y_bottom, z, height, radius])",
+   "godot_runtime": "ONE MeshInstance3D: an ArrayMesh of camera-facing quads (4 verts per bubble: VERTEX = tube bottom centre, UV = corner, COLOR = random seed, UV2 = (height, radius)) + tube_bubbles.gdshader, which moves every bubble up its tube in the vertex shader (rises faster as it goes, wobbles, grows a little, fades in at the nozzles and pops under the hood) and draws a glassy rim + highlights. render_priority -1 so the tinted glass is drawn over it. No CPU work, one draw call",
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "density": 0.64,
+      "size": [
+       0.07,
+       0.34
+      ],
+      "speed": [
+       0.9,
+       2.4
+      ],
+      "wobble": 0.14,
+      "color": [
+       0.82,
+       1.0,
+       0.7
+      ],
+      "alpha": 0.85,
+      "nozzles": 0.7
+     },
+     "cost_estimate": {
+      "max_particles": 12,
+      "emitters": 1,
+      "extra_draw_calls": 1,
+      "transparent_area_m2": 0.5
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "density": 1.6,
+      "size": [
+       0.07,
+       0.34
+      ],
+      "speed": [
+       0.9,
+       2.4
+      ],
+      "wobble": 0.14,
+      "color": [
+       0.82,
+       1.0,
+       0.7
+      ],
+      "alpha": 0.85,
+      "nozzles": 0.7
+     },
+     "cost_estimate": {
+      "max_particles": 12,
+      "emitters": 1,
+      "extra_draw_calls": 1,
+      "transparent_area_m2": 0.5
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "density": 2.56,
+      "size": [
+       0.07,
+       0.34
+      ],
+      "speed": [
+       0.9,
+       2.4
+      ],
+      "wobble": 0.14,
+      "color": [
+       0.82,
+       1.0,
+       0.7
+      ],
+      "alpha": 0.85,
+      "nozzles": 0.7
+     },
+     "cost_estimate": {
+      "max_particles": 15,
+      "emitters": 1,
+      "extra_draw_calls": 1,
+      "transparent_area_m2": 0.6
+     }
+    }
+   },
+   "tubes": [
+    [
+     -30.0,
+     11.58,
+     -59.3,
+     3.77,
+     1.6
+    ]
+   ]
   },
   {
    "id": "Fan_Lights",

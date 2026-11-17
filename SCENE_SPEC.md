@@ -1509,4 +1509,10 @@ Building blocks usable without the preset:
   default 0.22 m: pressed, the collar sits on `Band_2`) and `drive.plasma` / `plasma_tiles` / `plasma_rise`: the runtimes scroll the plasma's UV
   round with the rotor angle and up with time, and scale its emission with the ram (pressed fraction + a flash decaying
   after the impact). Options `plasma_material`, `lamp_green`, `plasma_tiles` (2), `plasma_rise` (0.35).
+- Stage 156: the showcase vat is built like Toxic Works' vats - one see-through slime-glass layer (`tank_green`, alpha 0.3;
+  no separate blended liquid shell) with its ends sunk 10 cm into the base and the cap (the coplanar end faces flickered),
+  a diffuser on the floor (glowing ring, grate, seven bubble nozzles) and a vent hood under the cap the cables run into;
+  `tube` + `bubble_range` give it `Tube_Bubbles`. The specimen's `bang` clip (pipeline/specimen.py) is now 4 s: a flurry
+  of alternating hammer fists, then two wound-up double-fisted slams (`BANG_HITS`, `BANG_DOUBLE`, `BANG_BIG`), the body
+  lunging and recoiling, head thrashing, the fist turning back towards neutral as it winds up (forearm twist <= 75 deg).
 

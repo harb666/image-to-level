@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 5438,
-    "triangles": 93164,
-    "nodes": 3118,
-    "mesh_nodes": 3076,
-    "unique_meshes": 1428,
+    "glb_kb": 5462,
+    "triangles": 93620,
+    "nodes": 3129,
+    "mesh_nodes": 3087,
+    "unique_meshes": 1433,
     "materials": 61,
     "images": 144,
-    "draw_calls_unbatched": 3076,
+    "draw_calls_unbatched": 3087,
     "draw_calls_batched_min": 61,
     "tex_mem_uncompressed_mb": 118.17,
     "tex_mem_gpu_compressed_mb": 29.54,
@@ -73,16 +73,16 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 999.3,
-    "visible_draw_calls_max": 3068,
-    "visible_triangles_mean": 42778,
-    "visible_triangles_max": 103768
+    "visible_draw_calls_mean": 1003.5,
+    "visible_draw_calls_max": 3079,
+    "visible_triangles_mean": 42950,
+    "visible_triangles_max": 104224
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3198,
-    "triangles": 89592,
+    "glb_kb": 3211,
+    "triangles": 90048,
     "nodes": 271,
     "mesh_nodes": 172,
     "unique_meshes": 172,
@@ -139,10 +139,10 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 88.3,
+    "visible_draw_calls_mean": 88.2,
     "visible_draw_calls_max": 173,
-    "visible_triangles_mean": 75684,
-    "visible_triangles_max": 100008
+    "visible_triangles_mean": 76052,
+    "visible_triangles_max": 100464
    },
    "hidden_faces_removed": 1331,
    "occluded_faces_removed": 2241,
@@ -151,12 +151,12 @@
     "Showcase_Stage_Glow_02L",
     "Showcase_Stage_Glow_02R"
    ],
-   "effects_extra_draw_calls": 11,
-   "effects_max_particles": 1257,
+   "effects_extra_draw_calls": 12,
+   "effects_max_particles": 1269,
    "slimmed_kb": {
     "level_mobile.glb": [
-     4864,
-     3198
+     4880,
+     3211
     ],
     "background_mobile.glb": [
      477,
@@ -2956,7 +2956,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 4861,
+   "triangles": 5001,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3136,6 +3136,13 @@
     "Showcase_Monitor_b_Board",
     "Showcase_Monitor_a_Board",
     "Showcase_BannerRod",
+    "Showcase_TankNozzle_7",
+    "Showcase_TankNozzle_6",
+    "Showcase_TankNozzle_5",
+    "Showcase_TankNozzle_4",
+    "Showcase_TankNozzle_3",
+    "Showcase_TankNozzle_2",
+    "Showcase_TankNozzle_1",
     "Entry_Door_Arch",
     "Showcase_Bridge_Support_02_Rib_22",
     "Showcase_Bridge_Support_02_Rib_20",
@@ -3328,7 +3335,7 @@
    "node": "M_glass_clear__2s_0_0",
    "kind": "static",
    "material": "glass_clear__2s",
-   "triangles": 928,
+   "triangles": 864,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3341,15 +3348,14 @@
     "Showcase_Pit_1_CornerPipe_2_Glass",
     "Showcase_Pit_1_Pump_2_Pipe_Glass",
     "Showcase_Pit_1_CornerPipe_1_Glass",
-    "Showcase_Pit_1_Pump_1_Pipe_Glass",
-    "Showcase_TankGlass"
+    "Showcase_Pit_1_Pump_1_Pipe_Glass"
    ]
   },
   {
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 3128,
+   "triangles": 3256,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3448,6 +3454,7 @@
     "West_DuctFans_Fan_1_UnderVent_1_Status",
     "West_DuctFans_Fan_1_DuctVent_2_Status",
     "West_DuctFans_Fan_1_DuctVent_1_Status",
+    "Showcase_TankDiffuserRing",
     "Spinner_Ramp_CladLight_R",
     "Spinner_Ramp_CladLight_L",
     "Yard_Bridge_CladLight_R_b_b",
@@ -3631,7 +3638,7 @@
    "node": "M_grate_0_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 442,
+   "triangles": 570,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3648,6 +3655,8 @@
     "Showcase_Pit_1_Pump_1_Fan",
     "Showcase_Pit_1_Grille_R",
     "Showcase_Pit_1_Grille_L",
+    "Showcase_TankHoodGrate",
+    "Showcase_TankGrate",
     "Showcase_Bridge_Deck",
     "Spinner_Ramp_Deck",
     "Exit_Stairs",
@@ -3904,7 +3913,7 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 3839,
+   "triangles": 3963,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4023,6 +4032,8 @@
     "Saw_West_Column_2",
     "Saw_West_Column_1",
     "Saw_West_Plate",
+    "Showcase_TankHood",
+    "Showcase_TankDiffuser",
     "Entry_Door_Mouth_Pilaster_3",
     "Entry_Door_Mouth_Jamb_3",
     "Entry_Door_Mouth_Pilaster_1",
@@ -4737,7 +4748,7 @@
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Showcase_TankLiquid"
+    "Showcase_TankGlass"
    ]
   },
   {

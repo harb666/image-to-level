@@ -580,7 +580,7 @@ class Showcase(unittest.TestCase):
         cls.L = _load("level.json"); cls.by = {o["name"]: o for o in cls.L["objects"]}
 
     def test_showcase_parts(self):
-        for k in ("Showcase_Dais", "Showcase_Logo", "Showcase_RampL", "Showcase_RampR", "Showcase_TankGlass", "Showcase_TankLiquid",
+        for k in ("Showcase_Dais", "Showcase_Logo", "Showcase_RampL", "Showcase_RampR", "Showcase_TankGlass", "Showcase_TankDiffuser", "Showcase_TankHood",
                   "Showcase_Banner", "Showcase_XBanner_a", "Showcase_XBanner_b", "Showcase_Monitor_a", "Showcase_Monitor_b", "Showcase_Bridge_Deck"):
             self.assertIn(k, self.by)
         M = self.L["materials"]; atl = M[self.by["Showcase_Banner"]["material"]]

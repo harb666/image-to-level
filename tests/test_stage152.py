@@ -40,6 +40,7 @@ class SpecimenAsset(unittest.TestCase):
 
     def test_clips_loop_seamlessly(self):
         an = {a["name"]: a for a in self.J["animations"]}; self.assertEqual(set(an), {"panic", "bang"})
+        self.assertAlmostEqual(max(S.accessor(self.J, self.BIN, an["bang"]["samplers"][0]["input"])), S.BANG_DUR, places=2)  # Stage 156: the 4 s flurry + double slams
         for a in an.values():
             for ch in a["channels"]:
                 v = S.accessor(self.J, self.BIN, a["samplers"][ch["sampler"]]["output"])
@@ -75,9 +76,11 @@ class SpecimenInLevel(unittest.TestCase):
 
     def test_placed_in_the_vat(self):
         ch = next(c for c in self.L["characters"] if c["id"] == "Showcase_Specimen"); meta = json.load(open(A + ".json"))
-        g = self.by["Showcase_TankGlass"]; off = meta["vat"]["offset"]
+        g = self.by["Showcase_TankGlass"]; off = meta["vat"]["offset"]; b = self.by["Showcase_TankBase"]; fy = b["position"][1] + b["size"][1]  # the vat floor
         self.assertAlmostEqual(ch["position"][0], g["position"][0] + off[0], places=2); self.assertAlmostEqual(ch["position"][2], g["position"][2] + off[2], places=2)
-        self.assertAlmostEqual(ch["position"][1], g["position"][1] + off[1], places=2)
+        self.assertAlmostEqual(ch["position"][1], fy + off[1], places=2)
+        self.assertLess(g["position"][1], fy - 0.05); self.assertGreater(g["position"][1] + g["size"][1], self.by["Showcase_TankCap"]["position"][1] + 0.05)  # Stage 156: ends sunk (no flicker)
+        self.assertTrue(g.get("tube")); self.assertNotIn("Showcase_TankLiquid", self.by)
         self.assertNotIn("Showcase_TankMascot", self.by)  # the painted silhouette is gone
         self.assertEqual(ch["clips"], {"idle": "panic", "alert": "bang"}); self.assertGreater(ch["trigger"]["radius"], 5)
 

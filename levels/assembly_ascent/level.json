@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "0a47b8eb9b1b0fc6",
+  "spec_sha": "e17d21964d2ea0bf",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -171,6 +171,19 @@
     "East_SlimeTunnel_Pour"
    ],
    "anchor": "bottom"
+  },
+  {
+   "id": "Tube_Bubbles",
+   "type": "tube_bubbles",
+   "tubes": [
+    [
+     -30.0,
+     11.58,
+     -59.3,
+     3.77,
+     1.6
+    ]
+   ]
   },
   {
    "id": "Fan_Lights",
@@ -4011,13 +4024,13 @@
    "wear": 0.5,
    "bevel": 0.12,
    "res": 32,
-   "alpha": 0.2,
+   "alpha": 0.3,
    "emissive": [
     0.22,
     0.5,
     0.12
    ],
-   "notes": "Stage 135/152: glowing liquid in the specimen tank - thin enough to see the specimen clearly"
+   "notes": "Stage 135/152/156: the specimen vat's glowing slime glass (one layer: the glass and the liquid) - thin enough to see the specimen clearly"
   },
   "trim": {
    "type": "chevron",
@@ -26030,7 +26043,7 @@
    "type": "cylinder",
    "position": [
     -30.0,
-    11.0,
+    10.9,
     -59.3
    ],
    "rotation": [
@@ -26040,12 +26053,17 @@
    ],
    "size": [
     3.2,
-    5.0,
+    5.2,
     3.2
    ],
-   "material": "glass_clear",
+   "material": "tank_green",
    "sections": 16,
    "double_sided": true,
+   "tube": true,
+   "bubble_range": [
+    0.68,
+    4.45
+   ],
    "collision": false,
    "outline": false,
    "mobile": {
@@ -26055,11 +26073,11 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_TankLiquid",
+   "name": "Showcase_TankDiffuser",
    "type": "cylinder",
    "position": [
     -30.0,
-    11.02,
+    10.95,
     -59.3
    ],
    "rotation": [
@@ -26068,13 +26086,330 @@
     0.0
    ],
    "size": [
-    3.0,
-    4.7,
-    3.0
+    2.75,
+    0.3,
+    2.75
    ],
-   "material": "tank_green",
+   "material": "machine",
    "sections": 16,
-   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankDiffuserRing",
+   "type": "cylinder",
+   "position": [
+    -30.0,
+    11.26,
+    -59.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.6,
+    0.05,
+    2.6
+   ],
+   "material": "glow",
+   "sections": 16,
+   "hole": 1.175,
+   "hole_res": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankGrate",
+   "type": "cylinder",
+   "position": [
+    -30.0,
+    11.24,
+    -59.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.2,
+    0.06,
+    2.2
+   ],
+   "material": "grate",
+   "sections": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankNozzle_1",
+   "type": "frustum",
+   "position": [
+    -29.69,
+    11.29,
+    -58.763
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.16,
+    0.3,
+    0.16
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankNozzle_2",
+   "type": "frustum",
+   "position": [
+    -29.38,
+    11.29,
+    -59.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.16,
+    0.3,
+    0.16
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankNozzle_3",
+   "type": "frustum",
+   "position": [
+    -29.69,
+    11.29,
+    -59.837
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.16,
+    0.3,
+    0.16
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankNozzle_4",
+   "type": "frustum",
+   "position": [
+    -30.31,
+    11.29,
+    -59.837
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.16,
+    0.3,
+    0.16
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankNozzle_5",
+   "type": "frustum",
+   "position": [
+    -30.62,
+    11.29,
+    -59.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.16,
+    0.3,
+    0.16
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankNozzle_6",
+   "type": "frustum",
+   "position": [
+    -30.31,
+    11.29,
+    -58.763
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.16,
+    0.3,
+    0.16
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankNozzle_7",
+   "type": "frustum",
+   "position": [
+    -30.0,
+    11.29,
+    -59.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.16,
+    0.3,
+    0.16
+   ],
+   "material": "frame",
+   "sections": 6,
+   "bottom_scale": 1.8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankHood",
+   "type": "frustum",
+   "position": [
+    -30.0,
+    15.43,
+    -59.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.8,
+    0.55,
+    2.8
+   ],
+   "material": "machine",
+   "sections": 16,
+   "bottom_scale": 0.6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_TankHoodGrate",
+   "type": "cylinder",
+   "position": [
+    -30.0,
+    15.39,
+    -59.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.5,
+    0.06,
+    1.5
+   ],
+   "material": "grate",
+   "sections": 16,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -94330,12 +94665,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 80108,
-  "objects": 2822,
+  "triangles": 80564,
+  "objects": 2833,
   "materials": 59,
-  "glb_kb": 5438,
-  "nodes": 3118,
-  "draw_calls_unbatched": 3076,
+  "glb_kb": 5462,
+  "nodes": 3129,
+  "draw_calls_unbatched": 3087,
   "draw_calls_batched_min": 61,
   "images": 144,
   "tex_mem_gpu_compressed_mb": 29.54,

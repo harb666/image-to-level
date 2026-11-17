@@ -545,26 +545,51 @@ def _strike(phi):
     u = (phi - 0.55) / 0.45; return 1 - u * u
 
 
+BANG_HITS = dict(Left=(0.2, 0.9, 2.4, 3.3), Right=(0.55, 1.25, 2.4, 3.3)); BANG_DUR = 4.0; BANG_DOUBLE = (2.4, 3.3); BANG_BIG = (1.55, 0.36, 0.18); WIND_FW = (1.0, 0.0)  # big blow: hit height, wind-up depth, lift
+
+
+def _stroke(t, hits, dur):
+    """Stage 156: (s, previous hit, next hit) - s 0 = fist on the glass, 1 = fully wound up. Rests on the glass 0.08 s,
+    pulls back over half the gap, then accelerates in (u^2) for the next blow."""
+    hs = sorted(hits); hp = max([h for h in hs if h <= t], default=hs[-1] - dur); nx = [h for h in hs if h > t]; hn = nx[0] if nx else hs[0] + dur
+    x, gap = t - hp, hn - hp; rest = 0.08; pe = rest + (gap - rest) * 0.5
+    if x < rest: s_ = 0.0
+    elif x < pe: u = (x - rest) / (pe - rest); s_ = u * u * (3 - 2 * u)
+    else: u = (x - pe) / (gap - pe); s_ = 1 - u * u
+    return s_, hp % dur, hn % dur
+
+
 def pose_bang(P, t, cfg):
-    """Fists pounding the glass, alternating (L at 0.25 s, R at 0.75 s, every second), the body jolting with each blow;
-    hair whipping. Loop 2 s."""
-    T = 2 * math.pi; hits = [((t - h) % 1.0) for h in (0.25, 0.75)]; jolt = sum(math.exp(-((x if x < 0.5 else x - 1.0) / 0.06) ** 2) for x in hits)
-    _body(P, t, lean=0.3 - 0.06 * jolt, twist=0.12 * math.sin(T * t / 1.0), side=0.05 * math.sin(T * t / 2), hips_fwd=0.1 - 0.015 * jolt, hips_up=0.02 * math.sin(T * t / 1.0))
-    _head(P, yaw=0.12 * math.sin(T * t / 2), pitch=0.05 - 0.08 * jolt, roll=0.05 * math.sin(T * t / 0.5))
-    _shoulders(P, 0.22)
-    for side, sg, h in (("Left", 1.0, 0.25), ("Right", -1.0, 0.75)):
-        s_ = _strike((t - h) % 1.0); th = sg * 0.24
-        C, n = _glass(cfg, th, 1.55, r=float(cfg["glass_r"]) - 0.04); back = C - n * 0.24 + np.array([0, 0.1, 0])  # wind-up: drawn back, elbow bent (never locked overhead)
-        med = np.array([-sg, 0.0, 0.0]); f = np.array([0, 0.85, 0]) + med * 0.35 - n * 0.15; f /= np.linalg.norm(f)  # hammer fist: knuckles up / in
-        hit = C - n * 0.055 - f * 0.05; wrist = hit + (back - hit) * s_
-        P.arm_ik(side, wrist, pole=[sg * 0.7, -0.7, -0.1], palm_out=med, fingers=f)  # the pinky edge of the fist strikes the glass
-        P.curl(side, 1.25, thumb=0.6)
-    for side, ph in (("Left", 0.0), ("Right", math.pi)):
-        P.leg(side, hip_flex=0.3 + 0.12 * math.sin(T * t / 1.0 + ph), knee_flex=0.7 + 0.25 * math.sin(T * t / 1.0 + ph - 1.0), ankle=0.5, abduct=0.05)
-    P.hair(t, amp=1.35, periods=(2.0, 1.0))
+    """Stage 156 (dramatic): a frantic flurry of alternating hammer fists (L 0.2, R 0.55, L 0.9, R 1.25 s), then a big
+    two-fisted wind-up - leaning back, fists raised - and a double slam at 2.4 s, and another at 3.3 s; the body lunges
+    in and recoils with every blow, the head thrashes, legs kick, hair whips. Loop 4 s."""
+    T = 2 * math.pi; dbl = lambda h: any(abs(h - d) < 1e-6 for d in BANG_DOUBLE)
+    jolt = 0.0
+    for sd in ("Left", "Right"):
+        for h in BANG_HITS[sd]:
+            x = (t - h + BANG_DUR / 2) % BANG_DUR - BANG_DUR / 2; jolt += (1.3 if dbl(h) else 1.0) * math.exp(-(x / 0.07) ** 2)
+    st = {sd: _stroke(t, BANG_HITS[sd], BANG_DUR) for sd in ("Left", "Right")}
+    wind = sum(s_ for s_, _, hn in st.values() if dbl(hn)) / 2  # winding up for a double slam: leans back, shoulders up
+    _body(P, t, lean=0.3 - 0.14 * wind - 0.06 * jolt, twist=0.12 * math.sin(T * t / 1.0) * (1 - wind), side=0.05 * math.sin(T * t / 2), hips_fwd=0.1 - 0.05 * wind - 0.015 * jolt, hips_up=0.02 * math.sin(T * t / 1.0) + 0.03 * wind)
+    _head(P, yaw=0.2 * math.sin(T * t / 2) * (1 - wind) + 0.08 * math.sin(T * t / 0.5), pitch=0.05 - 0.1 * jolt + 0.12 * wind, roll=0.08 * math.sin(T * t / 0.5))
+    _shoulders(P, 0.22 + 0.08 * wind)
+    def target(sd, h):  # the hit point on the glass and the wound-up wrist for the blow at h
+        sg = 1.0 if sd == "Left" else -1.0; big = dbl(h); th = sg * (0.2 if big else 0.24); y = BANG_BIG[0] if big else 1.55
+        C, n = _glass(cfg, th, y, r=float(cfg["glass_r"]) - 0.04); med = np.array([-sg, 0.0, 0.0]); f = np.array([0, 0.85, 0]) + med * 0.35 - n * 0.15; f /= np.linalg.norm(f)
+        return C - n * 0.055 - f * 0.05, C - n * (BANG_BIG[1] if big else 0.24) + np.array([0, BANG_BIG[2] if big else 0.1, 0]), f, med
+    for sd in ("Left", "Right"):
+        sg = 1.0 if sd == "Left" else -1.0; s_, hp, hn = st[sd]; hit_p, _, f, med = target(sd, hp); hit_n, back, f_n, _ = target(sd, hn)
+        gap = (hn - hp) % BANG_DUR or BANG_DUR; hit = hit_p if (t - hp) % BANG_DUR < 0.08 + (gap - 0.08) * 0.5 else hit_n  # pulling back from the last blow / swinging into the next (s = 1 at the switch)
+        wrist = hit + (back - hit) * s_; _, n_ = _glass(cfg, sg * 0.22, 1.6); fw = np.array([0, 1.0, 0]) - n_ * WIND_FW[0] + med * WIND_FW[1]  # wound up: the fist turns back towards neutral
+        f = f + (fw / np.linalg.norm(fw) - f) * s_; f /= np.linalg.norm(f)
+        P.arm_ik(sd, wrist, pole=[sg * 0.7, -0.7, -0.1], palm_out=med, fingers=f)  # the pinky edge of the fist strikes the glass
+        P.curl(sd, 1.25, thumb=0.6)
+    for sd, ph in (("Left", 0.0), ("Right", math.pi)):
+        P.leg(sd, hip_flex=0.3 + 0.15 * math.sin(T * t / 1.0 + ph) - 0.08 * wind, knee_flex=0.7 + 0.28 * math.sin(T * t / 1.0 + ph - 1.0), ankle=0.5, abduct=0.05 + 0.04 * wind)
+    P.hair(t, amp=1.5, periods=(2.0, 1.0))
 
 
-CLIPS = dict(panic=(pose_panic, 6.0, 20), bang=(pose_bang, 2.0, 30))
+CLIPS = dict(panic=(pose_panic, 6.0, 20), bang=(pose_bang, BANG_DUR, 30))
 
 
 def make_clips(prep):
