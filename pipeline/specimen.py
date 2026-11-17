@@ -309,7 +309,7 @@ def cable(p0, p1, r=0.018, rings=10, sides=6, sag=0.0):
 
 
 # ------------------------------------------------------------------ build
-DEFAULT = dict(keep_body=0.55, keep_hair=0.6, tex=1024, tex_q=84, vat_height=5.0, vat_offset=[0.0, 1.35, 1.0], glass_r=1.55)  # her feet 1.35 m above the vat floor: centred in the 5 m tank
+DEFAULT = dict(keep_body=0.55, keep_hair=0.6, tex=1024, tex_q=84, vat_height=5.0, vat_offset=[0.0, 1.35, 1.0], glass_r=1.55, socket_y=4.3)  # her feet 1.35 m above the vat floor: centred in the 5 m tank
 
 
 def prepare(src, cfg=None):
@@ -350,7 +350,7 @@ def prepare(src, cfg=None):
             ji, wi = top4(JI[src_v], WI[src_v])  # (old joint indices = the same positions in the new list)
         vV, vN, vUV, vJ, vW, vF = unweld_uv(V, Fn, UVc, N, (ji, wi)); parts[name] = dict(P=vV, N=vN, UV=vUV, J=vJ, W=vW, F=vF)
     # -- cables: nape pair + crown jack, up to anchors under the tank cap (asset coords; vat centre at z = -vat_offset[2])
-    top = float(cfg["vat_height"]) - float(cfg["vat_offset"][1]) + 0.05; vz = -float(cfg["vat_offset"][2]); CP, CF, CJ, CW = [], [], [], []  # the cables end 5 cm into the tank cap; CP, CF, CJ, CW = [], [], [], []
+    top = float(cfg["socket_y"]) - float(cfg["vat_offset"][1]); vz = -float(cfg["vat_offset"][2]); CP, CF, CJ, CW = [], [], [], []  # Stage 161: the cables end IN plug sockets under the vat's hood (socket_y above the vat floor; the level places the plugs from meta vat.sockets)
     att = [("mixamorig:Neck", [0.05, -0.085, 0.0], [0.28, top, vz - 0.55]), ("mixamorig:Neck", [-0.05, -0.085, 0.0], [-0.28, top, vz - 0.55]),
            ("mixamorig:HeadTop_End", [0.0, 0.0, -0.02], [0.0, top, vz - 0.15])]
     for bone, off, anchor in att:
@@ -358,6 +358,7 @@ def prepare(src, cfg=None):
         s = T * T * (3 - 2 * T); b = len(CP) and sum(len(x) for x in CP)
         CP.append(V); CF.append(Fc + b); CJ.append(np.stack([np.full(len(V), jx[bone]), np.full(len(V), jx["WireAnchor"]), np.zeros(len(V), int), np.zeros(len(V), int)], 1))
         CW.append(np.stack([1 - s, s, np.zeros(len(V)), np.zeros(len(V))], 1))
+    cfg["sockets"] = [[round(float(a_[0]), 3), round(float(a_[1]) + float(cfg["vat_offset"][1]), 3), round(float(a_[2]) - vz, 3)] for _, _, a_ in att]  # vat-floor-centre coords
     CPa = np.vstack(CP); CFa = np.vstack(CF); parts["Cables"] = dict(P=CPa.astype(np.float32), N=smooth_normals(CPa, CFa).astype(np.float32), UV=None, J=np.vstack(CJ), W=np.vstack(CW).astype(np.float32), F=CFa)
     s_ = int(cfg["tex"]); tex = img.resize((s_, s_), Image.LANCZOS); b = io.BytesIO(); tex.save(b, "JPEG", quality=int(cfg["tex_q"]))
     return dict(sk=sk, joints=joints, parts=parts, tex_jpg=b.getvalue(), chains=chains, cfg=cfg, hair_verts=int(hair.sum()), src_faces=len(F))
@@ -656,7 +657,8 @@ def build_asset(src, out, cfg=None, name="specimen"):
     n_full = write(prep, out + ".glb", clips, embed_texture=True); n_prev = write(prep, out + "_preview.glb", clips, embed_texture=False)
     open(out + ".jpg", "wb").write(prep["tex_jpg"]); cfg = prep["cfg"]
     meta = dict(name=name, source=src, clips=dict(idle="panic", alert="bang"), float=dict(node="FloatRoot", amp=0.08, period=4.0),
-                vat=dict(offset=cfg["vat_offset"], glass_r=cfg["glass_r"], note="asset origin = vat centre + (0, offset[1] above the vat floor, offset[2] towards her front); the clips' contacts assume it"),
+                vat=dict(offset=cfg["vat_offset"], glass_r=cfg["glass_r"], sockets=cfg["sockets"], note="asset origin = vat centre + (0, offset[1] above the vat floor, offset[2] towards her front); the clips' contacts assume it; "
+                        "sockets: where her cables end (x, height above the vat floor, z from the vat centre) - the level hangs a plug socket on each"),
                 triangles={k: int(len(v["F"])) for k, v in prep["parts"].items()}, source_triangles=prep["src_faces"], bytes=dict(glb=n_full, preview_glb=n_prev, jpg=len(prep["tex_jpg"])),
                 bones=len(prep["joints"]), checks=rep, texture=out.split("/")[-1] + ".jpg",
                 note="Stage 152: hair split from the body (own primitive, two 5-bone chains + Head), FloatRoot (runtime bob), WireAnchor + cables; clips authored in pipeline/specimen.py")

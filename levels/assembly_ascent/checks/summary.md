@@ -1,10 +1,10 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 2841 objects · 61 materials · 48 effects
+Spec: levels/assembly_ascent/scene_spec.json · 2847 objects · 61 materials · 48 effects
 Checks: PASSED ({'error': 0, 'warning': 11, 'info': 1}) · refine passes: 0
-Mobile (balanced): 3244 KB · 90368 tris · 174 draw calls · ~89.2 visible (estimate) · ~13.9 MB GPU textures (estimate)
+Mobile (balanced): 3252 KB · 90656 tris · 174 draw calls · ~89.2 visible (estimate) · ~13.9 MB GPU textures (estimate)
 Navigation: 5454.0 m² reachable of 20220.0 m² standable
-Package: dist/assembly_ascent/package (39 files, 14.76 MB) valid=True
+Package: dist/assembly_ascent/package (39 files, 14.78 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
@@ -18,7 +18,7 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - warning: Showcase_Pit_2_Pillar_L: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: enemy_arena: hazard 0.5 m away (< 3.0 m)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- warning: 93940 triangles (> budget 40000)
+- warning: 94228 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -56,9 +56,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - corrosion: 706 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 1.7 s
-- build (glb, sky, background, effects, mobile): 71.7 s
-- checks (fast): 69.4 s
-- previews: 1.0 s
-- export package: 0.6 s
-- total: 144.4 s
+- spec -> level.json: 2.4 s
+- build (glb, sky, background, effects, mobile): 54.0 s
+- checks (fast): 68.3 s
+- previews: 1.3 s
+- export package: 0.9 s
+- total: 126.8 s

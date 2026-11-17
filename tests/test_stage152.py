@@ -37,6 +37,10 @@ class SpecimenAsset(unittest.TestCase):
         c = next(p for p in self.J["meshes"][0]["primitives"] if p["extras"]["part"] == "Cables")
         Jn = S.accessor(self.J, self.BIN, c["attributes"]["JOINTS_0"]); W = S.accessor(self.J, self.BIN, c["attributes"]["WEIGHTS_0"])
         self.assertIn("WireAnchor", {self.joints[j] for j, w in zip(Jn.ravel(), W.ravel()) if w > 0.5})
+        P = S.accessor(self.J, self.BIN, c["attributes"]["POSITION"]); off = self.meta["vat"]["offset"]  # Stage 161: the cables' tops are the sockets
+        tips = [np.array([sx, sy - off[1], sz - off[2]]) for sx, sy, sz in self.meta["vat"]["sockets"]]
+        top = P[P[:, 1] > P[:, 1].max() - 0.05]
+        for q in top: self.assertLess(min(np.linalg.norm(q - t_) for t_ in tips), 0.05)
 
     def test_clips_loop_seamlessly(self):
         an = {a["name"]: a for a in self.J["animations"]}; self.assertEqual(set(an), {"panic", "bang"})
@@ -81,7 +85,13 @@ class SpecimenInLevel(unittest.TestCase):
         self.assertAlmostEqual(ch["position"][1], fy + off[1], places=2)
         self.assertLess(g["position"][1], fy - 0.05); self.assertGreater(g["position"][1] + g["size"][1], self.by["Showcase_TankCap"]["position"][1] + 0.05)  # Stage 156: ends sunk (no flicker)
         self.assertTrue(g.get("tube")); self.assertNotIn("Showcase_TankLiquid", self.by)
-        self.assertEqual(self.L["materials"][self.by["Showcase_TankBand"]["material"]]["type"], "trim_light")  # Stage 158: no hazard stripes round the vat
+        self.assertEqual(self.L["materials"][self.by["Showcase_TankBand"]["material"]]["type"], "trim_light")
+        hood = self.by["Showcase_TankHoodGrate"]  # Stage 161: every cable ends inside a plug socket hanging from the hood's grate
+        for k, (sx, sy, sz) in enumerate(meta["vat"]["sockets"]):
+            so = self.by[f"Showcase_TankSocket_{k + 1}"]; tip_y = fy + sy
+            self.assertAlmostEqual(so["position"][0], g["position"][0] + sx, places=2); self.assertAlmostEqual(so["position"][2], g["position"][2] + sz, places=2)
+            self.assertLess(so["position"][1], tip_y - 0.05); self.assertGreater(so["position"][1] + so["size"][1], hood["position"][1])  # the tip inside it; it reaches up into the grate
+            self.assertLess(math.hypot(sx, sz) + so["size"][0] / 2, hood["size"][0] / 2)  # Stage 158: no hazard stripes round the vat
         self.assertNotIn("Showcase_TankMascot", self.by)  # the painted silhouette is gone
         self.assertEqual(ch["clips"], {"idle": "panic", "alert": "bang"}); self.assertGreater(ch["trigger"]["radius"], 5)
 

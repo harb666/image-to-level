@@ -922,6 +922,9 @@ def showcase(ctx, s, x, y, z, yaw):
             position=[round(tx + off[0], 3), round(floor_ + off[1], 3), round(tz + off[2], 3)], yaw=0.0, clips=meta["clips"], float=fl_,
             trigger=dict(center=[round(tx, 3), round(ys, 3), round(tz + 2.0, 3)], radius=trig), fade=float(sp.get("fade", 0.3)),
             note="spawn the glb at position (yaw deg), play clips.idle looped; while a player is within trigger.radius of trigger.center crossfade (fade s) to clips.alert; bob float.node: y = amp sin(2 pi t / period)")]
+        for k, (sx, sy, sz) in enumerate(meta["vat"].get("sockets", [])):  # Stage 161: a plug socket under the hood where each of her cables ends (the cable runs 10 cm into it)
+            ctx.add(f"{n}_TankSocket_{k + 1}", "cylinder", [tx + sx, fy + sy - 0.1, tz + sz], [0.17, fy + 4.42 - (fy + sy - 0.1), 0.17], "machine", sections=8, **v_)  # up into the grate
+            ctx.add(f"{n}_TankSocketLip_{k + 1}", "cylinder", [tx + sx, fy + sy - 0.12, tz + sz], [0.23, 0.05, 0.23], ctx.role("glow"), sections=8, hole=0.035, hole_res=8, **v_)  # red-lit collar the cable enters
         ctx.notes.append(f"{n}: specimen {_os.path.basename(base)} floating in the tank ({sum(meta['triangles'].values())} tris), bangs on the glass within {trig:.0f} m")
     else: ctx.add(n + "_TankMascot", "panel", [tx, y0 + 1.5, tz + 0.05], [1.9, 3.8, 0], ctx.role(s.get("mascot_material", "ce_tank_mascot")), double_sided=True, **vs)
     ctx.add(n + "_TankCap", "cylinder", [tx, y0 + 6.5, tz], [3.9, 0.7, 3.9], "structure_b", sections=16, **st)

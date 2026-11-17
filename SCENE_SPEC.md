@@ -1516,6 +1516,9 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 161: the specimen's cables end in plug sockets under the vat's hood: specimen.py `socket_y` (4.3 m above the vat
+  floor) sets where the cables stop and writes their ends to the asset meta (`vat.sockets`: x, height, z from the vat
+  centre); the showcase hangs a socket (`<id>_TankSocket_k`, up into the hood grate) with a red-lit collar on each.
 - Stage 160: the spinner's plasma follows `plasma_energy(D, u)` (assembly.py, same in both runtimes): dark until the ram
   smashes down, fully charged while it is down, then fading smoothly over `spin_down` - as the ram lifts and the maces
   coast to a stop (it reaches 0 exactly when they stop). Its opacity is the energy (the opaque electrode only dims); the
