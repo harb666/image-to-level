@@ -1040,8 +1040,9 @@ def slime_tunnel(ctx, s, x, y, z, yaw):
     ctx.add(n + "_ChannelLip", "box", [0, ly - 0.25, 0.75], [cw + 0.6, 0.12, 0.5], ctx.role("stripe"), g, **vs)
     ctx.add(n + "_Liquid", "box", [0, ly - 0.15, -L / 2 + 0.6], [cw, 0.3, L - 0.2], fall, g, **vs)
     if s.get("liquid_fade"):  # Stage 150: one smooth black gradient over the slime - clear at the mouth, black at the back
-        ctx.add(n + "_LiquidFade", "panel", [0, ly + 0.17, -0.05], [cw + 0.02, L - 0.25, 0], ctx.role(s["liquid_fade"]), g, rot=[-90, 0, 0], double_sided=True, **vs)
-    c_ = ctx.add(n + "_Pour", "stream", [0, ly + 0.13, 1.0], [round(cw, 3), round(ly + 0.13 - fl + 0.35, 3), 0.3], fall, g, section="rect", speed=1.4, pitch=4, inset=0.9, widen=0.1, thin=0.25,  # Stage 150: starts inside the channel, flush with its surface (no seam at the lip)
+        fl_len = (L - 0.05) / float(s.get("liquid_fade_span", 0.86))  # Stage 153: runs on past the back wall's face, where it fades clear again: both edges clear, so the
+        ctx.add(n + "_LiquidFade", "panel", [0, ly + 0.17, -0.05], [cw + 0.02, round(fl_len, 3), 0], ctx.role(s["liquid_fade"]), g, rot=[-90, 0, 0], double_sided=True, **vs)  # wrapping texture can't bleed a black line onto the mouth
+    c_ = ctx.add(n + "_Pour", "stream", [0, ly + 0.01, 1.0], [round(cw, 3), round(ly + 0.01 - fl + 0.35, 3), 0.3], fall, g,  # Stage 153: its top 1 cm OVER the channel's surface - the only step left is its start face, which faces into the tunnel (unseen); 13 cm proud before drew a dark line, 1 cm under showed the channel's front face section="rect", speed=1.4, pitch=4, inset=0.9, widen=0.1, thin=0.25,  # Stage 150: starts inside the channel, flush with its surface (no seam at the lip)
                  segments=10, **vs)
     if ctx.hazards: ctx.rel("flows_into", c_, ctx.hazards[0])
     ctx.pours.append(c_); ctx.tunnel_flows = getattr(ctx, "tunnel_flows", []) + [n + "_Liquid"]

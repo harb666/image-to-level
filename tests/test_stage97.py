@@ -134,6 +134,9 @@ class AssemblyAscent(unittest.TestCase):
         M = self.L["materials"]; self.assertFalse([n for n in T if n.startswith("East_SlimeTunnel_Veil_")])  # Stage 150: no stepped veils (they banded the slime)
         self.assertEqual(M[T["East_SlimeTunnel_Side_L"]["material"]]["type"], "fade_ramp"); self.assertEqual(M[T["East_SlimeTunnel_Roof"]["material"]]["type"], "fade_ramp")
         f = M[T["East_SlimeTunnel_LiquidFade"]["material"]]; self.assertEqual(f["type"], "beam_fade"); self.assertEqual(max(M[T["East_SlimeTunnel_End"]["material"]]["color"]), 0.0)
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); import materials as _m  # Stage 153: clear at BOTH edges (a wrapping texture bled a black line onto the mouth)
+        al = _m.maps(f)["alpha"]; self.assertLess(al[0].max(), 0.05); self.assertLess(al[-1].max(), 0.05); self.assertGreater(al.max(), 0.95)
+        pr, li = T["East_SlimeTunnel_Pour"], T["East_SlimeTunnel_Liquid"]; self.assertAlmostEqual(pr["position"][1] + pr["size"][2] / 2, li["position"][1] + li["size"][1] + 0.01, places=3)  # pour 1 cm over the channel
         import struct, io
         from PIL import Image
         with open(os.path.join(LV, "mobile", "level_mobile.glb"), "rb") as fh: b_ = fh.read()  # the fade keeps its alpha in the mobile GLB (restore_images matched it to a black RGB image before)

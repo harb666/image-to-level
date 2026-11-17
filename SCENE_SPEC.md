@@ -1496,4 +1496,7 @@ Building blocks usable without the preset:
   three cables, clips `panic` (6 s, palms on the glass) and `bang` (2 s, hammer fists), authored with FK + two-bone IK
   against the vat glass and checked every frame (inside the glass; elbow / knee / wrist / pronation / head-yaw ranges:
   tests/test_stage152.py). Runtimes: viewer.html `charAnim`, apply_effects.gd `_characters` (untested in Godot).
+- Stage 153: the tunnel's pour starts 1 cm over the channel's surface (its start face looks into the tunnel) and the
+  `liquid_fade` overlay runs on behind the back wall, fading clear again (`liquid_fade_span`): both its edges are clear, so
+  the wrapping texture no longer bleeds a dark line across the slime at the mouth.
 

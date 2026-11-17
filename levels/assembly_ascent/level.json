@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "1b8592a9b34213f1",
+  "spec_sha": "1c5e1527d44252cd",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -87,7 +87,7 @@
      2.96
     ],
     [
-     48.25,
+     47.73,
      8.0,
      1.0,
      4.5
@@ -4028,17 +4028,17 @@
    "bevel": 0.12,
    "res": 128,
    "alpha": 1.0,
-   "fade_in": 1.0,
+   "fade_in": 0.84,
    "fade_out": [
-    2.0,
-    3.0
+    0.93,
+    0.99
    ],
    "emissive": [
     0.0,
     0.0,
     0.0
    ],
-   "notes": "Stage 150: smooth darkening over the tunnel slime (alpha 0 at the mouth -> 1 at the back)"
+   "notes": "Stage 150/153: smooth darkening over the tunnel slime - clear at the mouth, black by the back wall, clear again behind it (no wrap bleed)"
   },
   "tunnel_roof_fade": {
    "type": "fade_ramp",
@@ -36635,7 +36635,7 @@
    "parent": "East_SlimeTunnel",
    "size": [
     9.02,
-    8.75,
+    10.407,
     0.0
    ],
    "material": "tunnel_liquid_fade",
@@ -36653,7 +36653,7 @@
    "type": "stream",
    "position": [
     0.0,
-    2.03,
+    1.91,
     1.0
    ],
    "rotation": [
@@ -36664,16 +36664,10 @@
    "parent": "East_SlimeTunnel",
    "size": [
     9.0,
-    1.38,
+    1.26,
     0.3
    ],
    "material": "fall",
-   "section": "rect",
-   "speed": 1.4,
-   "pitch": 4,
-   "inset": 0.9,
-   "widen": 0.1,
-   "thin": 0.25,
    "segments": 10,
    "collision": false,
    "outline": false,
@@ -92640,10 +92634,10 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 77676,
+  "triangles": 77820,
   "objects": 2763,
   "materials": 56,
-  "glb_kb": 5178,
+  "glb_kb": 5189,
   "nodes": 3057,
   "draw_calls_unbatched": 3015,
   "draw_calls_batched_min": 58,
