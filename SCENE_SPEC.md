@@ -1461,4 +1461,9 @@ Building blocks usable without the preset:
 - Stage 146: the showcase pump tanks mirror each other about `bridge_x` (pipes / side fans flipped on the far tank);
   `crates` `"mirror": true` mirrors a stack (pair with yaw -> -yaw). Assembly Ascent: the showcase (plaza, stage, pits,
   boss shaft) moved 3 m west onto the bridge's line (x = -30), so the bridge runs straight in and both sides match.
+- Stage 147: `arena.ceiling.extra_fans` `[[x, z, r], ...]`: more yellow ceiling fans at given spots (added without
+  random draws, so the rest of the dressing is unchanged; pick spots clear of beams / lamps). `fan_unit` `glow` (wall
+  fans' light role) and `duct_fans` `"glow"`, `"rays"` (`ray_length`, `ray_spread`, `ray_material`: a soft fading
+  `beam_cone` of light blowing out of each fan, plus a point light in front). Assembly Ascent: 4 extra ceiling fans;
+  the west duct fans glow `glow_yellow` with `fan_rays` light rays.
 

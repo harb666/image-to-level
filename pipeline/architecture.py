@@ -496,7 +496,7 @@ def wall_segment(ctx, name, p0, p1, height, thick, base_y, style, inner=None, de
     return g
 
 
-def fan_unit(ctx, nm, parent, c, R, depth, wall=True, rpm=None, seed=0, st=None):
+def fan_unit(ctx, nm, parent, c, R, depth, wall=True, rpm=None, seed=0, st=None, glow=None):
     """Big industrial fan (Stage 19, user reference): thick housing ring with four clamp brackets, a grate disc with a
     green glow behind it, and a smooth bladed rotor on its own node that SPINS (object "spin": rpm -> effect "spin";
     mobile: kept as a separate node so Godot / the preview can rotate it). wall=True: axis = parent local +z (fan on a
@@ -510,7 +510,7 @@ def fan_unit(ctx, nm, parent, c, R, depth, wall=True, rpm=None, seed=0, st=None)
         ctx.add(f"{nm}_Clamp_{k + 1}", "box", at(ca * (R + 0.75), sa * (R + 0.75) - (0.4 if wall else 0), -0.15) if wall else [x + ca * (R + 0.75), y - depth - 0.15, z + sa * (R + 0.75)],
                 [1.3, 0.8, depth + 0.3] if wall else [1.3, depth + 0.3, 0.8], "frame", parent, [0, 0, math.degrees(a)] if wall else [0, -math.degrees(a), 0], collision=False, **st)
     gl = "fall" if "fall" in ctx.spec.get("materials", {}).get("roles", {}) else "glow"
-    if wall: gl = ctx.role("glow_dim")  # Stage 41: wall fans - dark, gloomy light behind the blades
+    if wall: gl = ctx.role(glow or "glow_dim")  # Stage 41: wall fans - dark, gloomy light behind the blades (Stage 147: "glow" overrides, e.g. glow_yellow)
     if not wall:  # Stage 39: ceiling fans glow yellow and cast a soft yellow light (effect "point_light")
         gl = ctx.role("glow_yellow"); ctx.fan_lights = getattr(ctx, "fan_lights", []) + [[round(x, 2), round(y - depth - 1.2, 2), round(z, 2), round(R, 2)]]
     ctx.add(nm + "_Glow", "cylinder", at(0, 0, 0.05) if wall else [x, y - 0.12, z], [2 * R - 0.1, 0.05, 2 * R - 0.1], gl, parent, rot, sections=16, collision=False, outline=False, **st)
@@ -924,6 +924,8 @@ def dress_ceilings(ctx):
                 x, z = cx + rng.uniform(-w / 2 + 6, w / 2 - 6), cz + rng.uniform(-d / 2 + 6, d / 2 - 6)
                 if clear_of_shaft(x, z, 8) and not any(lo[0] < x + rr + 0.8 and hi[0] > x - rr - 0.8 and lo[2] < z + rr + 0.8 and hi[2] > z - rr - 0.8 for lo, hi in boxes): break
             fan_unit(ctx, f"{n}Fan_{i + 1}", None, (x, y - 0.12, z), rr, 0.9, wall=False, seed=_h(n + str(i)), st=vis)
+        for j, (fx, fz, fr) in enumerate(C.get("extra_fans", [])):  # Stage 147: more yellow ceiling fans at given spots (no random draws: the layout elsewhere is unchanged)
+            fan_unit(ctx, f"{n}Fan_X{j + 1}", None, (float(fx), y - 0.12, float(fz)), float(fr), 0.9, wall=False, seed=_h(n + "X" + str(j)), st=vis)
         npods = int(area / 800 * C.get("pods", 1.0)); placed = 0  # ---- hanging cage lamps on lamp rails (Stage 32)
         nl_ = int(C.get("lamp_rails", 0))  # Stage 54: "lamp_rails": n - rails even without pods ("pods": 0 -> bare rails)
         if npods or nl_:

@@ -961,7 +961,12 @@ def duct_fans(ctx, s, x, y, z, yaw):
             ctx.add(f"{fn}_Lip{nm}", "box", [px, py, D + 0.04], [w, h, 0.1], stripe, g, **vs)  # hazard lip on the duct mouth
         for cx_, cy_ in ((-1, -1), (-1, 1), (1, -1), (1, 1)):
             ctx.add(f"{fn}_Lamp_{'LR'[cx_ > 0]}{'BT'[cy_ > 0]}", "box", [fx + cx_ * (H / 2 - 0.35), yc + cy_ * (H / 2 - 0.65) - 0.15, D + 0.06], [0.36, 0.3, 0.1], amber, g, **vs)
-        fan_unit(ctx, fn, g, (fx, yc, 0.55), R, 1.1, wall=True, rpm=float(s.get("rpm", 46.0)) * (1 if k % 2 else -1), seed=k + 7, st=st)
+        fan_unit(ctx, fn, g, (fx, yc, 0.55), R, 1.1, wall=True, rpm=float(s.get("rpm", 46.0)) * (1 if k % 2 else -1), seed=k + 7, st=st, glow=s.get("glow"))
+        if s.get("rays"):  # Stage 147: soft light rays blowing out of the fan into the hall (open cone, streaky, fading out), a light in front
+            Lr = float(s.get("ray_length", 15.0)); sp = float(s.get("ray_spread", 1.5))
+            ctx.add(f"{fn}_Rays", "beam_cone", [fx, yc, 1.7], [2 * R * 0.95 * sp, Lr, 2 * R * 0.95 * sp], ctx.role(s.get("ray_material", "fan_rays")), g, [90, 0, 0], sections=24,
+                    bottom_scale=1.0 / sp, collision=False, outline=False, double_sided=True, **st)
+            ctx.extra_lights = getattr(ctx, "extra_lights", []) + [dict(id=fn + "_Light", positions=[[round(v, 2) for v in _W(x, 0, z, yaw)(fx, yc, 3.5)]], color=[1.0, 0.82, 0.3], energy=1.3, range=16.0)]
         dw, y0d = H - 1.6, yc + H / 2  # the duct rising out of the housing's top, turning into the wall
         ctx.add(f"{fn}_Duct", "box", [fx, y0d - 0.02, 1.0], [dw, top - y0d, 2.0], body, g, **vs)
         ctx.add(f"{fn}_DuctCap", "box", [fx, top - 0.02, 0.0], [dw + 0.6, 1.2, 2.6], "frame", g, **vs)

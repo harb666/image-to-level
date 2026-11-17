@@ -105,6 +105,18 @@ class AssemblyAscent(unittest.TestCase):
         self.assertGreaterEqual(len({n.rsplit("_Slat", 1)[0] for n in self.by if n.startswith("West_DuctFans") and "_Slat_" in n}), 10)
         for m in ("Deck_Monitor_L", "Deck_Monitor_R"): self.assertEqual(self.by[m + "_Body"]["type"], "tv_body"); self.assertIn(m + "_Screen", self.by)
 
+    def test_yellow_fans_and_rays(self):
+        """Stage 147: four more yellow ceiling fans (spinning, lit by the fan lights) clear of everything else under the
+        roof; the west wall's duct fans glow the same yellow and blow soft yellow light rays (fading cones) into the hall."""
+        M = self.L["materials"]; E = {e["id"]: e for e in _load("effects.json")["effects"]}
+        X = [n for n in self.by if n.startswith("Ceil_Fan_X") and n.count("_") == 2]; self.assertEqual(len(X), 4)
+        spin = next(e for e in E.values() if e["type"] == "spin")
+        for n in X: self.assertEqual(self.by[n + "_Glow"]["material"], "glow_yellow"); self.assertIn(n + "_Rotor", spin["targets"])
+        self.assertGreaterEqual(len(E["Fan_Lights"]["emitters"]), 5)
+        for k in (1, 2):
+            fn = f"West_DuctFans_Fan_{k}"; self.assertEqual(self.by[fn + "_Glow"]["material"], "glow_yellow")
+            r = self.by[fn + "_Rays"]; self.assertEqual(r["type"], "beam_cone"); self.assertEqual(M[r["material"]]["type"], "beam_fade"); self.assertIn(fn + "_Light", E)
+
     def test_saw_hubs_are_plain(self):
         """Stage 132: the spinning blade hub (flange + nut) is plain dark metal - the machine panel's white light slots
         spun round with the blade."""

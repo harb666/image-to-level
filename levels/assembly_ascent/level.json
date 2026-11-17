@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "a21104b3c8a6bad6",
+  "spec_sha": "6791a003fb27f43a",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -153,6 +153,26 @@
      28.06,
      32.28,
      48.09
+    ],
+    [
+     -33.4,
+     32.28,
+     -2.9
+    ],
+    [
+     -6.0,
+     32.28,
+     26.0
+    ],
+    [
+     22.0,
+     32.28,
+     -2.9
+    ],
+    [
+     42.0,
+     32.28,
+     -40.0
     ]
    ],
    "color": [
@@ -399,6 +419,42 @@
    "range": 16.0
   },
   {
+   "id": "West_DuctFans_Fan_1_Light",
+   "type": "point_light",
+   "positions": [
+    [
+     -46.5,
+     15.5,
+     -9.5
+    ]
+   ],
+   "color": [
+    1.0,
+    0.82,
+    0.3
+   ],
+   "energy": 1.3,
+   "range": 16.0
+  },
+  {
+   "id": "West_DuctFans_Fan_2_Light",
+   "type": "point_light",
+   "positions": [
+    [
+     -46.5,
+     15.5,
+     -23.5
+    ]
+   ],
+   "color": [
+    1.0,
+    0.82,
+    0.3
+   ],
+   "energy": 1.3,
+   "range": 16.0
+  },
+  {
    "id": "Dome_Motes",
    "type": "ambient_particles",
    "area": [
@@ -450,7 +506,11 @@
     "OuterWall_South_M05Fan_Rotor",
     "West_DuctFans_Fan_1_Rotor",
     "West_DuctFans_Fan_2_Rotor",
-    "Ceil_Fan_1_Rotor"
+    "Ceil_Fan_1_Rotor",
+    "Ceil_Fan_X1_Rotor",
+    "Ceil_Fan_X2_Rotor",
+    "Ceil_Fan_X3_Rotor",
+    "Ceil_Fan_X4_Rotor"
    ]
   },
   {
@@ -3179,6 +3239,32 @@
    "res": 256,
    "alpha": 0.55,
    "notes": "Stage 139: the bright, see-through veil over each waterfall"
+  },
+  "fan_rays": {
+   "type": "beam_fade",
+   "color": [
+    1.0,
+    0.86,
+    0.3
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 128,
+   "alpha": 0.1,
+   "fade_in": 0.04,
+   "fade_out": [
+    0.25,
+    0.95
+   ],
+   "streaks": 9,
+   "streak_amount": 0.6,
+   "emissive": [
+    1.0,
+    0.82,
+    0.25
+   ],
+   "notes": "Stage 147: soft yellow light rays blowing out of the west wall fans (like the dome's rays)"
   },
   "frame": {
    "type": "industrial_metal",
@@ -27078,60 +27164,6 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Pit_1_Bracket_L",
-   "type": "box",
-   "position": [
-    -42.22,
-    6.57,
-    -21.59
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.22,
-    0.36,
-    0.16
-   ],
-   "material": "arm_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Pit_1_Bracket_R",
-   "type": "box",
-   "position": [
-    -36.38,
-    6.57,
-    -21.59
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.22,
-    0.36,
-    0.16
-   ],
-   "material": "arm_yellow",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
    "name": "Showcase_Pit_1_Channel",
    "type": "box",
    "position": [
@@ -27495,62 +27527,6 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Pit_1_Pump_1_Clamp_0",
-   "type": "cylinder",
-   "position": [
-    -39.77,
-    7.1,
-    -24.625
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.42,
-    0.14,
-    0.42
-   ],
-   "material": "frame",
-   "sections": 10,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Pit_1_Pump_1_Clamp_1",
-   "type": "cylinder",
-   "position": [
-    -39.77,
-    8.06,
-    -24.625
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.42,
-    0.14,
-    0.42
-   ],
-   "material": "frame",
-   "sections": 10,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
    "name": "Showcase_Pit_1_CornerPipe_1",
    "type": "pipe_path",
    "position": [
@@ -27700,34 +27676,6 @@
    "part": "bend",
    "sleeve": 0.1,
    "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Pit_1_CornerClamp_1",
-   "type": "cylinder",
-   "position": [
-    -43.18,
-    6.98,
-    -23.05
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.38,
-    0.14,
-    0.38
-   ],
-   "material": "frame",
-   "sections": 10,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -28019,62 +27967,6 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Pit_1_Pump_2_Clamp_0",
-   "type": "cylinder",
-   "position": [
-    -36.33,
-    7.1,
-    -24.625
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.42,
-    0.14,
-    0.42
-   ],
-   "material": "frame",
-   "sections": 10,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Pit_1_Pump_2_Clamp_1",
-   "type": "cylinder",
-   "position": [
-    -36.33,
-    8.06,
-    -24.625
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.42,
-    0.14,
-    0.42
-   ],
-   "material": "frame",
-   "sections": 10,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
    "name": "Showcase_Pit_1_CornerPipe_2",
    "type": "pipe_path",
    "position": [
@@ -28224,34 +28116,6 @@
    "part": "bend",
    "sleeve": 0.1,
    "sections": 8,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Pit_1_CornerClamp_2",
-   "type": "cylinder",
-   "position": [
-    -35.42,
-    6.98,
-    -23.05
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.38,
-    0.14,
-    0.38
-   ],
-   "material": "frame",
-   "sections": 10,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -30719,7 +30583,7 @@
     0.05,
     8.7
    ],
-   "material": "glow_dim",
+   "material": "glow_yellow",
    "sections": 16,
    "collision": false,
    "outline": false,
@@ -30981,6 +30845,37 @@
    "spin": 46.0,
    "mobile": {
     "merge": false
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Rays",
+   "type": "beam_cone",
+   "position": [
+    -7.0,
+    15.5,
+    1.7
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    12.54,
+    15.0,
+    12.54
+   ],
+   "material": "fan_rays",
+   "sections": 24,
+   "bottom_scale": 0.6666666666666666,
+   "collision": false,
+   "outline": false,
+   "double_sided": true,
+   "mobile": {
+    "static": true
    },
    "gen": "West_DuctFans",
    "source": "inferred"
@@ -32958,7 +32853,7 @@
     0.05,
     8.7
    ],
-   "material": "glow_dim",
+   "material": "glow_yellow",
    "sections": 16,
    "collision": false,
    "outline": false,
@@ -33220,6 +33115,37 @@
    "spin": 46.0,
    "mobile": {
     "merge": false
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Rays",
+   "type": "beam_cone",
+   "position": [
+    7.0,
+    15.5,
+    1.7
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    12.54,
+    15.0,
+    12.54
+   ],
+   "material": "fan_rays",
+   "sections": 24,
+   "bottom_scale": 0.6666666666666666,
+   "collision": false,
+   "outline": false,
+   "double_sided": true,
+   "mobile": {
+    "static": true
    },
    "gen": "West_DuctFans",
    "source": "inferred"
@@ -70769,6 +70695,1694 @@
    "source": "inferred"
   },
   {
+   "name": "Ceil_Fan_X1",
+   "type": "cylinder",
+   "position": [
+    -33.4,
+    33.48,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.2,
+    0.9,
+    7.2
+   ],
+   "material": "structure_b",
+   "sections": 20,
+   "hole": 3.0,
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Clamp_1",
+   "type": "box",
+   "position": [
+    -30.748,
+    33.33,
+    -0.248
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Clamp_2",
+   "type": "box",
+   "position": [
+    -36.052,
+    33.33,
+    -0.248
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Clamp_3",
+   "type": "box",
+   "position": [
+    -36.052,
+    33.33,
+    -5.552
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Clamp_4",
+   "type": "box",
+   "position": [
+    -30.748,
+    33.33,
+    -5.552
+   ],
+   "rotation": [
+    0.0,
+    -315.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Glow",
+   "type": "cylinder",
+   "position": [
+    -33.4,
+    34.26,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.9,
+    0.05,
+    5.9
+   ],
+   "material": "glow_yellow",
+   "sections": 16,
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Grille_01",
+   "type": "box",
+   "position": [
+    -33.4,
+    34.082,
+    -5.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.889,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Grille_11",
+   "type": "box",
+   "position": [
+    -35.65,
+    34.082,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.889,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Grille_02",
+   "type": "box",
+   "position": [
+    -33.4,
+    34.082,
+    -3.65
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.693,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Grille_12",
+   "type": "box",
+   "position": [
+    -34.15,
+    34.082,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.693,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Grille_03",
+   "type": "box",
+   "position": [
+    -33.4,
+    34.082,
+    -2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.693,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Grille_13",
+   "type": "box",
+   "position": [
+    -32.65,
+    34.082,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.693,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Grille_04",
+   "type": "box",
+   "position": [
+    -33.4,
+    34.082,
+    -0.65
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.889,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Grille_14",
+   "type": "box",
+   "position": [
+    -31.15,
+    34.082,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.889,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    -33.4,
+    33.822,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.7,
+    0.405,
+    5.7
+   ],
+   "material": "frame",
+   "blades": 8,
+   "sweep": 22.758334060729908,
+   "detail": "low",
+   "collision": false,
+   "outline": false,
+   "spin": -14.1,
+   "cutaway": true,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2",
+   "type": "cylinder",
+   "position": [
+    -6.0,
+    33.48,
+    26.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.6,
+    0.9,
+    7.6
+   ],
+   "material": "structure_b",
+   "sections": 20,
+   "hole": 3.2,
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Clamp_1",
+   "type": "box",
+   "position": [
+    -3.207,
+    33.33,
+    28.793
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Clamp_2",
+   "type": "box",
+   "position": [
+    -8.793,
+    33.33,
+    28.793
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Clamp_3",
+   "type": "box",
+   "position": [
+    -8.793,
+    33.33,
+    23.207
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Clamp_4",
+   "type": "box",
+   "position": [
+    -3.207,
+    33.33,
+    23.207
+   ],
+   "rotation": [
+    0.0,
+    -315.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Glow",
+   "type": "cylinder",
+   "position": [
+    -6.0,
+    34.26,
+    26.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.3,
+    0.05,
+    6.3
+   ],
+   "material": "glow_yellow",
+   "sections": 16,
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Grille_01",
+   "type": "box",
+   "position": [
+    -6.0,
+    34.082,
+    23.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.149,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Grille_11",
+   "type": "box",
+   "position": [
+    -8.4,
+    34.082,
+    26.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.149,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Grille_02",
+   "type": "box",
+   "position": [
+    -6.0,
+    34.082,
+    25.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.073,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Grille_12",
+   "type": "box",
+   "position": [
+    -6.8,
+    34.082,
+    26.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.073,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Grille_03",
+   "type": "box",
+   "position": [
+    -6.0,
+    34.082,
+    26.8
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.073,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Grille_13",
+   "type": "box",
+   "position": [
+    -5.2,
+    34.082,
+    26.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.073,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Grille_04",
+   "type": "box",
+   "position": [
+    -6.0,
+    34.082,
+    28.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.149,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Grille_14",
+   "type": "box",
+   "position": [
+    -3.6,
+    34.082,
+    26.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.149,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    -6.0,
+    33.822,
+    26.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.08,
+    0.405,
+    6.08
+   ],
+   "material": "frame",
+   "blades": 7,
+   "sweep": 26.278035912615074,
+   "detail": "low",
+   "collision": false,
+   "outline": false,
+   "spin": 33.5,
+   "cutaway": true,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3",
+   "type": "cylinder",
+   "position": [
+    22.0,
+    33.48,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.2,
+    0.9,
+    7.2
+   ],
+   "material": "structure_b",
+   "sections": 20,
+   "hole": 3.0,
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Clamp_1",
+   "type": "box",
+   "position": [
+    24.652,
+    33.33,
+    -0.248
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Clamp_2",
+   "type": "box",
+   "position": [
+    19.348,
+    33.33,
+    -0.248
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Clamp_3",
+   "type": "box",
+   "position": [
+    19.348,
+    33.33,
+    -5.552
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Clamp_4",
+   "type": "box",
+   "position": [
+    24.652,
+    33.33,
+    -5.552
+   ],
+   "rotation": [
+    0.0,
+    -315.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Glow",
+   "type": "cylinder",
+   "position": [
+    22.0,
+    34.26,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.9,
+    0.05,
+    5.9
+   ],
+   "material": "glow_yellow",
+   "sections": 16,
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Grille_01",
+   "type": "box",
+   "position": [
+    22.0,
+    34.082,
+    -5.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.889,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Grille_11",
+   "type": "box",
+   "position": [
+    19.75,
+    34.082,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.889,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Grille_02",
+   "type": "box",
+   "position": [
+    22.0,
+    34.082,
+    -3.65
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.693,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Grille_12",
+   "type": "box",
+   "position": [
+    21.25,
+    34.082,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.693,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Grille_03",
+   "type": "box",
+   "position": [
+    22.0,
+    34.082,
+    -2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.693,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Grille_13",
+   "type": "box",
+   "position": [
+    22.75,
+    34.082,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.693,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Grille_04",
+   "type": "box",
+   "position": [
+    22.0,
+    34.082,
+    -0.65
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.889,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Grille_14",
+   "type": "box",
+   "position": [
+    24.25,
+    34.082,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.889,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    22.0,
+    33.822,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.7,
+    0.405,
+    5.7
+   ],
+   "material": "frame",
+   "blades": 8,
+   "sweep": 18.246492415547458,
+   "detail": "low",
+   "collision": false,
+   "outline": false,
+   "spin": -23.7,
+   "cutaway": true,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4",
+   "type": "cylinder",
+   "position": [
+    42.0,
+    33.48,
+    -40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.2,
+    0.9,
+    7.2
+   ],
+   "material": "structure_b",
+   "sections": 20,
+   "hole": 3.0,
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Clamp_1",
+   "type": "box",
+   "position": [
+    44.652,
+    33.33,
+    -37.348
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Clamp_2",
+   "type": "box",
+   "position": [
+    39.348,
+    33.33,
+    -37.348
+   ],
+   "rotation": [
+    0.0,
+    -135.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Clamp_3",
+   "type": "box",
+   "position": [
+    39.348,
+    33.33,
+    -42.652
+   ],
+   "rotation": [
+    0.0,
+    -225.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Clamp_4",
+   "type": "box",
+   "position": [
+    44.652,
+    33.33,
+    -42.652
+   ],
+   "rotation": [
+    0.0,
+    -315.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.2,
+    0.8
+   ],
+   "material": "frame",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Glow",
+   "type": "cylinder",
+   "position": [
+    42.0,
+    34.26,
+    -40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.9,
+    0.05,
+    5.9
+   ],
+   "material": "glow_yellow",
+   "sections": 16,
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Grille_01",
+   "type": "box",
+   "position": [
+    42.0,
+    34.082,
+    -42.25
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.889,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Grille_11",
+   "type": "box",
+   "position": [
+    39.75,
+    34.082,
+    -40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.889,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Grille_02",
+   "type": "box",
+   "position": [
+    42.0,
+    34.082,
+    -40.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.693,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Grille_12",
+   "type": "box",
+   "position": [
+    41.25,
+    34.082,
+    -40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.693,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Grille_03",
+   "type": "box",
+   "position": [
+    42.0,
+    34.082,
+    -39.25
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.693,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Grille_13",
+   "type": "box",
+   "position": [
+    42.75,
+    34.082,
+    -40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.693,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Grille_04",
+   "type": "box",
+   "position": [
+    42.0,
+    34.082,
+    -37.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.889,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Grille_14",
+   "type": "box",
+   "position": [
+    44.25,
+    34.082,
+    -40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.889,
+    0.1,
+    0.12
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    42.0,
+    33.822,
+    -40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.7,
+    0.405,
+    5.7
+   ],
+   "material": "frame",
+   "blades": 6,
+   "sweep": 19.983920812902777,
+   "detail": "low",
+   "collision": false,
+   "outline": false,
+   "spin": -17.2,
+   "cutaway": true,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
    "name": "Ceil_LampRail_1b",
    "type": "ibeam",
    "position": [
@@ -74798,6 +76412,438 @@
     0.6,
     1.2,
     8.431
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Recess_1",
+   "type": "box",
+   "position": [
+    -33.4,
+    33.25,
+    -7.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.4,
+    1.2,
+    0.6
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Recess_2",
+   "type": "box",
+   "position": [
+    -33.4,
+    33.25,
+    1.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.4,
+    1.2,
+    0.6
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Recess_3",
+   "type": "box",
+   "position": [
+    -37.8,
+    33.25,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    1.2,
+    8.2
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X1_Recess_4",
+   "type": "box",
+   "position": [
+    -29.0,
+    33.25,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    1.2,
+    8.2
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Recess_1",
+   "type": "box",
+   "position": [
+    -6.0,
+    33.25,
+    21.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.8,
+    1.2,
+    0.6
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Recess_2",
+   "type": "box",
+   "position": [
+    -6.0,
+    33.25,
+    30.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.8,
+    1.2,
+    0.6
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Recess_3",
+   "type": "box",
+   "position": [
+    -10.6,
+    33.25,
+    26.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    1.2,
+    8.6
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X2_Recess_4",
+   "type": "box",
+   "position": [
+    -1.4,
+    33.25,
+    26.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    1.2,
+    8.6
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Recess_1",
+   "type": "box",
+   "position": [
+    22.0,
+    33.25,
+    -7.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.4,
+    1.2,
+    0.6
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Recess_2",
+   "type": "box",
+   "position": [
+    22.0,
+    33.25,
+    1.5
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.4,
+    1.2,
+    0.6
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Recess_3",
+   "type": "box",
+   "position": [
+    17.6,
+    33.25,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    1.2,
+    8.2
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X3_Recess_4",
+   "type": "box",
+   "position": [
+    26.4,
+    33.25,
+    -2.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    1.2,
+    8.2
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Recess_1",
+   "type": "box",
+   "position": [
+    42.0,
+    33.25,
+    -44.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.4,
+    1.2,
+    0.6
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Recess_2",
+   "type": "box",
+   "position": [
+    42.0,
+    33.25,
+    -35.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    9.4,
+    1.2,
+    0.6
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Recess_3",
+   "type": "box",
+   "position": [
+    37.6,
+    33.25,
+    -40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    1.2,
+    8.2
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Ceiling"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "Ceil_Fan_X4_Recess_4",
+   "type": "box",
+   "position": [
+    46.4,
+    33.25,
+    -40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    1.2,
+    8.2
    ],
    "material": "structure_b",
    "collision": false,
@@ -85659,7 +87705,7 @@
   "Jet_Screen: jetpack grin screen bobbing at [-2.0, 22.0, -18.0]; flies to [28.39, 21.632, 28.89] when a player reaches Arena_Deck - big red button opens ['Yard_Laser']",
   "ceiling: 75 dressing parts cleared from over the lift shaft at (-30, -40)",
   "crates: 11 printed crates (accent atlas)",
-  "fixtures: 48 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_West_M02Fan)",
+  "fixtures: 56 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_West_M02Fan)",
   "ducts: Ceil_Duct_1 trimmed to 2 piece(s) clear of 2 standing part(s), 0 crane runway(s), ends at beams 0.0 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 0.0 m",
   "corrosion: 8 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 12 lights at the liquid line removed, 16 light strips raised clear of it",
@@ -85789,16 +87835,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 69860,
-  "objects": 2612,
-  "materials": 48,
-  "glb_kb": 4679,
-  "nodes": 2877,
-  "draw_calls_unbatched": 2839,
-  "draw_calls_batched_min": 51,
-  "images": 123,
-  "tex_mem_gpu_compressed_mb": 27.28,
-  "tex_mem_uncompressed_mb": 109.11,
+  "triangles": 73592,
+  "objects": 2682,
+  "materials": 49,
+  "glb_kb": 4813,
+  "nodes": 2953,
+  "draw_calls_unbatched": 2915,
+  "draw_calls_batched_min": 52,
+  "images": 125,
+  "tex_mem_gpu_compressed_mb": 27.32,
+  "tex_mem_uncompressed_mb": 109.28,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

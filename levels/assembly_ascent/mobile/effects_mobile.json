@@ -754,6 +754,34 @@
       32.28,
       48.09
      ]
+    },
+    {
+     "pos": [
+      -33.4,
+      32.28,
+      -2.9
+     ]
+    },
+    {
+     "pos": [
+      -6.0,
+      32.28,
+      26.0
+     ]
+    },
+    {
+     "pos": [
+      22.0,
+      32.28,
+      -2.9
+     ]
+    },
+    {
+     "pos": [
+      42.0,
+      32.28,
+      -40.0
+     ]
     }
    ],
    "quality": {
@@ -1611,6 +1639,144 @@
    }
   },
   {
+   "id": "West_DuctFans_Fan_1_Light",
+   "type": "point_light",
+   "category": "light",
+   "glb_contains": "nothing",
+   "godot_runtime": "OmniLight3D per position (no shadows): light_color, light_energy, omni_range",
+   "emitters": [
+    {
+     "pos": [
+      -46.5,
+      15.5,
+      -9.5
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "color": [
+       1.0,
+       0.82,
+       0.3
+      ],
+      "energy": 0.8,
+      "range": 12.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "color": [
+       1.0,
+       0.82,
+       0.3
+      ],
+      "energy": 1.3,
+      "range": 16.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "color": [
+       1.0,
+       0.82,
+       0.3
+      ],
+      "energy": 1.3,
+      "range": 16.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "West_DuctFans_Fan_2_Light",
+   "type": "point_light",
+   "category": "light",
+   "glb_contains": "nothing",
+   "godot_runtime": "OmniLight3D per position (no shadows): light_color, light_energy, omni_range",
+   "emitters": [
+    {
+     "pos": [
+      -46.5,
+      15.5,
+      -23.5
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "color": [
+       1.0,
+       0.82,
+       0.3
+      ],
+      "energy": 0.8,
+      "range": 12.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "color": [
+       1.0,
+       0.82,
+       0.3
+      ],
+      "energy": 1.3,
+      "range": 16.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "color": [
+       1.0,
+       0.82,
+       0.3
+      ],
+      "energy": 1.3,
+      "range": 16.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Dome_Motes",
    "type": "ambient_particles",
    "category": "particles",
@@ -1832,10 +1998,18 @@
     "OuterWall_South_M05Fan_Rotor": 22.0,
     "West_DuctFans_Fan_1_Rotor": 46.0,
     "West_DuctFans_Fan_2_Rotor": 46.0,
-    "Ceil_Fan_1_Rotor": -30.8
+    "Ceil_Fan_1_Rotor": -30.8,
+    "Ceil_Fan_X1_Rotor": -14.1,
+    "Ceil_Fan_X2_Rotor": 33.5,
+    "Ceil_Fan_X3_Rotor": -23.7,
+    "Ceil_Fan_X4_Rotor": -17.2
    },
    "targets": [
     "Ceil_Fan_1_Rotor",
+    "Ceil_Fan_X1_Rotor",
+    "Ceil_Fan_X2_Rotor",
+    "Ceil_Fan_X3_Rotor",
+    "Ceil_Fan_X4_Rotor",
     "OuterWall_South_M03Fan_Rotor",
     "OuterWall_South_M05Fan_Rotor",
     "West_DuctFans_Fan_1_Rotor",

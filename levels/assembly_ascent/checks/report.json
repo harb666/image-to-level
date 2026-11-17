@@ -1,17 +1,17 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 4679,
-  "mobile/level_mobile.glb": 2759,
+  "level.glb": 4813,
+  "mobile/level_mobile.glb": 2864,
   "mobile/collision.json": 209,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 95
+  "effects.json": 98
  },
  "complexity": {
-  "triangles": 79764,
-  "nodes": 2839,
-  "materials": 48,
+  "triangles": 84184,
+  "nodes": 2915,
+  "materials": 49,
   "heaviest": [
    [
     "Corrosion_Band",
@@ -37,21 +37,21 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 4679,
-   "triangles": 69860,
-   "draw_calls": 2839,
-   "tex_mem_gpu_mb_est": 27.28
+   "glb_kb": 4813,
+   "triangles": 73592,
+   "draw_calls": 2915,
+   "tex_mem_gpu_mb_est": 27.32
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 2759,
-   "triangles": 76622,
-   "draw_calls": 144,
-   "visible_draw_calls_est": 78.9,
-   "visible_draw_calls_max_est": 147,
-   "tex_mem_gpu_mb_est": 11.63,
-   "materials": 51,
-   "nodes": 243,
+   "glb_kb": 2864,
+   "triangles": 81070,
+   "draw_calls": 149,
+   "visible_draw_calls_est": 79.8,
+   "visible_draw_calls_max_est": 151,
+   "tex_mem_gpu_mb_est": 11.67,
+   "materials": 52,
+   "nodes": 248,
    "colliders": {
     "colliders": 463,
     "hazards": 1,
@@ -281,12 +281,12 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 144 (> 80)"
+   "message": "mobile draw calls 149 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~79 visible draw calls (estimate, > 60)"
+   "message": "~80 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "narrow_connector",
@@ -357,7 +357,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "79764 triangles (> budget 40000)"
+   "message": "84184 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",

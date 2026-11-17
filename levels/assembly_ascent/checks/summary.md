@@ -1,24 +1,24 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 2612 objects · 48 materials · 40 effects
+Spec: levels/assembly_ascent/scene_spec.json · 2682 objects · 49 materials · 42 effects
 Checks: PASSED ({'error': 0, 'warning': 11, 'info': 1}) · refine passes: 0
-Mobile (balanced): 2759 KB · 76622 tris · 144 draw calls · ~78.9 visible (estimate) · ~11.63 MB GPU textures (estimate)
+Mobile (balanced): 2864 KB · 81070 tris · 149 draw calls · ~79.8 visible (estimate) · ~11.67 MB GPU textures (estimate)
 Navigation: 5429.0 m² reachable of 19868.0 m² standable
-Package: dist/assembly_ascent/package (38 files, 11.33 MB) valid=True
+Package: dist/assembly_ascent/package (38 files, 11.62 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- warning: mobile draw calls 144 (> 80)
-- warning: ~79 visible draw calls (estimate, > 60)
+- warning: mobile draw calls 149 (> 80)
+- warning: ~80 visible draw calls (estimate, > 60)
 - warning: Showcase_Pit_1_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_1_Pillar_R: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Pillar_L: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: enemy_arena: hazard 0.5 m away (< 3.0 m)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- warning: 79764 triangles (> budget 40000)
+- warning: 84184 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -47,7 +47,7 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Jet_Screen: jetpack grin screen bobbing at [-2.0, 22.0, -18.0]; flies to [28.39, 21.632, 28.89] when a player reaches Arena_Deck - big red button opens ['Yard_Laser']
 - ceiling: 75 dressing parts cleared from over the lift shaft at (-30, -40)
 - crates: 11 printed crates (accent atlas)
-- fixtures: 48 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_West_M02Fan)
+- fixtures: 56 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_West_M02Fan)
 - ducts: Ceil_Duct_1 trimmed to 2 piece(s) clear of 2 standing part(s), 0 crane runway(s), ends at beams 0.0 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 0.0 m
 - corrosion: 8 lit bodies get a plain skirt at the liquid line (no lights in the slime)
 - corrosion: 12 lights at the liquid line removed, 16 light strips raised clear of it
@@ -55,8 +55,8 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 
 ## Timing
 - spec -> level.json: 1.3 s
-- build (glb, sky, background, effects, mobile): 41.9 s
-- checks (fast): 52.8 s
+- build (glb, sky, background, effects, mobile): 44.3 s
+- checks (fast): 57.0 s
 - previews: 0.8 s
-- export package: 0.5 s
-- total: 97.4 s
+- export package: 0.4 s
+- total: 103.8 s

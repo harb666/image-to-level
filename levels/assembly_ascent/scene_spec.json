@@ -597,6 +597,29 @@
         ],
         "notes": "Stage 143: the dais (boss lift) top - one lathe-turned gunmetal disc, no panel grid, mapped once (tile_m = its diameter)",
         "metal": 0.55
+      },
+      "fan_rays": {
+        "type": "beam_fade",
+        "color": [
+          1.0,
+          0.86,
+          0.3
+        ],
+        "res": 128,
+        "alpha": 0.1,
+        "fade_in": 0.04,
+        "fade_out": [
+          0.25,
+          0.95
+        ],
+        "streaks": 9,
+        "streak_amount": 0.6,
+        "emissive": [
+          1.0,
+          0.82,
+          0.25
+        ],
+        "notes": "Stage 147: soft yellow light rays blowing out of the west wall fans (like the dome's rays)"
       }
     }
   },
@@ -689,6 +712,28 @@
           "car": true,
           "notes": "Stage 144: the shaft the boss lift comes down through onto the showcase dais"
         }
+      ],
+      "extra_fans": [
+        [
+          -33.4,
+          -2.9,
+          3.0
+        ],
+        [
+          -6.0,
+          26.0,
+          3.2
+        ],
+        [
+          22.0,
+          -2.9,
+          3.0
+        ],
+        [
+          42.0,
+          -40.0,
+          3.0
+        ]
       ]
     }
   },
@@ -1008,7 +1053,11 @@
       "fan_y": 15.5,
       "duct_top": 30.0,
       "source": "inferred",
-      "notes": "Stage 145: massive industrial duct fans and vent banks on the west wall (were two wall monitors, a vent and a plain slot)"
+      "notes": "Stage 145: massive industrial duct fans and vent banks on the west wall (were two wall monitors, a vent and a plain slot)",
+      "glow": "glow_yellow",
+      "rays": true,
+      "ray_length": 15.0,
+      "ray_spread": 1.5
     },
     {
       "id": "Deck_Monitor_L",
