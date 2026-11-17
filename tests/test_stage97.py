@@ -156,6 +156,8 @@ class AssemblyAscent(unittest.TestCase):
         for k in (1, 2, 3):
             n = f"Pod_Tube_{k}"; self.assertIn(n + "_Capital", self.by); self.assertIn(n + "_Pod_Fluid", self.by); self.assertIn(n + "_Pod", groups)
             self.assertTrue([m for m in self.by if m.startswith(n + "_Glass_")])
+            for m in self.by:  # Stage 154: Toxic Works' plum light bands, never the yellow hazard chevrons
+                if m.startswith(n + "_Drum_"): self.assertNotEqual(self.L["materials"][self.by[m]["material"]]["type"], "chevron", m)
 
     def test_saw_hubs_are_plain(self):
         """Stage 132: the spinning blade hub (flange + nut) is plain dark metal - the machine panel's white light slots

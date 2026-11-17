@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "1c5e1527d44252cd",
+  "spec_sha": "cdaaa1a03aabc372",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -4001,6 +4001,29 @@
    ],
    "wear": 0.12,
    "notes": "platform rims: yellow / black hazard stripes (concept art)"
+  },
+  "tube_band": {
+   "type": "trim_light",
+   "color": [
+    0.22,
+    0.17,
+    0.28
+   ],
+   "tile_m": 1.2,
+   "wear": 0.5,
+   "bevel": 0.05,
+   "accent": [
+    1.0,
+    0.08,
+    0.2
+   ],
+   "emissive": [
+    1,
+    1,
+    1
+   ],
+   "toon": true,
+   "notes": "Stage 154: the pod tubes' bands - Toxic Works' plum trim with a red light strip (no hazard stripes)"
   },
   "tunnel_dark": {
    "type": "concrete",
@@ -36834,7 +36857,7 @@
     2.555,
     5.152
    ],
-   "material": "trim",
+   "material": "tube_band",
    "sections": 8,
    "hole": 1.84,
    "hole_res": 16,
@@ -37418,7 +37441,7 @@
     2.532,
     5.824
    ],
-   "material": "trim",
+   "material": "tube_band",
    "sections": 8,
    "hole": 2.08,
    "hole_res": 16,
@@ -38030,7 +38053,7 @@
     1.264,
     5.152
    ],
-   "material": "trim",
+   "material": "tube_band",
    "sections": 8,
    "hole": 1.84,
    "hole_res": 16,
@@ -92636,14 +92659,14 @@
  "build_stats": {
   "triangles": 77820,
   "objects": 2763,
-  "materials": 56,
-  "glb_kb": 5189,
+  "materials": 57,
+  "glb_kb": 5207,
   "nodes": 3057,
   "draw_calls_unbatched": 3015,
-  "draw_calls_batched_min": 58,
-  "images": 137,
-  "tex_mem_gpu_compressed_mb": 28.96,
-  "tex_mem_uncompressed_mb": 115.84,
+  "draw_calls_batched_min": 59,
+  "images": 141,
+  "tex_mem_gpu_compressed_mb": 29.29,
+  "tex_mem_uncompressed_mb": 117.17,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

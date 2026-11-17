@@ -4,11 +4,11 @@ errors 0 · warnings 11 · info 1
 
 | metric | dev | mobile |
 |---|---|---|
-| file KB | 5189 | 3068 |
+| file KB | 5207 | 3071 |
 | triangles | 77820 | 87192 |
-| draw calls (measured) | 3015 | 166 |
-| visible draw calls (estimate) | - | 86.0 |
-| GPU texture MB (estimate) | 28.96 | 13.31 |
+| draw calls (measured) | 3015 | 167 |
+| visible draw calls (estimate) | - | 86.4 |
+| GPU texture MB (estimate) | 29.29 | 13.48 |
 
 Navigation: reachable 5450.0 of 20228.0 m² standable; components 188.
 Camera: - cameras, void rays -, back faces -.
@@ -17,7 +17,7 @@ Geometry: {'ERROR': 0, 'WARNING': 3, 'INTENTIONAL': 0} (checks/geometry.md)
 ## Issues (highest impact first)
 - **warning** OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - **warning** OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- **warning** mobile draw calls 166 (> 80)
+- **warning** mobile draw calls 167 (> 80)
 - **warning** ~86 visible draw calls (estimate, > 60)
 - **warning** Showcase_Pit_1_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - **warning** Showcase_Pit_1_Pillar_R: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera

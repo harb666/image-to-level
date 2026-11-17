@@ -1499,4 +1499,5 @@ Building blocks usable without the preset:
 - Stage 153: the tunnel's pour starts 1 cm over the channel's surface (its start face looks into the tunnel) and the
   `liquid_fade` overlay runs on behind the back wall, fading clear again (`liquid_fade_span`): both its edges are clear, so
   the wrapping texture no longer bleeds a dark line across the slime at the mouth.
+- Stage 154: `column` `"band_material"` (role, default `trim`): Assembly Ascent's pod tubes use `tube_band` (Toxic Works' plum `trim_light` with a red light strip) instead of this level's yellow hazard `trim`.
 

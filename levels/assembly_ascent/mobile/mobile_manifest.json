@@ -41,23 +41,23 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 5189,
+    "glb_kb": 5207,
     "triangles": 90764,
     "nodes": 3057,
     "mesh_nodes": 3015,
     "unique_meshes": 1411,
-    "materials": 58,
-    "images": 137,
+    "materials": 59,
+    "images": 141,
     "draw_calls_unbatched": 3015,
-    "draw_calls_batched_min": 58,
-    "tex_mem_uncompressed_mb": 115.84,
-    "tex_mem_gpu_compressed_mb": 28.96,
+    "draw_calls_batched_min": 59,
+    "tex_mem_uncompressed_mb": 117.17,
+    "tex_mem_gpu_compressed_mb": 29.29,
     "texture_slots": {
-     "baseColorTexture": 52,
-     "metallicRoughnessTexture": 52,
-     "normalTexture": 38,
-     "occlusionTexture": 52,
-     "emissiveTexture": 31
+     "baseColorTexture": 53,
+     "metallicRoughnessTexture": 53,
+     "normalTexture": 39,
+     "occlusionTexture": 53,
+     "emissiveTexture": 32
     },
     "image_sizes": [
      "1024x1024 jpeg",
@@ -81,20 +81,20 @@
   },
   "mobile": {
    "level": {
-    "glb_kb": 3068,
+    "glb_kb": 3071,
     "triangles": 87192,
-    "nodes": 265,
-    "mesh_nodes": 166,
-    "unique_meshes": 166,
-    "materials": 58,
-    "images": 103,
-    "draw_calls_unbatched": 166,
-    "draw_calls_batched_min": 58,
-    "tex_mem_uncompressed_mb": 53.26,
-    "tex_mem_gpu_compressed_mb": 13.31,
+    "nodes": 266,
+    "mesh_nodes": 167,
+    "unique_meshes": 167,
+    "materials": 59,
+    "images": 105,
+    "draw_calls_unbatched": 167,
+    "draw_calls_batched_min": 59,
+    "tex_mem_uncompressed_mb": 53.92,
+    "tex_mem_gpu_compressed_mb": 13.48,
     "texture_slots": {
-     "baseColorTexture": 52,
-     "emissiveTexture": 31,
+     "baseColorTexture": 53,
+     "emissiveTexture": 32,
      "metallicRoughnessTexture": 30,
      "normalTexture": 16,
      "occlusionTexture": 30
@@ -139,9 +139,9 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 86.0,
-    "visible_draw_calls_max": 167,
-    "visible_triangles_mean": 73871,
+    "visible_draw_calls_mean": 86.4,
+    "visible_draw_calls_max": 168,
+    "visible_triangles_mean": 73655,
     "visible_triangles_max": 97608
    },
    "hidden_faces_removed": 1331,
@@ -155,8 +155,8 @@
    "effects_max_particles": 1257,
    "slimmed_kb": {
     "level_mobile.glb": [
-     4635,
-     3068
+     4653,
+     3071
     ],
     "background_mobile.glb": [
      477,
@@ -4630,7 +4630,7 @@
    "node": "M_trim_0_0",
    "kind": "static",
    "material": "trim",
-   "triangles": 876,
+   "triangles": 492,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4639,9 +4639,6 @@
     "Exit_Door_Mouth_Capital_1",
     "Exit_Door_Mouth_Impost_1",
     "Exit_Door_Mouth_Voussoir_5",
-    "Pod_Tube_3_Drum_04",
-    "Pod_Tube_2_Drum_04",
-    "Pod_Tube_1_Drum_04",
     "Entry_Door_Mouth_Capital_3",
     "Entry_Door_Mouth_Impost_3",
     "Entry_Door_Mouth_Capital_1",
@@ -4655,6 +4652,19 @@
     "Belt_Landing_Trim",
     "Robot_Ring_Trim",
     "Start_Deck_Trim"
+   ]
+  },
+  {
+   "node": "M_tube_band_0_0",
+   "kind": "static",
+   "material": "tube_band",
+   "triangles": 384,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pod_Tube_3_Drum_04",
+    "Pod_Tube_2_Drum_04",
+    "Pod_Tube_1_Drum_04"
    ]
   },
   {
