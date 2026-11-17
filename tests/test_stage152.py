@@ -81,6 +81,7 @@ class SpecimenInLevel(unittest.TestCase):
         self.assertAlmostEqual(ch["position"][1], fy + off[1], places=2)
         self.assertLess(g["position"][1], fy - 0.05); self.assertGreater(g["position"][1] + g["size"][1], self.by["Showcase_TankCap"]["position"][1] + 0.05)  # Stage 156: ends sunk (no flicker)
         self.assertTrue(g.get("tube")); self.assertNotIn("Showcase_TankLiquid", self.by)
+        self.assertEqual(self.L["materials"][self.by["Showcase_TankBand"]["material"]]["type"], "trim_light")  # Stage 158: no hazard stripes round the vat
         self.assertNotIn("Showcase_TankMascot", self.by)  # the painted silhouette is gone
         self.assertEqual(ch["clips"], {"idle": "panic", "alert": "bang"}); self.assertGreater(ch["trigger"]["radius"], 5)
 

@@ -1516,6 +1516,7 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 158: `showcase` `"tank_band"` (role, default `tube_band`): the ring round the vat's plinth is Toxic Works' plum trim with a red light strip, not hazard stripes.
 - Stage 156: the showcase vat is built like Toxic Works' vats - one see-through slime-glass layer (`tank_green`, alpha 0.3;
   no separate blended liquid shell) with its ends sunk 10 cm into the base and the cap (the coplanar end faces flickered),
   a diffuser on the floor (glowing ring, grate, seven bubble nozzles) and a vent hood under the cap the cables run into;

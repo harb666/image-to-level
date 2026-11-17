@@ -884,7 +884,7 @@ def showcase(ctx, s, x, y, z, yaw):
     # --- the specimen tank (centre of the stage)
     tx = s.get("tank_x", S["center"][0]); tz = S["center"][1] + float(s.get("tank_dz", 0.6)); y0 = ys
     ctx.add(n + "_TankPlinth", "cylinder", [tx, y0, tz], [5.2, 0.9, 5.2], "structure_b", sections=16, **st)
-    ctx.add(n + "_TankBand", "cylinder", [tx, y0 + 0.75, tz], [5.45, 0.2, 5.45], stripe, sections=16, **vs)
+    ctx.add(n + "_TankBand", "cylinder", [tx, y0 + 0.75, tz], [5.45, 0.2, 5.45], ctx.role(s.get("tank_band", "tube_band")), sections=16, **vs)  # Stage 158: Toxic Works trim + red light strip (no hazard stripes)
     ctx.add(n + "_TankBase", "cylinder", [tx, y0 + 0.9, tz], [4.0, 0.6, 4.0], "structure_b", sections=16, **st)
     # Stage 156 (as Toxic Works' vats): ONE see-through slime-glass layer (no second blended liquid shell to sort against),
     # its ends sunk 10 cm into the base and the cap (no coplanar end faces: no flicker), bubbles rising inside it from a

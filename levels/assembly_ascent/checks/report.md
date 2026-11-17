@@ -7,7 +7,7 @@ errors 0 · warnings 11 · info 1
 | file KB | 5538 | 3244 |
 | triangles | 80884 | 90368 |
 | draw calls (measured) | 3095 | 174 |
-| visible draw calls (estimate) | - | 89.0 |
+| visible draw calls (estimate) | - | 89.2 |
 | GPU texture MB (estimate) | 29.71 | 13.9 |
 
 Navigation: reachable 5454.0 of 20220.0 m² standable; components 184.
