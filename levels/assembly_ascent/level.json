@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "2a780da647a41c66",
+  "spec_sha": "8c02947970d19d9d",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -93,6 +93,18 @@
      4.5
     ],
     [
+     24.46,
+     1.46,
+     1.0,
+     0.75
+    ],
+    [
+     24.46,
+     14.54,
+     1.0,
+     0.75
+    ],
+    [
      43.5,
      -45.0,
      0.45,
@@ -111,6 +123,12 @@
      3.1
     ],
     [
+     31.0,
+     8.0,
+     0.45,
+     5.0
+    ],
+    [
      -32.27,
      22.38,
      0.3,
@@ -121,6 +139,54 @@
      40.83,
      0.3,
      1.15
+    ],
+    [
+     33.53,
+     14.1,
+     0.3,
+     0.35
+    ],
+    [
+     37.1,
+     10.53,
+     0.3,
+     0.35
+    ],
+    [
+     37.1,
+     5.47,
+     0.3,
+     0.35
+    ],
+    [
+     33.53,
+     1.9,
+     0.3,
+     0.35
+    ],
+    [
+     28.47,
+     1.9,
+     0.3,
+     0.35
+    ],
+    [
+     24.9,
+     5.47,
+     0.3,
+     0.35
+    ],
+    [
+     24.9,
+     10.53,
+     0.3,
+     0.35
+    ],
+    [
+     28.47,
+     14.1,
+     0.3,
+     0.35
     ]
    ]
   },
@@ -148,7 +214,9 @@
    "targets_glob": [
     "Showcase_Pit_1_FrontFall",
     "Showcase_Pit_2_FrontFall",
-    "East_SlimeTunnel_Pour"
+    "East_SlimeTunnel_Pour",
+    "Reactor_Spout_1_Fall",
+    "Reactor_Spout_2_Fall"
    ],
    "speed": 3.0
   },
@@ -158,7 +226,9 @@
    "at_targets_glob": [
     "Showcase_Pit_1_FrontFall",
     "Showcase_Pit_2_FrontFall",
-    "East_SlimeTunnel_Pour"
+    "East_SlimeTunnel_Pour",
+    "Reactor_Spout_1_Fall",
+    "Reactor_Spout_2_Fall"
    ],
    "anchor": "bottom"
   },
@@ -168,7 +238,9 @@
    "at_targets_glob": [
     "Showcase_Pit_1_FrontFall",
     "Showcase_Pit_2_FrontFall",
-    "East_SlimeTunnel_Pour"
+    "East_SlimeTunnel_Pour",
+    "Reactor_Spout_1_Fall",
+    "Reactor_Spout_2_Fall"
    ],
    "anchor": "bottom"
   },
@@ -182,6 +254,13 @@
      -59.3,
      3.77,
      1.6
+    ],
+    [
+     31.0,
+     4.6,
+     8.0,
+     6.3,
+     3.3
     ]
    ]
   },
@@ -314,7 +393,10 @@
     "Showcase_Pit_2_Pump_1_Pipe",
     "Showcase_Pit_2_CornerPipe_1",
     "Showcase_Pit_2_Pump_2_Pipe",
-    "Showcase_Pit_2_CornerPipe_2"
+    "Showcase_Pit_2_CornerPipe_2",
+    "Reactor_PipeMain",
+    "Reactor_Pipe_1",
+    "Reactor_Pipe_2"
    ],
    "speed": 1.4,
    "flow_uv": [
@@ -427,6 +509,23 @@
      -19.86
     ]
    ]
+  },
+  {
+   "id": "Reactor_Steam",
+   "type": "steam",
+   "positions": [
+    [
+     34.6,
+     14.45,
+     8.0
+    ],
+    [
+     27.4,
+     14.45,
+     8.0
+    ]
+   ],
+   "rate": 3.4
   },
   {
    "id": "Showcase_Pit_1_FallGlow",
@@ -558,6 +657,24 @@
    ],
    "energy": 1.5,
    "range": 13.0
+  },
+  {
+   "id": "Reactor_Glow",
+   "type": "point_light",
+   "positions": [
+    [
+     31.0,
+     7.8,
+     17.0
+    ]
+   ],
+   "color": [
+    0.5,
+    1.0,
+    0.3
+   ],
+   "energy": 1.2,
+   "range": 16.0
   },
   {
    "id": "Dome_Motes",
@@ -69815,6 +69932,4014 @@
    "source": "visible"
   },
   {
+   "name": "Reactor_Plinth",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    -0.5,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    10.0,
+    3.6,
+    10.0
+   ],
+   "material": "structure_b",
+   "sections": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_BaseLamp_1",
+   "type": "box",
+   "position": [
+    32.887,
+    1.5,
+    12.555
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "size": [
+    0.26,
+    1.3,
+    0.1
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Leg_1_Support_Footing",
+   "type": "cylinder",
+   "position": [
+    33.526,
+    0.0,
+    14.098
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    3.1,
+    0.7
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_LegCollar_1",
+   "type": "cylinder",
+   "position": [
+    33.526,
+    1.25,
+    14.098
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.95,
+    0.35,
+    0.95
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Leg_2_Support_Footing",
+   "type": "cylinder",
+   "position": [
+    37.098,
+    0.0,
+    10.526
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    3.1,
+    0.7
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_LegCollar_2",
+   "type": "cylinder",
+   "position": [
+    37.098,
+    1.25,
+    10.526
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.95,
+    0.35,
+    0.95
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_BaseLamp_3",
+   "type": "box",
+   "position": [
+    35.555,
+    1.5,
+    6.113
+   ],
+   "rotation": [
+    0.0,
+    112.5,
+    0.0
+   ],
+   "size": [
+    0.26,
+    1.3,
+    0.1
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Leg_3_Support_Footing",
+   "type": "cylinder",
+   "position": [
+    37.098,
+    0.0,
+    5.474
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    3.1,
+    0.7
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_LegCollar_3",
+   "type": "cylinder",
+   "position": [
+    37.098,
+    1.25,
+    5.474
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.95,
+    0.35,
+    0.95
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Leg_4_Support_Footing",
+   "type": "cylinder",
+   "position": [
+    33.526,
+    0.0,
+    1.902
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    3.1,
+    0.7
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_LegCollar_4",
+   "type": "cylinder",
+   "position": [
+    33.526,
+    1.25,
+    1.902
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.95,
+    0.35,
+    0.95
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_BaseLamp_5",
+   "type": "box",
+   "position": [
+    29.113,
+    1.5,
+    3.445
+   ],
+   "rotation": [
+    0.0,
+    202.5,
+    0.0
+   ],
+   "size": [
+    0.26,
+    1.3,
+    0.1
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Leg_5_Support_Footing",
+   "type": "cylinder",
+   "position": [
+    28.474,
+    0.0,
+    1.902
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    3.1,
+    0.7
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_LegCollar_5",
+   "type": "cylinder",
+   "position": [
+    28.474,
+    1.25,
+    1.902
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.95,
+    0.35,
+    0.95
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Leg_6_Support_Footing",
+   "type": "cylinder",
+   "position": [
+    24.902,
+    0.0,
+    5.474
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    3.1,
+    0.7
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_LegCollar_6",
+   "type": "cylinder",
+   "position": [
+    24.902,
+    1.25,
+    5.474
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.95,
+    0.35,
+    0.95
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_BaseLamp_7",
+   "type": "box",
+   "position": [
+    26.445,
+    1.5,
+    9.887
+   ],
+   "rotation": [
+    0.0,
+    292.5,
+    0.0
+   ],
+   "size": [
+    0.26,
+    1.3,
+    0.1
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Leg_7_Support_Footing",
+   "type": "cylinder",
+   "position": [
+    24.902,
+    0.0,
+    10.526
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    3.1,
+    0.7
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_LegCollar_7",
+   "type": "cylinder",
+   "position": [
+    24.902,
+    1.25,
+    10.526
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.95,
+    0.35,
+    0.95
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Leg_8_Support_Footing",
+   "type": "cylinder",
+   "position": [
+    28.474,
+    0.0,
+    14.098
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    3.1,
+    0.7
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_LegCollar_8",
+   "type": "cylinder",
+   "position": [
+    28.474,
+    1.25,
+    14.098
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.95,
+    0.35,
+    0.95
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Deck",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    3.05,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    15.0,
+    0.35,
+    15.0
+   ],
+   "material": "grate",
+   "sections": 16,
+   "hole": 4.05,
+   "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_DeckRim",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    2.85,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    15.3,
+    0.5,
+    15.3
+   ],
+   "material": "frame",
+   "sections": 16,
+   "hole": 7.25,
+   "hole_res": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_RimLight",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    2.98,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    15.42,
+    0.13,
+    15.42
+   ],
+   "material": "glow_pink",
+   "sections": 16,
+   "hole": 7.5,
+   "hole_res": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Rail_2",
+   "type": "railing",
+   "position": [
+    35.021,
+    3.4,
+    14.018
+   ],
+   "rotation": [
+    0.0,
+    33.75,
+    0.0
+   ],
+   "size": [
+    2.94,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.4,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Rail_3",
+   "type": "railing",
+   "position": [
+    37.018,
+    3.4,
+    12.021
+   ],
+   "rotation": [
+    0.0,
+    56.25,
+    0.0
+   ],
+   "size": [
+    2.94,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.4,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Rail_4",
+   "type": "railing",
+   "position": [
+    38.099,
+    3.4,
+    9.412
+   ],
+   "rotation": [
+    0.0,
+    78.75,
+    0.0
+   ],
+   "size": [
+    2.94,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.4,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Rail_5",
+   "type": "railing",
+   "position": [
+    38.099,
+    3.4,
+    6.588
+   ],
+   "rotation": [
+    0.0,
+    101.25,
+    0.0
+   ],
+   "size": [
+    2.94,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.4,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Rail_6",
+   "type": "railing",
+   "position": [
+    37.018,
+    3.4,
+    3.979
+   ],
+   "rotation": [
+    0.0,
+    123.75,
+    0.0
+   ],
+   "size": [
+    2.94,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.4,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Rail_7",
+   "type": "railing",
+   "position": [
+    35.021,
+    3.4,
+    1.982
+   ],
+   "rotation": [
+    0.0,
+    146.25,
+    0.0
+   ],
+   "size": [
+    2.94,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.4,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Rail_10",
+   "type": "railing",
+   "position": [
+    26.979,
+    3.4,
+    1.982
+   ],
+   "rotation": [
+    0.0,
+    213.75,
+    0.0
+   ],
+   "size": [
+    2.94,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.4,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Rail_11",
+   "type": "railing",
+   "position": [
+    24.982,
+    3.4,
+    3.979
+   ],
+   "rotation": [
+    0.0,
+    236.25,
+    0.0
+   ],
+   "size": [
+    2.94,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.4,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Rail_14",
+   "type": "railing",
+   "position": [
+    24.982,
+    3.4,
+    12.021
+   ],
+   "rotation": [
+    0.0,
+    303.75,
+    0.0
+   ],
+   "size": [
+    2.94,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.4,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Rail_15",
+   "type": "railing",
+   "position": [
+    26.979,
+    3.4,
+    14.018
+   ],
+   "rotation": [
+    0.0,
+    326.25,
+    0.0
+   ],
+   "size": [
+    2.94,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.4,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_VatBase",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    3.05,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    8.1,
+    1.25,
+    8.1
+   ],
+   "material": "structure_b",
+   "sections": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_VatBandLow",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    3.88,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    8.3,
+    0.36,
+    8.3
+   ],
+   "material": "tube_band",
+   "sections": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_VatGlass",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    4.2,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.6,
+    7.5,
+    6.6
+   ],
+   "material": "tank_green",
+   "sections": 16,
+   "double_sided": true,
+   "tube": true,
+   "bubble_range": [
+    0.4,
+    6.7
+   ],
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Strut_1",
+   "type": "box",
+   "position": [
+    31.0,
+    4.3,
+    11.42
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    7.3,
+    0.55
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_StrutLamp_1",
+   "type": "box",
+   "position": [
+    31.0,
+    4.9,
+    11.72
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.13,
+    6.1,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Strut_2",
+   "type": "box",
+   "position": [
+    33.418,
+    4.3,
+    10.418
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    7.3,
+    0.55
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_StrutLamp_2",
+   "type": "box",
+   "position": [
+    33.63,
+    4.9,
+    10.63
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    0.13,
+    6.1,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Strut_3",
+   "type": "box",
+   "position": [
+    34.42,
+    4.3,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    7.3,
+    0.55
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_StrutLamp_3",
+   "type": "box",
+   "position": [
+    34.72,
+    4.9,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.13,
+    6.1,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Strut_4",
+   "type": "box",
+   "position": [
+    33.418,
+    4.3,
+    5.582
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    7.3,
+    0.55
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_StrutLamp_4",
+   "type": "box",
+   "position": [
+    33.63,
+    4.9,
+    5.37
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.13,
+    6.1,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Strut_5",
+   "type": "box",
+   "position": [
+    31.0,
+    4.3,
+    4.58
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    7.3,
+    0.55
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_StrutLamp_5",
+   "type": "box",
+   "position": [
+    31.0,
+    4.9,
+    4.28
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.13,
+    6.1,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Strut_6",
+   "type": "box",
+   "position": [
+    28.582,
+    4.3,
+    5.582
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    7.3,
+    0.55
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_StrutLamp_6",
+   "type": "box",
+   "position": [
+    28.37,
+    4.9,
+    5.37
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.13,
+    6.1,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Strut_7",
+   "type": "box",
+   "position": [
+    27.58,
+    4.3,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    7.3,
+    0.55
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_StrutLamp_7",
+   "type": "box",
+   "position": [
+    27.28,
+    4.9,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.13,
+    6.1,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Strut_8",
+   "type": "box",
+   "position": [
+    28.582,
+    4.3,
+    10.418
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    7.3,
+    0.55
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_StrutLamp_8",
+   "type": "box",
+   "position": [
+    28.37,
+    4.9,
+    10.63
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "size": [
+    0.13,
+    6.1,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_VatGrate",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    11.28,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.48,
+    0.07,
+    6.48
+   ],
+   "material": "grate",
+   "sections": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_VatBandTop",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    11.15,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.5,
+    0.45,
+    7.5
+   ],
+   "material": "tube_band",
+   "sections": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Cap",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    11.6,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    8.6,
+    1.5,
+    8.6
+   ],
+   "material": "structure_b",
+   "sections": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_CapRim",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    12.1,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    8.9,
+    0.45,
+    8.9
+   ],
+   "material": "frame",
+   "sections": 16,
+   "hole": 4.15,
+   "hole_res": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_CapLamp_1",
+   "type": "box",
+   "position": [
+    32.711,
+    12.2,
+    12.13
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "size": [
+    0.9,
+    0.22,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_CapLamp_2",
+   "type": "box",
+   "position": [
+    35.13,
+    12.2,
+    9.711
+   ],
+   "rotation": [
+    0.0,
+    67.5,
+    0.0
+   ],
+   "size": [
+    0.9,
+    0.22,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_CapLamp_3",
+   "type": "box",
+   "position": [
+    35.13,
+    12.2,
+    6.289
+   ],
+   "rotation": [
+    0.0,
+    112.5,
+    0.0
+   ],
+   "size": [
+    0.9,
+    0.22,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_CapLamp_4",
+   "type": "box",
+   "position": [
+    32.711,
+    12.2,
+    3.87
+   ],
+   "rotation": [
+    0.0,
+    157.5,
+    0.0
+   ],
+   "size": [
+    0.9,
+    0.22,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_CapLamp_5",
+   "type": "box",
+   "position": [
+    29.289,
+    12.2,
+    3.87
+   ],
+   "rotation": [
+    0.0,
+    202.5,
+    0.0
+   ],
+   "size": [
+    0.9,
+    0.22,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_CapLamp_6",
+   "type": "box",
+   "position": [
+    26.87,
+    12.2,
+    6.289
+   ],
+   "rotation": [
+    0.0,
+    247.5,
+    0.0
+   ],
+   "size": [
+    0.9,
+    0.22,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_CapLamp_7",
+   "type": "box",
+   "position": [
+    26.87,
+    12.2,
+    9.711
+   ],
+   "rotation": [
+    0.0,
+    292.5,
+    0.0
+   ],
+   "size": [
+    0.9,
+    0.22,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_CapLamp_8",
+   "type": "box",
+   "position": [
+    29.289,
+    12.2,
+    12.13
+   ],
+   "rotation": [
+    0.0,
+    337.5,
+    0.0
+   ],
+   "size": [
+    0.9,
+    0.22,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_CapTop",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    13.1,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.4,
+    0.55,
+    6.4
+   ],
+   "material": "machine",
+   "sections": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Vent_1",
+   "type": "box",
+   "position": [
+    31.0,
+    13.1,
+    11.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.2,
+    0.9,
+    1.2
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_VentLamp_1",
+   "type": "box",
+   "position": [
+    31.0,
+    13.3,
+    12.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.8,
+    0.3,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_VentStack_1",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    14.0,
+    11.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.45,
+    0.4,
+    0.45
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Vent_2",
+   "type": "box",
+   "position": [
+    34.6,
+    13.1,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    1.2,
+    0.9,
+    1.2
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_VentLamp_2",
+   "type": "box",
+   "position": [
+    35.22,
+    13.3,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.8,
+    0.3,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_VentStack_2",
+   "type": "cylinder",
+   "position": [
+    34.6,
+    14.0,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.45,
+    0.4,
+    0.45
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Vent_3",
+   "type": "box",
+   "position": [
+    31.0,
+    13.1,
+    4.4
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    1.2,
+    0.9,
+    1.2
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_VentLamp_3",
+   "type": "box",
+   "position": [
+    31.0,
+    13.3,
+    3.78
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.8,
+    0.3,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_VentStack_3",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    14.0,
+    4.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.45,
+    0.4,
+    0.45
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Vent_4",
+   "type": "box",
+   "position": [
+    27.4,
+    13.1,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    1.2,
+    0.9,
+    1.2
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_VentLamp_4",
+   "type": "box",
+   "position": [
+    26.78,
+    13.3,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.8,
+    0.3,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_VentStack_4",
+   "type": "cylinder",
+   "position": [
+    27.4,
+    14.0,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.45,
+    0.4,
+    0.45
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMain",
+   "type": "pipe_path",
+   "position": [
+    31.0,
+    13.35,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.046,
+    1.0,
+    1.046
+   ],
+   "material": "pipe_liquid",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     21.250000000000004
+    ]
+   ],
+   "bend": 1.0,
+   "tile": 1.0,
+   "sections": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMain_Glass",
+   "type": "pipe_path",
+   "position": [
+    31.0,
+    13.35,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.495,
+    1.0,
+    1.495
+   ],
+   "material": "glass_clear",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     21.250000000000004
+    ]
+   ],
+   "bend": 1.0,
+   "part": "straight",
+   "sections": 10,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainClamp_1",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    13.3,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.995,
+    0.6,
+    1.995
+   ],
+   "material": "frame",
+   "sections": 10,
+   "hole": 0.717,
+   "hole_res": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainClamp_2",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    16.65,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.995,
+    0.6,
+    1.995
+   ],
+   "material": "frame",
+   "sections": 10,
+   "hole": 0.717,
+   "hole_res": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainClamp_3",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    33.7,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.995,
+    0.6,
+    1.995
+   ],
+   "material": "frame",
+   "sections": 10,
+   "hole": 0.717,
+   "hole_res": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Pipe_1",
+   "type": "pipe_path",
+   "position": [
+    32.909,
+    13.35,
+    9.909
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "size": [
+    0.91,
+    1.0,
+    0.91
+   ],
+   "material": "pipe_liquid",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     4.5
+    ],
+    [
+     6.0,
+     4.5
+    ],
+    [
+     6.0,
+     21.25
+    ]
+   ],
+   "bend": 1.4,
+   "tile": 1.0,
+   "sections": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Pipe_1_Glass",
+   "type": "pipe_path",
+   "position": [
+    32.909,
+    13.35,
+    9.909
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.0,
+    1.3
+   ],
+   "material": "glass_clear",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     4.5
+    ],
+    [
+     6.0,
+     4.5
+    ],
+    [
+     6.0,
+     21.25
+    ]
+   ],
+   "bend": 1.4,
+   "part": "straight",
+   "sections": 10,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Pipe_1_Elbow",
+   "type": "pipe_path",
+   "position": [
+    32.909,
+    13.35,
+    9.909
+   ],
+   "rotation": [
+    0.0,
+    -45.0,
+    0.0
+   ],
+   "size": [
+    1.508,
+    1.0,
+    1.508
+   ],
+   "material": "lift_ring",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     4.5
+    ],
+    [
+     6.0,
+     4.5
+    ],
+    [
+     6.0,
+     21.25
+    ]
+   ],
+   "bend": 1.4,
+   "part": "bend",
+   "sleeve": 0.2,
+   "sections": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeFoot_1",
+   "type": "cylinder",
+   "position": [
+    32.909,
+    13.3,
+    9.909
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.8,
+    0.7,
+    1.8
+   ],
+   "material": "frame",
+   "sections": 10,
+   "hole": 0.62,
+   "hole_res": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1",
+   "type": "cylinder",
+   "position": [
+    37.152,
+    33.7,
+    14.152
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.8,
+    0.6,
+    1.8
+   ],
+   "material": "frame",
+   "sections": 10,
+   "hole": 0.62,
+   "hole_res": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Pipe_2",
+   "type": "pipe_path",
+   "position": [
+    32.909,
+    13.35,
+    6.091
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    0.91,
+    1.0,
+    0.91
+   ],
+   "material": "pipe_liquid",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     4.5
+    ],
+    [
+     6.0,
+     4.5
+    ],
+    [
+     6.0,
+     21.25
+    ]
+   ],
+   "bend": 1.4,
+   "tile": 1.0,
+   "sections": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Pipe_2_Glass",
+   "type": "pipe_path",
+   "position": [
+    32.909,
+    13.35,
+    6.091
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    1.3,
+    1.0,
+    1.3
+   ],
+   "material": "glass_clear",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     4.5
+    ],
+    [
+     6.0,
+     4.5
+    ],
+    [
+     6.0,
+     21.25
+    ]
+   ],
+   "bend": 1.4,
+   "part": "straight",
+   "sections": 10,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Pipe_2_Elbow",
+   "type": "pipe_path",
+   "position": [
+    32.909,
+    13.35,
+    6.091
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    1.508,
+    1.0,
+    1.508
+   ],
+   "material": "lift_ring",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     4.5
+    ],
+    [
+     6.0,
+     4.5
+    ],
+    [
+     6.0,
+     21.25
+    ]
+   ],
+   "bend": 1.4,
+   "part": "bend",
+   "sleeve": 0.2,
+   "sections": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeFoot_2",
+   "type": "cylinder",
+   "position": [
+    32.909,
+    13.3,
+    6.091
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.8,
+    0.7,
+    1.8
+   ],
+   "material": "frame",
+   "sections": 10,
+   "hole": 0.62,
+   "hole_res": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2",
+   "type": "cylinder",
+   "position": [
+    37.152,
+    33.7,
+    1.848
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.8,
+    0.6,
+    1.8
+   ],
+   "material": "frame",
+   "sections": 10,
+   "hole": 0.62,
+   "hole_res": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1",
+   "type": "box",
+   "position": [
+    31.0,
+    3.1,
+    -3.3
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    2.6,
+    0.3,
+    8.0
+   ],
+   "material": "grate",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Rail_L",
+   "type": "railing",
+   "position": [
+    32.24,
+    3.4,
+    -3.3
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    8.0,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.6,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Leg_1L",
+   "type": "cylinder",
+   "position": [
+    32.116,
+    0.0,
+    -0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.35,
+    3.1,
+    0.35
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Leg_2L",
+   "type": "cylinder",
+   "position": [
+    32.116,
+    0.0,
+    -5.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.35,
+    3.1,
+    0.35
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Lamp_L",
+   "type": "box",
+   "position": [
+    32.277,
+    3.18,
+    -3.3
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.06,
+    0.1,
+    7.6
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Rail_R",
+   "type": "railing",
+   "position": [
+    29.76,
+    3.4,
+    -3.3
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    8.0,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.6,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Leg_1R",
+   "type": "cylinder",
+   "position": [
+    29.884,
+    0.0,
+    -0.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.35,
+    3.1,
+    0.35
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Leg_2R",
+   "type": "cylinder",
+   "position": [
+    29.884,
+    0.0,
+    -5.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.35,
+    3.1,
+    0.35
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Lamp_R",
+   "type": "box",
+   "position": [
+    29.723,
+    3.18,
+    -3.3
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.06,
+    0.1,
+    7.6
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Pier",
+   "type": "box",
+   "position": [
+    31.0,
+    0.0,
+    -8.7
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    3.2,
+    4.3,
+    3.2
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_PierCap",
+   "type": "box",
+   "position": [
+    31.0,
+    4.3,
+    -8.7
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    3.5,
+    0.3,
+    3.5
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_PierLamp",
+   "type": "box",
+   "position": [
+    31.0,
+    3.5,
+    -10.3
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    2.0,
+    0.3,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2",
+   "type": "box",
+   "position": [
+    18.7,
+    3.1,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    2.6,
+    0.3,
+    10.0
+   ],
+   "material": "grate",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Rail_L",
+   "type": "railing",
+   "position": [
+    18.7,
+    3.4,
+    6.76
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    10.0,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.6,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Leg_1L",
+   "type": "cylinder",
+   "position": [
+    22.1,
+    0.0,
+    6.884
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.35,
+    3.1,
+    0.35
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Leg_2L",
+   "type": "cylinder",
+   "position": [
+    17.6,
+    0.0,
+    6.884
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.35,
+    3.1,
+    0.35
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Lamp_L",
+   "type": "box",
+   "position": [
+    18.7,
+    3.18,
+    6.723
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.06,
+    0.1,
+    9.6
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Rail_R",
+   "type": "railing",
+   "position": [
+    18.7,
+    3.4,
+    9.24
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    10.0,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.6,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Leg_1R",
+   "type": "cylinder",
+   "position": [
+    22.1,
+    0.0,
+    9.116
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.35,
+    3.1,
+    0.35
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Leg_2R",
+   "type": "cylinder",
+   "position": [
+    17.6,
+    0.0,
+    9.116
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.35,
+    3.1,
+    0.35
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Lamp_R",
+   "type": "box",
+   "position": [
+    18.7,
+    3.18,
+    9.277
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.06,
+    0.1,
+    9.6
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Pier",
+   "type": "box",
+   "position": [
+    12.3,
+    0.0,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    3.2,
+    4.3,
+    3.2
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_PierCap",
+   "type": "box",
+   "position": [
+    12.3,
+    4.3,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    3.5,
+    0.3,
+    3.5
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_PierLamp",
+   "type": "box",
+   "position": [
+    10.7,
+    3.5,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    2.0,
+    0.3,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3",
+   "type": "box",
+   "position": [
+    31.0,
+    3.1,
+    19.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.6,
+    0.3,
+    8.5
+   ],
+   "material": "grate",
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Rail_L",
+   "type": "railing",
+   "position": [
+    29.76,
+    3.4,
+    19.55
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    8.5,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.6,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Leg_1L",
+   "type": "cylinder",
+   "position": [
+    29.884,
+    0.0,
+    16.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.35,
+    3.1,
+    0.35
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Leg_2L",
+   "type": "cylinder",
+   "position": [
+    29.884,
+    0.0,
+    21.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.35,
+    3.1,
+    0.35
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Lamp_L",
+   "type": "box",
+   "position": [
+    29.723,
+    3.18,
+    19.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.06,
+    0.1,
+    8.1
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Rail_R",
+   "type": "railing",
+   "position": [
+    32.24,
+    3.4,
+    19.55
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    8.5,
+    1.1,
+    0.07
+   ],
+   "material": "frame",
+   "post_spacing": 1.6,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Leg_1R",
+   "type": "cylinder",
+   "position": [
+    32.116,
+    0.0,
+    16.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.35,
+    3.1,
+    0.35
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Leg_2R",
+   "type": "cylinder",
+   "position": [
+    32.116,
+    0.0,
+    21.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.35,
+    3.1,
+    0.35
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Lamp_R",
+   "type": "box",
+   "position": [
+    32.277,
+    3.18,
+    19.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.06,
+    0.1,
+    8.1
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Pier",
+   "type": "box",
+   "position": [
+    31.0,
+    0.0,
+    25.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.2,
+    4.3,
+    3.2
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_PierCap",
+   "type": "box",
+   "position": [
+    31.0,
+    4.3,
+    25.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.5,
+    0.3,
+    3.5
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_PierLamp",
+   "type": "box",
+   "position": [
+    31.0,
+    3.5,
+    26.8
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.0,
+    0.3,
+    0.06
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Spout_1",
+   "type": "group",
+   "position": [
+    31.0,
+    0.0,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Spout_1_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    1.95,
+    6.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Spout_1",
+   "size": [
+    1.9,
+    0.6,
+    3.5
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Spout_1_Lip",
+   "type": "box",
+   "position": [
+    0.0,
+    1.9,
+    8.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Spout_1",
+   "size": [
+    2.1,
+    0.7,
+    0.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Spout_1_Fall",
+   "type": "stream",
+   "position": [
+    0.0,
+    2.52,
+    8.12
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Spout_1",
+   "size": [
+    1.5,
+    1.82,
+    0.35
+   ],
+   "material": "fall",
+   "section": "rect",
+   "speed": 1.8,
+   "pitch": 6,
+   "inset": 0.3,
+   "widen": 0.18,
+   "thin": 0.2,
+   "segments": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Spout_1_Slime",
+   "type": "box",
+   "position": [
+    0.0,
+    2.36,
+    6.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Spout_1",
+   "size": [
+    1.5,
+    0.16,
+    3.5
+   ],
+   "material": "fall",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Spout_1_Pool",
+   "type": "dome_shell",
+   "position": [
+    0.0,
+    1.16,
+    9.645
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Spout_1",
+   "size": [
+    5.0,
+    0.02,
+    4.0
+   ],
+   "material": "splash_pool",
+   "sections": 16,
+   "rings": 3,
+   "uv": "planar",
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Spout_2",
+   "type": "group",
+   "position": [
+    31.0,
+    0.0,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Spout_2_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    1.95,
+    6.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Spout_2",
+   "size": [
+    1.9,
+    0.6,
+    3.5
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Spout_2_Lip",
+   "type": "box",
+   "position": [
+    0.0,
+    1.9,
+    8.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Spout_2",
+   "size": [
+    2.1,
+    0.7,
+    0.3
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Spout_2_Fall",
+   "type": "stream",
+   "position": [
+    0.0,
+    2.52,
+    8.12
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Spout_2",
+   "size": [
+    1.5,
+    1.82,
+    0.35
+   ],
+   "material": "fall",
+   "section": "rect",
+   "speed": 1.8,
+   "pitch": 6,
+   "inset": 0.3,
+   "widen": 0.18,
+   "thin": 0.2,
+   "segments": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Spout_2_Slime",
+   "type": "box",
+   "position": [
+    0.0,
+    2.36,
+    6.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Spout_2",
+   "size": [
+    1.5,
+    0.16,
+    3.5
+   ],
+   "material": "fall",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Spout_2_Pool",
+   "type": "dome_shell",
+   "position": [
+    0.0,
+    1.16,
+    9.645
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Spout_2",
+   "size": [
+    5.0,
+    0.02,
+    4.0
+   ],
+   "material": "splash_pool",
+   "sections": 16,
+   "rings": 3,
+   "uv": "planar",
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
    "name": "Riser_East_1",
    "type": "group",
    "position": [
@@ -91420,6 +95545,2428 @@
     {
      "pts": [
       [
+       36.0206,
+       7.9959
+      ],
+      [
+       35.63999,
+       6.08249
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       35.63686,
+       6.07492
+      ],
+      [
+       34.55299,
+       4.4528
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       34.5472,
+       4.44701
+      ],
+      [
+       32.92508,
+       3.36314
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.91751,
+       3.36001
+      ],
+      [
+       31.0041,
+       2.9794
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.9959,
+       2.9794
+      ],
+      [
+       29.08249,
+       3.36001
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.07492,
+       3.36314
+      ],
+      [
+       27.4528,
+       4.44701
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       27.44701,
+       4.4528
+      ],
+      [
+       26.36314,
+       6.07492
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       26.36001,
+       6.08249
+      ],
+      [
+       25.9794,
+       7.9959
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       25.9794,
+       8.0041
+      ],
+      [
+       26.36001,
+       9.91751
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       26.36314,
+       9.92508
+      ],
+      [
+       27.44701,
+       11.5472
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       27.4528,
+       11.55299
+      ],
+      [
+       29.07492,
+       12.63686
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.08249,
+       12.63999
+      ],
+      [
+       30.9959,
+       13.0206
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.0041,
+       13.0206
+      ],
+      [
+       32.91751,
+       12.63999
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.92508,
+       12.63686
+      ],
+      [
+       34.5472,
+       11.55299
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       34.55299,
+       11.5472
+      ],
+      [
+       35.63686,
+       9.92508
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       35.63999,
+       9.91751
+      ],
+      [
+       36.0206,
+       8.0041
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.91757,
+       14.08078
+      ],
+      [
+       33.81506,
+       13.83329
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.79071,
+       13.80894
+      ],
+      [
+       33.54322,
+       13.70643
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.50878,
+       13.70643
+      ],
+      [
+       33.26129,
+       13.80894
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.23694,
+       13.83329
+      ],
+      [
+       33.13443,
+       14.08078
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.13443,
+       14.11522
+      ],
+      [
+       33.23694,
+       14.36271
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.26129,
+       14.38706
+      ],
+      [
+       33.50878,
+       14.48957
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.54322,
+       14.48957
+      ],
+      [
+       33.79071,
+       14.38706
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.81506,
+       14.36271
+      ],
+      [
+       33.91757,
+       14.11522
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       37.48957,
+       10.50878
+      ],
+      [
+       37.38706,
+       10.26129
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       37.36271,
+       10.23694
+      ],
+      [
+       37.11522,
+       10.13443
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       37.08078,
+       10.13443
+      ],
+      [
+       36.83329,
+       10.23694
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       36.80894,
+       10.26129
+      ],
+      [
+       36.70643,
+       10.50878
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       36.70643,
+       10.54322
+      ],
+      [
+       36.80894,
+       10.79071
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       36.83329,
+       10.81506
+      ],
+      [
+       37.08078,
+       10.91757
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       37.11522,
+       10.91757
+      ],
+      [
+       37.36271,
+       10.81506
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       37.38706,
+       10.79071
+      ],
+      [
+       37.48957,
+       10.54322
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       37.48957,
+       5.45678
+      ],
+      [
+       37.38706,
+       5.20929
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       37.36271,
+       5.18494
+      ],
+      [
+       37.11522,
+       5.08243
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       37.08078,
+       5.08243
+      ],
+      [
+       36.83329,
+       5.18494
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       36.80894,
+       5.20929
+      ],
+      [
+       36.70643,
+       5.45678
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       36.70643,
+       5.49122
+      ],
+      [
+       36.80894,
+       5.73871
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       36.83329,
+       5.76306
+      ],
+      [
+       37.08078,
+       5.86557
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       37.11522,
+       5.86557
+      ],
+      [
+       37.36271,
+       5.76306
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       37.38706,
+       5.73871
+      ],
+      [
+       37.48957,
+       5.49122
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.91757,
+       1.88478
+      ],
+      [
+       33.81506,
+       1.63729
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.79071,
+       1.61294
+      ],
+      [
+       33.54322,
+       1.51043
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.50878,
+       1.51043
+      ],
+      [
+       33.26129,
+       1.61294
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.23694,
+       1.63729
+      ],
+      [
+       33.13443,
+       1.88478
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.13443,
+       1.91922
+      ],
+      [
+       33.23694,
+       2.16671
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.26129,
+       2.19106
+      ],
+      [
+       33.50878,
+       2.29357
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.54322,
+       2.29357
+      ],
+      [
+       33.79071,
+       2.19106
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.81506,
+       2.16671
+      ],
+      [
+       33.91757,
+       1.91922
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.86557,
+       1.88478
+      ],
+      [
+       28.76306,
+       1.63729
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.73871,
+       1.61294
+      ],
+      [
+       28.49122,
+       1.51043
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.45678,
+       1.51043
+      ],
+      [
+       28.20929,
+       1.61294
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.18494,
+       1.63729
+      ],
+      [
+       28.08243,
+       1.88478
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.08243,
+       1.91922
+      ],
+      [
+       28.18494,
+       2.16671
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.20929,
+       2.19106
+      ],
+      [
+       28.45678,
+       2.29357
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.49122,
+       2.29357
+      ],
+      [
+       28.73871,
+       2.19106
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.76306,
+       2.16671
+      ],
+      [
+       28.86557,
+       1.91922
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       25.29357,
+       5.45678
+      ],
+      [
+       25.19106,
+       5.20929
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       25.16671,
+       5.18494
+      ],
+      [
+       24.91922,
+       5.08243
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       24.88478,
+       5.08243
+      ],
+      [
+       24.63729,
+       5.18494
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       24.61294,
+       5.20929
+      ],
+      [
+       24.51043,
+       5.45678
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       24.51043,
+       5.49122
+      ],
+      [
+       24.61294,
+       5.73871
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       24.63729,
+       5.76306
+      ],
+      [
+       24.88478,
+       5.86557
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       24.91922,
+       5.86557
+      ],
+      [
+       25.16671,
+       5.76306
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       25.19106,
+       5.73871
+      ],
+      [
+       25.29357,
+       5.49122
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       25.29357,
+       10.50878
+      ],
+      [
+       25.19106,
+       10.26129
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       25.16671,
+       10.23694
+      ],
+      [
+       24.91922,
+       10.13443
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       24.88478,
+       10.13443
+      ],
+      [
+       24.63729,
+       10.23694
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       24.61294,
+       10.26129
+      ],
+      [
+       24.51043,
+       10.50878
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       24.51043,
+       10.54322
+      ],
+      [
+       24.61294,
+       10.79071
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       24.63729,
+       10.81506
+      ],
+      [
+       24.88478,
+       10.91757
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       24.91922,
+       10.91757
+      ],
+      [
+       25.16671,
+       10.81506
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       25.19106,
+       10.79071
+      ],
+      [
+       25.29357,
+       10.54322
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.86557,
+       14.08078
+      ],
+      [
+       28.76306,
+       13.83329
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.73871,
+       13.80894
+      ],
+      [
+       28.49122,
+       13.70643
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.45678,
+       13.70643
+      ],
+      [
+       28.20929,
+       13.80894
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.18494,
+       13.83329
+      ],
+      [
+       28.08243,
+       14.08078
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.08243,
+       14.11522
+      ],
+      [
+       28.18494,
+       14.36271
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.20929,
+       14.38706
+      ],
+      [
+       28.45678,
+       14.48957
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.49122,
+       14.48957
+      ],
+      [
+       28.73871,
+       14.38706
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.76306,
+       14.36271
+      ],
+      [
+       28.86557,
+       14.11522
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.32997,
+       -0.9225
+      ],
+      [
+       32.24247,
+       -1.07405
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.2035,
+       -1.09655
+      ],
+      [
+       32.0285,
+       -1.09655
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.98953,
+       -1.07405
+      ],
+      [
+       31.90203,
+       -0.9225
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.90203,
+       -0.8775
+      ],
+      [
+       31.98953,
+       -0.72595
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.0285,
+       -0.70345
+      ],
+      [
+       32.2035,
+       -0.70345
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.24247,
+       -0.72595
+      ],
+      [
+       32.32997,
+       -0.8775
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.32997,
+       -5.4225
+      ],
+      [
+       32.24247,
+       -5.57405
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.2035,
+       -5.59655
+      ],
+      [
+       32.0285,
+       -5.59655
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.98953,
+       -5.57405
+      ],
+      [
+       31.90203,
+       -5.4225
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.90203,
+       -5.3775
+      ],
+      [
+       31.98953,
+       -5.22595
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.0285,
+       -5.20345
+      ],
+      [
+       32.2035,
+       -5.20345
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.24247,
+       -5.22595
+      ],
+      [
+       32.32997,
+       -5.3775
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.09797,
+       -0.9225
+      ],
+      [
+       30.01047,
+       -1.07405
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.9715,
+       -1.09655
+      ],
+      [
+       29.7965,
+       -1.09655
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.75753,
+       -1.07405
+      ],
+      [
+       29.67003,
+       -0.9225
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.67003,
+       -0.8775
+      ],
+      [
+       29.75753,
+       -0.72595
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.7965,
+       -0.70345
+      ],
+      [
+       29.9715,
+       -0.70345
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.01047,
+       -0.72595
+      ],
+      [
+       30.09797,
+       -0.8775
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.09797,
+       -5.4225
+      ],
+      [
+       30.01047,
+       -5.57405
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.9715,
+       -5.59655
+      ],
+      [
+       29.7965,
+       -5.59655
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.75753,
+       -5.57405
+      ],
+      [
+       29.67003,
+       -5.4225
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.67003,
+       -5.3775
+      ],
+      [
+       29.75753,
+       -5.22595
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.7965,
+       -5.20345
+      ],
+      [
+       29.9715,
+       -5.20345
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.01047,
+       -5.22595
+      ],
+      [
+       30.09797,
+       -5.3775
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.621,
+       -7.8814
+      ],
+      [
+       32.621,
+       -10.3
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.621,
+       -7.1
+      ],
+      [
+       32.621,
+       -7.8814
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.1814,
+       -7.079
+      ],
+      [
+       32.6,
+       -7.079
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.6,
+       -10.321
+      ],
+      [
+       29.4,
+       -10.321
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.4,
+       -7.079
+      ],
+      [
+       30.1814,
+       -7.079
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.379,
+       -9.5186
+      ],
+      [
+       29.379,
+       -7.1
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.379,
+       -10.3
+      ],
+      [
+       29.379,
+       -9.5186
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       22.31397,
+       6.8615
+      ],
+      [
+       22.22647,
+       6.70995
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       22.1875,
+       6.68745
+      ],
+      [
+       22.0125,
+       6.68745
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       21.97353,
+       6.70995
+      ],
+      [
+       21.88603,
+       6.8615
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       21.88603,
+       6.9065
+      ],
+      [
+       21.97353,
+       7.05805
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       22.0125,
+       7.08055
+      ],
+      [
+       22.1875,
+       7.08055
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       22.22647,
+       7.05805
+      ],
+      [
+       22.31397,
+       6.9065
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       17.81397,
+       6.8615
+      ],
+      [
+       17.72647,
+       6.70995
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       17.6875,
+       6.68745
+      ],
+      [
+       17.5125,
+       6.68745
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       17.47353,
+       6.70995
+      ],
+      [
+       17.38603,
+       6.8615
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       17.38603,
+       6.9065
+      ],
+      [
+       17.47353,
+       7.05805
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       17.5125,
+       7.08055
+      ],
+      [
+       17.6875,
+       7.08055
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       17.72647,
+       7.05805
+      ],
+      [
+       17.81397,
+       6.9065
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       22.31397,
+       9.0935
+      ],
+      [
+       22.22647,
+       8.94195
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       22.1875,
+       8.91945
+      ],
+      [
+       22.0125,
+       8.91945
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       21.97353,
+       8.94195
+      ],
+      [
+       21.88603,
+       9.0935
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       21.88603,
+       9.1385
+      ],
+      [
+       21.97353,
+       9.29005
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       22.0125,
+       9.31255
+      ],
+      [
+       22.1875,
+       9.31255
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       22.22647,
+       9.29005
+      ],
+      [
+       22.31397,
+       9.1385
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       17.81397,
+       9.0935
+      ],
+      [
+       17.72647,
+       8.94195
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       17.6875,
+       8.91945
+      ],
+      [
+       17.5125,
+       8.91945
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       17.47353,
+       8.94195
+      ],
+      [
+       17.38603,
+       9.0935
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       17.38603,
+       9.1385
+      ],
+      [
+       17.47353,
+       9.29005
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       17.5125,
+       9.31255
+      ],
+      [
+       17.6875,
+       9.31255
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       17.72647,
+       9.29005
+      ],
+      [
+       17.81397,
+       9.1385
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       13.1186,
+       6.379
+      ],
+      [
+       10.7,
+       6.379
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       13.9,
+       6.379
+      ],
+      [
+       13.1186,
+       6.379
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       13.921,
+       8.8186
+      ],
+      [
+       13.921,
+       6.4
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       10.679,
+       6.4
+      ],
+      [
+       10.679,
+       9.6
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       13.921,
+       9.6
+      ],
+      [
+       13.921,
+       8.8186
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       11.4814,
+       9.621
+      ],
+      [
+       13.9,
+       9.621
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       10.7,
+       9.621
+      ],
+      [
+       11.4814,
+       9.621
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.09797,
+       16.8775
+      ],
+      [
+       30.01047,
+       16.72595
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.9715,
+       16.70345
+      ],
+      [
+       29.7965,
+       16.70345
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.75753,
+       16.72595
+      ],
+      [
+       29.67003,
+       16.8775
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.67003,
+       16.9225
+      ],
+      [
+       29.75753,
+       17.07405
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.7965,
+       17.09655
+      ],
+      [
+       29.9715,
+       17.09655
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.01047,
+       17.07405
+      ],
+      [
+       30.09797,
+       16.9225
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.09797,
+       21.3775
+      ],
+      [
+       30.01047,
+       21.22595
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.9715,
+       21.20345
+      ],
+      [
+       29.7965,
+       21.20345
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.75753,
+       21.22595
+      ],
+      [
+       29.67003,
+       21.3775
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.67003,
+       21.4225
+      ],
+      [
+       29.75753,
+       21.57405
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.7965,
+       21.59655
+      ],
+      [
+       29.9715,
+       21.59655
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.01047,
+       21.57405
+      ],
+      [
+       30.09797,
+       21.4225
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.32997,
+       16.8775
+      ],
+      [
+       32.24247,
+       16.72595
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.2035,
+       16.70345
+      ],
+      [
+       32.0285,
+       16.70345
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.98953,
+       16.72595
+      ],
+      [
+       31.90203,
+       16.8775
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.90203,
+       16.9225
+      ],
+      [
+       31.98953,
+       17.07405
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.0285,
+       17.09655
+      ],
+      [
+       32.2035,
+       17.09655
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.24247,
+       17.07405
+      ],
+      [
+       32.32997,
+       16.9225
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.32997,
+       21.3775
+      ],
+      [
+       32.24247,
+       21.22595
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.2035,
+       21.20345
+      ],
+      [
+       32.0285,
+       21.20345
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.98953,
+       21.22595
+      ],
+      [
+       31.90203,
+       21.3775
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.90203,
+       21.4225
+      ],
+      [
+       31.98953,
+       21.57405
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.0285,
+       21.59655
+      ],
+      [
+       32.2035,
+       21.59655
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.24247,
+       21.57405
+      ],
+      [
+       32.32997,
+       21.4225
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.379,
+       24.3814
+      ],
+      [
+       29.379,
+       26.8
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.379,
+       23.6
+      ],
+      [
+       29.379,
+       24.3814
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.8186,
+       23.579
+      ],
+      [
+       29.4,
+       23.579
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.4,
+       26.821
+      ],
+      [
+       32.6,
+       26.821
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.6,
+       23.579
+      ],
+      [
+       31.8186,
+       23.579
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.621,
+       26.0186
+      ],
+      [
+       32.621,
+       23.6
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.621,
+       26.8
+      ],
+      [
+       32.621,
+       26.0186
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
        49.66407,
        -12.78111
       ],
@@ -95058,13 +101605,14 @@
   "Overlook: corner overlook 5.1 x 15.0 m at 15.5 m, gantry 14.8 m to lift Spinner_Pad_1_Lift",
   "Arena: battle arena rising out of the liquid (goofy) - 25 square tiles, 20.8 m across at 15.5 m",
   "Jet_Screen: jetpack grin screen bobbing at [-2.0, 22.0, -18.0]; flies to [28.39, 21.632, 28.89] when a player reaches Arena_Deck - big red button opens ['Yard_Laser']",
+  "Reactor: slime reactor in the pool - deck r 7.5 at 3.4, vat r 3.3 to 11.6, 3 catwalks, 2 falls",
   "ceiling: 75 dressing parts cleared from over the lift shaft at (-30, -40)",
   "crates: 11 printed crates (accent atlas)",
   "fixtures: 56 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_West_M02Fan)",
   "ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 8 standing part(s), 0 crane runway(s), ends at beams 0.0 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 0.0 m",
   "corrosion: 8 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 12 lights at the liquid line removed, 16 light strips raised clear of it",
-  "corrosion: 706 wall faces at the liquid line get a corroded band (one mesh, one material)"
+  "corrosion: 1034 wall faces at the liquid line get a corroded band (one mesh, one material)"
  ],
  "relations": [
   {
@@ -95179,6 +101727,16 @@
    "type": "flows_into",
    "a": "East_SlimeTunnel_Pour",
    "b": "HazardFluid"
+  },
+  {
+   "type": "flows_into",
+   "a": "Reactor_Spout_1_Fall",
+   "b": "HazardFluid"
+  },
+  {
+   "type": "flows_into",
+   "a": "Reactor_Spout_2_Fall",
+   "b": "HazardFluid"
   }
  ],
  "gameplay": {
@@ -95195,12 +101753,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 81160,
-  "objects": 2846,
+  "triangles": 88194,
+  "objects": 2987,
   "materials": 61,
-  "glb_kb": 5544,
-  "nodes": 3142,
-  "draw_calls_unbatched": 3100,
+  "glb_kb": 5875,
+  "nodes": 3290,
+  "draw_calls_unbatched": 3246,
   "draw_calls_batched_min": 63,
   "images": 148,
   "tex_mem_gpu_compressed_mb": 29.71,

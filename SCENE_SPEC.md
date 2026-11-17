@@ -1516,6 +1516,14 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 164: structure `reactor` (the user's concept, without its drawing; Assembly Ascent `Reactor` at (31, 8) in the
+  east pool): a base drum in the slime on eight legs (`_Plinth` / `_Support_Footing`: ripples), a grated ring deck
+  (`deck`, `deck_r`) with railings and a pink rim light, a glowing slime-glass vat (`vat_r`, `vat_top`; `tube` bubbles to a
+  grate under the cap) framed by struts with pink strips and plum `tube_band` trim (no hazard stripes), an armoured cap
+  with pink lamps and four vent boxes (two steam: `extra_steam` -> effect `<id>_Steam`), thick glass bubble pipes to the
+  ceiling (`_glass_pipe`: one straight up, two arching off on `pipe_bearings` - east, clear of the jet screen's flight and
+  the crane runway), `catwalks` [[bearing, length]] out to piers, and two spouts (`falls`: bearings) pouring past the
+  deck's edge (pours with splash pools). Only roles the level already has (preview size).
 - Stage 163: `slime_tunnel` has no striped kerb across its mouth: the channel's slime runs on to where the pour starts (no mark at the edge).
 - Stage 162: the preview (viewer.html) player is invincible by default - a `God: on/off` button next to Respawn; with it
   on, slime, spikes, sweeper bars / maces, saws and crushers show "God mode - would have died: ..." instead of respawning

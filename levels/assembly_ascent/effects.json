@@ -126,6 +126,56 @@
    ],
    "receiving": "HazardFluid",
    "hazard": false
+  },
+  {
+   "stream": "Reactor_Spout_1_Fall",
+   "source_object": null,
+   "outlet_pos": [
+    25.258,
+    2.52,
+    2.258
+   ],
+   "outlet_dir": [
+    -0.703,
+    0.105,
+    -0.703
+   ],
+   "outlet_diameter": 1.5,
+   "section": "rect",
+   "stream_width": 1.5,
+   "initial_speed": 1.8,
+   "impact_pos": [
+    24.463,
+    0.7,
+    1.463
+   ],
+   "receiving": "HazardFluid",
+   "hazard": false
+  },
+  {
+   "stream": "Reactor_Spout_2_Fall",
+   "source_object": null,
+   "outlet_pos": [
+    25.258,
+    2.52,
+    13.742
+   ],
+   "outlet_dir": [
+    -0.703,
+    0.105,
+    0.703
+   ],
+   "outlet_diameter": 1.5,
+   "section": "rect",
+   "stream_width": 1.5,
+   "initial_speed": 1.8,
+   "impact_pos": [
+    24.463,
+    0.7,
+    14.537
+   ],
+   "receiving": "HazardFluid",
+   "hazard": false
   }
  ],
  "note": "GLB holds only static appearance. Recreate these at runtime (fx/godot/apply_effects.gd is an untested starter). Costs are estimates: particles alive, emitters, extra draw calls, transparent overdraw area.",
@@ -138,22 +188,22 @@
  },
  "totals": {
   "performance": {
-   "max_particles": 446,
-   "emitters": 39,
-   "extra_draw_calls": 13,
-   "transparent_area_m2": 0.5
+   "max_particles": 503,
+   "emitters": 46,
+   "extra_draw_calls": 14,
+   "transparent_area_m2": 1.0
   },
   "balanced": {
-   "max_particles": 1357,
-   "emitters": 39,
-   "extra_draw_calls": 14,
-   "transparent_area_m2": 13000.5
+   "max_particles": 1498,
+   "emitters": 46,
+   "extra_draw_calls": 15,
+   "transparent_area_m2": 13001.8
   },
   "quality": {
-   "max_particles": 1983,
-   "emitters": 39,
-   "extra_draw_calls": 15,
-   "transparent_area_m2": 26000.6
+   "max_particles": 2210,
+   "emitters": 46,
+   "extra_draw_calls": 16,
+   "transparent_area_m2": 26002.7
   }
  },
  "effects": [
@@ -183,6 +233,18 @@
      4.5
     ],
     [
+     24.46,
+     1.46,
+     1.0,
+     0.75
+    ],
+    [
+     24.46,
+     14.54,
+     1.0,
+     0.75
+    ],
+    [
      43.5,
      -45.0,
      0.45,
@@ -201,6 +263,12 @@
      3.1
     ],
     [
+     31.0,
+     8.0,
+     0.45,
+     5.0
+    ],
+    [
      -32.27,
      22.38,
      0.3,
@@ -211,6 +279,54 @@
      40.83,
      0.3,
      1.15
+    ],
+    [
+     33.53,
+     14.1,
+     0.3,
+     0.35
+    ],
+    [
+     37.1,
+     10.53,
+     0.3,
+     0.35
+    ],
+    [
+     37.1,
+     5.47,
+     0.3,
+     0.35
+    ],
+    [
+     33.53,
+     1.9,
+     0.3,
+     0.35
+    ],
+    [
+     28.47,
+     1.9,
+     0.3,
+     0.35
+    ],
+    [
+     24.9,
+     5.47,
+     0.3,
+     0.35
+    ],
+    [
+     24.9,
+     10.53,
+     0.3,
+     0.35
+    ],
+    [
+     28.47,
+     14.1,
+     0.3,
+     0.35
     ]
    ],
    "targets": [
@@ -496,13 +612,15 @@
    "godot_runtime": "ShaderMaterial liquid_flow.gdshader (UV scroll along the fall/pipe)",
    "targets": [
     "East_SlimeTunnel_Pour",
+    "Reactor_Spout_1_Fall",
+    "Reactor_Spout_2_Fall",
     "Showcase_Pit_1_FrontFall",
     "Showcase_Pit_2_FrontFall"
    ],
    "material_tile_m": 3.0,
    "flow_uv": [
-    0.0112,
-    0.9999
+    0.0676,
+    0.9977
    ],
    "quality": {
     "performance": {
@@ -564,6 +682,24 @@
     },
     {
      "pos": [
+      24.46,
+      1.0,
+      1.46
+     ],
+     "radius": 1.35,
+     "of": "Reactor_Spout_1_Fall"
+    },
+    {
+     "pos": [
+      24.46,
+      1.0,
+      14.54
+     ],
+     "radius": 1.35,
+     "of": "Reactor_Spout_2_Fall"
+    },
+    {
+     "pos": [
       -39.3,
       1.0,
       -19.86
@@ -608,8 +744,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 30,
-      "emitters": 3,
+      "max_particles": 50,
+      "emitters": 5,
       "extra_draw_calls": 1
      }
     },
@@ -639,8 +775,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 72,
-      "emitters": 3,
+      "max_particles": 120,
+      "emitters": 5,
       "extra_draw_calls": 1
      }
     },
@@ -670,8 +806,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 117,
-      "emitters": 3,
+      "max_particles": 195,
+      "emitters": 5,
       "extra_draw_calls": 1
      }
     }
@@ -693,6 +829,24 @@
      ],
      "radius": 5.1,
      "of": "East_SlimeTunnel_Pour"
+    },
+    {
+     "pos": [
+      24.46,
+      1.0,
+      1.46
+     ],
+     "radius": 1.35,
+     "of": "Reactor_Spout_1_Fall"
+    },
+    {
+     "pos": [
+      24.46,
+      1.0,
+      14.54
+     ],
+     "radius": 1.35,
+     "of": "Reactor_Spout_2_Fall"
     },
     {
      "pos": [
@@ -740,8 +894,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 21,
-      "emitters": 3,
+      "max_particles": 35,
+      "emitters": 5,
       "extra_draw_calls": 1
      }
     },
@@ -771,8 +925,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 54,
-      "emitters": 3,
+      "max_particles": 90,
+      "emitters": 5,
       "extra_draw_calls": 1
      }
     },
@@ -802,8 +956,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 84,
-      "emitters": 3,
+      "max_particles": 140,
+      "emitters": 5,
       "extra_draw_calls": 1
      }
     }
@@ -839,10 +993,10 @@
       "nozzles": 0.7
      },
      "cost_estimate": {
-      "max_particles": 12,
-      "emitters": 1,
+      "max_particles": 25,
+      "emitters": 2,
       "extra_draw_calls": 1,
-      "transparent_area_m2": 0.5
+      "transparent_area_m2": 1.0
      }
     },
     "balanced": {
@@ -867,10 +1021,10 @@
       "nozzles": 0.7
      },
      "cost_estimate": {
-      "max_particles": 12,
-      "emitters": 1,
+      "max_particles": 45,
+      "emitters": 2,
       "extra_draw_calls": 1,
-      "transparent_area_m2": 0.5
+      "transparent_area_m2": 1.8
      }
     },
     "quality": {
@@ -895,10 +1049,10 @@
       "nozzles": 0.7
      },
      "cost_estimate": {
-      "max_particles": 15,
-      "emitters": 1,
+      "max_particles": 68,
+      "emitters": 2,
       "extra_draw_calls": 1,
-      "transparent_area_m2": 0.6
+      "transparent_area_m2": 2.7
      }
     }
    },
@@ -909,6 +1063,13 @@
      -59.3,
      3.77,
      1.6
+    ],
+    [
+     31.0,
+     4.6,
+     8.0,
+     6.3,
+     3.3
     ]
    ]
   },
@@ -1229,6 +1390,9 @@
    "glb_contains": "static texture",
    "godot_runtime": "ShaderMaterial liquid_flow.gdshader (UV scroll along the fall/pipe)",
    "targets": [
+    "Reactor_PipeMain",
+    "Reactor_Pipe_1",
+    "Reactor_Pipe_2",
     "Showcase_Pit_1_CornerPipe_1",
     "Showcase_Pit_1_CornerPipe_2",
     "Showcase_Pit_1_Pump_1_Pipe",
@@ -1651,6 +1815,125 @@
      "cost_estimate": {
       "max_particles": 140,
       "emitters": 5,
+      "extra_draw_calls": 1
+     }
+    }
+   },
+   "merge_emitters": true
+  },
+  {
+   "id": "Reactor_Steam",
+   "type": "steam",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D, small sphere emitter, slow rise, growing soft puffs",
+   "emitters": [
+    {
+     "pos": [
+      34.6,
+      14.45,
+      8.0
+     ]
+    },
+    {
+     "pos": [
+      27.4,
+      14.45,
+      8.0
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "rate": 1.36,
+      "lifetime": 3.5,
+      "speed": [
+       0.8,
+       1.5
+      ],
+      "gravity": 0.15,
+      "size": [
+       1.2,
+       5.0
+      ],
+      "alpha": 0.5,
+      "color": [
+       0.8,
+       0.92,
+       0.74
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 15,
+      "radius": 0.8
+     },
+     "cost_estimate": {
+      "max_particles": 10,
+      "emitters": 2,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "rate": 3.4,
+      "lifetime": 3.5,
+      "speed": [
+       0.8,
+       1.5
+      ],
+      "gravity": 0.15,
+      "size": [
+       1.2,
+       5.0
+      ],
+      "alpha": 0.5,
+      "color": [
+       0.8,
+       0.92,
+       0.74
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 15,
+      "radius": 0.8
+     },
+     "cost_estimate": {
+      "max_particles": 24,
+      "emitters": 2,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "rate": 5.44,
+      "lifetime": 3.5,
+      "speed": [
+       0.8,
+       1.5
+      ],
+      "gravity": 0.15,
+      "size": [
+       1.2,
+       5.0
+      ],
+      "alpha": 0.5,
+      "color": [
+       0.8,
+       0.92,
+       0.74
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 15,
+      "radius": 0.8
+     },
+     "cost_estimate": {
+      "max_particles": 40,
+      "emitters": 2,
       "extra_draw_calls": 1
      }
     }
@@ -2138,6 +2421,75 @@
       ],
       "energy": 1.5,
       "range": 13.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Reactor_Glow",
+   "type": "point_light",
+   "category": "light",
+   "glb_contains": "nothing",
+   "godot_runtime": "OmniLight3D per position (no shadows): light_color, light_energy, omni_range",
+   "emitters": [
+    {
+     "pos": [
+      31.0,
+      7.8,
+      17.0
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "color": [
+       0.5,
+       1.0,
+       0.3
+      ],
+      "energy": 0.8,
+      "range": 12.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "color": [
+       0.5,
+       1.0,
+       0.3
+      ],
+      "energy": 1.2,
+      "range": 16.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "color": [
+       0.5,
+       1.0,
+       0.3
+      ],
+      "energy": 1.2,
+      "range": 16.0
      },
      "cost_estimate": {
       "max_particles": 0,

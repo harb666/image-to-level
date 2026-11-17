@@ -282,6 +282,8 @@ def _effects(spec, ctx, plats, env, glow):
             if getattr(ctx, "pit_veils", None): out.append(dict(id="Pit_Veil_Flow", type="liquid_flow", targets_glob=list(ctx.pit_veils), speed=4.6))
             out += [dict(id="Pit_Splash", type="splash", positions=ctx.pit_splashes, rate=26.0, speed=[1.5, 3.4], size=[0.4, 0.12], spread=55),
                     dict(id="Pit_Spray", type="steam", positions=ctx.pit_splashes[1::2])]
+        for es in getattr(ctx, "extra_steam", []):  # Stage 164: steam out of structure vents (the reactor's cap)
+            out.append(dict(id=es["id"], type="steam", positions=es["positions"], **({"rate": es["rate"]} if es.get("rate") else {})))
         for xl in getattr(ctx, "extra_lights", []):  # Stage 135: structure lights (showcase tank / banner)
             out.append(dict(id=xl["id"], type="point_light", positions=xl["positions"], color=xl["color"], energy=xl.get("energy", 1.0), range=xl.get("range", 16.0)))
         dmo = getattr(ctx, "dome_motes", None)

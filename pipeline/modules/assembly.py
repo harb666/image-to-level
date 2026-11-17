@@ -1073,6 +1073,113 @@ def wall_monitor(ctx, s, x, y, z, yaw):
     ctx.notes.append(f"{n}: wall monitor {tw:.1f} m")
 
 
+def _glass_pipe(ctx, pname, pos, dia, rot_, path, bend, liq_m, glass_m, elbow_m, kw):
+    """Stage 142 / 164: glass tubing - a glowing bubbling core (the Pipe_Bubbles flow), glass round its straight runs,
+    steel elbows on the bends (pipe_path: path in the local x-y plane; rot [0, b - 90, 0] runs local x along bearing b)."""
+    ctx.add(pname, "pipe_path", pos, [dia * 0.7, 1.0, dia * 0.7], liq_m, rot=rot_, path=path, bend=bend, tile=1.0, sections=10, **kw)
+    ctx.add(pname + "_Glass", "pipe_path", pos, [dia, 1.0, dia], glass_m, rot=rot_, path=path, bend=bend, part="straight", sections=10, double_sided=True, **kw)
+    if len(path) > 2: ctx.add(pname + "_Elbow", "pipe_path", pos, [dia * 1.16, 1.0, dia * 1.16], elbow_m, rot=rot_, path=path, bend=bend, part="bend", sleeve=0.2, sections=10, **kw)
+    ctx.glass_pipes = getattr(ctx, "glass_pipes", []) + [pname]
+
+
+@structure("reactor", pad=False)
+def reactor(ctx, s, x, y, z, yaw):
+    """Stage 164 (the user's concept, without its drawing): a slime reactor standing in the pool. A base drum in the
+    slime (y = the liquid surface) on eight legs carries a grated ring deck ("deck" top, "deck_r") with railings; the
+    vat on it - a big see-through glowing tank (one slime-glass layer, bubbles rising) framed by struts with pink light
+    strips, plum trim bands (no hazard stripes), an armoured cap with pink lamps and four steaming vent boxes; thick
+    glass bubble pipes from the cap to the ceiling (one straight up, two arching off on bearings "pipe_bearings");
+    three grated catwalks ("catwalks": [[bearing, length], ...]) out to piers; two spouts ("falls": bearings) pouring
+    slime off the base past the deck's edge into the pool. Only roles the level already has (preview size)."""
+    n = s["id"]; yl = y; D = float(s.get("deck", yl + 2.4)); R = float(s.get("deck_r", 7.5)); vr = float(s.get("vat_r", 3.3)); top = float(s.get("vat_top", D + 8.2))
+    st = dict(mobile={"static": True}); vs = dict(collision=False, outline=False, **st); P = lambda a, yy, r: _W(x, 0, z, yaw + a)(0, yy, r)
+    body, pink, band, grate, frame = "structure_b", ctx.role("glow_pink"), ctx.role(s.get("band", "tube_band")), ctx.role("grate"), "frame"
+    # --- base drum in the slime, legs, ring deck + rim + railings
+    ctx.add(n + "_Plinth", "cylinder", [x, yl - 1.5, z], [10.0, D - 0.3 - (yl - 1.5), 10.0], body, sections=16, **st)  # ("_Plinth": the slime ripples round it)
+    for k in range(8):
+        a = 22.5 + 45 * k
+        if k % 2 == 0: ctx.add(f"{n}_BaseLamp_{k + 1}", "box", P(a, yl + 0.5, 4.93), [0.26, 1.3, 0.1], pink, rot=[0, yaw + a, 0], **vs)
+        ctx.add(f"{n}_Leg_{k + 1}_Support_Footing", "cylinder", P(a, yl - 1.0, R - 0.9), [0.7, D - 0.3 - (yl - 1.0), 0.7], body, sections=8, outline=False, mobile={"static": True})
+        ctx.add(f"{n}_LegCollar_{k + 1}", "cylinder", P(a, yl + 0.25, R - 0.9), [0.95, 0.35, 0.95], frame, sections=8, **vs)
+    ctx.add(n + "_Deck", "cylinder", [x, D - 0.35, z], [2 * R, 0.35, 2 * R], grate, sections=16, hole=round(vr + 0.75, 3), hole_res=16, **st)
+    ctx.add(n + "_DeckRim", "cylinder", [x, D - 0.55, z], [2 * R + 0.3, 0.5, 2 * R + 0.3], frame, sections=16, hole=round(R - 0.25, 3), hole_res=16, **vs)
+    ctx.add(n + "_RimLight", "cylinder", [x, D - 0.42, z], [2 * R + 0.42, 0.13, 2 * R + 0.42], pink, sections=16, hole=round(R, 3), hole_res=16, **vs)  # a pink light line round the deck's edge
+    gaps = [float(c[0]) for c in s.get("catwalks", [])]
+    nseg = 16
+    for k in range(nseg):  # railing segments round the rim (a gap where each catwalk leaves) + pink lamps on the rim
+        a = (k + 0.5) * 360.0 / nseg
+        if any(abs((a - g + 180) % 360 - 180) < 360.0 / nseg * 0.9 for g in gaps): continue
+        ctx.add(f"{n}_Rail_{k + 1}", "railing", P(a, D, (R - 0.12) * math.cos(math.pi / nseg)), [2 * (R - 0.12) * math.sin(math.pi / nseg) + 0.06, 1.1, 0.07], frame, rot=[0, yaw + a, 0], post_spacing=1.4, outline=False, mobile={"static": True})
+    # --- vat: plinth, bands, glass, struts with pink strips, cap, lamps, vent boxes
+    yv = D + 0.9
+    ctx.add(n + "_VatBase", "cylinder", [x, D - 0.35, z], [2 * vr + 1.5, yv - (D - 0.35), 2 * vr + 1.5], body, sections=16, **st)
+    ctx.add(n + "_VatBandLow", "cylinder", [x, yv - 0.42, z], [2 * vr + 1.7, 0.36, 2 * vr + 1.7], band, sections=16, **vs)
+    ctx.add(n + "_VatGlass", "cylinder", [x, yv - 0.1, z], [2 * vr, top - yv + 0.2, 2 * vr], ctx.role(s.get("liquid", "tank_green")), sections=16, double_sided=True, tube=True,
+            bubble_range=[0.4, round(top - yv - 0.6, 2)], **st)
+    for k in range(8):
+        a = 45 * k
+        ctx.add(f"{n}_Strut_{k + 1}", "box", P(a, yv, vr + 0.12), [0.5, top - yv, 0.55], body, rot=[0, yaw + a, 0], **st)
+        ctx.add(f"{n}_StrutLamp_{k + 1}", "box", P(a, yv + 0.6, vr + 0.42), [0.13, top - yv - 1.2, 0.06], pink, rot=[0, yaw + a, 0], **vs)
+    ctx.add(n + "_VatGrate", "cylinder", [x, top - 0.32, z], [2 * vr - 0.12, 0.07, 2 * vr - 0.12], grate, sections=16, **vs)  # where the bubbles end (hides the cap's underside)
+    ctx.add(n + "_VatBandTop", "cylinder", [x, top - 0.45, z], [2 * vr + 0.9, 0.45, 2 * vr + 0.9], band, sections=16, **vs)
+    ctx.add(n + "_Cap", "cylinder", [x, top, z], [2 * vr + 2.0, 1.5, 2 * vr + 2.0], body, sections=16, **st)
+    ctx.add(n + "_CapRim", "cylinder", [x, top + 0.5, z], [2 * vr + 2.3, 0.45, 2 * vr + 2.3], frame, sections=16, hole=round(vr + 0.85, 3), hole_res=16, **vs)
+    for k in range(8):
+        ctx.add(f"{n}_CapLamp_{k + 1}", "box", P(22.5 + 45 * k, top + 0.6, vr + 1.17), [0.9, 0.22, 0.06], pink, rot=[0, yaw + 22.5 + 45 * k, 0], **vs)
+    ctx.add(n + "_CapTop", "cylinder", [x, top + 1.5, z], [2 * vr - 0.2, 0.55, 2 * vr - 0.2], "machine", sections=16, **st)
+    steam = []
+    for k in range(4):
+        a = 90 * k; q = P(a, top + 1.5, vr + 0.3)
+        ctx.add(f"{n}_Vent_{k + 1}", "box", q, [1.2, 0.9, 1.2], "machine", rot=[0, yaw + a, 0], **vs)
+        ctx.add(f"{n}_VentLamp_{k + 1}", "box", P(a, top + 1.7, vr + 0.92), [0.8, 0.3, 0.06], pink, rot=[0, yaw + a, 0], **vs)
+        ctx.add(f"{n}_VentStack_{k + 1}", "cylinder", P(a, top + 2.4, vr + 0.3), [0.45, 0.4, 0.45], frame, sections=8, **vs)
+        if k % 2: steam.append([round(v, 3) for v in P(a, top + 2.85, vr + 0.3)])  # two of them steam (particle budget)
+    ctx.extra_steam = getattr(ctx, "extra_steam", []) + [dict(id=n + "_Steam", positions=steam, rate=3.4)]
+    # --- glass bubble pipes up to the ceiling
+    ceil = float(s.get("ceiling", getattr(ctx, "ceiling_y", 34.0))) + 0.1; y0p = top + 2.05; dia = float(s.get("pipe_dia", 1.3))
+    liq_m, glass_m, elbow_m = ctx.role("pipe_liquid"), ctx.role("glass_clear"), ctx.role("lift_ring")
+    _glass_pipe(ctx, n + "_PipeMain", [x, y0p - 0.3, z], dia * 1.15, [0, 0, 0], [[0, 0], [0, ceil - y0p + 0.3]], 1.0, liq_m, glass_m, elbow_m, vs)
+    for j, yy in enumerate((y0p - 0.35, y0p + 3.0, ceil - 0.9)):  # ring clamps gripping the glass (their bore 3 cm inside it)
+        ctx.add(f"{n}_PipeMainClamp_{j + 1}", "cylinder", [x, yy, z], [dia * 1.15 + 0.5, 0.6, dia * 1.15 + 0.5], frame, sections=10, hole=round(dia * 1.15 / 2 - 0.03, 3), hole_res=10, **vs)
+    for k, b in enumerate(s.get("pipe_bearings", [45, 135])):
+        q = P(b, y0p - 0.3, vr - 0.6); run, rise = float(s.get("pipe_run", 6.0)), float(s.get("pipe_rise", 4.5))
+        _glass_pipe(ctx, f"{n}_Pipe_{k + 1}", q, dia, [0, yaw + b - 90, 0], [[0, 0], [0, rise], [run, rise], [run, ceil - q[1]]], 1.4, liq_m, glass_m, elbow_m, vs)
+        ctx.add(f"{n}_PipeFoot_{k + 1}", "cylinder", P(b, y0p - 0.35, vr - 0.6), [dia + 0.5, 0.7, dia + 0.5], frame, sections=10, hole=round(dia / 2 - 0.03, 3), hole_res=10, **vs)
+        ctx.add(f"{n}_PipeTop_{k + 1}", "cylinder", P(b, ceil - 0.9, vr - 0.6 + run), [dia + 0.5, 0.6, dia + 0.5], frame, sections=10, hole=round(dia / 2 - 0.03, 3), hole_res=10, **vs)
+    # --- catwalks out to piers
+    for k, (b, L_) in enumerate(s.get("catwalks", [])):
+        b, L_ = float(b), float(L_); w = float(s.get("catwalk_w", 2.6)); r0 = R - 0.2; rc = r0 + L_ / 2; cn = f"{n}_Catwalk_{k + 1}"
+        ctx.add(cn, "box", P(b, D - 0.3, rc), [w, 0.3, L_], grate, rot=[0, yaw + b, 0], outline=False, mobile={"static": True})
+        for sd in (-1, 1):
+            dx, dz = A_local(sd * (w / 2 - 0.06), 0, yaw + b); c_ = P(b, D, rc)
+            ctx.add(f"{cn}_Rail_{'LR'[sd > 0]}", "railing", [c_[0] + dx, D, c_[2] + dz], [L_, 1.1, 0.07], frame, rot=[0, yaw + b - 90, 0], post_spacing=1.6, outline=False, mobile={"static": True})
+            for j in range(int(L_ // 4.5) + 1):  # legs in pairs down into the slime
+                rr = r0 + 1.6 + j * 4.5
+                if rr > r0 + L_ - 0.5: break
+                c2 = P(b, yl - 1.0, rr); ctx.add(f"{cn}_Leg_{j + 1}{'LR'[sd > 0]}", "cylinder", [c2[0] + dx * 0.9, yl - 1.0, c2[2] + dz * 0.9], [0.35, D - 0.3 - (yl - 1.0), 0.35], body, sections=6, **vs)
+            ctx.add(f"{cn}_Lamp_{'LR'[sd > 0]}", "box", [c_[0] + dx * 1.03, D - 0.22, c_[2] + dz * 1.03], [0.06, 0.1, L_ - 0.4], pink, rot=[0, yaw + b, 0], **vs)
+        pc = P(b, yl - 1.0, r0 + L_ + 1.4)
+        ctx.add(cn + "_Pier", "box", pc, [3.2, D + 0.9 - (yl - 1.0), 3.2], body, rot=[0, yaw + b, 0], **st)
+        ctx.add(cn + "_PierCap", "box", P(b, D + 0.9, r0 + L_ + 1.4), [3.5, 0.3, 3.5], frame, rot=[0, yaw + b, 0], **vs)
+        ctx.add(cn + "_PierLamp", "box", P(b, D + 0.1, r0 + L_ + 3.0), [2.0, 0.3, 0.06], pink, rot=[0, yaw + b, 0], **vs)
+    # --- spouts pouring off the base past the deck edge
+    from shapes import stream_path
+    fall = ctx.role("fall")
+    for k, b in enumerate(s.get("falls", [225, 315])):
+        b = float(b); g = ctx.add(f"{n}_Spout_{k + 1}", "group", [x, 0, z], rot=[0, yaw + b, 0]); sy = D - 1.0; L_sp = R + 0.6 - 4.6
+        ctx.add(f"{n}_Spout_{k + 1}_Body", "box", [0, sy - 0.45, 4.6 + L_sp / 2], [1.9, 0.6, L_sp], body, g, **vs)
+        ctx.add(f"{n}_Spout_{k + 1}_Lip", "box", [0, sy - 0.5, R + 0.6], [2.1, 0.7, 0.3], frame, g, **vs)
+        h_ = sy + 0.12 - yl + 0.3; fo = dict(section="rect", speed=1.8, pitch=6, inset=0.3, widen=0.18, thin=0.2, segments=12)
+        c_ = ctx.add(f"{n}_Spout_{k + 1}_Fall", "stream", [0, sy + 0.12, R + 0.62], [1.5, round(h_, 3), 0.35], fall, g, **fo, **vs)
+        if ctx.hazards: ctx.rel("flows_into", c_, ctx.hazards[0])
+        ctx.pours.append(c_)
+        ctx.add(f"{n}_Spout_{k + 1}_Slime", "box", [0, sy + 0.12 - 0.16, 4.6 + L_sp / 2], [1.5, 0.16, L_sp], fall, g, **vs)
+        reach = float(stream_path(h_, fo)[-1][0][2])
+        ctx.add(f"{n}_Spout_{k + 1}_Pool", "dome_shell", [0, yl + 0.16, R + 0.62 + reach + 0.4], [5.0, 0.02, 4.0], ctx.role("splash_pool"), g, sections=16, rings=3, uv="planar", double_sided=True, **vs)  # (16 cm over the slime)
+    ctx.extra_lights = getattr(ctx, "extra_lights", []) + [dict(id=n + "_Glow", positions=[P(s.get("light_bearing", 0), yv + 3.5, R + 1.5)], color=[0.5, 1.0, 0.3], energy=1.2, range=16.0)]
+    ctx.notes.append(f"{n}: slime reactor in the pool - deck r {R} at {D}, vat r {vr} to {top}, {len(s.get('catwalks', []))} catwalks, {len(s.get('falls', [225, 315]))} falls")
+
+
 @structure("slime_tunnel", pad=False)
 def slime_tunnel(ctx, s, x, y, z, yaw):
     """Stage 149: an arched tunnel through an arena wall with green slime flowing out of it. "position" = the opening's

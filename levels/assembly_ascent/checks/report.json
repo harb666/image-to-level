@@ -1,21 +1,21 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 5544,
-  "mobile/level_mobile.glb": 3252,
-  "mobile/collision.json": 220,
+  "level.glb": 5875,
+  "mobile/level_mobile.glb": 3464,
+  "mobile/collision.json": 231,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 112
+  "effects.json": 117
  },
  "complexity": {
-  "triangles": 94216,
-  "nodes": 3100,
+  "triangles": 101626,
+  "nodes": 3246,
   "materials": 61,
   "heaviest": [
    [
     "Corrosion_Band",
-    1180
+    1526
    ],
    [
     "Spinner_Rotor_Ball_4",
@@ -37,33 +37,33 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 5544,
-   "triangles": 81160,
-   "draw_calls": 3100,
+   "glb_kb": 5875,
+   "triangles": 88194,
+   "draw_calls": 3246,
    "tex_mem_gpu_mb_est": 29.71
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3252,
-   "triangles": 90644,
+   "glb_kb": 3464,
+   "triangles": 97646,
    "draw_calls": 174,
-   "visible_draw_calls_est": 89.2,
+   "visible_draw_calls_est": 90.7,
    "visible_draw_calls_max_est": 175,
    "tex_mem_gpu_mb_est": 13.9,
    "materials": 63,
    "nodes": 273,
    "colliders": {
-    "colliders": 502,
+    "colliders": 546,
     "hazards": 1,
-    "glb_kb": 233
+    "glb_kb": 254
    },
    "background_kb": 404
   },
   "effects": {
-   "max_particles": 1357,
-   "emitters": 39,
-   "extra_draw_calls": 14,
-   "transparent_area_m2": 13000.5
+   "max_particles": 1498,
+   "emitters": 46,
+   "extra_draw_calls": 15,
+   "transparent_area_m2": 13001.8
   },
   "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
  },
@@ -74,16 +74,16 @@
    "INTENTIONAL": 0
   },
   "relations": {
-   "explicit": 21,
+   "explicit": 23,
    "inferred": 0
   },
   "repairable": 2,
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 20220.0,
+  "standable_area_m2": 20596.0,
   "reachable_area_m2": 5454.0,
-  "components": 184,
+  "components": 213,
   "spawns": [
    {
     "id": "spawn",
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 6.5,
     "headroom_m": 19.0,
-    "component": 133,
+    "component": 162,
     "hazard_distance_m": 0.54
    }
   ],
@@ -286,7 +286,7 @@
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~89 visible draw calls (estimate, > 60)"
+   "message": "~91 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "narrow_connector",
@@ -357,7 +357,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "94216 triangles (> budget 40000)"
+   "message": "101626 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
