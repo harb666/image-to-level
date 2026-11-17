@@ -944,7 +944,7 @@ def dress_ceilings(ctx):
                     m = max(2, int(round((s1 - s0) / 11)))
                     for k in range(m + 1):
                         hx = s0 + 0.5 + (s1 - s0 - 1.0) * k / m
-                        ctx.add(f"{ln_}_Hanger_{k + 1}", "box", [hx, ry + 0.5, z], [0.16, y - ry - 0.5 + 0.08, 0.16], "frame", None, outline=False, **vis)
+                        ctx.add(f"{ln_}_Hanger_{k + 1}", "box", [hx, ry + 0.47, z], [0.16, y - ry - 0.47 + 0.08, 0.16], "frame", None, outline=False, **vis)  # Stage 151: 3 cm into the rail (an embedded, not flush, contact)
                 for j in range(per):
                     if placed >= npods: break
                     x = cx - Lr / 2 + 2 + (Lr - 4) * (j + 0.5) / per + rng.uniform(-1.5, 1.5)

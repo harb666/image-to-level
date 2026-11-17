@@ -1482,4 +1482,8 @@ Building blocks usable without the preset:
   panel over the slime, clear at the mouth, opaque at the back) - no stepped bands; `"ribs"` count; the pour starts
   inside the channel, flush with it. glb_tools.restore_images now matches images by RGBA (an all-black alpha fade was
   swapped for a black RGB image and lost its alpha in the mobile GLB).
+- Stage 151: Assembly Ascent gets three Toxic Works pod transport tubes (`column` structures `Pod_Tube_1..3`: glass
+  sections, banded drums, capitals into the roof, capsule pods launched up the bore - effect `Tube_Pods`) in the slime
+  strip by the east wall; the east wall monitor there (`OuterWall_East_M03`) is overridden `plain`. Ceiling lamp-rail
+  hangers now sink 3 cm into the rail (an embedded contact the support check always finds).
 

@@ -4,28 +4,28 @@ errors 0 · warnings 11 · info 1
 
 | metric | dev | mobile |
 |---|---|---|
-| file KB | 4973 | 2944 |
-| triangles | 74576 | 82082 |
-| draw calls (measured) | 2949 | 157 |
-| visible draw calls (estimate) | - | 82.9 |
-| GPU texture MB (estimate) | 29.11 | 13.46 |
+| file KB | 5191 | 3073 |
+| triangles | 77678 | 87050 |
+| draw calls (measured) | 3016 | 167 |
+| visible draw calls (estimate) | - | 86.4 |
+| GPU texture MB (estimate) | 29.13 | 13.48 |
 
-Navigation: reachable 5441.0 of 20034.0 m² standable; components 128.
+Navigation: reachable 5450.0 of 20228.0 m² standable; components 188.
 Camera: - cameras, void rays -, back faces -.
 Geometry: {'ERROR': 0, 'WARNING': 3, 'INTENTIONAL': 0} (checks/geometry.md)
 
 ## Issues (highest impact first)
 - **warning** OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - **warning** OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- **warning** mobile draw calls 157 (> 80)
-- **warning** ~83 visible draw calls (estimate, > 60)
+- **warning** mobile draw calls 167 (> 80)
+- **warning** ~86 visible draw calls (estimate, > 60)
 - **warning** Showcase_Pit_1_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - **warning** Showcase_Pit_1_Pillar_R: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - **warning** Showcase_Pit_2_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - **warning** Showcase_Pit_2_Pillar_L: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - **warning** enemy_arena: hazard 0.5 m away (< 3.0 m)
 - **warning** Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- **warning** 85464 triangles (> budget 40000)
-- **info** 3 m² reachable floor has < 3.2 m headroom (cramped camera): Robot_Ring_Floor
+- **warning** 90622 triangles (> budget 40000)
+- **info** 9 m² reachable floor has < 3.2 m headroom (cramped camera): Pod_Tube_1_Glass_03, Robot_Ring_Floor
 
 Estimates are not device benchmarks; renders are the browser preview, not Godot.

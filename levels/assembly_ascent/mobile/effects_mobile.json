@@ -183,6 +183,24 @@
      4.5
     ],
     [
+     43.5,
+     -45.0,
+     0.45,
+     3.1
+    ],
+    [
+     43.5,
+     -34.0,
+     0.45,
+     3.51
+    ],
+    [
+     43.5,
+     -23.0,
+     0.45,
+     3.1
+    ],
+    [
      -32.27,
      22.38,
      0.3,
@@ -4735,6 +4753,83 @@
     "quality": {
      "enabled": true,
      "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Tube_Pods",
+   "type": "tube_pods",
+   "category": "launch",
+   "glb_contains": "pods at rest (hidden), own nodes (mobile group per column)",
+   "godot_runtime": "script: for each launch entry, every target node: position = rest + UP * min(fmod(t + phase, period) * speed, travel) (waits hidden, shoots up, vanishes into the roof; own period / phase per entry)",
+   "launches": [
+    {
+     "group": "Pod_Tube_1_Pod",
+     "period": 4.9,
+     "phase": 3.73,
+     "travel": 30.9,
+     "targets": [
+      "Pod_Tube_1_Pod__frame",
+      "Pod_Tube_1_Pod__glass_clear__2s",
+      "Pod_Tube_1_Pod__hazard"
+     ]
+    },
+    {
+     "group": "Pod_Tube_2_Pod",
+     "period": 6.13,
+     "phase": 3.45,
+     "travel": 31.2,
+     "targets": [
+      "Pod_Tube_2_Pod__frame",
+      "Pod_Tube_2_Pod__glass_clear__2s",
+      "Pod_Tube_2_Pod__hazard"
+     ]
+    },
+    {
+     "group": "Pod_Tube_3_Pod",
+     "period": 4.47,
+     "phase": 1.86,
+     "travel": 30.9,
+     "targets": [
+      "Pod_Tube_3_Pod__frame",
+      "Pod_Tube_3_Pod__glass_clear__2s",
+      "Pod_Tube_3_Pod__hazard"
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 28.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 28.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 28.0
+     },
      "cost_estimate": {
       "max_particles": 0,
       "emitters": 0,

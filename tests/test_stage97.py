@@ -144,6 +144,16 @@ class AssemblyAscent(unittest.TestCase):
         self.assertEqual(T["East_SlimeTunnel_Pour"]["type"], "stream"); self.assertIn("East_SlimeTunnel_Slime", {k["id"] for k in self.L["kills"]})
         E = {e["id"]: e for e in _load("effects.json")["effects"]}; self.assertIn("East_SlimeTunnel_Liquid", E["Tunnel_Flow"]["targets"])
 
+    def test_pod_transport_tubes(self):
+        """Stage 151: three Toxic Works pod tubes (column structure: glass sections, banded drums, capitals into the roof)
+        in the slime strip by the east wall, each launching capsule pods up its bore; the east wall monitor there is gone."""
+        self.assertFalse([n for n in self.by if n.startswith("OuterWall_East_M03Monitor")])
+        E = next(e for e in _load("effects.json")["effects"] if e["type"] == "tube_pods")
+        groups = {l["group"] for l in E["launches"]}
+        for k in (1, 2, 3):
+            n = f"Pod_Tube_{k}"; self.assertIn(n + "_Capital", self.by); self.assertIn(n + "_Pod_Fluid", self.by); self.assertIn(n + "_Pod", groups)
+            self.assertTrue([m for m in self.by if m.startswith(n + "_Glass_")])
+
     def test_saw_hubs_are_plain(self):
         """Stage 132: the spinning blade hub (flange + nut) is plain dark metal - the machine panel's white light slots
         spun round with the blade."""

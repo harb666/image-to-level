@@ -1,21 +1,21 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 4973,
-  "mobile/level_mobile.glb": 2944,
-  "mobile/collision.json": 211,
+  "level.glb": 5191,
+  "mobile/level_mobile.glb": 3073,
+  "mobile/collision.json": 217,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 101
+  "effects.json": 104
  },
  "complexity": {
-  "triangles": 85464,
-  "nodes": 2949,
-  "materials": 56,
+  "triangles": 90622,
+  "nodes": 3016,
+  "materials": 57,
   "heaviest": [
    [
     "Corrosion_Band",
-    892
+    1180
    ],
    [
     "Spinner_Rotor_Ball_4",
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 4973,
-   "triangles": 74576,
-   "draw_calls": 2949,
-   "tex_mem_gpu_mb_est": 29.11
+   "glb_kb": 5191,
+   "triangles": 77678,
+   "draw_calls": 3016,
+   "tex_mem_gpu_mb_est": 29.13
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 2944,
-   "triangles": 82082,
-   "draw_calls": 157,
-   "visible_draw_calls_est": 82.9,
-   "visible_draw_calls_max_est": 159,
-   "tex_mem_gpu_mb_est": 13.46,
-   "materials": 58,
-   "nodes": 256,
+   "glb_kb": 3073,
+   "triangles": 87050,
+   "draw_calls": 167,
+   "visible_draw_calls_est": 86.4,
+   "visible_draw_calls_max_est": 168,
+   "tex_mem_gpu_mb_est": 13.48,
+   "materials": 59,
+   "nodes": 266,
    "colliders": {
-    "colliders": 472,
+    "colliders": 498,
     "hazards": 1,
-    "glb_kb": 215
+    "glb_kb": 231
    },
    "background_kb": 404
   },
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 20034.0,
-  "reachable_area_m2": 5441.0,
-  "components": 128,
+  "standable_area_m2": 20228.0,
+  "reachable_area_m2": 5450.0,
+  "components": 188,
   "spawns": [
    {
     "id": "spawn",
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 6.5,
     "headroom_m": 19.0,
-    "component": 73,
+    "component": 133,
     "hazard_distance_m": 0.54
    }
   ],
@@ -281,12 +281,12 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 157 (> 80)"
+   "message": "mobile draw calls 167 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~83 visible draw calls (estimate, > 60)"
+   "message": "~86 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "narrow_connector",
@@ -357,18 +357,18 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "85464 triangles (> budget 40000)"
+   "message": "90622 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",
    "severity": "info",
-   "object": "Robot_Ring_Floor",
+   "object": "Pod_Tube_1_Glass_03",
    "pos": [
-    -41.5,
-    6.75,
-    5.5
+    42.5,
+    18.05,
+    -45.5
    ],
-   "message": "3 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): Robot_Ring_Floor"
+   "message": "9 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): Pod_Tube_1_Glass_03, Robot_Ring_Floor"
   }
  ],
  "counts": {

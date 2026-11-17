@@ -41,23 +41,23 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 4973,
-    "triangles": 85464,
-    "nodes": 2988,
-    "mesh_nodes": 2949,
-    "unique_meshes": 1349,
-    "materials": 58,
-    "images": 136,
-    "draw_calls_unbatched": 2949,
-    "draw_calls_batched_min": 58,
-    "tex_mem_uncompressed_mb": 116.44,
-    "tex_mem_gpu_compressed_mb": 29.11,
+    "glb_kb": 5191,
+    "triangles": 90622,
+    "nodes": 3058,
+    "mesh_nodes": 3016,
+    "unique_meshes": 1412,
+    "materials": 59,
+    "images": 139,
+    "draw_calls_unbatched": 3016,
+    "draw_calls_batched_min": 59,
+    "tex_mem_uncompressed_mb": 116.51,
+    "tex_mem_gpu_compressed_mb": 29.13,
     "texture_slots": {
-     "baseColorTexture": 52,
-     "metallicRoughnessTexture": 52,
-     "normalTexture": 37,
-     "occlusionTexture": 52,
-     "emissiveTexture": 31
+     "baseColorTexture": 53,
+     "metallicRoughnessTexture": 53,
+     "normalTexture": 38,
+     "occlusionTexture": 53,
+     "emissiveTexture": 32
     },
     "image_sizes": [
      "1024x1024 jpeg",
@@ -73,31 +73,31 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 953.5,
-    "visible_draw_calls_max": 2941,
-    "visible_triangles_mean": 39814,
-    "visible_triangles_max": 96068
+    "visible_draw_calls_mean": 977.4,
+    "visible_draw_calls_max": 3008,
+    "visible_triangles_mean": 41816,
+    "visible_triangles_max": 101226
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 2944,
-    "triangles": 82082,
-    "nodes": 256,
-    "mesh_nodes": 157,
-    "unique_meshes": 157,
-    "materials": 58,
-    "images": 102,
-    "draw_calls_unbatched": 157,
-    "draw_calls_batched_min": 58,
-    "tex_mem_uncompressed_mb": 53.86,
-    "tex_mem_gpu_compressed_mb": 13.46,
+    "glb_kb": 3073,
+    "triangles": 87050,
+    "nodes": 266,
+    "mesh_nodes": 167,
+    "unique_meshes": 167,
+    "materials": 59,
+    "images": 105,
+    "draw_calls_unbatched": 167,
+    "draw_calls_batched_min": 59,
+    "tex_mem_uncompressed_mb": 53.92,
+    "tex_mem_gpu_compressed_mb": 13.48,
     "texture_slots": {
-     "baseColorTexture": 52,
-     "emissiveTexture": 31,
-     "metallicRoughnessTexture": 30,
-     "normalTexture": 15,
-     "occlusionTexture": 30
+     "baseColorTexture": 53,
+     "emissiveTexture": 32,
+     "metallicRoughnessTexture": 31,
+     "normalTexture": 16,
+     "occlusionTexture": 31
     },
     "image_sizes": [
      "128x128 webp",
@@ -133,19 +133,19 @@
     ]
    },
    "collision": {
-    "colliders": 472,
+    "colliders": 498,
     "hazards": 1,
-    "glb_kb": 215
+    "glb_kb": 231
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 82.9,
-    "visible_draw_calls_max": 159,
-    "visible_triangles_mean": 69295,
-    "visible_triangles_max": 92596
+    "visible_draw_calls_mean": 86.4,
+    "visible_draw_calls_max": 168,
+    "visible_triangles_mean": 73776,
+    "visible_triangles_max": 97466
    },
-   "hidden_faces_removed": 1139,
-   "occluded_faces_removed": 2243,
+   "hidden_faces_removed": 1331,
+   "occluded_faces_removed": 2241,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate",
     "Showcase_Stage_Glow_02L",
@@ -155,16 +155,16 @@
    "effects_max_particles": 1257,
    "slimmed_kb": {
     "level_mobile.glb": [
-     4474,
-     2944
+     4646,
+     3073
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     292,
-     215
+     311,
+     231
     ]
    }
   }
@@ -507,7 +507,7 @@
    "node": "Ceiling__frame",
    "kind": "group",
    "material": "frame",
-   "triangles": 4884,
+   "triangles": 4860,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -515,10 +515,8 @@
     "Ceil_Duct_2_Hanger_3",
     "Ceil_Duct_2_Hanger_2",
     "Ceil_Duct_2_Hanger_1",
-    "Ceil_Duct_1b_Hanger_4",
-    "Ceil_Duct_1b_Hanger_3",
-    "Ceil_Duct_1b_Hanger_2",
-    "Ceil_Duct_1b_Hanger_1",
+    "Ceil_Duct_1_Hanger_4",
+    "Ceil_Duct_1_Hanger_3",
     "Ceil_Duct_1_Hanger_2",
     "Ceil_Duct_1_Hanger_1",
     "Ceil_Capsule_17_Hanger",
@@ -1116,11 +1114,10 @@
    "node": "Ceiling__pipe",
    "kind": "group",
    "material": "pipe",
-   "triangles": 96,
+   "triangles": 64,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Ceil_Duct_1b",
     "Ceil_Duct_2",
     "Ceil_Duct_1"
    ],
@@ -1279,7 +1276,7 @@
    "node": "Corrosion__corrosion__2s",
    "kind": "group",
    "material": "corrosion__2s",
-   "triangles": 892,
+   "triangles": 1180,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1601,6 +1598,126 @@
     "Pillars_1_Hull"
    ],
    "group": "Pillars_FloatRig"
+  },
+  {
+   "node": "Pod_Tube_1_Pod__frame",
+   "kind": "group",
+   "material": "frame",
+   "triangles": 84,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Pod_Tube_1_Pod_Bar_3",
+    "Pod_Tube_1_Pod_Bar_2",
+    "Pod_Tube_1_Pod_Bar_1",
+    "Pod_Tube_1_Pod_Base",
+    "Pod_Tube_1_Pod_Cap"
+   ],
+   "group": "Pod_Tube_1_Pod"
+  },
+  {
+   "node": "Pod_Tube_1_Pod__glass_clear__2s",
+   "kind": "group",
+   "material": "glass_clear__2s",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pod_Tube_1_Pod_Shell"
+   ],
+   "group": "Pod_Tube_1_Pod"
+  },
+  {
+   "node": "Pod_Tube_1_Pod__hazard",
+   "kind": "group",
+   "material": "hazard",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pod_Tube_1_Pod_Fluid"
+   ],
+   "group": "Pod_Tube_1_Pod"
+  },
+  {
+   "node": "Pod_Tube_2_Pod__frame",
+   "kind": "group",
+   "material": "frame",
+   "triangles": 84,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Pod_Tube_2_Pod_Bar_3",
+    "Pod_Tube_2_Pod_Bar_2",
+    "Pod_Tube_2_Pod_Bar_1",
+    "Pod_Tube_2_Pod_Base",
+    "Pod_Tube_2_Pod_Cap"
+   ],
+   "group": "Pod_Tube_2_Pod"
+  },
+  {
+   "node": "Pod_Tube_2_Pod__glass_clear__2s",
+   "kind": "group",
+   "material": "glass_clear__2s",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pod_Tube_2_Pod_Shell"
+   ],
+   "group": "Pod_Tube_2_Pod"
+  },
+  {
+   "node": "Pod_Tube_2_Pod__hazard",
+   "kind": "group",
+   "material": "hazard",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pod_Tube_2_Pod_Fluid"
+   ],
+   "group": "Pod_Tube_2_Pod"
+  },
+  {
+   "node": "Pod_Tube_3_Pod__frame",
+   "kind": "group",
+   "material": "frame",
+   "triangles": 84,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Pod_Tube_3_Pod_Bar_3",
+    "Pod_Tube_3_Pod_Bar_2",
+    "Pod_Tube_3_Pod_Bar_1",
+    "Pod_Tube_3_Pod_Base",
+    "Pod_Tube_3_Pod_Cap"
+   ],
+   "group": "Pod_Tube_3_Pod"
+  },
+  {
+   "node": "Pod_Tube_3_Pod__glass_clear__2s",
+   "kind": "group",
+   "material": "glass_clear__2s",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pod_Tube_3_Pod_Shell"
+   ],
+   "group": "Pod_Tube_3_Pod"
+  },
+  {
+   "node": "Pod_Tube_3_Pod__hazard",
+   "kind": "group",
+   "material": "hazard",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pod_Tube_3_Pod_Fluid"
+   ],
+   "group": "Pod_Tube_3_Pod"
   },
   {
    "node": "Saw_East_Arm__arm_yellow",
@@ -2806,7 +2923,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 4905,
+   "triangles": 4861,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3116,9 +3233,6 @@
     "OuterWall_East_M04Pipes_Bracket_3",
     "OuterWall_East_M04Pipes_Bracket_2",
     "OuterWall_East_M04Pipes_Bracket_1",
-    "OuterWall_East_M03Monitor_Cable",
-    "OuterWall_East_M03Monitor_Arm_2",
-    "OuterWall_East_M03Monitor_Arm_0",
     "OuterWall_East_M02Vent_Slat_5",
     "OuterWall_East_M02Vent_Slat_4",
     "OuterWall_East_M02Vent_Slat_3",
@@ -3156,6 +3270,28 @@
    ]
   },
   {
+   "node": "M_glass__2s_0_0",
+   "kind": "static",
+   "material": "glass__2s",
+   "triangles": 384,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pod_Tube_3_Glass_07",
+    "Pod_Tube_3_Glass_05",
+    "Pod_Tube_3_Glass_03",
+    "Pod_Tube_3_Glass_01",
+    "Pod_Tube_2_Glass_07",
+    "Pod_Tube_2_Glass_05",
+    "Pod_Tube_2_Glass_03",
+    "Pod_Tube_2_Glass_01",
+    "Pod_Tube_1_Glass_07",
+    "Pod_Tube_1_Glass_05",
+    "Pod_Tube_1_Glass_03",
+    "Pod_Tube_1_Glass_01"
+   ]
+  },
+  {
    "node": "M_glass_clear__2s_0_0",
    "kind": "static",
    "material": "glass_clear__2s",
@@ -3179,7 +3315,7 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 1822,
+   "triangles": 1904,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3236,6 +3372,12 @@
     "Saw_West_ShoulderGlow_R",
     "Saw_West_ShoulderGlow_L",
     "Saw_West_ColGlow",
+    "Pod_Tube_3_Red_04",
+    "Pod_Tube_3_Red_02",
+    "Pod_Tube_2_Red_06",
+    "Pod_Tube_2_Red_04",
+    "Pod_Tube_2_Red_02",
+    "Pod_Tube_1_Red_06",
     "East_SlimeTunnel_Lamp_R",
     "East_SlimeTunnel_Lamp_L",
     "West_DuctFans_MidVent_3_Status",
@@ -3302,6 +3444,7 @@
     "OuterWall_East_M08Machine_Light",
     "OuterWall_East_M05Vent_Red",
     "OuterWall_East_M05Vent_Status",
+    "OuterWall_East_M03Plain_Strip",
     "OuterWall_East_M02Vent_Red",
     "OuterWall_East_M02Vent_Status",
     "OuterWall_East_M01Machine_Red",
@@ -3448,7 +3591,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 7446,
+   "triangles": 9406,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3521,6 +3664,24 @@
     "Saw_West_Column_2__ol",
     "Saw_West_Column_1__ol",
     "Saw_West_Plate__ol",
+    "Pod_Tube_3_Capital__ol",
+    "Pod_Tube_3_Neck__ol",
+    "Pod_Tube_3_Drum_06__ol",
+    "Pod_Tube_3_Drum_04__ol",
+    "Pod_Tube_3_Drum_02__ol",
+    "Pod_Tube_3_Plinth__ol",
+    "Pod_Tube_2_Capital__ol",
+    "Pod_Tube_2_Neck__ol",
+    "Pod_Tube_2_Drum_06__ol",
+    "Pod_Tube_2_Drum_04__ol",
+    "Pod_Tube_2_Drum_02__ol",
+    "Pod_Tube_2_Plinth__ol",
+    "Pod_Tube_1_Capital__ol",
+    "Pod_Tube_1_Neck__ol",
+    "Pod_Tube_1_Drum_06__ol",
+    "Pod_Tube_1_Drum_04__ol",
+    "Pod_Tube_1_Drum_02__ol",
+    "Pod_Tube_1_Plinth__ol",
     "East_SlimeTunnel_Channel__ol",
     "East_SlimeTunnel_End__ol",
     "East_SlimeTunnel_Roof__ol",
@@ -3618,7 +3779,6 @@
     "OuterWall_East_M11Machine_Bracket__ol",
     "OuterWall_East_M08Machine__ol",
     "OuterWall_East_M08Machine_Bracket__ol",
-    "OuterWall_East_M03Monitor_Body__ol",
     "OuterWall_East_M01Machine__ol",
     "OuterWall_East_M01Machine_Bracket__ol",
     "OuterWall_North_Body_C3__ol",
@@ -4035,7 +4195,7 @@
    "node": "M_screen_0_0",
    "kind": "static",
    "material": "screen",
-   "triangles": 14,
+   "triangles": 12,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4044,8 +4204,7 @@
     "Deck_Monitor_R_Screen",
     "Deck_Monitor_L_Screen",
     "OuterWall_South_M12Monitor_Screen",
-    "OuterWall_South_M07Monitor_Screen",
-    "OuterWall_East_M03Monitor_Screen"
+    "OuterWall_South_M07Monitor_Screen"
    ]
   },
   {
@@ -4187,7 +4346,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 5738,
+   "triangles": 7562,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -4255,6 +4414,21 @@
     "Spike_Press_Rib_2",
     "Spike_Press_Rib_1",
     "Spike_Press_Foot",
+    "Pod_Tube_3_Capital",
+    "Pod_Tube_3_Neck",
+    "Pod_Tube_3_Drum_06",
+    "Pod_Tube_3_Drum_02",
+    "Pod_Tube_3_Plinth",
+    "Pod_Tube_2_Capital",
+    "Pod_Tube_2_Neck",
+    "Pod_Tube_2_Drum_06",
+    "Pod_Tube_2_Drum_02",
+    "Pod_Tube_2_Plinth",
+    "Pod_Tube_1_Capital",
+    "Pod_Tube_1_Neck",
+    "Pod_Tube_1_Drum_06",
+    "Pod_Tube_1_Drum_02",
+    "Pod_Tube_1_Plinth",
     "East_SlimeTunnel_Channel",
     "East_SlimeTunnel_Portal",
     "West_DuctFans_MidVent_3_FrameSide_2",
@@ -4467,7 +4641,7 @@
    "node": "M_trim_0_0",
    "kind": "static",
    "material": "trim",
-   "triangles": 492,
+   "triangles": 876,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4476,6 +4650,9 @@
     "Exit_Door_Mouth_Capital_1",
     "Exit_Door_Mouth_Impost_1",
     "Exit_Door_Mouth_Voussoir_5",
+    "Pod_Tube_3_Drum_04",
+    "Pod_Tube_2_Drum_04",
+    "Pod_Tube_1_Drum_04",
     "Entry_Door_Mouth_Capital_3",
     "Entry_Door_Mouth_Impost_3",
     "Entry_Door_Mouth_Capital_1",
@@ -4529,7 +4706,7 @@
    "node": "M_tv_casing_0_0",
    "kind": "static",
    "material": "tv_casing",
-   "triangles": 1736,
+   "triangles": 1488,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4538,8 +4715,7 @@
     "Deck_Monitor_R_Body",
     "Deck_Monitor_L_Body",
     "OuterWall_South_M12Monitor_Body",
-    "OuterWall_South_M07Monitor_Body",
-    "OuterWall_East_M03Monitor_Body"
+    "OuterWall_South_M07Monitor_Body"
    ]
   },
   {
@@ -4609,7 +4785,7 @@
     "OuterWall_West_M03Machine_Plate",
     "OuterWall_East_M11Machine_Plate",
     "OuterWall_East_M10Emblem_Plate",
-    "OuterWall_East_M03Monitor_Plate",
+    "OuterWall_East_M03Plain_Plate",
     "OuterWall_East_M01Machine_Plate"
    ]
   },

@@ -183,6 +183,24 @@
      4.5
     ],
     [
+     43.5,
+     -45.0,
+     0.45,
+     3.1
+    ],
+    [
+     43.5,
+     -34.0,
+     0.45,
+     3.51
+    ],
+    [
+     43.5,
+     -23.0,
+     0.45,
+     3.1
+    ],
+    [
      -32.27,
      22.38,
      0.3,
@@ -4756,6 +4774,95 @@
    }
   },
   {
+   "id": "Tube_Pods",
+   "type": "tube_pods",
+   "category": "launch",
+   "glb_contains": "pods at rest (hidden), own nodes (mobile group per column)",
+   "godot_runtime": "script: for each launch entry, every target node: position = rest + UP * min(fmod(t + phase, period) * speed, travel) (waits hidden, shoots up, vanishes into the roof; own period / phase per entry)",
+   "launches": [
+    {
+     "group": "Pod_Tube_1_Pod",
+     "period": 4.9,
+     "phase": 3.73,
+     "travel": 30.9,
+     "targets": [
+      "Pod_Tube_1_Pod_Cap",
+      "Pod_Tube_1_Pod_Shell",
+      "Pod_Tube_1_Pod_Fluid",
+      "Pod_Tube_1_Pod_Base",
+      "Pod_Tube_1_Pod_Bar_1",
+      "Pod_Tube_1_Pod_Bar_2",
+      "Pod_Tube_1_Pod_Bar_3"
+     ]
+    },
+    {
+     "group": "Pod_Tube_2_Pod",
+     "period": 6.13,
+     "phase": 3.45,
+     "travel": 31.2,
+     "targets": [
+      "Pod_Tube_2_Pod_Cap",
+      "Pod_Tube_2_Pod_Shell",
+      "Pod_Tube_2_Pod_Fluid",
+      "Pod_Tube_2_Pod_Base",
+      "Pod_Tube_2_Pod_Bar_1",
+      "Pod_Tube_2_Pod_Bar_2",
+      "Pod_Tube_2_Pod_Bar_3"
+     ]
+    },
+    {
+     "group": "Pod_Tube_3_Pod",
+     "period": 4.47,
+     "phase": 1.86,
+     "travel": 30.9,
+     "targets": [
+      "Pod_Tube_3_Pod_Cap",
+      "Pod_Tube_3_Pod_Shell",
+      "Pod_Tube_3_Pod_Fluid",
+      "Pod_Tube_3_Pod_Base",
+      "Pod_Tube_3_Pod_Bar_1",
+      "Pod_Tube_3_Pod_Bar_2",
+      "Pod_Tube_3_Pod_Bar_3"
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 28.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 28.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 28.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Screen_Static_screen",
    "type": "tv_static",
    "category": "material_shader",
@@ -4768,8 +4875,7 @@
     "Deck_Monitor_R_Screen",
     "Deck_Monitor_L_Screen",
     "OuterWall_South_M12Monitor_Screen",
-    "OuterWall_South_M07Monitor_Screen",
-    "OuterWall_East_M03Monitor_Screen"
+    "OuterWall_South_M07Monitor_Screen"
    ],
    "quality": {
     "performance": {
@@ -5104,6 +5210,12 @@
     "Saw_West_ShoulderGlow_R",
     "Saw_West_ShoulderGlow_L",
     "Saw_West_ColGlow",
+    "Pod_Tube_3_Red_04",
+    "Pod_Tube_3_Red_02",
+    "Pod_Tube_2_Red_06",
+    "Pod_Tube_2_Red_04",
+    "Pod_Tube_2_Red_02",
+    "Pod_Tube_1_Red_06",
     "East_SlimeTunnel_Lamp_R",
     "East_SlimeTunnel_Lamp_L",
     "West_DuctFans_MidVent_3_Status",
@@ -5177,6 +5289,7 @@
     "OuterWall_East_M08Machine_Light",
     "OuterWall_East_M05Vent_Red",
     "OuterWall_East_M05Vent_Status",
+    "OuterWall_East_M03Plain_Strip",
     "OuterWall_East_M02Vent_Red",
     "OuterWall_East_M02Vent_Status",
     "OuterWall_East_M01Machine_Red",
@@ -5248,6 +5361,9 @@
     "Exit_Door_Mouth_Capital_1",
     "Exit_Door_Mouth_Impost_1",
     "Exit_Door_Mouth_Voussoir_5",
+    "Pod_Tube_3_Drum_04",
+    "Pod_Tube_2_Drum_04",
+    "Pod_Tube_1_Drum_04",
     "Entry_Door_Mouth_Capital_3",
     "Entry_Door_Mouth_Impost_3",
     "Entry_Door_Mouth_Capital_1",
