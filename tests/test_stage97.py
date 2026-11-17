@@ -117,6 +117,13 @@ class AssemblyAscent(unittest.TestCase):
             fn = f"West_DuctFans_Fan_{k}"; self.assertEqual(self.by[fn + "_Glow"]["material"], "glow_yellow")
             r = self.by[fn + "_Rays"]; self.assertEqual(r["type"], "beam_cone"); self.assertEqual(M[r["material"]]["type"], "beam_fade"); self.assertIn(fn + "_Light", E)
 
+    def test_jet_screen_back_is_one_moulded_monitor_back(self):
+        """Stage 148: the jet screen's back is one monitor back drawn once over it (tile = its width: no repeating panel
+        texture), with a plain bezel; the jetpack box is plain plastic, the thrusters plain gunmetal."""
+        M = self.L["materials"]; b = self.by["Jet_Screen_Back"]; m = M[b["material"]]
+        self.assertEqual(m["type"], "monitor_back"); self.assertAlmostEqual(m["tile_m"], b["size"][0], places=2); self.assertAlmostEqual(m["h"], b["size"][1], places=2)
+        for n in ("Jet_Screen_FrameT", "Jet_Screen_Pack", "Jet_Screen_ThrusterL"): self.assertTrue(M[self.by[n]["material"]].get("plain"), n)
+
     def test_saw_hubs_are_plain(self):
         """Stage 132: the spinning blade hub (flange + nut) is plain dark metal - the machine panel's white light slots
         spun round with the blade."""

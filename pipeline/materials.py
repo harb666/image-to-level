@@ -1043,6 +1043,54 @@ def k_hazard_wrap(S, rng, c, m):
     return dict(alb=np.clip(alb, 0, 1), h=0.55 - 0.15 * np.clip(1 - edge / 2.5, 0, 1) - 0.08 * chip, rough=np.where(chip, 0.35, 0.5 - 0.1 * np.clip(hl, 0, 1)), metal=np.where(chip, 0.85, 0.08), nstr=0.7)
 
 
+def k_monitor_back(S, rng, c, m):
+    """Stage 148: the moulded back of one big monitor, drawn ONCE over a box's back face (tile_m = the box width "w";
+    the box's planar UVs run from its centre, so the picture is centred on u = 0, and its height "h" fills from v = 0
+    up). A dark plastic shell with a soft top-lit gradient and moulding grain, a bevelled rim, a raised rounded inner
+    panel, slotted vent grilles left / right and along the top and bottom, screws, a mounting plate where the jetpack
+    bolts on ("mount": [w, y0, y1]), a pale serial sticker with a barcode, a cable port with a pink LED. Seen from
+    behind, so it is drawn mirrored (left / right read correctly from the back)."""
+    from PIL import Image, ImageDraw
+    W_, H_ = float(m.get("w", 9.8)), float(m.get("h", 6.8)); T = float(m.get("tile_m", W_)); k = S / T
+    P = lambda X, Y: ((X + T / 2) * k, S - 1 - Y * k)  # metres (X from the centre, Y up from the base) -> pixels
+    base = np.asarray(c, float); col = lambda f: tuple(int(v) for v in np.clip(base * f * 255, 0, 255))
+    im = Image.new("RGB", (S, S), col(0.8)); hm = Image.new("L", (S, S), 128); d, dh = ImageDraw.Draw(im), ImageDraw.Draw(hm)
+    def rect(x0, y0, x1, y1, f, hv, r=0.0, outline=None, ow=0):
+        (a0, b1), (a1, b0) = P(x0, y0), P(x1, y1)
+        d.rounded_rectangle([a0, b0, a1, b1], radius=r * k, fill=col(f), outline=outline, width=ow); dh.rounded_rectangle([a0, b0, a1, b1], radius=r * k, fill=hv)
+    rect(-W_ / 2, 0, W_ / 2, H_, 0.78, 110)  # the shell
+    rect(-W_ / 2 + 0.28, 0.28, W_ / 2 - 0.28, H_ - 0.28, 0.9, 140, r=0.35)  # bevel step
+    rect(-W_ / 2 + 0.55, 0.55, W_ / 2 - 0.55, H_ - 0.55, 1.0, 160, r=0.5, outline=col(1.25), ow=max(1, int(0.04 * k)))  # raised inner panel, a lit edge
+    mw, my0, my1 = m.get("mount", [4.8, 1.0, 4.6]); rect(-mw / 2, my0, mw / 2, my1, 0.72, 120, r=0.2)  # mounting plate (under the jetpack)
+    for sx in (-1, 1):  # vent grilles left and right: two blocks of horizontal slots
+        for gy0, gy1 in ((1.0, 2.7), (3.2, 4.9)):
+            x0, x1 = (mw / 2 + 0.45, W_ / 2 - 1.0) if sx > 0 else (-W_ / 2 + 1.0, -mw / 2 - 0.45)
+            rect(x0 - 0.06, gy0 - 0.06, x1 + 0.06, gy1 + 0.06, 0.82, 140, r=0.1)
+            yy = gy0
+            while yy < gy1 - 0.08: rect(x0, yy, x1, yy + 0.09, 0.32, 60, r=0.04); yy += 0.2
+    for yy0 in (0.75, H_ - 1.0):  # long thin vents along the top and bottom
+        xx = -W_ / 2 + 1.0
+        while xx < W_ / 2 - 1.2: rect(xx, yy0, xx + 0.55, yy0 + 0.14, 0.34, 60, r=0.06); xx += 0.7
+    for X, Y in ((-W_ / 2 + 0.85, 0.85), (W_ / 2 - 0.85, 0.85), (-W_ / 2 + 0.85, H_ - 0.85), (W_ / 2 - 0.85, H_ - 0.85), (-mw / 2 + 0.25, my0 + 0.25), (mw / 2 - 0.25, my0 + 0.25),
+                 (-mw / 2 + 0.25, my1 - 0.25), (mw / 2 - 0.25, my1 - 0.25)):  # screws
+        (a_, b_) = P(X, Y); r_ = 0.09 * k; d.ellipse([a_ - r_, b_ - r_, a_ + r_, b_ + r_], fill=col(0.45)); dh.ellipse([a_ - r_, b_ - r_, a_ + r_, b_ + r_], fill=200)
+        d.line([a_ - r_ * 0.7, b_, a_ + r_ * 0.7, b_], fill=col(1.4), width=max(1, int(0.025 * k)))
+    lx0, ly0 = W_ / 2 - 3.1, 5.15  # serial sticker (top right as seen from behind) + barcode
+    rect(lx0, ly0, lx0 + 1.6, ly0 + 0.75, 0.0, 150); (a0, b1), (a1, b0) = P(lx0, ly0), P(lx0 + 1.6, ly0 + 0.75); d.rectangle([a0, b0, a1, b1], fill=(214, 206, 196))
+    xx = lx0 + 0.12
+    while xx < lx0 + 1.0: w_ = rng.choice([0.02, 0.04, 0.06]); (q0, _), (q1, _) = P(xx, 0), P(xx + w_, 0); d.rectangle([q0, b0 + 0.12 * k, q1, b1 - 0.12 * k], fill=(30, 26, 30)); xx += w_ + 0.03
+    for j in range(3): (q0, r0), (q1, _) = P(lx0 + 1.1, ly0 + 0.55 - j * 0.18), P(lx0 + 1.5, 0); d.rectangle([q0, r0, q1, r0 + 0.05 * k], fill=(120, 110, 110))
+    px, py = -W_ / 2 + 1.4, 0.55  # cable port + LED (lower left)
+    rect(px, py, px + 0.9, py + 0.45, 0.25, 50, r=0.08); (a_, b_) = P(px + 1.15, py + 0.22); r_ = 0.08 * k; d.ellipse([a_ - r_, b_ - r_, a_ + r_, b_ + r_], fill=(255, 70, 200))
+    alb = np.asarray(im, float) / 255; h = np.asarray(hm, float) / 255
+    y_, x_ = np.mgrid[:S, :S] / S; grad = 0.88 + 0.2 * np.clip(1 - y_ / 0.7, 0, 1) ** 0.6  # lit from above (image top = up)
+    grain = 1 + 0.05 * (_noise(rng, 64, 2, S) - 0.5) + 0.06 * (_noise(rng, 6, 3, S) - 0.5)
+    alb = np.clip(alb * (grad * grain)[..., None], 0, 1)
+    emit = np.zeros((S, S)); emit[np.all(np.asarray(im)[..., :3] == (255, 70, 200), axis=-1)] = 1.0
+    alb, h, emit = (np.roll(a_[:, ::-1], S // 2, axis=1) for a_ in (alb, h, emit))  # mirrored (seen from behind), centred on u = 0
+    return dict(alb=alb, h=h, rough=np.full((S, S), 0.55), metal=0.15, emit=emit, nstr=0.6)
+
+
 def k_turned_plate(S, rng, c, m):
     """Stage 143: ONE machined steel disc (no tiling, no panel grid) - pair with tile_m = the disc's diameter on a
     cylinder top (UVs centred on its axis, like scrape_rings). Fine lathe-turned rings with a soft anisotropic sheen,

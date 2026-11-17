@@ -631,16 +631,16 @@ def jet_screen(ctx, s, x, y, z, yaw):
     def fru(nm, lx, ly0, lz, dia, hgt, k, mat, g, **kw):
         q = W(lx, ly0, lz); ctx.add(f"{n}_{nm}", "frustum", q, [dia, hgt, dia], mat, sections=10, bottom_scale=k, **K(g, **kw))
     # --- screen: back plate, frame, the grin panel
-    box("Back", 0, 0, -0.32, [w_ + 0.8, h_ + 0.8, 0.6], "machine", gb)
-    for nm, lx, ly, sx, sy in (("FrameT", 0, hh + 0.075, w_ + 0.8, 0.35), ("FrameB", 0, -hh - 0.075, w_ + 0.8, 0.35), ("FrameL", -hw - 0.225, 0, 0.35, h_ + 0.15), ("FrameR", hw + 0.225, 0, 0.35, h_ + 0.15)):
-        box(nm, lx, ly, 0.1, [sx, sy, 0.3], "machine", gb, outline=False)
+    box("Back", 0, 0, -0.32, [w_ + 0.8, h_ + 0.8, 0.6], ctx.role(s.get("back_material", "machine")), gb)  # Stage 148: one moulded monitor back (not the tiled machine panel)
+    for nm, lx, ly, sx, sy in (("FrameT", 0, hh + 0.075, w_ + 0.76, 0.35), ("FrameB", 0, -hh - 0.075, w_ + 0.76, 0.35), ("FrameL", -hw - 0.215, 0, 0.33, h_ + 0.15), ("FrameR", hw + 0.215, 0, 0.33, h_ + 0.15)):
+        box(nm, lx, ly, 0.1, [sx, sy, 0.3], ctx.role(s.get("bezel_material", "machine")), gb, outline=False)
     q = W(0, -hh, 0.03); ctx.add(n + "_Panel", "panel", q, [w_, h_, 0], ctx.role("signs"), rot=[0, yaw, 0], uv_region=s.get("cell_region", "a"), **K(gb, outline=False))
     box("GlowStrip", 0, -hh - 0.33, 0.27, [w_ * 0.8, 0.1, 0.06], gl, gb, outline=False)
     # --- jetpack: pack, twin thrusters, nozzles, fins, flames
-    box("Pack", 0, -0.6, -1.25, [4.4, 3.0, 1.3], "machine", gb)
+    box("Pack", 0, -0.6, -1.25, [4.4, 3.0, 1.3], ctx.role(s.get("pack_material", "machine")), gb)
     for sd in (-1, 1):
         tx = sd * 1.75; tag = "LR"[sd > 0]
-        cyl(f"Thruster{tag}", tx, -2.9, -1.35, 1.1, 3.5, "machine", gb)
+        cyl(f"Thruster{tag}", tx, -2.9, -1.35, 1.1, 3.5, ctx.role(s.get("thruster_material", "machine")), gb)
         fru(f"ThrusterCap{tag}", tx, 0.6, -1.35, 0.7, 0.45, 1.6, "machine", gb)
         cyl(f"ThrusterBand{tag}", tx, -3.05, -1.35, 1.22, 0.3, stripe, gb, outline=False)
         fru(f"Nozzle{tag}", tx, -3.5, -1.35, 1.0, 0.6, 1.45, "machine", gb)

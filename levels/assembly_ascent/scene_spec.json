@@ -620,6 +620,36 @@
           0.25
         ],
         "notes": "Stage 147: soft yellow light rays blowing out of the west wall fans (like the dome's rays)"
+      },
+      "monitor_back": {
+        "type": "monitor_back",
+        "color": [
+          0.27,
+          0.22,
+          0.32
+        ],
+        "w": 9.8,
+        "h": 6.8,
+        "tile_m": 9.8,
+        "res": 512,
+        "mount": [
+          4.8,
+          1.0,
+          4.6
+        ],
+        "notes": "Stage 148: the jet screen's moulded back - drawn once (vents, screws, mount plate, sticker, port), no tiling"
+      },
+      "monitor_bezel": {
+        "type": "concrete",
+        "plain": true,
+        "color": [
+          0.2,
+          0.16,
+          0.24
+        ],
+        "metal": 0.2,
+        "rough": 0.5,
+        "notes": "Stage 148: plain plastic bezel round the jet screen"
       }
     }
   },
@@ -1670,7 +1700,11 @@
       "trigger_area": "Arena_Deck",
       "arrive_pitch": 15,
       "button_height": 2.3,
-      "slide": 2.8
+      "slide": 2.8,
+      "back_material": "monitor_back",
+      "bezel_material": "monitor_bezel",
+      "pack_material": "monitor_bezel",
+      "thruster_material": "lift_ring"
     },
     {
       "id": "Rail_Start_E1",

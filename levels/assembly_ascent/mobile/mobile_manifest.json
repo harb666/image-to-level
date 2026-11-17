@@ -41,23 +41,23 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 4813,
-    "triangles": 84184,
+    "glb_kb": 4878,
+    "triangles": 84312,
     "nodes": 2953,
     "mesh_nodes": 2915,
     "unique_meshes": 1328,
-    "materials": 52,
-    "images": 125,
+    "materials": 54,
+    "images": 129,
     "draw_calls_unbatched": 2915,
-    "draw_calls_batched_min": 52,
-    "tex_mem_uncompressed_mb": 109.28,
-    "tex_mem_gpu_compressed_mb": 27.32,
+    "draw_calls_batched_min": 54,
+    "tex_mem_uncompressed_mb": 114.61,
+    "tex_mem_gpu_compressed_mb": 28.65,
     "texture_slots": {
-     "baseColorTexture": 47,
-     "metallicRoughnessTexture": 47,
-     "normalTexture": 35,
-     "occlusionTexture": 47,
-     "emissiveTexture": 29
+     "baseColorTexture": 48,
+     "metallicRoughnessTexture": 48,
+     "normalTexture": 36,
+     "occlusionTexture": 48,
+     "emissiveTexture": 30
     },
     "image_sizes": [
      "1024x1024 jpeg",
@@ -75,29 +75,29 @@
     "cameras": 128,
     "visible_draw_calls_mean": 941.8,
     "visible_draw_calls_max": 2907,
-    "visible_triangles_mean": 39349,
-    "visible_triangles_max": 94788
+    "visible_triangles_mean": 39395,
+    "visible_triangles_max": 94916
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 2864,
-    "triangles": 81070,
-    "nodes": 248,
-    "mesh_nodes": 149,
-    "unique_meshes": 149,
-    "materials": 52,
-    "images": 91,
-    "draw_calls_unbatched": 149,
-    "draw_calls_batched_min": 52,
-    "tex_mem_uncompressed_mb": 46.69,
-    "tex_mem_gpu_compressed_mb": 11.67,
+    "glb_kb": 2889,
+    "triangles": 81198,
+    "nodes": 251,
+    "mesh_nodes": 152,
+    "unique_meshes": 152,
+    "materials": 54,
+    "images": 95,
+    "draw_calls_unbatched": 152,
+    "draw_calls_batched_min": 54,
+    "tex_mem_uncompressed_mb": 52.03,
+    "tex_mem_gpu_compressed_mb": 13.01,
     "texture_slots": {
-     "baseColorTexture": 47,
-     "emissiveTexture": 29,
-     "metallicRoughnessTexture": 25,
-     "normalTexture": 13,
-     "occlusionTexture": 25
+     "baseColorTexture": 48,
+     "emissiveTexture": 30,
+     "metallicRoughnessTexture": 26,
+     "normalTexture": 14,
+     "occlusionTexture": 26
     },
     "image_sizes": [
      "128x128 webp",
@@ -139,10 +139,10 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 79.8,
-    "visible_draw_calls_max": 151,
-    "visible_triangles_mean": 68405,
-    "visible_triangles_max": 91584
+    "visible_draw_calls_mean": 80.9,
+    "visible_draw_calls_max": 154,
+    "visible_triangles_mean": 68448,
+    "visible_triangles_max": 91712
    },
    "hidden_faces_removed": 945,
    "occluded_faces_removed": 2169,
@@ -155,8 +155,8 @@
    "effects_max_particles": 1215,
    "slimmed_kb": {
     "level_mobile.glb": [
-     4335,
-     2864
+     4401,
+     2889
     ],
     "background_mobile.glb": [
      477,
@@ -1305,7 +1305,7 @@
    "node": "Jet_Screen_Body__ink",
    "kind": "group",
    "material": "ink",
-   "triangles": 168,
+   "triangles": 232,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1320,10 +1320,23 @@
    "group": "Jet_Screen_Body"
   },
   {
+   "node": "Jet_Screen_Body__lift_ring",
+   "kind": "group",
+   "material": "lift_ring",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Jet_Screen_ThrusterR",
+    "Jet_Screen_ThrusterL"
+   ],
+   "group": "Jet_Screen_Body"
+  },
+  {
    "node": "Jet_Screen_Body__machine",
    "kind": "group",
    "material": "machine",
-   "triangles": 348,
+   "triangles": 180,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1331,17 +1344,37 @@
     "Jet_Screen_FinR",
     "Jet_Screen_NozzleR",
     "Jet_Screen_ThrusterCapR",
-    "Jet_Screen_ThrusterR",
     "Jet_Screen_FinL",
     "Jet_Screen_NozzleL",
-    "Jet_Screen_ThrusterCapL",
-    "Jet_Screen_ThrusterL",
+    "Jet_Screen_ThrusterCapL"
+   ],
+   "group": "Jet_Screen_Body"
+  },
+  {
+   "node": "Jet_Screen_Body__monitor_back",
+   "kind": "group",
+   "material": "monitor_back",
+   "triangles": 44,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Jet_Screen_Back"
+   ],
+   "group": "Jet_Screen_Body"
+  },
+  {
+   "node": "Jet_Screen_Body__monitor_bezel",
+   "kind": "group",
+   "material": "monitor_bezel",
+   "triangles": 92,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
     "Jet_Screen_Pack",
     "Jet_Screen_FrameR",
     "Jet_Screen_FrameL",
     "Jet_Screen_FrameB",
-    "Jet_Screen_FrameT",
-    "Jet_Screen_Back"
+    "Jet_Screen_FrameT"
    ],
    "group": "Jet_Screen_Body"
   },

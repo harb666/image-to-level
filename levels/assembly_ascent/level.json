@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "6791a003fb27f43a",
+  "spec_sha": "d6c8615537e8eaee",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -3498,6 +3498,41 @@
     1
    ],
    "toon": true
+  },
+  "monitor_back": {
+   "type": "monitor_back",
+   "color": [
+    0.27,
+    0.22,
+    0.32
+   ],
+   "tile_m": 9.8,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "w": 9.8,
+   "h": 6.8,
+   "res": 512,
+   "mount": [
+    4.8,
+    1.0,
+    4.6
+   ],
+   "notes": "Stage 148: the jet screen's moulded back - drawn once (vents, screws, mount plate, sticker, port), no tiling"
+  },
+  "monitor_bezel": {
+   "type": "concrete",
+   "color": [
+    0.2,
+    0.16,
+    0.24
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "plain": true,
+   "metal": 0.2,
+   "rough": 0.5,
+   "notes": "Stage 148: plain plastic bezel round the jet screen"
   },
   "pipe": {
    "type": "pipe",
@@ -63662,7 +63697,7 @@
     6.8,
     0.6
    ],
-   "material": "machine",
+   "material": "monitor_back",
    "collision": false,
    "mobile": {
     "group": "Jet_Screen_Body"
@@ -63684,11 +63719,11 @@
     0.0
    ],
    "size": [
-    9.8,
+    9.76,
     0.35,
     0.3
    ],
-   "material": "machine",
+   "material": "monitor_bezel",
    "collision": false,
    "mobile": {
     "group": "Jet_Screen_Body"
@@ -63711,11 +63746,11 @@
     0.0
    ],
    "size": [
-    9.8,
+    9.76,
     0.35,
     0.3
    ],
-   "material": "machine",
+   "material": "monitor_bezel",
    "collision": false,
    "mobile": {
     "group": "Jet_Screen_Body"
@@ -63728,9 +63763,9 @@
    "name": "Jet_Screen_FrameL",
    "type": "box",
    "position": [
-    -6.406,
+    -6.396,
     18.925,
-    -16.29
+    -16.293
    ],
    "rotation": [
     0.0,
@@ -63738,11 +63773,11 @@
     0.0
    ],
    "size": [
-    0.35,
+    0.33,
     6.15,
     0.3
    ],
-   "material": "machine",
+   "material": "monitor_bezel",
    "collision": false,
    "mobile": {
     "group": "Jet_Screen_Body"
@@ -63755,9 +63790,9 @@
    "name": "Jet_Screen_FrameR",
    "type": "box",
    "position": [
-    2.474,
+    2.465,
     18.925,
-    -19.522
+    -19.519
    ],
    "rotation": [
     0.0,
@@ -63765,11 +63800,11 @@
     0.0
    ],
    "size": [
-    0.35,
+    0.33,
     6.15,
     0.3
    ],
-   "material": "machine",
+   "material": "monitor_bezel",
    "collision": false,
    "mobile": {
     "group": "Jet_Screen_Body"
@@ -63851,7 +63886,7 @@
     3.0,
     1.3
    ],
-   "material": "machine",
+   "material": "monitor_bezel",
    "collision": false,
    "mobile": {
     "group": "Jet_Screen_Body"
@@ -63877,7 +63912,7 @@
     3.5,
     1.1
    ],
-   "material": "machine",
+   "material": "lift_ring",
    "sections": 12,
    "collision": false,
    "mobile": {
@@ -64071,7 +64106,7 @@
     3.5,
     1.1
    ],
-   "material": "machine",
+   "material": "lift_ring",
    "sections": 12,
    "collision": false,
    "mobile": {
@@ -87835,16 +87870,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 73592,
+  "triangles": 73656,
   "objects": 2682,
-  "materials": 49,
-  "glb_kb": 4813,
+  "materials": 51,
+  "glb_kb": 4878,
   "nodes": 2953,
   "draw_calls_unbatched": 2915,
-  "draw_calls_batched_min": 52,
-  "images": 125,
-  "tex_mem_gpu_compressed_mb": 27.32,
-  "tex_mem_uncompressed_mb": 109.28,
+  "draw_calls_batched_min": 54,
+  "images": 129,
+  "tex_mem_gpu_compressed_mb": 28.65,
+  "tex_mem_uncompressed_mb": 114.61,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

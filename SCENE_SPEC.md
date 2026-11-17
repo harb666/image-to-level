@@ -1466,4 +1466,9 @@ Building blocks usable without the preset:
   fans' light role) and `duct_fans` `"glow"`, `"rays"` (`ray_length`, `ray_spread`, `ray_material`: a soft fading
   `beam_cone` of light blowing out of each fan, plus a point light in front). Assembly Ascent: 4 extra ceiling fans;
   the west duct fans glow `glow_yellow` with `fan_rays` light rays.
+- Stage 148: material kind `monitor_back` (`w`, `h`, `mount`; `tile_m` = the box width so it maps once): a moulded
+  monitor back - shell gradient + grain, bevel, raised inner panel, slotted vents, screws, a mount plate, a serial
+  sticker, a cable port with a pink LED (drawn mirrored: seen from behind). `jet_screen` `back_material`,
+  `bezel_material`, `pack_material`, `thruster_material`. Assembly Ascent: `monitor_back`, plain `monitor_bezel` bezel
+  and jetpack box, `lift_ring` thrusters (were the tiled machine panel).
 
