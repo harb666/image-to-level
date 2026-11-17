@@ -1486,4 +1486,14 @@ Building blocks usable without the preset:
   sections, banded drums, capitals into the roof, capsule pods launched up the bore - effect `Tube_Pods`) in the slime
   strip by the east wall; the east wall monitor there (`OuterWall_East_M03`) is overridden `plain`. Ceiling lamp-rail
   hangers now sink 3 cm into the rail (an embedded contact the support check always finds).
+- Stage 152: `showcase` `"specimen": {"asset", "trigger_radius", "fade", "float"}` puts an animated character in the
+  specimen tank instead of the painted silhouette: level.json `characters` (asset / preview / texture paths, position =
+  the vat + the asset's `vat.offset`, clips idle / alert, trigger, float), effect type `character`, collision.json
+  `characters`; the package copies the GLB to `characters/`. The asset is built by `pipeline/specimen.py`
+  (`python3 pipeline/specimen.py <source.glb> <out_prefix>`): Assembly Ascent's cyber girl
+  (`assets/characters/source/cyber_girl_source.glb` -> `assets/characters/specimen/cyber_girl.*`) - hair split into
+  its own primitive on two 5-bone chains + Head, body / hair decimated (30.5k -> 18k tris), FloatRoot + WireAnchor +
+  three cables, clips `panic` (6 s, palms on the glass) and `bang` (2 s, hammer fists), authored with FK + two-bone IK
+  against the vat glass and checked every frame (inside the glass; elbow / knee / wrist / pronation / head-yaw ranges:
+  tests/test_stage152.py). Runtimes: viewer.html `charAnim`, apply_effects.gd `_characters` (untested in Godot).
 

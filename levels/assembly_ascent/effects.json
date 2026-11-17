@@ -998,6 +998,73 @@
    }
   },
   {
+   "id": "Showcase_Specimen_Anim",
+   "type": "character",
+   "category": "character",
+   "glb_contains": "nothing (own GLB)",
+   "godot_runtime": "script (apply_effects.gd _characters): instance the character GLB (asset, repo-relative; the package copies it next to the level) at position / yaw; AnimationPlayer plays clips.idle looped; while a player is within trigger.radius of trigger.center it crossfades (fade s) to clips.alert and back; the float.node bobs y = amp sin(2 pi t / period)",
+   "character": {
+    "id": "Showcase_Specimen",
+    "asset": "assets/characters/specimen/cyber_girl.glb",
+    "preview": "assets/characters/specimen/cyber_girl_preview.glb",
+    "texture": "assets/characters/specimen/cyber_girl.jpg",
+    "position": [
+     -30.0,
+     12.35,
+     -58.3
+    ],
+    "yaw": 0.0,
+    "clips": {
+     "idle": "panic",
+     "alert": "bang"
+    },
+    "float": {
+     "node": "FloatRoot",
+     "amp": 0.08,
+     "period": 4.0
+    },
+    "trigger": {
+     "center": [
+      -30.0,
+      9.5,
+      -57.3
+     ],
+     "radius": 9.0
+    },
+    "fade": 0.3,
+    "note": "spawn the glb at position (yaw deg), play clips.idle looped; while a player is within trigger.radius of trigger.center crossfade (fade s) to clips.alert; bob float.node: y = amp sin(2 pi t / period)"
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Tunnel_Flow",
    "type": "liquid_flow",
    "category": "surface_shader",

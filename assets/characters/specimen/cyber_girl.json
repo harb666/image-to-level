@@ -1,0 +1,74 @@
+{
+ "name": "cyber_girl",
+ "source": "assets/characters/source/cyber_girl_source.glb",
+ "clips": {
+  "idle": "panic",
+  "alert": "bang"
+ },
+ "float": {
+  "node": "FloatRoot",
+  "amp": 0.08,
+  "period": 4.0
+ },
+ "vat": {
+  "offset": [
+   0.0,
+   1.35,
+   1.0
+  ],
+  "glass_r": 1.55,
+  "note": "asset origin = vat centre + (0, offset[1] above the vat floor, offset[2] towards her front); the clips' contacts assume it"
+ },
+ "triangles": {
+  "Body": 6819,
+  "Hair": 10843,
+  "Cables": 432
+ },
+ "source_triangles": 30473,
+ "bytes": {
+  "glb": 1744784,
+  "preview_glb": 1325968,
+  "jpg": 418559
+ },
+ "bones": 77,
+ "checks": {
+  "panic": {
+   "body": 1.528,
+   "hands": 1.556,
+   "hair": 1.542,
+   "cables": 1.293,
+   "elbow": [
+    54.3,
+    114.0
+   ],
+   "knee": [
+    13.5,
+    47.7
+   ],
+   "wrist": 66.063,
+   "twist": 55.116,
+   "yaw": 40.657,
+   "hair_min_y": 0.5
+  },
+  "bang": {
+   "body": 1.507,
+   "hands": 1.518,
+   "hair": 1.436,
+   "cables": 1.336,
+   "elbow": [
+    77.7,
+    99.1
+   ],
+   "knee": [
+    27.7,
+    56.3
+   ],
+   "wrist": 46.957,
+   "twist": 89.572,
+   "yaw": 12.226,
+   "hair_min_y": 0.615
+  }
+ },
+ "texture": "cyber_girl.jpg",
+ "note": "Stage 152: hair split from the body (own primitive, two 5-bone chains + Head), FloatRoot (runtime bob), WireAnchor + cables; clips authored in pipeline/specimen.py"
+}

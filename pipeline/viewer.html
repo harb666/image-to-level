@@ -472,6 +472,19 @@ if(window.PLAYER){loader.parseAsync(b64(PLAYER),'').then(g=>{const tx=new THREE.
   PM=g.scene;PM.traverse(o=>{if(o.isMesh){o.material.map=tx;o.material.needsUpdate=true;o.frustumCulled=false;}});scene.add(PM);PMix=new THREE.AnimationMixer(PM);
   const C=(window.PLAYERMETA||{}).clips||{};for(const k in C){const cl=g.animations.find(a=>a.name===C[k]);if(cl)PAct[k]=PMix.clipAction(cl);}
   PLast.copy(pos);PYaw=yaw+Math.PI;window.playerModel={scene:PM,actions:PAct,state:()=>PCur};}).catch(e=>console.warn('player model',e));} /* starts facing where the camera looks */
+// Stage 152: animated characters (the specimen in the vat) - idle loop, alert clip while the player is near, FloatRoot bob (same rules as apply_effects.gd _characters)
+const CHARS=[];
+if(window.CHARGLB&&window.FX)for(const fx of FX.effects||[]){if(fx.category!=='character')continue;const C=fx.character,k=C.preview.split('/').pop();if(!CHARGLB[k])continue;
+  loader.parseAsync(b64(CHARGLB[k]),'').then(g=>{const tx=new THREE.TextureLoader().load(CHARTEX[k]);tx.flipY=false;tx.colorSpace=THREE.SRGBColorSpace;
+    const R=g.scene;R.traverse(o=>{if(o.isMesh){if(o.material.name==='Specimen'){o.material.map=tx;o.material.needsUpdate=true;}o.frustumCulled=false;}});
+    R.position.set(...C.position);R.rotation.y=(C.yaw||0)*Math.PI/180;scene.add(R);const mix=new THREE.AnimationMixer(R),A={};
+    for(const role of ['idle','alert']){const cl=g.animations.find(a=>a.name===C.clips[role]);if(cl)A[role]=mix.clipAction(cl);}
+    if(A.idle)A.idle.play();const fr=R.getObjectByName((C.float||{}).node||'FloatRoot'),rest=fr?fr.position.y:0;
+    const ch={C,R,mix,A,fr,rest,state:'idle'};CHARS.push(ch);window.specimen={state:()=>ch.state,scene:R,actions:A,near:()=>ch.near};}).catch(e=>console.warn('character',e));}
+const charAnim=(dt,t)=>{for(const ch of CHARS){const C=ch.C,F=C.float||{};if(ch.fr)ch.fr.position.y=ch.rest+(F.amp||0.08)*Math.sin(2*Math.PI*t/(F.period||4));
+  const c=C.trigger.center,feet=new THREE.Vector3(pos.x,pos.y-meta.eye_height,pos.z),near=feet.distanceTo(new THREE.Vector3(c[0],c[1],c[2]))<C.trigger.radius;ch.near=near;
+  const want=near&&ch.A.alert?'alert':'idle';if(want!==ch.state&&ch.A[want]){const f=C.fade||0.3;ch.A[want].reset().setEffectiveWeight(1).fadeIn(f).play();if(ch.A[ch.state])ch.A[ch.state].fadeOut(f);ch.state=want;}
+  ch.mix.update(dt);}};
 let PAir=0;
 const playerAnim=(dt)=>{if(!PM)return;PM.visible=avatar.visible;avatar.visible=false;const dx=pos.x-PLast.x,dz=pos.z-PLast.z,sp=Math.hypot(dx,dz)/Math.max(dt,1e-3);PLast.copy(pos);
   PM.position.set(pos.x,pos.y-meta.eye_height,pos.z);if(sp>0.4&&sp<40){let d=Math.atan2(dx,dz)-PYaw;d=Math.atan2(Math.sin(d),Math.cos(d));PYaw+=d*Math.min(1,dt*12);}PM.rotation.y=PYaw;
@@ -674,6 +687,7 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
   }else{avatar.visible=true;orbit.update();}
   for(const f of fxUpd)f.u&&f.u(now/1000,dt);
   playerAnim(dt); // Stage 113
+  charAnim(dt,now/1000); // Stage 152
   if(window.camShake>0.005){if(M==='1st person'||M==='3rd person')cam.position.add(new THREE.Vector3(Math.random()-0.5,Math.random()-0.5,Math.random()-0.5).multiplyScalar(window.camShake));window.camShake*=Math.exp(-dt*7);} // Stage 103: press impact
   if(cutaway.length){const show=cam.position.y<cutY-0.3;for(const o of cutaway)o.visible=show;}
   r.render(scene,cam);

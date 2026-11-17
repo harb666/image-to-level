@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "0f25afeb937a1748",
+  "spec_sha": "1b8592a9b34213f1",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -242,6 +242,41 @@
    ],
    "energy": 1.3,
    "range": 34.0
+  },
+  {
+   "id": "Showcase_Specimen_Anim",
+   "type": "character",
+   "character": {
+    "id": "Showcase_Specimen",
+    "asset": "assets/characters/specimen/cyber_girl.glb",
+    "preview": "assets/characters/specimen/cyber_girl_preview.glb",
+    "texture": "assets/characters/specimen/cyber_girl.jpg",
+    "position": [
+     -30.0,
+     12.35,
+     -58.3
+    ],
+    "yaw": 0.0,
+    "clips": {
+     "idle": "panic",
+     "alert": "bang"
+    },
+    "float": {
+     "node": "FloatRoot",
+     "amp": 0.08,
+     "period": 4.0
+    },
+    "trigger": {
+     "center": [
+      -30.0,
+      9.5,
+      -57.3
+     ],
+     "radius": 9.0
+    },
+    "fade": 0.3,
+    "note": "spawn the glb at position (yaw deg), play clips.idle looped; while a player is within trigger.radius of trigger.center crossfade (fade s) to clips.alert; bob float.node: y = amp sin(2 pi t / period)"
+   }
   },
   {
    "id": "Tunnel_Flow",
@@ -3191,22 +3226,6 @@
    },
    "notes": "Stage 135: CONSTRUCT ERROR_ banner, X banners, logo monitors (references/make_showcase_art.py)"
   },
-  "ce_tank_mascot": {
-   "type": "image_decal",
-   "color": [
-    1,
-    1,
-    1
-   ],
-   "tile_m": 4.0,
-   "wear": 0.5,
-   "bevel": 0.12,
-   "image": "levels/assembly_ascent/references/ce_tank_mascot.png",
-   "res": 256,
-   "cutout": 0.5,
-   "glow": 0.0,
-   "notes": "Stage 135: the mascot's silhouette floating in the tank - cut out"
-  },
   "ceiling": {
    "type": "ceiling_works",
    "color": [
@@ -3946,13 +3965,13 @@
    "wear": 0.5,
    "bevel": 0.12,
    "res": 32,
-   "alpha": 0.42,
+   "alpha": 0.2,
    "emissive": [
-    0.4,
-    1.0,
-    0.25
+    0.22,
+    0.5,
+    0.12
    ],
-   "notes": "Stage 135: glowing liquid in the specimen tank"
+   "notes": "Stage 135/152: glowing liquid in the specimen tank - thin enough to see the specimen clearly"
   },
   "trim": {
    "type": "chevron",
@@ -25986,34 +26005,6 @@
    ],
    "material": "tank_green",
    "sections": 16,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_TankMascot",
-   "type": "panel",
-   "position": [
-    -30.0,
-    11.0,
-    -59.25
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.9,
-    3.8,
-    0.0
-   ],
-   "material": "ce_tank_mascot",
    "double_sided": true,
    "collision": false,
    "outline": false,
@@ -92408,6 +92399,39 @@
    "note": "per pad: joint offset (0, amp sin(2 pi (t + phase) / period), 0), yaw +-yaw, tilt +-tilt (about the deck centre); flame_joint scale y flickers"
   }
  ],
+ "characters": [
+  {
+   "id": "Showcase_Specimen",
+   "asset": "assets/characters/specimen/cyber_girl.glb",
+   "preview": "assets/characters/specimen/cyber_girl_preview.glb",
+   "texture": "assets/characters/specimen/cyber_girl.jpg",
+   "position": [
+    -30.0,
+    12.35,
+    -58.3
+   ],
+   "yaw": 0.0,
+   "clips": {
+    "idle": "panic",
+    "alert": "bang"
+   },
+   "float": {
+    "node": "FloatRoot",
+    "amp": 0.08,
+    "period": 4.0
+   },
+   "trigger": {
+    "center": [
+     -30.0,
+     9.5,
+     -57.3
+    ],
+    "radius": 9.0
+   },
+   "fade": 0.3,
+   "note": "spawn the glb at position (yaw deg), play clips.idle looped; while a player is within trigger.radius of trigger.center crossfade (fade s) to clips.alert; bob float.node: y = amp sin(2 pi t / period)"
+  }
+ ],
  "encounters": [
   {
    "id": "Yard_Waves",
@@ -92463,6 +92487,7 @@
   "Exit_Stairs: 0.75 m junction plate where it meets Upper_Deck's angled edge",
   "Exit_Stairs: stairs run 5.7 m > gap 4.0 m - extends 1.7 m onto Upper_Deck",
   "Entry_Door: entrance hallway 10 m out of the black (from slime_arena)",
+  "Showcase: specimen cyber_girl floating in the tank (18094 tris), bangs on the glass within 9 m",
   "Showcase: Construct Error showcase - dais r 8.6 m, stage tank, banner 16 m, 2 slime pits",
   "West_DuctFans: 2 massive duct fans (r 4.4 m) with ducts into the wall and 13 louvred vents",
   "Deck_Monitor_L: wall monitor 3.4 m",
@@ -92615,16 +92640,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 77678,
-  "objects": 2764,
-  "materials": 57,
-  "glb_kb": 5191,
-  "nodes": 3058,
-  "draw_calls_unbatched": 3016,
-  "draw_calls_batched_min": 59,
-  "images": 139,
-  "tex_mem_gpu_compressed_mb": 29.13,
-  "tex_mem_uncompressed_mb": 116.51,
+  "triangles": 77676,
+  "objects": 2763,
+  "materials": 56,
+  "glb_kb": 5178,
+  "nodes": 3057,
+  "draw_calls_unbatched": 3015,
+  "draw_calls_batched_min": 58,
+  "images": 137,
+  "tex_mem_gpu_compressed_mb": 28.96,
+  "tex_mem_uncompressed_mb": 115.84,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

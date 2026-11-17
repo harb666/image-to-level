@@ -58,6 +58,9 @@ def build(level_dir, out_root=None, make_zip=False, verbose=True, game=False):
     for f in files:
         s = os.path.join(level_dir, f)
         if os.path.exists(s): os.makedirs(os.path.dirname(os.path.join(dst, f)), exist_ok=True); shutil.copy2(s, os.path.join(dst, f))
+    for ch in L.get("characters", []):  # Stage 152: animated characters' own GLBs (res://levels/<name>/characters/<file>)
+        s_ = os.path.join(ROOT, ch["asset"])
+        if os.path.exists(s_): os.makedirs(os.path.join(dst, "characters"), exist_ok=True); shutil.copy2(s_, os.path.join(dst, "characters", os.path.basename(s_)))
     tres = os.path.join(dst, "environment.tres")  # res:// paths must match the package folder name
     if os.path.exists(tres):
         txt = open(tres).read(); open(tres, "w").write(re.sub(r"res://levels/[^/]+/", f"res://levels/{name}/", txt))  # read BEFORE "w" truncates it

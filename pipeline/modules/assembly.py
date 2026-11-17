@@ -848,7 +848,18 @@ def showcase(ctx, s, x, y, z, yaw):
     ctx.add(n + "_TankBase", "cylinder", [tx, y0 + 0.9, tz], [4.0, 0.6, 4.0], "structure_b", sections=16, **st)
     ctx.add(n + "_TankGlass", "cylinder", [tx, y0 + 1.5, tz], [3.2, 5.0, 3.2], ctx.role("glass_clear"), sections=16, double_sided=True, **vs)
     ctx.add(n + "_TankLiquid", "cylinder", [tx, y0 + 1.52, tz], [3.0, 4.7, 3.0], ctx.role(s.get("liquid", "tank_green")), sections=16, double_sided=True, **vs)
-    ctx.add(n + "_TankMascot", "panel", [tx, y0 + 1.5, tz + 0.05], [1.9, 3.8, 0], ctx.role(s.get("mascot_material", "ce_tank_mascot")), double_sided=True, **vs)
+    sp = s.get("specimen")
+    if sp:  # Stage 152: a rigged, animated character floating in the tank instead of the painted silhouette (level.json "characters")
+        import json as _json, os as _os
+        root = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))); base = sp["asset"]
+        meta = _json.load(open(_os.path.join(root, base + ".json"))); off = meta["vat"]["offset"]; floor_ = y0 + 1.5  # the glass starts on the base
+        trig = float(sp.get("trigger_radius", 9.0)); fl_ = dict(meta["float"], **sp.get("float", {}))
+        ctx.characters = getattr(ctx, "characters", []) + [dict(id=n + "_Specimen", asset=base + ".glb", preview=base + "_preview.glb", texture=base + ".jpg",
+            position=[round(tx + off[0], 3), round(floor_ + off[1], 3), round(tz + off[2], 3)], yaw=0.0, clips=meta["clips"], float=fl_,
+            trigger=dict(center=[round(tx, 3), round(ys, 3), round(tz + 2.0, 3)], radius=trig), fade=float(sp.get("fade", 0.3)),
+            note="spawn the glb at position (yaw deg), play clips.idle looped; while a player is within trigger.radius of trigger.center crossfade (fade s) to clips.alert; bob float.node: y = amp sin(2 pi t / period)")]
+        ctx.notes.append(f"{n}: specimen {_os.path.basename(base)} floating in the tank ({sum(meta['triangles'].values())} tris), bangs on the glass within {trig:.0f} m")
+    else: ctx.add(n + "_TankMascot", "panel", [tx, y0 + 1.5, tz + 0.05], [1.9, 3.8, 0], ctx.role(s.get("mascot_material", "ce_tank_mascot")), double_sided=True, **vs)
     ctx.add(n + "_TankCap", "cylinder", [tx, y0 + 6.5, tz], [3.9, 0.7, 3.9], "structure_b", sections=16, **st)
     ctx.add(n + "_TankTop", "cylinder", [tx, y0 + 7.2, tz], [2.3, 0.45, 2.3], "structure_b", sections=12, **st)
     for k in range(4):  # amber lamps round the cap

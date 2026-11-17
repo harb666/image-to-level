@@ -125,7 +125,7 @@ def generate(spec, G, level_dir=None):
              generator=dict(tool="pipeline/spec_to_level.py", spec_sha=H(spec), theme=theme, detail=spec.get("detail", "medium")),
              interpretation=spec.get("interpretation", {}), sky_color=PRESETS[env["sky"]["preset"]]["horizon"],
              spawn=spawn, spawns=spawns, hazards=ctx.hazards, effects=_effects(spec, ctx, plats, env, glow), environment=env,
-             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})), **({"style": spec["style"]} if spec.get("style") else {}), **({"exits": ctx.exits} if ctx.exits else {}), **({"entrances": ctx.entrances} if ctx.entrances else {}), **({"gates": ctx.gates} if getattr(ctx, "gates", None) else {}), **({"skeletons": ctx.skeletons} if getattr(ctx, "skeletons", None) else {}), **({"crushers": ctx.crushers} if getattr(ctx, "crushers", None) else {}), **({"risers": ctx.risers} if getattr(ctx, "risers", None) else {}), **({"terminals": ctx.terminals} if getattr(ctx, "terminals", None) else {}), **({"winds": ctx.winds} if getattr(ctx, "winds", None) else {}), **({"pickups": ctx.pickups} if getattr(ctx, "pickups", None) else {}), **({k_: getattr(ctx, k_) for k_ in ("saws", "belts", "kills", "sweepers", "lifts", "jets", "floaters") if getattr(ctx, k_, None)}), **({"encounters": spec["encounters"]} if spec.get("encounters") else {}),
+             bounds=b, walkable=ctx.walkable, materials=mats, objects=ctx.objects, mobile=dict(profile=spec.get("profile", "balanced"), **spec.get("mobile", {})), **({"style": spec["style"]} if spec.get("style") else {}), **({"exits": ctx.exits} if ctx.exits else {}), **({"entrances": ctx.entrances} if ctx.entrances else {}), **({"gates": ctx.gates} if getattr(ctx, "gates", None) else {}), **({"skeletons": ctx.skeletons} if getattr(ctx, "skeletons", None) else {}), **({"crushers": ctx.crushers} if getattr(ctx, "crushers", None) else {}), **({"risers": ctx.risers} if getattr(ctx, "risers", None) else {}), **({"terminals": ctx.terminals} if getattr(ctx, "terminals", None) else {}), **({"winds": ctx.winds} if getattr(ctx, "winds", None) else {}), **({"pickups": ctx.pickups} if getattr(ctx, "pickups", None) else {}), **({k_: getattr(ctx, k_) for k_ in ("saws", "belts", "kills", "sweepers", "lifts", "jets", "floaters", "characters") if getattr(ctx, k_, None)}), **({"encounters": spec["encounters"]} if spec.get("encounters") else {}),
              validation=dict(ignore_objects=[]), generator_notes=ctx.notes, relations=ctx.relations)
     if spec.get("gameplay"): L["gameplay"] = spec["gameplay"]
     if spec.get("campaign"): L["campaign"] = spec["campaign"]  # where this level sits in a multi-part level (previous / next part)
@@ -272,6 +272,8 @@ def _effects(spec, ctx, plats, env, glow):
         for ps_ in getattr(ctx, "pit_surfaces", []):  # Stage 138: brimming showcase pits - churning surface + bubbles
             out += [dict(id=ps_ + "_Surface", type="liquid_surface", target=ps_, scroll=[0.05, 0.03], swirl=0.05, pulse_speed=0.35, pulse_amount=0.3),
                     dict(id=ps_ + "_Bubbles", type="bubbles", area_from=ps_, rate=30)]
+        for ch_ in getattr(ctx, "characters", []):  # Stage 152: animated characters (the specimen in the vat)
+            out.append(dict(id=ch_["id"] + "_Anim", type="character", character=ch_))
         if getattr(ctx, "tunnel_flows", None):  # Stage 149: slime running out of the tunnels (top face: local z -> glTF -v)
             out.append(dict(id="Tunnel_Flow", type="liquid_flow", targets_glob=list(ctx.tunnel_flows), speed=1.6, flow_uv=[0.0, -1.0]))
         if getattr(ctx, "glass_pipes", None):  # Stage 142: bubbles streaming through the glass pipes (v = arc length from the path's start; glTF v is flipped)
@@ -457,7 +459,7 @@ def _merge(new, cur, state, key, rep, label):
     return out
 
 
-TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions", "style", "exits", "entrances", "gates", "encounters", "skeletons", "crushers", "risers", "terminals", "winds", "pickups", "saws", "belts", "kills", "sweepers", "lifts", "jets", "floaters")
+TOP_KEYS = ("spawn", "spawns", "bounds", "sky_color", "validation", "gameplay", "mobile", "interpretation", "spawn_regions", "style", "exits", "entrances", "gates", "encounters", "skeletons", "crushers", "risers", "terminals", "winds", "pickups", "saws", "belts", "kills", "sweepers", "lifts", "jets", "floaters", "characters")
 
 
 def merge(Lnew, Lcur, state):

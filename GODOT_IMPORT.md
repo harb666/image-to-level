@@ -166,3 +166,13 @@ The browser preview approximates all of these with three.js. It is close to Godo
   The rotor node `<id>_Rotor` turns with the cycle; streaks are a CPUParticles3D. collision.json `winds` has the data.
 - Stage 85: a wind with `trigger` blows at full force until a CharacterBody3D enters that sphere (Turbine_East: at
   West_Landing_S, after the rising pads), then spins down for good; `stop_wind(id)` does the same from code.
+
+
+## Stage 152: animated characters (`characters` / effect `character`)
+
+The specimen in the showcase vat is its own GLB: the package copies it to `res://levels/<name>/characters/<file>`.
+`apply_effects.gd` `_characters` instances it under `level_root` at `position` / `yaw`, sets the idle and alert
+animations to loop, plays `clips.idle`, bobs the `FloatRoot` node (or bone, if the importer made it one) by
+`float.amp * sin(2 pi t / float.period)`, and crossfades (`fade` s) to `clips.alert` while any node in the `players`
+group is within `trigger.radius` of `trigger.center`. Untested in Godot (no Godot here): check that the import keeps
+the animations (scene import, not mesh) and that the hair and cable primitives come in with the skin.

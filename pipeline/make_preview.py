@@ -50,6 +50,12 @@ pl = next((a.split("=", 1)[1] for a in sys.argv if a.startswith("--player=")), "
 pp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "characters", pl + "_preview")
 if pl != "none" and os.path.exists(pp + ".glb"):
     glob["PLAYER"] = b64(pp + ".glb"); glob["PLAYERTEX"] = "data:image/jpeg;base64," + b64(pp + ".jpg"); glob["PLAYERMETA"] = json.load(open(pp + ".json"))
+LJ_ = json.load(open(os.path.join(lvl, "level.json")))  # Stage 152: animated characters' preview copies (no images) + textures
+RT_ = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); CG_, CT_ = {}, {}
+for ch_ in LJ_.get("characters", []):
+    k_ = os.path.basename(ch_["preview"])
+    if os.path.exists(os.path.join(RT_, ch_["preview"])): CG_[k_] = b64(os.path.join(RT_, ch_["preview"])); CT_[k_] = "data:image/jpeg;base64," + b64(os.path.join(RT_, ch_["texture"]))
+if CG_: glob["CHARGLB"] = CG_; glob["CHARTEX"] = CT_
 import hashlib, time  # footer: which build this is (so an old cached page is obvious) + the triangle count of what is shown
 glob["BUILD_ID"] = "build " + time.strftime("%m-%d %H:%M") + " " + hashlib.sha1(open(P("level.glb"), "rb").read()).hexdigest()[:6]
 if MOB and os.path.exists(os.path.join(lvl, "mobile", "pick.json")): glob["PICK"] = json.load(open(os.path.join(lvl, "mobile", "pick.json")))  # merged-node pick boxes

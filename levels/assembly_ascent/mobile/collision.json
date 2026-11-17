@@ -19043,5 +19043,38 @@
    ],
    "note": "per pad: joint offset (0, amp sin(2 pi (t + phase) / period), 0), yaw +-yaw, tilt +-tilt (about the deck centre); flame_joint scale y flickers"
   }
+ ],
+ "characters": [
+  {
+   "id": "Showcase_Specimen",
+   "asset": "assets/characters/specimen/cyber_girl.glb",
+   "preview": "assets/characters/specimen/cyber_girl_preview.glb",
+   "texture": "assets/characters/specimen/cyber_girl.jpg",
+   "position": [
+    -30.0,
+    12.35,
+    -58.3
+   ],
+   "yaw": 0.0,
+   "clips": {
+    "idle": "panic",
+    "alert": "bang"
+   },
+   "float": {
+    "node": "FloatRoot",
+    "amp": 0.08,
+    "period": 4.0
+   },
+   "trigger": {
+    "center": [
+     -30.0,
+     9.5,
+     -57.3
+    ],
+    "radius": 9.0
+   },
+   "fade": 0.3,
+   "note": "spawn the glb at position (yaw deg), play clips.idle looped; while a player is within trigger.radius of trigger.center crossfade (fade s) to clips.alert; bob float.node: y = amp sin(2 pi t / period)"
+  }
  ]
 }

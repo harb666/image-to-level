@@ -97,6 +97,8 @@ func _ready() -> void:
 				_jet(fx["jet"])
 			"floater":  # Stage 123: a floating (bobbing) walkable pad
 				_floater(fx["floater"])
+			"character":  # Stage 152: an animated character (the specimen in the vat): idle loop, alert when players come close, bob
+				_character(fx["character"])
 			"belt":  # Stage 97: a conveyor ramp - chevrons slide, riders are carried
 				_belt(fx["belt"])
 			"bob":  # Stage 92: a specimen drifting in its tank (rest transforms kept, turned about the pivot)
@@ -1091,9 +1093,60 @@ func _wind_strength(wr: Array, t: float) -> float:  # 0..1: triggered - 1 until 
 	return 0.0
 
 
+var _characters: Array = []
+
+
+func _character(d: Dictionary) -> void:
+	## Stage 152: the character's own GLB, packaged at <level>/characters/<file> (scene import: keep its animations)
+	var path := _base_dir.path_join("characters").path_join(String(d["asset"]).get_file())
+	var res = load(path)
+	if res == null or not (res is PackedScene):
+		push_warning("character GLB missing: " + path)
+		return
+	var inst: Node3D = (res as PackedScene).instantiate()
+	level_root.add_child(inst)
+	inst.position = Vector3(d["position"][0], d["position"][1], d["position"][2])
+	inst.rotation.y = deg_to_rad(float(d.get("yaw", 0.0)))
+	var ap: AnimationPlayer = inst.find_child("AnimationPlayer", true, false)
+	var clips: Dictionary = d["clips"]
+	if ap != null:
+		for c in [String(clips["idle"]), String(clips["alert"])]:
+			if ap.has_animation(c):
+				ap.get_animation(c).loop_mode = Animation.LOOP_LINEAR
+		ap.play(String(clips["idle"]))
+	var fl: Dictionary = d.get("float", {})
+	var bob: Node3D = inst.find_child(String(fl.get("node", "FloatRoot")), true, false)
+	var sk: Skeleton3D = inst.find_child("Skeleton3D", true, false) as Skeleton3D
+	var bone := sk.find_bone(String(fl.get("node", "FloatRoot"))) if sk != null else -1  # glTF import may turn the node into a bone
+	_characters.append({"d": d, "ap": ap, "bob": bob, "sk": sk, "bone": bone, "alert": false,
+		"rest": (sk.get_bone_rest(bone).origin if bone >= 0 else (bob.position if bob != null else Vector3.ZERO))})
+
+
+func _update_characters() -> void:
+	for c in _characters:
+		var d: Dictionary = c["d"]
+		var fl: Dictionary = d.get("float", {})
+		var y := float(fl.get("amp", 0.08)) * sin(TAU * _t / float(fl.get("period", 4.0)))
+		if c["bone"] >= 0:
+			(c["sk"] as Skeleton3D).set_bone_pose_position(c["bone"], c["rest"] + Vector3(0.0, y, 0.0))
+		elif c["bob"] != null:
+			(c["bob"] as Node3D).position = c["rest"] + Vector3(0.0, y, 0.0)
+		var tr: Dictionary = d["trigger"]
+		var ctr := Vector3(tr["center"][0], tr["center"][1], tr["center"][2])
+		var near := false
+		for pl in get_tree().get_nodes_in_group(&"players"):
+			if pl is Node3D and (pl as Node3D).global_position.distance_to(ctr) < float(tr["radius"]):
+				near = true
+		if near != c["alert"] and c["ap"] != null:
+			c["alert"] = near
+			var clip := String(d["clips"]["alert" if near else "idle"])
+			(c["ap"] as AnimationPlayer).play(clip, float(d.get("fade", 0.3)))
+
+
 func _physics_process(delta: float) -> void:
 	_update_lifts(delta)
 	_update_floaters()
+	_update_characters()
 	for br in _belts:  # Stage 97: carry whoever stands on a conveyor ramp
 		var b: Dictionary = br[0]
 		var u := Vector3(b["axis"][0], b["axis"][1], b["axis"][2]).normalized()

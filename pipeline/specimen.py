@@ -309,7 +309,7 @@ def cable(p0, p1, r=0.018, rings=10, sides=6, sag=0.0):
 
 
 # ------------------------------------------------------------------ build
-DEFAULT = dict(keep_body=0.55, keep_hair=0.6, tex=1024, tex_q=84, cable_top=4.05, vat_offset=[0.0, 11.95, 0.9], glass_r=1.55, vat_inner_top=3.75)
+DEFAULT = dict(keep_body=0.55, keep_hair=0.6, tex=1024, tex_q=84, vat_height=5.0, vat_offset=[0.0, 1.35, 1.0], glass_r=1.55)  # her feet 1.35 m above the vat floor: centred in the 5 m tank
 
 
 def prepare(src, cfg=None):
@@ -350,7 +350,7 @@ def prepare(src, cfg=None):
             ji, wi = top4(JI[src_v], WI[src_v])  # (old joint indices = the same positions in the new list)
         vV, vN, vUV, vJ, vW, vF = unweld_uv(V, Fn, UVc, N, (ji, wi)); parts[name] = dict(P=vV, N=vN, UV=vUV, J=vJ, W=vW, F=vF)
     # -- cables: nape pair + crown jack, up to anchors under the tank cap (asset coords; vat centre at z = -vat_offset[2])
-    top = float(cfg["cable_top"]); vz = -float(cfg["vat_offset"][2]); CP, CF, CJ, CW = [], [], [], []
+    top = float(cfg["vat_height"]) - float(cfg["vat_offset"][1]) + 0.05; vz = -float(cfg["vat_offset"][2]); CP, CF, CJ, CW = [], [], [], []  # the cables end 5 cm into the tank cap; CP, CF, CJ, CW = [], [], [], []
     att = [("mixamorig:Neck", [0.05, -0.085, 0.0], [0.28, top, vz - 0.55]), ("mixamorig:Neck", [-0.05, -0.085, 0.0], [-0.28, top, vz - 0.55]),
            ("mixamorig:HeadTop_End", [0.0, 0.0, -0.02], [0.0, top, vz - 0.15])]
     for bone, off, anchor in att:
@@ -623,3 +623,20 @@ def clip_report(prep, step=2):
             hq = Wq[sk.idx[M + "Head"]]; f = qrot(hq, qrot(qinv(Poser(sk).rest_Wq[sk.idx[M + "Head"]]), [0, 0, 1])); R["yaw"] = max(R["yaw"], abs(math.degrees(math.atan2(f[0], f[2]))))
         rep[name] = {k: (round(v, 3) if isinstance(v, float) else [round(x, 1) for x in v] if isinstance(v, list) else v) for k, v in R.items()}
     return rep
+
+
+def build_asset(src, out, cfg=None, name="specimen"):
+    """<out>.glb (texture embedded: Godot), <out>_preview.glb (no images: the sandboxed preview) + <out>.jpg, <out>.json."""
+    prep = prepare(src, cfg); clips = make_clips(prep); rep = clip_report(prep, step=2)
+    n_full = write(prep, out + ".glb", clips, embed_texture=True); n_prev = write(prep, out + "_preview.glb", clips, embed_texture=False)
+    open(out + ".jpg", "wb").write(prep["tex_jpg"]); cfg = prep["cfg"]
+    meta = dict(name=name, source=src, clips=dict(idle="panic", alert="bang"), float=dict(node="FloatRoot", amp=0.08, period=4.0),
+                vat=dict(offset=cfg["vat_offset"], glass_r=cfg["glass_r"], note="asset origin = vat centre + (0, offset[1] above the vat floor, offset[2] towards her front); the clips' contacts assume it"),
+                triangles={k: int(len(v["F"])) for k, v in prep["parts"].items()}, source_triangles=prep["src_faces"], bytes=dict(glb=n_full, preview_glb=n_prev, jpg=len(prep["tex_jpg"])),
+                bones=len(prep["joints"]), checks=rep, texture=out.split("/")[-1] + ".jpg",
+                note="Stage 152: hair split from the body (own primitive, two 5-bone chains + Head), FloatRoot (runtime bob), WireAnchor + cables; clips authored in pipeline/specimen.py")
+    json.dump(meta, open(out + ".json", "w"), indent=1); return meta
+
+
+if __name__ == "__main__":
+    a = sys.argv[1:]; m = build_asset(a[0], a[1], name=a[1].split("/")[-1]); print(json.dumps({k: m[k] for k in ("triangles", "bytes", "bones", "checks")}, indent=1))
