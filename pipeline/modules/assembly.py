@@ -938,3 +938,52 @@ def showcase(ctx, s, x, y, z, yaw):
     ctx.extra_lights = getattr(ctx, "extra_lights", []) + [dict(id=n + "_TankGlow", positions=[[tx, y0 + 4.0, tz + 3.0]], color=[0.45, 1.0, 0.3], energy=1.4, range=14.0),
                                                            dict(id=n + "_BannerGlow", positions=[[tx - 6, 20.0, wz + 4.0], [tx + 6, 20.0, wz + 4.0]], color=[1.0, 0.3, 0.8], energy=1.1, range=16.0)]
     ctx.notes.append(f"{n}: Construct Error showcase - dais r {R:.1f} m, stage tank, banner {bw:.0f} m, {len(s.get('pits', []))} slime pits")
+
+
+@structure("duct_fans", pad=False)
+def duct_fans(ctx, s, x, y, z, yaw):
+    """Stage 145: a bank of massive industrial duct fans on a wall - "position" [x, y, z] = the wall face at the bank's
+    centre (y = its floor level), "yaw" = the direction it faces, "length" m along the wall, "fans" (2). Each fan sits
+    deep in a square steel duct housing (hazard-striped lip, amber corner lamps) with a big rectangular duct rising out
+    of its top into the wall (ribbed, louvred vents on its face) and a bank of louvred vents under it; a stack of vents
+    between the fans. The rotors spin (effect "spin"). Visual only."""
+    from architecture import fan_unit, louvred_vent
+    n = s["id"]; L = float(s.get("length", 28.0)); nf = int(s.get("fans", 2)); R = float(s.get("radius", 4.4)); yc = float(s.get("fan_y", y + 14.5))
+    top = float(s.get("duct_top", y + 29.0)); st = dict(mobile={"static": True}); vs = dict(collision=False, **st)
+    g = ctx.add(n, "group", [x, 0, z], rot=[0, yaw, 0]); stripe, amber, body = ctx.role("stripe"), ctx.role("glow_yellow"), "structure_b"
+    xs = [-L / 2 + L * (k + 0.5) / nf for k in range(nf)]; H = 2 * R + 2.6; D = 2.3; t = 0.65
+    for k, fx in enumerate(xs):
+        fn = f"{n}_Fan_{k + 1}"
+        for nm, px, py, w, h in (("Top", fx, yc + H / 2 - t, H, t), ("Bottom", fx, yc - H / 2, H, t), ("L", fx - H / 2 + t / 2, yc - H / 2 + t - 0.02, t, H - 2 * t + 0.04), ("R", fx + H / 2 - t / 2, yc - H / 2 + t - 0.02, t, H - 2 * t + 0.04)):
+            ctx.add(f"{fn}_Housing{nm}", "box", [px, py, D / 2], [w, h, D], body, g, **vs)
+        for nm, px, py, w, h in (("T", fx, yc + H / 2 - 0.3, H + 0.1, 0.3), ("B", fx, yc - H / 2 + 0.0, H + 0.1, 0.3)):
+            ctx.add(f"{fn}_Lip{nm}", "box", [px, py, D + 0.04], [w, h, 0.1], stripe, g, **vs)  # hazard lip on the duct mouth
+        for cx_, cy_ in ((-1, -1), (-1, 1), (1, -1), (1, 1)):
+            ctx.add(f"{fn}_Lamp_{'LR'[cx_ > 0]}{'BT'[cy_ > 0]}", "box", [fx + cx_ * (H / 2 - 0.35), yc + cy_ * (H / 2 - 0.65) - 0.15, D + 0.06], [0.36, 0.3, 0.1], amber, g, **vs)
+        fan_unit(ctx, fn, g, (fx, yc, 0.55), R, 1.1, wall=True, rpm=float(s.get("rpm", 46.0)) * (1 if k % 2 else -1), seed=k + 7, st=st)
+        dw, y0d = H - 1.6, yc + H / 2  # the duct rising out of the housing's top, turning into the wall
+        ctx.add(f"{fn}_Duct", "box", [fx, y0d - 0.02, 1.0], [dw, top - y0d, 2.0], body, g, **vs)
+        ctx.add(f"{fn}_DuctCap", "box", [fx, top - 0.02, 0.0], [dw + 0.6, 1.2, 2.6], "frame", g, **vs)
+        for j in range(int((top - y0d) / 2.2)):  # ribs round it
+            ctx.add(f"{fn}_Rib_{j + 1}", "box", [fx, y0d + 1.1 + j * 2.2, 1.0], [dw + 0.24, 0.26, 2.24], "frame", g, **vs)
+        nv = 2; vw = (dw - 0.8) / nv
+        for j in range(nv): louvred_vent(ctx, f"{fn}_DuctVent_{j + 1}", g, fx - dw / 2 + 0.4 + vw * (j + 0.5), y0d + 1.5, vw - 0.2, 2.6, 2.0, st)
+        bw = (H - 0.4) / 3  # a bank of vents under the fan
+        for j in range(3): louvred_vent(ctx, f"{fn}_UnderVent_{j + 1}", g, fx - H / 2 + 0.2 + bw * (j + 0.5), y + 2.6, bw - 0.25, 2.4, 0.0, st)
+    gap_x = 0.0 if nf == 2 else xs[0] + (xs[1] - xs[0]) / 2  # a stack of vents between the fans
+    for j in range(3): louvred_vent(ctx, f"{n}_MidVent_{j + 1}", g, gap_x, y + 3.0 + j * 3.6, 2.8, 3.0, 0.0, st)
+    ctx.notes.append(f"{n}: {nf} massive duct fans (r {R:.1f} m) with ducts into the wall and {nf * 5 + 3} louvred vents")
+
+
+@structure("wall_monitor", pad=False)
+def wall_monitor(ctx, s, x, y, z, yaw):
+    """Stage 145: a wall TV (the wall modules' monitor, deterministic) - "position" [x, y, z] = its bottom centre on the
+    wall face, "yaw" = facing, "width" m; screen picture from the "screen" atlas (own id: own flicker)."""
+    from architecture import screen_slot
+    n = s["id"]; tw = float(s.get("width", 3.6)); st = dict(mobile={"static": True}); g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0])
+    scr, sid = screen_slot(ctx, "screen", s.get("cell", "a"))
+    bf, cf, depth, stand = 0.07, 0.2, 0.9, 0.35; W_ = tw / (1 - 2 * bf); H_ = W_ * 0.8; th = H_ * (1 - cf - bf * 1.33) * 0.98
+    ctx.add(n + "_Body", "tv_body", [0, 0, stand], [W_, H_, depth], "tv_casing", g, border=bf, chin=cf, **st)
+    ctx.add(n + "_Screen", "panel", [0, H_ * cf + H_ * 0.003, stand + depth - 0.12 + 0.02], [W_ * (1 - 2 * bf) * 0.995, th, 0], "screen", g, uv_region=scr, uv_shift=sid, collision=False, outline=False, **st)
+    for k_ in (-1, 1): ctx.add(f"{n}_Arm_{k_ + 1}", "box", [k_ * W_ * 0.2, H_ * 0.45, 0.0], [0.25, 0.3, stand + 0.1], "frame", g, collision=False, outline=False, **st)
+    ctx.notes.append(f"{n}: wall monitor {tw:.1f} m")

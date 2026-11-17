@@ -95,6 +95,16 @@ class AssemblyAscent(unittest.TestCase):
             ang = lambda p: math.atan2(p[1] - C[1], p[0] - C[0]); d = (ang(pt) - ang(pb) + math.pi) % (2 * math.pi) - math.pi
             self.assertEqual(d > 0, sw["rpm"] > 0, sw["id"])  # tip ahead of its base in the spin direction (about the axis, here +z)
 
+    def test_west_wall_duct_fans_and_moved_monitors(self):
+        """Stage 145: the west wall stretch past the robot ring has two massive spinning duct fans with ducts and banks of
+        louvred vents instead of its two monitors; the monitors hang over the upper deck on the north wall."""
+        self.assertFalse([n for n in self.by if n.startswith("OuterWall_West_M") and "Monitor" in n])
+        spin = next(e for e in _load("effects.json")["effects"] if e["type"] == "spin")
+        for k in (1, 2):
+            self.assertIn(f"West_DuctFans_Fan_{k}_Rotor", spin["targets"]); self.assertIn(f"West_DuctFans_Fan_{k}_Duct", self.by)
+        self.assertGreaterEqual(len({n.rsplit("_Slat", 1)[0] for n in self.by if n.startswith("West_DuctFans") and "_Slat_" in n}), 10)
+        for m in ("Deck_Monitor_L", "Deck_Monitor_R"): self.assertEqual(self.by[m + "_Body"]["type"], "tv_body"); self.assertIn(m + "_Screen", self.by)
+
     def test_saw_hubs_are_plain(self):
         """Stage 132: the spinning blade hub (flange + nut) is plain dark metal - the machine panel's white light slots
         spun round with the blade."""

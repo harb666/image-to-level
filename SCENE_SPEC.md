@@ -1453,4 +1453,9 @@ Building blocks usable without the preset:
   (`"car"`) the lift car parked at the top (plate, amber light ring underneath, clamps). Ceiling dressing over a
   shaft is removed afterwards (whole beams / ducts / rails), so the layout elsewhere is unchanged. Assembly Ascent:
   `BossShaft` (r 10 m) right over the showcase dais - where the boss lift will come down.
+- Stage 145: structure kinds `duct_fans` (`length`, `fans`, `radius`, `fan_y`, `duct_top`, `rpm`: massive spinning
+  wall fans deep in square duct housings with hazard lips and amber lamps, ribbed ducts rising into the wall with
+  louvred vents, vent banks under each fan and a vent stack between) and `wall_monitor` (`width`, `cell`: the wall
+  modules' TV as a placeable piece). Assembly Ascent: `West_DuctFans` replaces the west wall's two monitors (slots
+  M08-M11 overridden `plain`); `Deck_Monitor_L/R` hang either side of the grin sign over the upper deck.
 

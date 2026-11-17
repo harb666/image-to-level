@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "2a040edd3c2e92fc",
+  "spec_sha": "cb5164eb51ded864",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -448,6 +448,8 @@
    "targets": [
     "OuterWall_South_M03Fan_Rotor",
     "OuterWall_South_M05Fan_Rotor",
+    "West_DuctFans_Fan_1_Rotor",
+    "West_DuctFans_Fan_2_Rotor",
     "Ceil_Fan_1_Rotor"
    ]
   },
@@ -11194,12 +11196,12 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_West_M08Monitor_Body",
-   "type": "tv_body",
+   "name": "OuterWall_West_M08Plain_Strip",
+   "type": "box",
    "position": [
     6.381,
-    9.415,
-    2.35
+    13.0,
+    2.05
    ],
    "rotation": [
     0.0,
@@ -11208,41 +11210,11 @@
    ],
    "parent": "OuterWall_West",
    "size": [
-    4.229,
-    3.383,
-    0.9
+    5.792,
+    0.18,
+    0.1
    ],
-   "material": "tv_casing",
-   "border": 0.07,
-   "chin": 0.2,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M08Monitor_Screen",
-   "type": "panel",
-   "position": [
-    6.381,
-    10.102,
-    3.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    3.619,
-    2.344,
-    0.0
-   ],
-   "material": "screen",
-   "uv_region": "b",
-   "uv_shift": 6,
+   "material": "glow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -11252,97 +11224,12 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_West_M08Monitor_Arm_0",
-   "type": "box",
-   "position": [
-    5.535,
-    10.938,
-    2.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    0.25,
-    0.3,
-    0.45
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M08Monitor_Arm_2",
-   "type": "box",
-   "position": [
-    7.227,
-    10.938,
-    2.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    0.25,
-    0.3,
-    0.45
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M08Monitor_Cable",
-   "type": "cylinder",
-   "position": [
-    5.197,
-    12.291,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    0.24,
-    3.5,
-    0.24
-   ],
-   "material": "frame",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M09Vent",
+   "name": "OuterWall_West_M09Plain_Strip",
    "type": "box",
    "position": [
     13.137,
-    13.467,
-    2.15
+    13.0,
+    2.05
    ],
    "rotation": [
     0.0,
@@ -11351,342 +11238,9 @@
    ],
    "parent": "OuterWall_West",
    "size": [
-    2.749,
-    0.3,
-    0.3
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M09Vent_FrameLow",
-   "type": "box",
-   "position": [
-    13.137,
-    9.989,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    2.749,
-    0.3,
-    0.3
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M09Vent_FrameSide_1",
-   "type": "box",
-   "position": [
-    11.912,
-    10.269,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    0.3,
-    3.219,
-    0.3
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M09Vent_FrameSide_2",
-   "type": "box",
-   "position": [
-    14.362,
-    10.269,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    0.3,
-    3.219,
-    0.3
-   ],
-   "material": "structure_b",
-   "collision": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M09Vent_Duct",
-   "type": "panel",
-   "position": [
-    13.137,
-    10.269,
-    2.02
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    2.189,
-    3.219,
-    0.0
-   ],
-   "material": "accent",
-   "uv_region": "void",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M09Vent_Slat_1",
-   "type": "box",
-   "position": [
-    13.137,
-    10.366,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    2.189,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M09Vent_Slat_2",
-   "type": "box",
-   "position": [
-    13.137,
-    10.82,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    2.189,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M09Vent_Slat_3",
-   "type": "box",
-   "position": [
-    13.137,
-    11.274,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    2.189,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M09Vent_Slat_4",
-   "type": "box",
-   "position": [
-    13.137,
-    11.728,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    2.189,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M09Vent_Slat_5",
-   "type": "box",
-   "position": [
-    13.137,
-    12.182,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    2.189,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M09Vent_Slat_6",
-   "type": "box",
-   "position": [
-    13.137,
-    12.636,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    2.189,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M09Vent_Slat_7",
-   "type": "box",
-   "position": [
-    13.137,
-    13.09,
-    2.2
-   ],
-   "rotation": [
-    35.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    2.189,
-    0.3,
-    0.07
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M09Vent_Status",
-   "type": "box",
-   "position": [
-    14.062,
-    13.537,
-    2.31
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    0.3,
-    0.16,
-    0.06
+    3.667,
+    0.18,
+    0.1
    ],
    "material": "glow",
    "collision": false,
@@ -11785,70 +11339,12 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_West_M11Monitor_Body",
-   "type": "tv_body",
-   "position": [
-    27.631,
-    9.483,
-    2.35
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    5.999,
-    4.799,
-    0.9
-   ],
-   "material": "tv_casing",
-   "border": 0.07,
-   "chin": 0.2,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M11Monitor_Screen",
-   "type": "panel",
-   "position": [
-    27.631,
-    10.457,
-    3.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    5.133,
-    3.325,
-    0.0
-   ],
-   "material": "screen",
-   "uv_region": "a",
-   "uv_shift": 7,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M11Monitor_Arm_0",
+   "name": "OuterWall_West_M11Plain_Strip",
    "type": "box",
    "position": [
-    26.431,
-    11.643,
-    2.0
+    27.631,
+    13.0,
+    2.05
    ],
    "rotation": [
     0.0,
@@ -11857,11 +11353,11 @@
    ],
    "parent": "OuterWall_West",
    "size": [
-    0.25,
-    0.3,
-    0.45
+    7.86,
+    0.18,
+    0.1
    ],
-   "material": "frame",
+   "material": "glow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -11871,64 +11367,7 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_West_M11Monitor_Arm_2",
-   "type": "box",
-   "position": [
-    28.83,
-    11.643,
-    2.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    0.25,
-    0.3,
-    0.45
-   ],
-   "material": "frame",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M11Monitor_Cable",
-   "type": "cylinder",
-   "position": [
-    25.951,
-    13.562,
-    2.15
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_West",
-   "size": [
-    0.24,
-    3.5,
-    0.24
-   ],
-   "material": "frame",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_West_M11Monitor_Red",
+   "name": "OuterWall_West_M11Plain_Red",
    "type": "box",
    "position": [
     25.461,
@@ -11956,7 +11395,7 @@
    "source": "inferred"
   },
   {
-   "name": "OuterWall_West_M11Monitor_Plate",
+   "name": "OuterWall_West_M11Plain_Plate",
    "type": "panel",
    "position": [
     27.631,
@@ -11976,7 +11415,7 @@
    ],
    "material": "frame",
    "cut": "ragged",
-   "seed": 24469,
+   "seed": 44987,
    "collision": false,
    "outline": false,
    "uv_space": "world",
@@ -30825,6 +30264,5675 @@
    "mobile": {
     "static": true
    }
+  },
+  {
+   "name": "West_DuctFans",
+   "type": "group",
+   "position": [
+    -50.0,
+    0.0,
+    -16.5
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_HousingTop",
+   "type": "box",
+   "position": [
+    -7.0,
+    20.55,
+    1.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    11.4,
+    0.65,
+    2.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_HousingBottom",
+   "type": "box",
+   "position": [
+    -7.0,
+    9.8,
+    1.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    11.4,
+    0.65,
+    2.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_HousingL",
+   "type": "box",
+   "position": [
+    -12.375,
+    10.43,
+    1.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.65,
+    10.14,
+    2.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_HousingR",
+   "type": "box",
+   "position": [
+    -1.625,
+    10.43,
+    1.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.65,
+    10.14,
+    2.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_LipT",
+   "type": "box",
+   "position": [
+    -7.0,
+    20.9,
+    2.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    11.5,
+    0.3,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_LipB",
+   "type": "box",
+   "position": [
+    -7.0,
+    9.8,
+    2.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    11.5,
+    0.3,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Lamp_LB",
+   "type": "box",
+   "position": [
+    -12.35,
+    10.3,
+    2.36
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.36,
+    0.3,
+    0.1
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Lamp_LT",
+   "type": "box",
+   "position": [
+    -12.35,
+    20.4,
+    2.36
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.36,
+    0.3,
+    0.1
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Lamp_RB",
+   "type": "box",
+   "position": [
+    -1.65,
+    10.3,
+    2.36
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.36,
+    0.3,
+    0.1
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Lamp_RT",
+   "type": "box",
+   "position": [
+    -1.65,
+    20.4,
+    2.36
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.36,
+    0.3,
+    0.1
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1",
+   "type": "cylinder",
+   "position": [
+    -7.0,
+    15.5,
+    0.55
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    10.0,
+    1.1,
+    10.0
+   ],
+   "material": "structure_b",
+   "sections": 20,
+   "hole": 4.4,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Clamp_1",
+   "type": "box",
+   "position": [
+    -3.358,
+    18.742,
+    0.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    45.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    1.3,
+    0.8,
+    1.4
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Clamp_2",
+   "type": "box",
+   "position": [
+    -10.642,
+    18.742,
+    0.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    135.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    1.3,
+    0.8,
+    1.4
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Clamp_3",
+   "type": "box",
+   "position": [
+    -10.642,
+    11.458,
+    0.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    225.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    1.3,
+    0.8,
+    1.4
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Clamp_4",
+   "type": "box",
+   "position": [
+    -3.358,
+    11.458,
+    0.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    315.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    1.3,
+    0.8,
+    1.4
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Glow",
+   "type": "cylinder",
+   "position": [
+    -7.0,
+    15.5,
+    0.6
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    8.7,
+    0.05,
+    8.7
+   ],
+   "material": "glow_dim",
+   "sections": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Grille_01",
+   "type": "box",
+   "position": [
+    -7.0,
+    12.2,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    5.704,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Grille_11",
+   "type": "box",
+   "position": [
+    -10.3,
+    15.5,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.12,
+    5.704,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Grille_02",
+   "type": "box",
+   "position": [
+    -7.0,
+    14.4,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    8.35,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Grille_12",
+   "type": "box",
+   "position": [
+    -8.1,
+    15.5,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.12,
+    8.35,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Grille_03",
+   "type": "box",
+   "position": [
+    -7.0,
+    16.6,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    8.35,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Grille_13",
+   "type": "box",
+   "position": [
+    -5.9,
+    15.5,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.12,
+    8.35,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Grille_04",
+   "type": "box",
+   "position": [
+    -7.0,
+    18.8,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    5.704,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Grille_14",
+   "type": "box",
+   "position": [
+    -3.7,
+    15.5,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.12,
+    5.704,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    -7.0,
+    15.5,
+    1.232
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    8.36,
+    0.495,
+    8.36
+   ],
+   "material": "frame",
+   "blades": 8,
+   "sweep": 26.663779412604484,
+   "detail": "low",
+   "collision": false,
+   "outline": false,
+   "spin": 46.0,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Duct",
+   "type": "box",
+   "position": [
+    -7.0,
+    21.18,
+    1.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    9.8,
+    8.8,
+    2.0
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctCap",
+   "type": "box",
+   "position": [
+    -7.0,
+    29.98,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    10.4,
+    1.2,
+    2.6
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Rib_1",
+   "type": "box",
+   "position": [
+    -7.0,
+    22.3,
+    1.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    10.04,
+    0.26,
+    2.24
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Rib_2",
+   "type": "box",
+   "position": [
+    -7.0,
+    24.5,
+    1.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    10.04,
+    0.26,
+    2.24
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Rib_3",
+   "type": "box",
+   "position": [
+    -7.0,
+    26.7,
+    1.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    10.04,
+    0.26,
+    2.24
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_Rib_4",
+   "type": "box",
+   "position": [
+    -7.0,
+    28.9,
+    1.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    10.04,
+    0.26,
+    2.24
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_1",
+   "type": "box",
+   "position": [
+    -9.25,
+    25.0,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    4.3,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_1_FrameLow",
+   "type": "box",
+   "position": [
+    -9.25,
+    22.7,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    4.3,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_1_FrameSide_1",
+   "type": "box",
+   "position": [
+    -11.25,
+    22.98,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    2.04,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_1_FrameSide_2",
+   "type": "box",
+   "position": [
+    -7.25,
+    22.98,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    2.04,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_1_Duct",
+   "type": "panel",
+   "position": [
+    -9.25,
+    22.98,
+    2.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    2.04,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_1_Slat_1",
+   "type": "box",
+   "position": [
+    -9.25,
+    23.1,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_1_Slat_2",
+   "type": "box",
+   "position": [
+    -9.25,
+    23.6,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_1_Slat_3",
+   "type": "box",
+   "position": [
+    -9.25,
+    24.1,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_1_Slat_4",
+   "type": "box",
+   "position": [
+    -9.25,
+    24.6,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_1_Status",
+   "type": "box",
+   "position": [
+    -7.55,
+    25.07,
+    2.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_2",
+   "type": "box",
+   "position": [
+    -4.75,
+    25.0,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    4.3,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_2_FrameLow",
+   "type": "box",
+   "position": [
+    -4.75,
+    22.7,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    4.3,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_2_FrameSide_1",
+   "type": "box",
+   "position": [
+    -6.75,
+    22.98,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    2.04,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_2_FrameSide_2",
+   "type": "box",
+   "position": [
+    -2.75,
+    22.98,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    2.04,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_2_Duct",
+   "type": "panel",
+   "position": [
+    -4.75,
+    22.98,
+    2.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    2.04,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_2_Slat_1",
+   "type": "box",
+   "position": [
+    -4.75,
+    23.1,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_2_Slat_2",
+   "type": "box",
+   "position": [
+    -4.75,
+    23.6,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_2_Slat_3",
+   "type": "box",
+   "position": [
+    -4.75,
+    24.1,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_2_Slat_4",
+   "type": "box",
+   "position": [
+    -4.75,
+    24.6,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_DuctVent_2_Status",
+   "type": "box",
+   "position": [
+    -3.05,
+    25.07,
+    2.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_1",
+   "type": "box",
+   "position": [
+    -10.667,
+    5.7,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.417,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_1_FrameLow",
+   "type": "box",
+   "position": [
+    -10.667,
+    3.6,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.417,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_1_FrameSide_1",
+   "type": "box",
+   "position": [
+    -12.225,
+    3.88,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    1.84,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_1_FrameSide_2",
+   "type": "box",
+   "position": [
+    -9.108,
+    3.88,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    1.84,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_1_Duct",
+   "type": "panel",
+   "position": [
+    -10.667,
+    3.88,
+    0.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    1.84,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_1_Slat_1",
+   "type": "box",
+   "position": [
+    -10.667,
+    3.975,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_1_Slat_2",
+   "type": "box",
+   "position": [
+    -10.667,
+    4.425,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_1_Slat_3",
+   "type": "box",
+   "position": [
+    -10.667,
+    4.875,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_1_Slat_4",
+   "type": "box",
+   "position": [
+    -10.667,
+    5.325,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_1_Status",
+   "type": "box",
+   "position": [
+    -9.408,
+    5.77,
+    0.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_2",
+   "type": "box",
+   "position": [
+    -7.0,
+    5.7,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.417,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_2_FrameLow",
+   "type": "box",
+   "position": [
+    -7.0,
+    3.6,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.417,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_2_FrameSide_1",
+   "type": "box",
+   "position": [
+    -8.558,
+    3.88,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    1.84,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_2_FrameSide_2",
+   "type": "box",
+   "position": [
+    -5.442,
+    3.88,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    1.84,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_2_Duct",
+   "type": "panel",
+   "position": [
+    -7.0,
+    3.88,
+    0.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    1.84,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_2_Slat_1",
+   "type": "box",
+   "position": [
+    -7.0,
+    3.975,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_2_Slat_2",
+   "type": "box",
+   "position": [
+    -7.0,
+    4.425,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_2_Slat_3",
+   "type": "box",
+   "position": [
+    -7.0,
+    4.875,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_2_Slat_4",
+   "type": "box",
+   "position": [
+    -7.0,
+    5.325,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_2_Status",
+   "type": "box",
+   "position": [
+    -5.742,
+    5.77,
+    0.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_3",
+   "type": "box",
+   "position": [
+    -3.333,
+    5.7,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.417,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_3_FrameLow",
+   "type": "box",
+   "position": [
+    -3.333,
+    3.6,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.417,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_3_FrameSide_1",
+   "type": "box",
+   "position": [
+    -4.892,
+    3.88,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    1.84,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_3_FrameSide_2",
+   "type": "box",
+   "position": [
+    -1.775,
+    3.88,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    1.84,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_3_Duct",
+   "type": "panel",
+   "position": [
+    -3.333,
+    3.88,
+    0.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    1.84,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_3_Slat_1",
+   "type": "box",
+   "position": [
+    -3.333,
+    3.975,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_3_Slat_2",
+   "type": "box",
+   "position": [
+    -3.333,
+    4.425,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_3_Slat_3",
+   "type": "box",
+   "position": [
+    -3.333,
+    4.875,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_3_Slat_4",
+   "type": "box",
+   "position": [
+    -3.333,
+    5.325,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_1_UnderVent_3_Status",
+   "type": "box",
+   "position": [
+    -2.075,
+    5.77,
+    0.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_HousingTop",
+   "type": "box",
+   "position": [
+    7.0,
+    20.55,
+    1.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    11.4,
+    0.65,
+    2.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_HousingBottom",
+   "type": "box",
+   "position": [
+    7.0,
+    9.8,
+    1.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    11.4,
+    0.65,
+    2.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_HousingL",
+   "type": "box",
+   "position": [
+    1.625,
+    10.43,
+    1.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.65,
+    10.14,
+    2.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_HousingR",
+   "type": "box",
+   "position": [
+    12.375,
+    10.43,
+    1.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.65,
+    10.14,
+    2.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_LipT",
+   "type": "box",
+   "position": [
+    7.0,
+    20.9,
+    2.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    11.5,
+    0.3,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_LipB",
+   "type": "box",
+   "position": [
+    7.0,
+    9.8,
+    2.34
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    11.5,
+    0.3,
+    0.1
+   ],
+   "material": "stripe",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Lamp_LB",
+   "type": "box",
+   "position": [
+    1.65,
+    10.3,
+    2.36
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.36,
+    0.3,
+    0.1
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Lamp_LT",
+   "type": "box",
+   "position": [
+    1.65,
+    20.4,
+    2.36
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.36,
+    0.3,
+    0.1
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Lamp_RB",
+   "type": "box",
+   "position": [
+    12.35,
+    10.3,
+    2.36
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.36,
+    0.3,
+    0.1
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Lamp_RT",
+   "type": "box",
+   "position": [
+    12.35,
+    20.4,
+    2.36
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.36,
+    0.3,
+    0.1
+   ],
+   "material": "glow_yellow",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2",
+   "type": "cylinder",
+   "position": [
+    7.0,
+    15.5,
+    0.55
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    10.0,
+    1.1,
+    10.0
+   ],
+   "material": "structure_b",
+   "sections": 20,
+   "hole": 4.4,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Clamp_1",
+   "type": "box",
+   "position": [
+    10.642,
+    18.742,
+    0.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    45.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    1.3,
+    0.8,
+    1.4
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Clamp_2",
+   "type": "box",
+   "position": [
+    3.358,
+    18.742,
+    0.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    135.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    1.3,
+    0.8,
+    1.4
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Clamp_3",
+   "type": "box",
+   "position": [
+    3.358,
+    11.458,
+    0.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    225.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    1.3,
+    0.8,
+    1.4
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Clamp_4",
+   "type": "box",
+   "position": [
+    10.642,
+    11.458,
+    0.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    315.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    1.3,
+    0.8,
+    1.4
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Glow",
+   "type": "cylinder",
+   "position": [
+    7.0,
+    15.5,
+    0.6
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    8.7,
+    0.05,
+    8.7
+   ],
+   "material": "glow_dim",
+   "sections": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Grille_01",
+   "type": "box",
+   "position": [
+    7.0,
+    12.2,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    5.704,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Grille_11",
+   "type": "box",
+   "position": [
+    3.7,
+    15.5,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.12,
+    5.704,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Grille_02",
+   "type": "box",
+   "position": [
+    7.0,
+    14.4,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    8.35,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Grille_12",
+   "type": "box",
+   "position": [
+    5.9,
+    15.5,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.12,
+    8.35,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Grille_03",
+   "type": "box",
+   "position": [
+    7.0,
+    16.6,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    8.35,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Grille_13",
+   "type": "box",
+   "position": [
+    8.1,
+    15.5,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.12,
+    8.35,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Grille_04",
+   "type": "box",
+   "position": [
+    7.0,
+    18.8,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    5.704,
+    0.12,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Grille_14",
+   "type": "box",
+   "position": [
+    10.3,
+    15.5,
+    0.792
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.12,
+    5.704,
+    0.1
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Rotor",
+   "type": "fan_rotor",
+   "position": [
+    7.0,
+    15.5,
+    1.232
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    8.36,
+    0.495,
+    8.36
+   ],
+   "material": "frame",
+   "blades": 8,
+   "sweep": 27.834598963393034,
+   "detail": "low",
+   "collision": false,
+   "outline": false,
+   "spin": 46.0,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Duct",
+   "type": "box",
+   "position": [
+    7.0,
+    21.18,
+    1.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    9.8,
+    8.8,
+    2.0
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctCap",
+   "type": "box",
+   "position": [
+    7.0,
+    29.98,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    10.4,
+    1.2,
+    2.6
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Rib_1",
+   "type": "box",
+   "position": [
+    7.0,
+    22.3,
+    1.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    10.04,
+    0.26,
+    2.24
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Rib_2",
+   "type": "box",
+   "position": [
+    7.0,
+    24.5,
+    1.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    10.04,
+    0.26,
+    2.24
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Rib_3",
+   "type": "box",
+   "position": [
+    7.0,
+    26.7,
+    1.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    10.04,
+    0.26,
+    2.24
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_Rib_4",
+   "type": "box",
+   "position": [
+    7.0,
+    28.9,
+    1.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    10.04,
+    0.26,
+    2.24
+   ],
+   "material": "frame",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_1",
+   "type": "box",
+   "position": [
+    4.75,
+    25.0,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    4.3,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_1_FrameLow",
+   "type": "box",
+   "position": [
+    4.75,
+    22.7,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    4.3,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_1_FrameSide_1",
+   "type": "box",
+   "position": [
+    2.75,
+    22.98,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    2.04,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_1_FrameSide_2",
+   "type": "box",
+   "position": [
+    6.75,
+    22.98,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    2.04,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_1_Duct",
+   "type": "panel",
+   "position": [
+    4.75,
+    22.98,
+    2.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    2.04,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_1_Slat_1",
+   "type": "box",
+   "position": [
+    4.75,
+    23.1,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_1_Slat_2",
+   "type": "box",
+   "position": [
+    4.75,
+    23.6,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_1_Slat_3",
+   "type": "box",
+   "position": [
+    4.75,
+    24.1,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_1_Slat_4",
+   "type": "box",
+   "position": [
+    4.75,
+    24.6,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_1_Status",
+   "type": "box",
+   "position": [
+    6.45,
+    25.07,
+    2.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_2",
+   "type": "box",
+   "position": [
+    9.25,
+    25.0,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    4.3,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_2_FrameLow",
+   "type": "box",
+   "position": [
+    9.25,
+    22.7,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    4.3,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_2_FrameSide_1",
+   "type": "box",
+   "position": [
+    7.25,
+    22.98,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    2.04,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_2_FrameSide_2",
+   "type": "box",
+   "position": [
+    11.25,
+    22.98,
+    2.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    2.04,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_2_Duct",
+   "type": "panel",
+   "position": [
+    9.25,
+    22.98,
+    2.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    2.04,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_2_Slat_1",
+   "type": "box",
+   "position": [
+    9.25,
+    23.1,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_2_Slat_2",
+   "type": "box",
+   "position": [
+    9.25,
+    23.6,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_2_Slat_3",
+   "type": "box",
+   "position": [
+    9.25,
+    24.1,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_2_Slat_4",
+   "type": "box",
+   "position": [
+    9.25,
+    24.6,
+    2.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.74,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_DuctVent_2_Status",
+   "type": "box",
+   "position": [
+    10.95,
+    25.07,
+    2.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_1",
+   "type": "box",
+   "position": [
+    3.333,
+    5.7,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.417,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_1_FrameLow",
+   "type": "box",
+   "position": [
+    3.333,
+    3.6,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.417,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_1_FrameSide_1",
+   "type": "box",
+   "position": [
+    1.775,
+    3.88,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    1.84,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_1_FrameSide_2",
+   "type": "box",
+   "position": [
+    4.892,
+    3.88,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    1.84,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_1_Duct",
+   "type": "panel",
+   "position": [
+    3.333,
+    3.88,
+    0.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    1.84,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_1_Slat_1",
+   "type": "box",
+   "position": [
+    3.333,
+    3.975,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_1_Slat_2",
+   "type": "box",
+   "position": [
+    3.333,
+    4.425,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_1_Slat_3",
+   "type": "box",
+   "position": [
+    3.333,
+    4.875,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_1_Slat_4",
+   "type": "box",
+   "position": [
+    3.333,
+    5.325,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_1_Status",
+   "type": "box",
+   "position": [
+    4.592,
+    5.77,
+    0.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_2",
+   "type": "box",
+   "position": [
+    7.0,
+    5.7,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.417,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_2_FrameLow",
+   "type": "box",
+   "position": [
+    7.0,
+    3.6,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.417,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_2_FrameSide_1",
+   "type": "box",
+   "position": [
+    5.442,
+    3.88,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    1.84,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_2_FrameSide_2",
+   "type": "box",
+   "position": [
+    8.558,
+    3.88,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    1.84,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_2_Duct",
+   "type": "panel",
+   "position": [
+    7.0,
+    3.88,
+    0.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    1.84,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_2_Slat_1",
+   "type": "box",
+   "position": [
+    7.0,
+    3.975,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_2_Slat_2",
+   "type": "box",
+   "position": [
+    7.0,
+    4.425,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_2_Slat_3",
+   "type": "box",
+   "position": [
+    7.0,
+    4.875,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_2_Slat_4",
+   "type": "box",
+   "position": [
+    7.0,
+    5.325,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_2_Status",
+   "type": "box",
+   "position": [
+    8.258,
+    5.77,
+    0.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_3",
+   "type": "box",
+   "position": [
+    10.667,
+    5.7,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.417,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_3_FrameLow",
+   "type": "box",
+   "position": [
+    10.667,
+    3.6,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    3.417,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_3_FrameSide_1",
+   "type": "box",
+   "position": [
+    9.108,
+    3.88,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    1.84,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_3_FrameSide_2",
+   "type": "box",
+   "position": [
+    12.225,
+    3.88,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    1.84,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_3_Duct",
+   "type": "panel",
+   "position": [
+    10.667,
+    3.88,
+    0.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    1.84,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_3_Slat_1",
+   "type": "box",
+   "position": [
+    10.667,
+    3.975,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_3_Slat_2",
+   "type": "box",
+   "position": [
+    10.667,
+    4.425,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_3_Slat_3",
+   "type": "box",
+   "position": [
+    10.667,
+    4.875,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_3_Slat_4",
+   "type": "box",
+   "position": [
+    10.667,
+    5.325,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.857,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_Fan_2_UnderVent_3_Status",
+   "type": "box",
+   "position": [
+    11.925,
+    5.77,
+    0.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_1",
+   "type": "box",
+   "position": [
+    0.0,
+    6.7,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.8,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_1_FrameLow",
+   "type": "box",
+   "position": [
+    0.0,
+    4.0,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.8,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_1_FrameSide_1",
+   "type": "box",
+   "position": [
+    -1.25,
+    4.28,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    2.44,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_1_FrameSide_2",
+   "type": "box",
+   "position": [
+    1.25,
+    4.28,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    2.44,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_1_Duct",
+   "type": "panel",
+   "position": [
+    0.0,
+    4.28,
+    0.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    2.44,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_1_Slat_1",
+   "type": "box",
+   "position": [
+    0.0,
+    4.39,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_1_Slat_2",
+   "type": "box",
+   "position": [
+    0.0,
+    4.87,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_1_Slat_3",
+   "type": "box",
+   "position": [
+    0.0,
+    5.35,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_1_Slat_4",
+   "type": "box",
+   "position": [
+    0.0,
+    5.83,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_1_Slat_5",
+   "type": "box",
+   "position": [
+    0.0,
+    6.31,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_1_Status",
+   "type": "box",
+   "position": [
+    0.95,
+    6.77,
+    0.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_2",
+   "type": "box",
+   "position": [
+    0.0,
+    10.3,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.8,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_2_FrameLow",
+   "type": "box",
+   "position": [
+    0.0,
+    7.6,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.8,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_2_FrameSide_1",
+   "type": "box",
+   "position": [
+    -1.25,
+    7.88,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    2.44,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_2_FrameSide_2",
+   "type": "box",
+   "position": [
+    1.25,
+    7.88,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    2.44,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_2_Duct",
+   "type": "panel",
+   "position": [
+    0.0,
+    7.88,
+    0.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    2.44,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_2_Slat_1",
+   "type": "box",
+   "position": [
+    0.0,
+    7.99,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_2_Slat_2",
+   "type": "box",
+   "position": [
+    0.0,
+    8.47,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_2_Slat_3",
+   "type": "box",
+   "position": [
+    0.0,
+    8.95,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_2_Slat_4",
+   "type": "box",
+   "position": [
+    0.0,
+    9.43,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_2_Slat_5",
+   "type": "box",
+   "position": [
+    0.0,
+    9.91,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_2_Status",
+   "type": "box",
+   "position": [
+    0.95,
+    10.37,
+    0.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_3",
+   "type": "box",
+   "position": [
+    0.0,
+    13.9,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.8,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_3_FrameLow",
+   "type": "box",
+   "position": [
+    0.0,
+    11.2,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.8,
+    0.3,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_3_FrameSide_1",
+   "type": "box",
+   "position": [
+    -1.25,
+    11.48,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    2.44,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_3_FrameSide_2",
+   "type": "box",
+   "position": [
+    1.25,
+    11.48,
+    0.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    2.44,
+    0.3
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_3_Duct",
+   "type": "panel",
+   "position": [
+    0.0,
+    11.48,
+    0.02
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    2.44,
+    0.0
+   ],
+   "material": "accent",
+   "uv_region": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_3_Slat_1",
+   "type": "box",
+   "position": [
+    0.0,
+    11.59,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_3_Slat_2",
+   "type": "box",
+   "position": [
+    0.0,
+    12.07,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_3_Slat_3",
+   "type": "box",
+   "position": [
+    0.0,
+    12.55,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_3_Slat_4",
+   "type": "box",
+   "position": [
+    0.0,
+    13.03,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_3_Slat_5",
+   "type": "box",
+   "position": [
+    0.0,
+    13.51,
+    0.2
+   ],
+   "rotation": [
+    35.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    2.24,
+    0.3,
+    0.07
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "West_DuctFans_MidVent_3_Status",
+   "type": "box",
+   "position": [
+    0.95,
+    13.97,
+    0.31
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "West_DuctFans",
+   "size": [
+    0.3,
+    0.16,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "West_DuctFans",
+   "source": "inferred"
+  },
+  {
+   "name": "Deck_Monitor_L",
+   "type": "group",
+   "position": [
+    12.0,
+    19.6,
+    -64.98
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Deck_Monitor_L",
+   "source": "inferred"
+  },
+  {
+   "name": "Deck_Monitor_L_Body",
+   "type": "tv_body",
+   "position": [
+    0.0,
+    0.0,
+    0.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Deck_Monitor_L",
+   "size": [
+    3.953,
+    3.163,
+    0.9
+   ],
+   "material": "tv_casing",
+   "border": 0.07,
+   "chin": 0.2,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Deck_Monitor_L",
+   "source": "inferred"
+  },
+  {
+   "name": "Deck_Monitor_L_Screen",
+   "type": "panel",
+   "position": [
+    0.0,
+    0.642,
+    1.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Deck_Monitor_L",
+   "size": [
+    3.383,
+    2.191,
+    0.0
+   ],
+   "material": "screen",
+   "uv_region": "a",
+   "uv_shift": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Deck_Monitor_L",
+   "source": "inferred"
+  },
+  {
+   "name": "Deck_Monitor_L_Arm_0",
+   "type": "box",
+   "position": [
+    -0.791,
+    1.423,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Deck_Monitor_L",
+   "size": [
+    0.25,
+    0.3,
+    0.45
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Deck_Monitor_L",
+   "source": "inferred"
+  },
+  {
+   "name": "Deck_Monitor_L_Arm_2",
+   "type": "box",
+   "position": [
+    0.791,
+    1.423,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Deck_Monitor_L",
+   "size": [
+    0.25,
+    0.3,
+    0.45
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Deck_Monitor_L",
+   "source": "inferred"
+  },
+  {
+   "name": "Deck_Monitor_R",
+   "type": "group",
+   "position": [
+    23.6,
+    19.6,
+    -64.98
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Deck_Monitor_R",
+   "source": "inferred"
+  },
+  {
+   "name": "Deck_Monitor_R_Body",
+   "type": "tv_body",
+   "position": [
+    0.0,
+    0.0,
+    0.35
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Deck_Monitor_R",
+   "size": [
+    3.953,
+    3.163,
+    0.9
+   ],
+   "material": "tv_casing",
+   "border": 0.07,
+   "chin": 0.2,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Deck_Monitor_R",
+   "source": "inferred"
+  },
+  {
+   "name": "Deck_Monitor_R_Screen",
+   "type": "panel",
+   "position": [
+    0.0,
+    0.642,
+    1.15
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Deck_Monitor_R",
+   "size": [
+    3.383,
+    2.191,
+    0.0
+   ],
+   "material": "screen",
+   "uv_region": "b",
+   "uv_shift": 9,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Deck_Monitor_R",
+   "source": "inferred"
+  },
+  {
+   "name": "Deck_Monitor_R_Arm_0",
+   "type": "box",
+   "position": [
+    -0.791,
+    1.423,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Deck_Monitor_R",
+   "size": [
+    0.25,
+    0.3,
+    0.45
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Deck_Monitor_R",
+   "source": "inferred"
+  },
+  {
+   "name": "Deck_Monitor_R_Arm_2",
+   "type": "box",
+   "position": [
+    0.791,
+    1.423,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Deck_Monitor_R",
+   "size": [
+    0.25,
+    0.3,
+    0.45
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Deck_Monitor_R",
+   "source": "inferred"
   },
   {
    "name": "Saw_West_Plate",
@@ -51623,7 +56731,7 @@
     "static": true
    },
    "uv_region": "a",
-   "uv_shift": 8,
+   "uv_shift": 10,
    "gen": "Overlook",
    "source": "inferred"
   },
@@ -52223,7 +57331,7 @@
     "static": true
    },
    "uv_region": "b",
-   "uv_shift": 9,
+   "uv_shift": 11,
    "gen": "Overlook",
    "source": "inferred"
   },
@@ -80524,6 +85632,9 @@
   "Exit_Stairs: stairs run 5.7 m > gap 4.0 m - extends 1.7 m onto Upper_Deck",
   "Entry_Door: entrance hallway 10 m out of the black (from slime_arena)",
   "Showcase: Construct Error showcase - dais r 8.6 m, stage tank, banner 16 m, 2 slime pits",
+  "West_DuctFans: 2 massive duct fans (r 4.4 m) with ducts into the wall and 13 louvred vents",
+  "Deck_Monitor_L: wall monitor 3.4 m",
+  "Deck_Monitor_R: wall monitor 3.4 m",
   "Saw_West: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 26.5]",
   "Saw_East: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 20.5]",
   "Pillars: 7 floating stepping platforms (bobbing, thruster flames)",
@@ -80666,12 +85777,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 66060,
-  "objects": 2426,
+  "triangles": 69860,
+  "objects": 2612,
   "materials": 48,
-  "glb_kb": 4571,
-  "nodes": 2684,
-  "draw_calls_unbatched": 2649,
+  "glb_kb": 4679,
+  "nodes": 2877,
+  "draw_calls_unbatched": 2839,
   "draw_calls_batched_min": 51,
   "images": 123,
   "tex_mem_gpu_compressed_mb": 27.28,
