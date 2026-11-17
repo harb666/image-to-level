@@ -2,7 +2,7 @@
  "level": "assembly_ascent",
  "assets_kb": {
   "level.glb": 4679,
-  "mobile/level_mobile.glb": 2762,
+  "mobile/level_mobile.glb": 2759,
   "mobile/collision.json": 209,
   "environment.json": 4,
   "background.glb": 477,
@@ -44,10 +44,10 @@
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 2762,
-   "triangles": 76716,
+   "glb_kb": 2759,
+   "triangles": 76622,
    "draw_calls": 144,
-   "visible_draw_calls_est": 78.4,
+   "visible_draw_calls_est": 78.9,
    "visible_draw_calls_max_est": 147,
    "tex_mem_gpu_mb_est": 11.63,
    "materials": 51,
@@ -55,7 +55,7 @@
    "colliders": {
     "colliders": 463,
     "hazards": 1,
-    "glb_kb": 213
+    "glb_kb": 212
    },
    "background_kb": 404
   },
@@ -81,8 +81,8 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 19861.0,
-  "reachable_area_m2": 5422.0,
+  "standable_area_m2": 19868.0,
+  "reachable_area_m2": 5429.0,
   "components": 124,
   "spawns": [
    {
@@ -177,13 +177,19 @@
    },
    {
     "name": "Showcase_Deck",
-    "standable_m2": 732.0,
+    "standable_m2": 730.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
    {
     "name": "Showcase_Stage",
     "standable_m2": 192.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Showcase_Bridge",
+    "standable_m2": 184.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -227,6 +233,10 @@
   "narrow_connectors": [
    {
     "object": "Showcase_Pit_1_Lintel",
+    "width_m": 1.0
+   },
+   {
+    "object": "Showcase_Pit_1_Pillar_R",
     "width_m": 1.0
    },
    {
@@ -276,14 +286,14 @@
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~78 visible draw calls (estimate, > 60)"
+   "message": "~79 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "narrow_connector",
    "severity": "warning",
    "object": "Showcase_Pit_1_Lintel",
    "pos": [
-    -36.5,
+    -39.5,
     7.0,
     -21.5
    ],
@@ -292,9 +302,20 @@
   {
    "kind": "narrow_connector",
    "severity": "warning",
+   "object": "Showcase_Pit_1_Pillar_R",
+   "pos": [
+    -35.0,
+    7.0,
+    -21.5
+   ],
+   "message": "Showcase_Pit_1_Pillar_R: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera"
+  },
+  {
+   "kind": "narrow_connector",
+   "severity": "warning",
    "object": "Showcase_Pit_2_Lintel",
    "pos": [
-    -17.5,
+    -20.5,
     7.0,
     -21.5
    ],
@@ -305,7 +326,7 @@
    "severity": "warning",
    "object": "Showcase_Pit_2_Pillar_L",
    "pos": [
-    -22.0,
+    -25.0,
     7.0,
     -21.5
    ],
@@ -352,7 +373,7 @@
  ],
  "counts": {
   "error": 0,
-  "warning": 10,
+  "warning": 11,
   "info": 1
  },
  "passed": true,

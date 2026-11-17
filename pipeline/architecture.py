@@ -1291,7 +1291,7 @@ def lamp(ctx, s, x, y, z, yaw):
 def crates(ctx, s, x, y, z, yaw):
     n = s["id"]; g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); ch = ctx.G["design"]["cover_height"]
     for i, (ox, oy, oz) in enumerate(((0, 0, 0), (1.7, 0, 0.2), (0.8, ch, 0.1))[:int(s.get("count", 3))]):
-        ctx.add(f"{n}_{i + 1:02d}", "box", [ox, oy, oz], [1.5, ch, 1.5], s.get("material", "structure_b"), g)
+        ctx.add(f"{n}_{i + 1:02d}", "box", [-ox if s.get("mirror") else ox, oy, oz], [1.5, ch, 1.5], s.get("material", "structure_b"), g)  # Stage 146: "mirror" - the stack mirrored (pair it with yaw -> -yaw)
 
 
 def rocks(ctx, s, x, y, z, yaw):

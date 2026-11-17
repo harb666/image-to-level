@@ -541,6 +541,18 @@ class Showcase(unittest.TestCase):
         E = {e["id"] for e in _load("effects.json")["effects"]}; self.assertTrue({"Showcase_TankGlow", "Showcase_BannerGlow"} <= E)
 
 
+    def test_showcase_is_symmetrical(self):
+        """Stage 146: the showcase is centred on the bridge's line (x = -30, the bridge runs straight in) and its two
+        sides are exact mirror images - pump tanks (pipes, fans), crate stacks, ramps."""
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); from anchors import world_matrices
+        W, _ = world_matrices(self.L); P = lambda n: W[n][:3, 3]; ax = -30.0
+        self.assertAlmostEqual(P("Showcase_Bridge_Deck")[0], ax, places=2); self.assertEqual(self.by["Showcase_Bridge_Deck"]["rotation"][1], 0.0)
+        self.assertAlmostEqual(P("Showcase_Dais")[0], ax, places=2)
+        for a, b in (("Showcase_Pit_1_Pump_1_Pipe", "Showcase_Pit_2_Pump_2_Pipe"), ("Showcase_Pit_1_Pump_2_Fan", "Showcase_Pit_2_Pump_1_Fan"),
+                     ("Showcase_Pit_1_CornerPipe_1", "Showcase_Pit_2_CornerPipe_2"), ("Showcase_Crates_L_02", "Showcase_Crates_R_02"), ("Showcase_Crates_L_03", "Showcase_Crates_R_03"),
+                     ("Showcase_RampL", "Showcase_RampR"), ("Showcase_XBanner_a", "Showcase_XBanner_b")):
+            pa, pb = P(a), P(b); self.assertAlmostEqual(pa[0] + pb[0], 2 * ax, places=2, msg=a); self.assertAlmostEqual(pa[2], pb[2], places=2, msg=a); self.assertAlmostEqual(pa[1], pb[1], places=2, msg=a)
+
     def test_pits_are_pump_tanks(self):
         """Stage 140 (user concept): each pit is a closed pump tank - two pink pumps (droplet emblem, side fan) fed by
         glowing arch pipes, corner pipes down the emblem pillars, a pink light bar over a slot in the front, and a

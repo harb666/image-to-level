@@ -1458,4 +1458,7 @@ Building blocks usable without the preset:
   louvred vents, vent banks under each fan and a vent stack between) and `wall_monitor` (`width`, `cell`: the wall
   modules' TV as a placeable piece). Assembly Ascent: `West_DuctFans` replaces the west wall's two monitors (slots
   M08-M11 overridden `plain`); `Deck_Monitor_L/R` hang either side of the grin sign over the upper deck.
+- Stage 146: the showcase pump tanks mirror each other about `bridge_x` (pipes / side fans flipped on the far tank);
+  `crates` `"mirror": true` mirrors a stack (pair with yaw -> -yaw). Assembly Ascent: the showcase (plaza, stage, pits,
+  boss shaft) moved 3 m west onto the bridge's line (x = -30), so the bridge runs straight in and both sides match.
 
