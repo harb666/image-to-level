@@ -25,7 +25,9 @@ class TunnelMouth(unittest.TestCase):
         """Stage 163 (user): nothing marks the tunnel's mouth - no striped kerb; the slime runs on to where the pour starts."""
         import json
         L = json.load(open(os.path.join(ROOT, "levels", "assembly_ascent", "level.json"))); by = {o["name"]: o for o in L["objects"]}
-        self.assertFalse([n for n in by if n.startswith("East_SlimeTunnel") and by[n].get("material") in ("stripe", "trim")])
+        self.assertNotIn("East_SlimeTunnel_ChannelLip", by)  # (the striped bands round the arch itself stay)
+        lq = by["East_SlimeTunnel_Liquid"]; top = lq["position"][1] + lq["size"][1]
+        self.assertFalse([n for n in by if n.startswith("East_SlimeTunnel") and by[n].get("material") in ("stripe", "trim") and by[n]["position"][1] < top + 0.5])  # nothing striped at the slime
         lq, po = by["East_SlimeTunnel_Liquid"], by["East_SlimeTunnel_Pour"]
         self.assertGreaterEqual(lq["position"][2] + lq["size"][2] / 2, po["position"][2])  # (local z: out of the tunnel)
 
