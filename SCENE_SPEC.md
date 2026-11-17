@@ -1516,6 +1516,7 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 163: `slime_tunnel` has no striped kerb across its mouth: the channel's slime runs on to where the pour starts (no mark at the edge).
 - Stage 162: the preview (viewer.html) player is invincible by default - a `God: on/off` button next to Respawn; with it
   on, slime, spikes, sweeper bars / maces, saws and crushers show "God mode - would have died: ..." instead of respawning
   (all through `kill()`; `window.setGod(bool)` for scripts). Falling out of the world still respawns. Game logic unchanged.

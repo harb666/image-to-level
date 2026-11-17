@@ -1104,8 +1104,8 @@ def slime_tunnel(ctx, s, x, y, z, yaw):
         if f_ < L: ctx.add(f"{n}_Veil_{j + 1}", "panel", [0, fl - 0.3, -f_], [ow + 0.6, Hop - fl + 0.6, 0], dark, g, double_sided=True, **vs)
     ly = fl + float(s.get("liquid_rise", 0.9)); cw = ow - 1.0  # the slime channel along the floor, flowing out
     ctx.add(n + "_Channel", "box", [0, fl - 0.4, -L / 2 + 0.25], [ow, ly - 0.15 - fl + 0.4, L - 0.5], body, g, **st)
-    ctx.add(n + "_ChannelLip", "box", [0, ly - 0.25, 0.75], [cw + 0.6, 0.12, 0.5], ctx.role("stripe"), g, **vs)
-    ctx.add(n + "_Liquid", "box", [0, ly - 0.15, -L / 2 + 0.6], [cw, 0.3, L - 0.2], fall, g, **vs)
+    # Stage 163 (user): no hazard kerb across the mouth - the slime itself runs on to where the pour starts (z 1.05), no mark
+    ctx.add(n + "_Liquid", "box", [0, ly - 0.15, -L / 2 + 0.875], [cw, 0.3, L + 0.35], fall, g, **vs)
     if s.get("liquid_fade"):  # Stage 150: one smooth black gradient over the slime - clear at the mouth, black at the back
         fl_len = (L - 0.05) / float(s.get("liquid_fade_span", 0.86))  # Stage 153: runs on past the back wall's face, where it fades clear again: both edges clear, so the
         ctx.add(n + "_LiquidFade", "panel", [0, ly + 0.17, -0.05], [cw + 0.02, round(fl_len, 3), 0], ctx.role(s["liquid_fade"]), g, rot=[-90, 0, 0], double_sided=True, **vs)  # wrapping texture can't bleed a black line onto the mouth

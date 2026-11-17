@@ -20,5 +20,15 @@ class GodMode(unittest.TestCase):
         self.assertEqual(len(re.findall(r"kill_y\?\?-40\)\)spawn\(\)", self.v)), 1)  # falling out of the world still respawns (or they would fall for ever)
 
 
+class TunnelMouth(unittest.TestCase):
+    def test_no_hazard_kerb_and_no_gap(self):
+        """Stage 163 (user): nothing marks the tunnel's mouth - no striped kerb; the slime runs on to where the pour starts."""
+        import json
+        L = json.load(open(os.path.join(ROOT, "levels", "assembly_ascent", "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        self.assertFalse([n for n in by if n.startswith("East_SlimeTunnel") and by[n].get("material") in ("stripe", "trim")])
+        lq, po = by["East_SlimeTunnel_Liquid"], by["East_SlimeTunnel_Pour"]
+        self.assertGreaterEqual(lq["position"][2] + lq["size"][2] / 2, po["position"][2])  # (local z: out of the tunnel)
+
+
 if __name__ == "__main__":
     unittest.main()
