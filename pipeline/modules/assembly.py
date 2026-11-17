@@ -1076,10 +1076,33 @@ def wall_monitor(ctx, s, x, y, z, yaw):
 def _glass_pipe(ctx, pname, pos, dia, rot_, path, bend, liq_m, glass_m, elbow_m, kw):
     """Stage 142 / 164: glass tubing - a glowing bubbling core (the Pipe_Bubbles flow), glass round its straight runs,
     steel elbows on the bends (pipe_path: path in the local x-y plane; rot [0, b - 90, 0] runs local x along bearing b)."""
-    ctx.add(pname, "pipe_path", pos, [dia * 0.7, 1.0, dia * 0.7], liq_m, rot=rot_, path=path, bend=bend, tile=1.0, sections=10, **kw)
+    ctx.add(pname, "pipe_path", pos, [dia * 0.7, 1.0, dia * 0.7], liq_m, rot=rot_, path=path, bend=bend, tile=1.0, wraps=max(1, round(math.pi * dia * 0.7)), sections=10, **kw)  # (texture ~1 m square on the core)
     ctx.add(pname + "_Glass", "pipe_path", pos, [dia, 1.0, dia], glass_m, rot=rot_, path=path, bend=bend, part="straight", sections=10, double_sided=True, **kw)
     if len(path) > 2: ctx.add(pname + "_Elbow", "pipe_path", pos, [dia * 1.16, 1.0, dia * 1.16], elbow_m, rot=rot_, path=path, bend=bend, part="bend", sleeve=0.2, sections=10, **kw)
     ctx.glass_pipes = getattr(ctx, "glass_pipes", []) + [pname]
+
+
+def _ceiling_junction(ctx, n, cx, cz, C, gd, bearing, kw):
+    """Stage 166: where a thick glass pipe meets the ceiling (underside y C): a bolted mounting plate, a tapered reducer
+    housing braced by four gusset fins, a double flanged coupling with eight through-bolts and a glowing pink seal ring
+    between the flanges, a valve box (pink indicator, hand wheel) on the side facing `bearing`. gd: the glass diameter."""
+    r = gd / 2; P = lambda a, yy, rr: _W(cx, 0, cz, a)(0, yy, rr); pink = ctx.role("glow_pink"); steel = ctx.role("lift_ring")
+    ctx.add(n + "_Plate", "box", [cx, C - 0.28, cz], [gd + 1.7, 0.3, gd + 1.7], "machine", **kw)
+    for k in range(4):
+        a = 45 + 90 * k
+        ctx.add(f"{n}_PlateBolt_{k + 1}", "box", P(a, C - 0.36, (gd + 1.7) / 2 * 1.414 - 0.3), [0.2, 0.1, 0.2], "frame", rot=[0, a, 0], **kw)
+        ctx.add(f"{n}_Gusset_{k + 1}", "box", P(a, C - 1.22, r + 0.42), [0.1, 1.0, 0.62], "frame", rot=[0, a, 0], **kw)
+    ctx.add(n + "_Reducer", "frustum", [cx, C - 1.22, cz], [gd + 1.0, 0.96, gd + 1.0], "structure_b", sections=12, bottom_scale=(gd + 0.3) / (gd + 1.0), **kw)
+    hole = round(r - 0.03, 3)
+    ctx.add(n + "_FlangeTop", "cylinder", [cx, C - 1.36, cz], [gd + 0.78, 0.15, gd + 0.78], "frame", sections=12, hole=hole, hole_res=12, **kw)
+    ctx.add(n + "_Seal", "cylinder", [cx, C - 1.5, cz], [gd + 0.9, 0.16, gd + 0.9], pink, sections=12, hole=round(r + 0.02, 3), hole_res=12, **kw)  # (held between the flanges; its bore clear of theirs)
+    ctx.add(n + "_FlangeLow", "cylinder", [cx, C - 1.63, cz], [gd + 0.78, 0.15, gd + 0.78], "frame", sections=12, hole=hole, hole_res=12, **kw)
+    for k in range(8):
+        ctx.add(f"{n}_FlangeBolt_{k + 1}", "cylinder", P(22.5 + 45 * k, C - 1.7, r + 0.3), [0.1, 0.44, 0.1], steel, sections=6, **kw)
+    ctx.add(n + "_Clamp", "cylinder", [cx, C - 2.5, cz], [gd + 0.5, 0.5, gd + 0.5], "frame", sections=12, hole=hole, hole_res=12, **kw)
+    ctx.add(n + "_Valve", "box", P(bearing, C - 2.0, r + 0.42), [0.7, 0.55, 0.5], "machine", rot=[0, bearing, 0], **kw)
+    ctx.add(n + "_ValveLamp", "box", P(bearing, C - 1.88, r + 0.66), [0.36, 0.12, 0.04], pink, rot=[0, bearing, 0], **kw)
+    ctx.add(n + "_ValveWheel", "cylinder", P(bearing, C - 2.08, r + 0.66), [0.5, 0.05, 0.5], steel, rot=[90, bearing, 0], sections=10, hole=0.17, hole_res=10, **kw)
 
 
 @structure("reactor", pad=False)
@@ -1153,13 +1176,14 @@ def reactor(ctx, s, x, y, z, yaw):
     ceil = float(s.get("ceiling", getattr(ctx, "ceiling_y", 34.0))) + 0.1; y0p = top + 2.05; dia = float(s.get("pipe_dia", 1.3))
     liq_m, glass_m, elbow_m = ctx.role("pipe_liquid"), ctx.role("glass_clear"), ctx.role("lift_ring")
     _glass_pipe(ctx, n + "_PipeMain", [x, y0p - 0.3, z], dia * 1.15, [0, 0, 0], [[0, 0], [0, ceil - y0p + 0.3]], 1.0, liq_m, glass_m, elbow_m, vs)
-    for j, yy in enumerate((y0p - 0.35, y0p + 3.0, ceil - 0.9)):  # ring clamps gripping the glass (their bore 3 cm inside it)
+    for j, yy in enumerate((y0p - 0.35, y0p + 3.0)):  # ring clamps gripping the glass (their bore 3 cm inside it)
         ctx.add(f"{n}_PipeMainClamp_{j + 1}", "cylinder", [x, yy, z], [dia * 1.15 + 0.5, 0.6, dia * 1.15 + 0.5], frame, sections=10, hole=round(dia * 1.15 / 2 - 0.03, 3), hole_res=10, **vs)
+    _ceiling_junction(ctx, n + "_PipeMainTop", x, z, ceil - 0.1, dia * 1.15, yaw + 270, vs)
     for k, b in enumerate(s.get("pipe_bearings", [45, 135])):
         q = P(b, y0p - 0.3, vr - 0.6); run, rise = float(s.get("pipe_run", 6.0)), float(s.get("pipe_rise", 4.5))
         _glass_pipe(ctx, f"{n}_Pipe_{k + 1}", q, dia, [0, yaw + b - 90, 0], [[0, 0], [0, rise], [run, rise], [run, ceil - q[1]]], 1.4, liq_m, glass_m, elbow_m, vs)
         ctx.add(f"{n}_PipeFoot_{k + 1}", "cylinder", P(b, y0p - 0.35, vr - 0.6), [dia + 0.5, 0.7, dia + 0.5], frame, sections=10, hole=round(dia / 2 - 0.03, 3), hole_res=10, **vs)
-        ctx.add(f"{n}_PipeTop_{k + 1}", "cylinder", P(b, ceil - 0.9, vr - 0.6 + run), [dia + 0.5, 0.6, dia + 0.5], frame, sections=10, hole=round(dia / 2 - 0.03, 3), hole_res=10, **vs)
+        pt = P(b, 0, vr - 0.6 + run); _ceiling_junction(ctx, f"{n}_PipeTop_{k + 1}", pt[0], pt[2], ceil - 0.1, dia, yaw + b + 90, vs)  # Stage 166: an industrial ceiling junction
     # --- catwalks out to piers
     for k, (b, L_) in enumerate(s.get("catwalks", [])):
         b, L_ = float(b), float(L_); w = float(s.get("catwalk_w", 2.6)); r0 = R - 0.2; rc = r0 + L_ / 2; cn = f"{n}_Catwalk_{k + 1}"

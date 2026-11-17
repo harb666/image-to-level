@@ -637,7 +637,7 @@ class Showcase(unittest.TestCase):
             self.assertEqual(self.by[n + "_Elbow"]["part"], "bend"); self.assertTrue(M[self.by[n + "_Elbow"]["material"]].get("plain"))
             self.assertGreater(self.by[n + "_Glass"]["size"][0], self.by[n]["size"][0])  # the liquid inside the glass
             self.assertIn(n, E["Pipe_Bubbles"]["targets"])
-        self.assertEqual(E["Pipe_Bubbles"]["flow_uv"], [0.0, -1.0]); self.assertLessEqual(M["pipe_liquid"]["res"], 128)  # small texture (memory)
+        self.assertEqual(E["Pipe_Bubbles"]["flow_uv"], [0.0, -1.0]); self.assertLessEqual(M["pipe_liquid"]["res"], 256)  # small texture (memory; Stage 166: 256 for the reactor's thick hero pipes - ~23 KB in the mobile GLB)
 
 
 if __name__ == "__main__":

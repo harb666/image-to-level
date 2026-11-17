@@ -761,7 +761,7 @@ def pipe_path(w, h, d, o):
     else:  # straight runs: from a path end / a curve's last point to the next curve's first point / the path end
         cut = [0] + [j for j in range(1, len(pts) - 1) if tag[j] > 0 and (tag[j - 1] != tag[j] or tag[j + 1] != tag[j])] + [len(pts) - 1]
         pieces = [[a, b] for a, b in zip(cut[0::2], cut[1::2]) if np.linalg.norm(pts[b] - pts[a]) > 1e-3]
-    n = int(o.get("sections", 10)); tile = float(o.get("tile", 1.0)); sl = float(o.get("sleeve", 0.08)) if part == "bend" else 0.0
+    n = int(o.get("sections", 10)); tile = float(o.get("tile", 1.0)); wr = int(o.get("wraps", 1)); sl = float(o.get("sleeve", 0.08)) if part == "bend" else 0.0
     V, F, UV = [], [], []
     for pc in pieces:
         Q = [pts[j] for j in pc]; SS = [S[j] for j in pc]
@@ -775,7 +775,7 @@ def pipe_path(w, h, d, o):
         for a in range(R_ - 1):
             for k in range(n):
                 k2 = (k + 1) % n; i0, i1, i2, i3 = b0 + a * n + k, b0 + a * n + k2, b0 + (a + 1) * n + k2, b0 + (a + 1) * n + k
-                u0, u1, v0, v1 = k / n, (k + 1) / n, SS[a] / tile, SS[a + 1] / tile
+                u0, u1, v0, v1 = k / n * wr, (k + 1) / n * wr, SS[a] / tile, SS[a + 1] / tile  # Stage 166: "wraps" - the texture round the tube that many times (round bubbles on thick pipes)
                 F += [[i0, i1, i2], [i0, i2, i3]]; UV += [[u0, v0], [u1, v0], [u1, v1], [u0, v0], [u1, v1], [u0, v1]]
         for a, flip in ((0, True), (R_ - 1, False)):  # caps
             c = len(V); V.append(np.mean(V[b0 + a * n:b0 + a * n + n], 0))

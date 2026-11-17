@@ -981,17 +981,37 @@ def k_beam_fade(S, rng, c, m):
 
 
 def k_bubble_flow(S, rng, c, m):
-    """Stage 142: glowing liquid inside glass tubing - bright streaks along v (the flow), a darker band at the tube's
-    sides, and round bubbles (pale rim, bright glint) scattered over it; tiles in u and v (scrolled along v by a
-    liquid_flow effect, the bubbles stream through the pipe). "bubbles": count per tile."""
-    x, y = _xy(S); st = 0.75 + 0.25 * np.sin(2 * np.pi * (x * 3 + 0.2 * np.sin(2 * np.pi * y))) * np.sin(2 * np.pi * x * 5 + 1.3)
-    alb = np.clip(c[None, None] * st[..., None], 0, 1); emit = np.full((S, S), 0.85)
-    for _ in range(int(m.get("bubbles", 14))):
-        bx, by, br = rng.random(), rng.random(), rng.uniform(0.035, 0.09)
-        dx_ = (x - bx + 0.5) % 1 - 0.5; dy_ = ((y - by + 0.5) % 1 - 0.5) * 0.8; d = np.hypot(dx_, dy_) / br  # wraps both ways
-        rim = np.clip(1 - np.abs(d - 0.85) / 0.18, 0, 1); inner = (d < 0.85) * 0.25; gl = np.clip(1 - np.hypot(dx_ + br * 0.3, dy_ + br * 0.3) / (br * 0.28), 0, 1)
-        k = np.clip(rim + inner + gl, 0, 1)[..., None]; alb = alb * (1 - k) + np.array(m.get("bubble", [0.92, 1.0, 0.8]))[None, None] * k; emit = np.maximum(emit, k[..., 0])
-    return dict(alb=alb, h=np.zeros((S, S)), rough=np.full((S, S), 0.3), metal=0.0, emit=emit, nstr=0.0)
+    """Stage 142 / 166: glowing liquid inside glass tubing, tileable in u and v (scrolled along v by a liquid_flow effect:
+    the bubbles stream through the pipe). Stage 166 (realistic): the liquid has slow luminous swirls along the flow and
+    deeper troughs; the bubbles come in trains (a big one leading smaller ones) plus a fizz of tiny ones, each shaded like
+    a gas lens - brighter inside, a dark refraction edge, a bright Fresnel rim and a sharp glint up-left with a faint
+    caustic down-right. Isotropic (the pipes wrap it "wraps" times round so a bubble stays round). "bubbles": trains."""
+    x, y = _xy(S); sw = _noise(rng, 5, 3, S); sw2 = _noise(rng, 11, 2, S)
+    flow = 0.62 + 0.25 * np.sin(2 * np.pi * (x * 2 + 0.35 * np.sin(2 * np.pi * (y + sw * 0.6)))) + 0.22 * (sw2 - 0.5)  # streaks along the flow, wavering
+    base = np.clip(c[None, None] * np.clip(flow, 0.35, 1.15)[..., None], 0, 1); hot = np.array(m.get("hot", [0.85, 1.0, 0.55]))
+    base = base + hot[None, None] * np.clip(sw - 0.62, 0, 1)[..., None] * 0.9  # luminous swirls
+    alb = base.copy(); emit = np.clip(0.75 + 0.3 * (flow - 0.6), 0.55, 1.0)
+    bub = np.array(m.get("bubble", [0.92, 1.0, 0.8])); dark = np.array(m.get("edge", [0.08, 0.28, 0.04]))
+    def bubble(bx, by, br):
+        dx_ = (x - bx + 0.5) % 1 - 0.5; dy_ = (y - by + 0.5) % 1 - 0.5; d = np.hypot(dx_, dy_) / br  # wraps both ways
+        a = np.clip((1.05 - d) / 0.08, 0, 1)  # coverage (soft edge)
+        if not a.any(): return
+        lens = np.clip(1 - d, 0, 1) ** 0.6 * 0.35  # brighter middle (it focuses the glow behind it)
+        edge = np.clip(1 - np.abs(d - 0.8) / 0.12, 0, 1)  # dark refraction ring under the rim
+        rim = np.clip(1 - np.abs(d - 0.97) / 0.07, 0, 1)  # thin bright Fresnel rim
+        gl = np.clip(1 - np.hypot(dx_ + br * 0.38, dy_ + br * 0.38) / (br * 0.22), 0, 1) ** 1.5  # sharp glint up-left
+        cs = np.clip(1 - np.hypot(dx_ - br * 0.35, dy_ - br * 0.42) / (br * 0.3), 0, 1) * 0.45  # faint caustic down-right
+        col = base * (1 + lens[..., None]) * (1 - 0.65 * edge[..., None]) + dark[None, None] * 0.35 * edge[..., None]
+        col = col + bub[None, None] * np.clip(rim * 0.9 + gl + cs, 0, 1)[..., None]
+        nonlocal alb, emit
+        alb = alb * (1 - a[..., None]) + np.clip(col, 0, 1) * a[..., None]; emit = np.maximum(emit, np.clip(rim * 0.9 + gl + cs + lens, 0, 1) * a)
+    for _ in range(int(m.get("bubbles", 9))):  # trains: a big bubble leading a wobbling string of smaller ones
+        bx, by = rng.random(), rng.random(); br = rng.uniform(0.05, 0.1)
+        for k in range(int(rng.integers(3, 7))):
+            bubble(bx + 0.015 * np.sin(k * 1.7 + bx * 9), by - k * br * 2.1 - k * 0.012, br); br *= rng.uniform(0.6, 0.82)
+            if br < 0.012: break
+    for _ in range(int(m.get("fizz", 40))): bubble(rng.random(), rng.random(), rng.uniform(0.007, 0.022))  # tiny fizz
+    return dict(alb=np.clip(alb, 0, 1), h=np.zeros((S, S)), rough=np.full((S, S), 0.25), metal=0.0, emit=np.clip(emit, 0, 1), nstr=0.0)
 
 
 def k_pool_fade(S, rng, c, m):

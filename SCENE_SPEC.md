@@ -1516,6 +1516,13 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 166: the reactor's pipes meet the ceiling at industrial junctions (`_ceiling_junction`: bolted plate, reducer with
+  gusset fins, double flange with through-bolts and a glowing pink seal, valve box with lamp and hand wheel, a clamp
+  below). `pipe_path` `"wraps"`: the texture wraps that many times round the tube (`_glass_pipe` sets ~1 m per wrap: round
+  bubbles on thick pipes). `bubble_flow` redone: luminous swirls, bubble trains of falling size and a fizz of tiny ones,
+  lens-shaded (dark refraction edge, Fresnel rim, glint, caustic); `pipe_liquid` res 256. The preview avatar
+  (assets/characters/grinch_preview, preview only) is simplified to ~40% of its faces with a 768 px texture
+  (player_preview.slim): the page is ~2.9 MB lighter.
 - Stage 165: the reactor's bubbles stream out of seven nozzles on a diffuser (drum, glowing ring, perforated grate; dark
   bores) and into seven bell-mouthed intake tubes under the cap - at the tube_bubbles shader's own spots (centre + 0.44 r
   (cos 60n, sin 60n) and the centre), the bubble column running from the nozzle tips to the intake mouths. `Tube_Bubbles`

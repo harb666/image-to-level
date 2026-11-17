@@ -73,6 +73,57 @@ def reduce(src, out, size=1024, name="grinch", clips=CLIPS):
     return dict(glb_kb=len(glb) // 1024, jpg_kb=len(open(out + ".jpg", "rb").read()) // 1024, clips=[a["name"] for a in J["animations"]])
 
 
+
+def slim(path, out, keep=0.4, tex=None, tex_size=768):
+    """Stage 166: a lighter preview avatar - the skinned mesh simplified to ~keep of its faces (pipeline/specimen.py
+    decimate_part: per-corner UVs from the closest original face, skin weights from the closest original vertex), the
+    skeleton, skin and clips untouched; optionally the base-colour jpg resized. The preview page embeds it (it was 5.4 MB
+    of base64 - a third of the page)."""
+    import specimen as S_
+    J, BIN = _read(path); pr = J["meshes"][0]["primitives"][0]; A = pr["attributes"]
+    def get(i):
+        a = J["accessors"][i]; v = J["bufferViews"][a["bufferView"]]; o = v.get("byteOffset", 0) + a.get("byteOffset", 0)
+        dt = {5126: np.float32, 5125: np.uint32, 5123: np.uint16, 5121: np.uint8}[a["componentType"]]; n = {"SCALAR": 1, "VEC2": 2, "VEC3": 3, "VEC4": 4}[a["type"]]
+        return np.frombuffer(BIN[o:o + a["count"] * n * np.dtype(dt).itemsize], dt).reshape(a["count"], n) if n > 1 else np.frombuffer(BIN[o:o + a["count"] * np.dtype(dt).itemsize], dt)
+    P = get(A["POSITION"]).astype(float); UV = get(A["TEXCOORD_0"]).astype(float); Jt = get(A["JOINTS_0"]); W = get(A["WEIGHTS_0"]); F = get(pr["indices"]).reshape(-1, 3).astype(np.int64)
+    wn = J["accessors"][A["WEIGHTS_0"]].get("normalized", False); Wf = W.astype(float) / (255.0 if W.dtype == np.uint8 else 65535.0 if W.dtype == np.uint16 else 1.0)
+    V, Fn, UVc, src = S_.decimate_part(P, UV, F, keep)
+    N = S_.smooth_normals(V, Fn); vV, vN, vUV, vJ, vW, vF = S_.unweld_uv(V, Fn, UVc, N, (Jt[src].astype(int), Wf[src]))
+    vW = np.asarray(vW, float); vW = vW / np.maximum(vW.sum(1, keepdims=True), 1e-9)
+    # rebuild: drop the old mesh views, append the new arrays (positions / normals / uv float, joints u8|u16, weights u8 normalized, u32 indices)
+    keep_acc = [i for i in range(len(J["accessors"])) if i not in set(A.values()) | {pr["indices"]}]
+    blob = bytearray(); bvs = []; accs = []; amap = {}
+    def put(arr, ctype, typ, normalized=False, target=None, minmax=False):
+        while len(blob) % 4: blob.append(0)
+        b = np.ascontiguousarray(arr).tobytes(); v = dict(buffer=0, byteOffset=len(blob), byteLength=len(b)); blob.extend(b)
+        if target: v["target"] = target
+        bvs.append(v); a = dict(bufferView=len(bvs) - 1, componentType=ctype, count=int(len(arr)), type=typ)
+        if normalized: a["normalized"] = True
+        if minmax: a["min"] = [float(x) for x in arr.min(0)]; a["max"] = [float(x) for x in arr.max(0)]
+        accs.append(a); return len(accs) - 1
+    for i in keep_acc:  # skeleton / animation data, byte-for-byte
+        a = dict(J["accessors"][i]); v = J["bufferViews"][a["bufferView"]]; o = v.get("byteOffset", 0)
+        while len(blob) % 4: blob.append(0)
+        nv = {k: v[k] for k in v if k not in ("byteOffset", "buffer")}; nv.update(buffer=0, byteOffset=len(blob)); blob.extend(BIN[o:o + v["byteLength"]]); bvs.append(nv)
+        a["bufferView"] = len(bvs) - 1; accs.append(a); amap[i] = len(accs) - 1
+    jt = np.uint8 if int(np.max(vJ)) < 256 else np.uint16
+    na = dict(POSITION=put(np.asarray(vV, np.float32), 5126, "VEC3", target=34962, minmax=True), NORMAL=put(np.asarray(vN, np.float32), 5126, "VEC3", target=34962),
+              TEXCOORD_0=put(np.asarray(vUV, np.float32), 5126, "VEC2", target=34962), JOINTS_0=put(np.asarray(vJ, jt), 5121 if jt == np.uint8 else 5123, "VEC4", target=34962),
+              WEIGHTS_0=put(np.clip(np.round(vW * 255), 0, 255).astype(np.uint8), 5121, "VEC4", normalized=True, target=34962))
+    ia = put(np.asarray(vF, np.uint32).ravel(), 5125, "SCALAR", target=34963)
+    pr["attributes"] = na; pr["indices"] = ia
+    for sk in J.get("skins", []):
+        if "inverseBindMatrices" in sk: sk["inverseBindMatrices"] = amap[sk["inverseBindMatrices"]]
+    for an in J.get("animations", []):
+        for s_ in an["samplers"]: s_["input"], s_["output"] = amap[s_["input"]], amap[s_["output"]]
+    J["accessors"] = accs; J["bufferViews"] = bvs; J["buffers"] = [dict(byteLength=len(blob))]
+    js = json.dumps(J, separators=(",", ":")).encode(); js += b" " * (-len(js) % 4); blob += b"\0" * (-len(blob) % 4)
+    with open(out, "wb") as f:
+        f.write(struct.pack("<III", 0x46546C67, 2, 12 + 8 + len(js) + 8 + len(blob))); f.write(struct.pack("<II", len(js), 0x4E4F534A)); f.write(js)
+        f.write(struct.pack("<II", len(blob), 0x004E4942)); f.write(bytes(blob))
+    if tex: Image.open(tex).convert("RGB").resize((tex_size, tex_size), Image.LANCZOS).save(tex, quality=86)
+    return len(F), len(vF)
+
 if __name__ == "__main__":
     a = sys.argv[1:]; size = int(a[a.index("--size") + 1]) if "--size" in a else 1024; name = a[a.index("--name") + 1] if "--name" in a else "grinch"
     print(json.dumps(reduce(a[0], a[1], size, name)))

@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "8c02947970d19d9d",
+  "spec_sha": "e19208a703cdc536",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -3928,14 +3928,15 @@
    "tile_m": 1.0,
    "wear": 0.5,
    "bevel": 0.12,
-   "res": 128,
-   "bubbles": 14,
+   "res": 256,
+   "bubbles": 9,
    "emissive": [
     0.5,
     1.0,
     0.25
    ],
-   "notes": "Stage 142: glowing slime with bubbles inside the glass pipes (scrolled by Pipe_Bubbles)"
+   "notes": "Stage 142/166: glowing slime inside the glass pipes - realistic bubble trains, lens-shaded with rims and glints, over luminous swirls (scrolled by Pipe_Bubbles)",
+   "fizz": 40
   },
   "pole_stripe": {
    "type": "hazard_wrap",
@@ -72963,6 +72964,7 @@
    ],
    "bend": 1.0,
    "tile": 1.0,
+   "wraps": 3,
    "sections": 10,
    "collision": false,
    "outline": false,
@@ -73074,11 +73076,597 @@
    "source": "visible"
   },
   {
-   "name": "Reactor_PipeMainClamp_3",
+   "name": "Reactor_PipeMainTop_Plate",
+   "type": "box",
+   "position": [
+    31.0,
+    34.22,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.195,
+    0.3,
+    3.195
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_PlateBolt_1",
+   "type": "box",
+   "position": [
+    32.385,
+    34.14,
+    9.385
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    0.1,
+    0.2
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_Gusset_1",
+   "type": "box",
+   "position": [
+    31.826,
+    33.28,
+    8.825
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    1.0,
+    0.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_PlateBolt_2",
+   "type": "box",
+   "position": [
+    32.385,
+    34.14,
+    6.615
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    0.1,
+    0.2
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_Gusset_2",
+   "type": "box",
+   "position": [
+    31.826,
+    33.28,
+    7.175
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    1.0,
+    0.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_PlateBolt_3",
+   "type": "box",
+   "position": [
+    29.615,
+    34.14,
+    6.615
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    0.1,
+    0.2
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_Gusset_3",
+   "type": "box",
+   "position": [
+    30.174,
+    33.28,
+    7.175
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    1.0,
+    0.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_PlateBolt_4",
+   "type": "box",
+   "position": [
+    29.615,
+    34.14,
+    9.385
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    0.1,
+    0.2
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_Gusset_4",
+   "type": "box",
+   "position": [
+    30.174,
+    33.28,
+    8.825
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    1.0,
+    0.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_Reducer",
+   "type": "frustum",
+   "position": [
+    31.0,
+    33.28,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.495,
+    0.96,
+    2.495
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "bottom_scale": 0.719438877755511,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_FlangeTop",
    "type": "cylinder",
    "position": [
     31.0,
-    33.7,
+    33.14,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.275,
+    0.15,
+    2.275
+   ],
+   "material": "frame",
+   "sections": 12,
+   "hole": 0.717,
+   "hole_res": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_Seal",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    33.0,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.395,
+    0.16,
+    2.395
+   ],
+   "material": "glow_pink",
+   "sections": 12,
+   "hole": 0.767,
+   "hole_res": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_FlangeLow",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    32.87,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.275,
+    0.15,
+    2.275
+   ],
+   "material": "frame",
+   "sections": 12,
+   "hole": 0.717,
+   "hole_res": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_FlangeBolt_1",
+   "type": "cylinder",
+   "position": [
+    31.401,
+    32.8,
+    8.968
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_FlangeBolt_2",
+   "type": "cylinder",
+   "position": [
+    31.968,
+    32.8,
+    8.401
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_FlangeBolt_3",
+   "type": "cylinder",
+   "position": [
+    31.968,
+    32.8,
+    7.599
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_FlangeBolt_4",
+   "type": "cylinder",
+   "position": [
+    31.401,
+    32.8,
+    7.032
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_FlangeBolt_5",
+   "type": "cylinder",
+   "position": [
+    30.599,
+    32.8,
+    7.032
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_FlangeBolt_6",
+   "type": "cylinder",
+   "position": [
+    30.032,
+    32.8,
+    7.599
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_FlangeBolt_7",
+   "type": "cylinder",
+   "position": [
+    30.032,
+    32.8,
+    8.401
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_FlangeBolt_8",
+   "type": "cylinder",
+   "position": [
+    30.599,
+    32.8,
+    8.968
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_Clamp",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    32.0,
     8.0
    ],
    "rotation": [
@@ -73088,12 +73676,96 @@
    ],
    "size": [
     1.995,
-    0.6,
+    0.5,
     1.995
    ],
    "material": "frame",
-   "sections": 10,
+   "sections": 12,
    "hole": 0.717,
+   "hole_res": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_Valve",
+   "type": "box",
+   "position": [
+    29.832,
+    32.5,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.55,
+    0.5
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_ValveLamp",
+   "type": "box",
+   "position": [
+    29.593,
+    32.62,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.12,
+    0.04
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeMainTop_ValveWheel",
+   "type": "cylinder",
+   "position": [
+    29.593,
+    32.42,
+    8.0
+   ],
+   "rotation": [
+    90.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    0.05,
+    0.5
+   ],
+   "material": "lift_ring",
+   "sections": 10,
+   "hole": 0.17,
    "hole_res": 10,
    "collision": false,
    "outline": false,
@@ -73142,6 +73814,7 @@
    ],
    "bend": 1.4,
    "tile": 1.0,
+   "wraps": 3,
    "sections": 10,
    "collision": false,
    "outline": false,
@@ -73280,11 +73953,597 @@
    "source": "visible"
   },
   {
-   "name": "Reactor_PipeTop_1",
+   "name": "Reactor_PipeTop_1_Plate",
+   "type": "box",
+   "position": [
+    37.152,
+    34.22,
+    14.152
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.0,
+    0.3,
+    3.0
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_PlateBolt_1",
+   "type": "box",
+   "position": [
+    38.439,
+    34.14,
+    15.439
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    0.1,
+    0.2
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_Gusset_1",
+   "type": "box",
+   "position": [
+    37.908,
+    33.28,
+    14.908
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    1.0,
+    0.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_PlateBolt_2",
+   "type": "box",
+   "position": [
+    38.439,
+    34.14,
+    12.864
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    0.1,
+    0.2
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_Gusset_2",
+   "type": "box",
+   "position": [
+    37.908,
+    33.28,
+    13.395
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    1.0,
+    0.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_PlateBolt_3",
+   "type": "box",
+   "position": [
+    35.864,
+    34.14,
+    12.864
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    0.1,
+    0.2
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_Gusset_3",
+   "type": "box",
+   "position": [
+    36.395,
+    33.28,
+    13.395
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    1.0,
+    0.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_PlateBolt_4",
+   "type": "box",
+   "position": [
+    35.864,
+    34.14,
+    15.439
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    0.1,
+    0.2
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_Gusset_4",
+   "type": "box",
+   "position": [
+    36.395,
+    33.28,
+    14.908
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    1.0,
+    0.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_Reducer",
+   "type": "frustum",
+   "position": [
+    37.152,
+    33.28,
+    14.152
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.3,
+    0.96,
+    2.3
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "bottom_scale": 0.6956521739130436,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_FlangeTop",
    "type": "cylinder",
    "position": [
     37.152,
-    33.7,
+    33.14,
+    14.152
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.08,
+    0.15,
+    2.08
+   ],
+   "material": "frame",
+   "sections": 12,
+   "hole": 0.62,
+   "hole_res": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_Seal",
+   "type": "cylinder",
+   "position": [
+    37.152,
+    33.0,
+    14.152
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.2,
+    0.16,
+    2.2
+   ],
+   "material": "glow_pink",
+   "sections": 12,
+   "hole": 0.67,
+   "hole_res": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_FlangeLow",
+   "type": "cylinder",
+   "position": [
+    37.152,
+    32.87,
+    14.152
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.08,
+    0.15,
+    2.08
+   ],
+   "material": "frame",
+   "sections": 12,
+   "hole": 0.62,
+   "hole_res": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_FlangeBolt_1",
+   "type": "cylinder",
+   "position": [
+    37.515,
+    32.8,
+    15.03
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_FlangeBolt_2",
+   "type": "cylinder",
+   "position": [
+    38.029,
+    32.8,
+    14.515
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_FlangeBolt_3",
+   "type": "cylinder",
+   "position": [
+    38.029,
+    32.8,
+    13.788
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_FlangeBolt_4",
+   "type": "cylinder",
+   "position": [
+    37.515,
+    32.8,
+    13.274
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_FlangeBolt_5",
+   "type": "cylinder",
+   "position": [
+    36.788,
+    32.8,
+    13.274
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_FlangeBolt_6",
+   "type": "cylinder",
+   "position": [
+    36.274,
+    32.8,
+    13.788
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_FlangeBolt_7",
+   "type": "cylinder",
+   "position": [
+    36.274,
+    32.8,
+    14.515
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_FlangeBolt_8",
+   "type": "cylinder",
+   "position": [
+    36.788,
+    32.8,
+    15.03
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_Clamp",
+   "type": "cylinder",
+   "position": [
+    37.152,
+    32.0,
     14.152
    ],
    "rotation": [
@@ -73294,12 +74553,96 @@
    ],
    "size": [
     1.8,
-    0.6,
+    0.5,
     1.8
    ],
    "material": "frame",
-   "sections": 10,
+   "sections": 12,
    "hole": 0.62,
+   "hole_res": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_Valve",
+   "type": "box",
+   "position": [
+    37.908,
+    32.5,
+    13.395
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.55,
+    0.5
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_ValveLamp",
+   "type": "box",
+   "position": [
+    38.078,
+    32.62,
+    13.226
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.12,
+    0.04
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_1_ValveWheel",
+   "type": "cylinder",
+   "position": [
+    38.078,
+    32.42,
+    13.226
+   ],
+   "rotation": [
+    90.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    0.05,
+    0.5
+   ],
+   "material": "lift_ring",
+   "sections": 10,
+   "hole": 0.17,
    "hole_res": 10,
    "collision": false,
    "outline": false,
@@ -73348,6 +74691,7 @@
    ],
    "bend": 1.4,
    "tile": 1.0,
+   "wraps": 3,
    "sections": 10,
    "collision": false,
    "outline": false,
@@ -73486,11 +74830,597 @@
    "source": "visible"
   },
   {
-   "name": "Reactor_PipeTop_2",
+   "name": "Reactor_PipeTop_2_Plate",
+   "type": "box",
+   "position": [
+    37.152,
+    34.22,
+    1.848
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.0,
+    0.3,
+    3.0
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_PlateBolt_1",
+   "type": "box",
+   "position": [
+    38.439,
+    34.14,
+    3.136
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    0.1,
+    0.2
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_Gusset_1",
+   "type": "box",
+   "position": [
+    37.908,
+    33.28,
+    2.605
+   ],
+   "rotation": [
+    0.0,
+    45.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    1.0,
+    0.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_PlateBolt_2",
+   "type": "box",
+   "position": [
+    38.439,
+    34.14,
+    0.561
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    0.1,
+    0.2
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_Gusset_2",
+   "type": "box",
+   "position": [
+    37.908,
+    33.28,
+    1.092
+   ],
+   "rotation": [
+    0.0,
+    135.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    1.0,
+    0.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_PlateBolt_3",
+   "type": "box",
+   "position": [
+    35.864,
+    34.14,
+    0.561
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    0.1,
+    0.2
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_Gusset_3",
+   "type": "box",
+   "position": [
+    36.395,
+    33.28,
+    1.092
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    1.0,
+    0.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_PlateBolt_4",
+   "type": "box",
+   "position": [
+    35.864,
+    34.14,
+    3.136
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    0.1,
+    0.2
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_Gusset_4",
+   "type": "box",
+   "position": [
+    36.395,
+    33.28,
+    2.605
+   ],
+   "rotation": [
+    0.0,
+    315.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    1.0,
+    0.62
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_Reducer",
+   "type": "frustum",
+   "position": [
+    37.152,
+    33.28,
+    1.848
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.3,
+    0.96,
+    2.3
+   ],
+   "material": "structure_b",
+   "sections": 12,
+   "bottom_scale": 0.6956521739130436,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_FlangeTop",
    "type": "cylinder",
    "position": [
     37.152,
-    33.7,
+    33.14,
+    1.848
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.08,
+    0.15,
+    2.08
+   ],
+   "material": "frame",
+   "sections": 12,
+   "hole": 0.62,
+   "hole_res": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_Seal",
+   "type": "cylinder",
+   "position": [
+    37.152,
+    33.0,
+    1.848
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.2,
+    0.16,
+    2.2
+   ],
+   "material": "glow_pink",
+   "sections": 12,
+   "hole": 0.67,
+   "hole_res": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_FlangeLow",
+   "type": "cylinder",
+   "position": [
+    37.152,
+    32.87,
+    1.848
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.08,
+    0.15,
+    2.08
+   ],
+   "material": "frame",
+   "sections": 12,
+   "hole": 0.62,
+   "hole_res": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_FlangeBolt_1",
+   "type": "cylinder",
+   "position": [
+    37.515,
+    32.8,
+    2.726
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_FlangeBolt_2",
+   "type": "cylinder",
+   "position": [
+    38.029,
+    32.8,
+    2.212
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_FlangeBolt_3",
+   "type": "cylinder",
+   "position": [
+    38.029,
+    32.8,
+    1.485
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_FlangeBolt_4",
+   "type": "cylinder",
+   "position": [
+    37.515,
+    32.8,
+    0.971
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_FlangeBolt_5",
+   "type": "cylinder",
+   "position": [
+    36.788,
+    32.8,
+    0.971
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_FlangeBolt_6",
+   "type": "cylinder",
+   "position": [
+    36.274,
+    32.8,
+    1.485
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_FlangeBolt_7",
+   "type": "cylinder",
+   "position": [
+    36.274,
+    32.8,
+    2.212
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_FlangeBolt_8",
+   "type": "cylinder",
+   "position": [
+    36.788,
+    32.8,
+    2.726
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.44,
+    0.1
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_Clamp",
+   "type": "cylinder",
+   "position": [
+    37.152,
+    32.0,
     1.848
    ],
    "rotation": [
@@ -73500,12 +75430,96 @@
    ],
    "size": [
     1.8,
-    0.6,
+    0.5,
     1.8
    ],
    "material": "frame",
-   "sections": 10,
+   "sections": 12,
    "hole": 0.62,
+   "hole_res": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_Valve",
+   "type": "box",
+   "position": [
+    36.395,
+    32.5,
+    1.092
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.55,
+    0.5
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_ValveLamp",
+   "type": "box",
+   "position": [
+    36.225,
+    32.62,
+    0.922
+   ],
+   "rotation": [
+    0.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.12,
+    0.04
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_PipeTop_2_ValveWheel",
+   "type": "cylinder",
+   "position": [
+    36.225,
+    32.42,
+    0.922
+   ],
+   "rotation": [
+    90.0,
+    225.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    0.05,
+    0.5
+   ],
+   "material": "lift_ring",
+   "sections": 10,
+   "hole": 0.17,
    "hole_res": 10,
    "collision": false,
    "outline": false,
@@ -102638,16 +104652,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 89290,
-  "objects": 3018,
+  "triangles": 91546,
+  "objects": 3090,
   "materials": 61,
-  "glb_kb": 5905,
-  "nodes": 3321,
-  "draw_calls_unbatched": 3277,
+  "glb_kb": 6002,
+  "nodes": 3393,
+  "draw_calls_unbatched": 3349,
   "draw_calls_batched_min": 63,
   "images": 148,
-  "tex_mem_gpu_compressed_mb": 29.71,
-  "tex_mem_uncompressed_mb": 118.85,
+  "tex_mem_gpu_compressed_mb": 29.9,
+  "tex_mem_uncompressed_mb": 119.6,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

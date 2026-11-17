@@ -32,7 +32,7 @@ class Reactor(unittest.TestCase):
             if n.startswith("Pillars_") or n.startswith("Arena_Tile"):
                 self.assertGreater(math.hypot(o["position"][0] - P[0], o["position"][2] - P[2]), 12.0, n)
         beam = self.by["CraneRail_01_Beam"]
-        for n in ("Reactor_PipeTop_1", "Reactor_PipeTop_2"):
+        for n in ("Reactor_PipeTop_1_Plate", "Reactor_PipeTop_2_Plate"):
             self.assertGreater(abs(self.R[n]["position"][2] - beam["position"][2]), 1.2)  # the pipes miss the crane runway
         rip = self.E["Hazard_Surface"]["ripples"]; self.assertLessEqual(len(rip), 24)
         self.assertTrue(any(math.hypot(r[0] - P[0], r[1] - P[2]) < 1 for r in rip))  # rings round the reactor's base
@@ -61,6 +61,23 @@ class BubbleNozzles(unittest.TestCase):
         sv = by["Showcase_TankGlass"]; rs = sv["size"][0] / 2  # the showcase vat's nozzles sit on the same ring
         for k in range(6):
             o = by[f"Showcase_TankNozzle_{k + 1}"]; self.assertAlmostEqual(math.hypot(o["position"][0] - sv["position"][0], o["position"][2] - sv["position"][2]), 0.44 * rs, places=2)
+
+
+class PipesAndJunctions(unittest.TestCase):
+    """Stage 166: industrial ceiling junctions on the reactor's pipes; round, realistic bubbles; a lighter preview avatar."""
+    def test_junctions(self):
+        L = json.load(open(os.path.join(LV, "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        for j in ("Reactor_PipeMainTop", "Reactor_PipeTop_1", "Reactor_PipeTop_2"):
+            for part in ("_Plate", "_Reducer", "_FlangeTop", "_Seal", "_FlangeLow", "_Valve", "_ValveWheel", "_Clamp", "_Gusset_1", "_FlangeBolt_8"): self.assertIn(j + part, by)
+            pl = by[j + "_Plate"]; self.assertAlmostEqual(pl["position"][1] + pl["size"][1], by["Reactor_PipeMain"]["position"][1] + by["Reactor_PipeMain"]["path"][-1][1] - 0.08, delta=0.1)  # flush on the ceiling
+    def test_bubbles_round_on_thick_pipes(self):
+        L = json.load(open(os.path.join(LV, "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        for n in ("Reactor_PipeMain", "Reactor_Pipe_1"):
+            o = by[n]; circ = math.pi * o["size"][0]; self.assertAlmostEqual(circ / o["wraps"] / o["tile"], 1.0, delta=0.25)  # texture ~square on the core
+        m = L["materials"]["pipe_liquid"]; self.assertEqual(m["type"], "bubble_flow"); self.assertGreaterEqual(m["res"], 256)
+    def test_lighter_preview_avatar(self):
+        A = os.path.join(ROOT, "assets", "characters", "grinch_preview")
+        self.assertLess(os.path.getsize(A + ".glb"), 2_500_000); self.assertLess(os.path.getsize(A + ".jpg"), 350_000)
 
 
 if __name__ == "__main__":
