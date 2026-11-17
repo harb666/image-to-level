@@ -124,6 +124,18 @@ class AssemblyAscent(unittest.TestCase):
         self.assertEqual(m["type"], "monitor_back"); self.assertAlmostEqual(m["tile_m"], b["size"][0], places=2); self.assertAlmostEqual(m["h"], b["size"][1], places=2)
         for n in ("Jet_Screen_FrameT", "Jet_Screen_Pack", "Jet_Screen_ThrusterL"): self.assertTrue(M[self.by[n]["material"]].get("plain"), n)
 
+    def test_east_slime_tunnel(self):
+        """Stage 149: an arched tunnel cut through the east wall (the wall is split round it, its dressing elsewhere kept)
+        with slime flowing out of it, black veils + a void back wall so its end is never seen, a kill box on the channel."""
+        T = self.by; self.assertEqual(T["East_SlimeTunnel_Portal"]["type"], "round_arch"); self.assertTrue(T["East_SlimeTunnel_Portal"].get("waterway"))
+        self.assertTrue([n for n in T if n.startswith("OuterWall_East_Body_")])  # cut round the opening (split into pieces)
+        b = T["OuterWall_East_Body"]; self.assertLess(b["size"][0], 134.0)  # the main body no longer runs through it
+        self.assertIn("OuterWall_East_M08Machine", T)  # the machine above it stays
+        M = self.L["materials"]; self.assertGreaterEqual(len([n for n in T if n.startswith("East_SlimeTunnel_Veil_")]), 4)
+        self.assertLess(M[T["East_SlimeTunnel_Veil_1"]["material"]]["alpha"], 0.6); self.assertEqual(max(M[T["East_SlimeTunnel_End"]["material"]]["color"]), 0.0)
+        self.assertEqual(T["East_SlimeTunnel_Pour"]["type"], "stream"); self.assertIn("East_SlimeTunnel_Slime", {k["id"] for k in self.L["kills"]})
+        E = {e["id"]: e for e in _load("effects.json")["effects"]}; self.assertIn("East_SlimeTunnel_Liquid", E["Tunnel_Flow"]["targets"])
+
     def test_saw_hubs_are_plain(self):
         """Stage 132: the spinning blade hub (flange + nut) is plain dark metal - the machine panel's white light slots
         spun round with the blade."""

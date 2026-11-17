@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "d6c8615537e8eaee",
+  "spec_sha": "0e2160d2e909c953",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -87,6 +87,12 @@
      2.96
     ],
     [
+     48.25,
+     8.0,
+     1.0,
+     4.3
+    ],
+    [
      -32.27,
      22.38,
      0.3,
@@ -123,7 +129,8 @@
    "type": "liquid_flow",
    "targets_glob": [
     "Showcase_Pit_1_FrontFall",
-    "Showcase_Pit_2_FrontFall"
+    "Showcase_Pit_2_FrontFall",
+    "East_SlimeTunnel_Pour"
    ],
    "speed": 3.0
   },
@@ -132,7 +139,8 @@
    "type": "splash",
    "at_targets_glob": [
     "Showcase_Pit_1_FrontFall",
-    "Showcase_Pit_2_FrontFall"
+    "Showcase_Pit_2_FrontFall",
+    "East_SlimeTunnel_Pour"
    ],
    "anchor": "bottom"
   },
@@ -141,7 +149,8 @@
    "type": "steam",
    "at_targets_glob": [
     "Showcase_Pit_1_FrontFall",
-    "Showcase_Pit_2_FrontFall"
+    "Showcase_Pit_2_FrontFall",
+    "East_SlimeTunnel_Pour"
    ],
    "anchor": "bottom"
   },
@@ -215,6 +224,18 @@
    ],
    "energy": 1.3,
    "range": 34.0
+  },
+  {
+   "id": "Tunnel_Flow",
+   "type": "liquid_flow",
+   "targets_glob": [
+    "East_SlimeTunnel_Liquid"
+   ],
+   "speed": 1.6,
+   "flow_uv": [
+    0.0,
+    -1.0
+   ]
   },
   {
    "id": "Pipe_Bubbles",
@@ -453,6 +474,24 @@
    ],
    "energy": 1.3,
    "range": 16.0
+  },
+  {
+   "id": "East_SlimeTunnel_Glow",
+   "type": "point_light",
+   "positions": [
+    [
+     47.0,
+     4.4,
+     8.0
+    ]
+   ],
+   "color": [
+    0.45,
+    1.0,
+    0.25
+   ],
+   "energy": 1.5,
+   "range": 13.0
   },
   {
    "id": "Dome_Motes",
@@ -3858,6 +3897,20 @@
    "wear": 0.12,
    "notes": "platform rims: yellow / black hazard stripes (concept art)"
   },
+  "tunnel_dark": {
+   "type": "concrete",
+   "color": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 16,
+   "alpha": 0.42,
+   "notes": "Stage 149: black veils down the tunnel - deeper is darker"
+  },
   "tv_casing": {
    "type": "tv_casing",
    "color": [
@@ -3877,6 +3930,15 @@
    ],
    "border": 0.07,
    "chin": 0.2
+  },
+  "void": {
+   "type": "concrete",
+   "color": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "tile_m": 4.0
   },
   "wall": {
    "type": "hull_plating",
@@ -5269,30 +5331,6 @@
     -90.0,
     0.0
    ],
-   "gen": "arena.walls",
-   "source": "inferred"
-  },
-  {
-   "name": "OuterWall_East_Body",
-   "type": "box",
-   "position": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "OuterWall_East",
-   "size": [
-    134.0,
-    34.0,
-    4.0
-   ],
-   "material": "wall",
-   "uv_space": "world",
    "gen": "arena.walls",
    "source": "inferred"
   },
@@ -35905,6 +35943,938 @@
     "static": true
    },
    "gen": "Deck_Monitor_R",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel",
+   "type": "group",
+   "position": [
+    50.0,
+    0.0,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Portal",
+   "type": "round_arch",
+   "position": [
+    0.0,
+    0.0,
+    0.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    13.2,
+    10.6,
+    1.2
+   ],
+   "material": "structure_b",
+   "opening": 0.7575757575757576,
+   "opening_h": 0.8490566037735849,
+   "segments": 10,
+   "waterway": true,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Band_1",
+   "type": "box",
+   "position": [
+    5.998,
+    4.79,
+    1.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    97.5
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    1.643,
+    0.5,
+    0.05
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Band_2",
+   "type": "box",
+   "position": [
+    5.589,
+    6.315,
+    1.224
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    112.5
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    1.643,
+    0.5,
+    0.05
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Band_3",
+   "type": "box",
+   "position": [
+    4.8,
+    7.683,
+    1.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    127.5
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    1.643,
+    0.5,
+    0.05
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Band_4",
+   "type": "box",
+   "position": [
+    3.683,
+    8.8,
+    1.224
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    142.5
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    1.643,
+    0.5,
+    0.05
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Band_5",
+   "type": "box",
+   "position": [
+    2.315,
+    9.589,
+    1.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    157.5
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    1.643,
+    0.5,
+    0.05
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Band_6",
+   "type": "box",
+   "position": [
+    0.79,
+    9.998,
+    1.224
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    172.5
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    1.643,
+    0.5,
+    0.05
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Band_7",
+   "type": "box",
+   "position": [
+    -0.79,
+    9.998,
+    1.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    187.5
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    1.643,
+    0.5,
+    0.05
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Band_8",
+   "type": "box",
+   "position": [
+    -2.315,
+    9.589,
+    1.224
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    202.5
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    1.643,
+    0.5,
+    0.05
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Band_9",
+   "type": "box",
+   "position": [
+    -3.683,
+    8.8,
+    1.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    217.5
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    1.643,
+    0.5,
+    0.05
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Band_10",
+   "type": "box",
+   "position": [
+    -4.8,
+    7.683,
+    1.224
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    232.5
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    1.643,
+    0.5,
+    0.05
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Band_11",
+   "type": "box",
+   "position": [
+    -5.589,
+    6.315,
+    1.22
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    247.5
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    1.643,
+    0.5,
+    0.05
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Band_12",
+   "type": "box",
+   "position": [
+    -5.998,
+    4.79,
+    1.224
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    262.5
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    1.643,
+    0.5,
+    0.05
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Lamp_L",
+   "type": "box",
+   "position": [
+    -5.8,
+    1.6,
+    1.23
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    0.5,
+    1.2,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Lamp_R",
+   "type": "box",
+   "position": [
+    5.8,
+    1.6,
+    1.23
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    0.5,
+    1.2,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Side_L",
+   "type": "box",
+   "position": [
+    -5.3,
+    0.6,
+    -4.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    0.6,
+    8.4,
+    8.9
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Side_R",
+   "type": "box",
+   "position": [
+    5.3,
+    0.6,
+    -4.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    0.6,
+    8.4,
+    8.9
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Roof",
+   "type": "box",
+   "position": [
+    0.0,
+    9.0,
+    -4.55
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    11.2,
+    0.6,
+    8.9
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Rib_1",
+   "type": "round_arch",
+   "position": [
+    0.0,
+    0.0,
+    -2.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    10.4,
+    9.0,
+    0.4
+   ],
+   "material": "frame",
+   "opening": 0.923076923076923,
+   "opening_h": 0.9777777777777779,
+   "segments": 10,
+   "waterway": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Rib_2",
+   "type": "round_arch",
+   "position": [
+    0.0,
+    0.0,
+    -4.4
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    10.4,
+    9.0,
+    0.4
+   ],
+   "material": "frame",
+   "opening": 0.923076923076923,
+   "opening_h": 0.9777777777777779,
+   "segments": 10,
+   "waterway": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Rib_3",
+   "type": "round_arch",
+   "position": [
+    0.0,
+    0.0,
+    -6.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    10.4,
+    9.0,
+    0.4
+   ],
+   "material": "frame",
+   "opening": 0.923076923076923,
+   "opening_h": 0.9777777777777779,
+   "segments": 10,
+   "waterway": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Rib_4",
+   "type": "round_arch",
+   "position": [
+    0.0,
+    0.0,
+    -8.8
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    10.4,
+    9.0,
+    0.4
+   ],
+   "material": "frame",
+   "opening": 0.923076923076923,
+   "opening_h": 0.9777777777777779,
+   "segments": 10,
+   "waterway": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_End",
+   "type": "box",
+   "position": [
+    0.0,
+    0.6,
+    -9.3
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    11.2,
+    9.0,
+    0.6
+   ],
+   "material": "void",
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Veil_1",
+   "type": "panel",
+   "position": [
+    0.0,
+    0.7,
+    -1.8
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    10.6,
+    8.6,
+    0.0
+   ],
+   "material": "tunnel_dark",
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Veil_2",
+   "type": "panel",
+   "position": [
+    0.0,
+    0.7,
+    -3.6
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    10.6,
+    8.6,
+    0.0
+   ],
+   "material": "tunnel_dark",
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Veil_3",
+   "type": "panel",
+   "position": [
+    0.0,
+    0.7,
+    -5.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    10.6,
+    8.6,
+    0.0
+   ],
+   "material": "tunnel_dark",
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Veil_4",
+   "type": "panel",
+   "position": [
+    0.0,
+    0.7,
+    -6.8
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    10.6,
+    8.6,
+    0.0
+   ],
+   "material": "tunnel_dark",
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Veil_5",
+   "type": "panel",
+   "position": [
+    0.0,
+    0.7,
+    -8.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    10.6,
+    8.6,
+    0.0
+   ],
+   "material": "tunnel_dark",
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Channel",
+   "type": "box",
+   "position": [
+    0.0,
+    0.6,
+    -4.25
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    10.0,
+    1.15,
+    8.5
+   ],
+   "material": "structure_b",
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_ChannelLip",
+   "type": "box",
+   "position": [
+    0.0,
+    1.65,
+    0.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    9.6,
+    0.12,
+    0.5
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Liquid",
+   "type": "box",
+   "position": [
+    0.0,
+    1.75,
+    -3.9
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    9.0,
+    0.3,
+    8.8
+   ],
+   "material": "fall",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
+   "source": "inferred"
+  },
+  {
+   "name": "East_SlimeTunnel_Pour",
+   "type": "stream",
+   "position": [
+    0.0,
+    2.0,
+    1.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "East_SlimeTunnel",
+   "size": [
+    8.6,
+    1.35,
+    0.3
+   ],
+   "material": "fall",
+   "section": "rect",
+   "speed": 1.4,
+   "pitch": 4,
+   "inset": 0.4,
+   "widen": 0.12,
+   "thin": 0.25,
+   "segments": 10,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "East_SlimeTunnel",
    "source": "inferred"
   },
   {
@@ -77770,6 +78740,102 @@
    "source": "inferred"
   },
   {
+   "name": "OuterWall_East_Body",
+   "type": "box",
+   "position": [
+    -32.025,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East",
+   "size": [
+    69.95,
+    34.0,
+    4.0
+   ],
+   "material": "wall",
+   "uv_space": "world",
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_Body_C1",
+   "type": "box",
+   "position": [
+    40.025,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East",
+   "size": [
+    53.95,
+    34.0,
+    4.0
+   ],
+   "material": "wall",
+   "uv_space": "world",
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_Body_C2",
+   "type": "box",
+   "position": [
+    8.0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East",
+   "size": [
+    10.1,
+    0.6,
+    4.0
+   ],
+   "material": "wall",
+   "uv_space": "world",
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
+   "name": "OuterWall_East_Body_C3",
+   "type": "box",
+   "position": [
+    8.0,
+    9.05,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "OuterWall_East",
+   "size": [
+    10.1,
+    24.95,
+    4.0
+   ],
+   "material": "wall",
+   "uv_space": "world",
+   "gen": "arena.walls",
+   "source": "inferred"
+  },
+  {
    "name": "OuterWall_North_Body",
    "type": "box",
    "position": [
@@ -78886,20 +79952,6 @@
       [
        19.47248,
        -64.52033
-      ]
-     ],
-     "y0": 0.85,
-     "y1": 2.2
-    },
-    {
-     "pts": [
-      [
-       49.979,
-       -67.0
-      ],
-      [
-       49.979,
-       67.0
       ]
      ],
      "y0": 0.85,
@@ -83248,6 +84300,160 @@
     {
      "pts": [
       [
+       49.88113,
+       1.379
+      ],
+      [
+       48.8,
+       1.379
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       50.0,
+       1.379
+      ],
+      [
+       49.88113,
+       1.379
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       48.779,
+       1.4
+      ],
+      [
+       48.779,
+       3.0
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       48.91887,
+       3.021
+      ],
+      [
+       50.0,
+       3.021
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       48.8,
+       3.021
+      ],
+      [
+       48.91887,
+       3.021
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       49.88113,
+       12.979
+      ],
+      [
+       48.8,
+       12.979
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       50.0,
+       12.979
+      ],
+      [
+       49.88113,
+       12.979
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       48.779,
+       13.0
+      ],
+      [
+       48.779,
+       14.6
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       48.91887,
+       14.621
+      ],
+      [
+       50.0,
+       14.621
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       48.8,
+       14.621
+      ],
+      [
+       48.91887,
+       14.621
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       49.979,
+       3.0
+      ],
+      [
+       49.979,
+       13.0
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.7
+    },
+    {
+     "pts": [
+      [
        -0.27651,
        -1.47208
       ],
@@ -84472,6 +85678,20 @@
       [
        -49.979,
        -67.0
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       49.979,
+       13.05
+      ],
+      [
+       49.979,
+       67.0
       ]
      ],
      "y0": 0.85,
@@ -87067,6 +88287,21 @@
  ],
  "kills": [
   {
+   "id": "East_SlimeTunnel_Slime",
+   "center": [
+    53.9,
+    1.7,
+    8.0
+   ],
+   "size": [
+    9.0,
+    1.2,
+    8.8
+   ],
+   "yaw": -90,
+   "note": "slime in the tunnel channel"
+  },
+  {
    "id": "Belt_A_Pit",
    "center": [
     25.5,
@@ -87728,6 +88963,7 @@
   "West_DuctFans: 2 massive duct fans (r 4.4 m) with ducts into the wall and 13 louvred vents",
   "Deck_Monitor_L: wall monitor 3.4 m",
   "Deck_Monitor_R: wall monitor 3.4 m",
+  "East_SlimeTunnel: slime tunnel 10 x 9 m through the wall, 9 m deep, fading to black",
   "Saw_West: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 26.5]",
   "Saw_East: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 20.5]",
   "Pillars: 7 floating stepping platforms (bobbing, thruster flames)",
@@ -87744,7 +88980,7 @@
   "ducts: Ceil_Duct_1 trimmed to 2 piece(s) clear of 2 standing part(s), 0 crane runway(s), ends at beams 0.0 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 0.0 m",
   "corrosion: 8 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 12 lights at the liquid line removed, 16 light strips raised clear of it",
-  "corrosion: 500 wall faces at the liquid line get a corroded band (one mesh, one material)"
+  "corrosion: 514 wall faces at the liquid line get a corroded band (one mesh, one material)"
  ],
  "relations": [
   {
@@ -87854,6 +89090,11 @@
    "type": "flows_into",
    "a": "Showcase_Pit_2_FrontVeil",
    "b": "HazardFluid"
+  },
+  {
+   "type": "flows_into",
+   "a": "East_SlimeTunnel_Pour",
+   "b": "HazardFluid"
   }
  ],
  "gameplay": {
@@ -87870,16 +89111,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 73656,
-  "objects": 2682,
-  "materials": 51,
-  "glb_kb": 4878,
-  "nodes": 2953,
-  "draw_calls_unbatched": 2915,
-  "draw_calls_batched_min": 54,
-  "images": 129,
-  "tex_mem_gpu_compressed_mb": 28.65,
-  "tex_mem_uncompressed_mb": 114.61,
+  "triangles": 75016,
+  "objects": 2718,
+  "materials": 53,
+  "glb_kb": 4967,
+  "nodes": 2995,
+  "draw_calls_unbatched": 2956,
+  "draw_calls_batched_min": 56,
+  "images": 134,
+  "tex_mem_gpu_compressed_mb": 28.82,
+  "tex_mem_uncompressed_mb": 115.28,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

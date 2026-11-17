@@ -993,3 +993,45 @@ def wall_monitor(ctx, s, x, y, z, yaw):
     ctx.add(n + "_Screen", "panel", [0, H_ * cf + H_ * 0.003, stand + depth - 0.12 + 0.02], [W_ * (1 - 2 * bf) * 0.995, th, 0], "screen", g, uv_region=scr, uv_shift=sid, collision=False, outline=False, **st)
     for k_ in (-1, 1): ctx.add(f"{n}_Arm_{k_ + 1}", "box", [k_ * W_ * 0.2, H_ * 0.45, 0.0], [0.25, 0.3, stand + 0.1], "frame", g, collision=False, outline=False, **st)
     ctx.notes.append(f"{n}: wall monitor {tw:.1f} m")
+
+
+@structure("slime_tunnel", pad=False)
+def slime_tunnel(ctx, s, x, y, z, yaw):
+    """Stage 149: an arched tunnel through an arena wall with green slime flowing out of it. "position" = the opening's
+    bottom centre on the wall face (y = the hall's floor), "yaw" = the direction it faces (local +z into the hall).
+    The wall is cut (ctx.cuts: the rest of the wall and its dressing are untouched); a riveted portal arch stands proud of
+    the face (hazard-striped keystone band, green lamps), ribbed lining runs "depth" m back, a glowing slime channel runs
+    along its floor and pours over a lip into the pool. Black veils stacked down the tunnel and a void back wall make it
+    fade to pitch black: its end is never seen. Kill box over the channel."""
+    n = s["id"]; ow, Hop, L, t = float(s.get("width", 10.0)), float(s.get("height", 9.0)), float(s.get("depth", 9.0)), float(s.get("wall", 4.0))
+    st = dict(mobile={"static": True}); vs = dict(collision=False, outline=False, **st); g = ctx.add(n, "group", [x, 0, z], rot=[0, yaw, 0])
+    W_ = _W(x, 0, z, yaw); fl = float(s.get("floor", getattr(ctx, "floor_y", 1.0))); fall, body, dark = ctx.role("fall"), "structure_b", ctx.role(s.get("dark", "tunnel_dark"))
+    pts = [W_(sx * (ow / 2 + 0.05), yy, zz) for sx in (-1, 1) for yy in (fl - 0.4, Hop + 0.05) for zz in (0.3, -t - 0.3)]
+    ctx.cuts = getattr(ctx, "cuts", []) + [dict(min=[min(p[i] for p in pts) for i in range(3)], max=[max(p[i] for p in pts) for i in range(3)], keep=n)]
+    fw = float(s.get("frame", 1.6)); oh = Hop / (Hop + fw)  # the portal: a round arch proud of the wall
+    ctx.add(n + "_Portal", "round_arch", [0, 0, 0.6], [ow + 2 * fw, Hop + fw, 1.2], body, g, opening=ow / (ow + 2 * fw), opening_h=oh, segments=10, waterway=True, **st)  # (liquid in it by design)
+    r = ow / 2; sp = Hop - r
+    nb = 12; Rb = r + fw * 0.5 + 0.25; ch = 2 * Rb * math.sin(math.pi / nb / 2) * 1.04
+    for k in range(nb):  # a continuous hazard-striped band following the arch (segments overlap a little; base on the outer edge, 0.5 m inward)
+        a = math.pi * (k + 0.5) / nb; px, py = Rb * math.cos(a), sp + Rb * math.sin(a)
+        ctx.add(f"{n}_Band_{k + 1}", "box", [px, py, 1.22 + 0.004 * (k % 2)], [ch, 0.5, 0.05], ctx.role("stripe"), g, rot=[0, 0, math.degrees(a) + 90], **vs)
+    for sx in (-1, 1): ctx.add(f"{n}_Lamp_{'LR'[sx > 0]}", "box", [sx * (ow / 2 + fw / 2), sp - 2.4, 1.23], [0.5, 1.2, 0.06], ctx.role("glow"), g, **vs)
+    for sx in (-1, 1): ctx.add(f"{n}_Side_{'LR'[sx > 0]}", "box", [sx * (ow / 2 + 0.3), fl - 0.4, -L / 2 - 0.05], [0.6, Hop - fl + 0.4, L - 0.1], body, g, **st)  # lining (5 cm behind the wall face)
+    ctx.add(n + "_Roof", "box", [0, Hop, -L / 2 - 0.05], [ow + 1.2, 0.6, L - 0.1], body, g, **st)
+    for j in range(1, int(L / 2.2) + 1):  # arch ribs inside, every 2.2 m
+        ctx.add(f"{n}_Rib_{j}", "round_arch", [0, 0, -j * 2.2], [ow + 0.4, Hop, 0.4], "frame", g, opening=(ow - 0.4) / (ow + 0.4), opening_h=(Hop - 0.2) / Hop, segments=10, waterway=True, **vs)
+    ctx.add(n + "_End", "box", [0, fl - 0.4, -L - 0.3], [ow + 1.2, Hop - fl + 1.0, 0.6], ctx.role(s.get("end", "void")), g, **st)  # pitch black back wall
+    for j, f_ in enumerate(s.get("veils", [1.8, 3.6, 5.2, 6.8, 8.2])):  # black veils: deeper = darker, the end fades out
+        if f_ < L: ctx.add(f"{n}_Veil_{j + 1}", "panel", [0, fl - 0.3, -f_], [ow + 0.6, Hop - fl + 0.6, 0], dark, g, double_sided=True, **vs)
+    ly = fl + float(s.get("liquid_rise", 0.9)); cw = ow - 1.0  # the slime channel along the floor, flowing out
+    ctx.add(n + "_Channel", "box", [0, fl - 0.4, -L / 2 + 0.25], [ow, ly - 0.15 - fl + 0.4, L - 0.5], body, g, **st)
+    ctx.add(n + "_ChannelLip", "box", [0, ly - 0.25, 0.75], [cw + 0.6, 0.12, 0.5], ctx.role("stripe"), g, **vs)
+    ctx.add(n + "_Liquid", "box", [0, ly - 0.15, -L / 2 + 0.6], [cw, 0.3, L - 0.2], fall, g, **vs)
+    c_ = ctx.add(n + "_Pour", "stream", [0, ly + 0.1, 1.0], [round(cw - 0.4, 3), round(ly + 0.1 - fl + 0.35, 3), 0.3], fall, g, section="rect", speed=1.4, pitch=4, inset=0.4, widen=0.12, thin=0.25,
+                 segments=10, **vs)
+    if ctx.hazards: ctx.rel("flows_into", c_, ctx.hazards[0])
+    ctx.pours.append(c_); ctx.tunnel_flows = getattr(ctx, "tunnel_flows", []) + [n + "_Liquid"]
+    cc = W_(0, 0, -L / 2 + 0.6)
+    ctx.kills = getattr(ctx, "kills", []) + [dict(id=n + "_Slime", center=[cc[0], round(ly - 0.2, 3), cc[2]], size=[round(cw, 3), 1.2, round(L - 0.2, 3)], yaw=round(yaw, 2), note="slime in the tunnel channel")]
+    m_ = W_(0, ly + 2.5, 3.0); ctx.extra_lights = getattr(ctx, "extra_lights", []) + [dict(id=n + "_Glow", positions=[m_], color=[0.45, 1.0, 0.25], energy=1.5, range=13.0)]
+    ctx.notes.append(f"{n}: slime tunnel {ow:.0f} x {Hop:.0f} m through the wall, {L:.0f} m deep, fading to black")

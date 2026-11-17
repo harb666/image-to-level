@@ -1,24 +1,24 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 2682 objects · 51 materials · 42 effects
+Spec: levels/assembly_ascent/scene_spec.json · 2718 objects · 53 materials · 44 effects
 Checks: PASSED ({'error': 0, 'warning': 11, 'info': 1}) · refine passes: 0
-Mobile (balanced): 2889 KB · 81198 tris · 152 draw calls · ~80.9 visible (estimate) · ~13.01 MB GPU textures (estimate)
-Navigation: 5429.0 m² reachable of 19868.0 m² standable
-Package: dist/assembly_ascent/package (38 files, 11.71 MB) valid=True
+Mobile (balanced): 2951 KB · 82458 tris · 155 draw calls · ~82.1 visible (estimate) · ~13.17 MB GPU textures (estimate)
+Navigation: 5441.0 m² reachable of 20034.0 m² standable
+Package: dist/assembly_ascent/package (38 files, 11.9 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- warning: mobile draw calls 152 (> 80)
-- warning: ~81 visible draw calls (estimate, > 60)
+- warning: mobile draw calls 155 (> 80)
+- warning: ~82 visible draw calls (estimate, > 60)
 - warning: Showcase_Pit_1_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_1_Pillar_R: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Pillar_L: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: enemy_arena: hazard 0.5 m away (< 3.0 m)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- warning: 84312 triangles (> budget 40000)
+- warning: 85904 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -35,6 +35,7 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - West_DuctFans: 2 massive duct fans (r 4.4 m) with ducts into the wall and 13 louvred vents
 - Deck_Monitor_L: wall monitor 3.4 m
 - Deck_Monitor_R: wall monitor 3.4 m
+- East_SlimeTunnel: slime tunnel 10 x 9 m through the wall, 9 m deep, fading to black
 - Saw_West: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 26.5]
 - Saw_East: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 20.5]
 - Pillars: 7 floating stepping platforms (bobbing, thruster flames)
@@ -51,12 +52,12 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - ducts: Ceil_Duct_1 trimmed to 2 piece(s) clear of 2 standing part(s), 0 crane runway(s), ends at beams 0.0 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 0.0 m
 - corrosion: 8 lit bodies get a plain skirt at the liquid line (no lights in the slime)
 - corrosion: 12 lights at the liquid line removed, 16 light strips raised clear of it
-- corrosion: 500 wall faces at the liquid line get a corroded band (one mesh, one material)
+- corrosion: 514 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 1.6 s
-- build (glb, sky, background, effects, mobile): 44.8 s
-- checks (fast): 58.2 s
-- previews: 0.8 s
+- spec -> level.json: 1.7 s
+- build (glb, sky, background, effects, mobile): 52.3 s
+- checks (fast): 63.8 s
+- previews: 0.9 s
 - export package: 0.4 s
-- total: 105.9 s
+- total: 119.2 s

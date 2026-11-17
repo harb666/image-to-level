@@ -101,6 +101,31 @@
    ],
    "receiving": "HazardFluid",
    "hazard": false
+  },
+  {
+   "stream": "East_SlimeTunnel_Pour",
+   "source_object": null,
+   "outlet_pos": [
+    49.0,
+    2.0,
+    8.0
+   ],
+   "outlet_dir": [
+    -0.998,
+    0.07,
+    0.0
+   ],
+   "outlet_diameter": 8.6,
+   "section": "rect",
+   "stream_width": 8.6,
+   "initial_speed": 1.4,
+   "impact_pos": [
+    48.253,
+    0.65,
+    8.0
+   ],
+   "receiving": "HazardFluid",
+   "hazard": false
   }
  ],
  "note": "GLB holds only static appearance. Recreate these at runtime (fx/godot/apply_effects.gd is an untested starter). Costs are estimates: particles alive, emitters, extra draw calls, transparent overdraw area.",
@@ -113,20 +138,20 @@
  },
  "totals": {
   "performance": {
-   "max_particles": 381,
-   "emitters": 34,
+   "max_particles": 398,
+   "emitters": 36,
    "extra_draw_calls": 10,
    "transparent_area_m2": 0
   },
   "balanced": {
-   "max_particles": 1215,
-   "emitters": 34,
+   "max_particles": 1257,
+   "emitters": 36,
    "extra_draw_calls": 11,
    "transparent_area_m2": 13000
   },
   "quality": {
-   "max_particles": 1795,
-   "emitters": 34,
+   "max_particles": 1862,
+   "emitters": 36,
    "extra_draw_calls": 12,
    "transparent_area_m2": 26000
   }
@@ -150,6 +175,12 @@
      -19.86,
      1.0,
      2.96
+    ],
+    [
+     48.25,
+     8.0,
+     1.0,
+     4.3
     ],
     [
      -32.27,
@@ -446,13 +477,14 @@
    "glb_contains": "static texture",
    "godot_runtime": "ShaderMaterial liquid_flow.gdshader (UV scroll along the fall/pipe)",
    "targets": [
+    "East_SlimeTunnel_Pour",
     "Showcase_Pit_1_FrontFall",
     "Showcase_Pit_2_FrontFall"
    ],
    "material_tile_m": 3.0,
    "flow_uv": [
-    0.0168,
-    0.9999
+    0.0224,
+    0.9997
    ],
    "quality": {
     "performance": {
@@ -505,6 +537,15 @@
    "emitters": [
     {
      "pos": [
+      48.25,
+      0.95,
+      8.0
+     ],
+     "radius": 4.9,
+     "of": "East_SlimeTunnel_Pour"
+    },
+    {
+     "pos": [
       -39.3,
       1.0,
       -19.86
@@ -549,8 +590,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 20,
-      "emitters": 2,
+      "max_particles": 30,
+      "emitters": 3,
       "extra_draw_calls": 1
      }
     },
@@ -580,8 +621,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 48,
-      "emitters": 2,
+      "max_particles": 72,
+      "emitters": 3,
       "extra_draw_calls": 1
      }
     },
@@ -611,8 +652,8 @@
       "spread": 40
      },
      "cost_estimate": {
-      "max_particles": 78,
-      "emitters": 2,
+      "max_particles": 117,
+      "emitters": 3,
       "extra_draw_calls": 1
      }
     }
@@ -626,6 +667,15 @@
    "glb_contains": "nothing",
    "godot_runtime": "CPUParticles3D, small sphere emitter, slow rise, growing soft puffs",
    "emitters": [
+    {
+     "pos": [
+      48.25,
+      0.95,
+      8.0
+     ],
+     "radius": 4.9,
+     "of": "East_SlimeTunnel_Pour"
+    },
     {
      "pos": [
       -39.3,
@@ -672,8 +722,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 14,
-      "emitters": 2,
+      "max_particles": 21,
+      "emitters": 3,
       "extra_draw_calls": 1
      }
     },
@@ -703,8 +753,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 36,
-      "emitters": 2,
+      "max_particles": 54,
+      "emitters": 3,
       "extra_draw_calls": 1
      }
     },
@@ -734,8 +784,8 @@
       "radius": 0.8
      },
      "cost_estimate": {
-      "max_particles": 56,
-      "emitters": 2,
+      "max_particles": 84,
+      "emitters": 3,
       "extra_draw_calls": 1
      }
     }
@@ -920,6 +970,62 @@
       ],
       "energy": 1.3,
       "range": 34.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Tunnel_Flow",
+   "type": "liquid_flow",
+   "category": "surface_shader",
+   "glb_contains": "static texture",
+   "godot_runtime": "ShaderMaterial liquid_flow.gdshader (UV scroll along the fall/pipe)",
+   "targets": [
+    "East_SlimeTunnel_Liquid"
+   ],
+   "material_tile_m": 3.0,
+   "flow_uv": [
+    0.0,
+    -1.0
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 1.6,
+      "glow_energy": 1.2,
+      "wobble": 0.02
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 1.6,
+      "glow_energy": 1.2,
+      "wobble": 0.02
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 1.6,
+      "glow_energy": 1.2,
+      "wobble": 0.02
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -1776,6 +1882,75 @@
       ],
       "energy": 1.3,
       "range": 16.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "East_SlimeTunnel_Glow",
+   "type": "point_light",
+   "category": "light",
+   "glb_contains": "nothing",
+   "godot_runtime": "OmniLight3D per position (no shadows): light_color, light_energy, omni_range",
+   "emitters": [
+    {
+     "pos": [
+      47.0,
+      4.4,
+      8.0
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "color": [
+       0.45,
+       1.0,
+       0.25
+      ],
+      "energy": 0.8,
+      "range": 12.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "color": [
+       0.45,
+       1.0,
+       0.25
+      ],
+      "energy": 1.5,
+      "range": 13.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "color": [
+       0.45,
+       1.0,
+       0.25
+      ],
+      "energy": 1.5,
+      "range": 13.0
      },
      "cost_estimate": {
       "max_particles": 0,
@@ -4929,6 +5104,8 @@
     "Saw_West_ShoulderGlow_R",
     "Saw_West_ShoulderGlow_L",
     "Saw_West_ColGlow",
+    "East_SlimeTunnel_Lamp_R",
+    "East_SlimeTunnel_Lamp_L",
     "West_DuctFans_MidVent_3_Status",
     "West_DuctFans_MidVent_2_Status",
     "West_DuctFans_MidVent_1_Status",

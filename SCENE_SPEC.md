@@ -1471,4 +1471,10 @@ Building blocks usable without the preset:
   sticker, a cable port with a pink LED (drawn mirrored: seen from behind). `jet_screen` `back_material`,
   `bezel_material`, `pack_material`, `thruster_material`. Assembly Ascent: `monitor_back`, plain `monitor_bezel` bezel
   and jetpack box, `lift_ring` thrusters (were the tiled machine panel).
+- Stage 149: structure kind `slime_tunnel` (`width`, `height`, `depth`, `wall`, `veils`, `end`, `dark`): an arched
+  tunnel through an arena wall - the wall is cut with `ctx.cuts` (split round it; the rest of the wall and its dressing
+  unchanged), a round-arch portal (`waterway`) with a hazard band and lamps, ribbed lining, a slime channel flowing
+  out (effect `Tunnel_Flow`) and pouring into the pool, black alpha veils (`tunnel_dark`) stacked down it and a void
+  back wall so it fades to pitch black, a kill box on the channel and a green glow at the mouth. Assembly Ascent:
+  `East_SlimeTunnel` under the east wall's machine unit.
 

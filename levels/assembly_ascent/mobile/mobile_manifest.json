@@ -41,28 +41,29 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 4878,
-    "triangles": 84312,
-    "nodes": 2953,
-    "mesh_nodes": 2915,
-    "unique_meshes": 1328,
-    "materials": 54,
-    "images": 129,
-    "draw_calls_unbatched": 2915,
-    "draw_calls_batched_min": 54,
-    "tex_mem_uncompressed_mb": 114.61,
-    "tex_mem_gpu_compressed_mb": 28.65,
+    "glb_kb": 4967,
+    "triangles": 85904,
+    "nodes": 2995,
+    "mesh_nodes": 2956,
+    "unique_meshes": 1349,
+    "materials": 56,
+    "images": 134,
+    "draw_calls_unbatched": 2956,
+    "draw_calls_batched_min": 56,
+    "tex_mem_uncompressed_mb": 115.28,
+    "tex_mem_gpu_compressed_mb": 28.82,
     "texture_slots": {
-     "baseColorTexture": 48,
-     "metallicRoughnessTexture": 48,
-     "normalTexture": 36,
-     "occlusionTexture": 48,
+     "baseColorTexture": 50,
+     "metallicRoughnessTexture": 50,
+     "normalTexture": 38,
+     "occlusionTexture": 50,
      "emissiveTexture": 30
     },
     "image_sizes": [
      "1024x1024 jpeg",
      "128x128 jpeg",
      "128x128 png",
+     "16x16 jpeg",
      "256x256 jpeg",
      "256x256 png",
      "32x32 jpeg",
@@ -73,34 +74,35 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 941.8,
-    "visible_draw_calls_max": 2907,
-    "visible_triangles_mean": 39395,
-    "visible_triangles_max": 94916
+    "visible_draw_calls_mean": 956.0,
+    "visible_draw_calls_max": 2948,
+    "visible_triangles_mean": 39968,
+    "visible_triangles_max": 96508
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 2889,
-    "triangles": 81198,
-    "nodes": 251,
-    "mesh_nodes": 152,
-    "unique_meshes": 152,
-    "materials": 54,
-    "images": 95,
-    "draw_calls_unbatched": 152,
-    "draw_calls_batched_min": 54,
-    "tex_mem_uncompressed_mb": 52.03,
-    "tex_mem_gpu_compressed_mb": 13.01,
+    "glb_kb": 2951,
+    "triangles": 82458,
+    "nodes": 254,
+    "mesh_nodes": 155,
+    "unique_meshes": 155,
+    "materials": 56,
+    "images": 100,
+    "draw_calls_unbatched": 155,
+    "draw_calls_batched_min": 56,
+    "tex_mem_uncompressed_mb": 52.7,
+    "tex_mem_gpu_compressed_mb": 13.17,
     "texture_slots": {
-     "baseColorTexture": 48,
+     "baseColorTexture": 50,
      "emissiveTexture": 30,
-     "metallicRoughnessTexture": 26,
-     "normalTexture": 14,
-     "occlusionTexture": 26
+     "metallicRoughnessTexture": 28,
+     "normalTexture": 16,
+     "occlusionTexture": 28
     },
     "image_sizes": [
      "128x128 webp",
+     "16x16 webp",
      "256x256 webp",
      "32x32 webp",
      "512x512 png",
@@ -133,38 +135,38 @@
     ]
    },
    "collision": {
-    "colliders": 463,
+    "colliders": 472,
     "hazards": 1,
-    "glb_kb": 212
+    "glb_kb": 215
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 80.9,
-    "visible_draw_calls_max": 154,
-    "visible_triangles_mean": 68448,
-    "visible_triangles_max": 91712
+    "visible_draw_calls_mean": 82.1,
+    "visible_draw_calls_max": 157,
+    "visible_triangles_mean": 69710,
+    "visible_triangles_max": 92972
    },
-   "hidden_faces_removed": 945,
-   "occluded_faces_removed": 2169,
+   "hidden_faces_removed": 1151,
+   "occluded_faces_removed": 2295,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate",
     "Showcase_Stage_Glow_02L",
     "Showcase_Stage_Glow_02R"
    ],
    "effects_extra_draw_calls": 11,
-   "effects_max_particles": 1215,
+   "effects_max_particles": 1257,
    "slimmed_kb": {
     "level_mobile.glb": [
-     4401,
-     2889
+     4479,
+     2951
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     287,
-     212
+     292,
+     215
     ]
    }
   }
@@ -1279,7 +1281,7 @@
    "node": "Corrosion__corrosion__2s",
    "kind": "group",
    "material": "corrosion__2s",
-   "triangles": 870,
+   "triangles": 892,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2806,7 +2808,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 4785,
+   "triangles": 5273,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2875,6 +2877,10 @@
     "Belt_A_Leg_2L",
     "Belt_A_Leg_1R",
     "Belt_A_Leg_1L",
+    "East_SlimeTunnel_Rib_4",
+    "East_SlimeTunnel_Rib_3",
+    "East_SlimeTunnel_Rib_2",
+    "East_SlimeTunnel_Rib_1",
     "Deck_Monitor_R_Arm_2",
     "Deck_Monitor_R_Arm_0",
     "Deck_Monitor_L_Arm_2",
@@ -3178,7 +3184,7 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 1798,
+   "triangles": 1822,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3235,6 +3241,8 @@
     "Saw_West_ShoulderGlow_R",
     "Saw_West_ShoulderGlow_L",
     "Saw_West_ColGlow",
+    "East_SlimeTunnel_Lamp_R",
+    "East_SlimeTunnel_Lamp_L",
     "West_DuctFans_MidVent_3_Status",
     "West_DuctFans_MidVent_2_Status",
     "West_DuctFans_MidVent_1_Status",
@@ -3445,7 +3453,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 7292,
+   "triangles": 7446,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3518,6 +3526,10 @@
     "Saw_West_Column_2__ol",
     "Saw_West_Column_1__ol",
     "Saw_West_Plate__ol",
+    "East_SlimeTunnel_Channel__ol",
+    "East_SlimeTunnel_End__ol",
+    "East_SlimeTunnel_Roof__ol",
+    "East_SlimeTunnel_Side_L__ol",
     "Deck_Monitor_R_Body__ol",
     "Deck_Monitor_L_Body__ol",
     "West_DuctFans_Fan_1_Rib_1__ol",
@@ -3606,6 +3618,7 @@
     "OuterWall_South_M07Monitor_Body__ol",
     "OuterWall_South_M03Fan_Clamp_1__ol",
     "OuterWall_South_M03Fan__ol",
+    "OuterWall_East_Body_C3__ol",
     "OuterWall_East_M11Machine__ol",
     "OuterWall_East_M11Machine_Bracket__ol",
     "OuterWall_East_M08Machine__ol",
@@ -4099,7 +4112,7 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 642,
+   "triangles": 798,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -4125,6 +4138,19 @@
     "Saw_East_ColBand_1",
     "Saw_West_ColBand_2",
     "Saw_West_ColBand_1",
+    "East_SlimeTunnel_ChannelLip",
+    "East_SlimeTunnel_Band_12",
+    "East_SlimeTunnel_Band_11",
+    "East_SlimeTunnel_Band_10",
+    "East_SlimeTunnel_Band_9",
+    "East_SlimeTunnel_Band_8",
+    "East_SlimeTunnel_Band_7",
+    "East_SlimeTunnel_Band_6",
+    "East_SlimeTunnel_Band_5",
+    "East_SlimeTunnel_Band_4",
+    "East_SlimeTunnel_Band_3",
+    "East_SlimeTunnel_Band_2",
+    "East_SlimeTunnel_Band_1",
     "West_DuctFans_Fan_2_LipB",
     "West_DuctFans_Fan_2_LipT",
     "West_DuctFans_Fan_1_LipB",
@@ -4166,7 +4192,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 5570,
+   "triangles": 5808,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -4234,6 +4260,11 @@
     "Spike_Press_Rib_2",
     "Spike_Press_Rib_1",
     "Spike_Press_Foot",
+    "East_SlimeTunnel_Channel",
+    "East_SlimeTunnel_Roof",
+    "East_SlimeTunnel_Side_R",
+    "East_SlimeTunnel_Side_L",
+    "East_SlimeTunnel_Portal",
     "West_DuctFans_MidVent_3_FrameSide_2",
     "West_DuctFans_MidVent_3_FrameSide_1",
     "West_DuctFans_MidVent_3_FrameLow",
@@ -4469,6 +4500,21 @@
    ]
   },
   {
+   "node": "M_tunnel_dark__2s_0_0",
+   "kind": "static",
+   "material": "tunnel_dark__2s",
+   "triangles": 10,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "East_SlimeTunnel_Veil_5",
+    "East_SlimeTunnel_Veil_4",
+    "East_SlimeTunnel_Veil_3",
+    "East_SlimeTunnel_Veil_2",
+    "East_SlimeTunnel_Veil_1"
+   ]
+  },
+  {
    "node": "M_tv_casing_0_0",
    "kind": "static",
    "material": "tv_casing",
@@ -4486,10 +4532,21 @@
    ]
   },
   {
+   "node": "M_void_0_0",
+   "kind": "static",
+   "material": "void",
+   "triangles": 10,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "East_SlimeTunnel_End"
+   ]
+  },
+  {
    "node": "M_wall_0_0",
    "kind": "static",
    "material": "wall",
-   "triangles": 288,
+   "triangles": 338,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -4504,6 +4561,8 @@
     "OuterWall_West_Body_C1",
     "OuterWall_West_Body",
     "OuterWall_South_Body",
+    "OuterWall_East_Body_C3",
+    "OuterWall_East_Body_C1",
     "OuterWall_East_Body",
     "OuterWall_North_Body_C3",
     "OuterWall_North_Body_C2",
@@ -4544,6 +4603,20 @@
    ]
   },
   {
+   "node": "FX_Pour_Flow",
+   "kind": "effect_target",
+   "material": "fall",
+   "triangles": 352,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "East_SlimeTunnel_Pour",
+    "Showcase_Pit_2_FrontFall",
+    "Showcase_Pit_1_FrontFall"
+   ],
+   "reason": "merged targets of one shader effect"
+  },
+  {
    "node": "FX_Pit_Veil_Flow",
    "kind": "effect_target",
    "material": "fall_veil",
@@ -4553,19 +4626,6 @@
    "source_objects": [
     "Showcase_Pit_2_FrontVeil",
     "Showcase_Pit_1_FrontVeil"
-   ],
-   "reason": "merged targets of one shader effect"
-  },
-  {
-   "node": "FX_Pour_Flow",
-   "kind": "effect_target",
-   "material": "fall",
-   "triangles": 256,
-   "visibility_range_end": 0,
-   "cast_shadow": false,
-   "source_objects": [
-    "Showcase_Pit_2_FrontFall",
-    "Showcase_Pit_1_FrontFall"
    ],
    "reason": "merged targets of one shader effect"
   },
@@ -4645,6 +4705,18 @@
    "cast_shadow": true,
    "source_objects": [
     "Ceil_Fan_1_Rotor"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "East_SlimeTunnel_Liquid",
+   "kind": "separate",
+   "material": "fall",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "East_SlimeTunnel_Liquid"
    ],
    "reason": "animated by an effect / merge disabled"
   },
