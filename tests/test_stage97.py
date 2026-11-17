@@ -281,7 +281,7 @@ class SpinnerDeck(unittest.TestCase):
         off, _ = press_profile(D, D["slam"] + 0.5 - D["phase"]); self.assertAlmostEqual(off, -D["travel"])  # pressed
         self.assertAlmostEqual(by["Spinner_Striker"]["position"][1] - D["travel"], by["Spinner_Strike"]["position"][1] + by["Spinner_Strike"]["size"][1], places=3)  # lands on the red strike plate
         self.assertAlmostEqual(by["Spinner_PressPlate"]["position"][1] + by["Spinner_PressPlate"]["size"][1], 34.5, places=3)  # hangs from the ceiling
-        self.assertEqual([s["frac"] for s in D["stages"]], [0.5, 1.0]); self.assertEqual(by["Spinner_Head"]["mobile"]["group"], D["press"])
+        self.assertEqual([s["frac"] for s in D["stages"]][:2], [0.5, 1.0])  # (+ Stage 155's clamp collar); self.assertEqual(by["Spinner_Head"]["mobile"]["group"], D["press"])
         self.assertFalse([n for n in by if n.startswith("Spinner_PipeUp_")])  # nothing on the cap for the head to hit
         self.assertFalse([t_ for t_ in L.get("terminals", []) if t_["id"] == "Spinner_Terminal"])  # Stage 119: the gate's key is now the jet screen's button
         pad = by["Spinner_Pad_2_Deck"]

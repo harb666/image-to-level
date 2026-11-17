@@ -1,17 +1,17 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 5207,
-  "mobile/level_mobile.glb": 3071,
-  "mobile/collision.json": 217,
+  "level.glb": 5438,
+  "mobile/level_mobile.glb": 3198,
+  "mobile/collision.json": 219,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 105
+  "effects.json": 106
  },
  "complexity": {
-  "triangles": 90764,
-  "nodes": 3015,
-  "materials": 57,
+  "triangles": 93164,
+  "nodes": 3076,
+  "materials": 59,
   "heaviest": [
    [
     "Corrosion_Band",
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 5207,
-   "triangles": 77820,
-   "draw_calls": 3015,
-   "tex_mem_gpu_mb_est": 29.29
+   "glb_kb": 5438,
+   "triangles": 80108,
+   "draw_calls": 3076,
+   "tex_mem_gpu_mb_est": 29.54
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3071,
-   "triangles": 87192,
-   "draw_calls": 167,
-   "visible_draw_calls_est": 86.4,
-   "visible_draw_calls_max_est": 168,
-   "tex_mem_gpu_mb_est": 13.48,
-   "materials": 59,
-   "nodes": 266,
+   "glb_kb": 3198,
+   "triangles": 89592,
+   "draw_calls": 172,
+   "visible_draw_calls_est": 88.3,
+   "visible_draw_calls_max_est": 173,
+   "tex_mem_gpu_mb_est": 13.73,
+   "materials": 61,
+   "nodes": 271,
    "colliders": {
-    "colliders": 498,
+    "colliders": 502,
     "hazards": 1,
-    "glb_kb": 231
+    "glb_kb": 233
    },
    "background_kb": 404
   },
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 20228.0,
-  "reachable_area_m2": 5450.0,
-  "components": 188,
+  "standable_area_m2": 20220.0,
+  "reachable_area_m2": 5454.0,
+  "components": 184,
   "spawns": [
    {
     "id": "spawn",
@@ -281,12 +281,12 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 167 (> 80)"
+   "message": "mobile draw calls 172 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~86 visible draw calls (estimate, > 60)"
+   "message": "~88 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "narrow_connector",
@@ -357,7 +357,7 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "90764 triangles (> budget 40000)"
+   "message": "93164 triangles (> budget 40000)"
   },
   {
    "kind": "low_ceiling",

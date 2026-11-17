@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "cdaaa1a03aabc372",
+  "spec_sha": "0a47b8eb9b1b0fc6",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -656,6 +656,10 @@
       {
        "group": "Spinner_Ram",
        "frac": 1.0
+      },
+      {
+       "group": "Spinner_Clamp",
+       "frac": 0.0396
       }
      ],
      "lamps": "Spinner_Ram__glow",
@@ -825,7 +829,11 @@
        ]
       ]
      },
-     "note": "press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; camera shake within 'shake' m on impact"
+     "note": "press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; camera shake within 'shake' m on impact",
+     "plasma": "spinner_plasma",
+     "plasma_tiles": 2,
+     "plasma_rise": 0.35,
+     "plasma_note": "u offset = rotor angle / 360 * plasma_tiles (it turns with the arms); v offset = -t * plasma_rise - pressed * 0.5 (pressed = -ram offset / travel); emission x (0.45 + 0.9 pressed + 2.2 exp(-3 (u - slam)) after the impact + flicker)"
     },
     "arms": [
      20.0,
@@ -3487,6 +3495,24 @@
    ],
    "res": 64
   },
+  "glow_green": {
+   "type": "glow",
+   "color": [
+    0.45,
+    1.0,
+    0.3
+   ],
+   "tile_m": 2.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 32,
+   "emissive": [
+    0.4,
+    1.0,
+    0.25
+   ],
+   "notes": "Stage 155: green status lamps on the spinner crown"
+  },
   "glow_pink": {
    "type": "glow",
    "color": [
@@ -3856,6 +3882,26 @@
    "metal": 0.6,
    "rough": 0.35,
    "notes": "spikes (plain)"
+  },
+  "spinner_plasma": {
+   "type": "plasma_arc",
+   "color": [
+    0.55,
+    0.04,
+    0.08
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 256,
+   "bolts": 6,
+   "alpha": 1.0,
+   "emissive": [
+    1.0,
+    0.32,
+    0.28
+   ],
+   "notes": "Stage 155: red plasma with winding lightning inside the spinner's glass chambers - turned with the rotor and surged by the press (sweepers[].drive.plasma)"
   },
   "splash_pool": {
    "type": "pool_fade",
@@ -52867,6 +52913,524 @@
    "source": "visible"
   },
   {
+   "name": "Spinner_Foot",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    7.5,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.8,
+    0.3,
+    4.8
+   ],
+   "material": "machine",
+   "sections": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_01",
+   "type": "box",
+   "position": [
+    5.455,
+    7.56,
+    42.285
+   ],
+   "rotation": [
+    0.0,
+    11.25,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_02",
+   "type": "box",
+   "position": [
+    6.295,
+    7.56,
+    41.937
+   ],
+   "rotation": [
+    0.0,
+    33.75,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_03",
+   "type": "box",
+   "position": [
+    6.937,
+    7.56,
+    41.294
+   ],
+   "rotation": [
+    0.0,
+    56.25,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_04",
+   "type": "box",
+   "position": [
+    7.285,
+    7.56,
+    40.455
+   ],
+   "rotation": [
+    0.0,
+    78.75,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_05",
+   "type": "box",
+   "position": [
+    7.285,
+    7.56,
+    39.545
+   ],
+   "rotation": [
+    0.0,
+    101.25,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_06",
+   "type": "box",
+   "position": [
+    6.937,
+    7.56,
+    38.706
+   ],
+   "rotation": [
+    0.0,
+    123.75,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_07",
+   "type": "box",
+   "position": [
+    6.295,
+    7.56,
+    38.063
+   ],
+   "rotation": [
+    0.0,
+    146.25,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_08",
+   "type": "box",
+   "position": [
+    5.455,
+    7.56,
+    37.715
+   ],
+   "rotation": [
+    0.0,
+    168.75,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_09",
+   "type": "box",
+   "position": [
+    4.545,
+    7.56,
+    37.715
+   ],
+   "rotation": [
+    0.0,
+    191.25,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_10",
+   "type": "box",
+   "position": [
+    3.705,
+    7.56,
+    38.063
+   ],
+   "rotation": [
+    0.0,
+    213.75,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_11",
+   "type": "box",
+   "position": [
+    3.063,
+    7.56,
+    38.706
+   ],
+   "rotation": [
+    0.0,
+    236.25,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_12",
+   "type": "box",
+   "position": [
+    2.715,
+    7.56,
+    39.545
+   ],
+   "rotation": [
+    0.0,
+    258.75,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_13",
+   "type": "box",
+   "position": [
+    2.715,
+    7.56,
+    40.455
+   ],
+   "rotation": [
+    0.0,
+    281.25,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_14",
+   "type": "box",
+   "position": [
+    3.063,
+    7.56,
+    41.294
+   ],
+   "rotation": [
+    0.0,
+    303.75,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_15",
+   "type": "box",
+   "position": [
+    3.705,
+    7.56,
+    41.937
+   ],
+   "rotation": [
+    0.0,
+    326.25,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_FootLamp_16",
+   "type": "box",
+   "position": [
+    4.545,
+    7.56,
+    42.285
+   ],
+   "rotation": [
+    0.0,
+    348.75,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.17,
+    0.08
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_DeckRing_1",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    7.506,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    6.1,
+    0.02,
+    6.1
+   ],
+   "material": "glow",
+   "sections": 64,
+   "hole": 2.8499999999999996,
+   "hole_res": 64,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_DeckRing_2",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    7.506,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    12.9,
+    0.02,
+    12.9
+   ],
+   "material": "glow",
+   "sections": 64,
+   "hole": 6.25,
+   "hole_res": 64,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
    "name": "Spinner_Neck",
    "type": "cylinder",
    "position": [
@@ -52880,9 +53444,9 @@
     0.0
    ],
    "size": [
-    2.5,
-    1.05,
-    2.5
+    2.6,
+    0.12,
+    2.6
    ],
    "material": "structure_b",
    "sections": 12,
@@ -52893,38 +53457,11 @@
    "source": "visible"
   },
   {
-   "name": "Spinner_Core",
+   "name": "Spinner_Glass_1",
    "type": "cylinder",
    "position": [
     5.0,
-    9.5,
-    40.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    1.5,
-    2.9,
-    1.5
-   ],
-   "material": "glow",
-   "sections": 10,
-   "mobile": {
-    "static": true
-   },
-   "outline": false,
-   "gen": "Spinner",
-   "source": "visible"
-  },
-  {
-   "name": "Spinner_Glass",
-   "type": "cylinder",
-   "position": [
-    5.0,
-    9.5,
+    8.8,
     40.0
    ],
    "rotation": [
@@ -52934,14 +53471,161 @@
    ],
    "size": [
     2.3,
-    2.9,
+    1.25,
     2.3
    ],
    "material": "glass_clear",
-   "sections": 10,
+   "sections": 12,
    "double_sided": true,
    "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Plasma_1a",
+   "type": "pole",
+   "position": [
+    5.0,
+    8.82,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.95,
+    1.21,
+    1.95
+   ],
+   "material": "spinner_plasma",
+   "sections": 16,
+   "uv_mode": "band",
+   "uv_len": 3.0631,
    "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Plasma_1b",
+   "type": "pole",
+   "position": [
+    5.0,
+    8.82,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.85,
+    1.21,
+    0.85
+   ],
+   "material": "spinner_plasma",
+   "sections": 16,
+   "uv_mode": "band",
+   "uv_len": 1.3352,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Glass_2",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    11.15,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.3,
+    1.25,
+    2.3
+   ],
+   "material": "glass_clear",
+   "sections": 12,
+   "double_sided": true,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Plasma_2a",
+   "type": "pole",
+   "position": [
+    5.0,
+    11.17,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.95,
+    1.21,
+    1.95
+   ],
+   "material": "spinner_plasma",
+   "sections": 16,
+   "uv_mode": "band",
+   "uv_len": 3.0631,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Plasma_2b",
+   "type": "pole",
+   "position": [
+    5.0,
+    11.17,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.85,
+    1.21,
+    0.85
+   ],
+   "material": "spinner_plasma",
+   "sections": 16,
+   "uv_mode": "band",
+   "uv_len": 1.3352,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -52953,7 +53637,7 @@
    "type": "cylinder",
    "position": [
     5.0,
-    9.38,
+    8.6,
     40.0
    ],
    "rotation": [
@@ -52962,9 +53646,9 @@
     0.0
    ],
    "size": [
-    2.65,
-    0.3,
-    2.65
+    2.75,
+    0.2,
+    2.75
    ],
    "material": "machine",
    "sections": 12,
@@ -52980,7 +53664,7 @@
    "type": "cylinder",
    "position": [
     5.0,
-    12.13,
+    10.05,
     40.0
    ],
    "rotation": [
@@ -52989,9 +53673,9 @@
     0.0
    ],
    "size": [
-    2.65,
-    0.3,
-    2.65
+    2.75,
+    0.2,
+    2.75
    ],
    "material": "machine",
    "sections": 12,
@@ -52999,6 +53683,555 @@
     "static": true
    },
    "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Band_3",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    10.95,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.75,
+    0.2,
+    2.75
+   ],
+   "material": "machine",
+   "sections": 12,
+   "mobile": {
+    "static": true
+   },
+   "outline": false,
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Sleeve",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    10.25,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.45,
+    0.7,
+    2.45
+   ],
+   "material": "pipe",
+   "sections": 12,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Clamp_Collar",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    10.47,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.0,
+    0.48,
+    3.0
+   ],
+   "material": "machine",
+   "sections": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Spinner_Clamp"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Clamp_Stripe",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    10.58,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.08,
+    0.26,
+    3.08
+   ],
+   "material": "stripe",
+   "sections": 12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Spinner_Clamp"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_ClampBarrel_1",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    8.5,
+    41.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.44,
+    1.55,
+    0.44
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_ClampRod_1",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    10.05,
+    41.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.22,
+    2.38,
+    0.22
+   ],
+   "material": "pipe",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Clamp_Bracket_1",
+   "type": "box",
+   "position": [
+    5.0,
+    10.44,
+    41.82
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.62,
+    0.54,
+    0.76
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Spinner_Clamp"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Clamp_Lamp_1",
+   "type": "box",
+   "position": [
+    5.0,
+    10.52,
+    42.19
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    0.38,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Spinner_Clamp"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_ClampBarrel_2",
+   "type": "cylinder",
+   "position": [
+    6.75,
+    8.5,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.44,
+    1.55,
+    0.44
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_ClampRod_2",
+   "type": "cylinder",
+   "position": [
+    6.75,
+    10.05,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.22,
+    2.38,
+    0.22
+   ],
+   "material": "pipe",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Clamp_Bracket_2",
+   "type": "box",
+   "position": [
+    6.82,
+    10.44,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.62,
+    0.54,
+    0.76
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Spinner_Clamp"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Clamp_Lamp_2",
+   "type": "box",
+   "position": [
+    7.19,
+    10.52,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    0.38,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Spinner_Clamp"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_ClampBarrel_3",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    8.5,
+    38.25
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.44,
+    1.55,
+    0.44
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_ClampRod_3",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    10.05,
+    38.25
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.22,
+    2.38,
+    0.22
+   ],
+   "material": "pipe",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Clamp_Bracket_3",
+   "type": "box",
+   "position": [
+    5.0,
+    10.44,
+    38.18
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.62,
+    0.54,
+    0.76
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Spinner_Clamp"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Clamp_Lamp_3",
+   "type": "box",
+   "position": [
+    5.0,
+    10.52,
+    37.81
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    0.38,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Spinner_Clamp"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_ClampBarrel_4",
+   "type": "cylinder",
+   "position": [
+    3.25,
+    8.5,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.44,
+    1.55,
+    0.44
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_ClampRod_4",
+   "type": "cylinder",
+   "position": [
+    3.25,
+    10.05,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.22,
+    2.38,
+    0.22
+   ],
+   "material": "pipe",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Clamp_Bracket_4",
+   "type": "box",
+   "position": [
+    3.18,
+    10.44,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.62,
+    0.54,
+    0.76
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Spinner_Clamp"
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Clamp_Lamp_4",
+   "type": "box",
+   "position": [
+    2.81,
+    10.52,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    270.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    0.38,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Spinner_Clamp"
+   },
    "gen": "Spinner",
    "source": "visible"
   },
@@ -53029,11 +54262,443 @@
    "source": "visible"
   },
   {
+   "name": "Spinner_Armour_1",
+   "type": "box",
+   "position": [
+    5.574,
+    12.44,
+    41.386
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.42,
+    0.16
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_CrownLamp_1",
+   "type": "box",
+   "position": [
+    5.601,
+    12.57,
+    41.45
+   ],
+   "rotation": [
+    0.0,
+    22.5,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.14,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Armour_2",
+   "type": "box",
+   "position": [
+    6.386,
+    12.44,
+    40.574
+   ],
+   "rotation": [
+    0.0,
+    67.5,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.42,
+    0.16
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_CrownLamp_2",
+   "type": "box",
+   "position": [
+    6.45,
+    12.57,
+    40.601
+   ],
+   "rotation": [
+    0.0,
+    67.5,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.14,
+    0.06
+   ],
+   "material": "glow_green",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Armour_3",
+   "type": "box",
+   "position": [
+    6.386,
+    12.44,
+    39.426
+   ],
+   "rotation": [
+    0.0,
+    112.5,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.42,
+    0.16
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_CrownLamp_3",
+   "type": "box",
+   "position": [
+    6.45,
+    12.57,
+    39.399
+   ],
+   "rotation": [
+    0.0,
+    112.5,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.14,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Armour_4",
+   "type": "box",
+   "position": [
+    5.574,
+    12.44,
+    38.614
+   ],
+   "rotation": [
+    0.0,
+    157.5,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.42,
+    0.16
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_CrownLamp_4",
+   "type": "box",
+   "position": [
+    5.601,
+    12.57,
+    38.55
+   ],
+   "rotation": [
+    0.0,
+    157.5,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.14,
+    0.06
+   ],
+   "material": "glow_green",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Armour_5",
+   "type": "box",
+   "position": [
+    4.426,
+    12.44,
+    38.614
+   ],
+   "rotation": [
+    0.0,
+    202.5,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.42,
+    0.16
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_CrownLamp_5",
+   "type": "box",
+   "position": [
+    4.399,
+    12.57,
+    38.55
+   ],
+   "rotation": [
+    0.0,
+    202.5,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.14,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Armour_6",
+   "type": "box",
+   "position": [
+    3.614,
+    12.44,
+    39.426
+   ],
+   "rotation": [
+    0.0,
+    247.5,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.42,
+    0.16
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_CrownLamp_6",
+   "type": "box",
+   "position": [
+    3.55,
+    12.57,
+    39.399
+   ],
+   "rotation": [
+    0.0,
+    247.5,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.14,
+    0.06
+   ],
+   "material": "glow_green",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Armour_7",
+   "type": "box",
+   "position": [
+    3.614,
+    12.44,
+    40.574
+   ],
+   "rotation": [
+    0.0,
+    292.5,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.42,
+    0.16
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_CrownLamp_7",
+   "type": "box",
+   "position": [
+    3.55,
+    12.57,
+    40.601
+   ],
+   "rotation": [
+    0.0,
+    292.5,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.14,
+    0.06
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Armour_8",
+   "type": "box",
+   "position": [
+    4.426,
+    12.44,
+    41.386
+   ],
+   "rotation": [
+    0.0,
+    337.5,
+    0.0
+   ],
+   "size": [
+    1.0,
+    0.42,
+    0.16
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_CrownLamp_8",
+   "type": "box",
+   "position": [
+    4.399,
+    12.57,
+    41.45
+   ],
+   "rotation": [
+    0.0,
+    337.5,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.14,
+    0.06
+   ],
+   "material": "glow_green",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
    "name": "Spinner_CapRim",
    "type": "cylinder",
    "position": [
     5.0,
-    12.7,
+    12.86,
     40.0
    ],
    "rotation": [
@@ -53042,11 +54707,11 @@
     0.0
    ],
    "size": [
-    3.2,
-    0.3,
-    3.2
+    3.25,
+    0.2,
+    3.25
    ],
-   "material": "stripe",
+   "material": "arm_yellow",
    "sections": 12,
    "collision": false,
    "outline": false,
@@ -91865,6 +93530,10 @@
      {
       "group": "Spinner_Ram",
       "frac": 1.0
+     },
+     {
+      "group": "Spinner_Clamp",
+      "frac": 0.0396
      }
     ],
     "lamps": "Spinner_Ram__glow",
@@ -92034,7 +93703,11 @@
       ]
      ]
     },
-    "note": "press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; camera shake within 'shake' m on impact"
+    "note": "press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; camera shake within 'shake' m on impact",
+    "plasma": "spinner_plasma",
+    "plasma_tiles": 2,
+    "plasma_rise": 0.35,
+    "plasma_note": "u offset = rotor angle / 360 * plasma_tiles (it turns with the arms); v offset = -t * plasma_rise - pressed * 0.5 (pressed = -ram offset / travel); emission x (0.45 + 0.9 pressed + 2.2 exp(-3 (u - slam)) after the impact + flicker)"
    },
    "arms": [
     20.0,
@@ -92657,16 +94330,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 77820,
-  "objects": 2763,
-  "materials": 57,
-  "glb_kb": 5207,
-  "nodes": 3057,
-  "draw_calls_unbatched": 3015,
-  "draw_calls_batched_min": 59,
-  "images": 141,
-  "tex_mem_gpu_compressed_mb": 29.29,
-  "tex_mem_uncompressed_mb": 117.17,
+  "triangles": 80108,
+  "objects": 2822,
+  "materials": 59,
+  "glb_kb": 5438,
+  "nodes": 3118,
+  "draw_calls_unbatched": 3076,
+  "draw_calls_batched_min": 61,
+  "images": 144,
+  "tex_mem_gpu_compressed_mb": 29.54,
+  "tex_mem_uncompressed_mb": 118.17,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

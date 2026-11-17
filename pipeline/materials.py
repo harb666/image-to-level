@@ -1,3 +1,4 @@
+import math
 """Procedural PBR material library (CPU, free). Used by build_level.py; one shared glTF material per level.json material.
 
 level.json material entry: {"type": <kind>, "color": [r,g,b], "tile_m": metres per texture repeat,
@@ -1041,6 +1042,33 @@ def k_hazard_wrap(S, rng, c, m):
     alb = np.where(chip[..., None], np.full(3, 0.5) * (0.8 + 0.2 * fine[..., None]), alb)
     hl = 1 - np.abs(y - 0.75) * 4  # (top of the pole: a touch of sheen)
     return dict(alb=np.clip(alb, 0, 1), h=0.55 - 0.15 * np.clip(1 - edge / 2.5, 0, 1) - 0.08 * chip, rough=np.where(chip, 0.35, 0.5 - 0.1 * np.clip(hl, 0, 1)), metal=np.where(chip, 0.85, 0.08), nstr=0.7)
+
+
+def k_plasma_arc(S, rng, c, m):
+    """Stage 155: plasma inside a glass chamber (wrapped round a cylinder, tileable both ways: the runtimes scroll it -
+    round with the rotor, up with time): a translucent swirl of dark-red smoke, bright forking lightning bolts that wind
+    round it (white-hot cores, red glow) - RGBA, alpha = how much of it there is (blended). "bolts": count."""
+    from PIL import Image, ImageDraw, ImageFilter
+    x, y = _xy(S); sw = _noise(rng, 4, 3, S); sw2 = _noise(rng, 9, 2, S)
+    smoke = np.clip((np.sin(2 * np.pi * (x * 2 + y * 1.0 + sw * 0.9)) * 0.5 + 0.5) * 0.55 + sw2 * 0.45, 0, 1)  # helical swirl
+    lay = Image.new("L", (S * 3, S * 3), 0); d = ImageDraw.Draw(lay); core = Image.new("L", (S * 3, S * 3), 0); dc = ImageDraw.Draw(core)
+    def bolt(x0, y0, x1, y1, w, depth):
+        L = math.hypot(x1 - x0, y1 - y0); pts = [(x0, y0)]; n = max(3, int(L / S * 10))
+        for i in range(1, n):  # jitter scales with the bolt's length: forks branch cleanly instead of scribbling
+            t = i / n; px = x0 + (x1 - x0) * t + rng.normal(0, L * 0.03); py = y0 + (y1 - y0) * t + rng.normal(0, L * 0.015); pts.append((px, py))
+            if depth and rng.random() < 0.16:  # a fork, heading on downward
+                bolt(px, py, px + rng.uniform(0.1, 0.25) * S * rng.choice([-1, 1]), py + rng.uniform(0.08, 0.25) * S, max(1, w - 1), depth - 1)
+        pts.append((x1, y1))
+        for ox in (-S, 0, S):
+            for oy in (-S, 0, S):
+                q = [(a + ox + S, b + oy + S) for a, b in pts]; d.line(q, fill=255, width=w * 3); dc.line(q, fill=255, width=max(1, w))
+    for _ in range(int(m.get("bolts", 7))):  # each winds diagonally round the cylinder, top to bottom
+        x0 = rng.uniform(0, S); bolt(x0, -0.05 * S, x0 + rng.uniform(0.35, 0.8) * S * rng.choice([-1, 1]), 1.05 * S, int(rng.integers(2, 4)), 2)
+    gl = np.asarray(lay.filter(ImageFilter.GaussianBlur(S / 90)), float)[S:2 * S, S:2 * S] / 255; cr = np.asarray(core, float)[S:2 * S, S:2 * S] / 255
+    alb = c[None, None] * (0.35 + 0.65 * smoke)[..., None] * 0.6
+    alb = alb + np.array(m.get("glow", [1.0, 0.18, 0.12]))[None, None] * gl[..., None] * 1.2 + np.array([1.0, 0.85, 0.85])[None, None] * cr[..., None]
+    alpha = np.clip(0.18 + 0.35 * smoke + gl * 0.9 + cr, 0, 1)
+    return dict(alb=np.clip(alb, 0, 1), h=np.zeros((S, S)), rough=np.full((S, S), 0.4), metal=0.0, emit=np.clip(0.5 + gl + cr, 0, 1), nstr=0.0, alpha=alpha)
 
 
 def k_fade_ramp(S, rng, c, m):

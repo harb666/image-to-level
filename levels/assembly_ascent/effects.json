@@ -2414,6 +2414,10 @@
       {
        "group": "Spinner_Ram",
        "frac": 1.0
+      },
+      {
+       "group": "Spinner_Clamp",
+       "frac": 0.0396
       }
      ],
      "lamps": "Spinner_Ram__glow",
@@ -2583,7 +2587,11 @@
        ]
       ]
      },
-     "note": "press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; camera shake within 'shake' m on impact"
+     "note": "press_profile(): u = (t + phase) mod period; ram offset -travel (u/slam)^2, held, eased back over rise; each stage moves offset * frac; rotor angle = whole-turn cycles + spin-up / peak / coast-down from the impact; the head's glow blinks for 'warn' s before each slam; camera shake within 'shake' m on impact",
+     "plasma": "spinner_plasma",
+     "plasma_tiles": 2,
+     "plasma_rise": 0.35,
+     "plasma_note": "u offset = rotor angle / 360 * plasma_tiles (it turns with the arms); v offset = -t * plasma_rise - pressed * 0.5 (pressed = -ram offset / travel); emission x (0.45 + 0.9 pressed + 2.2 exp(-3 (u - slam)) after the impact + flicker)"
     },
     "arms": [
      20.0,
@@ -5244,7 +5252,32 @@
     "Spinner_PipeBand_2",
     "Spinner_PipeBand_1",
     "Spinner_Strike",
-    "Spinner_Core",
+    "Spinner_CrownLamp_7",
+    "Spinner_CrownLamp_5",
+    "Spinner_CrownLamp_3",
+    "Spinner_CrownLamp_1",
+    "Spinner_Clamp_Lamp_4",
+    "Spinner_Clamp_Lamp_3",
+    "Spinner_Clamp_Lamp_2",
+    "Spinner_Clamp_Lamp_1",
+    "Spinner_DeckRing_2",
+    "Spinner_DeckRing_1",
+    "Spinner_FootLamp_16",
+    "Spinner_FootLamp_15",
+    "Spinner_FootLamp_14",
+    "Spinner_FootLamp_13",
+    "Spinner_FootLamp_12",
+    "Spinner_FootLamp_11",
+    "Spinner_FootLamp_10",
+    "Spinner_FootLamp_09",
+    "Spinner_FootLamp_08",
+    "Spinner_FootLamp_07",
+    "Spinner_FootLamp_06",
+    "Spinner_FootLamp_05",
+    "Spinner_FootLamp_04",
+    "Spinner_FootLamp_03",
+    "Spinner_FootLamp_02",
+    "Spinner_FootLamp_01",
     "Spinner_HubRing",
     "Claw_Hang_Finger_3_Lit",
     "Claw_Hang_Finger_3_Lit2",

@@ -1500,4 +1500,13 @@ Building blocks usable without the preset:
   `liquid_fade` overlay runs on behind the back wall, fading clear again (`liquid_fade_span`): both its edges are clear, so
   the wrapping texture no longer bleeds a dark line across the slime at the mouth.
 - Stage 154: `column` `"band_material"` (role, default `trim`): Assembly Ascent's pod tubes use `tube_band` (Toxic Works' plum `trim_light` with a red light strip) instead of this level's yellow hazard `trim`.
+- Stage 155: the `spinner` tower (concept art): a foot ringed with red slits, glowing rings set into the deck
+  (`<id>_DeckRing_1/2`, holed cylinders, no collision), two solid glass chambers (`<id>_Glass_1/2`) each holding two
+  plasma layers (`pole`, `uv_mode` band, the same `plasma_tiles` round each), a hazard-striped clamp collar with four
+  bracket arms (red strips) riding four piston rods, an armoured crown with alternating red / `glow_green` lamps and a
+  yellow rim under the strike plate (top still T + 6). Material type `plasma_arc` (RGBA, tileable both ways: a dark-red
+  swirl and forking lightning winding round; `bolts`). With a `press`: `drive.stages` gains `<id>_Clamp` (`clamp_drop`,
+  default 0.22 m: pressed, the collar sits on `Band_2`) and `drive.plasma` / `plasma_tiles` / `plasma_rise`: the runtimes scroll the plasma's UV
+  round with the rotor angle and up with time, and scale its emission with the ram (pressed fraction + a flash decaying
+  after the impact). Options `plasma_material`, `lamp_green`, `plasma_tiles` (2), `plasma_rise` (0.35).
 

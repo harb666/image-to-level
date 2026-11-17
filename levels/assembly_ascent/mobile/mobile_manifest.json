@@ -41,23 +41,23 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 5207,
-    "triangles": 90764,
-    "nodes": 3057,
-    "mesh_nodes": 3015,
-    "unique_meshes": 1411,
-    "materials": 59,
-    "images": 141,
-    "draw_calls_unbatched": 3015,
-    "draw_calls_batched_min": 59,
-    "tex_mem_uncompressed_mb": 117.17,
-    "tex_mem_gpu_compressed_mb": 29.29,
+    "glb_kb": 5438,
+    "triangles": 93164,
+    "nodes": 3118,
+    "mesh_nodes": 3076,
+    "unique_meshes": 1428,
+    "materials": 61,
+    "images": 144,
+    "draw_calls_unbatched": 3076,
+    "draw_calls_batched_min": 61,
+    "tex_mem_uncompressed_mb": 118.17,
+    "tex_mem_gpu_compressed_mb": 29.54,
     "texture_slots": {
-     "baseColorTexture": 53,
-     "metallicRoughnessTexture": 53,
-     "normalTexture": 39,
-     "occlusionTexture": 53,
-     "emissiveTexture": 32
+     "baseColorTexture": 55,
+     "metallicRoughnessTexture": 55,
+     "normalTexture": 40,
+     "occlusionTexture": 55,
+     "emissiveTexture": 34
     },
     "image_sizes": [
      "1024x1024 jpeg",
@@ -73,31 +73,31 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 977.0,
-    "visible_draw_calls_max": 3007,
-    "visible_triangles_mean": 41866,
-    "visible_triangles_max": 101368
+    "visible_draw_calls_mean": 999.3,
+    "visible_draw_calls_max": 3068,
+    "visible_triangles_mean": 42778,
+    "visible_triangles_max": 103768
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3071,
-    "triangles": 87192,
-    "nodes": 266,
-    "mesh_nodes": 167,
-    "unique_meshes": 167,
-    "materials": 59,
-    "images": 105,
-    "draw_calls_unbatched": 167,
-    "draw_calls_batched_min": 59,
-    "tex_mem_uncompressed_mb": 53.92,
-    "tex_mem_gpu_compressed_mb": 13.48,
+    "glb_kb": 3198,
+    "triangles": 89592,
+    "nodes": 271,
+    "mesh_nodes": 172,
+    "unique_meshes": 172,
+    "materials": 61,
+    "images": 108,
+    "draw_calls_unbatched": 172,
+    "draw_calls_batched_min": 61,
+    "tex_mem_uncompressed_mb": 54.92,
+    "tex_mem_gpu_compressed_mb": 13.73,
     "texture_slots": {
-     "baseColorTexture": 53,
-     "emissiveTexture": 32,
-     "metallicRoughnessTexture": 30,
-     "normalTexture": 16,
-     "occlusionTexture": 30
+     "baseColorTexture": 55,
+     "emissiveTexture": 34,
+     "metallicRoughnessTexture": 32,
+     "normalTexture": 17,
+     "occlusionTexture": 32
     },
     "image_sizes": [
      "128x128 webp",
@@ -133,16 +133,16 @@
     ]
    },
    "collision": {
-    "colliders": 498,
+    "colliders": 502,
     "hazards": 1,
-    "glb_kb": 231
+    "glb_kb": 233
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 86.4,
-    "visible_draw_calls_max": 168,
-    "visible_triangles_mean": 73655,
-    "visible_triangles_max": 97608
+    "visible_draw_calls_mean": 88.3,
+    "visible_draw_calls_max": 173,
+    "visible_triangles_mean": 75684,
+    "visible_triangles_max": 100008
    },
    "hidden_faces_removed": 1331,
    "occluded_faces_removed": 2241,
@@ -155,16 +155,16 @@
    "effects_max_particles": 1257,
    "slimmed_kb": {
     "level_mobile.glb": [
-     4653,
-     3071
+     4864,
+     3198
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     311,
-     231
+     314,
+     233
     ]
    }
   }
@@ -2187,6 +2187,49 @@
    "group": "Spike_Press_Warn"
   },
   {
+   "node": "Spinner_Clamp__glow",
+   "kind": "group",
+   "material": "glow",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Spinner_Clamp_Lamp_4",
+    "Spinner_Clamp_Lamp_3",
+    "Spinner_Clamp_Lamp_2",
+    "Spinner_Clamp_Lamp_1"
+   ],
+   "group": "Spinner_Clamp"
+  },
+  {
+   "node": "Spinner_Clamp__machine",
+   "kind": "group",
+   "material": "machine",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Spinner_Clamp_Bracket_4",
+    "Spinner_Clamp_Bracket_3",
+    "Spinner_Clamp_Bracket_2",
+    "Spinner_Clamp_Bracket_1",
+    "Spinner_Clamp_Collar"
+   ],
+   "group": "Spinner_Clamp"
+  },
+  {
+   "node": "Spinner_Clamp__stripe",
+   "kind": "group",
+   "material": "stripe",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Spinner_Clamp_Stripe"
+   ],
+   "group": "Spinner_Clamp"
+  },
+  {
    "node": "Spinner_FloatRig__deck",
    "kind": "group",
    "material": "deck",
@@ -2730,12 +2773,13 @@
    "node": "M_arm_yellow_0_0",
    "kind": "static",
    "material": "arm_yellow",
-   "triangles": 640,
+   "triangles": 688,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Spinner_CrownBand",
     "Spinner_PressPlateRim",
+    "Spinner_CapRim",
     "Saw_East_Cheek_R",
     "Saw_East_Cheek_L",
     "Saw_West_Cheek_R",
@@ -3284,11 +3328,12 @@
    "node": "M_glass_clear__2s_0_0",
    "kind": "static",
    "material": "glass_clear__2s",
-   "triangles": 872,
+   "triangles": 928,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Spinner_Glass",
+    "Spinner_Glass_2",
+    "Spinner_Glass_1",
     "Showcase_Pit_2_CornerPipe_2_Glass",
     "Showcase_Pit_2_Pump_2_Pipe_Glass",
     "Showcase_Pit_2_CornerPipe_1_Glass",
@@ -3304,7 +3349,7 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 1904,
+   "triangles": 3128,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3342,7 +3387,28 @@
     "Spinner_PipeBand_2",
     "Spinner_PipeBand_1",
     "Spinner_Strike",
-    "Spinner_Core",
+    "Spinner_CrownLamp_7",
+    "Spinner_CrownLamp_5",
+    "Spinner_CrownLamp_3",
+    "Spinner_CrownLamp_1",
+    "Spinner_DeckRing_2",
+    "Spinner_DeckRing_1",
+    "Spinner_FootLamp_16",
+    "Spinner_FootLamp_15",
+    "Spinner_FootLamp_14",
+    "Spinner_FootLamp_13",
+    "Spinner_FootLamp_12",
+    "Spinner_FootLamp_11",
+    "Spinner_FootLamp_10",
+    "Spinner_FootLamp_09",
+    "Spinner_FootLamp_08",
+    "Spinner_FootLamp_07",
+    "Spinner_FootLamp_06",
+    "Spinner_FootLamp_05",
+    "Spinner_FootLamp_04",
+    "Spinner_FootLamp_03",
+    "Spinner_FootLamp_02",
+    "Spinner_FootLamp_01",
     "Spinner_HubRing",
     "Claw_Hang_Finger_3_Lit",
     "Claw_Hang_Finger_3_Lit2",
@@ -3464,6 +3530,20 @@
    ]
   },
   {
+   "node": "M_glow_green_0_0",
+   "kind": "static",
+   "material": "glow_green",
+   "triangles": 48,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Spinner_CrownLamp_8",
+    "Spinner_CrownLamp_6",
+    "Spinner_CrownLamp_4",
+    "Spinner_CrownLamp_2"
+   ]
+  },
+  {
    "node": "M_glow_pink_0_0",
    "kind": "static",
    "material": "glow_pink",
@@ -3580,7 +3660,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 9406,
+   "triangles": 9518,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3606,7 +3686,9 @@
     "Spinner_Crown__ol",
     "Spinner_PressPlate__ol",
     "Spinner_Cap__ol",
+    "Spinner_Sleeve__ol",
     "Spinner_Neck__ol",
+    "Spinner_Foot__ol",
     "Spinner_HubBase__ol",
     "Sign_Exit_Frame__ol",
     "Exit_Door_Sill__ol",
@@ -3822,7 +3904,7 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 3503,
+   "triangles": 3839,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3877,9 +3959,23 @@
     "Spinner_Valve_3",
     "Spinner_Valve_2",
     "Spinner_Valve_1",
+    "Spinner_Armour_8",
+    "Spinner_Armour_7",
+    "Spinner_Armour_6",
+    "Spinner_Armour_5",
+    "Spinner_Armour_4",
+    "Spinner_Armour_3",
+    "Spinner_Armour_2",
+    "Spinner_Armour_1",
     "Spinner_Cap",
+    "Spinner_ClampBarrel_4",
+    "Spinner_ClampBarrel_3",
+    "Spinner_ClampBarrel_2",
+    "Spinner_ClampBarrel_1",
+    "Spinner_Band_3",
     "Spinner_Band_2",
     "Spinner_Band_1",
+    "Spinner_Foot",
     "Spinner_HubBase",
     "Exit_Door_Mouth_Pilaster_3",
     "Exit_Door_Mouth_Jamb_3",
@@ -3953,7 +4049,7 @@
    "node": "M_pipe_0_0",
    "kind": "static",
    "material": "pipe",
-   "triangles": 1540,
+   "triangles": 1716,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3988,6 +4084,11 @@
     "Spinner_PipeOut_2",
     "Spinner_PipeDown_1",
     "Spinner_PipeOut_1",
+    "Spinner_ClampRod_4",
+    "Spinner_ClampRod_3",
+    "Spinner_ClampRod_2",
+    "Spinner_ClampRod_1",
+    "Spinner_Sleeve",
     "Spike_Press_Column",
     "Showcase_TankPipe_b",
     "Showcase_TankPipe_a",
@@ -4240,6 +4341,20 @@
    ]
   },
   {
+   "node": "M_spinner_plasma_0_0",
+   "kind": "static",
+   "material": "spinner_plasma",
+   "triangles": 256,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Spinner_Plasma_2b",
+    "Spinner_Plasma_2a",
+    "Spinner_Plasma_1b",
+    "Spinner_Plasma_1a"
+   ]
+  },
+  {
    "node": "M_splash_pool__2s_0_0",
    "kind": "static",
    "material": "splash_pool__2s",
@@ -4255,7 +4370,7 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 798,
+   "triangles": 750,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -4267,7 +4382,6 @@
     "Overlook_ColumnBand_1",
     "Overlook_EdgeN",
     "Overlook_EdgeW",
-    "Spinner_CapRim",
     "CraneRail_01_Stripe",
     "Belt_B_Frame_2",
     "Belt_B_Frame_1",

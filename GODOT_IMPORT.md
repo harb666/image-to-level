@@ -132,6 +132,10 @@ The browser preview approximates all of these with three.js. It is close to Godo
   at the `sync` times like `steam_burst`.
 - Stage 104: effects.json `steam_burst` with `sync` {period, phase, at}: one CPUParticles3D over all vent points
   (one_shot), restarted when (t + phase) mod period crosses each `at` - steam on the press's impact and release.
+- Stage 155: a `drive` with `plasma` (a material-name prefix): `_sweeper` collects those materials; each frame their
+  `uv1_offset` = (rotor angle / 360 * plasma_tiles, -t * plasma_rise - pressed * 0.5) and `emission_energy_multiplier`
+  = base * (0.45 + 0.9 pressed + 2.2 exp(-3 (u - slam)) + flicker) - the chambers' lightning turns with the arms and
+  flares on each slam (same as the viewer; untested in Godot).
 - Stage 103: a `sweeper` with a `drive` takes its angle from `press_profile()` (apply_effects.gd, same as the viewer):
   the press stage groups (`drive.stages`, each moved by offset * frac) slam and lift, the head's glow node
   (`drive.lamps`) blinks before the slam, and the current camera shakes (h/v offset) near an impact.

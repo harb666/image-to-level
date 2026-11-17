@@ -180,20 +180,45 @@ def spinner(ctx, s, x, y, z, yaw):
     if s.get("floor") and s.get("floor_material"):  # Stage 105: the deck the maces sweep gets its own (scraped) surface
         for o in ctx.objects:
             if o["name"] == s["floor"] + "_Floor": o["material"] = ctx.role(s["floor_material"])
-    # --- tower (static)
+    # --- tower (static). Stage 155 (concept art): a lit foot, two glass chambers of red plasma (lightning winding
+    # round inside, driven by the press: drive.plasma) either side of a hazard-striped clamp collar that rides down
+    # four piston rods when the press slams (drive.stages "<id>_Clamp"), an armoured crown with red / green lamps
     ctx.add(n + "_HubBase", "cylinder", [x, T, z], [3.9, 1.0, 3.9], "machine", sections=12, **st)
     ctx.add(n + "_HubRing", "cylinder", [x, T + 0.62, z], [4.0, 0.22, 4.0], gl, sections=12, **vs)
-    ctx.add(n + "_Neck", "cylinder", [x, T + 1.0, z], [2.5, 1.05, 2.5], "structure_b", sections=12, **st)
-    ctx.add(n + "_Core", "cylinder", [x, T + 2.0, z], [1.5, 2.9, 1.5], gl, sections=10, **dict(st, outline=False))
-    ctx.add(n + "_Glass", "cylinder", [x, T + 2.0, z], [2.3, 2.9, 2.3], ctx.role("glass_clear"), sections=10, double_sided=True, outline=False, collision=False, **st)
-    for k, yy in enumerate((T + 2.0, T + 4.75)): ctx.add(f"{n}_Band_{k + 1}", "cylinder", [x, yy - 0.12, z], [2.65, 0.3, 2.65], "machine", sections=12, **dict(st, outline=False))
+    ctx.add(n + "_Foot", "cylinder", [x, T, z], [4.8, 0.3, 4.8], "machine", sections=16, **st)
+    for k in range(16):  # red slits round the foot (embedded 3 cm)
+        a = yaw + 11.25 + 22.5 * k; q = _W(x, 0, z, a)(0, T + 0.06, 2.33)
+        ctx.add(f"{n}_FootLamp_{k + 1:02d}", "box", q, [0.34, 0.17, 0.08], gl, rot=[0, a, 0], **vs)
+    for nm, r_, w_ in (("DeckRing_1", 3.05, 0.2), ("DeckRing_2", 6.45, 0.2)):  # glowing rings set into the deck
+        ctx.add(f"{n}_{nm}", "cylinder", [x, T + 0.006, z], [2 * r_, 0.02, 2 * r_], gl, sections=64, hole=r_ - w_, hole_res=64, **vs)
+    plasma = ctx.role(s.get("plasma_material", "spinner_plasma")); glass = ctx.role("glass_clear"); grn = ctx.role(s.get("lamp_green", "glow_green"))
+    nt = int(s.get("plasma_tiles", 2)); band = lambda nm, y0, h, d: ctx.add(f"{n}_{nm}", "cylinder", [x, y0, z], [d, h, d], "machine", sections=12, **dict(st, outline=False))
+    ctx.add(n + "_Neck", "cylinder", [x, T + 1.0, z], [2.6, 0.12, 2.6], "structure_b", sections=12, **st)
+    for c_, (y0, y1) in enumerate(((T + 1.3, T + 2.55), (T + 3.65, T + 4.9))):  # the two chambers
+        ctx.add(f"{n}_Glass_{c_ + 1}", "cylinder", [x, y0, z], [2.3, y1 - y0, 2.3], glass, sections=12, double_sided=True, outline=False, **st)
+        for l_, w_ in enumerate((1.95, 0.85)):  # two plasma layers, the same number of tiles round each (they turn together)
+            ctx.add(f"{n}_Plasma_{c_ + 1}{'ab'[l_]}", "pole", [x, y0 + 0.02, z], [w_, y1 - y0 - 0.04, w_], plasma, sections=16, uv_mode="band", uv_len=round(math.pi * w_ / nt, 4), **vs)
+    band("Band_1", T + 1.1, 0.2, 2.75); band("Band_2", T + 2.55, 0.2, 2.75); band("Band_3", T + 3.45, 0.2, 2.75)
+    ctx.add(n + "_Sleeve", "cylinder", [x, T + 2.75, z], [2.45, 0.7, 2.45], "pipe", sections=12, **st)
+    gc = n + "_Clamp"; mc = dict(collision=False, outline=False, mobile={"group": gc})  # slides 0.04 x the press stroke on each slam
+    ctx.add(gc + "_Collar", "cylinder", [x, T + 2.97, z], [3.0, 0.48, 3.0], "machine", sections=12, **mc)
+    ctx.add(gc + "_Stripe", "cylinder", [x, T + 3.08, z], [3.08, 0.26, 3.08], stripe, sections=12, **mc)
+    for k in range(4):  # four clamp arms: a piston barrel on the base, a rod up to the crown, a bracket (with a red strip) sliding on it
+        a = yaw + 90 * k; P0 = _W(x, 0, z, a)
+        ctx.add(f"{n}_ClampBarrel_{k + 1}", "cylinder", P0(0, T + 1.0, 1.75), [0.44, 1.55, 0.44], "machine", sections=8, **vs)
+        ctx.add(f"{n}_ClampRod_{k + 1}", "cylinder", P0(0, T + 2.55, 1.75), [0.22, 2.38, 0.22], "pipe", sections=8, **vs)
+        ctx.add(f"{gc}_Bracket_{k + 1}", "box", P0(0, T + 2.94, 1.82), [0.62, 0.54, 0.76], "machine", rot=[0, a, 0], **mc)
+        ctx.add(f"{gc}_Lamp_{k + 1}", "box", P0(0, T + 3.02, 2.19), [0.14, 0.38, 0.06], gl, rot=[0, a, 0], **mc)
+    # crown: the cap, eight armour plates with red / green lamps, a yellow band, the strike plate
     pr = s.get("press")
-    if pr:  # Stage 103: an anvil for the ceiling press - a lower cap, a hazard rim and the red strike plate it slams onto
-        ctx.add(n + "_Cap", "cylinder", [x, T + 4.9, z], [3.0, 0.7, 3.0], "machine", sections=12, **st)
-        ctx.add(n + "_CapRim", "cylinder", [x, T + 5.2, z], [3.2, 0.3, 3.2], stripe, sections=12, **dict(vs, outline=False))
+    ctx.add(n + "_Cap", "cylinder", [x, T + 4.9, z], [3.0, 0.7 if pr else 0.9, 3.0], "machine", sections=12, **st)
+    for k in range(8):
+        a = yaw + 22.5 + 45 * k; P0 = _W(x, 0, z, a)
+        ctx.add(f"{n}_Armour_{k + 1}", "box", P0(0, T + 4.94, 1.5), [1.0, 0.42, 0.16], "machine", rot=[0, a, 0], **vs)
+        ctx.add(f"{n}_CrownLamp_{k + 1}", "box", P0(0, T + 5.07, 1.57), [0.34, 0.14, 0.06], grn if k % 2 else gl, rot=[0, a, 0], **vs)
+    if pr:  # Stage 103: an anvil for the ceiling press - a yellow rim and the red strike plate it slams onto
+        ctx.add(n + "_CapRim", "cylinder", [x, T + 5.36, z], [3.25, 0.2, 3.25], ctx.role("arm_yellow"), sections=12, **vs)
         ctx.add(n + "_Strike", "cylinder", [x, T + 5.6, z], [1.9, 0.4, 1.9], gl, sections=10, **dict(vs, outline=False))
-    else:
-        ctx.add(n + "_Cap", "cylinder", [x, T + 4.9, z], [3.0, 0.9, 3.0], "machine", sections=12, **st)
     for k in range(4):  # pipes: up out of the cap (out of its side under a press), across, down into a valve box
         a = yaw + 45 + 90 * k; P0 = _W(x, 0, z, a)
         if pr:
@@ -223,6 +248,11 @@ def spinner(ctx, s, x, y, z, yaw):
         ctx.add(f"{gr}_Ball_{k + 1}", "mace", c, [2 * br] * 3, mace, rot=[0, a, 0], **nl)
         ctx.add(f"{gr}_Tips_{k + 1}", "mace_tips", c, [2 * br] * 3, gl, rot=[0, a, 0], **nl)
     drive = _press(ctx, n, x, T, z, yaw, pr, gl, stripe) if pr else None
+    if drive:  # Stage 155: the clamp collar rides down with the slam; the plasma turns with the rotor and surges with the ram
+        drive["stages"].append({"group": gc, "frac": round(float(s.get("clamp_drop", 0.22)) / drive["travel"], 4)})  # pressed, it sits on Band_2
+        drive.update(plasma=plasma, plasma_tiles=nt, plasma_rise=float(s.get("plasma_rise", 0.35)),
+                     plasma_note="u offset = rotor angle / 360 * plasma_tiles (it turns with the arms); v offset = -t * plasma_rise - pressed * 0.5 "
+                                 "(pressed = -ram offset / travel); emission x (0.45 + 0.9 pressed + 2.2 exp(-3 (u - slam)) after the impact + flicker)")
     ctx.sweepers = getattr(ctx, "sweepers", []) + [dict(id=n, group=gr, center=[round(x, 3), round(T, 3), round(z, 3)], rpm=float(drive["peak_rpm"] if drive else s.get("rpm", 6.0)), phase=float(s.get("phase", 0.0)), **({"drive": drive} if drive else {}),
                                                        arms=[round(yaw + a, 2) for a in arms], r0=r0, r1=round(r1, 3), bar_y=by, bar_half=bh, ball_r=round(br, 3), ball_y=round(bly, 3),
                                                        note="angle(t) = arm + rpm * 6 * t deg (level yaw convention: direction (sin, cos)); a bar kills a body it overlaps (jump over it), a ball kills within ball_r")]

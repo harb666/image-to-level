@@ -424,7 +424,15 @@ func _sweeper(sw: Dictionary) -> void:
 		var ln := level_root.find_child(String(D["lamps"]), true, false)
 		if ln != null:
 			lamps.append(ln)
-	_sweepers.append([sw, rot, piv, stages, lamps, [-1]])
+	var pmats: Array = []  # Stage 155: the plasma chambers' material(s) [[material, base emission energy]...]
+	if sw.has("drive") and sw["drive"].has("plasma"):
+		var seen := {}
+		for node in level_root.find_children("*", "MeshInstance3D", true, false):
+			var pm := (node as MeshInstance3D).get_active_material(0) as BaseMaterial3D
+			if pm and pm.resource_name.begins_with(String(sw["drive"]["plasma"])) and not seen.has(pm):
+				seen[pm] = true
+				pmats.append([pm, pm.emission_energy_multiplier])
+	_sweepers.append([sw, rot, piv, stages, lamps, [-1], pmats])
 
 
 static func press_profile(D: Dictionary, t: float) -> Array:
@@ -1609,6 +1617,13 @@ func _process(delta: float) -> void:
 				(ns[0] as Node3D).position = Vector3(0.0, float(pf[0]) * float(ns[1]), 0.0)
 			for ln in sr[4]:
 				(ln as Node3D).visible = not (float(pf[2]) > float(D["period"]) - float(D["warn"])) or int(_t * 8.0) % 2 == 0
+			if not sr[6].is_empty():  # Stage 155: the plasma turns with the rotor, rises, and surges with the ram (same as viewer.html)
+				var pr := -float(pf[0]) / float(D["travel"])
+				var ds := float(pf[2]) - float(D["slam"])
+				var surge := 0.45 + 0.9 * pr + (2.2 * exp(-3.0 * ds) if ds >= 0.0 else 0.0) + 0.12 * sin(_t * 41.0) * sin(_t * 17.0)
+				for pm in sr[6]:
+					(pm[0] as BaseMaterial3D).uv1_offset = Vector3(float(pf[1]) / 360.0 * float(D["plasma_tiles"]), -_t * float(D["plasma_rise"]) - pr * 0.5, 0.0)
+					(pm[0] as BaseMaterial3D).emission_energy_multiplier = float(pm[1]) * surge
 			if float(pf[2]) >= float(D["slam"]) and sr[5][0] != int(pf[3]):  # impact: shake a nearby camera
 				sr[5][0] = int(pf[3])
 				var cam := get_viewport().get_camera_3d()
