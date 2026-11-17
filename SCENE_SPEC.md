@@ -1509,6 +1509,13 @@ Building blocks usable without the preset:
   default 0.22 m: pressed, the collar sits on `Band_2`) and `drive.plasma` / `plasma_tiles` / `plasma_rise`: the runtimes scroll the plasma's UV
   round with the rotor angle and up with time, and scale its emission with the ram (pressed fraction + a flash decaying
   after the impact). Options `plasma_material`, `lamp_green`, `plasma_tiles` (2), `plasma_rise` (0.35).
+- Stage 157: the spinner's plasma is deep red (`smoke` > 1: a denser swirl, so it still reads as plasma when the texture
+  minifies) with four bolts and a `halo`; each chamber gets a white-hot electrode (`spinner_plasma_core`, surging with
+  the plasma) and a bolts-only `spinner_arcs` layer (`plasma_arc` `smoke` 0) that crackles for 1.6 s after every slam -
+  shown with a decaying, flickering alpha, its UV jumping 24 times a second (`drive.arcs`). `drive.sparks` (chamber
+  centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
+  `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
+  chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
 - Stage 156: the showcase vat is built like Toxic Works' vats - one see-through slime-glass layer (`tank_green`, alpha 0.3;
   no separate blended liquid shell) with its ends sunk 10 cm into the base and the cap (the coplanar end faces flickered),
   a diffuser on the floor (glowing ring, grate, seven bubble nozzles) and a vent hood under the cap the cables run into;

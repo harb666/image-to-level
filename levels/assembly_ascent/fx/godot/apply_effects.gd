@@ -432,7 +432,25 @@ func _sweeper(sw: Dictionary) -> void:
 			if pm and pm.resource_name.begins_with(String(sw["drive"]["plasma"])) and not seen.has(pm):
 				seen[pm] = true
 				pmats.append([pm, pm.emission_energy_multiplier])
-	_sweepers.append([sw, rot, piv, stages, lamps, [-1], pmats])
+	var amats: Array = []  # Stage 157: the slam's lightning layer [[material, base emission energy]...]; the impact light
+	var plight: OmniLight3D = null
+	if sw.has("drive") and sw["drive"].has("arcs"):
+		var seen_a := {}
+		for node in level_root.find_children("*", "MeshInstance3D", true, false):
+			var am := (node as MeshInstance3D).get_active_material(0) as BaseMaterial3D
+			if am and am.resource_name.begins_with(String(sw["drive"]["arcs"])) and not seen_a.has(am):
+				seen_a[am] = true
+				am.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+				amats.append([am, am.emission_energy_multiplier])
+	if sw.has("drive") and sw["drive"].has("light"):
+		var LD: Dictionary = sw["drive"]["light"]
+		plight = OmniLight3D.new()
+		plight.light_color = Color(LD["color"][0], LD["color"][1], LD["color"][2])
+		plight.omni_range = float(LD["range"])
+		plight.light_energy = 0.0
+		plight.position = Vector3(LD["pos"][0], LD["pos"][1], LD["pos"][2])
+		level_root.add_child(plight)
+	_sweepers.append([sw, rot, piv, stages, lamps, [-1], pmats, amats, plight])
 
 
 static func press_profile(D: Dictionary, t: float) -> Array:
@@ -1620,10 +1638,22 @@ func _process(delta: float) -> void:
 			if not sr[6].is_empty():  # Stage 155: the plasma turns with the rotor, rises, and surges with the ram (same as viewer.html)
 				var pr := -float(pf[0]) / float(D["travel"])
 				var ds := float(pf[2]) - float(D["slam"])
-				var surge := 0.45 + 0.9 * pr + (2.2 * exp(-3.0 * ds) if ds >= 0.0 else 0.0) + 0.12 * sin(_t * 41.0) * sin(_t * 17.0)
+				var surge := 0.4 + 0.7 * pr + (1.2 * exp(-3.0 * ds) if ds >= 0.0 else 0.0) + 0.12 * sin(_t * 41.0) * sin(_t * 17.0)
 				for pm in sr[6]:
 					(pm[0] as BaseMaterial3D).uv1_offset = Vector3(float(pf[1]) / 360.0 * float(D["plasma_tiles"]), -_t * float(D["plasma_rise"]) - pr * 0.5, 0.0)
 					(pm[0] as BaseMaterial3D).emission_energy_multiplier = float(pm[1]) * surge
+				var ds2 := float(pf[2]) - float(D["slam"])  # Stage 157: crackling arcs after the slam (same as viewer.html)
+				var kk := floorf(_t * 24.0)
+				var hh := sin(kk * 12.9898) * 43758.5453
+				var ck := 1.0 if hh - floorf(hh) > 0.35 else 0.15
+				var fa := minf(1.0, 1.6 * exp(-1.8 * ds2)) * ck if ds2 >= 0.0 and ds2 < 1.6 else 0.0
+				for am in sr[7]:
+					var amat := am[0] as BaseMaterial3D
+					amat.albedo_color.a = fa
+					amat.emission_energy_multiplier = float(am[1]) * (1.0 + 0.8 * fa) * fa
+					amat.uv1_offset = Vector3(fposmod(kk * 0.618, 1.0), fposmod(kk * 0.382, 1.0), 0.0)
+				if sr[8] != null:
+					(sr[8] as OmniLight3D).light_energy = float(D["light"]["energy"]) * 2.0 * fa  # a lightning flash only (lit at rest it washed the chambers out)
 			if float(pf[2]) >= float(D["slam"]) and sr[5][0] != int(pf[3]):  # impact: shake a nearby camera
 				sr[5][0] = int(pf[3])
 				var cam := get_viewport().get_camera_3d()

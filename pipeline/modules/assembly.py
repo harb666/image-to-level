@@ -192,12 +192,17 @@ def spinner(ctx, s, x, y, z, yaw):
     for nm, r_, w_ in (("DeckRing_1", 3.05, 0.2), ("DeckRing_2", 6.45, 0.2)):  # glowing rings set into the deck
         ctx.add(f"{n}_{nm}", "cylinder", [x, T + 0.006, z], [2 * r_, 0.02, 2 * r_], gl, sections=64, hole=r_ - w_, hole_res=64, **vs)
     plasma = ctx.role(s.get("plasma_material", "spinner_plasma")); glass = ctx.role("glass_clear"); grn = ctx.role(s.get("lamp_green", "glow_green"))
+    arcs = ctx.role(s.get("arcs_material", "spinner_arcs")); core = ctx.role(s.get("core_material", "spinner_plasma_core")); sparks = []
     nt = int(s.get("plasma_tiles", 2)); band = lambda nm, y0, h, d: ctx.add(f"{n}_{nm}", "cylinder", [x, y0, z], [d, h, d], "machine", sections=12, **dict(st, outline=False))
     ctx.add(n + "_Neck", "cylinder", [x, T + 1.0, z], [2.6, 0.12, 2.6], "structure_b", sections=12, **st)
     for c_, (y0, y1) in enumerate(((T + 1.3, T + 2.55), (T + 3.65, T + 4.9))):  # the two chambers
         ctx.add(f"{n}_Glass_{c_ + 1}", "cylinder", [x, y0, z], [2.3, y1 - y0, 2.3], glass, sections=12, double_sided=True, outline=False, **st)
         for l_, w_ in enumerate((1.95, 0.85)):  # two plasma layers, the same number of tiles round each (they turn together)
             ctx.add(f"{n}_Plasma_{c_ + 1}{'ab'[l_]}", "pole", [x, y0 + 0.02, z], [w_, y1 - y0 - 0.04, w_], plasma, sections=16, uv_mode="band", uv_len=round(math.pi * w_ / nt, 4), **vs)
+        ctx.add(f"{n}_Arcs_{c_ + 1}", "pole", [x, y0 + 0.03, z], [1.45, y1 - y0 - 0.06, 1.45], arcs, sections=16, uv_mode="band", uv_len=round(math.pi * 1.45 / 2, 4), **vs)  # Stage 157: the slam's lightning
+        ctx.add(f"{n}_Electrode_{c_ + 1}", "cylinder", [x, y0 - 0.02, z], [0.2, y1 - y0 + 0.04, 0.2], core, sections=8, **vs)  # white-hot rod (ends in the bands)
+        for e_ in (y0 + 0.01, y1 - 0.13): ctx.add(f"{n}_ElectrodeCap_{c_ + 1}{'bt'[e_ > y0 + 0.5]}", "cylinder", [x, e_, z], [0.42, 0.12, 0.42], "machine", sections=8, **vs)
+        sparks.append([round(x, 3), round((y0 + y1) / 2, 3), round(z, 3)])
     band("Band_1", T + 1.1, 0.2, 2.75); band("Band_2", T + 2.55, 0.2, 2.75); band("Band_3", T + 3.45, 0.2, 2.75)
     ctx.add(n + "_Sleeve", "cylinder", [x, T + 2.75, z], [2.45, 0.7, 2.45], "pipe", sections=12, **st)
     gc = n + "_Clamp"; mc = dict(collision=False, outline=False, mobile={"group": gc})  # slides 0.04 x the press stroke on each slam
@@ -252,7 +257,12 @@ def spinner(ctx, s, x, y, z, yaw):
         drive["stages"].append({"group": gc, "frac": round(float(s.get("clamp_drop", 0.22)) / drive["travel"], 4)})  # pressed, it sits on Band_2
         drive.update(plasma=plasma, plasma_tiles=nt, plasma_rise=float(s.get("plasma_rise", 0.35)),
                      plasma_note="u offset = rotor angle / 360 * plasma_tiles (it turns with the arms); v offset = -t * plasma_rise - pressed * 0.5 "
-                                 "(pressed = -ram offset / travel); emission x (0.45 + 0.9 pressed + 2.2 exp(-3 (u - slam)) after the impact + flicker)")
+                                 "(pressed = -ram offset / travel); emission x (0.4 + 0.7 pressed + 1.2 exp(-3 (u - slam)) after the impact + flicker)",
+                     arcs=arcs, sparks=sparks, light=dict(pos=[round(x, 3), round(T + 0.8, 3), round(z, 3)], color=[1.0, 0.18, 0.3], energy=float(s.get("plasma_light", 1.2)), range=16.0),
+                     arcs_note="Stage 157: for 1.6 s after the impact (ds = u - slam) the arcs layer shows with alpha min(1, 1.6 exp(-1.8 ds)) x crackle (k = floor(24 t): "
+                               "hash(k) = fract(sin(12.9898 k) * 43758.5453) > 0.35 ? 1 : 0.15), its uv jumping to (fract(0.618 k), fract(0.382 k)); else hidden. "
+                               "The light at 'light.pos' (low: it flashes the deck) = energy x 2 x that arcs alpha (dark otherwise); "
+                               "'sparks' (chamber centres): effect <id>_Sparks bursts at the impact and the crackles after it")
     ctx.sweepers = getattr(ctx, "sweepers", []) + [dict(id=n, group=gr, center=[round(x, 3), round(T, 3), round(z, 3)], rpm=float(drive["peak_rpm"] if drive else s.get("rpm", 6.0)), phase=float(s.get("phase", 0.0)), **({"drive": drive} if drive else {}),
                                                        arms=[round(yaw + a, 2) for a in arms], r0=r0, r1=round(r1, 3), bar_y=by, bar_half=bh, ball_r=round(br, 3), ball_y=round(bly, 3),
                                                        note="angle(t) = arm + rpm * 6 * t deg (level yaw convention: direction (sin, cos)); a bar kills a body it overlaps (jump over it), a ball kills within ball_r")]

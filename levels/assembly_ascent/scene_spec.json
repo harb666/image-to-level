@@ -737,19 +737,27 @@
       "spinner_plasma": {
         "type": "plasma_arc",
         "color": [
-          0.55,
-          0.04,
-          0.08
+          0.45,
+          0.0,
+          0.04
         ],
         "res": 256,
-        "bolts": 6,
+        "bolts": 4,
         "alpha": 1.0,
         "emissive": [
           1.0,
-          0.32,
-          0.28
+          0.42,
+          0.5
         ],
-        "notes": "Stage 155: red plasma with winding lightning inside the spinner's glass chambers - turned with the rotor and surged by the press (sweepers[].drive.plasma)"
+        "notes": "Stage 155/157: red plasma with winding lightning inside the spinner's glass chambers (dark between the bolts) - turned with the rotor and surged by the press (sweepers[].drive.plasma)",
+        "smoke": 1.6,
+        "bg_emit": 0.35,
+        "halo": 0.35,
+        "glow": [
+          1.0,
+          0.06,
+          0.12
+        ]
       },
       "glow_green": {
         "type": "glow",
@@ -766,6 +774,47 @@
           0.25
         ],
         "notes": "Stage 155: green status lamps on the spinner crown"
+      },
+      "spinner_plasma_core": {
+        "type": "glow",
+        "color": [
+          1.0,
+          0.78,
+          0.84
+        ],
+        "tile_m": 2.0,
+        "res": 32,
+        "emissive": [
+          1.0,
+          0.55,
+          0.65
+        ],
+        "notes": "Stage 157: the white-hot electrode down each plasma chamber (its name starts with spinner_plasma: it surges with the plasma)"
+      },
+      "spinner_arcs": {
+        "type": "plasma_arc",
+        "color": [
+          0.3,
+          0.02,
+          0.06
+        ],
+        "res": 256,
+        "bolts": 4,
+        "seed": 3,
+        "smoke": 0.0,
+        "halo": 0.4,
+        "glow": [
+          1.0,
+          0.2,
+          0.42
+        ],
+        "alpha": 1.0,
+        "emissive": [
+          1.0,
+          0.75,
+          0.85
+        ],
+        "notes": "Stage 157: bolts only - flashes and jumps about inside the chambers for ~1.6 s after each slam (sweepers[].drive.arcs)"
       }
     }
   },

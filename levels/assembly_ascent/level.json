@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "e17d21964d2ea0bf",
+  "spec_sha": "be1836573fcc7df4",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -846,7 +846,35 @@
      "plasma": "spinner_plasma",
      "plasma_tiles": 2,
      "plasma_rise": 0.35,
-     "plasma_note": "u offset = rotor angle / 360 * plasma_tiles (it turns with the arms); v offset = -t * plasma_rise - pressed * 0.5 (pressed = -ram offset / travel); emission x (0.45 + 0.9 pressed + 2.2 exp(-3 (u - slam)) after the impact + flicker)"
+     "plasma_note": "u offset = rotor angle / 360 * plasma_tiles (it turns with the arms); v offset = -t * plasma_rise - pressed * 0.5 (pressed = -ram offset / travel); emission x (0.4 + 0.7 pressed + 1.2 exp(-3 (u - slam)) after the impact + flicker)",
+     "arcs": "spinner_arcs",
+     "sparks": [
+      [
+       5.0,
+       9.425,
+       40.0
+      ],
+      [
+       5.0,
+       11.775,
+       40.0
+      ]
+     ],
+     "light": {
+      "pos": [
+       5.0,
+       8.3,
+       40.0
+      ],
+      "color": [
+       1.0,
+       0.18,
+       0.3
+      ],
+      "energy": 1.2,
+      "range": 16.0
+     },
+     "arcs_note": "Stage 157: for 1.6 s after the impact (ds = u - slam) the arcs layer shows with alpha min(1, 1.6 exp(-1.8 ds)) x crackle (k = floor(24 t): hash(k) = fract(sin(12.9898 k) * 43758.5453) > 0.35 ? 1 : 0.15), its uv jumping to (fract(0.618 k), fract(0.382 k)); else hidden. The light at 'light.pos' (low: it flashes the deck) = energy x 2 x that arcs alpha (dark otherwise); 'sparks' (chamber centres): effect <id>_Sparks bursts at the impact and the crackles after it"
     },
     "arms": [
      20.0,
@@ -1064,6 +1092,49 @@
    "emit_time": 0.9,
    "burst": 36,
    "lifetime": 1.4
+  },
+  {
+   "id": "Spinner_Sparks",
+   "type": "sparks",
+   "positions": [
+    [
+     5.0,
+     9.425,
+     40.0
+    ],
+    [
+     5.0,
+     11.775,
+     40.0
+    ]
+   ],
+   "sync": {
+    "period": 9.5,
+    "phase": -1.5,
+    "at": [
+     0.35,
+     0.53,
+     0.77,
+     1.15
+    ]
+   },
+   "burst": 44,
+   "lifetime": 0.5,
+   "speed": [
+    1.2,
+    2.4
+   ],
+   "gravity": -3.0,
+   "size": [
+    0.32,
+    0.05
+   ],
+   "color": [
+    1.0,
+    0.75,
+    0.82
+   ],
+   "spread": 180
   },
   {
    "id": "Pillars_FloatRig_Bob",
@@ -3896,25 +3967,79 @@
    "rough": 0.35,
    "notes": "spikes (plain)"
   },
-  "spinner_plasma": {
+  "spinner_arcs": {
    "type": "plasma_arc",
    "color": [
-    0.55,
-    0.04,
-    0.08
+    0.3,
+    0.02,
+    0.06
    ],
    "tile_m": 4.0,
    "wear": 0.5,
    "bevel": 0.12,
    "res": 256,
-   "bolts": 6,
+   "bolts": 4,
+   "seed": 3,
+   "smoke": 0.0,
+   "halo": 0.4,
+   "glow": [
+    1.0,
+    0.2,
+    0.42
+   ],
    "alpha": 1.0,
    "emissive": [
     1.0,
-    0.32,
-    0.28
+    0.75,
+    0.85
    ],
-   "notes": "Stage 155: red plasma with winding lightning inside the spinner's glass chambers - turned with the rotor and surged by the press (sweepers[].drive.plasma)"
+   "notes": "Stage 157: bolts only - flashes and jumps about inside the chambers for ~1.6 s after each slam (sweepers[].drive.arcs)"
+  },
+  "spinner_plasma": {
+   "type": "plasma_arc",
+   "color": [
+    0.45,
+    0.0,
+    0.04
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 256,
+   "bolts": 4,
+   "alpha": 1.0,
+   "emissive": [
+    1.0,
+    0.42,
+    0.5
+   ],
+   "notes": "Stage 155/157: red plasma with winding lightning inside the spinner's glass chambers (dark between the bolts) - turned with the rotor and surged by the press (sweepers[].drive.plasma)",
+   "smoke": 1.6,
+   "bg_emit": 0.35,
+   "halo": 0.35,
+   "glow": [
+    1.0,
+    0.06,
+    0.12
+   ]
+  },
+  "spinner_plasma_core": {
+   "type": "glow",
+   "color": [
+    1.0,
+    0.78,
+    0.84
+   ],
+   "tile_m": 2.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "res": 32,
+   "emissive": [
+    1.0,
+    0.55,
+    0.65
+   ],
+   "notes": "Stage 157: the white-hot electrode down each plasma chamber (its name starts with spinner_plasma: it surges with the plasma)"
   },
   "splash_pool": {
    "type": "pool_fade",
@@ -53880,6 +54005,120 @@
    "source": "visible"
   },
   {
+   "name": "Spinner_Arcs_1",
+   "type": "pole",
+   "position": [
+    5.0,
+    8.83,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.45,
+    1.19,
+    1.45
+   ],
+   "material": "spinner_arcs",
+   "sections": 16,
+   "uv_mode": "band",
+   "uv_len": 2.2777,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Electrode_1",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    8.78,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    1.29,
+    0.2
+   ],
+   "material": "spinner_plasma_core",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_ElectrodeCap_1b",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    8.81,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.42,
+    0.12,
+    0.42
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_ElectrodeCap_1t",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    9.92,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.42,
+    0.12,
+    0.42
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
    "name": "Spinner_Glass_2",
    "type": "cylinder",
    "position": [
@@ -53959,6 +54198,120 @@
    "sections": 16,
    "uv_mode": "band",
    "uv_len": 1.3352,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Arcs_2",
+   "type": "pole",
+   "position": [
+    5.0,
+    11.18,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.45,
+    1.19,
+    1.45
+   ],
+   "material": "spinner_arcs",
+   "sections": 16,
+   "uv_mode": "band",
+   "uv_len": 2.2777,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_Electrode_2",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    11.13,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.2,
+    1.29,
+    0.2
+   ],
+   "material": "spinner_plasma_core",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_ElectrodeCap_2b",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    11.16,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.42,
+    0.12,
+    0.42
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Spinner",
+   "source": "visible"
+  },
+  {
+   "name": "Spinner_ElectrodeCap_2t",
+   "type": "cylinder",
+   "position": [
+    5.0,
+    12.27,
+    40.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.42,
+    0.12,
+    0.42
+   ],
+   "material": "machine",
+   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -94042,7 +94395,35 @@
     "plasma": "spinner_plasma",
     "plasma_tiles": 2,
     "plasma_rise": 0.35,
-    "plasma_note": "u offset = rotor angle / 360 * plasma_tiles (it turns with the arms); v offset = -t * plasma_rise - pressed * 0.5 (pressed = -ram offset / travel); emission x (0.45 + 0.9 pressed + 2.2 exp(-3 (u - slam)) after the impact + flicker)"
+    "plasma_note": "u offset = rotor angle / 360 * plasma_tiles (it turns with the arms); v offset = -t * plasma_rise - pressed * 0.5 (pressed = -ram offset / travel); emission x (0.4 + 0.7 pressed + 1.2 exp(-3 (u - slam)) after the impact + flicker)",
+    "arcs": "spinner_arcs",
+    "sparks": [
+     [
+      5.0,
+      9.425,
+      40.0
+     ],
+     [
+      5.0,
+      11.775,
+      40.0
+     ]
+    ],
+    "light": {
+     "pos": [
+      5.0,
+      8.3,
+      40.0
+     ],
+     "color": [
+      1.0,
+      0.18,
+      0.3
+     ],
+     "energy": 1.2,
+     "range": 16.0
+    },
+    "arcs_note": "Stage 157: for 1.6 s after the impact (ds = u - slam) the arcs layer shows with alpha min(1, 1.6 exp(-1.8 ds)) x crackle (k = floor(24 t): hash(k) = fract(sin(12.9898 k) * 43758.5453) > 0.35 ? 1 : 0.15), its uv jumping to (fract(0.618 k), fract(0.382 k)); else hidden. The light at 'light.pos' (low: it flashes the deck) = energy x 2 x that arcs alpha (dark otherwise); 'sparks' (chamber centres): effect <id>_Sparks bursts at the impact and the crackles after it"
    },
    "arms": [
     20.0,
@@ -94665,16 +95046,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 80564,
-  "objects": 2833,
-  "materials": 59,
-  "glb_kb": 5462,
-  "nodes": 3129,
-  "draw_calls_unbatched": 3087,
-  "draw_calls_batched_min": 61,
-  "images": 144,
-  "tex_mem_gpu_compressed_mb": 29.54,
-  "tex_mem_uncompressed_mb": 118.17,
+  "triangles": 80884,
+  "objects": 2841,
+  "materials": 61,
+  "glb_kb": 5538,
+  "nodes": 3137,
+  "draw_calls_unbatched": 3095,
+  "draw_calls_batched_min": 63,
+  "images": 148,
+  "tex_mem_gpu_compressed_mb": 29.71,
+  "tex_mem_uncompressed_mb": 118.85,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

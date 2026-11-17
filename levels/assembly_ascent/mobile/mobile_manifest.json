@@ -41,23 +41,23 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 5462,
-    "triangles": 93620,
-    "nodes": 3129,
-    "mesh_nodes": 3087,
-    "unique_meshes": 1433,
-    "materials": 61,
-    "images": 144,
-    "draw_calls_unbatched": 3087,
-    "draw_calls_batched_min": 61,
-    "tex_mem_uncompressed_mb": 118.17,
-    "tex_mem_gpu_compressed_mb": 29.54,
+    "glb_kb": 5538,
+    "triangles": 93940,
+    "nodes": 3137,
+    "mesh_nodes": 3095,
+    "unique_meshes": 1436,
+    "materials": 63,
+    "images": 148,
+    "draw_calls_unbatched": 3095,
+    "draw_calls_batched_min": 63,
+    "tex_mem_uncompressed_mb": 118.85,
+    "tex_mem_gpu_compressed_mb": 29.71,
     "texture_slots": {
-     "baseColorTexture": 55,
-     "metallicRoughnessTexture": 55,
-     "normalTexture": 40,
-     "occlusionTexture": 55,
-     "emissiveTexture": 34
+     "baseColorTexture": 57,
+     "metallicRoughnessTexture": 57,
+     "normalTexture": 41,
+     "occlusionTexture": 57,
+     "emissiveTexture": 36
     },
     "image_sizes": [
      "1024x1024 jpeg",
@@ -73,31 +73,31 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 1003.5,
-    "visible_draw_calls_max": 3079,
-    "visible_triangles_mean": 42950,
-    "visible_triangles_max": 104224
+    "visible_draw_calls_mean": 1006.4,
+    "visible_draw_calls_max": 3087,
+    "visible_triangles_mean": 43067,
+    "visible_triangles_max": 104544
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3211,
-    "triangles": 90048,
-    "nodes": 271,
-    "mesh_nodes": 172,
-    "unique_meshes": 172,
-    "materials": 61,
-    "images": 108,
-    "draw_calls_unbatched": 172,
-    "draw_calls_batched_min": 61,
-    "tex_mem_uncompressed_mb": 54.92,
-    "tex_mem_gpu_compressed_mb": 13.73,
+    "glb_kb": 3244,
+    "triangles": 90368,
+    "nodes": 273,
+    "mesh_nodes": 174,
+    "unique_meshes": 174,
+    "materials": 63,
+    "images": 112,
+    "draw_calls_unbatched": 174,
+    "draw_calls_batched_min": 63,
+    "tex_mem_uncompressed_mb": 55.6,
+    "tex_mem_gpu_compressed_mb": 13.9,
     "texture_slots": {
-     "baseColorTexture": 55,
-     "emissiveTexture": 34,
-     "metallicRoughnessTexture": 32,
-     "normalTexture": 17,
-     "occlusionTexture": 32
+     "baseColorTexture": 57,
+     "emissiveTexture": 36,
+     "metallicRoughnessTexture": 34,
+     "normalTexture": 18,
+     "occlusionTexture": 34
     },
     "image_sizes": [
      "128x128 webp",
@@ -139,10 +139,10 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 88.2,
-    "visible_draw_calls_max": 173,
-    "visible_triangles_mean": 76052,
-    "visible_triangles_max": 100464
+    "visible_draw_calls_mean": 89.0,
+    "visible_draw_calls_max": 175,
+    "visible_triangles_mean": 76246,
+    "visible_triangles_max": 100784
    },
    "hidden_faces_removed": 1331,
    "occluded_faces_removed": 2241,
@@ -151,12 +151,12 @@
     "Showcase_Stage_Glow_02L",
     "Showcase_Stage_Glow_02R"
    ],
-   "effects_extra_draw_calls": 12,
-   "effects_max_particles": 1269,
+   "effects_extra_draw_calls": 14,
+   "effects_max_particles": 1357,
    "slimmed_kb": {
     "level_mobile.glb": [
-     4880,
-     3211
+     4959,
+     3244
     ],
     "background_mobile.glb": [
      477,
@@ -3913,7 +3913,7 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 3963,
+   "triangles": 4091,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3984,6 +3984,10 @@
     "Spinner_Band_3",
     "Spinner_Band_2",
     "Spinner_Band_1",
+    "Spinner_ElectrodeCap_2t",
+    "Spinner_ElectrodeCap_2b",
+    "Spinner_ElectrodeCap_1t",
+    "Spinner_ElectrodeCap_1b",
     "Spinner_Foot",
     "Spinner_HubBase",
     "Exit_Door_Mouth_Pilaster_3",
@@ -4352,6 +4356,18 @@
    ]
   },
   {
+   "node": "M_spinner_arcs_0_0",
+   "kind": "static",
+   "material": "spinner_arcs",
+   "triangles": 128,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Spinner_Arcs_2",
+    "Spinner_Arcs_1"
+   ]
+  },
+  {
    "node": "M_spinner_plasma_0_0",
    "kind": "static",
    "material": "spinner_plasma",
@@ -4363,6 +4379,18 @@
     "Spinner_Plasma_2a",
     "Spinner_Plasma_1b",
     "Spinner_Plasma_1a"
+   ]
+  },
+  {
+   "node": "M_spinner_plasma_core_0_0",
+   "kind": "static",
+   "material": "spinner_plasma_core",
+   "triangles": 64,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Spinner_Electrode_2",
+    "Spinner_Electrode_1"
    ]
   },
   {

@@ -1065,10 +1065,12 @@ def k_plasma_arc(S, rng, c, m):
     for _ in range(int(m.get("bolts", 7))):  # each winds diagonally round the cylinder, top to bottom
         x0 = rng.uniform(0, S); bolt(x0, -0.05 * S, x0 + rng.uniform(0.35, 0.8) * S * rng.choice([-1, 1]), 1.05 * S, int(rng.integers(2, 4)), 2)
     gl = np.asarray(lay.filter(ImageFilter.GaussianBlur(S / 90)), float)[S:2 * S, S:2 * S] / 255; cr = np.asarray(core, float)[S:2 * S, S:2 * S] / 255
-    alb = c[None, None] * (0.35 + 0.65 * smoke)[..., None] * 0.6
-    alb = alb + np.array(m.get("glow", [1.0, 0.18, 0.12]))[None, None] * gl[..., None] * 1.2 + np.array([1.0, 0.85, 0.85])[None, None] * cr[..., None]
-    alpha = np.clip(0.18 + 0.35 * smoke + gl * 0.9 + cr, 0, 1)
-    return dict(alb=np.clip(alb, 0, 1), h=np.zeros((S, S)), rough=np.full((S, S), 0.4), metal=0.0, emit=np.clip(0.5 + gl + cr, 0, 1), nstr=0.0, alpha=alpha)
+    halo = np.asarray(lay.filter(ImageFilter.GaussianBlur(S / 28)), float)[S:2 * S, S:2 * S] / 255 * float(m.get("halo", 0.0))  # Stage 157: a wide glow round the bolts
+    sm = float(m.get("smoke", 1.0)); gc = np.array(m.get("glow", [1.0, 0.18, 0.12]))  # smoke 0: bolts only (the slam's flashing arcs)
+    alb = c[None, None] * (0.35 + 0.65 * smoke)[..., None] * 0.6 * sm
+    alb = alb + gc[None, None] * np.clip(gl * 1.2 + halo, 0, 1.4)[..., None] + np.array([1.0, 0.9, 0.92])[None, None] * cr[..., None]
+    alpha = np.clip((0.18 + 0.35 * smoke) * sm + gl * 0.9 + halo * 0.8 + cr, 0, 1)
+    return dict(alb=np.clip(alb, 0, 1), h=np.zeros((S, S)), rough=np.full((S, S), 0.4), metal=0.0, emit=np.clip(float(m.get("bg_emit", 0.5)) * sm + gl + halo + cr, 0, 1), nstr=0.0, alpha=alpha)
 
 
 def k_fade_ramp(S, rng, c, m):

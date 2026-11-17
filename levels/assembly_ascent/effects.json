@@ -138,21 +138,21 @@
  },
  "totals": {
   "performance": {
-   "max_particles": 410,
-   "emitters": 37,
-   "extra_draw_calls": 11,
+   "max_particles": 446,
+   "emitters": 39,
+   "extra_draw_calls": 13,
    "transparent_area_m2": 0.5
   },
   "balanced": {
-   "max_particles": 1269,
-   "emitters": 37,
-   "extra_draw_calls": 12,
+   "max_particles": 1357,
+   "emitters": 39,
+   "extra_draw_calls": 14,
    "transparent_area_m2": 13000.5
   },
   "quality": {
-   "max_particles": 1877,
-   "emitters": 37,
-   "extra_draw_calls": 13,
+   "max_particles": 1983,
+   "emitters": 39,
+   "extra_draw_calls": 15,
    "transparent_area_m2": 26000.6
   }
  },
@@ -2693,7 +2693,35 @@
      "plasma": "spinner_plasma",
      "plasma_tiles": 2,
      "plasma_rise": 0.35,
-     "plasma_note": "u offset = rotor angle / 360 * plasma_tiles (it turns with the arms); v offset = -t * plasma_rise - pressed * 0.5 (pressed = -ram offset / travel); emission x (0.45 + 0.9 pressed + 2.2 exp(-3 (u - slam)) after the impact + flicker)"
+     "plasma_note": "u offset = rotor angle / 360 * plasma_tiles (it turns with the arms); v offset = -t * plasma_rise - pressed * 0.5 (pressed = -ram offset / travel); emission x (0.4 + 0.7 pressed + 1.2 exp(-3 (u - slam)) after the impact + flicker)",
+     "arcs": "spinner_arcs",
+     "sparks": [
+      [
+       5.0,
+       9.425,
+       40.0
+      ],
+      [
+       5.0,
+       11.775,
+       40.0
+      ]
+     ],
+     "light": {
+      "pos": [
+       5.0,
+       8.3,
+       40.0
+      ],
+      "color": [
+       1.0,
+       0.18,
+       0.3
+      ],
+      "energy": 1.2,
+      "range": 16.0
+     },
+     "arcs_note": "Stage 157: for 1.6 s after the impact (ds = u - slam) the arcs layer shows with alpha min(1, 1.6 exp(-1.8 ds)) x crackle (k = floor(24 t): hash(k) = fract(sin(12.9898 k) * 43758.5453) > 0.35 ? 1 : 0.15), its uv jumping to (fract(0.618 k), fract(0.382 k)); else hidden. The light at 'light.pos' (low: it flashes the deck) = energy x 2 x that arcs alpha (dark otherwise); 'sparks' (chamber centres): effect <id>_Sparks bursts at the impact and the crackles after it"
     },
     "arms": [
      20.0,
@@ -3273,6 +3301,143 @@
     }
    },
    "merge_emitters": true
+  },
+  {
+   "id": "Spinner_Sparks",
+   "type": "sparks",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D per point (independent bursts), explosiveness 1, one_shot re-triggered every interval, additive",
+   "sync": {
+    "period": 9.5,
+    "phase": -1.5,
+    "at": [
+     0.35,
+     0.53,
+     0.77,
+     1.15
+    ]
+   },
+   "emitters": [
+    {
+     "pos": [
+      5.0,
+      9.425,
+      40.0
+     ]
+    },
+    {
+     "pos": [
+      5.0,
+      11.775,
+      40.0
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "burst": 18,
+      "interval": [
+       1.5,
+       4.0
+      ],
+      "lifetime": 0.5,
+      "speed": [
+       1.2,
+       2.4
+      ],
+      "gravity": -3.0,
+      "size": [
+       0.32,
+       0.05
+      ],
+      "alpha": 1.0,
+      "color": [
+       1.0,
+       0.75,
+       0.82
+      ],
+      "texture": "spark",
+      "blend": "add",
+      "spread": 180
+     },
+     "cost_estimate": {
+      "max_particles": 36,
+      "emitters": 2,
+      "extra_draw_calls": 2
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "burst": 44,
+      "interval": [
+       1.5,
+       4.0
+      ],
+      "lifetime": 0.5,
+      "speed": [
+       1.2,
+       2.4
+      ],
+      "gravity": -3.0,
+      "size": [
+       0.32,
+       0.05
+      ],
+      "alpha": 1.0,
+      "color": [
+       1.0,
+       0.75,
+       0.82
+      ],
+      "texture": "spark",
+      "blend": "add",
+      "spread": 180
+     },
+     "cost_estimate": {
+      "max_particles": 88,
+      "emitters": 2,
+      "extra_draw_calls": 2
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "burst": 53,
+      "interval": [
+       1.5,
+       4.0
+      ],
+      "lifetime": 0.5,
+      "speed": [
+       1.2,
+       2.4
+      ],
+      "gravity": -3.0,
+      "size": [
+       0.32,
+       0.05
+      ],
+      "alpha": 1.0,
+      "color": [
+       1.0,
+       0.75,
+       0.82
+      ],
+      "texture": "spark",
+      "blend": "add",
+      "spread": 180
+     },
+     "cost_estimate": {
+      "max_particles": 106,
+      "emitters": 2,
+      "extra_draw_calls": 2
+     }
+    }
+   }
   },
   {
    "id": "Pillars_FloatRig_Bob",

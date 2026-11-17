@@ -1,5 +1,6 @@
 """Stage 155: the spinner tower redesign (concept art) - two plasma chambers driven by the ceiling press."""
 import json, math, os, sys, unittest
+import numpy as np
 from _util import ROOT
 
 sys.path.insert(0, os.path.join(ROOT, "pipeline"))
@@ -52,6 +53,43 @@ class SpinnerTower(unittest.TestCase):
         C = json.load(open(os.path.join(LV, "mobile", "collision.json")))
         sw = next(s for s in C.get("sweepers", []) if s["id"] == "Spinner") if C.get("sweepers") else None
         if sw: self.assertIn("plasma", sw["drive"])
+
+
+class SlamSparks(unittest.TestCase):
+    """Stage 157: the slam's electrical storm - electrodes, a flashing arc layer, sparks and a light, all on the press cycle."""
+    @classmethod
+    def setUpClass(cls):
+        cls.L = json.load(open(os.path.join(LV, "level.json"))); cls.by = {o["name"]: o for o in cls.L["objects"]}
+        cls.D = next(s for s in cls.L["sweepers"] if s["id"] == "Spinner")["drive"]
+
+    def test_parts(self):
+        for c in (1, 2):
+            g = self.by[f"Spinner_Glass_{c}"]; a = self.by[f"Spinner_Arcs_{c}"]; e = self.by[f"Spinner_Electrode_{c}"]
+            self.assertEqual(a["material"], self.D["arcs"]); self.assertFalse(a["material"].startswith(self.D["plasma"]))  # its own runtime (not the plasma's surge)
+            self.assertTrue(e["material"].startswith(self.D["plasma"]))  # the electrode surges with the plasma
+            self.assertLess(a["size"][0], self.by[f"Spinner_Plasma_{c}a"]["size"][0]); self.assertGreater(a["size"][0], self.by[f"Spinner_Plasma_{c}b"]["size"][0])
+            gy0, gy1 = g["position"][1], g["position"][1] + g["size"][1]
+            self.assertTrue(any(gy0 < p[1] < gy1 for p in self.D["sparks"]))
+        m = self.L["materials"][self.D["arcs"]]; self.assertEqual(m["type"], "plasma_arc"); self.assertEqual(m["smoke"], 0.0)
+        d = materials.maps(m); self.assertLess(float(np.median(d["alpha"])), 0.2)  # bolts only: clear between them
+
+    def test_synced_sparks_and_light(self):
+        E = {e["id"]: e for e in json.load(open(os.path.join(LV, "effects.json")))["effects"]}; sp = E["Spinner_Sparks"]
+        self.assertEqual(sp["sync"]["period"], self.D["period"]); self.assertEqual(sp["sync"]["phase"], self.D["phase"]); self.assertAlmostEqual(sp["sync"]["at"][0], self.D["slam"])
+        self.assertEqual(len(sp["emitters"]), 2)
+        self.assertIn("light", self.D); v = open(os.path.join(ROOT, "pipeline", "viewer.html")).read(); gd = open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")).read()
+        self.assertIn("amap.forEach", v); self.assertIn("D.light.energy", v); self.assertIn('sw["drive"].has("arcs")', gd); self.assertIn("OmniLight3D.new()", gd)
+
+
+class ViewerParses(unittest.TestCase):
+    def test_viewer_script_parses(self):
+        """Stage 157: the viewer's module script must parse (a redeclared const once blanked the whole preview)."""
+        import re, shutil, subprocess, tempfile
+        if not shutil.which("node"): self.skipTest("node not installed")
+        s = open(os.path.join(ROOT, "pipeline", "viewer.html")).read(); blocks = re.findall(r'<script type="module"[^>]*>(.*?)</script>', s, re.S); self.assertTrue(blocks)
+        for b in blocks:
+            with tempfile.NamedTemporaryFile("w", suffix=".mjs", delete=False) as f: f.write(b)
+            r = subprocess.run(["node", "--check", f.name], capture_output=True, text=True); os.unlink(f.name); self.assertEqual(r.returncode, 0, r.stderr[-400:])
 
 
 if __name__ == "__main__":

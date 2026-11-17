@@ -387,13 +387,18 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
       const K={s:SW,th:0};(window.sweepers=window.sweepers||{})[SW.id]=K;rot.forEach(o=>{o.userData.rest=o.userData.rest||o.matrix.clone();o.matrixAutoUpdate=false;});
       const D=SW.drive,stg=D?D.stages.map(s=>[Object.values(byName).filter(o=>o.name.startsWith(s.group+'__')),s.frac]):[],lamp=D?Object.values(byName).filter(o=>o.name===D.lamps):[];let hit=-1; // Stage 103: the ceiling press drives it
       const pmap=new Map();if(D&&D.plasma)Object.values(byName).forEach(o=>{const m=o.material;if(m&&m.name&&m.name.startsWith(D.plasma)){if(!pmap.has(m)){const c=uvAnim(m);c.userData.base=c.emissiveIntensity;pmap.set(m,c);}o.material=pmap.get(m);}}); // Stage 155: the plasma chambers (same as apply_effects.gd)
+      const amap=new Map();if(D&&D.arcs)Object.values(byName).forEach(o=>{const m=o.material;if(m&&m.name&&m.name.startsWith(D.arcs)){if(!amap.has(m)){const c=uvAnim(m);c.userData.base=c.emissiveIntensity;c.transparent=true;c.opacity=0;c.visible=false;amap.set(m,c);}o.material=amap.get(m);}}); // Stage 157: the slam's lightning
+      let PL=null;if(D&&D.light){PL=new THREE.PointLight(new THREE.Color(...D.light.color),0,D.light.range,1.6);PL.position.set(...D.light.pos);scene.add(PL);fxObjs.push(PL);}
       const prof=t=>{const P=D.period,tp=t+D.phase,k=Math.floor(tp/P),u=tp-k*P,w=D.peak,su=D.spin_up,ho=D.hold,sd=D.spin_down;let off=0,th; // same as press_profile() / apply_effects.gd
         if(u<D.slam)off=-D.travel*(u/D.slam)**2;else if(u<D.slam+ho)off=-D.travel;else if(u<D.slam+ho+D.rise){const f=(u-D.slam-ho)/D.rise;off=-D.travel*(1-f*f*(3-2*f));}
         const d=u-D.slam;if(d<=0)th=0;else if(d<su)th=w*d*d/(2*su);else if(d<ho)th=w*(d-su/2);else if(d<ho+sd){const e=d-ho;th=w*(ho-su/2)+w*(e-e*e/(2*sd));}else th=w*(ho-su/2+sd/2);
         return [off,k*360*D.turns+th,u,k];};
       fxUpd.push({reset(){rot.forEach(o=>{o.matrix.copy(o.userData.rest);o.matrixWorldNeedsUpdate=true;});stg.forEach(s=>s[0].forEach(o=>o.position.set(0,0,0)));lamp.forEach(o=>o.visible=true);K.th=0;},u(t){
         if(D){const [off,th,u,k]=prof(t);K.th=th;stg.forEach(s=>s[0].forEach(o=>o.position.set(0,off*s[1],0)));lamp.forEach(o=>o.visible=!(u>D.period-D.warn)||Math.floor(t*8)%2===0);
-          if(pmap.size){const pr=-off/D.travel,ds=u-D.slam,s=0.45+0.9*pr+2.2*(ds>=0?Math.exp(-3*ds):0)+0.12*Math.sin(t*41)*Math.sin(t*17);pmap.forEach(c=>{c.userData.off.value.set(th/360*D.plasma_tiles,-t*D.plasma_rise-pr*0.5);c.emissiveIntensity=c.userData.base*s;});}
+          if(pmap.size){const pr=-off/D.travel,ds=u-D.slam,s=0.4+0.7*pr+1.2*(ds>=0?Math.exp(-3*ds):0)+0.12*Math.sin(t*41)*Math.sin(t*17);pmap.forEach(c=>{c.userData.off.value.set(th/360*D.plasma_tiles,-t*D.plasma_rise-pr*0.5);c.emissiveIntensity=c.userData.base*s;});
+            const da=u-D.slam,kk=Math.floor(t*24),hh=Math.sin(kk*12.9898)*43758.5453,ck=(hh-Math.floor(hh))>0.35?1:0.15,fa=da>=0&&da<1.6?Math.min(1,1.6*Math.exp(-1.8*da))*ck:0; // Stage 157: crackling arcs after the slam
+            amap.forEach(c=>{c.visible=fa>0.01;c.opacity=fa;c.emissiveIntensity=c.userData.base*(1+0.8*fa);c.userData.off.value.set((kk*0.618)%1,(kk*0.382)%1);});
+            if(PL)PL.intensity=D.light.energy*60*2*fa;}
           if(u>=D.slam&&hit!==k){hit=k;const dx=pos.x-C.x,dz=pos.z-C.z,dd=Math.hypot(dx,dz);if(dd<D.shake)window.camShake=Math.max(window.camShake||0,0.45*(1-dd/D.shake));}}
         else K.th=SW.rpm*6*(t+SW.phase);const q=new THREE.Quaternion().setFromAxisAngle(Y,K.th*Math.PI/180);
         v.copy(C).applyQuaternion(q).negate().add(C);m.compose(v,q,one);rot.forEach(o=>{o.matrix.multiplyMatrices(m,o.userData.rest);o.matrixWorldNeedsUpdate=true;});}});}
