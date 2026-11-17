@@ -180,11 +180,14 @@ def hair_mask(P, col, sk, Wm):
         segs += [(sd + "Shoulder", sd + "Arm", 0.14), (sd + "Arm", sd + "ForeArm", 0.085), (sd + "ForeArm", sd + "Hand", 0.075), (sd + "Hand", sd + "HandMiddle4", 0.07),
                  (sd + "UpLeg", sd + "Leg", 0.12), (sd + "Leg", sd + "Foot", 0.1), (sd + "Foot", sd + "Toe_End", 0.1)]
     near = np.zeros(len(P), bool)
-    for a, b, r in segs: near |= _seg_dist(P, p(a), p(b)) < r
+    for a, b, r in segs:
+        arm = a.endswith(("Arm", "Shoulder")) or a.endswith("ForeArm")  # (hands keep their full radius: cyan accents on them are not hair)
+        rr = np.where(hairc, 0.055, r) if arm else r  # hair strands brushing the T-posed arms are hair (the arm's own surface is white / grey)
+        near |= _seg_dist(P, p(a), p(b)) < rr
     head_c = (p("Head") + p("HeadTop_End")) / 2
     scalp = np.linalg.norm(P - head_c, axis=1) < 0.2
     hanging = ~near & ~scalp & (P[:, 1] > 0.35)  # the tails: everything hanging clear of the body (whatever its shade)
-    return hanging | (hairc & scalp), head_c
+    return (hanging | (hairc & scalp)) & ((np.abs(P[:, 0]) < 0.68) | (P[:, 1] > 1.45)), head_c  # the tails never reach the T-posed hands
 
 
 # ------------------------------------------------------------------ decimation with UV / attribute transfer
@@ -238,6 +241,21 @@ def unweld_uv(V, F, UVc, N, JW, tol=0.012):
 def top4(ji, wi):
     """Keep the 4 largest influences per vertex, renormalised."""
     o = np.argsort(-wi, axis=1)[:, :4]; J_ = np.take_along_axis(ji, o, 1); W_ = np.take_along_axis(wi, o, 1); W_ /= W_.sum(1, keepdims=True) + 1e-12; return J_, W_
+
+
+def _islands_to_hair(P, F, fh, dch, max_faces=400, near=0.25):
+    """Small disconnected islands of BODY faces lying on a tail's line are stray strands: they go to the hair."""
+    import scipy.sparse as sp, scipy.sparse.csgraph as cg
+    key = np.round(P, 5); _, inv = np.unique(key, axis=0, return_inverse=True); inv = inv.ravel()
+    bf = np.flatnonzero(~fh); Fb = inv[F[bf]]; E_ = np.r_[Fb[:, [0, 1]], Fb[:, [1, 2]], Fb[:, [2, 0]]]
+    n = inv.max() + 1; A = sp.coo_matrix((np.ones(len(E_)), (E_[:, 0], E_[:, 1])), shape=(n, n)); _, lab = cg.connected_components(A, directed=False)
+    fl = lab[Fb[:, 0]]; cnt = np.bincount(fl); fh = fh.copy(); moved = 0
+    dv = np.full(n, 9.0); np.minimum.at(dv, inv, dch)
+    for c in np.unique(fl):
+        if cnt[c] > max_faces: continue
+        sel = bf[fl == c]; vs = np.unique(inv[F[sel]])
+        if np.median(dv[vs]) < near: fh[sel] = True; moved += len(sel)
+    return fh
 
 
 # ------------------------------------------------------------------ rig additions
@@ -305,7 +323,12 @@ def prepare(src, cfg=None):
     tex_i = J["textures"][J["materials"][pr.get("material", 0)]["pbrMetallicRoughness"]["baseColorTexture"]["index"]]["source"]
     img = Image.open(io.BytesIO(image_bytes(J, BIN, tex_i))).convert("RGB"); im = np.asarray(img, float) / 255; H, W_ = im.shape[:2]
     col = im[np.clip((UV[:, 1] % 1) * H, 0, H - 1).astype(int), np.clip((UV[:, 0] % 1) * W_, 0, W_ - 1).astype(int)]
-    hair, head_c = hair_mask(P, col, sk, Wm); fh = hair[F].sum(1) >= 2
+    hair, head_c = hair_mask(P, col, sk, Wm)
+    ch0 = hair_chains(P, hair, sk, Wm, head_c); import colorsys  # tail strands brushing the hips / shoulders (inside those radii) that are hair-coloured and on a tail's line: hair too
+    hsv = np.array([colorsys.rgb_to_hsv(*c) for c in col]); hairc = (hsv[:, 1] > 0.3) & (hsv[:, 0] > 0.45) & (hsv[:, 0] < 0.8) & (hsv[:, 2] > 0.3)
+    dch = np.min([_seg_dist(P, C[k], C[k + 1]) for C in ch0.values() for k in range(len(C) - 1)], axis=0)
+    hair = hair | (hairc & (dch < 0.14) & (np.abs(P[:, 0]) < 0.68)); fh = hair[F].sum(1) >= 2
+    fh = _islands_to_hair(P, F, fh, dch)
     old_joints = [sk.nodes[j]["name"] for j in J["skins"][0]["joints"]]
     # -- rig additions: FloatRoot between the armature and Hips, WireAnchor, two hair chains under Head
     arm = sk.nodes[sk.nodes[sk.idx["mixamorig:Hips"]]["parent"]]["name"]
@@ -375,8 +398,228 @@ def write(prep, path, clips=None, embed_texture=True):
         J["animations"] = []
         for cname, (times, tracks) in clips.items():
             tin = w.acc(np.asarray(times, np.float32).reshape(-1, 1), "SCALAR", 5126, minmax=True); ch, sm = [], []
-            for (node, path), vals in tracks.items():
-                sm.append(dict(input=tin, output=w.acc(np.asarray(vals, np.float32), "VEC4" if path == "rotation" else "VEC3", 5126), interpolation="LINEAR"))
-                ch.append(dict(sampler=len(sm) - 1, target=dict(node=nid[sk.idx[node]], path=path)))
+            for (node, prop), vals in tracks.items():
+                sm.append(dict(input=tin, output=w.acc(np.asarray(vals, np.float32), "VEC4" if prop == "rotation" else "VEC3", 5126), interpolation="LINEAR"))
+                ch.append(dict(sampler=len(sm) - 1, target=dict(node=nid[sk.idx[node]], path=prop)))
             J["animations"].append(dict(name=cname, channels=ch, samplers=sm))
     return w.write(path)
+
+
+# ------------------------------------------------------------------ posing (FK + IK)
+M = "mixamorig:"
+
+
+def swing_twist(q, axis):
+    """Split q = swing * twist, twist about `axis` (unit)."""
+    q = qnorm(q); p = np.dot(q[:3], axis) * np.asarray(axis); tw = qnorm([*p, q[3]]) if np.linalg.norm([*p, q[3]]) > 1e-9 else np.array([0, 0, 0, 1.0])
+    return qmul(q, qinv(tw)), tw
+
+
+class Poser:
+    """Builds one frame: rotations are set top-down; every helper works from the current (posed) parent."""
+    def __init__(self, sk):
+        self.sk = sk; self.rest_Wm, self.rest_Wq = sk.fk(); self.rot = {}; self.trans = {}; self._W = None
+
+    def W(self):
+        if self._W is None: self._W = self.sk.fk(self.rot, self.trans)
+        return self._W
+
+    def _set(self, name, lq): self.rot[name] = qnorm(lq); self._W = None
+    def local(self, name): return self.rot.get(name, self.sk.nodes[self.sk.idx[name]]["r"])
+    def pos(self, name): return self.sk.pos(self.W()[0], name)
+    def wq(self, name): return self.W()[1][self.sk.idx[name]]
+    def pwq(self, name):
+        p = self.sk.nodes[self.sk.idx[name]]["parent"]; return self.W()[1][p]
+
+    def rot_world(self, name, axis, ang):
+        """Turn a bone by `ang` about a WORLD axis (through its own origin)."""
+        if abs(ang) < 1e-9: return
+        nw = qmul(qaxis(axis, ang), self.wq(name)); self._set(name, qmul(qinv(self.pwq(name)), nw))
+
+    def rot_rest_axis(self, name, axis_world_rest, ang):
+        """Turn about an axis fixed in the bone's REST frame (given as the world direction it has in the rest pose):
+        anatomical axes (finger curl, knee hinge) that move with the bone."""
+        a_loc = qrot(qinv(self.rest_Wq[self.sk.idx[name]]), axis_world_rest); self._set(name, qmul(self.local(name), qaxis(a_loc, ang)))
+
+    def aim(self, name, target_dir):
+        """Swing the bone so its +Y points along target_dir (minimal rotation from where its parent carries it)."""
+        cur = qrot(self.wq(name), [0, 1, 0]); qs = qbetween(cur, target_dir); nw = qmul(qs, self.wq(name)); self._set(name, qmul(qinv(self.pwq(name)), nw))
+
+    def twist_to(self, name, local_axis, target_world):
+        """Turn the bone about its own +Y so that its `local_axis` points as close as possible to target_world."""
+        q = self.wq(name); y = qrot(q, [0, 1, 0]); a = qrot(q, local_axis); t = np.asarray(target_world, float)
+        a_p = a - y * np.dot(a, y); t_p = t - y * np.dot(t, y)
+        if np.linalg.norm(a_p) < 1e-6 or np.linalg.norm(t_p) < 1e-6: return
+        a_p /= np.linalg.norm(a_p); t_p /= np.linalg.norm(t_p); ang = math.atan2(np.dot(np.cross(a_p, t_p), y), np.dot(a_p, t_p))
+        self.rot_world(name, y, ang)
+
+    def arm_ik(self, side, wrist, pole, palm_out, fingers):
+        """Two-bone IK: upper arm + forearm reach `wrist` with the elbow towards `pole`; the hand points `fingers` with its
+        palm facing `palm_out`. The forearm takes the pronation / supination (twist), the wrist only bends."""
+        A, F_, H = M + side + "Arm", M + side + "ForeArm", M + side + "Hand"
+        S_ = self.pos(A); l1 = np.linalg.norm(self.sk.pos(self.rest_Wm, F_) - self.sk.pos(self.rest_Wm, A)); l2 = np.linalg.norm(self.sk.pos(self.rest_Wm, H) - self.sk.pos(self.rest_Wm, F_))
+        T = np.asarray(wrist, float); d_ = T - S_; d = float(np.clip(np.linalg.norm(d_), abs(l1 - l2) + 1e-3, l1 + l2 - 1e-3)); u = d_ / np.linalg.norm(d_)
+        a = (l1 * l1 - l2 * l2 + d * d) / (2 * d); h = math.sqrt(max(l1 * l1 - a * a, 0)); pv = np.asarray(pole, float) - u * np.dot(pole, u); pv /= np.linalg.norm(pv) + 1e-12
+        E = S_ + u * a + pv * h; self.aim(A, E - S_); self.aim(F_, S_ + u * d - E)
+        # hand: aim the fingers, then roll the palm; move the roll into the forearm (anatomy: pronation lives there)
+        palm_loc = qrot(qinv(self.rest_Wq[self.sk.idx[H]]), [0, -1, 0]); self.aim(H, fingers); self.twist_to(H, palm_loc, palm_out)
+        fq = self.wq(F_); hq = self.wq(H); rel = qmul(qinv(fq), hq); ax = np.array([0, 1.0, 0]); sw, tw = swing_twist(qmul(rel, qinv(qmul(qinv(self.rest_Wq[self.sk.idx[F_]]), self.rest_Wq[self.sk.idx[H]]))), ax)
+        self._set(F_, qmul(self.local(F_), tw)); nw = hq; self._set(H, qmul(qinv(self.wq(F_)), nw))  # the hand keeps its world pose
+
+    def curl(self, side, amount, thumb=None, spread=0.0):
+        """Fingers curl towards the palm (amount in rad per joint), optional spread (abduction)."""
+        h = self.sk.idx[M + side + "Hand"]; palm = qrot(self.rest_Wq[h], qrot(qinv(self.rest_Wq[h]), [0, -1, 0]))  # world palm normal at rest
+        for k, f in enumerate(("Index", "Middle", "Ring", "Pinky")):
+            for j in (1, 2, 3):
+                b = M + side + "Hand" + f + str(j); bi = self.sk.idx[b]; d = qrot(self.rest_Wq[bi], [0, 1, 0]); ax = np.cross(d, palm)
+                self.rot_rest_axis(b, ax, amount * (1.0 if j > 1 else 0.85))
+                if j == 1 and spread: self.rot_rest_axis(b, palm, spread * (k - 1.5) / 1.5 * (1 if side == "Left" else -1))
+        t_amt = amount * 0.5 if thumb is None else thumb
+        for j in (1, 2, 3):
+            b = M + side + "HandThumb" + str(j); bi = self.sk.idx[b]; d = qrot(self.rest_Wq[bi], [0, 1, 0]); ax = np.cross(d, palm); self.rot_rest_axis(b, ax, t_amt * (0.6 if j == 1 else 1.0))
+
+    def leg(self, side, hip_flex, knee_flex, ankle, abduct=0.0):
+        """Hip flexion (+ = thigh forward), abduction (+ = outward), knee flexion (shin back only), ankle (+ = toes down)."""
+        sg = 1.0 if side == "Left" else -1.0
+        self.rot_world(M + side + "UpLeg", [-1, 0, 0], hip_flex); self.rot_world(M + side + "UpLeg", [0, 0, 1], sg * abduct)
+        self.rot_rest_axis(M + side + "Leg", [1, 0, 0], knee_flex); self.rot_rest_axis(M + side + "Foot", [1, 0, 0], ankle)
+
+    def hair(self, t, amp=1.0, tempo=1.0, spread=0.1, back=0.28, periods=(3.0, 2.0)):
+        """Underwater flow: phase-lagged waves down each chain (amplitude grows towards the tip), a little buoyancy
+        (tails drift outwards / back). Periods divide the clip length (seamless loops)."""
+        for side, sg in (("L", 1.0), ("R", -1.0)):
+            for k in range(HAIR_BONES):
+                b = f"Hair{side}_{k + 1}"; g = (k + 1) / HAIR_BONES; ph = k * 0.75 + (0.9 if side == "R" else 0.0)
+                sway = amp * (0.05 + 0.08 * g) * math.sin(2 * math.pi * t / periods[0] * tempo - ph)
+                fore = amp * (0.04 + 0.07 * g) * math.sin(2 * math.pi * t / periods[1] * tempo - ph * 1.3 + 0.7)
+                self.rot_rest_axis(b, [0, 0, 1], sg * (spread * (1 if k == 0 else 0.35) + sway)); self.rot_rest_axis(b, [1, 0, 0], back * (1 if k == 0 else 0.3) + fore)  # (+ about X: the tail drifts back)
+
+    def frame(self):
+        """{name: local quaternion} for every animated node."""
+        return {n: self.local(n) for n in self.rot}
+
+
+# ------------------------------------------------------------------ clips
+def _glass(cfg, theta, y, r=None):
+    """Point on the vat glass (asset coords) at angle theta from her front (+ = towards +x), height y; outward normal."""
+    R = float(r if r is not None else cfg["glass_r"]); oz = float(cfg["vat_offset"][2]); n = np.array([math.sin(theta), 0.0, math.cos(theta)])
+    return np.array([R * n[0], y, -oz + R * n[2]]), n
+
+
+def _body(P, t, lean, twist, side, hips_fwd, hips_up):
+    P.trans[M + "Hips"] = P.sk.nodes[P.sk.idx[M + "Hips"]]["t"] + np.array([0.0, hips_up, hips_fwd]); P._W = None
+    P.rot_world(M + "Hips", [1, 0, 0], lean * 0.4); P.rot_world(M + "Hips", [0, 1, 0], twist * 0.4)
+    for b, f in (("Spine", 0.25), ("Spine1", 0.2), ("Spine2", 0.15)):
+        P.rot_world(M + b, [1, 0, 0], lean * f); P.rot_world(M + b, [0, 1, 0], twist * f); P.rot_world(M + b, [0, 0, 1], side * f)
+
+
+def _head(P, yaw, pitch, roll=0.0):
+    for b, f in (("Neck", 0.4), ("Head", 0.6)):
+        P.rot_world(M + b, [0, 1, 0], yaw * f); P.rot_world(M + b, [-1, 0, 0], pitch * f); P.rot_world(M + b, [0, 0, 1], roll * f)
+
+
+def _shoulders(P, lift):
+    P.rot_world(M + "LeftShoulder", [0, 0, 1], lift); P.rot_world(M + "RightShoulder", [0, 0, -1], lift)
+
+
+def pose_panic(P, t, cfg):
+    """Palms pressed to the glass and sliding, searching for a way out; kicking; hair flowing. Loop 6 s."""
+    T = 2 * math.pi
+    _body(P, t, lean=0.2 + 0.04 * math.sin(T * t / 3), twist=0.1 * math.sin(T * t / 3), side=0.05 * math.sin(T * t / 2), hips_fwd=0.07 + 0.02 * math.sin(T * t / 3), hips_up=0.03 * math.sin(T * t / 2))
+    _head(P, yaw=0.5 * math.sin(T * t / 3 + 0.5) + 0.15 * math.sin(T * t / 1.5), pitch=0.12 + 0.12 * math.sin(T * t / 2 + 1.0), roll=0.06 * math.sin(T * t / 0.5))
+    _shoulders(P, 0.18 + 0.05 * math.sin(T * t / 2))
+    for side, sg, ph in (("Left", 1.0, 0.0), ("Right", -1.0, 1.7)):
+        th = sg * (0.2 + 0.06 * math.sin(T * t / 3 + ph)); y = 1.52 + 0.09 * math.sin(T * t / 2 + ph * 1.5)
+        ft = cfg.get("panic_tilt", 0.3); C, n = _glass(cfg, th, y, r=float(cfg["glass_r"]) - 0.035); tang = np.cross([0, 1, 0], n) * sg; f = np.array([0, 1.0, 0]) * 0.8 + tang * ft; f -= n * np.dot(f, n); f /= np.linalg.norm(f)
+        pl = cfg.get("panic_pole", [0.6, -0.8, -0.2]); P.arm_ik(side, C - n * 0.03 - f * 0.075, pole=[sg * pl[0], pl[1], pl[2]], palm_out=n, fingers=f)
+        P.curl(side, 0.1 + 0.12 * (0.5 + 0.5 * math.sin(T * t / 1.5 + ph)), thumb=0.15, spread=0.12)
+    for side, ph in (("Left", 0.0), ("Right", math.pi)):
+        k = math.sin(T * t / 2 + ph); P.leg(side, hip_flex=0.22 + 0.16 * k, knee_flex=0.5 + 0.3 * math.sin(T * t / 2 + ph - 1.2), ankle=0.45, abduct=0.06)
+    P.hair(t, amp=1.0, periods=(3.0, 2.0))
+
+
+def _strike(phi):
+    """0 = fist on the glass, 1 = drawn back. Rests on the glass briefly, pulls back, accelerates in."""
+    if phi < 0.1: return 0.0
+    if phi < 0.55: u = (phi - 0.1) / 0.45; return u * u * (3 - 2 * u)
+    u = (phi - 0.55) / 0.45; return 1 - u * u
+
+
+def pose_bang(P, t, cfg):
+    """Fists pounding the glass, alternating (L at 0.25 s, R at 0.75 s, every second), the body jolting with each blow;
+    hair whipping. Loop 2 s."""
+    T = 2 * math.pi; hits = [((t - h) % 1.0) for h in (0.25, 0.75)]; jolt = sum(math.exp(-((x if x < 0.5 else x - 1.0) / 0.06) ** 2) for x in hits)
+    _body(P, t, lean=0.3 - 0.06 * jolt, twist=0.12 * math.sin(T * t / 1.0), side=0.05 * math.sin(T * t / 2), hips_fwd=0.1 - 0.015 * jolt, hips_up=0.02 * math.sin(T * t / 1.0))
+    _head(P, yaw=0.12 * math.sin(T * t / 2), pitch=0.05 - 0.08 * jolt, roll=0.05 * math.sin(T * t / 0.5))
+    _shoulders(P, 0.22)
+    for side, sg, h in (("Left", 1.0, 0.25), ("Right", -1.0, 0.75)):
+        s_ = _strike((t - h) % 1.0); th = sg * 0.24
+        C, n = _glass(cfg, th, 1.55, r=float(cfg["glass_r"]) - 0.04); back = C - n * 0.24 + np.array([0, 0.1, 0])  # wind-up: drawn back, elbow bent (never locked overhead)
+        med = np.array([-sg, 0.0, 0.0]); f = np.array([0, 0.85, 0]) + med * 0.35 - n * 0.15; f /= np.linalg.norm(f)  # hammer fist: knuckles up / in
+        hit = C - n * 0.055 - f * 0.05; wrist = hit + (back - hit) * s_
+        P.arm_ik(side, wrist, pole=[sg * 0.7, -0.7, -0.1], palm_out=med, fingers=f)  # the pinky edge of the fist strikes the glass
+        P.curl(side, 1.25, thumb=0.6)
+    for side, ph in (("Left", 0.0), ("Right", math.pi)):
+        P.leg(side, hip_flex=0.3 + 0.12 * math.sin(T * t / 1.0 + ph), knee_flex=0.7 + 0.25 * math.sin(T * t / 1.0 + ph - 1.0), ankle=0.5, abduct=0.05)
+    P.hair(t, amp=1.35, periods=(2.0, 1.0))
+
+
+CLIPS = dict(panic=(pose_panic, 6.0, 20), bang=(pose_bang, 2.0, 30))
+
+
+def make_clips(prep):
+    sk, cfg = prep["sk"], prep["cfg"]; out = {}
+    for name, (fn, dur, fps) in CLIPS.items():
+        n = int(round(dur * fps)); times = [k / fps for k in range(n + 1)]; frames = []
+        for t in times:
+            P = Poser(sk); fn(P, t % dur if t < dur else 0.0, cfg); frames.append((P.frame(), dict(P.trans)))  # last key = first: seamless
+        bones = sorted({b for f, _ in frames for b in f}); tracks = {}
+        for b in bones:
+            vals = [f.get(b, sk.nodes[sk.idx[b]]["r"]) for f, _ in frames]
+            for k in range(1, len(vals)):  # keep neighbouring keys in the same hemisphere (no long-way-round slerps)
+                if np.dot(vals[k], vals[k - 1]) < 0: vals[k] = -vals[k]
+            tracks[(b, "rotation")] = np.array(vals)
+        tb = sorted({b for _, tr in frames for b in tr})
+        for b in tb: tracks[(b, "translation")] = np.array([tr.get(b, sk.nodes[sk.idx[b]]["t"]) for _, tr in frames])
+        out[name] = (times, tracks)
+    return out
+
+
+def skin_part(prep, part, rot, trans=None):
+    """Linear-blend skinning of one primitive for a pose (asset coords) - for checks and tests."""
+    sk, joints = prep["sk"], prep["joints"]; rest, _ = sk.fk(); Wm, _ = sk.fk(rot, trans)
+    S_ = np.array([Wm[sk.idx[n]] @ np.linalg.inv(rest[sk.idx[n]]) for n in joints]); p = prep["parts"][part]
+    Ph = np.c_[p["P"], np.ones(len(p["P"]))]; out = np.zeros((len(Ph), 3))
+    for k in range(4): out += p["W"][:, k:k + 1] * np.einsum("nij,nj->ni", S_[p["J"][:, k]], Ph)[:, :3]
+    return out
+
+
+def clip_report(prep, step=2):
+    """Per clip: max distance from the vat axis of the body (hands excluded), hands, hair, cables; and the joint-angle
+    extremes (elbow / knee flexion, wrist bend, forearm twist, neck + head yaw) over every `step`-th frame."""
+    sk, cfg = prep["sk"], prep["cfg"]; oz = float(cfg["vat_offset"][2]); rep = {}
+    hand_v = None
+    for name, (fn, dur, fps) in CLIPS.items():
+        n = int(round(dur * fps)); R = dict(body=0, hands=0, hair=0, cables=0, elbow=[180, 0], knee=[180, 0], wrist=0, twist=0, yaw=0, hair_min_y=9)
+        for k in range(0, n, step):
+            P = Poser(sk); fn(P, k / fps, cfg); rot, tr = P.frame(), dict(P.trans); Wm, Wq = P.W()
+            for part in ("Body", "Hair", "Cables"):
+                X = skin_part(prep, part, rot, tr); r = np.hypot(X[:, 0], X[:, 2] + oz)
+                if part == "Body":
+                    p = prep["parts"]["Body"]; jn = prep["joints"]; hb = np.array(["Hand" in jn[j] for j in p["J"][:, 0]])
+                    R["body"] = max(R["body"], float(r[~hb].max())); R["hands"] = max(R["hands"], float(r[hb].max()))
+                elif part == "Hair": R["hair"] = max(R["hair"], float(r.max())); R["hair_min_y"] = min(R["hair_min_y"], float(X[:, 1].min()))
+                else: R["cables"] = max(R["cables"], float(r[X[:, 1] < 3.0].max()))
+            for sd in ("Left", "Right"):
+                pa = lambda b: sk.pos(Wm, M + sd + b); u1 = pa("ForeArm") - pa("Arm"); u2 = pa("Hand") - pa("ForeArm"); u3 = pa("HandMiddle1") - pa("Hand")
+                ang = lambda a_, b_: math.degrees(math.acos(np.clip(np.dot(a_, b_) / np.linalg.norm(a_) / np.linalg.norm(b_), -1, 1)))
+                e = ang(u1, u2); R["elbow"] = [min(R["elbow"][0], e), max(R["elbow"][1], e)]; R["wrist"] = max(R["wrist"], ang(u2, u3))
+                k_ = ang(pa("Leg") - pa("UpLeg"), pa("Foot") - pa("Leg")); R["knee"] = [min(R["knee"][0], k_), max(R["knee"][1], k_)]
+                if e > 15:  # pronation / supination: the palm's facing round the forearm vs neutral (thumb up: palm towards the elbow-hinge axis's medial side)
+                    h = np.cross(u1, u2); h *= (1.0 if sd == "Left" else -1.0) / np.linalg.norm(h); hi = sk.idx[M + sd + "Hand"]
+                    pn = qrot(Wq[hi], qrot(qinv(Poser(sk).rest_Wq[hi]), [0, -1, 0])); k_ = np.cross(u3, pn)  # the axis across the knuckles: wrist flexion / extension turns about it, pronation turns it
+                    a_ = u2 / np.linalg.norm(u2); k_ = k_ - a_ * np.dot(k_, a_); kn = np.cross(a_, h)  # neutral: thumb up, palm towards the medial side of the elbow hinge
+                    R["twist"] = max(R["twist"], ang(k_, kn))
+            hq = Wq[sk.idx[M + "Head"]]; f = qrot(hq, qrot(qinv(Poser(sk).rest_Wq[sk.idx[M + "Head"]]), [0, 0, 1])); R["yaw"] = max(R["yaw"], abs(math.degrees(math.atan2(f[0], f[2]))))
+        rep[name] = {k: (round(v, 3) if isinstance(v, float) else [round(x, 1) for x in v] if isinstance(v, list) else v) for k, v in R.items()}
+    return rep
