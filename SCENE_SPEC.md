@@ -1516,6 +1516,10 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 165: the reactor's bubbles stream out of seven nozzles on a diffuser (drum, glowing ring, perforated grate; dark
+  bores) and into seven bell-mouthed intake tubes under the cap - at the tube_bubbles shader's own spots (centre + 0.44 r
+  (cos 60n, sin 60n) and the centre), the bubble column running from the nozzle tips to the intake mouths. `Tube_Bubbles`
+  `nozzles` 0.85 (`bubble_nozzles`; was 0.7); the showcase vat's nozzles moved onto the same 0.44 r ring.
 - Stage 164: structure `reactor` (the user's concept, without its drawing; Assembly Ascent `Reactor` at (31, 8) in the
   east pool): a base drum in the slime on eight legs (`_Plinth` / `_Support_Footing`: ripples), a grated ring deck
   (`deck`, `deck_r`) with railings and a pink rim light, a glowing slime-glass vat (`vat_r`, `vat_top`; `tube` bubbles to a

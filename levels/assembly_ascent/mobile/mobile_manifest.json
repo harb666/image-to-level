@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 5875,
-    "triangles": 101626,
-    "nodes": 3290,
-    "mesh_nodes": 3246,
-    "unique_meshes": 1492,
+    "glb_kb": 5905,
+    "triangles": 102722,
+    "nodes": 3321,
+    "mesh_nodes": 3277,
+    "unique_meshes": 1499,
     "materials": 63,
     "images": 148,
-    "draw_calls_unbatched": 3246,
+    "draw_calls_unbatched": 3277,
     "draw_calls_batched_min": 63,
     "tex_mem_uncompressed_mb": 118.85,
     "tex_mem_gpu_compressed_mb": 29.71,
@@ -73,16 +73,16 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 1058.5,
-    "visible_draw_calls_max": 3238,
-    "visible_triangles_mean": 45926,
-    "visible_triangles_max": 112230
+    "visible_draw_calls_mean": 1069.2,
+    "visible_draw_calls_max": 3269,
+    "visible_triangles_mean": 46304,
+    "visible_triangles_max": 113326
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3464,
-    "triangles": 97646,
+    "glb_kb": 3497,
+    "triangles": 98742,
     "nodes": 273,
     "mesh_nodes": 174,
     "unique_meshes": 174,
@@ -139,10 +139,10 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 90.7,
+    "visible_draw_calls_mean": 90.8,
     "visible_draw_calls_max": 175,
-    "visible_triangles_mean": 84272,
-    "visible_triangles_max": 108062
+    "visible_triangles_mean": 85128,
+    "visible_triangles_max": 109158
    },
    "hidden_faces_removed": 1539,
    "occluded_faces_removed": 2441,
@@ -152,11 +152,11 @@
     "Showcase_Stage_Glow_02R"
    ],
    "effects_extra_draw_calls": 15,
-   "effects_max_particles": 1498,
+   "effects_max_particles": 1495,
    "slimmed_kb": {
     "level_mobile.glb": [
-     5238,
-     3464
+     5278,
+     3497
     ],
     "background_mobile.glb": [
      477,
@@ -2958,7 +2958,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 7481,
+   "triangles": 7873,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3007,6 +3007,20 @@
     "Reactor_VentStack_2",
     "Reactor_VentStack_1",
     "Reactor_CapRim",
+    "Reactor_Intake_7",
+    "Reactor_Nozzle_7",
+    "Reactor_Intake_6",
+    "Reactor_Nozzle_6",
+    "Reactor_Intake_5",
+    "Reactor_Nozzle_5",
+    "Reactor_Intake_4",
+    "Reactor_Nozzle_4",
+    "Reactor_Intake_3",
+    "Reactor_Nozzle_3",
+    "Reactor_Intake_2",
+    "Reactor_Nozzle_2",
+    "Reactor_Intake_1",
+    "Reactor_Nozzle_1",
     "Reactor_Rail_15",
     "Reactor_Rail_14",
     "Reactor_Rail_11",
@@ -3402,10 +3416,11 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 3448,
+   "triangles": 3576,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Reactor_DiffuserRing",
     "Overlook_WallScreen_2_SpeakerGlowR",
     "Overlook_WallScreen_2_SpeakerGlowL",
     "Overlook_WallScreen_2_HeaderLamp_3",
@@ -3722,7 +3737,7 @@
    "node": "M_grate_0_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 792,
+   "triangles": 856,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3730,6 +3745,7 @@
     "Reactor_Catwalk_2",
     "Reactor_Catwalk_1",
     "Reactor_VatGrate",
+    "Reactor_DiffuserGrate",
     "Reactor_Deck",
     "Overlook_Gantry",
     "Spinner_Pad_4_Bridge",
@@ -4011,7 +4027,7 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 4299,
+   "triangles": 4363,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4020,6 +4036,7 @@
     "Reactor_Vent_2",
     "Reactor_Vent_1",
     "Reactor_CapTop",
+    "Reactor_Diffuser",
     "Overlook_CallPost",
     "Overlook_WallScreen_2_SpeakerR",
     "Overlook_WallScreen_2_SpeakerL",
@@ -5020,10 +5037,24 @@
    "node": "M_void_0_0",
    "kind": "static",
    "material": "void",
-   "triangles": 10,
+   "triangles": 458,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Reactor_IntakeHole_7",
+    "Reactor_NozzleHole_7",
+    "Reactor_IntakeHole_6",
+    "Reactor_NozzleHole_6",
+    "Reactor_IntakeHole_5",
+    "Reactor_NozzleHole_5",
+    "Reactor_IntakeHole_4",
+    "Reactor_NozzleHole_4",
+    "Reactor_IntakeHole_3",
+    "Reactor_NozzleHole_3",
+    "Reactor_IntakeHole_2",
+    "Reactor_NozzleHole_2",
+    "Reactor_IntakeHole_1",
+    "Reactor_NozzleHole_1",
     "East_SlimeTunnel_End"
    ]
   },

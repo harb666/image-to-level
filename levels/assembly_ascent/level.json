@@ -257,12 +257,13 @@
     ],
     [
      31.0,
-     4.6,
+     5.11,
      8.0,
-     6.3,
+     5.64,
      3.3
     ]
-   ]
+   ],
+   "nozzles": 0.85
   },
   {
    "id": "Fan_Lights",
@@ -26407,9 +26408,9 @@
    "name": "Showcase_TankNozzle_1",
    "type": "frustum",
    "position": [
-    -29.69,
+    -29.648,
     11.29,
-    -58.763
+    -58.69
    ],
    "rotation": [
     0.0,
@@ -26436,7 +26437,7 @@
    "name": "Showcase_TankNozzle_2",
    "type": "frustum",
    "position": [
-    -29.38,
+    -29.296,
     11.29,
     -59.3
    ],
@@ -26465,9 +26466,9 @@
    "name": "Showcase_TankNozzle_3",
    "type": "frustum",
    "position": [
-    -29.69,
+    -29.648,
     11.29,
-    -59.837
+    -59.91
    ],
    "rotation": [
     0.0,
@@ -26494,9 +26495,9 @@
    "name": "Showcase_TankNozzle_4",
    "type": "frustum",
    "position": [
-    -30.31,
+    -30.352,
     11.29,
-    -59.837
+    -59.91
    ],
    "rotation": [
     0.0,
@@ -26523,7 +26524,7 @@
    "name": "Showcase_TankNozzle_5",
    "type": "frustum",
    "position": [
-    -30.62,
+    -30.704,
     11.29,
     -59.3
    ],
@@ -26552,9 +26553,9 @@
    "name": "Showcase_TankNozzle_6",
    "type": "frustum",
    "position": [
-    -30.31,
+    -30.352,
     11.29,
-    -58.763
+    -58.69
    ],
    "rotation": [
     0.0,
@@ -70940,9 +70941,893 @@
    "double_sided": true,
    "tube": true,
    "bubble_range": [
-    0.4,
-    6.7
+    0.91,
+    6.55
    ],
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Diffuser",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    4.27,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.676,
+    0.38,
+    5.676
+   ],
+   "material": "machine",
+   "sections": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_DiffuserRing",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    4.62,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.28,
+    0.07,
+    5.28
+   ],
+   "material": "glow",
+   "sections": 16,
+   "hole": 2.489,
+   "hole_res": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_DiffuserGrate",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    4.61,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.62,
+    0.09,
+    4.62
+   ],
+   "material": "grate",
+   "sections": 16,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Nozzle_1",
+   "type": "frustum",
+   "position": [
+    32.452,
+    4.66,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.28,
+    0.45,
+    0.28
+   ],
+   "material": "frame",
+   "sections": 8,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_NozzleHole_1",
+   "type": "cylinder",
+   "position": [
+    32.452,
+    5.104,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.016,
+    0.17
+   ],
+   "material": "void",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Intake_1",
+   "type": "frustum",
+   "position": [
+    32.452,
+    10.75,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.55,
+    0.36
+   ],
+   "material": "frame",
+   "sections": 8,
+   "bottom_scale": 1.6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_IntakeHole_1",
+   "type": "cylinder",
+   "position": [
+    32.452,
+    10.74,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.46,
+    0.016,
+    0.46
+   ],
+   "material": "void",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Nozzle_2",
+   "type": "frustum",
+   "position": [
+    31.726,
+    4.66,
+    9.257
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.28,
+    0.45,
+    0.28
+   ],
+   "material": "frame",
+   "sections": 8,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_NozzleHole_2",
+   "type": "cylinder",
+   "position": [
+    31.726,
+    5.104,
+    9.257
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.016,
+    0.17
+   ],
+   "material": "void",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Intake_2",
+   "type": "frustum",
+   "position": [
+    31.726,
+    10.75,
+    9.257
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.55,
+    0.36
+   ],
+   "material": "frame",
+   "sections": 8,
+   "bottom_scale": 1.6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_IntakeHole_2",
+   "type": "cylinder",
+   "position": [
+    31.726,
+    10.74,
+    9.257
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.46,
+    0.016,
+    0.46
+   ],
+   "material": "void",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Nozzle_3",
+   "type": "frustum",
+   "position": [
+    30.274,
+    4.66,
+    9.257
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.28,
+    0.45,
+    0.28
+   ],
+   "material": "frame",
+   "sections": 8,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_NozzleHole_3",
+   "type": "cylinder",
+   "position": [
+    30.274,
+    5.104,
+    9.257
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.016,
+    0.17
+   ],
+   "material": "void",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Intake_3",
+   "type": "frustum",
+   "position": [
+    30.274,
+    10.75,
+    9.257
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.55,
+    0.36
+   ],
+   "material": "frame",
+   "sections": 8,
+   "bottom_scale": 1.6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_IntakeHole_3",
+   "type": "cylinder",
+   "position": [
+    30.274,
+    10.74,
+    9.257
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.46,
+    0.016,
+    0.46
+   ],
+   "material": "void",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Nozzle_4",
+   "type": "frustum",
+   "position": [
+    29.548,
+    4.66,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.28,
+    0.45,
+    0.28
+   ],
+   "material": "frame",
+   "sections": 8,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_NozzleHole_4",
+   "type": "cylinder",
+   "position": [
+    29.548,
+    5.104,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.016,
+    0.17
+   ],
+   "material": "void",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Intake_4",
+   "type": "frustum",
+   "position": [
+    29.548,
+    10.75,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.55,
+    0.36
+   ],
+   "material": "frame",
+   "sections": 8,
+   "bottom_scale": 1.6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_IntakeHole_4",
+   "type": "cylinder",
+   "position": [
+    29.548,
+    10.74,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.46,
+    0.016,
+    0.46
+   ],
+   "material": "void",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Nozzle_5",
+   "type": "frustum",
+   "position": [
+    30.274,
+    4.66,
+    6.743
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.28,
+    0.45,
+    0.28
+   ],
+   "material": "frame",
+   "sections": 8,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_NozzleHole_5",
+   "type": "cylinder",
+   "position": [
+    30.274,
+    5.104,
+    6.743
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.016,
+    0.17
+   ],
+   "material": "void",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Intake_5",
+   "type": "frustum",
+   "position": [
+    30.274,
+    10.75,
+    6.743
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.55,
+    0.36
+   ],
+   "material": "frame",
+   "sections": 8,
+   "bottom_scale": 1.6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_IntakeHole_5",
+   "type": "cylinder",
+   "position": [
+    30.274,
+    10.74,
+    6.743
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.46,
+    0.016,
+    0.46
+   ],
+   "material": "void",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Nozzle_6",
+   "type": "frustum",
+   "position": [
+    31.726,
+    4.66,
+    6.743
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.28,
+    0.45,
+    0.28
+   ],
+   "material": "frame",
+   "sections": 8,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_NozzleHole_6",
+   "type": "cylinder",
+   "position": [
+    31.726,
+    5.104,
+    6.743
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.016,
+    0.17
+   ],
+   "material": "void",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Intake_6",
+   "type": "frustum",
+   "position": [
+    31.726,
+    10.75,
+    6.743
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.55,
+    0.36
+   ],
+   "material": "frame",
+   "sections": 8,
+   "bottom_scale": 1.6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_IntakeHole_6",
+   "type": "cylinder",
+   "position": [
+    31.726,
+    10.74,
+    6.743
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.46,
+    0.016,
+    0.46
+   ],
+   "material": "void",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Nozzle_7",
+   "type": "frustum",
+   "position": [
+    31.0,
+    4.66,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.28,
+    0.45,
+    0.28
+   ],
+   "material": "frame",
+   "sections": 8,
+   "bottom_scale": 1.7,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_NozzleHole_7",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    5.104,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.17,
+    0.016,
+    0.17
+   ],
+   "material": "void",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Intake_7",
+   "type": "frustum",
+   "position": [
+    31.0,
+    10.75,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.55,
+    0.36
+   ],
+   "material": "frame",
+   "sections": 8,
+   "bottom_scale": 1.6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_IntakeHole_7",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    10.74,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.46,
+    0.016,
+    0.46
+   ],
+   "material": "void",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
    "mobile": {
     "static": true
    },
@@ -101753,12 +102638,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 88194,
-  "objects": 2987,
+  "triangles": 89290,
+  "objects": 3018,
   "materials": 61,
-  "glb_kb": 5875,
-  "nodes": 3290,
-  "draw_calls_unbatched": 3246,
+  "glb_kb": 5905,
+  "nodes": 3321,
+  "draw_calls_unbatched": 3277,
   "draw_calls_batched_min": 63,
   "images": 148,
   "tex_mem_gpu_compressed_mb": 29.71,

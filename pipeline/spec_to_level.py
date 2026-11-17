@@ -264,7 +264,7 @@ def _effects(spec, ctx, plats, env, glow):
                 t = per.setdefault(o.get("parent") or o["name"], [p0[:3], 1e9, -1e9, o["size"][0] / 2])
                 t[1] = min(t[1], lo); t[2] = max(t[2], hi)
             tb = [[round(float(c0[0]), 2), round(y0, 2), round(float(c0[2]), 2), round(y1 - y0, 2), round(r, 2)] for (c0, y0, y1, r) in per.values() if y1 - y0 >= 2.0]
-            if tb: out.append(dict(id="Tube_Bubbles", type="tube_bubbles", tubes=tb))
+            if tb: out.append(dict(id="Tube_Bubbles", type="tube_bubbles", tubes=tb, **({"nozzles": ctx.tube_nozzles} if getattr(ctx, "tube_nozzles", None) else {})))  # Stage 165
         fl = getattr(ctx, "fan_lights", [])
         if fl: out.append(dict(id="Fan_Lights", type="point_light", positions=[q[:3] for q in fl], color=[1.0, 0.8, 0.3], energy=1.0, range=16.0))  # Stage 39
         dl = getattr(ctx, "dome_lights", [])

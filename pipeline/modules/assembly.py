@@ -908,7 +908,7 @@ def showcase(ctx, s, x, y, z, yaw):
     ctx.add(n + "_TankDiffuserRing", "cylinder", [tx, fy + 0.26, tz], [2.6, 0.05, 2.6], ctx.role("glow"), sections=16, hole=round(1.3 * math.cos(math.pi / 16) - 0.1, 3), hole_res=16, **v_)
     ctx.add(n + "_TankGrate", "cylinder", [tx, fy + 0.24, tz], [2.2, 0.06, 2.2], ctx.role("grate"), sections=16, **v_)
     for k in range(7):  # bubble nozzles: six round a centre one (the bubbles start at their tops)
-        a = math.radians(60 * k + 30); r = 0.0 if k == 6 else 0.62
+        a = math.radians(60 * k + 30); r = 0.0 if k == 6 else 0.44 * 1.6  # Stage 165: on the bubble shader's nozzle ring (0.44 r)
         ctx.add(f"{n}_TankNozzle_{k + 1}", "frustum", [tx + math.sin(a) * r, fy + 0.29, tz + math.cos(a) * r], [0.16, 0.3, 0.16], "frame", sections=6, bottom_scale=1.8, **v_)
     ctx.add(n + "_TankHood", "frustum", [tx, fy + 4.43, tz], [2.8, 0.55, 2.8], "machine", sections=16, bottom_scale=0.6, **v_)  # the cables run up into it
     ctx.add(n + "_TankHoodGrate", "cylinder", [tx, fy + 4.39, tz], [1.5, 0.06, 1.5], ctx.role("grate"), sections=16, **v_)
@@ -1114,8 +1114,22 @@ def reactor(ctx, s, x, y, z, yaw):
     yv = D + 0.9
     ctx.add(n + "_VatBase", "cylinder", [x, D - 0.35, z], [2 * vr + 1.5, yv - (D - 0.35), 2 * vr + 1.5], body, sections=16, **st)
     ctx.add(n + "_VatBandLow", "cylinder", [x, yv - 0.42, z], [2 * vr + 1.7, 0.36, 2 * vr + 1.7], band, sections=16, **vs)
+    # Stage 165: the bubbles stream out of seven nozzles on a diffuser and into seven intake tubes under the cap - at the
+    # tube_bubbles shader's own spots (world: centre + 0.44 r (cos 60n, sin 60n), n < 6, and the centre)
+    noz = [(x + math.cos(math.radians(60 * k)) * 0.44 * vr, z + math.sin(math.radians(60 * k)) * 0.44 * vr) for k in range(6)] + [(x, z)]
+    ntop, mouth = yv + 0.81, top - 0.85
     ctx.add(n + "_VatGlass", "cylinder", [x, yv - 0.1, z], [2 * vr, top - yv + 0.2, 2 * vr], ctx.role(s.get("liquid", "tank_green")), sections=16, double_sided=True, tube=True,
-            bubble_range=[0.4, round(top - yv - 0.6, 2)], **st)
+            bubble_range=[round(ntop - (yv - 0.1), 3), round(mouth - (yv - 0.1), 3)], **st)
+    void = ctx.role("void")
+    ctx.add(n + "_Diffuser", "cylinder", [x, yv - 0.03, z], [2 * vr * 0.86, 0.38, 2 * vr * 0.86], "machine", sections=16, **vs)
+    ctx.add(n + "_DiffuserRing", "cylinder", [x, yv + 0.32, z], [2 * vr * 0.8, 0.07, 2 * vr * 0.8], ctx.role("glow"), sections=16, hole=round(vr * 0.8 * math.cos(math.pi / 16) - 0.1, 3), hole_res=16, **vs)
+    ctx.add(n + "_DiffuserGrate", "cylinder", [x, yv + 0.31, z], [2 * vr * 0.7, 0.09, 2 * vr * 0.7], grate, sections=16, **vs)
+    for k, (nx, nz) in enumerate(noz):
+        ctx.add(f"{n}_Nozzle_{k + 1}", "frustum", [nx, yv + 0.36, nz], [0.28, ntop - (yv + 0.36), 0.28], "frame", sections=8, bottom_scale=1.7, **vs)  # tapered spout
+        ctx.add(f"{n}_NozzleHole_{k + 1}", "cylinder", [nx, ntop - 0.006, nz], [0.17, 0.016, 0.17], void, sections=8, **vs)  # its dark bore (1 cm proud)
+        ctx.add(f"{n}_Intake_{k + 1}", "frustum", [nx, mouth, nz], [0.36, top - 0.3 - mouth, 0.36], "frame", sections=8, bottom_scale=1.6, **vs)  # bell mouth up into the grate
+        ctx.add(f"{n}_IntakeHole_{k + 1}", "cylinder", [nx, mouth - 0.01, nz], [0.46, 0.016, 0.46], void, sections=8, **vs)  # its dark mouth (1 cm below)
+    ctx.tube_nozzles = float(s.get("bubble_nozzles", 0.85))  # most bubbles come out of the nozzles (the rest rise through the grate's holes)
     for k in range(8):
         a = 45 * k
         ctx.add(f"{n}_Strut_{k + 1}", "box", P(a, yv, vr + 0.12), [0.5, top - yv, 0.55], body, rot=[0, yaw + a, 0], **st)
