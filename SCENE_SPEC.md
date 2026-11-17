@@ -1477,4 +1477,9 @@ Building blocks usable without the preset:
   out (effect `Tunnel_Flow`) and pouring into the pool, black alpha veils (`tunnel_dark`) stacked down it and a void
   back wall so it fades to pitch black, a kill box on the channel and a green glow at the mouth. Assembly Ascent:
   `East_SlimeTunnel` under the east wall's machine unit.
+- Stage 150: smooth tunnel darkness - `slime_tunnel` `"veils": []` with `"wall_fade"` / `"roof_fade"` (material kind
+  `fade_ramp`: brightness ramps along one UV axis, tile = the lining length) and `"liquid_fade"` (one black `beam_fade`
+  panel over the slime, clear at the mouth, opaque at the back) - no stepped bands; `"ribs"` count; the pour starts
+  inside the channel, flush with it. glb_tools.restore_images now matches images by RGBA (an all-black alpha fade was
+  swapped for a black RGB image and lost its alpha in the mobile GLB).
 

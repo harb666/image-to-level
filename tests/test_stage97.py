@@ -131,8 +131,16 @@ class AssemblyAscent(unittest.TestCase):
         self.assertTrue([n for n in T if n.startswith("OuterWall_East_Body_")])  # cut round the opening (split into pieces)
         b = T["OuterWall_East_Body"]; self.assertLess(b["size"][0], 134.0)  # the main body no longer runs through it
         self.assertIn("OuterWall_East_M08Machine", T)  # the machine above it stays
-        M = self.L["materials"]; self.assertGreaterEqual(len([n for n in T if n.startswith("East_SlimeTunnel_Veil_")]), 4)
-        self.assertLess(M[T["East_SlimeTunnel_Veil_1"]["material"]]["alpha"], 0.6); self.assertEqual(max(M[T["East_SlimeTunnel_End"]["material"]]["color"]), 0.0)
+        M = self.L["materials"]; self.assertFalse([n for n in T if n.startswith("East_SlimeTunnel_Veil_")])  # Stage 150: no stepped veils (they banded the slime)
+        self.assertEqual(M[T["East_SlimeTunnel_Side_L"]["material"]]["type"], "fade_ramp"); self.assertEqual(M[T["East_SlimeTunnel_Roof"]["material"]]["type"], "fade_ramp")
+        f = M[T["East_SlimeTunnel_LiquidFade"]["material"]]; self.assertEqual(f["type"], "beam_fade"); self.assertEqual(max(M[T["East_SlimeTunnel_End"]["material"]]["color"]), 0.0)
+        import struct, io
+        from PIL import Image
+        with open(os.path.join(LV, "mobile", "level_mobile.glb"), "rb") as fh: b_ = fh.read()  # the fade keeps its alpha in the mobile GLB (restore_images matched it to a black RGB image before)
+        n_ = struct.unpack("<I", b_[12:16])[0]; J = json.loads(b_[20:20 + n_]); o_ = 20 + n_; BIN = b_[o_ + 8:o_ + 8 + struct.unpack("<I", b_[o_:o_ + 4])[0]]
+        m_ = next(m for m in J["materials"] if m["name"].startswith("tunnel_liquid_fade")); t_ = J["textures"][m_["pbrMetallicRoughness"]["baseColorTexture"]["index"]]
+        v_ = J["bufferViews"][J["images"][t_.get("source", t_.get("extensions", {}).get("EXT_texture_webp", {}).get("source"))]["bufferView"]]
+        im = Image.open(io.BytesIO(BIN[v_.get("byteOffset", 0):v_.get("byteOffset", 0) + v_["byteLength"]])); self.assertIn("A", im.getbands()); self.assertEqual(im.getchannel("A").getextrema()[0], 0)
         self.assertEqual(T["East_SlimeTunnel_Pour"]["type"], "stream"); self.assertIn("East_SlimeTunnel_Slime", {k["id"] for k in self.L["kills"]})
         E = {e["id"]: e for e in _load("effects.json")["effects"]}; self.assertIn("East_SlimeTunnel_Liquid", E["Tunnel_Flow"]["targets"])
 

@@ -1043,6 +1043,17 @@ def k_hazard_wrap(S, rng, c, m):
     return dict(alb=np.clip(alb, 0, 1), h=0.55 - 0.15 * np.clip(1 - edge / 2.5, 0, 1) - 0.08 * chip, rough=np.where(chip, 0.35, 0.5 - 0.1 * np.clip(hl, 0, 1)), metal=np.where(chip, 0.85, 0.08), nstr=0.7)
 
 
+def k_fade_ramp(S, rng, c, m):
+    """Stage 150: a plain dark surface whose brightness ramps smoothly along one texture axis ("axis": u | v) from "lo"
+    (x the colour) at one end to full at the other - for a box face whose planar UVs run its length (tile_m = that
+    length: the box's local coords are centred, so the ramp is rolled half a tile: dark at local -L/2, lit at +L/2).
+    Light moulding grain, no repeating panels. "power" shapes the falloff."""
+    x, y = _xy(S); t = x if m.get("axis", "u") == "u" else 1 - y  # image rows top-down, v bottom-up
+    t = (t + 0.5) % 1.0; lo = float(m.get("lo", 0.0)); f = lo + (1 - lo) * t ** float(m.get("power", 1.6))
+    grain = 1 + 0.06 * (_noise(rng, 24, 2, S) - 0.5)
+    return dict(alb=np.clip(np.asarray(c, float)[None, None] * (f * grain)[..., None], 0, 1), h=np.zeros((S, S)), rough=np.full((S, S), 0.8), metal=0.1, emit=None, nstr=0.0)
+
+
 def k_monitor_back(S, rng, c, m):
     """Stage 148: the moulded back of one big monitor, drawn ONCE over a box's back face (tile_m = the box width "w";
     the box's planar UVs run from its centre, so the picture is centred on u = 0, and its height "h" fills from v = 0

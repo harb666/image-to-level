@@ -1016,18 +1016,21 @@ def slime_tunnel(ctx, s, x, y, z, yaw):
         a = math.pi * (k + 0.5) / nb; px, py = Rb * math.cos(a), sp + Rb * math.sin(a)
         ctx.add(f"{n}_Band_{k + 1}", "box", [px, py, 1.22 + 0.004 * (k % 2)], [ch, 0.5, 0.05], ctx.role("stripe"), g, rot=[0, 0, math.degrees(a) + 90], **vs)
     for sx in (-1, 1): ctx.add(f"{n}_Lamp_{'LR'[sx > 0]}", "box", [sx * (ow / 2 + fw / 2), sp - 2.4, 1.23], [0.5, 1.2, 0.06], ctx.role("glow"), g, **vs)
-    for sx in (-1, 1): ctx.add(f"{n}_Side_{'LR'[sx > 0]}", "box", [sx * (ow / 2 + 0.3), fl - 0.4, -L / 2 - 0.05], [0.6, Hop - fl + 0.4, L - 0.1], body, g, **st)  # lining (5 cm behind the wall face)
-    ctx.add(n + "_Roof", "box", [0, Hop, -L / 2 - 0.05], [ow + 1.2, 0.6, L - 0.1], body, g, **st)
-    for j in range(1, int(L / 2.2) + 1):  # arch ribs inside, every 2.2 m
+    wall_m, roof_m = (ctx.role(s[k]) if s.get(k) else body for k in ("wall_fade", "roof_fade"))  # Stage 150: lining darkening smoothly with depth (fade_ramp, tile = L - 0.1)
+    for sx in (-1, 1): ctx.add(f"{n}_Side_{'LR'[sx > 0]}", "box", [sx * (ow / 2 + 0.3), fl - 0.4, -L / 2 - 0.05], [0.6, Hop - fl + 0.4, L - 0.1], wall_m, g, **st)  # lining (5 cm behind the wall face)
+    ctx.add(n + "_Roof", "box", [0, Hop, -L / 2 - 0.05], [ow + 1.2, 0.6, L - 0.1], roof_m, g, **st)
+    for j in range(1, int(s.get("ribs", int(L / 2.2))) + 1):  # arch ribs inside, every 2.2 m
         ctx.add(f"{n}_Rib_{j}", "round_arch", [0, 0, -j * 2.2], [ow + 0.4, Hop, 0.4], "frame", g, opening=(ow - 0.4) / (ow + 0.4), opening_h=(Hop - 0.2) / Hop, segments=10, waterway=True, **vs)
     ctx.add(n + "_End", "box", [0, fl - 0.4, -L - 0.3], [ow + 1.2, Hop - fl + 1.0, 0.6], ctx.role(s.get("end", "void")), g, **st)  # pitch black back wall
-    for j, f_ in enumerate(s.get("veils", [1.8, 3.6, 5.2, 6.8, 8.2])):  # black veils: deeper = darker, the end fades out
+    for j, f_ in enumerate(s.get("veils", [1.8, 3.6, 5.2, 6.8, 8.2])):  # black veils: deeper = darker, the end fades out (Stage 150: "veils": [] with the fades - no stepped bands)
         if f_ < L: ctx.add(f"{n}_Veil_{j + 1}", "panel", [0, fl - 0.3, -f_], [ow + 0.6, Hop - fl + 0.6, 0], dark, g, double_sided=True, **vs)
     ly = fl + float(s.get("liquid_rise", 0.9)); cw = ow - 1.0  # the slime channel along the floor, flowing out
     ctx.add(n + "_Channel", "box", [0, fl - 0.4, -L / 2 + 0.25], [ow, ly - 0.15 - fl + 0.4, L - 0.5], body, g, **st)
     ctx.add(n + "_ChannelLip", "box", [0, ly - 0.25, 0.75], [cw + 0.6, 0.12, 0.5], ctx.role("stripe"), g, **vs)
     ctx.add(n + "_Liquid", "box", [0, ly - 0.15, -L / 2 + 0.6], [cw, 0.3, L - 0.2], fall, g, **vs)
-    c_ = ctx.add(n + "_Pour", "stream", [0, ly + 0.1, 1.0], [round(cw - 0.4, 3), round(ly + 0.1 - fl + 0.35, 3), 0.3], fall, g, section="rect", speed=1.4, pitch=4, inset=0.4, widen=0.12, thin=0.25,
+    if s.get("liquid_fade"):  # Stage 150: one smooth black gradient over the slime - clear at the mouth, black at the back
+        ctx.add(n + "_LiquidFade", "panel", [0, ly + 0.17, -0.05], [cw + 0.02, L - 0.25, 0], ctx.role(s["liquid_fade"]), g, rot=[-90, 0, 0], double_sided=True, **vs)
+    c_ = ctx.add(n + "_Pour", "stream", [0, ly + 0.13, 1.0], [round(cw, 3), round(ly + 0.13 - fl + 0.35, 3), 0.3], fall, g, section="rect", speed=1.4, pitch=4, inset=0.9, widen=0.1, thin=0.25,  # Stage 150: starts inside the channel, flush with its surface (no seam at the lip)
                  segments=10, **vs)
     if ctx.hazards: ctx.rel("flows_into", c_, ctx.hazards[0])
     ctx.pours.append(c_); ctx.tunnel_flows = getattr(ctx, "tunnel_flows", []) + [n + "_Liquid"]

@@ -106,7 +106,7 @@ def restore_images(path, ref_glb):
     import hashlib, io
     import numpy as np
     from PIL import Image
-    key = lambda raw: hashlib.sha1(np.asarray(Image.open(io.BytesIO(raw)).convert("RGB")).tobytes()).hexdigest()
+    key = lambda raw: hashlib.sha1(np.asarray(Image.open(io.BytesIO(raw)).convert("RGBA")).tobytes()).hexdigest()  # Stage 150: alpha counts (an all-black RGBA fade matched a black RGB image and lost its alpha)
     rg, rb = _read(ref_glb); orig = {}
     for im in rg.get("images", []):
         raw = _view(rb, rg["bufferViews"][im["bufferView"]]); orig[key(raw)] = (raw, im.get("mimeType", "image/jpeg"))

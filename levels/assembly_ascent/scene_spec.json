@@ -662,6 +662,55 @@
         "res": 16,
         "alpha": 0.42,
         "notes": "Stage 149: black veils down the tunnel - deeper is darker"
+      },
+      "tunnel_wall_fade": {
+        "type": "fade_ramp",
+        "axis": "u",
+        "color": [
+          0.3,
+          0.25,
+          0.34
+        ],
+        "lo": 0.0,
+        "power": 1.7,
+        "tile_m": 8.9,
+        "res": 256,
+        "notes": "Stage 150: tunnel lining walls - lit at the mouth, smoothly to black at the back"
+      },
+      "tunnel_roof_fade": {
+        "type": "fade_ramp",
+        "axis": "v",
+        "color": [
+          0.3,
+          0.25,
+          0.34
+        ],
+        "lo": 0.0,
+        "power": 1.7,
+        "tile_m": 8.9,
+        "res": 256,
+        "notes": "Stage 150: tunnel roof - same smooth fade"
+      },
+      "tunnel_liquid_fade": {
+        "type": "beam_fade",
+        "color": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "res": 128,
+        "alpha": 1.0,
+        "fade_in": 1.0,
+        "fade_out": [
+          2.0,
+          3.0
+        ],
+        "emissive": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "notes": "Stage 150: smooth darkening over the tunnel slime (alpha 0 at the mouth -> 1 at the back)"
       }
     }
   },
@@ -1143,7 +1192,12 @@
       "depth": 9.0,
       "wall": 4.0,
       "source": "inferred",
-      "notes": "Stage 149: arched tunnel through the east wall, green slime flowing out of the dark (its end fades to black)"
+      "notes": "Stage 149: arched tunnel through the east wall, green slime flowing out of the dark (its end fades to black)",
+      "veils": [],
+      "ribs": 1,
+      "wall_fade": "tunnel_wall_fade",
+      "roof_fade": "tunnel_roof_fade",
+      "liquid_fade": "tunnel_liquid_fade"
     },
     {
       "id": "Saw_West",
