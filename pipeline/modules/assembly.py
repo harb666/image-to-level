@@ -257,11 +257,12 @@ def spinner(ctx, s, x, y, z, yaw):
         drive["stages"].append({"group": gc, "frac": round(float(s.get("clamp_drop", 0.22)) / drive["travel"], 4)})  # pressed, it sits on Band_2
         drive.update(plasma=plasma, plasma_tiles=nt, plasma_rise=float(s.get("plasma_rise", 0.35)),
                      plasma_note="u offset = rotor angle / 360 * plasma_tiles (it turns with the arms); v offset = -t * plasma_rise - pressed * 0.5 "
-                                 "(pressed = -ram offset / travel); emission x (0.4 + 0.7 pressed + 1.2 exp(-3 (u - slam)) after the impact + flicker)",
+                                 "(pressed = -ram offset / travel); opacity = plasma_energy(u) (0 until the impact, 1 while pressed, fading over spin_down); "
+                                 "emission x (0.25 + energy (0.5 + 0.6 pressed + flicker) + 1.2 exp(-3 (u - slam)) after the impact)",
                      arcs=arcs, sparks=sparks, light=dict(pos=[round(x, 3), round(T + 0.8, 3), round(z, 3)], color=[1.0, 0.18, 0.3], energy=float(s.get("plasma_light", 1.2)), range=16.0),
-                     arcs_note="Stage 157: for 1.6 s after the impact (ds = u - slam) the arcs layer shows with alpha min(1, 1.6 exp(-1.8 ds)) x crackle (k = floor(24 t): "
+                     arcs_note="Stage 157/158: while energy > 0 the arcs layer shows with alpha max(min(1, 1.6 exp(-1.8 ds)), 0.55 energy) x crackle (ds = u - slam; k = floor(24 t): "
                                "hash(k) = fract(sin(12.9898 k) * 43758.5453) > 0.35 ? 1 : 0.15), its uv jumping to (fract(0.618 k), fract(0.382 k)); else hidden. "
-                               "The light at 'light.pos' (low: it flashes the deck) = energy x 2 x that arcs alpha (dark otherwise); "
+                               "The light at 'light.pos' (low: it flashes the deck) = light.energy x 2 x min(1, 1.6 exp(-1.8 ds)) x crackle (the impact only); "
                                "'sparks' (chamber centres): effect <id>_Sparks bursts at the impact and the crackles after it")
     ctx.sweepers = getattr(ctx, "sweepers", []) + [dict(id=n, group=gr, center=[round(x, 3), round(T, 3), round(z, 3)], rpm=float(drive["peak_rpm"] if drive else s.get("rpm", 6.0)), phase=float(s.get("phase", 0.0)), **({"drive": drive} if drive else {}),
                                                        arms=[round(yaw + a, 2) for a in arms], r0=r0, r1=round(r1, 3), bar_y=by, bar_half=bh, ball_r=round(br, 3), ball_y=round(bly, 3),
@@ -340,6 +341,16 @@ def press_profile(D, t):
     elif d < ho + sd: e = d - ho; th = w * (ho - su / 2) + w * (e - e * e / (2 * sd))
     else: th = w * (ho - su / 2 + sd / 2)
     return off, k * 360.0 * float(D["turns"]) + th
+
+
+def plasma_energy(D, u):
+    """Stage 158: how charged the spinner's plasma chambers are at cycle time u (press_profile's u): 0 until the ram hits,
+    1 while it is down, then a smooth fade over spin_down - as the ram lifts and the maces coast to a stop. The plasma's
+    opacity (and the arcs' crackle) follow it; the chambers are dark glass round a dim electrode in between."""
+    sl = float(D["slam"]); ho = sl + float(D["hold"])
+    if u < sl: return 0.0
+    if u < ho: return 1.0
+    f = (u - ho) / float(D["spin_down"]); return 1 - f * f * (3 - 2 * f) if f < 1 else 0.0
 
 
 def _press(ctx, n, x, T, z, yaw, pr, gl, stripe):

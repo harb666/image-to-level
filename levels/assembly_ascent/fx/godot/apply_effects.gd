@@ -453,6 +453,19 @@ func _sweeper(sw: Dictionary) -> void:
 	_sweepers.append([sw, rot, piv, stages, lamps, [-1], pmats, amats, plight])
 
 
+static func plasma_energy(D: Dictionary, u: float) -> float:
+	# Stage 158 (same as assembly.plasma_energy / viewer.html): 0 until the impact, 1 while the ram is down, then a smooth fade
+	# over spin_down (the ram lifting, the maces coasting to a stop)
+	var sl := float(D["slam"])
+	var ho := sl + float(D["hold"])
+	if u < sl:
+		return 0.0
+	if u < ho:
+		return 1.0
+	var f := (u - ho) / float(D["spin_down"])
+	return 1.0 - f * f * (3.0 - 2.0 * f) if f < 1.0 else 0.0
+
+
 static func press_profile(D: Dictionary, t: float) -> Array:
 	# Stage 103 (same as assembly.press_profile / viewer.html): [ram offset, rotor angle deg, u, cycle]
 	var P := float(D["period"])
@@ -1638,22 +1651,27 @@ func _process(delta: float) -> void:
 			if not sr[6].is_empty():  # Stage 155: the plasma turns with the rotor, rises, and surges with the ram (same as viewer.html)
 				var pr := -float(pf[0]) / float(D["travel"])
 				var ds := float(pf[2]) - float(D["slam"])
-				var surge := 0.4 + 0.7 * pr + (1.2 * exp(-3.0 * ds) if ds >= 0.0 else 0.0) + 0.12 * sin(_t * 41.0) * sin(_t * 17.0)
+				var en := plasma_energy(D, float(pf[2]))  # Stage 158: on at the impact, held while pressed, fading as the ram lifts and the maces coast
+				var fl := exp(-3.0 * ds) if ds >= 0.0 else 0.0
+				var surge := 0.25 + en * (0.5 + 0.6 * pr + 0.12 * sin(_t * 41.0) * sin(_t * 17.0)) + 1.2 * fl
 				for pm in sr[6]:
-					(pm[0] as BaseMaterial3D).uv1_offset = Vector3(float(pf[1]) / 360.0 * float(D["plasma_tiles"]), -_t * float(D["plasma_rise"]) - pr * 0.5, 0.0)
-					(pm[0] as BaseMaterial3D).emission_energy_multiplier = float(pm[1]) * surge
-				var ds2 := float(pf[2]) - float(D["slam"])  # Stage 157: crackling arcs after the slam (same as viewer.html)
-				var kk := floorf(_t * 24.0)
+					var pmat := pm[0] as BaseMaterial3D
+					pmat.uv1_offset = Vector3(float(pf[1]) / 360.0 * float(D["plasma_tiles"]), -_t * float(D["plasma_rise"]) - pr * 0.5, 0.0)
+					pmat.emission_energy_multiplier = float(pm[1]) * surge
+					if pmat.transparency != BaseMaterial3D.TRANSPARENCY_DISABLED:  # the plasma fades in / out (the opaque electrode only dims)
+						pmat.albedo_color.a = en
+				var kk := floorf(_t * 24.0)  # Stage 157/158: arcs crackle hard on impact, then on and off while charged (same as viewer.html)
 				var hh := sin(kk * 12.9898) * 43758.5453
 				var ck := 1.0 if hh - floorf(hh) > 0.35 else 0.15
-				var fa := minf(1.0, 1.6 * exp(-1.8 * ds2)) * ck if ds2 >= 0.0 and ds2 < 1.6 else 0.0
+				var hit := minf(1.0, 1.6 * exp(-1.8 * ds)) if ds >= 0.0 else 0.0
+				var fa := maxf(hit, 0.55 * en) * ck if en > 0.0 else 0.0
 				for am in sr[7]:
 					var amat := am[0] as BaseMaterial3D
 					amat.albedo_color.a = fa
 					amat.emission_energy_multiplier = float(am[1]) * (1.0 + 0.8 * fa) * fa
 					amat.uv1_offset = Vector3(fposmod(kk * 0.618, 1.0), fposmod(kk * 0.382, 1.0), 0.0)
 				if sr[8] != null:
-					(sr[8] as OmniLight3D).light_energy = float(D["light"]["energy"]) * 2.0 * fa  # a lightning flash only (lit at rest it washed the chambers out)
+					(sr[8] as OmniLight3D).light_energy = float(D["light"]["energy"]) * 2.0 * (hit * ck if en > 0.0 else 0.0)  # the impact flash only (lit at rest it washed the chambers out)
 			if float(pf[2]) >= float(D["slam"]) and sr[5][0] != int(pf[3]):  # impact: shake a nearby camera
 				sr[5][0] = int(pf[3])
 				var cam := get_viewport().get_camera_3d()

@@ -1516,6 +1516,10 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 160: the spinner's plasma follows `plasma_energy(D, u)` (assembly.py, same in both runtimes): dark until the ram
+  smashes down, fully charged while it is down, then fading smoothly over `spin_down` - as the ram lifts and the maces
+  coast to a stop (it reaches 0 exactly when they stop). Its opacity is the energy (the opaque electrode only dims); the
+  arcs crackle hard on impact, then on and off at 0.55 x energy; sparks also burst at 1.3 / 1.9 / 2.6 s after the impact.
 - Stage 159: Assembly Ascent's fourth extra ceiling fan moved off the pod tubes to (29.5, -2.9), beside the third: a twin fan unit between the same beams.
 - Stage 158: `showcase` `"tank_band"` (role, default `tube_band`): the ring round the vat's plinth is Toxic Works' plum trim with a red light strip, not hazard stripes.
 - Stage 156: the showcase vat is built like Toxic Works' vats - one see-through slime-glass layer (`tank_green`, alpha 0.3;

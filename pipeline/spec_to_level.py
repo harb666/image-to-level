@@ -344,7 +344,7 @@ def _effects(spec, ctx, plats, env, glow):
                 out.append(dict(id=sp_["id"] + "_HeadJets", type="steam_jet", jets=J_["head"], sync=dict(sy, at=[sl_]), speed=[7.0, 10.0], emit_time=0.35, burst=24))
                 out.append(dict(id=sp_["id"] + "_CrownJets", type="steam_jet", jets=J_["crown"], sync=dict(sy, at=[rel_]), speed=[6.0, 9.0], emit_time=0.9, burst=36, lifetime=1.4))
                 if D_.get("sparks"):  # Stage 157: electrical sparks spraying off the electrodes inside the plasma chambers on the impact (and crackles after)
-                    out.append(dict(id=sp_["id"] + "_Sparks", type="sparks", positions=D_["sparks"], sync=dict(sy, at=[round(sl_ + d_, 3) for d_ in (0.0, 0.18, 0.42, 0.8)]),
+                    out.append(dict(id=sp_["id"] + "_Sparks", type="sparks", positions=D_["sparks"], sync=dict(sy, at=[round(sl_ + d_, 3) for d_ in (0.0, 0.18, 0.42, 0.8, 1.3, 1.9, 2.6)]),
                                     burst=44, lifetime=0.5, speed=[1.2, 2.4], gravity=-3.0, size=[0.32, 0.05], color=[1.0, 0.75, 0.82], spread=180))
         for f_ in getattr(ctx, "floaters", []):  # Stage 123: floating (bobbing) walkable pads
             out.append(dict(id=f_["id"] + "_Bob", type="floater", floater=f_))

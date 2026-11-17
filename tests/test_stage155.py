@@ -81,6 +81,22 @@ class SlamSparks(unittest.TestCase):
         self.assertIn("amap.forEach", v); self.assertIn("D.light.energy", v); self.assertIn('sw["drive"].has("arcs")', gd); self.assertIn("OmniLight3D.new()", gd)
 
 
+class PlasmaEnergy(unittest.TestCase):
+    """Stage 158: the plasma appears as the ram smashes down, stays while it is down, fades out as it lifts and the maces slow."""
+    def test_follows_the_press(self):
+        import assembly as A
+        D = next(s for s in json.load(open(os.path.join(LV, "level.json")))["sweepers"] if s["id"] == "Spinner")["drive"]
+        sl, ho, sd, P = D["slam"], D["hold"], D["spin_down"], D["period"]
+        self.assertEqual(A.plasma_energy(D, sl * 0.5), 0.0)  # the ram on its way down: dark
+        self.assertEqual(A.plasma_energy(D, sl + 0.01), 1.0); self.assertEqual(A.plasma_energy(D, sl + ho - 0.01), 1.0)  # smashed down: charged
+        e = [A.plasma_energy(D, sl + ho + sd * k / 10) for k in range(11)]; self.assertTrue(all(a_ >= b_ for a_, b_ in zip(e, e[1:])))  # fading...
+        self.assertAlmostEqual(e[5], 0.5, places=3); self.assertEqual(e[-1], 0.0); self.assertEqual(A.plasma_energy(D, P - 0.01), 0.0)
+        u_stop = sl + ho + sd  # ... and gone exactly when the maces stop turning
+        self.assertAlmostEqual(A.press_profile(D, u_stop - D["phase"])[1], A.press_profile(D, u_stop + 0.5 - D["phase"])[1], places=6)
+        self.assertLess(A.press_profile(D, u_stop - 0.6 - D["phase"])[1], A.press_profile(D, u_stop - D["phase"])[1])
+        v = open(os.path.join(ROOT, "pipeline", "viewer.html")).read(); gd = open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")).read()
+        self.assertIn("c.opacity=en", v); self.assertIn("static func plasma_energy", gd); self.assertIn("pmat.albedo_color.a = en", gd)
+
 class ViewerParses(unittest.TestCase):
     def test_viewer_script_parses(self):
         """Stage 157: the viewer's module script must parse (a redeclared const once blanked the whole preview)."""

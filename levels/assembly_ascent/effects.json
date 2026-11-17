@@ -2693,7 +2693,7 @@
      "plasma": "spinner_plasma",
      "plasma_tiles": 2,
      "plasma_rise": 0.35,
-     "plasma_note": "u offset = rotor angle / 360 * plasma_tiles (it turns with the arms); v offset = -t * plasma_rise - pressed * 0.5 (pressed = -ram offset / travel); emission x (0.4 + 0.7 pressed + 1.2 exp(-3 (u - slam)) after the impact + flicker)",
+     "plasma_note": "u offset = rotor angle / 360 * plasma_tiles (it turns with the arms); v offset = -t * plasma_rise - pressed * 0.5 (pressed = -ram offset / travel); opacity = plasma_energy(u) (0 until the impact, 1 while pressed, fading over spin_down); emission x (0.25 + energy (0.5 + 0.6 pressed + flicker) + 1.2 exp(-3 (u - slam)) after the impact)",
      "arcs": "spinner_arcs",
      "sparks": [
       [
@@ -2721,7 +2721,7 @@
       "energy": 1.2,
       "range": 16.0
      },
-     "arcs_note": "Stage 157: for 1.6 s after the impact (ds = u - slam) the arcs layer shows with alpha min(1, 1.6 exp(-1.8 ds)) x crackle (k = floor(24 t): hash(k) = fract(sin(12.9898 k) * 43758.5453) > 0.35 ? 1 : 0.15), its uv jumping to (fract(0.618 k), fract(0.382 k)); else hidden. The light at 'light.pos' (low: it flashes the deck) = energy x 2 x that arcs alpha (dark otherwise); 'sparks' (chamber centres): effect <id>_Sparks bursts at the impact and the crackles after it"
+     "arcs_note": "Stage 157/158: while energy > 0 the arcs layer shows with alpha max(min(1, 1.6 exp(-1.8 ds)), 0.55 energy) x crackle (ds = u - slam; k = floor(24 t): hash(k) = fract(sin(12.9898 k) * 43758.5453) > 0.35 ? 1 : 0.15), its uv jumping to (fract(0.618 k), fract(0.382 k)); else hidden. The light at 'light.pos' (low: it flashes the deck) = light.energy x 2 x min(1, 1.6 exp(-1.8 ds)) x crackle (the impact only); 'sparks' (chamber centres): effect <id>_Sparks bursts at the impact and the crackles after it"
     },
     "arms": [
      20.0,
@@ -3315,7 +3315,10 @@
      0.35,
      0.53,
      0.77,
-     1.15
+     1.15,
+     1.65,
+     2.25,
+     2.95
     ]
    },
    "emitters": [
