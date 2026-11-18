@@ -1947,6 +1947,59 @@
    }
   },
   {
+   "id": "Screen_Pulse_beacon_red",
+   "type": "pulse_light",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
+   "target_material": "beacon_red",
+   "targets": [
+    "Yard_Gate_Beacon_R",
+    "Yard_Gate_Beacon_L"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 1.4,
+      "amount": 0.75,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 1.4,
+      "amount": 0.75,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 1.4,
+      "amount": 0.75,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Reactor_Steam",
    "type": "steam",
    "category": "particles",
@@ -4261,14 +4314,14 @@
     "slide": 2.8,
     "press": 0.14,
     "ctrl1": [
-     -2.04,
-     25.916,
-     -13.749
+     -3.086,
+     26.415,
+     -11.071
     ],
     "ctrl2": [
-     -32.698,
-     10.083,
-     -7.648
+     -31.891,
+     10.135,
+     -9.257
     ],
     "times": {
      "take": 0.7,
@@ -5861,6 +5914,8 @@
     "Spike_Press_Warn_1",
     "Yard_Laser_Emitter_R",
     "Yard_Laser_Emitter_L",
+    "Yard_Laser_Beam_9",
+    "Yard_Laser_Beam_8",
     "Yard_Laser_Beam_7",
     "Yard_Laser_Beam_6",
     "Yard_Laser_Beam_5",
@@ -5868,8 +5923,24 @@
     "Yard_Laser_Beam_3",
     "Yard_Laser_Beam_2",
     "Yard_Laser_Beam_1",
-    "Yard_Gate_Cap_R",
-    "Yard_Gate_Cap_L",
+    "Yard_Gate_EmitterRing_R_9",
+    "Yard_Gate_EmitterRing_R_8",
+    "Yard_Gate_EmitterRing_R_7",
+    "Yard_Gate_EmitterRing_R_6",
+    "Yard_Gate_EmitterRing_R_5",
+    "Yard_Gate_EmitterRing_R_4",
+    "Yard_Gate_EmitterRing_R_3",
+    "Yard_Gate_EmitterRing_R_2",
+    "Yard_Gate_EmitterRing_R_1",
+    "Yard_Gate_EmitterRing_L_9",
+    "Yard_Gate_EmitterRing_L_8",
+    "Yard_Gate_EmitterRing_L_7",
+    "Yard_Gate_EmitterRing_L_6",
+    "Yard_Gate_EmitterRing_L_5",
+    "Yard_Gate_EmitterRing_L_4",
+    "Yard_Gate_EmitterRing_L_3",
+    "Yard_Gate_EmitterRing_L_2",
+    "Yard_Gate_EmitterRing_L_1",
     "Entry_Door_Guide_2",
     "Entry_Door_Guide_1"
    ],
@@ -6155,6 +6226,22 @@
     "Pillars_2_GlowBand",
     "Pillars_1_Jet",
     "Pillars_1_GlowBand",
+    "Yard_Gate_FloorStrip_F",
+    "Yard_Gate_FloorStrip_B",
+    "Yard_Gate_TopLamp_F",
+    "Yard_Gate_TopLamp_B",
+    "Yard_Gate_Vent_RF",
+    "Yard_Gate_Strip_RF",
+    "Yard_Gate_FootLamp_RF",
+    "Yard_Gate_Vent_RB",
+    "Yard_Gate_Strip_RB",
+    "Yard_Gate_FootLamp_RB",
+    "Yard_Gate_Vent_LF",
+    "Yard_Gate_Strip_LF",
+    "Yard_Gate_FootLamp_LF",
+    "Yard_Gate_Vent_LB",
+    "Yard_Gate_Strip_LB",
+    "Yard_Gate_FootLamp_LB",
     "Saw_East_ShoulderGlow_R",
     "Saw_East_ShoulderGlow_L",
     "Saw_East_ColGlow",

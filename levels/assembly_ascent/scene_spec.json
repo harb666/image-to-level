@@ -833,6 +833,59 @@
           1.0
         ],
         "notes": "Stage 168: the showcase monitor's dissection scan of the vat specimen (pipeline/make_specimen_schematic.py, from her mesh)"
+      },
+      "gate_atlas": {
+        "type": "screen_atlas",
+        "color": [
+          1,
+          1,
+          1
+        ],
+        "tile_m": 4.0,
+        "res": 1024,
+        "emissive": [
+          1.0,
+          0.9,
+          0.9
+        ],
+        "grid": [
+          [
+            {
+              "image": "levels/assembly_ascent/references/laser_gate_atlas.png"
+            }
+          ]
+        ],
+        "atlas": {
+          "sign": [
+            0.0,
+            0.707,
+            1.0,
+            1.0
+          ],
+          "warn": [
+            0.0,
+            0.375,
+            0.293,
+            0.668
+          ]
+        },
+        "notes": "Stage 171: the security laser gate's RESTRICTED AREA sign + laser warning plates (pipeline/make_gate_art.py)"
+      },
+      "beacon_red": {
+        "type": "glow",
+        "color": [
+          1.0,
+          0.12,
+          0.08
+        ],
+        "tile_m": 2.0,
+        "res": 32,
+        "emissive": [
+          1.0,
+          0.15,
+          0.08
+        ],
+        "notes": "Stage 171: the laser gate's flashing beacons"
       }
     }
   },
@@ -1445,15 +1498,20 @@
         6.0
       ],
       "yaw": 90,
-      "width": 10.6,
-      "height": 4.6,
+      "width": 9.2,
+      "height": 5.2,
       "gate_id": "Yard_Laser",
       "opens_on": {
         "type": "terminal",
         "terminal": "Jet_Screen_Button"
       },
       "source": "visible",
-      "notes": "red beams across the yard's east cap until the jetpack screen's big red button (on the rising arena) is pressed"
+      "notes": "red beams across the yard's east cap until the jetpack screen's big red button (on the rising arena) is pressed; Stage 171: an armoured security gate (user concept) - pylons, beacons, RESTRICTED AREA header, cables, 9 beams",
+      "style": "security",
+      "laser_gate": {
+        "beams": 9,
+        "beam_dia": 0.14
+      }
     },
     {
       "id": "Pillars",

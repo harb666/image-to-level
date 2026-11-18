@@ -1932,6 +1932,58 @@
    }
   },
   {
+   "id": "Screen_Pulse_beacon_red",
+   "type": "pulse_light",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
+   "target_material": "beacon_red",
+   "targets": [
+    "M_beacon_red_0_0"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 1.4,
+      "amount": 0.75,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 1.4,
+      "amount": 0.75,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 1.4,
+      "amount": 0.75,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Reactor_Steam",
    "type": "steam",
    "category": "particles",
@@ -4244,14 +4296,14 @@
     "slide": 2.8,
     "press": 0.14,
     "ctrl1": [
-     -2.04,
-     25.916,
-     -13.749
+     -3.086,
+     26.415,
+     -11.071
     ],
     "ctrl2": [
-     -32.698,
-     10.083,
-     -7.648
+     -31.891,
+     10.135,
+     -9.257
     ],
     "times": {
      "take": 0.7,

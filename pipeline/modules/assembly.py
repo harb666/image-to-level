@@ -979,10 +979,60 @@ def laser_gate(ctx, s, x, y, z, yaw):
     factory._laser_gate between them (closed at start, level.json "gates", opens_on e.g. waves_cleared)."""
     from modules.factory import _laser_gate
     n = s["id"]; W = float(s.get("width", 5.0)); H = float(s.get("height", 5.0)); g = ctx.add(n, "group", [x, y, z], rot=[0, yaw, 0]); st = dict(mobile={"static": True})
-    for sd in (-1, 1):
-        ctx.add(f"{n}_Post_{'LR'[sd > 0]}", "box", [sd * (W / 2 + 0.3), 0, 0], [0.55, H + 0.4, 0.7], "machine", g, **st)
-        ctx.add(f"{n}_Cap_{'LR'[sd > 0]}", "box", [sd * (W / 2 + 0.3), H + 0.4, 0], [0.7, 0.25, 0.85], ctx.role("laser"), g, outline=False, collision=False, **st)
+    if s.get("style") == "security": _security_gate(ctx, s, n, g, W, H, st)
+    else:
+        for sd in (-1, 1):
+            ctx.add(f"{n}_Post_{'LR'[sd > 0]}", "box", [sd * (W / 2 + 0.3), 0, 0], [0.55, H + 0.4, 0.7], "machine", g, **st)
+            ctx.add(f"{n}_Cap_{'LR'[sd > 0]}", "box", [sd * (W / 2 + 0.3), H + 0.4, 0], [0.7, 0.25, 0.85], ctx.role("laser"), g, outline=False, collision=False, **st)
     _laser_gate(ctx, n, g, W, H, dict(s.get("laser_gate") or {}, id=s.get("gate_id", n + "_Laser"), opens_on=s.get("opens_on", {"type": "waves_cleared", "encounter": s.get("encounter")})), x, y, z, yaw)
+
+
+def _security_gate(ctx, s, n, g, W, H, st):
+    """Stage 171 (the user's concept): an armoured laser security gate (local x across, the beams between the pylons'
+    inner faces at +-W/2): two pylons - foot with red lamps, armoured tower with an X-braced panel, hazard bands, laser
+    warning plates, red light strips and vents, a cap with a flashing red beacon; a header across the top carrying the
+    RESTRICTED AREA / LASER SECURITY GATE sign on both faces, a top light box; black cables arching over the header and
+    looping down the pylons' outer sides; an emitter node at every beam on each pylon; red strips on the floor."""
+    vs = dict(collision=False, outline=False, **st); w2 = W / 2; pw, pd = float(s.get("pylon_w", 1.2)), float(s.get("pylon_d", 1.3)); Ht = H + 1.95  # pylon tower top
+    atlas, warnred, beacon, stripe, red = ctx.role(s.get("sign_atlas", "gate_atlas")), ctx.role("laser"), ctx.role(s.get("beacon", "beacon_red")), ctx.role("stripe"), ctx.role("glow")
+    nb = int((s.get("laser_gate") or {}).get("beams", 7)); top = min(H - 0.4, 5.8)
+    for sd in (-1, 1):
+        t = "LR"[sd > 0]; xc = sd * (w2 + pw / 2); xo = sd * (w2 + pw)  # pylon centre, outer face
+        ctx.add(f"{n}_Foot_{t}", "box", [xc + sd * 0.1, 0, 0], [pw + 0.45, 0.6, pd + 0.4], "machine", g, **st)
+        ctx.add(f"{n}_Tower_{t}", "box", [xc, 0.55, 0], [pw, Ht - 0.55, pd], "machine", g, **st)
+        ctx.add(f"{n}_Cap_{t}", "box", [xc, Ht - 0.05, 0], [pw + 0.25, 0.5, pd + 0.25], "machine", g, **st)
+        ctx.add(f"{n}_BeaconBase_{t}", "cylinder", [xc, Ht + 0.44, 0], [0.62, 0.24, 0.62], "frame", g, sections=10, **vs)
+        ctx.add(f"{n}_Beacon_{t}", "dome", [xc, Ht + 0.66, 0], [0.56, 0.42, 0.56], beacon, g, sections=12, **vs)
+        for fz in (-1, 1):  # front and back faces
+            zf = fz * (pd / 2 + 0.02); ry = 0 if fz > 0 else 180
+            ctx.add(f"{n}_FootLamp_{t}{'BF'[fz > 0]}", "box", [xc + sd * 0.1, 0.18, fz * (pd / 2 + 0.2)], [0.62, 0.2, 0.06], red, g, **vs)
+            ctx.add(f"{n}_Warn_{t}{'BF'[fz > 0]}", "panel", [xc, 1.0, zf], [0.85, 0.85, 0], atlas, g, [0, ry, 0], uv_region="warn", **vs)
+            for k_, yb_ in enumerate((2.05, Ht - 1.3)): ctx.add(f"{n}_Hazard_{t}{'BF'[fz > 0]}{k_ + 1}", "box", [xc, yb_, fz * (pd / 2 + 0.01)], [pw + 0.02, 0.42, 0.06], stripe, g, **vs)
+            yx0, yx1 = 2.65, Ht - 1.5; L_ = math.hypot(pw - 0.3, yx1 - yx0); ang = math.degrees(math.atan2(pw - 0.3, yx1 - yx0))
+            ctx.add(f"{n}_Panel_{t}{'BF'[fz > 0]}", "box", [xc, yx0 - 0.08, fz * (pd / 2 + 0.02)], [pw - 0.12, yx1 - yx0 + 0.16, 0.05], "frame", g, **vs)
+            for k_, a_ in enumerate((ang, -ang)):  # X brace across the panel
+                ctx.add(f"{n}_Brace_{t}{'BF'[fz > 0]}{k_ + 1}", "box", [xc - math.sin(math.radians(a_)) * L_ / 2, (yx0 + yx1) / 2 - math.cos(math.radians(a_)) * L_ / 2, fz * (pd / 2 + 0.06)], [0.13, L_, 0.06], "machine", g, [0, 0, a_], **vs)
+            ctx.add(f"{n}_Strip_{t}{'BF'[fz > 0]}", "box", [sd * (w2 + 0.12), 2.6, fz * (pd / 2 + 0.12)], [0.1, top - 1.8, 0.05], red, g, **vs)  # red strip by the beams (proud of the panel)
+            ctx.add(f"{n}_Vent_{t}{'BF'[fz > 0]}", "box", [xc, Ht - 0.65, fz * (pd / 2 + 0.02)], [0.62, 0.26, 0.05], red, g, **vs)
+        for i in range(nb):  # an emitter node at each beam, on the pylon's inner face
+            yb = round(0.45 + (top - 0.45) * i / max(1, nb - 1), 3)
+            ctx.add(f"{n}_Emitter_{t}_{i + 1}", "cylinder", [sd * (w2 + 0.02), yb, 0], [0.26, 0.2, 0.26], "frame", g, [0, 0, 90 * sd], sections=8, **vs)
+            ctx.add(f"{n}_EmitterRing_{t}_{i + 1}", "cylinder", [sd * (w2 - 0.17), yb, 0], [0.3, 0.05, 0.3], warnred, g, [0, 0, 90 * sd], sections=8, **vs)
+        ctx.add(f"{n}_Hose_{t}", "pipe_path", [xo, 0, 0], [0.17, 1.0, 0.17], "frame", g, [0, 0 if sd > 0 else 180, 0],  # a cable looping down the outer side
+                path=[[-0.05, Ht - 0.4], [0.5, Ht - 0.4], [0.5, 0.35], [-0.05, 0.35]], bend=0.45, sections=6, **vs)
+    # --- header, sign, top light box, cables over the top
+    ctx.add(n + "_Header", "box", [0, H + 0.25, 0], [W + 0.02, Ht - H - 0.25, 0.9], "machine", g, **st)
+    for sd in (-1, 1): ctx.add(f"{n}_HeaderHazard_{'LR'[sd > 0]}", "box", [sd * (w2 - 0.55), H + 0.24, 0], [1.1, Ht - H - 0.23, 0.94], stripe, g, **vs)
+    sw_, sh_ = min(W - 2.6, 6.0), min(W - 2.6, 6.0) * 300 / 1024
+    for fz in (-1, 1):
+        ctx.add(f"{n}_SignFrame_{'BF'[fz > 0]}", "box", [0, H + 0.25 + (Ht - H - 0.25 - sh_) / 2 - 0.08, fz * 0.47], [sw_ + 0.22, sh_ + 0.16, 0.08], "frame", g, **vs)
+        ctx.add(f"{n}_Sign_{'BF'[fz > 0]}", "panel", [0, H + 0.25 + (Ht - H - 0.25 - sh_) / 2, fz * 0.52], [sw_, sh_, 0], atlas, g, [0, 0 if fz > 0 else 180, 0], uv_region="sign", **vs)
+    ctx.add(n + "_TopBox", "box", [0, Ht - 0.02, 0], [1.6, 0.42, 0.7], "machine", g, **vs)
+    for fz in (-1, 1): ctx.add(f"{n}_TopLamp_{'BF'[fz > 0]}", "box", [0, Ht + 0.1, fz * 0.36], [1.1, 0.16, 0.04], red, g, **vs)
+    for fz in (-1, 1):
+        ctx.add(f"{n}_Cable_{'BF'[fz > 0]}", "pipe_path", [0, 0, fz * 0.32], [0.15, 1.0, 0.15], "frame", g, path=[[-w2 - 0.25, Ht + 0.15], [-w2 - 0.25, Ht + 0.62], [w2 + 0.25, Ht + 0.62], [w2 + 0.25, Ht + 0.15]], bend=0.35, sections=6, **vs)  # one arch over the top box, ends in the caps
+    for fz in (-1, 1): ctx.add(f"{n}_FloorStrip_{'BF'[fz > 0]}", "box", [0, 0.0, fz * 1.15], [W - 0.4, 0.03, 0.14], red, g, **vs)
+    ctx.screen_pulses = getattr(ctx, "screen_pulses", []) + [dict(material=beacon, speed=1.4, amount=0.75)]  # the beacons flash
 
 
 @structure("sign", pad=False)

@@ -1,17 +1,17 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 6404,
-  "mobile/level_mobile.glb": 3823,
-  "mobile/collision.json": 238,
+  "level.glb": 6583,
+  "mobile/level_mobile.glb": 3906,
+  "mobile/collision.json": 239,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 123
+  "effects.json": 125
  },
  "complexity": {
-  "triangles": 112420,
-  "nodes": 3569,
-  "materials": 62,
+  "triangles": 115184,
+  "nodes": 3668,
+  "materials": 64,
   "heaviest": [
    [
     "Corrosion_Band",
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 6404,
-   "triangles": 97368,
-   "draw_calls": 3569,
-   "tex_mem_gpu_mb_est": 32.57
+   "glb_kb": 6583,
+   "triangles": 100096,
+   "draw_calls": 3668,
+   "tex_mem_gpu_mb_est": 33.9
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3823,
-   "triangles": 108368,
-   "draw_calls": 190,
-   "visible_draw_calls_est": 97.9,
-   "visible_draw_calls_max_est": 191,
-   "tex_mem_gpu_mb_est": 14.75,
-   "materials": 64,
-   "nodes": 289,
+   "glb_kb": 3906,
+   "triangles": 110788,
+   "draw_calls": 192,
+   "visible_draw_calls_est": 98.7,
+   "visible_draw_calls_max_est": 193,
+   "tex_mem_gpu_mb_est": 15.09,
+   "materials": 66,
+   "nodes": 291,
    "colliders": {
-    "colliders": 571,
+    "colliders": 576,
     "hazards": 1,
-    "glb_kb": 270
+    "glb_kb": 272
    },
    "background_kb": 404
   },
@@ -81,9 +81,9 @@
   "passed": true
  },
  "navigation": {
-  "standable_area_m2": 20630.0,
-  "reachable_area_m2": 5454.0,
-  "components": 235,
+  "standable_area_m2": 20650.0,
+  "reachable_area_m2": 5448.0,
+  "components": 238,
   "spawns": [
    {
     "id": "spawn",
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 6.5,
     "headroom_m": 19.0,
-    "component": 184,
+    "component": 187,
     "hazard_distance_m": 0.54
    }
   ],
@@ -281,12 +281,12 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 190 (> 80)"
+   "message": "mobile draw calls 192 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~98 visible draw calls (estimate, > 60)"
+   "message": "~99 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "narrow_connector",
@@ -357,12 +357,12 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "112420 triangles (> budget 40000)"
+   "message": "115184 triangles (> budget 40000)"
   },
   {
    "kind": "dev_size",
    "severity": "info",
-   "message": "dev GLB 6404 KB (> 6000)"
+   "message": "dev GLB 6583 KB (> 6000)"
   },
   {
    "kind": "low_ceiling",

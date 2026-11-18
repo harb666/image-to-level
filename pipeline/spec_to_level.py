@@ -286,8 +286,9 @@ def _effects(spec, ctx, plats, env, glow):
                     dict(id="Pit_Spray", type="steam", positions=ctx.pit_splashes[1::2])]
         for cl_ in getattr(ctx, "claw_lines", []):  # Stage 169: the canister claws ride the runway (assembly_line runtime: move only, no stations)
             out.append(dict(id=cl_["id"] + "_Run", type="assembly_line", line=dict(move=[cl_["group"]], axis=[1.0, 0.0, 0.0], speed=cl_["speed"], spacing=cl_["spacing"], stations=[])))
-        for sm_ in getattr(ctx, "screen_pulses", []):  # Stage 168: a monitor's picture breathes a little (a live feed)
-            out.append(dict(id="Screen_Pulse_" + sm_, type="pulse_light", target_material=sm_, speed=0.6, amount=0.12, phase=0.0))
+        for sm_ in getattr(ctx, "screen_pulses", []):  # Stage 168: a monitor's picture breathes a little (a live feed); Stage 171: or a dict (beacons flash)
+            q_ = sm_ if isinstance(sm_, dict) else dict(material=sm_, speed=0.6, amount=0.12)
+            out.append(dict(id="Screen_Pulse_" + q_["material"], type="pulse_light", target_material=q_["material"], speed=q_["speed"], amount=q_["amount"], phase=0.0))
         for es in getattr(ctx, "extra_steam", []):  # Stage 164: steam out of structure vents (the reactor's cap)
             out.append(dict(id=es["id"], type="steam", positions=es["positions"], **({"rate": es["rate"]} if es.get("rate") else {})))
         for xl in getattr(ctx, "extra_lights", []):  # Stage 135: structure lights (showcase tank / banner)

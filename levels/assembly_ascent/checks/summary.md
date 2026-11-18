@@ -1,24 +1,24 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 3309 objects · 62 materials · 52 effects
+Spec: levels/assembly_ascent/scene_spec.json · 3405 objects · 64 materials · 53 effects
 Checks: PASSED ({'error': 0, 'warning': 11, 'info': 2}) · refine passes: 0
-Mobile (balanced): 3823 KB · 108368 tris · 190 draw calls · ~97.9 visible (estimate) · ~14.75 MB GPU textures (estimate)
-Navigation: 5454.0 m² reachable of 20630.0 m² standable
-Package: dist/assembly_ascent/package (39 files, 16.65 MB) valid=True
+Mobile (balanced): 3906 KB · 110788 tris · 192 draw calls · ~98.7 visible (estimate) · ~15.09 MB GPU textures (estimate)
+Navigation: 5448.0 m² reachable of 20650.0 m² standable
+Package: dist/assembly_ascent/package (39 files, 16.98 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- warning: mobile draw calls 190 (> 80)
-- warning: ~98 visible draw calls (estimate, > 60)
+- warning: mobile draw calls 192 (> 80)
+- warning: ~99 visible draw calls (estimate, > 60)
 - warning: Showcase_Pit_1_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_1_Pillar_R: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Pillar_L: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: enemy_arena: hazard 0.5 m away (< 3.0 m)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- warning: 112420 triangles (> budget 40000)
+- warning: 115184 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -59,9 +59,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Jet_Screen: path planned - colliding samples per phase {'home': 0, 'fly': 0, 'wait': 0, 'press': 0, 'back': 0} (arrive [28.3, 21.632, 35.34], yaw 90.0)
 
 ## Timing
-- spec -> level.json: 13.7 s
-- build (glb, sky, background, effects, mobile): 55.1 s
-- checks (fast): 76.6 s
-- previews: 1.0 s
-- export package: 0.5 s
-- total: 147.0 s
+- spec -> level.json: 15.9 s
+- build (glb, sky, background, effects, mobile): 69.8 s
+- checks (fast): 82.7 s
+- previews: 0.8 s
+- export package: 0.7 s
+- total: 169.9 s

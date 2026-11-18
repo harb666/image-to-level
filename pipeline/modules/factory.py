@@ -277,7 +277,7 @@ def _laser_gate(ctx, n, g, W, H, lg, x, y, z, yaw):
     top = min(H - 0.4, 5.8)
     for i in range(nb):
         yb = round(0.45 + (top - 0.45) * i / max(1, nb - 1), 3)
-        ctx.add(f"{gid}_Beam_{i + 1}", "cylinder", [-w2 - 0.05, yb, 0.0], [0.09, W + 0.1, 0.09], ctx.role("laser"), g, [0, 0, -90], sections=6, **mv)
+        bd = float(lg.get("beam_dia", 0.09)); ctx.add(f"{gid}_Beam_{i + 1}", "cylinder", [-w2 - 0.05, yb, 0.0], [bd, W + 0.1, bd], ctx.role("laser"), g, [0, 0, -90], sections=6, **mv)  # Stage 171: "beam_dia"
     for sd in (-1, 1):
         ctx.add(f"{gid}_Emitter_{'LR'[sd > 0]}", "box", [sd * (w2 - 0.01), 0.25, 0.0], [0.08, top, 0.22], ctx.role("laser"), g, **mv)
     bx, bz = A_local(0, 0.0, yaw)
