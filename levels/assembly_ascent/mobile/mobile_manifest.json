@@ -41,15 +41,15 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 6924,
-    "triangles": 117500,
-    "nodes": 3844,
-    "mesh_nodes": 3788,
-    "unique_meshes": 1645,
-    "materials": 66,
+    "glb_kb": 6982,
+    "triangles": 119176,
+    "nodes": 3868,
+    "mesh_nodes": 3812,
+    "unique_meshes": 1655,
+    "materials": 67,
     "images": 153,
-    "draw_calls_unbatched": 3788,
-    "draw_calls_batched_min": 66,
+    "draw_calls_unbatched": 3812,
+    "draw_calls_batched_min": 67,
     "tex_mem_uncompressed_mb": 166.61,
     "tex_mem_gpu_compressed_mb": 41.65,
     "texture_slots": {
@@ -75,23 +75,23 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 1211.3,
-    "visible_draw_calls_max": 3704,
-    "visible_triangles_mean": 50496,
-    "visible_triangles_max": 126136
+    "visible_draw_calls_mean": 1219.6,
+    "visible_draw_calls_max": 3728,
+    "visible_triangles_mean": 51079,
+    "visible_triangles_max": 127812
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3987,
-    "triangles": 113032,
-    "nodes": 304,
-    "mesh_nodes": 205,
-    "unique_meshes": 205,
-    "materials": 66,
+    "glb_kb": 3874,
+    "triangles": 114692,
+    "nodes": 311,
+    "mesh_nodes": 212,
+    "unique_meshes": 212,
+    "materials": 67,
     "images": 117,
-    "draw_calls_unbatched": 205,
-    "draw_calls_batched_min": 66,
+    "draw_calls_unbatched": 212,
+    "draw_calls_batched_min": 67,
     "tex_mem_uncompressed_mb": 62.7,
     "tex_mem_gpu_compressed_mb": 15.67,
     "texture_slots": {
@@ -143,13 +143,13 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 102.5,
-    "visible_draw_calls_max": 203,
-    "visible_triangles_mean": 95577,
-    "visible_triangles_max": 122814
+    "visible_draw_calls_mean": 105.2,
+    "visible_draw_calls_max": 210,
+    "visible_triangles_mean": 96511,
+    "visible_triangles_max": 124474
    },
    "hidden_faces_removed": 1679,
-   "occluded_faces_removed": 2789,
+   "occluded_faces_removed": 2805,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate",
     "Showcase_Stage_Glow_02L",
@@ -159,8 +159,8 @@
    "effects_max_particles": 1495,
    "slimmed_kb": {
     "level_mobile.glb": [
-     5976,
-     3987
+     6053,
+     3874
     ],
     "background_mobile.glb": [
      477,
@@ -3459,7 +3459,7 @@
    "node": "M_ce_signs_0_0",
    "kind": "static",
    "material": "ce_signs",
-   "triangles": 24,
+   "triangles": 20,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3472,9 +3472,25 @@
     "Showcase_Pit_1_Emblem_R",
     "Showcase_Pit_1_Emblem_L",
     "Showcase_Monitor_b",
-    "Showcase_XBanner_b",
-    "Showcase_Monitor_a",
-    "Showcase_XBanner_a"
+    "Showcase_Monitor_a"
+   ]
+  },
+  {
+   "node": "M_cog_paint_0_0",
+   "kind": "static",
+   "material": "cog_paint",
+   "triangles": 256,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_Cogs_b_DrivePipeBand",
+    "Showcase_Cogs_b_Cap_3",
+    "Showcase_Cogs_b_Cap_2",
+    "Showcase_Cogs_b_Cap_1",
+    "Showcase_Cogs_a_DrivePipeBand",
+    "Showcase_Cogs_a_Cap_3",
+    "Showcase_Cogs_a_Cap_2",
+    "Showcase_Cogs_a_Cap_1"
    ]
   },
   {
@@ -4337,7 +4353,7 @@
    "node": "M_glow_pink_0_0",
    "kind": "static",
    "material": "glow_pink",
-   "triangles": 990,
+   "triangles": 1014,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4390,6 +4406,8 @@
     "Showcase_LightBar_3",
     "Showcase_LightBar_2",
     "Showcase_LightBar_1",
+    "Showcase_Cogs_b_GearboxLamp",
+    "Showcase_Cogs_a_GearboxLamp",
     "Showcase_ScanLamp_4",
     "Showcase_ScanLamp_2",
     "Showcase_RampR_Curb_b",
@@ -4763,7 +4781,7 @@
    "node": "M_lift_ring_0_0",
    "kind": "static",
    "material": "lift_ring",
-   "triangles": 5136,
+   "triangles": 5188,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -4804,6 +4822,8 @@
     "Showcase_Pit_1_Pump_2_Pipe_Elbow",
     "Showcase_Pit_1_CornerPipe_1_Elbow",
     "Showcase_Pit_1_Pump_1_Pipe_Elbow",
+    "Showcase_Cogs_b_DrivePipe",
+    "Showcase_Cogs_a_DrivePipe",
     "Showcase_LiftClamp_4",
     "Showcase_LiftClamp_3",
     "Showcase_LiftClamp_2",
@@ -5188,10 +5208,20 @@
    "node": "M_saw_hub_0_0",
    "kind": "static",
    "material": "saw_hub",
-   "triangles": 1144,
+   "triangles": 1432,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Showcase_Cogs_b_Gearbox",
+    "Showcase_Cogs_b_Axle_3",
+    "Showcase_Cogs_b_Axle_2",
+    "Showcase_Cogs_b_Axle_1",
+    "Showcase_Cogs_b_Plate",
+    "Showcase_Cogs_a_Gearbox",
+    "Showcase_Cogs_a_Axle_3",
+    "Showcase_Cogs_a_Axle_2",
+    "Showcase_Cogs_a_Axle_1",
+    "Showcase_Cogs_a_Plate",
     "Showcase_LiftClampCap_4",
     "Showcase_LiftClampCap_3",
     "Showcase_LiftClampCap_2",
@@ -5440,7 +5470,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 10076,
+   "triangles": 10000,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -5643,8 +5673,6 @@
     "Showcase_Pit_1_Pillar_L",
     "Showcase_Pit_1_Block",
     "Showcase_Pit_1_Tub",
-    "Showcase_XBanner_b_Board",
-    "Showcase_XBanner_a_Board",
     "Showcase_TankTop",
     "Showcase_TankCap",
     "Showcase_TankBase",
@@ -6115,6 +6143,78 @@
    "cast_shadow": true,
    "source_objects": [
     "West_DuctFans_Fan_1_Rotor"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Showcase_Cogs_b_Gear_3",
+   "kind": "separate",
+   "material": "lift_ring",
+   "triangles": 128,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_Cogs_b_Gear_3"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Showcase_Cogs_b_Gear_2",
+   "kind": "separate",
+   "material": "lift_ring",
+   "triangles": 176,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_Cogs_b_Gear_2"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Showcase_Cogs_b_Gear_1",
+   "kind": "separate",
+   "material": "lift_ring",
+   "triangles": 256,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_Cogs_b_Gear_1"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Showcase_Cogs_a_Gear_3",
+   "kind": "separate",
+   "material": "lift_ring",
+   "triangles": 128,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_Cogs_a_Gear_3"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Showcase_Cogs_a_Gear_2",
+   "kind": "separate",
+   "material": "lift_ring",
+   "triangles": 176,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_Cogs_a_Gear_2"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Showcase_Cogs_a_Gear_1",
+   "kind": "separate",
+   "material": "lift_ring",
+   "triangles": 256,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_Cogs_a_Gear_1"
    ],
    "reason": "animated by an effect / merge disabled"
   },

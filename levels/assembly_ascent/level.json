@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "ac0b7a071e25127b",
+  "spec_sha": "291a5e9907b420ee",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -818,6 +818,12 @@
    "targets": [
     "OuterWall_South_M03Fan_Rotor",
     "OuterWall_South_M05Fan_Rotor",
+    "Showcase_Cogs_a_Gear_1",
+    "Showcase_Cogs_a_Gear_2",
+    "Showcase_Cogs_a_Gear_3",
+    "Showcase_Cogs_b_Gear_1",
+    "Showcase_Cogs_b_Gear_2",
+    "Showcase_Cogs_b_Gear_3",
     "West_DuctFans_Fan_1_Rotor",
     "West_DuctFans_Fan_2_Rotor",
     "Ceil_Fan_1_Rotor",
@@ -3767,7 +3773,8 @@
    },
    "notes": "Stage 135: CONSTRUCT ERROR_ banner, X banners, logo monitors (references/make_showcase_art.py)",
    "blank": [
-    "banner"
+    "banner",
+    "xban"
    ]
   },
   "ceiling": {
@@ -3783,6 +3790,21 @@
    "toon": true,
    "toon_flatten": 0.6,
    "seed": 1
+  },
+  "cog_paint": {
+   "type": "concrete",
+   "color": [
+    0.98,
+    0.7,
+    0.08
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "plain": true,
+   "metal": 0.3,
+   "rough": 0.5,
+   "notes": "Stage 181: yellow paint on the cog towers' axle caps / pipe bands (plain colour: no texture)"
   },
   "corrosion": {
    "type": "corrosion",
@@ -28610,12 +28632,12 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_XBanner_a_Board",
+   "name": "Showcase_Cogs_a_Plate",
    "type": "box",
    "position": [
-    -42.5,
-    12.5,
-    -64.85
+    -42.038,
+    11.65,
+    -64.95
    ],
    "rotation": [
     0.0,
@@ -28623,11 +28645,11 @@
     0.0
    ],
    "size": [
-    3.8,
-    7.4,
-    0.3
+    4.823,
+    8.199,
+    0.2
    ],
-   "material": "structure_b",
+   "material": "saw_hub",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -28637,12 +28659,273 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_XBanner_a",
-   "type": "panel",
+   "name": "Showcase_Cogs_a_Gear_1",
+   "type": "gear",
    "position": [
     -42.5,
-    12.6,
-    -64.688
+    13.6,
+    -64.7
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.4,
+    0.32,
+    3.4
+   ],
+   "material": "lift_ring",
+   "teeth": 16,
+   "depth": 0.22,
+   "phase": 0.0,
+   "spin": 7.0,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_Axle_1",
+   "type": "cylinder",
+   "position": [
+    -42.5,
+    13.6,
+    -64.88
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    0.6,
+    0.5
+   ],
+   "material": "saw_hub",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_Cap_1",
+   "type": "cylinder",
+   "position": [
+    -42.5,
+    13.6,
+    -64.29
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.1,
+    0.34
+   ],
+   "material": "cog_paint",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_Gear_2",
+   "type": "gear",
+   "position": [
+    -41.577,
+    16.137,
+    -64.7
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.4,
+    0.32,
+    2.4
+   ],
+   "material": "lift_ring",
+   "teeth": 11,
+   "depth": 0.22,
+   "phase": -0.1428,
+   "spin": -10.182,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_Axle_2",
+   "type": "cylinder",
+   "position": [
+    -41.577,
+    16.137,
+    -64.88
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    0.6,
+    0.5
+   ],
+   "material": "saw_hub",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_Cap_2",
+   "type": "cylinder",
+   "position": [
+    -41.577,
+    16.137,
+    -64.29
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.1,
+    0.34
+   ],
+   "material": "cog_paint",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_Gear_3",
+   "type": "gear",
+   "position": [
+    -42.288,
+    17.899,
+    -64.7
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.8,
+    0.32,
+    1.8
+   ],
+   "material": "lift_ring",
+   "teeth": 8,
+   "depth": 0.22,
+   "phase": -1.69733,
+   "spin": 14.0,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_Axle_3",
+   "type": "cylinder",
+   "position": [
+    -42.288,
+    17.899,
+    -64.88
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    0.6,
+    0.5
+   ],
+   "material": "saw_hub",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_Cap_3",
+   "type": "cylinder",
+   "position": [
+    -42.288,
+    17.899,
+    -64.29
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.1,
+    0.34
+   ],
+   "material": "cog_paint",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_Gearbox",
+   "type": "box",
+   "position": [
+    -42.5,
+    10.5,
+    -64.6
    ],
    "rotation": [
     0.0,
@@ -28650,12 +28933,94 @@
     0.0
    ],
    "size": [
-    3.6,
-    7.2,
+    1.5,
+    1.2,
+    0.9
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_GearboxLamp",
+   "type": "box",
+   "position": [
+    -42.1,
+    11.1,
+    -64.14
+   ],
+   "rotation": [
+    0.0,
+    0.0,
     0.0
    ],
-   "material": "ce_signs",
-   "uv_region": "xban",
+   "size": [
+    0.36,
+    0.14,
+    0.04
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_DrivePipe",
+   "type": "cylinder",
+   "position": [
+    -42.85,
+    9.4,
+    -64.58
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    1.15,
+    0.34
+   ],
+   "material": "lift_ring",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_DrivePipeBand",
+   "type": "cylinder",
+   "position": [
+    -42.85,
+    9.65,
+    -64.58
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.44,
+    0.22,
+    0.44
+   ],
+   "material": "cog_paint",
+   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -28720,12 +29085,12 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_XBanner_b_Board",
+   "name": "Showcase_Cogs_b_Plate",
    "type": "box",
    "position": [
-    -17.5,
-    12.5,
-    -64.85
+    -17.962,
+    11.65,
+    -64.95
    ],
    "rotation": [
     0.0,
@@ -28733,11 +29098,11 @@
     0.0
    ],
    "size": [
-    3.8,
-    7.4,
-    0.3
+    4.823,
+    8.199,
+    0.2
    ],
-   "material": "structure_b",
+   "material": "saw_hub",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -28747,12 +29112,273 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_XBanner_b",
-   "type": "panel",
+   "name": "Showcase_Cogs_b_Gear_1",
+   "type": "gear",
    "position": [
     -17.5,
-    12.6,
-    -64.688
+    13.6,
+    -64.7
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    3.4,
+    0.32,
+    3.4
+   ],
+   "material": "lift_ring",
+   "teeth": 16,
+   "depth": 0.22,
+   "phase": 0.0,
+   "spin": 7.0,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_Axle_1",
+   "type": "cylinder",
+   "position": [
+    -17.5,
+    13.6,
+    -64.88
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    0.6,
+    0.5
+   ],
+   "material": "saw_hub",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_Cap_1",
+   "type": "cylinder",
+   "position": [
+    -17.5,
+    13.6,
+    -64.29
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.1,
+    0.34
+   ],
+   "material": "cog_paint",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_Gear_2",
+   "type": "gear",
+   "position": [
+    -18.423,
+    16.137,
+    -64.7
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.4,
+    0.32,
+    2.4
+   ],
+   "material": "lift_ring",
+   "teeth": 11,
+   "depth": 0.22,
+   "phase": -1.8564,
+   "spin": -10.182,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_Axle_2",
+   "type": "cylinder",
+   "position": [
+    -18.423,
+    16.137,
+    -64.88
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    0.6,
+    0.5
+   ],
+   "material": "saw_hub",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_Cap_2",
+   "type": "cylinder",
+   "position": [
+    -18.423,
+    16.137,
+    -64.29
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.1,
+    0.34
+   ],
+   "material": "cog_paint",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_Gear_3",
+   "type": "gear",
+   "position": [
+    -17.712,
+    17.899,
+    -64.7
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.8,
+    0.32,
+    1.8
+   ],
+   "material": "lift_ring",
+   "teeth": 8,
+   "depth": 0.22,
+   "phase": 2.48273,
+   "spin": 14.0,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_Axle_3",
+   "type": "cylinder",
+   "position": [
+    -17.712,
+    17.899,
+    -64.88
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    0.6,
+    0.5
+   ],
+   "material": "saw_hub",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_Cap_3",
+   "type": "cylinder",
+   "position": [
+    -17.712,
+    17.899,
+    -64.29
+   ],
+   "rotation": [
+    90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    0.1,
+    0.34
+   ],
+   "material": "cog_paint",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_Gearbox",
+   "type": "box",
+   "position": [
+    -17.5,
+    10.5,
+    -64.6
    ],
    "rotation": [
     0.0,
@@ -28760,12 +29386,94 @@
     0.0
    ],
    "size": [
-    3.6,
-    7.2,
+    1.5,
+    1.2,
+    0.9
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_GearboxLamp",
+   "type": "box",
+   "position": [
+    -17.1,
+    11.1,
+    -64.14
+   ],
+   "rotation": [
+    0.0,
+    0.0,
     0.0
    ],
-   "material": "ce_signs",
-   "uv_region": "xban",
+   "size": [
+    0.36,
+    0.14,
+    0.04
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_DrivePipe",
+   "type": "cylinder",
+   "position": [
+    -17.85,
+    9.4,
+    -64.58
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.34,
+    1.15,
+    0.34
+   ],
+   "material": "lift_ring",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_DrivePipeBand",
+   "type": "cylinder",
+   "position": [
+    -17.85,
+    9.65,
+    -64.58
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.44,
+    0.22,
+    0.44
+   ],
+   "material": "cog_paint",
+   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -117330,13 +118038,13 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 102532,
-  "objects": 3521,
-  "materials": 64,
-  "glb_kb": 6924,
-  "nodes": 3844,
-  "draw_calls_unbatched": 3788,
-  "draw_calls_batched_min": 66,
+  "triangles": 104208,
+  "objects": 3545,
+  "materials": 65,
+  "glb_kb": 6982,
+  "nodes": 3868,
+  "draw_calls_unbatched": 3812,
+  "draw_calls_batched_min": 67,
   "images": 153,
   "tex_mem_gpu_compressed_mb": 41.65,
   "tex_mem_uncompressed_mb": 166.61,

@@ -229,7 +229,8 @@ def slim(path, plain_materials=(), drop_extras=(), weld_untextured=True, webp=No
                 pa, ia = g["accessors"][p["attributes"]["POSITION"]], g["accessors"][p["indices"]]
                 views[pa["bufferView"]] = uq.astype("<f4").tobytes(); pa["count"] = len(uq); pa.pop("byteOffset", None)
                 views[ia["bufferView"]] = inv[I_].astype("<u4").tobytes(); ia["componentType"] = 5125; ia.pop("byteOffset", None)
-                p["attributes"].pop("TEXCOORD_0")
+                ai = p["attributes"].pop("TEXCOORD_0"); users[ai] -= 1  # Stage 181: its UVs are dead weight - mark them unused (they were left in the file: ~150 KB)
+                if not users[ai]: orphans.add(ai)
     idx_acc = {p["indices"] for me in g.get("meshes", []) for p in me["primitives"] if "indices" in p}
     for ai in idx_acc:
         a = g["accessors"][ai]; bv = g["bufferViews"][a["bufferView"]]

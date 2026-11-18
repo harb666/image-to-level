@@ -785,7 +785,25 @@ def pipe_path(w, h, d, o):
     if m.volume < 0: m.invert(); UV = [uv for tri in np.array(UV).reshape(-1, 3, 2) for uv in tri[::-1]]
     m.metadata["uv_corner"] = np.array(UV, float); return m
 
-SHAPES = dict(spike_ball=spike_ball, pole=pole, mace=mace, mace_tips=mace_tips, saw_blade=saw_blade, prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
+def gear(w, h, d, o):
+    """Stage 181: a spur gear - "teeth" square-ish teeth round a disc of diameter w (tips), thickness h along +y, base at
+    y 0, centred on the axis (spin it about local y); "depth" tooth depth (m), "phase" (rad) turns the teeth (so meshing
+    gears interlock), "hole" a bore radius (0: solid), "spokes" cut-outs between hub and rim (closed solid)."""
+    N = int(o.get("teeth", 12)); R = w / 2; dep = float(o.get("depth", min(0.25, R * 0.18))); r0 = R - dep; ph = float(o.get("phase", 0.0))
+    pts = []
+    for k in range(N):  # tooth k centred at angle ph + 2 pi k / N: flank, top land, flank, root land
+        c = ph + 2 * np.pi * k / N; tw = np.pi / N * 0.48; rw = np.pi / N * 0.62
+        for a_, r_ in ((c - rw, r0), (c - tw, R), (c + tw, R), (c + rw, r0)): pts.append((r_ * np.cos(a_), r_ * np.sin(a_)))
+    P = np.array(pts); n = len(P)
+    V = [[x, 0.0, z] for x, z in P] + [[x, h, z] for x, z in P] + [[0, 0, 0], [0, h, 0]]; F = []
+    for i in range(n):
+        j = (i + 1) % n; F += [[i, j, n + j], [i, n + j, n + i], [2 * n, j, i], [2 * n + 1, n + i, n + j]]
+    m = trimesh.Trimesh(np.array(V, float), np.array(F), process=False)
+    if (np.einsum("ij,ij->i", m.face_normals, m.triangles_center - [0, h / 2, 0]) < 0).mean() > 0.5: m.invert()
+    return m
+
+
+SHAPES = dict(gear=gear, spike_ball=spike_ball, pole=pole, mace=mace, mace_tips=mace_tips, saw_blade=saw_blade, prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
               stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum, dome=dome, pipe_path=pipe_path)
 

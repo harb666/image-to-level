@@ -1516,6 +1516,12 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 181: shape `gear` (spur gear: `teeth`, `depth`, `phase`, spun about local y). `showcase` `cog_towers`: the X
+  banners become gear trains - three steel cogs (16 / 11 / 8 teeth, module 0.2) meshing up the wall, phased so teeth
+  interlock and spun at the tooth ratios (level `spin` -> Fan_Spin), black axles with yellow caps (`cog_paint`, plain),
+  a black backplate, a gearbox under the big cog with a drive pipe down into the stage. The sign atlas blanks its unused
+  cells. glb_tools.slim: welded untextured primitives now mark their dropped UVs unused (they stayed in the file: the
+  level mobile GLB lost ~157 KB of dead data).
 - Stage 180: goofy `rising_arena` risers get `splash` (level.json risers[].splash + pads[].splash = [surfacing tk, launch tk], from goofy_pose): a ring of glossy slime droplets bursts from the liquid round each platform as it breaks the surface and again as it launches, then drips rain off its rim for a few seconds as it climbs. viewer.html (one points pool) / apply_effects.gd `_riser_splash` (a one-shot ring + a drip emitter per pad; untested in Godot). `"splash": false` turns it off.
 - Stage 179: connections take `"max_slope"` (deg, default 35): a gentler ramp is longer, starting further back on the lower floor. Assembly Ascent's Exit_Stairs is now a 24 deg ramp (was stairs; its old right-lane lip warning is gone).
 - Stage 178: the showcase scan redrawn for legibility (twice the type size, bolder; wires from a simplified copy of her

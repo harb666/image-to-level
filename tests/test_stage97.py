@@ -581,9 +581,9 @@ class Showcase(unittest.TestCase):
 
     def test_showcase_parts(self):
         for k in ("Showcase_Dais", "Showcase_Logo", "Showcase_RampL", "Showcase_RampR", "Showcase_TankGlass", "Showcase_TankDiffuser", "Showcase_TankHood",
-                  "Showcase_Scan_L", "Showcase_Scan_R", "Showcase_ScanHousing", "Showcase_XBanner_a", "Showcase_XBanner_b", "Showcase_Monitor_a", "Showcase_Monitor_b", "Showcase_Bridge_Deck"):
+                  "Showcase_Scan_L", "Showcase_Scan_R", "Showcase_ScanHousing", "Showcase_Cogs_a_Gear_1", "Showcase_Cogs_b_Gear_3", "Showcase_Monitor_a", "Showcase_Monitor_b", "Showcase_Bridge_Deck"):
             self.assertIn(k, self.by)
-        M = self.L["materials"]; atl = M[self.by["Showcase_XBanner_a"]["material"]]; self.assertNotIn("Showcase_Banner", self.by)  # Stage 168: the banner became the scan monitor
+        M = self.L["materials"]; atl = M[self.by["Showcase_Monitor_a"]["material"]]; self.assertNotIn("Showcase_Banner", self.by)  # Stage 168: the banner became the scan monitor
         self.assertEqual(atl["type"], "screen_atlas"); self.assertEqual(set(atl["atlas"]), {"banner", "xban", "screen", "drop"})
         self.assertEqual(M[self.by["Showcase_Logo"]["material"]]["type"], "image_decal")  # (Stage 152: the tank holds the animated specimen, not a silhouette)
         for f in ("ce_atlas.png", "ce_floor_logo.png", "ce_tank_mascot.png"): self.assertTrue(os.path.exists(os.path.join(LV, "references", f)), f)
@@ -604,7 +604,7 @@ class Showcase(unittest.TestCase):
         self.assertAlmostEqual(P("Showcase_Dais")[0], ax, places=2)
         for a, b in (("Showcase_Pit_1_Pump_1_Pipe", "Showcase_Pit_2_Pump_2_Pipe"), ("Showcase_Pit_1_Pump_2_Fan", "Showcase_Pit_2_Pump_1_Fan"),
                      ("Showcase_Pit_1_CornerPipe_1", "Showcase_Pit_2_CornerPipe_2"), ("Showcase_Crates_L_02", "Showcase_Crates_R_02"), ("Showcase_Crates_L_03", "Showcase_Crates_R_03"),
-                     ("Showcase_RampL", "Showcase_RampR"), ("Showcase_XBanner_a", "Showcase_XBanner_b")):
+                     ("Showcase_RampL", "Showcase_RampR"), ("Showcase_Cogs_a_Gear_1", "Showcase_Cogs_b_Gear_1"), ("Showcase_Cogs_a_Gear_3", "Showcase_Cogs_b_Gear_3"), ("Showcase_Cogs_a_Gearbox", "Showcase_Cogs_b_Gearbox")):
             pa, pb = P(a), P(b); self.assertAlmostEqual(pa[0] + pb[0], 2 * ax, places=2, msg=a); self.assertAlmostEqual(pa[2], pb[2], places=2, msg=a); self.assertAlmostEqual(pa[1], pb[1], places=2, msg=a)
 
     def test_pits_are_pump_tanks(self):

@@ -1065,6 +1065,38 @@ def sign(ctx, s, x, y, z, yaw):
         for sd in (-1, 1): ctx.add(f"{n}_Chain_{'LR'[sd > 0]}", "box", [sd * w * 0.38, h + 0.15, -0.12], [0.08, L, 0.08], "frame", g, **vs)
 
 
+def _cog_tower(ctx, n, cx, y0, wz, sg, floor):
+    """Stage 181 (user): a mechanical gear train on the wall instead of a banner: three steel cogs meshing up the wall
+    (big / medium / small, phased so the teeth interlock, each turning at the ratio its tooth count gives - level spin),
+    on axles with yellow caps, over a dark bolted backplate; the big cog's pinion runs into a gearbox below it whose
+    drive pipe goes down into the stage (they work the machinery under it). sg: -1 / +1 (mirrored, gears climb outward)."""
+    st = dict(collision=False, outline=False, mobile={"static": True})  # plain-colour materials: no textures (mobile budget)
+    steel, dark, paint, plate = ctx.role("lift_ring"), ctx.role("saw_hub"), ctx.role("cog_paint"), ctx.role("saw_hub")  # (near-black plate: the steel cogs stand out)
+    m = 0.2; G = [dict(N=16), dict(N=11), dict(N=8)]; ang = [70.0, 112.0]  # world angle (deg) from each gear to the next (mirrored by sg)
+    for g in G: g["rp"] = m * g["N"] / 2
+    G[0]["c"] = (cx, y0 + 1.0)
+    for i in (1, 2):
+        a = math.radians(ang[i - 1] if sg < 0 else 180 - ang[i - 1]); d_ = G[i - 1]["rp"] + G[i]["rp"]
+        G[i]["c"] = (G[i - 1]["c"][0] + d_ * math.cos(a), G[i - 1]["c"][1] + d_ * math.sin(a))
+    G[0]["ph"] = 0.0; w0 = 7.0; G[0]["w"] = w0
+    for i in (1, 2):  # interlock: tooth of the driver at the contact <-> gap of the driven (local angles: the gear lies rotated 90 about x, local angle = -world angle)
+        A, B = G[i - 1], G[i]; th = -math.atan2(B["c"][1] - A["c"][1], B["c"][0] - A["c"][0])
+        s_ = (th - A["ph"]) * A["N"] / (2 * math.pi); B["ph"] = th + math.pi - (2 * math.pi / B["N"]) * (0.5 - s_); B["w"] = -A["w"] * A["N"] / B["N"]
+    xs = [g["c"][0] for g in G]; ys_ = [g["c"][1] for g in G]; R_ = max(g["rp"] for g in G) + 0.35
+    bx0, bx1, by0, by1 = min(xs) - R_, max(xs) + R_, min(ys_) - R_, max(ys_) + R_
+    ctx.add(n + "_Plate", "box", [(bx0 + bx1) / 2, by0, wz + 0.05], [bx1 - bx0, by1 - by0, 0.2], plate, **st)
+    for i, g in enumerate(G):
+        ctx.add(f"{n}_Gear_{i + 1}", "gear", [g["c"][0], g["c"][1], wz + 0.3], [2 * (g["rp"] + m * 0.5), 0.32, 2 * (g["rp"] + m * 0.5)], steel, rot=[90, 0, 0],
+                teeth=g["N"], depth=round(m * 1.1, 3), phase=round(g["ph"], 5), spin=round(g["w"], 3), collision=False, outline=False, mobile={"merge": False})
+        ctx.add(f"{n}_Axle_{i + 1}", "cylinder", [g["c"][0], g["c"][1], wz + 0.12], [0.5, 0.6, 0.5], dark, rot=[90, 0, 0], sections=8, **st)  # from the plate through the cog
+        ctx.add(f"{n}_Cap_{i + 1}", "cylinder", [g["c"][0], g["c"][1], wz + 0.71], [0.34, 0.1, 0.34], paint, rot=[90, 0, 0], sections=8, **st)
+    gx, gy = G[0]["c"]; gb = gy - G[0]["rp"] - 0.35  # gearbox under the big cog (its pinion meshes inside)
+    ctx.add(n + "_Gearbox", "box", [gx, gb - 1.15, wz + 0.4], [1.5, 1.2, 0.9], plate, **st)
+    ctx.add(n + "_GearboxLamp", "box", [gx + 0.4, gb - 0.55, wz + 0.86], [0.36, 0.14, 0.04], ctx.role("glow_pink"), **st)
+    ctx.add(n + "_DrivePipe", "cylinder", [gx - 0.35, floor - 0.1, wz + 0.42], [0.34, gb - 1.15 - floor + 0.15, 0.34], steel, sections=8, **st)  # down into the stage
+    ctx.add(n + "_DrivePipeBand", "cylinder", [gx - 0.35, floor + 0.15, wz + 0.42], [0.44, 0.22, 0.44], paint, sections=8, **st)
+
+
 @structure("showcase", pad=False)
 def showcase(ctx, s, x, y, z, yaw):
     """Stage 135: a Construct Error showcase (the user's concept image) dressed onto two platforms - "deck" (the plaza)
@@ -1186,7 +1218,8 @@ def showcase(ctx, s, x, y, z, yaw):
         bw = float(s.get("banner_width", 16.0)); board(n + "_Banner", tx, float(s.get("banner_y", 17.5)), bw, bw / 2.5, "banner")
         ctx.add(n + "_BannerRod", "cylinder", [tx - bw / 2 - 0.5, float(s.get("banner_y", 17.5)) + bw / 2.5 + 0.1 + 0.12, wz + 0.15], [0.3, bw + 1.0, 0.3], "frame", rot=[0, 0, -90], sections=8, **vs)  # resting on the board's top edge
     for sg in (-1, 1):
-        board(f"{n}_XBanner_{'ab'[sg > 0]}", tx + sg * float(s.get("xban_dx", 12.5)), float(s.get("xban_y", 12.6)), 3.6, 7.2, "xban")
+        if s.get("cog_towers"): _cog_tower(ctx, f"{n}_Cogs_{'ab'[sg > 0]}", tx + sg * float(s.get("xban_dx", 12.5)), float(s.get("xban_y", 12.6)), wz, sg, ys)  # Stage 181
+        else: board(f"{n}_XBanner_{'ab'[sg > 0]}", tx + sg * float(s.get("xban_dx", 12.5)), float(s.get("xban_y", 12.6)), 3.6, 7.2, "xban")
         board(f"{n}_Monitor_{'ab'[sg > 0]}", tx + sg * 5.6, ys + 1.6, 2.6, 2.0, "screen", back=0.42, frame="frame")
     for k, dx_ in enumerate((-10, 0, 10)): ctx.add(f"{n}_LightBar_{k + 1}", "box", [tx + dx_, float(s.get("bar_y", 27.0)), wz + 0.15], [5.0, 0.35, 0.3], pink, **vs)
     # --- slime pits flush with the plaza edge: open slime (kills) at the front, a grate over the back
