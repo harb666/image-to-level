@@ -41,17 +41,17 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 6639,
-    "triangles": 117688,
-    "nodes": 3814,
-    "mesh_nodes": 3759,
-    "unique_meshes": 1625,
+    "glb_kb": 6598,
+    "triangles": 117592,
+    "nodes": 3820,
+    "mesh_nodes": 3765,
+    "unique_meshes": 1629,
     "materials": 66,
     "images": 153,
-    "draw_calls_unbatched": 3759,
+    "draw_calls_unbatched": 3765,
     "draw_calls_batched_min": 66,
-    "tex_mem_uncompressed_mb": 135.61,
-    "tex_mem_gpu_compressed_mb": 33.9,
+    "tex_mem_uncompressed_mb": 134.61,
+    "tex_mem_gpu_compressed_mb": 33.65,
     "texture_slots": {
      "baseColorTexture": 60,
      "metallicRoughnessTexture": 60,
@@ -63,6 +63,7 @@
      "1024x1024 jpeg",
      "128x128 jpeg",
      "128x128 png",
+     "16x16 jpeg",
      "256x256 jpeg",
      "256x256 png",
      "32x32 jpeg",
@@ -73,16 +74,16 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 1200.6,
-    "visible_draw_calls_max": 3675,
-    "visible_triangles_mean": 50731,
-    "visible_triangles_max": 126324
+    "visible_draw_calls_mean": 1202.7,
+    "visible_draw_calls_max": 3681,
+    "visible_triangles_mean": 50532,
+    "visible_triangles_max": 126228
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3997,
-    "triangles": 113292,
+    "glb_kb": 3968,
+    "triangles": 113148,
     "nodes": 303,
     "mesh_nodes": 204,
     "unique_meshes": 204,
@@ -90,8 +91,8 @@
     "images": 117,
     "draw_calls_unbatched": 204,
     "draw_calls_batched_min": 66,
-    "tex_mem_uncompressed_mb": 60.36,
-    "tex_mem_gpu_compressed_mb": 15.09,
+    "tex_mem_uncompressed_mb": 59.36,
+    "tex_mem_gpu_compressed_mb": 14.84,
     "texture_slots": {
      "baseColorTexture": 60,
      "emissiveTexture": 39,
@@ -101,6 +102,7 @@
     },
     "image_sizes": [
      "128x128 webp",
+     "16x16 webp",
      "256x256 webp",
      "32x32 webp",
      "512x512 png",
@@ -139,12 +141,12 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 101.8,
+    "visible_draw_calls_mean": 102.0,
     "visible_draw_calls_max": 203,
-    "visible_triangles_mean": 95701,
-    "visible_triangles_max": 123136
+    "visible_triangles_mean": 95642,
+    "visible_triangles_max": 122992
    },
-   "hidden_faces_removed": 1627,
+   "hidden_faces_removed": 1675,
    "occluded_faces_removed": 2769,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate",
@@ -155,8 +157,8 @@
    "effects_max_particles": 1495,
    "slimmed_kb": {
     "level_mobile.glb": [
-     5958,
-     3997
+     5914,
+     3968
     ],
     "background_mobile.glb": [
      477,
@@ -1546,7 +1548,7 @@
    "node": "Corrosion__corrosion__2s",
    "kind": "group",
    "material": "corrosion__2s",
-   "triangles": 1772,
+   "triangles": 1484,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -5844,10 +5846,13 @@
    "node": "M_void_0_0",
    "kind": "static",
    "material": "void",
-   "triangles": 462,
+   "triangles": 606,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Reactor_Catwalk_3_Tube_Abyss",
+    "Reactor_Catwalk_2_Tube_Abyss",
+    "Reactor_Catwalk_1_Tube_Abyss",
     "Reactor_IntakeHole_7",
     "Reactor_NozzleHole_7",
     "Reactor_IntakeHole_6",
@@ -5864,6 +5869,9 @@
     "Reactor_NozzleHole_1",
     "Claw_Line_Hatch_E",
     "Claw_Line_Hatch_W",
+    "Pod_Tube_3_Abyss",
+    "Pod_Tube_2_Abyss",
+    "Pod_Tube_1_Abyss",
     "East_SlimeTunnel_End"
    ]
   },

@@ -1289,6 +1289,8 @@ def make_material(name, m):
     d = maps(m); alb = np.clip(d["alb"], 0, 1)
     ao = _ao(d["h"]) if d["nstr"] > 0 else np.ones_like(d["rough"])
     if d.get("ao_mul") is not None: ao = ao * d["ao_mul"]  # e.g. bottomless-shaft cell: no sky light / reflections at all
+    if m.get("ao_mul") is not None: ao = ao * float(m["ao_mul"])  # Stage 176: a role can ask for it too ("void": a black that stays black under the lights)
+    if m.get("rough_min") is not None: d["rough"] = np.maximum(d["rough"], float(m["rough_min"]))
     orm = np.stack([ao, np.clip(d["rough"], 0.04, 1), np.clip(d["metal"], 0, 1)], -1)
     kw = dict(name=name, baseColorTexture=_img(alb, 85), metallicFactor=1.0, roughnessFactor=1.0)
     if d.get("alpha") is not None and m.get("cutout"):  # Stage 28: cut-out decal (corrosion band): RGBA, alpha-tested, opaque pass

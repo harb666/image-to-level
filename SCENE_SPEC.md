@@ -1516,6 +1516,7 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 176: `column` with pods: a black core (`<id>_Abyss`, role `void`) fills the plinth's bore to 3.95 m (over the first glass section's bottom face, 5 cm under the rim); the pod waits inside it (`tube_pod` `rest_top` 3.55) and rises out of the dark. Material options `ao_mul` (0: no ambient / reflections) and `rough_min`; Assembly Ascent's `void` uses both (a black that stays black).
 - Stage 175: structure `pod_export` ({"tubes": [[x, z], ...], "riser_pods", "spacing", "run_spacing", "to_x", "bridges",
   "speed"}): the pod tubes carry on outside over the hall roof - a glass riser out of a roof collar to a junction box,
   a run east on a pipe bridge (trestles to the roof / the outer factory's floor) to a transfer tower; one-part glowing

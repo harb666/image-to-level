@@ -643,7 +643,11 @@ def column(ctx, s, x, y, z, yaw):
     ctx.add(n + "_Neck", "cylinder", [0, yy, 0], [2 * r * 1.05, top - 2.5 - yy, 2 * r * 1.05], "structure_b", g, sections=sec, hole=round(r * 0.8, 3), hole_res=16, **st)
     ctx.add(n + "_Capital", "frustum", [0, top - 2.5, 0], [2 * r * 2.0, 2.5, 2 * r * 2.0], "structure_b", g, sections=sec, bottom_scale=0.55, hole=round(r * 0.8, 3), hole_res=16,
             collision=False, **st)  # the pipe carries on up into the roof
-    if s.get("pods", s.get("barrels", True)): tube_pod(ctx, n, g, r, top, rg)
+    if s.get("pods", s.get("barrels", True)):
+        # Stage 176 (user): the bore looks bottomless - a black core fills it to 30 cm under the plinth's rim; the pod waits
+        # hidden inside it and rises out of the dark (it no longer pops into view on the slime under the open ring)
+        ctx.add(n + "_Abyss", "cylinder", [0, -0.45, 0], [2 * r * 0.8 - 0.02, 3.95 + 0.45, 2 * r * 0.8 - 0.02], ctx.role("void"), g, sections=sec, collision=False, outline=False, **st)  # top 3.95: over the first glass section's bottom face (3.9) - only the tube wall tints it
+        tube_pod(ctx, n, g, r, top, rg, rest_top=3.55)
 
 
 def _ext_pod(ctx, nm, c, along_x, grp, rp=0.5, h=1.3):
@@ -703,12 +707,12 @@ def pod_export(ctx, s, x, y, z, yaw):
 POD_SPEED = 28.0  # m/s up the bore (Stage 49)
 
 
-def tube_pod(ctx, n, g, r, top, rg):
+def tube_pod(ctx, n, g, r, top, rg, rest_top=3.85):
     """Stage 49: one capsule pod (the ceiling lamp-pod model - frame cap and base, clear shell, three cage bars - but full
     of glowing slime) launched up the column's bore every few seconds (effect "tube_pods", category "launch"): it waits
     hidden in the plinth, shoots up at POD_SPEED and vanishes into the capital / roof. Each column has its own period and
     phase (never in step). Own mobile group "<id>_Pod" (frame / glass_clear / hazard nodes) so it moves on its own."""
-    rp = round(min(r * 0.5, 1.3), 3); h = round(rp * 2.0, 3); bot = round(3.85 - h - 0.35, 3)  # pod top (cap) 15 cm under the plinth top: hidden at rest
+    rp = round(min(r * 0.5, 1.3), 3); h = round(rp * 2.0, 3); bot = round(rest_top - h - 0.35, 3)  # pod top (cap) at rest_top: hidden at rest (Stage 176: inside the black core)
     mv = dict(collision=False, outline=False, launch=True, mobile={"group": n + "_Pod"}); nm = n + "_Pod"
     ctx.add(nm + "_Cap", "cylinder", [0, bot + h - 0.1, 0], [2 * rp + 0.3, 0.45, 2 * rp + 0.3], "frame", g, sections=6, **mv)
     ctx.add(nm + "_Shell", "cylinder", [0, bot + 0.2, 0], [2 * rp, h - 0.25, 2 * rp], ctx.role("glass_clear"), g, sections=6, double_sided=True, **mv)
