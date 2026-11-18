@@ -658,9 +658,172 @@ def jet_pose(J, phase, t):
         return ([A[0], A[1] + 0.6 * math.sin(math.pi * sp), A[2]], J["arrive_yaw"] + 360 * sp, J.get("arrive_pitch", 0.0), 0.0, 1.0, c, fl(t, 1.2))
     if phase == "back":  # hatch shuts, then a high arc home
         tb = Tm["back"]; h = max(0.0, 1 - t / 0.5); u = min(1, t / tb); e = u * u * (3 - 2 * u)
-        P = _bez(A, [A[0], A[1] + 9, A[2]], [H[0], H[1] + 9, H[2]], H, e); yaw = J["arrive_yaw"] + (((J["yaw0"] - J["arrive_yaw"] + 180) % 360) - 180) * e
-        return (P, yaw, -10 * math.sin(math.pi * u) + J.get("arrive_pitch", 0.0) * (1 - e), 0.0, h, 0.0, fl(t, 1.5))
+        P = _bez(A, J.get("back1", [A[0], A[1] + 9, A[2]]), J.get("back2", [H[0], H[1] + 9, H[2]]), H, e); yaw = J["arrive_yaw"] + (((J["yaw0"] - J["arrive_yaw"] + 180) % 360) - 180) * e
+        return (P, yaw, -10 * math.sin(math.pi * u) + J.get("arrive_pitch", 0.0) * (1 - e), 0.0, h, 0.0, fl(t, 1.5))  # (Stage 170: back1 / back2 - the planned return)
     return jet_pose(J, "home", t)
+
+
+def _jet_button(ax, az, ay, ap, floor, reach, cap_top, slide):
+    """Where a jet screen hovers (centre y) and where its button is, for an arrival at (ax, az) facing ay, pitched ap."""
+    pr_ = math.radians(ap); by_ = cap_top * math.cos(pr_) - (-0.2 + slide) * math.sin(pr_); bz_ = cap_top * math.sin(pr_) + (-0.2 + slide) * math.cos(pr_)
+    return floor + reach - by_, [ax + bz_ * math.sin(math.radians(ay)), floor + reach, az + bz_ * math.cos(math.radians(ay))]
+
+
+def _obstacle_grid(ctx, skip_prefix, cell=0.5, margin=0.0):  # (snapping out to whole cells already adds up to a cell of margin)
+    """Stage 170: a voxel occupancy grid of everything solid in the level (3-D prefix sums: any box is tested in O(1)).
+    Moving things count as their swept volumes: the claw line as its whole lane along the runway, riser pads / lifts
+    over their travel, the spinner's rotor as its sweep disc, press stages over their stroke, saw arms grown 2.5 m;
+    visual-only volumes (light shafts, domes, liquid, decals on the slime) are left out."""
+    import numpy as np
+    from anchors import world_matrices
+    Wm, _ = world_matrices({"objects": ctx.objects}); B = []
+    skip_t = {"group", "band", "terrain", "boundary", "dome_shell", "beam_cone", "stream", "model"}
+    hz = set(ctx.hazards) | {"HazardFluid"}
+    grow_up = {l["group"]: l["travel"] for l in getattr(ctx, "lifts", [])}  # lifts are stored at the bottom
+    grow_dn = {st["group"]: sw["drive"]["travel"] * st["frac"] for sw in getattr(ctx, "sweepers", []) if sw.get("drive") for st in sw["drive"]["stages"]}
+    grow_dn.update({r["group"]: max(p.get("rise", 0.0) for p in r["pads"]) for r in getattr(ctx, "risers", [])})  # risers are stored risen (they come up out of the slime)
+    rotors = {sw["group"]: sw for sw in getattr(ctx, "sweepers", [])}
+    sawg = {g for sw_ in getattr(ctx, "saws", []) for g in [sw_["arm"], sw_["blade"]] + [j["group"] for j in sw_.get("joints", [])]}
+    skipg = {cl["group"] for cl in getattr(ctx, "claw_lines", [])} | {l["group"] for l in getattr(ctx, "launches", [])}
+    for o in ctx.objects:
+        n = o["name"]; t = o["type"]
+        if t in skip_t or not o.get("size") or n.startswith(skip_prefix) or n in hz or n.startswith("Corrosion") or n.endswith("__ol"): continue
+        if o.get("material") in ("hazard", "fall", "fall_veil", "splash_pool", "light_pool", "sunbeam", "sunbeam_haze", "fan_rays"): continue
+        g = (o.get("mobile") or {}).get("group")
+        if g in skipg: continue
+        w, h, d = o["size"]
+        if t == "pipe_path":
+            P = np.asarray(o.get("path") or [[0, 0], [0, 1.2], [1.0, 1.2], [1.0, 0.4]], float); r = w / 2
+            lo, hi = [P[:, 0].min() - r, P[:, 1].min() - r, -r], [P[:, 0].max() + r, P[:, 1].max() + r, r]
+        else: lo, hi = [-w / 2, 0.0, -d / 2], [w / 2, h, d / 2]
+        C = np.array([[x_, y_, z_, 1.0] for x_ in (lo[0], hi[0]) for y_ in (lo[1], hi[1]) for z_ in (lo[2], hi[2])]) @ Wm[n].T
+        a_, b_ = C[:, :3].min(0), C[:, :3].max(0)
+        if g in grow_up: b_[1] += grow_up[g]
+        if g in grow_dn: a_[1] -= grow_dn[g]
+        if g in sawg: a_ -= 2.5; b_ += 2.5
+        if g in rotors: c_ = rotors[g]["center"]; R_ = rotors[g]["r1"] + rotors[g]["ball_r"]; a_[0], a_[2], b_[0], b_[2] = c_[0] - R_, c_[2] - R_, c_[0] + R_, c_[2] + R_
+        B.append(np.r_[a_ - margin, b_ + margin])
+    for cl in getattr(ctx, "claw_lines", []):  # the whole lane the canister claws travel
+        parts = [o for o in ctx.objects if (o.get("mobile") or {}).get("group") == cl["group"] and o.get("size")]
+        ys = [Wm[o["name"]][1, 3] for o in parts]; zs = [Wm[o["name"]][2, 3] for o in parts]; beam = next((o for o in ctx.objects if o["name"].endswith("_Beam") and o["name"].startswith("CraneRail")), None)
+        y1 = (Wm[beam["name"]][1, 3] + beam["size"][1] + 0.5) if beam else max(ys) + 1.5
+        B.append(np.array([-80.0, min(ys) - 0.3 - margin, min(zs) - 1.7, 80.0, y1, max(zs) + 1.7]))
+    B = np.array(B); lo = np.array([-70.0, -3.0, -90.0]); n_ = np.ceil((np.array([60.0, 40.0, 75.0]) - lo) / cell).astype(int)
+    G = np.zeros(n_, np.int32)
+    for bx in B:
+        i0 = np.clip(np.floor((bx[:3] - lo) / cell).astype(int), 0, n_); i1 = np.clip(np.ceil((bx[3:] - lo) / cell).astype(int), 0, n_)
+        G[i0[0]:i1[0], i0[1]:i1[1], i0[2]:i1[2]] = 1
+    S = np.zeros(n_ + 1, np.int64); S[1:, 1:, 1:] = G.cumsum(0).cumsum(1).cumsum(2)
+    return dict(S=S, lo=lo, cell=cell, n=n_)
+
+
+def _grid_hits(GR, a, b):
+    """Occupied cells inside each world box [a, b] (arrays (N, 3))."""
+    import numpy as np
+    lo, c, n_, S = GR["lo"], GR["cell"], GR["n"], GR["S"]
+    i0 = np.clip(np.floor((a - lo) / c).astype(int), 0, n_); i1 = np.clip(np.ceil((b - lo) / c).astype(int), 0, n_)
+    x0, y0, z0, x1, y1, z1 = i0[:, 0], i0[:, 1], i0[:, 2], i1[:, 0], i1[:, 1], i1[:, 2]
+    return (S[x1, y1, z1] - S[x0, y1, z1] - S[x1, y0, z1] - S[x1, y1, z0] + S[x0, y0, z1] + S[x0, y1, z0] + S[x1, y0, z0] - S[x0, y0, z0])
+
+
+def _jet_boxes(J, poses, drawer):
+    """World AABBs of a jet screen at the given poses ([pos, yaw, pitch, roll, ...]) - the screen + pack + thrusters +
+    flames box (and the open drawer), rotated (pitch / roll both ways: conservative). Vectorised over the poses."""
+    import numpy as np
+    hx, hh = J["_plan"]["half"]
+    body = np.array([[x_, y_, z_] for x_ in (-hx, hx) for y_ in (-hh - 2.35, hh + 0.5) for z_ in (-2.0, 0.5)])
+    drw = np.array([[x_, y_, z_] for x_ in (-1.5, 1.5) for y_ in (-hh - 1.2, -hh - 0.2) for z_ in (-0.2, J["slide"] + 0.7)])
+    pos = np.array([p[0] for p in poses], float); ang = np.radians(np.array([p[1:4] for p in poses], float)); dm = np.array(drawer if drawer else [False] * len(poses))
+    pts = np.vstack([body, drw]); keep = np.ones((len(poses), len(pts)), bool); keep[:, len(body):] = dm[:, None]
+    yw, pt, rl = ang[:, 0], ang[:, 1], ang[:, 2]; z0, o1 = np.zeros(len(poses)), np.ones(len(poses))
+    Ry = np.stack([np.stack([np.cos(yw), z0, np.sin(yw)], -1), np.stack([z0, o1, z0], -1), np.stack([-np.sin(yw), z0, np.cos(yw)], -1)], 1)
+    lo = hi = None
+    for sg in (1.0, -1.0):
+        Rx = np.stack([np.stack([o1, z0, z0], -1), np.stack([z0, np.cos(sg * pt), -np.sin(sg * pt)], -1), np.stack([z0, np.sin(sg * pt), np.cos(sg * pt)], -1)], 1)
+        Rz = np.stack([np.stack([np.cos(sg * rl), -np.sin(sg * rl), z0], -1), np.stack([np.sin(sg * rl), np.cos(sg * rl), z0], -1), np.stack([z0, z0, o1], -1)], 1)
+        Q = np.einsum("nij,kj->nki", Ry @ Rx @ Rz, pts) + pos[:, None, :]
+        qlo = np.where(keep[..., None], Q, np.inf).min(1); qhi = np.where(keep[..., None], Q, -np.inf).max(1)
+        lo = qlo if lo is None else np.minimum(lo, qlo); hi = qhi if hi is None else np.maximum(hi, qhi)
+    return lo, hi
+
+
+def _jet_samples(J, phase):
+    Tm = J["times"]; per = J["bob"][1]
+    if phase == "home": ts = [i * per * 1.7 / 24 for i in range(24)]
+    elif phase == "fly": tot = Tm["take"] + Tm["fly"] + Tm["settle"]; ts = [i * tot / 120 for i in range(121)]
+    elif phase == "wait": ts = [i * 0.15 for i in range(21)]
+    elif phase == "press": ts = [i * 1.2 / 30 for i in range(31)]
+    else: ts = [i * Tm["back"] / 90 for i in range(91)]
+    P = [jet_pose(J, phase, t) for t in ts]; dr = [phase in ("wait", "press") or (phase == "back" and t < 0.5) for t in ts]
+    return P, dr
+
+
+def jet_collisions(J, GR):
+    """Stage 170: colliding samples per phase of a jet screen's whole show (home bob, flight, wait, press, return)."""
+    out = {}
+    for ph in ("home", "fly", "wait", "press", "back"):
+        P, dr = _jet_samples(J, ph); a, b = _jet_boxes(J, P, dr); out[ph] = int((_grid_hits(GR, a, b) > 0).sum())
+    return out
+
+
+def plan_jets(ctx):
+    """Stage 170 (user: the floating monitor must avoid every collision): for each jet screen, test its whole show
+    against the finished level (_obstacle_grid); if the arrival collides, pick the nearest clear spot round its
+    trigger deck's edge (facing in, the button over the deck); then search the flight's and the return's bezier
+    controls for routes with no collision (diving under the claw lane), closest to the original swoop. Updates the
+    jet record (arrive, ctrl1/2, back1/2) and its button terminal."""
+    import numpy as np
+    for J in getattr(ctx, "jets", []):
+        GR = _obstacle_grid(ctx, J["id"]); pl = J["_plan"]; rng = np.random.default_rng(1170)
+        def arrival(ax, az, ay):
+            acy, bp = _jet_button(ax, az, ay, J["arrive_pitch"], pl["floor"], pl["reach"], pl["cap_top"], J["slide"]); return [round(ax, 3), round(acy, 3), round(az, 3)], bp
+        def hits_at(phases):
+            return sum(jet_collisions(J, GR)[p] for p in phases)
+        tr = J.get("trigger") or {}
+        if hits_at(("wait", "press")) and tr:
+            (x0, z0), (x1, z1) = tr["min"], tr["max"]; cx_, cz_ = (x0 + x1) / 2, (z0 + z1) / 2; cands = []
+            for f in np.linspace(0.1, 0.9, 9):  # along each edge, hovering just off it, facing in
+                cands += [(x0 + (x1 - x0) * f, z0 - 0.3, 0.0), (x0 + (x1 - x0) * f, z1 + 0.3, 180.0), (x0 - 0.3, z0 + (z1 - z0) * f, 90.0), (x1 + 0.3, z0 + (z1 - z0) * f, 270.0)]
+            for (qx, qz) in ((x0, z0), (x1, z0), (x0, z1), (x1, z1)): cands.append((qx - np.sign(cx_ - qx) * 0.2, qz - np.sign(cz_ - qz) * 0.2, math.degrees(math.atan2(cx_ - qx, cz_ - qz))))
+            sa = pl["s_arrive"]; cands.sort(key=lambda c: math.hypot(c[0] - sa[0], c[1] - sa[1]))
+            keep = (J["arrive"], J["arrive_yaw"])
+            for ax, az, ay in cands:
+                A_, bp = arrival(ax, az, ay)
+                if not (x0 + 0.4 < bp[0] < x1 - 0.4 and z0 + 0.4 < bp[2] < z1 - 0.4): continue  # the button must be over the deck
+                J["arrive"], J["arrive_yaw"] = A_, round(float(ay), 2)
+                if not hits_at(("wait", "press")): break
+            else: J["arrive"], J["arrive_yaw"] = keep
+        A_ = J["arrive"]; H = J["home"]; _, bp = _jet_button(A_[0], A_[2], J["arrive_yaw"], J["arrive_pitch"], pl["floor"], pl["reach"], pl["cap_top"], J["slide"])
+        for tm in getattr(ctx, "terminals", []):
+            if tm["id"] == J["button"]: tm["center"] = [round(bp[0], 3), round(pl["floor"], 3), round(bp[2], 3)]; tm["button"] = [round(v, 3) for v in bp]
+        lo_, hi_ = np.array([-45.0, 4.0, -60.0]), np.array([50.0, 31.0, 60.0])  # where control points may go (inside the hall)
+        def search(phase, keys, base):
+            """Global random search over the hall, then local refinement round the best: fewest colliding samples, then
+            the shortest, gentlest curve (closest to the original controls)."""
+            best = None; d0 = [np.array(J[k], float) for k in keys]
+            def ev(c):
+                for k, v in zip(keys, c): J[k] = [round(float(q), 3) for q in v]
+                P, dr = _jet_samples(J, phase); a, b = _jet_boxes(J, P, dr); hit = int((_grid_hits(GR, a, b) > 0).sum())
+                L_ = float(np.linalg.norm(np.diff(np.array([p[0] for p in P]), axis=0), axis=1).sum())
+                return hit * 1000 + L_ * 0.5 + 0.05 * sum(float(np.linalg.norm(v - d)) for v, d in zip(c, d0)), hit
+            cand = [[np.array(b_, float) for b_ in base]] + [[rng.uniform(lo_, hi_) for _ in keys] for _ in range(3000)]
+            for c in cand:
+                sc, hit = ev(c)
+                if best is None or sc < best[0]: best = (sc, [v.copy() for v in c], hit)
+            for it in range(2500):  # refine
+                r = 8.0 * (1 - it / 2500) + 0.5; c = [np.clip(v + rng.normal(0, r, 3), lo_, hi_) for v in best[1]]
+                sc, hit = ev(c)
+                if sc < best[0]: best = (sc, c, hit)
+            for k, v in zip(keys, best[1]): J[k] = [round(float(q), 3) for q in v]
+            return best[2]
+        J["ctrl1"] = [H[0], H[1] + 5, H[2] + 4]; J["ctrl2"] = [A_[0] + 12, A_[1] + 5, A_[2] - 12]
+        if jet_collisions(J, GR)["fly"]: search("fly", ("ctrl1", "ctrl2"), (J["ctrl1"], J["ctrl2"]))
+        if jet_collisions(J, GR)["back"]:
+            J["back1"], J["back2"] = [A_[0], A_[1] + 9, A_[2]], [H[0], H[1] + 9, H[2]]; search("back", ("back1", "back2"), (J["back1"], J["back2"]))
+        J["clearance"] = jet_collisions(J, GR)
+        J["arrive"] = [round(float(v), 3) for v in J["arrive"]]
+        ctx.notes.append(f"{J['id']}: path planned - colliding samples per phase {J['clearance']} (arrive {J['arrive']}, yaw {J['arrive_yaw']})")
+        del J["_plan"]
 
 
 @structure("jet_screen", pad=False)
@@ -720,7 +883,8 @@ def jet_screen(ctx, s, x, y, z, yaw):
              ctrl1=[round(home[0], 3), round(home[1] + 5, 3), round(home[2] + 4, 3)], ctrl2=[round(arrive[0] + 12, 3), round(arrive[1] + 5, 3), round(arrive[2] - 12, 3)],
              times=dict(take=0.7, fly=3.3, settle=1.0, open=0.6, back=3.5), bob=[0.45, 2.2], button=n + "_Button",
              trigger=dict(name=s["trigger_area"], min=trig["min"], max=trig["max"], y=trig["y"]) if trig else None,
-             note="assembly.jet_pose: home bob -> (player on trigger) fly -> wait (hatch opens; the button terminal goes live) -> press -> back home")
+             note="assembly.jet_pose: home bob -> (player on trigger) fly -> wait (hatch opens; the button terminal goes live) -> press -> back home",
+             _plan=dict(floor=floor, reach=reach, cap_top=cap_top, half=[hw + 0.45, hh], s_arrive=[ax_, az_, ay]))
     ctx.jets = getattr(ctx, "jets", []) + [J]
     ctx.terminals = getattr(ctx, "terminals", []) + [dict(id=n + "_Button", center=[round(bpos[0], 3), round(floor, 3), round(bpos[2], 3)], radius=float(s.get("radius", 1.8)),
                                                            activates=list(s.get("activates", [])), requires=n, button=[round(v, 3) for v in bpos],

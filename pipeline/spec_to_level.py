@@ -89,6 +89,8 @@ def generate(spec, G, level_dir=None):
     A.clear_ducts(ctx)  # Stage 50: ceiling ducts end before columns / vats instead of running through them
     A.clear_portals(ctx)  # Stage 59: no strut through a doorway portal
     weathering.corrosion(ctx, spec)  # Stage 28: corroded band where the liquid meets walls (after the pools exist)
+    if getattr(ctx, "jets", None):  # Stage 170: jet screens fly a collision-free show (planned against the finished level)
+        from modules.assembly import plan_jets; plan_jets(ctx)
     ctx.element = None
     # materials: only roles in use (+ spec overrides; variants follow their base override)
     over = spec.get("materials", {}).get("roles", {}); theme = spec.get("theme", "industrial"); mats = {}

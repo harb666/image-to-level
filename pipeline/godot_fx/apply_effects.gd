@@ -673,7 +673,7 @@ static func jet_pose(J: Dictionary, ph: String, t: float) -> Array:
 	var hb := maxf(0.0, 1.0 - t / 0.5)
 	var ub := minf(1.0, t / float(TM["back"]))
 	var qb := ub * ub * (3.0 - 2.0 * ub)
-	var pb := _bez3(A, [A[0], float(A[1]) + 9.0, A[2]], [H[0], float(H[1]) + 9.0, H[2]], H, qb)
+	var pb := _bez3(A, J.get("back1", [A[0], float(A[1]) + 9.0, A[2]]), J.get("back2", [H[0], float(H[1]) + 9.0, H[2]]), H, qb)  # Stage 170: planned (collision-free) return
 	return [pb, float(J["arrive_yaw"]) + wrapf(float(J["yaw0"]) - float(J["arrive_yaw"]), -180.0, 180.0) * qb, -10.0 * sin(PI * ub) + float(J.get("arrive_pitch", 0.0)) * (1.0 - qb), 0.0, hb, 0.0, fl.call(t, 1.5)]
 
 

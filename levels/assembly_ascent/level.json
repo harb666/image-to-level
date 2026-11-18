@@ -1565,24 +1565,24 @@
     ],
     "yaw0": 20.0,
     "arrive": [
-     28.39,
+     28.3,
      21.632,
-     28.89
+     35.34
     ],
-    "arrive_yaw": 45.0,
+    "arrive_yaw": 90.0,
     "arrive_pitch": 15.0,
     "flame_y": -3.55,
     "slide": 2.8,
     "press": 0.14,
     "ctrl1": [
-     -2.0,
-     27.0,
-     -14.0
+     -2.04,
+     25.916,
+     -13.749
     ],
     "ctrl2": [
-     40.39,
-     26.632,
-     16.89
+     -32.698,
+     10.083,
+     -7.648
     ],
     "times": {
      "take": 0.7,
@@ -1608,7 +1608,24 @@
      ],
      "y": 15.5
     },
-    "note": "assembly.jet_pose: home bob -> (player on trigger) fly -> wait (hatch opens; the button terminal goes live) -> press -> back home"
+    "note": "assembly.jet_pose: home bob -> (player on trigger) fly -> wait (hatch opens; the button terminal goes live) -> press -> back home",
+    "back1": [
+     23.462,
+     20.728,
+     32.605
+    ],
+    "back2": [
+     -22.303,
+     13.233,
+     9.928
+    ],
+    "clearance": {
+     "home": 0,
+     "fly": 0,
+     "wait": 0,
+     "press": 0,
+     "back": 0
+    }
    }
   },
   {
@@ -111461,9 +111478,9 @@
   {
    "id": "Jet_Screen_Button",
    "center": [
-    29.567,
+    29.965,
     15.5,
-    30.067
+    35.34
    ],
    "radius": 1.8,
    "activates": [
@@ -111471,9 +111488,9 @@
    ],
    "requires": "Jet_Screen",
    "button": [
-    29.567,
+    29.965,
     17.8,
-    30.067
+    35.34
    ],
    "note": "the big red button: live once the jet screen has arrived (level.json jets); using it opens the gates in 'activates'"
   }
@@ -112046,24 +112063,24 @@
    ],
    "yaw0": 20.0,
    "arrive": [
-    28.39,
+    28.3,
     21.632,
-    28.89
+    35.34
    ],
-   "arrive_yaw": 45.0,
+   "arrive_yaw": 90.0,
    "arrive_pitch": 15.0,
    "flame_y": -3.55,
    "slide": 2.8,
    "press": 0.14,
    "ctrl1": [
-    -2.0,
-    27.0,
-    -14.0
+    -2.04,
+    25.916,
+    -13.749
    ],
    "ctrl2": [
-    40.39,
-    26.632,
-    16.89
+    -32.698,
+    10.083,
+    -7.648
    ],
    "times": {
     "take": 0.7,
@@ -112089,7 +112106,24 @@
     ],
     "y": 15.5
    },
-   "note": "assembly.jet_pose: home bob -> (player on trigger) fly -> wait (hatch opens; the button terminal goes live) -> press -> back home"
+   "note": "assembly.jet_pose: home bob -> (player on trigger) fly -> wait (hatch opens; the button terminal goes live) -> press -> back home",
+   "back1": [
+    23.462,
+    20.728,
+    32.605
+   ],
+   "back2": [
+    -22.303,
+    13.233,
+    9.928
+   ],
+   "clearance": {
+    "home": 0,
+    "fly": 0,
+    "wait": 0,
+    "press": 0,
+    "back": 0
+   }
   }
  ],
  "floaters": [
@@ -112447,7 +112481,8 @@
   "ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 8 standing part(s), 0 crane runway(s), ends at beams 0.0 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 0.0 m",
   "corrosion: 8 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 12 lights at the liquid line removed, 16 light strips raised clear of it",
-  "corrosion: 1202 wall faces at the liquid line get a corroded band (one mesh, one material)"
+  "corrosion: 1202 wall faces at the liquid line get a corroded band (one mesh, one material)",
+  "Jet_Screen: path planned - colliding samples per phase {'home': 0, 'fly': 0, 'wait': 0, 'press': 0, 'back': 0} (arrive [28.3, 21.632, 35.34], yaw 90.0)"
  ],
  "relations": [
   {

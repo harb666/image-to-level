@@ -56,11 +56,12 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - corrosion: 8 lit bodies get a plain skirt at the liquid line (no lights in the slime)
 - corrosion: 12 lights at the liquid line removed, 16 light strips raised clear of it
 - corrosion: 1202 wall faces at the liquid line get a corroded band (one mesh, one material)
+- Jet_Screen: path planned - colliding samples per phase {'home': 0, 'fly': 0, 'wait': 0, 'press': 0, 'back': 0} (arrive [28.3, 21.632, 35.34], yaw 90.0)
 
 ## Timing
-- spec -> level.json: 2.4 s
-- build (glb, sky, background, effects, mobile): 62.0 s
-- checks (fast): 79.5 s
-- previews: 0.9 s
-- export package: 0.6 s
-- total: 145.4 s
+- spec -> level.json: 13.7 s
+- build (glb, sky, background, effects, mobile): 55.1 s
+- checks (fast): 76.6 s
+- previews: 1.0 s
+- export package: 0.5 s
+- total: 147.0 s

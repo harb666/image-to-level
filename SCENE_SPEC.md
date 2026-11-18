@@ -1516,6 +1516,13 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 170: jet screens fly a collision-free show. After every structure exists, `assembly.plan_jets` builds a voxel
+  occupancy grid of the level (0.5 m, 3-D prefix sums; moving things as their swept volumes - the claw lane, risers
+  below their stored pose, lifts over their travel, the spinner's rotor disc, press stages over their stroke, saw arms
+  grown) and tests the screen's rotated box (thrusters, flames, open drawer) at every sample of home / fly / wait / press
+  / back. A colliding arrival moves to the nearest clear spot round the trigger deck's edge (button over the deck); the
+  flight's `ctrl1/2` and the return's new `back1/2` (runtimes: viewer.html, apply_effects.gd) come from a global random
+  search + local refinement (fewest hits, then shortest). level.json `jets[].clearance`: colliding samples per phase.
 - Stage 169: structure `claw_line` ({"position": [x, z], "count", "spacing", "x0", "speed", "length"}): `count` identical
   crane claws on the room's runway (along world x), each holding a small green canister (`claw` `"canister"`), all in
   ONE mobile group moved by an `assembly_line` effect with no stations (offset = fmod(t * speed, spacing): when it wraps
