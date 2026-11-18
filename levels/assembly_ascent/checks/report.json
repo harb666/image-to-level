@@ -1,21 +1,21 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 6921,
+  "level.glb": 6924,
   "mobile/level_mobile.glb": 3987,
-  "mobile/collision.json": 240,
+  "mobile/collision.json": 243,
   "environment.json": 4,
   "background.glb": 477,
   "effects.json": 130
  },
  "complexity": {
-  "triangles": 117596,
-  "nodes": 3767,
+  "triangles": 117500,
+  "nodes": 3788,
   "materials": 64,
   "heaviest": [
    [
     "Corrosion_Band",
-    1484
+    1496
    ],
    [
     "Spinner_Rotor_Ball_4",
@@ -37,25 +37,25 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 6921,
-   "triangles": 102508,
-   "draw_calls": 3767,
+   "glb_kb": 6924,
+   "triangles": 102532,
+   "draw_calls": 3788,
    "tex_mem_gpu_mb_est": 41.65
   },
   "mobile": {
    "profile": "balanced",
    "glb_kb": 3987,
-   "triangles": 113152,
+   "triangles": 113032,
    "draw_calls": 205,
-   "visible_draw_calls_est": 102.2,
-   "visible_draw_calls_max_est": 204,
+   "visible_draw_calls_est": 102.5,
+   "visible_draw_calls_max_est": 203,
    "tex_mem_gpu_mb_est": 15.67,
    "materials": 66,
    "nodes": 304,
    "colliders": {
-    "colliders": 576,
+    "colliders": 585,
     "hazards": 1,
-    "glb_kb": 272
+    "glb_kb": 276
    },
    "background_kb": 404
   },
@@ -74,7 +74,7 @@
    "INTENTIONAL": 30
   },
   "relations": {
-   "explicit": 23,
+   "explicit": 24,
    "inferred": 0
   },
   "repairable": 2,
@@ -82,8 +82,8 @@
  },
  "navigation": {
   "standable_area_m2": 20640.0,
-  "reachable_area_m2": 5444.0,
-  "components": 238,
+  "reachable_area_m2": 5443.0,
+  "components": 235,
   "spawns": [
    {
     "id": "spawn",
@@ -95,7 +95,7 @@
     "standable": true,
     "clearance_m": 4.5,
     "headroom_m": 28.77,
-    "component": 24,
+    "component": 21,
     "hazard_distance_m": 11.5
    },
    {
@@ -108,7 +108,7 @@
     "standable": true,
     "clearance_m": 5.5,
     "headroom_m": 27.77,
-    "component": 24,
+    "component": 21,
     "hazard_distance_m": 11.51
    },
    {
@@ -121,7 +121,7 @@
     "standable": true,
     "clearance_m": 5.5,
     "headroom_m": 99.0,
-    "component": 18,
+    "component": 1,
     "hazard_distance_m": 8.28
    },
    {
@@ -134,7 +134,7 @@
     "standable": true,
     "clearance_m": 6.5,
     "headroom_m": 19.0,
-    "component": 187,
+    "component": 184,
     "hazard_distance_m": 0.54
    }
   ],
@@ -159,7 +159,7 @@
    },
    {
     "name": "Upper_Deck",
-    "standable_m2": 348.0,
+    "standable_m2": 336.0,
     "reachable_fraction": 1.0,
     "one_way": false
    },
@@ -253,7 +253,7 @@
  "traverse": {
   "connectors": 10,
   "passed": true,
-  "findings": 1
+  "findings": 0
  },
  "issues": [
   {
@@ -344,41 +344,30 @@
    "message": "enemy_arena: hazard 0.5 m away (< 3.0 m)"
   },
   {
-   "kind": "traverse_blocked",
-   "severity": "warning",
-   "object": "Exit_Stairs",
-   "pos": [
-    38.43,
-    21.96,
-    -55.74
-   ],
-   "message": "Exit_Stairs: walking up the right lane the player is stopped by an edge / lip"
-  },
-  {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "117596 triangles (> budget 40000)"
+   "message": "117500 triangles (> budget 40000)"
   },
   {
    "kind": "dev_size",
    "severity": "info",
-   "message": "dev GLB 6921 KB (> 6000)"
+   "message": "dev GLB 6924 KB (> 6000)"
   },
   {
    "kind": "low_ceiling",
    "severity": "info",
    "object": "Pod_Tube_1_Glass_03",
    "pos": [
-    42.5,
-    18.05,
-    -45.5
+    35.5,
+    17.63,
+    -58.5
    ],
-   "message": "9 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): Pod_Tube_1_Glass_03, Robot_Ring_Floor"
+   "message": "10 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): Pod_Tube_1_Glass_03, Robot_Ring_Floor, Upper_Deck_Floor"
   }
  ],
  "counts": {
   "error": 0,
-  "warning": 11,
+  "warning": 10,
   "info": 2
  },
  "passed": true,

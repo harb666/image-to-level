@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 6921,
-    "triangles": 117596,
-    "nodes": 3822,
-    "mesh_nodes": 3767,
-    "unique_meshes": 1631,
+    "glb_kb": 6924,
+    "triangles": 117500,
+    "nodes": 3844,
+    "mesh_nodes": 3788,
+    "unique_meshes": 1645,
     "materials": 66,
     "images": 153,
-    "draw_calls_unbatched": 3767,
+    "draw_calls_unbatched": 3788,
     "draw_calls_batched_min": 66,
     "tex_mem_uncompressed_mb": 166.61,
     "tex_mem_gpu_compressed_mb": 41.65,
@@ -75,16 +75,16 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 1203.2,
-    "visible_draw_calls_max": 3683,
-    "visible_triangles_mean": 50533,
-    "visible_triangles_max": 126232
+    "visible_draw_calls_mean": 1211.3,
+    "visible_draw_calls_max": 3704,
+    "visible_triangles_mean": 50496,
+    "visible_triangles_max": 126136
    }
   },
   "mobile": {
    "level": {
     "glb_kb": 3987,
-    "triangles": 113152,
+    "triangles": 113032,
     "nodes": 304,
     "mesh_nodes": 205,
     "unique_meshes": 205,
@@ -137,19 +137,19 @@
     ]
    },
    "collision": {
-    "colliders": 576,
+    "colliders": 585,
     "hazards": 1,
-    "glb_kb": 272
+    "glb_kb": 276
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 102.2,
-    "visible_draw_calls_max": 204,
-    "visible_triangles_mean": 95643,
-    "visible_triangles_max": 122996
+    "visible_draw_calls_mean": 102.5,
+    "visible_draw_calls_max": 203,
+    "visible_triangles_mean": 95577,
+    "visible_triangles_max": 122814
    },
-   "hidden_faces_removed": 1675,
-   "occluded_faces_removed": 2769,
+   "hidden_faces_removed": 1679,
+   "occluded_faces_removed": 2789,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate",
     "Showcase_Stage_Glow_02L",
@@ -167,8 +167,8 @@
      404
     ],
     "collision.glb": [
-     365,
-     272
+     371,
+     276
     ]
    }
   }
@@ -1562,7 +1562,7 @@
    "node": "Corrosion__corrosion__2s",
    "kind": "group",
    "material": "corrosion__2s",
-   "triangles": 1484,
+   "triangles": 1496,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3250,13 +3250,14 @@
    "node": "M_glow_0_0_props",
    "kind": "props",
    "material": "glow",
-   "triangles": 52,
+   "triangles": 62,
    "visibility_range_end": 70,
    "cast_shadow": false,
    "source_objects": [
     "Showcase_Bridge_Support_02_Light",
     "Showcase_Bridge_Support_01_Light",
     "Spinner_Ramp_Support_Light",
+    "Exit_Stairs_Support_Light",
     "Yard_Bridge_CladLight_L_b_b",
     "Yard_Bridge_Support_Light"
    ]
@@ -3556,7 +3557,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 10055,
+   "triangles": 10115,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3896,6 +3897,12 @@
     "Spinner_Ramp_Support_Rib_00",
     "Spinner_Ramp_Beam_R",
     "Spinner_Ramp_Beam_L",
+    "Exit_Stairs_Support_Rib_22",
+    "Exit_Stairs_Support_Rib_20",
+    "Exit_Stairs_Support_Rib_02",
+    "Exit_Stairs_Support_Rib_00",
+    "Exit_Stairs_Beam_R",
+    "Exit_Stairs_Beam_L",
     "Yard_Bridge_Beam_R_b_b",
     "Yard_Bridge_Beam_L_b_b",
     "Yard_Bridge_Beam_R_b",
@@ -4113,7 +4120,7 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 3680,
+   "triangles": 3698,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4229,6 +4236,8 @@
     "Showcase_TankDiffuserRing",
     "Spinner_Ramp_CladLight_R",
     "Spinner_Ramp_CladLight_L",
+    "Exit_Stairs_CladLight_R",
+    "Exit_Stairs_CladLight_L",
     "Yard_Bridge_CladLight_R_b_b",
     "Yard_Bridge_CladLight_R_b",
     "Yard_Bridge_CladLight_L_b",
@@ -4456,7 +4465,7 @@
    "node": "M_grate_0_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 874,
+   "triangles": 700,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -4484,7 +4493,7 @@
     "Showcase_TankGrate",
     "Showcase_Bridge_Deck",
     "Spinner_Ramp_Deck",
-    "Exit_Stairs",
+    "Exit_Stairs_Deck",
     "Yard_Bridge_Deck_b_b",
     "Yard_Bridge_Deck_b",
     "Yard_Bridge_Deck"
@@ -4494,7 +4503,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 11438,
+   "triangles": 11316,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4657,7 +4666,12 @@
     "Spinner_Ramp_Support_Footing__ol",
     "Exit_Stairs_Junction_Lo__ol",
     "Exit_Stairs_Junction_Hi__ol",
-    "Exit_Stairs__ol",
+    "Exit_Stairs_Support_Head__ol",
+    "Exit_Stairs_Support__ol",
+    "Exit_Stairs_Support_Footing__ol",
+    "Exit_Stairs_Clad_L__ol",
+    "Exit_Stairs_Beam_L__ol",
+    "Exit_Stairs_Deck__ol",
     "Yard_Bridge_Junction_Lo__ol",
     "Yard_Bridge_Junction_Hi__ol",
     "Yard_Bridge_Clad_R_b_b__ol",
@@ -5337,7 +5351,7 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 794,
+   "triangles": 814,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -5396,6 +5410,8 @@
     "Showcase_Pit_1_Trim_L",
     "Spinner_Ramp_Threshold_Hi",
     "Spinner_Ramp_Threshold_Lo",
+    "Exit_Stairs_Threshold_Hi",
+    "Exit_Stairs_Threshold_Lo",
     "Yard_Bridge_Deck_b_SlotEdge_1b",
     "Yard_Bridge_Deck_b_SlotEdge_1a",
     "Yard_Bridge_Deck_SlotEdge_1b",
@@ -5424,7 +5440,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 10020,
+   "triangles": 10076,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -5651,6 +5667,11 @@
     "Spinner_Ramp_Support_Footing",
     "Spinner_Ramp_Clad_R",
     "Spinner_Ramp_Clad_L",
+    "Exit_Stairs_Support_Head",
+    "Exit_Stairs_Support",
+    "Exit_Stairs_Support_Footing",
+    "Exit_Stairs_Clad_R",
+    "Exit_Stairs_Clad_L",
     "Yard_Bridge_Clad_R_b_b",
     "Yard_Bridge_Clad_L_b_b",
     "Yard_Bridge_Clad_R_b",

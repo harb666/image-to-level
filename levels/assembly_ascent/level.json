@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "85b2213a1b438182",
+  "spec_sha": "ac0b7a071e25127b",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -151,6 +151,12 @@
      22.38,
      0.3,
      1.15
+    ],
+    [
+     35.8,
+     -56.15,
+     0.3,
+     0.95
     ],
     [
      -11.5,
@@ -21380,24 +21386,428 @@
   },
   {
    "name": "Exit_Stairs",
-   "type": "stairs",
+   "type": "group",
    "position": [
-    36.206,
-    18.0,
-    -56.289
+    34.665,
+    0.0,
+    -55.753
    ],
    "rotation": [
     0.0,
     109.18,
     0.0
    ],
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_Deck",
+   "type": "box",
+   "position": [
+    0.0,
+    19.635,
+    0.163
+   ],
+   "rotation": [
+    -24.05,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
    "size": [
     3.5,
-    3.99,
-    5.698
+    0.4,
+    9.814
    ],
    "material": "grate",
    "connector": true,
+   "axis": "z",
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_Beam_L",
+   "type": "box",
+   "position": [
+    -1.45,
+    20.255,
+    2.497
+   ],
+   "rotation": [
+    -24.05,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    0.3,
+    0.45,
+    3.363
+   ],
+   "material": "frame",
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_Clad_L",
+   "type": "box",
+   "position": [
+    -1.78,
+    19.151,
+    0.501
+   ],
+   "rotation": [
+    -24.05,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    0.12,
+    0.95,
+    9.524
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_CladLight_L",
+   "type": "box",
+   "position": [
+    -1.855,
+    19.571,
+    0.045
+   ],
+   "rotation": [
+    -24.05,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    0.05,
+    0.11,
+    8.214
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_Beam_R",
+   "type": "box",
+   "position": [
+    1.45,
+    20.255,
+    2.497
+   ],
+   "rotation": [
+    -24.05,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    0.3,
+    0.45,
+    3.363
+   ],
+   "material": "frame",
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_Clad_R",
+   "type": "box",
+   "position": [
+    1.78,
+    19.151,
+    0.501
+   ],
+   "rotation": [
+    -24.05,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    0.12,
+    0.95,
+    9.524
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_CladLight_R",
+   "type": "box",
+   "position": [
+    1.855,
+    19.571,
+    0.045
+   ],
+   "rotation": [
+    -24.05,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    0.05,
+    0.11,
+    8.214
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_Threshold_Lo",
+   "type": "box",
+   "position": [
+    0.0,
+    18.01,
+    -4.931
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    3.0,
+    0.03,
+    0.8
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_Threshold_Hi",
+   "type": "box",
+   "position": [
+    0.0,
+    21.771,
+    3.943
+   ],
+   "rotation": [
+    -24.05,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    3.0,
+    0.03,
+    0.8
+   ],
+   "material": "stripe",
+   "collision": false,
+   "outline": false,
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_Support_Footing",
+   "type": "frustum",
+   "position": [
+    0.0,
+    0.5,
+    1.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    1.9,
+    1.2,
+    1.3
+   ],
+   "material": "structure_b",
+   "bottom_scale": 1.3,
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_Support",
+   "type": "box",
+   "position": [
+    0.0,
+    1.6,
+    1.2
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    1.4,
+    17.9,
+    0.8
+   ],
+   "material": "structure_b",
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_Support_Rib_00",
+   "type": "box",
+   "position": [
+    -0.48,
+    1.65,
+    0.77
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    0.2,
+    17.8,
+    0.1
+   ],
+   "material": "frame",
+   "outline": false,
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_Support_Rib_02",
+   "type": "box",
+   "position": [
+    -0.48,
+    1.65,
+    1.63
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    0.2,
+    17.8,
+    0.1
+   ],
+   "material": "frame",
+   "outline": false,
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_Support_Rib_20",
+   "type": "box",
+   "position": [
+    0.48,
+    1.65,
+    0.77
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    0.2,
+    17.8,
+    0.1
+   ],
+   "material": "frame",
+   "outline": false,
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_Support_Rib_22",
+   "type": "box",
+   "position": [
+    0.48,
+    1.65,
+    1.63
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    0.2,
+    17.8,
+    0.1
+   ],
+   "material": "frame",
+   "outline": false,
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_Support_Head",
+   "type": "frustum",
+   "position": [
+    0.0,
+    19.15,
+    1.2
+   ],
+   "rotation": [
+    -24.05,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    2.3,
+    0.92,
+    1.7
+   ],
+   "material": "structure_b",
+   "bottom_scale": 0.55,
+   "gen": "Exit_Stairs",
+   "source": "visible"
+  },
+  {
+   "name": "Exit_Stairs_Support_Light",
+   "type": "box",
+   "position": [
+    0.0,
+    18.7,
+    1.64
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Exit_Stairs",
+   "size": [
+    0.7,
+    0.16,
+    0.08
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
    "gen": "Exit_Stairs",
    "source": "visible"
   },
@@ -107023,6 +107433,90 @@
     {
      "pts": [
       [
+       35.1416,
+       -55.67152
+      ],
+      [
+       35.4277,
+       -54.84902
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.65
+    },
+    {
+     "pts": [
+      [
+       36.01719,
+       -55.03184
+      ],
+      [
+       36.8818,
+       -55.33259
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.65
+    },
+    {
+     "pts": [
+      [
+       35.45444,
+       -54.83609
+      ],
+      [
+       36.01719,
+       -55.03184
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.65
+    },
+    {
+     "pts": [
+      [
+       36.14234,
+       -57.4584
+      ],
+      [
+       35.27774,
+       -57.15765
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.65
+    },
+    {
+     "pts": [
+      [
+       36.60863,
+       -56.18182
+      ],
+      [
+       36.16908,
+       -57.44547
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.65
+    },
+    {
+     "pts": [
+      [
+       36.89473,
+       -55.35932
+      ],
+      [
+       36.60863,
+       -56.18182
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 1.65
+    },
+    {
+     "pts": [
+      [
        -12.34386,
        39.52867
       ],
@@ -116432,7 +116926,7 @@
   "Yard_Bridge: 0.45 m junction plate where it meets Start_Deck's angled edge",
   "Exit_Stairs: 0.70 m junction plate where it meets Exit_Deck's angled edge",
   "Exit_Stairs: 0.75 m junction plate where it meets Upper_Deck's angled edge",
-  "Exit_Stairs: stairs run 5.7 m > gap 4.0 m - extends 1.7 m onto Upper_Deck",
+  "Exit_Stairs: ramp run 9.0 m > gap 4.0 m - extends 5.0 m onto Upper_Deck",
   "Entry_Door: entrance hallway 10 m out of the black (from slime_arena)",
   "Showcase: specimen cyber_girl floating in the tank (18094 tris), bangs on the glass within 9 m",
   "Showcase: Construct Error showcase - dais r 8.6 m, stage tank, scan monitor, 2 slime pits",
@@ -116459,7 +116953,7 @@
   "ducts: Ceil_Duct_1 trimmed to 2 piece(s) clear of 12 standing part(s), 0 crane runway(s), ends at beams 0.0 m; Ceil_Duct_2 trimmed to 2 piece(s) clear of 1 standing part(s), 1 crane runway(s), ends at beams 0.0 m",
   "corrosion: 8 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 12 lights at the liquid line removed, 16 light strips raised clear of it",
-  "corrosion: 1106 wall faces at the liquid line get a corroded band (one mesh, one material)",
+  "corrosion: 1112 wall faces at the liquid line get a corroded band (one mesh, one material)",
   "Jet_Screen: path planned - colliding samples per phase {'home': 0, 'fly': 0, 'wait': 0, 'press': 0, 'back': 0} (arrive [28.3, 21.632, 35.34], yaw 90.0)"
  ],
  "relations": [
@@ -116492,14 +116986,19 @@
   },
   {
    "type": "supported_by",
+   "a": "Exit_Stairs_Deck",
+   "b": "Exit_Stairs_Support_Head"
+  },
+  {
+   "type": "supported_by",
    "a": "Exit_Stairs_Junction_Hi",
    "b": "Exit_Deck_Floor"
   },
   {
    "type": "walkable_connection",
-   "a": "Exit_Stairs",
+   "a": "Exit_Stairs_Deck",
    "b": "Exit_Stairs_Junction_Hi",
-   "a_anchor": "high"
+   "a_anchor": "end_b"
   },
   {
    "type": "supported_by",
@@ -116508,9 +117007,9 @@
   },
   {
    "type": "walkable_connection",
-   "a": "Exit_Stairs",
+   "a": "Exit_Stairs_Deck",
    "b": "Exit_Stairs_Junction_Lo",
-   "a_anchor": "low"
+   "a_anchor": "end_a"
   },
   {
    "type": "supported_by",
@@ -116601,12 +117100,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 102508,
-  "objects": 3504,
+  "triangles": 102532,
+  "objects": 3521,
   "materials": 64,
-  "glb_kb": 6921,
-  "nodes": 3822,
-  "draw_calls_unbatched": 3767,
+  "glb_kb": 6924,
+  "nodes": 3844,
+  "draw_calls_unbatched": 3788,
   "draw_calls_batched_min": 66,
   "images": 153,
   "tex_mem_gpu_compressed_mb": 41.65,

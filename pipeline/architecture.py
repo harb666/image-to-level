@@ -358,7 +358,7 @@ def connection(ctx, c, A, B, floor_y):
     ea, eb = footprint_edge(A, ux, uz), footprint_edge(B, -ux, -uz); gap = L - ea - eb
     lo, hi = (A, B) if A["top"] <= B["top"] else (B, A); dy = hi["top"] - lo["top"]
     P = ctx.G["player"]; kind = c.get("kind", "auto"); width = c.get("width", max(ctx.G["design"]["min_bridge_width"] + 0.5, 4.0))
-    smax = min(P["max_slope_deg"], 35)
+    smax = min(P["max_slope_deg"], float(c.get("max_slope", 35)))  # Stage 179: a connection may ask for a gentler ramp (longer, starting further back)
     if kind == "auto":
         kind = "bridge" if dy <= P["step_height"] else "ramp" if gap > 0 and math.degrees(math.atan2(dy, gap)) <= smax else "stairs"
     fa, fb = ctx.floor_of.get(A["id"], A["id"]), ctx.floor_of.get(B["id"], B["id"])

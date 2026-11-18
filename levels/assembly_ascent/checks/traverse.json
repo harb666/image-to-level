@@ -6,21 +6,7 @@
   "max_slope_deg": 40
  },
  "connectors": 10,
- "findings": [
-  {
-   "object": "Exit_Stairs",
-   "lane": "right",
-   "way": "up",
-   "kind": "blocked",
-   "pos": [
-    38.43,
-    21.96,
-    -55.74
-   ],
-   "severity": "warning",
-   "message": "Exit_Stairs: walking up the right lane the player is stopped by an edge / lip"
-  }
- ],
+ "findings": [],
  "passed": true,
  "results": [
   {
@@ -37,21 +23,15 @@
    }
   },
   {
-   "name": "Exit_Stairs",
-   "type": "stairs",
-   "length": 7.7,
+   "name": "Exit_Stairs_Deck",
+   "type": "box",
+   "length": 10.79,
    "lanes": {
     "centre_up": {},
     "centre_down": {},
     "left_up": {},
     "left_down": {},
-    "right_up": {
-     "blocked": [
-      38.43,
-      21.96,
-      -55.74
-     ]
-    },
+    "right_up": {},
     "right_down": {}
    }
   },
