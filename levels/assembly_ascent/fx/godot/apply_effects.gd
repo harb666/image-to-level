@@ -1137,6 +1137,81 @@ func _update_risers() -> void:
 	for rec in _risers:
 		if rec[4] >= 0.0 and _t - rec[4] < 60.0:
 			_pose_riser(rec, _t - rec[4])
+			_riser_splash(rec[0], _t - rec[4])
+
+
+var _splash_fx: Dictionary = {}  # Stage 180: riser id -> {"last": t, "pads": [[splash CPUParticles3D, drip CPUParticles3D]...]}
+
+
+func _slime_drops(amount: int, one_shot: bool) -> CPUParticles3D:
+	var p := CPUParticles3D.new()
+	p.amount = amount
+	p.lifetime = 1.4
+	p.one_shot = one_shot
+	p.explosiveness = 1.0 if one_shot else 0.0
+	p.emitting = false
+	p.gravity = Vector3(0.0, -9.8, 0.0)
+	var qm := QuadMesh.new()
+	qm.size = Vector2(0.4, 0.4)
+	var sm := StandardMaterial3D.new()
+	sm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	sm.albedo_color = Color(0.72, 1.0, 0.5)
+	p.scale_amount_min = 0.5  # droplets of all sizes
+	p.scale_amount_max = 1.3
+	sm.billboard_mode = BaseMaterial3D.BILLBOARD_PARTICLES
+	qm.material = sm
+	p.mesh = qm
+	level_root.add_child(p)
+	return p
+
+
+func _riser_splash(R: Dictionary, t: float) -> void:  # Stage 180 (same as viewer.html): a splash ring as each pad surfaces / launches, drips off its rim
+	if not R.has("splash"):
+		return
+	var S: Dictionary = R["splash"]
+	if not _splash_fx.has(R["id"]):
+		var pads: Array = []
+		for pd in R["pads"]:
+			var h := float(pd["size"]) / 2.0
+			var sp := _slime_drops(int(S["burst"]), true)  # a ring burst from the liquid round the pad
+			sp.emission_shape = CPUParticles3D.EMISSION_SHAPE_RING
+			sp.emission_ring_axis = Vector3.UP
+			sp.emission_ring_radius = h * 1.15
+			sp.emission_ring_inner_radius = h * 0.95
+			sp.emission_ring_height = 0.1
+			sp.direction = Vector3.UP
+			sp.spread = 35.0
+			sp.initial_velocity_min = float(S["speed"][0])
+			sp.initial_velocity_max = float(S["speed"][1])
+			sp.position = Vector3(pd["center"][0], float(R["liquid"]) + 0.05, pd["center"][2])
+			var dp := _slime_drops(60, false)  # drips falling off its rim as it climbs
+			dp.emission_shape = CPUParticles3D.EMISSION_SHAPE_RING
+			dp.emission_ring_axis = Vector3.UP
+			dp.emission_ring_radius = h
+			dp.emission_ring_inner_radius = h * 0.9
+			dp.emission_ring_height = 0.05
+			dp.direction = Vector3.DOWN
+			dp.initial_velocity_max = 0.4
+			pads.append([sp, dp])
+		_splash_fx[R["id"]] = {"last": -1.0, "pads": pads}
+	var F: Dictionary = _splash_fx[R["id"]]
+	for k in R["pads"].size():
+		var pd: Dictionary = R["pads"][k]
+		if not pd.has("splash"):
+			continue
+		var d0 := float(pd["delay"]) if pd.has("delay") else k * float(R["stagger"])
+		var tk := t - d0
+		var tl := float(F["last"]) - d0
+		for te in pd["splash"]:
+			if tl < float(te) and tk >= float(te):
+				(F["pads"][k][0] as CPUParticles3D).restart()
+		var dk := tk - float(pd["splash"][1])
+		var dp := F["pads"][k][1] as CPUParticles3D
+		dp.emitting = dk >= 0.0 and dk < float(S["drips"])
+		if dp.emitting:
+			var G := goofy_pose(pd, tk, float(R["rise_s"]), float(R["liquid"]))
+			dp.position = Vector3(pd["center"][0], float(pd["center"][1]) + float(G[0]) - 0.1, pd["center"][2])
+	F["last"] = t
 
 
 func _wind(w: Dictionary) -> void:

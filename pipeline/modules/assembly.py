@@ -615,6 +615,15 @@ def rising_arena(ctx, s, x, y, z, yaw):
                                                      stagger=float(s.get("stagger", 0.45)), rise_s=float(s.get("rise_s", 0.75 if style == "goofy" else 2.6)), liquid=liq,
                                                      **({"style": "goofy"} if style == "goofy" else {}),
                                                      note="the arena starts under the liquid; its platforms surge up in order when a player enters the trigger sphere" + (" - goofy: see assembly.goofy_pose" if style == "goofy" else ""))]
+    if style == "goofy" and s.get("splash", True):  # Stage 180 (user): slime splashes as each platform breaks the surface and launches; drips off its edges as it climbs
+        rs_ = float(s.get("rise_s", 0.75))
+        for pd in pads:
+            if not pd.get("goof"): continue
+            ts_ = next((k * 0.005 for k in range(1, 200) if pd["center"][1] + goofy_pose(pd, k * 0.005, rs_, liq)[0] >= liq), 0.3)  # its top breaks the surface
+            pd["splash"] = [round(ts_, 3), round(0.45 + pd["goof"]["peek"] + 0.22, 3)]  # (tk) the surfacing, the launch out of its duck
+        ctx.risers[-1]["splash"] = dict(color=[0.6, 1.0, 0.3], burst=80, speed=[2.5, 7.5], drips=2.6, drip_rate=70.0,
+                                        note="per pad: at each tk in pad.splash a ring of slime droplets bursts from the liquid surface round its footprint (pad.size), "
+                                             "up and out under gravity; for 'drips' s after the second, droplets fall off its rim as it climbs (fading rate); all die at the liquid")
     ctx.walkable.append(dict(name=n + "_Deck", min=[round(cx - D / 2, 3), round(cz - D / 2, 3)], max=[round(cx + D / 2, 3), round(cz + D / 2, 3)], y=top))
     ctx.notes.append(f"{n}: battle arena rising out of the liquid ({style}) - " + (f"{len(pads)} square tiles, {D:.1f} m across" if G_ else f"{D:.0f} m square deck + {len(pads) - 1} platforms") + f" at {top} m")
 
