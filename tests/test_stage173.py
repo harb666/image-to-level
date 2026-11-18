@@ -15,13 +15,18 @@ class BossLift(unittest.TestCase):
         for o in car: self.assertEqual(o["mobile"], {"group": self.B["group"]})
         self.assertAlmostEqual(self.B["top"], self.by["BossShaft_Car"]["position"][1], places=3)
 
-    def test_lands_docked_on_the_dais(self):
+    def test_lands_flush_in_the_ring(self):
+        """Stage 177 (user): the landed car lines up with the ground - it drops into the dais's steel ring, its deck 1-3 cm
+        over the dais top (covering it and its decal) and under the ring's lip; everything below its deck is hidden."""
         off = self.B["bottom"] - self.B["top"]; dais = self.by["Showcase_Dais"]; dtop = dais["position"][1] + dais["size"][1]
-        lights = self.by["BossShaft_CarLights"]; self.assertGreater(lights["position"][1] + off, dtop + 0.05)  # its underside clears the dais
-        under = self.by["BossShaft_CarUnder"]; self.assertGreater(under["position"][1] + off, dtop)
-        for k in range(1, 5):  # its clamp arms dock on the floor clamps' caps (contact, no overlap)
-            c = self.by[f"BossShaft_CarClamp_{k}"]; cap = self.by[f"Showcase_LiftClampCap_{k}"]
-            self.assertAlmostEqual(c["position"][1] + off, cap["position"][1] + cap["size"][1], delta=0.03)
+        car = self.by["BossShaft_Car"]; top = car["position"][1] + off + car["size"][1]; self.assertAlmostEqual(top, self.B["deck_y"], places=3)
+        self.assertGreater(top, self.by["Showcase_Logo"]["position"][1] + 0.01); self.assertLess(top - dtop, 0.05)
+        ring = self.by["Showcase_LiftRingInner"]; self.assertLess(top, ring["position"][1] + ring["size"][1])
+        self.assertLess(car["size"][0] / 2, ring["hole"]); self.assertGreater(car["size"][0] / 2, dais["size"][0] / 2)  # in the ring's bore, over the whole dais
+        for n in ("BossShaft_CarUnder", "BossShaft_CarLights") + tuple(f"BossShaft_CarClamp_{k}" for k in range(1, 5)):
+            o = self.by[n]; self.assertLess(o["position"][1] + off + o["size"][1], ring["position"][1] + 0.001, n)  # hidden under the deck / in the floor
+        em = self.by["BossShaft_CarEmblem"]; self.assertEqual(em["material"], "gear_decal"); self.assertAlmostEqual(em["position"][1] + off, top + 0.012, places=3)
+        self.assertEqual(em["mobile"], {"group": self.B["group"]}); self.assertAlmostEqual(em["position"][2] - em["size"][1] / 2, dais["position"][2], places=2)
         self.assertAlmostEqual(self.B["center"][0], dais["position"][0], places=2); self.assertAlmostEqual(self.B["center"][2], dais["position"][2], places=2)
         self.assertEqual(self.B["boss_spawn"][1], self.B["deck_y"])
 

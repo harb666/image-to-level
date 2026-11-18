@@ -4518,14 +4518,14 @@
     "lamps": "glow_yellow",
     "center": [
      -30.0,
-     8.04,
+     6.63,
      -39.5
     ],
-    "radius": 9.4,
+    "radius": 8.8,
     "top": 42.3,
-    "bottom": 8.04,
-    "travel": 34.26,
-    "deck_y": 8.74,
+    "bottom": 6.63,
+    "travel": 35.67,
+    "deck_y": 7.33,
     "thickness": 1.12,
     "warn": 3.0,
     "duration": 9.0,
@@ -4545,7 +4545,7 @@
     "delay": 1.0,
     "boss_spawn": [
      -30.0,
-     8.74,
+     7.33,
      -39.5
     ],
     "note": "parked at the top; the first time a player enters 'trigger' (or the game calls start_boss_lift(id)) it waits 'delay' s, flashes its lamps for 'warn' s, then descends 'travel' m (smoothstep, 'duration' s) onto the dais and stays: its top (deck_y) is a floor; anyone under it as it lands is pushed out past 'radius'; signal boss_lift_landed(id, boss_spawn) - spawn the mini boss there"

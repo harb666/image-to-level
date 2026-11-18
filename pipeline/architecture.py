@@ -791,16 +791,20 @@ def roof_shaft(ctx, pre, hn, H, hx, hz, R, y, th, tag):
     if H.get("car", True):  # the lift car parked at the top of the shaft (the boss rides it down)
         cy = y + th + Hh - 3.2; BL = H.get("boss_lift")
         if BL: vis = dict(collision=False, cutaway=True, mobile={"group": n + "Car"})  # Stage 173: the car moves (its own group)
-        ctx.add(n + "Car", "cylinder", [hx, cy, hz], [2 * R - 1.2, 0.7, 2 * R - 1.2], ring, sections=40, **vis)
-        ctx.add(n + "CarUnder", "cylinder", [hx, cy - 0.35, hz], [2 * R - 2.4, 0.36, 2 * R - 2.4], dark, sections=40, **vis)
-        ctx.add(n + "CarLights", "cylinder", [hx, cy - 0.42, hz], [2 * R - 3.0, 0.08, 2 * R - 3.0], amber, hole=R - 2.2, hole_res=40, sections=40, **vis)
+        cd = float(BL.get("car_d", 2 * R - 1.2)) if BL else 2 * R - 1.2  # Stage 177: a boss car sized to drop INTO the floor ring (flush, like the dais it covers)
+        ctx.add(n + "Car", "cylinder", [hx, cy, hz], [cd, 0.7, cd], ring, sections=40, **vis)
+        ctx.add(n + "CarUnder", "cylinder", [hx, cy - 0.35, hz], [cd - 1.2, 0.36, cd - 1.2], dark, sections=40, **vis)
+        ctx.add(n + "CarLights", "cylinder", [hx, cy - 0.42, hz], [cd - 1.8, 0.08, cd - 1.8], amber, hole=cd / 2 - 1.6, hole_res=40, sections=40, **vis)
         for k in range(4):
-            a = math.radians(90 * k + 45); rr = R - 1.15
-            ctx.add(f"{n}CarClamp_{k + 1}", "box", [hx + rr * math.sin(a), cy - 0.2, hz + rr * math.cos(a)], [1.1, 1.1, 0.8], dark, rot=[0, 90 * k + 45, 0], **vis)
+            a = math.radians(90 * k + 45); rr = cd / 2 - 0.55 if BL else R - 1.15; cyc = cy - 0.6 if BL else cy - 0.2  # (a boss car's clamps stay under its deck)
+            ctx.add(f"{n}CarClamp_{k + 1}", "box", [hx + rr * math.sin(a), cyc, hz + rr * math.cos(a)], [1.1, 1.1, 0.8], dark, rot=[0, 90 * k + 45, 0], **vis)
+        if BL and BL.get("emblem"):  # Stage 177: an emblem painted on the car's deck (rides down with it)
+            L_ = float(BL.get("emblem_size", cd * 0.72))
+            ctx.add(n + "CarEmblem", "panel", [hx, cy + 0.712, hz + L_ / 2], [L_, L_, 0], ctx.role(BL["emblem"]), rot=[-90, 0, 0], outline=False, **vis)
         if BL:  # Stage 173: the boss lift - comes down the shaft onto the dais below (level.json "boss_lifts")
             land = float(BL["land_y"])
             ctx.boss_lifts = getattr(ctx, "boss_lifts", []) + [dict(
-                id=n + "Lift", group=n + "Car", lamps=amber, center=[round(hx, 3), round(land, 3), round(hz, 3)], radius=round(R - 0.6, 3),
+                id=n + "Lift", group=n + "Car", lamps=amber, center=[round(hx, 3), round(land, 3), round(hz, 3)], radius=round(cd / 2, 3),
                 top=round(cy, 3), bottom=round(land, 3), travel=round(cy - land, 3), deck_y=round(land + 0.7, 3), thickness=1.12,
                 warn=float(BL.get("warn", 3.0)), duration=float(BL.get("duration", 9.0)), shake=float(BL.get("shake", 30.0)),
                 trigger=BL.get("trigger_area"), delay=float(BL.get("delay", 1.0)),

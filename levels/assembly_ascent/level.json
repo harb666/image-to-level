@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "1661696e9e0d5395",
+  "spec_sha": "a9711f4088247742",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -1679,14 +1679,14 @@
     "lamps": "glow_yellow",
     "center": [
      -30.0,
-     8.04,
+     6.63,
      -39.5
     ],
-    "radius": 9.4,
+    "radius": 8.8,
     "top": 42.3,
-    "bottom": 8.04,
-    "travel": 34.26,
-    "deck_y": 8.74,
+    "bottom": 6.63,
+    "travel": 35.67,
+    "deck_y": 7.33,
     "thickness": 1.12,
     "warn": 3.0,
     "duration": 9.0,
@@ -1706,7 +1706,7 @@
     "delay": 1.0,
     "boss_spawn": [
      -30.0,
-     8.74,
+     7.33,
      -39.5
     ],
     "note": "parked at the top; the first time a player enters 'trigger' (or the game calls start_boss_lift(id)) it waits 'delay' s, flashes its lamps for 'warn' s, then descends 'travel' m (smoothstep, 'duration' s) onto the dais and stays: its top (deck_y) is a floor; anyone under it as it lands is pushed out past 'radius'; signal boss_lift_landed(id, boss_spawn) - spawn the mini boss there"
@@ -13521,9 +13521,9 @@
     0.0
    ],
    "size": [
-    18.8,
+    17.6,
     0.7,
-    18.8
+    17.6
    ],
    "material": "lift_ring",
    "sections": 40,
@@ -13549,9 +13549,9 @@
     0.0
    ],
    "size": [
-    17.6,
+    16.4,
     0.36,
-    17.6
+    16.4
    ],
    "material": "saw_hub",
    "sections": 40,
@@ -13577,12 +13577,12 @@
     0.0
    ],
    "size": [
-    17.0,
+    15.8,
     0.08,
-    17.0
+    15.8
    ],
    "material": "glow_yellow",
-   "hole": 7.8,
+   "hole": 7.200000000000001,
    "hole_res": 40,
    "sections": 40,
    "collision": false,
@@ -13597,9 +13597,9 @@
    "name": "BossShaft_CarClamp_1",
    "type": "box",
    "position": [
-    -23.742,
-    42.1,
-    -33.242
+    -24.166,
+    41.7,
+    -33.666
    ],
    "rotation": [
     0.0,
@@ -13624,9 +13624,9 @@
    "name": "BossShaft_CarClamp_2",
    "type": "box",
    "position": [
-    -23.742,
-    42.1,
-    -45.758
+    -24.166,
+    41.7,
+    -45.334
    ],
    "rotation": [
     0.0,
@@ -13651,9 +13651,9 @@
    "name": "BossShaft_CarClamp_3",
    "type": "box",
    "position": [
-    -36.258,
-    42.1,
-    -45.758
+    -35.834,
+    41.7,
+    -45.334
    ],
    "rotation": [
     0.0,
@@ -13678,9 +13678,9 @@
    "name": "BossShaft_CarClamp_4",
    "type": "box",
    "position": [
-    -36.258,
-    42.1,
-    -33.242
+    -35.834,
+    41.7,
+    -33.666
    ],
    "rotation": [
     0.0,
@@ -13693,6 +13693,34 @@
     0.8
    ],
    "material": "saw_hub",
+   "collision": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "BossShaft_Car"
+   },
+   "gen": "arena.ceiling",
+   "source": "inferred"
+  },
+  {
+   "name": "BossShaft_CarEmblem",
+   "type": "panel",
+   "position": [
+    -30.0,
+    43.012,
+    -33.25
+   ],
+   "rotation": [
+    -90.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    12.5,
+    12.5,
+    0.0
+   ],
+   "material": "gear_decal",
+   "outline": false,
    "collision": false,
    "cutaway": true,
    "mobile": {
@@ -116256,14 +116284,14 @@
    "lamps": "glow_yellow",
    "center": [
     -30.0,
-    8.04,
+    6.63,
     -39.5
    ],
-   "radius": 9.4,
+   "radius": 8.8,
    "top": 42.3,
-   "bottom": 8.04,
-   "travel": 34.26,
-   "deck_y": 8.74,
+   "bottom": 6.63,
+   "travel": 35.67,
+   "deck_y": 7.33,
    "thickness": 1.12,
    "warn": 3.0,
    "duration": 9.0,
@@ -116283,7 +116311,7 @@
    "delay": 1.0,
    "boss_spawn": [
     -30.0,
-    8.74,
+    7.33,
     -39.5
    ],
    "note": "parked at the top; the first time a player enters 'trigger' (or the game calls start_boss_lift(id)) it waits 'delay' s, flashes its lamps for 'warn' s, then descends 'travel' m (smoothstep, 'duration' s) onto the dais and stays: its top (deck_y) is a floor; anyone under it as it lands is pushed out past 'radius'; signal boss_lift_landed(id, boss_spawn) - spawn the mini boss there"
@@ -116511,12 +116539,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 102504,
-  "objects": 3502,
+  "triangles": 102506,
+  "objects": 3503,
   "materials": 64,
   "glb_kb": 6598,
-  "nodes": 3820,
-  "draw_calls_unbatched": 3765,
+  "nodes": 3821,
+  "draw_calls_unbatched": 3766,
   "draw_calls_batched_min": 66,
   "images": 153,
   "tex_mem_gpu_compressed_mb": 33.65,
