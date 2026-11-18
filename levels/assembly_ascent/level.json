@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "a9711f4088247742",
+  "spec_sha": "85b2213a1b438182",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -3644,7 +3644,10 @@
      0.5898
     ]
    },
-   "notes": "Stage 135: CONSTRUCT ERROR_ banner, X banners, logo monitors (references/make_showcase_art.py)"
+   "notes": "Stage 135: CONSTRUCT ERROR_ banner, X banners, logo monitors (references/make_showcase_art.py)",
+   "blank": [
+    "banner"
+   ]
   },
   "ceiling": {
    "type": "ceiling_works",
@@ -4321,7 +4324,7 @@
    "notes": "grin / exit / arrow / gear emblem (references/make_signs.py)"
   },
   "specimen_scan": {
-   "type": "image_decal",
+   "type": "screen_atlas",
    "color": [
     1,
     1,
@@ -4330,15 +4333,39 @@
    "tile_m": 4.0,
    "wear": 0.5,
    "bevel": 0.12,
-   "image": "levels/assembly_ascent/references/specimen_schematic.png",
-   "res": 1024,
-   "glow": 1.0,
+   "res": 2048,
    "emissive": [
     0.9,
     0.95,
     1.0
    ],
-   "notes": "Stage 168: the showcase monitor's dissection scan of the vat specimen (pipeline/make_specimen_schematic.py, from her mesh)"
+   "grid": [
+    [
+     {
+      "image": "levels/assembly_ascent/references/specimen_schematic_L.png"
+     }
+    ],
+    [
+     {
+      "image": "levels/assembly_ascent/references/specimen_schematic_R.png"
+     }
+    ]
+   ],
+   "atlas": {
+    "l": [
+     0.0,
+     0.5,
+     1.0,
+     1.0
+    ],
+    "r": [
+     0.0,
+     0.0,
+     1.0,
+     0.5
+    ]
+   },
+   "notes": "Stage 168/178: the showcase monitor's dissection scan (pipeline/make_specimen_schematic.py, from her mesh) - its halves stacked (two screen panels): twice the pixels across"
   },
   "spike": {
    "type": "concrete",
@@ -27813,10 +27840,10 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Scan",
+   "name": "Showcase_Scan_L",
    "type": "panel",
    "position": [
-    -30.0,
+    -33.85,
     17.2,
     -64.238
    ],
@@ -27826,11 +27853,40 @@
     0.0
    ],
    "size": [
-    15.4,
+    7.7,
     7.0,
     0.0
    ],
    "material": "specimen_scan",
+   "uv_region": "l",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Scan_R",
+   "type": "panel",
+   "position": [
+    -26.15,
+    17.2,
+    -64.238
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    7.7,
+    7.0,
+    0.0
+   ],
+   "material": "specimen_scan",
+   "uv_region": "r",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -113010,7 +113066,13 @@
  ],
  "mobile": {
   "profile": "balanced",
-  "cell": 160
+  "cell": 160,
+  "hd_textures": {
+   "specimen_scan": [
+    768,
+    72
+   ]
+  }
  },
  "style": {
   "name": "alien_cartoon",
@@ -116539,16 +116601,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 102506,
-  "objects": 3503,
+  "triangles": 102508,
+  "objects": 3504,
   "materials": 64,
-  "glb_kb": 6598,
-  "nodes": 3821,
-  "draw_calls_unbatched": 3766,
+  "glb_kb": 6921,
+  "nodes": 3822,
+  "draw_calls_unbatched": 3767,
   "draw_calls_batched_min": 66,
   "images": 153,
-  "tex_mem_gpu_compressed_mb": 33.65,
-  "tex_mem_uncompressed_mb": 134.61,
+  "tex_mem_gpu_compressed_mb": 41.65,
+  "tex_mem_uncompressed_mb": 166.61,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

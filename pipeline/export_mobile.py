@@ -338,7 +338,7 @@ def export(level_dir, profile=None):
     lg = os.path.join(out_dir, "level_mobile.glb"); scene.export(lg)
     if skinned: add_skins(lg, {k: v["joints"] for k, v in SK.items()}, skinned)
     restore_images(lg, os.path.join(level_dir, "level.glb")); dedupe_images(lg)
-    downscale_images(lg, P["tex_max"]); set_node_extras(lg, extras)
+    downscale_images(lg, P["tex_max"], hd=(L.get("mobile") or {}).get("hd_textures")); set_node_extras(lg, extras)  # Stage 178: hero screens may keep more pixels
     if terrain_nodes:
         from glb_tools import far_material
         far_material(lg)

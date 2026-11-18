@@ -41,17 +41,17 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 6598,
-    "triangles": 117594,
-    "nodes": 3821,
-    "mesh_nodes": 3766,
-    "unique_meshes": 1630,
+    "glb_kb": 6921,
+    "triangles": 117596,
+    "nodes": 3822,
+    "mesh_nodes": 3767,
+    "unique_meshes": 1631,
     "materials": 66,
     "images": 153,
-    "draw_calls_unbatched": 3766,
+    "draw_calls_unbatched": 3767,
     "draw_calls_batched_min": 66,
-    "tex_mem_uncompressed_mb": 134.61,
-    "tex_mem_gpu_compressed_mb": 33.65,
+    "tex_mem_uncompressed_mb": 166.61,
+    "tex_mem_gpu_compressed_mb": 41.65,
     "texture_slots": {
      "baseColorTexture": 60,
      "metallicRoughnessTexture": 60,
@@ -64,6 +64,7 @@
      "128x128 jpeg",
      "128x128 png",
      "16x16 jpeg",
+     "2048x2048 jpeg",
      "256x256 jpeg",
      "256x256 png",
      "32x32 jpeg",
@@ -74,16 +75,16 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 1202.9,
-    "visible_draw_calls_max": 3682,
+    "visible_draw_calls_mean": 1203.2,
+    "visible_draw_calls_max": 3683,
     "visible_triangles_mean": 50533,
-    "visible_triangles_max": 126230
+    "visible_triangles_max": 126232
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3969,
-    "triangles": 113150,
+    "glb_kb": 3987,
+    "triangles": 113152,
     "nodes": 304,
     "mesh_nodes": 205,
     "unique_meshes": 205,
@@ -91,8 +92,8 @@
     "images": 117,
     "draw_calls_unbatched": 205,
     "draw_calls_batched_min": 66,
-    "tex_mem_uncompressed_mb": 59.36,
-    "tex_mem_gpu_compressed_mb": 14.84,
+    "tex_mem_uncompressed_mb": 62.7,
+    "tex_mem_gpu_compressed_mb": 15.67,
     "texture_slots": {
      "baseColorTexture": 60,
      "emissiveTexture": 39,
@@ -107,7 +108,8 @@
      "32x32 webp",
      "512x512 png",
      "512x512 webp",
-     "64x64 webp"
+     "64x64 webp",
+     "768x768 webp"
     ]
    },
    "background": {
@@ -143,8 +145,8 @@
     "cameras": 128,
     "visible_draw_calls_mean": 102.2,
     "visible_draw_calls_max": 204,
-    "visible_triangles_mean": 95642,
-    "visible_triangles_max": 122994
+    "visible_triangles_mean": 95643,
+    "visible_triangles_max": 122996
    },
    "hidden_faces_removed": 1675,
    "occluded_faces_removed": 2769,
@@ -157,8 +159,8 @@
    "effects_max_particles": 1495,
    "slimmed_kb": {
     "level_mobile.glb": [
-     5914,
-     3969
+     5976,
+     3987
     ],
     "background_mobile.glb": [
      477,
@@ -5241,11 +5243,12 @@
    "node": "M_specimen_scan_0_0",
    "kind": "static",
    "material": "specimen_scan",
-   "triangles": 2,
+   "triangles": 4,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Showcase_Scan"
+    "Showcase_Scan_R",
+    "Showcase_Scan_L"
    ]
   },
   {

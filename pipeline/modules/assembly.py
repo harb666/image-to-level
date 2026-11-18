@@ -1163,7 +1163,10 @@ def showcase(ctx, s, x, y, z, yaw):
         ctx.add(n + "_ScanHousing", "box", [tx, by_ - 0.75, wz + dz_ / 2], [sw_ + 1.4, sh_ + 1.35, dz_], "machine", **vs)  # deep back box against the wall
         for nm_, px_, py_, w_, h_ in (("Top", 0, sh_ + 0.02, sw_ + 1.1, 0.45), ("Low", 0, -0.62, sw_ + 1.1, 0.64), ("L", -(sw_ / 2 + 0.3), -0.05, 0.6, sh_ + 0.1), ("R", sw_ / 2 + 0.3, -0.05, 0.6, sh_ + 0.1)):
             ctx.add(f"{n}_ScanBezel_{nm_}", "box", [tx + px_, by_ + py_, wz + dz_ + 0.06], [w_, h_, 0.16], "frame", **vs)  # bezel 6 cm into the housing, 10 cm proud
-        ctx.add(n + "_Scan", "panel", [tx, by_, wz + dz_ + 0.012], [sw_, sh_, 0], ctx.role(s.get("scan_material", "specimen_scan")), **vs)
+        if s.get("scan_split"):  # Stage 178: two panels side by side, the picture's halves stacked in one texture (twice the pixels across)
+            for t, sg in (("L", -1), ("R", 1)):
+                ctx.add(f"{n}_Scan_{t}", "panel", [tx + sg * sw_ / 4, by_, wz + dz_ + 0.012], [sw_ / 2, sh_, 0], ctx.role(s.get("scan_material", "specimen_scan")), uv_region=t.lower(), **vs)
+        else: ctx.add(n + "_Scan", "panel", [tx, by_, wz + dz_ + 0.012], [sw_, sh_, 0], ctx.role(s.get("scan_material", "specimen_scan")), **vs)
         for k, dx_ in enumerate((-0.9, -0.3, 0.3, 0.9)):  # status lamps on the lower lip
             ctx.add(f"{n}_ScanLamp_{k + 1}", "box", [tx + sw_ / 2 - 1.4 + dx_ * 0.6, by_ - 0.42, wz + dz_ + 0.15], [0.26, 0.14, 0.05], gl_ if k % 2 else ctx.role("glow_green"), **vs)
         ctx.add(n + "_ScanGrille", "box", [tx - sw_ / 2 + 1.6, by_ - 0.45, wz + dz_ + 0.15], [2.4, 0.24, 0.05], "grate", **vs)

@@ -1040,6 +1040,8 @@ def k_screen_atlas(S, rng, c, m):
     if m.get("grid"):
         G = m["grid"]; h, w = S // len(G), S // len(G[0])
         alb = np.concatenate([np.concatenate([_atlas_cell(cell, w, h) for cell in row], 1) for row in G], 0)
+        for cell in m.get("blank", []):  # Stage 178: atlas cells nothing uses any more -> flat black (compresses to almost nothing)
+            u0, v0, u1, v1 = m["atlas"][cell]; alb[int(round((1 - v1) * S)):int(round((1 - v0) * S)), int(round(u0 * S)):int(round(u1 * S))] = 0.0
         return dict(alb=alb, h=np.zeros((S, S)), rough=np.full((S, S), 0.45), metal=0.0, emit=np.ones((S, S)), nstr=0.0)
     out, dflt = {}, {"left": {"type": "screen_ui", "seed": 1}, "right": {"type": "screen_ui", "seed": 2}}
     for k_ in ("left", "right"):

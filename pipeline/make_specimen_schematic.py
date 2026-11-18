@@ -51,7 +51,7 @@ def load():
     for p in J["meshes"][0]["primitives"]:
         nm = p["extras"]["part"]
         if nm == "Cables": continue
-        P = S.accessor(J, BIN, p["attributes"]["POSITION"]); F = S.accessor(J, BIN, p["indices"]).reshape(-1, 3)
+        P = S.accessor(J, BIN, p["attributes"]["POSITION"]); F = S.accessor(J, BIN, p["indices"]).reshape(-1, 3)  # (wires: a simplified copy per part, below)
         Jn = S.accessor(J, BIN, p["attributes"]["JOINTS_0"]); Wt = S.accessor(J, BIN, p["attributes"]["WEIGHTS_0"])
         dom = Jn[np.arange(len(Jn)), np.argmax(Wt, 1)]  # each vertex's strongest bone
         lab = np.array([part_of(joints[int(dom[f[0]])], nm) for f in F])  # a face goes with its first corner's bone
@@ -72,7 +72,7 @@ def main(out_path):
         off[k] = np.array([np.sign(cx) * ox if ox else 0.0, oy])
     # projection (front, orthographic): fit the exploded figure into the left 60% of the picture
     pts = np.concatenate([P[np.unique(F)][:, :2] + off[k] for k, lst in pieces.items() for P, F in lst])
-    lo, hi = pts.min(0), pts.max(0); box = (60 * SS, 120 * SS, 1300 * SS, (H - 70) * SS)
+    lo, hi = pts.min(0), pts.max(0); box = (60 * SS, 175 * SS, 1150 * SS, (H - 80) * SS)
     sc = min((box[2] - box[0]) / (hi[0] - lo[0]), (box[3] - box[1]) / (hi[1] - lo[1]))
     ctr = np.array([(box[0] + box[2]) / 2, (box[1] + box[3]) / 2]); mid = (lo + hi) / 2
     to_px = lambda q: np.stack([ctr[0] + (q[..., 0] - mid[0]) * sc, ctr[1] - (q[..., 1] - mid[1]) * sc], -1)
@@ -89,14 +89,23 @@ def main(out_path):
             Q = to_px(P[:, :2] + off[k])
             for f in F:  # faint silhouette fill (depth), then the wire
                 dg.polygon([tuple(Q[i]) for i in f], fill=tuple(int(c * 0.10) for c in col))
-            E = np.sort(np.concatenate([F[:, [0, 1]], F[:, [1, 2]], F[:, [2, 0]]]), 1); E = np.unique(E, axis=0)
-            for a, b in E: dw.line([tuple(Q[a]), tuple(Q[b])], fill=tuple(int(c * (0.3 if k == "hair" else 0.55)) for c in col), width=SS)  # (the hair is dense: dimmer)
+            try:  # Stage 178 (HD): wire a simplified copy (~1/4 of the faces) - distinct lines, not a haze
+                import fast_simplification
+                Vd, Fd = fast_simplification.simplify(P[:, :3].astype(np.float32), F.astype(np.int32), target_reduction=0.8 if k != "hair" else 0.9)
+                Qd = to_px(np.asarray(Vd)[:, :2] + off[k])
+            except Exception: Vd, Fd, Qd = P, F, Q
+            E = np.sort(np.concatenate([Fd[:, [0, 1]], Fd[:, [1, 2]], Fd[:, [2, 0]]]), 1); E = np.unique(E, axis=0)
+            for a, b in E: dw.line([tuple(Qd[a]), tuple(Qd[b])], fill=tuple(int(c * (0.5 if k == "hair" else 0.8)) for c in col), width=2 * SS)
+            sil = Image.new("L", img.size, 0); ds = ImageDraw.Draw(sil)
+            for f in F: ds.polygon([tuple(Q[i]) for i in f], fill=255)
+            edge = np.asarray(sil.filter(ImageFilter.MaxFilter(5)), float) - np.asarray(sil.filter(ImageFilter.MinFilter(5)), float)  # the part's outline, bright
+            ow = np.asarray(wire, float); ow = np.maximum(ow, (edge[..., None] / 255.0) * np.array(col)[None, None]); wire = Image.fromarray(ow.astype(np.uint8)); dw = ImageDraw.Draw(wire)
         allp = np.concatenate([P[np.unique(F)][:, :2] for P, F in lst]) + off[k]; cents[k] = to_px(allp.mean(0));
     halo = wire.filter(ImageFilter.GaussianBlur(4 * SS))
     img = Image.fromarray(np.clip(np.asarray(img, int) + np.asarray(glow, int) + np.asarray(wire, int) * 1.25 + np.asarray(halo, int) * 1.3, 0, 255).astype(np.uint8))
     d = ImageDraw.Draw(img)
-    f_big = ImageFont.truetype(FONT, 44 * SS) if FONT else ImageFont.load_default(); f_mid = ImageFont.truetype(FONT, 26 * SS) if FONT else f_big
-    f_sm = ImageFont.truetype(FONT, 19 * SS) if FONT else f_big
+    f_big = ImageFont.truetype(FONT, 64 * SS) if FONT else ImageFont.load_default(); f_mid = ImageFont.truetype(FONT, 38 * SS) if FONT else f_big  # Stage 178: legible on the wall
+    f_sm = ImageFont.truetype(FONT, 27 * SS) if FONT else f_big
     # dashed joint lines between each limb part and what it was cut from
     links = [("head", "torso"), ("hair", "head")] + [(f"{a}{s}", f"{b}{s}" if b != "torso" else "torso") for s in "LR" for a, b in
                                                      (("upperarm", "torso"), ("forearm", "upperarm"), ("thigh", "torso"), ("shin", "thigh"))]
@@ -106,28 +115,29 @@ def main(out_path):
             for t in range(0, n_, 2): d.line([tuple(p0 + (p1 - p0) * t / n_), tuple(p0 + (p1 - p0) * (t + 1) / n_)], fill=(90, 160, 200), width=2 * SS)
     # callouts: a leader line from each part to a label in the right-hand column
     rows = sorted([k for k in ("hair", "head", "torso", "upperarmL", "upperarmR", "forearmL", "forearmR", "thighL", "thighR", "shinL", "shinR") if k in cents], key=lambda k: (cents[k][1], -cents[k][0]))  # top to bottom: leaders cross less
-    x_lab = 1380 * SS
+    x_lab = 1330 * SS
     for i, k in enumerate(rows):
         base = k[:-1] if k[-1] in "LR" and k[:-1] in PARTS else k; side = (" L" if k.endswith("L") else " R") if k != base else ""
-        y_lab = (175 + i * 66) * SS; col = PINK if k == flag else TEAL if k == "hair" else CYAN; c = cents[k]
-        d.line([tuple(c), (x_lab - 40 * SS, y_lab + 12 * SS), (x_lab - 10 * SS, y_lab + 12 * SS)], fill=col, width=SS)
+        y_lab = (160 + i * 72) * SS; col = PINK if k == flag else TEAL if k == "hair" else CYAN; c = cents[k]
+        d.line([tuple(c), (x_lab - 40 * SS, y_lab + 20 * SS), (x_lab - 10 * SS, y_lab + 20 * SS)], fill=col, width=2 * SS)
         d.ellipse([c[0] - 5 * SS, c[1] - 5 * SS, c[0] + 5 * SS, c[1] + 5 * SS], outline=col, width=2 * SS)
         d.text((x_lab, y_lab), f"{i + 1:02d} {PARTS[base][2]}{side}", font=f_mid, fill=col)
         st = "FAULT - SEVERED" if k == flag else ["NOMINAL", "STABLE", "NOMINAL", "SYNC 98%", "SYNC 97%"][i % 5]
-        d.text((x_lab + 40 * SS, y_lab + 30 * SS), st, font=f_sm, fill=(255, 120, 215) if k == flag else (110, 170, 200))
+        d.text((x_lab + 530 * SS, y_lab + 8 * SS), st, font=f_sm, fill=(255, 120, 215) if k == flag else (110, 170, 200))
     # header / footer readouts
-    d.text((60 * SS, 30 * SS), "SPECIMEN 07 // DISSECTION SCAN", font=f_big, fill=CYAN)
-    d.text((60 * SS, 84 * SS), "CYBERNETIC UNIT  ::  CONTAINMENT VAT 01  ::  STATUS: AGITATED", font=f_sm, fill=(110, 190, 225))
-    d.text((1480 * SS, 40 * SS), "INTEGRITY 63%", font=f_mid, fill=(255, 110, 210)); d.rectangle([1480 * SS, 80 * SS, 2140 * SS, 98 * SS], outline=CYAN, width=2 * SS)
-    d.rectangle([1484 * SS, 84 * SS, int((1484 + 652 * 0.63) * SS), 94 * SS], fill=(255, 90, 200))
-    d.text((60 * SS, (H - 52) * SS), f"MESH {sum(len(F) for lst in pieces.values() for _, F in lst)} POLY  ::  {len(pieces)} SEGMENTS  ::  SCAN 0x07F3", font=f_sm, fill=(90, 150, 190))
+    d.text((50 * SS, 22 * SS), "SPECIMEN 07 // DISSECTION SCAN", font=f_big, fill=CYAN)
+    d.text((54 * SS, 100 * SS), "CONTAINMENT VAT 01  ::  STATUS: AGITATED", font=f_sm, fill=(130, 200, 235))
+    d.text((1500 * SS, 26 * SS), "INTEGRITY 63%", font=f_mid, fill=(255, 110, 210)); d.rectangle([1500 * SS, 82 * SS, 2150 * SS, 108 * SS], outline=CYAN, width=3 * SS)
+    d.rectangle([1506 * SS, 88 * SS, int((1506 + 638 * 0.63) * SS), 102 * SS], fill=(255, 90, 200))
+    d.text((54 * SS, (H - 56) * SS), f"MESH {sum(len(F) for lst in pieces.values() for _, F in lst)} POLY  ::  {len(pieces)} SEGMENTS  ::  SCAN 0x07F3", font=f_sm, fill=(90, 150, 190))
     for x0, y0, sx, sy in ((14, 14, 1, 1), (W - 14, 14, -1, 1), (14, H - 14, 1, -1), (W - 14, H - 14, -1, -1)):  # corner brackets
         d.line([(x0 * SS, y0 * SS), ((x0 + sx * 70) * SS, y0 * SS)], fill=CYAN, width=3 * SS); d.line([(x0 * SS, y0 * SS), (x0 * SS, (y0 + sy * 70) * SS)], fill=CYAN, width=3 * SS)
     img = img.resize((W, H), Image.LANCZOS)
     a = np.asarray(img, float); yy = np.arange(H)[:, None, None]
-    a *= 0.9 + 0.1 * (yy % 4 < 2)  # scanlines
-    r = np.hypot(np.linspace(-1, 1, W)[None, :], np.linspace(-1, 1, H)[:, None]); a *= (1 - 0.35 * np.clip(r - 0.6, 0, 1))[..., None]  # vignette
-    Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)).convert("RGBA").save(out_path)
+    r = np.hypot(np.linspace(-1, 1, W)[None, :], np.linspace(-1, 1, H)[:, None]); a *= (1 - 0.2 * np.clip(r - 0.8, 0, 1))[..., None]  # light vignette (Stage 178: no scanlines - they moire when the texture shrinks)
+    full = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)); full.convert("RGBA").save(out_path)
+    for t, box_ in (("_L", (0, 0, W // 2, H)), ("_R", (W // 2, 0, W, H))):  # Stage 178: halves for the screen's 2-row atlas (twice the pixels across)
+        full.crop(box_).save(out_path[:-4] + t + ".png")
     return out_path
 
 

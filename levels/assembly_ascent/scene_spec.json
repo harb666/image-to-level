@@ -40,7 +40,13 @@
     }
   },
   "mobile": {
-    "cell": 160
+    "cell": 160,
+    "hd_textures": {
+      "specimen_scan": [
+        768,
+        72
+      ]
+    }
   },
   "refine": {
     "max_passes": 3
@@ -463,7 +469,10 @@
             0.5898
           ]
         },
-        "notes": "Stage 135: CONSTRUCT ERROR_ banner, X banners, logo monitors (references/make_showcase_art.py)"
+        "notes": "Stage 135: CONSTRUCT ERROR_ banner, X banners, logo monitors (references/make_showcase_art.py)",
+        "blank": [
+          "banner"
+        ]
       },
       "ce_frown_face": {
         "type": "image_decal",
@@ -818,21 +827,46 @@
         "notes": "Stage 157: bolts only - flashes and jumps about inside the chambers for ~1.6 s after each slam (sweepers[].drive.arcs)"
       },
       "specimen_scan": {
-        "type": "image_decal",
-        "image": "levels/assembly_ascent/references/specimen_schematic.png",
+        "type": "screen_atlas",
         "color": [
           1,
           1,
           1
         ],
-        "res": 1024,
-        "glow": 1.0,
+        "tile_m": 4.0,
+        "res": 2048,
         "emissive": [
           0.9,
           0.95,
           1.0
         ],
-        "notes": "Stage 168: the showcase monitor's dissection scan of the vat specimen (pipeline/make_specimen_schematic.py, from her mesh)"
+        "grid": [
+          [
+            {
+              "image": "levels/assembly_ascent/references/specimen_schematic_L.png"
+            }
+          ],
+          [
+            {
+              "image": "levels/assembly_ascent/references/specimen_schematic_R.png"
+            }
+          ]
+        ],
+        "atlas": {
+          "l": [
+            0.0,
+            0.5,
+            1.0,
+            1.0
+          ],
+          "r": [
+            0.0,
+            0.0,
+            1.0,
+            0.5
+          ]
+        },
+        "notes": "Stage 168/178: the showcase monitor's dissection scan (pipeline/make_specimen_schematic.py, from her mesh) - its halves stacked (two screen panels): twice the pixels across"
       },
       "gate_atlas": {
         "type": "screen_atlas",
@@ -1308,7 +1342,8 @@
         "trigger_radius": 9.0,
         "fade": 0.3
       },
-      "scan_screen": true
+      "scan_screen": true,
+      "scan_split": true
     },
     {
       "id": "Showcase_Crates_L",

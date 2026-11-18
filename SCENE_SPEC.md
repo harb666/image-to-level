@@ -1516,6 +1516,11 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 178: the showcase scan redrawn for legibility (twice the type size, bolder; wires from a simplified copy of her
+  mesh plus bright part outlines; no scanlines) and split (`showcase` `scan_split`): two panels side by side, the picture's
+  halves stacked in one `screen_atlas` (cells l / r) - twice the pixels across. `mobile.hd_textures` {material prefix: px
+  or [px, webp quality]}: those textures keep more pixels in the mobile export (glb_tools.downscale_images `hd`; slim
+  reads the per-image `webp_q`). `screen_atlas` `blank`: unused atlas cells go flat black (ce_signs' old banner: -10 KB).
 - Stage 177: `boss_lift` `car_d` (car diameter; a boss car's clamps tuck under its deck) and `emblem` / `emblem_size` (a decal on its deck, riding down with it). Assembly Ascent: the 17.6 m car drops into the dais's steel ring, its deck flush where the dais top was (land_y 6.63 -> deck 7.33), the cog face (`gear_decal`) on it.
 - Stage 176: `column` with pods: a black core (`<id>_Abyss`, role `void`) fills the plinth's bore to 3.95 m (over the first glass section's bottom face, 5 cm under the rim); the pod waits inside it (`tube_pod` `rest_top` 3.55) and rises out of the dark. Material options `ao_mul` (0: no ambient / reflections) and `rough_min`; Assembly Ascent's `void` uses both (a black that stays black).
 - Stage 175: structure `pod_export` ({"tubes": [[x, z], ...], "riser_pods", "spacing", "run_spacing", "to_x", "bridges",

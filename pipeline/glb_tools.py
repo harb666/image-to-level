@@ -78,17 +78,33 @@ def _repack(g, binary, new_views):
     return bytes(out)
 
 
-def downscale_images(path, max_px, quality=82):
-    """Cap every embedded image at max_px (keeps aspect, re-encodes JPEG). Returns number of images changed."""
+def downscale_images(path, max_px, quality=82, hd=None):
+    """Cap every embedded image at max_px (keeps aspect, re-encodes JPEG). Returns number of images changed.
+    Stage 178: hd {material name prefix: px} - images used by those materials get that cap instead (a hero screen)."""
     import io
     from PIL import Image
-    g, binary = _read(path); new = {}
-    for im in g.get("images", []):
+    g, binary = _read(path); new = {}; caps = {}
+    if hd:
+        def walk(o):
+            if isinstance(o, dict):
+                if isinstance(o.get("index"), int): yield o["index"]
+                for v in o.values(): yield from walk(v)
+        for m in g.get("materials", []):
+            v = next((v for k, v in hd.items() if m.get("name", "").startswith(k)), None)
+            if v is None: continue
+            px, q = (int(v[0]), int(v[1])) if isinstance(v, (list, tuple)) else (int(v), None)  # [px, webp quality] or px
+            for ti in walk(m):
+                t = g["textures"][ti]; src = t.get("source", next(iter(t.get("extensions", {}).values()), {}).get("source"))
+                if src is not None:
+                    caps[src] = max(caps.get(src, 0), px)
+                    if q: g["images"][src].setdefault("extras", {})["webp_q"] = q  # (slim encodes it at that quality)
+    for ii, im in enumerate(g.get("images", [])):
+        cap = caps.get(ii, max_px)
         bv = g["bufferViews"][im["bufferView"]]; img = Image.open(io.BytesIO(_view(binary, bv)))
-        if max(img.size) <= max_px: continue
-        s = max_px / max(img.size); img = img.convert("RGB").resize((max(1, round(img.width * s)), max(1, round(img.height * s))), Image.LANCZOS)
+        if max(img.size) <= cap: continue
+        s = cap / max(img.size); img = img.convert("RGB").resize((max(1, round(img.width * s)), max(1, round(img.height * s))), Image.LANCZOS)
         b = io.BytesIO(); img.save(b, "JPEG", quality=quality); new[im["bufferView"]] = b.getvalue(); im["mimeType"] = "image/jpeg"
-    if new: _write(path, g, _repack(g, binary, new))
+    if new or caps: _write(path, g, _repack(g, binary, new))
     return len(new)
 
 
@@ -230,7 +246,7 @@ def slim(path, plain_materials=(), drop_extras=(), weld_untextured=True, webp=No
             pic = Image.open(io.BytesIO(_view(binary, g["bufferViews"][im["bufferView"]]))); buf = io.BytesIO()
             pic = pic.convert("RGBA" if "A" in pic.getbands() or "transparency" in pic.info else "RGB")
             if pic.mode == "RGBA" and pic.getchannel("A").getextrema() == (255, 255): pic = pic.convert("RGB")
-            pic.save(buf, "WEBP", quality=int(webp), method=6); new = buf.getvalue()
+            pic.save(buf, "WEBP", quality=int((im.get("extras") or {}).get("webp_q", webp)), method=6); new = buf.getvalue()
             if len(new) < g["bufferViews"][im["bufferView"]]["byteLength"]: views[im["bufferView"]] = new; im["mimeType"] = "image/webp"
         wi = {i for i, im in enumerate(g["images"]) if im.get("mimeType") == "image/webp"}
         for t in g.get("textures", []):
