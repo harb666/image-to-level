@@ -1516,6 +1516,7 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 183: `pod_export` in the hall tubes' own look (user): "tubes" [[x, z, radius]]; the same tube (glass sections between banded drums, red lights - `_tube_run`) climbs out of a roof collar to a drum-clad elbow housing and runs east on the pipe bridge to the transfer tower; the hall's capsule pods (base, glass shell, slime, cap) ride the two lines (`spacing` 6, `run_spacing` fitted so the last pod ends inside the tower).
 - Stage 182: `style.ramp_thresholds` (default true) / a connection's `"thresholds"`: false leaves the hazard-stripe mats off the ramps' ends (Assembly Ascent: off).
 - Stage 181: shape `gear` (spur gear: `teeth`, `depth`, `phase`, spun about local y). `showcase` `cog_towers`: the X
   banners become gear trains - three steel cogs (16 / 11 / 8 teeth, module 0.2) meshing up the wall, phased so teeth

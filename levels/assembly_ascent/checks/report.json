@@ -1,16 +1,16 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 6979,
-  "mobile/level_mobile.glb": 3872,
+  "level.glb": 7101,
+  "mobile/level_mobile.glb": 3943,
   "mobile/collision.json": 244,
   "environment.json": 4,
   "background.glb": 477,
   "effects.json": 133
  },
  "complexity": {
-  "triangles": 119128,
-  "nodes": 3808,
+  "triangles": 121584,
+  "nodes": 3903,
   "materials": 65,
   "heaviest": [
    [
@@ -37,21 +37,21 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 6979,
-   "triangles": 104160,
-   "draw_calls": 3808,
+   "glb_kb": 7101,
+   "triangles": 106616,
+   "draw_calls": 3903,
    "tex_mem_gpu_mb_est": 41.65
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3872,
-   "triangles": 114650,
-   "draw_calls": 212,
-   "visible_draw_calls_est": 105.1,
-   "visible_draw_calls_max_est": 210,
+   "glb_kb": 3943,
+   "triangles": 117106,
+   "draw_calls": 216,
+   "visible_draw_calls_est": 106.2,
+   "visible_draw_calls_max_est": 214,
    "tex_mem_gpu_mb_est": 15.67,
    "materials": 67,
-   "nodes": 311,
+   "nodes": 315,
    "colliders": {
     "colliders": 585,
     "hazards": 1,
@@ -71,7 +71,7 @@
   "counts": {
    "ERROR": 0,
    "WARNING": 3,
-   "INTENTIONAL": 30
+   "INTENTIONAL": 0
   },
   "relations": {
    "explicit": 24,
@@ -281,12 +281,12 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 212 (> 80)"
+   "message": "mobile draw calls 216 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~105 visible draw calls (estimate, > 60)"
+   "message": "~106 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "narrow_connector",
@@ -346,12 +346,12 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "119128 triangles (> budget 40000)"
+   "message": "121584 triangles (> budget 40000)"
   },
   {
    "kind": "dev_size",
    "severity": "info",
-   "message": "dev GLB 6979 KB (> 6000)"
+   "message": "dev GLB 7101 KB (> 6000)"
   },
   {
    "kind": "low_ceiling",
