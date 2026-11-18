@@ -1,17 +1,17 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 3403 objects · 64 materials · 53 effects
+Spec: levels/assembly_ascent/scene_spec.json · 3403 objects · 64 materials · 54 effects
 Checks: PASSED ({'error': 0, 'warning': 11, 'info': 2}) · refine passes: 0
-Mobile (balanced): 3905 KB · 110764 tris · 192 draw calls · ~98.7 visible (estimate) · ~15.09 MB GPU textures (estimate)
+Mobile (balanced): 3908 KB · 110764 tris · 196 draw calls · ~99.5 visible (estimate) · ~15.09 MB GPU textures (estimate)
 Navigation: 5444.0 m² reachable of 20640.0 m² standable
-Package: dist/assembly_ascent/package (39 files, 16.97 MB) valid=True
+Package: dist/assembly_ascent/package (39 files, 16.99 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- warning: mobile draw calls 192 (> 80)
-- warning: ~99 visible draw calls (estimate, > 60)
+- warning: mobile draw calls 196 (> 80)
+- warning: ~100 visible draw calls (estimate, > 60)
 - warning: Showcase_Pit_1_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_1_Pillar_R: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
@@ -22,7 +22,7 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
-- ceiling: lift shaft BossShaft r 10.0 m at (-30.0, -39.5), 10 m tall, car parked at the top
+- ceiling: lift shaft BossShaft r 10.0 m at (-30.0, -39.5), 10 m tall, car parked at the top - boss lift
 - ceiling: glass dome r 20 m (rise 10 m) at (14, -34), 12 ribs, warm light shafts
 - ceiling: roof slab at y 34.5 m, varied dressing
 - Yard_Bridge: 0.35 m junction plate where it meets Robot_Ring's angled edge
@@ -59,9 +59,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Jet_Screen: path planned - colliding samples per phase {'home': 0, 'fly': 0, 'wait': 0, 'press': 0, 'back': 0} (arrive [28.3, 21.632, 35.34], yaw 90.0)
 
 ## Timing
-- spec -> level.json: 17.6 s
-- build (glb, sky, background, effects, mobile): 63.6 s
-- checks (fast): 91.0 s
+- spec -> level.json: 16.2 s
+- build (glb, sky, background, effects, mobile): 74.1 s
+- checks (fast): 84.7 s
 - previews: 1.0 s
-- export package: 0.7 s
-- total: 174.0 s
+- export package: 0.6 s
+- total: 176.6 s

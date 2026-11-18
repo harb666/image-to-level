@@ -444,6 +444,14 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
         if(K.dir){K.p=Math.min(1,K.p+dt/LF.duration);K.s=K.dir>0?K.p:1-K.p;if(K.p>=1)K.dir=0;}
         K.off=LF.travel*K.s*K.s*(3-2*K.s);if(LF.bob){floatMat(LF,t,K.off,LM);nd.forEach(o=>{o.matrixAutoUpdate=false;o.matrix.copy(LM);o.matrixWorldNeedsUpdate=true;});flameMat(LF,t,LM,LX);lfl.forEach(o=>{o.matrixAutoUpdate=false;o.matrix.copy(LX);o.matrixWorldNeedsUpdate=true;});} // Stage 123: it floats too
         else nd.forEach(o=>o.position.set(0,K.off,0));}});}
+    else if(fx.category==='boss_lift'){const BL=fx.boss_lift,nd=Object.values(byName).filter(o=>o.name.startsWith(BL.group+'__')),lp=nd.filter(o=>o.material&&o.material.name&&o.material.name.startsWith(BL.lamps)); // Stage 173: the boss lift (same as apply_effects.gd)
+      const K={l:BL,phase:'top',t0:0,off:0};K.start=()=>{if(K.phase==='top')K.phase='armed';};(window.bossLifts=window.bossLifts||{})[BL.id]=K;
+      fxUpd.push({reset(){nd.forEach(o=>o.position.set(0,0,0));lp.forEach(o=>o.visible=true);Object.assign(K,{phase:'top',t0:0,off:0});},u(t){
+        if(K.phase==='armed'){K.phase='going';K.t0=t;}let off=0,flash=false;
+        if(K.phase==='going'||K.phase==='landed'){const e=t-K.t0-BL.delay;if(e>=0&&e<BL.warn)flash=true;else if(e>=BL.warn){const u=Math.min(1,(e-BL.warn)/BL.duration);off=-BL.travel*u*u*(3-2*u);flash=u<1;
+          if(u>=1&&K.phase!=='landed'){K.phase='landed';const dd=Math.hypot(pos.x-BL.center[0],pos.z-BL.center[2]);if(dd<BL.shake)window.camShake=Math.max(window.camShake||0,0.6*(1-dd/BL.shake));
+            const b=document.getElementById('info');if(b)b.textContent='👹 The mini boss has arrived!';}}}
+        K.off=off;nd.forEach(o=>o.position.set(0,off,0));lp.forEach(o=>o.visible=!flash||Math.floor(t*6)%2===0);}});}
     else if(fx.category==='belt'){const B=fx.belt,ch=Object.values(byName).filter(o=>o.name.startsWith(B.chevrons+'__')),u=new THREE.Vector3(...B.axis).normalize(); // Stage 97: conveyor ramp (same as apply_effects.gd)
       ch.forEach(o=>{o.userData.rest=o.userData.rest||o.position.clone();});(window.belts=window.belts||{})[B.id]={b:B,u,c:new THREE.Vector3(...B.center),side:new THREE.Vector3(u.z,0,-u.x).normalize()};
       fxUpd.push({reset(){ch.forEach(o=>o.position.copy(o.userData.rest));},u(t){const d=(((t*B.speed)%B.spacing)+B.spacing)%B.spacing-B.spacing;ch.forEach(o=>o.position.copy(o.userData.rest).addScaledVector(u,d));}});}
@@ -669,6 +677,10 @@ r.setAnimationLoop(()=>{const now=performance.now(),dt=Math.min((now-last)/1000,
         if(!blocked(h,Math.abs(st)))pos.addScaledVector(K.u,st);}}
       const P=K.b.kill;if(P){const a=-P.yaw*Math.PI/180,dx=pos.x-P.center[0],dz=pos.z-P.center[2],lx=dx*Math.cos(a)+dz*Math.sin(a),lz=-dx*Math.sin(a)+dz*Math.cos(a);
         if(Math.abs(lx)<P.size[0]/2&&Math.abs(lz)<P.size[2]/2&&fy<P.center[1]+P.size[1]/2&&fy>P.center[1]-P.size[1]/2-0.5){kill('🔺 Spiked!');}}}
+    for(const K of Object.values(window.bossLifts||{})){const BL=K.l,fy=pos.y-meta.eye_height,dx=pos.x-BL.center[0],dz=pos.z-BL.center[2],r=Math.hypot(dx,dz),T=BL.trigger,bot=BL.top+K.off,dk=bot+0.7; // Stage 173: trigger, deck floor, shove out from under
+      if(K.phase==='top'&&T&&pos.x>T.min[0]&&pos.x<T.max[0]&&pos.z>T.min[1]&&pos.z<T.max[1]&&Math.abs(fy-T.y)<2.5){K.start();const b=document.getElementById('info');if(b)b.textContent='⚠ Something is coming down the shaft...';}
+      if(r<BL.radius&&fy<=dk+0.05&&fy>=dk-0.6){pos.y=dk+meta.eye_height;vy=0;G_.onFloor=true;}
+      else if(K.off<0&&r<BL.radius+0.4&&fy<bot&&fy+1.8>bot-0.6){const ux=r>1e-3?dx/r:1,uz=r>1e-3?dz/r:0;pos.x=BL.center[0]+ux*(BL.radius+0.7);pos.z=BL.center[2]+uz*(BL.radius+0.7);}}
     for(const K of Object.values(window.lifts||{})){const LF=K.l,fy=pos.y-meta.eye_height,dx=pos.x-LF.center[0],dz=pos.z-LF.center[2],on=dx*dx+dz*dz<LF.radius*LF.radius&&Math.abs(fy-(LF.bottom+K.off))<0.45; // Stage 108: board / call the lift
       if(K.dir===0){if(on){K.board+=dt;if(K.board>=LF.wait){K.dir=K.s<0.5?1:-1;K.p=0;K.board=0;say(K.dir>0?'⬆ Going up':'⬇ Going down');}}
         else{K.board=0;for(const c of LF.calls){const up=c.at==='top';if(up===(K.s>0.5))continue;const cx=pos.x-c.center[0],cz=pos.z-c.center[2];

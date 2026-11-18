@@ -18,6 +18,8 @@ var _bursts: Array = []   # [CPUParticles3D, time_left, interval_min, interval_m
 var _sky_speed: float = 0.0
 var _t: float = 0.0
 var _shake: float = 0.0  # Stage 103: camera shake left from a press impact (h/v offset, decays)
+var _boss_lifts: Array = []  # Stage 173: {"d", "nodes", "lamps", "body", "trig", "phase", "t0"}
+signal boss_lift_landed(id: String, spawn: Vector3)  # Stage 173: spawn the mini boss at 'spawn' (the car's deck)
 
 
 var _spins: Array = []  # [rotor node, rad/s]
@@ -93,6 +95,8 @@ func _ready() -> void:
 				_sweeper(fx["sweeper"])
 			"lift":  # Stage 108: a ride-on lift pad
 				_lift(fx["lift"])
+			"boss_lift":  # Stage 173: the car coming down the roof shaft with the mini boss
+				_boss_lift(fx["boss_lift"])
 			"jet":  # Stage 119: a jetpack screen with a big red button
 				_jet(fx["jet"])
 			"floater":  # Stage 123: a floating (bobbing) walkable pad
@@ -755,6 +759,88 @@ func _lift(d: Dictionary) -> void:
 	_lifts.append({"d": d, "nodes": _group_nodes(String(d["group"])), "body": body, "ride": ride, "calls": calls, "s": 0.0, "dir": 0, "p": 0.0, "board": 0.0})
 
 
+func _boss_lift(d: Dictionary) -> void:
+	var body := AnimatableBody3D.new()  # the car's deck collider (the boss and the players stand on it once it is down)
+	body.name = String(d["id"]) + "_Body"
+	body.sync_to_physics = true
+	var cs := CollisionShape3D.new()
+	var cy := CylinderShape3D.new()
+	cy.radius = float(d["radius"])
+	cy.height = float(d["thickness"])
+	cs.shape = cy
+	cs.position = Vector3(0.0, 0.7 - float(d["thickness"]) / 2.0, 0.0)
+	body.add_child(cs)
+	level_root.add_child(body)
+	body.global_position = Vector3(d["center"][0], d["top"], d["center"][2])  # slab bottom, parked at the top
+	var trig: Area3D = null
+	if d.get("trigger") != null:
+		var T: Dictionary = d["trigger"]
+		trig = Area3D.new()
+		var ts := CollisionShape3D.new()
+		var bx := BoxShape3D.new()
+		bx.size = Vector3(float(T["max"][0]) - float(T["min"][0]), 4.0, float(T["max"][1]) - float(T["min"][1]))
+		ts.shape = bx
+		trig.add_child(ts)
+		level_root.add_child(trig)
+		trig.global_position = Vector3((float(T["min"][0]) + float(T["max"][0])) / 2.0, float(T["y"]) + 2.0, (float(T["min"][1]) + float(T["max"][1])) / 2.0)
+	var nodes := _group_nodes(String(d["group"]))
+	var lamps: Array = []
+	for nd in nodes:
+		var mi := nd as MeshInstance3D
+		if mi and mi.get_active_material(0) and mi.get_active_material(0).resource_name.begins_with(String(d["lamps"])):
+			lamps.append(mi)
+	_boss_lifts.append({"d": d, "nodes": nodes, "lamps": lamps, "body": body, "trig": trig, "phase": "top", "t0": 0.0})
+
+
+func start_boss_lift(id: String) -> void:  # Stage 173: the game may start it itself (e.g. on a cutscene cue)
+	for B in _boss_lifts:
+		if String(B["d"]["id"]) == id and String(B["phase"]) == "top":
+			B["phase"] = "going"
+			B["t0"] = _t
+
+
+func _update_boss_lifts() -> void:
+	for B in _boss_lifts:  # Stage 173 (same as viewer.html): wait 'delay', flash 'warn', descend over 'duration', stay down
+		var d: Dictionary = B["d"]
+		if String(B["phase"]) == "top" and B["trig"] != null and _has_rider(B["trig"]):
+			B["phase"] = "going"
+			B["t0"] = _t
+		var off := 0.0
+		var flash := false
+		if String(B["phase"]) != "top":
+			var e := _t - float(B["t0"]) - float(d["delay"])
+			if e >= 0.0 and e < float(d["warn"]):
+				flash = true
+			elif e >= float(d["warn"]):
+				var u := minf(1.0, (e - float(d["warn"])) / float(d["duration"]))
+				off = -float(d["travel"]) * u * u * (3.0 - 2.0 * u)
+				flash = u < 1.0
+				if u >= 1.0 and String(B["phase"]) != "landed":
+					B["phase"] = "landed"
+					var cam := get_viewport().get_camera_3d()
+					if cam != null:
+						var dd := Vector2(cam.global_position.x - float(d["center"][0]), cam.global_position.z - float(d["center"][2])).length()
+						if dd < float(d["shake"]):
+							_shake = maxf(_shake, 0.6 * (1.0 - dd / float(d["shake"])))
+					boss_lift_landed.emit(String(d["id"]), Vector3(d["boss_spawn"][0], d["boss_spawn"][1], d["boss_spawn"][2]))
+		for nd in B["nodes"]:
+			(nd as Node3D).position = Vector3(0.0, off, 0.0)
+		for lm in B["lamps"]:
+			(lm as Node3D).visible = not flash or int(_t * 6.0) % 2 == 0
+		(B["body"] as AnimatableBody3D).global_position = Vector3(d["center"][0], float(d["top"]) + off, d["center"][2])
+		if flash and off < 0.0:  # anyone under the car as it comes down is shoved out past its rim
+			var bot := float(d["top"]) + off - 0.45
+			for cb in get_tree().get_nodes_in_group(&"players"):
+				var c3 := cb as Node3D
+				if c3 == null:
+					continue
+				var v := Vector2(c3.global_position.x - float(d["center"][0]), c3.global_position.z - float(d["center"][2]))
+				if v.length() < float(d["radius"]) + 0.4 and c3.global_position.y < bot and c3.global_position.y + 1.8 > bot - 0.6:
+					var dir := v.normalized() if v.length() > 0.01 else Vector2(1.0, 0.0)
+					var p := Vector2(float(d["center"][0]), float(d["center"][2])) + dir * (float(d["radius"]) + 0.7)
+					c3.global_position = Vector3(p.x, c3.global_position.y, p.y)
+
+
 static func _has_rider(a: Area3D) -> bool:
 	for b in a.get_overlapping_bodies():
 		if b is CharacterBody3D:
@@ -1184,6 +1270,7 @@ func _update_characters() -> void:
 
 func _physics_process(delta: float) -> void:
 	_update_lifts(delta)
+	_update_boss_lifts()
 	_update_floaters()
 	_update_characters()
 	for br in _belts:  # Stage 97: carry whoever stands on a conveyor ramp

@@ -789,14 +789,26 @@ def roof_shaft(ctx, pre, hn, H, hx, hz, R, y, th, tag):
         ctx.add(f"{n}Guide_{k + 1}", "box", [hx + rr * math.sin(a), y - 0.9, hz + rr * math.cos(a)], [0.5, Hh + th + 0.9, 0.5], dark, rot=[0, 90 * k + 45, 0], **vis)
     ctx.add(n + "Cap", "cylinder", [hx, y + th + Hh - 0.04, hz], [2 * R + 1.2, 0.5, 2 * R + 1.2], dark, sections=24, **vis)
     if H.get("car", True):  # the lift car parked at the top of the shaft (the boss rides it down)
-        cy = y + th + Hh - 3.2
+        cy = y + th + Hh - 3.2; BL = H.get("boss_lift")
+        if BL: vis = dict(collision=False, cutaway=True, mobile={"group": n + "Car"})  # Stage 173: the car moves (its own group)
         ctx.add(n + "Car", "cylinder", [hx, cy, hz], [2 * R - 1.2, 0.7, 2 * R - 1.2], ring, sections=40, **vis)
         ctx.add(n + "CarUnder", "cylinder", [hx, cy - 0.35, hz], [2 * R - 2.4, 0.36, 2 * R - 2.4], dark, sections=40, **vis)
         ctx.add(n + "CarLights", "cylinder", [hx, cy - 0.42, hz], [2 * R - 3.0, 0.08, 2 * R - 3.0], amber, hole=R - 2.2, hole_res=40, sections=40, **vis)
         for k in range(4):
             a = math.radians(90 * k + 45); rr = R - 1.15
             ctx.add(f"{n}CarClamp_{k + 1}", "box", [hx + rr * math.sin(a), cy - 0.2, hz + rr * math.cos(a)], [1.1, 1.1, 0.8], dark, rot=[0, 90 * k + 45, 0], **vis)
-    ctx.notes.append(f"{pre}ceiling: lift shaft {hn} r {R:.1f} m at ({hx:.1f}, {hz:.1f}), {Hh:.0f} m tall" + (", car parked at the top" if H.get("car", True) else ""))
+        if BL:  # Stage 173: the boss lift - comes down the shaft onto the dais below (level.json "boss_lifts")
+            land = float(BL["land_y"])
+            ctx.boss_lifts = getattr(ctx, "boss_lifts", []) + [dict(
+                id=n + "Lift", group=n + "Car", lamps=amber, center=[round(hx, 3), round(land, 3), round(hz, 3)], radius=round(R - 0.6, 3),
+                top=round(cy, 3), bottom=round(land, 3), travel=round(cy - land, 3), deck_y=round(land + 0.7, 3), thickness=1.12,
+                warn=float(BL.get("warn", 3.0)), duration=float(BL.get("duration", 9.0)), shake=float(BL.get("shake", 30.0)),
+                trigger=BL.get("trigger_area"), delay=float(BL.get("delay", 1.0)),
+                boss_spawn=[round(hx, 3), round(land + 0.7, 3), round(hz, 3)],
+                note="parked at the top; the first time a player enters 'trigger' (or the game calls start_boss_lift(id)) it waits 'delay' s, "
+                     "flashes its lamps for 'warn' s, then descends 'travel' m (smoothstep, 'duration' s) onto the dais and stays: its top (deck_y) "
+                     "is a floor; anyone under it as it lands is pushed out past 'radius'; signal boss_lift_landed(id, boss_spawn) - spawn the mini boss there")]
+    ctx.notes.append(f"{pre}ceiling: lift shaft {hn} r {R:.1f} m at ({hx:.1f}, {hz:.1f}), {Hh:.0f} m tall" + (", car parked at the top" if H.get("car", True) else "") + (" - boss lift" if H.get("boss_lift") else ""))
 
 
 def glass_dome(ctx, pre, D, dx, dz, R, y, th, tag):

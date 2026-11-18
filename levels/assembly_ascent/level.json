@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "ba0e6ebc29e3fb28",
+  "spec_sha": "fbe64c9f309c7515",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -1634,6 +1634,48 @@
      "press": 0,
      "back": 0
     }
+   }
+  },
+  {
+   "id": "BossShaft_Lift_Descent",
+   "type": "boss_lift",
+   "boss_lift": {
+    "id": "BossShaft_Lift",
+    "group": "BossShaft_Car",
+    "lamps": "glow_yellow",
+    "center": [
+     -30.0,
+     8.04,
+     -39.5
+    ],
+    "radius": 9.4,
+    "top": 42.3,
+    "bottom": 8.04,
+    "travel": 34.26,
+    "deck_y": 8.74,
+    "thickness": 1.12,
+    "warn": 3.0,
+    "duration": 9.0,
+    "shake": 30.0,
+    "trigger": {
+     "name": "Showcase_Deck",
+     "min": [
+      -45.0,
+      -55.0
+     ],
+     "max": [
+      -15.0,
+      -27.0
+     ],
+     "y": 7.0
+    },
+    "delay": 1.0,
+    "boss_spawn": [
+     -30.0,
+     8.74,
+     -39.5
+    ],
+    "note": "parked at the top; the first time a player enters 'trigger' (or the game calls start_boss_lift(id)) it waits 'delay' s, flashes its lamps for 'warn' s, then descends 'travel' m (smoothstep, 'duration' s) onto the dais and stays: its top (deck_y) is a floor; anyone under it as it lands is pushed out past 'radius'; signal boss_lift_landed(id, boss_spawn) - spawn the mini boss there"
    }
   },
   {
@@ -13450,7 +13492,7 @@
    "collision": false,
    "cutaway": true,
    "mobile": {
-    "group": "Ceiling"
+    "group": "BossShaft_Car"
    },
    "gen": "arena.ceiling",
    "source": "inferred"
@@ -13478,7 +13520,7 @@
    "collision": false,
    "cutaway": true,
    "mobile": {
-    "group": "Ceiling"
+    "group": "BossShaft_Car"
    },
    "gen": "arena.ceiling",
    "source": "inferred"
@@ -13508,7 +13550,7 @@
    "collision": false,
    "cutaway": true,
    "mobile": {
-    "group": "Ceiling"
+    "group": "BossShaft_Car"
    },
    "gen": "arena.ceiling",
    "source": "inferred"
@@ -13535,7 +13577,7 @@
    "collision": false,
    "cutaway": true,
    "mobile": {
-    "group": "Ceiling"
+    "group": "BossShaft_Car"
    },
    "gen": "arena.ceiling",
    "source": "inferred"
@@ -13562,7 +13604,7 @@
    "collision": false,
    "cutaway": true,
    "mobile": {
-    "group": "Ceiling"
+    "group": "BossShaft_Car"
    },
    "gen": "arena.ceiling",
    "source": "inferred"
@@ -13589,7 +13631,7 @@
    "collision": false,
    "cutaway": true,
    "mobile": {
-    "group": "Ceiling"
+    "group": "BossShaft_Car"
    },
    "gen": "arena.ceiling",
    "source": "inferred"
@@ -13616,7 +13658,7 @@
    "collision": false,
    "cutaway": true,
    "mobile": {
-    "group": "Ceiling"
+    "group": "BossShaft_Car"
    },
    "gen": "arena.ceiling",
    "source": "inferred"
@@ -115217,6 +115259,46 @@
    "note": "spawn the glb at position (yaw deg), play clips.idle looped; while a player is within trigger.radius of trigger.center crossfade (fade s) to clips.alert; bob float.node: y = amp sin(2 pi t / period)"
   }
  ],
+ "boss_lifts": [
+  {
+   "id": "BossShaft_Lift",
+   "group": "BossShaft_Car",
+   "lamps": "glow_yellow",
+   "center": [
+    -30.0,
+    8.04,
+    -39.5
+   ],
+   "radius": 9.4,
+   "top": 42.3,
+   "bottom": 8.04,
+   "travel": 34.26,
+   "deck_y": 8.74,
+   "thickness": 1.12,
+   "warn": 3.0,
+   "duration": 9.0,
+   "shake": 30.0,
+   "trigger": {
+    "name": "Showcase_Deck",
+    "min": [
+     -45.0,
+     -55.0
+    ],
+    "max": [
+     -15.0,
+     -27.0
+    ],
+    "y": 7.0
+   },
+   "delay": 1.0,
+   "boss_spawn": [
+    -30.0,
+    8.74,
+    -39.5
+   ],
+   "note": "parked at the top; the first time a player enters 'trigger' (or the game calls start_boss_lift(id)) it waits 'delay' s, flashes its lamps for 'warn' s, then descends 'travel' m (smoothstep, 'duration' s) onto the dais and stays: its top (deck_y) is a floor; anyone under it as it lands is pushed out past 'radius'; signal boss_lift_landed(id, boss_spawn) - spawn the mini boss there"
+  }
+ ],
  "encounters": [
   {
    "id": "Yard_Waves",
@@ -115263,7 +115345,7 @@
   "ignore_objects": []
  },
  "generator_notes": [
-  "ceiling: lift shaft BossShaft r 10.0 m at (-30.0, -39.5), 10 m tall, car parked at the top",
+  "ceiling: lift shaft BossShaft r 10.0 m at (-30.0, -39.5), 10 m tall, car parked at the top - boss lift",
   "ceiling: glass dome r 20 m (rise 10 m) at (14, -34), 12 ribs, warm light shafts",
   "ceiling: roof slab at y 34.5 m, varied dressing",
   "Yard_Bridge: 0.35 m junction plate where it meets Robot_Ring's angled edge",

@@ -680,8 +680,10 @@ def _obstacle_grid(ctx, skip_prefix, cell=0.5, margin=0.0):  # (snapping out to 
     skip_t = {"group", "band", "terrain", "boundary", "dome_shell", "beam_cone", "stream", "model"}
     hz = set(ctx.hazards) | {"HazardFluid"}
     grow_up = {l["group"]: l["travel"] for l in getattr(ctx, "lifts", [])}  # lifts are stored at the bottom
+    grow_dn_bl = {b["group"]: b["travel"] for b in getattr(ctx, "boss_lifts", [])}  # Stage 173: the boss lift car comes all the way down
     grow_dn = {st["group"]: sw["drive"]["travel"] * st["frac"] for sw in getattr(ctx, "sweepers", []) if sw.get("drive") for st in sw["drive"]["stages"]}
-    grow_dn.update({r["group"]: max(p.get("rise", 0.0) for p in r["pads"]) for r in getattr(ctx, "risers", [])})  # risers are stored risen (they come up out of the slime)
+    grow_dn.update({r["group"]: max(p.get("rise", 0.0) for p in r["pads"]) for r in getattr(ctx, "risers", [])})
+    grow_dn.update(grow_dn_bl)  # risers are stored risen (they come up out of the slime)
     rotors = {sw["group"]: sw for sw in getattr(ctx, "sweepers", [])}
     sawg = {g for sw_ in getattr(ctx, "saws", []) for g in [sw_["arm"], sw_["blade"]] + [j["group"] for j in sw_.get("joints", [])]}
     skipg = {cl["group"] for cl in getattr(ctx, "claw_lines", [])} | {l["group"] for l in getattr(ctx, "launches", [])}

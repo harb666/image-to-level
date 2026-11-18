@@ -1516,6 +1516,13 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 173: the boss lift. A roof `hatches` entry with `"boss_lift"` {`land_y` (car slab bottom when down), `trigger_area`
+  (a walkable), `delay`, `warn`, `duration`, `shake`} gives the parked car its own mobile group and a level.json
+  `boss_lifts` record (also in mobile/collision.json): the first time a player enters the trigger (or the game calls
+  `start_boss_lift(id)`) it waits, flashes its amber lamps, descends `travel` m (smoothstep) and stays down; its deck
+  (`deck_y`) is a floor; anyone under it is shoved out past its rim; camera shake on landing; Godot signal
+  `boss_lift_landed(id, boss_spawn)` - spawn the mini boss there. Assembly Ascent: BossShaft comes 34 m down onto the
+  showcase dais, its clamp arms docking on the floor ring's clamps (land_y 8.04, deck 1.44 m over the dais).
 - Stage 172: Assembly Ascent's Yard_Gate moved in to x -22.5 and 11 m wide: both pylon feet sit flush inside the round deck's edge (the deck curves away behind them, so there is no way round); the security gate has no floor strips.
 - Stage 171: `laser_gate` `"style": "security"` (the user's concept): armoured pylons (foot with red lamps, tower with an
   X-braced panel, hazard bands, laser warning plates, red strips, vents, cap with a flashing `beacon_red` dome), a header

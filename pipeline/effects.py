@@ -55,6 +55,8 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
     "floater": dict(category="floater", godot="script (apply_effects.gd _floaters): the pad group bobs and sways on an AnimatableBody3D carrying its deck collider; its jet flame group flickers", glb="pad at rest", defaults=dict()),
     "jet": dict(category="jet", godot="script (apply_effects.gd _jets): the screen's groups (<body>/<flame>/<hatch>/<cap>__*) are posed by jet_pose: bobbing at home; a player on the trigger sends it flying to 'arrive'; the drawer opens and the button terminal goes live; once used it spins and jets home",
                 glb="screen at home", defaults=dict()),
+    "boss_lift": dict(category="boss_lift", godot="script (apply_effects.gd _boss_lifts): the car group (<group>__*) waits at the top; a player entering 'trigger' (or start_boss_lift(id)) starts it: lamps flash 'warn' s, it descends 'travel' m (smoothstep, 'duration' s) on an AnimatableBody3D carrying its deck collider, pushes anyone under it out, shakes the camera on landing and emits boss_lift_landed(id, boss_spawn)",
+                      glb="car parked at the top", defaults=dict()),
     "lift": dict(category="lift", godot="script (apply_effects.gd _lifts): the pad group (<group>__*) moves up 'travel' m and back (smoothstep over 'duration' s) on an AnimatableBody3D carrying its deck collider; standing on it 'wait' s sends it to the other end, a call zone brings it when empty",
                  glb="pad at the bottom", defaults=dict()),
     "steam_jet": dict(category="particles", godot="CPUParticles3D, ONE system over every nozzle (EMISSION_SHAPE_DIRECTED_POINTS: each jet along its 'dir'), one_shot re-triggered at the 'sync' cycle times, emitting over 'emit_time' s; fast narrow streams slowed by 'damping' (m/s^2) that billow out", glb="nothing",
@@ -364,6 +366,7 @@ def resolve(level_dir, L=None):
         if e.get("belt"): R["belt"] = e["belt"]
         if e.get("sync"): R["sync"] = e["sync"]
         if e.get("lift"): R["lift"] = e["lift"]  # Stage 108
+        if e.get("boss_lift"): R["boss_lift"] = e["boss_lift"]  # Stage 173
         if e.get("jet"): R["jet"] = e["jet"]  # Stage 119
         if e.get("character"): R["character"] = e["character"]  # Stage 152
         if e.get("floater"): R["floater"] = e["floater"]  # Stage 123  # Stage 104: bursts fired at cycle times (steam_burst)

@@ -81,14 +81,14 @@
   },
   "mobile": {
    "level": {
-    "glb_kb": 3905,
+    "glb_kb": 3908,
     "triangles": 110764,
-    "nodes": 291,
-    "mesh_nodes": 192,
-    "unique_meshes": 192,
+    "nodes": 295,
+    "mesh_nodes": 196,
+    "unique_meshes": 196,
     "materials": 66,
     "images": 117,
-    "draw_calls_unbatched": 192,
+    "draw_calls_unbatched": 196,
     "draw_calls_batched_min": 66,
     "tex_mem_uncompressed_mb": 60.36,
     "tex_mem_gpu_compressed_mb": 15.09,
@@ -139,9 +139,9 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 98.7,
-    "visible_draw_calls_max": 193,
-    "visible_triangles_mean": 95114,
+    "visible_draw_calls_mean": 99.5,
+    "visible_draw_calls_max": 197,
+    "visible_triangles_mean": 94931,
     "visible_triangles_max": 121180
    },
    "hidden_faces_removed": 1627,
@@ -155,8 +155,8 @@
    "effects_max_particles": 1495,
    "slimmed_kb": {
     "level_mobile.glb": [
-     5852,
-     3905
+     5850,
+     3908
     ],
     "background_mobile.glb": [
      477,
@@ -477,6 +477,58 @@
     "Belt_B_Chev_01L"
    ],
    "group": "Belt_B_Chev"
+  },
+  {
+   "node": "BossShaft_Car__glow_yellow",
+   "kind": "group",
+   "material": "glow_yellow",
+   "triangles": 320,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "BossShaft_CarLights"
+   ],
+   "group": "BossShaft_Car"
+  },
+  {
+   "node": "BossShaft_Car__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "BossShaft_CarClamp_1__ol"
+   ],
+   "group": "BossShaft_Car"
+  },
+  {
+   "node": "BossShaft_Car__lift_ring",
+   "kind": "group",
+   "material": "lift_ring",
+   "triangles": 160,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "BossShaft_Car"
+   ],
+   "group": "BossShaft_Car"
+  },
+  {
+   "node": "BossShaft_Car__saw_hub",
+   "kind": "group",
+   "material": "saw_hub",
+   "triangles": 208,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "BossShaft_CarClamp_4",
+    "BossShaft_CarClamp_3",
+    "BossShaft_CarClamp_2",
+    "BossShaft_CarClamp_1",
+    "BossShaft_CarUnder"
+   ],
+   "group": "BossShaft_Car"
   },
   {
    "node": "Ceiling__ceiling",
@@ -946,7 +998,7 @@
    "node": "Ceiling__glow_yellow",
    "kind": "group",
    "material": "glow_yellow",
-   "triangles": 1664,
+   "triangles": 1344,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -973,7 +1025,6 @@
     "Ceil_Fan_X1_Glow",
     "Ceil_Fan_1_Glow",
     "Dome_Curb_Trim",
-    "BossShaft_CarLights",
     "BossShaft_Lamp_8",
     "BossShaft_Lamp_7",
     "BossShaft_Lamp_6",
@@ -989,7 +1040,7 @@
    "node": "Ceiling__ink",
    "kind": "group",
    "material": "ink",
-   "triangles": 1160,
+   "triangles": 1148,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1006,7 +1057,6 @@
     "Ceil_Fan_1__ol",
     "Ceil_Beam_01_1_B__ol",
     "Dome_Hub__ol",
-    "BossShaft_CarClamp_1__ol",
     "BossShaft_Guide_1__ol"
    ],
    "group": "Ceiling"
@@ -1101,11 +1151,10 @@
    "node": "Ceiling__lift_ring",
    "kind": "group",
    "material": "lift_ring",
-   "triangles": 544,
+   "triangles": 384,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "BossShaft_Car",
     "BossShaft_Rim"
    ],
    "group": "Ceiling"
@@ -1127,15 +1176,10 @@
    "node": "Ceiling__saw_hub",
    "kind": "group",
    "material": "saw_hub",
-   "triangles": 736,
+   "triangles": 528,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "BossShaft_CarClamp_4",
-    "BossShaft_CarClamp_3",
-    "BossShaft_CarClamp_2",
-    "BossShaft_CarClamp_1",
-    "BossShaft_CarUnder",
     "BossShaft_Cap",
     "BossShaft_Guide_4",
     "BossShaft_Guide_3",

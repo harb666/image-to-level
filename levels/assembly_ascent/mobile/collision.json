@@ -20629,5 +20629,45 @@
    "fade": 0.3,
    "note": "spawn the glb at position (yaw deg), play clips.idle looped; while a player is within trigger.radius of trigger.center crossfade (fade s) to clips.alert; bob float.node: y = amp sin(2 pi t / period)"
   }
+ ],
+ "boss_lifts": [
+  {
+   "id": "BossShaft_Lift",
+   "group": "BossShaft_Car",
+   "lamps": "glow_yellow",
+   "center": [
+    -30.0,
+    8.04,
+    -39.5
+   ],
+   "radius": 9.4,
+   "top": 42.3,
+   "bottom": 8.04,
+   "travel": 34.26,
+   "deck_y": 8.74,
+   "thickness": 1.12,
+   "warn": 3.0,
+   "duration": 9.0,
+   "shake": 30.0,
+   "trigger": {
+    "name": "Showcase_Deck",
+    "min": [
+     -45.0,
+     -55.0
+    ],
+    "max": [
+     -15.0,
+     -27.0
+    ],
+    "y": 7.0
+   },
+   "delay": 1.0,
+   "boss_spawn": [
+    -30.0,
+    8.74,
+    -39.5
+   ],
+   "note": "parked at the top; the first time a player enters 'trigger' (or the game calls start_boss_lift(id)) it waits 'delay' s, flashes its lamps for 'warn' s, then descends 'travel' m (smoothstep, 'duration' s) onto the dais and stays: its top (deck_y) is a floor; anyone under it as it lands is pushed out past 'radius'; signal boss_lift_landed(id, boss_spawn) - spawn the mini boss there"
+  }
  ]
 }
