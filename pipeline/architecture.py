@@ -426,8 +426,9 @@ def connection(ctx, c, A, B, floor_y):
             ctx.add(f"{c['id']}_CladLight_{side}", "box", on_slope(s * (width / 2 + 0.105), 0, 0.3, 0.11), [0.05, 0.11, max(0.5, Ls - 1.6)], "glow", g, [-pitch, 0, 0],
                     collision=False, outline=False)
         # hazard-stripe thresholds: a flat caution mat on the lower floor at the ramp's foot, a plate on the deck at its top
-        ctx.add(f"{c['id']}_Threshold_Lo", "box", [0, lo["top"] + 0.01, -Lh / 2 + ext - 0.45], [width - 0.5, 0.03, 0.8], "stripe", g, collision=False, outline=False)
-        ctx.add(f"{c['id']}_Threshold_Hi", "box", on_slope(0, Lh / 2 - 0.55, -0.04, 0.03), [width - 0.5, 0.03, 0.8], "stripe", g, [-pitch, 0, 0], collision=False, outline=False)
+        if c.get("thresholds", ((ctx.spec or {}).get("style") or {}).get("ramp_thresholds", True)):  # Stage 182: a level (style.ramp_thresholds) or a ramp can do without them
+            ctx.add(f"{c['id']}_Threshold_Lo", "box", [0, lo["top"] + 0.01, -Lh / 2 + ext - 0.45], [width - 0.5, 0.03, 0.8], "stripe", g, collision=False, outline=False)
+            ctx.add(f"{c['id']}_Threshold_Hi", "box", on_slope(0, Lh / 2 - 0.55, -0.04, 0.03), [width - 0.5, 0.03, 0.8], "stripe", g, [-pitch, 0, 0], collision=False, outline=False)
         if c.get("rails"):  # posts on the sloped deck top (it passes through (-Lh/2, y0) and (+Lh/2, hi top)), from where it leaves the lower floor
             _rails(ctx, c["id"], g, width, -Lh / 2 + ext + 0.3, Lh / 2 - 0.3, lambda z, y0=y0, Lh=Lh, yh=hi["top"]: y0 + (z + Lh / 2) / Lh * (yh - y0))
         if ym - floor_y > 1.5:

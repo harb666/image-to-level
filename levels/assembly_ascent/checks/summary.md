@@ -1,10 +1,10 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 3545 objects · 65 materials · 56 effects
+Spec: levels/assembly_ascent/scene_spec.json · 3541 objects · 65 materials · 56 effects
 Checks: PASSED ({'error': 0, 'warning': 10, 'info': 2}) · refine passes: 0
-Mobile (balanced): 3874 KB · 114692 tris · 212 draw calls · ~105.2 visible (estimate) · ~15.67 MB GPU textures (estimate)
+Mobile (balanced): 3872 KB · 114650 tris · 212 draw calls · ~105.1 visible (estimate) · ~15.67 MB GPU textures (estimate)
 Navigation: 5443.0 m² reachable of 20640.0 m² standable
-Package: dist/assembly_ascent/package (39 files, 17.45 MB) valid=True
+Package: dist/assembly_ascent/package (39 files, 17.44 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
@@ -17,7 +17,7 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - warning: Showcase_Pit_2_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Pillar_L: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: enemy_arena: hazard 0.5 m away (< 3.0 m)
-- warning: 119176 triangles (> budget 40000)
+- warning: 119128 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -59,9 +59,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Jet_Screen: path planned - colliding samples per phase {'home': 0, 'fly': 0, 'wait': 0, 'press': 0, 'back': 0} (arrive [28.3, 21.632, 35.34], yaw 90.0)
 
 ## Timing
-- spec -> level.json: 17.2 s
-- build (glb, sky, background, effects, mobile): 63.8 s
-- checks (fast): 87.8 s
+- spec -> level.json: 17.5 s
+- build (glb, sky, background, effects, mobile): 67.6 s
+- checks (fast): 89.0 s
 - previews: 0.9 s
-- export package: 0.7 s
-- total: 170.5 s
+- export package: 0.8 s
+- total: 175.8 s

@@ -1516,6 +1516,7 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 182: `style.ramp_thresholds` (default true) / a connection's `"thresholds"`: false leaves the hazard-stripe mats off the ramps' ends (Assembly Ascent: off).
 - Stage 181: shape `gear` (spur gear: `teeth`, `depth`, `phase`, spun about local y). `showcase` `cog_towers`: the X
   banners become gear trains - three steel cogs (16 / 11 / 8 teeth, module 0.2) meshing up the wall, phased so teeth
   interlock and spun at the tooth ratios (level `spin` -> Fan_Spin), black axles with yellow caps (`cog_paint`, plain),

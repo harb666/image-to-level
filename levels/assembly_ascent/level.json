@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "291a5e9907b420ee",
+  "spec_sha": "fe29c4b3ba271333",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -21707,56 +21707,6 @@
    "source": "visible"
   },
   {
-   "name": "Exit_Stairs_Threshold_Lo",
-   "type": "box",
-   "position": [
-    0.0,
-    18.01,
-    -4.931
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Exit_Stairs",
-   "size": [
-    3.0,
-    0.03,
-    0.8
-   ],
-   "material": "stripe",
-   "collision": false,
-   "outline": false,
-   "gen": "Exit_Stairs",
-   "source": "visible"
-  },
-  {
-   "name": "Exit_Stairs_Threshold_Hi",
-   "type": "box",
-   "position": [
-    0.0,
-    21.771,
-    3.943
-   ],
-   "rotation": [
-    -24.05,
-    0.0,
-    0.0
-   ],
-   "parent": "Exit_Stairs",
-   "size": [
-    3.0,
-    0.03,
-    0.8
-   ],
-   "material": "stripe",
-   "collision": false,
-   "outline": false,
-   "gen": "Exit_Stairs",
-   "source": "visible"
-  },
-  {
    "name": "Exit_Stairs_Support_Footing",
    "type": "frustum",
    "position": [
@@ -22174,56 +22124,6 @@
     13.395
    ],
    "material": "glow",
-   "collision": false,
-   "outline": false,
-   "gen": "Spinner_Ramp",
-   "source": "visible"
-  },
-  {
-   "name": "Spinner_Ramp_Threshold_Lo",
-   "type": "box",
-   "position": [
-    0.0,
-    6.01,
-    -7.608
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "parent": "Spinner_Ramp",
-   "size": [
-    4.0,
-    0.03,
-    0.8
-   ],
-   "material": "stripe",
-   "collision": false,
-   "outline": false,
-   "gen": "Spinner_Ramp",
-   "source": "visible"
-  },
-  {
-   "name": "Spinner_Ramp_Threshold_Hi",
-   "type": "box",
-   "position": [
-    0.0,
-    7.454,
-    6.912
-   ],
-   "rotation": [
-    -5.86,
-    0.0,
-    0.0
-   ],
-   "parent": "Spinner_Ramp",
-   "size": [
-    4.0,
-    0.03,
-    0.8
-   ],
-   "material": "stripe",
    "collision": false,
    "outline": false,
    "gen": "Spinner_Ramp",
@@ -114429,7 +114329,8 @@
    ],
    "min_thickness": 0.45
   },
-  "bevel_min": 2.5
+  "bevel_min": 2.5,
+  "ramp_thresholds": false
  },
  "exits": [
   {
@@ -118038,12 +117939,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 104208,
-  "objects": 3545,
+  "triangles": 104160,
+  "objects": 3541,
   "materials": 65,
-  "glb_kb": 6982,
-  "nodes": 3868,
-  "draw_calls_unbatched": 3812,
+  "glb_kb": 6979,
+  "nodes": 3864,
+  "draw_calls_unbatched": 3808,
   "draw_calls_batched_min": 67,
   "images": 153,
   "tex_mem_gpu_compressed_mb": 41.65,
