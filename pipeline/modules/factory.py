@@ -60,12 +60,12 @@ def claw(ctx, s, x, y, z, yaw):
     it and the hoist chains hang from the trolley to the block with its red light and three prongs. "rail": false
     (or no ceiling) = the old chain straight from the ceiling / "y"."""
     n = s["id"]; top = float(s.get("y", getattr(ctx, "ceiling_y", 20.0))); L = float(s.get("length", 9.0)); yb = top - L
-    st = dict(collision=False, mobile={"static": True}); g = ctx.add(n, "group", [x, 0, z], rot=[0, yaw, 0])
+    st = dict(collision=False, mobile={"group": s["mobile_group"]} if s.get("mobile_group") else {"static": True}); g = ctx.add(n, "group", [x, 0, z], rot=[0, yaw, 0])  # Stage 169: a moving claw rides its line's group
     rail = s.get("rail", True) and getattr(ctx, "ceiling_y", None) is not None and "y" not in s
     if rail:
         ry = top - float(s.get("rail_drop", 4.9)); yb = min(yb, ry - 2.5)  # rail bottom; the claw head stays where it was (or lower)
         ryaw = float(s.get("rail_yaw", 0.0))  # runways follow the room grid (world x by default), whatever the claw's own turn
-        _crane_rail(ctx, x, z, ryaw, ry, top)
+        _crane_rail(ctx, float(s.get("rail_x", x)), float(s.get("rail_z", z)), ryaw, ry, top)  # (rail_x / rail_z: a point of the room the rail spans - a claw may start inside a wall)
         tg = ctx.add(n + "_Trolley", "group", [x, 0, z], rot=[0, ryaw, 0], collision=False)
         ctx.add(n + "_Trolley_Body", "box", [0, ry - 0.75, 0], [1.8, 0.75, 1.3], "machine", tg, **st)  # hangs under the rail's bottom flange
         for k_ in (-1, 1): ctx.add(f"{n}_Trolley_Side_{k_ + 1}", "box", [0, ry - 0.2, k_ * 0.48], [1.5, 1.0, 0.14], "frame", tg, outline=False, **st)  # wheel plates either side of the web
@@ -79,6 +79,37 @@ def claw(ctx, s, x, y, z, yaw):
     for i, th in enumerate((180, 300)): face_light(ctx, f"{n}_Strip_{i + 1}", g, hc, 6, 0.95, 0.95 * 0.55, 1.5, th, 0.2, 1.3, 0.14, st)
     ctx.add(n + "_Collar", "cylinder", [0, yb - 1.85, 0], [0.75, 0.4, 0.75], "machine", g, sections=8, **st)
     claw_fingers(ctx, n, g, 0, yb - 1.84, 0, 1.7, st)
+    if s.get("canister"):  # Stage 169: a small glowing green canister held in the prongs, hung from the collar on a lifting lug
+        cy = yb - 4.15
+        ctx.add(n + "_Can", "cylinder", [0, cy + 0.12, 0], [1.0, 1.26, 1.0], "hazard", g, sections=8, outline=False, **st)
+        for k_, yy in enumerate((cy, cy + 1.38)): ctx.add(f"{n}_CanCap_{k_ + 1}", "cylinder", [0, yy, 0], [1.12, 0.14, 1.12], "frame", g, sections=8, outline=False, **st)
+        for k_, yy in enumerate((cy + 0.48, cy + 0.9)): ctx.add(f"{n}_CanBand_{k_ + 1}", "cylinder", [0, yy, 0], [1.08, 0.1, 1.08], "frame", g, sections=8, outline=False, **st)
+        ctx.add(n + "_CanLug", "cylinder", [0, cy + 1.5, 0], [0.2, yb - 1.84 - (cy + 1.5) + 0.05, 0.2], "machine", g, sections=6, outline=False, **st)
+
+
+@structure("claw_line", pad=False)
+def claw_line(ctx, s, x, y, z, yaw):
+    """Stage 169 (user): crane claws travelling the overhead runway through the room at (x, z) (along world x), each
+    carrying a small green canister - out of a dark hatch in one end wall, across, into a hatch in the other. "count"
+    identical claws "spacing" m apart from "x0" (the first inside the wall) move together as ONE group (effect
+    "assembly_line": offset = fmod(t * speed, spacing) - when it wraps every claw takes its neighbour's place, the jump
+    hidden inside the walls). "length": hoist length (as "claw")."""
+    n = s["id"]; grp = n + "_Move"; S = float(s.get("spacing", 25.0)); N = int(s.get("count", 5)); x0 = float(s.get("x0", -52.0))
+    for k in range(N):
+        claw(ctx, {"id": f"{n}_{k + 1}", "length": s.get("length", 7.0), "mobile_group": grp, "canister": True, "rail_x": x, "rail_z": z}, x0 + k * S, 0.0, z, 0.0)
+    room = next((r for r in _rooms(ctx) if r[0] < x < r[2] and r[1] < z < r[3]), None)
+    top = float(getattr(ctx, "ceiling_y", 20.0)); ry = top - float(s.get("rail_drop", 4.9)); hy0, hy1 = ry - 7.6, ry + 1.6; hw = float(s.get("hatch_w", 3.8))
+    vs = dict(collision=False, outline=False, mobile={"static": True})
+    if room:
+        for sd, wx in ((-1, room[0]), (1, room[2])):  # the dark hatches the claws come out of / go into
+            a = 90 if sd < 0 else -90; px = wx - sd * 0.03; nm = f"{n}_Hatch_{'WE'[sd > 0]}"
+            ctx.add(nm, "panel", [px, hy0, z], [hw, hy1 - hy0, 0], ctx.role("void"), rot=[0, a, 0], **vs)
+            for fn, dz, yy, w_, h_ in (("Top", 0, hy1 - 0.05, hw + 0.9, 0.5), ("Low", 0, hy0 - 0.45, hw + 0.9, 0.5), ("L", -(hw / 2 + 0.22), hy0 - 0.45, 0.45, hy1 - hy0 + 1.0), ("R", hw / 2 + 0.22, hy0 - 0.45, 0.45, hy1 - hy0 + 1.0)):
+                ctx.add(f"{nm}_Frame{fn}", "box", [wx - sd * 0.15, yy, z + dz], [0.36, h_, w_], "frame", **vs)  # 6 cm into the wall, 24 cm proud
+            ctx.add(f"{nm}_Lamp", "box", [wx - sd * 0.34, hy1 + 0.6, z], [0.06, 0.3, 1.4], ctx.role("glow_pink"), **vs)
+            ctx.add(f"{nm}_LampHood", "box", [wx - sd * 0.2, hy1 + 0.9, z], [0.42, 0.12, 1.7], "frame", **vs)
+    ctx.claw_lines = getattr(ctx, "claw_lines", []) + [dict(id=n, group=grp, speed=float(s.get("speed", 2.0)), spacing=S)]
+    ctx.notes.append(f"{n}: {N} claws with canisters riding the runway at z {z}, hatches in both end walls")
 
 
 def _rooms(ctx):

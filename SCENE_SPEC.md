@@ -1516,6 +1516,12 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 169: structure `claw_line` ({"position": [x, z], "count", "spacing", "x0", "speed", "length"}): `count` identical
+  crane claws on the room's runway (along world x), each holding a small green canister (`claw` `"canister"`), all in
+  ONE mobile group moved by an `assembly_line` effect with no stations (offset = fmod(t * speed, spacing): when it wraps
+  each claw takes its neighbour's place, the first starting and the last ending hidden inside the end walls); a dark
+  hatch (`void` panel, frame, pink lamp) in each end wall where they come out / go in. `claw` gains `"mobile_group"`
+  and `"rail_x"` / `"rail_z"` (a point of the room the rail spans). Assembly Ascent's parked Claw_Hang became Claw_Line.
 - Stage 168: `showcase` `"scan_screen"`: the CONSTRUCT ERROR banner becomes a wall monitor (deep housing, bezel, status
   lamps, grille, wall mounts; `scan_w` x `scan_h`, default 15.4 x 7) showing `specimen_scan` - an exploded wireframe
   "dissection scan" of the vat specimen drawn from her mesh by pipeline/make_specimen_schematic.py (parts by skin bone,

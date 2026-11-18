@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "8fa8bc3ba4c8b2ca",
+  "spec_sha": "f89282b3ecc7f0b7",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -528,6 +528,23 @@
      -19.86
     ]
    ]
+  },
+  {
+   "id": "Claw_Line_Run",
+   "type": "assembly_line",
+   "line": {
+    "move": [
+     "Claw_Line_Move"
+    ],
+    "axis": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "speed": 2.0,
+    "spacing": 25.0,
+    "stations": []
+   }
   },
   {
    "id": "Screen_Pulse_specimen_scan",
@@ -49345,19 +49362,19 @@
    "source": "visible"
   },
   {
-   "name": "Claw_Hang",
+   "name": "Claw_Line_1",
    "type": "group",
    "position": [
-    6.0,
+    -52.0,
     0.0,
     12.0
    ],
    "rotation": [
     0.0,
-    -153.43,
+    0.0,
     0.0
    ],
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
@@ -49373,7 +49390,7 @@
     0.0,
     0.0
    ],
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
@@ -49400,7 +49417,7 @@
    "mobile": {
     "static": true
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
@@ -49428,7 +49445,7 @@
    "mobile": {
     "static": true
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
@@ -49456,7 +49473,7 @@
    "mobile": {
     "static": true
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
@@ -49484,7 +49501,7 @@
    "mobile": {
     "static": true
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
@@ -49512,7 +49529,7 @@
    "mobile": {
     "static": true
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
@@ -49540,7 +49557,7 @@
    "mobile": {
     "static": true
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
@@ -49568,7 +49585,7 @@
    "mobile": {
     "static": true
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
@@ -49596,7 +49613,7 @@
    "mobile": {
     "static": true
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
@@ -49624,7 +49641,7 @@
    "mobile": {
     "static": true
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
@@ -49652,7 +49669,7 @@
    "mobile": {
     "static": true
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
@@ -49680,7 +49697,7 @@
    "mobile": {
     "static": true
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
@@ -49708,14 +49725,14 @@
    "mobile": {
     "static": true
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Trolley",
+   "name": "Claw_Line_1_Trolley",
    "type": "group",
    "position": [
-    6.0,
+    -52.0,
     0.0,
     12.0
    ],
@@ -49725,11 +49742,11 @@
     0.0
    ],
    "collision": false,
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Trolley_Body",
+   "name": "Claw_Line_1_Trolley_Body",
    "type": "box",
    "position": [
     0.0,
@@ -49741,7 +49758,7 @@
     0.0,
     0.0
    ],
-   "parent": "Claw_Hang_Trolley",
+   "parent": "Claw_Line_1_Trolley",
    "size": [
     1.8,
     0.75,
@@ -49750,13 +49767,13 @@
    "material": "machine",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Trolley_Side_0",
+   "name": "Claw_Line_1_Trolley_Side_0",
    "type": "box",
    "position": [
     0.0,
@@ -49768,7 +49785,7 @@
     0.0,
     0.0
    ],
-   "parent": "Claw_Hang_Trolley",
+   "parent": "Claw_Line_1_Trolley",
    "size": [
     1.5,
     1.0,
@@ -49778,13 +49795,13 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Trolley_Side_2",
+   "name": "Claw_Line_1_Trolley_Side_2",
    "type": "box",
    "position": [
     0.0,
@@ -49796,7 +49813,7 @@
     0.0,
     0.0
    ],
-   "parent": "Claw_Hang_Trolley",
+   "parent": "Claw_Line_1_Trolley",
    "size": [
     1.5,
     1.0,
@@ -49806,13 +49823,13 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Chain_1",
+   "name": "Claw_Line_1_Chain_1",
    "type": "box",
    "position": [
     -0.18,
@@ -49824,7 +49841,7 @@
     0.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.14,
     1.8,
@@ -49834,13 +49851,13 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Chain_2",
+   "name": "Claw_Line_1_Chain_2",
    "type": "box",
    "position": [
     0.18,
@@ -49852,7 +49869,7 @@
     0.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.14,
     1.8,
@@ -49862,13 +49879,13 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Block",
+   "name": "Claw_Line_1_Block",
    "type": "frustum",
    "position": [
     0.0,
@@ -49880,7 +49897,7 @@
     0.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     1.9,
     1.5,
@@ -49891,13 +49908,13 @@
    "bottom_scale": 0.55,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Light",
+   "name": "Claw_Line_1_Light",
    "type": "box",
    "position": [
     0.294,
@@ -49909,7 +49926,7 @@
     30.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.36,
     0.412,
@@ -49919,13 +49936,13 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Strip_1",
+   "name": "Claw_Line_1_Strip_1",
    "type": "box",
    "position": [
     -0.502,
@@ -49937,7 +49954,7 @@
     -90.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.14,
     1.133,
@@ -49947,13 +49964,13 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Strip_2",
+   "name": "Claw_Line_1_Strip_2",
    "type": "box",
    "position": [
     0.251,
@@ -49965,7 +49982,7 @@
     -210.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.14,
     1.133,
@@ -49975,13 +49992,13 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Collar",
+   "name": "Claw_Line_1_Collar",
    "type": "cylinder",
    "position": [
     0.0,
@@ -49993,7 +50010,7 @@
     0.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.75,
     0.4,
@@ -50003,13 +50020,13 @@
    "sections": 8,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Finger_1",
+   "name": "Claw_Line_1_Finger_1",
    "type": "box",
    "position": [
     0.0,
@@ -50021,7 +50038,7 @@
     0.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.408,
     1.445,
@@ -50030,13 +50047,13 @@
    "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Finger_1_Knuckle",
+   "name": "Claw_Line_1_Finger_1_Knuckle",
    "type": "box",
    "position": [
     0.0,
@@ -50048,7 +50065,7 @@
     0.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.476,
     0.442,
@@ -50057,13 +50074,13 @@
    "material": "machine",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Finger_1_Tip",
+   "name": "Claw_Line_1_Finger_1_Tip",
    "type": "frustum",
    "position": [
     0.0,
@@ -50075,7 +50092,7 @@
     0.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.408,
     1.802,
@@ -50085,13 +50102,13 @@
    "bottom_scale": 0.2,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Finger_1_Lit2",
+   "name": "Claw_Line_1_Finger_1_Lit2",
    "type": "box",
    "position": [
     0.0,
@@ -50103,7 +50120,7 @@
     0.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.119,
     0.867,
@@ -50113,13 +50130,13 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Finger_1_Lit",
+   "name": "Claw_Line_1_Finger_1_Lit",
    "type": "box",
    "position": [
     0.0,
@@ -50131,7 +50148,7 @@
     0.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.119,
     0.85,
@@ -50141,13 +50158,13 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Finger_2",
+   "name": "Claw_Line_1_Finger_2",
    "type": "box",
    "position": [
     0.236,
@@ -50159,7 +50176,7 @@
     120.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.408,
     1.445,
@@ -50168,13 +50185,13 @@
    "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Finger_2_Knuckle",
+   "name": "Claw_Line_1_Finger_2_Knuckle",
    "type": "box",
    "position": [
     1.006,
@@ -50186,7 +50203,7 @@
     120.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.476,
     0.442,
@@ -50195,13 +50212,13 @@
    "material": "machine",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Finger_2_Tip",
+   "name": "Claw_Line_1_Finger_2_Tip",
    "type": "frustum",
    "position": [
     0.407,
@@ -50213,7 +50230,7 @@
     120.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.408,
     1.802,
@@ -50223,13 +50240,13 @@
    "bottom_scale": 0.2,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Finger_2_Lit2",
+   "name": "Claw_Line_1_Finger_2_Lit2",
    "type": "box",
    "position": [
     0.467,
@@ -50241,7 +50258,7 @@
     120.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.119,
     0.867,
@@ -50251,13 +50268,13 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Finger_2_Lit",
+   "name": "Claw_Line_1_Finger_2_Lit",
    "type": "box",
    "position": [
     0.779,
@@ -50269,7 +50286,7 @@
     120.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.119,
     0.85,
@@ -50279,13 +50296,13 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Finger_3",
+   "name": "Claw_Line_1_Finger_3",
    "type": "box",
    "position": [
     -0.236,
@@ -50297,7 +50314,7 @@
     240.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.408,
     1.445,
@@ -50306,13 +50323,13 @@
    "material": "structure_b",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Finger_3_Knuckle",
+   "name": "Claw_Line_1_Finger_3_Knuckle",
    "type": "box",
    "position": [
     -1.006,
@@ -50324,7 +50341,7 @@
     240.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.476,
     0.442,
@@ -50333,13 +50350,13 @@
    "material": "machine",
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Finger_3_Tip",
+   "name": "Claw_Line_1_Finger_3_Tip",
    "type": "frustum",
    "position": [
     -0.407,
@@ -50351,7 +50368,7 @@
     240.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.408,
     1.802,
@@ -50361,13 +50378,13 @@
    "bottom_scale": 0.2,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Finger_3_Lit2",
+   "name": "Claw_Line_1_Finger_3_Lit2",
    "type": "box",
    "position": [
     -0.467,
@@ -50379,7 +50396,7 @@
     240.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.119,
     0.867,
@@ -50389,13 +50406,13 @@
    "outline": false,
    "collision": false,
    "mobile": {
-    "static": true
+    "group": "Claw_Line_Move"
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
-   "name": "Claw_Hang_Finger_3_Lit",
+   "name": "Claw_Line_1_Finger_3_Lit",
    "type": "box",
    "position": [
     -0.779,
@@ -50407,7 +50424,7 @@
     240.0,
     0.0
    ],
-   "parent": "Claw_Hang",
+   "parent": "Claw_Line_1",
    "size": [
     0.119,
     0.85,
@@ -50417,9 +50434,4165 @@
    "outline": false,
    "collision": false,
    "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_1_Can",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.07,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_1",
+   "size": [
+    1.0,
+    1.26,
+    1.0
+   ],
+   "material": "hazard",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_1_CanCap_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    22.95,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_1",
+   "size": [
+    1.12,
+    0.14,
+    1.12
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_1_CanCap_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    24.33,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_1",
+   "size": [
+    1.12,
+    0.14,
+    1.12
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_1_CanBand_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.43,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_1",
+   "size": [
+    1.08,
+    0.1,
+    1.08
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_1_CanBand_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.85,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_1",
+   "size": [
+    1.08,
+    0.1,
+    1.08
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_1_CanLug",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    24.45,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_1",
+   "size": [
+    0.2,
+    0.86,
+    0.2
+   ],
+   "material": "machine",
+   "sections": 6,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2",
+   "type": "group",
+   "position": [
+    -27.0,
+    0.0,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Trolley",
+   "type": "group",
+   "position": [
+    -27.0,
+    0.0,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "collision": false,
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Trolley_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    28.85,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2_Trolley",
+   "size": [
+    1.8,
+    0.75,
+    1.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Trolley_Side_0",
+   "type": "box",
+   "position": [
+    0.0,
+    29.4,
+    -0.48
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2_Trolley",
+   "size": [
+    1.5,
+    1.0,
+    0.14
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Trolley_Side_2",
+   "type": "box",
+   "position": [
+    0.0,
+    29.4,
+    0.48
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2_Trolley",
+   "size": [
+    1.5,
+    1.0,
+    0.14
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Chain_1",
+   "type": "box",
+   "position": [
+    -0.18,
+    27.1,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.14,
+    1.8,
+    0.3
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Chain_2",
+   "type": "box",
+   "position": [
+    0.18,
+    27.1,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.14,
+    1.8,
+    0.3
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Block",
+   "type": "frustum",
+   "position": [
+    0.0,
+    25.6,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    1.9,
+    1.5,
+    1.9
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "bottom_scale": 0.55,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Light",
+   "type": "box",
+   "position": [
+    0.294,
+    26.15,
+    0.509
+   ],
+   "rotation": [
+    13.86,
+    30.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.36,
+    0.412,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Strip_1",
+   "type": "box",
+   "position": [
+    -0.502,
+    25.8,
+    0.0
+   ],
+   "rotation": [
+    13.86,
+    -90.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.14,
+    1.133,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Strip_2",
+   "type": "box",
+   "position": [
+    0.251,
+    25.8,
+    -0.435
+   ],
+   "rotation": [
+    13.86,
+    -210.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.14,
+    1.133,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Collar",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    25.25,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.75,
+    0.4,
+    0.75
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Finger_1",
+   "type": "box",
+   "position": [
+    0.0,
+    25.26,
+    0.272
+   ],
+   "rotation": [
+    142.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.408,
+    1.445,
+    0.34
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Finger_1_Knuckle",
+   "type": "box",
+   "position": [
+    0.0,
+    23.9,
+    1.162
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.476,
+    0.442,
+    0.442
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Finger_1_Tip",
+   "type": "frustum",
+   "position": [
+    0.0,
+    22.568,
+    0.47
+   ],
+   "rotation": [
+    24.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.408,
+    1.802,
+    0.34
+   ],
+   "material": "structure_b",
+   "bottom_scale": 0.2,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Finger_1_Lit2",
+   "type": "box",
+   "position": [
+    0.0,
+    25.194,
+    0.539
+   ],
+   "rotation": [
+    142.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.119,
+    0.867,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Finger_1_Lit",
+   "type": "box",
+   "position": [
+    0.0,
+    23.215,
+    0.899
+   ],
+   "rotation": [
+    24.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.119,
+    0.85,
+    0.118
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Finger_2",
+   "type": "box",
+   "position": [
+    0.236,
+    25.26,
+    -0.136
+   ],
+   "rotation": [
+    142.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.408,
+    1.445,
+    0.34
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Finger_2_Knuckle",
+   "type": "box",
+   "position": [
+    1.006,
+    23.9,
+    -0.581
+   ],
+   "rotation": [
+    0.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.476,
+    0.442,
+    0.442
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Finger_2_Tip",
+   "type": "frustum",
+   "position": [
+    0.407,
+    22.568,
+    -0.235
+   ],
+   "rotation": [
+    24.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.408,
+    1.802,
+    0.34
+   ],
+   "material": "structure_b",
+   "bottom_scale": 0.2,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Finger_2_Lit2",
+   "type": "box",
+   "position": [
+    0.467,
+    25.194,
+    -0.27
+   ],
+   "rotation": [
+    142.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.119,
+    0.867,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Finger_2_Lit",
+   "type": "box",
+   "position": [
+    0.779,
+    23.215,
+    -0.45
+   ],
+   "rotation": [
+    24.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.119,
+    0.85,
+    0.118
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Finger_3",
+   "type": "box",
+   "position": [
+    -0.236,
+    25.26,
+    -0.136
+   ],
+   "rotation": [
+    142.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.408,
+    1.445,
+    0.34
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Finger_3_Knuckle",
+   "type": "box",
+   "position": [
+    -1.006,
+    23.9,
+    -0.581
+   ],
+   "rotation": [
+    0.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.476,
+    0.442,
+    0.442
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Finger_3_Tip",
+   "type": "frustum",
+   "position": [
+    -0.407,
+    22.568,
+    -0.235
+   ],
+   "rotation": [
+    24.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.408,
+    1.802,
+    0.34
+   ],
+   "material": "structure_b",
+   "bottom_scale": 0.2,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Finger_3_Lit2",
+   "type": "box",
+   "position": [
+    -0.467,
+    25.194,
+    -0.27
+   ],
+   "rotation": [
+    142.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.119,
+    0.867,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Finger_3_Lit",
+   "type": "box",
+   "position": [
+    -0.779,
+    23.215,
+    -0.45
+   ],
+   "rotation": [
+    24.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.119,
+    0.85,
+    0.118
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_Can",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.07,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    1.0,
+    1.26,
+    1.0
+   ],
+   "material": "hazard",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_CanCap_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    22.95,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    1.12,
+    0.14,
+    1.12
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_CanCap_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    24.33,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    1.12,
+    0.14,
+    1.12
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_CanBand_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.43,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    1.08,
+    0.1,
+    1.08
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_CanBand_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.85,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    1.08,
+    0.1,
+    1.08
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_2_CanLug",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    24.45,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_2",
+   "size": [
+    0.2,
+    0.86,
+    0.2
+   ],
+   "material": "machine",
+   "sections": 6,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3",
+   "type": "group",
+   "position": [
+    -2.0,
+    0.0,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Trolley",
+   "type": "group",
+   "position": [
+    -2.0,
+    0.0,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "collision": false,
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Trolley_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    28.85,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3_Trolley",
+   "size": [
+    1.8,
+    0.75,
+    1.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Trolley_Side_0",
+   "type": "box",
+   "position": [
+    0.0,
+    29.4,
+    -0.48
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3_Trolley",
+   "size": [
+    1.5,
+    1.0,
+    0.14
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Trolley_Side_2",
+   "type": "box",
+   "position": [
+    0.0,
+    29.4,
+    0.48
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3_Trolley",
+   "size": [
+    1.5,
+    1.0,
+    0.14
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Chain_1",
+   "type": "box",
+   "position": [
+    -0.18,
+    27.1,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.14,
+    1.8,
+    0.3
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Chain_2",
+   "type": "box",
+   "position": [
+    0.18,
+    27.1,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.14,
+    1.8,
+    0.3
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Block",
+   "type": "frustum",
+   "position": [
+    0.0,
+    25.6,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    1.9,
+    1.5,
+    1.9
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "bottom_scale": 0.55,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Light",
+   "type": "box",
+   "position": [
+    0.294,
+    26.15,
+    0.509
+   ],
+   "rotation": [
+    13.86,
+    30.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.36,
+    0.412,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Strip_1",
+   "type": "box",
+   "position": [
+    -0.502,
+    25.8,
+    0.0
+   ],
+   "rotation": [
+    13.86,
+    -90.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.14,
+    1.133,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Strip_2",
+   "type": "box",
+   "position": [
+    0.251,
+    25.8,
+    -0.435
+   ],
+   "rotation": [
+    13.86,
+    -210.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.14,
+    1.133,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Collar",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    25.25,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.75,
+    0.4,
+    0.75
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Finger_1",
+   "type": "box",
+   "position": [
+    0.0,
+    25.26,
+    0.272
+   ],
+   "rotation": [
+    142.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.408,
+    1.445,
+    0.34
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Finger_1_Knuckle",
+   "type": "box",
+   "position": [
+    0.0,
+    23.9,
+    1.162
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.476,
+    0.442,
+    0.442
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Finger_1_Tip",
+   "type": "frustum",
+   "position": [
+    0.0,
+    22.568,
+    0.47
+   ],
+   "rotation": [
+    24.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.408,
+    1.802,
+    0.34
+   ],
+   "material": "structure_b",
+   "bottom_scale": 0.2,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Finger_1_Lit2",
+   "type": "box",
+   "position": [
+    0.0,
+    25.194,
+    0.539
+   ],
+   "rotation": [
+    142.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.119,
+    0.867,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Finger_1_Lit",
+   "type": "box",
+   "position": [
+    0.0,
+    23.215,
+    0.899
+   ],
+   "rotation": [
+    24.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.119,
+    0.85,
+    0.118
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Finger_2",
+   "type": "box",
+   "position": [
+    0.236,
+    25.26,
+    -0.136
+   ],
+   "rotation": [
+    142.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.408,
+    1.445,
+    0.34
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Finger_2_Knuckle",
+   "type": "box",
+   "position": [
+    1.006,
+    23.9,
+    -0.581
+   ],
+   "rotation": [
+    0.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.476,
+    0.442,
+    0.442
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Finger_2_Tip",
+   "type": "frustum",
+   "position": [
+    0.407,
+    22.568,
+    -0.235
+   ],
+   "rotation": [
+    24.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.408,
+    1.802,
+    0.34
+   ],
+   "material": "structure_b",
+   "bottom_scale": 0.2,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Finger_2_Lit2",
+   "type": "box",
+   "position": [
+    0.467,
+    25.194,
+    -0.27
+   ],
+   "rotation": [
+    142.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.119,
+    0.867,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Finger_2_Lit",
+   "type": "box",
+   "position": [
+    0.779,
+    23.215,
+    -0.45
+   ],
+   "rotation": [
+    24.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.119,
+    0.85,
+    0.118
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Finger_3",
+   "type": "box",
+   "position": [
+    -0.236,
+    25.26,
+    -0.136
+   ],
+   "rotation": [
+    142.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.408,
+    1.445,
+    0.34
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Finger_3_Knuckle",
+   "type": "box",
+   "position": [
+    -1.006,
+    23.9,
+    -0.581
+   ],
+   "rotation": [
+    0.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.476,
+    0.442,
+    0.442
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Finger_3_Tip",
+   "type": "frustum",
+   "position": [
+    -0.407,
+    22.568,
+    -0.235
+   ],
+   "rotation": [
+    24.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.408,
+    1.802,
+    0.34
+   ],
+   "material": "structure_b",
+   "bottom_scale": 0.2,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Finger_3_Lit2",
+   "type": "box",
+   "position": [
+    -0.467,
+    25.194,
+    -0.27
+   ],
+   "rotation": [
+    142.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.119,
+    0.867,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Finger_3_Lit",
+   "type": "box",
+   "position": [
+    -0.779,
+    23.215,
+    -0.45
+   ],
+   "rotation": [
+    24.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.119,
+    0.85,
+    0.118
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_Can",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.07,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    1.0,
+    1.26,
+    1.0
+   ],
+   "material": "hazard",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_CanCap_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    22.95,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    1.12,
+    0.14,
+    1.12
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_CanCap_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    24.33,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    1.12,
+    0.14,
+    1.12
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_CanBand_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.43,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    1.08,
+    0.1,
+    1.08
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_CanBand_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.85,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    1.08,
+    0.1,
+    1.08
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_3_CanLug",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    24.45,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_3",
+   "size": [
+    0.2,
+    0.86,
+    0.2
+   ],
+   "material": "machine",
+   "sections": 6,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4",
+   "type": "group",
+   "position": [
+    23.0,
+    0.0,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Trolley",
+   "type": "group",
+   "position": [
+    23.0,
+    0.0,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "collision": false,
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Trolley_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    28.85,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4_Trolley",
+   "size": [
+    1.8,
+    0.75,
+    1.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Trolley_Side_0",
+   "type": "box",
+   "position": [
+    0.0,
+    29.4,
+    -0.48
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4_Trolley",
+   "size": [
+    1.5,
+    1.0,
+    0.14
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Trolley_Side_2",
+   "type": "box",
+   "position": [
+    0.0,
+    29.4,
+    0.48
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4_Trolley",
+   "size": [
+    1.5,
+    1.0,
+    0.14
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Chain_1",
+   "type": "box",
+   "position": [
+    -0.18,
+    27.1,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.14,
+    1.8,
+    0.3
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Chain_2",
+   "type": "box",
+   "position": [
+    0.18,
+    27.1,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.14,
+    1.8,
+    0.3
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Block",
+   "type": "frustum",
+   "position": [
+    0.0,
+    25.6,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    1.9,
+    1.5,
+    1.9
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "bottom_scale": 0.55,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Light",
+   "type": "box",
+   "position": [
+    0.294,
+    26.15,
+    0.509
+   ],
+   "rotation": [
+    13.86,
+    30.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.36,
+    0.412,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Strip_1",
+   "type": "box",
+   "position": [
+    -0.502,
+    25.8,
+    0.0
+   ],
+   "rotation": [
+    13.86,
+    -90.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.14,
+    1.133,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Strip_2",
+   "type": "box",
+   "position": [
+    0.251,
+    25.8,
+    -0.435
+   ],
+   "rotation": [
+    13.86,
+    -210.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.14,
+    1.133,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Collar",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    25.25,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.75,
+    0.4,
+    0.75
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Finger_1",
+   "type": "box",
+   "position": [
+    0.0,
+    25.26,
+    0.272
+   ],
+   "rotation": [
+    142.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.408,
+    1.445,
+    0.34
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Finger_1_Knuckle",
+   "type": "box",
+   "position": [
+    0.0,
+    23.9,
+    1.162
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.476,
+    0.442,
+    0.442
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Finger_1_Tip",
+   "type": "frustum",
+   "position": [
+    0.0,
+    22.568,
+    0.47
+   ],
+   "rotation": [
+    24.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.408,
+    1.802,
+    0.34
+   ],
+   "material": "structure_b",
+   "bottom_scale": 0.2,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Finger_1_Lit2",
+   "type": "box",
+   "position": [
+    0.0,
+    25.194,
+    0.539
+   ],
+   "rotation": [
+    142.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.119,
+    0.867,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Finger_1_Lit",
+   "type": "box",
+   "position": [
+    0.0,
+    23.215,
+    0.899
+   ],
+   "rotation": [
+    24.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.119,
+    0.85,
+    0.118
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Finger_2",
+   "type": "box",
+   "position": [
+    0.236,
+    25.26,
+    -0.136
+   ],
+   "rotation": [
+    142.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.408,
+    1.445,
+    0.34
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Finger_2_Knuckle",
+   "type": "box",
+   "position": [
+    1.006,
+    23.9,
+    -0.581
+   ],
+   "rotation": [
+    0.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.476,
+    0.442,
+    0.442
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Finger_2_Tip",
+   "type": "frustum",
+   "position": [
+    0.407,
+    22.568,
+    -0.235
+   ],
+   "rotation": [
+    24.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.408,
+    1.802,
+    0.34
+   ],
+   "material": "structure_b",
+   "bottom_scale": 0.2,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Finger_2_Lit2",
+   "type": "box",
+   "position": [
+    0.467,
+    25.194,
+    -0.27
+   ],
+   "rotation": [
+    142.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.119,
+    0.867,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Finger_2_Lit",
+   "type": "box",
+   "position": [
+    0.779,
+    23.215,
+    -0.45
+   ],
+   "rotation": [
+    24.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.119,
+    0.85,
+    0.118
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Finger_3",
+   "type": "box",
+   "position": [
+    -0.236,
+    25.26,
+    -0.136
+   ],
+   "rotation": [
+    142.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.408,
+    1.445,
+    0.34
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Finger_3_Knuckle",
+   "type": "box",
+   "position": [
+    -1.006,
+    23.9,
+    -0.581
+   ],
+   "rotation": [
+    0.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.476,
+    0.442,
+    0.442
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Finger_3_Tip",
+   "type": "frustum",
+   "position": [
+    -0.407,
+    22.568,
+    -0.235
+   ],
+   "rotation": [
+    24.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.408,
+    1.802,
+    0.34
+   ],
+   "material": "structure_b",
+   "bottom_scale": 0.2,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Finger_3_Lit2",
+   "type": "box",
+   "position": [
+    -0.467,
+    25.194,
+    -0.27
+   ],
+   "rotation": [
+    142.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.119,
+    0.867,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Finger_3_Lit",
+   "type": "box",
+   "position": [
+    -0.779,
+    23.215,
+    -0.45
+   ],
+   "rotation": [
+    24.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.119,
+    0.85,
+    0.118
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_Can",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.07,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    1.0,
+    1.26,
+    1.0
+   ],
+   "material": "hazard",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_CanCap_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    22.95,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    1.12,
+    0.14,
+    1.12
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_CanCap_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    24.33,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    1.12,
+    0.14,
+    1.12
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_CanBand_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.43,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    1.08,
+    0.1,
+    1.08
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_CanBand_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.85,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    1.08,
+    0.1,
+    1.08
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_4_CanLug",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    24.45,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_4",
+   "size": [
+    0.2,
+    0.86,
+    0.2
+   ],
+   "material": "machine",
+   "sections": 6,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5",
+   "type": "group",
+   "position": [
+    48.0,
+    0.0,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Trolley",
+   "type": "group",
+   "position": [
+    48.0,
+    0.0,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "collision": false,
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Trolley_Body",
+   "type": "box",
+   "position": [
+    0.0,
+    28.85,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5_Trolley",
+   "size": [
+    1.8,
+    0.75,
+    1.3
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Trolley_Side_0",
+   "type": "box",
+   "position": [
+    0.0,
+    29.4,
+    -0.48
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5_Trolley",
+   "size": [
+    1.5,
+    1.0,
+    0.14
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Trolley_Side_2",
+   "type": "box",
+   "position": [
+    0.0,
+    29.4,
+    0.48
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5_Trolley",
+   "size": [
+    1.5,
+    1.0,
+    0.14
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Chain_1",
+   "type": "box",
+   "position": [
+    -0.18,
+    27.1,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.14,
+    1.8,
+    0.3
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Chain_2",
+   "type": "box",
+   "position": [
+    0.18,
+    27.1,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.14,
+    1.8,
+    0.3
+   ],
+   "material": "frame",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Block",
+   "type": "frustum",
+   "position": [
+    0.0,
+    25.6,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    1.9,
+    1.5,
+    1.9
+   ],
+   "material": "structure_b",
+   "sections": 6,
+   "bottom_scale": 0.55,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Light",
+   "type": "box",
+   "position": [
+    0.294,
+    26.15,
+    0.509
+   ],
+   "rotation": [
+    13.86,
+    30.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.36,
+    0.412,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Strip_1",
+   "type": "box",
+   "position": [
+    -0.502,
+    25.8,
+    0.0
+   ],
+   "rotation": [
+    13.86,
+    -90.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.14,
+    1.133,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Strip_2",
+   "type": "box",
+   "position": [
+    0.251,
+    25.8,
+    -0.435
+   ],
+   "rotation": [
+    13.86,
+    -210.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.14,
+    1.133,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Collar",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    25.25,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.75,
+    0.4,
+    0.75
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Finger_1",
+   "type": "box",
+   "position": [
+    0.0,
+    25.26,
+    0.272
+   ],
+   "rotation": [
+    142.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.408,
+    1.445,
+    0.34
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Finger_1_Knuckle",
+   "type": "box",
+   "position": [
+    0.0,
+    23.9,
+    1.162
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.476,
+    0.442,
+    0.442
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Finger_1_Tip",
+   "type": "frustum",
+   "position": [
+    0.0,
+    22.568,
+    0.47
+   ],
+   "rotation": [
+    24.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.408,
+    1.802,
+    0.34
+   ],
+   "material": "structure_b",
+   "bottom_scale": 0.2,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Finger_1_Lit2",
+   "type": "box",
+   "position": [
+    0.0,
+    25.194,
+    0.539
+   ],
+   "rotation": [
+    142.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.119,
+    0.867,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Finger_1_Lit",
+   "type": "box",
+   "position": [
+    0.0,
+    23.215,
+    0.899
+   ],
+   "rotation": [
+    24.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.119,
+    0.85,
+    0.118
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Finger_2",
+   "type": "box",
+   "position": [
+    0.236,
+    25.26,
+    -0.136
+   ],
+   "rotation": [
+    142.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.408,
+    1.445,
+    0.34
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Finger_2_Knuckle",
+   "type": "box",
+   "position": [
+    1.006,
+    23.9,
+    -0.581
+   ],
+   "rotation": [
+    0.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.476,
+    0.442,
+    0.442
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Finger_2_Tip",
+   "type": "frustum",
+   "position": [
+    0.407,
+    22.568,
+    -0.235
+   ],
+   "rotation": [
+    24.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.408,
+    1.802,
+    0.34
+   ],
+   "material": "structure_b",
+   "bottom_scale": 0.2,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Finger_2_Lit2",
+   "type": "box",
+   "position": [
+    0.467,
+    25.194,
+    -0.27
+   ],
+   "rotation": [
+    142.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.119,
+    0.867,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Finger_2_Lit",
+   "type": "box",
+   "position": [
+    0.779,
+    23.215,
+    -0.45
+   ],
+   "rotation": [
+    24.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.119,
+    0.85,
+    0.118
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Finger_3",
+   "type": "box",
+   "position": [
+    -0.236,
+    25.26,
+    -0.136
+   ],
+   "rotation": [
+    142.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.408,
+    1.445,
+    0.34
+   ],
+   "material": "structure_b",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Finger_3_Knuckle",
+   "type": "box",
+   "position": [
+    -1.006,
+    23.9,
+    -0.581
+   ],
+   "rotation": [
+    0.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.476,
+    0.442,
+    0.442
+   ],
+   "material": "machine",
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Finger_3_Tip",
+   "type": "frustum",
+   "position": [
+    -0.407,
+    22.568,
+    -0.235
+   ],
+   "rotation": [
+    24.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.408,
+    1.802,
+    0.34
+   ],
+   "material": "structure_b",
+   "bottom_scale": 0.2,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Finger_3_Lit2",
+   "type": "box",
+   "position": [
+    -0.467,
+    25.194,
+    -0.27
+   ],
+   "rotation": [
+    142.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.119,
+    0.867,
+    0.06
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Finger_3_Lit",
+   "type": "box",
+   "position": [
+    -0.779,
+    23.215,
+    -0.45
+   ],
+   "rotation": [
+    24.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.119,
+    0.85,
+    0.118
+   ],
+   "material": "glow",
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_Can",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.07,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    1.0,
+    1.26,
+    1.0
+   ],
+   "material": "hazard",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_CanCap_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    22.95,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    1.12,
+    0.14,
+    1.12
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_CanCap_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    24.33,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    1.12,
+    0.14,
+    1.12
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_CanBand_1",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.43,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    1.08,
+    0.1,
+    1.08
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_CanBand_2",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    23.85,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    1.08,
+    0.1,
+    1.08
+   ],
+   "material": "frame",
+   "sections": 8,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_5_CanLug",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    24.45,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Claw_Line_5",
+   "size": [
+    0.2,
+    0.86,
+    0.2
+   ],
+   "material": "machine",
+   "sections": 6,
+   "outline": false,
+   "collision": false,
+   "mobile": {
+    "group": "Claw_Line_Move"
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_Hatch_W",
+   "type": "panel",
+   "position": [
+    -49.97,
+    22.0,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    90.0,
+    0.0
+   ],
+   "size": [
+    3.8,
+    9.2,
+    0.0
+   ],
+   "material": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
     "static": true
    },
-   "gen": "Claw_Hang",
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_Hatch_W_FrameTop",
+   "type": "box",
+   "position": [
+    -49.85,
+    31.15,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.5,
+    4.7
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_Hatch_W_FrameLow",
+   "type": "box",
+   "position": [
+    -49.85,
+    21.55,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.5,
+    4.7
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_Hatch_W_FrameL",
+   "type": "box",
+   "position": [
+    -49.85,
+    21.55,
+    9.88
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    10.2,
+    0.45
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_Hatch_W_FrameR",
+   "type": "box",
+   "position": [
+    -49.85,
+    21.55,
+    14.12
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    10.2,
+    0.45
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_Hatch_W_Lamp",
+   "type": "box",
+   "position": [
+    -49.66,
+    31.8,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.06,
+    0.3,
+    1.4
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_Hatch_W_LampHood",
+   "type": "box",
+   "position": [
+    -49.8,
+    32.1,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.42,
+    0.12,
+    1.7
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_Hatch_E",
+   "type": "panel",
+   "position": [
+    49.97,
+    22.0,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    -90.0,
+    0.0
+   ],
+   "size": [
+    3.8,
+    9.2,
+    0.0
+   ],
+   "material": "void",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_Hatch_E_FrameTop",
+   "type": "box",
+   "position": [
+    49.85,
+    31.15,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.5,
+    4.7
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_Hatch_E_FrameLow",
+   "type": "box",
+   "position": [
+    49.85,
+    21.55,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    0.5,
+    4.7
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_Hatch_E_FrameL",
+   "type": "box",
+   "position": [
+    49.85,
+    21.55,
+    9.88
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    10.2,
+    0.45
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_Hatch_E_FrameR",
+   "type": "box",
+   "position": [
+    49.85,
+    21.55,
+    14.12
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.36,
+    10.2,
+    0.45
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_Hatch_E_Lamp",
+   "type": "box",
+   "position": [
+    49.66,
+    31.8,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.06,
+    0.3,
+    1.4
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Claw_Line",
+   "source": "visible"
+  },
+  {
+   "name": "Claw_Line_Hatch_E_LampHood",
+   "type": "box",
+   "position": [
+    49.8,
+    32.1,
+    12.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.42,
+    0.12,
+    1.7
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Claw_Line",
    "source": "visible"
   },
   {
@@ -108261,6 +112434,7 @@
   "Pillars: 7 floating stepping platforms (bobbing, thruster flames)",
   "Belt_A: conveyor ramp 16.5 m at 21 deg, belt -2.4 m/s, spike pit at the foot",
   "Belt_B: conveyor ramp 16.5 m at 21 deg, belt -3.4 m/s, spike pit at the foot",
+  "Claw_Line: 5 claws with canisters riding the runway at z 12, hatches in both end walls",
   "Exit_Door: exit hallway 12 m fading to black -> level2_part1",
   "Spinner: spinner, 4 arms driven by a ceiling press (peak 64.43 rpm, still 3.8 s per 9.5 s), 4 hovering pads",
   "Overlook: corner overlook 5.1 x 15.0 m at 15.5 m, gantry 14.8 m to lift Spinner_Pad_1_Lift",
@@ -108414,12 +112588,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 94988,
-  "objects": 3157,
+  "triangles": 97368,
+  "objects": 3309,
   "materials": 62,
-  "glb_kb": 6363,
-  "nodes": 3472,
-  "draw_calls_unbatched": 3425,
+  "glb_kb": 6404,
+  "nodes": 3624,
+  "draw_calls_unbatched": 3569,
   "draw_calls_batched_min": 64,
   "images": 150,
   "tex_mem_gpu_compressed_mb": 32.57,

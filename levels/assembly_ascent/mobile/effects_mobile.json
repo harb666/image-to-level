@@ -1825,6 +1825,61 @@
    "merge_emitters": true
   },
   {
+   "id": "Claw_Line_Run",
+   "type": "assembly_line",
+   "category": "assembly",
+   "glb_contains": "parcels, parts and arms at rest (own nodes: mobile groups; arms skinned to one skeleton each)",
+   "godot_runtime": "script (apply_effects.gd _assembly): every node of the line's 'move' groups (<group>__*) slides along 'axis' by fmod(t * speed, spacing); per station the arm's groups turn about 'hinge' through 'pivot' by angle_deg * bump(t - t0, window) every 'period' s, 'held' groups hide from t0 to t0 + 0.6 period, 'scan' groups show only during the dip, and the 'reveal' group gets assembly_reveal.gdshader (fragments with dot(world, plane.xyz) < plane.w discarded: parts appear once the parcel passes the arm). Stage 65/66: a station with 'rig' drives the arm's Skeleton3D instead - bone pose rotation about each joint's rest axis (turret yaw, shoulder, elbow, wrist = -(shoulder + elbow), claw twist, 3 fingers) from the rig's motion program (pipeline/arm_motion.py: jerk-limited servo moves, conveyor tracking, inverse kinematics every frame; no sway)",
+   "line": {
+    "move": [
+     "Claw_Line_Move"
+    ],
+    "axis": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "speed": 2.0,
+    "spacing": 25.0,
+    "stations": []
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 1.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 1.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 1.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Screen_Pulse_specimen_scan",
    "type": "pulse_light",
    "category": "material_animation",
@@ -5788,6 +5843,7 @@
    "targets": [
     "Arena_Rig__glow",
     "Ceiling__glow",
+    "Claw_Line_Move__glow",
     "Jet_Screen_Body__glow",
     "Jet_Screen_Cap__glow",
     "M_glow_0_0",

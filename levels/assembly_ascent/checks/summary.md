@@ -1,24 +1,24 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 3157 objects · 62 materials · 51 effects
+Spec: levels/assembly_ascent/scene_spec.json · 3309 objects · 62 materials · 52 effects
 Checks: PASSED ({'error': 0, 'warning': 11, 'info': 2}) · refine passes: 0
-Mobile (balanced): 3729 KB · 106004 tris · 184 draw calls · ~95.0 visible (estimate) · ~14.75 MB GPU textures (estimate)
+Mobile (balanced): 3823 KB · 108368 tris · 190 draw calls · ~97.9 visible (estimate) · ~14.75 MB GPU textures (estimate)
 Navigation: 5454.0 m² reachable of 20630.0 m² standable
-Package: dist/assembly_ascent/package (39 files, 16.43 MB) valid=True
+Package: dist/assembly_ascent/package (39 files, 16.65 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- warning: mobile draw calls 184 (> 80)
-- warning: ~95 visible draw calls (estimate, > 60)
+- warning: mobile draw calls 190 (> 80)
+- warning: ~98 visible draw calls (estimate, > 60)
 - warning: Showcase_Pit_1_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_1_Pillar_R: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Pillar_L: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: enemy_arena: hazard 0.5 m away (< 3.0 m)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- warning: 110040 triangles (> budget 40000)
+- warning: 112420 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -42,6 +42,7 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Pillars: 7 floating stepping platforms (bobbing, thruster flames)
 - Belt_A: conveyor ramp 16.5 m at 21 deg, belt -2.4 m/s, spike pit at the foot
 - Belt_B: conveyor ramp 16.5 m at 21 deg, belt -3.4 m/s, spike pit at the foot
+- Claw_Line: 5 claws with canisters riding the runway at z 12, hatches in both end walls
 - Exit_Door: exit hallway 12 m fading to black -> level2_part1
 - Spinner: spinner, 4 arms driven by a ceiling press (peak 64.43 rpm, still 3.8 s per 9.5 s), 4 hovering pads
 - Overlook: corner overlook 5.1 x 15.0 m at 15.5 m, gantry 14.8 m to lift Spinner_Pad_1_Lift
@@ -57,9 +58,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - corrosion: 1202 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 2.7 s
-- build (glb, sky, background, effects, mobile): 57.7 s
-- checks (fast): 77.1 s
-- previews: 2.1 s
-- export package: 0.8 s
-- total: 140.4 s
+- spec -> level.json: 2.4 s
+- build (glb, sky, background, effects, mobile): 62.0 s
+- checks (fast): 79.5 s
+- previews: 0.9 s
+- export package: 0.6 s
+- total: 145.4 s
