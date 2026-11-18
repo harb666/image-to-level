@@ -689,22 +689,30 @@ def pod_export(ctx, s, x, y, z, yaw):
     n = s["id"]; T = [(float(t[0]), float(t[1]), float(t[2]) if len(t) > 2 else 2.3) for t in s["tubes"]]; roof = float(s.get("roof", getattr(ctx, "ceiling_y", 34.5) + 1.0))
     rmax = max(t[2] for t in T); rp = round(min(rmax * 0.5, 1.3), 3); ph = round(rp * 2.0, 3)  # the hall's pod (tube_pod) for the widest tube
     S = float(s.get("spacing", 6.0)); nr = int(s.get("riser_pods", 3)); SR = float(s.get("run_spacing", 12.0)); to_x = float(s.get("to_x", 92.0))
-    hb = round(2 * rmax * 1.12 + 0.6, 3)  # elbow housing size
-    y0 = roof + 0.15; hj = y0 + nr * S; jc = round(hj + ph / 2 + 0.3, 3)  # riser pods' bases y0 .. hj (the last inside the housing); the run's axis
-    x0 = T[0][0] - ph / 2; nx = max(1, int(round((to_x + 2.0 - x0) / SR))); SR = round((to_x + 2.0 - x0) / nx, 4); x_end = x0 + nx * SR  # run pods' rear ends x0 .. x_end: the last one 2.4 m inside the tower
+    # Stage 185 (user): the riser BENDS into the run (a drum-clad quarter-torus elbow, no box). The lines move every pod
+    # by offset = fmod(t * v, spacing), so a line's first pod appears at its start and its LAST pod vanishes one spacing
+    # past its own start: the risers' vanish point is just inside the opaque inlet drum under the bend (the pod's top in
+    # the bend), the runs' first pod starts in the bend's outlet drum and their last vanishes inside the transfer tower.
+    rt = rmax * 1.12; Rb = round(2 * rt + 0.3, 3); dl = 1.6  # drum radius, bend radius (centreline; pipe_elbow bends at >= the tube's diameter), inlet / outlet drum length
+    y0 = roof + 0.15; yv = y0 + nr * S; ye = round(yv + 1.5, 3); jc = round(ye + Rb, 3)  # riser pods y0 + j S (j < nr), vanish at yv; the bend from ye; the run's axis
+    x0r = Rb + dl - 0.15 - (ph + 0.35)  # (a pod is ph + its cap 0.35 long) run pods' rear ends: the first tx + x0r (in the outlet drum) ...
+    nx = max(1, int(round((to_x + 1.0 - (T[0][0] + x0r)) / SR))); SR = round((to_x + 1.0 - (T[0][0] + x0r)) / nx, 4); x_end = T[0][0] + x0r + nx * SR  # ... the vanish point 1.4 m inside the tower
     st = dict(collision=False, outline=False, cutaway=True, mobile={"group": n + "_Static"}); glass = ctx.role(s.get("glass", "glass")); band = ctx.role(s.get("band", "tube_band"))
     body = "structure_b"; rg = _r.Random(n)
     for k, (tx, tz, r) in enumerate(T):
-        p = f"{n}_{k + 1}"
+        p = f"{n}_{k + 1}"; rk = r * 1.12
         ctx.add(p + "_Collar", "cylinder", [tx, roof - 0.05, tz], [2 * r * 1.35, ph + 0.65, 2 * r * 1.35], body, sections=8, **st)  # out of the roof (hides the pods' start) - like the hall tubes' plinth
         ctx.add(p + "_CollarBand", "cylinder", [tx, roof + ph + 0.6, tz], [2 * r * 1.2, 0.5, 2 * r * 1.2], band, sections=8, **st)
-        _tube_run(ctx, p + "_Riser", roof + ph + 1.1, jc - hb / 2, r, False, (tx, tz), st, band, glass, rg)
-        ctx.add(p + "_Elbow", "box", [tx, jc - hb / 2, tz], [hb, hb, hb], body, **st)  # drum-clad elbow housing
-        ctx.add(p + "_ElbowBand", "box", [tx, jc - 0.5, tz], [hb + 0.12, 1.0, hb + 0.12], band, **st)
-        ctx.add(p + "_ElbowCap", "box", [tx, jc + hb / 2, tz], [hb + 0.3, 0.3, hb + 0.3], "frame", **st)
-        _tube_run(ctx, p + "_Run", tx + hb / 2, to_x - 0.4, r, True, (jc, tz), st, band, glass, rg)
-        for j in range(nr + 1): _ext_pod(ctx, f"{n}_RiserPod_{k + 1}_{j + 1}", [tx, y0 + j * S, tz], False, n + "_Risers", rp, ph)
-        for j in range(nx + 1): _ext_pod(ctx, f"{n}_RunPod_{k + 1}_{j + 1}", [x0 + j * SR, jc, tz], True, n + "_Runs", rp, ph)
+        _tube_run(ctx, p + "_Riser", roof + ph + 1.1, ye - dl, r, False, (tx, tz), st, band, glass, rg)
+        ctx.add(p + "_Inlet", "cylinder", [tx, ye - dl, tz], [2 * rk, dl + 0.05, 2 * rk], band, sections=8, **st)  # opaque: the riser pods vanish in here
+        ctx.add(p + "_Elbow", "pipe_elbow", [tx, ye, tz + rk], [2 * rk, Rb, 2 * rk], body, None, [-90, 0, 0], segments=8, sections=8, **st)  # up, bending east
+        for q, a_ in enumerate((30.0, 60.0)):  # bands round the bend
+            ar = math.radians(a_); cx_, cy_ = tx + Rb - Rb * math.cos(ar), ye + Rb * math.sin(ar); tgx, tgy = math.sin(ar), math.cos(ar)
+            ctx.add(f"{p}_ElbowBand_{q + 1}", "cylinder", [cx_ - tgx * 0.3, cy_ - tgy * 0.3, tz], [2 * rk * 1.07, 0.6, 2 * rk * 1.07], "frame", None, [0, 0, -a_], sections=8, **st)
+        ctx.add(p + "_Outlet", "cylinder", [tx + Rb - 0.05, jc, tz], [2 * rk, dl + 0.05, 2 * rk], band, None, [0, 0, -90], sections=8, **st)  # the run pods start in here
+        _tube_run(ctx, p + "_Run", tx + Rb + dl, to_x - 0.4, r, True, (jc, tz), st, band, glass, rg)
+        for j in range(nr): _ext_pod(ctx, f"{n}_RiserPod_{k + 1}_{j + 1}", [tx, y0 + j * S, tz], False, n + "_Risers", rp, ph)
+        for j in range(nx): _ext_pod(ctx, f"{n}_RunPod_{k + 1}_{j + 1}", [tx + x0r + j * SR, jc, tz], True, n + "_Runs", rp, ph)
     zs = [t[1] for t in T]; z0, z1 = min(zs) - rmax * 1.12 - 1.2, max(zs) + rmax * 1.12 + 1.2; yb = jc - rmax * 1.12 - 0.05  # bridge deck just under the runs
     for k, bxx in enumerate(s.get("bridges", [48.0, 63.0, 78.0])):  # trestles: a cross beam under the runs, legs down (to the roof or the outer factory's floor)
         bxx = float(bxx); foot = roof if bxx < float(s.get("roof_edge", 51.5)) else float(s.get("ground", -8.0))
@@ -718,7 +726,7 @@ def pod_export(ctx, s, x, y, z, yaw):
     v = float(s.get("speed", 6.0))
     ctx.claw_lines = getattr(ctx, "claw_lines", []) + [dict(id=n + "_Up", group=n + "_Risers", speed=v, spacing=S, axis=[0.0, 1.0, 0.0]),
                                                        dict(id=n + "_East", group=n + "_Runs", speed=v * 1.6, spacing=SR, axis=[1.0, 0.0, 0.0])]
-    ctx.notes.append(f"{n}: {len(T)} pod tubes out through the roof (hall look), up to {jc:.1f} and east to x {x_end:.1f} ({(nr + nx + 2) * len(T)} pods)")
+    ctx.notes.append(f"{n}: {len(T)} pod tubes out through the roof (hall look), bending at {ye:.1f} into runs at {jc:.1f}, east to x {x_end:.1f} ({(nr + nx) * len(T)} pods)")
 
 
 POD_SPEED = 28.0  # m/s up the bore (Stage 49)
