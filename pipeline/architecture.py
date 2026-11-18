@@ -1603,10 +1603,14 @@ def clear_ducts(ctx, gap=0.6, keep=6.0, end_trim=5.0, overhang=3.5):
             if n.startswith(pre) or n == dn or low[root(n)] > lo[1] - 2.0: continue  # same ceiling's dressing / anything not rising from below
             if (np.minimum(hi + 0.4, b) - np.maximum(lo - 0.4, a) <= 0).any(): continue
             blocked.append((a[ax] - gap, b[ax] + gap))
-        rails = []  # Stage 83: a crane runway crossing near a duct END - the duct stops short of it (mid-span crossings stay)
+        rails = []  # Stage 83: a crane runway crossing near a duct END - the duct stops short of it
         for n, (a, b) in B.items():
             if not re.search(r"CraneRail_\d+_Beam$", n) or (np.minimum(hi + 0.1, b) - np.maximum(lo - 0.1, a) <= 0).any(): continue
             if min(a[ax] - lo[ax], hi[ax] - b[ax]) <= end_trim: rails.append((a[ax] - 2 * gap, b[ax] + 2 * gap))  # (a clear gap seen from below)
+            else: blocked.append((a[ax] - 2 * gap, b[ax] + 2 * gap))  # Stage 174 (user): mid-span too - the duct never runs through a rail
+        for n, (a, b) in B.items():  # Stage 174: nor through a lamp rail or a ceiling beam hanging into it (no phasing): it stops short either side
+            if not re.search(r"(Ceil_LampRail_\d+[a-z]?|Ceil_Beam_\d+_\d+(_[A-Z])?)$", n) or (np.minimum(hi, b) - np.maximum(lo, a) <= 0.01).any(): continue
+            blocked.append((a[ax] - 2 * gap, b[ax] + 2 * gap))
         beams = [(float(a[ax]), float(b[ax])) for n, (a, b) in B.items() if re.search(r"Ceil_Beam_\d+_\d+$", n) and n.startswith(pre)
                  and min(hi[2 - ax], b[2 - ax]) > max(lo[2 - ax], a[2 - ax]) and a[1] < hi[1] + 1.5]  # ceiling beams the duct passes under
         segs = [(lo[ax], hi[ax])]

@@ -1,10 +1,10 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 3403 objects · 64 materials · 54 effects
+Spec: levels/assembly_ascent/scene_spec.json · 3405 objects · 64 materials · 54 effects
 Checks: PASSED ({'error': 0, 'warning': 11, 'info': 2}) · refine passes: 0
-Mobile (balanced): 3908 KB · 110764 tris · 196 draw calls · ~99.5 visible (estimate) · ~15.09 MB GPU textures (estimate)
+Mobile (balanced): 3910 KB · 110828 tris · 196 draw calls · ~99.5 visible (estimate) · ~15.09 MB GPU textures (estimate)
 Navigation: 5444.0 m² reachable of 20640.0 m² standable
-Package: dist/assembly_ascent/package (39 files, 16.99 MB) valid=True
+Package: dist/assembly_ascent/package (39 files, 17.0 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
@@ -18,7 +18,7 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - warning: Showcase_Pit_2_Pillar_L: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: enemy_arena: hazard 0.5 m away (< 3.0 m)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- warning: 115160 triangles (> budget 40000)
+- warning: 115224 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -52,16 +52,16 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - ceiling: 75 dressing parts cleared from over the lift shaft at (-30, -40)
 - crates: 11 printed crates (accent atlas)
 - fixtures: 56 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_West_M02Fan)
-- ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 8 standing part(s), 0 crane runway(s), ends at beams 0.0 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 0.0 m
+- ducts: Ceil_Duct_1 trimmed to 2 piece(s) clear of 12 standing part(s), 0 crane runway(s), ends at beams 0.0 m; Ceil_Duct_2 trimmed to 2 piece(s) clear of 1 standing part(s), 1 crane runway(s), ends at beams 0.0 m
 - corrosion: 8 lit bodies get a plain skirt at the liquid line (no lights in the slime)
 - corrosion: 12 lights at the liquid line removed, 16 light strips raised clear of it
 - corrosion: 1202 wall faces at the liquid line get a corroded band (one mesh, one material)
 - Jet_Screen: path planned - colliding samples per phase {'home': 0, 'fly': 0, 'wait': 0, 'press': 0, 'back': 0} (arrive [28.3, 21.632, 35.34], yaw 90.0)
 
 ## Timing
-- spec -> level.json: 16.2 s
-- build (glb, sky, background, effects, mobile): 74.1 s
-- checks (fast): 84.7 s
-- previews: 1.0 s
-- export package: 0.6 s
-- total: 176.6 s
+- spec -> level.json: 15.9 s
+- build (glb, sky, background, effects, mobile): 69.3 s
+- checks (fast): 83.4 s
+- previews: 0.9 s
+- export package: 0.7 s
+- total: 170.1 s

@@ -1516,6 +1516,7 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 174: `clear_ducts` - a ceiling duct never runs through a rail: crane runways crossing mid-span, lamp rails and ceiling beams hanging into it now split it like a standing column does (each piece stops 1.2 m short; pieces under 6 m go). Assembly Ascent's two long ducts become four runs between the rails.
 - Stage 173: the boss lift. A roof `hatches` entry with `"boss_lift"` {`land_y` (car slab bottom when down), `trigger_area`
   (a walkable), `delay`, `warn`, `duration`, `shake`} gives the parked car its own mobile group and a level.json
   `boss_lifts` record (also in mobile/collision.json): the first time a player enters the trigger (or the game calls

@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 6582,
-    "triangles": 115160,
-    "nodes": 3721,
-    "mesh_nodes": 3666,
-    "unique_meshes": 1604,
+    "glb_kb": 6587,
+    "triangles": 115224,
+    "nodes": 3723,
+    "mesh_nodes": 3668,
+    "unique_meshes": 1606,
     "materials": 66,
     "images": 153,
-    "draw_calls_unbatched": 3666,
+    "draw_calls_unbatched": 3668,
     "draw_calls_batched_min": 66,
     "tex_mem_uncompressed_mb": 135.61,
     "tex_mem_gpu_compressed_mb": 33.9,
@@ -73,16 +73,16 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 1186.8,
-    "visible_draw_calls_max": 3658,
-    "visible_triangles_mean": 50348,
-    "visible_triangles_max": 125764
+    "visible_draw_calls_mean": 1187.3,
+    "visible_draw_calls_max": 3660,
+    "visible_triangles_mean": 50365,
+    "visible_triangles_max": 125828
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3908,
-    "triangles": 110764,
+    "glb_kb": 3910,
+    "triangles": 110828,
     "nodes": 295,
     "mesh_nodes": 196,
     "unique_meshes": 196,
@@ -141,8 +141,8 @@
     "cameras": 128,
     "visible_draw_calls_mean": 99.5,
     "visible_draw_calls_max": 197,
-    "visible_triangles_mean": 94931,
-    "visible_triangles_max": 121180
+    "visible_triangles_mean": 94965,
+    "visible_triangles_max": 121244
    },
    "hidden_faces_removed": 1627,
    "occluded_faces_removed": 2769,
@@ -155,8 +155,8 @@
    "effects_max_particles": 1495,
    "slimmed_kb": {
     "level_mobile.glb": [
-     5850,
-     3908
+     5853,
+     3910
     ],
     "background_mobile.glb": [
      477,
@@ -563,12 +563,12 @@
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Ceil_Duct_2_Hanger_4",
-    "Ceil_Duct_2_Hanger_3",
+    "Ceil_Duct_2b_Hanger_2",
+    "Ceil_Duct_2b_Hanger_1",
     "Ceil_Duct_2_Hanger_2",
     "Ceil_Duct_2_Hanger_1",
-    "Ceil_Duct_1_Hanger_4",
-    "Ceil_Duct_1_Hanger_3",
+    "Ceil_Duct_1b_Hanger_2",
+    "Ceil_Duct_1b_Hanger_1",
     "Ceil_Duct_1_Hanger_2",
     "Ceil_Duct_1_Hanger_1",
     "Ceil_Capsule_17_Hanger",
@@ -1163,10 +1163,12 @@
    "node": "Ceiling__pipe",
    "kind": "group",
    "material": "pipe",
-   "triangles": 64,
+   "triangles": 128,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Ceil_Duct_2b",
+    "Ceil_Duct_1b",
     "Ceil_Duct_2",
     "Ceil_Duct_1"
    ],
