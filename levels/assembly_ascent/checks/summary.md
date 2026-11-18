@@ -1,24 +1,24 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 3090 objects · 61 materials · 50 effects
+Spec: levels/assembly_ascent/scene_spec.json · 3147 objects · 61 materials · 50 effects
 Checks: PASSED ({'error': 0, 'warning': 11, 'info': 2}) · refine passes: 0
-Mobile (balanced): 3580 KB · 100998 tris · 174 draw calls · ~90.8 visible (estimate) · ~14.09 MB GPU textures (estimate)
-Navigation: 5454.0 m² reachable of 20596.0 m² standable
-Package: dist/assembly_ascent/package (39 files, 15.81 MB) valid=True
+Mobile (balanced): 3704 KB · 105936 tris · 183 draw calls · ~94.3 visible (estimate) · ~14.09 MB GPU textures (estimate)
+Navigation: 5454.0 m² reachable of 20630.0 m² standable
+Package: dist/assembly_ascent/package (39 files, 16.23 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- warning: mobile draw calls 174 (> 80)
-- warning: ~91 visible draw calls (estimate, > 60)
+- warning: mobile draw calls 183 (> 80)
+- warning: ~94 visible draw calls (estimate, > 60)
 - warning: Showcase_Pit_1_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_1_Pillar_R: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Pillar_L: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: enemy_arena: hazard 0.5 m away (< 3.0 m)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- warning: 104978 triangles (> budget 40000)
+- warning: 109972 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -54,12 +54,12 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 8 standing part(s), 0 crane runway(s), ends at beams 0.0 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 0.0 m
 - corrosion: 8 lit bodies get a plain skirt at the liquid line (no lights in the slime)
 - corrosion: 12 lights at the liquid line removed, 16 light strips raised clear of it
-- corrosion: 1034 wall faces at the liquid line get a corroded band (one mesh, one material)
+- corrosion: 1202 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 2.2 s
-- build (glb, sky, background, effects, mobile): 67.8 s
-- checks (fast): 82.2 s
-- previews: 1.0 s
-- export package: 0.6 s
-- total: 153.8 s
+- spec -> level.json: 3.0 s
+- build (glb, sky, background, effects, mobile): 57.7 s
+- checks (fast): 80.7 s
+- previews: 2.1 s
+- export package: 1.5 s
+- total: 145.0 s

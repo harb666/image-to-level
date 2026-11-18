@@ -13,7 +13,7 @@ class Reactor(unittest.TestCase):
         cls.E = {e["id"]: e for e in json.load(open(os.path.join(LV, "effects.json")))["effects"]}
 
     def test_parts(self):
-        for k in ("Reactor_Plinth", "Reactor_Deck", "Reactor_VatGlass", "Reactor_Cap", "Reactor_PipeMain", "Reactor_Pipe_1", "Reactor_Pipe_2", "Reactor_Catwalk_3_Pier"): self.assertIn(k, self.R)
+        for k in ("Reactor_Plinth", "Reactor_Deck", "Reactor_VatGlass", "Reactor_Cap", "Reactor_PipeMain", "Reactor_Pipe_1", "Reactor_Pipe_2", "Reactor_Catwalk_3_Tube_Plinth"): self.assertIn(k, self.R)
         g = self.R["Reactor_VatGlass"]; self.assertTrue(g.get("tube")); self.assertNotEqual(g.get("collision"), False)
         self.assertEqual(self.L["materials"][g["material"]]["type"], "glow")  # glowing slime glass, no drawing in it
         self.assertFalse([n for n, o in self.R.items() if self.L["materials"].get(o.get("material"), {}).get("type") in ("chevron", "hazard_wrap")])  # no hazard stripes (user)
@@ -78,6 +78,18 @@ class PipesAndJunctions(unittest.TestCase):
     def test_lighter_preview_avatar(self):
         A = os.path.join(ROOT, "assets", "characters", "grinch_preview")
         self.assertLess(os.path.getsize(A + ".glb"), 2_500_000); self.assertLess(os.path.getsize(A + ".jpg"), 350_000)
+
+
+class CatwalkTubes(unittest.TestCase):
+    def test_catwalks_end_at_pod_tubes(self):
+        """Stage 167 (user): each catwalk ends at a pod transport tube like the hall's three (its pod launches)."""
+        L = json.load(open(os.path.join(LV, "level.json"))); by = {o["name"]: o for o in L["objects"]}
+        E = {e["id"]: e for e in json.load(open(os.path.join(LV, "effects.json")))["effects"]}
+        groups = {l_["group"] for l_ in E["Tube_Pods"]["launches"]}
+        for k in (1, 2, 3):
+            cn = f"Reactor_Catwalk_{k}"; self.assertNotIn(cn + "_Pier", by)
+            for part in ("_Tube_Plinth", "_Tube_Capital", "_Tube_Neck", "_Tube_Pod_Shell", "_TubeCollar"): self.assertIn(cn + part, by)
+            self.assertIn(cn + "_Tube_Pod", groups)
 
 
 if __name__ == "__main__":

@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 6002,
-    "triangles": 104978,
-    "nodes": 3393,
-    "mesh_nodes": 3349,
-    "unique_meshes": 1514,
+    "glb_kb": 6201,
+    "triangles": 109972,
+    "nodes": 3462,
+    "mesh_nodes": 3415,
+    "unique_meshes": 1566,
     "materials": 63,
     "images": 148,
-    "draw_calls_unbatched": 3349,
+    "draw_calls_unbatched": 3415,
     "draw_calls_batched_min": 63,
     "tex_mem_uncompressed_mb": 119.6,
     "tex_mem_gpu_compressed_mb": 29.9,
@@ -73,22 +73,22 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 1086.1,
-    "visible_draw_calls_max": 3341,
-    "visible_triangles_mean": 46847,
-    "visible_triangles_max": 115582
+    "visible_draw_calls_mean": 1108.4,
+    "visible_draw_calls_max": 3407,
+    "visible_triangles_mean": 48655,
+    "visible_triangles_max": 120576
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3580,
-    "triangles": 100998,
-    "nodes": 273,
-    "mesh_nodes": 174,
-    "unique_meshes": 174,
+    "glb_kb": 3704,
+    "triangles": 105936,
+    "nodes": 282,
+    "mesh_nodes": 183,
+    "unique_meshes": 183,
     "materials": 63,
     "images": 112,
-    "draw_calls_unbatched": 174,
+    "draw_calls_unbatched": 183,
     "draw_calls_batched_min": 63,
     "tex_mem_uncompressed_mb": 56.35,
     "tex_mem_gpu_compressed_mb": 14.09,
@@ -133,19 +133,19 @@
     ]
    },
    "collision": {
-    "colliders": 546,
+    "colliders": 571,
     "hazards": 1,
-    "glb_kb": 254
+    "glb_kb": 270
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 90.8,
-    "visible_draw_calls_max": 175,
-    "visible_triangles_mean": 87094,
-    "visible_triangles_max": 111414
+    "visible_draw_calls_mean": 94.3,
+    "visible_draw_calls_max": 184,
+    "visible_triangles_mean": 91641,
+    "visible_triangles_max": 116352
    },
-   "hidden_faces_removed": 1539,
-   "occluded_faces_removed": 2441,
+   "hidden_faces_removed": 1627,
+   "occluded_faces_removed": 2409,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate",
     "Showcase_Stage_Glow_02L",
@@ -155,16 +155,16 @@
    "effects_max_particles": 1495,
    "slimmed_kb": {
     "level_mobile.glb": [
-     5387,
-     3580
+     5550,
+     3704
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     341,
-     254
+     362,
+     270
     ]
    }
   }
@@ -1276,7 +1276,7 @@
    "node": "Corrosion__corrosion__2s",
    "kind": "group",
    "material": "corrosion__2s",
-   "triangles": 1526,
+   "triangles": 1772,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -1718,6 +1718,126 @@
     "Pod_Tube_3_Pod_Fluid"
    ],
    "group": "Pod_Tube_3_Pod"
+  },
+  {
+   "node": "Reactor_Catwalk_1_Tube_Pod__frame",
+   "kind": "group",
+   "material": "frame",
+   "triangles": 84,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Reactor_Catwalk_1_Tube_Pod_Bar_3",
+    "Reactor_Catwalk_1_Tube_Pod_Bar_2",
+    "Reactor_Catwalk_1_Tube_Pod_Bar_1",
+    "Reactor_Catwalk_1_Tube_Pod_Base",
+    "Reactor_Catwalk_1_Tube_Pod_Cap"
+   ],
+   "group": "Reactor_Catwalk_1_Tube_Pod"
+  },
+  {
+   "node": "Reactor_Catwalk_1_Tube_Pod__glass_clear__2s",
+   "kind": "group",
+   "material": "glass_clear__2s",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Reactor_Catwalk_1_Tube_Pod_Shell"
+   ],
+   "group": "Reactor_Catwalk_1_Tube_Pod"
+  },
+  {
+   "node": "Reactor_Catwalk_1_Tube_Pod__hazard",
+   "kind": "group",
+   "material": "hazard",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Reactor_Catwalk_1_Tube_Pod_Fluid"
+   ],
+   "group": "Reactor_Catwalk_1_Tube_Pod"
+  },
+  {
+   "node": "Reactor_Catwalk_2_Tube_Pod__frame",
+   "kind": "group",
+   "material": "frame",
+   "triangles": 84,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Reactor_Catwalk_2_Tube_Pod_Bar_3",
+    "Reactor_Catwalk_2_Tube_Pod_Bar_2",
+    "Reactor_Catwalk_2_Tube_Pod_Bar_1",
+    "Reactor_Catwalk_2_Tube_Pod_Base",
+    "Reactor_Catwalk_2_Tube_Pod_Cap"
+   ],
+   "group": "Reactor_Catwalk_2_Tube_Pod"
+  },
+  {
+   "node": "Reactor_Catwalk_2_Tube_Pod__glass_clear__2s",
+   "kind": "group",
+   "material": "glass_clear__2s",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Reactor_Catwalk_2_Tube_Pod_Shell"
+   ],
+   "group": "Reactor_Catwalk_2_Tube_Pod"
+  },
+  {
+   "node": "Reactor_Catwalk_2_Tube_Pod__hazard",
+   "kind": "group",
+   "material": "hazard",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Reactor_Catwalk_2_Tube_Pod_Fluid"
+   ],
+   "group": "Reactor_Catwalk_2_Tube_Pod"
+  },
+  {
+   "node": "Reactor_Catwalk_3_Tube_Pod__frame",
+   "kind": "group",
+   "material": "frame",
+   "triangles": 84,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Reactor_Catwalk_3_Tube_Pod_Bar_3",
+    "Reactor_Catwalk_3_Tube_Pod_Bar_2",
+    "Reactor_Catwalk_3_Tube_Pod_Bar_1",
+    "Reactor_Catwalk_3_Tube_Pod_Base",
+    "Reactor_Catwalk_3_Tube_Pod_Cap"
+   ],
+   "group": "Reactor_Catwalk_3_Tube_Pod"
+  },
+  {
+   "node": "Reactor_Catwalk_3_Tube_Pod__glass_clear__2s",
+   "kind": "group",
+   "material": "glass_clear__2s",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Reactor_Catwalk_3_Tube_Pod_Shell"
+   ],
+   "group": "Reactor_Catwalk_3_Tube_Pod"
+  },
+  {
+   "node": "Reactor_Catwalk_3_Tube_Pod__hazard",
+   "kind": "group",
+   "material": "hazard",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Reactor_Catwalk_3_Tube_Pod_Fluid"
+   ],
+   "group": "Reactor_Catwalk_3_Tube_Pod"
   },
   {
    "node": "Saw_East_Arm__arm_yellow",
@@ -2958,7 +3078,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 8785,
+   "triangles": 8781,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -2986,13 +3106,13 @@
     "Riser_East_1_Flange_01b",
     "Reactor_Spout_2_Lip",
     "Reactor_Spout_1_Lip",
-    "Reactor_Catwalk_3_PierCap",
+    "Reactor_Catwalk_3_TubeCollar",
     "Reactor_Catwalk_3_Rail_R",
     "Reactor_Catwalk_3_Rail_L",
-    "Reactor_Catwalk_2_PierCap",
+    "Reactor_Catwalk_2_TubeCollar",
     "Reactor_Catwalk_2_Rail_R",
     "Reactor_Catwalk_2_Rail_L",
-    "Reactor_Catwalk_1_PierCap",
+    "Reactor_Catwalk_1_TubeCollar",
     "Reactor_Catwalk_1_Rail_R",
     "Reactor_Catwalk_1_Rail_L",
     "Reactor_PipeTop_2_Clamp",
@@ -3401,10 +3521,22 @@
    "node": "M_glass__2s_0_0",
    "kind": "static",
    "material": "glass__2s",
-   "triangles": 384,
+   "triangles": 768,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Reactor_Catwalk_3_Tube_Glass_07",
+    "Reactor_Catwalk_3_Tube_Glass_05",
+    "Reactor_Catwalk_3_Tube_Glass_03",
+    "Reactor_Catwalk_3_Tube_Glass_01",
+    "Reactor_Catwalk_2_Tube_Glass_07",
+    "Reactor_Catwalk_2_Tube_Glass_05",
+    "Reactor_Catwalk_2_Tube_Glass_03",
+    "Reactor_Catwalk_2_Tube_Glass_01",
+    "Reactor_Catwalk_1_Tube_Glass_07",
+    "Reactor_Catwalk_1_Tube_Glass_05",
+    "Reactor_Catwalk_1_Tube_Glass_03",
+    "Reactor_Catwalk_1_Tube_Glass_01",
     "Pod_Tube_3_Glass_07",
     "Pod_Tube_3_Glass_05",
     "Pod_Tube_3_Glass_03",
@@ -3446,10 +3578,15 @@
    "node": "M_glow_0_0",
    "kind": "static",
    "material": "glow",
-   "triangles": 3576,
+   "triangles": 3636,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Reactor_Catwalk_3_Tube_Red_02",
+    "Reactor_Catwalk_2_Tube_Red_06",
+    "Reactor_Catwalk_2_Tube_Red_02",
+    "Reactor_Catwalk_1_Tube_Red_04",
+    "Reactor_Catwalk_1_Tube_Red_02",
     "Reactor_DiffuserRing",
     "Overlook_WallScreen_2_SpeakerGlowR",
     "Overlook_WallScreen_2_SpeakerGlowL",
@@ -3649,17 +3786,17 @@
    "node": "M_glow_pink_0_0",
    "kind": "static",
    "material": "glow_pink",
-   "triangles": 924,
+   "triangles": 942,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
-    "Reactor_Catwalk_3_PierLamp",
+    "Reactor_Catwalk_3_TubeLamp",
     "Reactor_Catwalk_3_Lamp_R",
     "Reactor_Catwalk_3_Lamp_L",
-    "Reactor_Catwalk_2_PierLamp",
+    "Reactor_Catwalk_2_TubeLamp",
     "Reactor_Catwalk_2_Lamp_R",
     "Reactor_Catwalk_2_Lamp_L",
-    "Reactor_Catwalk_1_PierLamp",
+    "Reactor_Catwalk_1_TubeLamp",
     "Reactor_Catwalk_1_Lamp_R",
     "Reactor_Catwalk_1_Lamp_L",
     "Reactor_PipeTop_2_ValveLamp",
@@ -3773,7 +3910,7 @@
    "node": "M_grate_0_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 856,
+   "triangles": 862,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3810,7 +3947,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 9868,
+   "triangles": 11466,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3818,7 +3955,19 @@
     "Run_North_High_Seg_01__ol",
     "Riser_East_2_Seg_01__ol",
     "Riser_East_1_Seg_01__ol",
-    "Reactor_Catwalk_1_Pier__ol",
+    "Reactor_Catwalk_3_Tube_Drum_06__ol",
+    "Reactor_Catwalk_3_Tube_Drum_04__ol",
+    "Reactor_Catwalk_3_Tube_Drum_02__ol",
+    "Reactor_Catwalk_2_Tube_Drum_06__ol",
+    "Reactor_Catwalk_2_Tube_Drum_04__ol",
+    "Reactor_Catwalk_2_Tube_Drum_02__ol",
+    "Reactor_Catwalk_1_Tube_Capital__ol",
+    "Reactor_Catwalk_1_Tube_Neck__ol",
+    "Reactor_Catwalk_1_Tube_Drum_08__ol",
+    "Reactor_Catwalk_1_Tube_Drum_06__ol",
+    "Reactor_Catwalk_1_Tube_Drum_04__ol",
+    "Reactor_Catwalk_1_Tube_Drum_02__ol",
+    "Reactor_Catwalk_1_Tube_Plinth__ol",
     "Reactor_CapTop__ol",
     "Reactor_Cap__ol",
     "Reactor_Strut_1__ol",
@@ -4680,23 +4829,35 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 8428,
+   "triangles": 10150,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
     "Reactor_Spout_2_Body",
     "Reactor_Spout_1_Body",
-    "Reactor_Catwalk_3_Pier",
+    "Reactor_Catwalk_3_Tube_Capital",
+    "Reactor_Catwalk_3_Tube_Neck",
+    "Reactor_Catwalk_3_Tube_Drum_06",
+    "Reactor_Catwalk_3_Tube_Drum_02",
+    "Reactor_Catwalk_3_Tube_Plinth",
     "Reactor_Catwalk_3_Leg_2R",
     "Reactor_Catwalk_3_Leg_1R",
     "Reactor_Catwalk_3_Leg_2L",
     "Reactor_Catwalk_3_Leg_1L",
-    "Reactor_Catwalk_2_Pier",
+    "Reactor_Catwalk_2_Tube_Capital",
+    "Reactor_Catwalk_2_Tube_Neck",
+    "Reactor_Catwalk_2_Tube_Drum_06",
+    "Reactor_Catwalk_2_Tube_Drum_02",
+    "Reactor_Catwalk_2_Tube_Plinth",
     "Reactor_Catwalk_2_Leg_2R",
     "Reactor_Catwalk_2_Leg_1R",
     "Reactor_Catwalk_2_Leg_2L",
     "Reactor_Catwalk_2_Leg_1L",
-    "Reactor_Catwalk_1_Pier",
+    "Reactor_Catwalk_1_Tube_Capital",
+    "Reactor_Catwalk_1_Tube_Neck",
+    "Reactor_Catwalk_1_Tube_Drum_06",
+    "Reactor_Catwalk_1_Tube_Drum_02",
+    "Reactor_Catwalk_1_Tube_Plinth",
     "Reactor_Catwalk_1_Leg_2R",
     "Reactor_Catwalk_1_Leg_1R",
     "Reactor_Catwalk_1_Leg_2L",
@@ -5043,10 +5204,14 @@
    "node": "M_tube_band_0_0",
    "kind": "static",
    "material": "tube_band",
-   "triangles": 576,
+   "triangles": 1088,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
+    "Reactor_Catwalk_3_Tube_Drum_04",
+    "Reactor_Catwalk_2_Tube_Drum_04",
+    "Reactor_Catwalk_1_Tube_Drum_08",
+    "Reactor_Catwalk_1_Tube_Drum_04",
     "Reactor_VatBandTop",
     "Reactor_VatBandLow",
     "Pod_Tube_3_Drum_04",

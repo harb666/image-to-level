@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "e19208a703cdc536",
+  "spec_sha": "d581667cb15c3ad9",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -127,6 +127,24 @@
      8.0,
      0.45,
      5.0
+    ],
+    [
+     31.0,
+     -10.49,
+     0.45,
+     2.29
+    ],
+    [
+     11.51,
+     8.0,
+     0.45,
+     2.29
+    ],
+    [
+     31.0,
+     26.0,
+     0.45,
+     2.29
     ],
     [
      -32.27,
@@ -2692,6 +2710,51 @@
       "Pod_Tube_3_Pod_Bar_1",
       "Pod_Tube_3_Pod_Bar_2",
       "Pod_Tube_3_Pod_Bar_3"
+     ]
+    },
+    {
+     "group": "Reactor_Catwalk_1_Tube_Pod",
+     "period": 6.18,
+     "phase": 5.88,
+     "travel": 30.3,
+     "targets": [
+      "Reactor_Catwalk_1_Tube_Pod_Cap",
+      "Reactor_Catwalk_1_Tube_Pod_Shell",
+      "Reactor_Catwalk_1_Tube_Pod_Fluid",
+      "Reactor_Catwalk_1_Tube_Pod_Base",
+      "Reactor_Catwalk_1_Tube_Pod_Bar_1",
+      "Reactor_Catwalk_1_Tube_Pod_Bar_2",
+      "Reactor_Catwalk_1_Tube_Pod_Bar_3"
+     ]
+    },
+    {
+     "group": "Reactor_Catwalk_2_Tube_Pod",
+     "period": 3.67,
+     "phase": 0.97,
+     "travel": 30.3,
+     "targets": [
+      "Reactor_Catwalk_2_Tube_Pod_Cap",
+      "Reactor_Catwalk_2_Tube_Pod_Shell",
+      "Reactor_Catwalk_2_Tube_Pod_Fluid",
+      "Reactor_Catwalk_2_Tube_Pod_Base",
+      "Reactor_Catwalk_2_Tube_Pod_Bar_1",
+      "Reactor_Catwalk_2_Tube_Pod_Bar_2",
+      "Reactor_Catwalk_2_Tube_Pod_Bar_3"
+     ]
+    },
+    {
+     "group": "Reactor_Catwalk_3_Tube_Pod",
+     "period": 3.58,
+     "phase": 2.18,
+     "travel": 30.3,
+     "targets": [
+      "Reactor_Catwalk_3_Tube_Pod_Cap",
+      "Reactor_Catwalk_3_Tube_Pod_Shell",
+      "Reactor_Catwalk_3_Tube_Pod_Fluid",
+      "Reactor_Catwalk_3_Tube_Pod_Base",
+      "Reactor_Catwalk_3_Tube_Pod_Bar_1",
+      "Reactor_Catwalk_3_Tube_Pod_Bar_2",
+      "Reactor_Catwalk_3_Tube_Pod_Bar_3"
      ]
     }
    ],
@@ -75535,7 +75598,7 @@
    "position": [
     31.0,
     3.1,
-    -3.3
+    -3.8
    ],
    "rotation": [
     0.0,
@@ -75545,7 +75608,7 @@
    "size": [
     2.6,
     0.3,
-    8.0
+    9.0
    ],
    "material": "grate",
    "outline": false,
@@ -75561,7 +75624,7 @@
    "position": [
     32.24,
     3.4,
-    -3.3
+    -3.8
    ],
    "rotation": [
     0.0,
@@ -75569,7 +75632,7 @@
     0.0
    ],
    "size": [
-    8.0,
+    9.0,
     1.1,
     0.07
    ],
@@ -75644,7 +75707,7 @@
    "position": [
     32.277,
     3.18,
-    -3.3
+    -3.8
    ],
    "rotation": [
     0.0,
@@ -75654,7 +75717,7 @@
    "size": [
     0.06,
     0.1,
-    7.6
+    8.6
    ],
    "material": "glow_pink",
    "collision": false,
@@ -75671,7 +75734,7 @@
    "position": [
     29.76,
     3.4,
-    -3.3
+    -3.8
    ],
    "rotation": [
     0.0,
@@ -75679,7 +75742,7 @@
     0.0
    ],
    "size": [
-    8.0,
+    9.0,
     1.1,
     0.07
    ],
@@ -75754,7 +75817,7 @@
    "position": [
     29.723,
     3.18,
-    -3.3
+    -3.8
    ],
    "rotation": [
     0.0,
@@ -75764,7 +75827,7 @@
    "size": [
     0.06,
     0.1,
-    7.6
+    8.6
    ],
    "material": "glow_pink",
    "collision": false,
@@ -75776,24 +75839,44 @@
    "source": "visible"
   },
   {
-   "name": "Reactor_Catwalk_1_Pier",
-   "type": "box",
+   "name": "Reactor_Catwalk_1_Tube",
+   "type": "group",
    "position": [
     31.0,
     0.0,
-    -8.7
+    -10.495
    ],
    "rotation": [
     0.0,
     180.0,
     0.0
    ],
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Plinth",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    -0.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
    "size": [
-    3.2,
-    4.3,
-    3.2
+    4.59,
+    4.5,
+    4.59
    ],
    "material": "structure_b",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
    "mobile": {
     "static": true
    },
@@ -75801,24 +75884,86 @@
    "source": "visible"
   },
   {
-   "name": "Reactor_Catwalk_1_PierCap",
-   "type": "box",
+   "name": "Reactor_Catwalk_1_Tube_Glass_01",
+   "type": "cylinder",
    "position": [
-    31.0,
-    4.3,
-    -8.7
+    0.0,
+    3.9,
+    0.0
    ],
    "rotation": [
     0.0,
-    180.0,
+    0.0,
     0.0
    ],
+   "parent": "Reactor_Catwalk_1_Tube",
    "size": [
-    3.5,
-    0.3,
-    3.5
+    3.4,
+    3.928,
+    3.4
    ],
-   "material": "frame",
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "bubbles": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Drum_02",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    7.728,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    3.808,
+    1.489,
+    3.808
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Red_02",
+   "type": "box",
+   "position": [
+    0.0,
+    8.323,
+    1.759
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    0.6,
+    0.3,
+    0.3
+   ],
+   "material": "glow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -75828,12 +75973,519 @@
    "source": "visible"
   },
   {
-   "name": "Reactor_Catwalk_1_PierLamp",
+   "name": "Reactor_Catwalk_1_Tube_Glass_03",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    9.117,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    3.4,
+    4.851,
+    3.4
+   ],
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "bubbles": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Drum_04",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    13.868,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    3.808,
+    2.79,
+    3.808
+   ],
+   "material": "tube_band",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Red_04",
+   "type": "box",
+   "position": [
+    0.0,
+    15.113,
+    1.759
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    0.6,
+    0.3,
+    0.3
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Glass_05",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    16.558,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    3.4,
+    6.406,
+    3.4
+   ],
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "bubbles": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Drum_06",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    22.864,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    3.808,
+    2.197,
+    3.808
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Glass_07",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    24.961,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    3.4,
+    5.413,
+    3.4
+   ],
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "bubbles": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Drum_08",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    30.274,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    3.808,
+    0.226,
+    3.808
+   ],
+   "material": "tube_band",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Neck",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    30.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    3.57,
+    1.5,
+    3.57
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Capital",
+   "type": "frustum",
+   "position": [
+    0.0,
+    32.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    6.8,
+    2.5,
+    6.8
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "bottom_scale": 0.55,
+   "hole": 1.36,
+   "hole_res": 16,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Pod_Cap",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.4,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    2.0,
+    0.45,
+    2.0
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_1_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Pod_Shell",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    2.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    1.7,
+    1.45,
+    1.7
+   ],
+   "material": "glass_clear",
+   "sections": 6,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_1_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Pod_Fluid",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    2.07,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    1.46,
+    1.28,
+    1.46
+   ],
+   "material": "hazard",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_1_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Pod_Base",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    1.9,
+    0.3,
+    1.9
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_1_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Pod_Bar_1",
+   "type": "box",
+   "position": [
+    0.89,
+    2.0,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    0.14,
+    1.45,
+    0.14
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_1_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Pod_Bar_2",
+   "type": "box",
+   "position": [
+    -0.445,
+    2.0,
+    -0.771
+   ],
+   "rotation": [
+    0.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    0.14,
+    1.45,
+    0.14
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_1_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_Pod_Bar_3",
+   "type": "box",
+   "position": [
+    -0.445,
+    2.0,
+    0.771
+   ],
+   "rotation": [
+    0.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    0.14,
+    1.45,
+    0.14
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_1_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_TubeCollar",
+   "type": "cylinder",
+   "position": [
+    31.0,
+    2.85,
+    -10.495
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.89,
+    0.5,
+    4.89
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_TubeLamp",
    "type": "box",
    "position": [
     31.0,
-    3.5,
-    -10.3
+    3.55,
+    -8.28
    ],
    "rotation": [
     0.0,
@@ -75841,8 +76493,8 @@
     0.0
    ],
    "size": [
-    2.0,
-    0.3,
+    1.6,
+    0.2,
     0.06
    ],
    "material": "glow_pink",
@@ -76101,10 +76753,10 @@
    "source": "visible"
   },
   {
-   "name": "Reactor_Catwalk_2_Pier",
-   "type": "box",
+   "name": "Reactor_Catwalk_2_Tube",
+   "type": "group",
    "position": [
-    12.3,
+    11.505,
     0.0,
     8.0
    ],
@@ -76113,12 +76765,32 @@
     270.0,
     0.0
    ],
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Plinth",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    -0.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
    "size": [
-    3.2,
-    4.3,
-    3.2
+    4.59,
+    4.5,
+    4.59
    ],
    "material": "structure_b",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
    "mobile": {
     "static": true
    },
@@ -76126,24 +76798,86 @@
    "source": "visible"
   },
   {
-   "name": "Reactor_Catwalk_2_PierCap",
-   "type": "box",
+   "name": "Reactor_Catwalk_2_Tube_Glass_01",
+   "type": "cylinder",
    "position": [
-    12.3,
-    4.3,
-    8.0
+    0.0,
+    3.9,
+    0.0
    ],
    "rotation": [
     0.0,
-    270.0,
+    0.0,
     0.0
    ],
+   "parent": "Reactor_Catwalk_2_Tube",
    "size": [
-    3.5,
-    0.3,
-    3.5
+    3.4,
+    4.811,
+    3.4
    ],
-   "material": "frame",
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "bubbles": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Drum_02",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    8.611,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    3.808,
+    3.344,
+    3.808
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Red_02",
+   "type": "box",
+   "position": [
+    0.0,
+    10.133,
+    1.759
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    0.6,
+    0.3,
+    0.3
+   ],
+   "material": "glow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -76153,11 +76887,489 @@
    "source": "visible"
   },
   {
-   "name": "Reactor_Catwalk_2_PierLamp",
+   "name": "Reactor_Catwalk_2_Tube_Glass_03",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    11.855,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    3.4,
+    5.895,
+    3.4
+   ],
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "bubbles": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Drum_04",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    17.65,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    3.808,
+    1.226,
+    3.808
+   ],
+   "material": "tube_band",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Glass_05",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    18.777,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    3.4,
+    6.562,
+    3.4
+   ],
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "bubbles": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Drum_06",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    25.239,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    3.808,
+    3.055,
+    3.808
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Red_06",
    "type": "box",
    "position": [
-    10.7,
-    3.5,
+    0.0,
+    26.616,
+    1.759
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    0.6,
+    0.3,
+    0.3
+   ],
+   "material": "glow",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Glass_07",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    28.194,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    3.4,
+    2.406,
+    3.4
+   ],
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "bubbles": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Neck",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    30.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    3.57,
+    1.5,
+    3.57
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Capital",
+   "type": "frustum",
+   "position": [
+    0.0,
+    32.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    6.8,
+    2.5,
+    6.8
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "bottom_scale": 0.55,
+   "hole": 1.36,
+   "hole_res": 16,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Pod_Cap",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.4,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    2.0,
+    0.45,
+    2.0
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_2_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Pod_Shell",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    2.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    1.7,
+    1.45,
+    1.7
+   ],
+   "material": "glass_clear",
+   "sections": 6,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_2_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Pod_Fluid",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    2.07,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    1.46,
+    1.28,
+    1.46
+   ],
+   "material": "hazard",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_2_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Pod_Base",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    1.9,
+    0.3,
+    1.9
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_2_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Pod_Bar_1",
+   "type": "box",
+   "position": [
+    0.89,
+    2.0,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    0.14,
+    1.45,
+    0.14
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_2_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Pod_Bar_2",
+   "type": "box",
+   "position": [
+    -0.445,
+    2.0,
+    -0.771
+   ],
+   "rotation": [
+    0.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    0.14,
+    1.45,
+    0.14
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_2_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_Pod_Bar_3",
+   "type": "box",
+   "position": [
+    -0.445,
+    2.0,
+    0.771
+   ],
+   "rotation": [
+    0.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    0.14,
+    1.45,
+    0.14
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_2_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_TubeCollar",
+   "type": "cylinder",
+   "position": [
+    11.505,
+    2.85,
+    8.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    4.89,
+    0.5,
+    4.89
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_TubeLamp",
+   "type": "box",
+   "position": [
+    13.72,
+    3.55,
     8.0
    ],
    "rotation": [
@@ -76166,8 +77378,8 @@
     0.0
    ],
    "size": [
-    2.0,
-    0.3,
+    1.6,
+    0.2,
     0.06
    ],
    "material": "glow_pink",
@@ -76426,24 +77638,44 @@
    "source": "visible"
   },
   {
-   "name": "Reactor_Catwalk_3_Pier",
-   "type": "box",
+   "name": "Reactor_Catwalk_3_Tube",
+   "type": "group",
    "position": [
     31.0,
     0.0,
-    25.2
+    25.995
    ],
    "rotation": [
     0.0,
     0.0,
     0.0
    ],
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Plinth",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    -0.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
    "size": [
-    3.2,
-    4.3,
-    3.2
+    4.59,
+    4.5,
+    4.59
    ],
    "material": "structure_b",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
    "mobile": {
     "static": true
    },
@@ -76451,24 +77683,86 @@
    "source": "visible"
   },
   {
-   "name": "Reactor_Catwalk_3_PierCap",
-   "type": "box",
+   "name": "Reactor_Catwalk_3_Tube_Glass_01",
+   "type": "cylinder",
    "position": [
-    31.0,
-    4.3,
-    25.2
+    0.0,
+    3.9,
+    0.0
    ],
    "rotation": [
     0.0,
     0.0,
     0.0
    ],
+   "parent": "Reactor_Catwalk_3_Tube",
    "size": [
-    3.5,
-    0.3,
-    3.5
+    3.4,
+    6.626,
+    3.4
    ],
-   "material": "frame",
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "bubbles": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Drum_02",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    10.426,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    3.808,
+    3.38,
+    3.808
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Red_02",
+   "type": "box",
+   "position": [
+    0.0,
+    11.966,
+    1.759
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    0.6,
+    0.3,
+    0.3
+   ],
+   "material": "glow",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -76478,12 +77772,434 @@
    "source": "visible"
   },
   {
-   "name": "Reactor_Catwalk_3_PierLamp",
+   "name": "Reactor_Catwalk_3_Tube_Glass_03",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    13.706,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    3.4,
+    4.237,
+    3.4
+   ],
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "bubbles": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Drum_04",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    17.842,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    3.808,
+    3.249,
+    3.808
+   ],
+   "material": "tube_band",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Glass_05",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    20.991,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    3.4,
+    3.696,
+    3.4
+   ],
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "bubbles": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Drum_06",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    24.587,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    3.808,
+    3.328,
+    3.808
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Glass_07",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    27.815,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    3.4,
+    2.785,
+    3.4
+   ],
+   "material": "glass",
+   "sections": 8,
+   "collision": true,
+   "double_sided": true,
+   "tube": true,
+   "outline": false,
+   "bubbles": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Neck",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    30.5,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    3.57,
+    1.5,
+    3.57
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "hole": 1.36,
+   "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Capital",
+   "type": "frustum",
+   "position": [
+    0.0,
+    32.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    6.8,
+    2.5,
+    6.8
+   ],
+   "material": "structure_b",
+   "sections": 8,
+   "bottom_scale": 0.55,
+   "hole": 1.36,
+   "hole_res": 16,
+   "collision": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Pod_Cap",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    3.4,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    2.0,
+    0.45,
+    2.0
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_3_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Pod_Shell",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    2.0,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    1.7,
+    1.45,
+    1.7
+   ],
+   "material": "glass_clear",
+   "sections": 6,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_3_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Pod_Fluid",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    2.07,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    1.46,
+    1.28,
+    1.46
+   ],
+   "material": "hazard",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_3_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Pod_Base",
+   "type": "cylinder",
+   "position": [
+    0.0,
+    1.8,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    1.9,
+    0.3,
+    1.9
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_3_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Pod_Bar_1",
    "type": "box",
    "position": [
+    0.89,
+    2.0,
+    -0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    0.14,
+    1.45,
+    0.14
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_3_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Pod_Bar_2",
+   "type": "box",
+   "position": [
+    -0.445,
+    2.0,
+    -0.771
+   ],
+   "rotation": [
+    0.0,
+    120.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    0.14,
+    1.45,
+    0.14
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_3_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_Pod_Bar_3",
+   "type": "box",
+   "position": [
+    -0.445,
+    2.0,
+    0.771
+   ],
+   "rotation": [
+    0.0,
+    240.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    0.14,
+    1.45,
+    0.14
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "launch": true,
+   "mobile": {
+    "group": "Reactor_Catwalk_3_Tube_Pod"
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_TubeCollar",
+   "type": "cylinder",
+   "position": [
     31.0,
-    3.5,
-    26.8
+    2.85,
+    25.995
    ],
    "rotation": [
     0.0,
@@ -76491,8 +78207,36 @@
     0.0
    ],
    "size": [
-    2.0,
-    0.3,
+    4.89,
+    0.5,
+    4.89
+   ],
+   "material": "frame",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_TubeLamp",
+   "type": "box",
+   "position": [
+    31.0,
+    3.55,
+    23.78
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    1.6,
+    0.2,
     0.06
    ],
    "material": "glow_pink",
@@ -99900,12 +101644,12 @@
     {
      "pts": [
       [
-       32.621,
-       -7.8814
+       29.02169,
+       -11.31444
       ],
       [
-       32.621,
-       -10.3
+       28.6856,
+       -10.50304
       ]
      ],
      "y0": 0.85,
@@ -99914,12 +101658,12 @@
     {
      "pts": [
       [
-       32.621,
-       -7.1
+       29.72846,
+       -10.83209
       ],
       [
-       32.621,
-       -7.8814
+       29.76412,
+       -11.01135
       ]
      ],
      "y0": 0.85,
@@ -99928,12 +101672,12 @@
     {
      "pts": [
       [
-       30.1814,
-       -7.079
+       29.6606,
+       -10.4909
       ],
       [
-       32.6,
-       -7.079
+       29.72846,
+       -10.83209
       ]
      ],
      "y0": 0.85,
@@ -99942,12 +101686,12 @@
     {
      "pts": [
       [
-       32.6,
-       -10.321
+       29.35779,
+       -12.12585
       ],
       [
-       29.4,
-       -10.321
+       29.02169,
+       -11.31444
       ]
      ],
      "y0": 0.85,
@@ -99956,12 +101700,12 @@
     {
      "pts": [
       [
-       29.4,
-       -7.079
+       29.95425,
+       -11.29302
       ],
       [
-       30.1814,
-       -7.079
+       30.0558,
+       -11.445
       ]
      ],
      "y0": 0.85,
@@ -99970,12 +101714,12 @@
     {
      "pts": [
       [
-       29.379,
-       -9.5186
+       29.76098,
+       -11.00378
       ],
       [
-       29.379,
-       -7.1
+       29.95425,
+       -11.29302
       ]
      ],
      "y0": 0.85,
@@ -99984,12 +101728,586 @@
     {
      "pts": [
       [
-       29.379,
-       -10.3
+       30.18056,
+       -12.47331
       ],
       [
-       29.379,
-       -9.5186
+       29.36915,
+       -12.13721
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.33924,
+       -11.63247
+      ],
+      [
+       30.49122,
+       -11.73402
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.05,
+       -11.4392
+      ],
+      [
+       30.33924,
+       -11.63247
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.99196,
+       -12.8094
+      ],
+      [
+       30.18056,
+       -12.47331
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.82483,
+       -11.79875
+      ],
+      [
+       31.0041,
+       -11.8344
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.48365,
+       -11.73088
+      ],
+      [
+       30.82483,
+       -11.79875
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.81944,
+       -12.47331
+      ],
+      [
+       31.00804,
+       -12.8094
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.33709,
+       -11.76654
+      ],
+      [
+       31.51635,
+       -11.73088
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.9959,
+       -11.8344
+      ],
+      [
+       31.33709,
+       -11.76654
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.63085,
+       -12.13721
+      ],
+      [
+       31.81944,
+       -12.47331
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.79802,
+       -11.54075
+      ],
+      [
+       31.95,
+       -11.4392
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.50878,
+       -11.73402
+      ],
+      [
+       31.79802,
+       -11.54075
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.97831,
+       -11.31444
+      ],
+      [
+       32.64221,
+       -12.12585
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.13747,
+       -11.15576
+      ],
+      [
+       32.23902,
+       -11.00378
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.9442,
+       -11.445
+      ],
+      [
+       32.13747,
+       -11.15576
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.3144,
+       -10.50304
+      ],
+      [
+       32.97831,
+       -11.31444
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.30375,
+       -10.67017
+      ],
+      [
+       32.3394,
+       -10.4909
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.23588,
+       -11.01135
+      ],
+      [
+       32.30375,
+       -10.67017
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.97831,
+       -9.67556
+      ],
+      [
+       33.3144,
+       -10.48696
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.27154,
+       -10.15791
+      ],
+      [
+       32.23588,
+       -9.97865
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.3394,
+       -10.4991
+      ],
+      [
+       32.27154,
+       -10.15791
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.64221,
+       -8.86415
+      ],
+      [
+       32.97831,
+       -9.67556
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.04575,
+       -9.69698
+      ],
+      [
+       31.9442,
+       -9.545
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.23902,
+       -9.98622
+      ],
+      [
+       32.04575,
+       -9.69698
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.81944,
+       -8.51669
+      ],
+      [
+       32.63085,
+       -8.85279
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.66076,
+       -9.35753
+      ],
+      [
+       31.50878,
+       -9.25598
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.95,
+       -9.5508
+      ],
+      [
+       31.66076,
+       -9.35753
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.00804,
+       -8.1806
+      ],
+      [
+       31.81944,
+       -8.51669
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.17517,
+       -9.19125
+      ],
+      [
+       30.9959,
+       -9.1556
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.51635,
+       -9.25912
+      ],
+      [
+       31.17517,
+       -9.19125
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.18056,
+       -8.51669
+      ],
+      [
+       30.99196,
+       -8.1806
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.66291,
+       -9.22346
+      ],
+      [
+       30.48365,
+       -9.25912
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.0041,
+       -9.1556
+      ],
+      [
+       30.66291,
+       -9.22346
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.36915,
+       -8.85279
+      ],
+      [
+       30.18056,
+       -8.51669
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.20198,
+       -9.44925
+      ],
+      [
+       30.05,
+       -9.5508
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.49122,
+       -9.25598
+      ],
+      [
+       30.20198,
+       -9.44925
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.02169,
+       -9.67556
+      ],
+      [
+       29.35779,
+       -8.86415
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.86253,
+       -9.83424
+      ],
+      [
+       29.76098,
+       -9.98622
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.0558,
+       -9.545
+      ],
+      [
+       29.86253,
+       -9.83424
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.6856,
+       -10.48696
+      ],
+      [
+       29.02169,
+       -9.67556
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.69625,
+       -10.31983
+      ],
+      [
+       29.6606,
+       -10.4991
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.76412,
+       -9.97865
+      ],
+      [
+       29.69625,
+       -10.31983
       ]
      ],
      "y0": 0.85,
@@ -100334,12 +102652,12 @@
     {
      "pts": [
       [
-       13.1186,
-       6.379
+       10.68556,
+       9.97831
       ],
       [
-       10.7,
-       6.379
+       11.49696,
+       10.3144
       ]
      ],
      "y0": 0.85,
@@ -100348,12 +102666,12 @@
     {
      "pts": [
       [
-       13.9,
-       6.379
+       11.16791,
+       9.27154
       ],
       [
-       13.1186,
-       6.379
+       10.98865,
+       9.23588
       ]
      ],
      "y0": 0.85,
@@ -100362,12 +102680,12 @@
     {
      "pts": [
       [
-       13.921,
-       8.8186
+       11.5091,
+       9.3394
       ],
       [
-       13.921,
-       6.4
+       11.16791,
+       9.27154
       ]
      ],
      "y0": 0.85,
@@ -100376,12 +102694,12 @@
     {
      "pts": [
       [
-       10.679,
-       6.4
+       9.87415,
+       9.64221
       ],
       [
-       10.679,
-       9.6
+       10.68556,
+       9.97831
       ]
      ],
      "y0": 0.85,
@@ -100390,12 +102708,12 @@
     {
      "pts": [
       [
-       13.921,
-       9.6
+       10.70698,
+       9.04575
       ],
       [
-       13.921,
-       8.8186
+       10.555,
+       8.9442
       ]
      ],
      "y0": 0.85,
@@ -100404,12 +102722,12 @@
     {
      "pts": [
       [
-       11.4814,
-       9.621
+       10.99622,
+       9.23902
       ],
       [
-       13.9,
-       9.621
+       10.70698,
+       9.04575
       ]
      ],
      "y0": 0.85,
@@ -100418,12 +102736,586 @@
     {
      "pts": [
       [
-       10.7,
-       9.621
+       9.52669,
+       8.81944
       ],
       [
-       11.4814,
-       9.621
+       9.86279,
+       9.63085
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       10.36753,
+       8.66076
+      ],
+      [
+       10.26598,
+       8.50878
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       10.5608,
+       8.95
+      ],
+      [
+       10.36753,
+       8.66076
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       9.1906,
+       8.00804
+      ],
+      [
+       9.52669,
+       8.81944
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       10.20125,
+       8.17517
+      ],
+      [
+       10.1656,
+       7.9959
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       10.26912,
+       8.51635
+      ],
+      [
+       10.20125,
+       8.17517
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       9.52669,
+       7.18056
+      ],
+      [
+       9.1906,
+       7.99196
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       10.23346,
+       7.66291
+      ],
+      [
+       10.26912,
+       7.48365
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       10.1656,
+       8.0041
+      ],
+      [
+       10.23346,
+       7.66291
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       9.86279,
+       6.36915
+      ],
+      [
+       9.52669,
+       7.18056
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       10.45925,
+       7.20198
+      ],
+      [
+       10.5608,
+       7.05
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       10.26598,
+       7.49122
+      ],
+      [
+       10.45925,
+       7.20198
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       10.68556,
+       6.02169
+      ],
+      [
+       9.87415,
+       6.35779
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       10.84424,
+       6.86253
+      ],
+      [
+       10.99622,
+       6.76098
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       10.555,
+       7.0558
+      ],
+      [
+       10.84424,
+       6.86253
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       11.49696,
+       5.6856
+      ],
+      [
+       10.68556,
+       6.02169
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       11.32983,
+       6.69625
+      ],
+      [
+       11.5091,
+       6.6606
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       10.98865,
+       6.76412
+      ],
+      [
+       11.32983,
+       6.69625
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       12.32444,
+       6.02169
+      ],
+      [
+       11.51304,
+       5.6856
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       11.84209,
+       6.72846
+      ],
+      [
+       12.02135,
+       6.76412
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       11.5009,
+       6.6606
+      ],
+      [
+       11.84209,
+       6.72846
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       13.13585,
+       6.35779
+      ],
+      [
+       12.32444,
+       6.02169
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       12.30302,
+       6.95425
+      ],
+      [
+       12.455,
+       7.0558
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       12.01378,
+       6.76098
+      ],
+      [
+       12.30302,
+       6.95425
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       13.48331,
+       7.18056
+      ],
+      [
+       13.14721,
+       6.36915
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       12.64247,
+       7.33924
+      ],
+      [
+       12.74402,
+       7.49122
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       12.4492,
+       7.05
+      ],
+      [
+       12.64247,
+       7.33924
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       13.8194,
+       7.99196
+      ],
+      [
+       13.48331,
+       7.18056
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       12.80875,
+       7.82483
+      ],
+      [
+       12.8444,
+       8.0041
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       12.74088,
+       7.48365
+      ],
+      [
+       12.80875,
+       7.82483
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       13.48331,
+       8.81944
+      ],
+      [
+       13.8194,
+       8.00804
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       12.77654,
+       8.33709
+      ],
+      [
+       12.74088,
+       8.51635
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       12.8444,
+       7.9959
+      ],
+      [
+       12.77654,
+       8.33709
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       13.14721,
+       9.63085
+      ],
+      [
+       13.48331,
+       8.81944
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       12.55075,
+       8.79802
+      ],
+      [
+       12.4492,
+       8.95
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       12.74402,
+       8.50878
+      ],
+      [
+       12.55075,
+       8.79802
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       12.32444,
+       9.97831
+      ],
+      [
+       13.13585,
+       9.64221
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       12.16576,
+       9.13747
+      ],
+      [
+       12.01378,
+       9.23902
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       12.455,
+       8.9442
+      ],
+      [
+       12.16576,
+       9.13747
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       11.51304,
+       10.3144
+      ],
+      [
+       12.32444,
+       9.97831
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       11.68017,
+       9.30375
+      ],
+      [
+       11.5009,
+       9.3394
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       12.02135,
+       9.23588
+      ],
+      [
+       11.68017,
+       9.30375
       ]
      ],
      "y0": 0.85,
@@ -100768,12 +103660,12 @@
     {
      "pts": [
       [
-       29.379,
-       24.3814
+       32.97831,
+       26.81444
       ],
       [
-       29.379,
-       26.8
+       33.3144,
+       26.00304
       ]
      ],
      "y0": 0.85,
@@ -100782,12 +103674,12 @@
     {
      "pts": [
       [
-       29.379,
-       23.6
+       32.27154,
+       26.33209
       ],
       [
-       29.379,
-       24.3814
+       32.23588,
+       26.51135
       ]
      ],
      "y0": 0.85,
@@ -100796,12 +103688,12 @@
     {
      "pts": [
       [
-       31.8186,
-       23.579
+       32.3394,
+       25.9909
       ],
       [
-       29.4,
-       23.579
+       32.27154,
+       26.33209
       ]
      ],
      "y0": 0.85,
@@ -100810,12 +103702,12 @@
     {
      "pts": [
       [
-       29.4,
-       26.821
+       32.64221,
+       27.62585
       ],
       [
-       32.6,
-       26.821
+       32.97831,
+       26.81444
       ]
      ],
      "y0": 0.85,
@@ -100824,12 +103716,12 @@
     {
      "pts": [
       [
-       32.6,
-       23.579
+       32.04575,
+       26.79302
       ],
       [
-       31.8186,
-       23.579
+       31.9442,
+       26.945
       ]
      ],
      "y0": 0.85,
@@ -100838,12 +103730,12 @@
     {
      "pts": [
       [
-       32.621,
-       26.0186
+       32.23902,
+       26.50378
       ],
       [
-       32.621,
-       23.6
+       32.04575,
+       26.79302
       ]
      ],
      "y0": 0.85,
@@ -100852,12 +103744,586 @@
     {
      "pts": [
       [
-       32.621,
-       26.8
+       31.81944,
+       27.97331
       ],
       [
-       32.621,
-       26.0186
+       32.63085,
+       27.63721
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.66076,
+       27.13247
+      ],
+      [
+       31.50878,
+       27.23402
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.95,
+       26.9392
+      ],
+      [
+       31.66076,
+       27.13247
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.00804,
+       28.3094
+      ],
+      [
+       31.81944,
+       27.97331
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.17517,
+       27.29875
+      ],
+      [
+       30.9959,
+       27.3344
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.51635,
+       27.23088
+      ],
+      [
+       31.17517,
+       27.29875
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.18056,
+       27.97331
+      ],
+      [
+       30.99196,
+       28.3094
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.66291,
+       27.26654
+      ],
+      [
+       30.48365,
+       27.23088
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.0041,
+       27.3344
+      ],
+      [
+       30.66291,
+       27.26654
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.36915,
+       27.63721
+      ],
+      [
+       30.18056,
+       27.97331
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.20198,
+       27.04075
+      ],
+      [
+       30.05,
+       26.9392
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.49122,
+       27.23402
+      ],
+      [
+       30.20198,
+       27.04075
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.02169,
+       26.81444
+      ],
+      [
+       29.35779,
+       27.62585
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.86253,
+       26.65576
+      ],
+      [
+       29.76098,
+       26.50378
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.0558,
+       26.945
+      ],
+      [
+       29.86253,
+       26.65576
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       28.6856,
+       26.00304
+      ],
+      [
+       29.02169,
+       26.81444
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.69625,
+       26.17017
+      ],
+      [
+       29.6606,
+       25.9909
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.76412,
+       26.51135
+      ],
+      [
+       29.69625,
+       26.17017
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.02169,
+       25.17556
+      ],
+      [
+       28.6856,
+       25.98696
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.72846,
+       25.65791
+      ],
+      [
+       29.76412,
+       25.47865
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.6606,
+       25.9991
+      ],
+      [
+       29.72846,
+       25.65791
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.35779,
+       24.36415
+      ],
+      [
+       29.02169,
+       25.17556
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.95425,
+       25.19698
+      ],
+      [
+       30.0558,
+       25.045
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       29.76098,
+       25.48622
+      ],
+      [
+       29.95425,
+       25.19698
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.18056,
+       24.01669
+      ],
+      [
+       29.36915,
+       24.35279
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.33924,
+       24.85753
+      ],
+      [
+       30.49122,
+       24.75598
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.05,
+       25.0508
+      ],
+      [
+       30.33924,
+       24.85753
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.99196,
+       23.6806
+      ],
+      [
+       30.18056,
+       24.01669
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.82483,
+       24.69125
+      ],
+      [
+       31.0041,
+       24.6556
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.48365,
+       24.75912
+      ],
+      [
+       30.82483,
+       24.69125
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.81944,
+       24.01669
+      ],
+      [
+       31.00804,
+       23.6806
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.33709,
+       24.72346
+      ],
+      [
+       31.51635,
+       24.75912
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       30.9959,
+       24.6556
+      ],
+      [
+       31.33709,
+       24.72346
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.63085,
+       24.35279
+      ],
+      [
+       31.81944,
+       24.01669
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.79802,
+       24.94925
+      ],
+      [
+       31.95,
+       25.0508
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.50878,
+       24.75598
+      ],
+      [
+       31.79802,
+       24.94925
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.97831,
+       25.17556
+      ],
+      [
+       32.64221,
+       24.36415
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.13747,
+       25.33424
+      ],
+      [
+       32.23902,
+       25.48622
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       31.9442,
+       25.045
+      ],
+      [
+       32.13747,
+       25.33424
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       33.3144,
+       25.98696
+      ],
+      [
+       32.97831,
+       25.17556
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.30375,
+       25.81983
+      ],
+      [
+       32.3394,
+       25.9991
+      ]
+     ],
+     "y0": 0.85,
+     "y1": 2.2
+    },
+    {
+     "pts": [
+      [
+       32.23588,
+       25.47865
+      ],
+      [
+       32.30375,
+       25.81983
       ]
      ],
      "y0": 0.85,
@@ -104511,7 +107977,7 @@
   "ducts: Ceil_Duct_1 trimmed to 1 piece(s) clear of 8 standing part(s), 0 crane runway(s), ends at beams 0.0 m; Ceil_Duct_2 trimmed to 1 piece(s) clear of 0 standing part(s), 1 crane runway(s), ends at beams 0.0 m",
   "corrosion: 8 lit bodies get a plain skirt at the liquid line (no lights in the slime)",
   "corrosion: 12 lights at the liquid line removed, 16 light strips raised clear of it",
-  "corrosion: 1034 wall faces at the liquid line get a corroded band (one mesh, one material)"
+  "corrosion: 1202 wall faces at the liquid line get a corroded band (one mesh, one material)"
  ],
  "relations": [
   {
@@ -104652,12 +108118,12 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 91546,
-  "objects": 3090,
+  "triangles": 94920,
+  "objects": 3147,
   "materials": 61,
-  "glb_kb": 6002,
-  "nodes": 3393,
-  "draw_calls_unbatched": 3349,
+  "glb_kb": 6201,
+  "nodes": 3462,
+  "draw_calls_unbatched": 3415,
   "draw_calls_batched_min": 63,
   "images": 148,
   "tex_mem_gpu_compressed_mb": 29.9,

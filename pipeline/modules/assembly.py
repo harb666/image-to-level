@@ -1196,10 +1196,13 @@ def reactor(ctx, s, x, y, z, yaw):
                 if rr > r0 + L_ - 0.5: break
                 c2 = P(b, yl - 1.0, rr); ctx.add(f"{cn}_Leg_{j + 1}{'LR'[sd > 0]}", "cylinder", [c2[0] + dx * 0.9, yl - 1.0, c2[2] + dz * 0.9], [0.35, D - 0.3 - (yl - 1.0), 0.35], body, sections=6, **vs)
             ctx.add(f"{cn}_Lamp_{'LR'[sd > 0]}", "box", [c_[0] + dx * 1.03, D - 0.22, c_[2] + dz * 1.03], [0.06, 0.1, L_ - 0.4], pink, rot=[0, yaw + b, 0], **vs)
-        pc = P(b, yl - 1.0, r0 + L_ + 1.4)
-        ctx.add(cn + "_Pier", "box", pc, [3.2, D + 0.9 - (yl - 1.0), 3.2], body, rot=[0, yaw + b, 0], **st)
-        ctx.add(cn + "_PierCap", "box", P(b, D + 0.9, r0 + L_ + 1.4), [3.5, 0.3, 3.5], frame, rot=[0, yaw + b, 0], **vs)
-        ctx.add(cn + "_PierLamp", "box", P(b, D + 0.1, r0 + L_ + 3.0), [2.0, 0.3, 0.06], pink, rot=[0, yaw + b, 0], **vs)
+        # Stage 167 (user): each catwalk ends at a pod transport tube like the hall's three (factory.column: plinth in the
+        # slime, glass sections between banded drums up to a capital in the roof, a capsule pod shooting up it)
+        from modules.factory import column as _column
+        tr = float(s.get("tube_r", 1.7)); pc = P(b, 0, r0 + L_ + tr * 1.35 - 0.1)  # the catwalk runs 10 cm into the plinth
+        _column(ctx, {"id": f"{cn}_Tube", "radius": tr, "band_material": s.get("tube_band", "tube_band")}, pc[0], 0.0, pc[2], yaw + b)
+        ctx.add(cn + "_TubeCollar", "cylinder", P(b, D - 0.55, r0 + L_ + tr * 1.35 - 0.1), [2 * tr * 1.35 + 0.3, 0.5, 2 * tr * 1.35 + 0.3], frame, sections=8, **vs)  # a frame collar where the catwalk meets it
+        ctx.add(cn + "_TubeLamp", "box", P(b, D + 0.15, r0 + L_ - 0.02), [1.6, 0.2, 0.06], pink, rot=[0, yaw + b, 0], **vs)  # (on the plinth's face over the catwalk)
     # --- spouts pouring off the base past the deck edge
     from shapes import stream_path
     fall = ctx.role("fall")
