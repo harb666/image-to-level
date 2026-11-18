@@ -705,7 +705,7 @@ def _obstacle_grid(ctx, skip_prefix, cell=0.5, margin=0.0):  # (snapping out to 
         if g in sawg: a_ -= 2.5; b_ += 2.5
         if g in rotors: c_ = rotors[g]["center"]; R_ = rotors[g]["r1"] + rotors[g]["ball_r"]; a_[0], a_[2], b_[0], b_[2] = c_[0] - R_, c_[2] - R_, c_[0] + R_, c_[2] + R_
         B.append(np.r_[a_ - margin, b_ + margin])
-    for cl in getattr(ctx, "claw_lines", []):  # the whole lane the canister claws travel
+    for cl in [c_ for c_ in getattr(ctx, "claw_lines", []) if "axis" not in c_]:  # the whole lane the canister claws travel (not the roof pod pipes)
         parts = [o for o in ctx.objects if (o.get("mobile") or {}).get("group") == cl["group"] and o.get("size")]
         ys = [Wm[o["name"]][1, 3] for o in parts]; zs = [Wm[o["name"]][2, 3] for o in parts]; beam = next((o for o in ctx.objects if o["name"].endswith("_Beam") and o["name"].startswith("CraneRail")), None)
         y1 = (Wm[beam["name"]][1, 3] + beam["size"][1] + 0.5) if beam else max(ys) + 1.5

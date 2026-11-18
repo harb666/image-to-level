@@ -1516,6 +1516,12 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 175: structure `pod_export` ({"tubes": [[x, z], ...], "riser_pods", "spacing", "run_spacing", "to_x", "bridges",
+  "speed"}): the pod tubes carry on outside over the hall roof - a glass riser out of a roof collar to a junction box,
+  a run east on a pipe bridge (trestles to the roof / the outer factory's floor) to a transfer tower; one-part glowing
+  pods stream up and along (`claw_lines` entries with an "axis" -> assembly_line effects `<id>_Up_Run` / `<id>_East_Run`),
+  every line starting and ending inside an opaque box. All `cutaway` (own mobile groups). Seen through the glass dome.
+  Mobile budget: the level GLB is now ~3997 KB of 4000 - the next visual addition needs a trimming pass first.
 - Stage 174: `clear_ducts` - a ceiling duct never runs through a rail: crane runways crossing mid-span, lamp rails and ceiling beams hanging into it now split it like a standing column does (each piece stops 1.2 m short; pieces under 6 m go). Assembly Ascent's two long ducts become four runs between the rails.
 - Stage 173: the boss lift. A roof `hatches` entry with `"boss_lift"` {`land_y` (car slab bottom when down), `trigger_area`
   (a walkable), `delay`, `warn`, `duration`, `shake`} gives the parked car its own mobile group and a level.json

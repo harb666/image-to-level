@@ -288,7 +288,7 @@ def _effects(spec, ctx, plats, env, glow):
             out += [dict(id="Pit_Splash", type="splash", positions=ctx.pit_splashes, rate=26.0, speed=[1.5, 3.4], size=[0.4, 0.12], spread=55),
                     dict(id="Pit_Spray", type="steam", positions=ctx.pit_splashes[1::2])]
         for cl_ in getattr(ctx, "claw_lines", []):  # Stage 169: the canister claws ride the runway (assembly_line runtime: move only, no stations)
-            out.append(dict(id=cl_["id"] + "_Run", type="assembly_line", line=dict(move=[cl_["group"]], axis=[1.0, 0.0, 0.0], speed=cl_["speed"], spacing=cl_["spacing"], stations=[])))
+            out.append(dict(id=cl_["id"] + "_Run", type="assembly_line", line=dict(move=[cl_["group"]], axis=list(cl_.get("axis", [1.0, 0.0, 0.0])), speed=cl_["speed"], spacing=cl_["spacing"], stations=[])))
         for sm_ in getattr(ctx, "screen_pulses", []):  # Stage 168: a monitor's picture breathes a little (a live feed); Stage 171: or a dict (beacons flash)
             q_ = sm_ if isinstance(sm_, dict) else dict(material=sm_, speed=0.6, amount=0.12)
             out.append(dict(id="Screen_Pulse_" + q_["material"], type="pulse_light", target_material=q_["material"], speed=q_["speed"], amount=q_["amount"], phase=0.0))

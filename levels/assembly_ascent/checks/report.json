@@ -1,16 +1,16 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 6587,
-  "mobile/level_mobile.glb": 3910,
+  "level.glb": 6639,
+  "mobile/level_mobile.glb": 3997,
   "mobile/collision.json": 240,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 127
+  "effects.json": 130
  },
  "complexity": {
-  "triangles": 115224,
-  "nodes": 3668,
+  "triangles": 117688,
+  "nodes": 3759,
   "materials": 64,
   "heaviest": [
    [
@@ -37,21 +37,21 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 6587,
-   "triangles": 100136,
-   "draw_calls": 3668,
+   "glb_kb": 6639,
+   "triangles": 102600,
+   "draw_calls": 3759,
    "tex_mem_gpu_mb_est": 33.9
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3910,
-   "triangles": 110828,
-   "draw_calls": 196,
-   "visible_draw_calls_est": 99.5,
-   "visible_draw_calls_max_est": 197,
+   "glb_kb": 3997,
+   "triangles": 113292,
+   "draw_calls": 204,
+   "visible_draw_calls_est": 101.8,
+   "visible_draw_calls_max_est": 203,
    "tex_mem_gpu_mb_est": 15.09,
    "materials": 66,
-   "nodes": 295,
+   "nodes": 303,
    "colliders": {
     "colliders": 576,
     "hazards": 1,
@@ -71,7 +71,7 @@
   "counts": {
    "ERROR": 0,
    "WARNING": 3,
-   "INTENTIONAL": 0
+   "INTENTIONAL": 30
   },
   "relations": {
    "explicit": 23,
@@ -281,12 +281,12 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 196 (> 80)"
+   "message": "mobile draw calls 204 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~100 visible draw calls (estimate, > 60)"
+   "message": "~102 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "narrow_connector",
@@ -357,12 +357,12 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "115224 triangles (> budget 40000)"
+   "message": "117688 triangles (> budget 40000)"
   },
   {
    "kind": "dev_size",
    "severity": "info",
-   "message": "dev GLB 6587 KB (> 6000)"
+   "message": "dev GLB 6639 KB (> 6000)"
   },
   {
    "kind": "low_ceiling",

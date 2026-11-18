@@ -646,6 +646,60 @@ def column(ctx, s, x, y, z, yaw):
     if s.get("pods", s.get("barrels", True)): tube_pod(ctx, n, g, r, top, rg)
 
 
+def _ext_pod(ctx, nm, c, along_x, grp, rp=0.5, h=1.3):
+    """Stage 175: one capsule pod for the roof pipes - a glowing slime capsule (seen 40 m+ away through the dome: one
+    part, mobile budget): base at c (upright) or its rear end at c, lying along +x. Own moving group."""
+    mv = dict(collision=False, outline=False, cutaway=True, mobile={"group": grp})
+    ctx.add(nm, "cylinder", list(c), [2 * rp, h, 2 * rp], ctx.role("glow_green"), None, [0, 0, -90] if along_x else [0, 0, 0], sections=6, intentional=["floating"], **mv)  # (rides the pipe)
+
+
+@structure("pod_export", pad=False)
+def pod_export(ctx, s, x, y, z, yaw):
+    """Stage 175 (user): the pod transport tubes carry on OUTSIDE, over the hall roof (seen through the glass dome
+    against the sky): from each tube's spot ("tubes": [[x, z], ...]) a riser of glass tubing climbs out of a roof collar
+    to a junction box, bends east into a long horizontal run carried by a pipe bridge ("bridges": trestle x's) out to a
+    distant transfer tower ("to_x") in the outer factory - capsule pods stream up the risers and along the runs (two
+    assembly_line effects: risers, runs; each starts and ends inside an opaque box, so the wrap never shows). All one
+    cutaway group (the preview hides it from above, like the roof)."""
+    n = s["id"]; T = [tuple(map(float, t)) for t in s["tubes"]]; roof = float(s.get("roof", getattr(ctx, "ceiling_y", 34.5) + 1.0))
+    S = float(s.get("spacing", 3.5)); nr = int(s.get("riser_pods", 4)); SR = float(s.get("run_spacing", 7.0)); r = float(s.get("tube_r", 0.85)); ph = 1.3; to_x = float(s.get("to_x", 92.0))
+    y0 = roof + 0.1; hj = y0 + nr * S; jc = hj + ph / 2  # riser pods' bases y0 .. hj; junction box centre = the run's axis
+    nx = max(1, int(round((to_x - (T[0][0] - ph / 2)) / SR))); x0 = T[0][0] - ph / 2; x_end = x0 + nx * SR  # run pods' rear ends x0 .. x_end
+    st = dict(collision=False, outline=False, cutaway=True, mobile={"group": n + "_Static"}); glass = ctx.role(s.get("glass", "glass")); band = ctx.role(s.get("band", "tube_band"))
+    pink, body = ctx.role("glow_pink"), "structure_b"; bx = 2.7  # junction box size
+    for k, (tx, tz) in enumerate(T):
+        p = f"{n}_{k + 1}"
+        ctx.add(p + "_Collar", "cylinder", [tx, roof - 0.05, tz], [2 * r + 1.3, 2.05, 2 * r + 1.3], body, sections=12, **st)  # out of the roof
+        ctx.add(p + "_CollarBand", "cylinder", [tx, roof + 1.2, tz], [2 * r + 1.45, 0.4, 2 * r + 1.45], band, sections=12, **st)
+        ctx.add(p + "_Riser", "cylinder", [tx, roof + 1.95, tz], [2 * r, jc - bx / 2 - roof - 1.9, 2 * r], glass, sections=8, double_sided=True, **st)
+        ctx.add(f"{p}_RiserBand", "cylinder", [tx, (roof + jc) / 2, tz], [2 * r + 0.24, 0.35, 2 * r + 0.24], band, sections=10, hole=round(r - 0.03, 3), hole_res=10, **st)  # (grips the glass)
+        ctx.add(p + "_Junction", "box", [tx, jc - bx / 2, tz], [bx, bx, bx], "machine", **st)
+        ctx.add(p + "_JunctionCap", "box", [tx, jc + bx / 2, tz], [bx + 0.3, 0.25, bx + 0.3], "frame", **st)
+        for sd in (-1, 1): ctx.add(f"{p}_JunctionLamp_{'NS'[sd > 0]}", "box", [tx, jc + 0.5, tz + sd * (bx / 2 + 0.02)], [1.2, 0.22, 0.05], pink, **st)
+        ctx.add(p + "_Run", "cylinder", [tx + bx / 2 - 0.05, jc, tz], [2 * r, to_x - 0.4 - (tx + bx / 2 - 0.05), 2 * r], glass, None, [0, 0, -90], sections=8, double_sided=True, **st)
+        for j, bxx in enumerate((70.5,)):  # (one between the bridges: mobile budget)
+            ctx.add(f"{p}_RunBand_{j + 1}", "cylinder", [bxx, jc, tz], [2 * r + 0.24, 0.35, 2 * r + 0.24], band, None, [0, 0, -90], sections=10, hole=round(r - 0.03, 3), hole_res=10, **st)
+        for j in range(nr + 1): _ext_pod(ctx, f"{n}_RiserPod_{k + 1}_{j + 1}", [tx, y0 + j * S - S * 0, tz], False, n + "_Risers")  # (j = nr: the one hidden in the box)
+        for j in range(nx + 1): _ext_pod(ctx, f"{n}_RunPod_{k + 1}_{j + 1}", [x0 + j * SR, jc, tz], True, n + "_Runs")
+    zs = [t[1] for t in T]; z0, z1 = min(zs) - r - 1.6, max(zs) + r + 1.6; yb = jc - r - 0.05  # bridge deck just under the runs
+    for k, bxx in enumerate(s.get("bridges", [48.0, 63.0, 78.0])):  # trestles: a cross beam under the runs, legs down (to the roof or the outer factory's floor)
+        bxx = float(bxx); foot = roof if bxx < float(s.get("roof_edge", 51.5)) else float(s.get("ground", -8.0))
+        ctx.add(f"{n}_Bridge_{k + 1}", "box", [bxx, yb - 0.6, (z0 + z1) / 2], [1.0, 0.6, z1 - z0], "machine", **st)
+        for zz in (z0 + 0.45, z1 - 0.45): ctx.add(f"{n}_BridgeLeg_{k + 1}{'NS'[zz > (z0 + z1) / 2]}", "box", [bxx, foot - 0.05, zz], [0.6, yb - 0.6 - foot + 0.1, 0.6], body, **st)
+        ctx.add(f"{n}_BridgeLamp_{k + 1}", "box", [bxx - 0.52, yb - 0.4, (z0 + z1) / 2], [0.05, 0.2, z1 - z0 - 1.0], pink, **st)
+    # the transfer tower the runs end in (the outer factory's), legs to its floor
+    tw = 7.5; ctx.add(n + "_Tower", "box", [to_x - 0.4 + tw / 2, jc - 6.0, (z0 + z1) / 2], [tw, 12.0, z1 - z0 + 4.0], body, **st)
+    ctx.add(n + "_TowerRoof", "box", [to_x - 0.4 + tw / 2, jc + 6.0, (z0 + z1) / 2], [tw + 0.6, 0.4, z1 - z0 + 4.6], "frame", **st)
+    for zz in zs:
+        ctx.add(f"{n}_TowerPort_{zs.index(zz) + 1}", "box", [to_x - 0.45, jc - r - 0.35, zz], [0.15, 2 * r + 0.7, 2 * r + 0.7], "frame", **st)
+        ctx.add(f"{n}_TowerLamp_{zs.index(zz) + 1}", "box", [to_x - 0.48, jc + r + 0.6, zz], [0.05, 0.25, 2 * r], pink, **st)
+    for zz in (z0 - 1.5, z1 + 1.5): ctx.add(f"{n}_TowerLeg_{'NS'[zz > (z0 + z1) / 2]}", "box", [to_x - 0.4 + tw / 2, float(s.get("ground", -8.0)), zz], [2.0, jc - 6.0 - float(s.get("ground", -8.0)) + 0.05, 2.0], body, **st)
+    v = float(s.get("speed", 4.0))
+    ctx.claw_lines = getattr(ctx, "claw_lines", []) + [dict(id=n + "_Up", group=n + "_Risers", speed=v, spacing=S, axis=[0.0, 1.0, 0.0]),
+                                                       dict(id=n + "_East", group=n + "_Runs", speed=v * 1.5, spacing=SR, axis=[1.0, 0.0, 0.0])]
+    ctx.notes.append(f"{n}: {len(T)} pod pipes out through the roof, up {nr * S:.1f} m and east to x {x_end:.1f} ({(nr + nx + 2) * len(T)} pods)")
+
+
 POD_SPEED = 28.0  # m/s up the bore (Stage 49)
 
 

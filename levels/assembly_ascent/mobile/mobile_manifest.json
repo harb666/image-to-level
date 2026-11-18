@@ -41,14 +41,14 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 6587,
-    "triangles": 115224,
-    "nodes": 3723,
-    "mesh_nodes": 3668,
-    "unique_meshes": 1606,
+    "glb_kb": 6639,
+    "triangles": 117688,
+    "nodes": 3814,
+    "mesh_nodes": 3759,
+    "unique_meshes": 1625,
     "materials": 66,
     "images": 153,
-    "draw_calls_unbatched": 3668,
+    "draw_calls_unbatched": 3759,
     "draw_calls_batched_min": 66,
     "tex_mem_uncompressed_mb": 135.61,
     "tex_mem_gpu_compressed_mb": 33.9,
@@ -73,22 +73,22 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 1187.3,
-    "visible_draw_calls_max": 3660,
-    "visible_triangles_mean": 50365,
-    "visible_triangles_max": 125828
+    "visible_draw_calls_mean": 1200.6,
+    "visible_draw_calls_max": 3675,
+    "visible_triangles_mean": 50731,
+    "visible_triangles_max": 126324
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3910,
-    "triangles": 110828,
-    "nodes": 295,
-    "mesh_nodes": 196,
-    "unique_meshes": 196,
+    "glb_kb": 3997,
+    "triangles": 113292,
+    "nodes": 303,
+    "mesh_nodes": 204,
+    "unique_meshes": 204,
     "materials": 66,
     "images": 117,
-    "draw_calls_unbatched": 196,
+    "draw_calls_unbatched": 204,
     "draw_calls_batched_min": 66,
     "tex_mem_uncompressed_mb": 60.36,
     "tex_mem_gpu_compressed_mb": 15.09,
@@ -139,10 +139,10 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 99.5,
-    "visible_draw_calls_max": 197,
-    "visible_triangles_mean": 94965,
-    "visible_triangles_max": 121244
+    "visible_draw_calls_mean": 101.8,
+    "visible_draw_calls_max": 203,
+    "visible_triangles_mean": 95701,
+    "visible_triangles_max": 123136
    },
    "hidden_faces_removed": 1627,
    "occluded_faces_removed": 2769,
@@ -155,8 +155,8 @@
    "effects_max_particles": 1495,
    "slimmed_kb": {
     "level_mobile.glb": [
-     5853,
-     3910
+     5958,
+     3997
     ],
     "background_mobile.glb": [
      477,
@@ -1868,6 +1868,185 @@
     "Pillars_1_Hull"
    ],
    "group": "Pillars_FloatRig"
+  },
+  {
+   "node": "Pod_Export_Risers__glow_green",
+   "kind": "group",
+   "material": "glow_green",
+   "triangles": 360,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pod_Export_RiserPod_3_5",
+    "Pod_Export_RiserPod_3_4",
+    "Pod_Export_RiserPod_3_3",
+    "Pod_Export_RiserPod_3_2",
+    "Pod_Export_RiserPod_3_1",
+    "Pod_Export_RiserPod_2_5",
+    "Pod_Export_RiserPod_2_4",
+    "Pod_Export_RiserPod_2_3",
+    "Pod_Export_RiserPod_2_2",
+    "Pod_Export_RiserPod_2_1",
+    "Pod_Export_RiserPod_1_5",
+    "Pod_Export_RiserPod_1_4",
+    "Pod_Export_RiserPod_1_3",
+    "Pod_Export_RiserPod_1_2",
+    "Pod_Export_RiserPod_1_1"
+   ],
+   "group": "Pod_Export_Risers"
+  },
+  {
+   "node": "Pod_Export_Runs__glow_green",
+   "kind": "group",
+   "material": "glow_green",
+   "triangles": 576,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pod_Export_RunPod_3_8",
+    "Pod_Export_RunPod_3_7",
+    "Pod_Export_RunPod_3_6",
+    "Pod_Export_RunPod_3_5",
+    "Pod_Export_RunPod_3_4",
+    "Pod_Export_RunPod_3_3",
+    "Pod_Export_RunPod_3_2",
+    "Pod_Export_RunPod_3_1",
+    "Pod_Export_RunPod_2_8",
+    "Pod_Export_RunPod_2_7",
+    "Pod_Export_RunPod_2_6",
+    "Pod_Export_RunPod_2_5",
+    "Pod_Export_RunPod_2_4",
+    "Pod_Export_RunPod_2_3",
+    "Pod_Export_RunPod_2_2",
+    "Pod_Export_RunPod_2_1",
+    "Pod_Export_RunPod_1_8",
+    "Pod_Export_RunPod_1_7",
+    "Pod_Export_RunPod_1_6",
+    "Pod_Export_RunPod_1_5",
+    "Pod_Export_RunPod_1_4",
+    "Pod_Export_RunPod_1_3",
+    "Pod_Export_RunPod_1_2",
+    "Pod_Export_RunPod_1_1"
+   ],
+   "group": "Pod_Export_Runs"
+  },
+  {
+   "node": "Pod_Export_Static__frame",
+   "kind": "group",
+   "material": "frame",
+   "triangles": 212,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Pod_Export_TowerPort_3",
+    "Pod_Export_TowerPort_2",
+    "Pod_Export_TowerPort_1",
+    "Pod_Export_TowerRoof",
+    "Pod_Export_3_JunctionCap",
+    "Pod_Export_2_JunctionCap",
+    "Pod_Export_1_JunctionCap"
+   ],
+   "group": "Pod_Export_Static"
+  },
+  {
+   "node": "Pod_Export_Static__glass__2s",
+   "kind": "group",
+   "material": "glass__2s",
+   "triangles": 192,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pod_Export_3_Run",
+    "Pod_Export_3_Riser",
+    "Pod_Export_2_Run",
+    "Pod_Export_2_Riser",
+    "Pod_Export_1_Run",
+    "Pod_Export_1_Riser"
+   ],
+   "group": "Pod_Export_Static"
+  },
+  {
+   "node": "Pod_Export_Static__glow_pink",
+   "kind": "group",
+   "material": "glow_pink",
+   "triangles": 144,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pod_Export_TowerLamp_3",
+    "Pod_Export_TowerLamp_2",
+    "Pod_Export_TowerLamp_1",
+    "Pod_Export_BridgeLamp_3",
+    "Pod_Export_BridgeLamp_2",
+    "Pod_Export_BridgeLamp_1",
+    "Pod_Export_3_JunctionLamp_S",
+    "Pod_Export_3_JunctionLamp_N",
+    "Pod_Export_2_JunctionLamp_S",
+    "Pod_Export_2_JunctionLamp_N",
+    "Pod_Export_1_JunctionLamp_S",
+    "Pod_Export_1_JunctionLamp_N"
+   ],
+   "group": "Pod_Export_Static"
+  },
+  {
+   "node": "Pod_Export_Static__machine",
+   "kind": "group",
+   "material": "machine",
+   "triangles": 72,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pod_Export_Bridge_3",
+    "Pod_Export_Bridge_2",
+    "Pod_Export_Bridge_1",
+    "Pod_Export_3_Junction",
+    "Pod_Export_2_Junction",
+    "Pod_Export_1_Junction"
+   ],
+   "group": "Pod_Export_Static"
+  },
+  {
+   "node": "Pod_Export_Static__structure_b",
+   "kind": "group",
+   "material": "structure_b",
+   "triangles": 284,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Pod_Export_TowerLeg_S",
+    "Pod_Export_TowerLeg_N",
+    "Pod_Export_Tower",
+    "Pod_Export_BridgeLeg_3S",
+    "Pod_Export_BridgeLeg_3N",
+    "Pod_Export_BridgeLeg_2S",
+    "Pod_Export_BridgeLeg_2N",
+    "Pod_Export_BridgeLeg_1S",
+    "Pod_Export_BridgeLeg_1N",
+    "Pod_Export_3_Collar",
+    "Pod_Export_2_Collar",
+    "Pod_Export_1_Collar"
+   ],
+   "group": "Pod_Export_Static"
+  },
+  {
+   "node": "Pod_Export_Static__tube_band",
+   "kind": "group",
+   "material": "tube_band",
+   "triangles": 624,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Pod_Export_3_RunBand_1",
+    "Pod_Export_3_RiserBand",
+    "Pod_Export_3_CollarBand",
+    "Pod_Export_2_RunBand_1",
+    "Pod_Export_2_RiserBand",
+    "Pod_Export_2_CollarBand",
+    "Pod_Export_1_RunBand_1",
+    "Pod_Export_1_RiserBand",
+    "Pod_Export_1_CollarBand"
+   ],
+   "group": "Pod_Export_Static"
   },
   {
    "node": "Pod_Tube_1_Pod__frame",
