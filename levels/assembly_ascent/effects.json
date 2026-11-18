@@ -1840,6 +1840,58 @@
    "merge_emitters": true
   },
   {
+   "id": "Screen_Pulse_specimen_scan",
+   "type": "pulse_light",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
+   "target_material": "specimen_scan",
+   "targets": [
+    "Showcase_Scan"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 0.6,
+      "amount": 0.12,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 0.6,
+      "amount": 0.12,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 0.6,
+      "amount": 0.12,
+      "phase": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Reactor_Steam",
    "type": "steam",
    "category": "particles",

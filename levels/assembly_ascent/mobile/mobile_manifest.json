@@ -41,23 +41,23 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 6201,
-    "triangles": 109972,
-    "nodes": 3462,
-    "mesh_nodes": 3415,
-    "unique_meshes": 1566,
-    "materials": 63,
-    "images": 148,
-    "draw_calls_unbatched": 3415,
-    "draw_calls_batched_min": 63,
-    "tex_mem_uncompressed_mb": 119.6,
-    "tex_mem_gpu_compressed_mb": 29.9,
+    "glb_kb": 6363,
+    "triangles": 110040,
+    "nodes": 3472,
+    "mesh_nodes": 3425,
+    "unique_meshes": 1572,
+    "materials": 64,
+    "images": 150,
+    "draw_calls_unbatched": 3425,
+    "draw_calls_batched_min": 64,
+    "tex_mem_uncompressed_mb": 130.27,
+    "tex_mem_gpu_compressed_mb": 32.57,
     "texture_slots": {
-     "baseColorTexture": 57,
-     "metallicRoughnessTexture": 57,
+     "baseColorTexture": 58,
+     "metallicRoughnessTexture": 58,
      "normalTexture": 41,
-     "occlusionTexture": 57,
-     "emissiveTexture": 36
+     "occlusionTexture": 58,
+     "emissiveTexture": 37
     },
     "image_sizes": [
      "1024x1024 jpeg",
@@ -73,31 +73,31 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 1108.4,
-    "visible_draw_calls_max": 3407,
-    "visible_triangles_mean": 48655,
-    "visible_triangles_max": 120576
+    "visible_draw_calls_mean": 1111.7,
+    "visible_draw_calls_max": 3417,
+    "visible_triangles_mean": 48676,
+    "visible_triangles_max": 120644
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3704,
-    "triangles": 105936,
-    "nodes": 282,
-    "mesh_nodes": 183,
-    "unique_meshes": 183,
-    "materials": 63,
-    "images": 112,
-    "draw_calls_unbatched": 183,
-    "draw_calls_batched_min": 63,
-    "tex_mem_uncompressed_mb": 56.35,
-    "tex_mem_gpu_compressed_mb": 14.09,
+    "glb_kb": 3729,
+    "triangles": 106004,
+    "nodes": 283,
+    "mesh_nodes": 184,
+    "unique_meshes": 184,
+    "materials": 64,
+    "images": 114,
+    "draw_calls_unbatched": 184,
+    "draw_calls_batched_min": 64,
+    "tex_mem_uncompressed_mb": 59.02,
+    "tex_mem_gpu_compressed_mb": 14.75,
     "texture_slots": {
-     "baseColorTexture": 57,
-     "emissiveTexture": 36,
-     "metallicRoughnessTexture": 34,
+     "baseColorTexture": 58,
+     "emissiveTexture": 37,
+     "metallicRoughnessTexture": 35,
      "normalTexture": 18,
-     "occlusionTexture": 34
+     "occlusionTexture": 35
     },
     "image_sizes": [
      "128x128 webp",
@@ -139,10 +139,10 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 94.3,
-    "visible_draw_calls_max": 184,
-    "visible_triangles_mean": 91641,
-    "visible_triangles_max": 116352
+    "visible_draw_calls_mean": 95.0,
+    "visible_draw_calls_max": 185,
+    "visible_triangles_mean": 91718,
+    "visible_triangles_max": 116420
    },
    "hidden_faces_removed": 1627,
    "occluded_faces_removed": 2409,
@@ -155,8 +155,8 @@
    "effects_max_particles": 1495,
    "slimmed_kb": {
     "level_mobile.glb": [
-     5550,
-     3704
+     5604,
+     3729
     ],
     "background_mobile.glb": [
      477,
@@ -2979,7 +2979,7 @@
    "node": "M_ce_signs_0_0",
    "kind": "static",
    "material": "ce_signs",
-   "triangles": 26,
+   "triangles": 24,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -2994,8 +2994,7 @@
     "Showcase_Monitor_b",
     "Showcase_XBanner_b",
     "Showcase_Monitor_a",
-    "Showcase_XBanner_a",
-    "Showcase_Banner"
+    "Showcase_XBanner_a"
    ]
   },
   {
@@ -3078,7 +3077,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 8781,
+   "triangles": 8817,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3343,7 +3342,12 @@
     "Showcase_Pit_1_Pump_1_Band",
     "Showcase_Monitor_b_Board",
     "Showcase_Monitor_a_Board",
-    "Showcase_BannerRod",
+    "Showcase_ScanMount_b",
+    "Showcase_ScanMount_a",
+    "Showcase_ScanBezel_R",
+    "Showcase_ScanBezel_L",
+    "Showcase_ScanBezel_Low",
+    "Showcase_ScanBezel_Top",
     "Showcase_TankNozzle_7",
     "Showcase_TankNozzle_6",
     "Showcase_TankNozzle_5",
@@ -3772,21 +3776,23 @@
    "node": "M_glow_green_0_0",
    "kind": "static",
    "material": "glow_green",
-   "triangles": 48,
+   "triangles": 72,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
     "Spinner_CrownLamp_8",
     "Spinner_CrownLamp_6",
     "Spinner_CrownLamp_4",
-    "Spinner_CrownLamp_2"
+    "Spinner_CrownLamp_2",
+    "Showcase_ScanLamp_3",
+    "Showcase_ScanLamp_1"
    ]
   },
   {
    "node": "M_glow_pink_0_0",
    "kind": "static",
    "material": "glow_pink",
-   "triangles": 942,
+   "triangles": 966,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3837,6 +3843,8 @@
     "Showcase_LightBar_3",
     "Showcase_LightBar_2",
     "Showcase_LightBar_1",
+    "Showcase_ScanLamp_4",
+    "Showcase_ScanLamp_2",
     "Showcase_RampR_Curb_b",
     "Showcase_RampR_Curb_a",
     "Showcase_RampL_Curb_b",
@@ -3910,7 +3918,7 @@
    "node": "M_grate_0_0",
    "kind": "static",
    "material": "grate",
-   "triangles": 862,
+   "triangles": 874,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3933,6 +3941,7 @@
     "Showcase_Pit_1_Pump_1_Fan",
     "Showcase_Pit_1_Grille_R",
     "Showcase_Pit_1_Grille_L",
+    "Showcase_ScanGrille",
     "Showcase_TankHoodGrate",
     "Showcase_TankGrate",
     "Showcase_Bridge_Deck",
@@ -4239,7 +4248,7 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 4435,
+   "triangles": 4445,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4374,6 +4383,7 @@
     "Saw_West_Column_2",
     "Saw_West_Column_1",
     "Saw_West_Plate",
+    "Showcase_ScanHousing",
     "Showcase_TankSocket_3",
     "Showcase_TankSocket_2",
     "Showcase_TankSocket_1",
@@ -4667,6 +4677,17 @@
    ]
   },
   {
+   "node": "M_specimen_scan_0_0",
+   "kind": "static",
+   "material": "specimen_scan",
+   "triangles": 2,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Showcase_Scan"
+   ]
+  },
+  {
    "node": "M_spike_0_0",
    "kind": "static",
    "material": "spike",
@@ -4829,7 +4850,7 @@
    "node": "M_structure_b_0_0",
    "kind": "static",
    "material": "structure_b",
-   "triangles": 10150,
+   "triangles": 10112,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -5041,7 +5062,6 @@
     "Showcase_Pit_1_Tub",
     "Showcase_XBanner_b_Board",
     "Showcase_XBanner_a_Board",
-    "Showcase_Banner_Board",
     "Showcase_TankTop",
     "Showcase_TankCap",
     "Showcase_TankBase",

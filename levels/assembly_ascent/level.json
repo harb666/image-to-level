@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "d581667cb15c3ad9",
+  "spec_sha": "8fa8bc3ba4c8b2ca",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -528,6 +528,14 @@
      -19.86
     ]
    ]
+  },
+  {
+   "id": "Screen_Pulse_specimen_scan",
+   "type": "pulse_light",
+   "target_material": "specimen_scan",
+   "speed": 0.6,
+   "amount": 0.12,
+   "phase": 0.0
   },
   {
    "id": "Reactor_Steam",
@@ -4136,6 +4144,26 @@
     ]
    },
    "notes": "grin / exit / arrow / gear emblem (references/make_signs.py)"
+  },
+  "specimen_scan": {
+   "type": "image_decal",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "image": "levels/assembly_ascent/references/specimen_schematic.png",
+   "res": 1024,
+   "glow": 1.0,
+   "emissive": [
+    0.9,
+    0.95,
+    1.0
+   ],
+   "notes": "Stage 168: the showcase monitor's dissection scan of the vat specimen (pipeline/make_specimen_schematic.py, from her mesh)"
   },
   "spike": {
    "type": "concrete",
@@ -27443,12 +27471,12 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Banner_Board",
+   "name": "Showcase_ScanHousing",
    "type": "box",
    "position": [
     -30.0,
-    17.4,
-    -64.85
+    16.45,
+    -64.625
    ],
    "rotation": [
     0.0,
@@ -27456,11 +27484,11 @@
     0.0
    ],
    "size": [
-    16.2,
-    6.6,
-    0.3
+    16.8,
+    8.35,
+    0.75
    ],
-   "material": "structure_b",
+   "material": "machine",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -27470,12 +27498,120 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Banner",
+   "name": "Showcase_ScanBezel_Top",
+   "type": "box",
+   "position": [
+    -30.0,
+    24.22,
+    -64.19
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    16.5,
+    0.45,
+    0.16
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_ScanBezel_Low",
+   "type": "box",
+   "position": [
+    -30.0,
+    16.58,
+    -64.19
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    16.5,
+    0.64,
+    0.16
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_ScanBezel_L",
+   "type": "box",
+   "position": [
+    -38.0,
+    17.15,
+    -64.19
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    7.1,
+    0.16
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_ScanBezel_R",
+   "type": "box",
+   "position": [
+    -22.0,
+    17.15,
+    -64.19
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.6,
+    7.1,
+    0.16
+   ],
+   "material": "frame",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Scan",
    "type": "panel",
    "position": [
     -30.0,
-    17.5,
-    -64.688
+    17.2,
+    -64.238
    ],
    "rotation": [
     0.0,
@@ -27483,12 +27619,11 @@
     0.0
    ],
    "size": [
-    16.0,
-    6.4,
+    15.4,
+    7.0,
     0.0
    ],
-   "material": "ce_signs",
-   "uv_region": "banner",
+   "material": "specimen_scan",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -27498,25 +27633,186 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_BannerRod",
-   "type": "cylinder",
+   "name": "Showcase_ScanLamp_1",
+   "type": "box",
    "position": [
-    -38.5,
-    24.12,
-    -64.85
+    -24.24,
+    16.78,
+    -64.1
    ],
    "rotation": [
     0.0,
     0.0,
-    -90.0
+    0.0
    ],
    "size": [
-    0.3,
-    17.0,
-    0.3
+    0.26,
+    0.14,
+    0.05
+   ],
+   "material": "glow_green",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_ScanLamp_2",
+   "type": "box",
+   "position": [
+    -23.88,
+    16.78,
+    -64.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.26,
+    0.14,
+    0.05
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_ScanLamp_3",
+   "type": "box",
+   "position": [
+    -23.52,
+    16.78,
+    -64.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.26,
+    0.14,
+    0.05
+   ],
+   "material": "glow_green",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_ScanLamp_4",
+   "type": "box",
+   "position": [
+    -23.16,
+    16.78,
+    -64.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.26,
+    0.14,
+    0.05
+   ],
+   "material": "glow_pink",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_ScanGrille",
+   "type": "box",
+   "position": [
+    -36.1,
+    16.75,
+    -64.1
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.4,
+    0.24,
+    0.05
+   ],
+   "material": "grate",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_ScanMount_a",
+   "type": "box",
+   "position": [
+    -34.928,
+    24.42,
+    -64.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    1.2,
+    0.5
    ],
    "material": "frame",
-   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_ScanMount_b",
+   "type": "box",
+   "position": [
+    -25.072,
+    24.42,
+    -64.75
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.5,
+    1.2,
+    0.5
+   ],
+   "material": "frame",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -107955,7 +108251,7 @@
   "Exit_Stairs: stairs run 5.7 m > gap 4.0 m - extends 1.7 m onto Upper_Deck",
   "Entry_Door: entrance hallway 10 m out of the black (from slime_arena)",
   "Showcase: specimen cyber_girl floating in the tank (18094 tris), bangs on the glass within 9 m",
-  "Showcase: Construct Error showcase - dais r 8.6 m, stage tank, banner 16 m, 2 slime pits",
+  "Showcase: Construct Error showcase - dais r 8.6 m, stage tank, scan monitor, 2 slime pits",
   "West_DuctFans: 2 massive duct fans (r 4.4 m) with ducts into the wall and 13 louvred vents",
   "Deck_Monitor_L: wall monitor 3.4 m",
   "Deck_Monitor_R: wall monitor 3.4 m",
@@ -108118,16 +108414,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 94920,
-  "objects": 3147,
-  "materials": 61,
-  "glb_kb": 6201,
-  "nodes": 3462,
-  "draw_calls_unbatched": 3415,
-  "draw_calls_batched_min": 63,
-  "images": 148,
-  "tex_mem_gpu_compressed_mb": 29.9,
-  "tex_mem_uncompressed_mb": 119.6,
+  "triangles": 94988,
+  "objects": 3157,
+  "materials": 62,
+  "glb_kb": 6363,
+  "nodes": 3472,
+  "draw_calls_unbatched": 3425,
+  "draw_calls_batched_min": 64,
+  "images": 150,
+  "tex_mem_gpu_compressed_mb": 32.57,
+  "tex_mem_uncompressed_mb": 130.27,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

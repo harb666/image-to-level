@@ -581,9 +581,9 @@ class Showcase(unittest.TestCase):
 
     def test_showcase_parts(self):
         for k in ("Showcase_Dais", "Showcase_Logo", "Showcase_RampL", "Showcase_RampR", "Showcase_TankGlass", "Showcase_TankDiffuser", "Showcase_TankHood",
-                  "Showcase_Banner", "Showcase_XBanner_a", "Showcase_XBanner_b", "Showcase_Monitor_a", "Showcase_Monitor_b", "Showcase_Bridge_Deck"):
+                  "Showcase_Scan", "Showcase_ScanHousing", "Showcase_XBanner_a", "Showcase_XBanner_b", "Showcase_Monitor_a", "Showcase_Monitor_b", "Showcase_Bridge_Deck"):
             self.assertIn(k, self.by)
-        M = self.L["materials"]; atl = M[self.by["Showcase_Banner"]["material"]]
+        M = self.L["materials"]; atl = M[self.by["Showcase_XBanner_a"]["material"]]; self.assertNotIn("Showcase_Banner", self.by)  # Stage 168: the banner became the scan monitor
         self.assertEqual(atl["type"], "screen_atlas"); self.assertEqual(set(atl["atlas"]), {"banner", "xban", "screen", "drop"})
         self.assertEqual(M[self.by["Showcase_Logo"]["material"]]["type"], "image_decal")  # (Stage 152: the tank holds the animated specimen, not a silhouette)
         for f in ("ce_atlas.png", "ce_floor_logo.png", "ce_tank_mascot.png"): self.assertTrue(os.path.exists(os.path.join(LV, "references", f)), f)

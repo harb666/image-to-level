@@ -1,17 +1,17 @@
 {
  "level": "assembly_ascent",
  "assets_kb": {
-  "level.glb": 6201,
-  "mobile/level_mobile.glb": 3704,
+  "level.glb": 6363,
+  "mobile/level_mobile.glb": 3729,
   "mobile/collision.json": 237,
   "environment.json": 4,
   "background.glb": 477,
-  "effects.json": 118
+  "effects.json": 120
  },
  "complexity": {
-  "triangles": 109972,
-  "nodes": 3415,
-  "materials": 61,
+  "triangles": 110040,
+  "nodes": 3425,
+  "materials": 62,
   "heaviest": [
    [
     "Corrosion_Band",
@@ -37,21 +37,21 @@
  },
  "performance": {
   "dev": {
-   "glb_kb": 6201,
-   "triangles": 94920,
-   "draw_calls": 3415,
-   "tex_mem_gpu_mb_est": 29.9
+   "glb_kb": 6363,
+   "triangles": 94988,
+   "draw_calls": 3425,
+   "tex_mem_gpu_mb_est": 32.57
   },
   "mobile": {
    "profile": "balanced",
-   "glb_kb": 3704,
-   "triangles": 105936,
-   "draw_calls": 183,
-   "visible_draw_calls_est": 94.3,
-   "visible_draw_calls_max_est": 184,
-   "tex_mem_gpu_mb_est": 14.09,
-   "materials": 63,
-   "nodes": 282,
+   "glb_kb": 3729,
+   "triangles": 106004,
+   "draw_calls": 184,
+   "visible_draw_calls_est": 95.0,
+   "visible_draw_calls_max_est": 185,
+   "tex_mem_gpu_mb_est": 14.75,
+   "materials": 64,
+   "nodes": 283,
    "colliders": {
     "colliders": 571,
     "hazards": 1,
@@ -281,12 +281,12 @@
   {
    "kind": "mobile_draw_calls",
    "severity": "warning",
-   "message": "mobile draw calls 183 (> 80)"
+   "message": "mobile draw calls 184 (> 80)"
   },
   {
    "kind": "mobile_visible_draw_calls",
    "severity": "warning",
-   "message": "~94 visible draw calls (estimate, > 60)"
+   "message": "~95 visible draw calls (estimate, > 60)"
   },
   {
    "kind": "narrow_connector",
@@ -357,12 +357,12 @@
   {
    "kind": "triangle_budget",
    "severity": "warning",
-   "message": "109972 triangles (> budget 40000)"
+   "message": "110040 triangles (> budget 40000)"
   },
   {
    "kind": "dev_size",
    "severity": "info",
-   "message": "dev GLB 6201 KB (> 6000)"
+   "message": "dev GLB 6363 KB (> 6000)"
   },
   {
    "kind": "low_ceiling",

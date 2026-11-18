@@ -1,24 +1,24 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 3147 objects · 61 materials · 50 effects
+Spec: levels/assembly_ascent/scene_spec.json · 3157 objects · 62 materials · 51 effects
 Checks: PASSED ({'error': 0, 'warning': 11, 'info': 2}) · refine passes: 0
-Mobile (balanced): 3704 KB · 105936 tris · 183 draw calls · ~94.3 visible (estimate) · ~14.09 MB GPU textures (estimate)
+Mobile (balanced): 3729 KB · 106004 tris · 184 draw calls · ~95.0 visible (estimate) · ~14.75 MB GPU textures (estimate)
 Navigation: 5454.0 m² reachable of 20630.0 m² standable
-Package: dist/assembly_ascent/package (39 files, 16.23 MB) valid=True
+Package: dist/assembly_ascent/package (39 files, 16.43 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- warning: mobile draw calls 183 (> 80)
-- warning: ~94 visible draw calls (estimate, > 60)
+- warning: mobile draw calls 184 (> 80)
+- warning: ~95 visible draw calls (estimate, > 60)
 - warning: Showcase_Pit_1_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_1_Pillar_R: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Pillar_L: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: enemy_arena: hazard 0.5 m away (< 3.0 m)
 - warning: Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- warning: 109972 triangles (> budget 40000)
+- warning: 110040 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -32,7 +32,7 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Exit_Stairs: stairs run 5.7 m > gap 4.0 m - extends 1.7 m onto Upper_Deck
 - Entry_Door: entrance hallway 10 m out of the black (from slime_arena)
 - Showcase: specimen cyber_girl floating in the tank (18094 tris), bangs on the glass within 9 m
-- Showcase: Construct Error showcase - dais r 8.6 m, stage tank, banner 16 m, 2 slime pits
+- Showcase: Construct Error showcase - dais r 8.6 m, stage tank, scan monitor, 2 slime pits
 - West_DuctFans: 2 massive duct fans (r 4.4 m) with ducts into the wall and 13 louvred vents
 - Deck_Monitor_L: wall monitor 3.4 m
 - Deck_Monitor_R: wall monitor 3.4 m
@@ -57,9 +57,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - corrosion: 1202 wall faces at the liquid line get a corroded band (one mesh, one material)
 
 ## Timing
-- spec -> level.json: 3.0 s
+- spec -> level.json: 2.7 s
 - build (glb, sky, background, effects, mobile): 57.7 s
-- checks (fast): 80.7 s
+- checks (fast): 77.1 s
 - previews: 2.1 s
-- export package: 1.5 s
-- total: 145.0 s
+- export package: 0.8 s
+- total: 140.4 s

@@ -282,6 +282,8 @@ def _effects(spec, ctx, plats, env, glow):
             if getattr(ctx, "pit_veils", None): out.append(dict(id="Pit_Veil_Flow", type="liquid_flow", targets_glob=list(ctx.pit_veils), speed=4.6))
             out += [dict(id="Pit_Splash", type="splash", positions=ctx.pit_splashes, rate=26.0, speed=[1.5, 3.4], size=[0.4, 0.12], spread=55),
                     dict(id="Pit_Spray", type="steam", positions=ctx.pit_splashes[1::2])]
+        for sm_ in getattr(ctx, "screen_pulses", []):  # Stage 168: a monitor's picture breathes a little (a live feed)
+            out.append(dict(id="Screen_Pulse_" + sm_, type="pulse_light", target_material=sm_, speed=0.6, amount=0.12, phase=0.0))
         for es in getattr(ctx, "extra_steam", []):  # Stage 164: steam out of structure vents (the reactor's cap)
             out.append(dict(id=es["id"], type="steam", positions=es["positions"], **({"rate": es["rate"]} if es.get("rate") else {})))
         for xl in getattr(ctx, "extra_lights", []):  # Stage 135: structure lights (showcase tank / banner)

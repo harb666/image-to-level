@@ -943,8 +943,21 @@ def showcase(ctx, s, x, y, z, yaw):
     def board(nm, cx_, by, w, hgt, region, back=0.3, frame="structure_b"):
         ctx.add(nm + "_Board", "box", [cx_, by - 0.1, wz + back / 2], [w + 0.2, hgt + 0.2, back], frame, **vs)
         ctx.add(nm, "panel", [cx_, by, wz + back + 0.012], [w, hgt, 0], atlas, uv_region=region, **vs)
-    bw = float(s.get("banner_width", 16.0)); board(n + "_Banner", tx, float(s.get("banner_y", 17.5)), bw, bw / 2.5, "banner")
-    ctx.add(n + "_BannerRod", "cylinder", [tx - bw / 2 - 0.5, float(s.get("banner_y", 17.5)) + bw / 2.5 + 0.1 + 0.12, wz + 0.15], [0.3, bw + 1.0, 0.3], "frame", rot=[0, 0, -90], sections=8, **vs)  # resting on the board's top edge
+    if s.get("scan_screen"):  # Stage 168 (user): a big wall monitor instead of the banner, showing the specimen's dissection scan
+        sw_, sh_ = float(s.get("scan_w", 15.4)), float(s.get("scan_h", 7.0)); by_ = float(s.get("banner_y", 17.5)) - 0.3; dz_ = 0.75; gl_ = ctx.role("glow_pink")
+        ctx.add(n + "_ScanHousing", "box", [tx, by_ - 0.75, wz + dz_ / 2], [sw_ + 1.4, sh_ + 1.35, dz_], "machine", **vs)  # deep back box against the wall
+        for nm_, px_, py_, w_, h_ in (("Top", 0, sh_ + 0.02, sw_ + 1.1, 0.45), ("Low", 0, -0.62, sw_ + 1.1, 0.64), ("L", -(sw_ / 2 + 0.3), -0.05, 0.6, sh_ + 0.1), ("R", sw_ / 2 + 0.3, -0.05, 0.6, sh_ + 0.1)):
+            ctx.add(f"{n}_ScanBezel_{nm_}", "box", [tx + px_, by_ + py_, wz + dz_ + 0.06], [w_, h_, 0.16], "frame", **vs)  # bezel 6 cm into the housing, 10 cm proud
+        ctx.add(n + "_Scan", "panel", [tx, by_, wz + dz_ + 0.012], [sw_, sh_, 0], ctx.role(s.get("scan_material", "specimen_scan")), **vs)
+        for k, dx_ in enumerate((-0.9, -0.3, 0.3, 0.9)):  # status lamps on the lower lip
+            ctx.add(f"{n}_ScanLamp_{k + 1}", "box", [tx + sw_ / 2 - 1.4 + dx_ * 0.6, by_ - 0.42, wz + dz_ + 0.15], [0.26, 0.14, 0.05], gl_ if k % 2 else ctx.role("glow_green"), **vs)
+        ctx.add(n + "_ScanGrille", "box", [tx - sw_ / 2 + 1.6, by_ - 0.45, wz + dz_ + 0.15], [2.4, 0.24, 0.05], "grate", **vs)
+        for sg in (-1, 1):  # wall-mount arms up to the housing's top
+            ctx.add(f"{n}_ScanMount_{'ab'[sg > 0]}", "box", [tx + sg * sw_ * 0.32, by_ + sh_ + 0.22, wz + 0.25], [0.5, 1.2, 0.5], "frame", **vs)
+        ctx.screen_pulses = getattr(ctx, "screen_pulses", []) + [s.get("scan_material", "specimen_scan")]
+    else:
+        bw = float(s.get("banner_width", 16.0)); board(n + "_Banner", tx, float(s.get("banner_y", 17.5)), bw, bw / 2.5, "banner")
+        ctx.add(n + "_BannerRod", "cylinder", [tx - bw / 2 - 0.5, float(s.get("banner_y", 17.5)) + bw / 2.5 + 0.1 + 0.12, wz + 0.15], [0.3, bw + 1.0, 0.3], "frame", rot=[0, 0, -90], sections=8, **vs)  # resting on the board's top edge
     for sg in (-1, 1):
         board(f"{n}_XBanner_{'ab'[sg > 0]}", tx + sg * float(s.get("xban_dx", 12.5)), float(s.get("xban_y", 12.6)), 3.6, 7.2, "xban")
         board(f"{n}_Monitor_{'ab'[sg > 0]}", tx + sg * 5.6, ys + 1.6, 2.6, 2.0, "screen", back=0.42, frame="frame")
@@ -1016,7 +1029,7 @@ def showcase(ctx, s, x, y, z, yaw):
         ctx.kills = getattr(ctx, "kills", []) + [K]
     ctx.extra_lights = getattr(ctx, "extra_lights", []) + [dict(id=n + "_TankGlow", positions=[[tx, y0 + 4.0, tz + 3.0]], color=[0.45, 1.0, 0.3], energy=1.4, range=14.0),
                                                            dict(id=n + "_BannerGlow", positions=[[tx - 6, 20.0, wz + 4.0], [tx + 6, 20.0, wz + 4.0]], color=[1.0, 0.3, 0.8], energy=1.1, range=16.0)]
-    ctx.notes.append(f"{n}: Construct Error showcase - dais r {R:.1f} m, stage tank, banner {bw:.0f} m, {len(s.get('pits', []))} slime pits")
+    ctx.notes.append(f"{n}: Construct Error showcase - dais r {R:.1f} m, stage tank, {'scan monitor' if s.get('scan_screen') else 'banner'}, {len(s.get('pits', []))} slime pits")
 
 
 @structure("duct_fans", pad=False)
