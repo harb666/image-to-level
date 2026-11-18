@@ -1516,6 +1516,7 @@ Building blocks usable without the preset:
   centres) -> effect `<id>_Sparks` (synced spark bursts at the impact and 0.18 / 0.42 / 0.8 s after it);
   `drive.light`: a red light low on the tower that flashes with the arcs (dark otherwise: lit at rest it washed the
   chambers out). The viewer's module script is checked with `node --check` (tests/test_stage155.py).
+- Stage 172: Assembly Ascent's Yard_Gate moved in to x -22.5 and 11 m wide: both pylon feet sit flush inside the round deck's edge (the deck curves away behind them, so there is no way round); the security gate has no floor strips.
 - Stage 171: `laser_gate` `"style": "security"` (the user's concept): armoured pylons (foot with red lamps, tower with an
   X-braced panel, hazard bands, laser warning plates, red strips, vents, cap with a flashing `beacon_red` dome), a header
   carrying the RESTRICTED AREA / LASER SECURITY GATE sign on both faces (`gate_atlas`: pipeline/make_gate_art.py ->

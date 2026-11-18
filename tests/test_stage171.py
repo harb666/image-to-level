@@ -27,15 +27,24 @@ class SecurityGate(unittest.TestCase):
         E = {e["id"] for e in json.load(open(os.path.join(LV, "effects.json")))["effects"]}; self.assertIn("Screen_Pulse_beacon_red", E)  # the beacons flash
 
     def test_pylons_stand_on_the_deck(self):
-        """The gate fits the yard's round deck: its pylons stand on it (no tower hanging over the slime)."""
-        import math
-        ring = next(p for p in json.load(open(os.path.join(LV, "scene_spec.json")))["platforms"] if p["id"] == "Robot_Ring")
-        cx, cz = ring.get("center", ring.get("position")); R = ring["size"][0] / 2; g = self.by["Yard_Gate"]
-        for t, sd in (("L", -1), ("R", 1)):
-            f = self.by[f"Yard_Gate_Foot_{t}"]; lx = f["position"][0]  # local x across the gate (yaw 90: world z)
-            wz = g["position"][2] - lx  # yaw 90 maps local x -> world -z
-            self.assertLess(math.hypot(g["position"][0] - cx, wz - cz), R + 0.2)
-
+        """Stage 172: every corner of both pylon feet is on the round deck (its real 24-sided outline) - nothing hangs
+        over the slime - and the deck has curved away behind each foot (no way round the gate)."""
+        import sys; sys.path.insert(0, os.path.join(ROOT, "pipeline")); import architecture as A
+        from anchors import world_matrices
+        ring = next(p for p in json.load(open(os.path.join(LV, "scene_spec.json")))["platforms"] if p["id"] == "Robot_Ring"); poly = A.footprint_poly(ring)
+        def inside(x, z):
+            c = False
+            for i in range(len(poly)):
+                (x1, z1), (x2, z2) = poly[i], poly[(i + 1) % len(poly)]
+                if (z1 > z) != (z2 > z) and x < (x2 - x1) * (z - z1) / (z2 - z1) + x1: c = not c
+            return c
+        Wm, _ = world_matrices({"objects": self.L["objects"]}); import numpy as np
+        for t in "LR":
+            f = self.by[f"Yard_Gate_Foot_{t}"]; w, h, d = f["size"]
+            for lx in (-w / 2, w / 2):
+                for lz in (-d / 2, d / 2):
+                    p = Wm[f["name"]] @ np.array([lx, 0, lz, 1.0]); self.assertTrue(inside(p[0], p[2]), (t, round(p[0], 2), round(p[2], 2)))
+        self.assertNotIn("Yard_Gate_FloorStrip_F", self.by); self.assertNotIn("Yard_Gate_FloorStrip_B", self.by)
 
 if __name__ == "__main__":
     unittest.main()

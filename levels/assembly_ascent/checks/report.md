@@ -4,13 +4,13 @@ errors 0 · warnings 11 · info 2
 
 | metric | dev | mobile |
 |---|---|---|
-| file KB | 6583 | 3906 |
-| triangles | 100096 | 110788 |
-| draw calls (measured) | 3668 | 192 |
+| file KB | 6582 | 3905 |
+| triangles | 100072 | 110764 |
+| draw calls (measured) | 3666 | 192 |
 | visible draw calls (estimate) | - | 98.7 |
 | GPU texture MB (estimate) | 33.9 | 15.09 |
 
-Navigation: reachable 5448.0 of 20650.0 m² standable; components 238.
+Navigation: reachable 5444.0 of 20640.0 m² standable; components 238.
 Camera: - cameras, void rays -, back faces -.
 Geometry: {'ERROR': 0, 'WARNING': 3, 'INTENTIONAL': 0} (checks/geometry.md)
 
@@ -25,8 +25,8 @@ Geometry: {'ERROR': 0, 'WARNING': 3, 'INTENTIONAL': 0} (checks/geometry.md)
 - **warning** Showcase_Pit_2_Pillar_L: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - **warning** enemy_arena: hazard 0.5 m away (< 3.0 m)
 - **warning** Exit_Stairs: walking up the right lane the player is stopped by an edge / lip
-- **warning** 115184 triangles (> budget 40000)
-- **info** dev GLB 6583 KB (> 6000)
+- **warning** 115160 triangles (> budget 40000)
+- **info** dev GLB 6582 KB (> 6000)
 - **info** 9 m² reachable floor has < 3.2 m headroom (cramped camera): Pod_Tube_1_Glass_03, Robot_Ring_Floor
 
 Estimates are not device benchmarks; renders are the browser preview, not Godot.

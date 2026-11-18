@@ -1031,7 +1031,6 @@ def _security_gate(ctx, s, n, g, W, H, st):
     for fz in (-1, 1): ctx.add(f"{n}_TopLamp_{'BF'[fz > 0]}", "box", [0, Ht + 0.1, fz * 0.36], [1.1, 0.16, 0.04], red, g, **vs)
     for fz in (-1, 1):
         ctx.add(f"{n}_Cable_{'BF'[fz > 0]}", "pipe_path", [0, 0, fz * 0.32], [0.15, 1.0, 0.15], "frame", g, path=[[-w2 - 0.25, Ht + 0.15], [-w2 - 0.25, Ht + 0.62], [w2 + 0.25, Ht + 0.62], [w2 + 0.25, Ht + 0.15]], bend=0.35, sections=6, **vs)  # one arch over the top box, ends in the caps
-    for fz in (-1, 1): ctx.add(f"{n}_FloorStrip_{'BF'[fz > 0]}", "box", [0, 0.0, fz * 1.15], [W - 0.4, 0.03, 0.14], red, g, **vs)
     ctx.screen_pulses = getattr(ctx, "screen_pulses", []) + [dict(material=beacon, speed=1.4, amount=0.75)]  # the beacons flash
 
 
