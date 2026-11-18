@@ -786,21 +786,45 @@ def pipe_path(w, h, d, o):
     m.metadata["uv_corner"] = np.array(UV, float); return m
 
 def gear(w, h, d, o):
-    """Stage 181: a spur gear - "teeth" square-ish teeth round a disc of diameter w (tips), thickness h along +y, base at
-    y 0, centred on the axis (spin it about local y); "depth" tooth depth (m), "phase" (rad) turns the teeth (so meshing
-    gears interlock), "hole" a bore radius (0: solid), "spokes" cut-outs between hub and rim (closed solid)."""
+    """Stage 181/184: a spur gear - "teeth" square-ish teeth round a toothed rim (tip diameter w), thickness h along +y,
+    base at y 0, centred on the axis (spin it about local y); "depth" tooth depth (m), "phase" (rad) turns the teeth (so
+    meshing gears interlock). Stage 184 (industrial): "spokes" > 0 opens it up - a rim ("rim" m wide) on that many
+    spokes from a thick hub ("hub" radius, standing proud on both faces) with a ring of hex bolt heads ("bolts") on its
+    front face; spokes 0: the plain disc. One closed mesh per part (it spins as one)."""
     N = int(o.get("teeth", 12)); R = w / 2; dep = float(o.get("depth", min(0.25, R * 0.18))); r0 = R - dep; ph = float(o.get("phase", 0.0))
-    pts = []
+    pts, ang = [], []
     for k in range(N):  # tooth k centred at angle ph + 2 pi k / N: flank, top land, flank, root land
         c = ph + 2 * np.pi * k / N; tw = np.pi / N * 0.48; rw = np.pi / N * 0.62
-        for a_, r_ in ((c - rw, r0), (c - tw, R), (c + tw, R), (c + rw, r0)): pts.append((r_ * np.cos(a_), r_ * np.sin(a_)))
-    P = np.array(pts); n = len(P)
-    V = [[x, 0.0, z] for x, z in P] + [[x, h, z] for x, z in P] + [[0, 0, 0], [0, h, 0]]; F = []
+        for a_, r_ in ((c - rw, r0), (c - tw, R), (c + tw, R), (c + rw, r0)): pts.append((r_ * np.cos(a_), r_ * np.sin(a_))); ang.append(a_)
+    P = np.array(pts); n = len(P); ns = int(o.get("spokes", 0))
+    if not ns:
+        V = [[x, 0.0, z] for x, z in P] + [[x, h, z] for x, z in P] + [[0, 0, 0], [0, h, 0]]; F = []
+        for i in range(n):
+            j = (i + 1) % n; F += [[i, j, n + j], [i, n + j, n + i], [2 * n, j, i], [2 * n + 1, n + i, n + j]]
+        m = trimesh.Trimesh(np.array(V, float), np.array(F), process=False)
+        if (np.einsum("ij,ij->i", m.face_normals, m.triangles_center - [0, h / 2, 0]) < 0).mean() > 0.5: m.invert()
+        return m
+    rw_ = float(o.get("rim", max(0.12, R * 0.16))); ri = r0 - rw_  # the toothed rim: outer profile + an inner circle at the same angles (quads between)
+    Q = np.array([[ri * np.cos(a_), ri * np.sin(a_)] for a_ in ang])
+    V = [[x, 0.0, z] for x, z in P] + [[x, h, z] for x, z in P] + [[x, 0.0, z] for x, z in Q] + [[x, h, z] for x, z in Q]; F = []
     for i in range(n):
-        j = (i + 1) % n; F += [[i, j, n + j], [i, n + j, n + i], [2 * n, j, i], [2 * n + 1, n + i, n + j]]
-    m = trimesh.Trimesh(np.array(V, float), np.array(F), process=False)
-    if (np.einsum("ij,ij->i", m.face_normals, m.triangles_center - [0, h / 2, 0]) < 0).mean() > 0.5: m.invert()
-    return m
+        j = (i + 1) % n
+        F += [[i, j, n + j], [i, n + j, n + i]]  # outer wall
+        F += [[2 * n + j, 2 * n + i, 3 * n + i], [2 * n + j, 3 * n + i, 3 * n + j]]  # inner wall
+        F += [[i, 2 * n + i, 2 * n + j], [i, 2 * n + j, j]]  # bottom face
+        F += [[n + i, n + j, 3 * n + j], [n + i, 3 * n + j, 3 * n + i]]  # top face
+    rim = trimesh.Trimesh(np.array(V, float), np.array(F), process=False); rim.fix_normals()
+    rh = float(o.get("hub", max(0.32, R * 0.3))); parts = [rim]
+    hub = trimesh.creation.cylinder(radius=rh, height=h * 1.5, sections=12); hub.apply_transform(trimesh.transformations.rotation_matrix(-np.pi / 2, [1, 0, 0])); hub.apply_translation([0, h / 2, 0]); parts.append(hub)
+    sw = float(o.get("spoke_w", max(0.12, R * 0.14)))
+    for k in range(ns):  # spokes from the hub into the rim (sunk 3 cm at both ends), a little thinner than the rim
+        a_ = ph + np.pi / N + 2 * np.pi * k / ns; L_ = ri - rh + 0.06; sp = trimesh.creation.box(extents=[L_, h * 0.7, sw])
+        sp.apply_translation([rh - 0.03 + L_ / 2, h / 2, 0]); sp.apply_transform(trimesh.transformations.rotation_matrix(-a_, [0, 1, 0])); parts.append(sp)
+    nb = int(o.get("bolts", 6)); bz = h * 1.25
+    for k in range(nb):  # hex bolt heads on the hub's front face
+        a_ = ph + 2 * np.pi * k / nb; b_ = trimesh.creation.cylinder(radius=rh * 0.2, height=0.12, sections=6)
+        b_.apply_transform(trimesh.transformations.rotation_matrix(-np.pi / 2, [1, 0, 0])); b_.apply_translation([rh * 0.68 * np.cos(a_), bz + 0.05, -rh * 0.68 * np.sin(a_)]); parts.append(b_)
+    m = trimesh.util.concatenate(parts); m.metadata["uv"] = np.full((len(m.vertices), 2), 0.5); return m
 
 
 SHAPES = dict(gear=gear, spike_ball=spike_ball, pole=pole, mace=mace, mace_tips=mace_tips, saw_blade=saw_blade, prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,

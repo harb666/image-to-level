@@ -1072,6 +1072,7 @@ def _cog_tower(ctx, n, cx, y0, wz, sg, floor):
     drive pipe goes down into the stage (they work the machinery under it). sg: -1 / +1 (mirrored, gears climb outward)."""
     st = dict(collision=False, outline=False, mobile={"static": True})  # plain-colour materials: no textures (mobile budget)
     steel, dark, paint, plate = ctx.role("lift_ring"), ctx.role("saw_hub"), ctx.role("cog_paint"), ctx.role("saw_hub")  # (near-black plate: the steel cogs stand out)
+    gun = ctx.role("cog_steel")  # Stage 184: oily gunmetal cogs
     m = 0.2; G = [dict(N=16), dict(N=11), dict(N=8)]; ang = [70.0, 112.0]  # world angle (deg) from each gear to the next (mirrored by sg)
     for g in G: g["rp"] = m * g["N"] / 2
     G[0]["c"] = (cx, y0 + 1.0)
@@ -1085,14 +1086,24 @@ def _cog_tower(ctx, n, cx, y0, wz, sg, floor):
     xs = [g["c"][0] for g in G]; ys_ = [g["c"][1] for g in G]; R_ = max(g["rp"] for g in G) + 0.35
     bx0, bx1, by0, by1 = min(xs) - R_, max(xs) + R_, min(ys_) - R_, max(ys_) + R_
     ctx.add(n + "_Plate", "box", [(bx0 + bx1) / 2, by0, wz + 0.05], [bx1 - bx0, by1 - by0, 0.2], plate, **st)
+    for e_, (px_, py_, w_, h_) in enumerate(((bx0 + 0.05, by0 - 0.02, 0.14, by1 - by0 + 0.04), (bx1 - 0.05, by0 - 0.02, 0.14, by1 - by0 + 0.04), ((bx0 + bx1) / 2, by0 - 0.02, bx1 - bx0 + 0.04, 0.14), ((bx0 + bx1) / 2, by1 - 0.12, bx1 - bx0 + 0.04, 0.14))):
+        ctx.add(f"{n}_PlateEdge_{e_ + 1}", "box", [px_, py_, wz + 0.15], [w_, h_, 0.08], steel, **st)  # Stage 184: a steel frame round the plate
+    for e_, fy_ in enumerate([by0 + 0.35 + (by1 - by0 - 0.7) * q / 4 for q in range(5)]):  # rivets down both edges
+        for sd_, fx_ in (("L", bx0 + 0.2), ("R", bx1 - 0.2)): ctx.add(f"{n}_Rivet_{sd_}{e_ + 1}", "cylinder", [fx_, fy_, wz + 0.13], [0.13, 0.1, 0.13], steel, rot=[90, 0, 0], sections=6, **st)
     for i, g in enumerate(G):
-        ctx.add(f"{n}_Gear_{i + 1}", "gear", [g["c"][0], g["c"][1], wz + 0.3], [2 * (g["rp"] + m * 0.5), 0.32, 2 * (g["rp"] + m * 0.5)], steel, rot=[90, 0, 0],
-                teeth=g["N"], depth=round(m * 1.1, 3), phase=round(g["ph"], 5), spin=round(g["w"], 3), collision=False, outline=False, mobile={"merge": False})
-        ctx.add(f"{n}_Axle_{i + 1}", "cylinder", [g["c"][0], g["c"][1], wz + 0.12], [0.5, 0.6, 0.5], dark, rot=[90, 0, 0], sections=8, **st)  # from the plate through the cog
-        ctx.add(f"{n}_Cap_{i + 1}", "cylinder", [g["c"][0], g["c"][1], wz + 0.71], [0.34, 0.1, 0.34], paint, rot=[90, 0, 0], sections=8, **st)
+        R_ = g["rp"] + m * 0.5; rh = max(0.32, R_ * 0.3)
+        ctx.add(f"{n}_Gear_{i + 1}", "gear", [g["c"][0], g["c"][1], wz + 0.3], [2 * R_, 0.32, 2 * R_], gun, rot=[90, 0, 0],
+                teeth=g["N"], depth=round(m * 1.1, 3), phase=round(g["ph"], 5), spokes=(5 if g["N"] > 9 else 4), spin=round(g["w"], 3), collision=False, outline=False, mobile={"merge": False})
+        ctx.add(f"{n}_Bearing_{i + 1}", "cylinder", [g["c"][0], g["c"][1], wz + 0.14], [rh * 2.4, 0.08, rh * 2.4], steel, rot=[90, 0, 0], sections=8, **st)  # bearing housing on the plate
+        ctx.add(f"{n}_Axle_{i + 1}", "cylinder", [g["c"][0], g["c"][1], wz + 0.12], [0.5, 0.54, 0.5], dark, rot=[90, 0, 0], sections=8, **st)  # from the plate into the cog's hub
+        ctx.add(f"{n}_Cap_{i + 1}", "cylinder", [g["c"][0], g["c"][1], wz + 0.7], [0.26, 0.12, 0.26], paint, rot=[90, 0, 0], sections=6, **st)  # the axle's end nut
     gx, gy = G[0]["c"]; gb = gy - G[0]["rp"] - 0.35  # gearbox under the big cog (its pinion meshes inside)
     ctx.add(n + "_Gearbox", "box", [gx, gb - 1.15, wz + 0.4], [1.5, 1.2, 0.9], plate, **st)
     ctx.add(n + "_GearboxLamp", "box", [gx + 0.4, gb - 0.55, wz + 0.86], [0.36, 0.14, 0.04], ctx.role("glow_pink"), **st)
+    for f_ in range(3):  # cooling fins along its top
+        ctx.add(f"{n}_Fin_{f_ + 1}", "box", [gx - 0.45 + 0.45 * f_, gb + 0.04, wz + 0.4], [0.08, 0.15, 0.8], steel, **st)
+    ctx.add(n + "_Gauge", "cylinder", [gx - 0.35, gb - 0.62, wz + 0.83], [0.44, 0.06, 0.44], steel, rot=[90, 0, 0], sections=10, **st)  # a pressure gauge
+    ctx.add(n + "_GaugeFace", "cylinder", [gx - 0.35, gb - 0.62, wz + 0.88], [0.34, 0.02, 0.34], ctx.role("glow_green"), rot=[90, 0, 0], sections=10, **st)
     ctx.add(n + "_DrivePipe", "cylinder", [gx - 0.35, floor - 0.1, wz + 0.42], [0.34, gb - 1.15 - floor + 0.15, 0.34], steel, sections=8, **st)  # down into the stage
     ctx.add(n + "_DrivePipeBand", "cylinder", [gx - 0.35, floor + 0.15, wz + 0.42], [0.44, 0.22, 0.44], paint, sections=8, **st)
 
