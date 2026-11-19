@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "67ab8e196c162db0",
+  "spec_sha": "44f87baf3d901da6",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -549,40 +549,6 @@
     ],
     "speed": 2.0,
     "spacing": 25.0,
-    "stations": []
-   }
-  },
-  {
-   "id": "Pod_Export_Up_Run",
-   "type": "assembly_line",
-   "line": {
-    "move": [
-     "Pod_Export_Risers"
-    ],
-    "axis": [
-     0.0,
-     1.0,
-     0.0
-    ],
-    "speed": 6.0,
-    "spacing": 6.0,
-    "stations": []
-   }
-  },
-  {
-   "id": "Pod_Export_East_Run",
-   "type": "assembly_line",
-   "line": {
-    "move": [
-     "Pod_Export_Runs"
-    ],
-    "axis": [
-     1.0,
-     0.0,
-     0.0
-    ],
-    "speed": 9.600000000000001,
-    "spacing": 11.219,
     "stations": []
    }
   },
@@ -1353,6 +1319,154 @@
     0.82
    ],
    "spread": 180
+  },
+  {
+   "id": "Pod_Export_Pods",
+   "type": "pod_path",
+   "pod_path": {
+    "id": "Pod_Export",
+    "group": "Pod_Export_Pods",
+    "skeleton": "Pod_Export_Pods",
+    "speed": 6.0,
+    "paths": [
+     {
+      "origin": [
+       43.5,
+       35.65,
+       -45.0
+      ],
+      "rise": 19.5,
+      "radius": 6.124,
+      "run": 46.126,
+      "spacing": 9.0369,
+      "pods": [
+       {
+        "joint": "Pod_Export_P1_1",
+        "s0": 1.475
+       },
+       {
+        "joint": "Pod_Export_P1_2",
+        "s0": 10.5119
+       },
+       {
+        "joint": "Pod_Export_P1_3",
+        "s0": 19.5489
+       },
+       {
+        "joint": "Pod_Export_P1_4",
+        "s0": 28.5858
+       },
+       {
+        "joint": "Pod_Export_P1_5",
+        "s0": 37.6228
+       },
+       {
+        "joint": "Pod_Export_P1_6",
+        "s0": 46.6597
+       },
+       {
+        "joint": "Pod_Export_P1_7",
+        "s0": 55.6967
+       },
+       {
+        "joint": "Pod_Export_P1_8",
+        "s0": 64.7336
+       }
+      ]
+     },
+     {
+      "origin": [
+       43.5,
+       35.65,
+       -34.0
+      ],
+      "rise": 19.5,
+      "radius": 6.124,
+      "run": 46.126,
+      "spacing": 9.0369,
+      "pods": [
+       {
+        "joint": "Pod_Export_P2_1",
+        "s0": 1.475
+       },
+       {
+        "joint": "Pod_Export_P2_2",
+        "s0": 10.5119
+       },
+       {
+        "joint": "Pod_Export_P2_3",
+        "s0": 19.5489
+       },
+       {
+        "joint": "Pod_Export_P2_4",
+        "s0": 28.5858
+       },
+       {
+        "joint": "Pod_Export_P2_5",
+        "s0": 37.6228
+       },
+       {
+        "joint": "Pod_Export_P2_6",
+        "s0": 46.6597
+       },
+       {
+        "joint": "Pod_Export_P2_7",
+        "s0": 55.6967
+       },
+       {
+        "joint": "Pod_Export_P2_8",
+        "s0": 64.7336
+       }
+      ]
+     },
+     {
+      "origin": [
+       43.5,
+       35.65,
+       -23.0
+      ],
+      "rise": 19.5,
+      "radius": 6.124,
+      "run": 46.126,
+      "spacing": 9.0369,
+      "pods": [
+       {
+        "joint": "Pod_Export_P3_1",
+        "s0": 1.475
+       },
+       {
+        "joint": "Pod_Export_P3_2",
+        "s0": 10.5119
+       },
+       {
+        "joint": "Pod_Export_P3_3",
+        "s0": 19.5489
+       },
+       {
+        "joint": "Pod_Export_P3_4",
+        "s0": 28.5858
+       },
+       {
+        "joint": "Pod_Export_P3_5",
+        "s0": 37.6228
+       },
+       {
+        "joint": "Pod_Export_P3_6",
+        "s0": 46.6597
+       },
+       {
+        "joint": "Pod_Export_P3_7",
+        "s0": 55.6967
+       },
+       {
+        "joint": "Pod_Export_P3_8",
+        "s0": 64.7336
+       }
+      ]
+     }
+    ],
+    "note": "pod centre s = s0 + fmod(t * speed, spacing) along pod_pose(path, s); bone = rest pivot moved to the pose, turned about +z by -(theta(s) - theta(s0))"
+   }
   },
   {
    "id": "Pillars_FloatRig_Bob",
@@ -4781,6 +4895,35 @@
    ],
    "toon": true,
    "notes": "Stage 154: the pod tubes' bands - Toxic Works' plum trim with a red light strip (no hazard stripes)"
+  },
+  "tube_drum": {
+   "type": "drum_plate",
+   "color": [
+    0.24,
+    0.19,
+    0.29
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "lip": [
+    0.36,
+    0.34,
+    0.4
+   ],
+   "accent": [
+    1.0,
+    0.08,
+    0.2
+   ],
+   "emissive": [
+    1,
+    1,
+    1
+   ],
+   "res": 256,
+   "toon": true,
+   "notes": "Stage 186 (user: less repetitive, more industrial): the transport tubes' drums - flanged bolted lips, riveted seam, louvred service panel, one small red status lamp, ID plate (wrapped once per drum)"
   },
   "tunnel_dark": {
    "type": "concrete",
@@ -40625,10 +40768,40 @@
     2.555,
     5.152
    ],
-   "material": "tube_band",
+   "material": "structure_b",
    "sections": 8,
    "hole": 1.84,
    "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Pod_Tube_1",
+   "source": "inferred"
+  },
+  {
+   "name": "Pod_Tube_1_DrumPlate_04",
+   "type": "pole",
+   "position": [
+    0.0,
+    17.951,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Pod_Tube_1",
+   "size": [
+    5.221,
+    2.555,
+    5.221
+   ],
+   "material": "tube_drum",
+   "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.1006,
+   "open": true,
    "mobile": {
     "static": true
    },
@@ -41238,7 +41411,7 @@
     2.532,
     5.824
    ],
-   "material": "tube_band",
+   "material": "structure_b",
    "sections": 8,
    "hole": 2.08,
    "hole_res": 16,
@@ -41249,12 +41422,12 @@
    "source": "inferred"
   },
   {
-   "name": "Pod_Tube_2_Red_04",
-   "type": "box",
+   "name": "Pod_Tube_2_DrumPlate_04",
+   "type": "pole",
    "position": [
     0.0,
-    20.26,
-    2.69
+    19.145,
+    0.0
    ],
    "rotation": [
     0.0,
@@ -41263,13 +41436,15 @@
    ],
    "parent": "Pod_Tube_2",
    "size": [
-    0.6,
-    0.3,
-    0.3
+    5.902,
+    2.532,
+    5.902
    ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
+   "material": "tube_drum",
+   "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.6354,
+   "open": true,
    "mobile": {
     "static": true
    },
@@ -41879,7 +42054,7 @@
     1.264,
     5.152
    ],
-   "material": "tube_band",
+   "material": "structure_b",
    "sections": 8,
    "hole": 1.84,
    "hole_res": 16,
@@ -41890,12 +42065,12 @@
    "source": "inferred"
   },
   {
-   "name": "Pod_Tube_3_Red_04",
-   "type": "box",
+   "name": "Pod_Tube_3_DrumPlate_04",
+   "type": "pole",
    "position": [
     0.0,
-    16.865,
-    2.38
+    16.383,
+    0.0
    ],
    "rotation": [
     0.0,
@@ -41904,13 +42079,15 @@
    ],
    "parent": "Pod_Tube_3",
    "size": [
-    0.6,
-    0.3,
-    0.3
+    5.221,
+    1.264,
+    5.221
    ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
+   "material": "tube_drum",
+   "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.1006,
+   "open": true,
    "mobile": {
     "static": true
    },
@@ -85947,7 +86124,7 @@
     2.79,
     3.808
    ],
-   "material": "tube_band",
+   "material": "structure_b",
    "sections": 8,
    "hole": 1.36,
    "hole_res": 16,
@@ -85958,12 +86135,12 @@
    "source": "visible"
   },
   {
-   "name": "Reactor_Catwalk_1_Tube_Red_04",
-   "type": "box",
+   "name": "Reactor_Catwalk_1_Tube_DrumPlate_04",
+   "type": "pole",
    "position": [
     0.0,
-    15.113,
-    1.759
+    13.868,
+    0.0
    ],
    "rotation": [
     0.0,
@@ -85972,13 +86149,15 @@
    ],
    "parent": "Reactor_Catwalk_1_Tube",
    "size": [
-    0.6,
-    0.3,
-    0.3
+    3.859,
+    2.79,
+    3.859
    ],
-   "material": "glow",
-   "collision": false,
-   "outline": false,
+   "material": "tube_drum",
+   "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 3.0309,
+   "open": true,
    "mobile": {
     "static": true
    },
@@ -86097,10 +86276,40 @@
     0.226,
     3.808
    ],
-   "material": "tube_band",
+   "material": "structure_b",
    "sections": 8,
    "hole": 1.36,
    "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_1_Tube_DrumPlate_08",
+   "type": "pole",
+   "position": [
+    0.0,
+    30.274,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_1_Tube",
+   "size": [
+    3.859,
+    0.226,
+    3.859
+   ],
+   "material": "tube_drum",
+   "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 3.0309,
+   "open": true,
    "mobile": {
     "static": true
    },
@@ -86890,10 +87099,40 @@
     1.226,
     3.808
    ],
-   "material": "tube_band",
+   "material": "structure_b",
    "sections": 8,
    "hole": 1.36,
    "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_2_Tube_DrumPlate_04",
+   "type": "pole",
+   "position": [
+    0.0,
+    17.65,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_2_Tube",
+   "size": [
+    3.859,
+    1.226,
+    3.859
+   ],
+   "material": "tube_drum",
+   "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 3.0309,
+   "open": true,
    "mobile": {
     "static": true
    },
@@ -87804,10 +88043,40 @@
     3.249,
     3.808
    ],
-   "material": "tube_band",
+   "material": "structure_b",
    "sections": 8,
    "hole": 1.36,
    "hole_res": 16,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Reactor",
+   "source": "visible"
+  },
+  {
+   "name": "Reactor_Catwalk_3_Tube_DrumPlate_04",
+   "type": "pole",
+   "position": [
+    0.0,
+    17.842,
+    0.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "parent": "Reactor_Catwalk_3_Tube",
+   "size": [
+    3.859,
+    3.249,
+    3.859
+   ],
+   "material": "tube_drum",
+   "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 3.0309,
+   "open": true,
    "mobile": {
     "static": true
    },
@@ -88624,7 +88893,7 @@
   },
   {
    "name": "Pod_Export_1_CollarBand",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
     43.5,
     38.7,
@@ -88640,8 +88909,10 @@
     0.5,
     5.52
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.3354,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -88770,7 +89041,7 @@
   },
   {
    "name": "Pod_Export_1_Riser_Drum_04",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
     43.5,
     51.864,
@@ -88786,8 +89057,10 @@
     1.6,
     5.152
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.0464,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -88812,7 +89085,7 @@
    ],
    "size": [
     4.6,
-    0.287,
+    0.987,
     4.6
    ],
    "material": "glass",
@@ -88829,10 +89102,10 @@
   },
   {
    "name": "Pod_Export_1_Inlet",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
     43.5,
-    53.55,
+    54.25,
     -45.0
    ],
    "rotation": [
@@ -88842,11 +89115,13 @@
    ],
    "size": [
     5.152,
-    1.65,
+    0.95,
     5.152
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.0464,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -88862,7 +89137,7 @@
    "position": [
     43.5,
     55.15,
-    -42.424
+    -42.7
    ],
    "rotation": [
     -90.0,
@@ -88870,13 +89145,15 @@
     0.0
    ],
    "size": [
-    5.152,
+    4.6,
     6.124,
-    5.152
+    4.6
    ],
-   "material": "structure_b",
+   "material": "glass",
    "segments": 8,
    "sections": 8,
+   "open": true,
+   "double_sided": true,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -88887,54 +89164,27 @@
    "source": "visible"
   },
   {
-   "name": "Pod_Export_1_ElbowBand_1",
-   "type": "cylinder",
+   "name": "Pod_Export_1_ElbowBand",
+   "type": "pole",
    "position": [
-    44.17,
-    57.952,
+    45.046,
+    59.233,
     -45.0
    ],
    "rotation": [
     0.0,
     0.0,
-    -30.0
-   ],
-   "size": [
-    5.513,
-    0.6,
-    5.513
-   ],
-   "material": "frame",
-   "sections": 8,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Pod_Export_Static"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_1_ElbowBand_2",
-   "type": "cylinder",
-   "position": [
-    46.302,
-    60.304,
     -45.0
    ],
-   "rotation": [
-    0.0,
-    0.0,
-    -60.0
-   ],
    "size": [
-    5.513,
-    0.6,
-    5.513
+    5.152,
+    0.7,
+    5.152
    ],
-   "material": "frame",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.0464,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -88946,7 +89196,7 @@
   },
   {
    "name": "Pod_Export_1_Outlet",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
     49.574,
     61.274,
@@ -88959,11 +89209,13 @@
    ],
    "size": [
     5.152,
-    1.65,
+    0.95,
     5.152
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.0464,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -88977,7 +89229,7 @@
    "name": "Pod_Export_1_Run_Glass_01",
    "type": "cylinder",
    "position": [
-    51.124,
+    50.424,
     61.274,
     -45.0
    ],
@@ -89007,7 +89259,7 @@
    "name": "Pod_Export_1_Run_Drum_02",
    "type": "cylinder",
    "position": [
-    55.553,
+    54.853,
     61.274,
     -45.0
    ],
@@ -89036,7 +89288,7 @@
    "name": "Pod_Export_1_Run_Glass_03",
    "type": "cylinder",
    "position": [
-    56.904,
+    56.204,
     61.274,
     -45.0
    ],
@@ -89064,9 +89316,9 @@
   },
   {
    "name": "Pod_Export_1_Run_Drum_04",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
-    61.145,
+    60.445,
     61.274,
     -45.0
    ],
@@ -89080,8 +89332,10 @@
     1.819,
     5.152
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.0464,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -89095,7 +89349,7 @@
    "name": "Pod_Export_1_Run_Glass_05",
    "type": "cylinder",
    "position": [
-    62.864,
+    62.164,
     61.274,
     -45.0
    ],
@@ -89125,7 +89379,7 @@
    "name": "Pod_Export_1_Run_Drum_06",
    "type": "cylinder",
    "position": [
-    70.209,
+    69.509,
     61.274,
     -45.0
    ],
@@ -89154,7 +89408,7 @@
    "name": "Pod_Export_1_Run_Glass_07",
    "type": "cylinder",
    "position": [
-    72.302,
+    71.602,
     61.274,
     -45.0
    ],
@@ -89182,9 +89436,9 @@
   },
   {
    "name": "Pod_Export_1_Run_Drum_08",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
-    79.31,
+    78.61,
     61.274,
     -45.0
    ],
@@ -89198,8 +89452,10 @@
     2.585,
     5.152
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.0464,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -89213,7 +89469,7 @@
    "name": "Pod_Export_1_Run_Glass_09",
    "type": "cylinder",
    "position": [
-    81.795,
+    81.095,
     61.274,
     -45.0
    ],
@@ -89243,7 +89499,7 @@
    "name": "Pod_Export_1_Run_Drum_10",
    "type": "cylinder",
    "position": [
-    87.76,
+    87.06,
     61.274,
     -45.0
    ],
@@ -89272,7 +89528,7 @@
    "name": "Pod_Export_1_Run_Glass_11",
    "type": "cylinder",
    "position": [
-    89.215,
+    88.515,
     61.274,
     -45.0
    ],
@@ -89283,7 +89539,7 @@
    ],
    "size": [
     4.6,
-    2.485,
+    3.185,
     4.6
    ],
    "material": "glass",
@@ -89299,7 +89555,7 @@
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_1_1_Base",
+   "name": "Pod_Export_Pod_1_1_Base",
    "type": "cylinder",
    "position": [
     43.5,
@@ -89309,7 +89565,7 @@
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
     2.8,
@@ -89325,13 +89581,14 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_1"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_1_1_Shell",
+   "name": "Pod_Export_Pod_1_1_Fluid",
    "type": "cylinder",
    "position": [
     43.5,
@@ -89341,45 +89598,12 @@
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Risers"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RiserPod_1_1_Fluid",
-   "type": "cylinder",
-   "position": [
-    43.5,
-    35.92,
-    -45.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -89390,13 +89614,14 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_1"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_1_1_Cap",
+   "name": "Pod_Export_Pod_1_1_Cap",
    "type": "cylinder",
    "position": [
     43.5,
@@ -89406,7 +89631,7 @@
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
     2.9,
@@ -89422,23 +89647,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_1"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_1_2_Base",
+   "name": "Pod_Export_Pod_1_2_Base",
    "type": "cylinder",
    "position": [
     43.5,
-    41.65,
+    44.687,
     -45.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
     2.8,
@@ -89454,61 +89680,29 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_2"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_1_2_Shell",
+   "name": "Pod_Export_Pod_1_2_Fluid",
    "type": "cylinder",
    "position": [
     43.5,
-    41.85,
+    44.887,
     -45.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Risers"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RiserPod_1_2_Fluid",
-   "type": "cylinder",
-   "position": [
-    43.5,
-    41.92,
-    -45.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -89519,23 +89713,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_2"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_1_2_Cap",
+   "name": "Pod_Export_Pod_1_2_Cap",
    "type": "cylinder",
    "position": [
     43.5,
-    44.15,
+    47.187,
     -45.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
     2.9,
@@ -89551,23 +89746,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_2"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_1_3_Base",
+   "name": "Pod_Export_Pod_1_3_Base",
    "type": "cylinder",
    "position": [
-    43.5,
-    47.65,
+    43.488,
+    53.724,
     -45.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.46
    ],
    "size": [
     2.8,
@@ -89583,61 +89779,29 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_3"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_1_3_Shell",
+   "name": "Pod_Export_Pod_1_3_Fluid",
    "type": "cylinder",
    "position": [
-    43.5,
-    47.85,
+    43.49,
+    53.924,
     -45.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.46
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Risers"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RiserPod_1_3_Fluid",
-   "type": "cylinder",
-   "position": [
-    43.5,
-    47.92,
-    -45.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -89648,23 +89812,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_3"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_1_3_Cap",
+   "name": "Pod_Export_Pod_1_3_Cap",
    "type": "cylinder",
    "position": [
-    43.5,
-    50.15,
+    43.508,
+    56.224,
     -45.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.46
    ],
    "size": [
     2.9,
@@ -89680,23 +89845,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_3"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_1_1_Base",
+   "name": "Pod_Export_Pod_1_4_Base",
    "type": "cylinder",
    "position": [
-    48.124,
-    61.274,
+    47.622,
+    61.122,
     -45.0
    ],
    "rotation": [
     0.0,
     0.0,
-    -90.0
+    -85.01
    ],
    "size": [
     2.8,
@@ -89712,61 +89878,29 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_4"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_1_1_Shell",
+   "name": "Pod_Export_Pod_1_4_Fluid",
    "type": "cylinder",
    "position": [
-    48.324,
-    61.274,
+    47.821,
+    61.14,
     -45.0
    ],
    "rotation": [
     0.0,
     0.0,
-    -90.0
+    -85.01
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Runs"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RunPod_1_1_Fluid",
-   "type": "cylinder",
-   "position": [
-    48.394,
-    61.274,
-    -45.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -90.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -89777,23 +89911,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_4"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_1_1_Cap",
+   "name": "Pod_Export_Pod_1_4_Cap",
    "type": "cylinder",
    "position": [
-    50.624,
-    61.274,
+    50.112,
+    61.34,
     -45.0
    ],
    "rotation": [
     0.0,
     0.0,
-    -90.0
+    -85.01
    ],
    "size": [
     2.9,
@@ -89809,16 +89944,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_4"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_1_2_Base",
+   "name": "Pod_Export_Pod_1_5_Base",
    "type": "cylinder",
    "position": [
-    59.343,
+    56.652,
     61.274,
     -45.0
    ],
@@ -89841,16 +89977,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_5"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_1_2_Shell",
+   "name": "Pod_Export_Pod_1_5_Fluid",
    "type": "cylinder",
    "position": [
-    59.543,
+    56.852,
     61.274,
     -45.0
    ],
@@ -89860,42 +89997,9 @@
     -90.0
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Runs"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RunPod_1_2_Fluid",
-   "type": "cylinder",
-   "position": [
-    59.613,
-    61.274,
-    -45.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -90.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -89906,16 +90010,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_5"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_1_2_Cap",
+   "name": "Pod_Export_Pod_1_5_Cap",
    "type": "cylinder",
    "position": [
-    61.843,
+    59.152,
     61.274,
     -45.0
    ],
@@ -89938,16 +90043,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_5"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_1_3_Base",
+   "name": "Pod_Export_Pod_1_6_Base",
    "type": "cylinder",
    "position": [
-    70.562,
+    65.689,
     61.274,
     -45.0
    ],
@@ -89970,16 +90076,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_6"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_1_3_Shell",
+   "name": "Pod_Export_Pod_1_6_Fluid",
    "type": "cylinder",
    "position": [
-    70.762,
+    65.889,
     61.274,
     -45.0
    ],
@@ -89989,42 +90096,9 @@
     -90.0
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Runs"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RunPod_1_3_Fluid",
-   "type": "cylinder",
-   "position": [
-    70.832,
-    61.274,
-    -45.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -90.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -90035,16 +90109,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_6"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_1_3_Cap",
+   "name": "Pod_Export_Pod_1_6_Cap",
    "type": "cylinder",
    "position": [
-    73.062,
+    68.189,
     61.274,
     -45.0
    ],
@@ -90067,16 +90142,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_6"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_1_4_Base",
+   "name": "Pod_Export_Pod_1_7_Base",
    "type": "cylinder",
    "position": [
-    81.781,
+    74.726,
     61.274,
     -45.0
    ],
@@ -90099,16 +90175,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_7"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_1_4_Shell",
+   "name": "Pod_Export_Pod_1_7_Fluid",
    "type": "cylinder",
    "position": [
-    81.981,
+    74.926,
     61.274,
     -45.0
    ],
@@ -90118,42 +90195,9 @@
     -90.0
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Runs"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RunPod_1_4_Fluid",
-   "type": "cylinder",
-   "position": [
-    82.051,
-    61.274,
-    -45.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -90.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -90164,16 +90208,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_7"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_1_4_Cap",
+   "name": "Pod_Export_Pod_1_7_Cap",
    "type": "cylinder",
    "position": [
-    84.281,
+    77.226,
     61.274,
     -45.0
    ],
@@ -90196,7 +90241,107 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_7"
+   },
+   "gen": "Pod_Export",
+   "source": "visible"
+  },
+  {
+   "name": "Pod_Export_Pod_1_8_Base",
+   "type": "cylinder",
+   "position": [
+    83.763,
+    61.274,
+    -45.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "size": [
+    2.8,
+    0.3,
+    2.8
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "intentional": [
+    "floating"
+   ],
+   "mobile": {
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_8"
+   },
+   "gen": "Pod_Export",
+   "source": "visible"
+  },
+  {
+   "name": "Pod_Export_Pod_1_8_Fluid",
+   "type": "cylinder",
+   "position": [
+    83.963,
+    61.274,
+    -45.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "size": [
+    2.5,
+    2.35,
+    2.5
+   ],
+   "material": "hazard",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "intentional": [
+    "floating"
+   ],
+   "mobile": {
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_8"
+   },
+   "gen": "Pod_Export",
+   "source": "visible"
+  },
+  {
+   "name": "Pod_Export_Pod_1_8_Cap",
+   "type": "cylinder",
+   "position": [
+    86.263,
+    61.274,
+    -45.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "size": [
+    2.9,
+    0.45,
+    2.9
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "intentional": [
+    "floating"
+   ],
+   "mobile": {
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P1_8"
    },
    "gen": "Pod_Export",
    "source": "visible"
@@ -90232,7 +90377,7 @@
   },
   {
    "name": "Pod_Export_2_CollarBand",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
     43.5,
     38.7,
@@ -90248,8 +90393,10 @@
     0.5,
     6.24
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.9009,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -90378,7 +90525,7 @@
   },
   {
    "name": "Pod_Export_2_Riser_Drum_04",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
     43.5,
     52.33,
@@ -90391,11 +90538,43 @@
    ],
    "size": [
     5.824,
-    1.22,
+    1.692,
     5.824
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.5742,
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Pod_Export_Static"
+   },
+   "gen": "Pod_Export",
+   "source": "visible"
+  },
+  {
+   "name": "Pod_Export_2_Riser_Glass_05",
+   "type": "cylinder",
+   "position": [
+    43.5,
+    53.922,
+    -34.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    5.2,
+    0.428,
+    5.2
+   ],
+   "material": "glass",
+   "sections": 8,
+   "double_sided": true,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -90407,10 +90586,10 @@
   },
   {
    "name": "Pod_Export_2_Inlet",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
     43.5,
-    53.55,
+    54.25,
     -34.0
    ],
    "rotation": [
@@ -90420,11 +90599,13 @@
    ],
    "size": [
     5.824,
-    1.65,
+    0.95,
     5.824
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.5742,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -90440,7 +90621,7 @@
    "position": [
     43.5,
     55.15,
-    -31.088
+    -31.4
    ],
    "rotation": [
     -90.0,
@@ -90448,13 +90629,15 @@
     0.0
    ],
    "size": [
-    5.824,
+    5.2,
     6.124,
-    5.824
+    5.2
    ],
-   "material": "structure_b",
+   "material": "glass",
    "segments": 8,
    "sections": 8,
+   "open": true,
+   "double_sided": true,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -90465,54 +90648,27 @@
    "source": "visible"
   },
   {
-   "name": "Pod_Export_2_ElbowBand_1",
-   "type": "cylinder",
+   "name": "Pod_Export_2_ElbowBand",
+   "type": "pole",
    "position": [
-    44.17,
-    57.952,
+    45.046,
+    59.233,
     -34.0
    ],
    "rotation": [
     0.0,
     0.0,
-    -30.0
+    -45.0
    ],
    "size": [
-    6.232,
-    0.6,
-    6.232
+    5.824,
+    0.7,
+    5.824
    ],
-   "material": "frame",
+   "material": "tube_drum",
    "sections": 8,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Pod_Export_Static"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_2_ElbowBand_2",
-   "type": "cylinder",
-   "position": [
-    46.302,
-    60.304,
-    -34.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -60.0
-   ],
-   "size": [
-    6.232,
-    0.6,
-    6.232
-   ],
-   "material": "frame",
-   "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.5742,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -90524,7 +90680,7 @@
   },
   {
    "name": "Pod_Export_2_Outlet",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
     49.574,
     61.274,
@@ -90537,11 +90693,13 @@
    ],
    "size": [
     5.824,
-    1.65,
+    0.95,
     5.824
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.5742,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -90555,7 +90713,7 @@
    "name": "Pod_Export_2_Run_Glass_01",
    "type": "cylinder",
    "position": [
-    51.124,
+    50.424,
     61.274,
     -34.0
    ],
@@ -90566,7 +90724,7 @@
    ],
    "size": [
     5.2,
-    6.278,
+    4.256,
     5.2
    ],
    "material": "glass",
@@ -90585,7 +90743,7 @@
    "name": "Pod_Export_2_Run_Drum_02",
    "type": "cylinder",
    "position": [
-    57.302,
+    54.58,
     61.274,
     -34.0
    ],
@@ -90596,7 +90754,7 @@
    ],
    "size": [
     5.824,
-    1.026,
+    1.907,
     5.824
    ],
    "material": "structure_b",
@@ -90614,7 +90772,7 @@
    "name": "Pod_Export_2_Run_Glass_03",
    "type": "cylinder",
    "position": [
-    58.228,
+    56.387,
     61.274,
     -34.0
    ],
@@ -90625,7 +90783,7 @@
    ],
    "size": [
     5.2,
-    6.184,
+    5.386,
     5.2
    ],
    "material": "glass",
@@ -90642,9 +90800,9 @@
   },
   {
    "name": "Pod_Export_2_Run_Drum_04",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
-    64.312,
+    61.673,
     61.274,
     -34.0
    ],
@@ -90655,11 +90813,13 @@
    ],
    "size": [
     5.824,
-    1.542,
+    1.712,
     5.824
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.5742,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -90673,7 +90833,7 @@
    "name": "Pod_Export_2_Run_Glass_05",
    "type": "cylinder",
    "position": [
-    65.754,
+    63.285,
     61.274,
     -34.0
    ],
@@ -90684,7 +90844,7 @@
    ],
    "size": [
     5.2,
-    5.757,
+    7.655,
     5.2
    ],
    "material": "glass",
@@ -90703,7 +90863,7 @@
    "name": "Pod_Export_2_Run_Drum_06",
    "type": "cylinder",
    "position": [
-    71.411,
+    70.84,
     61.274,
     -34.0
    ],
@@ -90714,7 +90874,7 @@
    ],
    "size": [
     5.824,
-    2.58,
+    1.437,
     5.824
    ],
    "material": "structure_b",
@@ -90732,7 +90892,7 @@
    "name": "Pod_Export_2_Run_Glass_07",
    "type": "cylinder",
    "position": [
-    73.89,
+    72.178,
     61.274,
     -34.0
    ],
@@ -90743,7 +90903,7 @@
    ],
    "size": [
     5.2,
-    5.156,
+    7.623,
     5.2
    ],
    "material": "glass",
@@ -90760,9 +90920,9 @@
   },
   {
    "name": "Pod_Export_2_Run_Drum_08",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
-    78.947,
+    79.701,
     61.274,
     -34.0
    ],
@@ -90773,11 +90933,13 @@
    ],
    "size": [
     5.824,
-    2.565,
+    1.811,
     5.824
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.5742,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -90791,7 +90953,7 @@
    "name": "Pod_Export_2_Run_Glass_09",
    "type": "cylinder",
    "position": [
-    81.411,
+    81.412,
     61.274,
     -34.0
    ],
@@ -90802,7 +90964,7 @@
    ],
    "size": [
     5.2,
-    5.975,
+    4.278,
     5.2
    ],
    "material": "glass",
@@ -90821,7 +90983,7 @@
    "name": "Pod_Export_2_Run_Drum_10",
    "type": "cylinder",
    "position": [
-    87.286,
+    85.59,
     61.274,
     -34.0
    ],
@@ -90832,7 +90994,7 @@
    ],
    "size": [
     5.824,
-    1.036,
+    1.908,
     5.824
    ],
    "material": "structure_b",
@@ -90850,7 +91012,7 @@
    "name": "Pod_Export_2_Run_Glass_11",
    "type": "cylinder",
    "position": [
-    88.221,
+    87.397,
     61.274,
     -34.0
    ],
@@ -90861,7 +91023,7 @@
    ],
    "size": [
     5.2,
-    3.479,
+    4.303,
     5.2
    ],
    "material": "glass",
@@ -90877,7 +91039,7 @@
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_2_1_Base",
+   "name": "Pod_Export_Pod_2_1_Base",
    "type": "cylinder",
    "position": [
     43.5,
@@ -90887,7 +91049,7 @@
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
     2.8,
@@ -90903,13 +91065,14 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_1"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_2_1_Shell",
+   "name": "Pod_Export_Pod_2_1_Fluid",
    "type": "cylinder",
    "position": [
     43.5,
@@ -90919,45 +91082,12 @@
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Risers"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RiserPod_2_1_Fluid",
-   "type": "cylinder",
-   "position": [
-    43.5,
-    35.92,
-    -34.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -90968,13 +91098,14 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_1"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_2_1_Cap",
+   "name": "Pod_Export_Pod_2_1_Cap",
    "type": "cylinder",
    "position": [
     43.5,
@@ -90984,7 +91115,7 @@
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
     2.9,
@@ -91000,23 +91131,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_1"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_2_2_Base",
+   "name": "Pod_Export_Pod_2_2_Base",
    "type": "cylinder",
    "position": [
     43.5,
-    41.65,
+    44.687,
     -34.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
     2.8,
@@ -91032,61 +91164,29 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_2"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_2_2_Shell",
+   "name": "Pod_Export_Pod_2_2_Fluid",
    "type": "cylinder",
    "position": [
     43.5,
-    41.85,
+    44.887,
     -34.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Risers"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RiserPod_2_2_Fluid",
-   "type": "cylinder",
-   "position": [
-    43.5,
-    41.92,
-    -34.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -91097,23 +91197,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_2"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_2_2_Cap",
+   "name": "Pod_Export_Pod_2_2_Cap",
    "type": "cylinder",
    "position": [
     43.5,
-    44.15,
+    47.187,
     -34.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
     2.9,
@@ -91129,23 +91230,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_2"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_2_3_Base",
+   "name": "Pod_Export_Pod_2_3_Base",
    "type": "cylinder",
    "position": [
-    43.5,
-    47.65,
+    43.488,
+    53.724,
     -34.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.46
    ],
    "size": [
     2.8,
@@ -91161,61 +91263,29 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_3"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_2_3_Shell",
+   "name": "Pod_Export_Pod_2_3_Fluid",
    "type": "cylinder",
    "position": [
-    43.5,
-    47.85,
+    43.49,
+    53.924,
     -34.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.46
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Risers"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RiserPod_2_3_Fluid",
-   "type": "cylinder",
-   "position": [
-    43.5,
-    47.92,
-    -34.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -91226,23 +91296,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_3"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_2_3_Cap",
+   "name": "Pod_Export_Pod_2_3_Cap",
    "type": "cylinder",
    "position": [
-    43.5,
-    50.15,
+    43.508,
+    56.224,
     -34.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.46
    ],
    "size": [
     2.9,
@@ -91258,23 +91329,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_3"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_2_1_Base",
+   "name": "Pod_Export_Pod_2_4_Base",
    "type": "cylinder",
    "position": [
-    48.124,
-    61.274,
+    47.622,
+    61.122,
     -34.0
    ],
    "rotation": [
     0.0,
     0.0,
-    -90.0
+    -85.01
    ],
    "size": [
     2.8,
@@ -91290,61 +91362,29 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_4"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_2_1_Shell",
+   "name": "Pod_Export_Pod_2_4_Fluid",
    "type": "cylinder",
    "position": [
-    48.324,
-    61.274,
+    47.821,
+    61.14,
     -34.0
    ],
    "rotation": [
     0.0,
     0.0,
-    -90.0
+    -85.01
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Runs"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RunPod_2_1_Fluid",
-   "type": "cylinder",
-   "position": [
-    48.394,
-    61.274,
-    -34.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -90.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -91355,23 +91395,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_4"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_2_1_Cap",
+   "name": "Pod_Export_Pod_2_4_Cap",
    "type": "cylinder",
    "position": [
-    50.624,
-    61.274,
+    50.112,
+    61.34,
     -34.0
    ],
    "rotation": [
     0.0,
     0.0,
-    -90.0
+    -85.01
    ],
    "size": [
     2.9,
@@ -91387,16 +91428,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_4"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_2_2_Base",
+   "name": "Pod_Export_Pod_2_5_Base",
    "type": "cylinder",
    "position": [
-    59.343,
+    56.652,
     61.274,
     -34.0
    ],
@@ -91419,16 +91461,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_5"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_2_2_Shell",
+   "name": "Pod_Export_Pod_2_5_Fluid",
    "type": "cylinder",
    "position": [
-    59.543,
+    56.852,
     61.274,
     -34.0
    ],
@@ -91438,42 +91481,9 @@
     -90.0
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Runs"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RunPod_2_2_Fluid",
-   "type": "cylinder",
-   "position": [
-    59.613,
-    61.274,
-    -34.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -90.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -91484,16 +91494,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_5"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_2_2_Cap",
+   "name": "Pod_Export_Pod_2_5_Cap",
    "type": "cylinder",
    "position": [
-    61.843,
+    59.152,
     61.274,
     -34.0
    ],
@@ -91516,16 +91527,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_5"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_2_3_Base",
+   "name": "Pod_Export_Pod_2_6_Base",
    "type": "cylinder",
    "position": [
-    70.562,
+    65.689,
     61.274,
     -34.0
    ],
@@ -91548,16 +91560,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_6"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_2_3_Shell",
+   "name": "Pod_Export_Pod_2_6_Fluid",
    "type": "cylinder",
    "position": [
-    70.762,
+    65.889,
     61.274,
     -34.0
    ],
@@ -91567,42 +91580,9 @@
     -90.0
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Runs"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RunPod_2_3_Fluid",
-   "type": "cylinder",
-   "position": [
-    70.832,
-    61.274,
-    -34.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -90.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -91613,16 +91593,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_6"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_2_3_Cap",
+   "name": "Pod_Export_Pod_2_6_Cap",
    "type": "cylinder",
    "position": [
-    73.062,
+    68.189,
     61.274,
     -34.0
    ],
@@ -91645,16 +91626,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_6"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_2_4_Base",
+   "name": "Pod_Export_Pod_2_7_Base",
    "type": "cylinder",
    "position": [
-    81.781,
+    74.726,
     61.274,
     -34.0
    ],
@@ -91677,16 +91659,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_7"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_2_4_Shell",
+   "name": "Pod_Export_Pod_2_7_Fluid",
    "type": "cylinder",
    "position": [
-    81.981,
+    74.926,
     61.274,
     -34.0
    ],
@@ -91696,42 +91679,9 @@
     -90.0
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Runs"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RunPod_2_4_Fluid",
-   "type": "cylinder",
-   "position": [
-    82.051,
-    61.274,
-    -34.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -90.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -91742,16 +91692,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_7"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_2_4_Cap",
+   "name": "Pod_Export_Pod_2_7_Cap",
    "type": "cylinder",
    "position": [
-    84.281,
+    77.226,
     61.274,
     -34.0
    ],
@@ -91774,7 +91725,107 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_7"
+   },
+   "gen": "Pod_Export",
+   "source": "visible"
+  },
+  {
+   "name": "Pod_Export_Pod_2_8_Base",
+   "type": "cylinder",
+   "position": [
+    83.763,
+    61.274,
+    -34.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "size": [
+    2.8,
+    0.3,
+    2.8
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "intentional": [
+    "floating"
+   ],
+   "mobile": {
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_8"
+   },
+   "gen": "Pod_Export",
+   "source": "visible"
+  },
+  {
+   "name": "Pod_Export_Pod_2_8_Fluid",
+   "type": "cylinder",
+   "position": [
+    83.963,
+    61.274,
+    -34.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "size": [
+    2.5,
+    2.35,
+    2.5
+   ],
+   "material": "hazard",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "intentional": [
+    "floating"
+   ],
+   "mobile": {
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_8"
+   },
+   "gen": "Pod_Export",
+   "source": "visible"
+  },
+  {
+   "name": "Pod_Export_Pod_2_8_Cap",
+   "type": "cylinder",
+   "position": [
+    86.263,
+    61.274,
+    -34.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "size": [
+    2.9,
+    0.45,
+    2.9
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "intentional": [
+    "floating"
+   ],
+   "mobile": {
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P2_8"
    },
    "gen": "Pod_Export",
    "source": "visible"
@@ -91810,7 +91861,7 @@
   },
   {
    "name": "Pod_Export_3_CollarBand",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
     43.5,
     38.7,
@@ -91826,8 +91877,10 @@
     0.5,
     5.52
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.3354,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -91852,7 +91905,7 @@
    ],
    "size": [
     4.6,
-    5.539,
+    6.962,
     4.6
    ],
    "material": "glass",
@@ -91872,7 +91925,7 @@
    "type": "cylinder",
    "position": [
     43.5,
-    44.539,
+    45.962,
     -23.0
    ],
    "rotation": [
@@ -91882,7 +91935,7 @@
    ],
    "size": [
     5.152,
-    2.263,
+    1.425,
     5.152
    ],
    "material": "structure_b",
@@ -91901,7 +91954,7 @@
    "type": "box",
    "position": [
     41.12,
-    45.52,
+    46.525,
     -23.0
    ],
    "rotation": [
@@ -91929,7 +91982,7 @@
    "type": "cylinder",
    "position": [
     43.5,
-    46.702,
+    47.287,
     -23.0
    ],
    "rotation": [
@@ -91939,7 +91992,7 @@
    ],
    "size": [
     4.6,
-    5.13,
+    6.847,
     4.6
    ],
    "material": "glass",
@@ -91956,10 +92009,10 @@
   },
   {
    "name": "Pod_Export_3_Riser_Drum_04",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
     43.5,
-    51.732,
+    54.034,
     -23.0
    ],
    "rotation": [
@@ -91969,11 +92022,13 @@
    ],
    "size": [
     5.152,
-    1.818,
+    0.216,
     5.152
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.0464,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -91985,10 +92040,10 @@
   },
   {
    "name": "Pod_Export_3_Inlet",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
     43.5,
-    53.55,
+    54.25,
     -23.0
    ],
    "rotation": [
@@ -91998,11 +92053,13 @@
    ],
    "size": [
     5.152,
-    1.65,
+    0.95,
     5.152
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.0464,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -92018,7 +92075,7 @@
    "position": [
     43.5,
     55.15,
-    -20.424
+    -20.7
    ],
    "rotation": [
     -90.0,
@@ -92026,13 +92083,15 @@
     0.0
    ],
    "size": [
-    5.152,
+    4.6,
     6.124,
-    5.152
+    4.6
    ],
-   "material": "structure_b",
+   "material": "glass",
    "segments": 8,
    "sections": 8,
+   "open": true,
+   "double_sided": true,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -92043,54 +92102,27 @@
    "source": "visible"
   },
   {
-   "name": "Pod_Export_3_ElbowBand_1",
-   "type": "cylinder",
+   "name": "Pod_Export_3_ElbowBand",
+   "type": "pole",
    "position": [
-    44.17,
-    57.952,
+    45.046,
+    59.233,
     -23.0
    ],
    "rotation": [
     0.0,
     0.0,
-    -30.0
+    -45.0
    ],
    "size": [
-    5.513,
-    0.6,
-    5.513
+    5.152,
+    0.7,
+    5.152
    ],
-   "material": "frame",
+   "material": "tube_drum",
    "sections": 8,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "mobile": {
-    "group": "Pod_Export_Static"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_3_ElbowBand_2",
-   "type": "cylinder",
-   "position": [
-    46.302,
-    60.304,
-    -23.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -60.0
-   ],
-   "size": [
-    5.513,
-    0.6,
-    5.513
-   ],
-   "material": "frame",
-   "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.0464,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -92102,7 +92134,7 @@
   },
   {
    "name": "Pod_Export_3_Outlet",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
     49.574,
     61.274,
@@ -92115,11 +92147,13 @@
    ],
    "size": [
     5.152,
-    1.65,
+    0.95,
     5.152
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.0464,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -92133,7 +92167,7 @@
    "name": "Pod_Export_3_Run_Glass_01",
    "type": "cylinder",
    "position": [
-    51.124,
+    50.424,
     61.274,
     -23.0
    ],
@@ -92144,7 +92178,7 @@
    ],
    "size": [
     4.6,
-    6.9,
+    4.601,
     4.6
    ],
    "material": "glass",
@@ -92163,7 +92197,7 @@
    "name": "Pod_Export_3_Run_Drum_02",
    "type": "cylinder",
    "position": [
-    57.924,
+    54.925,
     61.274,
     -23.0
    ],
@@ -92174,7 +92208,7 @@
    ],
    "size": [
     5.152,
-    1.184,
+    1.81,
     5.152
    ],
    "material": "structure_b",
@@ -92192,7 +92226,7 @@
    "name": "Pod_Export_3_Run_Glass_03",
    "type": "cylinder",
    "position": [
-    59.008,
+    56.635,
     61.274,
     -23.0
    ],
@@ -92203,7 +92237,7 @@
    ],
    "size": [
     4.6,
-    5.971,
+    6.885,
     4.6
    ],
    "material": "glass",
@@ -92220,9 +92254,9 @@
   },
   {
    "name": "Pod_Export_3_Run_Drum_04",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
-    64.879,
+    63.42,
     61.274,
     -23.0
    ],
@@ -92233,11 +92267,13 @@
    ],
    "size": [
     5.152,
-    2.227,
+    2.036,
     5.152
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.0464,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -92251,7 +92287,7 @@
    "name": "Pod_Export_3_Run_Glass_05",
    "type": "cylinder",
    "position": [
-    67.006,
+    65.356,
     61.274,
     -23.0
    ],
@@ -92262,7 +92298,7 @@
    ],
    "size": [
     4.6,
-    6.466,
+    7.167,
     4.6
    ],
    "material": "glass",
@@ -92281,7 +92317,7 @@
    "name": "Pod_Export_3_Run_Drum_06",
    "type": "cylinder",
    "position": [
-    73.372,
+    72.423,
     61.274,
     -23.0
    ],
@@ -92292,7 +92328,7 @@
    ],
    "size": [
     5.152,
-    2.356,
+    2.524,
     5.152
    ],
    "material": "structure_b",
@@ -92310,7 +92346,7 @@
    "name": "Pod_Export_3_Run_Glass_07",
    "type": "cylinder",
    "position": [
-    75.629,
+    74.846,
     61.274,
     -23.0
    ],
@@ -92321,7 +92357,7 @@
    ],
    "size": [
     4.6,
-    7.533,
+    6.046,
     4.6
    ],
    "material": "glass",
@@ -92338,9 +92374,9 @@
   },
   {
    "name": "Pod_Export_3_Run_Drum_08",
-   "type": "cylinder",
+   "type": "pole",
    "position": [
-    83.061,
+    80.792,
     61.274,
     -23.0
    ],
@@ -92351,11 +92387,13 @@
    ],
    "size": [
     5.152,
-    1.844,
+    1.856,
     5.152
    ],
-   "material": "tube_band",
+   "material": "tube_drum",
    "sections": 8,
+   "uv_mode": "band",
+   "uv_len": 4.0464,
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -92369,7 +92407,7 @@
    "name": "Pod_Export_3_Run_Glass_09",
    "type": "cylinder",
    "position": [
-    84.805,
+    82.548,
     61.274,
     -23.0
    ],
@@ -92380,7 +92418,7 @@
    ],
    "size": [
     4.6,
-    6.073,
+    5.123,
     4.6
    ],
    "material": "glass",
@@ -92399,7 +92437,7 @@
    "name": "Pod_Export_3_Run_Drum_10",
    "type": "cylinder",
    "position": [
-    90.778,
+    87.571,
     61.274,
     -23.0
    ],
@@ -92410,7 +92448,7 @@
    ],
    "size": [
     5.152,
-    0.822,
+    1.57,
     5.152
    ],
    "material": "structure_b",
@@ -92425,7 +92463,37 @@
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_3_1_Base",
+   "name": "Pod_Export_3_Run_Glass_11",
+   "type": "cylinder",
+   "position": [
+    89.041,
+    61.274,
+    -23.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "size": [
+    4.6,
+    2.659,
+    4.6
+   ],
+   "material": "glass",
+   "sections": 8,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "mobile": {
+    "group": "Pod_Export_Static"
+   },
+   "gen": "Pod_Export",
+   "source": "visible"
+  },
+  {
+   "name": "Pod_Export_Pod_3_1_Base",
    "type": "cylinder",
    "position": [
     43.5,
@@ -92435,7 +92503,7 @@
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
     2.8,
@@ -92451,13 +92519,14 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_1"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_3_1_Shell",
+   "name": "Pod_Export_Pod_3_1_Fluid",
    "type": "cylinder",
    "position": [
     43.5,
@@ -92467,45 +92536,12 @@
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Risers"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RiserPod_3_1_Fluid",
-   "type": "cylinder",
-   "position": [
-    43.5,
-    35.92,
-    -23.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -92516,13 +92552,14 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_1"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_3_1_Cap",
+   "name": "Pod_Export_Pod_3_1_Cap",
    "type": "cylinder",
    "position": [
     43.5,
@@ -92532,7 +92569,7 @@
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
     2.9,
@@ -92548,23 +92585,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_1"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_3_2_Base",
+   "name": "Pod_Export_Pod_3_2_Base",
    "type": "cylinder",
    "position": [
     43.5,
-    41.65,
+    44.687,
     -23.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
     2.8,
@@ -92580,61 +92618,29 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_2"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_3_2_Shell",
+   "name": "Pod_Export_Pod_3_2_Fluid",
    "type": "cylinder",
    "position": [
     43.5,
-    41.85,
+    44.887,
     -23.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Risers"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RiserPod_3_2_Fluid",
-   "type": "cylinder",
-   "position": [
-    43.5,
-    41.92,
-    -23.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -92645,23 +92651,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_2"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_3_2_Cap",
+   "name": "Pod_Export_Pod_3_2_Cap",
    "type": "cylinder",
    "position": [
     43.5,
-    44.15,
+    47.187,
     -23.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.0
    ],
    "size": [
     2.9,
@@ -92677,23 +92684,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_2"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_3_3_Base",
+   "name": "Pod_Export_Pod_3_3_Base",
    "type": "cylinder",
    "position": [
-    43.5,
-    47.65,
+    43.488,
+    53.724,
     -23.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.46
    ],
    "size": [
     2.8,
@@ -92709,61 +92717,29 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_3"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_3_3_Shell",
+   "name": "Pod_Export_Pod_3_3_Fluid",
    "type": "cylinder",
    "position": [
-    43.5,
-    47.85,
+    43.49,
+    53.924,
     -23.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.46
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Risers"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RiserPod_3_3_Fluid",
-   "type": "cylinder",
-   "position": [
-    43.5,
-    47.92,
-    -23.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -92774,23 +92750,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_3"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RiserPod_3_3_Cap",
+   "name": "Pod_Export_Pod_3_3_Cap",
    "type": "cylinder",
    "position": [
-    43.5,
-    50.15,
+    43.508,
+    56.224,
     -23.0
    ],
    "rotation": [
     0.0,
     0.0,
-    0.0
+    -0.46
    ],
    "size": [
     2.9,
@@ -92806,23 +92783,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Risers"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_3"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_3_1_Base",
+   "name": "Pod_Export_Pod_3_4_Base",
    "type": "cylinder",
    "position": [
-    48.124,
-    61.274,
+    47.622,
+    61.122,
     -23.0
    ],
    "rotation": [
     0.0,
     0.0,
-    -90.0
+    -85.01
    ],
    "size": [
     2.8,
@@ -92838,61 +92816,29 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_4"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_3_1_Shell",
+   "name": "Pod_Export_Pod_3_4_Fluid",
    "type": "cylinder",
    "position": [
-    48.324,
-    61.274,
+    47.821,
+    61.14,
     -23.0
    ],
    "rotation": [
     0.0,
     0.0,
-    -90.0
+    -85.01
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Runs"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RunPod_3_1_Fluid",
-   "type": "cylinder",
-   "position": [
-    48.394,
-    61.274,
-    -23.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -90.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -92903,23 +92849,24 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_4"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_3_1_Cap",
+   "name": "Pod_Export_Pod_3_4_Cap",
    "type": "cylinder",
    "position": [
-    50.624,
-    61.274,
+    50.112,
+    61.34,
     -23.0
    ],
    "rotation": [
     0.0,
     0.0,
-    -90.0
+    -85.01
    ],
    "size": [
     2.9,
@@ -92935,16 +92882,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_4"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_3_2_Base",
+   "name": "Pod_Export_Pod_3_5_Base",
    "type": "cylinder",
    "position": [
-    59.343,
+    56.652,
     61.274,
     -23.0
    ],
@@ -92967,16 +92915,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_5"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_3_2_Shell",
+   "name": "Pod_Export_Pod_3_5_Fluid",
    "type": "cylinder",
    "position": [
-    59.543,
+    56.852,
     61.274,
     -23.0
    ],
@@ -92986,42 +92935,9 @@
     -90.0
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Runs"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RunPod_3_2_Fluid",
-   "type": "cylinder",
-   "position": [
-    59.613,
-    61.274,
-    -23.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -90.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -93032,16 +92948,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_5"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_3_2_Cap",
+   "name": "Pod_Export_Pod_3_5_Cap",
    "type": "cylinder",
    "position": [
-    61.843,
+    59.152,
     61.274,
     -23.0
    ],
@@ -93064,16 +92981,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_5"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_3_3_Base",
+   "name": "Pod_Export_Pod_3_6_Base",
    "type": "cylinder",
    "position": [
-    70.562,
+    65.689,
     61.274,
     -23.0
    ],
@@ -93096,16 +93014,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_6"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_3_3_Shell",
+   "name": "Pod_Export_Pod_3_6_Fluid",
    "type": "cylinder",
    "position": [
-    70.762,
+    65.889,
     61.274,
     -23.0
    ],
@@ -93115,42 +93034,9 @@
     -90.0
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Runs"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RunPod_3_3_Fluid",
-   "type": "cylinder",
-   "position": [
-    70.832,
-    61.274,
-    -23.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -90.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -93161,16 +93047,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_6"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_3_3_Cap",
+   "name": "Pod_Export_Pod_3_6_Cap",
    "type": "cylinder",
    "position": [
-    73.062,
+    68.189,
     61.274,
     -23.0
    ],
@@ -93193,16 +93080,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_6"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_3_4_Base",
+   "name": "Pod_Export_Pod_3_7_Base",
    "type": "cylinder",
    "position": [
-    81.781,
+    74.726,
     61.274,
     -23.0
    ],
@@ -93225,16 +93113,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_7"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_3_4_Shell",
+   "name": "Pod_Export_Pod_3_7_Fluid",
    "type": "cylinder",
    "position": [
-    81.981,
+    74.926,
     61.274,
     -23.0
    ],
@@ -93244,42 +93133,9 @@
     -90.0
    ],
    "size": [
-    2.6,
+    2.5,
     2.35,
-    2.6
-   ],
-   "material": "glass_clear",
-   "sections": 6,
-   "double_sided": true,
-   "collision": false,
-   "outline": false,
-   "cutaway": true,
-   "intentional": [
-    "floating"
-   ],
-   "mobile": {
-    "group": "Pod_Export_Runs"
-   },
-   "gen": "Pod_Export",
-   "source": "visible"
-  },
-  {
-   "name": "Pod_Export_RunPod_3_4_Fluid",
-   "type": "cylinder",
-   "position": [
-    82.051,
-    61.274,
-    -23.0
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    -90.0
-   ],
-   "size": [
-    2.36,
-    2.18,
-    2.36
+    2.5
    ],
    "material": "hazard",
    "sections": 6,
@@ -93290,16 +93146,17 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_7"
    },
    "gen": "Pod_Export",
    "source": "visible"
   },
   {
-   "name": "Pod_Export_RunPod_3_4_Cap",
+   "name": "Pod_Export_Pod_3_7_Cap",
    "type": "cylinder",
    "position": [
-    84.281,
+    77.226,
     61.274,
     -23.0
    ],
@@ -93322,7 +93179,107 @@
     "floating"
    ],
    "mobile": {
-    "group": "Pod_Export_Runs"
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_7"
+   },
+   "gen": "Pod_Export",
+   "source": "visible"
+  },
+  {
+   "name": "Pod_Export_Pod_3_8_Base",
+   "type": "cylinder",
+   "position": [
+    83.763,
+    61.274,
+    -23.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "size": [
+    2.8,
+    0.3,
+    2.8
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "intentional": [
+    "floating"
+   ],
+   "mobile": {
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_8"
+   },
+   "gen": "Pod_Export",
+   "source": "visible"
+  },
+  {
+   "name": "Pod_Export_Pod_3_8_Fluid",
+   "type": "cylinder",
+   "position": [
+    83.963,
+    61.274,
+    -23.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "size": [
+    2.5,
+    2.35,
+    2.5
+   ],
+   "material": "hazard",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "intentional": [
+    "floating"
+   ],
+   "mobile": {
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_8"
+   },
+   "gen": "Pod_Export",
+   "source": "visible"
+  },
+  {
+   "name": "Pod_Export_Pod_3_8_Cap",
+   "type": "cylinder",
+   "position": [
+    86.263,
+    61.274,
+    -23.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    -90.0
+   ],
+   "size": [
+    2.9,
+    0.45,
+    2.9
+   ],
+   "material": "frame",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "cutaway": true,
+   "intentional": [
+    "floating"
+   ],
+   "mobile": {
+    "group": "Pod_Export_Pods",
+    "joint": "Pod_Export_P3_8"
    },
    "gen": "Pod_Export",
    "source": "visible"
@@ -93650,10 +93607,10 @@
    ],
    "size": [
     0.15,
-    0.6,
+    0.3,
     31.224
    ],
-   "material": "tube_band",
+   "material": "glow",
    "collision": false,
    "outline": false,
    "cutaway": true,
@@ -119429,6 +119386,206 @@
     }
    ],
    "kind": "emerge"
+  },
+  "Pod_Export_Pods": {
+   "groups": [
+    "Pod_Export_Pods"
+   ],
+   "joints": [
+    {
+     "name": "Pod_Export_P1_1",
+     "pivot": [
+      43.5,
+      37.125,
+      -45.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P1_2",
+     "pivot": [
+      43.5,
+      46.1619,
+      -45.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P1_3",
+     "pivot": [
+      43.5002,
+      55.1989,
+      -45.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P1_4",
+     "pivot": [
+      49.091,
+      61.2508,
+      -45.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P1_5",
+     "pivot": [
+      58.1272,
+      61.274,
+      -45.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P1_6",
+     "pivot": [
+      67.1642,
+      61.274,
+      -45.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P1_7",
+     "pivot": [
+      76.2011,
+      61.274,
+      -45.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P1_8",
+     "pivot": [
+      85.2381,
+      61.274,
+      -45.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P2_1",
+     "pivot": [
+      43.5,
+      37.125,
+      -34.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P2_2",
+     "pivot": [
+      43.5,
+      46.1619,
+      -34.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P2_3",
+     "pivot": [
+      43.5002,
+      55.1989,
+      -34.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P2_4",
+     "pivot": [
+      49.091,
+      61.2508,
+      -34.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P2_5",
+     "pivot": [
+      58.1272,
+      61.274,
+      -34.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P2_6",
+     "pivot": [
+      67.1642,
+      61.274,
+      -34.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P2_7",
+     "pivot": [
+      76.2011,
+      61.274,
+      -34.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P2_8",
+     "pivot": [
+      85.2381,
+      61.274,
+      -34.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P3_1",
+     "pivot": [
+      43.5,
+      37.125,
+      -23.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P3_2",
+     "pivot": [
+      43.5,
+      46.1619,
+      -23.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P3_3",
+     "pivot": [
+      43.5002,
+      55.1989,
+      -23.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P3_4",
+     "pivot": [
+      49.091,
+      61.2508,
+      -23.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P3_5",
+     "pivot": [
+      58.1272,
+      61.274,
+      -23.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P3_6",
+     "pivot": [
+      67.1642,
+      61.274,
+      -23.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P3_7",
+     "pivot": [
+      76.2011,
+      61.274,
+      -23.0
+     ]
+    },
+    {
+     "name": "Pod_Export_P3_8",
+     "pivot": [
+      85.2381,
+      61.274,
+      -23.0
+     ]
+    }
+   ],
+   "kind": "pod_path"
   }
  },
  "crushers": [
@@ -121410,7 +121567,7 @@
   "Arena: battle arena rising out of the liquid (goofy) - 25 square tiles, 20.8 m across at 15.5 m",
   "Jet_Screen: jetpack grin screen bobbing at [-2.0, 22.0, -18.0]; flies to [28.39, 21.632, 28.89] when a player reaches Arena_Deck - big red button opens ['Yard_Laser']",
   "Reactor: slime reactor in the pool - deck r 7.5 at 3.4, vat r 3.3 to 11.6, 3 catwalks, 2 falls",
-  "Pod_Export: 3 pod tubes out through the roof (hall look), bending at 55.1 into runs at 61.3, east to x 93.0 (21 pods)",
+  "Pod_Export: 3 pod tubes out through the roof (hall look), bending at 55.1 into runs at 61.3, east into the tower at x 94.3 (24 pods on one path rig)",
   "ceiling: 75 dressing parts cleared from over the lift shaft at (-30, -40)",
   "crates: 11 printed crates (accent atlas)",
   "fixtures: 56 parts cleared out of fans / vents (wall units removed: OuterWall_East_M06Fan, OuterWall_East_M07Vent, OuterWall_West_M02Fan)",
@@ -121564,16 +121721,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 109988,
-  "objects": 3661,
-  "materials": 66,
-  "glb_kb": 7151,
-  "nodes": 3984,
-  "draw_calls_unbatched": 3928,
-  "draw_calls_batched_min": 68,
-  "images": 153,
-  "tex_mem_gpu_compressed_mb": 41.65,
-  "tex_mem_uncompressed_mb": 166.61,
+  "triangles": 109696,
+  "objects": 3652,
+  "materials": 67,
+  "glb_kb": 7209,
+  "nodes": 3982,
+  "draw_calls_unbatched": 3926,
+  "draw_calls_batched_min": 69,
+  "images": 157,
+  "tex_mem_gpu_compressed_mb": 41.99,
+  "tex_mem_uncompressed_mb": 167.95,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

@@ -8,7 +8,7 @@ Every kind yields: base colour (sRGB jpeg), normal map (from a height field), OR
 G=roughness, B=metallic — glTF metallicRoughness + occlusion share it) and, if it glows, an emissive mask.
 All maps are tileable. Standard glTF 2.0 PBR, so Godot 4 imports them into StandardMaterial3D directly.
 PBR kinds: industrial_metal, painted_metal, damaged_metal, scifi_floor, grating, concrete, rock, sand, dirt, grass,
-  toxic, glow, machinery_panel, trim_light, pipe, banner, factory_facade (distant buildings, lit windows),
+  toxic, glow, machinery_panel, trim_light, drum_plate (Stage 186), pipe, banner, factory_facade (distant buildings, lit windows),
   hull_plating (worn tower/wall plates: straps, vents, rain streaks), chevron (hazard stripes),
   ceiling_works (olive plates, vents, X-braces, conduit bundles, moss), wall_works (irregular riveted plates, vents, X-braces, green light dashes, conduits), wall_slimed (+ glowing slime drips),
   snow, mud, asphalt ("lines": true = lane line), gravel, moss (Stage 9 terrain layers).  Legacy (stylised, albedo-derived normals): cobblestone,
@@ -368,6 +368,33 @@ def k_trim_light(S, rng, c, m):
     h = 0.7 - 0.4 * groove - 0.2 * line + 0.15 * lamp + 0.03 * fine
     emit = (line | lamp).astype(float)
     return dict(alb=alb, h=h, rough=np.where(emit > 0, 0.2, 0.45 + 0.3 * grime), metal=np.where(emit > 0, 0.0, 0.45), emit=emit, nstr=1.2)
+
+
+def k_drum_plate(S, rng, c, m):
+    """Stage 186 (user: less repetitive, more industrial): a transport-tube drum, wrapped once top to bottom ("pole"
+    uv_mode "band": u round it, image top = the drum's top; one tile = two faces). Heavy flanged lips at top and bottom
+    with hex bolts; the tile's left face a recessed louvred service panel with one small red status lamp, its right face
+    plain plate with a riveted weld seam and a grey ID tag - faces alternate; worn steel, grime, no light stripes."""
+    x, y = _xy(S); fine = _noise(rng, 32, 2, S); grime = _grime(rng, S, 1 - np.abs(y - 0.5) * 2, m.get("wear", 0.5)); blot = _noise(rng, 5, 3, S)
+    fl = (y < 0.1) | (y > 0.9); lip = (np.abs(y - 0.1) < 0.012) | (np.abs(y - 0.9) < 0.012)  # flanges, their shadow lines
+    bx = (x * 8) % 1; bolt = fl & (np.hypot((bx - 0.5) / 8, np.minimum(np.abs(y - 0.05), np.abs(y - 0.95))) < 0.02)
+    mid = ~fl & (y > 0.13) & (y < 0.87)
+    seam = (np.abs(x - 0.75) < 0.008) & mid; riv = (np.abs(np.abs(x - 0.75) - 0.03) < 0.008) & (np.abs(((y - 0.15) * 9) % 1 - 0.5) < 0.1) & mid
+    pan = (x > 0.08) & (x < 0.42) & (y > 0.22) & (y < 0.78); pe = pan & ~((x > 0.09) & (x < 0.41) & (y > 0.23) & (y < 0.77))  # left face: recessed panel
+    louv = (x > 0.12) & (x < 0.38) & (y > 0.28) & (y < 0.56); slat = louv & (((y - 0.28) * 38) % 1 < 0.45)
+    lamp = (np.abs(x - 0.25) < 0.035) & (np.abs(y - 0.67) < 0.035); bez = (np.abs(x - 0.25) < 0.05) & (np.abs(y - 0.67) < 0.05) & ~lamp
+    tag = (np.abs(x - 0.6) < 0.06) & (np.abs(y - 0.32) < 0.03); tagl = tag & (np.abs(y - 0.32) < 0.007) & (np.abs(x - 0.6) < 0.045)  # right face: ID tag
+    scuff = (_noise(rng, 40, 1, S) > 0.88) & ~pan & ~fl
+    acc = np.array(m.get("accent", [1.0, 0.1, 0.06])); steel = np.array(m.get("lip", [0.36, 0.34, 0.4]))
+    base = c[None, None] * ((0.8 + 0.2 * fine + 0.12 * (blot - 0.5)) * (1 - 0.45 * grime))[..., None]
+    alb = np.where(fl[..., None], steel * (0.8 + 0.2 * fine)[..., None] * (1 - 0.35 * grime)[..., None], base)
+    alb = np.where(pan[..., None], alb * 0.72, alb); alb = np.where((pe | lip | seam)[..., None], alb * 0.4, alb)
+    alb = np.where(slat[..., None], alb * 0.35, alb); alb = np.where((bolt | riv)[..., None], steel * 1.25, alb)
+    alb = np.where(scuff[..., None], alb * 1.15 + 0.02, alb); alb = np.where(bez[..., None], [0.05, 0.05, 0.06], alb)
+    alb = np.where(tag[..., None], [0.55, 0.55, 0.52], alb); alb = np.where(tagl[..., None], [0.12, 0.12, 0.12], alb); alb = np.where(lamp[..., None], acc, alb)
+    h = 0.55 + 0.25 * fl - 0.3 * lip - 0.2 * pan - 0.25 * pe - 0.15 * slat + 0.2 * bolt + 0.15 * riv - 0.12 * seam + 0.1 * (bez | tag) + 0.03 * fine
+    emit = lamp.astype(float)
+    return dict(alb=np.clip(alb, 0, 1), h=h, rough=np.where(lamp, 0.2, np.where(fl, 0.35, 0.5) + 0.3 * grime), metal=np.where(lamp | tag, 0.0, np.where(fl | bolt, 0.8, 0.55)), emit=emit, nstr=1.3)
 
 
 def k_pipe(S, rng, c, m):

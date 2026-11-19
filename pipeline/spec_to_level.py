@@ -358,6 +358,8 @@ def _effects(spec, ctx, plats, env, glow):
                 if D_.get("sparks"):  # Stage 157: electrical sparks spraying off the electrodes inside the plasma chambers on the impact (and crackles after)
                     out.append(dict(id=sp_["id"] + "_Sparks", type="sparks", positions=D_["sparks"], sync=dict(sy, at=[round(sl_ + d_, 3) for d_ in (0.0, 0.18, 0.42, 0.8, 1.3, 1.9, 2.6)]),
                                     burst=44, lifetime=0.5, speed=[1.2, 2.4], gravity=-3.0, size=[0.32, 0.05], color=[1.0, 0.75, 0.82], spread=180))
+        for pp_ in getattr(ctx, "pod_paths", []):  # Stage 186: pods riding a bent pipe (skinned rig, one bone per pod)
+            out.append(dict(id=pp_["id"] + "_Pods", type="pod_path", pod_path=pp_))
         for f_ in getattr(ctx, "floaters", []):  # Stage 123: floating (bobbing) walkable pads
             out.append(dict(id=f_["id"] + "_Bob", type="floater", floater=f_))
         for j_ in getattr(ctx, "jets", []):  # Stage 119: jetpack screens

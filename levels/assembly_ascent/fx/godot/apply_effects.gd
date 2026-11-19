@@ -30,6 +30,7 @@ var _winds: Array = []  # Stage 82: [wind dict, rotor node, Area3D, CPUParticles
 var _saws: Array = []  # Stage 97/101: [saw dict, [[joint, [[node, rest]...]]...], kill Area3D]
 var _sweepers: Array = []  # Stage 98: [sweeper dict, [[rotor node, rest]...], pivot Node3D carrying the kill areas]
 var _belts: Array = []  # Stage 97: [belt dict, [[chevron node, rest position]...], rider Area3D]
+var _pod_paths: Array = []  # Stage 186: {"d": pod_path dict, "sk": Skeleton3D, "bones": {name: index}}
 var _floaters: Array = []  # Stage 123: {"d": floater rig dict, "sk": Skeleton3D, "bones": {name: index}, "bodies": [AnimatableBody3D per pad]}
 var _jets: Array = []  # Stage 119: {"d": jet dict, "parts": {key: [[node, rest]...]}, "trig": Area3D, "use": terminal Area3D, "phase", "t0"}
 var _lifts: Array = []  # Stage 108: {"d": lift dict, "nodes": [Node3D], "body": AnimatableBody3D, "ride": Area3D, "calls": [[call dict, Area3D]], "s", "dir", "p", "board"}
@@ -101,6 +102,8 @@ func _ready() -> void:
 				_jet(fx["jet"])
 			"floater":  # Stage 123: a floating (bobbing) walkable pad
 				_floater(fx["floater"])
+			"pod_path":  # Stage 186: pods riding the bent roof pipes (one skinned rig, a bone per pod)
+				_pod_path(fx["pod_path"])
 			"character":  # Stage 152: an animated character (the specimen in the vat): idle loop, alert when players come close, bob
 				_character(fx["character"])
 			"belt":  # Stage 97: a conveyor ramp - chevrons slide, riders are carried
@@ -560,6 +563,52 @@ func _floater(d: Dictionary) -> void:
 		level_root.add_child(body)
 		bodies.append(body)
 	_floaters.append({"d": d, "sk": sk, "bones": bones, "bodies": bodies})
+
+
+func _pod_path(d: Dictionary) -> void:
+	var sk: Skeleton3D = null
+	for nd in _group_nodes(String(d["group"])):
+		var mi := nd as MeshInstance3D
+		if mi and mi.skin != null:
+			sk = mi.get_node_or_null(mi.skeleton) as Skeleton3D
+			(mi as GeometryInstance3D).extra_cull_margin = 80.0  # the pods travel far from their rest bounds
+	if sk == null:
+		return  # (level.glb has no rig: the pods stay at rest)
+	var bones := {}
+	for i in sk.get_bone_count():
+		bones[sk.get_bone_name(i)] = i
+	_pod_paths.append({"d": d, "sk": sk, "bones": bones})
+
+
+## Stage 186: same as factory.pod_pose / viewer.html - up "rise", a quarter bend of "radius" toward +x, then along +x.
+## Returns [position Vector3, theta (rad, from +y toward +x)].
+static func pod_pose(P: Dictionary, s: float) -> Array:
+	var o: Array = P["origin"]
+	var L1 := float(P["rise"])
+	var R := float(P["radius"])
+	var L2 := R * PI / 2.0
+	if s <= L1:
+		return [Vector3(o[0], float(o[1]) + s, o[2]), 0.0]
+	if s <= L1 + L2:
+		var a := (s - L1) / R
+		return [Vector3(float(o[0]) + R - R * cos(a), float(o[1]) + L1 + R * sin(a), o[2]), a]
+	return [Vector3(float(o[0]) + R + (s - L1 - L2), float(o[1]) + L1 + R, o[2]), PI / 2.0]
+
+
+func _update_pod_paths() -> void:
+	for f in _pod_paths:
+		var sk: Skeleton3D = f["sk"]
+		var D: Dictionary = f["d"]
+		for P in D["paths"]:
+			var dd := fposmod(_t * float(D["speed"]), float(P["spacing"]))
+			for pd in P["pods"]:
+				var bi: int = f["bones"].get(String(pd["joint"]), -1)
+				if bi < 0:
+					continue
+				var q := pod_pose(P, float(pd["s0"]) + dd)
+				var q0 := pod_pose(P, float(pd["s0"]))
+				sk.set_bone_pose_position(bi, q[0])
+				sk.set_bone_pose_rotation(bi, Quaternion(Vector3(0.0, 0.0, 1.0), -(float(q[1]) - float(q0[1]))))
 
 
 func _update_floaters() -> void:
@@ -1347,6 +1396,7 @@ func _physics_process(delta: float) -> void:
 	_update_lifts(delta)
 	_update_boss_lifts()
 	_update_floaters()
+	_update_pod_paths()
 	_update_characters()
 	for br in _belts:  # Stage 97: carry whoever stands on a conveyor ramp
 		var b: Dictionary = br[0]

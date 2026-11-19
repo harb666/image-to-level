@@ -959,6 +959,33 @@
         "metal": 0.7,
         "rough": 0.38,
         "notes": "Stage 184: oily gunmetal for the cog towers' gears (plain colour)"
+      },
+      "tube_drum": {
+        "type": "drum_plate",
+        "color": [
+          0.24,
+          0.19,
+          0.29
+        ],
+        "lip": [
+          0.36,
+          0.34,
+          0.4
+        ],
+        "accent": [
+          1.0,
+          0.08,
+          0.2
+        ],
+        "emissive": [
+          1,
+          1,
+          1
+        ],
+        "wear": 0.5,
+        "res": 256,
+        "toon": true,
+        "notes": "Stage 186 (user: less repetitive, more industrial): the transport tubes' drums - flanged bolted lips, riveted seam, louvred service panel, one small red status lamp, ID plate (wrapped once per drum)"
       }
     }
   },
@@ -1479,7 +1506,7 @@
       "radius": 2.3,
       "source": "inferred",
       "notes": "Stage 151: Toxic Works pod transport tube - capsule pods shoot up it into the roof",
-      "band_material": "tube_band"
+      "band_material": "tube_drum"
     },
     {
       "id": "Pod_Tube_2",
@@ -1491,7 +1518,7 @@
       "radius": 2.6,
       "source": "inferred",
       "notes": "Stage 151: Toxic Works pod transport tube - capsule pods shoot up it into the roof",
-      "band_material": "tube_band"
+      "band_material": "tube_drum"
     },
     {
       "id": "Pod_Tube_3",
@@ -1503,7 +1530,7 @@
       "radius": 2.3,
       "source": "inferred",
       "notes": "Stage 151: Toxic Works pod transport tube - capsule pods shoot up it into the roof",
-      "band_material": "tube_band"
+      "band_material": "tube_drum"
     },
     {
       "id": "Saw_West",
@@ -2181,7 +2208,8 @@
       "source": "visible",
       "notes": "Stage 164 (user concept, without its drawing): a slime reactor in the empty pool west of the east tunnel - vat, glass bubble pipes to the ceiling, ring deck, catwalks to piers, two spouts; Stage 167: the catwalks end at pod transport tubes (like the hall's three)",
       "pipe_run": 6.0,
-      "tube_r": 1.7
+      "tube_r": 1.7,
+      "tube_band": "tube_drum"
     },
     {
       "id": "Pod_Export",
@@ -2217,8 +2245,9 @@
       ],
       "speed": 6.0,
       "source": "visible",
-      "notes": "Stage 175/183 (user): the pod tubes carry on outside over the roof in the hall tubes' own look (glass sections between banded drums, red lights, the hall's capsule pods) - elbow housings, a pipe bridge east to a transfer tower - seen through the glass dome; Stage 185 (user): the risers BEND (quarter-torus elbows) into the runs - no box housings with pods poking out; first bridge under the outlet drums",
-      "run_spacing": 12.0
+      "notes": "Stage 175/183 (user): the pod tubes carry on outside over the roof in the hall tubes' own look (glass sections between banded drums, red lights, the hall's capsule pods) - elbow housings, a pipe bridge east to a transfer tower - seen through the glass dome; Stage 185 (user): the risers BEND (quarter-torus elbows) into the runs - no box housings with pods poking out; first bridge under the outlet drums; Stage 186: one pod path per tube through a GLASS bend (pods seen going round), plated drums",
+      "run_spacing": 12.0,
+      "band": "tube_drum"
     }
   ],
   "spawns": [

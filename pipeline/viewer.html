@@ -417,6 +417,13 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
           if(u>=D.slam&&hit!==k){hit=k;const dx=pos.x-C.x,dz=pos.z-C.z,dd=Math.hypot(dx,dz);if(dd<D.shake)window.camShake=Math.max(window.camShake||0,0.45*(1-dd/D.shake));}}
         else K.th=SW.rpm*6*(t+SW.phase);const q=new THREE.Quaternion().setFromAxisAngle(Y,K.th*Math.PI/180);
         v.copy(C).applyQuaternion(q).negate().add(C);m.compose(v,q,one);rot.forEach(o=>{o.matrix.multiplyMatrices(m,o.userData.rest);o.matrixWorldNeedsUpdate=true;});}});}
+    else if(fx.category==='pod_path'){const PP=fx.pod_path,sm=Object.values(byName).filter(o=>o.isSkinnedMesh&&o.name.startsWith(PP.group+'__')); // Stage 186: pods riding the bent roof pipes - one skinned rig, a bone per pod (same as factory.pod_pose / apply_effects.gd)
+      const sk=sm.length?sm[0].skeleton:null,bn={};if(sk)sk.bones.forEach(b=>{b.userData.rest=b.userData.rest||b.position.clone();bn[b.name]=b;});sm.forEach(o=>o.frustumCulled=false);
+      const ppose=(P,s)=>{const o=P.origin,L1=P.rise,R=P.radius,L2=R*Math.PI/2;if(s<=L1)return[o[0],o[1]+s,o[2],0];if(s<=L1+L2){const a=(s-L1)/R;return[o[0]+R-R*Math.cos(a),o[1]+L1+R*Math.sin(a),o[2],a];}return[o[0]+R+(s-L1-L2),o[1]+L1+R,o[2],Math.PI/2];};
+      const ZA=new THREE.Vector3(0,0,1),PM=(a,b)=>((a%b)+b)%b;
+      fxUpd.push({reset(){Object.values(bn).forEach(b=>{b.position.copy(b.userData.rest);b.quaternion.identity();});},u(t){PP.paths.forEach(P=>{const d=PM(t*PP.speed,P.spacing);P.pods.forEach(pd=>{const B=bn[pd.joint];if(!B)return;
+          const q=ppose(P,pd.s0+d),q0=ppose(P,pd.s0);B.position.set(q[0],q[1],q[2]);B.quaternion.setFromAxisAngle(ZA,-(q[3]-q0[3]));});});
+        sm.forEach(o=>{o.boundingSphere=null;o.boundingBox=null;});}});}
     else if(fx.category==='floater'){const F=fx.floater,sm=Object.values(byName).filter(o=>o.isSkinnedMesh&&o.name.startsWith(F.group+'__')); // Stage 123: floating pads - one skinned rig (same as apply_effects.gd)
       const sk=sm.length?sm[0].skeleton:null,bn={};if(sk)sk.bones.forEach(b=>{b.userData.rest=b.userData.rest||b.position.clone();bn[b.name]=b;});sm.forEach(o=>o.frustumCulled=false);
       const e=new THREE.Euler(),D=Math.PI/180;

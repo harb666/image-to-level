@@ -635,9 +635,13 @@ def column(ctx, s, x, y, z, yaw):
             hh = min(rg.uniform(3, 7), top - 4 - yy); ctx.add(f"{n}_Glass_{k:02d}", "cylinder", [0, yy - 0.1, 0], [2 * r, hh + 0.2, 2 * r], s.get("material", "glass"), g, sections=sec, collision=True, double_sided=True, tube=True, outline=False,
                                                               bubbles=False, **st)  # Stage 49: pods, not bubbles, in the columns
         else:
-            hh = min(rg.uniform(1.0, 3.5), top - 4 - yy); ctx.add(f"{n}_Drum_{k:02d}", "cylinder", [0, yy, 0], [2 * r * 1.12, hh, 2 * r * 1.12], "structure_b" if k % 4 else ctx.role(s.get("band_material", "trim")), g, sections=sec,
+            plated = not k % 4 and ctx.role(s.get("band_material", "trim")) == ctx.role("tube_drum")
+            hh = min(rg.uniform(1.0, 3.5), top - 4 - yy); ctx.add(f"{n}_Drum_{k:02d}", "cylinder", [0, yy, 0], [2 * r * 1.12, hh, 2 * r * 1.12], "structure_b" if k % 4 or plated else ctx.role(s.get("band_material", "trim")), g, sections=sec,
                                                                     hole=round(r * 0.8, 3), hole_res=16, **st)  # Stage 34: a ring - the liquid runs on through it
-            if rg.random() < 0.6 and hh > 0.6:  # set into the drum (centre on the flat face's plane: never floating off a corner)
+            if plated:  # Stage 186: the plated drum texture on an open sleeve round the ring
+                ctx.add(f"{n}_DrumPlate_{k:02d}", "pole", [0, yy, 0], [2 * r * 1.135, hh, 2 * r * 1.135], ctx.role("tube_drum"), g, sections=sec, uv_mode="band",
+                        uv_len=round(math.pi * 2 * r * 1.135 / (sec // 2), 4), open=True, **st)
+            if rg.random() < 0.6 and hh > 0.6 and not plated:  # (Stage 186: the plated drums carry their own lamps) set into the drum (centre on the flat face's plane: never floating off a corner)
                 ctx.add(f"{n}_Red_{k:02d}", "box", [0, yy + hh / 2 - 0.15, r * 1.12 * math.cos(math.pi / sec)], [0.6, 0.3, 0.3], "glow", g, collision=False, outline=False, **st)
         yy += hh
     ctx.add(n + "_Neck", "cylinder", [0, yy, 0], [2 * r * 1.05, top - 2.5 - yy, 2 * r * 1.05], "structure_b", g, sections=sec, hole=round(r * 0.8, 3), hole_res=16, **st)
@@ -650,15 +654,45 @@ def column(ctx, s, x, y, z, yaw):
         tube_pod(ctx, n, g, r, top, rg, rest_top=3.55)
 
 
-def _ext_pod(ctx, nm, c, along_x, grp, rp, h):
+POD_LEN_EXTRA = 0.35  # a capsule pod's cap stands this far past its height h
+
+
+def _ext_pod(ctx, nm, c, along_x, grp, rp, h, theta=None, joint=None):
     """Stage 175/183: a capsule pod for the roof pipes - the hall's pod (tube_pod: frame cap and base, clear shell, the
-    green inside) without its cage bars: base at c (upright) or its rear end at c, lying along +x. Own moving group."""
-    mv = dict(collision=False, outline=False, cutaway=True, intentional=["floating"], mobile={"group": grp})
-    rot = [0, 0, -90] if along_x else [0, 0, 0]; P = (lambda d: [c[0] + d, c[1], c[2]]) if along_x else (lambda d: [c[0], c[1] + d, c[2]])
+    green inside) without its cage bars: base at c (upright) or its rear end at c, lying along +x. Own moving group.
+    Stage 186: "theta" (rad, from +y toward +x) lays it along that direction with c its CENTRE; "joint" = its bone."""
+    mb = {"group": grp}
+    if joint: mb["joint"] = joint
+    mv = dict(collision=False, outline=False, cutaway=True, intentional=["floating"], mobile=mb)
+    if theta is not None:
+        u = (math.sin(theta), math.cos(theta)); pl = h + POD_LEN_EXTRA; b0 = [c[0] - u[0] * pl / 2, c[1] - u[1] * pl / 2, c[2]]
+        rot = [0, 0, round(-math.degrees(theta), 4)]; P = lambda d: [round(b0[0] + u[0] * d, 4), round(b0[1] + u[1] * d, 4), b0[2]]
+    else:
+        rot = [0, 0, -90] if along_x else [0, 0, 0]; P = (lambda d: [c[0] + d, c[1], c[2]]) if along_x else (lambda d: [c[0], c[1] + d, c[2]])
     ctx.add(nm + "_Base", "cylinder", P(0.0), [2 * rp + 0.2, 0.3, 2 * rp + 0.2], "frame", None, rot, sections=6, **mv)
-    ctx.add(nm + "_Shell", "cylinder", P(0.2), [2 * rp, h - 0.25, 2 * rp], ctx.role("glass_clear"), None, rot, sections=6, double_sided=True, **mv)
-    ctx.add(nm + "_Fluid", "cylinder", P(0.27), [2 * rp - 0.24, h - 0.42, 2 * rp - 0.24], "hazard", None, rot, sections=6, **mv)
+    if theta is None:
+        ctx.add(nm + "_Shell", "cylinder", P(0.2), [2 * rp, h - 0.25, 2 * rp], ctx.role("glass_clear"), None, rot, sections=6, double_sided=True, **mv)
+        ctx.add(nm + "_Fluid", "cylinder", P(0.27), [2 * rp - 0.24, h - 0.42, 2 * rp - 0.24], "hazard", None, rot, sections=6, **mv)
+    else:  # Stage 186 (mobile budget): seen through the tube's glass, the green core alone (no clear shell) between base and cap
+        ctx.add(nm + "_Fluid", "cylinder", P(0.2), [2 * rp - 0.1, h - 0.25, 2 * rp - 0.1], "hazard", None, rot, sections=6, **mv)
     ctx.add(nm + "_Cap", "cylinder", P(h - 0.1), [2 * rp + 0.3, 0.45, 2 * rp + 0.3], "frame", None, rot, sections=6, **mv)
+
+
+def pod_pose(path, s):
+    """Stage 186: a point on a roof pod pipe's path (same maths in viewer.html / apply_effects.gd): from "origin" straight
+    up "rise" m, a quarter bend of "radius" turning toward +x, then straight along +x. -> (position [x, y, z], theta: the
+    direction from +y toward +x, rad)."""
+    o, L1, R = path["origin"], float(path["rise"]), float(path["radius"]); L2 = R * math.pi / 2
+    if s <= L1: return [o[0], o[1] + s, o[2]], 0.0
+    if s <= L1 + L2:
+        a = (s - L1) / R; return [o[0] + R - R * math.cos(a), o[1] + L1 + R * math.sin(a), o[2]], a
+    return [o[0] + R + (s - L1 - L2), o[1] + L1 + R, o[2]], math.pi / 2
+
+
+def _drum(ctx, nm, pos, d, hh, mat, rot=None, **st):
+    """Stage 186: a transport-tube drum (diameter d, height hh) with the "drum_plate" texture wrapped once round it,
+    top to bottom (pole, uv_mode band: one tile per two of its 8 faces - a panel face, a plain face - whole drum height) - no stripes repeating down it."""
+    ctx.add(nm, "pole", pos, [d, hh, d], mat, None, rot or [0, 0, 0], sections=8, uv_mode="band", uv_len=round(math.pi * d / 4, 4), **st)  # one tile per two faces: panel face, plain face
 
 
 def _tube_run(ctx, p, a, b, r, along_x, fixed, st, band, glass, rg):
@@ -671,7 +705,9 @@ def _tube_run(ctx, p, a, b, r, along_x, fixed, st, band, glass, rg):
         if k % 2:  # glass (ends sunk 10 cm into the drums)
             hh = min(rg.uniform(4.0, 7.5), b - u); ctx.add(f"{p}_Glass_{k:02d}", "cylinder", P(u - 0.1), [2 * r, hh + 0.2, 2 * r], glass, None, rot, sections=8, double_sided=True, **st)
         else:
-            hh = min(rg.uniform(1.0, 2.6), b - u); ctx.add(f"{p}_Drum_{k:02d}", "cylinder", P(u), [2 * r * 1.12, hh, 2 * r * 1.12], "structure_b" if k % 4 else band, None, rot, sections=8, **st)
+            hh = min(rg.uniform(1.0, 2.6), b - u)
+            if k % 4: ctx.add(f"{p}_Drum_{k:02d}", "cylinder", P(u), [2 * r * 1.12, hh, 2 * r * 1.12], "structure_b", None, rot, sections=8, **st)
+            else: _drum(ctx, f"{p}_Drum_{k:02d}", P(u), 2 * r * 1.12, hh, band, rot, **st)  # Stage 186: plated drum
             if not along_x and k % 4 == 2 and hh > 0.6:  # a red light on the drum's face toward the hall (west)
                 ctx.add(f"{p}_Red_{k:02d}", "box", [fixed[0] - r * 1.12 * math.cos(math.pi / 8), u + hh / 2 - 0.15, fixed[1]], [0.3, 0.3, 0.6], "glow", **st)
         u += hh
@@ -681,38 +717,47 @@ def _tube_run(ctx, p, a, b, r, along_x, fixed, st, band, glass, rg):
 def pod_export(ctx, s, x, y, z, yaw):
     """Stage 175 / 183 (user): the pod transport tubes carry on OUTSIDE, over the hall roof (seen through the glass dome
     against the sky), in the hall tubes' own look: from each tube's spot ("tubes": [[x, z, radius], ...]) the same tube
-    (glass sections between banded drums, red lights) climbs out of a roof collar to a drum-clad elbow housing, bends
-    east into a long run of the same tube carried by a pipe bridge ("bridges") out to a transfer tower ("to_x") - the
-    hall's capsule pods stream up the risers and along the runs (two assembly_line effects; each starts and ends inside
-    an opaque housing, so the wrap never shows). All one cutaway group (the preview hides it from above)."""
+    (glass sections between plated drums, red lights) climbs out of a roof collar, bends east through a glass elbow
+    (Stage 185/186) into a long run of the same tube carried by a pipe bridge ("bridges") out to a transfer tower ("to_x")
+    - the hall's capsule pods ride one continuous path per tube up, round the bend and east ("pod_path" effect, one bone
+    per pod; each appears in the roof collar and vanishes inside the tower, so the wrap never shows; "speed",
+    "pod_spacing"). All one cutaway group (the preview hides it from above)."""
     import random as _r
     n = s["id"]; T = [(float(t[0]), float(t[1]), float(t[2]) if len(t) > 2 else 2.3) for t in s["tubes"]]; roof = float(s.get("roof", getattr(ctx, "ceiling_y", 34.5) + 1.0))
     rmax = max(t[2] for t in T); rp = round(min(rmax * 0.5, 1.3), 3); ph = round(rp * 2.0, 3)  # the hall's pod (tube_pod) for the widest tube
     S = float(s.get("spacing", 6.0)); nr = int(s.get("riser_pods", 3)); SR = float(s.get("run_spacing", 12.0)); to_x = float(s.get("to_x", 92.0))
-    # Stage 185 (user): the riser BENDS into the run (a drum-clad quarter-torus elbow, no box). The lines move every pod
-    # by offset = fmod(t * v, spacing), so a line's first pod appears at its start and its LAST pod vanishes one spacing
-    # past its own start: the risers' vanish point is just inside the opaque inlet drum under the bend (the pod's top in
-    # the bend), the runs' first pod starts in the bend's outlet drum and their last vanishes inside the transfer tower.
-    rt = rmax * 1.12; Rb = round(2 * rt + 0.3, 3); dl = 1.6  # drum radius, bend radius (centreline; pipe_elbow bends at >= the tube's diameter), inlet / outlet drum length
-    y0 = roof + 0.15; yv = y0 + nr * S; ye = round(yv + 1.5, 3); jc = round(ye + Rb, 3)  # riser pods y0 + j S (j < nr), vanish at yv; the bend from ye; the run's axis
-    x0r = Rb + dl - 0.15 - (ph + 0.35)  # (a pod is ph + its cap 0.35 long) run pods' rear ends: the first tx + x0r (in the outlet drum) ...
-    nx = max(1, int(round((to_x + 1.0 - (T[0][0] + x0r)) / SR))); SR = round((to_x + 1.0 - (T[0][0] + x0r)) / nx, 4); x_end = T[0][0] + x0r + nx * SR  # ... the vanish point 1.4 m inside the tower
+    # Stage 185/186 (user): the riser BENDS into the run - a glass quarter-torus between plated drums - and the pods ride
+    # ONE path per tube (pod_pose: up, round the bend, east) on a skinned rig, one bone per pod: offset fmod(t v, spacing)
+    # along the path, so each tube's first pod appears in the roof collar and its last vanishes inside the transfer tower.
+    rt = rmax * 1.12; Rb = round(2 * rt + 0.3, 3); dl = 0.9  # drum radius, bend radius (centreline; pipe_elbow bends at >= the tube's diameter), the bend's end drums
+    y0 = roof + 0.15; ye = round(y0 + nr * S + 1.5, 3); jc = round(ye + Rb, 3)  # the bend from ye; the run's axis
+    pl = ph + POD_LEN_EXTRA; s_a = pl / 2  # pod centres from y0 + pl / 2 (hidden in the collar) ...
     st = dict(collision=False, outline=False, cutaway=True, mobile={"group": n + "_Static"}); glass = ctx.role(s.get("glass", "glass")); band = ctx.role(s.get("band", "tube_band"))
-    body = "structure_b"; rg = _r.Random(n)
+    body = "structure_b"; rg = _r.Random(n); grp = n + "_Pods"; joints, paths = [], []; v = float(s.get("speed", 8.0))
     for k, (tx, tz, r) in enumerate(T):
         p = f"{n}_{k + 1}"; rk = r * 1.12
         ctx.add(p + "_Collar", "cylinder", [tx, roof - 0.05, tz], [2 * r * 1.35, ph + 0.65, 2 * r * 1.35], body, sections=8, **st)  # out of the roof (hides the pods' start) - like the hall tubes' plinth
-        ctx.add(p + "_CollarBand", "cylinder", [tx, roof + ph + 0.6, tz], [2 * r * 1.2, 0.5, 2 * r * 1.2], band, sections=8, **st)
+        _drum(ctx, p + "_CollarBand", [tx, roof + ph + 0.6, tz], 2 * r * 1.2, 0.5, band, **st)
         _tube_run(ctx, p + "_Riser", roof + ph + 1.1, ye - dl, r, False, (tx, tz), st, band, glass, rg)
-        ctx.add(p + "_Inlet", "cylinder", [tx, ye - dl, tz], [2 * rk, dl + 0.05, 2 * rk], band, sections=8, **st)  # opaque: the riser pods vanish in here
-        ctx.add(p + "_Elbow", "pipe_elbow", [tx, ye, tz + rk], [2 * rk, Rb, 2 * rk], body, None, [-90, 0, 0], segments=8, sections=8, **st)  # up, bending east
-        for q, a_ in enumerate((30.0, 60.0)):  # bands round the bend
-            ar = math.radians(a_); cx_, cy_ = tx + Rb - Rb * math.cos(ar), ye + Rb * math.sin(ar); tgx, tgy = math.sin(ar), math.cos(ar)
-            ctx.add(f"{p}_ElbowBand_{q + 1}", "cylinder", [cx_ - tgx * 0.3, cy_ - tgy * 0.3, tz], [2 * rk * 1.07, 0.6, 2 * rk * 1.07], "frame", None, [0, 0, -a_], sections=8, **st)
-        ctx.add(p + "_Outlet", "cylinder", [tx + Rb - 0.05, jc, tz], [2 * rk, dl + 0.05, 2 * rk], band, None, [0, 0, -90], sections=8, **st)  # the run pods start in here
+        _drum(ctx, p + "_Inlet", [tx, ye - dl, tz], 2 * rk, dl + 0.05, band, **st)
+        ctx.add(p + "_Elbow", "pipe_elbow", [tx, ye, tz + r], [2 * r, Rb, 2 * r], glass, None, [-90, 0, 0], segments=8, sections=8, open=True, double_sided=True, **st)  # glass: the pods are seen going round
+        ar = math.radians(45.0); cx_, cy_ = tx + Rb - Rb * math.cos(ar), ye + Rb * math.sin(ar); tg = (math.sin(ar), math.cos(ar))
+        _drum(ctx, p + "_ElbowBand", [cx_ - tg[0] * 0.35, cy_ - tg[1] * 0.35, tz], 2 * rk, 0.7, band, [0, 0, -45.0], **st)  # a plated collar half way round
+        _drum(ctx, p + "_Outlet", [tx + Rb - 0.05, jc, tz], 2 * rk, dl + 0.05, band, [0, 0, -90], **st)
         _tube_run(ctx, p + "_Run", tx + Rb + dl, to_x - 0.4, r, True, (jc, tz), st, band, glass, rg)
-        for j in range(nr): _ext_pod(ctx, f"{n}_RiserPod_{k + 1}_{j + 1}", [tx, y0 + j * S, tz], False, n + "_Risers", rp, ph)
-        for j in range(nx): _ext_pod(ctx, f"{n}_RunPod_{k + 1}_{j + 1}", [tx + x0r + j * SR, jc, tz], True, n + "_Runs", rp, ph)
+        path = dict(origin=[tx, y0, tz], rise=round(ye - y0, 4), radius=Rb, run=round(to_x - tx - Rb + 0.8 + pl, 4))  # (the run ends inside the tower)
+        s_v = path["rise"] + Rb * math.pi / 2 + (to_x + 0.2 + pl / 2 + 0.6 - tx - Rb)  # ... to the vanish point: wholly inside the tower
+        npods = max(2, int(round((s_v - s_a) / float(s.get("pod_spacing", 9.0))))); SP = (s_v - s_a) / npods
+        pods = []
+        for j in range(npods):
+            s0 = s_a + j * SP; c_, th = pod_pose(path, s0); jn = f"{n}_P{k + 1}_{j + 1}"
+            joints.append(dict(name=jn, pivot=[round(q, 4) for q in c_])); pods.append(dict(joint=jn, s0=round(s0, 4)))
+            _ext_pod(ctx, f"{n}_Pod_{k + 1}_{j + 1}", c_, False, grp, rp, ph, theta=th, joint=jn)
+        paths.append(dict(path, spacing=round(SP, 4), pods=pods))
+    x_end = to_x + 0.2 + pl / 2 + 0.6
+    ctx.skeletons = getattr(ctx, "skeletons", {}); ctx.skeletons[grp] = dict(groups=[grp], joints=joints, kind="pod_path")
+    ctx.pod_paths = getattr(ctx, "pod_paths", []) + [dict(id=n, group=grp, skeleton=grp, speed=v, paths=paths,
+                                                          note="pod centre s = s0 + fmod(t * speed, spacing) along pod_pose(path, s); bone = rest pivot moved to the pose, turned about +z by -(theta(s) - theta(s0))")]
     zs = [t[1] for t in T]; z0, z1 = min(zs) - rmax * 1.12 - 1.2, max(zs) + rmax * 1.12 + 1.2; yb = jc - rmax * 1.12 - 0.05  # bridge deck just under the runs
     for k, bxx in enumerate(s.get("bridges", [48.0, 63.0, 78.0])):  # trestles: a cross beam under the runs, legs down (to the roof or the outer factory's floor)
         bxx = float(bxx); foot = roof if bxx < float(s.get("roof_edge", 51.5)) else float(s.get("ground", -8.0))
@@ -721,12 +766,9 @@ def pod_export(ctx, s, x, y, z, yaw):
     tw = 8.5; tz0, tz1 = z0 - 1.0, z1 + 1.0; gnd = float(s.get("ground", -8.0))  # the transfer tower the runs end in (the outer factory's), legs to its floor
     ctx.add(n + "_Tower", "box", [to_x - 0.4 + tw / 2, jc - 7.0, (tz0 + tz1) / 2], [tw, 14.0, tz1 - tz0], body, **st)
     ctx.add(n + "_TowerRoof", "box", [to_x - 0.4 + tw / 2, jc + 7.0, (tz0 + tz1) / 2], [tw + 0.6, 0.4, tz1 - tz0 + 0.6], "frame", **st)
-    ctx.add(n + "_TowerBand", "box", [to_x - 0.45, jc + rmax * 1.12 + 0.4, (tz0 + tz1) / 2], [0.15, 0.6, tz1 - tz0 - 1.0], band, **st)
+    ctx.add(n + "_TowerBand", "box", [to_x - 0.45, jc + rmax * 1.12 + 0.4, (tz0 + tz1) / 2], [0.15, 0.3, tz1 - tz0 - 1.0], "glow", **st)  # one red light strip (Stage 186)
     for zz in (tz0 - 1.2, tz1 + 1.2): ctx.add(f"{n}_TowerLeg_{'NS'[zz > (tz0 + tz1) / 2]}", "box", [to_x - 0.4 + tw / 2, gnd, zz], [2.0, jc - 7.0 - gnd + 0.05, 2.0], body, **st)
-    v = float(s.get("speed", 6.0))
-    ctx.claw_lines = getattr(ctx, "claw_lines", []) + [dict(id=n + "_Up", group=n + "_Risers", speed=v, spacing=S, axis=[0.0, 1.0, 0.0]),
-                                                       dict(id=n + "_East", group=n + "_Runs", speed=v * 1.6, spacing=SR, axis=[1.0, 0.0, 0.0])]
-    ctx.notes.append(f"{n}: {len(T)} pod tubes out through the roof (hall look), bending at {ye:.1f} into runs at {jc:.1f}, east to x {x_end:.1f} ({(nr + nx) * len(T)} pods)")
+    ctx.notes.append(f"{n}: {len(T)} pod tubes out through the roof (hall look), bending at {ye:.1f} into runs at {jc:.1f}, east into the tower at x {x_end:.1f} ({len(joints)} pods on one path rig)")
 
 
 POD_SPEED = 28.0  # m/s up the bore (Stage 49)

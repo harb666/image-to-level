@@ -141,7 +141,8 @@ def arch(w, h, d, o):
 
 
 def pipe_elbow(w, h, d, o):
-    """Quarter torus: tube radius w/2, bend radius h; starts along +z at origin, turns to +x. Capped."""
+    """Quarter torus: tube radius w/2, bend radius h; starts along +z at origin, turns to +x. Capped (Stage 186:
+    "open": true leaves the ends open - a glass bend things travel through)."""
     r, R, seg, sides = w / 2, max(h, w), int(o.get("segments", 6)), int(o.get("sections", 10))
     ang = np.linspace(0, np.pi / 2, seg + 1); phi = np.linspace(0, 2 * np.pi, sides, endpoint=False); V = []
     for a in ang:
@@ -153,6 +154,11 @@ def pipe_elbow(w, h, d, o):
         for j in range(sides):
             a, b_, c, dd = i * sides + j, i * sides + (j + 1) % sides, (i + 1) * sides + (j + 1) % sides, (i + 1) * sides + j
             f += [[a, b_, c], [a, c, dd]]
+    if o.get("open"):  # outward normals (the build's double_sided adds the inside)
+        m = trimesh.Trimesh(V, np.array(f), process=False); C = np.array([[R - R * np.cos(a), r, R * np.sin(a)] for a in ang])
+        k_ = np.arange(len(m.faces)) // (2 * sides); out = np.einsum("ij,ij->i", m.face_normals, m.triangles_center - (C[k_] + C[k_ + 1]) / 2)
+        if (out < 0).mean() > 0.5: m.faces = m.faces[:, ::-1]
+        return m
     c0 = len(V); c1 = c0 + 1; V = np.vstack([V, V[:sides].mean(0), V[-sides:].mean(0)])
     for j in range(sides):
         f += [[c0, (j + 1) % sides, j], [c1, seg * sides + j, seg * sides + (j + 1) % sides]]
@@ -645,8 +651,9 @@ def pole(w, h, d, o):
             F += [[k, n + k, k1], [k1, n + k, n + k1]]; UV += [[u0, 0.0], [u0, 1.0], [u1, 0.0], [u1, 0.0], [u0, 1.0], [u1, 1.0]]  # (trimesh UVs are bottom-up, flipped on glTF export - as shapes.band)
         else:
             F += [[k, n + k, k1], [k1, n + k, n + k1]]; UV += [[0, v0], [h / L, v0], [0, v1], [0, v1], [h / L, v0], [h / L, v1]]
-        F += [[2 * n, k, k1], [2 * n + 1, n + k1, n + k]]; UV += [[0.02, 0.02]] * 6  # caps (the texture's dark corner)
+        if not o.get("open"): F += [[2 * n, k, k1], [2 * n + 1, n + k1, n + k]]; UV += [[0.02, 0.02]] * 6  # caps (the texture's dark corner; Stage 186: "open" = a sleeve)
     m = trimesh.Trimesh(np.array(V, float), np.array(F), process=False)
+    if o.get("open"): m.remove_unreferenced_vertices()
     if (np.einsum("ij,ij->i", m.face_normals, m.triangles_center - [0, h / 2, 0]) < 0).mean() > 0.5: m.faces = m.faces[:, ::-1]; UV = [UV[i - i % 3 + (2 - i % 3)] for i in range(len(UV))]
     m.metadata["uv_corner"] = np.array(UV); return m
 

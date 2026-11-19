@@ -1901,116 +1901,6 @@
    }
   },
   {
-   "id": "Pod_Export_Up_Run",
-   "type": "assembly_line",
-   "category": "assembly",
-   "glb_contains": "parcels, parts and arms at rest (own nodes: mobile groups; arms skinned to one skeleton each)",
-   "godot_runtime": "script (apply_effects.gd _assembly): every node of the line's 'move' groups (<group>__*) slides along 'axis' by fmod(t * speed, spacing); per station the arm's groups turn about 'hinge' through 'pivot' by angle_deg * bump(t - t0, window) every 'period' s, 'held' groups hide from t0 to t0 + 0.6 period, 'scan' groups show only during the dip, and the 'reveal' group gets assembly_reveal.gdshader (fragments with dot(world, plane.xyz) < plane.w discarded: parts appear once the parcel passes the arm). Stage 65/66: a station with 'rig' drives the arm's Skeleton3D instead - bone pose rotation about each joint's rest axis (turret yaw, shoulder, elbow, wrist = -(shoulder + elbow), claw twist, 3 fingers) from the rig's motion program (pipeline/arm_motion.py: jerk-limited servo moves, conveyor tracking, inverse kinematics every frame; no sway)",
-   "line": {
-    "move": [
-     "Pod_Export_Risers"
-    ],
-    "axis": [
-     0.0,
-     1.0,
-     0.0
-    ],
-    "speed": 6.0,
-    "spacing": 6.0,
-    "stations": []
-   },
-   "quality": {
-    "performance": {
-     "enabled": true,
-     "params": {
-      "speed": 1.0
-     },
-     "cost_estimate": {
-      "max_particles": 0,
-      "emitters": 0,
-      "extra_draw_calls": 0
-     }
-    },
-    "balanced": {
-     "enabled": true,
-     "params": {
-      "speed": 1.0
-     },
-     "cost_estimate": {
-      "max_particles": 0,
-      "emitters": 0,
-      "extra_draw_calls": 0
-     }
-    },
-    "quality": {
-     "enabled": true,
-     "params": {
-      "speed": 1.0
-     },
-     "cost_estimate": {
-      "max_particles": 0,
-      "emitters": 0,
-      "extra_draw_calls": 0
-     }
-    }
-   }
-  },
-  {
-   "id": "Pod_Export_East_Run",
-   "type": "assembly_line",
-   "category": "assembly",
-   "glb_contains": "parcels, parts and arms at rest (own nodes: mobile groups; arms skinned to one skeleton each)",
-   "godot_runtime": "script (apply_effects.gd _assembly): every node of the line's 'move' groups (<group>__*) slides along 'axis' by fmod(t * speed, spacing); per station the arm's groups turn about 'hinge' through 'pivot' by angle_deg * bump(t - t0, window) every 'period' s, 'held' groups hide from t0 to t0 + 0.6 period, 'scan' groups show only during the dip, and the 'reveal' group gets assembly_reveal.gdshader (fragments with dot(world, plane.xyz) < plane.w discarded: parts appear once the parcel passes the arm). Stage 65/66: a station with 'rig' drives the arm's Skeleton3D instead - bone pose rotation about each joint's rest axis (turret yaw, shoulder, elbow, wrist = -(shoulder + elbow), claw twist, 3 fingers) from the rig's motion program (pipeline/arm_motion.py: jerk-limited servo moves, conveyor tracking, inverse kinematics every frame; no sway)",
-   "line": {
-    "move": [
-     "Pod_Export_Runs"
-    ],
-    "axis": [
-     1.0,
-     0.0,
-     0.0
-    ],
-    "speed": 9.600000000000001,
-    "spacing": 11.219,
-    "stations": []
-   },
-   "quality": {
-    "performance": {
-     "enabled": true,
-     "params": {
-      "speed": 1.0
-     },
-     "cost_estimate": {
-      "max_particles": 0,
-      "emitters": 0,
-      "extra_draw_calls": 0
-     }
-    },
-    "balanced": {
-     "enabled": true,
-     "params": {
-      "speed": 1.0
-     },
-     "cost_estimate": {
-      "max_particles": 0,
-      "emitters": 0,
-      "extra_draw_calls": 0
-     }
-    },
-    "quality": {
-     "enabled": true,
-     "params": {
-      "speed": 1.0
-     },
-     "cost_estimate": {
-      "max_particles": 0,
-      "emitters": 0,
-      "extra_draw_calls": 0
-     }
-    }
-   }
-  },
-  {
    "id": "Screen_Pulse_specimen_scan",
    "type": "pulse_light",
    "category": "material_animation",
@@ -4097,6 +3987,186 @@
       "max_particles": 106,
       "emitters": 2,
       "extra_draw_calls": 2
+     }
+    }
+   }
+  },
+  {
+   "id": "Pod_Export_Pods",
+   "type": "pod_path",
+   "category": "pod_path",
+   "glb_contains": "pods at rest",
+   "godot_runtime": "script (apply_effects.gd _pod_paths): the pods' skinned rig (<group>__*), one bone per pod: centre s = s0 + fmod(t * speed, path.spacing) along pod_pose (up 'rise', a quarter bend of 'radius' toward +x, then along +x); bone pose = that point, turned about +z by -(theta(s) - theta(s0))",
+   "pod_path": {
+    "id": "Pod_Export",
+    "group": "Pod_Export_Pods",
+    "skeleton": "Pod_Export_Pods",
+    "speed": 6.0,
+    "paths": [
+     {
+      "origin": [
+       43.5,
+       35.65,
+       -45.0
+      ],
+      "rise": 19.5,
+      "radius": 6.124,
+      "run": 46.126,
+      "spacing": 9.0369,
+      "pods": [
+       {
+        "joint": "Pod_Export_P1_1",
+        "s0": 1.475
+       },
+       {
+        "joint": "Pod_Export_P1_2",
+        "s0": 10.5119
+       },
+       {
+        "joint": "Pod_Export_P1_3",
+        "s0": 19.5489
+       },
+       {
+        "joint": "Pod_Export_P1_4",
+        "s0": 28.5858
+       },
+       {
+        "joint": "Pod_Export_P1_5",
+        "s0": 37.6228
+       },
+       {
+        "joint": "Pod_Export_P1_6",
+        "s0": 46.6597
+       },
+       {
+        "joint": "Pod_Export_P1_7",
+        "s0": 55.6967
+       },
+       {
+        "joint": "Pod_Export_P1_8",
+        "s0": 64.7336
+       }
+      ]
+     },
+     {
+      "origin": [
+       43.5,
+       35.65,
+       -34.0
+      ],
+      "rise": 19.5,
+      "radius": 6.124,
+      "run": 46.126,
+      "spacing": 9.0369,
+      "pods": [
+       {
+        "joint": "Pod_Export_P2_1",
+        "s0": 1.475
+       },
+       {
+        "joint": "Pod_Export_P2_2",
+        "s0": 10.5119
+       },
+       {
+        "joint": "Pod_Export_P2_3",
+        "s0": 19.5489
+       },
+       {
+        "joint": "Pod_Export_P2_4",
+        "s0": 28.5858
+       },
+       {
+        "joint": "Pod_Export_P2_5",
+        "s0": 37.6228
+       },
+       {
+        "joint": "Pod_Export_P2_6",
+        "s0": 46.6597
+       },
+       {
+        "joint": "Pod_Export_P2_7",
+        "s0": 55.6967
+       },
+       {
+        "joint": "Pod_Export_P2_8",
+        "s0": 64.7336
+       }
+      ]
+     },
+     {
+      "origin": [
+       43.5,
+       35.65,
+       -23.0
+      ],
+      "rise": 19.5,
+      "radius": 6.124,
+      "run": 46.126,
+      "spacing": 9.0369,
+      "pods": [
+       {
+        "joint": "Pod_Export_P3_1",
+        "s0": 1.475
+       },
+       {
+        "joint": "Pod_Export_P3_2",
+        "s0": 10.5119
+       },
+       {
+        "joint": "Pod_Export_P3_3",
+        "s0": 19.5489
+       },
+       {
+        "joint": "Pod_Export_P3_4",
+        "s0": 28.5858
+       },
+       {
+        "joint": "Pod_Export_P3_5",
+        "s0": 37.6228
+       },
+       {
+        "joint": "Pod_Export_P3_6",
+        "s0": 46.6597
+       },
+       {
+        "joint": "Pod_Export_P3_7",
+        "s0": 55.6967
+       },
+       {
+        "joint": "Pod_Export_P3_8",
+        "s0": 64.7336
+       }
+      ]
+     }
+    ],
+    "note": "pod centre s = s0 + fmod(t * speed, spacing) along pod_pose(path, s); bone = rest pivot moved to the pose, turned about +z by -(theta(s) - theta(s0))"
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
      }
     }
    }
@@ -6341,13 +6411,13 @@
     "Ceil_Step_03_Strip",
     "Ceil_Step_02_Strip",
     "Ceil_Step_01_Strip",
+    "Pod_Export_TowerBand",
     "Pod_Export_3_Riser_Red_02",
     "Pod_Export_2_Riser_Red_02",
     "Pod_Export_1_Riser_Red_02",
     "Reactor_Catwalk_3_Tube_Red_02",
     "Reactor_Catwalk_2_Tube_Red_06",
     "Reactor_Catwalk_2_Tube_Red_02",
-    "Reactor_Catwalk_1_Tube_Red_04",
     "Reactor_Catwalk_1_Tube_Red_02",
     "Reactor_DiffuserRing",
     "Jet_Screen_Button",
@@ -6567,10 +6637,8 @@
     "Saw_West_ShoulderGlow_R",
     "Saw_West_ShoulderGlow_L",
     "Saw_West_ColGlow",
-    "Pod_Tube_3_Red_04",
     "Pod_Tube_3_Red_02",
     "Pod_Tube_2_Red_06",
-    "Pod_Tube_2_Red_04",
     "Pod_Tube_2_Red_02",
     "Pod_Tube_1_Red_06",
     "East_SlimeTunnel_Lamp_R",

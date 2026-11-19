@@ -52,6 +52,9 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
     "steam_burst": dict(category="particles", godot="CPUParticles3D, ONE system over every vent point (emission points), one_shot re-triggered at the 'sync' cycle times (u = (t + phase) mod period crossing each 'at'), growing soft puffs", glb="nothing",
                         defaults=dict(burst=10, interval=[9.5, 9.5], lifetime=2.2, speed=[1.5, 3.5], gravity=0.8, size=[0.9, 4.5], alpha=0.6, color=[0.93, 0.91, 0.97], texture="puff", blend="alpha", spread=55, radius=0.4)),
     "character": dict(category="character", godot="script (apply_effects.gd _characters): instance the character GLB (asset, repo-relative; the package copies it next to the level) at position / yaw; AnimationPlayer plays clips.idle looped; while a player is within trigger.radius of trigger.center it crossfades (fade s) to clips.alert and back; the float.node bobs y = amp sin(2 pi t / period)", glb="nothing (own GLB)", defaults=dict()),
+    "pod_path": dict(category="pod_path", godot="script (apply_effects.gd _pod_paths): the pods' skinned rig (<group>__*), one bone per pod: "
+                     "centre s = s0 + fmod(t * speed, path.spacing) along pod_pose (up 'rise', a quarter bend of 'radius' toward +x, then along +x); "
+                     "bone pose = that point, turned about +z by -(theta(s) - theta(s0))", glb="pods at rest", defaults=dict()),
     "floater": dict(category="floater", godot="script (apply_effects.gd _floaters): the pad group bobs and sways on an AnimatableBody3D carrying its deck collider; its jet flame group flickers", glb="pad at rest", defaults=dict()),
     "jet": dict(category="jet", godot="script (apply_effects.gd _jets): the screen's groups (<body>/<flame>/<hatch>/<cap>__*) are posed by jet_pose: bobbing at home; a player on the trigger sends it flying to 'arrive'; the drawer opens and the button terminal goes live; once used it spins and jets home",
                 glb="screen at home", defaults=dict()),
@@ -369,6 +372,7 @@ def resolve(level_dir, L=None):
         if e.get("boss_lift"): R["boss_lift"] = e["boss_lift"]  # Stage 173
         if e.get("jet"): R["jet"] = e["jet"]  # Stage 119
         if e.get("character"): R["character"] = e["character"]  # Stage 152
+        if e.get("pod_path"): R["pod_path"] = e["pod_path"]  # Stage 186
         if e.get("floater"): R["floater"] = e["floater"]  # Stage 123  # Stage 104: bursts fired at cycle times (steam_burst)
         if e.get("launches"): R["launches"] = [dict(l, targets=[n for n in l["targets"] if n in boxes]) for l in e["launches"]]
         if e["type"] == "spin" and tg: R["speeds"] = {n: by[n].get("spin", prm["speed_rpm"]) for n in tg if n in by}
