@@ -490,7 +490,7 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
     else if(fx.category==='translate_loop'){const tg=(fx.targets||[]).map(n=>byName[n]).filter(Boolean),y0=tg.map(o=>o.position.y); // Stage 43: barrels up the column bores
       fxUpd.push({reset(){tg.forEach((o,i)=>o.position.y=y0[i]);},u(t){const d=(t*p.speed)%p.spacing;tg.forEach((o,i)=>o.position.y=y0[i]+d);}});}
     else if(fx.category==='transform_animation'){const tg=(fx.targets||[]).map(n=>[byName[n],(fx.speeds||{})[n]??p.speed_rpm]).filter(a=>a[0]); // spinning fan rotors
-      const r0=tg.map(a=>a[0].quaternion.clone());fxUpd.push({reset(){tg.forEach((a,i)=>a[0].quaternion.copy(r0[i]));},u(t,dt){for(const [o,r] of tg)o.rotateY(r*6.2831/60*dt);}});}
+      const r0=tg.map(a=>a[0].quaternion.clone()),qs=new THREE.Quaternion(),YA=new THREE.Vector3(0,1,0);fxUpd.push({reset(){tg.forEach((a,i)=>a[0].quaternion.copy(r0[i]));},u(t,dt){tg.forEach(([o,r],i)=>o.quaternion.copy(r0[i]).multiply(qs.setFromAxisAngle(YA,r*6.283185/60*t)));}});} // Stage 187: absolute angle (rest * turn(rpm * t)) - crank-driven parts keyed to t stay in step
     else if(fx.category==='particles')makeParticles(fx,p);
     else if(fx.category==='transparent_mesh'&&fx.area)makeFog(fx,p);
     else if(fx.category==='cloud_layer')makeCloudLayer(fx,p);

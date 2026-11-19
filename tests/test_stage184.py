@@ -25,10 +25,7 @@ class IndustrialCogs(unittest.TestCase):
             for g in gears:
                 self.assertEqual(g["material"], "cog_steel"); self.assertGreaterEqual(g["spokes"], 4); self.assertTrue(g.get("spin"))
             for i in (1, 2, 3): self.assertIn(f"Showcase_Cogs_{t}_Bearing_{i}", self.by)
-            for k in ("Gauge", "GaugeFace", "Fin_1", "Fin_3", "PlateEdge_1", "PlateEdge_4", "Rivet_L1", "Rivet_R5"): self.assertIn(f"Showcase_Cogs_{t}_{k}", self.by)
-            g1 = gears[0]; tip = g1["position"][1] - g1["size"][0] / 2
-            for f in (1, 2, 3):
-                fn = self.by[f"Showcase_Cogs_{t}_Fin_{f}"]; self.assertLess(fn["position"][1] + fn["size"][1], tip - 0.02)  # fins clear the big cog's teeth
+            for k in ("Gauge", "GaugeFace", "PlateEdge_1", "PlateEdge_4"): self.assertIn(f"Showcase_Cogs_{t}_{k}", self.by)  # (Stage 187: fins / rivets made way for the pump)
         m = self.L["materials"]["cog_steel"]; self.assertTrue(m.get("plain")); self.assertLess(max(m["color"]), 0.3)
 
     def test_mobile_budget(self):

@@ -831,6 +831,11 @@ def gear(w, h, d, o):
     for k in range(nb):  # hex bolt heads on the hub's front face
         a_ = ph + 2 * np.pi * k / nb; b_ = trimesh.creation.cylinder(radius=rh * 0.2, height=0.12, sections=6)
         b_.apply_transform(trimesh.transformations.rotation_matrix(-np.pi / 2, [1, 0, 0])); b_.apply_translation([rh * 0.68 * np.cos(a_), bz + 0.05, -rh * 0.68 * np.sin(a_)]); parts.append(b_)
+    if o.get("crank"):  # Stage 187: a crank pin standing out of the front face at [radius, world angle (rad), length] (+ a washer)
+        cr, ca, cl = (float(v) for v in o["crank"])
+        for rad_, y0_, y1_ in ((0.09, 0.1, cl), (0.14, cl - 0.06, cl)):
+            pin = trimesh.creation.cylinder(radius=rad_, height=y1_ - y0_, sections=8); pin.apply_transform(trimesh.transformations.rotation_matrix(-np.pi / 2, [1, 0, 0]))
+            pin.apply_translation([cr * np.cos(ca), (y0_ + y1_) / 2, -cr * np.sin(ca)]); parts.append(pin)
     m = trimesh.util.concatenate(parts); m.metadata["uv"] = np.full((len(m.vertices), 2), 0.5); return m
 
 

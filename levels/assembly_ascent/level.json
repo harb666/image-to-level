@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "44f87baf3d901da6",
+  "spec_sha": "7b951682daa720d3",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -2117,6 +2117,122 @@
    }
   },
   {
+   "id": "Cog_Pump_Steam",
+   "type": "steam_jet",
+   "jets": [
+    [
+     [
+      -43.3,
+      11.05,
+      -64.55
+     ],
+     [
+      -1.0,
+      0.25,
+      0.35
+     ]
+    ],
+    [
+     [
+      -41.7,
+      11.05,
+      -64.55
+     ],
+     [
+      1.0,
+      0.25,
+      0.35
+     ]
+    ],
+    [
+     [
+      -18.3,
+      11.05,
+      -64.55
+     ],
+     [
+      -1.0,
+      0.25,
+      0.35
+     ]
+    ],
+    [
+     [
+      -16.7,
+      11.05,
+      -64.55
+     ],
+     [
+      1.0,
+      0.25,
+      0.35
+     ]
+    ]
+   ],
+   "sync": {
+    "period": 8.5714,
+    "phase": 0.0,
+    "at": [
+     6.6964
+    ]
+   },
+   "speed": [
+    4.0,
+    6.0
+   ],
+   "emit_time": 0.45,
+   "burst": 7,
+   "lifetime": 1.0,
+   "size": [
+    0.15,
+    1.4
+   ]
+  },
+  {
+   "id": "Cog_Pump_Glow",
+   "type": "pulse_light",
+   "target_material": "pump_glow",
+   "speed": 0.11667,
+   "amount": 0.85,
+   "phase": 2.9452
+  },
+  {
+   "id": "Showcase_Cogs_a_Yoke_Bob",
+   "type": "bob",
+   "bob": {
+    "id": "Showcase_Cogs_a_Yoke",
+    "group": "Showcase_Cogs_a_Yoke",
+    "pivot": [
+     -42.5,
+     13.6,
+     -64.0
+    ],
+    "amp": 0.8,
+    "period": 8.5714,
+    "phase": 8.3035,
+    "sway": 0.0,
+    "note": "Stage 187: Scotch yoke - d = rc sin(w t + phi0), the cog's own turn"
+   }
+  },
+  {
+   "id": "Showcase_Cogs_b_Yoke_Bob",
+   "type": "bob",
+   "bob": {
+    "id": "Showcase_Cogs_b_Yoke",
+    "group": "Showcase_Cogs_b_Yoke",
+    "pivot": [
+     -17.5,
+     13.6,
+     -64.0
+    ],
+    "amp": 0.8,
+    "period": 8.5714,
+    "phase": 8.3035,
+    "sway": 0.0,
+    "note": "Stage 187: Scotch yoke - d = rc sin(w t + phi0), the cog's own turn"
+   }
+  },
+  {
    "id": "Arena_Emerge",
    "type": "emerge",
    "riser": {
@@ -3173,7 +3289,7 @@
     16.0,
     65.0
    ],
-   "count": 220,
+   "count": 190,
    "color": [
     0.6,
     1.0,
@@ -4478,6 +4594,24 @@
    "res": 256,
    "toon": true,
    "notes": "Stage 106: diagonal hazard stripes wound round the mace poles (concept art)"
+  },
+  "pump_glow": {
+   "type": "glow",
+   "color": [
+    0.45,
+    1.0,
+    0.25
+   ],
+   "tile_m": 4.0,
+   "wear": 0.5,
+   "bevel": 0.12,
+   "plain": true,
+   "emissive": [
+    0.45,
+    1.0,
+    0.25
+   ],
+   "notes": "Stage 187: the cog pumps' glow (barrel ring, gauge) - surges at the bottom of each stroke (Cog_Pump_Glow)"
   },
   "rail": {
    "type": "painted_metal",
@@ -28825,286 +28959,6 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Cogs_a_Rivet_L1",
-   "type": "cylinder",
-   "position": [
-    -44.25,
-    12.0,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_a_Rivet_R1",
-   "type": "cylinder",
-   "position": [
-    -39.827,
-    12.0,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_a_Rivet_L2",
-   "type": "cylinder",
-   "position": [
-    -44.25,
-    13.875,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_a_Rivet_R2",
-   "type": "cylinder",
-   "position": [
-    -39.827,
-    13.875,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_a_Rivet_L3",
-   "type": "cylinder",
-   "position": [
-    -44.25,
-    15.749,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_a_Rivet_R3",
-   "type": "cylinder",
-   "position": [
-    -39.827,
-    15.749,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_a_Rivet_L4",
-   "type": "cylinder",
-   "position": [
-    -44.25,
-    17.624,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_a_Rivet_R4",
-   "type": "cylinder",
-   "position": [
-    -39.827,
-    17.624,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_a_Rivet_L5",
-   "type": "cylinder",
-   "position": [
-    -44.25,
-    19.499,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_a_Rivet_R5",
-   "type": "cylinder",
-   "position": [
-    -39.827,
-    19.499,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
    "name": "Showcase_Cogs_a_Gear_1",
    "type": "gear",
    "position": [
@@ -29133,6 +28987,11 @@
    "mobile": {
     "merge": false
    },
+   "crank": [
+    0.8,
+    -0.19635,
+    0.82
+   ],
    "gen": "Showcase",
    "source": "inferred"
   },
@@ -29155,7 +29014,7 @@
     1.224
    ],
    "material": "lift_ring",
-   "sections": 8,
+   "sections": 6,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -29271,7 +29130,7 @@
     0.864
    ],
    "material": "lift_ring",
-   "sections": 8,
+   "sections": 6,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -29387,7 +29246,7 @@
     0.768
    ],
    "material": "lift_ring",
-   "sections": 8,
+   "sections": 6,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -29468,7 +29327,7 @@
    "size": [
     1.5,
     1.2,
-    0.9
+    0.6
    ],
    "material": "saw_hub",
    "collision": false,
@@ -29483,9 +29342,9 @@
    "name": "Showcase_Cogs_a_GearboxLamp",
    "type": "box",
    "position": [
-    -42.1,
+    -41.97,
     11.1,
-    -64.14
+    -64.29
    ],
    "rotation": [
     0.0,
@@ -29493,7 +29352,7 @@
     0.0
    ],
    "size": [
-    0.36,
+    0.3,
     0.14,
     0.04
    ],
@@ -29507,93 +29366,12 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Cogs_a_Fin_1",
-   "type": "box",
-   "position": [
-    -42.95,
-    11.69,
-    -64.6
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.15,
-    0.8
-   ],
-   "material": "lift_ring",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_a_Fin_2",
-   "type": "box",
-   "position": [
-    -42.5,
-    11.69,
-    -64.6
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.15,
-    0.8
-   ],
-   "material": "lift_ring",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_a_Fin_3",
-   "type": "box",
-   "position": [
-    -42.05,
-    11.69,
-    -64.6
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.15,
-    0.8
-   ],
-   "material": "lift_ring",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
    "name": "Showcase_Cogs_a_Gauge",
    "type": "cylinder",
    "position": [
-    -42.85,
+    -43.03,
     11.03,
-    -64.17
+    -64.32
    ],
    "rotation": [
     90.0,
@@ -29601,12 +29379,12 @@
     0.0
    ],
    "size": [
-    0.44,
+    0.4,
     0.06,
-    0.44
+    0.4
    ],
    "material": "lift_ring",
-   "sections": 10,
+   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -29619,9 +29397,9 @@
    "name": "Showcase_Cogs_a_GaugeFace",
    "type": "cylinder",
    "position": [
-    -42.85,
+    -43.03,
     11.03,
-    -64.12
+    -64.27
    ],
    "rotation": [
     90.0,
@@ -29629,16 +29407,401 @@
     0.0
    ],
    "size": [
-    0.34,
+    0.3,
     0.02,
-    0.34
+    0.3
    ],
-   "material": "glow_green",
-   "sections": 10,
+   "material": "pump_glow",
+   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
     "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_Guide_L",
+   "type": "box",
+   "position": [
+    -43.63,
+    12.35,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    2.35,
+    0.16
+   ],
+   "material": "lift_ring",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_Guide_R",
+   "type": "box",
+   "position": [
+    -41.37,
+    12.35,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    2.35,
+    0.16
+   ],
+   "material": "lift_ring",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_GuideTop",
+   "type": "box",
+   "position": [
+    -42.5,
+    14.68,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.46,
+    0.14,
+    0.16
+   ],
+   "material": "lift_ring",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_PumpHead",
+   "type": "box",
+   "position": [
+    -42.5,
+    12.35,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.46,
+    0.15,
+    0.3
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_PumpGland",
+   "type": "cylinder",
+   "position": [
+    -42.5,
+    12.5,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.24,
+    0.1,
+    0.24
+   ],
+   "material": "cog_paint",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_Barrel",
+   "type": "cylinder",
+   "position": [
+    -42.5,
+    10.5,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.56,
+    1.85,
+    0.56
+   ],
+   "material": "glass",
+   "sections": 8,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_BarrelFoot",
+   "type": "cylinder",
+   "position": [
+    -42.5,
+    10.35,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.15,
+    0.7
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_BarrelGlow",
+   "type": "cylinder",
+   "position": [
+    -42.5,
+    10.5,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.64,
+    0.07,
+    0.64
+   ],
+   "material": "pump_glow",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_YokeTop",
+   "type": "box",
+   "position": [
+    -42.5,
+    13.71,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.1,
+    0.12,
+    0.12
+   ],
+   "material": "lift_ring",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Showcase_Cogs_a_Yoke"
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_YokeBottom",
+   "type": "box",
+   "position": [
+    -42.5,
+    13.37,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.1,
+    0.12,
+    0.12
+   ],
+   "material": "lift_ring",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Showcase_Cogs_a_Yoke"
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_YokeEnd_L",
+   "type": "box",
+   "position": [
+    -43.49,
+    13.37,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    0.46,
+    0.12
+   ],
+   "material": "lift_ring",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Showcase_Cogs_a_Yoke"
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_YokeEnd_R",
+   "type": "box",
+   "position": [
+    -41.51,
+    13.37,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    0.46,
+    0.12
+   ],
+   "material": "lift_ring",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Showcase_Cogs_a_Yoke"
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_PistonRod",
+   "type": "cylinder",
+   "position": [
+    -42.5,
+    11.37,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    2.0,
+    0.14
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Showcase_Cogs_a_Yoke"
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_a_Piston",
+   "type": "cylinder",
+   "position": [
+    -42.5,
+    11.37,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.46,
+    0.12,
+    0.46
+   ],
+   "material": "cog_paint",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Showcase_Cogs_a_Yoke"
    },
    "gen": "Showcase",
    "source": "inferred"
@@ -29890,286 +30053,6 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Cogs_b_Rivet_L1",
-   "type": "cylinder",
-   "position": [
-    -20.173,
-    12.0,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_b_Rivet_R1",
-   "type": "cylinder",
-   "position": [
-    -15.75,
-    12.0,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_b_Rivet_L2",
-   "type": "cylinder",
-   "position": [
-    -20.173,
-    13.875,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_b_Rivet_R2",
-   "type": "cylinder",
-   "position": [
-    -15.75,
-    13.875,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_b_Rivet_L3",
-   "type": "cylinder",
-   "position": [
-    -20.173,
-    15.749,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_b_Rivet_R3",
-   "type": "cylinder",
-   "position": [
-    -15.75,
-    15.749,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_b_Rivet_L4",
-   "type": "cylinder",
-   "position": [
-    -20.173,
-    17.624,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_b_Rivet_R4",
-   "type": "cylinder",
-   "position": [
-    -15.75,
-    17.624,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_b_Rivet_L5",
-   "type": "cylinder",
-   "position": [
-    -20.173,
-    19.499,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_b_Rivet_R5",
-   "type": "cylinder",
-   "position": [
-    -15.75,
-    19.499,
-    -64.87
-   ],
-   "rotation": [
-    90.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.13,
-    0.1,
-    0.13
-   ],
-   "material": "lift_ring",
-   "sections": 6,
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
    "name": "Showcase_Cogs_b_Gear_1",
    "type": "gear",
    "position": [
@@ -30198,6 +30081,11 @@
    "mobile": {
     "merge": false
    },
+   "crank": [
+    0.8,
+    -0.19635,
+    0.82
+   ],
    "gen": "Showcase",
    "source": "inferred"
   },
@@ -30220,7 +30108,7 @@
     1.224
    ],
    "material": "lift_ring",
-   "sections": 8,
+   "sections": 6,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -30336,7 +30224,7 @@
     0.864
    ],
    "material": "lift_ring",
-   "sections": 8,
+   "sections": 6,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -30452,7 +30340,7 @@
     0.768
    ],
    "material": "lift_ring",
-   "sections": 8,
+   "sections": 6,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -30533,7 +30421,7 @@
    "size": [
     1.5,
     1.2,
-    0.9
+    0.6
    ],
    "material": "saw_hub",
    "collision": false,
@@ -30548,9 +30436,9 @@
    "name": "Showcase_Cogs_b_GearboxLamp",
    "type": "box",
    "position": [
-    -17.1,
+    -16.97,
     11.1,
-    -64.14
+    -64.29
    ],
    "rotation": [
     0.0,
@@ -30558,7 +30446,7 @@
     0.0
    ],
    "size": [
-    0.36,
+    0.3,
     0.14,
     0.04
    ],
@@ -30572,93 +30460,12 @@
    "source": "inferred"
   },
   {
-   "name": "Showcase_Cogs_b_Fin_1",
-   "type": "box",
-   "position": [
-    -17.95,
-    11.69,
-    -64.6
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.15,
-    0.8
-   ],
-   "material": "lift_ring",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_b_Fin_2",
-   "type": "box",
-   "position": [
-    -17.5,
-    11.69,
-    -64.6
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.15,
-    0.8
-   ],
-   "material": "lift_ring",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
-   "name": "Showcase_Cogs_b_Fin_3",
-   "type": "box",
-   "position": [
-    -17.05,
-    11.69,
-    -64.6
-   ],
-   "rotation": [
-    0.0,
-    0.0,
-    0.0
-   ],
-   "size": [
-    0.08,
-    0.15,
-    0.8
-   ],
-   "material": "lift_ring",
-   "collision": false,
-   "outline": false,
-   "mobile": {
-    "static": true
-   },
-   "gen": "Showcase",
-   "source": "inferred"
-  },
-  {
    "name": "Showcase_Cogs_b_Gauge",
    "type": "cylinder",
    "position": [
-    -17.85,
+    -18.03,
     11.03,
-    -64.17
+    -64.32
    ],
    "rotation": [
     90.0,
@@ -30666,12 +30473,12 @@
     0.0
    ],
    "size": [
-    0.44,
+    0.4,
     0.06,
-    0.44
+    0.4
    ],
    "material": "lift_ring",
-   "sections": 10,
+   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
@@ -30684,9 +30491,9 @@
    "name": "Showcase_Cogs_b_GaugeFace",
    "type": "cylinder",
    "position": [
-    -17.85,
+    -18.03,
     11.03,
-    -64.12
+    -64.27
    ],
    "rotation": [
     90.0,
@@ -30694,16 +30501,401 @@
     0.0
    ],
    "size": [
-    0.34,
+    0.3,
     0.02,
-    0.34
+    0.3
    ],
-   "material": "glow_green",
-   "sections": 10,
+   "material": "pump_glow",
+   "sections": 8,
    "collision": false,
    "outline": false,
    "mobile": {
     "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_Guide_L",
+   "type": "box",
+   "position": [
+    -18.63,
+    12.35,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    2.35,
+    0.16
+   ],
+   "material": "lift_ring",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_Guide_R",
+   "type": "box",
+   "position": [
+    -16.37,
+    12.35,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.1,
+    2.35,
+    0.16
+   ],
+   "material": "lift_ring",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_GuideTop",
+   "type": "box",
+   "position": [
+    -17.5,
+    14.68,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.46,
+    0.14,
+    0.16
+   ],
+   "material": "lift_ring",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_PumpHead",
+   "type": "box",
+   "position": [
+    -17.5,
+    12.35,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.46,
+    0.15,
+    0.3
+   ],
+   "material": "saw_hub",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_PumpGland",
+   "type": "cylinder",
+   "position": [
+    -17.5,
+    12.5,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.24,
+    0.1,
+    0.24
+   ],
+   "material": "cog_paint",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_Barrel",
+   "type": "cylinder",
+   "position": [
+    -17.5,
+    10.5,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.56,
+    1.85,
+    0.56
+   ],
+   "material": "glass",
+   "sections": 8,
+   "double_sided": true,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_BarrelFoot",
+   "type": "cylinder",
+   "position": [
+    -17.5,
+    10.35,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.7,
+    0.15,
+    0.7
+   ],
+   "material": "saw_hub",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_BarrelGlow",
+   "type": "cylinder",
+   "position": [
+    -17.5,
+    10.5,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.64,
+    0.07,
+    0.64
+   ],
+   "material": "pump_glow",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_YokeTop",
+   "type": "box",
+   "position": [
+    -17.5,
+    13.71,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.1,
+    0.12,
+    0.12
+   ],
+   "material": "lift_ring",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Showcase_Cogs_b_Yoke"
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_YokeBottom",
+   "type": "box",
+   "position": [
+    -17.5,
+    13.37,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    2.1,
+    0.12,
+    0.12
+   ],
+   "material": "lift_ring",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Showcase_Cogs_b_Yoke"
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_YokeEnd_L",
+   "type": "box",
+   "position": [
+    -18.49,
+    13.37,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    0.46,
+    0.12
+   ],
+   "material": "lift_ring",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Showcase_Cogs_b_Yoke"
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_YokeEnd_R",
+   "type": "box",
+   "position": [
+    -16.51,
+    13.37,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.12,
+    0.46,
+    0.12
+   ],
+   "material": "lift_ring",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Showcase_Cogs_b_Yoke"
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_PistonRod",
+   "type": "cylinder",
+   "position": [
+    -17.5,
+    11.37,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.14,
+    2.0,
+    0.14
+   ],
+   "material": "lift_ring",
+   "sections": 6,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Showcase_Cogs_b_Yoke"
+   },
+   "gen": "Showcase",
+   "source": "inferred"
+  },
+  {
+   "name": "Showcase_Cogs_b_Piston",
+   "type": "cylinder",
+   "position": [
+    -17.5,
+    11.37,
+    -64.0
+   ],
+   "rotation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "size": [
+    0.46,
+    0.12,
+    0.46
+   ],
+   "material": "cog_paint",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Showcase_Cogs_b_Yoke"
    },
    "gen": "Showcase",
    "source": "inferred"
@@ -121721,13 +121913,13 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 109696,
-  "objects": 3652,
-  "materials": 67,
-  "glb_kb": 7209,
-  "nodes": 3982,
-  "draw_calls_unbatched": 3926,
-  "draw_calls_batched_min": 69,
+  "triangles": 109720,
+  "objects": 3654,
+  "materials": 68,
+  "glb_kb": 7227,
+  "nodes": 3984,
+  "draw_calls_unbatched": 3928,
+  "draw_calls_batched_min": 70,
   "images": 157,
   "tex_mem_gpu_compressed_mb": 41.99,
   "tex_mem_uncompressed_mb": 167.95,

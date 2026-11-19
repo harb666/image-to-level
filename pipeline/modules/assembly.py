@@ -1088,22 +1088,45 @@ def _cog_tower(ctx, n, cx, y0, wz, sg, floor):
     ctx.add(n + "_Plate", "box", [(bx0 + bx1) / 2, by0, wz + 0.05], [bx1 - bx0, by1 - by0, 0.2], plate, **st)
     for e_, (px_, py_, w_, h_) in enumerate(((bx0 + 0.05, by0 - 0.02, 0.14, by1 - by0 + 0.04), (bx1 - 0.05, by0 - 0.02, 0.14, by1 - by0 + 0.04), ((bx0 + bx1) / 2, by0 - 0.02, bx1 - bx0 + 0.04, 0.14), ((bx0 + bx1) / 2, by1 - 0.12, bx1 - bx0 + 0.04, 0.14))):
         ctx.add(f"{n}_PlateEdge_{e_ + 1}", "box", [px_, py_, wz + 0.15], [w_, h_, 0.08], steel, **st)  # Stage 184: a steel frame round the plate
-    for e_, fy_ in enumerate([by0 + 0.35 + (by1 - by0 - 0.7) * q / 4 for q in range(5)]):  # rivets down both edges
-        for sd_, fx_ in (("L", bx0 + 0.2), ("R", bx1 - 0.2)): ctx.add(f"{n}_Rivet_{sd_}{e_ + 1}", "cylinder", [fx_, fy_, wz + 0.13], [0.13, 0.1, 0.13], steel, rot=[90, 0, 0], sections=6, **st)
+    # Stage 187 (user): the big cog WORKS a pump - a crank pin on one of its spokes (rc from the centre) drives a Scotch-yoke
+    # crosshead up and down in guide rails (pure sine: the "bob" effect, keyed to the cog's own turn), its piston rod
+    # plunging a yellow piston through a glowing glass pump barrel in front of the gearbox; at the bottom of each stroke
+    # steam blasts out of the gearbox vents and the pump's glow (and the gauge) surges.
+    rc = 0.8; phi0 = -math.pi / G[0]["N"]  # crank radius; the pin's world angle at rest (the first spoke: shapes.gear spokes sit at -(ph + pi / N + 2 pi k / ns))
     for i, g in enumerate(G):
-        R_ = g["rp"] + m * 0.5; rh = max(0.32, R_ * 0.3)
+        R_ = g["rp"] + m * 0.5; rh = max(0.32, R_ * 0.3); ck = dict(crank=[rc, round(phi0, 5), 0.82]) if i == 0 else {}
         ctx.add(f"{n}_Gear_{i + 1}", "gear", [g["c"][0], g["c"][1], wz + 0.3], [2 * R_, 0.32, 2 * R_], gun, rot=[90, 0, 0],
-                teeth=g["N"], depth=round(m * 1.1, 3), phase=round(g["ph"], 5), spokes=(5 if g["N"] > 9 else 4), spin=round(g["w"], 3), collision=False, outline=False, mobile={"merge": False})
-        ctx.add(f"{n}_Bearing_{i + 1}", "cylinder", [g["c"][0], g["c"][1], wz + 0.14], [rh * 2.4, 0.08, rh * 2.4], steel, rot=[90, 0, 0], sections=8, **st)  # bearing housing on the plate
+                teeth=g["N"], depth=round(m * 1.1, 3), phase=round(g["ph"], 5), spokes=(5 if g["N"] > 9 else 4), spin=round(g["w"], 3), collision=False, outline=False, mobile={"merge": False}, **ck)
+        ctx.add(f"{n}_Bearing_{i + 1}", "cylinder", [g["c"][0], g["c"][1], wz + 0.14], [rh * 2.4, 0.08, rh * 2.4], steel, rot=[90, 0, 0], sections=6, **st)  # bearing housing on the plate
         ctx.add(f"{n}_Axle_{i + 1}", "cylinder", [g["c"][0], g["c"][1], wz + 0.12], [0.5, 0.54, 0.5], dark, rot=[90, 0, 0], sections=8, **st)  # from the plate into the cog's hub
         ctx.add(f"{n}_Cap_{i + 1}", "cylinder", [g["c"][0], g["c"][1], wz + 0.7], [0.26, 0.12, 0.26], paint, rot=[90, 0, 0], sections=6, **st)  # the axle's end nut
     gx, gy = G[0]["c"]; gb = gy - G[0]["rp"] - 0.35  # gearbox under the big cog (its pinion meshes inside)
-    ctx.add(n + "_Gearbox", "box", [gx, gb - 1.15, wz + 0.4], [1.5, 1.2, 0.9], plate, **st)
-    ctx.add(n + "_GearboxLamp", "box", [gx + 0.4, gb - 0.55, wz + 0.86], [0.36, 0.14, 0.04], ctx.role("glow_pink"), **st)
-    for f_ in range(3):  # cooling fins along its top
-        ctx.add(f"{n}_Fin_{f_ + 1}", "box", [gx - 0.45 + 0.45 * f_, gb + 0.04, wz + 0.4], [0.08, 0.15, 0.8], steel, **st)
-    ctx.add(n + "_Gauge", "cylinder", [gx - 0.35, gb - 0.62, wz + 0.83], [0.44, 0.06, 0.44], steel, rot=[90, 0, 0], sections=10, **st)  # a pressure gauge
-    ctx.add(n + "_GaugeFace", "cylinder", [gx - 0.35, gb - 0.62, wz + 0.88], [0.34, 0.02, 0.34], ctx.role("glow_green"), rot=[90, 0, 0], sections=10, **st)
+    glo = ctx.role("pump_glow"); zf = wz + 1.0  # the pump's plane, in front of the cogs
+    ctx.add(n + "_Gearbox", "box", [gx, gb - 1.15, wz + 0.4], [1.5, 1.2, 0.6], plate, **st)  # (Stage 187: shallower - the pump stands in front)
+    ctx.add(n + "_GearboxLamp", "box", [gx + 0.53, gb - 0.55, wz + 0.71], [0.3, 0.14, 0.04], ctx.role("glow_pink"), **st)
+    ctx.add(n + "_Gauge", "cylinder", [gx - 0.53, gb - 0.62, wz + 0.68], [0.4, 0.06, 0.4], steel, rot=[90, 0, 0], sections=8, **st)  # a pressure gauge
+    ctx.add(n + "_GaugeFace", "cylinder", [gx - 0.53, gb - 0.62, wz + 0.73], [0.3, 0.02, 0.3], glo, rot=[90, 0, 0], sections=8, **st)  # surges with each stroke
+    W = 2 * rc + 0.5; yg = gy - 1.25  # the crosshead's width; the pump head (top of the barrel)
+    for sd_, xx in (("L", gx - W / 2 - 0.08), ("R", gx + W / 2 + 0.08)):  # guide rails the crosshead slides in, on the pump head
+        ctx.add(f"{n}_Guide_{sd_}", "box", [xx, yg, zf], [0.1, gy + 1.1 - yg, 0.16], steel, **st)
+    ctx.add(n + "_GuideTop", "box", [gx, gy + 1.08, zf], [W + 0.36, 0.14, 0.16], steel, **st)  # (sunk 2 cm onto the rails)
+    ctx.add(n + "_PumpHead", "box", [gx, yg, zf], [W + 0.36, 0.15, 0.3], plate, **st)  # the rails stand on it; the rod runs through its gland
+    ctx.add(n + "_PumpGland", "cylinder", [gx, yg + 0.15, zf], [0.24, 0.1, 0.24], paint, sections=6, **st)
+    ctx.add(n + "_Barrel", "cylinder", [gx, gy - 3.1, zf], [0.56, 1.85, 0.56], ctx.role("glass"), sections=8, double_sided=True, **st)  # glowing glass: the piston is seen working inside
+    ctx.add(n + "_BarrelFoot", "cylinder", [gx, gy - 3.25, zf], [0.7, 0.15, 0.7], plate, sections=6, **st)
+    ctx.add(n + "_BarrelGlow", "cylinder", [gx, gy - 3.1, zf], [0.64, 0.07, 0.64], glo, sections=8, **st)
+    mv = dict(collision=False, outline=False, mobile={"group": n + "_Yoke"})  # the moving crosshead: slot 0.22 tall round the pin
+    ctx.add(n + "_YokeTop", "box", [gx, gy + 0.11, zf], [W, 0.12, 0.12], steel, **mv)
+    ctx.add(n + "_YokeBottom", "box", [gx, gy - 0.23, zf], [W, 0.12, 0.12], steel, **mv)
+    for sd_, xx in (("L", gx - W / 2 + 0.06), ("R", gx + W / 2 - 0.06)): ctx.add(f"{n}_YokeEnd_{sd_}", "box", [xx, gy - 0.23, zf], [0.12, 0.46, 0.12], steel, **mv)
+    ctx.add(n + "_PistonRod", "cylinder", [gx, gy - 2.23, zf], [0.14, 2.0, 0.14], steel, sections=6, **mv)
+    ctx.add(n + "_Piston", "cylinder", [gx, gy - 2.23, zf], [0.46, 0.12, 0.46], paint, sections=8, **mv)
+    w_ = 2 * math.pi * G[0]["w"] / 60.0; P_ = round(2 * math.pi / abs(w_), 4)  # the crank: d(t) = rc sin(w t + phi0)
+    ctx.bobs = getattr(ctx, "bobs", []) + [dict(id=n + "_Yoke", group=n + "_Yoke", pivot=[gx, gy, zf], amp=round(rc * (1 if w_ > 0 else -1), 4), period=P_,
+                                                phase=round((phi0 / w_) % P_, 4), sway=0.0, note="Stage 187: Scotch yoke - d = rc sin(w t + phi0), the cog's own turn")]
+    t_bdc = round(((1.5 * math.pi - phi0) / w_) % P_, 4)  # bottom dead centre
+    ctx.cog_pumps = getattr(ctx, "cog_pumps", []) + [dict(id=n, period=P_, bdc=t_bdc, pulse_phase=round(math.pi + phi0, 4), material=glo,
+                                                          jets=[[[round(gx + sd_ * 0.8, 3), round(gb - 0.6, 3), round(wz + 0.45, 3)], [float(sd_), 0.25, 0.35]] for sd_ in (-1, 1)])]
     ctx.add(n + "_DrivePipe", "cylinder", [gx - 0.35, floor - 0.1, wz + 0.42], [0.34, gb - 1.15 - floor + 0.15, 0.34], steel, sections=8, **st)  # down into the stage
     ctx.add(n + "_DrivePipeBand", "cylinder", [gx - 0.35, floor + 0.15, wz + 0.42], [0.44, 0.22, 0.44], paint, sections=8, **st)
 

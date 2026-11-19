@@ -188,21 +188,21 @@
  },
  "totals": {
   "performance": {
-   "max_particles": 502,
-   "emitters": 46,
-   "extra_draw_calls": 14,
+   "max_particles": 515,
+   "emitters": 50,
+   "extra_draw_calls": 15,
    "transparent_area_m2": 1.0
   },
   "balanced": {
-   "max_particles": 1495,
-   "emitters": 46,
-   "extra_draw_calls": 15,
+   "max_particles": 1493,
+   "emitters": 50,
+   "extra_draw_calls": 16,
    "transparent_area_m2": 13001.7
   },
   "quality": {
-   "max_particles": 2205,
-   "emitters": 46,
-   "extra_draw_calls": 16,
+   "max_particles": 2189,
+   "emitters": 50,
+   "extra_draw_calls": 17,
    "transparent_area_m2": 26002.5
   }
  },
@@ -5108,6 +5108,339 @@
    }
   },
   {
+   "id": "Cog_Pump_Steam",
+   "type": "steam_jet",
+   "category": "particles",
+   "glb_contains": "nothing",
+   "godot_runtime": "CPUParticles3D, ONE system over every nozzle (EMISSION_SHAPE_DIRECTED_POINTS: each jet along its 'dir'), one_shot re-triggered at the 'sync' cycle times, emitting over 'emit_time' s; fast narrow streams slowed by 'damping' (m/s^2) that billow out",
+   "sync": {
+    "period": 8.5714,
+    "phase": 0.0,
+    "at": [
+     6.6964
+    ]
+   },
+   "emitters": [
+    {
+     "pos": [
+      -43.3,
+      11.05,
+      -64.55
+     ],
+     "dir": [
+      -1.0,
+      0.25,
+      0.35
+     ]
+    },
+    {
+     "pos": [
+      -41.7,
+      11.05,
+      -64.55
+     ],
+     "dir": [
+      1.0,
+      0.25,
+      0.35
+     ]
+    },
+    {
+     "pos": [
+      -18.3,
+      11.05,
+      -64.55
+     ],
+     "dir": [
+      -1.0,
+      0.25,
+      0.35
+     ]
+    },
+    {
+     "pos": [
+      -16.7,
+      11.05,
+      -64.55
+     ],
+     "dir": [
+      1.0,
+      0.25,
+      0.35
+     ]
+    }
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "burst": 4,
+      "interval": [
+       9.5,
+       9.5
+      ],
+      "lifetime": 1.0,
+      "emit_time": 0.45,
+      "speed": [
+       4.0,
+       6.0
+      ],
+      "damping": 8.0,
+      "gravity": 0.9,
+      "size": [
+       0.15,
+       1.4
+      ],
+      "alpha": 0.85,
+      "color": [
+       0.95,
+       0.95,
+       1.0
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 6,
+      "radius": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 16,
+      "emitters": 4,
+      "extra_draw_calls": 1
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "burst": 7,
+      "interval": [
+       9.5,
+       9.5
+      ],
+      "lifetime": 1.0,
+      "emit_time": 0.45,
+      "speed": [
+       4.0,
+       6.0
+      ],
+      "damping": 8.0,
+      "gravity": 0.9,
+      "size": [
+       0.15,
+       1.4
+      ],
+      "alpha": 0.85,
+      "color": [
+       0.95,
+       0.95,
+       1.0
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 6,
+      "radius": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 28,
+      "emitters": 4,
+      "extra_draw_calls": 1
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "burst": 8,
+      "interval": [
+       9.5,
+       9.5
+      ],
+      "lifetime": 1.0,
+      "emit_time": 0.45,
+      "speed": [
+       4.0,
+       6.0
+      ],
+      "damping": 8.0,
+      "gravity": 0.9,
+      "size": [
+       0.15,
+       1.4
+      ],
+      "alpha": 0.85,
+      "color": [
+       0.95,
+       0.95,
+       1.0
+      ],
+      "texture": "puff",
+      "blend": "alpha",
+      "spread": 6,
+      "radius": 0.0
+     },
+     "cost_estimate": {
+      "max_particles": 32,
+      "emitters": 4,
+      "extra_draw_calls": 1
+     }
+    }
+   },
+   "merge_emitters": true
+  },
+  {
+   "id": "Cog_Pump_Glow",
+   "type": "pulse_light",
+   "category": "material_animation",
+   "glb_contains": "emissive at base strength",
+   "godot_runtime": "script: emission_energy_multiplier = base * (1 + amount*sin(2*pi*speed*t + phase))",
+   "target_material": "pump_glow",
+   "targets": [
+    "Showcase_Cogs_b_BarrelGlow",
+    "Showcase_Cogs_b_GaugeFace",
+    "Showcase_Cogs_a_BarrelGlow",
+    "Showcase_Cogs_a_GaugeFace"
+   ],
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {
+      "speed": 0.11667,
+      "amount": 0.85,
+      "phase": 2.9452
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {
+      "speed": 0.11667,
+      "amount": 0.85,
+      "phase": 2.9452
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {
+      "speed": 0.11667,
+      "amount": 0.85,
+      "phase": 2.9452
+     },
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Showcase_Cogs_a_Yoke_Bob",
+   "type": "bob",
+   "category": "bob",
+   "glb_contains": "the model parts at rest, own nodes (mobile group)",
+   "godot_runtime": "script (apply_effects.gd _bobs): every node of the group (<group>__*) is turned and lifted about 'pivot' (world): y offset amp * sin(2 pi (t + phase) / period), a sway of 'sway' deg about x (sin, period * 1.3) and z (cos, period * 1.7) and a slow yaw drift (sway * 0.6 deg, period * 2.3) - a body drifting in liquid (Stage 92)",
+   "bob": {
+    "id": "Showcase_Cogs_a_Yoke",
+    "group": "Showcase_Cogs_a_Yoke",
+    "pivot": [
+     -42.5,
+     13.6,
+     -64.0
+    ],
+    "amp": 0.8,
+    "period": 8.5714,
+    "phase": 8.3035,
+    "sway": 0.0,
+    "note": "Stage 187: Scotch yoke - d = rc sin(w t + phi0), the cog's own turn"
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Showcase_Cogs_b_Yoke_Bob",
+   "type": "bob",
+   "category": "bob",
+   "glb_contains": "the model parts at rest, own nodes (mobile group)",
+   "godot_runtime": "script (apply_effects.gd _bobs): every node of the group (<group>__*) is turned and lifted about 'pivot' (world): y offset amp * sin(2 pi (t + phase) / period), a sway of 'sway' deg about x (sin, period * 1.3) and z (cos, period * 1.7) and a slow yaw drift (sway * 0.6 deg, period * 2.3) - a body drifting in liquid (Stage 92)",
+   "bob": {
+    "id": "Showcase_Cogs_b_Yoke",
+    "group": "Showcase_Cogs_b_Yoke",
+    "pivot": [
+     -17.5,
+     13.6,
+     -64.0
+    ],
+    "amp": 0.8,
+    "period": 8.5714,
+    "phase": 8.3035,
+    "sway": 0.0,
+    "note": "Stage 187: Scotch yoke - d = rc sin(w t + phi0), the cog's own turn"
+   },
+   "quality": {
+    "performance": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "balanced": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    },
+    "quality": {
+     "enabled": true,
+     "params": {},
+     "cost_estimate": {
+      "max_particles": 0,
+      "emitters": 0,
+      "extra_draw_calls": 0
+     }
+    }
+   }
+  },
+  {
    "id": "Arena_Emerge",
    "type": "emerge",
    "category": "emerge",
@@ -6923,7 +7256,7 @@
     "performance": {
      "enabled": true,
      "params": {
-      "count": 26,
+      "count": 23,
       "lifetime": 8.0,
       "speed": [
        0.05,
@@ -6945,7 +7278,7 @@
       "spread": 180
      },
      "cost_estimate": {
-      "max_particles": 26,
+      "max_particles": 23,
       "emitters": 1,
       "extra_draw_calls": 1
      }
@@ -6953,7 +7286,7 @@
     "balanced": {
      "enabled": true,
      "params": {
-      "count": 220,
+      "count": 190,
       "lifetime": 8.0,
       "speed": [
        0.05,
@@ -6975,7 +7308,7 @@
       "spread": 180
      },
      "cost_estimate": {
-      "max_particles": 220,
+      "max_particles": 190,
       "emitters": 1,
       "extra_draw_calls": 1
      }
@@ -6983,7 +7316,7 @@
     "quality": {
      "enabled": true,
      "params": {
-      "count": 352,
+      "count": 304,
       "lifetime": 8.0,
       "speed": [
        0.05,
@@ -7005,7 +7338,7 @@
       "spread": 180
      },
      "cost_estimate": {
-      "max_particles": 352,
+      "max_particles": 304,
       "emitters": 1,
       "extra_draw_calls": 1
      }

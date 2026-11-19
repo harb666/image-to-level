@@ -372,6 +372,11 @@ def _effects(spec, ctx, plats, env, glow):
             out.append(dict(id=sw_["id"] + "_Swing", type="saw", saw=sw_))
         for bl_ in getattr(ctx, "belts", []):  # Stage 97: conveyor ramps (chevrons slide, riders are carried)
             out.append(dict(id=bl_["id"] + "_Run", type="belt", belt=bl_))
+        cp_ = getattr(ctx, "cog_pumps", [])
+        if cp_:  # Stage 187: the cog towers' pumps - steam out of the gearbox vents at the bottom of each stroke, the pump glow surging with it
+            sy_ = dict(period=cp_[0]["period"], phase=0.0, at=[cp_[0]["bdc"]])
+            out.append(dict(id="Cog_Pump_Steam", type="steam_jet", jets=[j for c in cp_ for j in c["jets"]], sync=sy_, speed=[4.0, 6.0], emit_time=0.45, burst=7, lifetime=1.0, size=[0.15, 1.4]))
+            out.append(dict(id="Cog_Pump_Glow", type="pulse_light", target_material=cp_[0]["material"], speed=round(1.0 / cp_[0]["period"], 5), amount=0.85, phase=cp_[0]["pulse_phase"]))
         for b_ in getattr(ctx, "bobs", []):  # Stage 92: a specimen drifting in its tank
             out.append(dict(id=b_["id"] + "_Bob", type="bob", bob=b_))
         for r_ in getattr(ctx, "risers", []):  # Stage 80: pads surging up out of the liquid when a player comes near
@@ -409,7 +414,8 @@ def _effects(spec, ctx, plats, env, glow):
         if amb != "none":
             col = {"spores": glow, "dust": [0.9, 0.85, 0.7], "embers": [1.0, 0.5, 0.15], "snow": [0.95, 0.97, 1.0]}[amb]
             out.append(dict(id="Ambient_" + amb.capitalize(), type="ambient_particles", area=[cx - w / 2, fy, cz - d / 2, cx + w / 2, fy + 15, cz + d / 2],
-                            count=220 if amb != "dust" else 160, color=col, **({"blend": "alpha", "alpha": 0.35} if amb == "dust" else {})))
+                            count=int(spec.get("atmosphere", {}).get("ambient_count", 220 if amb != "dust" else 160)), color=col,  # (Stage 187: per-level override)
+                            **({"blend": "alpha", "alpha": 0.35} if amb == "dust" else {})))
         if any(l.get("type") == "factory" for l in env["background"]): out.append(dict(id="Factory_Smoke", type="smoke", at_background="factory_chimneys"))
         if getattr(ctx, "ceiling_y", None) is None:  # roofed levels never see the sky
             out.append(dict(id="Sky_Drift", type="sky_drift", speed_deg_s=0.25)); out += _clouds(spec, ctx, plats)
