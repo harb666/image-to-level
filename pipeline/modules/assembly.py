@@ -1071,7 +1071,7 @@ def _cog_tower(ctx, n, cx, y0, wz, sg, floor):
     on axles with yellow caps, over a dark bolted backplate; the big cog's pinion runs into a gearbox below it whose
     drive pipe goes down into the stage (they work the machinery under it). sg: -1 / +1 (mirrored, gears climb outward)."""
     st = dict(collision=False, outline=False, mobile={"static": True})  # plain-colour materials: no textures (mobile budget)
-    steel, dark, paint, plate = ctx.role("lift_ring"), ctx.role("saw_hub"), ctx.role("cog_paint"), ctx.role("saw_hub")  # (near-black plate: the steel cogs stand out)
+    steel, dark, paint, plate = ctx.role("cog_machined"), ctx.role("saw_hub"), ctx.role("cog_paint"), ctx.role("saw_hub")  # (near-black plate: the steel cogs stand out; Stage 188: frame / rails / yoke in the cogs' machined steel)
     gun = ctx.role("cog_steel")  # Stage 184: oily gunmetal cogs
     m = 0.2; G = [dict(N=16), dict(N=11), dict(N=8)]; ang = [70.0, 112.0]  # world angle (deg) from each gear to the next (mirrored by sg)
     for g in G: g["rp"] = m * g["N"] / 2
@@ -1095,9 +1095,11 @@ def _cog_tower(ctx, n, cx, y0, wz, sg, floor):
     rc = 0.8; phi0 = -math.pi / G[0]["N"]  # crank radius; the pin's world angle at rest (the first spoke: shapes.gear spokes sit at -(ph + pi / N + 2 pi k / ns))
     for i, g in enumerate(G):
         R_ = g["rp"] + m * 0.5; rh = max(0.32, R_ * 0.3); ck = dict(crank=[rc, round(phi0, 5), 0.82]) if i == 0 else {}
-        ctx.add(f"{n}_Gear_{i + 1}", "gear", [g["c"][0], g["c"][1], wz + 0.3], [2 * R_, 0.32, 2 * R_], gun, rot=[90, 0, 0],
-                teeth=g["N"], depth=round(m * 1.1, 3), phase=round(g["ph"], 5), spokes=(5 if g["N"] > 9 else 4), spin=round(g["w"], 3), collision=False, outline=False, mobile={"merge": False}, **ck)
-        ctx.add(f"{n}_Bearing_{i + 1}", "cylinder", [g["c"][0], g["c"][1], wz + 0.14], [rh * 2.4, 0.08, rh * 2.4], steel, rot=[90, 0, 0], sections=6, **st)  # bearing housing on the plate
+        gk = dict(teeth=g["N"], depth=round(m * 1.1, 3), phase=round(g["ph"], 5), spokes=(5 if g["N"] > 9 else 4), spin=round(g["w"], 3), collision=False, outline=False, mobile={"merge": False})
+        # Stage 188 (user: more industrial): two tones turning together - machined steel (toothed rim, hub, stiffening ribs,
+        # bolts, crank pin) over a dark cast-iron web (a solid recessed disc between hub and rim)
+        ctx.add(f"{n}_Gear_{i + 1}", "gear", [g["c"][0], g["c"][1], wz + 0.3], [2 * R_, 0.32, 2 * R_], ctx.role("cog_machined"), rot=[90, 0, 0], part="machined", **gk, **ck)
+        ctx.add(f"{n}_Gear_{i + 1}_Web", "gear", [g["c"][0], g["c"][1], wz + 0.3], [2 * R_, 0.32, 2 * R_], gun, rot=[90, 0, 0], part="cast", **gk)
         ctx.add(f"{n}_Axle_{i + 1}", "cylinder", [g["c"][0], g["c"][1], wz + 0.12], [0.5, 0.54, 0.5], dark, rot=[90, 0, 0], sections=8, **st)  # from the plate into the cog's hub
         ctx.add(f"{n}_Cap_{i + 1}", "cylinder", [g["c"][0], g["c"][1], wz + 0.7], [0.26, 0.12, 0.26], paint, rot=[90, 0, 0], sections=6, **st)  # the axle's end nut
     gx, gy = G[0]["c"]; gb = gy - G[0]["rp"] - 0.35  # gearbox under the big cog (its pinion meshes inside)
@@ -1254,7 +1256,7 @@ def showcase(ctx, s, x, y, z, yaw):
     for sg in (-1, 1):
         if s.get("cog_towers"): _cog_tower(ctx, f"{n}_Cogs_{'ab'[sg > 0]}", tx + sg * float(s.get("xban_dx", 12.5)), float(s.get("xban_y", 12.6)), wz, sg, ys)  # Stage 181
         else: board(f"{n}_XBanner_{'ab'[sg > 0]}", tx + sg * float(s.get("xban_dx", 12.5)), float(s.get("xban_y", 12.6)), 3.6, 7.2, "xban")
-        board(f"{n}_Monitor_{'ab'[sg > 0]}", tx + sg * 5.6, ys + 1.6, 2.6, 2.0, "screen", back=0.42, frame="frame")
+        if s.get("logo_monitors", True): board(f"{n}_Monitor_{'ab'[sg > 0]}", tx + sg * 5.6, ys + 1.6, 2.6, 2.0, "screen", back=0.42, frame="frame")  # (Stage 188: optional)
     for k, dx_ in enumerate((-10, 0, 10)): ctx.add(f"{n}_LightBar_{k + 1}", "box", [tx + dx_, float(s.get("bar_y", 27.0)), wz + 0.15], [5.0, 0.35, 0.3], pink, **vs)
     # --- slime pits flush with the plaza edge: open slime (kills) at the front, a grate over the back
     for k, (px0, pz0, px1, pz1) in enumerate(s.get("pits", [])):

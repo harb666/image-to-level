@@ -23,8 +23,8 @@ class IndustrialCogs(unittest.TestCase):
         for t in "ab":
             gears = [self.by[f"Showcase_Cogs_{t}_Gear_{i}"] for i in (1, 2, 3)]
             for g in gears:
-                self.assertEqual(g["material"], "cog_steel"); self.assertGreaterEqual(g["spokes"], 4); self.assertTrue(g.get("spin"))
-            for i in (1, 2, 3): self.assertIn(f"Showcase_Cogs_{t}_Bearing_{i}", self.by)
+                self.assertEqual(g["material"], "cog_machined"); self.assertEqual(self.by[g["name"] + "_Web"]["material"], "cog_steel"); self.assertGreaterEqual(g["spokes"], 4); self.assertTrue(g.get("spin"))
+            for i in (1, 2, 3): self.assertNotIn(f"Showcase_Cogs_{t}_Bearing_{i}", self.by)  # (Stage 188: hidden behind the cast webs - removed)
             for k in ("Gauge", "GaugeFace", "PlateEdge_1", "PlateEdge_4"): self.assertIn(f"Showcase_Cogs_{t}_{k}", self.by)  # (Stage 187: fins / rivets made way for the pump)
         m = self.L["materials"]["cog_steel"]; self.assertTrue(m.get("plain")); self.assertLess(max(m["color"]), 0.3)
 

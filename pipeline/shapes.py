@@ -797,7 +797,9 @@ def gear(w, h, d, o):
     base at y 0, centred on the axis (spin it about local y); "depth" tooth depth (m), "phase" (rad) turns the teeth (so
     meshing gears interlock). Stage 184 (industrial): "spokes" > 0 opens it up - a rim ("rim" m wide) on that many
     spokes from a thick hub ("hub" radius, standing proud on both faces) with a ring of hex bolt heads ("bolts") on its
-    front face; spokes 0: the plain disc. One closed mesh per part (it spins as one)."""
+    front face; spokes 0: the plain disc. One closed mesh per part (it spins as one). Stage 188: "part" "machined" = the
+    toothed rim, hub, spokes as ribs, bolts (and crank pin); "cast" = the recessed web disc behind the ribs - two objects
+    in two tones spinning together."""
     N = int(o.get("teeth", 12)); R = w / 2; dep = float(o.get("depth", min(0.25, R * 0.18))); r0 = R - dep; ph = float(o.get("phase", 0.0))
     pts, ang = [], []
     for k in range(N):  # tooth k centred at angle ph + 2 pi k / N: flank, top land, flank, root land
@@ -812,28 +814,55 @@ def gear(w, h, d, o):
         if (np.einsum("ij,ij->i", m.face_normals, m.triangles_center - [0, h / 2, 0]) < 0).mean() > 0.5: m.invert()
         return m
     rw_ = float(o.get("rim", max(0.12, R * 0.16))); ri = r0 - rw_  # the toothed rim: outer profile + an inner circle at the same angles (quads between)
-    Q = np.array([[ri * np.cos(a_), ri * np.sin(a_)] for a_ in ang])
-    V = [[x, 0.0, z] for x, z in P] + [[x, h, z] for x, z in P] + [[x, 0.0, z] for x, z in Q] + [[x, h, z] for x, z in Q]; F = []
+    # Stage 188: the inner circle has one vertex per tooth (at the tooth boundaries, c - pi / N), each tooth's face a fan
+    # from its two inner corners (was 4 per tooth - the mobile budget)
+    Q = np.array([[ri * np.cos(ph + 2 * np.pi * k / N - np.pi / N), ri * np.sin(ph + 2 * np.pi * k / N - np.pi / N)] for k in range(N)])
+    V = [[x, 0.0, z] for x, z in P] + [[x, h, z] for x, z in P] + [[x, 0.0, z] for x, z in Q] + [[x, h, z] for x, z in Q]; F = []; I0, I1 = 2 * n, 2 * n + N
     for i in range(n):
-        j = (i + 1) % n
-        F += [[i, j, n + j], [i, n + j, n + i]]  # outer wall
-        F += [[2 * n + j, 2 * n + i, 3 * n + i], [2 * n + j, 3 * n + i, 3 * n + j]]  # inner wall
-        F += [[i, 2 * n + i, 2 * n + j], [i, 2 * n + j, j]]  # bottom face
-        F += [[n + i, n + j, 3 * n + j], [n + i, 3 * n + j, 3 * n + i]]  # top face
+        j = (i + 1) % n; F += [[i, j, n + j], [i, n + j, n + i]]  # outer wall
+    def _ear(Pp):  # ear-clip a simple polygon (2D, counter-clockwise) -> triangles as index triples
+        idx, T = list(range(len(Pp))), []
+        while len(idx) > 3:
+            for q in range(len(idx)):
+                a0, a1, a2 = idx[q - 1], idx[q], idx[(q + 1) % len(idx)]; A, B, C = Pp[a0], Pp[a1], Pp[a2]
+                if (B[0] - A[0]) * (C[1] - A[1]) - (B[1] - A[1]) * (C[0] - A[0]) <= 1e-12: continue  # reflex
+                if any(_inside(Pp[r], A, B, C) for r in idx if r not in (a0, a1, a2)): continue
+                T.append((a0, a1, a2)); idx.pop(q); break
+            else: raise ValueError("gear: cannot triangulate the tooth")
+        return T + [tuple(idx)]
+    def _inside(p_, A, B, C):
+        d = lambda u, v, w: (u[0] - w[0]) * (v[1] - w[1]) - (v[0] - w[0]) * (u[1] - w[1])
+        s1, s2, s3 = d(p_, A, B), d(p_, B, C), d(p_, C, A); return not ((s1 < 0 or s2 < 0 or s3 < 0) and (s1 > 0 or s2 > 0 or s3 > 0))
+    loc = [("i", 0), ("o", 0), ("o", 1), ("o", 2), ("o", 3), ("o", 4), ("i", 1)]  # tooth 0 + the root gap after it: inner corner, outer 0..3, next tooth's outer 0, next inner corner
+    P2 = np.array([Q[0] if t == "i" and q == 0 else Q[1 % N] if t == "i" else P[q % n] for t, q in loc])
+    if (np.roll(P2[:, 0], -1) - P2[:, 0]) @ (np.roll(P2[:, 1], -1) + P2[:, 1]) > 0: loc, P2 = loc[::-1], P2[::-1]  # counter-clockwise in (x, z)
+    TRI = _ear(P2)
+    for k in range(N):
+        k1 = (k + 1) % N
+        F += [[I0 + k1, I0 + k, I1 + k], [I0 + k1, I1 + k, I1 + k1]]  # inner wall
+        g = lambda t, q: (I0 + (k if q == 0 else k1)) if t == "i" else (4 * k + q) % n
+        for t_ in TRI:
+            a0, a1, a2 = (g(*loc[q]) for q in t_)
+            F += [[a0, a1, a2], [n + a0 if a0 < n else a0 - I0 + I1, n + a2 if a2 < n else a2 - I0 + I1, n + a1 if a1 < n else a1 - I0 + I1]]  # bottom, top (flipped)
     rim = trimesh.Trimesh(np.array(V, float), np.array(F), process=False); rim.fix_normals()
-    rh = float(o.get("hub", max(0.32, R * 0.3))); parts = [rim]
-    hub = trimesh.creation.cylinder(radius=rh, height=h * 1.5, sections=12); hub.apply_transform(trimesh.transformations.rotation_matrix(-np.pi / 2, [1, 0, 0])); hub.apply_translation([0, h / 2, 0]); parts.append(hub)
+    rh = float(o.get("hub", max(0.32, R * 0.3))); part = o.get("part")  # Stage 188: "machined" (rim, hub, ribs, bolts, crank pin) / "cast" (the web disc) / None: all
+    mach, cast = part in (None, "machined"), part in (None, "cast"); parts = [rim] if mach else []
+    if mach:
+        hub = trimesh.creation.cylinder(radius=rh, height=h * 1.5, sections=8); hub.apply_transform(trimesh.transformations.rotation_matrix(-np.pi / 2, [1, 0, 0])); hub.apply_translation([0, h / 2, 0]); parts.append(hub)
     sw = float(o.get("spoke_w", max(0.12, R * 0.14)))
-    for k in range(ns):  # spokes from the hub into the rim (sunk 3 cm at both ends), a little thinner than the rim
-        a_ = ph + np.pi / N + 2 * np.pi * k / ns; L_ = ri - rh + 0.06; sp = trimesh.creation.box(extents=[L_, h * 0.7, sw])
+    if cast and part == "cast":  # Stage 188: a cast web - a solid disc between hub and rim, recessed to a third of the rim's thickness (the ribs stand on it)
+        web = trimesh.creation.annulus(r_min=rh - 0.03, r_max=ri + 0.03, height=h * 0.34, sections=max(12, N)); web.apply_transform(trimesh.transformations.rotation_matrix(-np.pi / 2, [1, 0, 0]))
+        web.apply_translation([0, h / 2, 0]); parts.append(web)
+    for k in range(ns if mach else 0):  # spokes from the hub into the rim (sunk 3 cm at both ends), a little thinner than the rim (Stage 188: bright ribs over the cast web)
+        a_ = ph + np.pi / N + 2 * np.pi * k / ns; L_ = ri - rh + 0.06; sp = trimesh.creation.box(extents=[L_, h * 0.7, sw * (0.75 if part == "machined" else 1.0)])
         sp.apply_translation([rh - 0.03 + L_ / 2, h / 2, 0]); sp.apply_transform(trimesh.transformations.rotation_matrix(-a_, [0, 1, 0])); parts.append(sp)
-    nb = int(o.get("bolts", 6)); bz = h * 1.25
+    nb = int(o.get("bolts", 6)) if mach else 0; bz = h * 1.25
     for k in range(nb):  # hex bolt heads on the hub's front face
         a_ = ph + 2 * np.pi * k / nb; b_ = trimesh.creation.cylinder(radius=rh * 0.2, height=0.12, sections=6)
         b_.apply_transform(trimesh.transformations.rotation_matrix(-np.pi / 2, [1, 0, 0])); b_.apply_translation([rh * 0.68 * np.cos(a_), bz + 0.05, -rh * 0.68 * np.sin(a_)]); parts.append(b_)
-    if o.get("crank"):  # Stage 187: a crank pin standing out of the front face at [radius, world angle (rad), length] (+ a washer)
+    if o.get("crank") and mach:  # Stage 187: a crank pin standing out of the front face at [radius, world angle (rad), length] (+ a washer)
         cr, ca, cl = (float(v) for v in o["crank"])
-        for rad_, y0_, y1_ in ((0.09, 0.1, cl), (0.14, cl - 0.06, cl)):
+        for rad_, y0_, y1_ in ((0.09, 0.16, cl), (0.14, cl - 0.06, cl)):  # (the pin starts inside the cast web)
             pin = trimesh.creation.cylinder(radius=rad_, height=y1_ - y0_, sections=8); pin.apply_transform(trimesh.transformations.rotation_matrix(-np.pi / 2, [1, 0, 0]))
             pin.apply_translation([cr * np.cos(ca), (y0_ + y1_) / 2, -cr * np.sin(ca)]); parts.append(pin)
     m = trimesh.util.concatenate(parts); m.metadata["uv"] = np.full((len(m.vertices), 2), 0.5); return m

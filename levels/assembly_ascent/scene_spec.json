@@ -473,7 +473,8 @@
         "notes": "Stage 135: CONSTRUCT ERROR_ banner, X banners, logo monitors (references/make_showcase_art.py)",
         "blank": [
           "banner",
-          "xban"
+          "xban",
+          "screen"
         ]
       },
       "ce_frown_face": {
@@ -952,13 +953,13 @@
         "type": "concrete",
         "plain": true,
         "color": [
-          0.13,
-          0.15,
-          0.17
+          0.075,
+          0.075,
+          0.085
         ],
-        "metal": 0.7,
-        "rough": 0.38,
-        "notes": "Stage 184: oily gunmetal for the cog towers' gears (plain colour)"
+        "metal": 0.45,
+        "rough": 0.7,
+        "notes": "Stage 184/188: dark cast iron - the cogs' webs and ribs (plain colour)"
       },
       "tube_drum": {
         "type": "drum_plate",
@@ -1001,6 +1002,18 @@
           0.25
         ],
         "notes": "Stage 187: the cog pumps' glow (barrel ring, gauge) - surges at the bottom of each stroke (Cog_Pump_Glow)"
+      },
+      "cog_machined": {
+        "type": "concrete",
+        "plain": true,
+        "color": [
+          0.13,
+          0.205,
+          0.185
+        ],
+        "metal": 0.35,
+        "rough": 0.4,
+        "notes": "Stage 188: machined steel, counter-tinted by the inverse of the hall's pink light (sun 1 / 0.62 / 0.8) so it renders as neutral steel - the cogs' rims, hubs, ribs, bolts, crank pins (plain colour)"
       }
     }
   },
@@ -1415,7 +1428,8 @@
       },
       "scan_screen": true,
       "scan_split": true,
-      "cog_towers": true
+      "cog_towers": true,
+      "logo_monitors": false
     },
     {
       "id": "Showcase_Crates_L",

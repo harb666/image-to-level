@@ -41,15 +41,15 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 7227,
-    "triangles": 124800,
-    "nodes": 3984,
-    "mesh_nodes": 3928,
+    "glb_kb": 7205,
+    "triangles": 124332,
+    "nodes": 3980,
+    "mesh_nodes": 3924,
     "unique_meshes": 1807,
-    "materials": 70,
+    "materials": 71,
     "images": 157,
-    "draw_calls_unbatched": 3928,
-    "draw_calls_batched_min": 70,
+    "draw_calls_unbatched": 3924,
+    "draw_calls_batched_min": 71,
     "tex_mem_uncompressed_mb": 167.95,
     "tex_mem_gpu_compressed_mb": 41.99,
     "texture_slots": {
@@ -75,23 +75,23 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 1241.4,
-    "visible_draw_calls_max": 3783,
-    "visible_triangles_mean": 52454,
-    "visible_triangles_max": 131480
+    "visible_draw_calls_mean": 1240.0,
+    "visible_draw_calls_max": 3779,
+    "visible_triangles_mean": 52285,
+    "visible_triangles_max": 131012
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3997,
-    "triangles": 120326,
-    "nodes": 341,
-    "mesh_nodes": 218,
-    "unique_meshes": 218,
-    "materials": 70,
+    "glb_kb": 3991,
+    "triangles": 119862,
+    "nodes": 348,
+    "mesh_nodes": 225,
+    "unique_meshes": 225,
+    "materials": 71,
     "images": 119,
-    "draw_calls_unbatched": 218,
-    "draw_calls_batched_min": 70,
+    "draw_calls_unbatched": 225,
+    "draw_calls_batched_min": 71,
     "tex_mem_uncompressed_mb": 63.36,
     "tex_mem_gpu_compressed_mb": 15.84,
     "texture_slots": {
@@ -143,13 +143,13 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 108.0,
-    "visible_draw_calls_max": 217,
-    "visible_triangles_mean": 99340,
-    "visible_triangles_max": 130652
+    "visible_draw_calls_mean": 110.3,
+    "visible_draw_calls_max": 224,
+    "visible_triangles_mean": 98761,
+    "visible_triangles_max": 130188
    },
    "hidden_faces_removed": 1679,
-   "occluded_faces_removed": 2795,
+   "occluded_faces_removed": 2791,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate",
     "Showcase_Stage_Glow_02L",
@@ -159,8 +159,8 @@
    "effects_max_particles": 1493,
    "slimmed_kb": {
     "level_mobile.glb": [
-     6217,
-     3997
+     6204,
+     3991
     ],
     "background_mobile.glb": [
      477,
@@ -2728,21 +2728,9 @@
    "group": "Saw_West_Wrist"
   },
   {
-   "node": "Showcase_Cogs_a_Yoke__cog_paint",
+   "node": "Showcase_Cogs_a_Yoke__cog_machined",
    "kind": "group",
-   "material": "cog_paint",
-   "triangles": 32,
-   "visibility_range_end": 0,
-   "cast_shadow": true,
-   "source_objects": [
-    "Showcase_Cogs_a_Piston"
-   ],
-   "group": "Showcase_Cogs_a_Yoke"
-  },
-  {
-   "node": "Showcase_Cogs_a_Yoke__lift_ring",
-   "kind": "group",
-   "material": "lift_ring",
+   "material": "cog_machined",
    "triangles": 72,
    "visibility_range_end": 0,
    "cast_shadow": true,
@@ -2756,21 +2744,21 @@
    "group": "Showcase_Cogs_a_Yoke"
   },
   {
-   "node": "Showcase_Cogs_b_Yoke__cog_paint",
+   "node": "Showcase_Cogs_a_Yoke__cog_paint",
    "kind": "group",
    "material": "cog_paint",
    "triangles": 32,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
-    "Showcase_Cogs_b_Piston"
+    "Showcase_Cogs_a_Piston"
    ],
-   "group": "Showcase_Cogs_b_Yoke"
+   "group": "Showcase_Cogs_a_Yoke"
   },
   {
-   "node": "Showcase_Cogs_b_Yoke__lift_ring",
+   "node": "Showcase_Cogs_b_Yoke__cog_machined",
    "kind": "group",
-   "material": "lift_ring",
+   "material": "cog_machined",
    "triangles": 72,
    "visibility_range_end": 0,
    "cast_shadow": true,
@@ -2780,6 +2768,18 @@
     "Showcase_Cogs_b_YokeEnd_L",
     "Showcase_Cogs_b_YokeBottom",
     "Showcase_Cogs_b_YokeTop"
+   ],
+   "group": "Showcase_Cogs_b_Yoke"
+  },
+  {
+   "node": "Showcase_Cogs_b_Yoke__cog_paint",
+   "kind": "group",
+   "material": "cog_paint",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_Cogs_b_Piston"
    ],
    "group": "Showcase_Cogs_b_Yoke"
   },
@@ -3578,7 +3578,7 @@
    "node": "M_ce_signs_0_0",
    "kind": "static",
    "material": "ce_signs",
-   "triangles": 20,
+   "triangles": 16,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -3589,9 +3589,35 @@
     "Showcase_Pit_1_Pump_2_Emblem",
     "Showcase_Pit_1_Pump_1_Emblem",
     "Showcase_Pit_1_Emblem_R",
-    "Showcase_Pit_1_Emblem_L",
-    "Showcase_Monitor_b",
-    "Showcase_Monitor_a"
+    "Showcase_Pit_1_Emblem_L"
+   ]
+  },
+  {
+   "node": "M_cog_machined_0_0",
+   "kind": "static",
+   "material": "cog_machined",
+   "triangles": 284,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_Cogs_b_DrivePipe",
+    "Showcase_Cogs_b_GuideTop",
+    "Showcase_Cogs_b_Guide_R",
+    "Showcase_Cogs_b_Guide_L",
+    "Showcase_Cogs_b_Gauge",
+    "Showcase_Cogs_b_PlateEdge_4",
+    "Showcase_Cogs_b_PlateEdge_3",
+    "Showcase_Cogs_b_PlateEdge_2",
+    "Showcase_Cogs_b_PlateEdge_1",
+    "Showcase_Cogs_a_DrivePipe",
+    "Showcase_Cogs_a_GuideTop",
+    "Showcase_Cogs_a_Guide_R",
+    "Showcase_Cogs_a_Guide_L",
+    "Showcase_Cogs_a_Gauge",
+    "Showcase_Cogs_a_PlateEdge_4",
+    "Showcase_Cogs_a_PlateEdge_3",
+    "Showcase_Cogs_a_PlateEdge_2",
+    "Showcase_Cogs_a_PlateEdge_1"
    ]
   },
   {
@@ -3694,7 +3720,7 @@
    "node": "M_frame_0_0",
    "kind": "static",
    "material": "frame",
-   "triangles": 10115,
+   "triangles": 10095,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -3993,8 +4019,6 @@
     "Showcase_Pit_1_Pump_2_Band",
     "Showcase_Pit_1_Pump_1_FanRim",
     "Showcase_Pit_1_Pump_1_Band",
-    "Showcase_Monitor_b_Board",
-    "Showcase_Monitor_a_Board",
     "Showcase_ScanMount_b",
     "Showcase_ScanMount_a",
     "Showcase_ScanBezel_R",
@@ -4908,7 +4932,7 @@
    "node": "M_lift_ring_0_0",
    "kind": "static",
    "material": "lift_ring",
-   "triangles": 5564,
+   "triangles": 5136,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -4949,30 +4973,6 @@
     "Showcase_Pit_1_Pump_2_Pipe_Elbow",
     "Showcase_Pit_1_CornerPipe_1_Elbow",
     "Showcase_Pit_1_Pump_1_Pipe_Elbow",
-    "Showcase_Cogs_b_DrivePipe",
-    "Showcase_Cogs_b_GuideTop",
-    "Showcase_Cogs_b_Guide_R",
-    "Showcase_Cogs_b_Guide_L",
-    "Showcase_Cogs_b_Gauge",
-    "Showcase_Cogs_b_Bearing_3",
-    "Showcase_Cogs_b_Bearing_2",
-    "Showcase_Cogs_b_Bearing_1",
-    "Showcase_Cogs_b_PlateEdge_4",
-    "Showcase_Cogs_b_PlateEdge_3",
-    "Showcase_Cogs_b_PlateEdge_2",
-    "Showcase_Cogs_b_PlateEdge_1",
-    "Showcase_Cogs_a_DrivePipe",
-    "Showcase_Cogs_a_GuideTop",
-    "Showcase_Cogs_a_Guide_R",
-    "Showcase_Cogs_a_Guide_L",
-    "Showcase_Cogs_a_Gauge",
-    "Showcase_Cogs_a_Bearing_3",
-    "Showcase_Cogs_a_Bearing_2",
-    "Showcase_Cogs_a_Bearing_1",
-    "Showcase_Cogs_a_PlateEdge_4",
-    "Showcase_Cogs_a_PlateEdge_3",
-    "Showcase_Cogs_a_PlateEdge_2",
-    "Showcase_Cogs_a_PlateEdge_1",
     "Showcase_LiftClamp_4",
     "Showcase_LiftClamp_3",
     "Showcase_LiftClamp_2",
@@ -6327,10 +6327,22 @@
    "reason": "animated by an effect / merge disabled"
   },
   {
-   "node": "Showcase_Cogs_b_Gear_3",
+   "node": "Showcase_Cogs_b_Gear_3_Web",
    "kind": "separate",
    "material": "cog_steel",
-   "triangles": 496,
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_Cogs_b_Gear_3_Web"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Showcase_Cogs_b_Gear_3",
+   "kind": "separate",
+   "material": "cog_machined",
+   "triangles": 384,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -6339,10 +6351,22 @@
    "reason": "animated by an effect / merge disabled"
   },
   {
-   "node": "Showcase_Cogs_b_Gear_2",
+   "node": "Showcase_Cogs_b_Gear_2_Web",
    "kind": "separate",
    "material": "cog_steel",
-   "triangles": 604,
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_Cogs_b_Gear_2_Web"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Showcase_Cogs_b_Gear_2",
+   "kind": "separate",
+   "material": "cog_machined",
+   "triangles": 456,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -6351,10 +6375,22 @@
    "reason": "animated by an effect / merge disabled"
   },
   {
-   "node": "Showcase_Cogs_b_Gear_1",
+   "node": "Showcase_Cogs_b_Gear_1_Web",
    "kind": "separate",
    "material": "cog_steel",
-   "triangles": 828,
+   "triangles": 128,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_Cogs_b_Gear_1_Web"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Showcase_Cogs_b_Gear_1",
+   "kind": "separate",
+   "material": "cog_machined",
+   "triangles": 620,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -6363,10 +6399,22 @@
    "reason": "animated by an effect / merge disabled"
   },
   {
-   "node": "Showcase_Cogs_a_Gear_3",
+   "node": "Showcase_Cogs_a_Gear_3_Web",
    "kind": "separate",
    "material": "cog_steel",
-   "triangles": 496,
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_Cogs_a_Gear_3_Web"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Showcase_Cogs_a_Gear_3",
+   "kind": "separate",
+   "material": "cog_machined",
+   "triangles": 384,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -6375,10 +6423,22 @@
    "reason": "animated by an effect / merge disabled"
   },
   {
-   "node": "Showcase_Cogs_a_Gear_2",
+   "node": "Showcase_Cogs_a_Gear_2_Web",
    "kind": "separate",
    "material": "cog_steel",
-   "triangles": 604,
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_Cogs_a_Gear_2_Web"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Showcase_Cogs_a_Gear_2",
+   "kind": "separate",
+   "material": "cog_machined",
+   "triangles": 456,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -6387,10 +6447,22 @@
    "reason": "animated by an effect / merge disabled"
   },
   {
-   "node": "Showcase_Cogs_a_Gear_1",
+   "node": "Showcase_Cogs_a_Gear_1_Web",
    "kind": "separate",
    "material": "cog_steel",
-   "triangles": 828,
+   "triangles": 128,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Showcase_Cogs_a_Gear_1_Web"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Showcase_Cogs_a_Gear_1",
+   "kind": "separate",
+   "material": "cog_machined",
+   "triangles": 620,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
