@@ -1,4 +1,4 @@
-import math
+import math, random
 """Procedural PBR material library (CPU, free). Used by build_level.py; one shared glTF material per level.json material.
 
 level.json material entry: {"type": <kind>, "color": [r,g,b], "tile_m": metres per texture repeat,
@@ -15,7 +15,7 @@ PBR kinds: industrial_metal, painted_metal, damaged_metal, scifi_floor, grating,
   stone_brick, plaster, wood, painted_wood, trim_wood, door_wood, window, roof_tiles, roof_slate, metal, water, soil.
 """
 import io, os, numpy as np, trimesh
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFilter, ImageFont  # (Stage 191: + drawing for the scenecore kernels)
 from scipy import ndimage
 
 TEX = 256  # px; mobile-friendly (jpeg-compressed in the glb)
@@ -1080,6 +1080,7 @@ def k_screen_atlas(S, rng, c, m):
     if m.get("grid"):
         G = m["grid"]; h, w = S // len(G), S // len(G[0])
         alb = np.concatenate([np.concatenate([_atlas_cell(cell, w, h) for cell in row], 1) for row in G], 0)
+        if alb.shape[:2] != (S, S): alb = np.asarray(Image.fromarray((np.clip(alb, 0, 1) * 255).astype(np.uint8)).resize((S, S), Image.LANCZOS), float) / 255.0  # (Stage 191: 3 x 3 grids)
         for cell in m.get("blank", []):  # Stage 178: atlas cells nothing uses any more -> flat black (compresses to almost nothing)
             u0, v0, u1, v1 = m["atlas"][cell]; alb[int(round((1 - v1) * S)):int(round((1 - v0) * S)), int(round(u0 * S)):int(round(u1 * S))] = 0.0
         return dict(alb=alb, h=np.zeros((S, S)), rough=np.full((S, S), 0.45), metal=0.0, emit=np.ones((S, S)), nstr=0.0)
@@ -1249,6 +1250,218 @@ def k_scrape_rings(S, rng, c, m):
     grime = np.clip(_noise(rng, 10, 2, S) - 0.55, 0, 1) * 1.6 * (1 - pol); alb = alb * (1 - 0.35 * grime)[..., None]
     g = np.abs(sc)
     return dict(alb=np.clip(alb, 0, 1), h=0.5 - 0.3 * g + 0.02 * mott, rough=0.62 - 0.25 * pol - 0.2 * np.clip(sc, 0, 1) + 0.15 * grime, metal=0.1 + 0.6 * np.clip(np.clip(sc, 0, 1) + 0.4 * pol, 0, 1), nstr=0.7)
+
+
+# ---------------------------------------------------------------- Stage 191: scenecore / Y2K emo-rave kernels (scene_rave)
+def _hexc(v, dflt):
+    if v is None: return np.array(dflt, float)
+    if isinstance(v, str): v = v.lstrip("#"); return np.array([int(v[i:i + 2], 16) / 255.0 for i in (0, 2, 4)])
+    return np.array(v, float)
+
+
+SCENE_PALETTE = ["#FF1493", "#00F5FF", "#B6FF00", "#9D00FF", "#FF7A00", "#C04BFF"]  # hot pink, cyan, acid green, ultraviolet, fluoro orange, candy purple
+
+
+def _pil_font(px, bold=True):
+    for f in (("/usr/share/fonts/opentype/inter/Inter-Black.otf", "/usr/share/fonts/opentype/inter/Inter-Bold.otf", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf") if bold
+              else ("/usr/share/fonts/opentype/inter/Inter-SemiBold.otf", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")):
+        if os.path.exists(f): return ImageFont.truetype(f, px)
+    return ImageFont.load_default()
+
+
+def _shape_poly(kind, cx, cy, r, rot=0.0):
+    """Outline points of a sticker shape (heart / star / bolt / diamond / skull-head circle) centred at (cx, cy)."""
+    ca, sa = math.cos(rot), math.sin(rot); R = lambda x, y: (cx + (x * ca - y * sa) * r, cy + (x * sa + y * ca) * r)
+    if kind == "heart":
+        return [R(16 * math.sin(t) ** 3 / 17, -(13 * math.cos(t) - 5 * math.cos(2 * t) - 2 * math.cos(3 * t) - math.cos(4 * t)) / 17) for t in np.linspace(0, 2 * math.pi, 48, endpoint=False)]
+    if kind == "star":
+        return [R((1.0 if k % 2 == 0 else 0.45) * math.sin(k * math.pi / 5), -(1.0 if k % 2 == 0 else 0.45) * math.cos(k * math.pi / 5)) for k in range(10)]
+    if kind == "bolt":
+        return [R(x, y) for x, y in ((-0.15, -1.0), (0.55, -1.0), (0.1, -0.15), (0.6, -0.15), (-0.35, 1.0), (-0.05, 0.1), (-0.55, 0.1))]
+    if kind == "diamond":
+        return [R(x, y) for x, y in ((0, -1.0), (0.75, -0.25), (0, 1.0), (-0.75, -0.25))]
+    return [R(math.cos(t), math.sin(t)) for t in np.linspace(0, 2 * math.pi, 32, endpoint=False)]
+
+
+def _draw_sticker(d, kind, cx, cy, r, rot, col, ink=(8, 8, 8)):
+    """A die-cut vinyl sticker: white border, black ink outline, flat neon fill + a glossy highlight."""
+    col = tuple(int(v) for v in col)
+    if kind == "skull":
+        d.ellipse([cx - r * 1.12, cy - r * 1.12, cx + r * 1.12, cy + r * 1.0], fill=(255, 255, 255)); d.rounded_rectangle([cx - r * 0.62, cy + r * 0.4, cx + r * 0.62, cy + r * 1.2], r * 0.15, fill=(255, 255, 255))
+        d.ellipse([cx - r, cy - r, cx + r, cy + r * 0.85], fill=col, outline=ink, width=max(2, int(r * 0.09))); d.rounded_rectangle([cx - r * 0.5, cy + r * 0.45, cx + r * 0.5, cy + r * 1.05], r * 0.12, fill=col, outline=ink, width=max(2, int(r * 0.08)))
+        for sx in (-1, 1): d.ellipse([cx + sx * r * 0.42 - r * 0.26, cy - r * 0.05 - r * 0.3, cx + sx * r * 0.42 + r * 0.26, cy - r * 0.05 + r * 0.3], fill=ink)
+        d.polygon([(cx, cy + r * 0.25), (cx - r * 0.12, cy + r * 0.48), (cx + r * 0.12, cy + r * 0.48)], fill=ink)
+        for k in range(3): d.line([(cx - r * 0.25 + k * r * 0.25, cy + r * 0.62), (cx - r * 0.25 + k * r * 0.25, cy + r * 1.0)], fill=ink, width=max(2, int(r * 0.06)))
+        d.polygon([(cx + r * 0.3, cy - r * 1.05), (cx + r * 1.0, cy - r * 1.35), (cx + r * 0.95, cy - r * 0.7)], fill=(255, 20, 147), outline=ink)  # a little bow
+        d.polygon([(cx + r * 0.3, cy - r * 1.05), (cx - r * 0.2, cy - r * 1.5), (cx - r * 0.25, cy - r * 0.75)], fill=(255, 20, 147), outline=ink); return
+    if kind == "bow":
+        L = [(cx, cy), (cx - r, cy - r * 0.7), (cx - r * 1.05, cy + r * 0.7)]; Rr = [(cx, cy), (cx + r, cy - r * 0.7), (cx + r * 1.05, cy + r * 0.7)]
+        for P in (L, Rr): d.polygon(P, fill=(255, 255, 255)); d.polygon([((x - cx) * 0.86 + cx, (y - cy) * 0.86 + cy) for x, y in P], fill=col, outline=ink, width=max(2, int(r * 0.08)))
+        d.ellipse([cx - r * 0.25, cy - r * 0.25, cx + r * 0.25, cy + r * 0.25], fill=col, outline=ink, width=max(2, int(r * 0.08))); return
+    P = _shape_poly(kind, cx, cy, r * 1.14, rot); d.polygon(P, fill=(255, 255, 255))  # the white die-cut border
+    P = _shape_poly(kind, cx, cy, r, rot); d.polygon(P, fill=col, outline=ink, width=max(2, int(r * 0.08)))
+    hx, hy = cx - r * 0.35, cy - r * 0.35; d.ellipse([hx - r * 0.18, hy - r * 0.12, hx + r * 0.18, hy + r * 0.12], fill=(255, 255, 255))  # gloss
+
+
+def _pixel_heart(d, x, y, px, col, ink=(8, 8, 8)):
+    M = ["0110110", "1111111", "1111111", "0111110", "0011100", "0001000"]
+    for j, row in enumerate(M):
+        for i, ch in enumerate(row):
+            if ch == "1": d.rectangle([x + i * px, y + j * px, x + (i + 1) * px - 1, y + (j + 1) * px - 1], fill=col, outline=ink)
+
+
+def _wrap_img(S, draw_fn, seed):
+    """Stage 191: draw_fn(d, r_, S, put) lays out elements by calling put(fn, x, y) with x, y in [0, S); each element is
+    drawn at its spot and the 8 wrapped copies on a 3x3 canvas and the centre is kept - the texture tiles seamlessly."""
+    big = Image.new("RGB", (S * 3, S * 3), (8, 8, 8)); d = ImageDraw.Draw(big); r_ = random.Random(seed)
+    def put(fn, x, y):
+        for oy in (0, S, 2 * S):
+            for ox in (0, S, 2 * S): fn(d, x + ox, y + oy)
+    draw_fn(d, r_, S, put)
+    return np.asarray(big, float)[S:2 * S, S:2 * S] / 255.0
+
+
+def k_neon_checker(S, rng, c, m):
+    """Stage 191: a glossy neon checkerboard - "cells" x "cells" tiles per texture, dark tiles (colour) and bright tiles
+    ("accent"), bevelled plastic edges, a diagonal gloss on each tile, glowing grout lines ("grout"). emit: the grout
+    and the bright tiles at "tile_glow" (pulse_light makes the floor beat)."""
+    x, y = _xy(S); n = int(m.get("cells", 2)); fx, fy = (x * n) % 1, (y * n) % 1; ix, iy = np.floor(x * n), np.floor(y * n)
+    lit = ((ix + iy) % 2) == 0; acc = _hexc(m.get("accent"), [1.0, 0.08, 0.58]); gr = _hexc(m.get("grout"), [0.0, 0.96, 1.0])
+    e = np.minimum(np.minimum(fx, 1 - fx), np.minimum(fy, 1 - fy)); grout = e < 0.025; bev = (e < 0.07) & ~grout
+    gloss = np.clip(1 - np.abs((fx + fy) - 0.7) / 0.18, 0, 1) * (fx + fy < 1.1)
+    base = np.where(lit[..., None], acc, c[None, None]) * (1 + 0.25 * gloss)[..., None]
+    base = np.where(bev[..., None], base * np.where((fx < fy)[..., None], 0.75, 1.25), base)
+    alb = np.where(grout[..., None], gr, base); alb = np.clip(alb + 0.35 * gloss[..., None] * (~lit)[..., None] * 0.4, 0, 1)
+    emit = np.where(grout, 1.0, np.where(lit, float(m.get("tile_glow", 0.35)), 0.0))
+    h = 0.6 - 0.4 * grout + 0.1 * (e > 0.07)
+    return dict(alb=alb, h=h, rough=np.where(grout, 0.3, 0.18), metal=0.0, emit=emit, nstr=0.8)
+
+
+def k_zebra(S, rng, c, m):
+    """Stage 191: zebra print - organic tapering stripes (colour) on a base ("accent"), glossy vinyl."""
+    x, y = _xy(S); n1, n2 = _noise(rng, 4, 3, S), _noise(rng, 9, 2, S); fq = float(m.get("stripes", 7))
+    v = x * fq + 0.9 * n1 + 0.25 * np.sin(2 * np.pi * (y * 2 + n2)); w = np.sin(2 * np.pi * v); taper = 0.15 + 0.5 * n2
+    stripe = w > (0.15 - taper * 0.4); base = _hexc(m.get("accent"), [0.96, 0.96, 0.96])
+    alb = np.where(stripe[..., None], c[None, None], base[None, None]); h = 0.5 + 0.1 * stripe
+    return dict(alb=alb, h=h, rough=0.25, metal=0.0, emit=(~stripe).astype(float) * float(m.get("glow", 0.0)), nstr=0.3)
+
+
+def k_leopard(S, rng, c, m):
+    """Stage 191: leopard print - broken rosette rings (colour) round darker-centred spots ("spot") on a base
+    ("accent"), tileable (spots on a jittered grid with wrap)."""
+    x, y = _xy(S); g = int(m.get("spots", 7)); pts = (np.stack(np.meshgrid(np.arange(g), np.arange(g)), -1).reshape(-1, 2) + 0.2 + 0.6 * rng.random((g * g, 2))) / g
+    rad = (0.32 + 0.22 * rng.random(len(pts))) / g; d1 = np.full((S, S), 9.0); ri = np.zeros((S, S)); ang = np.zeros((S, S))
+    for (px, py), r in zip(pts, rad):
+        dx = (x - px + 0.5) % 1 - 0.5; dy = (y - py + 0.5) % 1 - 0.5; dd = np.hypot(dx, dy) / r; m_ = dd < d1; d1 = np.where(m_, dd, d1); ang = np.where(m_, np.arctan2(dy, dx), ang)
+    brk = np.sin(ang * 3 + 3 * _noise(rng, 6, 2, S)) > -0.55; ring = (d1 > 0.62) & (d1 < 1.0) & brk; spot = d1 <= 0.62
+    base = _hexc(m.get("accent"), [1.0, 0.48, 0.0]); sp = _hexc(m.get("spot"), [1.0, 0.08, 0.58])
+    alb = np.where(ring[..., None], c[None, None], np.where(spot[..., None], sp[None, None], base[None, None]))
+    alb = alb * (0.92 + 0.12 * _noise(rng, 24, 1, S))[..., None]
+    return dict(alb=np.clip(alb, 0, 1), h=0.5 + 0.1 * ring, rough=0.35, metal=0.0, emit=spot.astype(float) * float(m.get("glow", 0.0)), nstr=0.3)
+
+
+def k_psy_spiral(S, rng, c, m):
+    """Stage 191: a psychedelic spiral - "arms" logarithmic arms of the neon palette, hypnotic, fully emissive."""
+    x, y = _xy(S); dx, dy = x - 0.5, y - 0.5; r = np.hypot(dx, dy) + 1e-4; a = np.arctan2(dy, dx)
+    k = int(m.get("arms", 6)); t = (a * k / (2 * np.pi) + float(m.get("twist", 0.9)) * np.log(r)) % 1.0
+    P = [_hexc(h_, [1, 1, 1]) for h_ in m.get("colors", SCENE_PALETTE)]; idx = np.floor(t * len(P)).astype(int) % len(P); f = (t * len(P)) % 1
+    alb = np.array(P)[idx]; alb = np.where((f < 0.06)[..., None], np.array([0.03, 0.03, 0.03]), alb)  # ink between the bands
+    alb = alb * np.clip(0.55 + r * 1.8, 0, 1)[..., None]; alb = np.where((r < 0.035)[..., None], np.array([1.0, 1.0, 1.0]), alb)
+    return dict(alb=np.clip(alb, 0, 1), h=0.5 - 0.3 * (f < 0.06), rough=0.3, metal=0.0, emit=np.ones((S, S)), nstr=0.2)
+
+
+def k_sticker_wall(S, rng, c, m):
+    """Stage 191: a scene-kid sticker collage - a black wall half covered in zebra / checker patches and dozens of
+    overlapping die-cut stickers (hearts, stars, bolts, diamonds, skulls with bows, bows, pixel hearts) and Y2K
+    shout-outs in bubble text ("words"), tileable. Stickers glow at "glow" (neon ink)."""
+    words = m.get("words", ["RAWR", "xD", "<3", "XOXO", "~*~", "LOL", "OMG", "BFF"]); pal = [tuple(int(v * 255) for v in _hexc(h_, [1, 1, 1])) for h_ in m.get("colors", SCENE_PALETTE)]
+    def draw(d, r_, S_, put):
+        cs = max(6, int(S_ / 40))
+        for k in range(int(m.get("patches", 10))):  # print patches under the stickers
+            x0, y0, w_, h_ = r_.uniform(0, S_), r_.uniform(0, S_), r_.uniform(0.15, 0.3) * S_, r_.uniform(0.12, 0.25) * S_; col = pal[k % len(pal)]
+            if k % 2:
+                def fn(d, X, Y, w_=w_, h_=h_, col=col):
+                    for i in range(int(w_ / cs)):
+                        for j in range(int(h_ / cs)):
+                            if (i + j) % 2: d.rectangle([X + i * cs, Y + j * cs, X + (i + 1) * cs, Y + (j + 1) * cs], fill=col)
+            else:
+                def fn(d, X, Y, w_=w_, h_=h_):
+                    for i in range(0, int(w_), cs * 2): d.polygon([(X + i, Y), (X + i + cs, Y), (X + i + cs * 1.6, Y + h_), (X + i + cs * 0.6, Y + h_)], fill=(245, 245, 245))
+            put(fn, x0, y0)
+        kinds = ["heart", "star", "bolt", "diamond", "skull", "bow", "heart", "star", "pixel", "word"]
+        for k in range(int(m.get("stickers", 70))):
+            cx, cy = r_.uniform(0, S_), r_.uniform(0, S_); r = r_.uniform(0.035, 0.08) * S_; kd = r_.choice(kinds); col = r_.choice(pal); rot = r_.uniform(-0.5, 0.5); t = r_.choice(words)
+            if kd == "pixel": fn = lambda d, X, Y, r=r, col=col: _pixel_heart(d, X, Y, max(2, int(r / 4)), col)
+            elif kd == "word":
+                def fn(d, X, Y, r=r, col=col, t=t):
+                    f = _pil_font(int(r * 1.1)); tw = d.textlength(t, font=f)
+                    d.text((X - tw / 2, Y - r * 0.6), t, font=f, fill=col, stroke_width=max(2, int(r * 0.14)), stroke_fill=(255, 255, 255))
+            else: fn = lambda d, X, Y, r=r, col=col, kd=kd, rot=rot: _draw_sticker(d, kd, X, Y, r, rot, col)
+            put(fn, cx, cy)
+    alb = _wrap_img(S, draw, int(m.get("seed", 0)) + 191)
+    lum = alb.max(-1); emit = np.clip((lum - 0.25) * 1.5, 0, 1) * float(m.get("glow", 0.45))
+    return dict(alb=alb, h=0.4 + 0.3 * (lum > 0.1), rough=0.25, metal=0.0, emit=emit, nstr=0.5)
+
+
+def k_holo(S, rng, c, m):
+    """Stage 191: holographic foil - thin-film iridescence sweeping pink -> cyan -> violet -> green across the surface,
+    a fine diffraction grating and glitter sparkles; metallic, partly emissive."""
+    x, y = _xy(S); n = _noise(rng, 5, 3, S); t = (x * 1.3 + y * 0.7 + 0.8 * n) * float(m.get("bands", 2.0))
+    P = np.array([_hexc(h_, [1, 1, 1]) for h_ in m.get("colors", ["#FF1493", "#C04BFF", "#00F5FF", "#B6FF00", "#FF7A00"])]); k = len(P)
+    tt = (t % 1.0) * k; i0 = np.floor(tt).astype(int) % k; f = (tt % 1)[..., None]; alb = P[i0] * (1 - f) + P[(i0 + 1) % k] * f
+    alb = alb * 0.75 + 0.25 + 0.06 * np.sin(2 * np.pi * (x + y) * 90)[..., None]  # pearly + the grating
+    sp = rng.random((S, S)) > 0.9965; alb = np.where(sp[..., None], 1.0, alb)
+    return dict(alb=np.clip(alb, 0, 1), h=0.5 + 0.2 * sp, rough=0.15, metal=0.7, emit=np.clip(0.35 + sp * 1.0, 0, 1) * float(m.get("glow", 1.0)), nstr=0.2)
+
+
+def k_rainbow_trail(S, rng, c, m):
+    """Stage 191: a rainbow light trail - neon bands across v (the ribbon's width), soft bright core, streaked along u
+    (scroll it along u), fully emissive; alpha fades the edges."""
+    x, y = _xy(S); P = np.array([_hexc(h_, [1, 1, 1]) for h_ in m.get("colors", ["#FF1493", "#FF7A00", "#B6FF00", "#00F5FF", "#9D00FF"])]); k = len(P)
+    tt = y * k; i0 = np.clip(np.floor(tt).astype(int), 0, k - 1); f = (tt % 1)[..., None]; alb = P[i0] * (1 - f * 0.5) + P[np.clip(i0 + 1, 0, k - 1)] * f * 0.5
+    streak = 0.75 + 0.25 * np.sin(2 * np.pi * (x * 6 + 0.4 * _noise(rng, 8, 1, S))); alb = np.clip(alb * streak[..., None] + 0.15, 0, 1)
+    edge = np.clip(np.minimum(y, 1 - y) / 0.12, 0, 1)
+    return dict(alb=alb, h=np.full((S, S), 0.5), rough=0.3, metal=0.0, emit=np.ones((S, S)), nstr=0.0, alpha=edge)
+
+
+def k_glitch_screen(S, rng, c, m):
+    """Stage 191: a retro-internet profile page on a glitching screen - title bar, ONLINE NOW badge, a TOP 8 grid of
+    pixel avatars, a loading bar, a marquee shout-out, pixel hearts, RGB-split glitch bars and scanlines ("title",
+    "shout"). Generic - no brand marks."""
+    img = Image.new("RGB", (S, S), (12, 0, 24)); d = ImageDraw.Draw(img); r_ = random.Random(int(m.get("seed", 0)) + 7)
+    pk, cy_, gr, uv = (255, 20, 147), (0, 245, 255), (182, 255, 0), (157, 0, 255)
+    for k in range(0, S, max(4, S // 64)): d.line([(0, k), (S, k)], fill=(26, 0, 44))  # grid
+    d.rectangle([S * 0.04, S * 0.04, S * 0.96, S * 0.16], fill=pk); f = _pil_font(int(S * 0.07)); d.text((S * 0.07, S * 0.06), m.get("title", "~*xX sc3n3 qu33n Xx*~"), font=f, fill=(255, 255, 255), stroke_width=2, stroke_fill=(8, 8, 8))
+    d.rounded_rectangle([S * 0.06, S * 0.2, S * 0.38, S * 0.52], S * 0.02, outline=cy_, width=max(2, S // 128)); _pixel_heart(d, S * 0.13, S * 0.27, max(3, S // 40), pk)
+    f2 = _pil_font(int(S * 0.045)); d.text((S * 0.08, S * 0.45), "ONLINE NOW!", font=f2, fill=gr)
+    d.text((S * 0.44, S * 0.2), "TOP 8", font=f2, fill=cy_)
+    for i in range(8):  # pixel avatars
+        gx, gy = S * (0.44 + (i % 4) * 0.13), S * (0.27 + (i // 4) * 0.13); col = [pk, cy_, gr, uv, (255, 122, 0)][i % 5]
+        d.rectangle([gx, gy, gx + S * 0.11, gy + S * 0.11], fill=(20, 0, 40), outline=col, width=max(2, S // 200))
+        d.ellipse([gx + S * 0.03, gy + S * 0.02, gx + S * 0.08, gy + S * 0.07], fill=col); d.rectangle([gx + S * 0.02, gy + S * 0.07, gx + S * 0.09, gy + S * 0.11], fill=col)
+    d.text((S * 0.06, S * 0.58), "loading...", font=f2, fill=(255, 255, 255)); d.rectangle([S * 0.06, S * 0.65, S * 0.94, S * 0.7], outline=cy_, width=2)
+    d.rectangle([S * 0.065, S * 0.655, S * (0.065 + 0.6), S * 0.695], fill=gr)
+    for i in range(10): _pixel_heart(d, S * (0.05 + i * 0.09), S * 0.75, max(2, S // 110), [pk, cy_, gr, uv][i % 4])
+    d.rectangle([0, S * 0.86, S, S * 0.96], fill=uv); d.text((S * 0.03, S * 0.875), m.get("shout", "thanks 4 the add!! <3 rawr means i luv u in dinosaur"), font=_pil_font(int(S * 0.045), False), fill=(255, 255, 255))
+    a = np.asarray(img, float) / 255.0
+    for _ in range(int(m.get("glitches", 7))):  # RGB-split glitch bars
+        y0 = r_.randint(0, S - 8); hh = r_.randint(3, max(4, S // 24)); sh = r_.randint(-S // 12, S // 12)
+        a[y0:y0 + hh, :, 0] = np.roll(a[y0:y0 + hh, :, 0], sh, 1); a[y0:y0 + hh, :, 2] = np.roll(a[y0:y0 + hh, :, 2], -sh, 1)
+    a = a * (0.85 + 0.15 * (np.arange(S) % 3 != 0))[:, None, None]
+    return dict(alb=np.clip(a, 0, 1), h=np.full((S, S), 0.5), rough=0.25, metal=0.0, emit=np.ones((S, S)), nstr=0.0)
+
+
+def k_neon_text(S, rng, c, m):
+    """Stage 191: a neon tube word ("text") in bubble letters - colour glow halo, white-hot core, black backing."""
+    t = str(m.get("text", "RAWR")); img = Image.new("RGB", (S, S), (8, 8, 8)); d = ImageDraw.Draw(img); col = tuple(int(v * 255) for v in c)
+    px = int(S * 0.6); f = _pil_font(px)
+    while d.textlength(t, font=f) > S * 0.9 and px > 8: px -= 4; f = _pil_font(px)
+    tw = d.textlength(t, font=f); bb = d.textbbox((0, 0), t, font=f); th = bb[3] - bb[1]; pos = ((S - tw) / 2, (S - th) / 2 - bb[1])
+    halo = Image.new("RGB", (S, S), (0, 0, 0)); ImageDraw.Draw(halo).text(pos, t, font=f, fill=col, stroke_width=max(3, px // 10), stroke_fill=col)
+    halo = np.asarray(halo.filter(ImageFilter.GaussianBlur(S / 40)), float) / 255.0
+    d.text(pos, t, font=f, fill=(255, 255, 255), stroke_width=max(2, px // 18), stroke_fill=col)
+    a = np.clip(np.asarray(img, float) / 255.0 + halo * 1.3, 0, 1)
+    return dict(alb=a, h=np.full((S, S), 0.5), rough=0.3, metal=0.0, emit=np.clip(a.max(-1) * 1.2, 0, 1), nstr=0.0)
 
 
 PBR = {k[2:]: f for k, f in globals().items() if k.startswith("k_")}

@@ -1,0 +1,221 @@
+{
+ "generated_by": "image-to-level Stage 2 (pipeline/environment.py)",
+ "quality": "balanced",
+ "note": "Browser preview approximates this; Godot settings are generated but not tested in Godot here.",
+ "files": {
+  "level": "level.glb",
+  "background": "background.glb",
+  "sky_panorama": "sky/panorama.jpg",
+  "godot_environment": "environment.tres"
+ },
+ "sky": {
+  "type": "panorama",
+  "image": "sky/panorama.jpg",
+  "size": [
+   2048,
+   1024
+  ],
+  "projection": "equirectangular",
+  "preset": "sunset",
+  "external": false,
+  "azimuth_convention": "image column u -> atan2(dir.z, dir.x) (three.js); level azimuth 0=north(-z) 90=east(+x). If the Godot sky looks rotated vs the sun, adjust Environment sky_rotation.y in 90\u00b0 steps.",
+  "horizon_rgb": [
+   0.984,
+   0.182,
+   0.561
+  ],
+  "upper_rgb": [
+   0.154,
+   0.218,
+   0.516
+  ]
+ },
+ "sun": {
+  "azimuth_deg": 270,
+  "elevation_deg": 4,
+  "direction_to_sun": [
+   -0.9976,
+   0.0698,
+   0.0
+  ],
+  "color": [
+   1.0,
+   0.97,
+   0.98
+  ],
+  "energy": 1.6,
+  "godot_rotation_degrees": [
+   -4,
+   -90,
+   0
+  ],
+  "shadows": {
+   "enabled": true,
+   "mode": "PSSM 2 splits",
+   "max_distance": 70,
+   "note": "keep shadows to the playable area on mobile"
+  }
+ },
+ "ambient": {
+  "source": "sky",
+  "sky_color": [
+   0.154,
+   0.218,
+   0.516
+  ],
+  "ground_color": [
+   0.131,
+   0.031,
+   0.091
+  ],
+  "energy": 1.2
+ },
+ "fog": {
+  "enabled": true,
+  "color": [
+   0.35,
+   0.0,
+   0.6
+  ],
+  "start": 140,
+  "end": 900,
+  "godot_density": 0.00333,
+  "sky_affect": 0.55,
+  "height": 2.0,
+  "height_density": 0.12
+ },
+ "tonemap": {
+  "mode": "filmic",
+  "exposure": 1.0
+ },
+ "glow": {
+  "enabled": true,
+  "intensity": 1.2,
+  "bloom": 0.15,
+  "hdr_threshold": 0.75
+ },
+ "adjustments": {
+  "brightness": 1.0,
+  "contrast": 1.15,
+  "saturation": 1.35
+ },
+ "camera": {
+  "far": 800,
+  "horizon_distance": 638
+ },
+ "background": {
+  "layers": [
+   {
+    "id": "Neon_Skyline_Near",
+    "node": "BG_Neon_Skyline_Near",
+    "type": "skyline",
+    "triangles": 2116,
+    "material": "bg_neon_skyline_near",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840
+   },
+   {
+    "id": "Neon_Skyline_Far",
+    "node": "BG_Neon_Skyline_Far",
+    "type": "skyline",
+    "triangles": 2352,
+    "material": "bg_neon_skyline_far",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840
+   },
+   {
+    "id": "Halo_Ring",
+    "node": "BG_Halo_Ring",
+    "type": "ring_structure",
+    "triangles": 848,
+    "material": "bg_halo_ring",
+    "collision": false,
+    "cast_shadows": false,
+    "visibility_range_end": 840
+   }
+  ],
+  "materials": [
+   "bg_neon_skyline_near",
+   "bg_neon_skyline_far",
+   "bg_halo_ring"
+  ],
+  "stats": {
+   "glb_kb": 261,
+   "triangles": 5316,
+   "nodes": 4,
+   "mesh_nodes": 3,
+   "unique_meshes": 3,
+   "materials": 3,
+   "images": 8,
+   "draw_calls_unbatched": 3,
+   "draw_calls_batched_min": 3,
+   "tex_mem_uncompressed_mb": 0.67,
+   "tex_mem_gpu_compressed_mb": 0.17,
+   "texture_slots": {
+    "baseColorTexture": 3,
+    "metallicRoughnessTexture": 3,
+    "normalTexture": 3,
+    "occlusionTexture": 3,
+    "emissiveTexture": 3
+   },
+   "image_sizes": [
+    "128x128 jpeg"
+   ]
+  },
+  "tex_mem_gpu_compressed_mb": 0.25
+ },
+ "style": {
+  "name": "scene_rave",
+  "toon": {
+   "steps": 3,
+   "floor": 0.6,
+   "ambient": 0.9,
+   "godot": {
+    "diffuse_mode": "toon",
+    "specular_mode": "disabled",
+    "metallic": 0.0
+   }
+  },
+  "outline": {
+   "color": [
+    0.02,
+    0.02,
+    0.025
+   ],
+   "width": [
+    0.035,
+    0.09
+   ],
+   "rel": 0.009,
+   "max_footprint": 12.0,
+   "min_size": 0.25,
+   "skip_materials": [
+    "glow",
+    "glow_pink",
+    "glow_cyan",
+    "glow_green",
+    "glow_violet",
+    "glow_orange",
+    "glow_yellow",
+    "trim",
+    "rainbow",
+    "lamp",
+    "glass",
+    "glass_clear",
+    "water"
+   ],
+   "skip_types": [
+    "panel",
+    "terrain",
+    "boundary",
+    "stream"
+   ]
+  }
+ },
+ "sky_asset": {
+  "kb": 183,
+  "tex_mem_gpu_compressed_mb": 2.67
+ }
+}

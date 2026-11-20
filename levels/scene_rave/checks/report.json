@@ -1,0 +1,242 @@
+{
+ "level": "scene_rave",
+ "assets_kb": {
+  "level.glb": 2212,
+  "mobile/level_mobile.glb": 1298,
+  "mobile/collision.json": 62,
+  "environment.json": 4,
+  "background.glb": 261,
+  "effects.json": 91
+ },
+ "complexity": {
+  "triangles": 47754,
+  "nodes": 1552,
+  "materials": 34,
+  "heaviest": [
+   [
+    "DJ_SpiralRing",
+    192
+   ],
+   [
+    "Float_High_08_Rim",
+    156
+   ],
+   [
+    "Float_High_08_Icon__ol",
+    156
+   ],
+   [
+    "Float_High_08_Icon",
+    156
+   ],
+   [
+    "Float_High_02_Rim",
+    156
+   ]
+  ]
+ },
+ "performance": {
+  "dev": {
+   "glb_kb": 2212,
+   "triangles": 41232,
+   "draw_calls": 1552,
+   "tex_mem_gpu_mb_est": 12.64
+  },
+  "mobile": {
+   "profile": "balanced",
+   "glb_kb": 1298,
+   "triangles": 45385,
+   "draw_calls": 168,
+   "visible_draw_calls_est": 73.3,
+   "visible_draw_calls_max_est": 159,
+   "tex_mem_gpu_mb_est": 6.64,
+   "materials": 35,
+   "nodes": 169,
+   "colliders": {
+    "colliders": 208,
+    "hazards": 0,
+    "glb_kb": 97
+   },
+   "background_kb": 214
+  },
+  "effects": {
+   "max_particles": 340,
+   "emitters": 2,
+   "extra_draw_calls": 2,
+   "transparent_area_m2": 0
+  },
+  "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
+ },
+ "geometry": {
+  "counts": {
+   "ERROR": 0,
+   "WARNING": 0,
+   "INTENTIONAL": 30
+  },
+  "relations": {
+   "explicit": 31,
+   "inferred": 0
+  },
+  "repairable": 0,
+  "passed": true
+ },
+ "navigation": {
+  "standable_area_m2": 12812.0,
+  "reachable_area_m2": 9528.0,
+  "components": 133,
+  "spawns": [
+   {
+    "id": "spawn",
+    "position": [
+     0,
+     1.0,
+     42
+    ],
+    "standable": true,
+    "clearance_m": 5.5,
+    "headroom_m": 99.0,
+    "component": 44
+   },
+   {
+    "id": "enemy_zebra",
+    "position": [
+     -34.0,
+     6.0,
+     4.0
+    ],
+    "standable": true,
+    "clearance_m": 6.5,
+    "headroom_m": 99.0,
+    "component": 26
+   },
+   {
+    "id": "enemy_leopard",
+    "position": [
+     34.0,
+     6.0,
+     4.0
+    ],
+    "standable": true,
+    "clearance_m": 6.5,
+    "headroom_m": 99.0,
+    "component": 26
+   },
+   {
+    "id": "enemy_halo",
+    "position": [
+     0.0,
+     15.0,
+     -40.0
+    ],
+    "standable": true,
+    "clearance_m": 5.5,
+    "headroom_m": 99.0,
+    "component": 26
+   }
+  ],
+  "intended_areas": [
+   {
+    "name": "Ground",
+    "standable_m2": 5277.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Entry_Deck",
+    "standable_m2": 240.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Dance_Floor",
+    "standable_m2": 1080.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "DJ_Stage",
+    "standable_m2": 296.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Zebra_Deck",
+    "standable_m2": 307.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Leopard_Deck",
+    "standable_m2": 307.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Heart_Loft",
+    "standable_m2": 276.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Star_Loft",
+    "standable_m2": 276.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Halo_Deck",
+    "standable_m2": 260.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   },
+   {
+    "name": "Entry_Walk",
+    "standable_m2": 88.0,
+    "reachable_fraction": 1.0,
+    "one_way": false
+   }
+  ],
+  "narrow_connectors": [],
+  "passed": true
+ },
+ "traverse": {
+  "connectors": 8,
+  "passed": true,
+  "findings": 0
+ },
+ "issues": [
+  {
+   "kind": "mobile_draw_calls",
+   "severity": "warning",
+   "message": "mobile draw calls 168 (> 80)"
+  },
+  {
+   "kind": "mobile_visible_draw_calls",
+   "severity": "warning",
+   "message": "~73 visible draw calls (estimate, > 60)"
+  },
+  {
+   "kind": "triangle_budget",
+   "severity": "warning",
+   "message": "47754 triangles (> budget 40000)"
+  },
+  {
+   "kind": "low_ceiling",
+   "severity": "info",
+   "object": "DJ_Stage_Cap",
+   "pos": [
+    4.5,
+    0.0,
+    -45.5
+   ],
+   "message": "57 m\u00b2 reachable floor has < 3.2 m headroom (cramped camera): DJ_Stage_Cap, Ground, Skull_E_Plinth, Skull_W_Plinth"
+  }
+ ],
+ "counts": {
+  "error": 0,
+  "warning": 3,
+  "info": 1
+ },
+ "passed": true,
+ "gameplay_config": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer."
+}

@@ -89,7 +89,75 @@ ALIEN_CARTOON = {
                            "skip_materials": ["glow", "water", "accent"], "skip_types": ["panel", "terrain", "boundary", "stream"]}},
 }
 
-PRESETS = {"alien_cartoon": ALIEN_CARTOON}
+SCENE_RAVE = {  # Stage 191: hyper-chromatic scenecore / Y2K emo-rave (the scene_rave experiment)
+    "description": "2007 scene-kid rave dimension: glossy black / hot-pink neon checkerboards with cyan grout, zebra and leopard "
+                   "prints, sticker-collage walls, holographic foil, rainbow light trails, psychedelic spirals, inked toon "
+                   "outlines. Palette #FF1493 #00F5FF #B6FF00 #9D00FF #080808 + candy purple / fluoro orange. A near-white sun: "
+                   "the colour lives in the materials and emissives (tinted light washes neon out).",
+    "materials": {"variation": False, "roles": {
+        "deck":        {"type": "neon_checker", "color": [0.03, 0.03, 0.035], "accent": "#FF1493", "grout": "#00F5FF", "tile_m": 4.0, "res": 256, "tile_glow": 0.3, "emissive": [1, 1, 1]},
+        "deck_cyan":   {"type": "neon_checker", "color": [0.03, 0.03, 0.035], "accent": "#00F5FF", "grout": "#FF1493", "tile_m": 3.0, "res": 256, "tile_glow": 0.3, "emissive": [1, 1, 1]},
+        "deck_green":  {"type": "neon_checker", "color": [0.03, 0.03, 0.035], "accent": "#B6FF00", "grout": "#9D00FF", "tile_m": 3.0, "res": 256, "tile_glow": 0.3, "emissive": [1, 1, 1]},
+        "structure":   {"type": "zebra", "color": [0.03, 0.03, 0.035], "accent": [0.96, 0.96, 0.96], "tile_m": 5.0, "res": 256},
+        "structure_b": {"type": "leopard", "color": [0.03, 0.03, 0.035], "accent": "#C04BFF", "spot": "#FF1493", "tile_m": 4.0, "res": 256},
+        "zebra_pink":  {"type": "zebra", "color": [0.03, 0.03, 0.035], "accent": "#FF1493", "tile_m": 5.0, "res": 256, "seed": 2, "glow": 0.25, "emissive": [1, 1, 1]},
+        "leopard_orange": {"type": "leopard", "color": [0.03, 0.03, 0.035], "accent": "#FF7A00", "spot": "#9D00FF", "tile_m": 4.0, "res": 256, "seed": 3},
+        "wall":        {"type": "sticker_wall", "color": [1, 1, 1], "tile_m": 10.0, "res": 1024, "glow": 0.45, "emissive": [1, 1, 1]},
+        "frame":       {"type": "concrete", "plain": True, "color": [0.035, 0.035, 0.04], "metal": 0.2, "rough": 0.3},
+        "trim":        {"type": "glow", "color": [0.0, 0.96, 1.0], "tile_m": 2.0, "res": 32, "emissive": [0.0, 0.96, 1.0]},
+        "glow":        {"type": "glow", "color": [1.0, 0.08, 0.58], "tile_m": 2.0, "res": 32, "emissive": [1.0, 0.08, 0.58]},
+        "glow_pink":   {"type": "glow", "color": [1.0, 0.08, 0.58], "tile_m": 2.0, "res": 32, "emissive": [1.0, 0.08, 0.58]},
+        "glow_cyan":   {"type": "glow", "color": [0.0, 0.96, 1.0], "tile_m": 2.0, "res": 32, "emissive": [0.0, 0.96, 1.0]},
+        "glow_green":  {"type": "glow", "color": [0.71, 1.0, 0.0], "tile_m": 2.0, "res": 32, "emissive": [0.71, 1.0, 0.0]},
+        "glow_violet": {"type": "glow", "color": [0.62, 0.0, 1.0], "tile_m": 2.0, "res": 32, "emissive": [0.62, 0.0, 1.0]},
+        "glow_orange": {"type": "glow", "color": [1.0, 0.48, 0.0], "tile_m": 2.0, "res": 32, "emissive": [1.0, 0.48, 0.0]},
+        "glow_yellow": {"type": "glow", "color": [1.0, 0.9, 0.2], "tile_m": 2.0, "res": 32, "emissive": [1.0, 0.9, 0.2]},
+        "accent":      {"type": "holo", "color": [1, 1, 1], "tile_m": 3.0, "res": 256, "emissive": [0.6, 0.6, 0.6]},
+        "holo":        {"type": "holo", "color": [1, 1, 1], "tile_m": 3.0, "res": 256, "emissive": [0.7, 0.7, 0.7]},
+        "rainbow":     {"type": "rainbow_trail", "color": [1, 1, 1], "tile_m": 6.0, "res": 128, "emissive": [1, 1, 1], "alpha": 0.85},
+        "spiral":      {"type": "psy_spiral", "color": [1, 1, 1], "tile_m": 6.0, "res": 512, "emissive": [0.9, 0.9, 0.9]},
+        "glitch":      {"type": "glitch_screen", "color": [1, 1, 1], "tile_m": 4.0, "res": 512, "emissive": [0.95, 0.95, 0.95]},
+        "rail":        {"type": "concrete", "plain": True, "color": [1.0, 0.08, 0.58], "metal": 0.1, "rough": 0.25},
+        "kandi_pink":  {"type": "concrete", "plain": True, "color": [1.0, 0.08, 0.58], "metal": 0.0, "rough": 0.15},
+        "kandi_cyan":  {"type": "concrete", "plain": True, "color": [0.0, 0.96, 1.0], "metal": 0.0, "rough": 0.15},
+        "kandi_green": {"type": "concrete", "plain": True, "color": [0.71, 1.0, 0.0], "metal": 0.0, "rough": 0.15},
+        "kandi_violet": {"type": "concrete", "plain": True, "color": [0.62, 0.0, 1.0], "metal": 0.0, "rough": 0.15},
+        "kandi_orange": {"type": "concrete", "plain": True, "color": [1.0, 0.48, 0.0], "metal": 0.0, "rough": 0.15},
+        "stud":        {"type": "concrete", "plain": True, "color": [0.85, 0.86, 0.9], "metal": 0.9, "rough": 0.2},
+        "bone":        {"type": "concrete", "plain": True, "color": [0.97, 0.97, 0.95], "metal": 0.0, "rough": 0.4},
+        "jet_black":   {"type": "concrete", "plain": True, "color": [0.03, 0.03, 0.035], "metal": 0.0, "rough": 0.5},  # (not "ink": that name is the outline shells')
+        "grate":       {"type": "grating", "color": [0.45, 0.0, 0.75], "tile_m": 2.0, "res": 128},
+        "machine":     {"type": "machinery_panel", "color": [0.08, 0.06, 0.1], "tile_m": 2.0, "accent": [0.0, 0.96, 1.0], "emissive": [1, 1, 1], "res": 256},
+        "stripe":      {"type": "neon_checker", "color": [0.03, 0.03, 0.035], "accent": "#B6FF00", "grout": "#FF1493", "cells": 4, "tile_m": 1.6, "res": 128, "tile_glow": 0.25, "emissive": [1, 1, 1]},
+        "lamp":        {"type": "glow", "color": [1.0, 0.95, 1.0], "tile_m": 2.0, "res": 32, "emissive": [1.0, 0.95, 1.0]},
+        "glass":       {"type": "holo", "color": [1, 1, 1], "tile_m": 4.0, "res": 64, "alpha": 0.3, "emissive": [0.3, 0.3, 0.3]},
+        "glass_clear": {"type": "concrete", "color": [0.85, 0.9, 1.0], "tile_m": 4.0, "res": 32, "alpha": 0.16},
+        "water":       {"type": "toxic", "color": [0.71, 1.0, 0.0], "tile_m": 3.0, "emissive": [0.6, 1.0, 0.0]},
+    }},
+    "world": {"materials": {}, "scatter_replace": {}, "scatter_style": "scene_rave", "scatter_density_mult": 1.0},
+    "atmosphere": {
+        "sky": "sunset",
+        "sky_overrides": {"zenith": [0.06, 0.0, 0.16], "upper": [0.36, 0.0, 0.7], "horizon": [1.0, 0.08, 0.58], "below": [0.02, 0.02, 0.03],
+                          "clouds": {"coverage": 0.45, "scale": 2.0, "stretch": 3.0, "lit": [0.0, 0.96, 1.0], "dark": [0.3, 0.0, 0.5], "layers": 2, "wisps": 0.7, "posterize": 3, "angular": 0.6},
+                          "sun": {"color": [1.0, 1.0, 1.0], "glow": 0.3}},
+        "fog_color": [0.35, 0.0, 0.6], "fog_start": 140, "fog_end": 900,
+        "lighting": {"sun_energy": 1.6, "sun_color": [1.0, 0.97, 0.98], "ambient_energy": 1.2, "exposure": 1.0, "contrast": 1.15, "saturation": 1.35,
+                     "glow": {"enabled": True, "intensity": 1.2, "bloom": 0.15, "hdr_threshold": 0.75}},
+    },
+    "background_types": {
+        "skyline": {"toon": True, "color": [0.04, 0.03, 0.07], "fade": 0.05, "glow": [1.0, 0.08, 0.58], "lit": 0.3, "setbacks": True, "masts": 0.8, "spikes": 0.4, "tile_m": 22.0},
+        "spires": {"toon": True, "color": [0.05, 0.03, 0.08], "fade": 0.0},
+        "mountain_ring": {"toon": True, "color": [0.1, 0.02, 0.2], "fade": 0.0},
+        "ring_structure": {"toon": True, "color": [0.06, 0.03, 0.1], "fade": 0.05, "glow": [0.0, 0.96, 1.0]},
+    },
+    "background_add": [],
+    "structures_decor": {}, "structures_material": {},
+    "render": {"name": "scene_rave", "toon": {"steps": 3, "floor": 0.6, "ambient": 0.9, "godot": {"diffuse_mode": "toon", "specular_mode": "disabled", "metallic": 0.0}},
+               "outline": {"color": [0.02, 0.02, 0.025], "width": [0.035, 0.09], "rel": 0.009, "max_footprint": 12.0, "min_size": 0.25,
+                           "skip_materials": ["glow", "glow_pink", "glow_cyan", "glow_green", "glow_violet", "glow_orange", "glow_yellow", "trim", "rainbow", "lamp", "glass", "glass_clear", "water"],
+                           "skip_types": ["panel", "terrain", "boundary", "stream"]}},
+}
+PRESETS = {"alien_cartoon": ALIEN_CARTOON, "scene_rave": SCENE_RAVE}
 
 
 def _deep_under(base, top):

@@ -1,0 +1,1431 @@
+{
+  "spec_version": 1,
+  "name": "scene_rave",
+  "title": "Scene Rave (experiment - Y2K scenecore)",
+  "theme": "scifi",
+  "detail": "high",
+  "seed": 7,
+  "profile": "balanced",
+  "references": [
+    {
+      "file": "references/brief.md",
+      "view": "text",
+      "notes": "no image supplied - the prompt's environment section is the brief"
+    }
+  ],
+  "interpretation": {
+    "summary": "A neon scene-kid rave dimension: a pulsing black/pink checkerboard dance floor in front of a DJ stage, zebra and leopard decks either side, lofts climbing to a crown deck over the stage, floating giant hearts, stars, bolts and diamonds, holographic butterflies, sticker-collage walls.",
+    "scale_basis": "player 1.8 m; decks 16-36 m wide for third-person combat; ramps <= 32 deg",
+    "camera": "looking north from the entry deck at the DJ stage",
+    "assumptions": [
+      "No reference image was supplied (the prompt asks to transform one): the level builds the prompt's environment, palette and lighting sections; the character section becomes set dressing (no likeness invented, no brand marks).",
+      "Structured enclosed arena (a club / rave dimension) with an open ultraviolet sky.",
+      "Bloom / chromatic aberration / lens flares are screen effects: Godot glow is enabled; the browser preview approximates them with emissive colours and particles."
+    ],
+    "visible": [
+      "neon checkerboard floor",
+      "floating hearts / stars / lightning bolts",
+      "holographic butterflies",
+      "cartoon skulls",
+      "glittering diamonds",
+      "rainbow light trails",
+      "glitch screens",
+      "pixel sparkles",
+      "sticker collages",
+      "zebra / leopard print",
+      "psychedelic spirals"
+    ],
+    "inferred": [
+      "arena walls",
+      "platform layout and heights",
+      "ramps",
+      "DJ stage",
+      "spawn / enemy placement"
+    ]
+  },
+  "arena": {
+    "shape": "rect",
+    "size": [
+      100,
+      100
+    ],
+    "center": [
+      0,
+      0
+    ],
+    "floor": {
+      "kind": "deck",
+      "y": 0.0,
+      "source": "visible"
+    },
+    "walls": {
+      "height": 22,
+      "thickness": 4,
+      "style": "industrial",
+      "source": "inferred"
+    }
+  },
+  "platforms": [
+    {
+      "id": "Entry_Deck",
+      "center": [
+        0,
+        40
+      ],
+      "size": [
+        20,
+        12
+      ],
+      "top": 1.0,
+      "style": "scene",
+      "source": "inferred",
+      "cover": 0,
+      "side": "structure",
+      "material": "deck",
+      "edge": "trim"
+    },
+    {
+      "id": "Dance_Floor",
+      "center": [
+        0,
+        8
+      ],
+      "size": [
+        36,
+        30
+      ],
+      "top": 1.0,
+      "style": "scene",
+      "source": "visible",
+      "cover": 0,
+      "notes": "the pulsing neon checkerboard floor",
+      "side": "zebra_pink",
+      "material": "deck",
+      "edge": "trim"
+    },
+    {
+      "id": "DJ_Stage",
+      "center": [
+        0,
+        -20
+      ],
+      "size": [
+        30,
+        12
+      ],
+      "top": 3.5,
+      "style": "scene",
+      "source": "inferred",
+      "cover": 0,
+      "side": "structure",
+      "material": "deck_cyan",
+      "edge": "glow_pink"
+    },
+    {
+      "id": "Zebra_Deck",
+      "center": [
+        -34,
+        4
+      ],
+      "size": [
+        16,
+        20
+      ],
+      "top": 6.0,
+      "style": "scene",
+      "source": "visible",
+      "cover": 2,
+      "side": "structure",
+      "material": "deck_green",
+      "edge": "glow_pink"
+    },
+    {
+      "id": "Leopard_Deck",
+      "center": [
+        34,
+        4
+      ],
+      "size": [
+        16,
+        20
+      ],
+      "top": 6.0,
+      "style": "scene",
+      "source": "visible",
+      "cover": 2,
+      "side": "structure_b",
+      "material": "deck_cyan",
+      "edge": "glow_green"
+    },
+    {
+      "id": "Heart_Loft",
+      "center": [
+        -32,
+        -30
+      ],
+      "size": [
+        18,
+        16
+      ],
+      "top": 11.0,
+      "style": "scene",
+      "source": "inferred",
+      "cover": 2,
+      "side": "leopard_orange",
+      "material": "deck",
+      "edge": "glow_cyan"
+    },
+    {
+      "id": "Star_Loft",
+      "center": [
+        32,
+        -30
+      ],
+      "size": [
+        18,
+        16
+      ],
+      "top": 11.0,
+      "style": "scene",
+      "source": "inferred",
+      "cover": 2,
+      "side": "structure_b",
+      "material": "deck_green",
+      "edge": "glow_cyan"
+    },
+    {
+      "id": "Halo_Deck",
+      "center": [
+        0,
+        -40
+      ],
+      "size": [
+        26,
+        10
+      ],
+      "top": 15.0,
+      "style": "scene",
+      "source": "inferred",
+      "cover": 0,
+      "side": "zebra_pink",
+      "material": "deck_cyan",
+      "edge": "glow_green"
+    }
+  ],
+  "connections": [
+    {
+      "id": "Entry_Walk",
+      "from": "Entry_Deck",
+      "to": "Dance_Floor",
+      "kind": "bridge",
+      "width": 8,
+      "source": "inferred"
+    },
+    {
+      "id": "Stage_Steps",
+      "from": "Dance_Floor",
+      "to": "DJ_Stage",
+      "kind": "auto",
+      "width": 6,
+      "source": "inferred"
+    },
+    {
+      "id": "Zebra_Ramp",
+      "from": "Dance_Floor",
+      "to": "Zebra_Deck",
+      "kind": "ramp",
+      "width": 5,
+      "source": "inferred"
+    },
+    {
+      "id": "Leopard_Ramp",
+      "from": "Dance_Floor",
+      "to": "Leopard_Deck",
+      "kind": "ramp",
+      "width": 5,
+      "source": "inferred"
+    },
+    {
+      "id": "Heart_Ramp",
+      "from": "Zebra_Deck",
+      "to": "Heart_Loft",
+      "kind": "ramp",
+      "width": 4.5,
+      "source": "inferred"
+    },
+    {
+      "id": "Star_Ramp",
+      "from": "Leopard_Deck",
+      "to": "Star_Loft",
+      "kind": "ramp",
+      "width": 4.5,
+      "source": "inferred"
+    },
+    {
+      "id": "Halo_Ramp_W",
+      "from": "Heart_Loft",
+      "to": "Halo_Deck",
+      "kind": "ramp",
+      "width": 4.5,
+      "source": "inferred"
+    },
+    {
+      "id": "Halo_Ramp_E",
+      "from": "Star_Loft",
+      "to": "Halo_Deck",
+      "kind": "ramp",
+      "width": 4.5,
+      "source": "inferred"
+    }
+  ],
+  "structures": [
+    {
+      "id": "DJ",
+      "kind": "dj_stage",
+      "on": "DJ_Stage",
+      "yaw": 0,
+      "width": 28,
+      "depth": 12,
+      "truss_h": 9.0,
+      "disc": 9.0,
+      "source": "inferred",
+      "signs": [
+        [
+          "RAWR",
+          -9.0,
+          6.2,
+          3.2
+        ],
+        [
+          "<3",
+          9.0,
+          6.2,
+          3.2
+        ],
+        [
+          "SCENE",
+          -5.6,
+          10.6,
+          2.6
+        ],
+        [
+          "QUEEN",
+          5.6,
+          10.6,
+          2.6
+        ]
+      ]
+    },
+    {
+      "id": "Float_Floor",
+      "kind": "float_decor",
+      "position": [
+        0,
+        0,
+        8
+      ],
+      "source": "visible",
+      "items": [
+        {
+          "icon": "heart",
+          "at": [
+            -8,
+            10,
+            4
+          ],
+          "size": 3.4,
+          "material": "glow_pink",
+          "spin": 18,
+          "bob": 0.6,
+          "rim": true
+        },
+        {
+          "icon": "star",
+          "at": [
+            7,
+            12,
+            0
+          ],
+          "size": 3.0,
+          "material": "glow_green",
+          "spin": -24,
+          "bob": 0.5,
+          "rim": true
+        },
+        {
+          "icon": "bolt",
+          "at": [
+            0,
+            14,
+            14
+          ],
+          "size": 3.2,
+          "material": "glow_yellow",
+          "spin": 20,
+          "bob": 0.7,
+          "rim": true
+        },
+        {
+          "icon": "gem",
+          "at": [
+            -12,
+            13,
+            16
+          ],
+          "size": 2.4,
+          "material": "holo",
+          "spin": 30,
+          "bob": 0.5
+        },
+        {
+          "icon": "gem",
+          "at": [
+            12,
+            9,
+            18
+          ],
+          "size": 2.0,
+          "material": "holo",
+          "spin": -26,
+          "bob": 0.4
+        },
+        {
+          "icon": "skull",
+          "at": [
+            0,
+            11,
+            -6
+          ],
+          "size": 3.2,
+          "spin": 10,
+          "bob": 0.5,
+          "bow": "glow_pink"
+        },
+        {
+          "icon": "heart",
+          "at": [
+            14,
+            15,
+            6
+          ],
+          "size": 2.4,
+          "material": "glow_cyan",
+          "spin": -16,
+          "bob": 0.5,
+          "rim": true
+        },
+        {
+          "icon": "star",
+          "at": [
+            -15,
+            9,
+            8
+          ],
+          "size": 2.2,
+          "material": "glow_violet",
+          "spin": 28,
+          "bob": 0.4,
+          "rim": true
+        },
+        {
+          "icon": "diamond2d",
+          "at": [
+            -4,
+            16,
+            -2
+          ],
+          "size": 2.0,
+          "material": "glow_cyan",
+          "spin": 34,
+          "bob": 0.5,
+          "rim": true
+        },
+        {
+          "icon": "heart",
+          "at": [
+            5,
+            8,
+            22
+          ],
+          "size": 1.8,
+          "material": "glow_violet",
+          "spin": 22,
+          "bob": 0.3,
+          "rim": true
+        }
+      ]
+    },
+    {
+      "id": "Float_High",
+      "kind": "float_decor",
+      "position": [
+        0,
+        0,
+        -30
+      ],
+      "source": "visible",
+      "items": [
+        {
+          "icon": "bolt",
+          "at": [
+            -20,
+            20,
+            -20
+          ],
+          "size": 4.0,
+          "material": "glow_cyan",
+          "spin": -14,
+          "bob": 0.8,
+          "rim": true
+        },
+        {
+          "icon": "heart",
+          "at": [
+            20,
+            21,
+            -22
+          ],
+          "size": 4.6,
+          "material": "glow_pink",
+          "spin": 12,
+          "bob": 0.8,
+          "rim": true
+        },
+        {
+          "icon": "star",
+          "at": [
+            0,
+            24,
+            -30
+          ],
+          "size": 5.0,
+          "material": "glow_yellow",
+          "spin": 10,
+          "bob": 0.9,
+          "rim": true
+        },
+        {
+          "icon": "skull",
+          "at": [
+            -34,
+            19,
+            -6
+          ],
+          "size": 3.0,
+          "spin": -12,
+          "bob": 0.6,
+          "bow": "glow_green"
+        },
+        {
+          "icon": "skull",
+          "at": [
+            34,
+            19,
+            -6
+          ],
+          "size": 3.0,
+          "spin": 12,
+          "bob": 0.6,
+          "bow": "glow_cyan"
+        },
+        {
+          "icon": "gem",
+          "at": [
+            -32,
+            18,
+            26
+          ],
+          "size": 2.6,
+          "material": "holo",
+          "spin": 24,
+          "bob": 0.5
+        },
+        {
+          "icon": "gem",
+          "at": [
+            32,
+            18,
+            26
+          ],
+          "size": 2.6,
+          "material": "holo",
+          "spin": -24,
+          "bob": 0.5
+        },
+        {
+          "icon": "heart",
+          "at": [
+            -36,
+            15,
+            -38
+          ],
+          "size": 3.0,
+          "material": "glow_orange",
+          "spin": 16,
+          "bob": 0.5,
+          "rim": true
+        },
+        {
+          "icon": "star",
+          "at": [
+            36,
+            15,
+            -38
+          ],
+          "size": 3.0,
+          "material": "glow_pink",
+          "spin": -18,
+          "bob": 0.5,
+          "rim": true
+        },
+        {
+          "icon": "diamond2d",
+          "at": [
+            -26,
+            22,
+            10
+          ],
+          "size": 2.6,
+          "material": "glow_green",
+          "spin": 30,
+          "bob": 0.6,
+          "rim": true
+        },
+        {
+          "icon": "diamond2d",
+          "at": [
+            26,
+            22,
+            10
+          ],
+          "size": 2.6,
+          "material": "glow_violet",
+          "spin": -30,
+          "bob": 0.6,
+          "rim": true
+        },
+        {
+          "icon": "bolt",
+          "at": [
+            0,
+            19,
+            36
+          ],
+          "size": 3.0,
+          "material": "glow_pink",
+          "spin": 18,
+          "bob": 0.6,
+          "rim": true
+        }
+      ]
+    },
+    {
+      "id": "Butterflies",
+      "kind": "butterflies",
+      "position": [
+        0,
+        0,
+        8
+      ],
+      "center": [
+        0,
+        7.5,
+        8
+      ],
+      "radius": 13,
+      "count": 6,
+      "speed": 16,
+      "seed": 5,
+      "source": "visible",
+      "wing": 2.24
+    },
+    {
+      "id": "Butterflies_High",
+      "kind": "butterflies",
+      "position": [
+        0,
+        0,
+        -30
+      ],
+      "center": [
+        0,
+        18,
+        -30
+      ],
+      "radius": 18,
+      "count": 4,
+      "speed": 10,
+      "seed": 9,
+      "source": "visible",
+      "wing": 2.88
+    },
+    {
+      "id": "Kandi_Halo",
+      "kind": "kandi_rail",
+      "position": [
+        0,
+        15,
+        -35
+      ],
+      "y": 15.0,
+      "points": [
+        [
+          -9.5,
+          -34.9
+        ],
+        [
+          9.5,
+          -34.9
+        ]
+      ],
+      "source": "visible"
+    },
+    {
+      "id": "Kandi_Zebra",
+      "kind": "kandi_rail",
+      "position": [
+        -26,
+        6,
+        0
+      ],
+      "y": 6.0,
+      "points": [
+        [
+          -26.2,
+          -5.5
+        ],
+        [
+          -26.2,
+          0.5
+        ]
+      ],
+      "source": "visible"
+    },
+    {
+      "id": "Kandi_Leopard",
+      "kind": "kandi_rail",
+      "position": [
+        26,
+        6,
+        0
+      ],
+      "y": 6.0,
+      "points": [
+        [
+          26.2,
+          -5.5
+        ],
+        [
+          26.2,
+          0.5
+        ]
+      ],
+      "source": "visible"
+    },
+    {
+      "id": "Kandi_Stage",
+      "kind": "kandi_rail",
+      "position": [
+        0,
+        3.5,
+        -14
+      ],
+      "y": 3.5,
+      "points": [
+        [
+          -14.5,
+          -14.2
+        ],
+        [
+          -4.5,
+          -14.2
+        ]
+      ],
+      "source": "visible"
+    },
+    {
+      "id": "Kandi_Stage_E",
+      "kind": "kandi_rail",
+      "position": [
+        0,
+        3.5,
+        -14
+      ],
+      "y": 3.5,
+      "points": [
+        [
+          4.5,
+          -14.2
+        ],
+        [
+          14.5,
+          -14.2
+        ]
+      ],
+      "source": "visible"
+    },
+    {
+      "id": "Rainbows",
+      "kind": "ribbons",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "width": 1.6,
+      "speed": 7.0,
+      "source": "visible",
+      "paths": [
+        [
+          [
+            -46,
+            12,
+            30
+          ],
+          [
+            -25,
+            17,
+            20
+          ],
+          [
+            -5,
+            13,
+            24
+          ],
+          [
+            18,
+            19,
+            14
+          ],
+          [
+            46,
+            14,
+            22
+          ]
+        ],
+        [
+          [
+            46,
+            16,
+            -10
+          ],
+          [
+            24,
+            21,
+            -4
+          ],
+          [
+            0,
+            17,
+            -12
+          ],
+          [
+            -22,
+            22,
+            -6
+          ],
+          [
+            -46,
+            15,
+            -14
+          ]
+        ],
+        [
+          [
+            -40,
+            20,
+            -44
+          ],
+          [
+            -15,
+            25,
+            -30
+          ],
+          [
+            10,
+            22,
+            -36
+          ],
+          [
+            40,
+            26,
+            -26
+          ]
+        ],
+        [
+          [
+            -34,
+            17,
+            46
+          ],
+          [
+            -12,
+            20,
+            38
+          ],
+          [
+            12,
+            18,
+            42
+          ],
+          [
+            34,
+            21,
+            36
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "Skull_W",
+      "kind": "skull_statue",
+      "position": [
+        -22,
+        0,
+        -17
+      ],
+      "radius": 2.0,
+      "yaw": 30,
+      "bow": "glow_pink",
+      "source": "visible"
+    },
+    {
+      "id": "Skull_E",
+      "kind": "skull_statue",
+      "position": [
+        22,
+        0,
+        -17
+      ],
+      "radius": 2.0,
+      "yaw": -30,
+      "bow": "glow_green",
+      "source": "visible"
+    },
+    {
+      "id": "Column_SW",
+      "kind": "studded_column",
+      "position": [
+        -21,
+        0,
+        26
+      ],
+      "height": 10,
+      "glow": "glow_cyan",
+      "source": "inferred"
+    },
+    {
+      "id": "Column_SE",
+      "kind": "studded_column",
+      "position": [
+        21,
+        0,
+        26
+      ],
+      "height": 10,
+      "glow": "glow_pink",
+      "source": "inferred"
+    },
+    {
+      "id": "Column_NW",
+      "kind": "studded_column",
+      "position": [
+        -21,
+        0,
+        -9
+      ],
+      "height": 10,
+      "glow": "glow_green",
+      "material": "structure",
+      "source": "inferred"
+    },
+    {
+      "id": "Column_NE",
+      "kind": "studded_column",
+      "position": [
+        21,
+        0,
+        -9
+      ],
+      "height": 10,
+      "glow": "glow_violet",
+      "material": "structure",
+      "source": "inferred"
+    },
+    {
+      "id": "TV_W1",
+      "kind": "glitch_tv",
+      "position": [
+        -48.6,
+        9,
+        -14
+      ],
+      "yaw": 90,
+      "bezel": "glow_pink",
+      "source": "visible",
+      "screen": [
+        6,
+        4.2
+      ]
+    },
+    {
+      "id": "TV_W2",
+      "kind": "glitch_tv",
+      "position": [
+        -48.6,
+        9,
+        22
+      ],
+      "yaw": 90,
+      "bezel": "glow_cyan",
+      "source": "visible",
+      "screen": [
+        6,
+        4.2
+      ]
+    },
+    {
+      "id": "TV_E1",
+      "kind": "glitch_tv",
+      "position": [
+        48.6,
+        9,
+        -14
+      ],
+      "yaw": -90,
+      "bezel": "glow_green",
+      "source": "visible",
+      "screen": [
+        6,
+        4.2
+      ]
+    },
+    {
+      "id": "TV_E2",
+      "kind": "glitch_tv",
+      "position": [
+        48.6,
+        9,
+        22
+      ],
+      "yaw": -90,
+      "bezel": "glow_violet",
+      "source": "visible",
+      "screen": [
+        6,
+        4.2
+      ]
+    }
+  ],
+  "atmosphere": {
+    "sky": "sunset",
+    "ambient": "none",
+    "source": "visible"
+  },
+  "spawns": [
+    {
+      "id": "player",
+      "position": [
+        0,
+        1.0,
+        42
+      ],
+      "yaw": 180,
+      "team": "player"
+    },
+    {
+      "id": "enemy_zebra",
+      "on": "Zebra_Deck",
+      "team": "enemy"
+    },
+    {
+      "id": "enemy_leopard",
+      "on": "Leopard_Deck",
+      "team": "enemy"
+    },
+    {
+      "id": "enemy_halo",
+      "on": "Halo_Deck",
+      "team": "enemy"
+    }
+  ],
+  "gameplay": {
+    "nav": {
+      "cell": 1.0
+    }
+  },
+  "refine": {
+    "max_passes": 2
+  },
+  "mobile": {
+    "cell": 160
+  },
+  "art_style": "scene_rave",
+  "background": {
+    "source": "inferred",
+    "layers": [
+      {
+        "id": "Neon_Skyline_Near",
+        "type": "skyline",
+        "radius": 240,
+        "azimuth_deg": [
+          -180,
+          180
+        ],
+        "count": 60,
+        "height": [
+          35,
+          110
+        ],
+        "seed": 11
+      },
+      {
+        "id": "Neon_Skyline_Far",
+        "type": "skyline",
+        "radius": 420,
+        "azimuth_deg": [
+          -180,
+          180
+        ],
+        "count": 70,
+        "height": [
+          70,
+          200
+        ],
+        "seed": 12
+      },
+      {
+        "id": "Halo_Ring",
+        "type": "ring_structure",
+        "azimuth_deg": 0,
+        "distance": 380,
+        "radius": 120,
+        "tube": 4.0,
+        "elevation": 150,
+        "tilt_deg": 22,
+        "pylons": 0,
+        "seed": 4
+      }
+    ]
+  },
+  "materials": {
+    "roles": {
+      "signs": {
+        "type": "screen_atlas",
+        "color": [
+          1,
+          1,
+          1
+        ],
+        "tile_m": 4.0,
+        "res": 1024,
+        "emissive": [
+          1,
+          1,
+          1
+        ],
+        "grid": [
+          [
+            {
+              "type": "neon_text",
+              "text": "RAWR",
+              "color": [
+                1.0,
+                0.0784313725490196,
+                0.5764705882352941
+              ]
+            },
+            {
+              "type": "neon_text",
+              "text": "xD",
+              "color": [
+                0.0,
+                0.9607843137254902,
+                1.0
+              ]
+            },
+            {
+              "type": "neon_text",
+              "text": "<3",
+              "color": [
+                0.7137254901960784,
+                1.0,
+                0.0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "neon_text",
+              "text": "XOXO",
+              "color": [
+                0.615686274509804,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "type": "neon_text",
+              "text": "SCENE",
+              "color": [
+                1.0,
+                0.0784313725490196,
+                0.5764705882352941
+              ]
+            },
+            {
+              "type": "neon_text",
+              "text": "QUEEN",
+              "color": [
+                0.0,
+                0.9607843137254902,
+                1.0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "neon_text",
+              "text": "OMG",
+              "color": [
+                1.0,
+                0.47843137254901963,
+                0.0
+              ]
+            },
+            {
+              "type": "neon_text",
+              "text": "~*~",
+              "color": [
+                0.7137254901960784,
+                1.0,
+                0.0
+              ]
+            },
+            {
+              "type": "neon_text",
+              "text": "BFF",
+              "color": [
+                0.7529411764705882,
+                0.29411764705882354,
+                1.0
+              ]
+            }
+          ]
+        ],
+        "atlas": {
+          "RAWR": [
+            0.0,
+            0.6667,
+            0.3333,
+            1.0
+          ],
+          "xD": [
+            0.3333,
+            0.6667,
+            0.6667,
+            1.0
+          ],
+          "<3": [
+            0.6667,
+            0.6667,
+            1.0,
+            1.0
+          ],
+          "XOXO": [
+            0.0,
+            0.3333,
+            0.3333,
+            0.6667
+          ],
+          "SCENE": [
+            0.3333,
+            0.3333,
+            0.6667,
+            0.6667
+          ],
+          "QUEEN": [
+            0.6667,
+            0.3333,
+            1.0,
+            0.6667
+          ],
+          "OMG": [
+            0.0,
+            0.0,
+            0.3333,
+            0.3333
+          ],
+          "~*~": [
+            0.3333,
+            0.0,
+            0.6667,
+            0.3333
+          ],
+          "BFF": [
+            0.6667,
+            0.0,
+            1.0,
+            0.3333
+          ]
+        },
+        "notes": "Stage 191: neon word signs (3 x 3 neon_text cells)"
+      }
+    }
+  },
+  "effects": {
+    "auto": true,
+    "extra": [
+      {
+        "id": "Floor_Beat",
+        "type": "pulse_light",
+        "target_material": "deck",
+        "speed": 2.0,
+        "amount": 0.55
+      },
+      {
+        "id": "Floor_Beat_Cyan",
+        "type": "pulse_light",
+        "target_material": "deck_cyan",
+        "speed": 2.0,
+        "amount": 0.5,
+        "phase": 3.14
+      },
+      {
+        "id": "Floor_Beat_Green",
+        "type": "pulse_light",
+        "target_material": "deck_green",
+        "speed": 2.0,
+        "amount": 0.5,
+        "phase": 1.57
+      },
+      {
+        "id": "Sticker_Glow",
+        "type": "pulse_light",
+        "target_material": "wall",
+        "speed": 0.5,
+        "amount": 0.25
+      },
+      {
+        "id": "Sparkles_Pink",
+        "type": "ambient_particles",
+        "area": [
+          -46,
+          1,
+          -46,
+          46,
+          24,
+          46
+        ],
+        "count": 180,
+        "color": [
+          1.0,
+          0.25,
+          0.75
+        ],
+        "texture": "spark",
+        "size": [
+          0.12,
+          0.3
+        ],
+        "speed": [
+          0.1,
+          0.4
+        ]
+      },
+      {
+        "id": "Sparkles_Cyan",
+        "type": "ambient_particles",
+        "area": [
+          -46,
+          1,
+          -46,
+          46,
+          24,
+          46
+        ],
+        "count": 160,
+        "color": [
+          0.3,
+          0.95,
+          1.0
+        ],
+        "texture": "spark",
+        "size": [
+          0.12,
+          0.28
+        ],
+        "speed": [
+          0.1,
+          0.4
+        ]
+      },
+      {
+        "id": "Rim_Pink",
+        "type": "point_light",
+        "positions": [
+          [
+            -20,
+            6,
+            -12
+          ],
+          [
+            20,
+            6,
+            20
+          ],
+          [
+            -30,
+            14,
+            -30
+          ],
+          [
+            0,
+            8,
+            30
+          ]
+        ],
+        "color": [
+          1.0,
+          0.08,
+          0.58
+        ],
+        "energy": 1.6,
+        "range": 22
+      },
+      {
+        "id": "Rim_Cyan",
+        "type": "point_light",
+        "positions": [
+          [
+            20,
+            6,
+            -12
+          ],
+          [
+            -20,
+            6,
+            20
+          ],
+          [
+            30,
+            14,
+            -30
+          ],
+          [
+            0,
+            10,
+            -20
+          ]
+        ],
+        "color": [
+          0.0,
+          0.96,
+          1.0
+        ],
+        "energy": 1.6,
+        "range": 22
+      }
+    ]
+  }
+}

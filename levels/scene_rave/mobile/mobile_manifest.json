@@ -1,0 +1,3528 @@
+{
+ "generated_by": "image-to-level Stage 5 (pipeline/export_mobile.py)",
+ "profile": "balanced",
+ "settings": {
+  "cell": 160,
+  "tex_max": 512,
+  "bg_tex_max": 128,
+  "prop_range": 70,
+  "small": 2.0,
+  "webp": 80
+ },
+ "files": {
+  "level": "level_mobile.glb",
+  "background": "background_mobile.glb",
+  "collision": "collision.glb",
+  "collision_data": "collision.json",
+  "effects": "effects_mobile.json",
+  "environment": "../environment.json"
+ },
+ "godot": {
+  "project_settings": {
+   "rendering/textures/vram_compression/import_etc2_astc": true,
+   "rendering/renderer/rendering_method.mobile": "mobile",
+   "rendering/lights_and_shadows/directional_shadow/size.mobile": 2048,
+   "rendering/anti_aliasing/quality/msaa_3d": "2x"
+  },
+  "import_level_glb": {
+   "meshes/generate_lods": true,
+   "meshes/light_baking": "Static Lightmaps (optional)",
+   "textures": "VRAM Compressed (Godot compresses embedded images to ASTC/ETC2 on import)"
+  },
+  "import_collision_glb": "nodes named *-convcolonly / *-colonly become StaticBody3D colliders; meshes are discarded",
+  "directional_light": {
+   "shadow_enabled": true,
+   "directional_shadow_mode": "PSSM 2 splits",
+   "directional_shadow_max_distance": 60
+  },
+  "note": "Settings are recommendations for Godot 4 mobile; not verified in Godot here. KTX2/Basis is not used: Godot re-compresses on import."
+ },
+ "metrics": {
+  "profile": "balanced",
+  "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
+  "dev": {
+   "level": {
+    "glb_kb": 2212,
+    "triangles": 47754,
+    "nodes": 1570,
+    "mesh_nodes": 1552,
+    "unique_meshes": 509,
+    "materials": 35,
+    "images": 68,
+    "draw_calls_unbatched": 1552,
+    "draw_calls_batched_min": 35,
+    "tex_mem_uncompressed_mb": 50.57,
+    "tex_mem_gpu_compressed_mb": 12.64,
+    "texture_slots": {
+     "baseColorTexture": 25,
+     "metallicRoughnessTexture": 25,
+     "normalTexture": 22,
+     "occlusionTexture": 25,
+     "emissiveTexture": 23
+    },
+    "image_sizes": [
+     "1024x1024 jpeg",
+     "128x128 jpeg",
+     "128x128 png",
+     "256x256 jpeg",
+     "32x32 jpeg",
+     "512x512 jpeg"
+    ]
+   },
+   "visible": {
+    "cameras": 88,
+    "visible_draw_calls_mean": 560.3,
+    "visible_draw_calls_max": 1510,
+    "visible_triangles_mean": 22007,
+    "visible_triangles_max": 51602
+   }
+  },
+  "mobile": {
+   "level": {
+    "glb_kb": 1298,
+    "triangles": 45385,
+    "nodes": 169,
+    "mesh_nodes": 168,
+    "unique_meshes": 168,
+    "materials": 35,
+    "images": 68,
+    "draw_calls_unbatched": 168,
+    "draw_calls_batched_min": 35,
+    "tex_mem_uncompressed_mb": 26.57,
+    "tex_mem_gpu_compressed_mb": 6.64,
+    "texture_slots": {
+     "baseColorTexture": 25,
+     "metallicRoughnessTexture": 25,
+     "normalTexture": 22,
+     "occlusionTexture": 25,
+     "emissiveTexture": 23
+    },
+    "image_sizes": [
+     "128x128 webp",
+     "256x256 jpeg",
+     "256x256 webp",
+     "32x32 webp",
+     "512x512 webp"
+    ]
+   },
+   "background": {
+    "glb_kb": 214,
+    "triangles": 5316,
+    "nodes": 4,
+    "mesh_nodes": 3,
+    "unique_meshes": 3,
+    "materials": 3,
+    "images": 4,
+    "draw_calls_unbatched": 3,
+    "draw_calls_batched_min": 3,
+    "tex_mem_uncompressed_mb": 0.33,
+    "tex_mem_gpu_compressed_mb": 0.08,
+    "texture_slots": {
+     "baseColorTexture": 3,
+     "emissiveTexture": 3
+    },
+    "image_sizes": [
+     "128x128 webp"
+    ]
+   },
+   "collision": {
+    "colliders": 208,
+    "hazards": 0,
+    "glb_kb": 97
+   },
+   "visible": {
+    "cameras": 88,
+    "visible_draw_calls_mean": 73.3,
+    "visible_draw_calls_max": 159,
+    "visible_triangles_mean": 39885,
+    "visible_triangles_max": 50271
+   },
+   "hidden_faces_removed": 0,
+   "occluded_faces_removed": 2369,
+   "occluded_objects": [],
+   "effects_extra_draw_calls": 2,
+   "effects_max_particles": 340,
+   "slimmed_kb": {
+    "level_mobile.glb": [
+     2409,
+     1298
+    ],
+    "background_mobile.glb": [
+     261,
+     214
+    ],
+    "collision.glb": [
+     129,
+     97
+    ]
+   }
+  }
+ },
+ "nodes": [
+  {
+   "node": "Butterflies_1_Body__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_1_Body__ol"
+   ],
+   "group": "Butterflies_1_Body"
+  },
+  {
+   "node": "Butterflies_1_Body__jet_black",
+   "kind": "group",
+   "material": "jet_black",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Butterflies_1_Body"
+   ],
+   "group": "Butterflies_1_Body"
+  },
+  {
+   "node": "Butterflies_1_WingL__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_1_WingL"
+   ],
+   "group": "Butterflies_1_WingL"
+  },
+  {
+   "node": "Butterflies_1_WingL__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_1_WingL__ol"
+   ],
+   "group": "Butterflies_1_WingL"
+  },
+  {
+   "node": "Butterflies_1_WingR__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_1_WingR"
+   ],
+   "group": "Butterflies_1_WingR"
+  },
+  {
+   "node": "Butterflies_1_WingR__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_1_WingR__ol"
+   ],
+   "group": "Butterflies_1_WingR"
+  },
+  {
+   "node": "Butterflies_2_Body__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_2_Body__ol"
+   ],
+   "group": "Butterflies_2_Body"
+  },
+  {
+   "node": "Butterflies_2_Body__jet_black",
+   "kind": "group",
+   "material": "jet_black",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Butterflies_2_Body"
+   ],
+   "group": "Butterflies_2_Body"
+  },
+  {
+   "node": "Butterflies_2_WingL__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_2_WingL"
+   ],
+   "group": "Butterflies_2_WingL"
+  },
+  {
+   "node": "Butterflies_2_WingL__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_2_WingL__ol"
+   ],
+   "group": "Butterflies_2_WingL"
+  },
+  {
+   "node": "Butterflies_2_WingR__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_2_WingR"
+   ],
+   "group": "Butterflies_2_WingR"
+  },
+  {
+   "node": "Butterflies_2_WingR__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_2_WingR__ol"
+   ],
+   "group": "Butterflies_2_WingR"
+  },
+  {
+   "node": "Butterflies_3_Body__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_3_Body__ol"
+   ],
+   "group": "Butterflies_3_Body"
+  },
+  {
+   "node": "Butterflies_3_Body__jet_black",
+   "kind": "group",
+   "material": "jet_black",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Butterflies_3_Body"
+   ],
+   "group": "Butterflies_3_Body"
+  },
+  {
+   "node": "Butterflies_3_WingL__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_3_WingL"
+   ],
+   "group": "Butterflies_3_WingL"
+  },
+  {
+   "node": "Butterflies_3_WingL__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_3_WingL__ol"
+   ],
+   "group": "Butterflies_3_WingL"
+  },
+  {
+   "node": "Butterflies_3_WingR__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_3_WingR"
+   ],
+   "group": "Butterflies_3_WingR"
+  },
+  {
+   "node": "Butterflies_3_WingR__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_3_WingR__ol"
+   ],
+   "group": "Butterflies_3_WingR"
+  },
+  {
+   "node": "Butterflies_4_Body__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_4_Body__ol"
+   ],
+   "group": "Butterflies_4_Body"
+  },
+  {
+   "node": "Butterflies_4_Body__jet_black",
+   "kind": "group",
+   "material": "jet_black",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Butterflies_4_Body"
+   ],
+   "group": "Butterflies_4_Body"
+  },
+  {
+   "node": "Butterflies_4_WingL__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_4_WingL"
+   ],
+   "group": "Butterflies_4_WingL"
+  },
+  {
+   "node": "Butterflies_4_WingL__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_4_WingL__ol"
+   ],
+   "group": "Butterflies_4_WingL"
+  },
+  {
+   "node": "Butterflies_4_WingR__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_4_WingR"
+   ],
+   "group": "Butterflies_4_WingR"
+  },
+  {
+   "node": "Butterflies_4_WingR__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_4_WingR__ol"
+   ],
+   "group": "Butterflies_4_WingR"
+  },
+  {
+   "node": "Butterflies_5_Body__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_5_Body__ol"
+   ],
+   "group": "Butterflies_5_Body"
+  },
+  {
+   "node": "Butterflies_5_Body__jet_black",
+   "kind": "group",
+   "material": "jet_black",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Butterflies_5_Body"
+   ],
+   "group": "Butterflies_5_Body"
+  },
+  {
+   "node": "Butterflies_5_WingL__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_5_WingL"
+   ],
+   "group": "Butterflies_5_WingL"
+  },
+  {
+   "node": "Butterflies_5_WingL__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_5_WingL__ol"
+   ],
+   "group": "Butterflies_5_WingL"
+  },
+  {
+   "node": "Butterflies_5_WingR__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_5_WingR"
+   ],
+   "group": "Butterflies_5_WingR"
+  },
+  {
+   "node": "Butterflies_5_WingR__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_5_WingR__ol"
+   ],
+   "group": "Butterflies_5_WingR"
+  },
+  {
+   "node": "Butterflies_6_Body__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_6_Body__ol"
+   ],
+   "group": "Butterflies_6_Body"
+  },
+  {
+   "node": "Butterflies_6_Body__jet_black",
+   "kind": "group",
+   "material": "jet_black",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Butterflies_6_Body"
+   ],
+   "group": "Butterflies_6_Body"
+  },
+  {
+   "node": "Butterflies_6_WingL__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_6_WingL"
+   ],
+   "group": "Butterflies_6_WingL"
+  },
+  {
+   "node": "Butterflies_6_WingL__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_6_WingL__ol"
+   ],
+   "group": "Butterflies_6_WingL"
+  },
+  {
+   "node": "Butterflies_6_WingR__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_6_WingR"
+   ],
+   "group": "Butterflies_6_WingR"
+  },
+  {
+   "node": "Butterflies_6_WingR__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_6_WingR__ol"
+   ],
+   "group": "Butterflies_6_WingR"
+  },
+  {
+   "node": "Butterflies_High_1_Body__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_1_Body__ol"
+   ],
+   "group": "Butterflies_High_1_Body"
+  },
+  {
+   "node": "Butterflies_High_1_Body__jet_black",
+   "kind": "group",
+   "material": "jet_black",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Butterflies_High_1_Body"
+   ],
+   "group": "Butterflies_High_1_Body"
+  },
+  {
+   "node": "Butterflies_High_1_WingL__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_1_WingL"
+   ],
+   "group": "Butterflies_High_1_WingL"
+  },
+  {
+   "node": "Butterflies_High_1_WingL__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_1_WingL__ol"
+   ],
+   "group": "Butterflies_High_1_WingL"
+  },
+  {
+   "node": "Butterflies_High_1_WingR__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_1_WingR"
+   ],
+   "group": "Butterflies_High_1_WingR"
+  },
+  {
+   "node": "Butterflies_High_1_WingR__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_1_WingR__ol"
+   ],
+   "group": "Butterflies_High_1_WingR"
+  },
+  {
+   "node": "Butterflies_High_2_Body__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_2_Body__ol"
+   ],
+   "group": "Butterflies_High_2_Body"
+  },
+  {
+   "node": "Butterflies_High_2_Body__jet_black",
+   "kind": "group",
+   "material": "jet_black",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Butterflies_High_2_Body"
+   ],
+   "group": "Butterflies_High_2_Body"
+  },
+  {
+   "node": "Butterflies_High_2_WingL__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_2_WingL"
+   ],
+   "group": "Butterflies_High_2_WingL"
+  },
+  {
+   "node": "Butterflies_High_2_WingL__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_2_WingL__ol"
+   ],
+   "group": "Butterflies_High_2_WingL"
+  },
+  {
+   "node": "Butterflies_High_2_WingR__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_2_WingR"
+   ],
+   "group": "Butterflies_High_2_WingR"
+  },
+  {
+   "node": "Butterflies_High_2_WingR__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_2_WingR__ol"
+   ],
+   "group": "Butterflies_High_2_WingR"
+  },
+  {
+   "node": "Butterflies_High_3_Body__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_3_Body__ol"
+   ],
+   "group": "Butterflies_High_3_Body"
+  },
+  {
+   "node": "Butterflies_High_3_Body__jet_black",
+   "kind": "group",
+   "material": "jet_black",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Butterflies_High_3_Body"
+   ],
+   "group": "Butterflies_High_3_Body"
+  },
+  {
+   "node": "Butterflies_High_3_WingL__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_3_WingL"
+   ],
+   "group": "Butterflies_High_3_WingL"
+  },
+  {
+   "node": "Butterflies_High_3_WingL__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_3_WingL__ol"
+   ],
+   "group": "Butterflies_High_3_WingL"
+  },
+  {
+   "node": "Butterflies_High_3_WingR__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_3_WingR"
+   ],
+   "group": "Butterflies_High_3_WingR"
+  },
+  {
+   "node": "Butterflies_High_3_WingR__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_3_WingR__ol"
+   ],
+   "group": "Butterflies_High_3_WingR"
+  },
+  {
+   "node": "Butterflies_High_4_Body__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_4_Body__ol"
+   ],
+   "group": "Butterflies_High_4_Body"
+  },
+  {
+   "node": "Butterflies_High_4_Body__jet_black",
+   "kind": "group",
+   "material": "jet_black",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Butterflies_High_4_Body"
+   ],
+   "group": "Butterflies_High_4_Body"
+  },
+  {
+   "node": "Butterflies_High_4_WingL__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_4_WingL"
+   ],
+   "group": "Butterflies_High_4_WingL"
+  },
+  {
+   "node": "Butterflies_High_4_WingL__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_4_WingL__ol"
+   ],
+   "group": "Butterflies_High_4_WingL"
+  },
+  {
+   "node": "Butterflies_High_4_WingR__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_4_WingR"
+   ],
+   "group": "Butterflies_High_4_WingR"
+  },
+  {
+   "node": "Butterflies_High_4_WingR__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Butterflies_High_4_WingR__ol"
+   ],
+   "group": "Butterflies_High_4_WingR"
+  },
+  {
+   "node": "DJ_Laser_1__glow_green",
+   "kind": "group",
+   "material": "glow_green",
+   "triangles": 220,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "DJ_Laser_1_Beam_5",
+    "DJ_Laser_1_Beam_4",
+    "DJ_Laser_1_Beam_3",
+    "DJ_Laser_1_Beam_2",
+    "DJ_Laser_1_Beam_1"
+   ],
+   "group": "DJ_Laser_1"
+  },
+  {
+   "node": "DJ_Laser_2__glow_pink",
+   "kind": "group",
+   "material": "glow_pink",
+   "triangles": 220,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "DJ_Laser_2_Beam_5",
+    "DJ_Laser_2_Beam_4",
+    "DJ_Laser_2_Beam_3",
+    "DJ_Laser_2_Beam_2",
+    "DJ_Laser_2_Beam_1"
+   ],
+   "group": "DJ_Laser_2"
+  },
+  {
+   "node": "Float_Floor_01__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_Floor_01_Rim"
+   ],
+   "group": "Float_Floor_01"
+  },
+  {
+   "node": "Float_Floor_01__glow_pink",
+   "kind": "group",
+   "material": "glow_pink",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_01_Icon"
+   ],
+   "group": "Float_Floor_01"
+  },
+  {
+   "node": "Float_Floor_01__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_01_Icon__ol"
+   ],
+   "group": "Float_Floor_01"
+  },
+  {
+   "node": "Float_Floor_02__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_Floor_02_Rim"
+   ],
+   "group": "Float_Floor_02"
+  },
+  {
+   "node": "Float_Floor_02__glow_green",
+   "kind": "group",
+   "material": "glow_green",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_02_Icon"
+   ],
+   "group": "Float_Floor_02"
+  },
+  {
+   "node": "Float_Floor_02__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_02_Icon__ol"
+   ],
+   "group": "Float_Floor_02"
+  },
+  {
+   "node": "Float_Floor_03__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_Floor_03_Rim"
+   ],
+   "group": "Float_Floor_03"
+  },
+  {
+   "node": "Float_Floor_03__glow_yellow",
+   "kind": "group",
+   "material": "glow_yellow",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_03_Icon"
+   ],
+   "group": "Float_Floor_03"
+  },
+  {
+   "node": "Float_Floor_03__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_03_Icon__ol"
+   ],
+   "group": "Float_Floor_03"
+  },
+  {
+   "node": "Float_Floor_04__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 62,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_04_Gem"
+   ],
+   "group": "Float_Floor_04"
+  },
+  {
+   "node": "Float_Floor_04__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 62,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_04_Gem__ol"
+   ],
+   "group": "Float_Floor_04"
+  },
+  {
+   "node": "Float_Floor_05__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 62,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_05_Gem"
+   ],
+   "group": "Float_Floor_05"
+  },
+  {
+   "node": "Float_Floor_05__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 62,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_05_Gem__ol"
+   ],
+   "group": "Float_Floor_05"
+  },
+  {
+   "node": "Float_Floor_06__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 202,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_Floor_06_Jaw",
+    "Float_Floor_06_Face",
+    "Float_Floor_06_Cranium"
+   ],
+   "group": "Float_Floor_06"
+  },
+  {
+   "node": "Float_Floor_06__glow_cyan",
+   "kind": "group",
+   "material": "glow_cyan",
+   "triangles": 64,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_06_PupilR",
+    "Float_Floor_06_PupilL"
+   ],
+   "group": "Float_Floor_06"
+  },
+  {
+   "node": "Float_Floor_06__glow_pink",
+   "kind": "group",
+   "material": "glow_pink",
+   "triangles": 56,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_06_BowKnot",
+    "Float_Floor_06_BowR",
+    "Float_Floor_06_BowL"
+   ],
+   "group": "Float_Floor_06"
+  },
+  {
+   "node": "Float_Floor_06__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 414,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_06_BowKnot__ol",
+    "Float_Floor_06_BowL__ol",
+    "Float_Floor_06_Tooth_1__ol",
+    "Float_Floor_06_Nose__ol",
+    "Float_Floor_06_PupilL__ol",
+    "Float_Floor_06_EyeL__ol",
+    "Float_Floor_06_Jaw__ol",
+    "Float_Floor_06_Face__ol",
+    "Float_Floor_06_Cranium__ol"
+   ],
+   "group": "Float_Floor_06"
+  },
+  {
+   "node": "Float_Floor_06__jet_black",
+   "kind": "group",
+   "material": "jet_black",
+   "triangles": 316,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_Floor_06_Tooth_4",
+    "Float_Floor_06_Tooth_3",
+    "Float_Floor_06_Tooth_2",
+    "Float_Floor_06_Tooth_1",
+    "Float_Floor_06_Nose",
+    "Float_Floor_06_EyeR",
+    "Float_Floor_06_EyeL"
+   ],
+   "group": "Float_Floor_06"
+  },
+  {
+   "node": "Float_Floor_07__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_Floor_07_Rim"
+   ],
+   "group": "Float_Floor_07"
+  },
+  {
+   "node": "Float_Floor_07__glow_cyan",
+   "kind": "group",
+   "material": "glow_cyan",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_07_Icon"
+   ],
+   "group": "Float_Floor_07"
+  },
+  {
+   "node": "Float_Floor_07__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_07_Icon__ol"
+   ],
+   "group": "Float_Floor_07"
+  },
+  {
+   "node": "Float_Floor_08__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_Floor_08_Rim"
+   ],
+   "group": "Float_Floor_08"
+  },
+  {
+   "node": "Float_Floor_08__glow_violet",
+   "kind": "group",
+   "material": "glow_violet",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_08_Icon"
+   ],
+   "group": "Float_Floor_08"
+  },
+  {
+   "node": "Float_Floor_08__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_08_Icon__ol"
+   ],
+   "group": "Float_Floor_08"
+  },
+  {
+   "node": "Float_Floor_09__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_Floor_09_Rim"
+   ],
+   "group": "Float_Floor_09"
+  },
+  {
+   "node": "Float_Floor_09__glow_cyan",
+   "kind": "group",
+   "material": "glow_cyan",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_09_Icon"
+   ],
+   "group": "Float_Floor_09"
+  },
+  {
+   "node": "Float_Floor_09__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_09_Icon__ol"
+   ],
+   "group": "Float_Floor_09"
+  },
+  {
+   "node": "Float_Floor_10__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_Floor_10_Rim"
+   ],
+   "group": "Float_Floor_10"
+  },
+  {
+   "node": "Float_Floor_10__glow_violet",
+   "kind": "group",
+   "material": "glow_violet",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_10_Icon"
+   ],
+   "group": "Float_Floor_10"
+  },
+  {
+   "node": "Float_Floor_10__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_Floor_10_Icon__ol"
+   ],
+   "group": "Float_Floor_10"
+  },
+  {
+   "node": "Float_High_01__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_High_01_Rim"
+   ],
+   "group": "Float_High_01"
+  },
+  {
+   "node": "Float_High_01__glow_cyan",
+   "kind": "group",
+   "material": "glow_cyan",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_01_Icon"
+   ],
+   "group": "Float_High_01"
+  },
+  {
+   "node": "Float_High_01__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_01_Icon__ol"
+   ],
+   "group": "Float_High_01"
+  },
+  {
+   "node": "Float_High_02__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_High_02_Rim"
+   ],
+   "group": "Float_High_02"
+  },
+  {
+   "node": "Float_High_02__glow_pink",
+   "kind": "group",
+   "material": "glow_pink",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_02_Icon"
+   ],
+   "group": "Float_High_02"
+  },
+  {
+   "node": "Float_High_02__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_02_Icon__ol"
+   ],
+   "group": "Float_High_02"
+  },
+  {
+   "node": "Float_High_03__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_High_03_Rim"
+   ],
+   "group": "Float_High_03"
+  },
+  {
+   "node": "Float_High_03__glow_yellow",
+   "kind": "group",
+   "material": "glow_yellow",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_03_Icon"
+   ],
+   "group": "Float_High_03"
+  },
+  {
+   "node": "Float_High_03__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_03_Icon__ol"
+   ],
+   "group": "Float_High_03"
+  },
+  {
+   "node": "Float_High_04__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 202,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_High_04_Jaw",
+    "Float_High_04_Face",
+    "Float_High_04_Cranium"
+   ],
+   "group": "Float_High_04"
+  },
+  {
+   "node": "Float_High_04__glow_cyan",
+   "kind": "group",
+   "material": "glow_cyan",
+   "triangles": 64,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_04_PupilR",
+    "Float_High_04_PupilL"
+   ],
+   "group": "Float_High_04"
+  },
+  {
+   "node": "Float_High_04__glow_green",
+   "kind": "group",
+   "material": "glow_green",
+   "triangles": 56,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_04_BowKnot",
+    "Float_High_04_BowR",
+    "Float_High_04_BowL"
+   ],
+   "group": "Float_High_04"
+  },
+  {
+   "node": "Float_High_04__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 414,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_04_BowKnot__ol",
+    "Float_High_04_BowL__ol",
+    "Float_High_04_Tooth_1__ol",
+    "Float_High_04_Nose__ol",
+    "Float_High_04_PupilL__ol",
+    "Float_High_04_EyeL__ol",
+    "Float_High_04_Jaw__ol",
+    "Float_High_04_Face__ol",
+    "Float_High_04_Cranium__ol"
+   ],
+   "group": "Float_High_04"
+  },
+  {
+   "node": "Float_High_04__jet_black",
+   "kind": "group",
+   "material": "jet_black",
+   "triangles": 316,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_High_04_Tooth_4",
+    "Float_High_04_Tooth_3",
+    "Float_High_04_Tooth_2",
+    "Float_High_04_Tooth_1",
+    "Float_High_04_Nose",
+    "Float_High_04_EyeR",
+    "Float_High_04_EyeL"
+   ],
+   "group": "Float_High_04"
+  },
+  {
+   "node": "Float_High_05__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 202,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_High_05_Jaw",
+    "Float_High_05_Face",
+    "Float_High_05_Cranium"
+   ],
+   "group": "Float_High_05"
+  },
+  {
+   "node": "Float_High_05__glow_cyan",
+   "kind": "group",
+   "material": "glow_cyan",
+   "triangles": 120,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_05_BowKnot",
+    "Float_High_05_BowR",
+    "Float_High_05_BowL",
+    "Float_High_05_PupilR",
+    "Float_High_05_PupilL"
+   ],
+   "group": "Float_High_05"
+  },
+  {
+   "node": "Float_High_05__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 414,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_05_BowKnot__ol",
+    "Float_High_05_BowL__ol",
+    "Float_High_05_Tooth_1__ol",
+    "Float_High_05_Nose__ol",
+    "Float_High_05_PupilL__ol",
+    "Float_High_05_EyeL__ol",
+    "Float_High_05_Jaw__ol",
+    "Float_High_05_Face__ol",
+    "Float_High_05_Cranium__ol"
+   ],
+   "group": "Float_High_05"
+  },
+  {
+   "node": "Float_High_05__jet_black",
+   "kind": "group",
+   "material": "jet_black",
+   "triangles": 316,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_High_05_Tooth_4",
+    "Float_High_05_Tooth_3",
+    "Float_High_05_Tooth_2",
+    "Float_High_05_Tooth_1",
+    "Float_High_05_Nose",
+    "Float_High_05_EyeR",
+    "Float_High_05_EyeL"
+   ],
+   "group": "Float_High_05"
+  },
+  {
+   "node": "Float_High_06__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 62,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_06_Gem"
+   ],
+   "group": "Float_High_06"
+  },
+  {
+   "node": "Float_High_06__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 62,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_06_Gem__ol"
+   ],
+   "group": "Float_High_06"
+  },
+  {
+   "node": "Float_High_07__holo",
+   "kind": "group",
+   "material": "holo",
+   "triangles": 62,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_07_Gem"
+   ],
+   "group": "Float_High_07"
+  },
+  {
+   "node": "Float_High_07__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 62,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_07_Gem__ol"
+   ],
+   "group": "Float_High_07"
+  },
+  {
+   "node": "Float_High_08__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_High_08_Rim"
+   ],
+   "group": "Float_High_08"
+  },
+  {
+   "node": "Float_High_08__glow_orange",
+   "kind": "group",
+   "material": "glow_orange",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_08_Icon"
+   ],
+   "group": "Float_High_08"
+  },
+  {
+   "node": "Float_High_08__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 156,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_08_Icon__ol"
+   ],
+   "group": "Float_High_08"
+  },
+  {
+   "node": "Float_High_09__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_High_09_Rim"
+   ],
+   "group": "Float_High_09"
+  },
+  {
+   "node": "Float_High_09__glow_pink",
+   "kind": "group",
+   "material": "glow_pink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_09_Icon"
+   ],
+   "group": "Float_High_09"
+  },
+  {
+   "node": "Float_High_09__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 36,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_09_Icon__ol"
+   ],
+   "group": "Float_High_09"
+  },
+  {
+   "node": "Float_High_10__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_High_10_Rim"
+   ],
+   "group": "Float_High_10"
+  },
+  {
+   "node": "Float_High_10__glow_green",
+   "kind": "group",
+   "material": "glow_green",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_10_Icon"
+   ],
+   "group": "Float_High_10"
+  },
+  {
+   "node": "Float_High_10__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_10_Icon__ol"
+   ],
+   "group": "Float_High_10"
+  },
+  {
+   "node": "Float_High_11__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_High_11_Rim"
+   ],
+   "group": "Float_High_11"
+  },
+  {
+   "node": "Float_High_11__glow_violet",
+   "kind": "group",
+   "material": "glow_violet",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_11_Icon"
+   ],
+   "group": "Float_High_11"
+  },
+  {
+   "node": "Float_High_11__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 12,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_11_Icon__ol"
+   ],
+   "group": "Float_High_11"
+  },
+  {
+   "node": "Float_High_12__bone",
+   "kind": "group",
+   "material": "bone",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Float_High_12_Rim"
+   ],
+   "group": "Float_High_12"
+  },
+  {
+   "node": "Float_High_12__glow_pink",
+   "kind": "group",
+   "material": "glow_pink",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_12_Icon"
+   ],
+   "group": "Float_High_12"
+  },
+  {
+   "node": "Float_High_12__ink",
+   "kind": "group",
+   "material": "ink",
+   "triangles": 24,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Float_High_12_Icon__ol"
+   ],
+   "group": "Float_High_12"
+  },
+  {
+   "node": "M_glow_0_0_props",
+   "kind": "props",
+   "material": "glow",
+   "triangles": 40,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Halo_Ramp_E_Support_Light",
+    "Halo_Ramp_W_Support_Light",
+    "Star_Ramp_Support_Light",
+    "Heart_Ramp_Support_Light"
+   ]
+  },
+  {
+   "node": "M_leopard_orange_0_0_props",
+   "kind": "props",
+   "material": "leopard_orange",
+   "triangles": 38,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Heart_Loft_Cover_01"
+   ]
+  },
+  {
+   "node": "M_structure_0_0_props",
+   "kind": "props",
+   "material": "structure",
+   "triangles": 38,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Zebra_Deck_Cover_01"
+   ]
+  },
+  {
+   "node": "M_structure_b_0_0_props",
+   "kind": "props",
+   "material": "structure_b",
+   "triangles": 76,
+   "visibility_range_end": 70,
+   "cast_shadow": false,
+   "source_objects": [
+    "Star_Loft_Cover_01",
+    "Leopard_Deck_Cover_01"
+   ]
+  },
+  {
+   "node": "M_accent_0_0",
+   "kind": "static",
+   "material": "accent",
+   "triangles": 32,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "OuterWall_West_Banner_04",
+    "OuterWall_West_Banner_03",
+    "OuterWall_West_Banner_02",
+    "OuterWall_West_Banner_01",
+    "OuterWall_South_Banner_04",
+    "OuterWall_South_Banner_03",
+    "OuterWall_South_Banner_02",
+    "OuterWall_South_Banner_01",
+    "OuterWall_East_Banner_04",
+    "OuterWall_East_Banner_03",
+    "OuterWall_East_Banner_02",
+    "OuterWall_East_Banner_01",
+    "OuterWall_North_Banner_04",
+    "OuterWall_North_Banner_03",
+    "OuterWall_North_Banner_02",
+    "OuterWall_North_Banner_01"
+   ]
+  },
+  {
+   "node": "M_bone_0_0",
+   "kind": "static",
+   "material": "bone",
+   "triangles": 2692,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Skull_E_Jaw",
+    "Skull_E_Face",
+    "Skull_E_Cranium",
+    "Skull_W_Jaw",
+    "Skull_W_Face",
+    "Skull_W_Cranium",
+    "Kandi_Stage_E_Cube_0090",
+    "Kandi_Stage_E_Cube_0081",
+    "Kandi_Stage_E_Cube_0072",
+    "Kandi_Stage_E_Cube_0063",
+    "Kandi_Stage_E_Cube_0054",
+    "Kandi_Stage_E_Cube_0045",
+    "Kandi_Stage_E_Cube_0036",
+    "Kandi_Stage_E_Cube_0027",
+    "Kandi_Stage_E_Cube_0018",
+    "Kandi_Stage_E_Cube_0009",
+    "Kandi_Stage_Cube_0090",
+    "Kandi_Stage_Cube_0081",
+    "Kandi_Stage_Cube_0072",
+    "Kandi_Stage_Cube_0063",
+    "Kandi_Stage_Cube_0054",
+    "Kandi_Stage_Cube_0045",
+    "Kandi_Stage_Cube_0036",
+    "Kandi_Stage_Cube_0027",
+    "Kandi_Stage_Cube_0018",
+    "Kandi_Stage_Cube_0009",
+    "Kandi_Leopard_Cube_0054",
+    "Kandi_Leopard_Cube_0045",
+    "Kandi_Leopard_Cube_0036",
+    "Kandi_Leopard_Cube_0027",
+    "Kandi_Leopard_Cube_0018",
+    "Kandi_Leopard_Cube_0009",
+    "Kandi_Zebra_Cube_0054",
+    "Kandi_Zebra_Cube_0045",
+    "Kandi_Zebra_Cube_0036",
+    "Kandi_Zebra_Cube_0027",
+    "Kandi_Zebra_Cube_0018",
+    "Kandi_Zebra_Cube_0009",
+    "Kandi_Halo_Cube_0180",
+    "Kandi_Halo_Cube_0171",
+    "Kandi_Halo_Cube_0162",
+    "Kandi_Halo_Cube_0153",
+    "Kandi_Halo_Cube_0144",
+    "Kandi_Halo_Cube_0135",
+    "Kandi_Halo_Cube_0126",
+    "Kandi_Halo_Cube_0117",
+    "Kandi_Halo_Cube_0108",
+    "Kandi_Halo_Cube_0099",
+    "Kandi_Halo_Cube_0090",
+    "Kandi_Halo_Cube_0081",
+    "Kandi_Halo_Cube_0072",
+    "Kandi_Halo_Cube_0063",
+    "Kandi_Halo_Cube_0054",
+    "Kandi_Halo_Cube_0045",
+    "Kandi_Halo_Cube_0036",
+    "Kandi_Halo_Cube_0027",
+    "Kandi_Halo_Cube_0018",
+    "Kandi_Halo_Cube_0009"
+   ]
+  },
+  {
+   "node": "M_deck_0_0",
+   "kind": "static",
+   "material": "deck",
+   "triangles": 72,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Halo_Ramp_W_Junction_Lo",
+    "Leopard_Ramp_Junction_Lo",
+    "Zebra_Ramp_Junction_Lo",
+    "Heart_Loft_Cap",
+    "Dance_Floor_Cap",
+    "Entry_Deck_Cap",
+    "Ground"
+   ]
+  },
+  {
+   "node": "M_deck_cyan_0_0",
+   "kind": "static",
+   "material": "deck_cyan",
+   "triangles": 302,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Skull_E_Plinth",
+    "Skull_W_Plinth",
+    "Halo_Ramp_E_Junction_Hi",
+    "Halo_Ramp_W_Junction_Hi",
+    "Leopard_Ramp_Junction_Hi",
+    "Halo_Deck_Cap",
+    "Leopard_Deck_Cap",
+    "DJ_Stage_Cap"
+   ]
+  },
+  {
+   "node": "M_deck_green_0_0",
+   "kind": "static",
+   "material": "deck_green",
+   "triangles": 141,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Halo_Ramp_E_Junction_Lo",
+    "Zebra_Ramp_Junction_Hi",
+    "Star_Loft_Cap",
+    "Zebra_Deck_Cap"
+   ]
+  },
+  {
+   "node": "M_frame_0_0",
+   "kind": "static",
+   "material": "frame",
+   "triangles": 1953,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Column_NE_Top",
+    "Column_NE_Base",
+    "Column_NW_Top",
+    "Column_NW_Base",
+    "Column_SE_Top",
+    "Column_SE_Base",
+    "Column_SW_Top",
+    "Column_SW_Base",
+    "Kandi_Stage_E_Post_04",
+    "Kandi_Stage_E_Post_03",
+    "Kandi_Stage_E_Post_02",
+    "Kandi_Stage_E_Post_01",
+    "Kandi_Stage_Post_04",
+    "Kandi_Stage_Post_03",
+    "Kandi_Stage_Post_02",
+    "Kandi_Stage_Post_01",
+    "Kandi_Leopard_Post_03",
+    "Kandi_Leopard_Post_02",
+    "Kandi_Leopard_Post_01",
+    "Kandi_Zebra_Post_03",
+    "Kandi_Zebra_Post_02",
+    "Kandi_Zebra_Post_01",
+    "Kandi_Halo_Post_07",
+    "Kandi_Halo_Post_06",
+    "Kandi_Halo_Post_05",
+    "Kandi_Halo_Post_04",
+    "Kandi_Halo_Post_03",
+    "Kandi_Halo_Post_02",
+    "Kandi_Halo_Post_01",
+    "DJ_SignPole_4",
+    "DJ_SignPole_3",
+    "DJ_SignPole_2",
+    "DJ_SignPole_1",
+    "DJ_SpiralBack",
+    "DJ_Deck_2",
+    "DJ_Deck_1",
+    "DJ_BoothTop",
+    "Halo_Ramp_E_Support_Rib_22",
+    "Halo_Ramp_E_Support_Rib_20",
+    "Halo_Ramp_E_Support_Rib_02",
+    "Halo_Ramp_E_Support_Rib_00",
+    "Halo_Ramp_E_Beam_R",
+    "Halo_Ramp_E_Beam_L",
+    "Halo_Ramp_W_Support_Rib_22",
+    "Halo_Ramp_W_Support_Rib_20",
+    "Halo_Ramp_W_Support_Rib_02",
+    "Halo_Ramp_W_Support_Rib_00",
+    "Halo_Ramp_W_Beam_R",
+    "Halo_Ramp_W_Beam_L",
+    "Star_Ramp_Support_Rib_22",
+    "Star_Ramp_Support_Rib_20",
+    "Star_Ramp_Support_Rib_02",
+    "Star_Ramp_Support_Rib_00",
+    "Star_Ramp_Beam_R",
+    "Star_Ramp_Beam_L",
+    "Heart_Ramp_Support_Rib_22",
+    "Heart_Ramp_Support_Rib_20",
+    "Heart_Ramp_Support_Rib_02",
+    "Heart_Ramp_Support_Rib_00",
+    "Heart_Ramp_Beam_R",
+    "Heart_Ramp_Beam_L",
+    "Entry_Walk_Cross_04",
+    "Entry_Walk_Cross_03",
+    "Entry_Walk_Cross_02",
+    "Entry_Walk_Cross_01",
+    "Entry_Walk_Beam_R",
+    "Entry_Walk_Beam_L"
+   ]
+  },
+  {
+   "node": "M_glitch_0_0",
+   "kind": "static",
+   "material": "glitch",
+   "triangles": 10,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TV_E2_Screen",
+    "TV_E1_Screen",
+    "TV_W2_Screen",
+    "TV_W1_Screen",
+    "DJ_BoothScreen"
+   ]
+  },
+  {
+   "node": "M_glow_0_0",
+   "kind": "static",
+   "material": "glow",
+   "triangles": 92,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Halo_Ramp_E_CladLight_R",
+    "Halo_Ramp_E_CladLight_L",
+    "Halo_Ramp_W_CladLight_R",
+    "Halo_Ramp_W_CladLight_L",
+    "Star_Ramp_CladLight_R",
+    "Star_Ramp_CladLight_L",
+    "Heart_Ramp_CladLight_R",
+    "Heart_Ramp_CladLight_L"
+   ]
+  },
+  {
+   "node": "M_glow_cyan_0_0",
+   "kind": "static",
+   "material": "glow_cyan",
+   "triangles": 840,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TV_W2_Bezel",
+    "Column_SW_Crown",
+    "Skull_E_PupilR",
+    "Skull_E_PupilL",
+    "Skull_E_PlinthGlow",
+    "Skull_W_PupilR",
+    "Skull_W_PupilL",
+    "Skull_W_PlinthGlow",
+    "Kandi_Stage_E_Cap_02",
+    "Kandi_Stage_Cap_02",
+    "Kandi_Leopard_Cap_02",
+    "Kandi_Zebra_Cap_02",
+    "Kandi_Halo_Cap_07",
+    "Kandi_Halo_Cap_02",
+    "DJ_SpotLens_2",
+    "DJ_TrussGlow",
+    "DJ_Cone_21b",
+    "DJ_Cone_21a",
+    "DJ_Cone_12b",
+    "DJ_Cone_12a",
+    "DJ_Knob_10",
+    "DJ_Knob_01",
+    "Star_Loft_Edge",
+    "Heart_Loft_Edge"
+   ]
+  },
+  {
+   "node": "M_glow_green_0_0",
+   "kind": "static",
+   "material": "glow_green",
+   "triangles": 634,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TV_E1_Bezel",
+    "Column_NW_Crown",
+    "Skull_E_BowKnot",
+    "Skull_E_BowR",
+    "Skull_E_BowL",
+    "Kandi_Stage_E_Cap_03",
+    "Kandi_Stage_Cap_03",
+    "Kandi_Leopard_Cap_03",
+    "Kandi_Zebra_Cap_03",
+    "Kandi_Halo_Cap_03",
+    "DJ_SpotLens_3",
+    "DJ_Cone_22b",
+    "DJ_Cone_22a",
+    "DJ_Cone_13b",
+    "DJ_Cone_13a",
+    "DJ_Knob_20",
+    "DJ_Knob_11",
+    "DJ_Knob_02",
+    "Halo_Deck_Edge",
+    "Leopard_Deck_Edge"
+   ]
+  },
+  {
+   "node": "M_glow_orange_0_0",
+   "kind": "static",
+   "material": "glow_orange",
+   "triangles": 104,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Kandi_Halo_Cap_05",
+    "DJ_SpotLens_5",
+    "DJ_Knob_22",
+    "DJ_Knob_13"
+   ]
+  },
+  {
+   "node": "M_glow_pink_0_0",
+   "kind": "static",
+   "material": "glow_pink",
+   "triangles": 763,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TV_W1_Bezel",
+    "Column_SE_Crown",
+    "Skull_W_BowKnot",
+    "Skull_W_BowR",
+    "Skull_W_BowL",
+    "Kandi_Stage_E_Cap_01",
+    "Kandi_Stage_Cap_01",
+    "Kandi_Leopard_Cap_01",
+    "Kandi_Zebra_Cap_01",
+    "Kandi_Halo_Cap_06",
+    "Kandi_Halo_Cap_01",
+    "DJ_SpiralRing",
+    "DJ_SpotLens_6",
+    "DJ_SpotLens_1",
+    "DJ_Cone_11b",
+    "DJ_Cone_11a",
+    "DJ_Knob_23",
+    "DJ_Knob_00",
+    "Zebra_Deck_Edge",
+    "DJ_Stage_Edge"
+   ]
+  },
+  {
+   "node": "M_glow_violet_0_0",
+   "kind": "static",
+   "material": "glow_violet",
+   "triangles": 348,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TV_E2_Bezel",
+    "Column_NE_Crown",
+    "Kandi_Stage_E_Cap_04",
+    "Kandi_Stage_Cap_04",
+    "Kandi_Halo_Cap_04",
+    "DJ_SpotLens_4",
+    "DJ_Cone_23b",
+    "DJ_Cone_23a",
+    "DJ_Knob_21",
+    "DJ_Knob_12",
+    "DJ_Knob_03"
+   ]
+  },
+  {
+   "node": "M_grate_0_0",
+   "kind": "static",
+   "material": "grate",
+   "triangles": 80,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Halo_Ramp_E_Deck",
+    "Halo_Ramp_W_Deck",
+    "Star_Ramp_Deck",
+    "Heart_Ramp_Deck",
+    "Leopard_Ramp",
+    "Zebra_Ramp",
+    "Stage_Steps",
+    "Entry_Walk_Deck"
+   ]
+  },
+  {
+   "node": "M_ink_0_0",
+   "kind": "static",
+   "material": "ink",
+   "triangles": 3040,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "TV_E2_Case__ol",
+    "TV_E1_Case__ol",
+    "TV_W2_Case__ol",
+    "TV_W1_Case__ol",
+    "Column_NE_Shaft__ol",
+    "Column_NE_Base__ol",
+    "Column_NW_Shaft__ol",
+    "Column_NW_Base__ol",
+    "Column_SE_Shaft__ol",
+    "Column_SE_Base__ol",
+    "Column_SW_Shaft__ol",
+    "Column_SW_Base__ol",
+    "Skull_E_BowKnot__ol",
+    "Skull_E_BowL__ol",
+    "Skull_E_Tooth_1__ol",
+    "Skull_E_Nose__ol",
+    "Skull_E_PupilL__ol",
+    "Skull_E_EyeL__ol",
+    "Skull_E_Jaw__ol",
+    "Skull_E_Face__ol",
+    "Skull_E_Cranium__ol",
+    "Skull_E_Plinth__ol",
+    "Skull_W_BowKnot__ol",
+    "Skull_W_BowL__ol",
+    "Skull_W_Tooth_1__ol",
+    "Skull_W_Nose__ol",
+    "Skull_W_PupilL__ol",
+    "Skull_W_EyeL__ol",
+    "Skull_W_Jaw__ol",
+    "Skull_W_Face__ol",
+    "Skull_W_Cranium__ol",
+    "Skull_W_Plinth__ol",
+    "DJ_SignPole_3__ol",
+    "DJ_SignPole_1__ol",
+    "DJ_SpiralBack__ol",
+    "DJ_Truss_1__ol",
+    "DJ_Speaker_12__ol",
+    "DJ_Speaker_11__ol",
+    "DJ_Booth__ol",
+    "Halo_Ramp_E_Junction_Lo__ol",
+    "Halo_Ramp_E_Junction_Hi__ol",
+    "Halo_Ramp_E_Support_Head__ol",
+    "Halo_Ramp_E_Support__ol",
+    "Halo_Ramp_E_Support_Footing__ol",
+    "Halo_Ramp_E_Clad_L__ol",
+    "Halo_Ramp_E_Beam_L__ol",
+    "Halo_Ramp_E_Deck__ol",
+    "Halo_Ramp_W_Junction_Lo__ol",
+    "Halo_Ramp_W_Junction_Hi__ol",
+    "Halo_Ramp_W_Support_Head__ol",
+    "Halo_Ramp_W_Support__ol",
+    "Halo_Ramp_W_Support_Footing__ol",
+    "Halo_Ramp_W_Clad_L__ol",
+    "Halo_Ramp_W_Beam_L__ol",
+    "Halo_Ramp_W_Deck__ol",
+    "Star_Ramp_Support_Head__ol",
+    "Star_Ramp_Support__ol",
+    "Star_Ramp_Support_Footing__ol",
+    "Heart_Ramp_Support_Head__ol",
+    "Heart_Ramp_Support__ol",
+    "Heart_Ramp_Support_Footing__ol",
+    "Leopard_Ramp_Junction_Lo__ol",
+    "Leopard_Ramp_Junction_Hi__ol",
+    "Leopard_Ramp_Support__ol",
+    "Leopard_Ramp__ol",
+    "Zebra_Ramp_Junction_Lo__ol",
+    "Zebra_Ramp_Junction_Hi__ol",
+    "Zebra_Ramp_Support__ol",
+    "Zebra_Ramp__ol",
+    "Stage_Steps_Support__ol",
+    "Stage_Steps__ol",
+    "Entry_Walk_Cross_01__ol",
+    "Entry_Walk_Beam_L__ol",
+    "Entry_Walk_Deck__ol",
+    "Star_Loft_Cover_02__ol",
+    "Star_Loft_Cover_01__ol",
+    "Heart_Loft_Cover_02__ol",
+    "Heart_Loft_Cover_01__ol",
+    "Leopard_Deck_Cover_02__ol",
+    "Leopard_Deck_Cover_01__ol",
+    "Zebra_Deck_Cover_02__ol",
+    "Zebra_Deck_Cover_01__ol",
+    "OuterWall_North_Pipe__ol",
+    "OuterWall_North_Pilaster_01__ol"
+   ]
+  },
+  {
+   "node": "M_jet_black_0_0",
+   "kind": "static",
+   "material": "jet_black",
+   "triangles": 2212,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "TV_E2_Case",
+    "TV_E1_Case",
+    "TV_W2_Case",
+    "TV_W1_Case",
+    "Column_NE_Ring_3",
+    "Column_NE_Ring_2",
+    "Column_NE_Ring_1",
+    "Column_NW_Ring_3",
+    "Column_NW_Ring_2",
+    "Column_NW_Ring_1",
+    "Column_SE_Ring_3",
+    "Column_SE_Ring_2",
+    "Column_SE_Ring_1",
+    "Column_SW_Ring_3",
+    "Column_SW_Ring_2",
+    "Column_SW_Ring_1",
+    "Skull_E_Tooth_4",
+    "Skull_E_Tooth_3",
+    "Skull_E_Tooth_2",
+    "Skull_E_Tooth_1",
+    "Skull_E_Nose",
+    "Skull_E_EyeR",
+    "Skull_E_EyeL",
+    "Skull_W_Tooth_4",
+    "Skull_W_Tooth_3",
+    "Skull_W_Tooth_2",
+    "Skull_W_Tooth_1",
+    "Skull_W_Nose",
+    "Skull_W_EyeR",
+    "Skull_W_EyeL",
+    "DJ_SignBack_4",
+    "DJ_SignBack_3",
+    "DJ_SignBack_2",
+    "DJ_SignBack_1",
+    "DJ_Spot_6",
+    "DJ_Spot_5",
+    "DJ_Spot_4",
+    "DJ_Spot_3",
+    "DJ_Spot_2",
+    "DJ_Spot_1",
+    "DJ_Woofer_23b",
+    "DJ_Woofer_23a",
+    "DJ_Woofer_22b",
+    "DJ_Woofer_22a",
+    "DJ_Speaker_22",
+    "DJ_Woofer_21b",
+    "DJ_Woofer_21a",
+    "DJ_Woofer_13b",
+    "DJ_Woofer_13a",
+    "DJ_Woofer_12b",
+    "DJ_Woofer_12a",
+    "DJ_Speaker_12",
+    "DJ_Woofer_11b",
+    "DJ_Woofer_11a",
+    "DJ_Mixer",
+    "DJ_Platter_2",
+    "DJ_Platter_1"
+   ]
+  },
+  {
+   "node": "M_kandi_cyan_0_0",
+   "kind": "static",
+   "material": "kandi_cyan",
+   "triangles": 2160,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Kandi_Stage_E_Bead_0096",
+    "Kandi_Stage_E_Bead_0091",
+    "Kandi_Stage_E_Bead_0086",
+    "Kandi_Stage_E_Bead_0076",
+    "Kandi_Stage_E_Bead_0071",
+    "Kandi_Stage_E_Bead_0066",
+    "Kandi_Stage_E_Bead_0061",
+    "Kandi_Stage_E_Bead_0056",
+    "Kandi_Stage_E_Bead_0051",
+    "Kandi_Stage_E_Bead_0046",
+    "Kandi_Stage_E_Bead_0041",
+    "Kandi_Stage_E_Bead_0031",
+    "Kandi_Stage_E_Bead_0026",
+    "Kandi_Stage_E_Bead_0021",
+    "Kandi_Stage_E_Bead_0016",
+    "Kandi_Stage_E_Bead_0011",
+    "Kandi_Stage_E_Bead_0006",
+    "Kandi_Stage_E_Bead_0001",
+    "Kandi_Stage_Bead_0096",
+    "Kandi_Stage_Bead_0091",
+    "Kandi_Stage_Bead_0086",
+    "Kandi_Stage_Bead_0076",
+    "Kandi_Stage_Bead_0071",
+    "Kandi_Stage_Bead_0066",
+    "Kandi_Stage_Bead_0061",
+    "Kandi_Stage_Bead_0056",
+    "Kandi_Stage_Bead_0051",
+    "Kandi_Stage_Bead_0046",
+    "Kandi_Stage_Bead_0041",
+    "Kandi_Stage_Bead_0031",
+    "Kandi_Stage_Bead_0026",
+    "Kandi_Stage_Bead_0021",
+    "Kandi_Stage_Bead_0016",
+    "Kandi_Stage_Bead_0011",
+    "Kandi_Stage_Bead_0006",
+    "Kandi_Stage_Bead_0001",
+    "Kandi_Leopard_Bead_0056",
+    "Kandi_Leopard_Bead_0051",
+    "Kandi_Leopard_Bead_0046",
+    "Kandi_Leopard_Bead_0041",
+    "Kandi_Leopard_Bead_0031",
+    "Kandi_Leopard_Bead_0026",
+    "Kandi_Leopard_Bead_0021",
+    "Kandi_Leopard_Bead_0016",
+    "Kandi_Leopard_Bead_0011",
+    "Kandi_Leopard_Bead_0006",
+    "Kandi_Leopard_Bead_0001",
+    "Kandi_Zebra_Bead_0056",
+    "Kandi_Zebra_Bead_0051",
+    "Kandi_Zebra_Bead_0046",
+    "Kandi_Zebra_Bead_0041",
+    "Kandi_Zebra_Bead_0031",
+    "Kandi_Zebra_Bead_0026",
+    "Kandi_Zebra_Bead_0021",
+    "Kandi_Zebra_Bead_0016",
+    "Kandi_Zebra_Bead_0011",
+    "Kandi_Zebra_Bead_0006",
+    "Kandi_Zebra_Bead_0001",
+    "Kandi_Halo_Bead_0176",
+    "Kandi_Halo_Bead_0166",
+    "Kandi_Halo_Bead_0161",
+    "Kandi_Halo_Bead_0156",
+    "Kandi_Halo_Bead_0151",
+    "Kandi_Halo_Bead_0146",
+    "Kandi_Halo_Bead_0141",
+    "Kandi_Halo_Bead_0136",
+    "Kandi_Halo_Bead_0131",
+    "Kandi_Halo_Bead_0121",
+    "Kandi_Halo_Bead_0116",
+    "Kandi_Halo_Bead_0111",
+    "Kandi_Halo_Bead_0106",
+    "Kandi_Halo_Bead_0101",
+    "Kandi_Halo_Bead_0096",
+    "Kandi_Halo_Bead_0091",
+    "Kandi_Halo_Bead_0086",
+    "Kandi_Halo_Bead_0076",
+    "Kandi_Halo_Bead_0071",
+    "Kandi_Halo_Bead_0066",
+    "Kandi_Halo_Bead_0061",
+    "Kandi_Halo_Bead_0056",
+    "Kandi_Halo_Bead_0051",
+    "Kandi_Halo_Bead_0046",
+    "Kandi_Halo_Bead_0041",
+    "Kandi_Halo_Bead_0031",
+    "Kandi_Halo_Bead_0026",
+    "Kandi_Halo_Bead_0021",
+    "Kandi_Halo_Bead_0016",
+    "Kandi_Halo_Bead_0011",
+    "Kandi_Halo_Bead_0006",
+    "Kandi_Halo_Bead_0001"
+   ]
+  },
+  {
+   "node": "M_kandi_green_0_0",
+   "kind": "static",
+   "material": "kandi_green",
+   "triangles": 2112,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Kandi_Stage_E_Bead_0092",
+    "Kandi_Stage_E_Bead_0087",
+    "Kandi_Stage_E_Bead_0082",
+    "Kandi_Stage_E_Bead_0077",
+    "Kandi_Stage_E_Bead_0067",
+    "Kandi_Stage_E_Bead_0062",
+    "Kandi_Stage_E_Bead_0057",
+    "Kandi_Stage_E_Bead_0052",
+    "Kandi_Stage_E_Bead_0047",
+    "Kandi_Stage_E_Bead_0042",
+    "Kandi_Stage_E_Bead_0037",
+    "Kandi_Stage_E_Bead_0032",
+    "Kandi_Stage_E_Bead_0022",
+    "Kandi_Stage_E_Bead_0017",
+    "Kandi_Stage_E_Bead_0012",
+    "Kandi_Stage_E_Bead_0007",
+    "Kandi_Stage_E_Bead_0002",
+    "Kandi_Stage_Bead_0092",
+    "Kandi_Stage_Bead_0087",
+    "Kandi_Stage_Bead_0082",
+    "Kandi_Stage_Bead_0077",
+    "Kandi_Stage_Bead_0067",
+    "Kandi_Stage_Bead_0062",
+    "Kandi_Stage_Bead_0057",
+    "Kandi_Stage_Bead_0052",
+    "Kandi_Stage_Bead_0047",
+    "Kandi_Stage_Bead_0042",
+    "Kandi_Stage_Bead_0037",
+    "Kandi_Stage_Bead_0032",
+    "Kandi_Stage_Bead_0022",
+    "Kandi_Stage_Bead_0017",
+    "Kandi_Stage_Bead_0012",
+    "Kandi_Stage_Bead_0007",
+    "Kandi_Stage_Bead_0002",
+    "Kandi_Leopard_Bead_0057",
+    "Kandi_Leopard_Bead_0052",
+    "Kandi_Leopard_Bead_0047",
+    "Kandi_Leopard_Bead_0042",
+    "Kandi_Leopard_Bead_0037",
+    "Kandi_Leopard_Bead_0032",
+    "Kandi_Leopard_Bead_0022",
+    "Kandi_Leopard_Bead_0017",
+    "Kandi_Leopard_Bead_0012",
+    "Kandi_Leopard_Bead_0007",
+    "Kandi_Leopard_Bead_0002",
+    "Kandi_Zebra_Bead_0057",
+    "Kandi_Zebra_Bead_0052",
+    "Kandi_Zebra_Bead_0047",
+    "Kandi_Zebra_Bead_0042",
+    "Kandi_Zebra_Bead_0037",
+    "Kandi_Zebra_Bead_0032",
+    "Kandi_Zebra_Bead_0022",
+    "Kandi_Zebra_Bead_0017",
+    "Kandi_Zebra_Bead_0012",
+    "Kandi_Zebra_Bead_0007",
+    "Kandi_Zebra_Bead_0002",
+    "Kandi_Halo_Bead_0177",
+    "Kandi_Halo_Bead_0172",
+    "Kandi_Halo_Bead_0167",
+    "Kandi_Halo_Bead_0157",
+    "Kandi_Halo_Bead_0152",
+    "Kandi_Halo_Bead_0147",
+    "Kandi_Halo_Bead_0142",
+    "Kandi_Halo_Bead_0137",
+    "Kandi_Halo_Bead_0132",
+    "Kandi_Halo_Bead_0127",
+    "Kandi_Halo_Bead_0122",
+    "Kandi_Halo_Bead_0112",
+    "Kandi_Halo_Bead_0107",
+    "Kandi_Halo_Bead_0102",
+    "Kandi_Halo_Bead_0097",
+    "Kandi_Halo_Bead_0092",
+    "Kandi_Halo_Bead_0087",
+    "Kandi_Halo_Bead_0082",
+    "Kandi_Halo_Bead_0077",
+    "Kandi_Halo_Bead_0067",
+    "Kandi_Halo_Bead_0062",
+    "Kandi_Halo_Bead_0057",
+    "Kandi_Halo_Bead_0052",
+    "Kandi_Halo_Bead_0047",
+    "Kandi_Halo_Bead_0042",
+    "Kandi_Halo_Bead_0037",
+    "Kandi_Halo_Bead_0032",
+    "Kandi_Halo_Bead_0022",
+    "Kandi_Halo_Bead_0017",
+    "Kandi_Halo_Bead_0012",
+    "Kandi_Halo_Bead_0007",
+    "Kandi_Halo_Bead_0002"
+   ]
+  },
+  {
+   "node": "M_kandi_orange_0_0",
+   "kind": "static",
+   "material": "kandi_orange",
+   "triangles": 2064,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Kandi_Stage_E_Bead_0094",
+    "Kandi_Stage_E_Bead_0089",
+    "Kandi_Stage_E_Bead_0084",
+    "Kandi_Stage_E_Bead_0079",
+    "Kandi_Stage_E_Bead_0074",
+    "Kandi_Stage_E_Bead_0069",
+    "Kandi_Stage_E_Bead_0064",
+    "Kandi_Stage_E_Bead_0059",
+    "Kandi_Stage_E_Bead_0049",
+    "Kandi_Stage_E_Bead_0044",
+    "Kandi_Stage_E_Bead_0039",
+    "Kandi_Stage_E_Bead_0034",
+    "Kandi_Stage_E_Bead_0029",
+    "Kandi_Stage_E_Bead_0024",
+    "Kandi_Stage_E_Bead_0019",
+    "Kandi_Stage_E_Bead_0014",
+    "Kandi_Stage_E_Bead_0004",
+    "Kandi_Stage_Bead_0094",
+    "Kandi_Stage_Bead_0089",
+    "Kandi_Stage_Bead_0084",
+    "Kandi_Stage_Bead_0079",
+    "Kandi_Stage_Bead_0074",
+    "Kandi_Stage_Bead_0069",
+    "Kandi_Stage_Bead_0064",
+    "Kandi_Stage_Bead_0059",
+    "Kandi_Stage_Bead_0049",
+    "Kandi_Stage_Bead_0044",
+    "Kandi_Stage_Bead_0039",
+    "Kandi_Stage_Bead_0034",
+    "Kandi_Stage_Bead_0029",
+    "Kandi_Stage_Bead_0024",
+    "Kandi_Stage_Bead_0019",
+    "Kandi_Stage_Bead_0014",
+    "Kandi_Stage_Bead_0004",
+    "Kandi_Leopard_Bead_0059",
+    "Kandi_Leopard_Bead_0049",
+    "Kandi_Leopard_Bead_0044",
+    "Kandi_Leopard_Bead_0039",
+    "Kandi_Leopard_Bead_0034",
+    "Kandi_Leopard_Bead_0029",
+    "Kandi_Leopard_Bead_0024",
+    "Kandi_Leopard_Bead_0019",
+    "Kandi_Leopard_Bead_0014",
+    "Kandi_Leopard_Bead_0004",
+    "Kandi_Zebra_Bead_0059",
+    "Kandi_Zebra_Bead_0049",
+    "Kandi_Zebra_Bead_0044",
+    "Kandi_Zebra_Bead_0039",
+    "Kandi_Zebra_Bead_0034",
+    "Kandi_Zebra_Bead_0029",
+    "Kandi_Zebra_Bead_0024",
+    "Kandi_Zebra_Bead_0019",
+    "Kandi_Zebra_Bead_0014",
+    "Kandi_Zebra_Bead_0004",
+    "Kandi_Halo_Bead_0179",
+    "Kandi_Halo_Bead_0174",
+    "Kandi_Halo_Bead_0169",
+    "Kandi_Halo_Bead_0164",
+    "Kandi_Halo_Bead_0159",
+    "Kandi_Halo_Bead_0154",
+    "Kandi_Halo_Bead_0149",
+    "Kandi_Halo_Bead_0139",
+    "Kandi_Halo_Bead_0134",
+    "Kandi_Halo_Bead_0129",
+    "Kandi_Halo_Bead_0124",
+    "Kandi_Halo_Bead_0119",
+    "Kandi_Halo_Bead_0114",
+    "Kandi_Halo_Bead_0109",
+    "Kandi_Halo_Bead_0104",
+    "Kandi_Halo_Bead_0094",
+    "Kandi_Halo_Bead_0089",
+    "Kandi_Halo_Bead_0084",
+    "Kandi_Halo_Bead_0079",
+    "Kandi_Halo_Bead_0074",
+    "Kandi_Halo_Bead_0069",
+    "Kandi_Halo_Bead_0064",
+    "Kandi_Halo_Bead_0059",
+    "Kandi_Halo_Bead_0049",
+    "Kandi_Halo_Bead_0044",
+    "Kandi_Halo_Bead_0039",
+    "Kandi_Halo_Bead_0034",
+    "Kandi_Halo_Bead_0029",
+    "Kandi_Halo_Bead_0024",
+    "Kandi_Halo_Bead_0019",
+    "Kandi_Halo_Bead_0014",
+    "Kandi_Halo_Bead_0004"
+   ]
+  },
+  {
+   "node": "M_kandi_pink_0_0",
+   "kind": "static",
+   "material": "kandi_pink",
+   "triangles": 2112,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Kandi_Stage_E_Bead_0095",
+    "Kandi_Stage_E_Bead_0085",
+    "Kandi_Stage_E_Bead_0080",
+    "Kandi_Stage_E_Bead_0075",
+    "Kandi_Stage_E_Bead_0070",
+    "Kandi_Stage_E_Bead_0065",
+    "Kandi_Stage_E_Bead_0060",
+    "Kandi_Stage_E_Bead_0055",
+    "Kandi_Stage_E_Bead_0050",
+    "Kandi_Stage_E_Bead_0040",
+    "Kandi_Stage_E_Bead_0035",
+    "Kandi_Stage_E_Bead_0030",
+    "Kandi_Stage_E_Bead_0025",
+    "Kandi_Stage_E_Bead_0020",
+    "Kandi_Stage_E_Bead_0015",
+    "Kandi_Stage_E_Bead_0010",
+    "Kandi_Stage_E_Bead_0005",
+    "Kandi_Stage_Bead_0095",
+    "Kandi_Stage_Bead_0085",
+    "Kandi_Stage_Bead_0080",
+    "Kandi_Stage_Bead_0075",
+    "Kandi_Stage_Bead_0070",
+    "Kandi_Stage_Bead_0065",
+    "Kandi_Stage_Bead_0060",
+    "Kandi_Stage_Bead_0055",
+    "Kandi_Stage_Bead_0050",
+    "Kandi_Stage_Bead_0040",
+    "Kandi_Stage_Bead_0035",
+    "Kandi_Stage_Bead_0030",
+    "Kandi_Stage_Bead_0025",
+    "Kandi_Stage_Bead_0020",
+    "Kandi_Stage_Bead_0015",
+    "Kandi_Stage_Bead_0010",
+    "Kandi_Stage_Bead_0005",
+    "Kandi_Leopard_Bead_0060",
+    "Kandi_Leopard_Bead_0055",
+    "Kandi_Leopard_Bead_0050",
+    "Kandi_Leopard_Bead_0040",
+    "Kandi_Leopard_Bead_0035",
+    "Kandi_Leopard_Bead_0030",
+    "Kandi_Leopard_Bead_0025",
+    "Kandi_Leopard_Bead_0020",
+    "Kandi_Leopard_Bead_0015",
+    "Kandi_Leopard_Bead_0010",
+    "Kandi_Leopard_Bead_0005",
+    "Kandi_Zebra_Bead_0060",
+    "Kandi_Zebra_Bead_0055",
+    "Kandi_Zebra_Bead_0050",
+    "Kandi_Zebra_Bead_0040",
+    "Kandi_Zebra_Bead_0035",
+    "Kandi_Zebra_Bead_0030",
+    "Kandi_Zebra_Bead_0025",
+    "Kandi_Zebra_Bead_0020",
+    "Kandi_Zebra_Bead_0015",
+    "Kandi_Zebra_Bead_0010",
+    "Kandi_Zebra_Bead_0005",
+    "Kandi_Halo_Bead_0175",
+    "Kandi_Halo_Bead_0170",
+    "Kandi_Halo_Bead_0165",
+    "Kandi_Halo_Bead_0160",
+    "Kandi_Halo_Bead_0155",
+    "Kandi_Halo_Bead_0150",
+    "Kandi_Halo_Bead_0145",
+    "Kandi_Halo_Bead_0140",
+    "Kandi_Halo_Bead_0130",
+    "Kandi_Halo_Bead_0125",
+    "Kandi_Halo_Bead_0120",
+    "Kandi_Halo_Bead_0115",
+    "Kandi_Halo_Bead_0110",
+    "Kandi_Halo_Bead_0105",
+    "Kandi_Halo_Bead_0100",
+    "Kandi_Halo_Bead_0095",
+    "Kandi_Halo_Bead_0085",
+    "Kandi_Halo_Bead_0080",
+    "Kandi_Halo_Bead_0075",
+    "Kandi_Halo_Bead_0070",
+    "Kandi_Halo_Bead_0065",
+    "Kandi_Halo_Bead_0060",
+    "Kandi_Halo_Bead_0055",
+    "Kandi_Halo_Bead_0050",
+    "Kandi_Halo_Bead_0040",
+    "Kandi_Halo_Bead_0035",
+    "Kandi_Halo_Bead_0030",
+    "Kandi_Halo_Bead_0025",
+    "Kandi_Halo_Bead_0020",
+    "Kandi_Halo_Bead_0015",
+    "Kandi_Halo_Bead_0010",
+    "Kandi_Halo_Bead_0005"
+   ]
+  },
+  {
+   "node": "M_kandi_violet_0_0",
+   "kind": "static",
+   "material": "kandi_violet",
+   "triangles": 2112,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Kandi_Stage_E_Bead_0093",
+    "Kandi_Stage_E_Bead_0088",
+    "Kandi_Stage_E_Bead_0083",
+    "Kandi_Stage_E_Bead_0078",
+    "Kandi_Stage_E_Bead_0073",
+    "Kandi_Stage_E_Bead_0068",
+    "Kandi_Stage_E_Bead_0058",
+    "Kandi_Stage_E_Bead_0053",
+    "Kandi_Stage_E_Bead_0048",
+    "Kandi_Stage_E_Bead_0043",
+    "Kandi_Stage_E_Bead_0038",
+    "Kandi_Stage_E_Bead_0033",
+    "Kandi_Stage_E_Bead_0028",
+    "Kandi_Stage_E_Bead_0023",
+    "Kandi_Stage_E_Bead_0013",
+    "Kandi_Stage_E_Bead_0008",
+    "Kandi_Stage_E_Bead_0003",
+    "Kandi_Stage_Bead_0093",
+    "Kandi_Stage_Bead_0088",
+    "Kandi_Stage_Bead_0083",
+    "Kandi_Stage_Bead_0078",
+    "Kandi_Stage_Bead_0073",
+    "Kandi_Stage_Bead_0068",
+    "Kandi_Stage_Bead_0058",
+    "Kandi_Stage_Bead_0053",
+    "Kandi_Stage_Bead_0048",
+    "Kandi_Stage_Bead_0043",
+    "Kandi_Stage_Bead_0038",
+    "Kandi_Stage_Bead_0033",
+    "Kandi_Stage_Bead_0028",
+    "Kandi_Stage_Bead_0023",
+    "Kandi_Stage_Bead_0013",
+    "Kandi_Stage_Bead_0008",
+    "Kandi_Stage_Bead_0003",
+    "Kandi_Leopard_Bead_0058",
+    "Kandi_Leopard_Bead_0053",
+    "Kandi_Leopard_Bead_0048",
+    "Kandi_Leopard_Bead_0043",
+    "Kandi_Leopard_Bead_0038",
+    "Kandi_Leopard_Bead_0033",
+    "Kandi_Leopard_Bead_0028",
+    "Kandi_Leopard_Bead_0023",
+    "Kandi_Leopard_Bead_0013",
+    "Kandi_Leopard_Bead_0008",
+    "Kandi_Leopard_Bead_0003",
+    "Kandi_Zebra_Bead_0058",
+    "Kandi_Zebra_Bead_0053",
+    "Kandi_Zebra_Bead_0048",
+    "Kandi_Zebra_Bead_0043",
+    "Kandi_Zebra_Bead_0038",
+    "Kandi_Zebra_Bead_0033",
+    "Kandi_Zebra_Bead_0028",
+    "Kandi_Zebra_Bead_0023",
+    "Kandi_Zebra_Bead_0013",
+    "Kandi_Zebra_Bead_0008",
+    "Kandi_Zebra_Bead_0003",
+    "Kandi_Halo_Bead_0178",
+    "Kandi_Halo_Bead_0173",
+    "Kandi_Halo_Bead_0168",
+    "Kandi_Halo_Bead_0163",
+    "Kandi_Halo_Bead_0158",
+    "Kandi_Halo_Bead_0148",
+    "Kandi_Halo_Bead_0143",
+    "Kandi_Halo_Bead_0138",
+    "Kandi_Halo_Bead_0133",
+    "Kandi_Halo_Bead_0128",
+    "Kandi_Halo_Bead_0123",
+    "Kandi_Halo_Bead_0118",
+    "Kandi_Halo_Bead_0113",
+    "Kandi_Halo_Bead_0103",
+    "Kandi_Halo_Bead_0098",
+    "Kandi_Halo_Bead_0093",
+    "Kandi_Halo_Bead_0088",
+    "Kandi_Halo_Bead_0083",
+    "Kandi_Halo_Bead_0078",
+    "Kandi_Halo_Bead_0073",
+    "Kandi_Halo_Bead_0068",
+    "Kandi_Halo_Bead_0058",
+    "Kandi_Halo_Bead_0053",
+    "Kandi_Halo_Bead_0048",
+    "Kandi_Halo_Bead_0043",
+    "Kandi_Halo_Bead_0038",
+    "Kandi_Halo_Bead_0033",
+    "Kandi_Halo_Bead_0028",
+    "Kandi_Halo_Bead_0023",
+    "Kandi_Halo_Bead_0013",
+    "Kandi_Halo_Bead_0008",
+    "Kandi_Halo_Bead_0003"
+   ]
+  },
+  {
+   "node": "M_leopard_orange_0_0",
+   "kind": "static",
+   "material": "leopard_orange",
+   "triangles": 70,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Heart_Loft_Cover_02",
+    "Heart_Loft_Base"
+   ]
+  },
+  {
+   "node": "M_machine_0_0",
+   "kind": "static",
+   "material": "machine",
+   "triangles": 10,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "DJ_Booth"
+   ]
+  },
+  {
+   "node": "M_pipe_0_0",
+   "kind": "static",
+   "material": "pipe",
+   "triangles": 64,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "OuterWall_West_Pipe",
+    "OuterWall_South_Pipe",
+    "OuterWall_East_Pipe",
+    "OuterWall_North_Pipe"
+   ]
+  },
+  {
+   "node": "M_signs_0_0",
+   "kind": "static",
+   "material": "signs",
+   "triangles": 8,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "DJ_Sign_4",
+    "DJ_Sign_3",
+    "DJ_Sign_2",
+    "DJ_Sign_1"
+   ]
+  },
+  {
+   "node": "M_stripe_0_0",
+   "kind": "static",
+   "material": "stripe",
+   "triangles": 86,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Halo_Ramp_E_Threshold_Hi",
+    "Halo_Ramp_E_Threshold_Lo",
+    "Halo_Ramp_W_Threshold_Hi",
+    "Halo_Ramp_W_Threshold_Lo",
+    "Star_Ramp_Threshold_Hi",
+    "Star_Ramp_Threshold_Lo",
+    "Heart_Ramp_Threshold_Hi",
+    "Heart_Ramp_Threshold_Lo"
+   ]
+  },
+  {
+   "node": "M_structure_0_0",
+   "kind": "static",
+   "material": "structure",
+   "triangles": 362,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Column_NE_Shaft",
+    "Column_NW_Shaft",
+    "DJ_Speaker_23",
+    "DJ_Speaker_21",
+    "DJ_Speaker_13",
+    "DJ_Speaker_11",
+    "Zebra_Deck_Cover_02",
+    "Zebra_Deck_Base",
+    "DJ_Stage_Base",
+    "Entry_Deck_Base"
+   ]
+  },
+  {
+   "node": "M_structure_b_0_0",
+   "kind": "static",
+   "material": "structure_b",
+   "triangles": 2061,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Halo_Ramp_E_Support_Head",
+    "Halo_Ramp_E_Support",
+    "Halo_Ramp_E_Support_Footing",
+    "Halo_Ramp_E_Clad_R",
+    "Halo_Ramp_E_Clad_L",
+    "Halo_Ramp_W_Support_Head",
+    "Halo_Ramp_W_Support",
+    "Halo_Ramp_W_Support_Footing",
+    "Halo_Ramp_W_Clad_R",
+    "Halo_Ramp_W_Clad_L",
+    "Star_Ramp_Support_Head",
+    "Star_Ramp_Support",
+    "Star_Ramp_Support_Footing",
+    "Star_Ramp_Clad_R",
+    "Star_Ramp_Clad_L",
+    "Heart_Ramp_Support_Head",
+    "Heart_Ramp_Support",
+    "Heart_Ramp_Support_Footing",
+    "Heart_Ramp_Clad_R",
+    "Heart_Ramp_Clad_L",
+    "Leopard_Ramp_Support",
+    "Zebra_Ramp_Support",
+    "Stage_Steps_Support",
+    "Star_Loft_Cover_02",
+    "Star_Loft_Base",
+    "Leopard_Deck_Cover_02",
+    "Leopard_Deck_Base",
+    "OuterWall_West_Pilaster_08",
+    "OuterWall_West_Pilaster_07",
+    "OuterWall_West_Pilaster_06",
+    "OuterWall_West_Pilaster_05",
+    "OuterWall_West_Pilaster_04",
+    "OuterWall_West_Pilaster_03",
+    "OuterWall_West_Pilaster_02",
+    "OuterWall_West_Pilaster_01",
+    "OuterWall_West_Cap",
+    "OuterWall_South_Pilaster_08",
+    "OuterWall_South_Pilaster_07",
+    "OuterWall_South_Pilaster_06",
+    "OuterWall_South_Pilaster_05",
+    "OuterWall_South_Pilaster_04",
+    "OuterWall_South_Pilaster_03",
+    "OuterWall_South_Pilaster_02",
+    "OuterWall_South_Pilaster_01",
+    "OuterWall_South_Cap",
+    "OuterWall_East_Pilaster_08",
+    "OuterWall_East_Pilaster_07",
+    "OuterWall_East_Pilaster_06",
+    "OuterWall_East_Pilaster_05",
+    "OuterWall_East_Pilaster_04",
+    "OuterWall_East_Pilaster_03",
+    "OuterWall_East_Pilaster_02",
+    "OuterWall_East_Pilaster_01",
+    "OuterWall_East_Cap",
+    "OuterWall_North_Pilaster_08",
+    "OuterWall_North_Pilaster_07",
+    "OuterWall_North_Pilaster_06",
+    "OuterWall_North_Pilaster_05",
+    "OuterWall_North_Pilaster_04",
+    "OuterWall_North_Pilaster_03",
+    "OuterWall_North_Pilaster_02",
+    "OuterWall_North_Pilaster_01",
+    "OuterWall_North_Cap"
+   ]
+  },
+  {
+   "node": "M_stud_0_0",
+   "kind": "static",
+   "material": "stud",
+   "triangles": 8692,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Column_NE_Stud_38",
+    "Column_NE_Stud_37",
+    "Column_NE_Stud_36",
+    "Column_NE_Stud_35",
+    "Column_NE_Stud_34",
+    "Column_NE_Stud_33",
+    "Column_NE_Stud_32",
+    "Column_NE_Stud_31",
+    "Column_NE_Stud_28",
+    "Column_NE_Stud_27",
+    "Column_NE_Stud_26",
+    "Column_NE_Stud_25",
+    "Column_NE_Stud_24",
+    "Column_NE_Stud_23",
+    "Column_NE_Stud_22",
+    "Column_NE_Stud_21",
+    "Column_NE_Stud_18",
+    "Column_NE_Stud_17",
+    "Column_NE_Stud_16",
+    "Column_NE_Stud_15",
+    "Column_NE_Stud_14",
+    "Column_NE_Stud_13",
+    "Column_NE_Stud_12",
+    "Column_NE_Stud_11",
+    "Column_NW_Stud_38",
+    "Column_NW_Stud_37",
+    "Column_NW_Stud_36",
+    "Column_NW_Stud_35",
+    "Column_NW_Stud_34",
+    "Column_NW_Stud_33",
+    "Column_NW_Stud_32",
+    "Column_NW_Stud_31",
+    "Column_NW_Stud_28",
+    "Column_NW_Stud_27",
+    "Column_NW_Stud_26",
+    "Column_NW_Stud_25",
+    "Column_NW_Stud_24",
+    "Column_NW_Stud_23",
+    "Column_NW_Stud_22",
+    "Column_NW_Stud_21",
+    "Column_NW_Stud_18",
+    "Column_NW_Stud_17",
+    "Column_NW_Stud_16",
+    "Column_NW_Stud_15",
+    "Column_NW_Stud_14",
+    "Column_NW_Stud_13",
+    "Column_NW_Stud_12",
+    "Column_NW_Stud_11",
+    "Column_SE_Stud_38",
+    "Column_SE_Stud_37",
+    "Column_SE_Stud_36",
+    "Column_SE_Stud_35",
+    "Column_SE_Stud_34",
+    "Column_SE_Stud_33",
+    "Column_SE_Stud_32",
+    "Column_SE_Stud_31",
+    "Column_SE_Stud_28",
+    "Column_SE_Stud_27",
+    "Column_SE_Stud_26",
+    "Column_SE_Stud_25",
+    "Column_SE_Stud_24",
+    "Column_SE_Stud_23",
+    "Column_SE_Stud_22",
+    "Column_SE_Stud_21",
+    "Column_SE_Stud_18",
+    "Column_SE_Stud_17",
+    "Column_SE_Stud_16",
+    "Column_SE_Stud_15",
+    "Column_SE_Stud_14",
+    "Column_SE_Stud_13",
+    "Column_SE_Stud_12",
+    "Column_SE_Stud_11",
+    "Column_SW_Stud_38",
+    "Column_SW_Stud_37",
+    "Column_SW_Stud_36",
+    "Column_SW_Stud_35",
+    "Column_SW_Stud_34",
+    "Column_SW_Stud_33",
+    "Column_SW_Stud_32",
+    "Column_SW_Stud_31",
+    "Column_SW_Stud_28",
+    "Column_SW_Stud_27",
+    "Column_SW_Stud_26",
+    "Column_SW_Stud_25",
+    "Column_SW_Stud_24",
+    "Column_SW_Stud_23",
+    "Column_SW_Stud_22",
+    "Column_SW_Stud_21",
+    "Column_SW_Stud_18",
+    "Column_SW_Stud_17",
+    "Column_SW_Stud_16",
+    "Column_SW_Stud_15",
+    "Column_SW_Stud_14",
+    "Column_SW_Stud_13",
+    "Column_SW_Stud_12",
+    "Column_SW_Stud_11",
+    "DJ_Arm_2",
+    "DJ_Arm_1",
+    "Halo_Deck_Stud_zn07",
+    "Halo_Deck_Stud_zn06",
+    "Halo_Deck_Stud_zn05",
+    "Halo_Deck_Stud_zn04",
+    "Halo_Deck_Stud_zn03",
+    "Halo_Deck_Stud_zn02",
+    "Halo_Deck_Stud_zn01",
+    "Halo_Deck_Stud_zp07",
+    "Halo_Deck_Stud_zp06",
+    "Halo_Deck_Stud_zp05",
+    "Halo_Deck_Stud_zp04",
+    "Halo_Deck_Stud_zp03",
+    "Halo_Deck_Stud_zp02",
+    "Halo_Deck_Stud_zp01",
+    "Halo_Deck_Stud_xn18",
+    "Halo_Deck_Stud_xn17",
+    "Halo_Deck_Stud_xn16",
+    "Halo_Deck_Stud_xn15",
+    "Halo_Deck_Stud_xn14",
+    "Halo_Deck_Stud_xn13",
+    "Halo_Deck_Stud_xn12",
+    "Halo_Deck_Stud_xn11",
+    "Halo_Deck_Stud_xn10",
+    "Halo_Deck_Stud_xn09",
+    "Halo_Deck_Stud_xn08",
+    "Halo_Deck_Stud_xn07",
+    "Halo_Deck_Stud_xn06",
+    "Halo_Deck_Stud_xn05",
+    "Halo_Deck_Stud_xn04",
+    "Halo_Deck_Stud_xn03",
+    "Halo_Deck_Stud_xn02",
+    "Halo_Deck_Stud_xn01",
+    "Halo_Deck_Stud_xp18",
+    "Halo_Deck_Stud_xp17",
+    "Halo_Deck_Stud_xp16",
+    "Halo_Deck_Stud_xp15",
+    "Halo_Deck_Stud_xp14",
+    "Halo_Deck_Stud_xp13",
+    "Halo_Deck_Stud_xp12",
+    "Halo_Deck_Stud_xp11",
+    "Halo_Deck_Stud_xp10",
+    "Halo_Deck_Stud_xp09",
+    "Halo_Deck_Stud_xp08",
+    "Halo_Deck_Stud_xp07",
+    "Halo_Deck_Stud_xp06",
+    "Halo_Deck_Stud_xp05",
+    "Halo_Deck_Stud_xp04",
+    "Halo_Deck_Stud_xp03",
+    "Halo_Deck_Stud_xp02",
+    "Halo_Deck_Stud_xp01",
+    "Star_Loft_Stud_zn11",
+    "Star_Loft_Stud_zn10",
+    "Star_Loft_Stud_zn09",
+    "Star_Loft_Stud_zn08",
+    "Star_Loft_Stud_zn07",
+    "Star_Loft_Stud_zn06",
+    "Star_Loft_Stud_zn05",
+    "Star_Loft_Stud_zn04",
+    "Star_Loft_Stud_zn03",
+    "Star_Loft_Stud_zn02",
+    "Star_Loft_Stud_zn01",
+    "Star_Loft_Stud_zp11",
+    "Star_Loft_Stud_zp10",
+    "Star_Loft_Stud_zp09",
+    "Star_Loft_Stud_zp08",
+    "Star_Loft_Stud_zp07",
+    "Star_Loft_Stud_zp06",
+    "Star_Loft_Stud_zp05",
+    "Star_Loft_Stud_zp04",
+    "Star_Loft_Stud_zp03",
+    "Star_Loft_Stud_zp02",
+    "Star_Loft_Stud_zp01",
+    "Star_Loft_Stud_xn12",
+    "Star_Loft_Stud_xn11",
+    "Star_Loft_Stud_xn10",
+    "Star_Loft_Stud_xn09",
+    "Star_Loft_Stud_xn08",
+    "Star_Loft_Stud_xn07",
+    "Star_Loft_Stud_xn06",
+    "Star_Loft_Stud_xn05",
+    "Star_Loft_Stud_xn04",
+    "Star_Loft_Stud_xn03",
+    "Star_Loft_Stud_xn02",
+    "Star_Loft_Stud_xn01",
+    "Star_Loft_Stud_xp12",
+    "Star_Loft_Stud_xp11",
+    "Star_Loft_Stud_xp10",
+    "Star_Loft_Stud_xp09",
+    "Star_Loft_Stud_xp08",
+    "Star_Loft_Stud_xp07",
+    "Star_Loft_Stud_xp06",
+    "Star_Loft_Stud_xp05",
+    "Star_Loft_Stud_xp04",
+    "Star_Loft_Stud_xp03",
+    "Star_Loft_Stud_xp02",
+    "Star_Loft_Stud_xp01",
+    "Heart_Loft_Stud_zn11",
+    "Heart_Loft_Stud_zn10",
+    "Heart_Loft_Stud_zn09",
+    "Heart_Loft_Stud_zn08",
+    "Heart_Loft_Stud_zn07",
+    "Heart_Loft_Stud_zn06",
+    "Heart_Loft_Stud_zn05",
+    "Heart_Loft_Stud_zn04",
+    "Heart_Loft_Stud_zn03",
+    "Heart_Loft_Stud_zn02",
+    "Heart_Loft_Stud_zn01",
+    "Heart_Loft_Stud_zp11",
+    "Heart_Loft_Stud_zp10",
+    "Heart_Loft_Stud_zp09",
+    "Heart_Loft_Stud_zp08",
+    "Heart_Loft_Stud_zp07",
+    "Heart_Loft_Stud_zp06",
+    "Heart_Loft_Stud_zp05",
+    "Heart_Loft_Stud_zp04",
+    "Heart_Loft_Stud_zp03",
+    "Heart_Loft_Stud_zp02",
+    "Heart_Loft_Stud_zp01",
+    "Heart_Loft_Stud_xn12",
+    "Heart_Loft_Stud_xn11",
+    "Heart_Loft_Stud_xn10",
+    "Heart_Loft_Stud_xn09",
+    "Heart_Loft_Stud_xn08",
+    "Heart_Loft_Stud_xn07",
+    "Heart_Loft_Stud_xn06",
+    "Heart_Loft_Stud_xn05",
+    "Heart_Loft_Stud_xn04",
+    "Heart_Loft_Stud_xn03",
+    "Heart_Loft_Stud_xn02",
+    "Heart_Loft_Stud_xn01",
+    "Heart_Loft_Stud_xp12",
+    "Heart_Loft_Stud_xp11",
+    "Heart_Loft_Stud_xp10",
+    "Heart_Loft_Stud_xp09",
+    "Heart_Loft_Stud_xp08",
+    "Heart_Loft_Stud_xp07",
+    "Heart_Loft_Stud_xp06",
+    "Heart_Loft_Stud_xp05",
+    "Heart_Loft_Stud_xp04",
+    "Heart_Loft_Stud_xp03",
+    "Heart_Loft_Stud_xp02",
+    "Heart_Loft_Stud_xp01",
+    "Leopard_Deck_Stud_zn14",
+    "Leopard_Deck_Stud_zn13",
+    "Leopard_Deck_Stud_zn12",
+    "Leopard_Deck_Stud_zn11",
+    "Leopard_Deck_Stud_zn10",
+    "Leopard_Deck_Stud_zn09",
+    "Leopard_Deck_Stud_zn08",
+    "Leopard_Deck_Stud_zn07",
+    "Leopard_Deck_Stud_zn06",
+    "Leopard_Deck_Stud_zn05",
+    "Leopard_Deck_Stud_zn04",
+    "Leopard_Deck_Stud_zn03",
+    "Leopard_Deck_Stud_zn02",
+    "Leopard_Deck_Stud_zn01",
+    "Leopard_Deck_Stud_zp14",
+    "Leopard_Deck_Stud_zp13",
+    "Leopard_Deck_Stud_zp12",
+    "Leopard_Deck_Stud_zp11",
+    "Leopard_Deck_Stud_zp10",
+    "Leopard_Deck_Stud_zp09",
+    "Leopard_Deck_Stud_zp08",
+    "Leopard_Deck_Stud_zp07",
+    "Leopard_Deck_Stud_zp06",
+    "Leopard_Deck_Stud_zp05",
+    "Leopard_Deck_Stud_zp04",
+    "Leopard_Deck_Stud_zp03",
+    "Leopard_Deck_Stud_zp02",
+    "Leopard_Deck_Stud_zp01",
+    "Leopard_Deck_Stud_xn11",
+    "Leopard_Deck_Stud_xn10",
+    "Leopard_Deck_Stud_xn09",
+    "Leopard_Deck_Stud_xn08",
+    "Leopard_Deck_Stud_xn07",
+    "Leopard_Deck_Stud_xn06",
+    "Leopard_Deck_Stud_xn05",
+    "Leopard_Deck_Stud_xn04",
+    "Leopard_Deck_Stud_xn03",
+    "Leopard_Deck_Stud_xn02",
+    "Leopard_Deck_Stud_xn01",
+    "Leopard_Deck_Stud_xp11",
+    "Leopard_Deck_Stud_xp10",
+    "Leopard_Deck_Stud_xp09",
+    "Leopard_Deck_Stud_xp08",
+    "Leopard_Deck_Stud_xp07",
+    "Leopard_Deck_Stud_xp06",
+    "Leopard_Deck_Stud_xp05",
+    "Leopard_Deck_Stud_xp04",
+    "Leopard_Deck_Stud_xp03",
+    "Leopard_Deck_Stud_xp02",
+    "Leopard_Deck_Stud_xp01",
+    "Zebra_Deck_Stud_zn14",
+    "Zebra_Deck_Stud_zn13",
+    "Zebra_Deck_Stud_zn12",
+    "Zebra_Deck_Stud_zn11",
+    "Zebra_Deck_Stud_zn10",
+    "Zebra_Deck_Stud_zn09",
+    "Zebra_Deck_Stud_zn08",
+    "Zebra_Deck_Stud_zn07",
+    "Zebra_Deck_Stud_zn06",
+    "Zebra_Deck_Stud_zn05",
+    "Zebra_Deck_Stud_zn04",
+    "Zebra_Deck_Stud_zn03",
+    "Zebra_Deck_Stud_zn02",
+    "Zebra_Deck_Stud_zn01",
+    "Zebra_Deck_Stud_zp14",
+    "Zebra_Deck_Stud_zp13",
+    "Zebra_Deck_Stud_zp12",
+    "Zebra_Deck_Stud_zp11",
+    "Zebra_Deck_Stud_zp10",
+    "Zebra_Deck_Stud_zp09",
+    "Zebra_Deck_Stud_zp08",
+    "Zebra_Deck_Stud_zp07",
+    "Zebra_Deck_Stud_zp06",
+    "Zebra_Deck_Stud_zp05",
+    "Zebra_Deck_Stud_zp04",
+    "Zebra_Deck_Stud_zp03",
+    "Zebra_Deck_Stud_zp02",
+    "Zebra_Deck_Stud_zp01",
+    "Zebra_Deck_Stud_xn11",
+    "Zebra_Deck_Stud_xn10",
+    "Zebra_Deck_Stud_xn09",
+    "Zebra_Deck_Stud_xn08",
+    "Zebra_Deck_Stud_xn07",
+    "Zebra_Deck_Stud_xn06",
+    "Zebra_Deck_Stud_xn05",
+    "Zebra_Deck_Stud_xn04",
+    "Zebra_Deck_Stud_xn03",
+    "Zebra_Deck_Stud_xn02",
+    "Zebra_Deck_Stud_xn01",
+    "Zebra_Deck_Stud_xp11",
+    "Zebra_Deck_Stud_xp10",
+    "Zebra_Deck_Stud_xp09",
+    "Zebra_Deck_Stud_xp08",
+    "Zebra_Deck_Stud_xp07",
+    "Zebra_Deck_Stud_xp06",
+    "Zebra_Deck_Stud_xp05",
+    "Zebra_Deck_Stud_xp04",
+    "Zebra_Deck_Stud_xp03",
+    "Zebra_Deck_Stud_xp02",
+    "Zebra_Deck_Stud_xp01",
+    "DJ_Stage_Stud_zn08",
+    "DJ_Stage_Stud_zn07",
+    "DJ_Stage_Stud_zn06",
+    "DJ_Stage_Stud_zn05",
+    "DJ_Stage_Stud_zn04",
+    "DJ_Stage_Stud_zn03",
+    "DJ_Stage_Stud_zn02",
+    "DJ_Stage_Stud_zn01",
+    "DJ_Stage_Stud_zp08",
+    "DJ_Stage_Stud_zp07",
+    "DJ_Stage_Stud_zp06",
+    "DJ_Stage_Stud_zp05",
+    "DJ_Stage_Stud_zp04",
+    "DJ_Stage_Stud_zp03",
+    "DJ_Stage_Stud_zp02",
+    "DJ_Stage_Stud_zp01",
+    "DJ_Stage_Stud_xn21",
+    "DJ_Stage_Stud_xn20",
+    "DJ_Stage_Stud_xn19",
+    "DJ_Stage_Stud_xn18",
+    "DJ_Stage_Stud_xn17",
+    "DJ_Stage_Stud_xn16",
+    "DJ_Stage_Stud_xn15",
+    "DJ_Stage_Stud_xn14",
+    "DJ_Stage_Stud_xn13",
+    "DJ_Stage_Stud_xn12",
+    "DJ_Stage_Stud_xn11",
+    "DJ_Stage_Stud_xn10",
+    "DJ_Stage_Stud_xn09",
+    "DJ_Stage_Stud_xn08",
+    "DJ_Stage_Stud_xn07",
+    "DJ_Stage_Stud_xn06",
+    "DJ_Stage_Stud_xn05",
+    "DJ_Stage_Stud_xn04",
+    "DJ_Stage_Stud_xn03",
+    "DJ_Stage_Stud_xn02",
+    "DJ_Stage_Stud_xn01",
+    "DJ_Stage_Stud_xp21",
+    "DJ_Stage_Stud_xp20",
+    "DJ_Stage_Stud_xp19",
+    "DJ_Stage_Stud_xp18",
+    "DJ_Stage_Stud_xp17",
+    "DJ_Stage_Stud_xp16",
+    "DJ_Stage_Stud_xp15",
+    "DJ_Stage_Stud_xp14",
+    "DJ_Stage_Stud_xp13",
+    "DJ_Stage_Stud_xp12",
+    "DJ_Stage_Stud_xp11",
+    "DJ_Stage_Stud_xp10",
+    "DJ_Stage_Stud_xp09",
+    "DJ_Stage_Stud_xp08",
+    "DJ_Stage_Stud_xp07",
+    "DJ_Stage_Stud_xp06",
+    "DJ_Stage_Stud_xp05",
+    "DJ_Stage_Stud_xp04",
+    "DJ_Stage_Stud_xp03",
+    "DJ_Stage_Stud_xp02",
+    "DJ_Stage_Stud_xp01"
+   ]
+  },
+  {
+   "node": "M_wall_0_0",
+   "kind": "static",
+   "material": "wall",
+   "triangles": 112,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "OuterWall_West_Body",
+    "OuterWall_South_Body",
+    "OuterWall_East_Body",
+    "OuterWall_North_Body"
+   ]
+  },
+  {
+   "node": "M_zebra_pink_0_0",
+   "kind": "static",
+   "material": "zebra_pink",
+   "triangles": 241,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Column_SE_Shaft",
+    "Column_SW_Shaft",
+    "DJ_TrussBeam",
+    "DJ_Truss_2",
+    "DJ_Truss_1",
+    "Halo_Deck_Base",
+    "Dance_Floor_Base"
+   ]
+  },
+  {
+   "node": "FX_Rainbows_Flow",
+   "kind": "effect_target",
+   "material": "rainbow__2s",
+   "triangles": 280,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "Rainbows_4",
+    "Rainbows_3",
+    "Rainbows_2",
+    "Rainbows_1"
+   ],
+   "reason": "merged targets of one shader effect"
+  },
+  {
+   "node": "DJ_Spiral",
+   "kind": "separate",
+   "material": "spiral",
+   "triangles": 96,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "DJ_Spiral"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "DJ_Label_2",
+   "kind": "separate",
+   "material": "holo",
+   "triangles": 64,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "DJ_Label_2"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "DJ_Label_1",
+   "kind": "separate",
+   "material": "holo",
+   "triangles": 64,
+   "visibility_range_end": 0,
+   "cast_shadow": false,
+   "source_objects": [
+    "DJ_Label_1"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  }
+ ]
+}

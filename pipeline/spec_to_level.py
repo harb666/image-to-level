@@ -377,6 +377,10 @@ def _effects(spec, ctx, plats, env, glow):
             sy_ = dict(period=cp_[0]["period"], phase=0.0, at=[cp_[0]["bdc"]])
             out.append(dict(id="Cog_Pump_Steam", type="steam_jet", jets=[j for c in cp_ for j in c["jets"]], sync=sy_, speed=[4.0, 6.0], emit_time=0.45, burst=7, lifetime=1.0, size=[0.15, 1.4]))
             out.append(dict(id="Cog_Pump_Glow", type="pulse_light", target_material=cp_[0]["material"], speed=round(1.0 / cp_[0]["period"], 5), amount=0.85, phase=cp_[0]["pulse_phase"]))
+        for rf_ in getattr(ctx, "ribbon_flows", []):  # Stage 191: rainbow ribbons scroll along their length
+            out.append(dict(id=rf_["id"] + "_Flow", type="liquid_flow", targets_glob=rf_["targets"], speed=rf_["speed"], flow_uv=[1.0, 0.0], glow_energy=1.6, wobble=0.0))
+        for sw_ in getattr(ctx, "swings", []):  # Stage 191: floating decor, butterflies, sweeping lasers
+            out.append(dict(id=sw_["id"] + "_Swing", type="swing", swing=sw_))
         for b_ in getattr(ctx, "bobs", []):  # Stage 92: a specimen drifting in its tank
             out.append(dict(id=b_["id"] + "_Bob", type="bob", bob=b_))
         for r_ in getattr(ctx, "risers", []):  # Stage 80: pads surging up out of the liquid when a player comes near

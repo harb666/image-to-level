@@ -39,7 +39,7 @@ SCHEMA = {
                                                      "style": (STR, False, ("grid", "varied")), "seed": (INT, False), "pods": (NUM, False), "lamp_rails": (INT, False), "capsule_role": (STR, False)}),
                            "boundary": (STR, False, ("walls", "invisible"))}),
     "platforms": (LIST, False, dict(ELEMENT, id=(STR, True), shape=(STR, False, ("rect", "octagon", "circle")), center=(V2, True), size=(V2, True),
-                                    top=(NUM, True), style=(STR, False, ("industrial_pillar", "stone_plinth", "plain", "sky_pylon")), cover=(INT, False), lights=(BOOL, False),
+                                    top=(NUM, True), style=(STR, False, ("industrial_pillar", "stone_plinth", "plain", "sky_pylon", "scene")), cover=(INT, False), lights=(BOOL, False),
                                     material=(STR, False), unreachable_ok=(BOOL, False), notes=(STR, False))),
     "connections": (LIST, False, dict(ELEMENT, id=(STR, True), **{"from": (STR, True)}, to=(STR, True), kind=(STR, False, ("auto", "bridge", "catwalk", "ramp", "stairs", "jump")),
                                       width=(NUM, False), rails=(BOOL, False), lamp_posts=(INT, False), lamp_side=(NUM, False), notes=(STR, False))),

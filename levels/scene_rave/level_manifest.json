@@ -1,0 +1,106 @@
+{
+ "format": "image-to-level package v1",
+ "variant": "full",
+ "level": "scene_rave",
+ "title": "scene_spec.json - Scene Rave (experiment - Y2K scenecore)",
+ "generated": "2026-11-20 19:19:13",
+ "godot_root": "res://levels/scene_rave/",
+ "use_in_game": "mobile/level_mobile.glb (+ mobile/background_mobile.glb, mobile/collision.glb)",
+ "profile": "balanced",
+ "spawns": [
+  {
+   "id": "spawn",
+   "position": [
+    0,
+    1.0,
+    42
+   ],
+   "yaw_deg": 180
+  },
+  {
+   "id": "enemy_zebra",
+   "position": [
+    -34.0,
+    6.0,
+    4.0
+   ],
+   "yaw_deg": -83.3,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_leopard",
+   "position": [
+    34.0,
+    6.0,
+    4.0
+   ],
+   "yaw_deg": 83.3,
+   "team": "enemy"
+  },
+  {
+   "id": "enemy_halo",
+   "position": [
+    0.0,
+    15.0,
+    -40.0
+   ],
+   "yaw_deg": -180.0,
+   "team": "enemy"
+  }
+ ],
+ "hazards": [],
+ "generator": {
+  "tool": "pipeline/spec_to_level.py",
+  "spec_sha": "8d167ac2970f86ef",
+  "theme": "scifi",
+  "detail": "high",
+  "mode": "structured"
+ },
+ "metrics": {
+  "dev": {
+   "glb_kb": 2212,
+   "triangles": 41232,
+   "draw_calls": 1552,
+   "tex_mem_gpu_mb_est": 12.64
+  },
+  "mobile": {
+   "profile": "balanced",
+   "glb_kb": 1298,
+   "triangles": 45385,
+   "draw_calls": 168,
+   "visible_draw_calls_est": 73.3,
+   "visible_draw_calls_max_est": 159,
+   "tex_mem_gpu_mb_est": 6.64,
+   "materials": 35,
+   "nodes": 169,
+   "colliders": {
+    "colliders": 208,
+    "hazards": 0,
+    "glb_kb": 97
+   },
+   "background_kb": 214
+  },
+  "effects": {
+   "max_particles": 340,
+   "emitters": 2,
+   "extra_draw_calls": 2,
+   "transparent_area_m2": 0
+  },
+  "note": "sizes/counts measured from files; visible draw calls and GPU memory are ESTIMATES (no device benchmark)"
+ },
+ "validation": {
+  "passed": true,
+  "counts": {
+   "error": 0,
+   "warning": 3,
+   "info": 1
+  }
+ },
+ "gameplay_config_status": "PLACEHOLDER values - not Construct Error's real numbers. Replace them with the game's CharacterBody3D / SpringArm3D settings (or copy them into levels/<name>/gameplay.json for one level). Every Stage 7 tool reads this file: navigation check, camera validator, generator, viewer.",
+ "notes": [
+  "GLB carries static geometry/materials only; effects, environment and hazards are recreated in Godot from the JSON/tres + scripts.",
+  "Scripts and .tres are UNTESTED in Godot from this environment.",
+  "Performance numbers are estimates, not device benchmarks."
+ ],
+ "files": 38
+}

@@ -136,6 +136,9 @@ TYPES = {  # category, defaults, Godot runtime recipe, what the GLB carries
     "belt": dict(category="belt", godot="script (apply_effects.gd _belts): chevron nodes (<chevrons>__*) slide axis * fmod(t * speed, spacing) (negative speed: downhill); "
                  "a CharacterBody3D on the deck (inside width x length round 'center', feet within 0.4 m of the deck) is moved speed * axis m/s (move_and_collide)",
                  glb="the ramp (static) + chevrons (own nodes)", defaults=dict()),
+    "swing": dict(category="swing", godot="script (apply_effects.gd _swings): every node of the group (<group>__*) turns about 'axis' through 'pivot' (world) "
+                  "by spin * t + amp * sin(2 pi (t + phase) / period) deg and lifts bob * sin(2 pi (t + phase) / bob_period); an optional 'pre' "
+                  "{pivot, axis, amp, period, phase} hinge swing is applied first (a butterfly's wing flapping while it circles)", glb="parts at rest", defaults=dict()),
     "bob": dict(category="bob", godot="script (apply_effects.gd _bobs): every node of the group (<group>__*) is turned and lifted about 'pivot' "
                 "(world): y offset amp * sin(2 pi (t + phase) / period), a sway of 'sway' deg about x (sin, period * 1.3) and z (cos, period * 1.7) "
                 "and a slow yaw drift (sway * 0.6 deg, period * 2.3) - a body drifting in liquid (Stage 92)", glb="the model parts at rest, own nodes (mobile group)", defaults=dict()),
@@ -373,6 +376,7 @@ def resolve(level_dir, L=None):
         if e.get("jet"): R["jet"] = e["jet"]  # Stage 119
         if e.get("character"): R["character"] = e["character"]  # Stage 152
         if e.get("pod_path"): R["pod_path"] = e["pod_path"]  # Stage 186
+        if e.get("swing"): R["swing"] = e["swing"]  # Stage 191
         if e.get("floater"): R["floater"] = e["floater"]  # Stage 123  # Stage 104: bursts fired at cycle times (steam_burst)
         if e.get("launches"): R["launches"] = [dict(l, targets=[n for n in l["targets"] if n in boxes]) for l in e["launches"]]
         if e["type"] == "spin" and tg: R["speeds"] = {n: by[n].get("spin", prm["speed_rpm"]) for n in tg if n in by}

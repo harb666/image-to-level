@@ -868,7 +868,86 @@ def gear(w, h, d, o):
     m = trimesh.util.concatenate(parts); m.metadata["uv"] = np.full((len(m.vertices), 2), 0.5); return m
 
 
-SHAPES = dict(gear=gear, spike_ball=spike_ball, pole=pole, mace=mace, mace_tips=mace_tips, saw_blade=saw_blade, prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
+# ---------------------------------------------------------------- Stage 191: scenecore shapes (scene_rave)
+def _ear_clip2(P):
+    """Ear-clip a simple polygon (N, 2), counter-clockwise -> triangles (index triples)."""
+    def cross(o, a, b): return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+    def inside(p_, A, B, C):
+        s1, s2, s3 = cross(A, B, p_), cross(B, C, p_), cross(C, A, p_); return s1 >= 0 and s2 >= 0 and s3 >= 0
+    idx, T = list(range(len(P))), []
+    while len(idx) > 3:
+        for q in range(len(idx)):
+            a0, a1, a2 = idx[q - 1], idx[q], idx[(q + 1) % len(idx)]
+            if cross(P[a0], P[a1], P[a2]) <= 1e-12: continue
+            if any(inside(P[r], P[a0], P[a1], P[a2]) for r in idx if r not in (a0, a1, a2)): continue
+            T.append((a0, a1, a2)); idx.pop(q); break
+        else: raise ValueError("cannot triangulate the outline")
+    return T + [tuple(idx)]
+
+
+def _outline(kind, n=40):
+    """Stage 191: a unit outline (x right, y up, about [-1, 1]) - heart / star / bolt / wing / diamond2d."""
+    if kind == "heart":
+        P = [(16 * math.sin(t) ** 3 / 16, (13 * math.cos(t) - 5 * math.cos(2 * t) - 2 * math.cos(3 * t) - math.cos(4 * t)) / 16) for t in np.linspace(0, 2 * math.pi, n, endpoint=False)]
+    elif kind == "star":
+        P = [((1.0 if k % 2 == 0 else 0.45) * math.sin(k * math.pi / 5), (1.0 if k % 2 == 0 else 0.45) * math.cos(k * math.pi / 5)) for k in range(10)]
+    elif kind == "bolt":
+        P = [(-0.15, 1.0), (0.55, 1.0), (0.1, 0.15), (0.6, 0.15), (-0.35, -1.0), (-0.05, -0.1), (-0.55, -0.1)]
+    elif kind == "wing":  # a butterfly's upper + lower wing (the body at the origin, the wing out along +x)
+        P = [(0.0, 0.05), (0.35, 0.75), (0.85, 0.95), (1.0, 0.6), (0.75, 0.2), (0.55, 0.0), (0.9, -0.35), (0.7, -0.8), (0.3, -0.7), (0.0, -0.15)]
+    else:  # diamond2d
+        P = [(0.0, 1.0), (0.75, 0.25), (0.0, -1.0), (-0.75, 0.25)]
+    P = np.array(P, float)
+    ar = 0.5 * np.sum(P[:, 0] * np.roll(P[:, 1], -1) - np.roll(P[:, 0], -1) * P[:, 1])
+    return P if ar > 0 else P[::-1]
+
+
+def sticker3d(w, h, d, o):
+    """Stage 191: a chunky extruded icon - o["icon"] heart / star / bolt / wing / diamond2d - fitted to w x h (x, y),
+    d thick along z, base at y 0, centred on x / z. Closed; UVs planar on the face (x, y over the size)."""
+    P = _outline(o.get("icon", "heart")); lo, hi = P.min(0), P.max(0); P = (P - lo) / (hi - lo) * [w, h] - [w / 2, 0]
+    n = len(P); T = _ear_clip2(P); V = [[x, y, d / 2] for x, y in P] + [[x, y, -d / 2] for x, y in P]; F = []
+    for a, b, c in T: F += [[a, b, c], [n + a, n + c, n + b]]
+    for i in range(n): j = (i + 1) % n; F += [[i, n + i, n + j], [i, n + j, j]]
+    m = trimesh.Trimesh(np.array(V, float), np.array(F), process=False)
+    if m.volume < 0: m.invert()
+    m.metadata["uv"] = np.c_[(m.vertices[:, 0] + w / 2) / w, m.vertices[:, 1] / h]; return m
+
+
+def gem(w, h, d, o):
+    """Stage 191: a brilliant-cut gem - octagonal table, crown, girdle and a deep pavilion to a point at y 0; w across,
+    h tall. Closed (convex hull); faceted (flat shading)."""
+    R = w / 2; n = int(o.get("facets", 8)); pts = [[0, 0, 0]]
+    for k in range(n * 2):
+        a = 2 * math.pi * k / (n * 2); pts.append([R * math.cos(a), h * 0.58, R * math.sin(a)])
+    for k in range(n):
+        a = 2 * math.pi * (k + 0.5) / n; pts.append([R * 0.92 * math.cos(a), h * 0.66, R * 0.92 * math.sin(a)])
+        pts.append([R * 0.55 * math.cos(a + math.pi / n), h, R * 0.55 * math.sin(a + math.pi / n)])
+    return trimesh.convex.convex_hull(np.array(pts, float))
+
+
+def ribbon(w, h, d, o):
+    """Stage 191: a light-trail ribbon - an open strip of width w along o["path"] (local [x, y, z] points, Catmull-Rom
+    smoothed), turned so its width runs along o["up"] (default world up) across the travel; UV u = metres along /
+    o["tile"] (scroll it), v = 0..1 across (rainbow bands). Pair with double_sided."""
+    Q = np.asarray(o["path"], float); up = np.asarray(o.get("up", [0, 1, 0]), float); seg = int(o.get("subdiv", 8)); tile = float(o.get("tile", 6.0))
+    if len(Q) >= 3:
+        Qe = np.vstack([2 * Q[0] - Q[1], Q, 2 * Q[-1] - Q[-2]]); C = []
+        for i in range(1, len(Qe) - 2):
+            p0, p1, p2, p3 = Qe[i - 1], Qe[i], Qe[i + 1], Qe[i + 2]
+            for t in np.linspace(0, 1, seg, endpoint=False):
+                C.append(0.5 * (2 * p1 + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t * t + (-p0 + 3 * p1 - 3 * p2 + p3) * t ** 3))
+        C.append(Q[-1]); Q = np.array(C)
+    T = np.gradient(Q, axis=0); T /= np.linalg.norm(T, axis=1)[:, None] + 1e-9
+    S_ = up[None, :] - (T @ up)[:, None] * T; S_ /= np.linalg.norm(S_, axis=1)[:, None] + 1e-9
+    acc = np.r_[0, np.cumsum(np.linalg.norm(np.diff(Q, axis=0), axis=1))]; V, UV, F = [], [], []
+    for k, (q, s_) in enumerate(zip(Q, S_)):
+        V += [q - s_ * w / 2, q + s_ * w / 2]; UV += [[acc[k] / tile, 0.0], [acc[k] / tile, 1.0]]
+        if k: i = 2 * k; F += [[i - 2, i, i + 1], [i - 2, i + 1, i - 1]]
+    m = trimesh.Trimesh(np.array(V, float), np.array(F), process=False); m.metadata["uv"] = np.array(UV); return m
+
+
+SHAPES = dict(sticker3d=sticker3d, gem=gem, gear=gear, spike_ball=spike_ball, pole=pole, mace=mace, mace_tips=mace_tips, saw_blade=saw_blade, prism=prism, tv_body=tv_body, fan_rotor=fan_rotor, railing=railing, rail_run=rail_run, ibeam=ibeam, rock=rock, cliff=cliff, arch=arch, pipe_elbow=pipe_elbow, vent=vent, tank=tank, machinery=machinery,
               hip_roof=hip_roof, round_arch=round_arch, battlement=battlement, wedge=wedge,
               stream=stream, channel=channel, berm=berm, rock_arch=rock_arch, cave=cave, overhang=overhang, crystals=crystals, frustum=frustum, dome=dome, pipe_path=pipe_path)
 
@@ -897,6 +976,7 @@ def make(o, bevel=0.0):
         F = o["faces"]; return box_faces(w, h, d, F["side"], F["top"], F.get("front"), F.get("front_axis", "z"))
     if t == "box" and (o.get("bevel", bevel) or 0) > 0: return bevel_box(w, h, d, o.get("bevel", bevel))
     if t == "band": return band(w, h, d, o)  # open strips by design (not in SHAPES: those are closed solids)
+    if t == "ribbon": return ribbon(w, h, d, o)  # Stage 191: light trails (open strip)
     if t == "dome_shell": return dome_shell(w, h, d, o)
     if t == "beam_cone": return beam_cone(w, h, d, o)  # Stage 127: open light shafts  # Stage 126: open by design too (glass / sky shells, double-sided)
     if t in SHAPES: return SHAPES[t](w, h, d, o)

@@ -35,6 +35,7 @@ var _boss_dead := false  # Stage 190: set by boss_defeated() - the conveyors sto
 var _floaters: Array = []  # Stage 123: {"d": floater rig dict, "sk": Skeleton3D, "bones": {name: index}, "bodies": [AnimatableBody3D per pad]}
 var _jets: Array = []  # Stage 119: {"d": jet dict, "parts": {key: [[node, rest]...]}, "trig": Area3D, "use": terminal Area3D, "phase", "t0"}
 var _lifts: Array = []  # Stage 108: {"d": lift dict, "nodes": [Node3D], "body": AnimatableBody3D, "ride": Area3D, "calls": [[call dict, Area3D]], "s", "dir", "p", "board"}
+var _swings: Array = []  # Stage 191: [swing dict, [[Node3D, rest Transform3D]...]]
 var _bobs: Array = []  # Stage 92: [bob dict, [[Node3D, rest Transform3D]...]]
 var _risers: Array = []  # Stage 80: [riser dict, Skeleton3D, {bone name: index}, [[CollisionShape3D...] per pad], start time (-1: waiting)]
 var _lines: Array = []  # Stage 61: working assembly lines - [line dict, move nodes, [[station, arm nodes, held nodes, scan nodes]]]
@@ -109,6 +110,12 @@ func _ready() -> void:
 				_character(fx["character"])
 			"belt":  # Stage 97: a conveyor ramp - chevrons slide, riders are carried
 				_belt(fx["belt"])
+			"swing":  # Stage 191: floating decor / butterflies / sweeping lasers (rest transforms kept)
+				var sw: Dictionary = fx["swing"]
+				var sn: Array = []
+				for nd in _group_nodes(String(sw["group"])):
+					sn.append([nd, (nd as Node3D).transform])
+				_swings.append([sw, sn])
 			"bob":  # Stage 92: a specimen drifting in its tank (rest transforms kept, turned about the pivot)
 				var bb: Dictionary = fx["bob"]
 				var bn: Array = []
@@ -772,6 +779,12 @@ func _sink_fx(S: Dictionary, pd: Dictionary, st: Dictionary, dep: float, dt: flo
 		st["drip"] = maxf(0.0, float(st["drip"]) - dt)
 		dr.position = Vector3(pd["center"][0], float(pd["center"][1]) - dep - 0.1, pd["center"][2])
 	dr.emitting = float(st["drip"]) > 0.0
+
+
+static func _turn_about(pv: Array, ax: Array, ang: float) -> Transform3D:  # Stage 191: rotation by ang about axis ax through point pv
+	var P := Vector3(pv[0], pv[1], pv[2])
+	var B := Basis(Vector3(ax[0], ax[1], ax[2]).normalized(), ang)
+	return Transform3D(B, P - B * P)
 
 
 func _jet(d: Dictionary) -> void:
@@ -2081,6 +2094,17 @@ func _process(delta: float) -> void:
 			(nr[0] as Node3D).transform = tr * (nr[1] as Transform3D)
 		(sr[2] as Node3D).rotation.y = th
 	_update_belts(get_process_delta_time())  # Stage 97 / 190: cleats slide, sprockets turn, spin down once the mini boss is defeated
+	for sr in _swings:  # Stage 191: turn about axis through pivot (+ spin, bob, a hinge swing first) - same as viewer.html
+		var w: Dictionary = sr[0]
+		var tp := _t + float(w.get("phase", 0.0))
+		var ang := deg_to_rad(float(w.get("spin", 0.0)) * _t + float(w.get("amp", 0.0)) * sin(TAU * tp / float(w.get("period", 1.0))))
+		var M := _turn_about(w["pivot"], w.get("axis", [0, 1, 0]), ang)
+		M.origin += Vector3(0.0, float(w.get("bob", 0.0)) * sin(TAU * tp / float(w.get("bob_period", w.get("period", 1.0)))), 0.0)
+		if w.has("pre"):
+			var pr: Dictionary = w["pre"]
+			M = M * _turn_about(pr["pivot"], pr["axis"], deg_to_rad(float(pr.get("amp", 0.0)) * sin(TAU * (_t + float(pr.get("phase", 0.0))) / float(pr.get("period", 1.0)))))
+		for nr in sr[1]:
+			(nr[0] as Node3D).transform = M * (nr[1] as Transform3D)
 	for br in _bobs:  # Stage 92: lift + sway about the pivot (world)
 		var b: Dictionary = br[0]
 		var P := float(b["period"])
