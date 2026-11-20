@@ -562,7 +562,105 @@ func _floater(d: Dictionary) -> void:
 		body.add_child(cs)
 		level_root.add_child(body)
 		bodies.append(body)
-	_floaters.append({"d": d, "sk": sk, "bones": bones, "bodies": bodies})
+	var sink: Array = []  # Stage 189: per pad {"load", "t0", "dp", "drip", "on": Area3D over the deck, particles}
+	if d.has("sink"):
+		var S: Dictionary = d["sink"]
+		for i in d["pads"].size():
+			var pd: Dictionary = d["pads"][i]
+			var ar := Area3D.new()  # who is standing on the deck (rides with the pad's body)
+			var ash := CollisionShape3D.new()
+			var abx := BoxShape3D.new()
+			var ds: Array = pd.get("deck_size", [float(pd["deck_radius"]) * 1.8, float(pd["deck_radius"]) * 1.8])
+			abx.size = Vector3(float(ds[0]) + 0.4, 1.4, float(ds[1]) + 0.4)
+			ash.shape = abx
+			ash.position = Vector3(0.0, 0.7, 0.0)
+			ar.add_child(ash)
+			(bodies[i] as Node3D).add_child(ar)
+			var h := float(ds[0]) / 2.0
+			var c := Vector3(pd["center"][0], float(S["liquid"]) + 0.05, pd["center"][2])
+			var sp := _slime_drops(int(S["splash"]["burst"]), true)  # ring splash (going under / breaking the surface)
+			sp.emission_shape = CPUParticles3D.EMISSION_SHAPE_RING
+			sp.emission_ring_axis = Vector3.UP
+			sp.emission_ring_radius = h * 1.15
+			sp.emission_ring_inner_radius = h * 0.95
+			sp.emission_ring_height = 0.1
+			sp.direction = Vector3.UP
+			sp.spread = 35.0
+			sp.initial_velocity_min = float(S["splash"]["speed"][0])
+			sp.initial_velocity_max = float(S["splash"]["speed"][1])
+			sp.position = c
+			var bo := _slime_drops(40, false)  # the slime boiling over the drowned deck
+			bo.emission_shape = CPUParticles3D.EMISSION_SHAPE_BOX
+			bo.emission_box_extents = Vector3(h, 0.05, h)
+			bo.direction = Vector3.UP
+			bo.spread = 20.0
+			bo.initial_velocity_min = 1.4
+			bo.initial_velocity_max = 3.0
+			bo.lifetime = 0.9
+			bo.position = c
+			var dp := _slime_drops(60, false)  # drips off the rim as it rises
+			dp.emission_shape = CPUParticles3D.EMISSION_SHAPE_RING
+			dp.emission_ring_axis = Vector3.UP
+			dp.emission_ring_radius = h
+			dp.emission_ring_inner_radius = h * 0.9
+			dp.emission_ring_height = 0.05
+			dp.direction = Vector3.DOWN
+			dp.initial_velocity_max = 0.4
+			var stm := CPUParticles3D.new()  # a hiss of steam as the thruster hits / leaves the slime
+			stm.amount = 26
+			stm.lifetime = 1.6
+			stm.one_shot = true
+			stm.explosiveness = 0.9
+			stm.emitting = false
+			stm.emission_shape = CPUParticles3D.EMISSION_SHAPE_SPHERE
+			stm.emission_sphere_radius = 0.9
+			stm.direction = Vector3.UP
+			stm.spread = 25.0
+			stm.initial_velocity_min = 2.2
+			stm.initial_velocity_max = 4.0
+			stm.gravity = Vector3(0.0, 0.6, 0.0)
+			stm.damping_min = 1.0
+			stm.damping_max = 2.0
+			stm.scale_amount_min = 1.2
+			stm.scale_amount_max = 2.6
+			var sq := QuadMesh.new()
+			sq.size = Vector2(1.0, 1.0)
+			var smt := StandardMaterial3D.new()
+			smt.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+			smt.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+			smt.albedo_color = Color(0.93, 0.97, 0.93, 0.45)
+			smt.billboard_mode = BaseMaterial3D.BILLBOARD_PARTICLES
+			sq.material = smt
+			stm.mesh = sq
+			stm.position = c + Vector3(0.0, 0.15, 0.0)
+			level_root.add_child(stm)
+			sink.append({"load": 0.0, "t0": -1.0, "dp": 0.0, "drip": 0.0, "on": ar, "splash": sp, "boil": bo, "drips": dp, "steam": stm})
+	_floaters.append({"d": d, "sk": sk, "bones": bones, "bodies": bodies, "sink": sink})
+
+
+## Stage 189: same as assembly.sink_profile / viewer.html - u = s since the deck gave way -> [depth 0..1, flame 0..1].
+static func sink_profile(S: Dictionary, u: float) -> Array:
+	var sk := float(S["sink"])
+	var un := float(S["under"])
+	var ri := float(S["rise"])
+	if u < 0.0:
+		return [0.0, 1.0]
+	if u < sk:
+		var q := u / sk
+		return [q * q * (3.0 - 2.0 * q) * (0.35 + 0.65 * q), maxf(0.0, 1.0 - u / (0.3 * sk))]
+	if u < sk + un:
+		return [1.0, 0.0]
+	if u < sk + un + ri:
+		var q2 := (u - sk - un) / ri
+		return [1.0 - q2 * q2 * (3.0 - 2.0 * q2), minf(1.0, q2 * 1.6)]
+	return [0.0, 1.0]
+
+
+func _player_on(ar: Area3D) -> bool:
+	for b in ar.get_overlapping_bodies():
+		if b is CharacterBody3D:
+			return true
+	return false
 
 
 func _pod_path(d: Dictionary) -> void:
@@ -615,19 +713,64 @@ func _update_floaters() -> void:
 	for f in _floaters:
 		var sk: Skeleton3D = f["sk"]
 		var pads: Array = f["d"]["pads"]
+		var dt := get_physics_process_delta_time()
 		for i in pads.size():
 			var pd: Dictionary = pads[i]
 			var p := float_pose(pd, _t)
-			var B := Basis.from_euler(Vector3(deg_to_rad(float(p[3])), deg_to_rad(float(p[1])), deg_to_rad(float(p[2]))), EULER_ORDER_YXZ)
+			var dep := 0.0  # Stage 189: how far the deck has sunk
+			var fl := 1.0
+			var w := 0.0
+			if f["sink"].size() > i:
+				var S: Dictionary = f["d"]["sink"]
+				var st: Dictionary = f["sink"][i]
+				if float(st["t0"]) < 0.0:
+					var on := _player_on(st["on"])
+					st["load"] = minf(float(S["hold"]), float(st["load"]) + dt) if on else maxf(0.0, float(st["load"]) - 2.0 * dt)
+					if float(st["load"]) >= float(S["hold"]):
+						st["t0"] = _t
+				elif _t - float(st["t0"]) >= float(S["sink"]) + float(S["under"]) + float(S["rise"]):
+					st["t0"] = -1.0
+					st["load"] = 0.0
+				w = float(st["load"]) / float(S["hold"]) if float(st["t0"]) < 0.0 else 0.0
+				var q := sink_profile(S, -1.0 if float(st["t0"]) < 0.0 else _t - float(st["t0"]))
+				dep = float(q[0]) * float(pd["sink_depth"])
+				fl = float(q[1])
+				_sink_fx(S, pd, st, dep, dt)
+				st["dp"] = dep
+			var B := Basis.from_euler(Vector3(deg_to_rad(float(p[3]) + w * 1.8 * sin(53.0 * _t + i)), deg_to_rad(float(p[1])), deg_to_rad(float(p[2]) + w * 1.8 * sin(47.0 * _t + 2.0 * i))), EULER_ORDER_YXZ)
+			var dy := float(p[0]) - dep - 0.12 * w
 			if sk != null:
 				var bi: int = f["bones"].get(String(pd["joint"]), -1)
 				if bi >= 0:
-					sk.set_bone_pose_position(bi, sk.get_bone_rest(bi).origin + Vector3(0.0, float(p[0]), 0.0))
+					sk.set_bone_pose_position(bi, sk.get_bone_rest(bi).origin + Vector3(0.0, dy, 0.0))
 					sk.set_bone_pose_rotation(bi, B.get_rotation_quaternion())
 				var fi: int = f["bones"].get(String(pd["flame_joint"]), -1)
 				if fi >= 0:
-					sk.set_bone_pose_scale(fi, Vector3(1.0, float(p[4]), 1.0))
-			(f["bodies"][i] as AnimatableBody3D).global_transform = Transform3D(B, Vector3(pd["center"][0], float(pd["center"][1]) + float(p[0]), pd["center"][2]))
+					var spt := 1.0
+					if w > 0.0:
+						spt = 1.0 - 0.8 * w * ((0.5 + 0.5 * sin(41.0 * _t + 3.0 * i)) if sin(13.0 * _t + i) > 0.0 else 1.0)  # the thruster sputters ...
+					sk.set_bone_pose_scale(fi, Vector3(1.0, maxf(0.001, float(p[4]) * fl * spt), 1.0))  # ... dies as it sinks, relights as it rises
+			(f["bodies"][i] as AnimatableBody3D).global_transform = Transform3D(B, Vector3(pd["center"][0], float(pd["center"][1]) + dy, pd["center"][2]))
+
+
+func _sink_fx(S: Dictionary, pd: Dictionary, st: Dictionary, dep: float, dt: float) -> void:  # Stage 189 (same events as viewer.html)
+	var L := float(S["liquid"])
+	var eJ := float(pd["center"][1]) - float(S["jet_drop"]) - L  # the thruster nozzle reaches the slime
+	var eD := float(pd["center"][1]) - L  # the deck goes under
+	var d0 := float(st["dp"])
+	if (d0 < eJ and dep >= eJ) or (d0 >= eJ and dep < eJ):
+		(st["steam"] as CPUParticles3D).restart()
+	if d0 < eD and dep >= eD:
+		(st["splash"] as CPUParticles3D).restart()
+	if d0 >= eD and dep < eD:
+		(st["splash"] as CPUParticles3D).restart()
+		st["drip"] = float(S["splash"]["drips"])
+	(st["boil"] as CPUParticles3D).emitting = dep >= eD - 0.2
+	var dr := st["drips"] as CPUParticles3D
+	if float(st["drip"]) > 0.0:
+		st["drip"] = maxf(0.0, float(st["drip"]) - dt)
+		dr.position = Vector3(pd["center"][0], float(pd["center"][1]) - dep - 0.1, pd["center"][2])
+	dr.emitting = float(st["drip"]) > 0.0
 
 
 func _jet(d: Dictionary) -> void:

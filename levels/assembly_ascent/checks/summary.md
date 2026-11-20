@@ -4,7 +4,7 @@ Spec: levels/assembly_ascent/scene_spec.json · 3650 objects · 69 materials · 
 Checks: PASSED ({'error': 0, 'warning': 10, 'info': 2}) · refine passes: 0
 Mobile (balanced): 3991 KB · 119862 tris · 225 draw calls · ~110.3 visible (estimate) · ~15.84 MB GPU textures (estimate)
 Navigation: 5443.0 m² reachable of 20640.0 m² standable
-Package: dist/assembly_ascent/package (39 files, 17.9 MB) valid=True
+Package: dist/assembly_ascent/package (39 files, 17.91 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
@@ -59,9 +59,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Jet_Screen: path planned - colliding samples per phase {'home': 0, 'fly': 0, 'wait': 0, 'press': 0, 'back': 0} (arrive [28.3, 21.632, 35.34], yaw 90.0)
 
 ## Timing
-- spec -> level.json: 16.9 s
-- build (glb, sky, background, effects, mobile): 81.6 s
-- checks (fast): 102.7 s
+- spec -> level.json: 17.9 s
+- build (glb, sky, background, effects, mobile): 81.8 s
+- checks (fast): 99.5 s
 - previews: 1.0 s
 - export package: 0.8 s
-- total: 203.0 s
+- total: 201.1 s

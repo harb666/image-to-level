@@ -21331,7 +21331,8 @@
      "tilt": 2.0,
      "yaw": 2.0,
      "flame": "Pillars_FloatRig",
-     "flame_y": 5.35
+     "flame_y": 5.35,
+     "sink_depth": 7.5
     },
     {
      "joint": "Pillars_2_FJ",
@@ -21355,7 +21356,8 @@
      "tilt": 2.0,
      "yaw": 2.0,
      "flame": "Pillars_FloatRig",
-     "flame_y": 5.95
+     "flame_y": 5.95,
+     "sink_depth": 8.1
     },
     {
      "joint": "Pillars_3_FJ",
@@ -21379,7 +21381,8 @@
      "tilt": 2.0,
      "yaw": 2.0,
      "flame": "Pillars_FloatRig",
-     "flame_y": 6.55
+     "flame_y": 6.55,
+     "sink_depth": 8.7
     },
     {
      "joint": "Pillars_4_FJ",
@@ -21403,7 +21406,8 @@
      "tilt": 2.0,
      "yaw": 2.0,
      "flame": "Pillars_FloatRig",
-     "flame_y": 7.75
+     "flame_y": 7.75,
+     "sink_depth": 9.9
     },
     {
      "joint": "Pillars_5_FJ",
@@ -21427,7 +21431,8 @@
      "tilt": 2.0,
      "yaw": 2.0,
      "flame": "Pillars_FloatRig",
-     "flame_y": 8.35
+     "flame_y": 8.35,
+     "sink_depth": 10.5
     },
     {
      "joint": "Pillars_6_FJ",
@@ -21451,7 +21456,8 @@
      "tilt": 2.0,
      "yaw": 2.0,
      "flame": "Pillars_FloatRig",
-     "flame_y": 8.95
+     "flame_y": 8.95,
+     "sink_depth": 11.1
     },
     {
      "joint": "Pillars_7_FJ",
@@ -21475,10 +21481,33 @@
      "tilt": 2.0,
      "yaw": 2.0,
      "flame": "Pillars_FloatRig",
-     "flame_y": 9.55
+     "flame_y": 9.55,
+     "sink_depth": 11.7
     }
    ],
-   "note": "per pad: joint offset (0, amp sin(2 pi (t + phase) / period), 0), yaw +-yaw, tilt +-tilt (about the deck centre); flame_joint scale y flickers; square decks: deck_size / deck_yaw"
+   "sink": {
+    "hold": 1.6,
+    "sink": 3.6,
+    "under": 2.8,
+    "rise": 3.2,
+    "liquid": 1.0,
+    "jet_drop": 3.8,
+    "splash": {
+     "burst": 72,
+     "speed": [
+      3.5,
+      7.5
+     ],
+     "drips": 2.4,
+     "drip_rate": 26.0,
+     "color": [
+      0.55,
+      1.0,
+      0.25
+     ]
+    }
+   },
+   "note": "per pad: joint offset (0, amp sin(2 pi (t + phase) / period), 0), yaw +-yaw, tilt +-tilt (about the deck centre); flame_joint scale y flickers; square decks: deck_size / deck_yaw; sink (Stage 189): a player standing on a deck loads it (assembly.sink_step), at 'hold' s it shudders down (sink_profile x pad sink_depth) and rises back"
   },
   {
    "id": "Spinner_FloatRig",

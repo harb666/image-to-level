@@ -343,6 +343,29 @@ def press_profile(D, t):
     return off, k * 360.0 * float(D["turns"]) + th
 
 
+def sink_profile(S, u):
+    """Stage 189 (user): a floating stepping platform giving way (same maths in viewer.html / apply_effects.gd). u = s since
+    it started sinking -> (depth 0..1, flame 0..1): sinks over S["sink"] s (slow start, eased), stays under S["under"] s,
+    rises over S["rise"] s (eased out); the thruster dies as it goes down and reignites as it comes up. u < 0: afloat."""
+    sk, un, ri = float(S["sink"]), float(S["under"]), float(S["rise"])
+    if u < 0: return 0.0, 1.0
+    if u < sk: q = u / sk; return q * q * (3 - 2 * q) * (0.35 + 0.65 * q), max(0.0, 1 - u / (0.3 * sk))
+    if u < sk + un: return 1.0, 0.0
+    if u < sk + un + ri: q = (u - sk - un) / ri; return 1 - q * q * (3 - 2 * q), min(1.0, q * 1.6)
+    return 0.0, 1.0
+
+
+def sink_step(S, st, on, dt, t):
+    """Stage 189: one tick of a pad's state {"load": s stood on, "t0": sink start | None}: standing loads it, stepping off
+    drains it twice as fast; at S["hold"] it gives way (t0 = t) and runs the whole cycle, then is afloat again."""
+    if st.get("t0") is not None:
+        if t - st["t0"] >= float(S["sink"]) + float(S["under"]) + float(S["rise"]): st["t0"] = None; st["load"] = 0.0
+        return st
+    st["load"] = min(float(S["hold"]), st.get("load", 0.0) + dt) if on else max(0.0, st.get("load", 0.0) - 2 * dt)
+    if st["load"] >= float(S["hold"]): st["t0"] = t
+    return st
+
+
 def plasma_energy(D, u):
     """Stage 158: how charged the spinner's plasma chambers are at cycle time u (press_profile's u): 0 until the ram hits,
     1 while it is down, then a smooth fade over spin_down - as the ram lifts and the maces coast to a stop. The plasma's
@@ -921,7 +944,7 @@ def pillar_path(ctx, s, x, y, z, yaw):
             cs = dict(mobile={"group": rg, "joint": jn}, floater=rg); cv = dict(cs, collision=False, outline=False)
             pads_.append(dict(joint=jn, flame_joint=fj, center=[round(px, 3), round(top, 3), round(pz, 3)], deck_radius=round(P_ / 2 / math.cos(math.pi / 8), 3), deck_size=[P_, P_], deck_yaw=round(a, 2),
                               bob=[float(flo.get("amp", 0.22)), round(float(flo.get("period", 2.3)) + 0.23 * k, 3)], phase=round(0.7 * k, 3), tilt=float(flo.get("tilt", 2.0)), yaw=float(flo.get("yaw", 2.0)),
-                              flame=rg, flame_y=round(fy, 3)))
+                              flame=rg, flame_y=round(fy, 3), **({"sink_depth": round(top - float(flo["sink"].get("liquid", liq)) + float(flo["sink"].get("under_by", 0.9)), 3)} if flo.get("sink") else {})))
         ctx.add(pre + "_Cap", "box", [px, top - 0.45, pz], [P_, 0.45, P_], "deck", rot=[0, a, 0], **cs)
         for j, (lx, lz, sx, sz) in enumerate(((0, P_ / 2 + 0.03, P_ + 0.12, 0.06), (0, -P_ / 2 - 0.03, P_ + 0.12, 0.06), (P_ / 2 + 0.03, 0, 0.06, P_), (-P_ / 2 - 0.03, 0, 0.06, P_))):
             q = W(lx, 0, lz); ctx.add(f"{pre}_Band_{j + 1}", "box", [q[0], top - 0.5, q[2]], [sx, 0.48, sz], stripe, rot=[0, a, 0], **cv)
@@ -942,8 +965,12 @@ def pillar_path(ctx, s, x, y, z, yaw):
         ctx.landings.append((round(px, 3), round(pz, 3), P_ / 2))
     if flo:
         ctx.skeletons = getattr(ctx, "skeletons", {}); ctx.skeletons[n + "_Float"] = dict(groups=[rg], joints=joints_, kind="float")
+        sk_ = flo.get("sink")  # Stage 189 (user): stand on one too long and it sinks into the slime, then rises back
         ctx.floaters = getattr(ctx, "floaters", []) + [dict(id=rg, group=rg, skeleton=n + "_Float", pads=pads_,
-                                                            note="per pad: joint offset (0, amp sin(2 pi (t + phase) / period), 0), yaw +-yaw, tilt +-tilt (about the deck centre); flame_joint scale y flickers; square decks: deck_size / deck_yaw")]
+                                                            **({"sink": dict(hold=float(sk_.get("hold", 1.6)), sink=float(sk_.get("sink", 3.6)), under=float(sk_.get("under", 2.8)), rise=float(sk_.get("rise", 3.2)),
+                                                                             liquid=float(sk_.get("liquid", liq)), jet_drop=3.8, splash=dict(burst=int(sk_.get("burst", 72)), speed=[3.5, 7.5], drips=2.4, drip_rate=26.0, color=[0.55, 1.0, 0.25]))} if sk_ else {}),
+                                                            note="per pad: joint offset (0, amp sin(2 pi (t + phase) / period), 0), yaw +-yaw, tilt +-tilt (about the deck centre); flame_joint scale y flickers; square decks: deck_size / deck_yaw"
+                                                                 + ("; sink (Stage 189): a player standing on a deck loads it (assembly.sink_step), at 'hold' s it shudders down (sink_profile x pad sink_depth) and rises back" if sk_ else ""))]
         ctx.notes.append(f"{n}: {len(s['points'])} floating stepping platforms (bobbing, thruster flames)"); return
     ctx.notes.append(f"{n}: {len(s['points'])} striped pillars on truss legs")
 

@@ -426,9 +426,46 @@ function buildFX(){for(const o of fxObjs){scene.remove(o);o.geometry&&o.geometry
         sm.forEach(o=>{o.boundingSphere=null;o.boundingBox=null;});}});}
     else if(fx.category==='floater'){const F=fx.floater,sm=Object.values(byName).filter(o=>o.isSkinnedMesh&&o.name.startsWith(F.group+'__')); // Stage 123: floating pads - one skinned rig (same as apply_effects.gd)
       const sk=sm.length?sm[0].skeleton:null,bn={};if(sk)sk.bones.forEach(b=>{b.userData.rest=b.userData.rest||b.position.clone();bn[b.name]=b;});sm.forEach(o=>o.frustumCulled=false);
-      const e=new THREE.Euler(),D=Math.PI/180;
-      fxUpd.push({reset(){},u(t){F.pads.forEach(pd=>{const p=floatPose(pd,t),J=bn[pd.joint],Fl=bn[pd.flame_joint];
-          if(J){J.position.copy(J.userData.rest);J.position.y+=p[0];e.set(p[3]*D,p[1]*D,p[2]*D,'YXZ');J.quaternion.setFromEuler(e);}if(Fl)Fl.scale.set(1,p[4],1);});
+      const e=new THREE.Euler(),D=Math.PI/180,SK=F.sink,ST=F.pads.map(()=>({load:0,t0:null,dp:0,drip:0}));let lt=null;
+      // Stage 189 (user): stand on a deck too long and it gives way - shudders, thruster sputters and dies, sinks into the slime (steam as the
+      // nozzle hits, a ring splash as the deck goes under, the slime boils over it), then rises back (thruster relit, splash, drips off its rim).
+      // Same maths as assembly.sink_profile / sink_step and apply_effects.gd.
+      const sinkProf=u=>{const sk=SK.sink,un=SK.under,ri=SK.rise;if(u<0)return[0,1];if(u<sk){const q=u/sk;return[q*q*(3-2*q)*(0.35+0.65*q),Math.max(0,1-u/(0.3*sk))];}
+        if(u<sk+un)return[1,0];if(u<sk+un+ri){const q=(u-sk-un)/ri;return[1-q*q*(3-2*q),Math.min(1,q*1.6)];}return[0,1];};
+      const FXP=SK?(()=>{const mk=(N,size,col,tex,op)=>{const a=new Float32Array(N*3).fill(-999),g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3));
+          const P=new THREE.Points(g,new THREE.PointsMaterial({color:col,map:tex,size,transparent:true,depthWrite:false,opacity:op,alphaTest:0.02}));P.frustumCulled=false;scene.add(P);fxObjs.push(P);
+          return {a,v:new Float32Array(N*3),life:new Float32Array(N),g,N,cur:0};};
+        const blob=(c0,c1,c2)=>{const cv=document.createElement('canvas');cv.width=cv.height=64;const x=cv.getContext('2d'),gr=x.createRadialGradient(26,26,2,32,32,30);gr.addColorStop(0,c0);gr.addColorStop(0.4,c1);gr.addColorStop(1,c2);x.fillStyle=gr;x.fillRect(0,0,64,64);return new THREE.CanvasTexture(cv);};
+        const DR=mk(1800,0.55,new THREE.Color(...SK.splash.color).lerp(new THREE.Color(1,1,1),0.35),blob('rgba(240,255,210,1)','rgba(140,255,60,0.95)','rgba(60,140,20,0)'),1),
+          SM=mk(300,2.2,new THREE.Color(0.93,0.97,0.93),blob('rgba(255,255,255,0.85)','rgba(235,245,235,0.4)','rgba(220,230,220,0)'),0.55);
+        const put=(B,x,y,z,vx,vy,vz,l)=>{const i=B.cur;B.cur=(B.cur+1)%B.N;B.a.set([x,y,z],i*3);B.v.set([vx,vy,vz],i*3);B.life[i]=l;};
+        const rim=(pd,k_)=>{const h=pd.deck_size[0]/2*k_,s4=Math.random()*4,f=(s4%1)*2-1,sd=Math.floor(s4),x=sd===0?h:sd===1?-h:f*h,z=sd===2?h:sd===3?-h:f*h,a_=(pd.deck_yaw||0)*D;
+          return [x*Math.cos(a_)+z*Math.sin(a_),-x*Math.sin(a_)+z*Math.cos(a_)];};
+        const L=SK.liquid,S=SK.splash;
+        const ring=(pd,n,boost)=>{for(let i=0;i<n;i++){const r=rim(pd,1.08),hl=Math.hypot(r[0],r[1])||1,sp=S.speed[0]+Math.random()*(S.speed[1]-S.speed[0]);
+          put(DR,pd.center[0]+r[0],L+0.05,pd.center[2]+r[1],r[0]/hl*sp*0.5*(0.4+Math.random()),sp*(0.6+0.5*Math.random())*boost,r[1]/hl*sp*0.5*(0.4+Math.random()),1.6);}};
+        const steam=(pd,n)=>{for(let i=0;i<n;i++){const a_=Math.random()*6.283,r_=Math.random()*0.9;put(SM,pd.center[0]+r_*Math.cos(a_),L+0.2,pd.center[2]+r_*Math.sin(a_),Math.cos(a_)*0.8,2.2+Math.random()*1.8,Math.sin(a_)*0.8,1.3+Math.random()*0.6);}};
+        return {reset(){[DR,SM].forEach(B=>{B.a.fill(-999);B.life.fill(0);});},
+          pad(k,pd,st,d,dt){const eJ=pd.center[1]-SK.jet_drop-L,eD=pd.center[1]-L,d0=st.dp;
+            if(d0<eJ&&d>=eJ){steam(pd,26);ring(pd,14,0.6);} if(d0>=eJ&&d<eJ)steam(pd,20); // the thruster nozzle hits / leaves the slime: a hiss of steam
+            if(d0<eD&&d>=eD)ring(pd,S.burst,1.0); if(d0>=eD&&d<eD){ring(pd,Math.round(S.burst*1.3),1.25);st.drip=S.drips;} // the deck goes under / breaks the surface
+            if(d>=eD-0.2&&Math.random()<dt*34){const h=pd.deck_size[0]/2,x=(Math.random()*2-1)*h,z=(Math.random()*2-1)*h;for(let i=0;i<3;i++)put(DR,pd.center[0]+x,L+0.05,pd.center[2]+z,(Math.random()-0.5)*0.8,1.4+Math.random()*1.6,(Math.random()-0.5)*0.8,1.0);} // the slime boils over it
+            if(st.drip>0){st.drip=Math.max(0,st.drip-dt);let n=S.drip_rate*(st.drip/S.drips)*dt;while(n>0){if(Math.random()<n){const r=rim(pd,1.0);put(DR,pd.center[0]+r[0],pd.center[1]-d-0.1,pd.center[2]+r[1],0,-0.4*Math.random(),0,1.6);}n-=1;}}},
+          step(dt){for(const B of [DR,SM]){const gv=B===SM?-0.6:9.8;for(let i=0;i<B.N;i++){if(B.life[i]<=0)continue;B.life[i]-=dt;B.v[i*3+1]-=gv*dt;if(B===SM){B.v[i*3]*=0.97;B.v[i*3+2]*=0.97;}
+            B.a[i*3]+=B.v[i*3]*dt;B.a[i*3+1]+=B.v[i*3+1]*dt;B.a[i*3+2]+=B.v[i*3+2]*dt;if((B===DR&&B.a[i*3+1]<L)||B.life[i]<=0){B.a[i*3+1]=-999;B.life[i]=0;}}B.g.attributes.position.needsUpdate=true;}}};})():null;
+      fxUpd.push({reset(){ST.forEach(st=>{st.load=0;st.t0=null;st.dp=0;st.drip=0;});lt=null;if(FXP)FXP.reset();},u(t){const dt=lt===null?0:Math.min(0.1,Math.max(0,t-lt));lt=t;
+        const ft=SK&&walking()?window.__feet():null;
+        F.pads.forEach((pd,k)=>{const p=floatPose(pd,t),J=bn[pd.joint],Fl=bn[pd.flame_joint];let d=0,fl=1,w=0;
+          if(SK){const st=ST[k];
+            if(st.t0===null){let on=false;if(ft){const c=pd.center,a_=(pd.deck_yaw||0)*D,dx=ft[0]-c[0],dz=ft[2]-c[2],lx=dx*Math.cos(a_)-dz*Math.sin(a_),lz=dx*Math.sin(a_)+dz*Math.cos(a_),h=pd.deck_size[0]/2+0.25,top=c[1]+p[0];
+                on=Math.abs(lx)<=h&&Math.abs(lz)<=h&&ft[1]>top-0.6&&ft[1]<top+0.9;}
+              st.load=on?Math.min(SK.hold,st.load+dt):Math.max(0,st.load-2*dt);if(st.load>=SK.hold)st.t0=t;}
+            else if(t-st.t0>=SK.sink+SK.under+SK.rise){st.t0=null;st.load=0;}
+            w=st.t0===null?st.load/SK.hold:0;const q=sinkProf(st.t0===null?-1:t-st.t0);d=q[0]*pd.sink_depth;fl=q[1];
+            if(FXP)FXP.pad(k,pd,st,d,dt);st.dp=d;}
+          if(J){J.position.copy(J.userData.rest);J.position.y+=p[0]-d-0.12*w;e.set((p[3]+w*1.8*Math.sin(53*t+k))*D,p[1]*D,(p[2]+w*1.8*Math.sin(47*t+2*k))*D,'YXZ');J.quaternion.setFromEuler(e);}  // (w: the warning shudder)
+          if(Fl){const sp=w>0?1-0.8*w*(Math.sin(13*t+k)>0?0.5+0.5*Math.sin(41*t+3*k):1):1;Fl.scale.set(1,Math.max(0.001,p[4]*fl*sp),1);}});  // the thruster sputters, dies, relights
+        if(FXP)FXP.step(dt);
         sm.forEach(o=>{o.boundingSphere=null;o.boundingBox=null;});}});} // (ray bounds follow the bob: the pads stay solid)
     else if(fx.category==='jet'){const J=fx.jet,G=k=>Object.values(byName).filter(o=>o.name.startsWith(J[k]+'__')),B=G('body'),F=G('flame'),Hh=G('hatch'),C=G('cap'),ALL=[...B,...F,...Hh,...C]; // Stage 119: jetpack screen (same as assembly.jet_pose / apply_effects.gd)
       ALL.forEach(o=>{o.userData.rest=o.userData.rest||o.matrix.clone();o.matrixAutoUpdate=false;for(const A of [solids,camSolids]){const i=A.indexOf(o);if(i>=0)A.splice(i,1);}}); // not solid (flames!)
