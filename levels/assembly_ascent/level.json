@@ -4,7 +4,7 @@
  "source": "scene_spec.json - Assembly Ascent (Construct Error - Map 3)",
  "generator": {
   "tool": "pipeline/spec_to_level.py",
-  "spec_sha": "09f5799b590ec71c",
+  "spec_sha": "e24224ff37507764",
   "theme": "toxic_industrial",
   "detail": "medium",
   "mode": "structured"
@@ -2089,11 +2089,29 @@
     ],
     "length": 16.528,
     "width": 4.0,
-    "speed": -2.4,
-    "spacing": 2.6,
+    "speed": -15.0,
+    "spacing": 1.2752,
     "yaw": 180.0,
     "pitch": 21.29,
-    "note": "a body standing on the deck (within width / length, feet within 0.4 m of it) moves speed * axis m/s",
+    "rollers": [
+     {
+      "node": "Belt_A_SprocketFoot",
+      "radius": 0.55,
+      "sign": 1.0
+     },
+     {
+      "node": "Belt_A_SprocketHead",
+      "radius": 0.55,
+      "sign": 1.0
+     }
+    ],
+    "stop_time": 1.8,
+    "surface": "belt",
+    "stops_on": {
+     "type": "boss_defeated",
+     "note": "the game calls boss_defeated() (apply_effects.gd) when the mini boss dies"
+    },
+    "note": "a body standing on the deck (within width / length, feet within 0.4 m of it) moves speed * axis m/s; Stage 190: the belt's travel p += speed * k * dt (k 1 -> 0 over stop_time once stopped); cleats at fmod(p, spacing) - spacing along axis; each roller turns sign * p / radius about its local y; the 'surface' material's UV v offset = fmod(-p / spacing, 1) (its tile_m = spacing * cos(pitch): one belt link per cleat)",
     "kill": {
      "id": "Belt_A_Pit",
      "center": [
@@ -2129,11 +2147,29 @@
     ],
     "length": 16.528,
     "width": 4.0,
-    "speed": -3.4,
-    "spacing": 2.6,
+    "speed": -15.0,
+    "spacing": 1.2752,
     "yaw": 180.0,
     "pitch": 21.29,
-    "note": "a body standing on the deck (within width / length, feet within 0.4 m of it) moves speed * axis m/s",
+    "rollers": [
+     {
+      "node": "Belt_B_SprocketFoot",
+      "radius": 0.55,
+      "sign": -1.0
+     },
+     {
+      "node": "Belt_B_SprocketHead",
+      "radius": 0.55,
+      "sign": -1.0
+     }
+    ],
+    "stop_time": 1.8,
+    "surface": "belt",
+    "stops_on": {
+     "type": "boss_defeated",
+     "note": "the game calls boss_defeated() (apply_effects.gd) when the mini boss dies"
+    },
+    "note": "a body standing on the deck (within width / length, feet within 0.4 m of it) moves speed * axis m/s; Stage 190: the belt's travel p += speed * k * dt (k 1 -> 0 over stop_time once stopped); cleats at fmod(p, spacing) - spacing along axis; each roller turns sign * p / radius about its local y; the 'surface' material's UV v offset = fmod(-p / spacing, 1) (its tile_m = spacing * cos(pitch): one belt link per cleat)",
     "kill": {
      "id": "Belt_B_Pit",
      "center": [
@@ -3943,13 +3979,15 @@
    "notes": "Stage 171: the laser gate's flashing beacons"
   },
   "belt": {
-   "type": "grating",
+   "type": "belt_links",
    "color": [
-    0.3,
-    0.31,
-    0.3
+    0.05,
+    0.055,
+    0.058
    ],
-   "tile_m": 2.0
+   "tile_m": 1.1882,
+   "res": 128,
+   "notes": "Stage 190: the conveyors' heavy link belt - one link per cleat spacing along the slope (tile_m = spacing * cos(pitch)); scrolled with the cleats"
   },
   "blade": {
    "type": "concrete",
@@ -53642,56 +53680,6 @@
    "source": "visible"
   },
   {
-   "name": "Belt_A_Frame_1",
-   "type": "box",
-   "position": [
-    27.7,
-    14.25,
-    -36.3
-   ],
-   "rotation": [
-    -21.29,
-    180.0,
-    0.0
-   ],
-   "size": [
-    0.4,
-    1.0,
-    16.728
-   ],
-   "material": "stripe",
-   "mobile": {
-    "static": true
-   },
-   "gen": "Belt_A",
-   "source": "visible"
-  },
-  {
-   "name": "Belt_A_Frame_2",
-   "type": "box",
-   "position": [
-    23.3,
-    14.25,
-    -36.3
-   ],
-   "rotation": [
-    -21.29,
-    180.0,
-    0.0
-   ],
-   "size": [
-    0.4,
-    1.0,
-    16.728
-   ],
-   "material": "stripe",
-   "mobile": {
-    "static": true
-   },
-   "gen": "Belt_A",
-   "source": "visible"
-  },
-  {
    "name": "Belt_A_Leg_1L",
    "type": "box",
    "position": [
@@ -53804,24 +53792,232 @@
    "source": "visible"
   },
   {
-   "name": "Belt_A_Chev_01L",
+   "name": "Belt_A_Frame_1",
    "type": "box",
    "position": [
-    26.22,
-    13.322,
-    -31.604
+    27.7,
+    14.25,
+    -36.3
    ],
    "rotation": [
     -21.29,
-    220.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    0.4,
+    1.0,
+    16.728
    ],
-   "material": "glow_yellow",
+   "material": "machine",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_FrameLip_1",
+   "type": "box",
+   "position": [
+    27.7,
+    15.25,
+    -36.3
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.44,
+    0.06,
+    16.728
+   ],
+   "material": "cog_paint",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_Frame_2",
+   "type": "box",
+   "position": [
+    23.3,
+    14.25,
+    -36.3
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.4,
+    1.0,
+    16.728
+   ],
+   "material": "machine",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_FrameLip_2",
+   "type": "box",
+   "position": [
+    23.3,
+    15.25,
+    -36.3
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.44,
+    0.06,
+    16.728
+   ],
+   "material": "cog_paint",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_CombFoot",
+   "type": "box",
+   "position": [
+    25.5,
+    12.427,
+    -29.439
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    4.05,
+    0.08,
+    1.8
+   ],
+   "material": "cog_machined",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_CombLipFoot",
+   "type": "box",
+   "position": [
+    25.5,
+    12.763,
+    -30.277
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    4.09,
+    0.09,
+    0.12
+   ],
+   "material": "cog_paint",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_CombHead",
+   "type": "box",
+   "position": [
+    25.5,
+    17.773,
+    -43.161
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    4.05,
+    0.08,
+    1.8
+   ],
+   "material": "cog_machined",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_CombLipHead",
+   "type": "box",
+   "position": [
+    25.5,
+    17.457,
+    -42.323
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    4.09,
+    0.09,
+    0.12
+   ],
+   "material": "cog_paint",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_Chev_01",
+   "type": "box",
+   "position": [
+    25.5,
+    12.586,
+    -30.091
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    3.85,
+    0.08,
+    0.2
+   ],
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -53831,24 +54027,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_A_Chev_01R",
+   "name": "Belt_A_Chev_02",
    "type": "box",
    "position": [
-    24.78,
-    13.322,
-    -31.604
+    25.5,
+    13.049,
+    -31.279
    ],
    "rotation": [
     -21.29,
-    140.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -53858,24 +54054,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_A_Chev_02L",
+   "name": "Belt_A_Chev_03",
    "type": "box",
    "position": [
-    26.22,
-    14.266,
-    -34.027
+    25.5,
+    13.512,
+    -32.467
    ],
    "rotation": [
     -21.29,
-    220.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -53885,24 +54081,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_A_Chev_02R",
+   "name": "Belt_A_Chev_04",
    "type": "box",
    "position": [
-    24.78,
-    14.266,
-    -34.027
+    25.5,
+    13.975,
+    -33.656
    ],
    "rotation": [
     -21.29,
-    140.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -53912,24 +54108,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_A_Chev_03L",
+   "name": "Belt_A_Chev_05",
    "type": "box",
    "position": [
-    26.22,
-    15.21,
-    -36.45
+    25.5,
+    14.438,
+    -34.844
    ],
    "rotation": [
     -21.29,
-    220.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -53939,24 +54135,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_A_Chev_03R",
+   "name": "Belt_A_Chev_06",
    "type": "box",
    "position": [
-    24.78,
-    15.21,
-    -36.45
+    25.5,
+    14.901,
+    -36.032
    ],
    "rotation": [
     -21.29,
-    140.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -53966,24 +54162,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_A_Chev_04L",
+   "name": "Belt_A_Chev_07",
    "type": "box",
    "position": [
-    26.22,
-    16.154,
-    -38.872
+    25.5,
+    15.364,
+    -37.22
    ],
    "rotation": [
     -21.29,
-    220.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -53993,24 +54189,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_A_Chev_04R",
+   "name": "Belt_A_Chev_08",
    "type": "box",
    "position": [
-    24.78,
-    16.154,
-    -38.872
+    25.5,
+    15.826,
+    -38.408
    ],
    "rotation": [
     -21.29,
-    140.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -54020,24 +54216,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_A_Chev_05L",
+   "name": "Belt_A_Chev_09",
    "type": "box",
    "position": [
-    26.22,
-    17.097,
-    -41.295
+    25.5,
+    16.289,
+    -39.597
    ],
    "rotation": [
     -21.29,
-    220.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -54047,28 +54243,277 @@
    "source": "visible"
   },
   {
-   "name": "Belt_A_Chev_05R",
+   "name": "Belt_A_Chev_10",
    "type": "box",
    "position": [
-    24.78,
-    17.097,
-    -41.295
+    25.5,
+    16.752,
+    -40.785
    ],
    "rotation": [
     -21.29,
-    140.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
     "group": "Belt_A_Chev"
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_Chev_11",
+   "type": "box",
+   "position": [
+    25.5,
+    17.215,
+    -41.973
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    3.85,
+    0.08,
+    0.2
+   ],
+   "material": "cog_paint",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Belt_A_Chev"
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_Chev_12",
+   "type": "box",
+   "position": [
+    25.5,
+    17.678,
+    -43.161
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    3.85,
+    0.08,
+    0.2
+   ],
+   "material": "cog_paint",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Belt_A_Chev"
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_SprocketFoot",
+   "type": "gear",
+   "position": [
+    23.08,
+    11.716,
+    -29.247
+   ],
+   "rotation": [
+    -0.0,
+    68.71,
+    90.0
+   ],
+   "size": [
+    1.1,
+    0.16,
+    1.1
+   ],
+   "material": "cog_machined",
+   "teeth": 10,
+   "depth": 0.12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_BearingFoot",
+   "type": "cylinder",
+   "position": [
+    23.26,
+    11.716,
+    -29.247
+   ],
+   "rotation": [
+    -0.0,
+    68.71,
+    90.0
+   ],
+   "size": [
+    0.5,
+    0.2,
+    0.5
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_SprocketHead",
+   "type": "gear",
+   "position": [
+    23.08,
+    17.353,
+    -43.716
+   ],
+   "rotation": [
+    -0.0,
+    68.71,
+    90.0
+   ],
+   "size": [
+    1.1,
+    0.16,
+    1.1
+   ],
+   "material": "cog_machined",
+   "teeth": 10,
+   "depth": 0.12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_BearingHead",
+   "type": "cylinder",
+   "position": [
+    23.26,
+    17.353,
+    -43.716
+   ],
+   "rotation": [
+    -0.0,
+    68.71,
+    90.0
+   ],
+   "size": [
+    0.5,
+    0.2,
+    0.5
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_Motor",
+   "type": "box",
+   "position": [
+    22.3,
+    15.456,
+    -41.577
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    1.1,
+    1.3,
+    1.4
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_MotorFins",
+   "type": "box",
+   "position": [
+    22.3,
+    16.756,
+    -41.577
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    0.12,
+    1.2
+   ],
+   "material": "cog_machined",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_A",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_A_MotorLamp",
+   "type": "box",
+   "position": [
+    21.74,
+    16.406,
+    -41.577
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.06,
+    0.18,
+    0.3
+   ],
+   "material": "glow_green",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
    },
    "gen": "Belt_A",
    "source": "visible"
@@ -54416,56 +54861,6 @@
    "source": "visible"
   },
   {
-   "name": "Belt_B_Frame_1",
-   "type": "box",
-   "position": [
-    33.7,
-    14.25,
-    -36.3
-   ],
-   "rotation": [
-    -21.29,
-    180.0,
-    0.0
-   ],
-   "size": [
-    0.4,
-    1.0,
-    16.728
-   ],
-   "material": "stripe",
-   "mobile": {
-    "static": true
-   },
-   "gen": "Belt_B",
-   "source": "visible"
-  },
-  {
-   "name": "Belt_B_Frame_2",
-   "type": "box",
-   "position": [
-    29.3,
-    14.25,
-    -36.3
-   ],
-   "rotation": [
-    -21.29,
-    180.0,
-    0.0
-   ],
-   "size": [
-    0.4,
-    1.0,
-    16.728
-   ],
-   "material": "stripe",
-   "mobile": {
-    "static": true
-   },
-   "gen": "Belt_B",
-   "source": "visible"
-  },
-  {
    "name": "Belt_B_Leg_1L",
    "type": "box",
    "position": [
@@ -54578,24 +54973,232 @@
    "source": "visible"
   },
   {
-   "name": "Belt_B_Chev_01L",
+   "name": "Belt_B_Frame_1",
    "type": "box",
    "position": [
-    32.22,
-    13.322,
-    -31.604
+    33.7,
+    14.25,
+    -36.3
    ],
    "rotation": [
     -21.29,
-    220.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    0.4,
+    1.0,
+    16.728
    ],
-   "material": "glow_yellow",
+   "material": "machine",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_FrameLip_1",
+   "type": "box",
+   "position": [
+    33.7,
+    15.25,
+    -36.3
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.44,
+    0.06,
+    16.728
+   ],
+   "material": "cog_paint",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_Frame_2",
+   "type": "box",
+   "position": [
+    29.3,
+    14.25,
+    -36.3
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.4,
+    1.0,
+    16.728
+   ],
+   "material": "machine",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_FrameLip_2",
+   "type": "box",
+   "position": [
+    29.3,
+    15.25,
+    -36.3
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.44,
+    0.06,
+    16.728
+   ],
+   "material": "cog_paint",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_CombFoot",
+   "type": "box",
+   "position": [
+    31.5,
+    12.427,
+    -29.439
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    4.05,
+    0.08,
+    1.8
+   ],
+   "material": "cog_machined",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_CombLipFoot",
+   "type": "box",
+   "position": [
+    31.5,
+    12.763,
+    -30.277
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    4.09,
+    0.09,
+    0.12
+   ],
+   "material": "cog_paint",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_CombHead",
+   "type": "box",
+   "position": [
+    31.5,
+    17.773,
+    -43.161
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    4.05,
+    0.08,
+    1.8
+   ],
+   "material": "cog_machined",
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_CombLipHead",
+   "type": "box",
+   "position": [
+    31.5,
+    17.457,
+    -42.323
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    4.09,
+    0.09,
+    0.12
+   ],
+   "material": "cog_paint",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_Chev_01",
+   "type": "box",
+   "position": [
+    31.5,
+    12.586,
+    -30.091
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    3.85,
+    0.08,
+    0.2
+   ],
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -54605,24 +55208,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_B_Chev_01R",
+   "name": "Belt_B_Chev_02",
    "type": "box",
    "position": [
-    30.78,
-    13.322,
-    -31.604
+    31.5,
+    13.049,
+    -31.279
    ],
    "rotation": [
     -21.29,
-    140.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -54632,24 +55235,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_B_Chev_02L",
+   "name": "Belt_B_Chev_03",
    "type": "box",
    "position": [
-    32.22,
-    14.266,
-    -34.027
+    31.5,
+    13.512,
+    -32.467
    ],
    "rotation": [
     -21.29,
-    220.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -54659,24 +55262,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_B_Chev_02R",
+   "name": "Belt_B_Chev_04",
    "type": "box",
    "position": [
-    30.78,
-    14.266,
-    -34.027
+    31.5,
+    13.975,
+    -33.656
    ],
    "rotation": [
     -21.29,
-    140.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -54686,24 +55289,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_B_Chev_03L",
+   "name": "Belt_B_Chev_05",
    "type": "box",
    "position": [
-    32.22,
-    15.21,
-    -36.45
+    31.5,
+    14.438,
+    -34.844
    ],
    "rotation": [
     -21.29,
-    220.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -54713,24 +55316,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_B_Chev_03R",
+   "name": "Belt_B_Chev_06",
    "type": "box",
    "position": [
-    30.78,
-    15.21,
-    -36.45
+    31.5,
+    14.901,
+    -36.032
    ],
    "rotation": [
     -21.29,
-    140.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -54740,24 +55343,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_B_Chev_04L",
+   "name": "Belt_B_Chev_07",
    "type": "box",
    "position": [
-    32.22,
-    16.154,
-    -38.872
+    31.5,
+    15.364,
+    -37.22
    ],
    "rotation": [
     -21.29,
-    220.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -54767,24 +55370,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_B_Chev_04R",
+   "name": "Belt_B_Chev_08",
    "type": "box",
    "position": [
-    30.78,
-    16.154,
-    -38.872
+    31.5,
+    15.826,
+    -38.408
    ],
    "rotation": [
     -21.29,
-    140.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -54794,24 +55397,24 @@
    "source": "visible"
   },
   {
-   "name": "Belt_B_Chev_05L",
+   "name": "Belt_B_Chev_09",
    "type": "box",
    "position": [
-    32.22,
-    17.097,
-    -41.295
+    31.5,
+    16.289,
+    -39.597
    ],
    "rotation": [
     -21.29,
-    220.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
@@ -54821,28 +55424,277 @@
    "source": "visible"
   },
   {
-   "name": "Belt_B_Chev_05R",
+   "name": "Belt_B_Chev_10",
    "type": "box",
    "position": [
-    30.78,
-    17.097,
-    -41.295
+    31.5,
+    16.752,
+    -40.785
    ],
    "rotation": [
     -21.29,
-    140.0,
+    180.0,
     0.0
    ],
    "size": [
-    1.68,
-    0.03,
-    0.34
+    3.85,
+    0.08,
+    0.2
    ],
-   "material": "glow_yellow",
+   "material": "cog_paint",
    "collision": false,
    "outline": false,
    "mobile": {
     "group": "Belt_B_Chev"
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_Chev_11",
+   "type": "box",
+   "position": [
+    31.5,
+    17.215,
+    -41.973
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    3.85,
+    0.08,
+    0.2
+   ],
+   "material": "cog_paint",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Belt_B_Chev"
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_Chev_12",
+   "type": "box",
+   "position": [
+    31.5,
+    17.678,
+    -43.161
+   ],
+   "rotation": [
+    -21.29,
+    180.0,
+    0.0
+   ],
+   "size": [
+    3.85,
+    0.08,
+    0.2
+   ],
+   "material": "cog_paint",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "group": "Belt_B_Chev"
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_SprocketFoot",
+   "type": "gear",
+   "position": [
+    33.92,
+    11.716,
+    -29.247
+   ],
+   "rotation": [
+    180.0,
+    68.71,
+    90.0
+   ],
+   "size": [
+    1.1,
+    0.16,
+    1.1
+   ],
+   "material": "cog_machined",
+   "teeth": 10,
+   "depth": 0.12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_BearingFoot",
+   "type": "cylinder",
+   "position": [
+    33.74,
+    11.716,
+    -29.247
+   ],
+   "rotation": [
+    180.0,
+    68.71,
+    90.0
+   ],
+   "size": [
+    0.5,
+    0.2,
+    0.5
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_SprocketHead",
+   "type": "gear",
+   "position": [
+    33.92,
+    17.353,
+    -43.716
+   ],
+   "rotation": [
+    180.0,
+    68.71,
+    90.0
+   ],
+   "size": [
+    1.1,
+    0.16,
+    1.1
+   ],
+   "material": "cog_machined",
+   "teeth": 10,
+   "depth": 0.12,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "merge": false
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_BearingHead",
+   "type": "cylinder",
+   "position": [
+    33.74,
+    17.353,
+    -43.716
+   ],
+   "rotation": [
+    180.0,
+    68.71,
+    90.0
+   ],
+   "size": [
+    0.5,
+    0.2,
+    0.5
+   ],
+   "material": "machine",
+   "sections": 8,
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_Motor",
+   "type": "box",
+   "position": [
+    34.7,
+    15.456,
+    -41.577
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    1.1,
+    1.3,
+    1.4
+   ],
+   "material": "machine",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_MotorFins",
+   "type": "box",
+   "position": [
+    34.7,
+    16.756,
+    -41.577
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.9,
+    0.12,
+    1.2
+   ],
+   "material": "cog_machined",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
+   },
+   "gen": "Belt_B",
+   "source": "visible"
+  },
+  {
+   "name": "Belt_B_MotorLamp",
+   "type": "box",
+   "position": [
+    35.26,
+    16.406,
+    -41.577
+   ],
+   "rotation": [
+    0.0,
+    180.0,
+    0.0
+   ],
+   "size": [
+    0.06,
+    0.18,
+    0.3
+   ],
+   "material": "glow_green",
+   "collision": false,
+   "outline": false,
+   "mobile": {
+    "static": true
    },
    "gen": "Belt_B",
    "source": "visible"
@@ -120860,11 +121712,29 @@
    ],
    "length": 16.528,
    "width": 4.0,
-   "speed": -2.4,
-   "spacing": 2.6,
+   "speed": -15.0,
+   "spacing": 1.2752,
    "yaw": 180.0,
    "pitch": 21.29,
-   "note": "a body standing on the deck (within width / length, feet within 0.4 m of it) moves speed * axis m/s",
+   "rollers": [
+    {
+     "node": "Belt_A_SprocketFoot",
+     "radius": 0.55,
+     "sign": 1.0
+    },
+    {
+     "node": "Belt_A_SprocketHead",
+     "radius": 0.55,
+     "sign": 1.0
+    }
+   ],
+   "stop_time": 1.8,
+   "surface": "belt",
+   "stops_on": {
+    "type": "boss_defeated",
+    "note": "the game calls boss_defeated() (apply_effects.gd) when the mini boss dies"
+   },
+   "note": "a body standing on the deck (within width / length, feet within 0.4 m of it) moves speed * axis m/s; Stage 190: the belt's travel p += speed * k * dt (k 1 -> 0 over stop_time once stopped); cleats at fmod(p, spacing) - spacing along axis; each roller turns sign * p / radius about its local y; the 'surface' material's UV v offset = fmod(-p / spacing, 1) (its tile_m = spacing * cos(pitch): one belt link per cleat)",
    "kill": {
     "id": "Belt_A_Pit",
     "center": [
@@ -120896,11 +121766,29 @@
    ],
    "length": 16.528,
    "width": 4.0,
-   "speed": -3.4,
-   "spacing": 2.6,
+   "speed": -15.0,
+   "spacing": 1.2752,
    "yaw": 180.0,
    "pitch": 21.29,
-   "note": "a body standing on the deck (within width / length, feet within 0.4 m of it) moves speed * axis m/s",
+   "rollers": [
+    {
+     "node": "Belt_B_SprocketFoot",
+     "radius": 0.55,
+     "sign": -1.0
+    },
+    {
+     "node": "Belt_B_SprocketHead",
+     "radius": 0.55,
+     "sign": -1.0
+    }
+   ],
+   "stop_time": 1.8,
+   "surface": "belt",
+   "stops_on": {
+    "type": "boss_defeated",
+    "note": "the game calls boss_defeated() (apply_effects.gd) when the mini boss dies"
+   },
+   "note": "a body standing on the deck (within width / length, feet within 0.4 m of it) moves speed * axis m/s; Stage 190: the belt's travel p += speed * k * dt (k 1 -> 0 over stop_time once stopped); cleats at fmod(p, spacing) - spacing along axis; each roller turns sign * p / radius about its local y; the 'surface' material's UV v offset = fmod(-p / spacing, 1) (its tile_m = spacing * cos(pitch): one belt link per cleat)",
    "kill": {
     "id": "Belt_B_Pit",
     "center": [
@@ -121756,8 +122644,8 @@
   "Saw_West: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 26.5]",
   "Saw_East: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 20.5]",
   "Pillars: 7 floating stepping platforms (bobbing, thruster flames)",
-  "Belt_A: conveyor ramp 16.5 m at 21 deg, belt -2.4 m/s, spike pit at the foot",
-  "Belt_B: conveyor ramp 16.5 m at 21 deg, belt -3.4 m/s, spike pit at the foot",
+  "Belt_A: mechanical conveyor 16.5 m at 21 deg, belt -15.0 m/s (12 cleats), stops on boss_defeated",
+  "Belt_B: mechanical conveyor 16.5 m at 21 deg, belt -15.0 m/s (12 cleats), stops on boss_defeated",
   "Claw_Line: 5 claws with canisters riding the runway at z 12, hatches in both end walls",
   "Exit_Door: exit hallway 12 m fading to black -> level2_part1",
   "Spinner: spinner, 4 arms driven by a ceiling press (peak 64.43 rpm, still 3.8 s per 9.5 s), 4 hovering pads",
@@ -121919,16 +122807,16 @@
  },
  "draw_hint": "one material per surface type; mark static + batch in engine",
  "build_stats": {
-  "triangles": 109252,
-  "objects": 3650,
+  "triangles": 110284,
+  "objects": 3680,
   "materials": 69,
-  "glb_kb": 7205,
-  "nodes": 3980,
-  "draw_calls_unbatched": 3924,
+  "glb_kb": 7197,
+  "nodes": 4012,
+  "draw_calls_unbatched": 3956,
   "draw_calls_batched_min": 71,
   "images": 157,
-  "tex_mem_gpu_compressed_mb": 41.99,
-  "tex_mem_uncompressed_mb": 167.95,
+  "tex_mem_gpu_compressed_mb": 41.8,
+  "tex_mem_uncompressed_mb": 167.2,
   "note": "GPU numbers are estimates (pipeline/glb_stats.py)"
  }
 }

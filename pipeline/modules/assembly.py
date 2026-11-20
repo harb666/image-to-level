@@ -986,7 +986,7 @@ def belt_ramp(ctx, s, x, y, z, yaw):
     mx, my, mz = (x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2; st = dict(mobile={"static": True}); vs = dict(collision=False, outline=False, **st); stripe = ctx.role("stripe")
     u = [(x1 - x0) / L, (y1 - y0) / L, (z1 - z0) / L]; th = 0.4
     ctx.add(n + "_Deck", "box", [mx, my - th, mz], [w, th, L], "belt", rot=[-pitch, a, 0], connector=True, **dict(st, approach="jump_foot") if s.get("pit") else st)  # deck top on the from -> to line
-    for k, sd in enumerate((-1, 1)):
+    for k, sd in enumerate((-1, 1) if not s.get("mechanical") else ()):  # (Stage 190: the mechanical belt has steel channels)
         dx, dz = A_local(sd * (w / 2 + 0.2), 0, a)
         ctx.add(f"{n}_Frame_{k + 1}", "box", [mx + dx, my - 0.75, mz + dz], [0.4, 1.0, L + 0.2], stripe, rot=[-pitch, a, 0], **st)  # side curbs 25 cm proud
     for k, f in enumerate((0.25, 0.75)):  # trestles into the slime
@@ -994,6 +994,7 @@ def belt_ramp(ctx, s, x, y, z, yaw):
         for sd in (-1, 1):
             dx, dz = A_local(sd * (w / 2 - 0.3), 0, a); ctx.add(f"{n}_Leg_{k + 1}{'LR'[sd > 0]}", "box", [px + dx, 0.0, pz + dz], [0.45, py - 0.6, 0.45], "frame", rot=[0, a, 0], bevel=False, **vs)
     gc = n + "_Chev"; mc = dict(collision=False, outline=False, mobile={"group": gc}); spacing = float(s.get("spacing", 2.6)); nc = max(1, int((L - 2.0 - spacing) / spacing) + 1)
+    if s.get("mechanical"): return _belt_mechanical(ctx, s, n, gc, (x0, y0, z0), (x1, y1, z1), u, L, w, a, pitch, sp, st)
     for k in range(nc):  # the runtimes shift them 0..-spacing along the belt (towards the foot when it runs downhill): from 1 m to L - 1 m
         f = (1.0 + spacing + k * spacing) / L; px, py, pz = x0 + (x1 - x0) * f, y0 + (y1 - y0) * f + 0.015, z0 + (z1 - z0) * f
         for sd in (-1, 1):  # a chevron pointing uphill: two strips meeting on the centre line
@@ -1009,6 +1010,61 @@ def belt_ramp(ctx, s, x, y, z, yaw):
         K = dict(id=n + "_Pit", center=[round(fx, 3), round(y0 - pd + 0.5, 3), round(fz, 3)], size=[round(w, 3), 1.0, round(gap, 3)], yaw=round(a, 2), note="spikes")
         ctx.kills = getattr(ctx, "kills", []) + [K]; ctx.belts[-1]["kill"] = K  # (the preview reads it from the belt's effect)
     ctx.notes.append(f"{n}: conveyor ramp {L:.1f} m at {pitch:.0f} deg, belt {sp:+.1f} m/s" + (", spike pit at the foot" if s.get("pit") else ""))
+
+
+def _belt_mechanical(ctx, s, n, gc, P0, P1, u, L, w, a, pitch, sp, st):
+    """Stage 190 (user): an industrial conveyor - a dark rubber belt running fast enough that nobody can run up it, its
+    yellow steel cleats streaming down under steel comb plates at both ends (the plates hide each cleat's appear / vanish
+    point, so the fmod wrap never shows), drum sprockets turning on the outer side at head and foot, a drive motor with a
+    status lamp at the head, steel side channels. Stops (spins down) on "stops_on" (e.g. the mini boss defeated)."""
+    import numpy as np
+    from trimesh.transformations import euler_from_matrix
+    (x0, y0, z0), (x1, y1, z1) = P0, P1; pt = lambda f: [x0 + (x1 - x0) * f, y0 + (y1 - y0) * f, z0 + (z1 - z0) * f]
+    side = A_local(1.0, 0, a); side = [side[0], 0.0, side[1]]; sl = math.hypot(side[0], side[2]); side = [side[0] / sl, 0.0, side[2] / sl]
+    nrm = [u[1] * side[2] - u[2] * side[1], u[2] * side[0] - u[0] * side[2], u[0] * side[1] - u[1] * side[0]]
+    if nrm[1] < 0: nrm = [-c for c in nrm]
+    steel, paint = ctx.role("cog_machined"), ctx.role("cog_paint"); vs = dict(collision=False, outline=False, **st); comb = 1.8
+    for k, sd in enumerate((-1, 1)):  # side channels (replace the striped curbs)
+        dx, dz = A_local(sd * (w / 2 + 0.2), 0, a); mx, my, mz = pt(0.5)
+        ctx.add(f"{n}_Frame_{k + 1}", "box", [mx + dx, my - 0.75, mz + dz], [0.4, 1.0, L + 0.2], "machine", rot=[-pitch, a, 0], **st)
+        ctx.add(f"{n}_FrameLip_{k + 1}", "box", [mx + dx, my + 0.25, mz + dz], [0.44, 0.06, L + 0.2], paint, rot=[-pitch, a, 0], **vs)  # a painted top lip
+    for nm, f0 in (("Foot", 0.0), ("Head", (L - comb) / L)):  # comb plates the cleats run under (walkable, 10 cm over the belt)
+        c_ = pt(f0 + comb / 2 / L); ctx.add(f"{n}_Comb{nm}", "box", [c_[0], c_[1] + 0.1, c_[2]], [w + 0.05, 0.08, comb], steel, rot=[-pitch, a, 0], **st)
+        e_ = pt(f0 + (comb if nm == "Foot" else 0.0) / L); ctx.add(f"{n}_CombLip{nm}", "box", [e_[0], e_[1] + 0.11, e_[2]], [w + 0.09, 0.09, 0.12], paint, rot=[-pitch, a, 0], **vs)
+    s0, s1 = 1.6, L - 0.9; nk = max(2, int(round((s1 - s0) / 1.3)) + 1); S = (s1 - s0) / (nk - 1)  # cleats from under the foot comb to under the head comb
+    tm = (ctx.spec.get("materials", {}).get("roles", {}).get("belt") or {}).get("tile_m")
+    if tm and abs(float(tm) - S * math.cos(math.radians(pitch))) > 0.01: ctx.notes.append(f"{n}: WARNING belt tile_m {tm} != spacing * cos(pitch) {S * math.cos(math.radians(pitch)):.4f} - the belt links will slip against the cleats")
+    mc = dict(collision=False, outline=False, mobile={"group": gc})
+    for k in range(nk):
+        c_ = pt((s0 + k * S) / L); ctx.add(f"{gc}_{k + 1:02d}", "box", [c_[0], c_[1] + 0.005, c_[2]], [w - 0.15, 0.08, 0.2], paint, rot=[-pitch, a, 0], **mc)
+    rollers, R_ = [], 0.55  # sprockets on the drums' outer ends (the side away from the neighbouring belt)
+    out = 1 if (s.get("outer", 1) > 0) else -1; sx = [side[0] * out, 0.0, side[2] * out]
+    for nm, f0 in (("Foot", 0.5 / L), ("Head", (L - 0.5) / L)):
+        c_ = pt(f0); c_ = [c_[0] - nrm[0] * 0.5 + sx[0] * (w / 2 + 0.42), c_[1] - nrm[1] * 0.5, c_[2] - nrm[2] * 0.5 + sx[2] * (w / 2 + 0.42)]
+        Rm = np.eye(4); yv = np.array(sx); xv = np.array(u); zv = np.cross(xv, yv); Rm[:3, 0], Rm[:3, 1], Rm[:3, 2] = xv, yv, zv  # local y along the drum axis
+        rot_ = [round(math.degrees(q), 4) for q in euler_from_matrix(Rm, "sxyz")]
+        sg = float(np.dot(np.cross(yv, np.array(nrm)), np.array(u)))  # turning so its top runs with the belt
+        ctx.add(f"{n}_Sprocket{nm}", "gear", c_, [2 * R_, 0.16, 2 * R_], steel, rot=rot_, teeth=10, depth=0.12, collision=False, outline=False, mobile={"merge": False})
+        ctx.add(f"{n}_Bearing{nm}", "cylinder", [c_[0] - sx[0] * 0.18, c_[1], c_[2] - sx[2] * 0.18], [0.5, 0.2, 0.5], "machine", rot=rot_, sections=8, **vs)
+        rollers.append(dict(node=f"{n}_Sprocket{nm}", radius=R_, sign=round(sg, 4)))
+    hc = pt((L - 2.6) / L); mo = [hc[0] + sx[0] * (w / 2 + 1.2), hc[1] - 1.6, hc[2] + sx[2] * (w / 2 + 1.2)]  # the drive motor beside the belt, below its head
+    ctx.add(n + "_Motor", "box", mo, [1.1, 1.3, 1.4], "machine", rot=[0, a, 0], **vs)
+    ctx.add(n + "_MotorFins", "box", [mo[0], mo[1] + 1.3, mo[2]], [0.9, 0.12, 1.2], steel, rot=[0, a, 0], **vs)
+    ctx.add(n + "_MotorLamp", "box", [mo[0] + sx[0] * 0.56, mo[1] + 0.95, mo[2] + sx[2] * 0.56], [0.06, 0.18, 0.3], ctx.role("glow_green"), rot=[0, a, 0], **vs)
+    mx, my, mz = pt(0.5)
+    ctx.belts = getattr(ctx, "belts", []) + [dict(id=n, chevrons=gc, center=[round(mx, 3), round(my, 3), round(mz, 3)], axis=[round(v, 4) for v in u], length=round(L, 3), width=round(w, 3),
+                                                 speed=sp, spacing=round(S, 4), yaw=round(a, 2), pitch=round(pitch, 2), rollers=rollers, stop_time=float(s.get("stop_time", 1.8)), surface="belt",
+                                                 **({"stops_on": s["stops_on"]} if s.get("stops_on") else {}),
+                                                 note="a body standing on the deck (within width / length, feet within 0.4 m of it) moves speed * axis m/s; Stage 190: the belt's travel "
+                                                      "p += speed * k * dt (k 1 -> 0 over stop_time once stopped); cleats at fmod(p, spacing) - spacing along axis; each roller turns sign * p / radius about its local y; "
+                                                      "the 'surface' material's UV v offset = fmod(-p / spacing, 1) (its tile_m = spacing * cos(pitch): one belt link per cleat)")]
+    if s.get("pit"):  # spike pit in front of the foot, across the belt's width
+        pd = float(s["pit"]); gap = float(s.get("pit_len", 1.6)); fx, fz = x0 - u[0] / math.hypot(u[0], u[2]) * gap / 2, z0 - u[2] / math.hypot(u[0], u[2]) * gap / 2
+        ctx.add(n + "_PitFloor", "box", [fx, y0 - pd - 0.3, fz], [w + 0.8, 0.3, gap], "structure_b", rot=[0, a, 0], **st)
+        _spikes(ctx, n + "_PitSpike", fx, fz, y0 - pd, w, gap, a, ctx.role("spike"), length=0.8)
+        K = dict(id=n + "_Pit", center=[round(fx, 3), round(y0 - pd + 0.5, 3), round(fz, 3)], size=[round(w, 3), 1.0, round(gap, 3)], yaw=round(a, 2), note="spikes")
+        ctx.kills = getattr(ctx, "kills", []) + [K]; ctx.belts[-1]["kill"] = K
+    ctx.notes.append(f"{n}: mechanical conveyor {L:.1f} m at {pitch:.0f} deg, belt {sp:+.1f} m/s ({nk} cleats)" + (f", stops on {s['stops_on'].get('type')}" if s.get("stops_on") else ""))
 
 
 @structure("laser_gate", pad=False)

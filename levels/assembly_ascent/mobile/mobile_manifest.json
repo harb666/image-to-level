@@ -41,17 +41,17 @@
   "note": "File numbers are measured; draw calls / triangles visible and GPU memory are ESTIMATES (no device benchmark).",
   "dev": {
    "level": {
-    "glb_kb": 7205,
-    "triangles": 124332,
-    "nodes": 3980,
-    "mesh_nodes": 3924,
-    "unique_meshes": 1807,
+    "glb_kb": 7197,
+    "triangles": 125388,
+    "nodes": 4012,
+    "mesh_nodes": 3956,
+    "unique_meshes": 1825,
     "materials": 71,
     "images": 157,
-    "draw_calls_unbatched": 3924,
+    "draw_calls_unbatched": 3956,
     "draw_calls_batched_min": 71,
-    "tex_mem_uncompressed_mb": 167.95,
-    "tex_mem_gpu_compressed_mb": 41.99,
+    "tex_mem_uncompressed_mb": 167.2,
+    "tex_mem_gpu_compressed_mb": 41.8,
     "texture_slots": {
      "baseColorTexture": 61,
      "metallicRoughnessTexture": 61,
@@ -75,25 +75,25 @@
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 1240.0,
-    "visible_draw_calls_max": 3779,
-    "visible_triangles_mean": 52285,
-    "visible_triangles_max": 131012
+    "visible_draw_calls_mean": 1251.9,
+    "visible_draw_calls_max": 3811,
+    "visible_triangles_mean": 52670,
+    "visible_triangles_max": 132068
    }
   },
   "mobile": {
    "level": {
-    "glb_kb": 3991,
-    "triangles": 119862,
-    "nodes": 348,
-    "mesh_nodes": 225,
-    "unique_meshes": 225,
+    "glb_kb": 3964,
+    "triangles": 120862,
+    "nodes": 352,
+    "mesh_nodes": 229,
+    "unique_meshes": 229,
     "materials": 71,
     "images": 119,
-    "draw_calls_unbatched": 225,
+    "draw_calls_unbatched": 229,
     "draw_calls_batched_min": 71,
-    "tex_mem_uncompressed_mb": 63.36,
-    "tex_mem_gpu_compressed_mb": 15.84,
+    "tex_mem_uncompressed_mb": 62.61,
+    "tex_mem_gpu_compressed_mb": 15.65,
     "texture_slots": {
      "baseColorTexture": 61,
      "emissiveTexture": 40,
@@ -137,19 +137,19 @@
     ]
    },
    "collision": {
-    "colliders": 592,
+    "colliders": 596,
     "hazards": 1,
-    "glb_kb": 281
+    "glb_kb": 283
    },
    "visible": {
     "cameras": 128,
-    "visible_draw_calls_mean": 110.3,
-    "visible_draw_calls_max": 224,
-    "visible_triangles_mean": 98761,
-    "visible_triangles_max": 130188
+    "visible_draw_calls_mean": 112.3,
+    "visible_draw_calls_max": 228,
+    "visible_triangles_mean": 99354,
+    "visible_triangles_max": 131188
    },
    "hidden_faces_removed": 1679,
-   "occluded_faces_removed": 2791,
+   "occluded_faces_removed": 2847,
    "occluded_objects": [
     "OuterWall_North_M11Pipes_Plate",
     "Showcase_Stage_Glow_02L",
@@ -159,16 +159,16 @@
    "effects_max_particles": 1493,
    "slimmed_kb": {
     "level_mobile.glb": [
-     6204,
-     3991
+     6196,
+     3964
     ],
     "background_mobile.glb": [
      477,
      404
     ],
     "collision.glb": [
-     378,
-     281
+     380,
+     283
     ]
    }
   }
@@ -441,44 +441,48 @@
    "group": "Arena_Rig"
   },
   {
-   "node": "Belt_A_Chev__glow_yellow",
+   "node": "Belt_A_Chev__cog_paint",
    "kind": "group",
-   "material": "glow_yellow",
-   "triangles": 120,
+   "material": "cog_paint",
+   "triangles": 144,
    "visibility_range_end": 0,
-   "cast_shadow": false,
+   "cast_shadow": true,
    "source_objects": [
-    "Belt_A_Chev_05R",
-    "Belt_A_Chev_05L",
-    "Belt_A_Chev_04R",
-    "Belt_A_Chev_04L",
-    "Belt_A_Chev_03R",
-    "Belt_A_Chev_03L",
-    "Belt_A_Chev_02R",
-    "Belt_A_Chev_02L",
-    "Belt_A_Chev_01R",
-    "Belt_A_Chev_01L"
+    "Belt_A_Chev_12",
+    "Belt_A_Chev_11",
+    "Belt_A_Chev_10",
+    "Belt_A_Chev_09",
+    "Belt_A_Chev_08",
+    "Belt_A_Chev_07",
+    "Belt_A_Chev_06",
+    "Belt_A_Chev_05",
+    "Belt_A_Chev_04",
+    "Belt_A_Chev_03",
+    "Belt_A_Chev_02",
+    "Belt_A_Chev_01"
    ],
    "group": "Belt_A_Chev"
   },
   {
-   "node": "Belt_B_Chev__glow_yellow",
+   "node": "Belt_B_Chev__cog_paint",
    "kind": "group",
-   "material": "glow_yellow",
-   "triangles": 120,
+   "material": "cog_paint",
+   "triangles": 144,
    "visibility_range_end": 0,
-   "cast_shadow": false,
+   "cast_shadow": true,
    "source_objects": [
-    "Belt_B_Chev_05R",
-    "Belt_B_Chev_05L",
-    "Belt_B_Chev_04R",
-    "Belt_B_Chev_04L",
-    "Belt_B_Chev_03R",
-    "Belt_B_Chev_03L",
-    "Belt_B_Chev_02R",
-    "Belt_B_Chev_02L",
-    "Belt_B_Chev_01R",
-    "Belt_B_Chev_01L"
+    "Belt_B_Chev_12",
+    "Belt_B_Chev_11",
+    "Belt_B_Chev_10",
+    "Belt_B_Chev_09",
+    "Belt_B_Chev_08",
+    "Belt_B_Chev_07",
+    "Belt_B_Chev_06",
+    "Belt_B_Chev_05",
+    "Belt_B_Chev_04",
+    "Belt_B_Chev_03",
+    "Belt_B_Chev_02",
+    "Belt_B_Chev_01"
    ],
    "group": "Belt_B_Chev"
   },
@@ -3596,10 +3600,16 @@
    "node": "M_cog_machined_0_0",
    "kind": "static",
    "material": "cog_machined",
-   "triangles": 284,
+   "triangles": 348,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Belt_B_MotorFins",
+    "Belt_B_CombHead",
+    "Belt_B_CombFoot",
+    "Belt_A_MotorFins",
+    "Belt_A_CombHead",
+    "Belt_A_CombFoot",
     "Showcase_Cogs_b_DrivePipe",
     "Showcase_Cogs_b_GuideTop",
     "Showcase_Cogs_b_Guide_R",
@@ -3624,10 +3634,18 @@
    "node": "M_cog_paint_0_0",
    "kind": "static",
    "material": "cog_paint",
-   "triangles": 256,
+   "triangles": 336,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
+    "Belt_B_CombLipHead",
+    "Belt_B_CombLipFoot",
+    "Belt_B_FrameLip_2",
+    "Belt_B_FrameLip_1",
+    "Belt_A_CombLipHead",
+    "Belt_A_CombLipFoot",
+    "Belt_A_FrameLip_2",
+    "Belt_A_FrameLip_1",
     "Showcase_Cogs_b_DrivePipeBand",
     "Showcase_Cogs_b_PumpGland",
     "Showcase_Cogs_b_Cap_3",
@@ -4481,7 +4499,7 @@
    "node": "M_glow_green_0_0",
    "kind": "static",
    "material": "glow_green",
-   "triangles": 72,
+   "triangles": 96,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4489,6 +4507,8 @@
     "Spinner_CrownLamp_6",
     "Spinner_CrownLamp_4",
     "Spinner_CrownLamp_2",
+    "Belt_B_MotorLamp",
+    "Belt_A_MotorLamp",
     "Showcase_ScanLamp_3",
     "Showcase_ScanLamp_1"
    ]
@@ -4665,7 +4685,7 @@
    "node": "M_ink_0_0",
    "kind": "static",
    "material": "ink",
-   "triangles": 11428,
+   "triangles": 11452,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -4737,7 +4757,9 @@
     "Sign_Arrow_Yard_Frame__ol",
     "Sign_Grin_Deck_Frame__ol",
     "Belt_B_PitFloor__ol",
+    "Belt_B_CombFoot__ol",
     "Belt_A_PitFloor__ol",
+    "Belt_A_CombFoot__ol",
     "Spike_Press_Housing__ol",
     "Spike_Press_Mount__ol",
     "Spike_Press_Pad__ol",
@@ -4985,7 +5007,7 @@
    "node": "M_machine_0_0",
    "kind": "static",
    "material": "machine",
-   "triangles": 4519,
+   "triangles": 4687,
    "visibility_range_end": 0,
    "cast_shadow": false,
    "source_objects": [
@@ -5086,6 +5108,16 @@
     "Exit_Door_Mouth_Voussoir_3",
     "Exit_Door_Mouth_Voussoir_2",
     "Exit_Door_Mouth_Voussoir_1",
+    "Belt_B_Motor",
+    "Belt_B_BearingHead",
+    "Belt_B_BearingFoot",
+    "Belt_B_Frame_2",
+    "Belt_B_Frame_1",
+    "Belt_A_Motor",
+    "Belt_A_BearingHead",
+    "Belt_A_BearingFoot",
+    "Belt_A_Frame_2",
+    "Belt_A_Frame_1",
     "Spike_Press_Housing",
     "Spike_Press_Socket_16",
     "Spike_Press_Socket_15",
@@ -5548,7 +5580,7 @@
    "node": "M_stripe_0_0",
    "kind": "static",
    "material": "stripe",
-   "triangles": 772,
+   "triangles": 724,
    "visibility_range_end": 0,
    "cast_shadow": true,
    "source_objects": [
@@ -5561,10 +5593,6 @@
     "Overlook_EdgeN",
     "Overlook_EdgeW",
     "CraneRail_01_Stripe",
-    "Belt_B_Frame_2",
-    "Belt_B_Frame_1",
-    "Belt_A_Frame_2",
-    "Belt_A_Frame_1",
     "Spike_Press_Pad_Stripe_4",
     "Spike_Press_Pad_Stripe_3",
     "Spike_Press_Pad_Stripe_2",
@@ -6287,6 +6315,54 @@
    "cast_shadow": true,
    "source_objects": [
     "Ceil_Fan_1_Rotor"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Belt_B_SprocketHead",
+   "kind": "separate",
+   "material": "cog_machined",
+   "triangles": 160,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Belt_B_SprocketHead"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Belt_B_SprocketFoot",
+   "kind": "separate",
+   "material": "cog_machined",
+   "triangles": 160,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Belt_B_SprocketFoot"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Belt_A_SprocketHead",
+   "kind": "separate",
+   "material": "cog_machined",
+   "triangles": 160,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Belt_A_SprocketHead"
+   ],
+   "reason": "animated by an effect / merge disabled"
+  },
+  {
+   "node": "Belt_A_SprocketFoot",
+   "kind": "separate",
+   "material": "cog_machined",
+   "triangles": 160,
+   "visibility_range_end": 0,
+   "cast_shadow": true,
+   "source_objects": [
+    "Belt_A_SprocketFoot"
    ],
    "reason": "animated by an effect / merge disabled"
   },

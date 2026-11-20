@@ -397,6 +397,19 @@ def k_drum_plate(S, rng, c, m):
     return dict(alb=np.clip(alb, 0, 1), h=h, rough=np.where(lamp, 0.2, np.where(fl, 0.35, 0.5) + 0.3 * grime), metal=np.where(lamp | tag, 0.0, np.where(fl | bolt, 0.8, 0.55)), emit=emit, nstr=1.3)
 
 
+def k_belt_links(S, rng, c, m):
+    """Stage 190: a heavy conveyor belt - dark rubber link plates, one per tile along v (the belt's travel): a hinge seam
+    with steel pins at the tile edge, longitudinal grip ribs, scuffs. Scrolled one tile per cleat spacing (the runtimes),
+    so it moves in step with the cleats and never strobes."""
+    x, y = _xy(S); fine = _noise(rng, 32, 2, S); scuff = _noise(rng, 12, 2, S)
+    seam = (y < 0.06) | (y > 0.97); pin = seam & (np.abs(((x * 8) % 1) - 0.5) < 0.12) & (np.abs(np.where(y > 0.5, y - 1, y) - 0.015) < 0.03)
+    rib = ~seam & (np.abs(((x * 6) % 1) - 0.5) < 0.06)
+    base = c[None, None] * (0.85 + 0.2 * fine + 0.25 * np.clip(scuff - 0.55, 0, 1))[..., None]
+    alb = np.where(seam[..., None], base * 0.45, np.where(rib[..., None], base * 1.5, base)); alb = np.where(pin[..., None], np.array(m.get("pin", [0.42, 0.42, 0.44])), alb)
+    h = 0.6 - 0.35 * seam + 0.15 * rib + 0.3 * pin + 0.03 * fine
+    return dict(alb=np.clip(alb, 0, 1), h=h, rough=np.where(pin, 0.35, 0.85), metal=np.where(pin, 0.8, 0.0), nstr=1.4)
+
+
 def k_pipe(S, rng, c, m):
     """Large pipe: raised segment rings with bolts, lengthwise sheen, grime (v runs along the pipe)."""
     x, y = _xy(S); fine = _noise(rng, 32, 2, S); grime = _grime(rng, S, y, m.get("wear", 0.5))

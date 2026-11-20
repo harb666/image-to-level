@@ -31,6 +31,7 @@ var _saws: Array = []  # Stage 97/101: [saw dict, [[joint, [[node, rest]...]]...
 var _sweepers: Array = []  # Stage 98: [sweeper dict, [[rotor node, rest]...], pivot Node3D carrying the kill areas]
 var _belts: Array = []  # Stage 97: [belt dict, [[chevron node, rest position]...], rider Area3D]
 var _pod_paths: Array = []  # Stage 186: {"d": pod_path dict, "sk": Skeleton3D, "bones": {name: index}}
+var _boss_dead := false  # Stage 190: set by boss_defeated() - the conveyors stop
 var _floaters: Array = []  # Stage 123: {"d": floater rig dict, "sk": Skeleton3D, "bones": {name: index}, "bodies": [AnimatableBody3D per pad]}
 var _jets: Array = []  # Stage 119: {"d": jet dict, "parts": {key: [[node, rest]...]}, "trig": Area3D, "use": terminal Area3D, "phase", "t0"}
 var _lifts: Array = []  # Stage 108: {"d": lift dict, "nodes": [Node3D], "body": AnimatableBody3D, "ride": Area3D, "calls": [[call dict, Area3D]], "s", "dir", "p", "board"}
@@ -1098,7 +1099,46 @@ func _belt(b: Dictionary) -> void:
 	area.add_child(cs)
 	level_root.add_child(area)
 	area.global_transform = Transform3D(Basis(side, nrm, u), Vector3(b["center"][0], b["center"][1], b["center"][2]) + nrm * 0.6)
-	_belts.append([b, ch, area])
+	var rl: Array = []  # Stage 190: the drum sprockets the belt turns (rest transform kept)
+	for r in b.get("rollers", []):
+		var nd := level_root.find_child(String(r["node"]), true, false) as Node3D
+		if nd != null:
+			rl.append([nd, nd.transform, r])
+	var sfm: Array = []  # the link belt's material (its UVs run with the cleats)
+	if b.has("surface"):
+		var bn := String(b["surface"])
+		for node in level_root.find_children("*", "MeshInstance3D", true, false):
+			var mi := node as MeshInstance3D
+			for si in mi.get_surface_override_material_count():
+				var bm := mi.get_active_material(si) as BaseMaterial3D
+				if bm and (bm.resource_name == bn or bm.resource_name.begins_with(bn + "__")) and not sfm.has(bm):
+					sfm.append(bm)
+	_belts.append([b, ch, area, rl, {"p": 0.0, "k": 1.0}, sfm])
+
+
+## Stage 190: the game calls this when the mini boss dies - every belt with stops_on {"type": "boss_defeated"} spins down
+## (over its stop_time) and stays stationary, so the players can climb it.
+func boss_defeated(_id: String = "") -> void:
+	_boss_dead = true
+
+
+func _update_belts(delta: float) -> void:  # (same as viewer.html: travel p += speed * k * dt; cleats at fmod(p, spacing); sprockets sign * p / radius)
+	for br in _belts:
+		var b: Dictionary = br[0]
+		var st: Dictionary = br[4]
+		var stt := float(b.get("stop_time", 1.8))
+		var stopped := _boss_dead and b.has("stops_on") and String(b["stops_on"].get("type", "")) == "boss_defeated"
+		st["k"] = maxf(0.0, float(st["k"]) - delta / stt) if stopped else minf(1.0, float(st["k"]) + delta / stt)
+		st["p"] = float(st["p"]) + float(b["speed"]) * float(st["k"]) * delta
+		var u := Vector3(b["axis"][0], b["axis"][1], b["axis"][2]).normalized()
+		var d := fposmod(float(st["p"]), float(b["spacing"])) - float(b["spacing"])
+		for nr in br[1]:
+			(nr[0] as Node3D).position = (nr[1] as Vector3) + u * d
+		for r in br[3]:
+			var rr: Dictionary = r[2]
+			(r[0] as Node3D).transform = (r[1] as Transform3D) * Transform3D(Basis(Vector3.UP, float(rr["sign"]) * float(st["p"]) / float(rr["radius"])), Vector3.ZERO)
+		for bm in br[5]:
+			(bm as BaseMaterial3D).uv1_offset = Vector3(0.0, fposmod(-float(st["p"]) / float(b["spacing"]), 1.0), 0.0)
 
 
 func _update_saws() -> void:
@@ -1547,7 +1587,7 @@ func _physics_process(delta: float) -> void:
 		for body in (br[2] as Area3D).get_overlapping_bodies():
 			var cb := body as CharacterBody3D
 			if cb != null and cb.is_on_floor():
-				cb.move_and_collide(u * float(b["speed"]) * delta)
+				cb.move_and_collide(u * float(b["speed"]) * float(br[4]["k"]) * delta)  # (Stage 190: k - stopped once the mini boss is down)
 	for wr in _winds:
 		var w: Dictionary = wr[0]
 		var s := _wind_strength(wr, _t)
@@ -2040,12 +2080,7 @@ func _process(delta: float) -> void:
 		for nr in sr[1]:
 			(nr[0] as Node3D).transform = tr * (nr[1] as Transform3D)
 		(sr[2] as Node3D).rotation.y = th
-	for br in _belts:  # Stage 97: chevrons slide 0..-spacing along the belt (wrapping)
-		var b: Dictionary = br[0]
-		var u := Vector3(b["axis"][0], b["axis"][1], b["axis"][2]).normalized()
-		var d := fposmod(_t * float(b["speed"]), float(b["spacing"])) - float(b["spacing"])
-		for nr in br[1]:
-			(nr[0] as Node3D).position = (nr[1] as Vector3) + u * d
+	_update_belts(get_process_delta_time())  # Stage 97 / 190: cleats slide, sprockets turn, spin down once the mini boss is defeated
 	for br in _bobs:  # Stage 92: lift + sway about the pivot (world)
 		var b: Dictionary = br[0]
 		var P := float(b["period"])

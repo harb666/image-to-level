@@ -1,23 +1,23 @@
 # assembly_ascent: generation summary
 
-Spec: levels/assembly_ascent/scene_spec.json · 3650 objects · 69 materials · 59 effects
+Spec: levels/assembly_ascent/scene_spec.json · 3680 objects · 69 materials · 59 effects
 Checks: PASSED ({'error': 0, 'warning': 10, 'info': 2}) · refine passes: 0
-Mobile (balanced): 3991 KB · 119862 tris · 225 draw calls · ~110.3 visible (estimate) · ~15.84 MB GPU textures (estimate)
+Mobile (balanced): 3964 KB · 120862 tris · 229 draw calls · ~112.3 visible (estimate) · ~15.65 MB GPU textures (estimate)
 Navigation: 5443.0 m² reachable of 20640.0 m² standable
-Package: dist/assembly_ascent/package (39 files, 17.91 MB) valid=True
+Package: dist/assembly_ascent/package (39 files, 17.9 MB) valid=True
 Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: levels/assembly_ascent/checks/views/contact_sheet.jpg
 
 ## Needs Claude's judgement
 - warning: OuterWall_East_M05Vent_FrameSide_2 and OuterWall_East_M05Vent_Red share coplanar faces (0.07 m², different materials): z-fighting flicker [auto-repairable]
 - warning: OuterWall_East_M05Vent and OuterWall_East_M05Vent_Red share coplanar faces (0.19 m², different materials): z-fighting flicker [auto-repairable]
-- warning: mobile draw calls 225 (> 80)
-- warning: ~110 visible draw calls (estimate, > 60)
+- warning: mobile draw calls 229 (> 80)
+- warning: ~112 visible draw calls (estimate, > 60)
 - warning: Showcase_Pit_1_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_1_Pillar_R: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Lintel: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: Showcase_Pit_2_Pillar_L: walkable width ~1.0 m (< 3.0 m) - tight for strafing / the camera
 - warning: enemy_arena: hazard 0.5 m away (< 3.0 m)
-- warning: 124332 triangles (> budget 40000)
+- warning: 125388 triangles (> budget 40000)
 - visual comparison of the renders with the reference image(s) (not automatic)
 
 ## Generator notes
@@ -39,8 +39,8 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Saw_West: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 26.5]
 - Saw_East: ceiling saw 4.4 m, jointed arm (shoulder 30 deg) across [-31.95, 20.5]
 - Pillars: 7 floating stepping platforms (bobbing, thruster flames)
-- Belt_A: conveyor ramp 16.5 m at 21 deg, belt -2.4 m/s, spike pit at the foot
-- Belt_B: conveyor ramp 16.5 m at 21 deg, belt -3.4 m/s, spike pit at the foot
+- Belt_A: mechanical conveyor 16.5 m at 21 deg, belt -15.0 m/s (12 cleats), stops on boss_defeated
+- Belt_B: mechanical conveyor 16.5 m at 21 deg, belt -15.0 m/s (12 cleats), stops on boss_defeated
 - Claw_Line: 5 claws with canisters riding the runway at z 12, hatches in both end walls
 - Exit_Door: exit hallway 12 m fading to black -> level2_part1
 - Spinner: spinner, 4 arms driven by a ceiling press (peak 64.43 rpm, still 3.8 s per 9.5 s), 4 hovering pads
@@ -59,9 +59,9 @@ Previews: dist/assembly_ascent/preview.html, preview_mobile.html · renders: lev
 - Jet_Screen: path planned - colliding samples per phase {'home': 0, 'fly': 0, 'wait': 0, 'press': 0, 'back': 0} (arrive [28.3, 21.632, 35.34], yaw 90.0)
 
 ## Timing
-- spec -> level.json: 17.9 s
-- build (glb, sky, background, effects, mobile): 81.8 s
-- checks (fast): 99.5 s
+- spec -> level.json: 17.7 s
+- build (glb, sky, background, effects, mobile): 83.6 s
+- checks (fast): 99.0 s
 - previews: 1.0 s
-- export package: 0.8 s
-- total: 201.1 s
+- export package: 0.7 s
+- total: 202.0 s

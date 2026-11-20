@@ -12908,6 +12908,48 @@
    ]
   },
   {
+   "name": "Belt_A_CombFoot",
+   "source": "Belt_A_CombFoot",
+   "shape": "box",
+   "center": [
+    25.5,
+    12.464,
+    -29.424
+   ],
+   "size": [
+    4.05,
+    0.08,
+    1.8
+   ],
+   "rotation": [
+    0.0,
+    0.98279,
+    0.18472,
+    0.0
+   ]
+  },
+  {
+   "name": "Belt_A_CombHead",
+   "source": "Belt_A_CombHead",
+   "shape": "box",
+   "center": [
+    25.5,
+    17.81,
+    -43.146
+   ],
+   "size": [
+    4.05,
+    0.08,
+    1.8
+   ],
+   "rotation": [
+    0.0,
+    0.98279,
+    0.18472,
+    0.0
+   ]
+  },
+  {
    "name": "Belt_A_PitFloor",
    "source": "Belt_A_PitFloor",
    "shape": "box",
@@ -12983,6 +13025,48 @@
     0.4,
     1.0,
     16.728
+   ],
+   "rotation": [
+    0.0,
+    0.98279,
+    0.18472,
+    0.0
+   ]
+  },
+  {
+   "name": "Belt_B_CombFoot",
+   "source": "Belt_B_CombFoot",
+   "shape": "box",
+   "center": [
+    31.5,
+    12.464,
+    -29.424
+   ],
+   "size": [
+    4.05,
+    0.08,
+    1.8
+   ],
+   "rotation": [
+    0.0,
+    0.98279,
+    0.18472,
+    0.0
+   ]
+  },
+  {
+   "name": "Belt_B_CombHead",
+   "source": "Belt_B_CombHead",
+   "shape": "box",
+   "center": [
+    31.5,
+    17.81,
+    -43.146
+   ],
+   "size": [
+    4.05,
+    0.08,
+    1.8
    ],
    "rotation": [
     0.0,
@@ -20816,11 +20900,29 @@
    ],
    "length": 16.528,
    "width": 4.0,
-   "speed": -2.4,
-   "spacing": 2.6,
+   "speed": -15.0,
+   "spacing": 1.2752,
    "yaw": 180.0,
    "pitch": 21.29,
-   "note": "a body standing on the deck (within width / length, feet within 0.4 m of it) moves speed * axis m/s",
+   "rollers": [
+    {
+     "node": "Belt_A_SprocketFoot",
+     "radius": 0.55,
+     "sign": 1.0
+    },
+    {
+     "node": "Belt_A_SprocketHead",
+     "radius": 0.55,
+     "sign": 1.0
+    }
+   ],
+   "stop_time": 1.8,
+   "surface": "belt",
+   "stops_on": {
+    "type": "boss_defeated",
+    "note": "the game calls boss_defeated() (apply_effects.gd) when the mini boss dies"
+   },
+   "note": "a body standing on the deck (within width / length, feet within 0.4 m of it) moves speed * axis m/s; Stage 190: the belt's travel p += speed * k * dt (k 1 -> 0 over stop_time once stopped); cleats at fmod(p, spacing) - spacing along axis; each roller turns sign * p / radius about its local y; the 'surface' material's UV v offset = fmod(-p / spacing, 1) (its tile_m = spacing * cos(pitch): one belt link per cleat)",
    "kill": {
     "id": "Belt_A_Pit",
     "center": [
@@ -20852,11 +20954,29 @@
    ],
    "length": 16.528,
    "width": 4.0,
-   "speed": -3.4,
-   "spacing": 2.6,
+   "speed": -15.0,
+   "spacing": 1.2752,
    "yaw": 180.0,
    "pitch": 21.29,
-   "note": "a body standing on the deck (within width / length, feet within 0.4 m of it) moves speed * axis m/s",
+   "rollers": [
+    {
+     "node": "Belt_B_SprocketFoot",
+     "radius": 0.55,
+     "sign": -1.0
+    },
+    {
+     "node": "Belt_B_SprocketHead",
+     "radius": 0.55,
+     "sign": -1.0
+    }
+   ],
+   "stop_time": 1.8,
+   "surface": "belt",
+   "stops_on": {
+    "type": "boss_defeated",
+    "note": "the game calls boss_defeated() (apply_effects.gd) when the mini boss dies"
+   },
+   "note": "a body standing on the deck (within width / length, feet within 0.4 m of it) moves speed * axis m/s; Stage 190: the belt's travel p += speed * k * dt (k 1 -> 0 over stop_time once stopped); cleats at fmod(p, spacing) - spacing along axis; each roller turns sign * p / radius about its local y; the 'surface' material's UV v offset = fmod(-p / spacing, 1) (its tile_m = spacing * cos(pitch): one belt link per cleat)",
    "kill": {
     "id": "Belt_B_Pit",
     "center": [

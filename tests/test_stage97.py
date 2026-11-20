@@ -231,7 +231,7 @@ class AssemblyAscent(unittest.TestCase):
         self.assertLess(os.path.getsize(os.path.join(LV, "mobile", "level_mobile.glb")), 4000 * 1024)
         E = _load("effects.json")["effects"]; t = {e["type"] for e in E}; self.assertTrue({"saw", "belt"} <= t)
         with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_effects.gd")) as f: gd = f.read()
-        self.assertIn("func _update_saws", gd); self.assertIn("cb.move_and_collide(u * float(b[\"speed\"]) * delta)", gd)
+        self.assertIn("func _update_saws", gd); self.assertIn("cb.move_and_collide(u * float(b[\"speed\"]) * float(br[4][\"k\"]) * delta)", gd)  # (Stage 190: times the run factor k)
         with open(os.path.join(ROOT, "pipeline", "godot_fx", "apply_mobile.gd")) as f: self.assertIn('col.get("kills", [])', f.read())
         with open(os.path.join(ROOT, "pipeline", "viewer.html")) as f: v = f.read()
         self.assertIn("fx.category==='saw'", v); self.assertIn("window.belts", v)

@@ -1014,6 +1014,17 @@
         "metal": 0.35,
         "rough": 0.4,
         "notes": "Stage 188: machined steel, counter-tinted by the inverse of the hall's pink light (sun 1 / 0.62 / 0.8) so it renders as neutral steel - the cogs' rims, hubs, ribs, bolts, crank pins (plain colour)"
+      },
+      "belt": {
+        "type": "belt_links",
+        "color": [
+          0.05,
+          0.055,
+          0.058
+        ],
+        "tile_m": 1.1882,
+        "res": 128,
+        "notes": "Stage 190: the conveyors' heavy link belt - one link per cleat spacing along the slope (tile_m = spacing * cos(pitch)); scrolled with the cleats"
       }
     }
   },
@@ -1744,11 +1755,11 @@
       "id": "Belt_A",
       "kind": "belt_ramp",
       "width": 4.0,
-      "speed": -2.4,
+      "speed": -15.0,
       "pit": 1.4,
       "pit_len": 1.6,
       "source": "visible",
-      "notes": "conveyor ramp running down against the climb, spike pit at its foot",
+      "notes": "conveyor ramp running down against the climb, spike pit at its foot; Stage 190: mechanical conveyor at 15 m/s (faster than a sprint up it) - stops once the mini boss is defeated",
       "foot": [
         25.5,
         12.0,
@@ -1763,17 +1774,23 @@
         25.5,
         12.0,
         -28.6
-      ]
+      ],
+      "mechanical": true,
+      "stops_on": {
+        "type": "boss_defeated",
+        "note": "the game calls boss_defeated() (apply_effects.gd) when the mini boss dies"
+      },
+      "outer": 1
     },
     {
       "id": "Belt_B",
       "kind": "belt_ramp",
       "width": 4.0,
-      "speed": -3.4,
+      "speed": -15.0,
       "pit": 1.4,
       "pit_len": 1.6,
       "source": "visible",
-      "notes": "the faster belt",
+      "notes": "the faster belt; Stage 190: mechanical conveyor at 15 m/s (faster than a sprint up it) - stops once the mini boss is defeated",
       "foot": [
         31.5,
         12.0,
@@ -1788,7 +1805,13 @@
         31.5,
         12.0,
         -28.6
-      ]
+      ],
+      "mechanical": true,
+      "stops_on": {
+        "type": "boss_defeated",
+        "note": "the game calls boss_defeated() (apply_effects.gd) when the mini boss dies"
+      },
+      "outer": -1
     },
     {
       "id": "Claw_Line",
